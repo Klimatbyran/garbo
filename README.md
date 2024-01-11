@@ -9,6 +9,20 @@ This is the main repo for fetching data from sources and adding them to our data
 
 First working prototype for pipeline but doesn't work on large PDF files yet.
 
+## Data Flow
+
+Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again. 
+
+  1. Import PDF from URL
+  2. Parse Text
+  3. Send text to OpenAI for embeddings (not done)
+  4. Index vector database with embeddings (not done)
+  5. Build query from prompt together with relevant embeddings
+  6. Send to LLM
+  7. Verify the results first automatically (not done)
+  8. Verify results in Discord channel (not done)
+  9. Save to Wikidata or other database (not done)
+
 ### Get Started
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
