@@ -1,4 +1,4 @@
-import readPDF from './readPDF'
+import parseText from './parseText'
 import downloadPDF from './downloadPDF'
 
-export default [readPDF, downloadPDF]
+export default [parseText, downloadPDF]

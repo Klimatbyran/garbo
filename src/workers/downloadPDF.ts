@@ -1,6 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import pdf from 'pdf-parse'
+import { parseText } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -15,6 +16,12 @@ const worker = new Worker(
 
     const buffer = await fetch(job.data.url).then((res) => res.arrayBuffer())
     const doc = await pdf(buffer)
+    const text = doc.text
+
+    parseText.add('parse text ' + text.slice(0, 20), {
+      text,
+    })
+
     return doc.text
   },
   {
