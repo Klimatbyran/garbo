@@ -1,10 +1,13 @@
 ## Klimatkollen Data Pipeline
 
-This is the main repo for fetching data from sources and adding them to our database. 
+This is the main repo for fetching data from sources and adding them to our database in a multi-step process using BullMQ as task handler. 
+
+<img width="1200" alt="image" src="https://github.com/Klimatbyran/data-pipeline/assets/395843/d280fbc0-6fd9-496e-a487-9b37c3ab179f">
+
 
 ## Current Status
 
-First working prototype. 
+First working prototype for pipeline but doesn't work on large PDF files yet.
 
 ### Get Started
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory
