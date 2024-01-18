@@ -7,11 +7,11 @@ dotenv.config()
 
 // keep this line, otherwise the workers won't be started
 import workers from './workers'
-import { downloadPDF, parseText } from './queues'
+import { downloadPDF, parseText, splitText } from './queues'
 
 // add dummy job
 downloadPDF.add('dummy', {
-  url: 'https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2022/02.-arsredovisning-2021/icagruppen-arsredovisning-2021.pdf',
+  url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
 })
 
 // start workers
@@ -22,7 +22,11 @@ const serverAdapter = new ExpressAdapter()
 serverAdapter.setBasePath('/admin/queues')
 
 createBullBoard({
-  queues: [new BullMQAdapter(parseText), new BullMQAdapter(downloadPDF)],
+  queues: [
+    new BullMQAdapter(parseText),
+    new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(splitText),
+  ],
   serverAdapter: serverAdapter,
   options: {
     uiConfig: {

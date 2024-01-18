@@ -8,5 +8,6 @@ const options = {
 
 const downloadPDF = new Queue('downloadPDF', options)
 const parseText = new Queue('parseText', options)
+const splitText = new Queue('splitText', options)
 
-export { downloadPDF, parseText }
+export { downloadPDF, parseText, splitText }
