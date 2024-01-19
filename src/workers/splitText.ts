@@ -1,10 +1,11 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { parseText } from '../queues'
+import { indexParagraphs } from '../queues'
 import { parse } from 'dotenv'
 
 class JobData extends Job {
   data: {
+    url: string
     text: string
   }
 }
@@ -16,8 +17,9 @@ const worker = new Worker(
 
     const paragraphs = job.data.text.split('\n\n')
 
-    parseText.add('found ' + paragraphs.length, {
+    indexParagraphs.add('found ' + paragraphs.length, {
       paragraphs,
+      url: job.data.url,
     })
 
     job.updateProgress(100)

@@ -12,13 +12,15 @@ class JobData extends Job {
 const worker = new Worker(
   'downloadPDF',
   async (job: JobData) => {
-    job.log(`Downloading from url: ${job.data.url}`)
+    const url = job.data.url
+    job.log(`Downloading from url: ${url}`)
 
-    const buffer = await fetch(job.data.url).then((res) => res.arrayBuffer())
+    const buffer = await fetch(url).then((res) => res.arrayBuffer())
     const doc = await pdf(buffer)
     const text = doc.text
 
     splitText.add('split text ' + text.slice(0, 20), {
+      url,
       text,
     })
 

@@ -6,8 +6,14 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // keep this line, otherwise the workers won't be started
-import workers from './workers'
-import { downloadPDF, parseText, splitText } from './queues'
+import * as workers from './workers'
+import {
+  downloadPDF,
+  indexParagraphs,
+  parseText,
+  searchVectors,
+  splitText,
+} from './queues'
 
 // add dummy job
 downloadPDF.add('dummy', {
@@ -15,7 +21,7 @@ downloadPDF.add('dummy', {
 })
 
 // start workers
-workers.forEach((worker) => worker.run())
+Object.values(workers).forEach((worker) => worker.run())
 
 // start ui
 const serverAdapter = new ExpressAdapter()
@@ -25,7 +31,8 @@ createBullBoard({
   queues: [
     new BullMQAdapter(parseText),
     new BullMQAdapter(downloadPDF),
-    new BullMQAdapter(splitText),
+    new BullMQAdapter(indexParagraphs),
+    new BullMQAdapter(searchVectors),
   ],
   serverAdapter: serverAdapter,
   options: {
