@@ -16,9 +16,9 @@ import {
 } from './queues'
 
 // add dummy job
-downloadPDF.add('dummy', {
-  url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
-})
+// downloadPDF.add('dummy', {
+//   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
+// })
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
@@ -29,10 +29,11 @@ serverAdapter.setBasePath('/admin/queues')
 
 createBullBoard({
   queues: [
-    new BullMQAdapter(parseText),
     new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
+    new BullMQAdapter(parseText),
   ],
   serverAdapter: serverAdapter,
   options: {

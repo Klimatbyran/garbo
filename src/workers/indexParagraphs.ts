@@ -23,8 +23,15 @@ const worker = new Worker(
     })
     console.log('OPENAI KEY', process.env.OPENAI_API_KEY)
 
+    const cleanCollectionName = (name: string) =>
+      name.replace(/[^a-zA-Z0-9]/g, '_')
+
+    const collectionName = cleanCollectionName(url).slice(-63)
+
+    job.log('Collection name: ' + collectionName)
+
     const collection = await client.getOrCreateCollection({
-      name: url,
+      name: collectionName,
       embeddingFunction: embedder,
     })
 
