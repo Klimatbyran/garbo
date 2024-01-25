@@ -18,13 +18,13 @@ const worker = new Worker(
 
     // Is this a problem to do every time?
     job.updateProgress(5)
-    await rest.put(Routes.applicationCommands(discord.APPLICATION_ID), {
-      body: commands,
-    })
 
     job.log(`Sending for review in Discord: ${job.data.json}`)
     job.updateProgress(10)
     const json = JSON.stringify(job.data.json)
+
+    // TODO: add modal to review json manually:
+    //    https://discordjs.guide/interactions/modals.html#building-and-responding-with-modals
 
     // send to Discord
   },
