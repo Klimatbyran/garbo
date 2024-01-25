@@ -15,7 +15,7 @@ const worker = new Worker(
   async (job: JobData) => {
     job.log(`Splitting text: ${job.data.text.slice(0, 20)}`)
 
-    const paragraphs = job.data.text.split('\n\n')
+    const paragraphs = job.data.text.split('\n\n').filter((p) => p.length > 0)
 
     indexParagraphs.add('found ' + paragraphs.length, {
       paragraphs,

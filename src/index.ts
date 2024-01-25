@@ -11,6 +11,7 @@ import {
   downloadPDF,
   indexParagraphs,
   parseText,
+  reflectOnAnswer,
   searchVectors,
   splitText,
 } from './queues'
@@ -19,6 +20,10 @@ import {
 // downloadPDF.add('dummy', {
 //   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
 // })
+/*
+downloadPDF.add('volvo', {
+  url: 'https://www.volvogroup.com/content/dam/volvo-group/markets/master/investors/reports-and-presentations/annual-reports/AB-Volvo-Annual-Report-2022.pdf',
+})*/
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
@@ -34,6 +39,7 @@ createBullBoard({
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(parseText),
+    new BullMQAdapter(reflectOnAnswer),
   ],
   serverAdapter: serverAdapter,
   options: {

@@ -11,5 +11,13 @@ const parseText = new Queue('parseText', options)
 const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
+const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 
-export { downloadPDF, parseText, splitText, indexParagraphs, searchVectors }
+export {
+  downloadPDF,
+  parseText,
+  splitText,
+  indexParagraphs,
+  searchVectors,
+  reflectOnAnswer,
+}
