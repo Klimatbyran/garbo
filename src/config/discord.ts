@@ -1,4 +1,5 @@
 export default {
-  APPLICATION_ID: process.env.DISCORD_APPLICATION_ID,
-  TOKEN: process.env.DISCORD_TOKEN,
+  token: process.env.DISCORD_TOKEN,
+  clientId: process.env.DISCORD_APPLICATION_ID,
+  guildId: process.env.DISCORD_SERVER_ID,
 }

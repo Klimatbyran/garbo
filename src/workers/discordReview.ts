@@ -2,7 +2,6 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../config/discord'
 import { REST, Routes } from 'discord.js'
-const rest = new REST({ version: '10' }).setToken(discord.TOKEN)
 
 class JobData extends Job {
   data: {
@@ -14,7 +13,7 @@ class JobData extends Job {
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
-    job.log(`Registring slash command with token ${discord.TOKEN}`)
+    job.log(`Registring slash command with token ${discord.token}`)
 
     // Is this a problem to do every time?
     job.updateProgress(5)

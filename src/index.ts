@@ -1,12 +1,18 @@
+import dotenv from 'dotenv'
+dotenv.config() // keep this line first in file
+
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import Discord, { Client, GatewayIntentBits } from 'discord.js'
+import Discord, {
+  Client,
+  Events,
+  GatewayIntentBits,
+  REST,
+  Routes,
+} from 'discord.js'
 import discord from './config/discord'
-
-import dotenv from 'dotenv'
-dotenv.config()
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
@@ -19,6 +25,8 @@ import {
   searchVectors,
   splitText,
 } from './queues'
+
+import commands from './commands'
 
 // add dummy job
 // downloadPDF.add('dummy', {
@@ -54,25 +62,31 @@ createBullBoard({
   },
 })
 
-// register bot commands
-
-const commands = [
-  {
-    name: 'co2',
-    description: 'Läs denna PDF och ge mig en sammanfattning av utsläppen',
-  },
-]
-
+// register discord bot commands
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-
-client.on('message', (msg) => {
-  if (msg.content === 'co2') {
-    msg.reply('Det kan jag gärna göra sen')
-  }
-  console.log('message recieved', JSON.stringify(msg, null, 2))
+const rest = new REST().setToken(discord.token)
+const json = commands.map((command) => command.data.toJSON())
+client.on('ready', () => {
+  console.log('discord connected')
+  const url = Routes.applicationGuildCommands(discord.clientId, discord.guildId)
+  rest.put(url, { body: json })
 })
-
-client.login(discord.APPLICATION_ID)
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isCommand()) return
+  const command = commands.find(
+    (command) => command.data.name === interaction.commandName
+  )
+  try {
+    await command.execute(interaction)
+  } catch (error) {
+    console.error('Discord error:', error)
+    await interaction.reply({
+      content: 'There was an error while executing this command!',
+      ephemeral: true,
+    })
+  }
+})
+client.login(discord.token)
 
 const app = express()
 
