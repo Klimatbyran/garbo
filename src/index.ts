@@ -2,12 +2,16 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
+import Discord, { Client, GatewayIntentBits } from 'discord.js'
+import discord from './config/discord'
+
 import dotenv from 'dotenv'
 dotenv.config()
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
 import {
+  discordReview,
   downloadPDF,
   indexParagraphs,
   parseText,
@@ -40,6 +44,7 @@ createBullBoard({
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(parseText),
     new BullMQAdapter(reflectOnAnswer),
+    new BullMQAdapter(discordReview),
   ],
   serverAdapter: serverAdapter,
   options: {
@@ -48,6 +53,26 @@ createBullBoard({
     },
   },
 })
+
+// register bot commands
+
+const commands = [
+  {
+    name: 'co2',
+    description: 'Läs denna PDF och ge mig en sammanfattning av utsläppen',
+  },
+]
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+
+client.on('message', (msg) => {
+  if (msg.content === 'co2') {
+    msg.reply('Det kan jag gärna göra sen')
+  }
+  console.log('message recieved', JSON.stringify(msg, null, 2))
+})
+
+client.login(discord.APPLICATION_ID)
 
 const app = express()
 

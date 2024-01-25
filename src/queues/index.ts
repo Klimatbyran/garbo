@@ -12,6 +12,7 @@ const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
 const reflectOnAnswer = new Queue('reflectOnAnswer', options)
+const discordReview = new Queue('discordReview', options)
 
 export {
   downloadPDF,
@@ -20,4 +21,5 @@ export {
   indexParagraphs,
   searchVectors,
   reflectOnAnswer,
+  discordReview,
 }

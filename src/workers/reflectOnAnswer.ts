@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/parsePDF'
 import prompt from '../prompts/reflect'
+import { discordReview } from '../queues'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -48,6 +49,11 @@ const worker = new Worker(
     }
 
     job.log(response)
+
+    discordReview.add('discord review ' + response.slice(0, 20), {
+      json: response.split('```')[1],
+      url: job.data.url,
+    })
 
     // Do something with job
     return response
