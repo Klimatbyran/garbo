@@ -1,14 +1,23 @@
-import { Client, GatewayIntentBits, REST, Routes } from 'discord.js'
+import {
+  Client,
+  GatewayIntentBits,
+  REST,
+  Routes,
+  TextChannel,
+} from 'discord.js'
 import commands from './commands'
+import config from './config/discord'
 
-export default class Discord {
+export class Discord {
   client: Client<boolean>
   rest: REST
   commands: Array<any>
   token: string
+  channelId: string
 
-  constructor({ token, guildId, clientId }) {
+  constructor({ token, guildId, clientId, channelId }) {
     this.token = token
+    this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
     this.rest = new REST().setToken(token)
     this.commands = commands.map((command) => command.data.toJSON())
@@ -33,7 +42,23 @@ export default class Discord {
       }
     })
   }
-  login(token) {
-    return this.client.login(token)
+  login(token = this.token) {
+    this.client.login(token)
+    return this
+  }
+
+  async sendMessageToChannel(channelId, message) {
+    try {
+      const channel = await this.client.channels.fetch(channelId)
+      if (!channel || !(channel instanceof TextChannel)) {
+        console.error(`Kanalen hittades inte eller är inte en textkanal.`)
+        return
+      }
+      await channel.send(message)
+    } catch (error) {
+      console.error('Ett fel uppstod när meddelandet skulle skickas:', error)
+    }
   }
 }
+
+export default new Discord(config)

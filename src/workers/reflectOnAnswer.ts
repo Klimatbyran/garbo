@@ -51,7 +51,11 @@ const worker = new Worker(
     job.log(response)
 
     discordReview.add('discord review ' + response.slice(0, 20), {
-      json: response.split('```')[1],
+      json:
+        response
+          .match(/```json(.|\n)*```/)[0]
+          ?.replace(/```json|```/g, '')
+          .trim() || '{"Error": "No JSON found"}',
       url: job.data.url,
     })
 

@@ -6,7 +6,7 @@ import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 
-import Discord from './discord'
+import discord from './discord'
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
@@ -19,7 +19,6 @@ import {
   searchVectors,
   splitText,
 } from './queues'
-import discord from './config/discord'
 
 // add dummy job
 // downloadPDF.add('dummy', {
@@ -56,7 +55,7 @@ createBullBoard({
 })
 
 const app = express()
-new Discord(discord).login(discord.token)
+discord.login()
 
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
