@@ -5,14 +5,8 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import Discord, {
-  Client,
-  Events,
-  GatewayIntentBits,
-  REST,
-  Routes,
-} from 'discord.js'
-import discord from './config/discord'
+
+import Discord from './discord'
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
@@ -25,8 +19,7 @@ import {
   searchVectors,
   splitText,
 } from './queues'
-
-import commands from './commands'
+import discord from './config/discord'
 
 // add dummy job
 // downloadPDF.add('dummy', {
@@ -62,33 +55,8 @@ createBullBoard({
   },
 })
 
-// register discord bot commands
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-const rest = new REST().setToken(discord.token)
-const json = commands.map((command) => command.data.toJSON())
-client.on('ready', () => {
-  console.log('discord connected')
-  const url = Routes.applicationGuildCommands(discord.clientId, discord.guildId)
-  rest.put(url, { body: json })
-})
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return
-  const command = commands.find(
-    (command) => command.data.name === interaction.commandName
-  )
-  try {
-    await command.execute(interaction)
-  } catch (error) {
-    console.error('Discord error:', error)
-    await interaction.reply({
-      content: 'There was an error while executing this command!',
-      ephemeral: true,
-    })
-  }
-})
-client.login(discord.token)
-
 const app = express()
+new Discord(discord).login(discord.token)
 
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
