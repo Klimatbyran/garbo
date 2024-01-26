@@ -14,12 +14,12 @@ Some of the following steps will be performed in parallel and most will be async
 
 1. Import PDF from URL
 2. Parse Text
-3. Send text to OpenAI for embeddings (not done)
-4. Index vector database with embeddings (not done)
+3. Send text to OpenAI for embeddings
+4. Index vector database with embeddings
 5. Build query from prompt together with relevant embeddings
 6. Send to LLM
-7. Verify the results first automatically (not done)
-8. Verify results in Discord channel (not done)
+7. Verify the results first automatically
+8. Verify results in Discord channel (separate PR #2)
 9. Save to Wikidata or other database (not done)
 
 ### Get Started
@@ -34,10 +34,10 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
 
 #### First Milestone
 
-- [ ] Test on smaller PDF files
-- [ ] Split PDF text into smaller chunks (maybe using langchain pdf instead of custom?)
-- [ ] Add chunks to vector database (ChromaDB)
-- [ ] Use vector database with langchain when doing queries to limit amount of tokens
+- [x] Test on smaller PDF files
+- [x] Split PDF text into smaller chunks (maybe using langchain pdf instead of custom?)
+- [x] Add chunks to vector database (ChromaDB)
+- [x] Use vector database with langchain when doing queries to limit amount of tokens
 - [ ] Docker-compose file for dependencies
 - [ ] DevOps/Kubernetes setup for databases and deployment
 - [ ] Tests etc
