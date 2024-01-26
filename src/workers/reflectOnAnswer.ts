@@ -1,32 +1,40 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
-import prompt from '../prompts/parsePDF'
-import { reflectOnAnswer } from '../queues'
-import config from '../config/openai'
+import previousPrompt from '../prompts/parsePDF'
+import prompt from '../prompts/reflect'
 
-const openai = new OpenAI(config)
+const openai = new OpenAI({
+  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+})
 
 class JobData extends Job {
   data: {
     url: string
     paragraphs: string[]
+    answer: string
   }
 }
 
 const worker = new Worker(
-  'parseText',
+  'reflectOnAnswer',
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
-    job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
-      '\n\n'
+    const answer = job.data.answer
+    job.log(`Reflecting on: ${answer}
     )}
     ${prompt}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: 'system', content: prompt },
         { role: 'user', content: pdfParagraphs.join('\n\n') },
+        {
+          role: 'user',
+          content: 'From URL: ' + job.data.url,
+        },
+        { role: 'user', content: previousPrompt },
+        { role: 'system', content: job.data.answer },
+        { role: 'user', content: prompt },
       ],
       model: 'gpt-4-1106-preview',
       stream: true,
@@ -34,17 +42,12 @@ const worker = new Worker(
     let response = ''
     let progress = 0
     for await (const part of stream) {
+      progress += 1
       response += part.choices[0]?.delta?.content || ''
-      job.updateProgress(Math.min(1, progress / 400))
+      job.updateProgress(Math.min(100, (100 * progress) / 400))
     }
 
     job.log(response)
-
-    reflectOnAnswer.add('reflect on answer ' + response.slice(0, 20), {
-      answer: response,
-      url: job.data.url,
-      paragraphs: pdfParagraphs,
-    })
 
     // Do something with job
     return response

@@ -1,10 +1,11 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { parseText } from '../queues'
+import { indexParagraphs } from '../queues'
 import { parse } from 'dotenv'
 
 class JobData extends Job {
   data: {
+    url: string
     text: string
   }
 }
@@ -14,10 +15,11 @@ const worker = new Worker(
   async (job: JobData) => {
     job.log(`Splitting text: ${job.data.text.slice(0, 20)}`)
 
-    const paragraphs = job.data.text.split('\n\n')
+    const paragraphs = job.data.text.split('\n\n').filter((p) => p.length > 0)
 
-    parseText.add('found ' + paragraphs.length, {
+    indexParagraphs.add('found ' + paragraphs.length, {
       paragraphs,
+      url: job.data.url,
     })
 
     job.updateProgress(100)

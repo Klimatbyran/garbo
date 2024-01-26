@@ -28,6 +28,7 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
 
     npm i
     docker run -d -p 6379:6379 redis
+    docker run -d -p 8000:8000 chromadb/chroma
     npm run dev
 
 ### Next steps / Tasks
