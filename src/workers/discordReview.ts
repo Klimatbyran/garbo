@@ -24,8 +24,8 @@ const worker = new Worker(
     // Is this a problem to do every time?
     job.updateProgress(5)
 
-    job.log(Date.now().toString())
-    //job.log(`Sending for review in Discord: ${job.data.json}`)
+    job.log(`Sending for review in Discord: ${job.data.json}`)
+
     job.updateProgress(10)
     const parsedJson = JSON.parse(job.data.json)
 
@@ -83,7 +83,7 @@ const worker = new Worker(
           .setCustomId('editModal')
           .setTitle(`Granska data för ${parsedJson.CompanyName}`)
           .addComponents(actionRow)
-          // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. alex input?
+        // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
 
         await interaction.showModal(modal)
 
