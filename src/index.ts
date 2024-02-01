@@ -1,13 +1,17 @@
+import dotenv from 'dotenv'
+dotenv.config() // keep this line first in file
+
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import dotenv from 'dotenv'
-dotenv.config()
+
+import discord from './discord'
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
 import {
+  discordReview,
   downloadPDF,
   indexParagraphs,
   parseText,
@@ -40,6 +44,7 @@ createBullBoard({
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(parseText),
     new BullMQAdapter(reflectOnAnswer),
+    new BullMQAdapter(discordReview),
   ],
   serverAdapter: serverAdapter,
   options: {
@@ -50,6 +55,7 @@ createBullBoard({
 })
 
 const app = express()
+discord.login()
 
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
