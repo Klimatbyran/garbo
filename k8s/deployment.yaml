@@ -28,66 +28,36 @@ spec:
           env:
             - name: DEBUG
               value: 'true'
-            - name: CHROMA__PATH
+            - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: CHROMA__PATH
-            - name: CHROMA__COLLECTION
+                  key: DISCORD_APPLICATION_ID
+            - name: DISCORD_SERVER_ID
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: CHROMA__COLLECTION
-            - name: CHROMA__TOKEN
+                  key: DISCORD_SERVER_ID
+            - name: DISCORD_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: CHROMA__TOKEN
-            - name: OPENAI__API_KEY
+                  key: DISCORD_TOKEN
+            - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: OPENAI__API_KEY
-            - name: MISTRAL__API_KEY
+                  key: OPENAI_API_KEY
+            - name: OPENAI_ORG_ID
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: MISTRAL__API_KEY
-            - name: MISTRAL__BASE_URL
+                  key: OPENAI_ORG_ID
+            - name: CHROMA_HOST
               valueFrom:
                 secretKeyRef:
                   name: env
-                  key: MISTRAL__BASE_URL
-            - name: SLACK__BOT_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: SLACK__BOT_TOKEN
-            - name: SLACK__SIGNING_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: SLACK__SIGNING_SECRET
-            - name: SLACK__CHANNEL_IDS
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: SLACK__CHANNEL_IDS
-            - name: SLACK__APP_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: SLACK__APP_TOKEN
-            - name: OUTLINE__TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: OUTLINE__TOKEN
-            - name: OUTLINE__API_URL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: OUTLINE__API_URL
+                  key: CHROMA_HOST
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
