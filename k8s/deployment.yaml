@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-pipeline
+  namespace: data-pipeline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-pipeline
+  template:
+    metadata:
+      labels:
+        app: data-pipeline
+    spec:
+      containers:
+        - image: ghcr.io/klimatbyran/data-pipeline # {"$imagepolicy": "flux-system:data-pipeline"}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          name: data-pipeline
+          ports:
+            - containerPort: 80
+          env:
+            - name: DEBUG
+              value: 'true'
+            - name: CHROMA__PATH
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA__PATH
+            - name: CHROMA__COLLECTION
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA__COLLECTION
+            - name: CHROMA__TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA__TOKEN
+            - name: OPENAI__API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAI__API_KEY
+            - name: MISTRAL__API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: MISTRAL__API_KEY
+            - name: MISTRAL__BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: MISTRAL__BASE_URL
+            - name: SLACK__BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SLACK__BOT_TOKEN
+            - name: SLACK__SIGNING_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SLACK__SIGNING_SECRET
+            - name: SLACK__CHANNEL_IDS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SLACK__CHANNEL_IDS
+            - name: SLACK__APP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: SLACK__APP_TOKEN
+            - name: OUTLINE__TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OUTLINE__TOKEN
+            - name: OUTLINE__API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OUTLINE__API_URL
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred
