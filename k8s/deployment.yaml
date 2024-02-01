@@ -18,7 +18,7 @@ spec:
           resources: {}
           name: data-pipeline
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           env:
             - name: DISCORD_APPLICATION_ID
               valueFrom:
