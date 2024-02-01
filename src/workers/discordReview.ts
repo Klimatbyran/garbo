@@ -7,6 +7,8 @@ import {
   TextInputBuilder,
   ActionRowBuilder,
   ButtonStyle,
+  ModalActionRowComponentBuilder,
+  TextInputStyle,
 } from 'discord.js'
 
 class JobData extends Job {
@@ -23,8 +25,9 @@ const worker = new Worker(
     job.updateProgress(5)
 
     job.log(`Sending for review in Discord: ${job.data.json}`)
+
     job.updateProgress(10)
-    const json = JSON.parse(job.data.json)
+    const parsedJson = JSON.parse(job.data.json)
 
     // Skapa en knapp
     const row = new ActionRowBuilder().addComponents(
@@ -43,36 +46,65 @@ const worker = new Worker(
     )
 
     discord.sendMessageToChannel(discord.channelId, {
-      content: `En ny årsredovisning är redo för manuell hantering: 
-        ${json.ReviewComment}
+      content: `Ny företagsdata behöver manuell hantering: 
+        ${parsedJson.ReviewComment}
         ${job.data.url}`,
       embeds: [
         {
           title: 'Review this JSON:',
-          description: '```json\n' + JSON.stringify(json, null, 2) + '\n```',
+          description:
+            '```json\n' + JSON.stringify(parsedJson, null, 2) + '\n```',
         },
       ],
       components: [row],
     })
 
+    job.updateProgress(40)
+
     discord.client.on('interactionCreate', async (interaction) => {
-      if (!interaction.isButton()) return
-
-      // TODO: kolla att vi är på rätt ärende
-
-      if (interaction.customId === 'approve') {
+      if (interaction.isButton() && interaction.customId === 'approve') {
         interaction.update({
           content: 'Approved!',
           embeds: [],
           components: [],
         })
-      } else if (interaction.customId === 'edit') {
-        interaction.update({
-          content: 'Edit!',
-          embeds: [],
-          components: [],
-        })
-      } else if (interaction.customId === 'reject') {
+      } else if (interaction.isButton() && interaction.customId === 'edit') {
+        const input = new TextInputBuilder()
+          .setCustomId('editInput')
+          .setLabel(`Granska utsläppsdata`)
+          .setStyle(TextInputStyle.Paragraph)
+
+        const actionRow =
+          new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
+            input
+          )
+
+        const modal = new ModalBuilder()
+          .setCustomId('editModal')
+          .setTitle(`Granska data för ${parsedJson.CompanyName}`)
+          .addComponents(actionRow)
+        // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
+
+        await interaction.showModal(modal)
+
+        const submitted = await interaction
+          .awaitModalSubmit({
+            time: 60000 * 20, // user has to submit the modal within 20 minutes
+            filter: (i) => i.user.id === interaction.user.id, // only user who clicked button can interact with modal
+          })
+          .catch((error) => {
+            console.error(error)
+            return null
+          })
+
+        if (submitted) {
+          const userInput = submitted.fields.getTextInputValue('editInput')
+          await submitted.reply({
+            content: `Tack för din granskning: \n ${userInput}`,
+          })
+        }
+      } else if (interaction.isButton() && interaction.customId === 'reject') {
+        // todo diskutera vad vill vill händer. ska man ens få rejecta?
         interaction.update({
           content: 'Rejected!',
           embeds: [],
@@ -81,10 +113,7 @@ const worker = new Worker(
       }
     })
 
-    // TODO: add modal to review json manually:
-    //    https://discordjs.guide/interactions/modals.html#building-and-responding-with-modals
-
-    // send to Discord
+    job.updateProgress(100)
   },
   {
     connection: redis,
