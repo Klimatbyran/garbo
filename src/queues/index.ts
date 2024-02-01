@@ -1,7 +1,7 @@
-import { Queue } from 'bullmq'
+import { Queue, QueueOptions } from 'bullmq'
 import redis from '../config/redis'
 
-const options = {
+const options: QueueOptions = {
   connection: redis,
   defaultJobOptions: { removeOnComplete: false },
 }

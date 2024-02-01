@@ -38,10 +38,16 @@ const worker = new Worker(
 
     job.log(JSON.stringify(results))
 
-    parseText.add('parse ' + url, {
-      url,
-      paragraphs: results.documents.flat(),
-    })
+    parseText.add(
+      'parse ' + url,
+      {
+        url,
+        paragraphs: results.documents.flat(),
+      },
+      {
+        attempts: 5,
+      }
+    )
 
     return results.documents
   },
