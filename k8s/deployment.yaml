@@ -15,19 +15,11 @@ spec:
     spec:
       containers:
         - image: ghcr.io/klimatbyran/data-pipeline:1.1.2 # {"$imagepolicy": "flux-system:data-pipeline"}
-          resources:
-            limits:
-              cpu: 500m
-              memory: 256Mi
-            requests:
-              cpu: 100m
-              memory: 128Mi
+          resources: {}
           name: data-pipeline
           ports:
             - containerPort: 80
           env:
-            - name: DEBUG
-              value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
