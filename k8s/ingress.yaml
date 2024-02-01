@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-pipeline
+  annotations:
+    kubernetes.io/ingress.class: 'nginx'
+    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
+    external-dns.alpha.kubernetes.io/hostname: pipeline.klimatkollen.se.
+spec:
+  tls:
+    - hosts:
+        - pipeline.klimatkollen.se
+      secretName: pipeline-klimatkollen-se-tls
+
+  rules:
+    - host: pipeline.klimatkollen.se
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: data-pipeline
+                port:
+                  number: 80
