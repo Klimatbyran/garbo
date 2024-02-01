@@ -45,11 +45,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: CHROMA_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: chromadb-auth
-                  key: token
+            # - name: CHROMA_TOKEN
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: chromadb-auth
+            #       key: token
             - name: CHROMA_HOST
               value: chromadb:8000
             - name: REDIS_HOST
