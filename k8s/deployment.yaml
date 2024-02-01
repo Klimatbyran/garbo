@@ -14,7 +14,7 @@ spec:
         app: data-pipeline
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/data-pipeline:1.1.4 # {"$imagepolicy": "flux-system:data-pipeline"}
+        - image: ghcr.io/klimatbyran/data-pipeline:1.1.5 # {"$imagepolicy": "flux-system:data-pipeline"}
           resources: {}
           name: data-pipeline
           ports:
