@@ -51,9 +51,9 @@ spec:
                   name: chromadb-auth
                   key: token
             - name: CHROMA_HOST
-              value: chromadb.chromadb.svc.cluster.local:8000
+              value: chromadb:8000
             - name: REDIS_HOST
-              value: redis-master.redis.svc.cluster.local
+              value: redis-master
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
