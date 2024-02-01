@@ -51,7 +51,7 @@ spec:
             #       name: chromadb-auth
             #       key: token
             - name: CHROMA_HOST
-              value: chromadb:8000
+              value: http://chromadb:8000
             - name: REDIS_HOST
               value: redis-master
             - name: REDIS_PASSWORD
