@@ -27,11 +27,10 @@ I have a text extracted from a PDF file containing a company's annual report and
         // Additional years follow the same structure
       }
     }
-4. **Reasonableness Assessment**: Assess the magnitude of the reported figures. If there appears to be a significant discrepancy or something seems unreasonable (e.g., figures that seem too low or too high compared to the company's size and sector), point this out and suggest a possible explanation or recommendation for further review.
 
-5. **Include Total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values!
+4. **Include Total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values!
 
-6. **Error Codes**: If not all information is available, use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+5. **Error Codes**: If not all information is available, use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
     - 'Error 404': Missing Scope 1 data
     - 'Error 405': Missing Scope 2 data
