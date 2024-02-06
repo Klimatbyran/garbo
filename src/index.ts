@@ -12,7 +12,7 @@ import discord from './discord'
 import * as workers from './workers'
 import {
   discordReview,
-  downloadPDF,
+  downloadData,
   indexParagraphs,
   parseText,
   reflectOnAnswer,
@@ -21,14 +21,14 @@ import {
 } from './queues'
 
 // add dummy job
-// downloadPDF.add('dummy', {
+// downloadData.add('dummy', {
 //   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
 // })
 
-/*
-downloadPDF.add('volvo', {
-  url: 'https://www.volvogroup.com/content/dam/volvo-group/markets/master/investors/reports-and-presentations/annual-reports/AB-Volvo-Annual-Report-2022.pdf',
-})*/
+
+// downloadData.add('peab', {
+//   url: 'https://peab.inpublix.com/2022/ledande-inom-samhallsansvar/gri-data/',
+// })
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
@@ -39,7 +39,7 @@ serverAdapter.setBasePath('/admin/queues')
 
 createBullBoard({
   queues: [
-    new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(downloadData),
     new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
@@ -56,7 +56,7 @@ createBullBoard({
 })
 
 const app = express()
-discord.login()
+// discord.login()
 
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {

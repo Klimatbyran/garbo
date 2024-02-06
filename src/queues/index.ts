@@ -6,7 +6,7 @@ const options: QueueOptions = {
   defaultJobOptions: { removeOnComplete: false },
 }
 
-const downloadPDF = new Queue('downloadPDF', options)
+const downloadData = new Queue('downloadData', options)
 const parseText = new Queue('parseText', options)
 const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
@@ -15,7 +15,7 @@ const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const discordReview = new Queue('discordReview', options)
 
 export {
-  downloadPDF,
+  downloadData,
   parseText,
   splitText,
   indexParagraphs,

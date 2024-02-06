@@ -31,7 +31,7 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
     docker run -d -p 8000:8000 chromadb/chroma
     npm run dev
 
-NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadPDF job.
+NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadData job.
 
 ### Environment/Secrets
 
