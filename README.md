@@ -12,15 +12,16 @@ First working prototype for pipeline but doesn't work on large PDF files yet.
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
-1. Import PDF from URL
-2. Parse Text
-3. Send text to OpenAI for embeddings
-4. Index vector database with embeddings
-5. Build query from prompt together with relevant embeddings
-6. Send to LLM
-7. Verify the results first automatically
-8. Verify results in Discord channel (separate PR #2)
-9. Save to Wikidata or other database (not done)
+1. Check if URL is PDF or webpage
+2. Import PDF/webpage from URL
+3. Parse Text
+4. Send text to OpenAI for embeddings
+5. Index vector database with embeddings
+6. Build query from prompt together with relevant embeddings
+7. Send to LLM
+8. Verify the results first automatically
+9. Verify results in Discord channel (separate PR #2)
+10. Save to Wikidata or other database (not done)
 
 ### Get Started
 
@@ -31,7 +32,7 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
     docker run -d -p 8000:8000 chromadb/chroma
     npm run dev
 
-NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadData job.
+NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new checkURLType job.
 
 ### Environment/Secrets
 

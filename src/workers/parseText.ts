@@ -40,13 +40,12 @@ const worker = new Worker(
 
     job.log(response)
 
-    // reflectOnAnswer.add('reflect on answer ' + response.slice(0, 20), {
-    //   answer: response,
-    //   url: job.data.url,
-    //   paragraphs: pdfParagraphs,
-    // })
+    reflectOnAnswer.add('reflect on answer ' + response.slice(0, 20), {
+      answer: response,
+      url: job.data.url,
+      paragraphs: pdfParagraphs,
+    })
 
-    // Do something with job
     return response
   },
   {

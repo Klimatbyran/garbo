@@ -11,8 +11,10 @@ import discord from './discord'
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
 import {
+  checkURLType,
   discordReview,
-  downloadData,
+  downloadPDF,
+  downloadWebsite,
   indexParagraphs,
   parseText,
   reflectOnAnswer,
@@ -20,13 +22,13 @@ import {
   splitText,
 } from './queues'
 
-// add dummy job
-// downloadData.add('dummy', {
+// // add dummy job
+// checkURLType.add('vibekke', {
 //   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
 // })
 
 
-// downloadData.add('peab', {
+// checkURLType.add('peab', {
 //   url: 'https://peab.inpublix.com/2022/ledande-inom-samhallsansvar/gri-data/',
 // })
 
@@ -39,7 +41,9 @@ serverAdapter.setBasePath('/admin/queues')
 
 createBullBoard({
   queues: [
-    new BullMQAdapter(downloadData),
+    new BullMQAdapter(checkURLType),
+    new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(downloadWebsite),
     new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),

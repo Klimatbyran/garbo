@@ -34,6 +34,9 @@ const worker = new Worker(
     
     const embedder = new OpenAIEmbeddingFunction(openai)
 
+    job.log(url)
+    job.log(cleanCollectionName(url))
+
     const collection = await client.getOrCreateCollection({
       name: cleanCollectionName(url),
       embeddingFunction: embedder,

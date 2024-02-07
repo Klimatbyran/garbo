@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { downloadData } from '../queues'
+import { checkURLType } from '../queues'
 
 export default {
   data: new SlashCommandBuilder()
@@ -23,7 +23,7 @@ export default {
       return
     }
 
-    downloadData.add('download pdf ' + url.slice(-20), {
+    checkURLType.add('download pdf ' + url.slice(-20), {
       url,
     })
 
