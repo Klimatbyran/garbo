@@ -11,23 +11,48 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
 
     {
       "CompanyName": "Example Company",
-      "OrganizationNumber": "123456789",
+      "Bransch": "Manufacturing",
+      "BaseYear": "2019",
       "URL": "https://example.com",
-      "EmissionsData": {
-        "2019": {
-          "Scope1": "1234000",
-          "Scope1Unit": "ton CO2e",
-          "Scope2": "1235000",
-          "Scope2_MB": "1235000",
-          "Scope2_LB": "12500",
-          "Scope2Unit": "ton CO2e",
-          "Scope3": "532200000",
-          "Scope3Unit": "ton CO2e",
-          "TotalEmissions": "15530000000",
-          "TotalUnit": "ton CO2e"
-        }
-        // Additional years follow the same structure
-      },
+       "2019": {
+          "Scope1": {
+            "Emissions": "1234",
+            "Unit": "Mt CO2e",
+            "BaseYear": "2019"
+          },
+          "Scope2": {
+            "Emissions": "1235",
+            "Unit": "Mt CO2e",
+            "MB": "1235",
+            "LB": "125",
+            "BaseYear": "2019"
+          },
+          "Scope3": {
+            "Emissions": "5322000",
+            "Unit": "x1000 ton CO2e",
+            "BaseYear": "2019",
+            "Categories": {
+              "1_PurchasedGoods": "100000000",
+              "2_CapitalGoods": "100000000",
+              "3_FuelAndEnergyRelatedActivities": "100000000",
+              "4_UpstreamTransportationAndDistribution": "100000000",
+              "5_WasteGeneratedInOperations": "100000000",
+              "6_BusinessTravel": "100000000",
+              "7_EmployeeCommuting": "100000000",
+              "8_UpstreamLeasedAssets": "100000000",
+              "9_DownstreamTransportationAndDistribution": "100000000",
+              "10_ProcessingOfSoldProducts": "100000000",
+              "11_UseOfSoldProducts": "100000000",
+              "12_EndOfLifeTreatmentOfSoldProducts": "100000000",
+              "13_DownstreamLeasedAssets": "100000000",
+              "14_Franchises": "100000000",
+              "15_Investments": "100000000",
+              "16_Other": "100000000"
+            }
+          },
+          "TotalEmissions": "1553",
+          "TotalUnit": "Million ton CO2e",
+        },
       "Reliability": "High",
       "NeedsReview": true,
       "ReviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
