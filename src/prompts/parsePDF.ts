@@ -59,9 +59,8 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 5. **Error Codes**: If not all information is available, use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
-    - 'Error 404': Missing Scope 1 data
-    - 'Error 405': Missing Scope 2 data
-    - 'Error 406': Missing Scope 3 data
+    - 'Error 404': Missing data
+    - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 

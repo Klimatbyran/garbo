@@ -60,8 +60,8 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
     }
 **Error Codes**: If you find errors which will not be reflected correctly with a null value, please indicate the error in a way that makes sense with HTTP Status codes.  For example:
     - 'Error 404': Missing data
-    - 'Error 412': Incomplete or unclear units
     - 'Error 409': Data is not reasonable or in conflict with other data
+    - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 `
 
