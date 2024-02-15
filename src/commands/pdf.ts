@@ -23,10 +23,18 @@ export default {
       return
     }
 
+    const reply = await interaction.reply({
+      content: 'Tack! Nu är din årsredovisning placerad i kö.',
+      fetchReply: true
+    })
+    const channelId = interaction.channelId;
+    const messageId = reply.id;
+
     downloadPDF.add('download pdf ' + url.slice(-20), {
       url,
+      channelId,
+      messageId,
     })
 
-    await interaction.reply('Tack! Nu är din årsredovisning placerad i kö.')
   },
 }

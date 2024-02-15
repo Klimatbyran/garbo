@@ -2,11 +2,15 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { indexParagraphs } from '../queues'
 import { parse } from 'dotenv'
+import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 class JobData extends Job {
   data: {
     url: string
     text: string
+    channelId: string
+    messageId: string
   }
 }
 
@@ -17,9 +21,15 @@ const worker = new Worker(
 
     const paragraphs = job.data.text.split('\n\n').filter((p) => p.length > 0)
 
+    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const message = await channel.messages.fetch(job.data.messageId)
+    await message.edit(`Laddar ner PDF...`)
+    
     indexParagraphs.add('found ' + paragraphs.length, {
       paragraphs,
       url: job.data.url,
+      channelId: job.data.channelId,
+      messageId: job.data.messageId,
     })
 
     job.updateProgress(100)
