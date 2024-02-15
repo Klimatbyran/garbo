@@ -10,53 +10,53 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
     Example JSON structure:
 
     {
-      "CompanyName": "Example Company",
-      "Bransch": "Manufacturing",
-      "BaseYear": "2019",
-      "URL": "https://example.com",
+      "companyName": "Example Company",
+      "bransch": "Manufacturing",
+      "baseYear": "2019",
+      "url": "https://example.com",
        "2019": {
-          "Scope1": {
-            "Emissions": "1234",
-            "Unit": "Mt CO2e",
-            "BaseYear": "2019"
+          "scope1": {
+            "emissions": "1234",
+            "unit": "Mt CO2e",
+            "baseYear": "2019"
           },
-          "Scope2": {
-            "Emissions": "1235",
-            "Unit": "Mt CO2e",
-            "MB": "1235",
-            "LB": "125",
-            "BaseYear": "2019"
+          "scope2": {
+            "emissions": "1235",
+            "unit": "Mt CO2e",
+            "mb": "1235",
+            "lb": "125",
+            "baseYear": "2019"
           },
-          "Scope3": {
-            "Emissions": "5322000",
-            "Unit": "x1000 ton CO2e",
-            "BaseYear": "2019",
-            "Categories": {
-              "1_PurchasedGoods": "100000000",
-              "2_CapitalGoods": "100000000",
-              "3_FuelAndEnergyRelatedActivities": "100000000",
-              "4_UpstreamTransportationAndDistribution": "100000000",
-              "5_WasteGeneratedInOperations": "100000000",
-              "6_BusinessTravel": "100000000",
-              "7_EmployeeCommuting": "100000000",
-              "8_UpstreamLeasedAssets": "100000000",
-              "9_DownstreamTransportationAndDistribution": "100000000",
-              "10_ProcessingOfSoldProducts": "100000000",
-              "11_UseOfSoldProducts": "100000000",
-              "12_EndOfLifeTreatmentOfSoldProducts": "100000000",
-              "13_DownstreamLeasedAssets": "100000000",
-              "14_Franchises": "100000000",
-              "15_Investments": "100000000",
-              "16_Other": "100000000"
+          "scope3": {
+            "emissions": "5322000",
+            "unit": "x1000 ton CO2e",
+            "baseYear": "2019",
+            "categories": {
+              "1_purchasedGoods": "100000000",
+              "2_capitalGoods": "100000000",
+              "3_fuelAndEnergyRelatedActivities": "100000000",
+              "4_upstreamTransportationAndDistribution": "100000000",
+              "5_wasteGeneratedInOperations": "100000000",
+              "6_businessTravel": "100000000",
+              "7_employeeCommuting": "100000000",
+              "8_upstreamLeasedAssets": "100000000",
+              "9_downstreamTransportationAndDistribution": "100000000",
+              "10_processingOfSoldProducts": "100000000",
+              "11_useOfSoldProducts": "100000000",
+              "12_endOfLifeTreatmentOfSoldProducts": "100000000",
+              "13_downstreamLeasedAssets": "100000000",
+              "14_franchises": "100000000",
+              "15_investments": "100000000",
+              "16_other": "100000000"
             }
           },
-          "TotalEmissions": "1553",
-          "TotalUnit": "Million ton CO2e",
+          "totalEmissions": "1553",
+          "totalUnit": "Million ton CO2e",
         },
-      "Reliability": "High",
-      "NeedsReview": true,
-      "ReviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
-      "ReviewStatusCode": "412"
+      "reliability": "High",
+      "needsReview": true,
+      "reviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
+      "reviewStatusCode": "412"
     }
 **Error Codes**: If you find errors which will not be reflected correctly with a null value, please indicate the error in a way that makes sense with HTTP Status codes.  For example:
     - 'Error 404': Missing data
