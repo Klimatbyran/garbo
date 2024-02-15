@@ -15,6 +15,8 @@ class JobData extends Job {
   data: {
     url: string
     json: string
+    channelId: string
+    messageId: string
   }
 }
 

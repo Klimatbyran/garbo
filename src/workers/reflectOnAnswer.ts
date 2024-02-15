@@ -4,6 +4,8 @@ import OpenAI from 'openai'
 import previousPrompt from '../prompts/parsePDF'
 import prompt from '../prompts/reflect'
 import { discordReview } from '../queues'
+import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -14,6 +16,8 @@ class JobData extends Job {
     url: string
     paragraphs: string[]
     answer: string
+    channelId: string
+    messageId: string
   }
 }
 
@@ -22,6 +26,9 @@ const worker = new Worker(
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
     const answer = job.data.answer
+    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const message = await channel.messages.fetch(job.data.messageId)
+    await message.edit(`Verifierar information...`)
     job.log(`Reflecting on: ${answer}
     )}
     ${prompt}`)
@@ -49,7 +56,7 @@ const worker = new Worker(
     }
 
     job.log(response)
-
+    await message.edit(`Klart! Skickar till Discord för granskning`)
     discordReview.add('discord review ' + response.slice(0, 20), {
       json:
         response
@@ -57,6 +64,8 @@ const worker = new Worker(
           ?.replace(/```json|```/g, '')
           .trim() || '{"Error": "No JSON found"}',
       url: job.data.url,
+      channelId: job.data.channelId,
+      messageId: job.data.messageId,
     })
 
     // Do something with job

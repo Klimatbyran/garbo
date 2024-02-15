@@ -6,11 +6,15 @@ import { indexParagraphs, searchVectors } from '../queues'
 import { cleanCollectionName } from '../lib/cleaners'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
+import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 class JobData extends Job {
   data: {
     paragraphs: string[]
-    url: string
+    url: string,
+    channelId: string
+    messageId: string
   }
 }
 
@@ -21,6 +25,9 @@ const worker = new Worker(
 
     const paragraphs = job.data.paragraphs
     const url = job.data.url
+    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const message = await channel.messages.fetch(job.data.messageId)
+    await message.edit(`Sparar i vectordatabas...`)
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
@@ -59,6 +66,8 @@ const worker = new Worker(
 
     searchVectors.add('search ' + url, {
       url,
+      channelId: job.data.channelId,
+      messageId: job.data.messageId,
     })
 
     return paragraphs
