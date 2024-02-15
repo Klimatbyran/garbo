@@ -49,7 +49,7 @@ const worker = new Worker(
 
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
-        ${parsedJson.ReviewComment}
+        ${parsedJson.reviewComment}
         ${job.data.url}`,
       embeds: [
         {
@@ -83,7 +83,7 @@ const worker = new Worker(
 
         const modal = new ModalBuilder()
           .setCustomId('editModal')
-          .setTitle(`Granska data för ${parsedJson.CompanyName}`)
+          .setTitle(`Granska data för ${parsedJson.companyName}`)
           .addComponents(actionRow)
         // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
 
