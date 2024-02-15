@@ -18,6 +18,8 @@ import {
   reflectOnAnswer,
   searchVectors,
   splitText,
+  testStep1Queue,
+  testStep2Queue,
 } from './queues'
 
 // add dummy job
@@ -46,6 +48,8 @@ createBullBoard({
     new BullMQAdapter(parseText),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(discordReview),
+    new BullMQAdapter(testStep1Queue),
+    new BullMQAdapter(testStep2Queue),
   ],
   serverAdapter: serverAdapter,
   options: {

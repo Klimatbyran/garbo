@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { startTestFlow } from '../queues/testFlowQueue';
+import {  } from '../queues';
+import testFlow from '../flows/testFlow';
 
 export default {
     data: new SlashCommandBuilder()
@@ -7,11 +8,12 @@ export default {
       .setDescription('Start the test flow'),
   
     async execute(interaction) {
-      console.log('testflow')
+      console.log('testflow start')
       await interaction.reply('Initializing test flow...');
       const messageId = (await interaction.fetchReply()).id;
       const channelId = interaction.channelId;
   
-      await startTestFlow(channelId, messageId);
+      await testFlow(channelId, messageId);
+      console.log('testflow done')
     },
   }
