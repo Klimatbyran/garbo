@@ -7,6 +7,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 
 import discord from './discord'
+import elastic from './elastic'
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
@@ -56,6 +57,8 @@ createBullBoard({
 })
 
 const app = express()
+
+elastic.setupIndex()
 discord.login()
 
 app.use('/admin/queues', serverAdapter.getRouter())
