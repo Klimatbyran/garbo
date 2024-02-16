@@ -18,7 +18,6 @@ class Elastic {
         body: {
           mappings: {
             properties: {
-              url: { type: 'keyword' },
               pdf: { type: 'binary' },
               report: { type: 'object' },
               state: { type: 'keyword' }
