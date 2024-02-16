@@ -10,19 +10,14 @@ import {
   ModalActionRowComponentBuilder,
   TextInputStyle,
 } from 'discord.js'
-import { Client } from '@elastic/elasticsearch';
-
-const esClient = new Client({ 
-  node: 'http://elasticsearch.data-pipeline.svc.cluster.local:9200' 
-});
 
 class JobData extends Job {
   data: {
-    url: string;
-    json: string;
-    channelId: string;
-    messageId: string;
-  };
+    url: string
+    json: string
+    channelId: string
+    messageId: string
+  }
 }
 
 const worker = new Worker(
