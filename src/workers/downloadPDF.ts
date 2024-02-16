@@ -4,6 +4,11 @@ import pdf from 'pdf-parse'
 import { splitText } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
+import { Client } from '@elastic/elasticsearch';
+
+const esClient = new Client({ 
+  node: 'http://elasticsearch.data-pipeline.svc.cluster.local:9200' 
+});
 
 class JobData extends Job {
   data: {
