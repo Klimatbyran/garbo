@@ -30,18 +30,35 @@ const worker = new Worker(
     const message = await channel.messages.fetch(messageId)
     await message.edit(`Laddar ner PDF...`)
 
-    const buffer = await fetch(url).then((res) => res.arrayBuffer())
-    const doc = await pdf(buffer)
-    const text = doc.text
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Nedladdning misslyckades: ${response.statusText}`);
+      }
+      const buffer = await response.arrayBuffer();
+      let doc;
+      try {
+        doc = await pdf(buffer);
+      } catch (error) {
+        await message.edit(`Fel vid tolkning av PDF: ${error.message}`);
+        job.log(`Error parsing PDF: ${error.message}`);
+        throw error;
+      }
+      const text = doc.text;
 
-    splitText.add('split text ' + text.slice(0, 20), {
-      url,
-      text,
-      channelId,
-      messageId,
-    })
+      splitText.add('split text ' + text.slice(0, 20), {
+        url,
+        text,
+        channelId,
+        messageId,
+      });
 
-    return doc.text
+      return doc.text;
+    } catch (error) {
+      await message.edit(`Fel vid nedladdning av PDF: ${error.message}`);
+      job.log(`Error downloading PDF: ${error.message}`);
+      throw error;
+    }
   },
   {
     connection: redis,

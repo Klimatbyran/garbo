@@ -23,7 +23,7 @@ const worker = new Worker(
 
     const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Laddar ner PDF...`)
+    await message.edit(`Bearbetar PDF...`)
     
     indexParagraphs.add('found ' + paragraphs.length, {
       paragraphs,
