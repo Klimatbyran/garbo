@@ -1,6 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
+import { Client } from '@elastic/elasticsearch'
 import {
   ModalBuilder,
   ButtonBuilder,
@@ -10,6 +11,7 @@ import {
   ModalActionRowComponentBuilder,
   TextInputStyle,
 } from 'discord.js'
+import elasticsearch from '../config/elasticsearch'
 
 class JobData extends Job {
   data: {
@@ -67,6 +69,19 @@ const worker = new Worker(
           content: 'Approved!',
           embeds: [],
           components: [],
+        })
+
+        const client = new Client(elasticsearch)
+
+        await client.index({
+          index: 'companies_emissions',
+          body: {
+            ...parsedJson,
+            reviewed: true,
+            reviewStatus: 'approved',
+            reviewedBy: interaction.user.id,
+            reviewedAt: new Date(),
+          },
         })
       } else if (interaction.isButton() && interaction.customId === 'edit') {
         const input = new TextInputBuilder()
