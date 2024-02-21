@@ -6,7 +6,7 @@ const options: QueueOptions = {
   defaultJobOptions: { removeOnComplete: false },
 }
 
-const checkURLType = new Queue('checkURLType', options)
+const checkURL = new Queue('checkURL', options)
 const downloadPDF = new Queue('downloadPDF', options)
 const downloadWebsite = new Queue('downloadWebsite', options)
 const parseText = new Queue('parseText', options)
@@ -17,7 +17,7 @@ const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const discordReview = new Queue('discordReview', options)
 
 export {
-  checkURLType,
+  checkURL,
   downloadPDF,
   downloadWebsite,
   parseText,

@@ -1,7 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
-import previousPrompt from '../prompts/parsePDF'
+import previousPrompt from '../prompts/parseReport'
 import prompt from '../prompts/reflect'
 import { discordReview } from '../queues'
 

@@ -1,4 +1,4 @@
-export { default as checkURLType } from './checkURLType'
+export { default as checkURL } from './checkURL'
 export { default as downloadPDF } from './downloadPDF'
 export { default as downloadWebsite } from './downloadWebsite'
 export { default as splitText } from './splitText'

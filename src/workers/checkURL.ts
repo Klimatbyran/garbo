@@ -9,7 +9,7 @@ class JobData extends Job {
 }
 
 const worker = new Worker(
-  'checkURLType',
+  'checkURL',
   async (job: JobData) => {
     const { url } = job.data
     const fileType = url.endsWith('.pdf') ? 'pdf' : 'webpage'

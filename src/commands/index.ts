@@ -1,4 +1,4 @@
 import ping from './ping'
-import pdf from './pdf'
+import analyze from './analyze'
 
-export default [ping, pdf]
+export default [ping, analyze]
