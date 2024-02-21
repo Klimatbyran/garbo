@@ -11,6 +11,8 @@ class JobData extends Job {
   data: {
     url: string
     paragraphs: string[]
+    channelId: string
+    messageId: string
   }
 }
 
@@ -44,6 +46,8 @@ const worker = new Worker(
       answer: response,
       url: job.data.url,
       paragraphs: paragraphs,
+      channelId: job.data.channelId,
+      messageId: job.data.messageId,
     })
 
     return response

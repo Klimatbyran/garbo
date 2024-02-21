@@ -6,7 +6,7 @@ This is the main repo for fetching data from sources and adding them to our data
 
 ## Current Status
 
-First working prototype for pipeline but doesn't work on large PDF files yet.
+Test the app in Discord channel #rapporter-att-granska by using the command /pdf <url> and Garbo will be answering with a parsed JSON
 
 ## Data Flow
 
@@ -20,7 +20,7 @@ Some of the following steps will be performed in parallel and most will be async
 6. Build query from prompt together with relevant embeddings
 7. Send to LLM
 8. Verify the results first automatically
-9. Verify results in Discord channel (separate PR #2)
+9.  Verify results in Discord channel
 10. Save to Wikidata or other database (not done)
 
 ### Get Started
@@ -38,11 +38,11 @@ NOTE: To add a new job to the queue manually you can uncomment the lines in inde
 
 Create a .env file in the root lib and add these tokens/secrets before running the application:
 
-OPENAI_API_KEY=
-OPENAI_ORG_ID=
-DISCORD_APPLICATION_ID=
-DISCORD_TOKEN=
-DISCORD_SERVER_ID=
+    OPENAI_API_KEY=
+    OPENAI_ORG_ID=
+    DISCORD_APPLICATION_ID=
+    DISCORD_TOKEN=
+    DISCORD_SERVER_ID=
 
 ### Next steps / Tasks
 
@@ -52,7 +52,7 @@ DISCORD_SERVER_ID=
 - [x] Split PDF text into smaller chunks (maybe using langchain pdf instead of custom?)
 - [x] Add chunks to vector database (ChromaDB)
 - [x] Use vector database with langchain when doing queries to limit amount of tokens
-- [ ] DevOps/Kubernetes setup for databases and deployment
+- [x] DevOps/Kubernetes setup for databases and deployment (see [https://github.com/Klimatbyran/infra](infra) repo - private)
 - [ ] Tests etc
 
 ### Operations

@@ -5,6 +5,8 @@ import { OpenAIEmbeddingFunction } from 'chromadb'
 import { parseText } from '../queues'
 import { cleanCollectionName } from '../lib/cleaners'
 import chromadb from '../config/chromadb'
+import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
@@ -13,6 +15,8 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     url: string
+    channelId: string
+    messageId: string
   }
 }
 
@@ -23,6 +27,9 @@ const worker = new Worker(
     const url = job.data.url
 
     job.log('Searching ' + url)
+    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const message = await channel.messages.fetch(job.data.messageId)
+    await message.edit(`Hämtar ut utsläppsdata...`)
 
     const collection = await client.getCollection({
       name: cleanCollectionName(url),
@@ -43,6 +50,8 @@ const worker = new Worker(
       {
         url,
         paragraphs: results.documents.flat(),
+        channelId: job.data.channelId,
+        messageId: job.data.messageId,
       },
       {
         attempts: 5,

@@ -10,33 +10,58 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
     Example JSON structure:
 
     {
-      "CompanyName": "Example Company",
-      "OrganizationNumber": "123456789",
-      "URL": "https://example.com",
-      "EmissionsData": {
-        "2019": {
-          "Scope1": "1234000",
-          "Scope1Unit": "ton CO2e",
-          "Scope2": "1235000",
-          "Scope2_MB": "1235000",
-          "Scope2_LB": "12500",
-          "Scope2Unit": "ton CO2e",
-          "Scope3": "532200000",
-          "Scope3Unit": "ton CO2e",
-          "TotalEmissions": "15530000000",
-          "TotalUnit": "ton CO2e"
-        }
-        // Additional years follow the same structure
-      },
-      "Reliability": "High",
-      "NeedsReview": true,
-      "ReviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
-      "ReviewStatusCode": "412"
+      "companyName": "Example Company",
+      "bransch": "Manufacturing",
+      "baseYear": "2019",
+      "url": "https://example.com",
+       "2019": {
+          "scope1": {
+            "emissions": "1234",
+            "unit": "Mt CO2e",
+            "baseYear": "2019"
+          },
+          "scope2": {
+            "emissions": "1235",
+            "unit": "Mt CO2e",
+            "mb": "1235",
+            "lb": "125",
+            "baseYear": "2019"
+          },
+          "scope3": {
+            "emissions": "5322000",
+            "unit": "x1000 ton CO2e",
+            "baseYear": "2019",
+            "categories": {
+              "1_purchasedGoods": "100000000",
+              "2_capitalGoods": "100000000",
+              "3_fuelAndEnergyRelatedActivities": "100000000",
+              "4_upstreamTransportationAndDistribution": "100000000",
+              "5_wasteGeneratedInOperations": "100000000",
+              "6_businessTravel": "100000000",
+              "7_employeeCommuting": "100000000",
+              "8_upstreamLeasedAssets": "100000000",
+              "9_downstreamTransportationAndDistribution": "100000000",
+              "10_processingOfSoldProducts": "100000000",
+              "11_useOfSoldProducts": "100000000",
+              "12_endOfLifeTreatmentOfSoldProducts": "100000000",
+              "13_downstreamLeasedAssets": "100000000",
+              "14_franchises": "100000000",
+              "15_investments": "100000000",
+              "16_other": "100000000"
+            }
+          },
+          "totalEmissions": "1553",
+          "totalUnit": "Million ton CO2e",
+        },
+      "reliability": "High",
+      "needsReview": true,
+      "reviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
+      "reviewStatusCode": "412"
     }
 **Error Codes**: If you find errors which will not be reflected correctly with a null value, please indicate the error in a way that makes sense with HTTP Status codes.  For example:
     - 'Error 404': Missing data
-    - 'Error 412': Incomplete or unclear units
     - 'Error 409': Data is not reasonable or in conflict with other data
+    - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 `
 
