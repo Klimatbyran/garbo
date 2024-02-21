@@ -28,9 +28,9 @@ import {
 // })
 
 
-checkURL.add('peab', {
-  url: 'https://peab.inpublix.com/2022/ledande-inom-samhallsansvar/gri-data/',
-})
+// checkURL.add('peab', {
+//   url: 'https://peab.inpublix.com/2022/ledande-inom-samhallsansvar/gri-data/',
+// })
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
