@@ -33,7 +33,8 @@ class Elastic {
                 url: { type: 'keyword' },
                 pdf: { type: 'binary' },
                 report: { type: 'text' },
-                state: { type: 'keyword' }
+                state: { type: 'keyword' },
+                timestamp: { type: 'date' }
               }
             }
           }
@@ -51,7 +52,8 @@ class Elastic {
     const documentId = this.hashUrl(url);
     const docBody = {
       url: url,
-      state: 'pending'
+      state: 'pending',
+      timestamp: new Date()
     };
 
     try {
