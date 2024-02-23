@@ -58,7 +58,7 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndex()
+elastic.setupIndices()
 
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
