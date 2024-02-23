@@ -1,5 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
+import elastic from '../elastic'
 import discord from '../discord'
 import {
   ModalBuilder,
@@ -17,6 +18,7 @@ class JobData extends Job {
     json: string
     channelId: string
     messageId: string
+    documentId: string
   }
 }
 
@@ -30,6 +32,12 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = JSON.parse(job.data.json)
+
+    try {
+      await elastic.indexReport(job.data.documentId, parsedJson, job.data.url)
+    } catch (error) {
+      job.log(`Error indexing report: ${error.message}`)
+    }
 
     // Skapa en knapp
     const row = new ActionRowBuilder().addComponents(

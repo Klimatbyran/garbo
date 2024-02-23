@@ -30,11 +30,11 @@ export default {
     const channelId = interaction.channelId;
     const messageId = reply.id;
 
-    const job = downloadPDF.add('download pdf ' + url.slice(-20), {
+    downloadPDF.add('download pdf ' + url.slice(-20), {
       url,
       channelId,
       messageId,
     })
-    
+
   },
 }
