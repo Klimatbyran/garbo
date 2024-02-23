@@ -5,11 +5,13 @@ import * as crypto from 'crypto';
 class Elastic {
   client: Client;
   indexName: string;
+  pdfIndex: string;
 
   constructor({ node, indexName }) {
     try  {
       this.client = new Client({ node });
       this.indexName = indexName;
+      this.pdfIndex = "pdfs";
     } catch (error) {
       console.error('Elasticsearch constructor error:', error);
     }
@@ -22,12 +24,11 @@ class Elastic {
 
   private async createPdfIndex() {
     try {
-      const pdfIndex = "pdfIndex"
-      console.log(`Checking if index ${pdfIndex} exists...`);
+      console.log(`Checking if index ${this.pdfIndex} exists...`);
       const indexExists = await this.client.indices.exists({ index: pdfIndex });
       if (!indexExists) {
         await this.client.indices.create({
-          index: pdfIndex,
+          index: this.pdfIndex,
           body: {
             mappings: {
               properties: {
@@ -36,9 +37,9 @@ class Elastic {
             }
           }
         });
-        console.log(`Index ${pdfIndex} created.`);
+        console.log(`Index ${this.pdfIndex} created.`);
       } else {
-        console.log(`Index ${pdfIndex} already exists.`);
+        console.log(`Index ${this.pdfIndex} already exists.`);
       }
     } catch (error) {
       console.error('Elasticsearch pdfIndex error:', error);
@@ -85,7 +86,7 @@ class Elastic {
     try {
       const encodedPdf = buffer.toString('base64');
       await this.client.index({
-        index: this.indexName,
+        index: this.pdfIndex,
         id: documentId,
         body: {
           pdf: encodedPdf,
