@@ -15,12 +15,37 @@ class Elastic {
     }
   }
 
-  // Hash the URL to use as the document ID
-  private hashUrl(url: string): string {
-    return crypto.createHash('sha256').update(url).digest('hex');
+  async setupIndices() {
+    await this.createEmissionsIndex();
+    await this.createPdfIndex();
   }
 
-  async setupIndex() {
+  private async createPdfIndex() {
+    try {
+      const pdfIndex = "pdfIndex"
+      console.log(`Checking if index ${pdfIndex} exists...`);
+      const indexExists = await this.client.indices.exists({ index: pdfIndex });
+      if (!indexExists) {
+        await this.client.indices.create({
+          index: pdfIndex,
+          body: {
+            mappings: {
+              properties: {
+                pdf: { type: 'binary' },
+              }
+            }
+          }
+        });
+        console.log(`Index ${pdfIndex} created.`);
+      } else {
+        console.log(`Index ${pdfIndex} already exists.`);
+      }
+    } catch (error) {
+      console.error('Elasticsearch pdfIndex error:', error);
+    }
+  } 
+
+  private async createEmissionsIndex() {
     try {
       console.log(`Checking if index ${this.indexName} exists...`);
       const indexExists = await this.client.indices.exists({ index: this.indexName });
@@ -31,9 +56,10 @@ class Elastic {
             mappings: {
               properties: {
                 url: { type: 'keyword' },
-                pdf: { type: 'binary' },
+                pdfHash: { type: 'keyword' },
                 report: { type: 'text' },
-                state: { type: 'keyword' }
+                state: { type: 'keyword' },
+                timestamp: { type: 'date' }
               }
             }
           }
@@ -47,67 +73,55 @@ class Elastic {
     }
   }
 
-  async createEntryWithUrl(url: string) {
-    const documentId = this.hashUrl(url);
-    const docBody = {
-      url: url,
-      state: 'pending'
-    };
+  private hashPdf(pdfBuffer: Buffer): string {
+    return crypto.createHash('sha256').update(pdfBuffer).digest('hex');
+  }
 
+  // Index the PDF using the hash as document ID and returning it for reference
+  async indexPdf(pdfBuffer: ArrayBuffer) {
+    const buffer = Buffer.from(pdfBuffer);
+    const documentId = this.hashPdf(buffer);
+  
     try {
+      const encodedPdf = buffer.toString('base64');
       await this.client.index({
         index: this.indexName,
         id: documentId,
-        body: docBody
+        body: {
+          pdf: encodedPdf,
+        }
       });
-      console.log(`Entry created with PDF URL. Document ID: ${documentId}`);
+      console.log(`PDF indexed. Document ID: ${documentId}`);
+      return documentId;
     } catch (error) {
-      console.error(`Error creating entry with PDF URL for Document ID ${documentId}:`, error);
+      console.error(`Error indexing PDF for Document ID ${documentId}:`, error);
+      throw error;
     }
   }
 
-  async addPDFContent(url: string, pdfContent: string) {
-    const documentId = this.hashUrl(url);
+  async indexReport(documentId: string, reportData: string, url: string) {
     try {
-      await this.client.update({
+      const response = await this.client.index({
         index: this.indexName,
-        id: documentId,
         body: {
-          doc: {
-            pdf: pdfContent
-          }
+          url: url,
+          report: reportData,
+          state: 'pending',
+          timestamp: new Date()
         }
       });
-      console.log(`PDF content added. Document ID: ${documentId}`);
-    } catch (error) {
-      console.error(`Error adding PDF content for Document ID ${documentId}:`, error);
-    }
-  }
-
-  async addReportData(url: string, reportData: object) {
-    const documentId = this.hashUrl(url);
-    try {
-      await this.client.update({
-        index: this.indexName,
-        id: documentId,
-        body: {
-          doc: {
-            report: reportData
-          }
-        }
-      });
+      const documentId = response._id;
       console.log(`Report data added. Document ID: ${documentId}`);
+      return documentId;
     } catch (error) {
-      console.error(`Error adding report data for Document ID ${documentId}:`, error);
+      console.error(`Error adding report data:`, error);
     }
   }
 
-  async updateDocumentState(url: string, newState: string) {
-    const documentId = this.hashUrl(url);
+  /*async updateDocumentState(url: string, newState: string) {
     try {
       await this.client.update({
         index: this.indexName,
-        id: documentId,
         body: {
           doc: {
             state: newState
@@ -119,6 +133,6 @@ class Elastic {
       console.error(`Error updating document state for Document ID ${documentId}:`, error);
     }
   }
-}
+}*/
 
 export default new Elastic(config)
