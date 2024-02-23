@@ -25,7 +25,7 @@ class Elastic {
   private async createPdfIndex() {
     try {
       console.log(`Checking if index ${this.pdfIndex} exists...`);
-      const indexExists = await this.client.indices.exists({ index: pdfIndex });
+      const indexExists = await this.client.indices.exists({ index: this.pdfIndex });
       if (!indexExists) {
         await this.client.indices.create({
           index: this.pdfIndex,
