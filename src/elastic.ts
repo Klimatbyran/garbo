@@ -132,7 +132,7 @@ class Elastic {
     } catch (error) {
       console.error(`Error updating document state for Document ID ${documentId}:`, error);
     }
-  }
-}*/
+  }*/
+}
 
 export default new Elastic(config)
