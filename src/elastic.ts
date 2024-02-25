@@ -58,7 +58,7 @@ class Elastic {
               properties: {
                 url: { type: 'keyword' },
                 pdfHash: { type: 'keyword' },
-                report: { type: 'text' },
+                report: { type: 'nested' },
                 state: { type: 'keyword' },
                 timestamp: { type: 'date' }
               }
