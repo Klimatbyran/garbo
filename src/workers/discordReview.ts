@@ -18,7 +18,7 @@ class JobData extends Job {
     json: string
     channelId: string
     messageId: string
-    documentId: string
+    pdfHash: string
   }
 }
 
@@ -32,9 +32,9 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = JSON.parse(job.data.json)
-
+    let documentId = ''
     try {
-      await elastic.indexReport(job.data.documentId, parsedJson, job.data.url)
+      documentId = await elastic.indexReport(job.data.pdfHash, parsedJson, job.data.url)
     } catch (error) {
       job.log(`Error indexing report: ${error.message}`)
     }
@@ -128,7 +128,7 @@ const worker = new Worker(
 
       if (reportState !== '') {
         try {
-          await elastic.updateDocumentState(job.data.documentId, reportState)
+          await elastic.updateDocumentState(documentId, reportState)
         } catch (error) {
           job.log(`Error updating document state: ${error.message}`)
         }

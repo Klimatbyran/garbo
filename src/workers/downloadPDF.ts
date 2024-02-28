@@ -42,9 +42,9 @@ const worker = new Worker(
       }
       const text = doc.text;
       
-      let documentId = '';
+      let pdfHash = '';
       try {
-        documentId = await elastic.indexPdf(buffer);
+        pdfHash = await elastic.indexPdf(buffer);
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`);
       }
@@ -54,7 +54,7 @@ const worker = new Worker(
         text,
         channelId,
         messageId,
-        documentId,
+        pdfHash,
       });
 
       return doc.text;

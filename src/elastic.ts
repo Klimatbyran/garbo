@@ -81,31 +81,33 @@ class Elastic {
   // Index the PDF using the hash as document ID and returning it for reference
   async indexPdf(pdfBuffer: ArrayBuffer) {
     const buffer = Buffer.from(pdfBuffer);
-    const documentId = this.hashPdf(buffer);
+    const pdfHash = this.hashPdf(buffer);
   
     try {
       const encodedPdf = buffer.toString('base64');
       await this.client.index({
         index: this.pdfIndex,
-        id: documentId,
+        id: pdfHash,
         body: {
           pdf: encodedPdf,
         }
       });
-      console.log(`PDF indexed. Document ID: ${documentId}`);
-      return documentId;
+      console.log(`PDF indexed. Document ID: ${pdfHash}`);
+      return pdfHash;
     } catch (error) {
-      console.error(`Error indexing PDF for Document ID ${documentId}:`, error);
-      throw error;
+      console.error(`Error indexing PDF for Document ID ${pdfHash}:`, error);
+      // return anyway, as the report is still added later
+      return pdfHash;
     }
   }
 
-  async indexReport(documentId: string, reportData: string, url: string) {
+  async indexReport(pdfHash: string, reportData: string, url: string) {
     try {
       const response = await this.client.index({
         index: this.indexName,
         body: {
           url: url,
+          pdfHash: pdfHash,
           report: reportData,
           state: 'pending',
           timestamp: new Date()
