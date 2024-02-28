@@ -1,7 +1,5 @@
 import nodeHtmlToImage from 'node-html-to-image'
-import { useToPixelData } from '@hugocxl/react-to-image'
 import fs from 'fs'
-const template = fs.readFileSync('src/lib/scope2.handlebars', 'utf8')
 
 type YearEmissions = {
   year: number
@@ -43,6 +41,7 @@ type CompanyData = {
 
 export const scope2Image = async (company: CompanyData) => {
   const emissions = company.emissions.sort((a, b) => b.year - a.year)
+  const template = fs.readFileSync('src/lib/scope2.handlebars', 'utf8')
   const image = await nodeHtmlToImage({
     html: template,
     content: { ...company, emissions },
