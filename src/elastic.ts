@@ -119,10 +119,11 @@ class Elastic {
     }
   }
 
-  /*async updateDocumentState(url: string, newState: string) {
+  async updateDocumentState(documentId: string, newState: string) {
     try {
       await this.client.update({
         index: this.indexName,
+        id: documentId,
         body: {
           doc: {
             state: newState
@@ -133,7 +134,7 @@ class Elastic {
     } catch (error) {
       console.error(`Error updating document state for Document ID ${documentId}:`, error);
     }
-  }*/
+  }
 }
 
 export default new Elastic(config)

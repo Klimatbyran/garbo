@@ -72,13 +72,16 @@ const worker = new Worker(
     job.updateProgress(40)
 
     discord.client.on('interactionCreate', async (interaction) => {
+      let reportState = ''
       if (interaction.isButton() && interaction.customId === 'approve') {
+        reportState = 'approved'
         interaction.update({
           content: 'Approved!',
           embeds: [],
           components: [],
         })
       } else if (interaction.isButton() && interaction.customId === 'edit') {
+        reportState = 'edited'
         const input = new TextInputBuilder()
           .setCustomId('editInput')
           .setLabel(`Granska utsläppsdata`)
@@ -115,14 +118,22 @@ const worker = new Worker(
         }
       } else if (interaction.isButton() && interaction.customId === 'reject') {
         // todo diskutera vad vill vill händer. ska man ens få rejecta?
+        reportState = 'rejected'
         interaction.update({
           content: 'Rejected!',
           embeds: [],
           components: [],
         })
       }
-    })
 
+      if (reportState !== '') {
+        try {
+          await elastic.updateDocumentState(job.data.documentId, reportState)
+        } catch (error) {
+          job.log(`Error updating document state: ${error.message}`)
+        }
+      }
+    })
     job.updateProgress(100)
   },
   {
