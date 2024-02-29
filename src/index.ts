@@ -5,6 +5,7 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
+import fs from 'fs/promises'
 
 import discord from './discord'
 
@@ -71,127 +72,11 @@ app.get('/', (req, res) => {
 
 app.get(`/api/companies`, async function (req, res) {
   res.writeHead(200, { 'Content-Type': 'image/png' })
-  const image = await scope2Image({
-    companyName: 'Volvo',
-    bransch: 'Manufacturing',
-    baseYear: '2019',
-    url: 'https://example.com',
-    emissions: [
-      {
-        year: 2019,
-        scope1: {
-          emissions: '1234',
-          unit: 'Mt CO2e',
-          baseYear: '2019',
-        },
-        scope2: {
-          emissions: '1235',
-          unit: 'Mt CO2e',
-          mb: '1235',
-          lb: '125',
-          baseYear: '2019',
-        },
-        scope3: {
-          emissions: '5322000',
-          unit: 'x1000 ton CO2e',
-          baseYear: '2019',
-          categories: {
-            '1_purchasedGoods': '100000000',
-            '2_capitalGoods': '100000000',
-            '3_fuelAndEnergyRelatedActivities': '100000000',
-            '4_upstreamTransportationAndDistribution': '100000000',
-            '5_wasteGeneratedInOperations': '100000000',
-            '6_businessTravel': '100000000',
-            '7_employeeCommuting': '100000000',
-            '8_upstreamLeasedAssets': '100000000',
-            '9_downstreamTransportationAndDistribution': '100000000',
-            '10_processingOfSoldProducts': '100000000',
-            '11_useOfSoldProducts': '100000000',
-            '12_endOfLifeTreatmentOfSoldProducts': '100000000',
-            '13_downstreamLeasedAssets': '100000000',
-            '14_franchises': '100000000',
-            '15_investments': '100000000',
-            '16_other': '100000000',
-          },
-        },
-      },
-      {
-        year: 2020,
-        scope1: {
-          emissions: '1234',
-          unit: 'Mt CO2e',
-          baseYear: '2019',
-        },
-        scope2: {
-          emissions: '1235',
-          unit: 'Mt CO2e',
-          mb: '1235',
-          lb: '125',
-          baseYear: '2019',
-        },
-        scope3: {
-          emissions: '5322000',
-          unit: 'x1000 ton CO2e',
-          baseYear: '2019',
-          categories: {
-            '1_purchasedGoods': '100000000',
-            '2_capitalGoods': '100000000',
-            '3_fuelAndEnergyRelatedActivities': '100000000',
-            '4_upstreamTransportationAndDistribution': '100000000',
-            '5_wasteGeneratedInOperations': '100000000',
-            '6_businessTravel': '100000000',
-            '7_employeeCommuting': '100000000',
-            '8_upstreamLeasedAssets': '100000000',
-            '9_downstreamTransportationAndDistribution': '100000000',
-            '10_processingOfSoldProducts': '100000000',
-            '11_useOfSoldProducts': '100000000',
-            '12_endOfLifeTreatmentOfSoldProducts': '100000000',
-            '13_downstreamLeasedAssets': '100000000',
-            '14_franchises': '100000000',
-            '15_investments': '100000000',
-            '16_other': '100000000',
-          },
-        },
-      },
-      {
-        year: 2021,
-        scope1: {
-          emissions: '1234',
-          unit: 'Mt CO2e',
-          baseYear: '2019',
-        },
-        scope2: {
-          emissions: '1235',
-          unit: 'Mt CO2e',
-          mb: '1235',
-          lb: '125',
-          baseYear: '2019',
-        },
-        scope3: {
-          emissions: '5322000',
-          unit: 'x1000 ton CO2e',
-          baseYear: '2019',
-          categories: {
-            '1_purchasedGoods': '100000000',
-            '2_capitalGoods': '100000000',
-            '3_fuelAndEnergyRelatedActivities': '100000000',
-            '4_upstreamTransportationAndDistribution': '100000000',
-            '5_wasteGeneratedInOperations': '100000000',
-            '6_businessTravel': '100000000',
-            '7_employeeCommuting': '100000000',
-            '8_upstreamLeasedAssets': '100000000',
-            '9_downstreamTransportationAndDistribution': '100000000',
-            '10_processingOfSoldProducts': '100000000',
-            '11_useOfSoldProducts': '100000000',
-            '12_endOfLifeTreatmentOfSoldProducts': '100000000',
-            '13_downstreamLeasedAssets': '100000000',
-            '14_franchises': '100000000',
-            '15_investments': '100000000',
-            '16_other': '100000000',
-          },
-        },
-      },
-    ],
-  })
+  const exampleString = (
+    await fs.readFile('./src/data/example.json')
+  ).toString()
+  console.log('exampleString', exampleString)
+  const example = JSON.parse(exampleString)
+  const image = await scope2Image(example)
   res.end(image, 'binary')
 })

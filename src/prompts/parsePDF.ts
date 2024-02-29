@@ -11,8 +11,9 @@ I have a text extracted from a PDF file containing a company's annual report and
     {
       "companyName": "Example Company",
       "organizationNumber": "123456789",
-      "emissionsData": {
-        "2019": {
+      "emissions": [
+        {
+          "year: "2019",
           "scope1": {
             "emissions": "1234",
             "unit": "Mt CO2e",

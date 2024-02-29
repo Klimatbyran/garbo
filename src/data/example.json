@@ -1,0 +1,127 @@
+{
+  "emissions": [
+    {
+      "year": "2018",
+      "scope1": {
+        "emissions": "1544000",
+        "unit": "ton CO2e",
+        "baseYear": "2018"
+      },
+      "scope2": {
+        "emissions": "1408000",
+        "unit": "ton CO2e",
+        "locationBased": "1408000",
+        "marketBased": "1838000",
+        "baseYear": "2018"
+      },
+      "scope3": {
+        "emissions": "Error 404",
+        "unit": "Error 404",
+        "baseYear": "2018",
+        "categories": "Error 404"
+      },
+      "totalEmissions": "Error 500",
+      "totalUnit": "ton CO2e"
+    },
+    {
+      "year": "2019",
+      "scope1": {
+        "emissions": "1537000",
+        "unit": "ton CO2e",
+        "baseYear": "2019"
+      },
+      "scope2": {
+        "emissions": "1292000",
+        "unit": "ton CO2e",
+        "locationBased": "1292000",
+        "marketBased": "1661000",
+        "baseYear": "2019"
+      },
+      "scope3": {
+        "emissions": "3595000",
+        "unit": "ton CO2e",
+        "baseYear": "2019",
+        "categories": "Error 404"
+      },
+      "totalEmissions": "2834000",
+      "totalUnit": "ton CO2e"
+    },
+    {
+      "year": "2020",
+      "scope1": {
+        "emissions": "1445000",
+        "unit": "ton CO2e",
+        "baseYear": "2020"
+      },
+      "scope2": {
+        "emissions": "1217000",
+        "unit": "ton CO2e",
+        "locationBased": "1217000",
+        "marketBased": "1436000",
+        "baseYear": "2020"
+      },
+      "scope3": {
+        "emissions": "3410000",
+        "unit": "ton CO2e",
+        "baseYear": "2020",
+        "categories": "Error 404"
+      },
+      "totalEmissions": "2662000",
+      "totalUnit": "ton CO2e"
+    },
+    {
+      "year": "2021",
+      "scope1": {
+        "emissions": "1410000",
+        "unit": "ton CO2e",
+        "baseYear": "2021"
+      },
+      "scope2": {
+        "emissions": "1216000",
+        "unit": "ton CO2e",
+        "locationBased": "1216000",
+        "marketBased": "1462000",
+        "baseYear": "2021"
+      },
+      "scope3": {
+        "emissions": "Error 404",
+        "unit": "Error 404",
+        "baseYear": "2021",
+        "categories": "Error 404"
+      },
+      "totalEmissions": "2626000",
+      "totalUnit": "ton CO2e"
+    },
+    {
+      "year": "2022",
+      "scope1": {
+        "emissions": "1395000",
+        "unit": "ton CO2e",
+        "baseYear": "2022"
+      },
+      "scope2": {
+        "emissions": "1254000",
+        "unit": "ton CO2e",
+        "locationBased": "1254000",
+        "marketBased": "1499000",
+        "baseYear": "2022"
+      },
+      "scope3": {
+        "emissions": "Error 404",
+        "unit": "Error 404",
+        "baseYear": "2022",
+        "categories": "Error 404"
+      },
+      "totalEmissions": "2649000",
+      "totalUnit": "ton CO2e"
+    }
+  ],
+  "companyName": "Essity",
+  "bransch": "Hygiene and Health Company",
+  "baseYear": "2016",
+  "url": "https://essity.com",
+  "reliability": "High",
+  "needsReview": true,
+  "reviewComment": "Scope 3 emissions data is not available for 2018, 2021, and 2022, which impacted the accuracy of the total emissions for those years. Prior year adjustments for Scope 2 are mentioned but not detailed enough to be factored into the analysis. This requires clarification from the company for accurate annual accounting and should be reviewed by the reporting company.",
+  "reviewStatusCode": "412"
+}
