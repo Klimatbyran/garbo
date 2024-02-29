@@ -10,6 +10,7 @@ import {
   ModalActionRowComponentBuilder,
   TextInputStyle,
 } from 'discord.js'
+import { scope2Image } from '../lib/imageCreator'
 
 class JobData extends Job {
   data: {
@@ -47,15 +48,18 @@ const worker = new Worker(
         .setStyle(ButtonStyle.Danger)
     )
 
+    const image = await scope2Image(parsedJson)
+
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
         ${parsedJson.reviewComment}
         ${job.data.url}`,
       embeds: [
         {
-          title: 'Review this JSON:',
-          description:
-            '```json\n' + JSON.stringify(parsedJson, null, 2) + '\n```',
+          title: 'Här är data som behöver granskas',
+          image: {
+            url: image,
+          },
         },
       ],
       components: [row],
