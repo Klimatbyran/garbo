@@ -1,4 +1,5 @@
 import config from './config/elasticsearch';
+import { reportMappings } from './config/emissionReportMappings';
 import { Client } from '@elastic/elasticsearch';
 import * as crypto from 'crypto';
 
@@ -11,7 +12,7 @@ class Elastic {
     try  {
       this.client = new Client({ node });
       this.indexName = indexName;
-      this.pdfIndex = "pdfs";
+      this.pdfIndex = 'pdfs';
     } catch (error) {
       console.error('Elasticsearch constructor error:', error);
     }
@@ -58,7 +59,54 @@ class Elastic {
               properties: {
                 url: { type: 'keyword' },
                 pdfHash: { type: 'keyword' },
-                report: { type: 'nested' },
+                report: {
+                  type: 'nested',
+                  properties: {
+                    companyName: { type: 'keyword' },
+                    bransch: { type: 'keyword' },
+                    baseYear: { type: 'keyword' },
+                    url: { type: 'keyword' },
+                    emissionsData: {
+                      type: 'nested',
+                      properties: {
+                        year: { type: 'keyword' },
+                        scope1: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' }
+                          }
+                        },
+                        scope2: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' },
+                            mb: { type: 'double' },
+                            lb: { type: 'double' }
+                          }
+                        },
+                        scope3: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' },
+                            categories: {
+                              type: 'nested',
+                              properties: {
+                                categoryName: { type: 'keyword' },
+                                emissions: { type: 'double' }
+                              }
+                            }
+                          }
+                        },
+                        totalEmissions: { type: 'double' },
+                        totalUnit: { type: 'keyword' },
+                      }
+                    },
+                    reliability: { type: 'keyword' },
+                    needsReview: { type: 'boolean' },
+                    reviewComment: { type: 'text' },
+                    reviewStatusCode: { type: 'keyword' }
+                  }
+                },
                 state: { type: 'keyword' },
                 timestamp: { type: 'date' }
               }
