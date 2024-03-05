@@ -12,8 +12,10 @@ import elastic from './elastic'
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
 import {
+  checkURL,
   discordReview,
   downloadPDF,
+  downloadWebsite,
   indexParagraphs,
   parseText,
   reflectOnAnswer,
@@ -21,15 +23,15 @@ import {
   splitText,
 } from './queues'
 
-// add dummy job
-// downloadPDF.add('dummy', {
+// // add dummy job
+// checkURL.add('vibekke', {
 //   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
 // })
 
-/*
-downloadPDF.add('volvo', {
-  url: 'https://www.volvogroup.com/content/dam/volvo-group/markets/master/investors/reports-and-presentations/annual-reports/AB-Volvo-Annual-Report-2022.pdf',
-})*/
+
+// checkURL.add('peab', {
+//   url: 'https://peab.inpublix.com/2022/ledande-inom-samhallsansvar/gri-data/',
+// })
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
@@ -40,7 +42,9 @@ serverAdapter.setBasePath('/admin/queues')
 
 createBullBoard({
   queues: [
+    new BullMQAdapter(checkURL),
     new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(downloadWebsite),
     new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),

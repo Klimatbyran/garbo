@@ -1,4 +1,4 @@
 import ping from './ping'
-import pdf from './pdf'
+import report from './report'
 
-export default [ping, pdf]
+export default [ping, report]
