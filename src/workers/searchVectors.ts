@@ -17,6 +17,7 @@ class JobData extends Job {
     url: string
     channelId: string
     messageId: string
+    pdfHash: string
   }
 }
 
@@ -52,6 +53,7 @@ const worker = new Worker(
         paragraphs: results.documents.flat(),
         channelId: job.data.channelId,
         messageId: job.data.messageId,
+        pdfHash: job.data.pdfHash,
       },
       {
         attempts: 5,

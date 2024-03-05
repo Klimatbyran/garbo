@@ -4,6 +4,7 @@ import pdf from 'pdf-parse'
 import { splitText } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
+import elastic from '../elastic'
 
 class JobData extends Job {
   data: {
@@ -40,12 +41,20 @@ const worker = new Worker(
         throw error;
       }
       const text = doc.text;
+      
+      let pdfHash = '';
+      try {
+        pdfHash = await elastic.indexPdf(buffer);
+      } catch (error) {
+        job.log(`Error indexing PDF: ${error.message}`);
+      }
 
       splitText.add('split text ' + text.slice(0, 20), {
         url,
         text,
         channelId,
         messageId,
+        pdfHash,
       });
 
       return doc.text;

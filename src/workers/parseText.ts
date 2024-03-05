@@ -13,6 +13,7 @@ class JobData extends Job {
     paragraphs: string[]
     channelId: string
     messageId: string
+    pdfHash: string
   }
 }
 
@@ -48,6 +49,7 @@ const worker = new Worker(
       paragraphs: paragraphs,
       channelId: job.data.channelId,
       messageId: job.data.messageId,
+      pdfHash: job.data.pdfHash,
     })
 
     return response
