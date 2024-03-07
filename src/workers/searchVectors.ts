@@ -28,7 +28,9 @@ const worker = new Worker(
     const url = job.data.url
 
     job.log('Searching ' + url)
-    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const channel = (await discord.client.channels.fetch(
+      job.data.channelId
+    )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
     await message.edit(`Hämtar ut utsläppsdata...`)
 
@@ -40,7 +42,7 @@ const worker = new Worker(
     const results = await collection.query({
       nResults: 5,
       queryTexts: [
-        'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, ',
+        'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål, ',
       ],
     })
 
