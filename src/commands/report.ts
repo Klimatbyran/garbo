@@ -3,7 +3,7 @@ import { checkURL } from '../queues'
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('analyze')
+    .setName('report')
     .addStringOption((option) =>
       option.setName('url').setDescription('URL to report file').setRequired(true)
     )
@@ -12,11 +12,11 @@ export default {
     ),
 
   async execute(interaction) {
-    console.log('analyze')
+    console.log('report')
     const url = interaction.options.getString('url')
     if (!url) {
       await interaction.followUp({
-        content: 'No url provided. Try again with /analyze <url>',
+        content: 'No url provided. Try again with /report <url>',
         ephemeral: true,
       })
 
@@ -38,3 +38,4 @@ export default {
 
   },
 }
+

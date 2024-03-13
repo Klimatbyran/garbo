@@ -20,15 +20,15 @@ const worker = new Worker(
     job.log(`Downloading from url: ${url}`)
     const channel = await discord.client.channels.fetch(channelId) as TextChannel
     const message = await channel.messages.fetch(messageId)
-    await message.edit(`Laddar ner PDF...`)
+    await message.edit(`Undersöker om rapporten är pdf eller webbsida...`)
 
     const fileType = url.endsWith('.pdf') ? 'pdf' : 'webpage'
     if (fileType === 'pdf') {
       job.log('Data is PDF: ' + url)
-      downloadPDF.add('download data ' + url, { url })
+      downloadPDF.add('download data ' + url, { url, channelId, messageId })
     } else {
       job.log('Data is website: ' + url)
-      downloadWebsite.add('download data ' + url, { url })
+      downloadWebsite.add('download data ' + url, { url, channelId, messageId })
     }      
     return { fileType, url }
   },

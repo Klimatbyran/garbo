@@ -5,6 +5,7 @@ import axios from 'axios'
 import { JSDOM } from 'jsdom'
 import { TextChannel } from 'discord.js'
 import discord from '../discord'
+import elastic from '../elastic'
 
 class JobData extends Job {
   data: {
@@ -56,9 +57,19 @@ const worker = new Worker(
       console.error(`Error downloading website ${url}: ${error}`)
     }
 
+    let pdfHash = '';
+    try {
+      pdfHash = await elastic.indexPdf(buffer);
+    } catch (error) {
+      job.log(`Error indexing PDF: ${error.message}`);
+    }
+
     splitText.add('split text ' + text.slice(0, 20), {
       url,
       text,
+      channelId,
+      messageId,
+      pdfHash,
     })
 
     return text
@@ -70,3 +81,4 @@ const worker = new Worker(
 )
 
 export default worker
+
