@@ -1,5 +1,4 @@
 import config from './config/elasticsearch';
-import { reportMappings } from './config/emissionReportMappings';
 import { Client } from '@elastic/elasticsearch';
 import * as crypto from 'crypto';
 
@@ -66,7 +65,7 @@ class Elastic {
                     bransch: { type: 'keyword' },
                     baseYear: { type: 'keyword' },
                     url: { type: 'keyword' },
-                    emissionsData: {
+                    emissions: {
                       type: 'nested',
                       properties: {
                         year: { type: 'keyword' },
