@@ -15,10 +15,10 @@
         "baseYear": "2018"
       },
       "scope3": {
-        "emissions": "Error 404",
-        "unit": "Error 404",
+        "emissions": null,
+        "unit": null,
         "baseYear": "2018",
-        "categories": "Error 404"
+        "categories": {}
       },
       "totalEmissions": "Error 500",
       "totalUnit": "ton CO2e"
@@ -41,7 +41,7 @@
         "emissions": "3595000",
         "unit": "ton CO2e",
         "baseYear": "2019",
-        "categories": "Error 404"
+        "categories": {}
       },
       "totalEmissions": "2834000",
       "totalUnit": "ton CO2e"
@@ -64,7 +64,7 @@
         "emissions": "3410000",
         "unit": "ton CO2e",
         "baseYear": "2020",
-        "categories": "Error 404"
+        "categories": {}
       },
       "totalEmissions": "2662000",
       "totalUnit": "ton CO2e"
@@ -84,10 +84,10 @@
         "baseYear": "2021"
       },
       "scope3": {
-        "emissions": "Error 404",
-        "unit": "Error 404",
+        "emissions": null,
+        "unit": null,
         "baseYear": "2021",
-        "categories": "Error 404"
+        "categories": {}
       },
       "totalEmissions": "2626000",
       "totalUnit": "ton CO2e"
@@ -107,10 +107,10 @@
         "baseYear": "2022"
       },
       "scope3": {
-        "emissions": "Error 404",
-        "unit": "Error 404",
+        "emissions": null,
+        "unit": null,
         "baseYear": "2022",
-        "categories": "Error 404"
+        "categories": {}
       },
       "totalEmissions": "2649000",
       "totalUnit": "ton CO2e"

@@ -13,17 +13,17 @@ I have a text extracted from a PDF file containing a company's annual report and
       "organizationNumber": "123456789",
       "emissions": [
         {
-          "year: "2019",
+          "year": "2019",
           "scope1": {
             "emissions": "1234",
             "unit": "Mt CO2e",
             "baseYear": "2019"
           },
           "scope2": {
-            "emissions": "1235",
+            "emissions": "123500",
             "unit": "Mt CO2e",
-            "mb": "1235",
-            "lb": "125",
+            "mb": "123500",
+            "lb": null
             "baseYear": "2019"
           },
           "scope3": {
@@ -47,23 +47,23 @@ I have a text extracted from a PDF file containing a company's annual report and
               "14_franchises": "100000000",
               "15_investments": "100000000",
               "16_other": "100000000"
-            },
+            }
           },
           "totalEmissions": "1553",
           "totalUnit": "Million ton CO2e"
         }
-        // Additional years follow the same structure
-      }
+      ]
     }
 
 4. **Include Total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select the most relevant one for the total emissions.
 
-5. **Error Codes**: If not all information is available, use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+5. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
-    - 'Error 404': Missing data
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
+
+6. Comma separators. Never use any comma separators or spaces in the numbers.
 
 Then, send the results of your analysis back to me.
 `
