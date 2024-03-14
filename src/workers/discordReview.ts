@@ -1,5 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
+import elastic from '../elastic'
 import discord from '../discord'
 import {
   ModalBuilder,
@@ -18,6 +19,7 @@ class JobData extends Job {
     json: string
     channelId: string
     messageId: string
+    pdfHash: string
   }
 }
 
@@ -31,6 +33,12 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = JSON.parse(job.data.json)
+    let documentId = ''
+    try {
+      documentId = await elastic.indexReport(job.data.pdfHash, parsedJson, job.data.url)
+    } catch (error) {
+      job.log(`Error indexing report: ${error.message}`)
+    }
 
     // Skapa en knapp
     const row = new ActionRowBuilder().addComponents(
@@ -68,13 +76,16 @@ const worker = new Worker(
     job.updateProgress(40)
 
     discord.client.on('interactionCreate', async (interaction) => {
+      let reportState = ''
       if (interaction.isButton() && interaction.customId === 'approve') {
+        reportState = 'approved'
         interaction.update({
           content: 'Approved!',
           embeds: [],
           components: [],
         })
       } else if (interaction.isButton() && interaction.customId === 'edit') {
+        reportState = 'edited'
         const input = new TextInputBuilder()
           .setCustomId('editInput')
           .setLabel(`Granska utsläppsdata`)
@@ -111,14 +122,22 @@ const worker = new Worker(
         }
       } else if (interaction.isButton() && interaction.customId === 'reject') {
         // todo diskutera vad vill vill händer. ska man ens få rejecta?
+        reportState = 'rejected'
         interaction.update({
           content: 'Rejected!',
           embeds: [],
           components: [],
         })
       }
-    })
 
+      if (reportState !== '') {
+        try {
+          await elastic.updateDocumentState(documentId, reportState)
+        } catch (error) {
+          job.log(`Error updating document state: ${error.message}`)
+        }
+      }
+    })
     job.updateProgress(100)
   },
   {

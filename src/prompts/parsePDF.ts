@@ -51,11 +51,24 @@ I have a text extracted from a PDF file containing a company's annual report and
           },
           "totalEmissions": "1553",
           "totalUnit": "Million ton CO2e"
+        },
+        {
+          "year": "2020",
+          "scope1": {
+            "emissions": null
+          },
+          "scope2": {
+            "emissions": null
+          }
+          "scope3": {
+            "emissions": null,
+            "categories": {}
+          }
         }
       ]
     }
 
-4. **Include Total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select the most relevant one for the total emissions.
+4. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select the most relevant one for the total emissions.
 
 5. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 

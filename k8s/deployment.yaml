@@ -14,7 +14,7 @@ spec:
         app: data-pipeline
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/data-pipeline:1.1.12 # {"$imagepolicy": "flux-system:data-pipeline"}
+        - image: ghcr.io/klimatbyran/data-pipeline:1.1.25 # {"$imagepolicy": "flux-system:data-pipeline"}
           resources: {}
           name: data-pipeline
           ports:
@@ -45,6 +45,16 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
+            - name: ELASTIC_NODE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: ELASTIC_NODE_URL
+            - name: ELASTIC_INDEX_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: ELASTIC_INDEX_NAME
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
