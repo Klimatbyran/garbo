@@ -17,8 +17,8 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
       "baseYear": "2019",
       "url": "https://example.com",
       "emissions": [
-        {
-          "year": "2019": {
+       {
+          "year": "2019",
           "scope1": {
             "emissions": "1234",
             "unit": "Mt CO2e",

@@ -5,6 +5,7 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
+import fs from 'fs/promises'
 
 import discord from './discord'
 import elastic from './elastic'
@@ -20,6 +21,7 @@ import {
   searchVectors,
   splitText,
 } from './queues'
+import { scope2Image } from './lib/imageCreator'
 
 // add dummy job
 // downloadPDF.add('dummy', {
@@ -64,4 +66,19 @@ app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
   console.log('Running on 3000...')
   console.log('For the UI, open http://localhost:3000/admin/queues')
+})
+
+app.get('/', (req, res) => {
+  res.send(`Hi I'm Garbo!`)
+})
+
+app.get(`/api/companies`, async function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'image/png' })
+  const exampleString = (
+    await fs.readFile('./src/data/example.json')
+  ).toString()
+  console.log('exampleString', exampleString)
+  const example = JSON.parse(exampleString)
+  const image = await scope2Image(example)
+  res.end(image, 'binary')
 })
