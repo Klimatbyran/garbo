@@ -14,7 +14,9 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
       "bransch": "Manufacturing",
       "baseYear": "2019",
       "url": "https://example.com",
-       "2019": {
+      "emissions": [
+       {
+          "year": "2019",
           "scope1": {
             "emissions": "1234",
             "unit": "Mt CO2e",
@@ -53,6 +55,7 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
           "totalEmissions": "1553",
           "totalUnit": "Million ton CO2e",
         },
+      ],
       "reliability": "High",
       "needsReview": true,
       "reviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."

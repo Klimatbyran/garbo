@@ -1,0 +1,57 @@
+<style>
+  body{ font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5;
+  padding: 10px; color: #333; } .container { display: flex; flex-direction:
+  column; gap: 32px; /* Adjusted for better spacing */ } .title { font-size:
+  1.125rem; /* Large font size */ font-weight: bold; } table { width: 100%;
+  border-collapse: collapse; margin-top: 8px; } th, td { border: 1px solid #ddd;
+  /* Lighter border for a modern look */ padding: 8px; text-align: left; } th {
+  background-color: #f2f2f2; /* Light grey background for header */ }
+  tr:nth-child(even) td { background-color: #f2f2f2; /* Light grey background
+  for even rows */ } .text-left { text-align: left; } td[rowspan] {
+  vertical-align: top; /* Ensure alignment for cells with rowspan */ }
+
+</style>
+<div class='container'>
+  <div>
+    <h2 class='title'>
+      Koldioxidutsläpp (CO<sub>2</sub>e)
+    <h2 class='title'>{{companyName}}s rapporteringskategorier inom scope 3</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class='text-left'>Kategori enligt Greenhouse Gas Protocol</th>
+          <th>CO<sub>2</sub>e, utsläpp (ton)</th>
+          <th>2022</th>
+          <th>2021</th>
+          <th>2020</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan='9'>Inköpta varor och tjänster (begränsat till cement,
+            betong, stål och bitumen, asfalt)</td>
+          <td>Kapitalvaror</td>
+          <td>864&nbsp;000</td>
+          <td>950&nbsp;000</td>
+          <td>987&nbsp;000</td>
+        </tr>
+        <!-- Include other rows similar to the above format -->
+        <tr>
+          <td>Bränsle- och energirelaterade åtgärder (som inte ingår i scope 1
+            eller scope 2)</td>
+          <td>42&nbsp;000</td>
+          <td>45&nbsp;000</td>
+          <td>45&nbsp;000</td>
+        </tr>
+        <!-- Additional rows omitted for brevity -->
+        <tr>
+          <td>Användning av sålda produkter<sup>6</sup></td>
+          <td>770&nbsp;000</td>
+          <td>695&nbsp;000</td>
+          <td>890&nbsp;000</td>
+        </tr>
+        <!-- Continue for all other rows -->
+      </tbody>
+    </table>
+  </div>
+</div>
