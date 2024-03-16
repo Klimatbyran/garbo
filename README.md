@@ -1,8 +1,13 @@
-## Klimatkollen Data Pipeline
+## Klimatkollen Garbo AI
 
-This is the main repo for fetching data from sources and adding them to our database in a multi-step process using BullMQ as task handler.
+This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self reported data from companies. 
 
-<img width="1200" alt="image" src="https://github.com/Klimatbyran/data-pipeline/assets/395843/d280fbc0-6fd9-496e-a487-9b37c3ab179f">
+Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
+
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into Elasticsearch and Wikidata.
+
+![image](https://github.com/Klimatbyran/data-pipeline/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
+
 
 ## Current Status
 
