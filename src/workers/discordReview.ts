@@ -35,7 +35,7 @@ const worker = new Worker(
     const parsedJson = JSON.parse(job.data.json)
     let documentId = ''
     try {
-      documentId = await elastic.indexReport(job.data.pdfHash, parsedJson, job.data.url)
+      //documentId = await elastic.indexReport(job.data.pdfHash, parsedJson, job.data.url)
     } catch (error) {
       job.log(`Error indexing report: ${error.message}`)
     }
