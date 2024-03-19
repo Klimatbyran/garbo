@@ -9,21 +9,21 @@ class Elastic {
 
   constructor({ node, indexName }) {
     try  {
-      this.client = new Client({ node });
-      this.indexName = indexName;
-      this.pdfIndex = 'pdfs';
+      //this.client = new Client({ node });
+      //this.indexName = indexName;
+      //this.pdfIndex = 'pdfs';
     } catch (error) {
       console.error('Elasticsearch constructor error:', error);
     }
   }
 
   async setupIndices() {
-    await this.createEmissionsIndex();
-    await this.createPdfIndex();
+    //await this.createEmissionsIndex();
+    //await this.createPdfIndex();
   }
 
   private async createPdfIndex() {
-    try {
+    /*try {
       console.log(`Checking if index ${this.pdfIndex} exists...`);
       const indexExists = await this.client.indices.exists({ index: this.pdfIndex });
       if (!indexExists) {
@@ -43,11 +43,11 @@ class Elastic {
       }
     } catch (error) {
       console.error('Elasticsearch pdfIndex error:', error);
-    }
+    }*/
   } 
 
   private async createEmissionsIndex() {
-    try {
+    /*try {
       console.log(`Checking if index ${this.indexName} exists...`);
       const indexExists = await this.client.indices.exists({ index: this.indexName });
       if (!indexExists) {
@@ -118,7 +118,7 @@ class Elastic {
     }
     } catch (error) {
       console.error('Elasticsearch setupIndex error:', error);
-    }
+    }*/
   }
 
   private hashPdf(pdfBuffer: Buffer): string {
@@ -127,7 +127,7 @@ class Elastic {
 
   // Index the PDF using the hash as document ID and returning it for reference
   async indexPdf(pdfBuffer: ArrayBuffer) {
-    const buffer = Buffer.from(pdfBuffer);
+    /*const buffer = Buffer.from(pdfBuffer);
     const pdfHash = this.hashPdf(buffer);
   
     try {
@@ -145,11 +145,11 @@ class Elastic {
       console.error(`Error indexing PDF for Document ID ${pdfHash}:`, error);
       // return anyway, as the report is still added later
       return pdfHash;
-    }
+    }*/
   }
 
   async indexReport(pdfHash: string, reportData: string, url: string) {
-    try {
+    /*try {
       const response = await this.client.index({
         index: this.indexName,
         body: {
@@ -165,11 +165,11 @@ class Elastic {
       return documentId;
     } catch (error) {
       console.error(`Error adding report data:`, error);
-    }
+    }*/
   }
 
   async updateDocumentState(documentId: string, newState: string) {
-    try {
+    /*try {
       await this.client.update({
         index: this.indexName,
         id: documentId,
@@ -182,8 +182,9 @@ class Elastic {
       console.log(`Document ${documentId} state updated to ${newState}.`);
     } catch (error) {
       console.error(`Error updating document state for Document ID ${documentId}:`, error);
-    }
+    }*/
   }
+
 }
 
 export default new Elastic(config)
