@@ -184,6 +184,45 @@ class Elastic {
       console.error(`Error updating document state for Document ID ${documentId}:`, error);
     }
   }
+
+  async getAllLatestApprovedReports() {
+    try {
+      const { body } = await this.client.search({
+        index: this.indexName,
+        body: {
+          query: {
+            bool: {
+              must: [
+                { match: { state: 'approved' } }
+              ]
+            }
+          },
+          sort: [
+            { 'report.companyName.keyword': { order: 'asc' } },
+            { timestamp: { order: 'desc' } }
+          ],
+          size: 1000
+        }
+      }) as any;
+  
+      const reports = body.hits.hits.map(hit => hit._source);
+      const latestReports = {};
+  
+      reports.forEach(report => {
+        const companyName = report.report.companyName;
+        // If the company hasn't been added to latestReports or the current report is more recent, update it
+        if (!latestReports[companyName] || new Date(latestReports[companyName].timestamp) < new Date(report.timestamp)) {
+          latestReports[companyName] = report;
+        }
+      });
+  
+      return Object.values(latestReports);
+    } catch (error) {
+      console.error('Error retrieving all approved reports:', error);
+      return [];
+    }
+  }
+
 }
 
 export default new Elastic(config)
