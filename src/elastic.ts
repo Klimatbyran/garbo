@@ -185,6 +185,7 @@ class Elastic {
     }
   }
 
+  // TODO support report per year and company (not only latest approved). So; get the latest approved report for each company and year
   async getAllLatestApprovedReports() {
     try {
       const { body } = await this.client.search({

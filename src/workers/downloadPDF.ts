@@ -44,7 +44,7 @@ const worker = new Worker(
       
       let pdfHash = '';
       try {
-        pdfHash = await elastic.indexPdf(buffer);
+        //pdfHash = await elastic.indexPdf(buffer);
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`);
       }
