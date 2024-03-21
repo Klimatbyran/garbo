@@ -45,16 +45,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: ELASTIC_NODE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: ELASTIC_NODE_URL
-            - name: ELASTIC_INDEX_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: ELASTIC_INDEX_NAME
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
