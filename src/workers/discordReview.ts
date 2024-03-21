@@ -1,6 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import elastic from '../elastic'
+import db from '../db'
 import discord from '../discord'
 import {
   ModalBuilder,
@@ -35,7 +35,11 @@ const worker = new Worker(
     const parsedJson = JSON.parse(job.data.json)
     let documentId = ''
     try {
-      documentId = await elastic.indexReport(job.data.pdfHash, parsedJson, job.data.url)
+      documentId = await db.indexReport(
+        job.data.pdfHash,
+        parsedJson,
+        job.data.url
+      )
     } catch (error) {
       job.log(`Error indexing report: ${error.message}`)
     }
@@ -132,7 +136,7 @@ const worker = new Worker(
 
       if (reportState !== '') {
         try {
-          await elastic.updateDocumentState(documentId, reportState)
+          await db.updateDocumentState(documentId, reportState)
         } catch (error) {
           job.log(`Error updating document state: ${error.message}`)
         }
