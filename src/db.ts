@@ -8,6 +8,7 @@ class Db {
   constructor(config: any) {
     try {
       this.client = createClient(config)
+      this.client.open()
     } catch (error) {
       console.error('Redis constructor error:', error)
     }
