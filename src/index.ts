@@ -8,6 +8,7 @@ import { ExpressAdapter } from '@bull-board/express'
 import fs from 'fs/promises'
 
 import discord from './discord'
+import elastic from './elastic'
 
 // keep this line, otherwise the workers won't be started
 import * as workers from './workers'
