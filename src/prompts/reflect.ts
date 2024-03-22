@@ -13,6 +13,7 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
 
     {
       "companyName": "Example Company",
+      "organizationNumber": "123456789",
       "bransch": "Manufacturing",
       "baseYear": "2019",
       "url": "https://example.com",
