@@ -4,7 +4,7 @@ import pdf from 'pdf-parse'
 import { splitText } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
-import db from '../db'
+import elastic from '../elastic'
 
 class JobData extends Job {
   data: {
@@ -46,7 +46,7 @@ const worker = new Worker(
 
       let pdfHash = ''
       try {
-        pdfHash = await db.hashPdf(Buffer.from(buffer))
+        pdfHash = await elastic.hashPdf(Buffer.from(buffer))
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }

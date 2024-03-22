@@ -1,6 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import db from '../db'
+import elastic from '../elastic'
 import discord from '../discord'
 import {
   ModalBuilder,
@@ -35,7 +35,7 @@ const worker = new Worker(
     const parsedJson = JSON.parse(job.data.json)
     let documentId = ''
     try {
-      documentId = await db.indexReport(
+      documentId = await elastic.indexReport(
         job.data.pdfHash,
         parsedJson,
         job.data.url
@@ -136,7 +136,7 @@ const worker = new Worker(
 
       if (reportState !== '') {
         try {
-          await db.updateDocumentState(documentId, reportState)
+          await elastic.updateDocumentState(documentId, reportState)
         } catch (error) {
           job.log(`Error updating document state: ${error.message}`)
         }

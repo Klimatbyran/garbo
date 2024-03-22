@@ -121,7 +121,7 @@ class Elastic {
     }
   }
 
-  private hashPdf(pdfBuffer: Buffer): string {
+  public hashPdf(pdfBuffer: Buffer): string {
     return crypto.createHash('sha256').update(pdfBuffer).digest('hex');
   }
 
