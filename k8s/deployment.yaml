@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: data-pipeline
-  namespace: data-pipeline
+  name: garbo
+  namespace: garbo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: data-pipeline
+      app: garbo
   template:
     metadata:
       labels:
-        app: data-pipeline
+        app: garbo
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:1.1.32 # {"$imagepolicy": "flux-system:data-pipeline"}
+        - image: ghcr.io/klimatbyran/garbo:1.1.32 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
-          name: data-pipeline
+          name: garbo
           ports:
             - containerPort: 3000
           env:

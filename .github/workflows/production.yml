@@ -30,4 +30,4 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/Klimatbyran/data-pipeline:release-${{ github.event.release.tag_name }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:release-${{ github.event.release.tag_name }}
