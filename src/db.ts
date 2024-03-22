@@ -7,10 +7,14 @@ class Db {
 
   constructor(config: any) {
     try {
-      this.client = createClient(config)
-      this.client.open()
+      this.client = createClient(config);
+      this.client.connect().then(() => {
+        console.log('Connected to Redis');
+      }).catch((error) => {
+        console.error('Failed to connect to Redis:', error);
+      });
     } catch (error) {
-      console.error('Redis constructor error:', error)
+      console.error('Redis constructor error:', error);
     }
   }
 
