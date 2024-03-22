@@ -13,6 +13,8 @@ class Elastic {
       this.indexName = indexName;
       this.pdfIndex = 'pdfs';
     } catch (error) {
+      console.error('Node URL:', node);
+      console.error('Index name:', indexName);
       console.error('Elasticsearch constructor error:', error);
     }
   }
