@@ -62,6 +62,7 @@ class Elastic {
                   type: 'nested',
                   properties: {
                     companyName: { type: 'keyword' },
+                    orgranizationNumber: { type: 'keyword' },
                     bransch: { type: 'keyword' },
                     baseYear: { type: 'keyword' },
                     url: { type: 'keyword' },
@@ -87,11 +88,25 @@ class Elastic {
                           properties: {
                             emissions: { type: 'double' },
                             unit: { type: 'keyword' },
+                            baseYear: { type: 'keyword' },
                             categories: {
-                              type: 'nested',
                               properties: {
-                                categoryName: { type: 'keyword' },
-                                emissions: { type: 'double' }
+                                "1_purchasedGoods": { type: 'double' },
+                                "2_capitalGoods": { type: 'double' },
+                                "3_fuelAndEnergyRelatedActivities": { type: 'double' },
+                                "4_upstreamTransportationAndDistribution": { type: 'double' },
+                                "5_wasteGeneratedInOperations": { type: 'double' },
+                                "6_businessTravel": { type: 'double' },
+                                "7_employeeCommuting": { type: 'double' },
+                                "8_upstreamLeasedAssets": { type: 'double' },
+                                "9_downstreamTransportationAndDistribution": { type: 'double' },
+                                "10_processingOfSoldProducts": { type: 'double' },
+                                "11_useOfSoldProducts": { type: 'double' },
+                                "12_endOfLifeTreatmentOfSoldProducts": { type: 'double' },
+                                "13_downstreamLeasedAssets": { type: 'double' },
+                                "14_franchises": { type: 'double' },
+                                "15_investments": { type: 'double' },
+                                "16_other": { type: 'double' }
                               }
                             }
                           }
