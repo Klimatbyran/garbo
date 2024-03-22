@@ -21,6 +21,7 @@ import {
   splitText,
 } from './queues'
 import { scope2Image } from './lib/imageCreator'
+import companyRoutes from './routes/companyRoutes'
 
 // add dummy job
 // downloadPDF.add('dummy', {
@@ -60,6 +61,7 @@ createBullBoard({
 const app = express()
 discord.login()
 
+app.use('/api', companyRoutes);
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
   console.log('Running on 3000...')
