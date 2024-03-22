@@ -2,25 +2,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: data-pipeline
+  name: garbo
   annotations:
     kubernetes.io/ingress.class: 'nginx'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
-    external-dns.alpha.kubernetes.io/hostname: pipeline.klimatkollen.se.
+    external-dns.alpha.kubernetes.io/hostname: garbo.klimatkollen.se.
 spec:
   tls:
     - hosts:
-        - pipeline.klimatkollen.se
-      secretName: pipeline-klimatkollen-se-tls
+        - garbo.klimatkollen.se
+      secretName: garbo-klimatkollen-se-tls
 
   rules:
-    - host: pipeline.klimatkollen.se
+    - host: garbo.klimatkollen.se
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: data-pipeline
+                name: garbo
                 port:
                   number: 80
