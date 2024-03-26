@@ -28,7 +28,7 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
           "scope2": {
             "emissions": "1235",
             "unit": "Mt CO2e",
-            "mb": "1235",
+            "mb": null,
             "lb": "125",
             "baseYear": "2019"
           },
@@ -65,10 +65,87 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
       "reviewStatusCode": "412"
     }
 **Error Codes**: If you find errors which will not be reflected correctly with a null value, please indicate the error in a way that makes sense with HTTP Status codes.  For example:
-    - 'Error 404': Missing data
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
+
+
+This is the elastic schema that will be used to index the results. Make sure to not create any errors in the next step.
+
+      body: {
+            mappings: {
+              properties: {
+                url: { type: 'keyword' },
+                pdfHash: { type: 'keyword' },
+                report: {
+                  type: 'nested',
+                  properties: {
+                    companyName: { type: 'keyword' },
+                    orgranizationNumber: { type: 'keyword' },
+                    bransch: { type: 'keyword' },
+                    baseYear: { type: 'keyword' },
+                    url: { type: 'keyword' },
+                    emissions: {
+                      type: 'nested',
+                      properties: {
+                        year: { type: 'keyword' },
+                        scope1: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' }
+                          }
+                        },
+                        scope2: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' },
+                            mb: { type: 'double' },
+                            lb: { type: 'double' }
+                          }
+                        },
+                        scope3: {
+                          properties: {
+                            emissions: { type: 'double' },
+                            unit: { type: 'keyword' },
+                            baseYear: { type: 'keyword' },
+                            categories: {
+                              properties: {
+                                "1_purchasedGoods": { type: 'double' },
+                                "2_capitalGoods": { type: 'double' },
+                                "3_fuelAndEnergyRelatedActivities": { type: 'double' },
+                                "4_upstreamTransportationAndDistribution": { type: 'double' },
+                                "5_wasteGeneratedInOperations": { type: 'double' },
+                                "6_businessTravel": { type: 'double' },
+                                "7_employeeCommuting": { type: 'double' },
+                                "8_upstreamLeasedAssets": { type: 'double' },
+                                "9_downstreamTransportationAndDistribution": { type: 'double' },
+                                "10_processingOfSoldProducts": { type: 'double' },
+                                "11_useOfSoldProducts": { type: 'double' },
+                                "12_endOfLifeTreatmentOfSoldProducts": { type: 'double' },
+                                "13_downstreamLeasedAssets": { type: 'double' },
+                                "14_franchises": { type: 'double' },
+                                "15_investments": { type: 'double' },
+                                "16_other": { type: 'double' }
+                              }
+                            }
+                          }
+                        },
+                        totalEmissions: { type: 'double' },
+                        totalUnit: { type: 'keyword' },
+                      }
+                    },
+                    reliability: { type: 'keyword' },
+                    needsReview: { type: 'boolean' },
+                    reviewComment: { type: 'text' },
+                    reviewStatusCode: { type: 'keyword' }
+                  }
+                },
+                state: { type: 'keyword' },
+                timestamp: { type: 'date' }
+              }
+            }
+          }
+
 `
 
 export default prompt
