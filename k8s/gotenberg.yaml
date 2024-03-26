@@ -15,10 +15,6 @@ spec:
     spec:
       containers:
         - image: gotenberg/gotenberg
-          resources:
-            limits:
-              cpu: 500m
-              memory: 2Gi
           name: gotenberg
           ports:
             - containerPort: 3000
