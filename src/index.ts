@@ -5,7 +5,7 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import fs from 'fs/promises'
+import gotenberg from './config/gotenberg'
 
 import discord from './discord'
 import elastic from './elastic'
@@ -61,9 +61,9 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndices();
+elastic.setupIndices()
 
-app.use('/api', companyRoutes);
+app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
   console.log('Running on 3000...')
@@ -74,13 +74,20 @@ app.get('/', (req, res) => {
   res.send(`Hi I'm Garbo!`)
 })
 
-app.get(`/api/companies`, async function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'image/png' })
-  const exampleString = (
-    await fs.readFile('./src/data/example.json')
-  ).toString()
-  console.log('exampleString', exampleString)
-  const example = JSON.parse(exampleString)
-  const image = await scope2Image(example)
-  res.end(image, 'binary')
+app.post(`/api/image`, async function (req, res) {
+  const html = req.body.html // Get the HTML from the request body
+  const response = await fetch(`${gotenberg.url}/convert/html`, {
+    method: 'POST',
+    body: new URLSearchParams({
+      'index.html': html,
+    }),
+  })
+
+  if (response.ok) {
+    const imageBuffer = await response.arrayBuffer() // Get the image buffer from the response
+    res.writeHead(200, { 'Content-Type': 'image/png' })
+    res.end(imageBuffer, 'binary')
+  } else {
+    res.status(500).send('Failed to convert HTML to image')
+  }
 })
