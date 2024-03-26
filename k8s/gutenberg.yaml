@@ -17,7 +17,7 @@ spec:
         - image: gutenberg/gutenberg
           resources:
             limits:
-              cpu: 1
+              cpu: 500m
               memory: 2Gi
           name: gutenberg
           ports:
