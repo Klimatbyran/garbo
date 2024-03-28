@@ -3,9 +3,11 @@ I have previously sent a text for analysis by GPT-4. The answer I got back needs
 
 Reasonableness Assessment**: Assess the magnitude of the reported figures. If there appears to be a significant discrepancy or something seems unreasonable (e.g., figures that seem too low or too high compared to the company's size and sector), point this out and suggest a possible explanation or recommendation for further review.
 
-Also convert the JSON to valid json and convert all units to metric ton CO2e. We will take the output from this and add it directly to our database and publich them on the Internet. Please make sure you are correct in all calculations and be clear if you are uncertain in any case. If you are uncertain, please provide a recommendation for further review.
+Also convert the JSON to valid json and convert all units to metric ton CO2e. We will take the output from this and add it directly to our database and publish them on the Internet. Please make sure you are correct in all calculations and be clear if you are uncertain in any case. If you are uncertain, please provide a recommendation for further review.
 
-**Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.  If possible, also include the company's name and organization number in the JSON structure.
+Industry: Guess the correct industry for this company according to the Global Industry Classification Standard (GICS).
+
+**Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
 
 **Important** Always generate this exact JSON structure, even if you cannot find the data. Indicate missing data with the error codes below, but make sure that the JSON structure is consistent. For example, if you cannot find the scope 3 categories you must make sure that the categories object is a valid JSON array.
 
@@ -13,8 +15,7 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
 
     {
       "companyName": "Example Company",
-      "organizationNumber": "123456789",
-      "bransch": "Manufacturing",
+      "industry": "Manufacturing",
       "baseYear": "2019",
       "url": "https://example.com",
       "emissions": [
