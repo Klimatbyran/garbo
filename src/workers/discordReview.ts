@@ -65,8 +65,10 @@ const worker = new Worker(
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
         ${parsedJson.reviewComment}
-        ${job.data.url}`,
-      embeds: [scope2],
+        ${job.data.url}
+        Tolkad data:
+        ${scope2}
+        `,
       components: [row],
     })
 
