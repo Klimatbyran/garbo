@@ -21,17 +21,25 @@ const worker = new Worker(
 
     const paragraphs = job.data.text.split('\n\n').filter((p) => p.length > 0)
 
-    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const channel = (await discord.client.channels.fetch(
+      job.data.channelId
+    )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
     await message.edit(`Bearbetar PDF...`)
-    
-    indexParagraphs.add('found ' + paragraphs.length, {
-      paragraphs,
-      url: job.data.url,
-      channelId: job.data.channelId,
-      messageId: job.data.messageId,
-      pdfHash: job.data.pdfHash,
-    })
+
+    indexParagraphs.add(
+      'found ' + paragraphs.length,
+      {
+        paragraphs,
+        url: job.data.url,
+        channelId: job.data.channelId,
+        messageId: job.data.messageId,
+        pdfHash: job.data.pdfHash,
+      },
+      {
+        attempts: 3,
+      }
+    )
 
     job.updateProgress(100)
 
