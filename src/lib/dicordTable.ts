@@ -53,12 +53,9 @@ export const scope2Table = async (company: CompanyData) => {
   const emissions = company.emissions.sort((a, b) => b.year - a.year)
 
   const table = new Table({
-    titles: [
-      '## Koldioxidutsläpp (CO<sub>2</sub>e)',
-      ...emissions.map((e) => e.year.toString()),
-    ],
-    titleIndexes: [0, 8, 16],
-    columnIndexes: [0, 6, 14],
+    titles: ['CO₂', ...emissions.map((e) => e.year.toString())],
+    titleIndexes: emissions.map((e, i) => i * 8),
+    columnIndexes: emissions.map((e, i) => i * 8),
     start: '`',
     end: '`',
     padEnd: 3,
