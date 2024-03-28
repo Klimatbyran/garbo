@@ -39,33 +39,19 @@ const worker = new Worker(
       embeddingFunction: embedder,
     })
 
-    await Promise.all(
-      paragraphs.map(async (p, i) => {
-        job.log('Adding paragraph ' + i)
-        await collection.add({
-          ids: [job.data.url + '#' + i],
-          metadatas: [
-            {
-              source: url,
-              parsed: new Date().toISOString(),
-              page: i,
-            },
-          ],
-          documents: [p],
-        })
-        job.updateProgress(Math.floor(Math.min(1, i / paragraphs.length) * 100))
-      })
-    )
-
-    // await collection.add({
-    //   ids: paragraphs.map((p, i) => job.data.url + '#' + i),
-    //   metadatas: paragraphs.map((p, i) => ({
-    //     source: url,
-    //     parsed: new Date().toISOString(),
-    //     page: i,
-    //   })),
-    //   documents: paragraphs.map((p) => p),
-    // })
+    const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
+    const metadatas = paragraphs.map((p, i) => ({
+      source: url,
+      type: 'company_sustainability_report',
+      parsed: new Date().toISOString(),
+      page: i,
+    }))
+    const documents = paragraphs.map((p) => p)
+    await collection.add({
+      ids,
+      metadatas,
+      documents,
+    })
 
     searchVectors.add('search ' + url, {
       url,
