@@ -191,13 +191,19 @@ class Elastic {
     }
   }
 
-  async indexReport(pdfHash: string, reportData: string, url: string) {
+  async indexReport(pdfHash: string, reportData: any, url: string) {
     try {
-      console.log(typeof reportData);
-      console.log(reportData);
-
-      const parsed = JSON.parse(reportData)
-
+      let parsed;
+      if (typeof reportData === 'string') {
+        console.log("Parsing report data");
+        parsed = JSON.parse(reportData);
+      } else if (typeof reportData === 'object') {
+        console.log("Report data is already parsed");
+        parsed = reportData;
+      } else {
+        throw new Error("reportData is neither a string nor an object");
+      }
+      
       // Convert from array to object for easier access in elastic
       const emissions = parsed.emissions.reduce((acc, curr) => {
         acc[curr.year] = curr
