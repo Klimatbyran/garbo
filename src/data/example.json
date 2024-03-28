@@ -41,7 +41,24 @@
         "emissions": "3595000",
         "unit": "ton CO2e",
         "baseYear": "2019",
-        "categories": {}
+        "categories": {
+          "1_purchasedGoods": "130000000",
+          "2_capitalGoods": "150000000",
+          "3_fuelAndEnergyRelatedActivities": "160000000",
+          "4_upstreamTransportationAndDistribution": "230000000",
+          "5_wasteGeneratedInOperations": "30000000",
+          "6_businessTravel": "430000000",
+          "7_employeeCommuting": "100000000",
+          "8_upstreamLeasedAssets": "100000000",
+          "9_downstreamTransportationAndDistribution": "100000000",
+          "10_processingOfSoldProducts": "100000000",
+          "11_useOfSoldProducts": "100000000",
+          "12_endOfLifeTreatmentOfSoldProducts": "100000000",
+          "13_downstreamLeasedAssets": "100000000",
+          "14_franchises": "100000000",
+          "15_investments": "100000000",
+          "16_other": "100000000"
+        }
       },
       "totalEmissions": "2834000",
       "totalUnit": "ton CO2e"

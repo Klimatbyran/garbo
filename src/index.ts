@@ -21,7 +21,7 @@ import {
   searchVectors,
   splitText,
 } from './queues'
-import { scope2Table } from './lib/dicordTable'
+import { summaryTable, scope3Table } from './lib/dicordTable'
 import companyRoutes from './routes/companyRoutes'
 
 // add dummy job
@@ -96,6 +96,7 @@ app.get(`/api/companies`, async function (req, res) {
   ).toString()
   console.log('exampleString', exampleString)
   const example = JSON.parse(exampleString)
-  const table = await scope2Table(example)
-  res.end(table)
+  const scope2 = await summaryTable(example)
+  const scope3 = await scope3Table(example)
+  res.end(scope2 + '\n' + scope3)
 })

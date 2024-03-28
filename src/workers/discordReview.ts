@@ -11,7 +11,7 @@ import {
   ModalActionRowComponentBuilder,
   TextInputStyle,
 } from 'discord.js'
-import { scope2Table } from '../lib/dicordTable'
+import { summaryTable, scope3Table } from '../lib/dicordTable'
 
 class JobData extends Job {
   data: {
@@ -60,16 +60,22 @@ const worker = new Worker(
         .setStyle(ButtonStyle.Danger)
     )
 
-    const scope2 = await scope2Table(parsedJson)
+    const summary = await summaryTable(parsedJson)
+    const scope3 = await scope3Table(parsedJson)
 
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
-        ${parsedJson.companyName}
-        ${job.data.url}
-Tolkad data:
-${scope2}
-        ---
-        ${parsedJson.reviewComment}
+${parsedJson.companyName}
+${job.data.url}
+> ## Tolkad data:
+${summary}
+> ## Scope 3:
+${scope3}
+        ${
+          parsedJson.reviewComment
+            ? `Kommentar från Garbo: ${parsedJson.reviewComment}`
+            : ''
+        }
         `,
       components: [row],
     })
