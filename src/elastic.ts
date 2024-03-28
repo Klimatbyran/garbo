@@ -170,7 +170,6 @@ class Elastic {
     const isDouble = (value) => typeof value === 'number';
     
     const hasValidTopLevelProps = isString(report.companyName) &&
-                                  isString(report.orgranizationNumber) &&
                                   isString(report.bransch) &&
                                   isString(report.baseYear) &&
                                   isString(report.url) &&
@@ -184,8 +183,6 @@ class Elastic {
     if (typeof report.emissions !== 'object' || report.emissions === null) return false;
   
     for (const year of Object.keys(report.emissions)) {
-      if (year === "totalEmissions" || year === "totalUnit") continue; // Skip total emissions checks
-  
       const yearData = report.emissions[year];
       if (typeof yearData !== 'object' || yearData === null) return false;
       if (!isString(yearData.year) || !isDouble(yearData.scope1.emissions) || 
