@@ -35,6 +35,8 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
+            - name: GOTENBERG_URL
+              value: http://gotenberg:3000
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:

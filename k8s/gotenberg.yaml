@@ -25,3 +25,14 @@ spec:
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gotenberg
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: garbo
