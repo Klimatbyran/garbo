@@ -21,7 +21,7 @@ import {
   searchVectors,
   splitText,
 } from './queues'
-import { scope2Image } from './lib/imageCreator'
+import { scope2Table } from './lib/dicordTable'
 import companyRoutes from './routes/companyRoutes'
 
 // add dummy job
@@ -61,9 +61,9 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndices();
+elastic.setupIndices()
 
-app.use('/api', companyRoutes);
+app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())
 app.listen(3000, () => {
   console.log('Running on 3000...')
@@ -81,6 +81,6 @@ app.get(`/api/companies`, async function (req, res) {
   ).toString()
   console.log('exampleString', exampleString)
   const example = JSON.parse(exampleString)
-  const image = await scope2Image(example)
-  res.end(image, 'binary')
+  const table = await scope2Table(example)
+  res.end(table)
 })
