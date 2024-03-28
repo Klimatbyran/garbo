@@ -55,7 +55,11 @@ const trimText = (text: string | number = '', length: number = 12) =>
   text && text.toLocaleString('sv-se').slice(0, length).padEnd(length, ' ')
 
 export const summaryTable = async (company: CompanyData) => {
-  const emissions = company.emissions.sort((a, b) => b.year - a.year)
+  if (!company.emissions) {
+    return '> *Ingen data rapporterad*'
+  }
+
+  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
 
   const table = [
     [
@@ -81,7 +85,11 @@ export const summaryTable = async (company: CompanyData) => {
 }
 
 export const scope3Table = async (company: CompanyData) => {
-  const emissions = company.emissions.sort((a, b) => b.year - a.year)
+  if (!company.emissions) {
+    return '> *Ingen data rapporterad*'
+  }
+
+  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
   const categories = emissions
     .map((e) => Object.keys(e.scope3?.categories))
     .flat()
