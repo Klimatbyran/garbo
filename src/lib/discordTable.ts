@@ -56,17 +56,13 @@ const trimText = (text: string | number = '', length: number = 12) =>
 
 export const summaryTable = async (company: CompanyData) => {
   if (!company.emissions) {
-    return '> *Ingen data rapporterad*'
+    return '*Ingen data rapporterad*'
   }
 
   const emissions = company.emissions?.sort((a, b) => b.year - a.year)
 
   const table = [
-    [
-      '> ' + trimText('** CO2'),
-      ...emissions.map((e) => trimText(e.year)),
-      '**',
-    ],
+    [trimText('** CO2'), ...emissions.map((e) => trimText(e.year)), '**'],
     [
       trimText('Scope 1'),
       ...emissions.map((e) => trimText(e.scope1?.emissions) || trimText('-')),
@@ -86,7 +82,7 @@ export const summaryTable = async (company: CompanyData) => {
 
 export const scope3Table = async (company: CompanyData) => {
   if (!company.emissions) {
-    return '> *Ingen data rapporterad*'
+    return '*Ingen data rapporterad*'
   }
 
   const emissions = company.emissions?.sort((a, b) => b.year - a.year)
@@ -95,11 +91,11 @@ export const scope3Table = async (company: CompanyData) => {
     .flat()
 
   if (!categories.length) {
-    return '> *Ingen Scope 3 data rapporterad*'
+    return '*Ingen Scope 3 data rapporterad*'
   }
   const table = [
     ...categories.map((c) => [
-      '> ' + trimText(c),
+      trimText(c),
       ...emissions.map(
         (e) => trimText(e.scope3?.categories[c]) || trimText('-')
       ),
