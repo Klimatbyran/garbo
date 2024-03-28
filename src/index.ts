@@ -21,7 +21,7 @@ import {
   searchVectors,
   splitText,
 } from './queues'
-import { summaryTable, scope3Table } from './lib/dicordTable'
+import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
 
 // add dummy job

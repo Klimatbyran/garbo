@@ -13,7 +13,7 @@ import {
   Embed,
   EmbedBuilder,
 } from 'discord.js'
-import { summaryTable, scope3Table } from '../lib/dicordTable'
+import { summaryTable, scope3Table } from '../lib/discordTable'
 
 class JobData extends Job {
   data: {
