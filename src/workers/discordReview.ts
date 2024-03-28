@@ -70,9 +70,9 @@ const worker = new Worker(
 ${parsedJson.companyName}
 ${job.data.url}
 > ## Tolkad data:
-${summary}
+\`${summary}\`
 > ## Scope 3:
-${scope3}
+\`${scope3}\`
         ${
           parsedJson.reviewComment
             ? `Kommentar från Garbo: ${parsedJson.reviewComment}`
