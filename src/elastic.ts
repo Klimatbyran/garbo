@@ -193,6 +193,9 @@ class Elastic {
 
   async indexReport(pdfHash: string, reportData: string, url: string) {
     try {
+      console.log(typeof reportData);
+      console.log(reportData);
+
       const parsed = JSON.parse(reportData)
 
       // Convert from array to object for easier access in elastic
