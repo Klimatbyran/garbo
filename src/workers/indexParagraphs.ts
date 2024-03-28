@@ -12,7 +12,7 @@ import { TextChannel } from 'discord.js'
 class JobData extends Job {
   data: {
     paragraphs: string[]
-    url: string,
+    url: string
     channelId: string
     messageId: string
     pdfHash: string
@@ -26,9 +26,11 @@ const worker = new Worker(
 
     const paragraphs = job.data.paragraphs
     const url = job.data.url
-    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const channel = (await discord.client.channels.fetch(
+      job.data.channelId
+    )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Sparar i vectordatabas...`)
+    await message.edit(`Sparar i vektordatabas...`)
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
