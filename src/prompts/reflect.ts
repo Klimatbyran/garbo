@@ -64,13 +64,13 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
       "reviewComment": "The company has reported emissions in tons instead of metric tons. This is not a common unit and should be converted to metric tons."
       "reviewStatusCode": "412"
     }
-**Error Codes**: If you find errors which will not be reflected correctly with a null value, please indicate the error in a way that makes sense with HTTP Status codes.  For example:
-    - 'Error 409': Data is not reasonable or in conflict with other data
-    - 'Error 412': Incomplete or unclear units
-    - 'Error 500': General data inconsistency or unavailability
+**Error Codes**: If you find errors which will not be reflected correctly, please indicate the error in a separate field called "status" in way that makes sense with HTTP Status codes.  For example:
+    - status: 'Error 409': Data is not reasonable or in conflict with other data
+    - status: 'Error 412': Incomplete or unclear units
+    - status: 'Error 500': General data inconsistency or unavailability
 
 
-This is the elastic schema that will be used to index the results. Make sure to not create any errors in the next step.
+This is the elastic schema that will be used to index the results. Make sure to follow this precisely.
 
       body: {
             mappings: {
