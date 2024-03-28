@@ -10,6 +10,8 @@ import {
   ButtonStyle,
   ModalActionRowComponentBuilder,
   TextInputStyle,
+  Embed,
+  EmbedBuilder,
 } from 'discord.js'
 import { summaryTable, scope3Table } from '../lib/dicordTable'
 
@@ -87,8 +89,11 @@ ${scope3}
       if (interaction.isButton() && interaction.customId === 'approve') {
         reportState = 'approved'
         interaction.update({
-          content: 'Approved!',
-          embeds: [],
+          embeds: [
+            new EmbedBuilder()
+              .setTitle('Approved!')
+              .setDescription('Tack för din granskning'),
+          ],
           components: [],
         })
       } else if (interaction.isButton() && interaction.customId === 'edit') {
