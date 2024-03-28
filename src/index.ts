@@ -65,17 +65,32 @@ elastic.setupIndices()
 
 app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())
-app.listen(3000, () => {
-  console.log('Running on 3000...')
-  console.log('For the UI, open http://localhost:3000/admin/queues')
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`Running on ${port}...`)
+  console.log(`For the UI, open http://localhost:${port}/admin/queues`)
 })
 
 app.get('/', (req, res) => {
   res.send(`Hi I'm Garbo!`)
 })
 
+app.get('/api/imageFromHtml', async (req, res) => {
+  const url = process.env.GOTENBERG_URL || 'http://localhost:3333'
+  const response = await fetch(`${url}/forms/chromium/screenshot/html`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      html: '<h1>Hello world</h1>',
+    }),
+  })
+  response.body.pipeThrough(res)
+})
+
 app.get(`/api/companies`, async function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'image/png' })
+  //res.writeHead(200, { 'Content-Type': 'image/png' })
   const exampleString = (
     await fs.readFile('./src/data/example.json')
   ).toString()
