@@ -64,10 +64,12 @@ const worker = new Worker(
 
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
-        ${parsedJson.reviewComment}
+        ${parsedJson.companyName}
         ${job.data.url}
-        Tolkad data:
-        ${scope2}
+Tolkad data:
+${scope2}
+        ---
+        ${parsedJson.reviewComment}
         `,
       components: [row],
     })
