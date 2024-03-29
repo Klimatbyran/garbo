@@ -93,8 +93,10 @@ ${job.data.url}
         interaction.update({
           embeds: [
             new EmbedBuilder()
-              .setTitle('Approved!')
-              .setDescription('Tack för din granskning'),
+              .setTitle('Godkänd')
+              .setDescription(
+                `Tack för din granskning, ${interaction?.user?.username}!`
+              ),
           ],
           components: [],
         })
