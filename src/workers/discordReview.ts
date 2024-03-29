@@ -26,10 +26,23 @@ class JobData extends Job {
 }
 
 async function saveToDb(id: string, report: any) {
-  let documentId = ''
-  documentId = await elastic.indexReport(id, report)
-  return documentId
+  return await elastic.indexReport(id, report)
 }
+
+const buttonRow = new ActionRowBuilder().addComponents(
+  new ButtonBuilder()
+    .setCustomId('approve')
+    .setLabel('Approve')
+    .setStyle(ButtonStyle.Success),
+  new ButtonBuilder()
+    .setCustomId('edit')
+    .setLabel('Edit')
+    .setStyle(ButtonStyle.Primary),
+  new ButtonBuilder()
+    .setCustomId('reject')
+    .setLabel('Reject')
+    .setStyle(ButtonStyle.Danger)
+)
 
 const worker = new Worker(
   'discordReview',
@@ -45,28 +58,13 @@ const worker = new Worker(
     job.log(`Saving to db: ${job.data.pdfHash}`)
     const documentId = await saveToDb(job.data.pdfHash, parsedJson)
 
-    // Skapa en knapp
-    const row = new ActionRowBuilder().addComponents(
-      new ButtonBuilder()
-        .setCustomId('approve')
-        .setLabel('Approve')
-        .setStyle(ButtonStyle.Success),
-      new ButtonBuilder()
-        .setCustomId('edit')
-        .setLabel('Edit')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder()
-        .setCustomId('reject')
-        .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger)
-    )
-
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
     job.log(`Sending message to Discord channel ${discord.channelId}`)
-    discord.sendMessageToChannel(discord.channelId, {
-      content: `Ny företagsdata behöver manuell hantering: 
+    try {
+      discord.sendMessageToChannel(discord.channelId, {
+        content: `Ny företagsdata behöver manuell hantering: 
 ${parsedJson.companyName}
 ${job.data.url}
 > ## Tolkad data:
@@ -79,8 +77,12 @@ ${job.data.url}
             : ''
         }
         `,
-      components: [row],
-    })
+        components: [buttonRow],
+      })
+    } catch (error) {
+      job.log(`Error sending message to Discord channel: ${error.message}`)
+      throw error
+    }
 
     job.updateProgress(40)
 
