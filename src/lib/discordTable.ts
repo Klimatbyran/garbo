@@ -26,7 +26,7 @@ export const summaryTable = async (company: CompanyData) => {
   const emissions = company.emissions?.sort((a, b) => b.year - a.year)
 
   const table = [
-    [trimText('** CO2'), ...emissions.map((e) => trimText(e.year)), '**'],
+    [trimText('CO2'), ...emissions.map((e) => trimText(e.year))],
     [
       trimText('Scope 1'),
       ...emissions.map((e) => trimText(e.scope1?.emissions) || trimText('-')),
@@ -41,7 +41,7 @@ export const summaryTable = async (company: CompanyData) => {
     ],
   ]
 
-  return table.map((t) => t.join(' ')).join('\n ')
+  return table.map((t) => t.join(' ')).join('\n')
 }
 
 export const scope3Table = async (company: CompanyData) => {
