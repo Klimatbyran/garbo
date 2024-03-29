@@ -65,11 +65,11 @@ const worker = new Worker(
     try {
       discord.sendMessageToChannel(discord.channelId, {
         content: `Ny företagsdata behöver manuell hantering: 
-${parsedJson.companyName}
+# ${parsedJson.companyName}
 ${job.data.url}
-> ## Tolkad data:
+## Tolkad data:
 \`${summary}\`
-> ## Scope 3:
+## Scope 3:
 \`${scope3}\`
         ${
           parsedJson.reviewComment
