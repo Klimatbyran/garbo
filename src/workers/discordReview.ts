@@ -62,8 +62,8 @@ const worker = new Worker(
         .setStyle(ButtonStyle.Danger)
     )
 
-    const summary = await summaryTable(parsedJson.report)
-    const scope3 = await scope3Table(parsedJson.report)
+    const summary = await summaryTable(parsedJson)
+    const scope3 = await scope3Table(parsedJson)
 
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 

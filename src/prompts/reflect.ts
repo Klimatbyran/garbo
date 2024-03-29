@@ -76,98 +76,90 @@ If the input doesn't match the data type, please make sure to convert it to the 
 If the input doesn't have a value, please make sure to set it to null or an empty string.
 Every property should be present in the output, make especially sure to include all the properties in the emission categories.
 
-      body: {
-        mappings: {
+{
+  type: 'object',
+  properties: {
+    companyName: { type: 'keyword' },
+    industry: { type: 'keyword' },
+    baseYear: { type: 'keyword' },
+    url: { type: 'keyword' },
+    emissions: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
           properties: {
-            report: {
-              type: 'object',
+            year: { type: 'keyword' },
+            scope1: {
               properties: {
-                companyName: { type: 'keyword' },
-                orgranizationNumber: { type: 'keyword' },
-                bransch: { type: 'keyword' },
-                baseYear: { type: 'keyword' },
-                url: { type: 'keyword' },
-                emissions: {
-                  type: 'object',
-                  properties: {
-                    '*': {
-                      type: 'object',
-                      properties: {
-                        year: { type: 'keyword' },
-                        scope1: {
-                          properties: {
-                            emissions: { type: 'double' },
-                            unit: { type: 'keyword' },
-                          },
-                        },
-                        scope2: {
-                          properties: {
-                            emissions: { type: 'double' },
-                            unit: { type: 'keyword' },
-                            mb: { type: 'double' },
-                            lb: { type: 'double' },
-                          },
-                        },
-                        scope3: {
-                          properties: {
-                            emissions: { type: 'double' },
-                            unit: { type: 'keyword' },
-                            baseYear: { type: 'keyword' },
-                            categories: {
-                              properties: {
-                                '1_purchasedGoods': { type: 'double' },
-                                '2_capitalGoods': { type: 'double' },
-                                '3_fuelAndEnergyRelatedActivities': {
-                                  type: 'double',
-                                },
-                                '4_upstreamTransportationAndDistribution': {
-                                  type: 'double',
-                                },
-                                '5_wasteGeneratedInOperations': {
-                                  type: 'double',
-                                },
-                                '6_businessTravel': { type: 'double' },
-                                '7_employeeCommuting': { type: 'double' },
-                                '8_upstreamLeasedAssets': {
-                                  type: 'double',
-                                },
-                                '9_downstreamTransportationAndDistribution':
-                                  {
-                                    type: 'double',
-                                  },
-                                '10_processingOfSoldProducts': {
-                                  type: 'double',
-                                },
-                                '11_useOfSoldProducts': { type: 'double' },
-                                '12_endOfLifeTreatmentOfSoldProducts': {
-                                  type: 'double',
-                                },
-                                '13_downstreamLeasedAssets': {
-                                  type: 'double',
-                                },
-                                '14_franchises': { type: 'double' },
-                                '15_investments': { type: 'double' },
-                                '16_other': { type: 'double' },
-                              },
-                            },
-                          },
-                        },
-                        totalEmissions: { type: 'double' },
-                        totalUnit: { type: 'keyword' },
-                      },
-                    },
-                  },
-                },
-                reliability: { type: 'keyword' },
-                needsReview: { type: 'boolean' },
-                reviewComment: { type: 'text' },
-                reviewStatusCode: { type: 'keyword' },
+                emissions: { type: 'double' },
+                unit: { type: 'keyword' },
               },
             },
-          }
-        }
-      }
-
+            scope2: {
+              properties: {
+                emissions: { type: 'double' },
+                unit: { type: 'keyword' },
+                mb: { type: 'double' },
+                lb: { type: 'double' },
+              },
+            },
+            scope3: {
+              properties: {
+                emissions: { type: 'double' },
+                unit: { type: 'keyword' },
+                baseYear: { type: 'keyword' },
+                categories: {
+                  properties: {
+                    '1_purchasedGoods': { type: 'double' },
+                    '2_capitalGoods': { type: 'double' },
+                    '3_fuelAndEnergyRelatedActivities': {
+                      type: 'double',
+                    },
+                    '4_upstreamTransportationAndDistribution': {
+                      type: 'double',
+                    },
+                    '5_wasteGeneratedInOperations': {
+                      type: 'double',
+                    },
+                    '6_businessTravel': { type: 'double' },
+                    '7_employeeCommuting': { type: 'double' },
+                    '8_upstreamLeasedAssets': {
+                      type: 'double',
+                    },
+                    '9_downstreamTransportationAndDistribution':
+                      {
+                        type: 'double',
+                      },
+                    '10_processingOfSoldProducts': {
+                      type: 'double',
+                    },
+                    '11_useOfSoldProducts': { type: 'double' },
+                    '12_endOfLifeTreatmentOfSoldProducts': {
+                      type: 'double',
+                    },
+                    '13_downstreamLeasedAssets': {
+                      type: 'double',
+                    },
+                    '14_franchises': { type: 'double' },
+                    '15_investments': { type: 'double' },
+                    '16_other': { type: 'double' },
+                  },
+                },
+              },
+            },
+            totalEmissions: { type: 'double' },
+            totalUnit: { type: 'keyword' },
+          },
+        },
+      },
+    },
+    reliability: { type: 'keyword' },
+    needsReview: { type: 'boolean' },
+    reviewComment: { type: 'text' },
+    reviewStatusCode: { type: 'keyword' },
+  },
+}
 `
 
 export default prompt

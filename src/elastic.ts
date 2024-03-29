@@ -69,7 +69,7 @@ class Elastic {
                   properties: {
                     companyName: { type: 'keyword' },
                     orgranizationNumber: { type: 'keyword' },
-                    bransch: { type: 'keyword' },
+                    industry: { type: 'keyword' },
                     baseYear: { type: 'keyword' },
                     url: { type: 'keyword' },
                     emissions: {
@@ -165,51 +165,73 @@ class Elastic {
   }
 
   public isValidEmissionReport(report): boolean {
-    const isString = (value) => typeof value === 'string';
-    const isBoolean = (value) => typeof value === 'boolean';
-    const isDouble = (value) => typeof value === 'number';
-    
-    const hasValidTopLevelProps = isString(report.companyName) &&
-                                  isString(report.bransch) &&
-                                  isString(report.baseYear) &&
-                                  isString(report.url) &&
-                                  isString(report.reliability) &&
-                                  isBoolean(report.needsReview) &&
-                                  isString(report.reviewComment) &&
-                                  isString(report.reviewStatusCode);
-    if (!hasValidTopLevelProps) return false;
-  
+    const isString = (value) => typeof value === 'string'
+    const isBoolean = (value) => typeof value === 'boolean'
+    const isDouble = (value) => typeof value === 'number'
+
+    const hasValidTopLevelProps =
+      isString(report.companyName) &&
+      isString(report.industry) &&
+      isString(report.baseYear) &&
+      isString(report.url) &&
+      isString(report.reliability) &&
+      isBoolean(report.needsReview) &&
+      isString(report.reviewComment) &&
+      isString(report.reviewStatusCode)
+    if (!hasValidTopLevelProps) return false
+
     // Validate emissions object structure
-    if (typeof report.emissions !== 'object' || report.emissions === null) return false;
-  
+    if (typeof report.emissions !== 'object' || report.emissions === null)
+      return false
+
     for (const year of Object.keys(report.emissions)) {
-      const yearData = report.emissions[year];
-      if (typeof yearData !== 'object' || yearData === null) return false;
-      if (!isString(yearData.year) || !isDouble(yearData.scope1.emissions) || 
-          !isDouble(yearData.totalEmissions) || !isDouble(yearData.totalUnit) ||
-          !isString(yearData.scope1.unit) || !isDouble(yearData.scope2.emissions) ||
-          !isString(yearData.scope2.unit) || !isDouble(yearData.scope2.mb) ||
-          !isDouble(yearData.scope2.lb) || !isDouble(yearData.scope3.emissions) ||
-          !isString(yearData.scope3.unit) || !isString(yearData.scope3.baseYear)) return false;
-      
+      const yearData = report.emissions[year]
+      if (typeof yearData !== 'object' || yearData === null) return false
+      if (
+        !isString(yearData.year) ||
+        !isDouble(yearData.scope1.emissions) ||
+        !isDouble(yearData.totalEmissions) ||
+        !isDouble(yearData.totalUnit) ||
+        !isString(yearData.scope1.unit) ||
+        !isDouble(yearData.scope2.emissions) ||
+        !isString(yearData.scope2.unit) ||
+        !isDouble(yearData.scope2.mb) ||
+        !isDouble(yearData.scope2.lb) ||
+        !isDouble(yearData.scope3.emissions) ||
+        !isString(yearData.scope3.unit) ||
+        !isString(yearData.scope3.baseYear)
+      )
+        return false
+
       // Validate categories within scope3
-      const categories = yearData.scope3.categories;
-      if (typeof categories !== 'object' || categories === null) return false;
-  
-      const validCategories = ['1_purchasedGoods', '2_capitalGoods', '3_fuelAndEnergyRelatedActivities',
-                               '4_upstreamTransportationAndDistribution', '5_wasteGeneratedInOperations',
-                               '6_businessTravel', '7_employeeCommuting', '8_upstreamLeasedAssets',
-                               '9_downstreamTransportationAndDistribution', '10_processingOfSoldProducts',
-                               '11_useOfSoldProducts', '12_endOfLifeTreatmentOfSoldProducts',
-                               '13_downstreamLeasedAssets', '14_franchises', '15_investments', '16_other'];
-  
+      const categories = yearData.scope3.categories
+      if (typeof categories !== 'object' || categories === null) return false
+
+      const validCategories = [
+        '1_purchasedGoods',
+        '2_capitalGoods',
+        '3_fuelAndEnergyRelatedActivities',
+        '4_upstreamTransportationAndDistribution',
+        '5_wasteGeneratedInOperations',
+        '6_businessTravel',
+        '7_employeeCommuting',
+        '8_upstreamLeasedAssets',
+        '9_downstreamTransportationAndDistribution',
+        '10_processingOfSoldProducts',
+        '11_useOfSoldProducts',
+        '12_endOfLifeTreatmentOfSoldProducts',
+        '13_downstreamLeasedAssets',
+        '14_franchises',
+        '15_investments',
+        '16_other',
+      ]
+
       for (const category of validCategories) {
-        if (!isDouble(categories[category])) return false;
+        if (!isDouble(categories[category])) return false
       }
     }
-    return true;
+    return true
   }
-  
 
   public hashPdf(pdfBuffer: Buffer): string {
     return crypto.createHash('sha256').update(pdfBuffer).digest('hex')
@@ -240,17 +262,17 @@ class Elastic {
 
   async indexReport(pdfHash: string, reportData: any, url: string) {
     try {
-      let parsed;
+      let parsed
       if (typeof reportData === 'string') {
-        console.log("Parsing report data");
-        parsed = JSON.parse(reportData);
+        console.log('Parsing report data')
+        parsed = JSON.parse(reportData)
       } else if (typeof reportData === 'object') {
-        console.log("Report data is already parsed");
-        parsed = reportData;
+        console.log('Report data is already parsed')
+        parsed = reportData
       } else {
-        throw new Error("reportData is neither a string nor an object");
+        throw new Error('reportData is neither a string nor an object')
       }
-      
+
       // Convert from array to object for easier access in elastic
       const emissions = parsed.emissions.reduce((acc, curr) => {
         acc[curr.year] = curr
