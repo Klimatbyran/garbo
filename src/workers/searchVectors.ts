@@ -65,6 +65,7 @@ const worker = new Worker(
     return results.documents
   },
   {
+    concurrency: 10,
     connection: redis,
     autorun: false,
   }

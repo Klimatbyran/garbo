@@ -27,7 +27,9 @@ const worker = new Worker(
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
     const answer = job.data.answer
-    const channel = await discord.client.channels.fetch(job.data.channelId) as TextChannel
+    const channel = (await discord.client.channels.fetch(
+      job.data.channelId
+    )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
     await message.edit(`Verifierar information...`)
     job.log(`Reflecting on: ${answer}
@@ -74,6 +76,7 @@ const worker = new Worker(
     return response
   },
   {
+    concurrency: 10,
     connection: redis,
     autorun: false,
   }
