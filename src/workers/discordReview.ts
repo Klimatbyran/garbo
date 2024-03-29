@@ -65,7 +65,7 @@ const worker = new Worker(
     try {
       discord.sendMessageToChannel(discord.channelId, {
         content: `Ny företagsdata behöver manuell hantering: 
-# ${parsedJson.companyName}
+# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${job.data.url}
 ## Tolkad data:
 \`${summary}\`
