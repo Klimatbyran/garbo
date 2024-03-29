@@ -62,16 +62,14 @@ class Elastic {
           body: {
             mappings: {
               properties: {
-                url: { type: 'keyword' },
                 pdfHash: { type: 'keyword' },
                 report: {
                   type: 'object',
                   properties: {
                     companyName: { type: 'keyword' },
-                    orgranizationNumber: { type: 'keyword' },
+                    url: { type: 'keyword' },
                     industry: { type: 'keyword' },
                     baseYear: { type: 'keyword' },
-                    url: { type: 'keyword' },
                     emissions: {
                       type: 'object',
                       properties: {
@@ -260,7 +258,7 @@ class Elastic {
     }
   }
 
-  async indexReport(pdfHash: string, reportData: any, url: string) {
+  async indexReport(pdfHash: string, reportData: any) {
     try {
       let parsed
       if (typeof reportData === 'string') {
@@ -287,7 +285,6 @@ class Elastic {
       const response = await this.client.index({
         index: this.indexName,
         body: {
-          url: url,
           pdfHash: pdfHash,
           report,
           state: 'pending',

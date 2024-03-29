@@ -25,6 +25,12 @@ class JobData extends Job {
   }
 }
 
+async function saveToDb(id: string, report: any) {
+  let documentId = ''
+  documentId = await elastic.indexReport(id, report)
+  return documentId
+}
+
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
@@ -35,16 +41,9 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = JSON.parse(job.data.json)
-    let documentId = ''
-    try {
-      documentId = await elastic.indexReport(
-        job.data.pdfHash,
-        parsedJson,
-        job.data.url
-      )
-    } catch (error) {
-      job.log(`Error indexing report: ${error.message}`)
-    }
+    parsedJson.url = job.data.url
+    job.log(`Saving to db: ${job.data.pdfHash}`)
+    const documentId = await saveToDb(job.data.pdfHash, parsedJson)
 
     // Skapa en knapp
     const row = new ActionRowBuilder().addComponents(
@@ -65,6 +64,7 @@ const worker = new Worker(
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
+    job.log(`Sending message to Discord channel ${discord.channelId}`)
     discord.sendMessageToChannel(discord.channelId, {
       content: `Ny företagsdata behöver manuell hantering: 
 ${parsedJson.companyName}
