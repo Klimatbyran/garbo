@@ -327,12 +327,24 @@ class Elastic {
         body: {
           query: {
             bool: {
-              must: [{ match: { state: 'approved' } }],
+              must: [
+                {
+                  match: {
+                    state: 'approved',
+                  },
+                },
+              ],
             },
           },
           sort: [
-            { 'report.companyName.keyword': { order: 'asc' } },
-            { timestamp: { order: 'desc' } },
+            {
+              'report.companyName': {
+                order: 'asc',
+              },
+              timestamp: {
+                order: 'desc',
+              },
+            },
           ],
           size: 1000,
         },
