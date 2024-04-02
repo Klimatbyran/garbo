@@ -48,15 +48,9 @@ spec:
                   name: env
                   key: OPENAI_ORG_ID
             - name: ELASTIC_NODE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: ELASTIC_NODE_URL
+              value: http://elasticsearch:9200
             - name: ELASTIC_INDEX_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: ELASTIC_INDEX_NAME
+              value: reports
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
