@@ -326,7 +326,7 @@ class Elastic {
         index: this.indexName,
         body: {
           query: {
-            bool: {
+            /*bool: {
               must: [
                 {
                   match: {
@@ -334,7 +334,7 @@ class Elastic {
                   },
                 },
               ],
-            },
+            },*/
           },
           sort: [
             {
@@ -350,25 +350,12 @@ class Elastic {
         },
       })) as any
 
-      const reports = body.hits.hits.map((hit) => hit._source)
-      const latestReports = {}
+      const reports = body.hits?.hits?.map((hit) => hit._source) || []
 
-      reports.forEach((report) => {
-        const companyName = report.report.companyName
-        // If the company hasn't been added to latestReports or the current report is more recent, update it
-        if (
-          !latestReports[companyName] ||
-          new Date(latestReports[companyName].timestamp) <
-            new Date(report.timestamp)
-        ) {
-          latestReports[companyName] = report
-        }
-      })
-
-      return Object.values(latestReports)
+      return reports
     } catch (error) {
-      console.error('Error retrieving all approved reports:', error)
-      return []
+      console.error('Error fetching latest approved reports:', error)
+      return null
     }
   }
 }
