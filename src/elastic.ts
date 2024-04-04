@@ -326,15 +326,15 @@ class Elastic {
         index: this.indexName,
         body: {
           query: {
-            /*bool: {
+            bool: {
               must: [
                 {
-                  match: {
-                    state: 'approved',
+                  terms: {
+                    state: ['approved', 'pending'],
                   },
                 },
               ],
-            },*/
+            },
           },
           sort: [
             {
@@ -346,9 +346,45 @@ class Elastic {
               },
             },
           ],
-          size: 1000,
+          size: 0,
+          aggs: {
+            latest_reports: {
+              terms: {
+                field: 'report.companyName.keyword',
+                size: 1000,
+                order: {
+                  latest_timestamp: 'desc',
+                },
+              },
+              aggs: {
+                latest_timestamp: {
+                  max: {
+                    field: 'timestamp',
+                  },
+                },
+                latest_report: {
+                  top_hits: {
+                    size: 1,
+                    sort: [
+                      {
+                        timestamp: {
+                          order: 'desc',
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
         },
       })) as any
+
+      const reports =
+        body.aggregations?.latest_reports?.buckets?.map(
+          (bucket) => bucket.latest_report.hits.hits[0]._source
+        ) || []
+      return reports
 
       const reports = body.hits?.hits?.map((hit) => hit._source) || []
 
