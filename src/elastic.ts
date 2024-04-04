@@ -385,10 +385,6 @@ class Elastic {
           (bucket) => bucket.latest_report.hits.hits[0]._source
         ) || []
       return reports
-
-      const reports = body.hits?.hits?.map((hit) => hit._source) || []
-
-      return reports
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)
       return null
