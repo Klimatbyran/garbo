@@ -17,9 +17,7 @@ class JobData extends Job {
 const worker = new Worker(
   'downloadPDF',
   async (job: JobData) => {
-    const url = job.data.url
-    const channelId = job.data.channelId
-    const messageId = job.data.messageId
+    const { url, channelId, messageId } = job.data
 
     job.log(`Downloading from url: ${url}`)
     const channel = (await discord.client.channels.fetch(

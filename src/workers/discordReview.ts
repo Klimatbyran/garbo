@@ -14,6 +14,7 @@ import {
   EmbedBuilder,
 } from 'discord.js'
 import { summaryTable, scope3Table } from '../lib/discordTable'
+import { userFeedback } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -36,7 +37,7 @@ const buttonRow = new ActionRowBuilder().addComponents(
     .setStyle(ButtonStyle.Success),
   new ButtonBuilder()
     .setCustomId('edit')
-    .setLabel('Edit')
+    .setLabel('Feedback')
     .setStyle(ButtonStyle.Primary),
   new ButtonBuilder()
     .setCustomId('reject')
@@ -62,8 +63,9 @@ const worker = new Worker(
     const scope3 = await scope3Table(parsedJson)
 
     job.log(`Sending message to Discord channel ${discord.channelId}`)
+    let message = null
     try {
-      discord.sendMessageToChannel(discord.channelId, {
+      message = await discord.sendMessageToChannel(discord.channelId, {
         content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${job.data.url}
 \`${summary}\`
@@ -71,7 +73,7 @@ ${job.data.url}
 \`${scope3}\`
         ${
           parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 100)}`
+            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
             : ''
         }
         `,
@@ -100,9 +102,10 @@ ${job.data.url}
         })
       } else if (interaction.isButton() && interaction.customId === 'edit') {
         reportState = 'edited'
+
         const input = new TextInputBuilder()
           .setCustomId('editInput')
-          .setLabel(`Granska utsläppsdata`)
+          .setLabel(`Din feedback till Garbo:`)
           .setStyle(TextInputStyle.Paragraph)
 
         const actionRow =
@@ -114,7 +117,6 @@ ${job.data.url}
           .setCustomId('editModal')
           .setTitle(`Granska data för ${parsedJson.companyName}`)
           .addComponents(actionRow)
-        // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
 
         await interaction.showModal(modal)
 
@@ -125,13 +127,37 @@ ${job.data.url}
           })
           .catch((error) => {
             console.error(error)
+            job.log(`Error submitting modal: ${error.message}`)
             return null
           })
 
         if (submitted) {
           const userInput = submitted.fields.getTextInputValue('editInput')
-          await submitted.reply({
-            content: `Tack för din granskning: \n ${userInput}`,
+
+          interaction.update({
+            content: 'Tack för din feedback!',
+            embeds: [],
+            components: [],
+          })
+
+          const thread = await message.startThread({
+            name: 'Feedback Thread',
+            autoArchiveDuration: 60,
+          })
+
+          userFeedback.add('user feedback ' + parsedJson.companyName, {
+            feedback: userInput,
+            json: job.data.json,
+            url: job.data.url,
+            channelId: job.data.channelId,
+            messageId: message.id,
+            threadId: thread.id,
+            pdfHash: job.data.pdfHash,
+          })
+
+          // Send a message in the thread
+          thread.sendMessage({
+            content: `Feedback: ${userInput} parsing...`,
           })
         }
       } else if (interaction.isButton() && interaction.customId === 'reject') {

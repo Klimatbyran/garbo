@@ -32,9 +32,10 @@ const worker = new Worker(
     )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
     await message.edit(`Verifierar information...`)
-    job.log(`Reflecting on: ${answer}
-    )}
-    ${prompt}`)
+    job.log(`Reflecting on: 
+${answer}
+--- Prompt:
+${prompt}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
@@ -66,8 +67,10 @@ const worker = new Worker(
 
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
+    const companyName = parsedJson.companyName
+
     await message.edit(`Klart! Skickar till Discord för granskning`)
-    discordReview.add('discord review ' + response.slice(0, 20), {
+    discordReview.add(companyName, {
       json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
       url: job.data.url,
       channelId: job.data.channelId,

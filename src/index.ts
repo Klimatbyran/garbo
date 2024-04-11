@@ -20,6 +20,7 @@ import {
   reflectOnAnswer,
   searchVectors,
   splitText,
+  userFeedback,
 } from './queues'
 import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
@@ -50,6 +51,7 @@ createBullBoard({
     new BullMQAdapter(parseText),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(discordReview),
+    new BullMQAdapter(userFeedback),
   ],
   serverAdapter: serverAdapter,
   options: {
