@@ -66,7 +66,7 @@ const worker = new Worker(
     job.log(`Sending message to Discord channel ${discord.channelId}`)
     try {
       discord.sendMessageToChannel(discord.channelId, {
-        content: `Ny företagsdata behöver manuell hantering: 
+        content: `Ny företagsdata behöver manuell hantering (reportId: ${documentId}):
 # ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${job.data.url}
 ## Tolkad data:
@@ -98,7 +98,7 @@ ${job.data.url}
             interaction.update({
               embeds: [
                 new EmbedBuilder()
-                  .setTitle('Godkänd')
+                  .setTitle(`Godkänd (reportId: ${interactionDocumentId})`)
                   .setDescription(
                     `Tack för din granskning, ${interaction?.user?.username}!`
                   ),
