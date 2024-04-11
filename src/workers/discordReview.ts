@@ -28,21 +28,22 @@ class JobData extends Job {
 async function saveToDb(id: string, report: any) {
   return await elastic.indexReport(id, report)
 }
-
-const buttonRow = new ActionRowBuilder().addComponents(
-  new ButtonBuilder()
-    .setCustomId('approve')
-    .setLabel('Approve')
-    .setStyle(ButtonStyle.Success),
-  new ButtonBuilder()
-    .setCustomId('edit')
-    .setLabel('Edit')
-    .setStyle(ButtonStyle.Primary),
-  new ButtonBuilder()
-    .setCustomId('reject')
-    .setLabel('Reject')
-    .setStyle(ButtonStyle.Danger)
-)
+const createButtonRow = (documentId) => {
+  return new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId(`approve-${documentId}`)
+      .setLabel('Approve')
+      .setStyle(ButtonStyle.Success),
+    new ButtonBuilder()
+      .setCustomId(`edit-${documentId}`)
+      .setLabel('Edit')
+      .setStyle(ButtonStyle.Primary),
+    new ButtonBuilder()
+      .setCustomId(`reject-${documentId}`)
+      .setLabel('Reject')
+      .setStyle(ButtonStyle.Danger)
+  );
+};
 
 const worker = new Worker(
   'discordReview',
@@ -57,6 +58,7 @@ const worker = new Worker(
     parsedJson.url = job.data.url
     job.log(`Saving to db: ${job.data.pdfHash}`)
     const documentId = await saveToDb(job.data.pdfHash, parsedJson)
+    const buttonRow = createButtonRow(documentId)
 
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
@@ -88,69 +90,74 @@ ${job.data.url}
 
     discord.client.on('interactionCreate', async (interaction) => {
       let reportState = ''
-      if (interaction.isButton() && interaction.customId === 'approve') {
-        reportState = 'approved'
-        interaction.update({
-          embeds: [
-            new EmbedBuilder()
-              .setTitle('Godkänd')
-              .setDescription(
-                `Tack för din granskning, ${interaction?.user?.username}!`
-              ),
-          ],
-          components: [],
-        })
-      } else if (interaction.isButton() && interaction.customId === 'edit') {
-        reportState = 'edited'
-        const input = new TextInputBuilder()
-          .setCustomId('editInput')
-          .setLabel(`Granska utsläppsdata`)
-          .setStyle(TextInputStyle.Paragraph)
+      if (interaction.isButton()) {
+        const [action, interactionDocumentId] = interaction.customId.split('-')
+        switch (action) {
+          case 'approve':
+            reportState = 'approved';
+            interaction.update({
+              embeds: [
+                new EmbedBuilder()
+                  .setTitle('Godkänd')
+                  .setDescription(
+                    `Tack för din granskning, ${interaction?.user?.username}!`
+                  ),
+              ],
+              components: [],
+            })
+            break;
+          case 'edit':
+            reportState = 'edited';
+            const input = new TextInputBuilder()
+              .setCustomId('editInput')
+              .setLabel(`Granska utsläppsdata`)
+              .setStyle(TextInputStyle.Paragraph)
 
-        const actionRow =
-          new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-            input
-          )
+            const actionRow =
+              new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
+                input
+              )
 
-        const modal = new ModalBuilder()
-          .setCustomId('editModal')
-          .setTitle(`Granska data för ${parsedJson.companyName}`)
-          .addComponents(actionRow)
-        // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
+            const modal = new ModalBuilder()
+              .setCustomId('editModal')
+              .setTitle(`Granska data för ${parsedJson.companyName}`)
+              .addComponents(actionRow)
+            // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
 
-        await interaction.showModal(modal)
+            await interaction.showModal(modal)
 
-        const submitted = await interaction
-          .awaitModalSubmit({
-            time: 60000 * 20, // user has to submit the modal within 20 minutes
-            filter: (i) => i.user.id === interaction.user.id, // only user who clicked button can interact with modal
-          })
-          .catch((error) => {
-            console.error(error)
-            return null
-          })
+            const submitted = await interaction
+              .awaitModalSubmit({
+                time: 60000 * 20, // user has to submit the modal within 20 minutes
+                filter: (i) => i.user.id === interaction.user.id, // only user who clicked button can interact with modal
+              })
+              .catch((error) => {
+                console.error(error)
+                return null
+              })
 
-        if (submitted) {
-          const userInput = submitted.fields.getTextInputValue('editInput')
-          await submitted.reply({
-            content: `Tack för din granskning: \n ${userInput}`,
-          })
+            if (submitted) {
+              const userInput = submitted.fields.getTextInputValue('editInput')
+              await submitted.reply({
+                content: `Tack för din granskning: \n ${userInput}`,
+              })
+            }
+            break;
+          case 'reject':
+            reportState = 'rejected';
+            interaction.update({
+              content: 'Rejected!',
+              embeds: [],
+              components: [],
+            })
+            break;
         }
-      } else if (interaction.isButton() && interaction.customId === 'reject') {
-        // todo diskutera vad vill vill händer. ska man ens få rejecta?
-        reportState = 'rejected'
-        interaction.update({
-          content: 'Rejected!',
-          embeds: [],
-          components: [],
-        })
-      }
-
-      if (reportState !== '') {
-        try {
-          await elastic.updateDocumentState(documentId, reportState)
-        } catch (error) {
-          job.log(`Error updating document state: ${error.message}`)
+        if (reportState !== '') {
+          try {
+            await elastic.updateDocumentState(interactionDocumentId, reportState)
+          } catch (error) {
+            job.log(`Error updating document state: ${error.message}`)
+          }
         }
       }
     })
