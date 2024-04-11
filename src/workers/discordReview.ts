@@ -64,16 +64,14 @@ const worker = new Worker(
     job.log(`Sending message to Discord channel ${discord.channelId}`)
     try {
       discord.sendMessageToChannel(discord.channelId, {
-        content: `Ny företagsdata behöver manuell hantering: 
-# ${parsedJson.companyName} (*${parsedJson.industry}*)
+        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${job.data.url}
-## Tolkad data:
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
         ${
           parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment}`
+            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 100)}`
             : ''
         }
         `,
