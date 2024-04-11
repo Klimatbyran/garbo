@@ -16,7 +16,12 @@ export default {
 
   async execute(interaction) {
     console.log('pdfs')
-    const urls = interaction.options.getString('urls')?.split(/\s*,\s*|\s+/)
+    const urls = interaction.options
+      .getString('urls')
+      ?.split(/\s*,\s*|\s+/)
+      .map((url) => url.trim()) // Remove whitespace
+      .filter(Boolean) // Remove empty strings
+      .filter((url) => url.startsWith('http')) // Only allow URLs
     if (!urls || !urls.length) {
       await interaction.followUp({
         content:
