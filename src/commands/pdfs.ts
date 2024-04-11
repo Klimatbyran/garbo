@@ -16,7 +16,7 @@ export default {
 
   async execute(interaction) {
     console.log('pdfs')
-    const urls = interaction.options.getString('urls')?.split(/[\n,]/)
+    const urls = interaction.options.getString('urls')?.split(/\s*,\s*|\s+/)
     if (!urls || !urls.length) {
       await interaction.followUp({
         content:
