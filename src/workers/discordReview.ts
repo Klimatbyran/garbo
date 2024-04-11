@@ -103,7 +103,7 @@ ${job.data.url}
               ],
               components: [],
             })
-            break;
+            break
           case 'edit':
             reportState = 'edited';
             const input = new TextInputBuilder()
@@ -140,7 +140,7 @@ ${job.data.url}
                 content: `Tack för din granskning: \n ${userInput}`,
               })
             }
-            break;
+            break
           case 'reject':
             reportState = 'rejected';
             interaction.update({
@@ -148,7 +148,7 @@ ${job.data.url}
               embeds: [],
               components: [],
             })
-            break;
+            break
         }
         if (reportState !== '') {
           try {
