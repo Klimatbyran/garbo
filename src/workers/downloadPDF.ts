@@ -25,8 +25,8 @@ const worker = new Worker(
     const channel = (await discord.client.channels.fetch(
       channelId
     )) as TextChannel
-    const message = await channel.messages.fetch(messageId)
-    await message.edit(`Laddar ner PDF...`)
+    const message = await channel?.messages?.fetch(messageId)
+    if (message) await message.edit(`Laddar ner PDF...`)
 
     try {
       const response = await fetch(url)
@@ -38,7 +38,8 @@ const worker = new Worker(
       try {
         doc = await pdf(buffer)
       } catch (error) {
-        await message.edit(`Fel vid tolkning av PDF: ${error.message}`)
+        if (message)
+          await message.edit(`Fel vid tolkning av PDF: ${error.message}`)
         job.log(`Error parsing PDF: ${error.message}`)
         throw error
       }
@@ -61,7 +62,8 @@ const worker = new Worker(
 
       return doc.text
     } catch (error) {
-      await message.edit(`Fel vid nedladdning av PDF: ${error.message}`)
+      if (message)
+        await message.edit(`Fel vid nedladdning av PDF: ${error.message}`)
       job.log(`Error downloading PDF: ${error.message}`)
       throw error
     }
