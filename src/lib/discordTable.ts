@@ -51,7 +51,9 @@ export const scope3Table = async (company: CompanyData) => {
 
   const emissions = company.emissions?.sort((a, b) => b.year - a.year)
   const categories = [
-    ...new Set(emissions.map((e) => Object.keys(e.scope3?.categories)).flat()),
+    ...new Set(
+      emissions.map((e) => Object.keys(e.scope3?.categories || {})).flat()
+    ),
   ]
 
   if (!categories.length) {
