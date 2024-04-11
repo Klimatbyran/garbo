@@ -58,14 +58,17 @@ const worker = new Worker(
       job.updateProgress(Math.min(100, (100 * progress) / 400))
     }
 
-    job.log(response)
+    const json =
+      response
+        .match(/```json(.|\n)*```/)[0]
+        ?.replace(/```json|```/g, '')
+        .trim() || '{}'
+
+    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+
     await message.edit(`Klart! Skickar till Discord för granskning`)
     discordReview.add('discord review ' + response.slice(0, 20), {
-      json:
-        response
-          .match(/```json(.|\n)*```/)[0]
-          ?.replace(/```json|```/g, '')
-          .trim() || '{"Error": "No JSON found"}',
+      json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
       url: job.data.url,
       channelId: job.data.channelId,
       messageId: job.data.messageId,
