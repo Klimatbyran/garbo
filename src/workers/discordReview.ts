@@ -14,6 +14,7 @@ import {
   EmbedBuilder,
 } from 'discord.js'
 import { summaryTable, scope3Table } from '../lib/discordTable'
+import { userFeedback } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -36,14 +37,14 @@ const createButtonRow = (documentId) => { // TODO: move to discord.ts
       .setStyle(ButtonStyle.Success),
     new ButtonBuilder()
       .setCustomId(`edit-${documentId}`)
-      .setLabel('Edit')
+      .setLabel('Feedback')
       .setStyle(ButtonStyle.Primary),
     new ButtonBuilder()
       .setCustomId(`reject-${documentId}`)
       .setLabel('Reject')
       .setStyle(ButtonStyle.Danger)
-  );
-};
+  )
+}
 
 const worker = new Worker(
   'discordReview',
@@ -64,16 +65,17 @@ const worker = new Worker(
     const scope3 = await scope3Table(parsedJson)
 
     job.log(`Sending message to Discord channel ${discord.channelId}`)
+    let message = null
     try {
-      discord.sendMessageToChannel(discord.channelId, {
-        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*, reportId: ${documentId})
+      message = await discord.sendMessageToChannel(discord.channelId, {
+        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${job.data.url}
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
         ${
           parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 100)}`
+            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
             : ''
         }
         `,
