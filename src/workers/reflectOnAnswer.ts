@@ -69,6 +69,8 @@ ${prompt}`)
 
     const companyName = parsedJson.companyName
 
+    job.updateData({ title: companyName })
+
     await message.edit(`Klart! Skickar till Discord för granskning`)
     discordReview.add(companyName, {
       json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',

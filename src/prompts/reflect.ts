@@ -7,6 +7,8 @@ Also convert the JSON to valid json and convert all units to metric ton CO2e. We
 
 Industry: Guess the correct industry for this company according to the Global Industry Classification Standard (GICS). Example: "Manufacturing", "Finance", "Healthcare", etc.
 
+Year: If fiscal year is divided over two years, use the year of the end of the fiscal year. For example, if the fiscal year is from July 2021 to June 2022, use 2022. Include a note about this in your review comment.
+
 **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
 
 **Important** Always generate this exact JSON structure, even if you cannot find the data. Indicate missing data with the error codes below, but make sure that the JSON structure is consistent. For example, if you cannot find the scope 3 categories you must make sure that the categories object is a valid JSON array.
