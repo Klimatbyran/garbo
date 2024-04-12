@@ -29,7 +29,7 @@ class JobData extends Job {
 async function saveToDb(id: string, report: any) {
   return await elastic.indexReport(id, report)
 }
-const createButtonRow = (documentId) => {
+const createButtonRow = (documentId) => { // TODO: move to discord.ts
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId(`approve-${documentId}`)
@@ -87,108 +87,6 @@ ${job.data.url}
     }
 
     job.updateProgress(40)
-
-    discord.client.on('interactionCreate', async (interaction) => {
-      let reportState = ''
-      if (interaction.isButton()) {
-        const [action, interactionDocumentId] = interaction.customId.split('-')
-        switch (action) {
-          case 'approve':
-            reportState = 'approved'
-            interaction.update({
-              embeds: [
-                new EmbedBuilder()
-                  .setTitle(`Godkänd (reportId: ${interactionDocumentId})`)
-                  .setDescription(
-                    `Tack för din granskning, ${interaction?.user?.username}!`
-                  ),
-              ],
-              components: [],
-            })
-            break
-          case 'edit':
-            reportState = 'edited'
-
-            const input = new TextInputBuilder()
-              .setCustomId('editInput')
-              .setLabel(`Din feedback till Garbo:`)
-              .setStyle(TextInputStyle.Paragraph)
-
-            const actionRow =
-              new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-                input
-              )
-
-            const modal = new ModalBuilder()
-              .setCustomId('editModal')
-              .setTitle(`Granska data för ${parsedJson.companyName}`)
-              .addComponents(actionRow)
-            // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
-
-            await interaction.showModal(modal)
-
-            const submitted = await interaction
-              .awaitModalSubmit({
-                time: 60000 * 20, // user has to submit the modal within 20 minutes
-                filter: (i) => i.user.id === interaction.user.id, // only user who clicked button can interact with modal
-              })
-              .catch((error) => {
-                console.error(error)
-                job.log(`Error submitting modal: ${error.message}`)
-                return null
-              })
-
-            if (submitted) {
-              const userInput = submitted.fields.getTextInputValue('editInput')
-
-              interaction.update({
-                content: 'Tack för din feedback!',
-                embeds: [],
-                components: [],
-              })
-
-              const thread = await message.startThread({
-                name: 'Feedback Thread',
-                autoArchiveDuration: 60,
-              })
-
-              userFeedback.add('user feedback ' + parsedJson.companyName, {
-                feedback: userInput,
-                json: job.data.json,
-                url: job.data.url,
-                channelId: job.data.channelId,
-                messageId: message.id,
-                threadId: thread.id,
-                pdfHash: job.data.pdfHash,
-              })
-
-              // Send a message in the thread
-              thread.sendMessage({
-                content: `Feedback: ${userInput} parsing...`,
-              })
-            }
-            break
-
-          case 'reject':
-            // todo diskutera vad vill vill händer. ska man ens få rejecta?
-            reportState = 'rejected'
-            interaction.update({
-              content: 'Rejected!',
-              embeds: [],
-              components: [],
-            })
-            break
-        }
-      }
-
-      if (reportState !== '') {
-        try {
-          await elastic.updateDocumentState(documentId, reportState)
-        } catch (error) {
-          job.log(`Error updating document state: ${error.message}`)
-        }
-      }
-    })
     job.updateProgress(100)
   },
   {
