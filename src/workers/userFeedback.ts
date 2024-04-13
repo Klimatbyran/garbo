@@ -21,11 +21,8 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     url: string
-    json: string
-    channelId: string
     threadId: string
-    messageId: string
-    pdfHash: string
+    json: string
     feedback: string
   }
 }
@@ -33,7 +30,7 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, url, json: previousJson } = job.data
+    const { feedback, url, json: previousJson, threadId } = job.data
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: cleanCollectionName(url),
@@ -80,7 +77,7 @@ const worker = new Worker(
 
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
-    const thread = await discord.client.channels.fetch(job.data.threadId)
+    const thread = await discord.client.channels.fetch(threadId)
 
     if (thread.isThread()) {
       const summary = await summaryTable(parsedJson)

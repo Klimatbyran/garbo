@@ -29,7 +29,8 @@ class JobData extends Job {
 async function saveToDb(id: string, report: any) {
   return await elastic.indexReport(id, report)
 }
-const createButtonRow = (documentId) => { // TODO: move to discord.ts
+const createButtonRow = (documentId) => {
+  // TODO: move to discord.ts
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId(`approve-${documentId}`)
@@ -85,6 +86,18 @@ ${job.data.url}
       job.log(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
+
+    discord.once('edit', async (documentId, feedback) => {
+      if (documentId === documentId) {
+        job.log(`Got feedback: ${feedback}`)
+        await userFeedback.add('userFeedback', {
+          ...job.data,
+          documentId,
+          json: parsedJson,
+          feedback,
+        })
+      }
+    })
 
     job.updateProgress(40)
     job.updateProgress(100)

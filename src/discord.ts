@@ -17,8 +17,9 @@ import {
 import commands from './commands'
 import config from './config/discord'
 import elastic from './elastic'
+import { EventEmitter } from 'events'
 
-export class Discord {
+export class Discord extends EventEmitter {
   client: Client<boolean>
   rest: REST
   commands: Array<any>
@@ -26,6 +27,7 @@ export class Discord {
   channelId: string
 
   constructor({ token, guildId, clientId, channelId }) {
+    super()
     this.token = token
     this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
@@ -53,10 +55,11 @@ export class Discord {
       } else if (interaction.isButton()) {
         let reportState = ''
 
-        const [action, documentId] = interaction.customId.split('-');
+        const [action, documentId] = interaction.customId.split('-')
         switch (action) {
           case 'approve':
-            reportState = 'approved';
+            this.emit('approve', documentId)
+            reportState = 'approved'
             interaction.update({
               embeds: [
                 new EmbedBuilder()
@@ -69,7 +72,7 @@ export class Discord {
             })
             break
           case 'edit':
-            reportState = 'edited';
+            reportState = 'edited'
             const input = new TextInputBuilder()
               .setCustomId('editInput')
               .setLabel(`Granska utsläppsdata`)
@@ -100,13 +103,16 @@ export class Discord {
 
             if (submitted) {
               const userInput = submitted.fields.getTextInputValue('editInput')
+              this.emit('edit', documentId, userInput)
+
               await submitted.reply({
                 content: `Tack för din granskning: \n ${userInput}`,
               })
             }
             break
           case 'reject':
-            reportState = 'rejected';
+            reportState = 'rejected'
+            this.emit('reject', documentId)
             interaction.update({
               content: 'Rejected!',
               embeds: [],
