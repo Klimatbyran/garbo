@@ -89,6 +89,9 @@ ${job.data.url}
     }
 
     discord.once('edit', async (documentId, feedback) => {
+      job.log(
+        'received feedback: ' + feedback + ' for documentId: ' + documentId
+      )
       if (documentId === documentId) {
         job.log(`Got feedback: ${feedback}`)
         await userFeedback.add('userFeedback', {
