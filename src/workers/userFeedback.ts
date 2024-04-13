@@ -7,7 +7,6 @@ import discord from '../discord'
 import { EmbedBuilder, TextChannel } from 'discord.js'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { cleanCollectionName } from '../lib/cleaners'
 import { scope3Table, summaryTable } from '../lib/discordTable'
 
 const openai = new OpenAI({
