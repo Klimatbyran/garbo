@@ -33,12 +33,15 @@ const worker = new Worker(
     const { feedback, url, json: previousJson, threadId } = job.data
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
-      name: cleanCollectionName(url),
+      name: 'emission_reports',
       embeddingFunction: embedder,
     })
 
     const results = await collection.query({
       nResults: 5,
+      where: {
+        'metadatas.source': url,
+      },
       queryTexts: [
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
         feedback,
@@ -62,11 +65,19 @@ const worker = new Worker(
       stream: true,
     })
     let response = ''
+    let reply = ''
     let progress = 0
+    const thread = await discord.client.channels.fetch(threadId)
+
     for await (const part of stream) {
       progress += 1
       response += part.choices[0]?.delta?.content || ''
+      reply += part.choices[0]?.delta?.content || ''
       job.updateProgress(Math.min(100, (100 * progress) / 400))
+      if (thread.isThread() && reply.includes('\n')) {
+        thread.send({ content: reply })
+        reply = ''
+      }
     }
 
     const json =
@@ -76,8 +87,6 @@ const worker = new Worker(
         .trim() || '{}'
 
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
-
-    const thread = await discord.client.channels.fetch(threadId)
 
     if (thread.isThread()) {
       const summary = await summaryTable(parsedJson)

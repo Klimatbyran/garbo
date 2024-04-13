@@ -3,7 +3,6 @@ import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import { parseText } from '../queues'
-import { cleanCollectionName } from '../lib/cleaners'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
@@ -35,12 +34,15 @@ const worker = new Worker(
     await message.edit(`Hämtar ut utsläppsdata...`)
 
     const collection = await client.getCollection({
-      name: cleanCollectionName(url),
+      name: 'emission_reports',
       embeddingFunction: embedder,
     })
 
     const results = await collection.query({
       nResults: 5,
+      where: {
+        'metadatas.source': url,
+      },
       queryTexts: [
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
       ],

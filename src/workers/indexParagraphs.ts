@@ -3,7 +3,6 @@ import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import { indexParagraphs, searchVectors } from '../queues'
-import { cleanCollectionName } from '../lib/cleaners'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
 import discord from '../discord'
@@ -34,17 +33,23 @@ const worker = new Worker(
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
-    const name = cleanCollectionName(url)
-    job.log('Checking collection ' + name)
-    const hasCollection = await client.getCollection({ name })
-    if (hasCollection) {
+    const collection = await client.getOrCreateCollection({
+      name: 'emission_reports',
+      embeddingFunction: embedder,
+    })
+    const exists =
+      (
+        await collection.get({
+          where: {
+            'metadatas.source': url,
+          },
+          limit: 1,
+        })
+      ).documents.length > 0
+
+    if (exists) {
       job.log('Collection exists. Skipping reindexing.')
     } else {
-      job.log('Creating collection')
-      const collection = await client.createCollection({
-        name,
-        embeddingFunction: embedder,
-      })
       job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
       const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
@@ -54,11 +59,10 @@ const worker = new Worker(
         parsed: new Date().toISOString(),
         page: i,
       }))
-      const documents = paragraphs.map((p) => p)
       await collection.add({
         ids,
         metadatas,
-        documents,
+        documents: paragraphs,
       })
       job.log('Done!')
     }
