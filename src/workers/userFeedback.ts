@@ -98,9 +98,9 @@ const worker = new Worker(
           components: [], // todo: add approve buttons
         })
 
-      job.log('Sent to thread' + job.data.threadId)
+      job.log('Sent to thread' + threadId)
     } else {
-      job.log('Thread not found' + job.data.threadId)
+      job.log('Thread not found' + threadId)
     }
 
     // Do something with job
