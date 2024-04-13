@@ -97,7 +97,7 @@ ${job.data.url}
         await userFeedback.add('userFeedback', {
           ...job.data,
           documentId,
-          json: parsedJson,
+          json: JSON.stringify(parsedJson, null, 2),
           feedback,
         })
       }
