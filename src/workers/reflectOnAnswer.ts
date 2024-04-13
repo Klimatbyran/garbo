@@ -58,7 +58,7 @@ ${prompt}`)
       progress += 1
       response += part.choices[0]?.delta?.content || ''
       job.updateProgress(Math.min(100, (100 * progress) / 400))
-      message.edit(response)
+      message.edit(response.split('````')[0].trim().slice(-1900))
     }
 
     const json =
