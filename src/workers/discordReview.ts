@@ -94,10 +94,20 @@ ${job.data.url}
       )
       if (documentId === documentId) {
         job.log(`Got feedback: ${feedback}`)
+        const thread = await message.startThread({
+          name: 'Feedback',
+          autoArchiveDuration: 60,
+          reason: 'Feedback thread for review',
+        })
+        await thread.send({
+          content: `Feedback: ${feedback}`,
+          components: [],
+        })
         await userFeedback.add('userFeedback', {
           ...job.data,
           documentId,
           json: JSON.stringify(parsedJson, null, 2),
+          threadId: thread.id,
           feedback,
         })
       }
