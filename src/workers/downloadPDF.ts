@@ -31,6 +31,7 @@ const worker = new Worker(
       if (!response.ok) {
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
+      if (message) await message.edit(`Tolkar PDF...`)
       const buffer = await response.arrayBuffer()
       let doc
       try {
@@ -42,6 +43,10 @@ const worker = new Worker(
         throw error
       }
       const text = doc.text
+      if (message)
+        await message.edit(
+          `Hittade ${text.length} tecken. Delar upp i sidor...`
+        )
 
       let pdfHash = ''
       try {
