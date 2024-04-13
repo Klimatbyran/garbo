@@ -41,7 +41,7 @@ const worker = new Worker(
       (
         await collection.get({
           where: {
-            'metadatas.source': url,
+            source: url,
           },
           limit: 1,
         })
