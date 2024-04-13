@@ -56,25 +56,19 @@ const worker = new Worker(
         { role: 'user', content: previousPrompt },
         { role: 'system', content: previousJson },
         { role: 'user', content: feedback },
-        { role: 'user', content: 'Please reply with new JSON' },
+        { role: 'user', content: 'Please reply with new JSON.' },
       ],
       model: 'gpt-4-1106-preview',
       stream: true,
     })
     let response = ''
-    let reply = ''
     let progress = 0
     const thread = await discord.client.channels.fetch(threadId)
 
     for await (const part of stream) {
       progress += 1
       response += part.choices[0]?.delta?.content || ''
-      reply += part.choices[0]?.delta?.content || ''
       job.updateProgress(Math.min(100, (100 * progress) / 400))
-      if (thread.isThread() && reply.includes('\n')) {
-        thread.send({ content: reply })
-        reply = ''
-      }
     }
 
     const json =
@@ -89,18 +83,22 @@ const worker = new Worker(
       const summary = await summaryTable(parsedJson)
       const scope3 = await scope3Table(parsedJson)
 
-      thread.send({
+      await thread.send({
         content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
         \`${summary}\`
         ## Scope 3:
         \`${scope3}\`
-        ${
-          parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
-            : ''
-        }
         `,
+        components: [], // todo: add approve buttons
       })
+
+      if (parsedJson.reviewComment)
+        await thread.send({
+          content: parsedJson.reviewComment,
+          components: [], // todo: add approve buttons
+        })
+
+      job.log('Sent to thread' + job.data.threadId)
     } else {
       job.log('Thread not found' + job.data.threadId)
     }
