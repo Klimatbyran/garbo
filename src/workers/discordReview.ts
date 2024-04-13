@@ -84,6 +84,7 @@ ${job.data.url}
       })
     } catch (error) {
       job.log(`Error sending message to Discord channel: ${error.message}`)
+      message.edit(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
 

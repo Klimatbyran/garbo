@@ -37,15 +37,13 @@ const worker = new Worker(
       name: 'emission_reports',
       embeddingFunction: embedder,
     })
-    const exists =
-      (
-        await collection.get({
-          where: {
-            source: url,
-          },
-          limit: 1,
-        })
-      ).documents.length > 0
+    const exists = await collection
+      .get({
+        where: {
+          source: url,
+        },
+      })
+      .then((r) => r?.documents?.length > 0)
 
     if (exists) {
       job.log('Collection exists. Skipping reindexing.')
