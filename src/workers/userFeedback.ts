@@ -47,6 +47,7 @@ const worker = new Worker(
 
     const pdfParagraphs = results.documents.flat()
     job.log(`Reflecting on: ${feedback}
+    threadId: ${threadId}
     )}
     ${previousJson}`)
 
