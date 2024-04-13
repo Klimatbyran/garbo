@@ -34,24 +34,34 @@ const worker = new Worker(
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
-    const collection = await client.getOrCreateCollection({
-      name: cleanCollectionName(url),
-      embeddingFunction: embedder,
-    })
+    const name = cleanCollectionName(url)
+    job.log('Checking collection ' + name)
+    const hasCollection = await client.getCollection({ name })
+    if (hasCollection) {
+      job.log('Collection exists. Skipping reindexing.')
+    } else {
+      job.log('Creating collection')
+      const collection = await client.createCollection({
+        name,
+        embeddingFunction: embedder,
+      })
+      job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
-    const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
-    const metadatas = paragraphs.map((p, i) => ({
-      source: url,
-      type: 'company_sustainability_report',
-      parsed: new Date().toISOString(),
-      page: i,
-    }))
-    const documents = paragraphs.map((p) => p)
-    await collection.add({
-      ids,
-      metadatas,
-      documents,
-    })
+      const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
+      const metadatas = paragraphs.map((p, i) => ({
+        source: url,
+        type: 'company_sustainability_report',
+        parsed: new Date().toISOString(),
+        page: i,
+      }))
+      const documents = paragraphs.map((p) => p)
+      await collection.add({
+        ids,
+        metadatas,
+        documents,
+      })
+      job.log('Done!')
+    }
 
     searchVectors.add('search ' + url, {
       url,
