@@ -31,8 +31,7 @@ const worker = new Worker(
       job.data.channelId
     )) as TextChannel
     const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Verifierar information: 
-${answer}`)
+    await message.edit(`Verifierar information...`)
     job.log(`Reflecting on: 
 ${answer}
 --- Prompt:
