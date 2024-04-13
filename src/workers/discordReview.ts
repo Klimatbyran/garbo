@@ -50,16 +50,16 @@ const createButtonRow = (documentId) => {
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
-    // Is this a problem to do every time?
     job.updateProgress(5)
+    const { url, pdfHash, json } = job.data
 
-    job.log(`Sending for review in Discord: ${job.data.json}`)
+    job.log(`Sending for review in Discord: ${json}`)
 
     job.updateProgress(10)
-    const parsedJson = JSON.parse(job.data.json)
-    parsedJson.url = job.data.url
-    job.log(`Saving to db: ${job.data.pdfHash}`)
-    const documentId = await saveToDb(job.data.pdfHash, parsedJson)
+    const parsedJson = JSON.parse(json)
+    parsedJson.url = url
+    job.log(`Saving to db: ${pdfHash}`)
+    const documentId = await saveToDb(pdfHash, parsedJson)
     const buttonRow = createButtonRow(documentId)
 
     const summary = await summaryTable(parsedJson)
@@ -95,14 +95,16 @@ ${job.data.url}
       if (documentId === documentId) {
         job.log(`Got feedback: ${feedback}`)
         const thread = await message.startThread({
-          name: 'Feedback',
+          name: 'Feedback ' + parsedJson.companyName,
           autoArchiveDuration: 60,
           reason: 'Feedback thread for review',
         })
+        job.log(`Started thread: ${thread?.id}`)
         await thread.send({
           content: `Feedback: ${feedback}`,
           components: [],
         })
+        job.log(`Creating feedback job`)
         await userFeedback.add('userFeedback', {
           ...job.data,
           documentId,
