@@ -5,7 +5,9 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 2. **Handling Units**: Pay close attention to the units and handle them correctly. If emissions are reported in thousands of metric tons (x1,000 ton CO2e), make this clear. Mt CO2e means million ton CO2e. If the figures are on a different scale, such as millions of tons (x1,000,000 ton CO2e), note this but never try to convert units. Also look for any side notes or footnotes that may explain the units. Be very attentive to whether the unit is metric tons (tonnes) or US tons. Always present the data in json even if there are disclaimers in the footnotes.
 
-3. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions. If biogenic emissions have been reported, note this in the JSON output as specified below.
+
+4. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
 
     Example JSON structure:
     {
@@ -17,6 +19,7 @@ I have a text extracted from a PDF file containing a company's annual report and
             "emissions": "1234",
             "unit": "Mt CO2e",
             "baseYear": "2019"
+            "biogenicEmissions": "123"
           },
           "scope2": {
             "emissions": "123500",
@@ -24,6 +27,7 @@ I have a text extracted from a PDF file containing a company's annual report and
             "mb": "123500",
             "lb": null
             "baseYear": "2019"
+            "biogenicEmissions": null
           },
           "scope3": {
             "emissions": "5322000",
@@ -67,15 +71,15 @@ I have a text extracted from a PDF file containing a company's annual report and
       ]
     }
 
-4. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select the most relevant one for the total emissions.
+5. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
-5. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+6. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 
-6. Comma separators. Never use any comma separators or spaces in the numbers.
+7. Comma separators. Never use any comma separators or spaces in the numbers.
 
 Then, send the results of your analysis back to me.
 `
