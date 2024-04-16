@@ -5,7 +5,7 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 2. **Handling Units**: Pay close attention to the units and handle them correctly. If emissions are reported in thousands of metric tons (x1,000 ton CO2e), make this clear. Mt CO2e means million ton CO2e. If the figures are on a different scale, such as millions of tons (x1,000,000 ton CO2e), note this but never try to convert units. Also look for any side notes or footnotes that may explain the units. Be very attentive to whether the unit is metric tons (tonnes) or US tons. Always present the data in json even if there are disclaimers in the footnotes.
 
-3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions. If biogenic emissions have been reported, note this in the JSON output as specified below.
+3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions.
 
 4. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
 
@@ -19,7 +19,6 @@ I have a text extracted from a PDF file containing a company's annual report and
             "emissions": "1234",
             "unit": "Mt CO2e",
             "baseYear": "2019"
-            "biogenicEmissions": "123"
           },
           "scope2": {
             "emissions": "123500",
@@ -27,7 +26,6 @@ I have a text extracted from a PDF file containing a company's annual report and
             "mb": "123500",
             "lb": null
             "baseYear": "2019"
-            "biogenicEmissions": null
           },
           "scope3": {
             "emissions": "5322000",
