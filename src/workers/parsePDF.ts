@@ -88,8 +88,9 @@ async function getResults(id: any) {
       },
     }
   )
+  if (!resultResponse.ok)
+    throw new Error('Failed to get results: ' + resultResponse.statusText)
   const json = await resultResponse.json()
-  console.log('json', json)
   const text = json.markdown
   return text
 }
