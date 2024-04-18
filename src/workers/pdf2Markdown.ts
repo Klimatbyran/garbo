@@ -3,6 +3,8 @@ import redis from '../config/redis'
 import { splitText } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
+import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 const minutes = 60
 
@@ -95,6 +97,14 @@ async function getResults(id: any) {
   return text
 }
 
+async function editMessage(job: JobData, msg: string) {
+  const channel = (await discord.client.channels.fetch(
+    job.data.channelId
+  )) as TextChannel
+  const message = await channel.messages.fetch(job.data.messageId)
+  await message.edit(msg)
+}
+
 class JobData extends Job {
   data: {
     url: string
@@ -117,12 +127,20 @@ const worker = new Worker(
     let pdfHash = existingPdfHash
     if (!existingId) {
       job.log(`Downloading from url: ${url}`)
+      await editMessage(job, 'Laddar ner PDF...')
+
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
       job.log(`Creating job for url: ${url}`)
-      id = await createPDFParseJob(buffer)
+      editMessage(job, 'Tolkar tabeller...')
+
+      try {
+        id = await createPDFParseJob(buffer)
+      } catch (error) {
+        editMessage(job, 'LLama fel: ' + error.message)
+      }
       job.updateData({
         ...job.data,
         existingId: id,
@@ -133,6 +151,7 @@ const worker = new Worker(
     job.log(`Wait until PDF is parsed: ${id}`)
     await waitUntilJobFinished(id, 5 * minutes)
 
+    editMessage(job, 'Klar! Indexerar...')
     job.log(`Finished waiting for job ${id}`)
     const text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
