@@ -1,10 +1,94 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import pdf from 'pdf-parse'
 import { splitText } from '../queues'
-import discord from '../discord'
-import { TextChannel } from 'discord.js'
 import elastic from '../elastic'
+import llama from '../config/llama'
+
+/**
+ * Creates a job to parse a PDF file.
+ * @param buffer - The PDF file content as an ArrayBuffer.
+ * @returns The ID of the created job.
+ * @throws An error if the job response status is not 200.
+ */
+async function createPDFParseJob(buffer: ArrayBuffer) {
+  const fileBlob = new Blob([buffer], { type: 'application/pdf' })
+
+  const formData = new FormData()
+  formData.append('file', fileBlob, 'file.pdf')
+  const jobResponse = await fetch(
+    'https://api.cloud.llamaindex.ai/api/parsing/upload',
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${llama.token}`,
+      },
+      body: formData,
+    }
+  )
+  if (jobResponse.status !== 200) {
+    throw new Error(`Job response: ${jobResponse.status}`)
+  }
+  const result = await jobResponse.json()
+
+  const id = result.id
+  return id
+}
+
+/**
+ * Waits until a job is finished.
+ * @param id - The ID of the job.
+ * @param retries - The number of retries (default: 100).
+ * @returns A promise that resolves to true when the job is finished.
+ * @throws An error if the job times out.
+ */
+async function waitUntilJobFinished(id: any, retries = 100) {
+  let ready = false
+
+  while (!ready) {
+    const jobStatusResponse = await fetch(
+      `https://api.cloud.llamaindex.ai/api/parsing/job/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${llama.token}`,
+        },
+      }
+    )
+    retries--
+    if (retries === 0) {
+      throw new Error('Timeout waiting for job')
+    }
+    const jobStatus = await jobStatusResponse.json()
+    if (jobStatus.status === 'done') {
+      ready = true
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+    }
+  }
+
+  return true
+}
+
+/**
+ * Retrieves the result text for a given job ID from the Llama Index API.
+ * @param id - The ID of the job.
+ * @returns The result text.
+ */
+async function getResults(id: any) {
+  const resultResponse = await fetch(
+    `https://api.cloud.llamaindex.ai/api/parsing/job/${id}/result/markdown`,
+    {
+      headers: {
+        Authorization: `Bearer ${llama.token}`,
+      },
+    }
+  )
+  const resultText = await resultResponse.text()
+  const doc = {
+    text: resultText,
+  }
+  const text = doc.text
+  return text
+}
 
 class JobData extends Job {
   data: {
@@ -14,90 +98,28 @@ class JobData extends Job {
   }
 }
 
+/**
+ * Worker responsible for parsing PDF files using LLama index parse endpoint.
+ */
 const worker = new Worker(
   'parsePDF',
   async (job: JobData) => {
     const { url, channelId, messageId } = job.data
-    /*
-    curl -X 'POST' \
-    'https://api.cloud.llamaindex.ai/api/parsing/upload' \
-    -H 'accept: application/json' \
-    -H 'Content-Type: multipart/form-data' \
-    -H "Authorization: Bearer $LLAMA_CLOUD_API_KEY" \
-    -F 'file=@/path/to/your/file.pdf;type=application/pdf'*/
 
     job.log(`Downloading from url: ${url}`)
     const response = await fetch(url)
     const buffer = await response.arrayBuffer()
-
-    const fileBlob = new Blob([buffer], { type: 'application/pdf' })
-
-    const formData = new FormData()
-    formData.append('file', fileBlob, 'file.pdf')
-    const jobResponse = await fetch(
-      'https://api.cloud.llamaindex.ai/api/parsing/upload',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.LLAMA_CLOUD_API_KEY}`,
-        },
-        body: formData,
-      }
-    )
-    job.log(`Job response: ${jobResponse.status}`)
-    if (jobResponse.status !== 200) {
-      throw new Error(`Job response: ${jobResponse.status}`)
-    }
-    const result = await jobResponse.json()
-
-    // TODO: get the id
-    /*   curl -X 'GET' \
-  'https://api.cloud.llamaindex.ai/api/parsing/job/<job_id>' \
-  -H 'accept: application/json' \
-  -H "Authorization: Bearer $LLAMA_CLOUD_API_KEY"*/
-
-    const id = result.id
-    let ready = false
-    job.log(`Job id: ${id}`)
-
-    while (!ready) {
-      const jobStatusResponse = await fetch(
-        `https://api.cloud.llamaindex.ai/api/parsing/job/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.LLAMA_CLOUD_API_KEY}`,
-          },
-        }
-      )
-      const jobStatus = await jobStatusResponse.json()
-      if (jobStatus.status === 'done') {
-        ready = true
-      } else {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-      }
-    }
-
-    // TODO: get the result
-    /*
-curl -X 'GET' \
-  'https://api.cloud.llamaindex.ai/api/parsing/job/<job_id>/result/markdown' \
-  -H 'accept: application/json' \
-  -H "Authorization: Bearer $LLAMA_CLOUD_API_KEY"*/
-
-    const resultResponse = await fetch(
-      `https://api.cloud.llamaindex.ai/api/parsing/job/${id}/result/markdown`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.LLAMA_CLOUD_API_KEY}`,
-        },
-      }
-    )
-    const resultText = await resultResponse.text()
-    const doc = {
-      text: resultText,
-    }
-    const text = doc.text
     const pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+
+    job.log(`Creating job for url: ${url}`)
+    const id = await createPDFParseJob(buffer)
+
+    job.log(`Created PDF job id: ${id}`)
+    await waitUntilJobFinished(id)
+
+    job.log(`Finished waiting for job ${id}`)
+    const text = await getResults(id)
+    job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
 
     splitText.add('split text ' + text.slice(0, 20), {
       url,

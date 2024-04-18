@@ -73,6 +73,7 @@ export class Discord extends EventEmitter {
             break
           case 'edit':
             reportState = 'edited'
+
             const input = new TextInputBuilder()
               .setCustomId('editInput')
               .setLabel(`Granska utsläppsdata`)
