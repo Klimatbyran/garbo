@@ -1,5 +1,6 @@
 export { default as parseText } from './parseText'
 export { default as downloadPDF } from './downloadPDF'
+export { default as parsePDF } from './parsePDF'
 export { default as splitText } from './splitText'
 export { default as indexParagraphs } from './indexParagraphs'
 export { default as searchVectors } from './searchVectors'

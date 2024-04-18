@@ -7,6 +7,7 @@ const options: QueueOptions = {
 }
 
 const downloadPDF = new Queue('downloadPDF', options)
+const parsePDF = new Queue('parsePDF', options)
 const parseText = new Queue('parseText', options)
 const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
@@ -17,6 +18,7 @@ const userFeedback = new Queue('userFeedback', options)
 
 export {
   downloadPDF,
+  parsePDF,
   parseText,
   splitText,
   indexParagraphs,
