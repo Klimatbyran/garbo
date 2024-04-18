@@ -39,6 +39,8 @@ const worker = new Worker(
       content: "Reflecting on feedback for " + documentId
     })
     const messageId = (newMessage as any).id
+    console.log("MESSAGE_ID", messageId)
+
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -55,7 +57,7 @@ const worker = new Worker(
         feedback,
       ],
     })
-
+    console.log("RESULTS", results)
     const pdfParagraphs = results.documents.flat()
     job.log(`Reflecting on: ${feedback}
     messageId: ${messageId}
@@ -80,11 +82,13 @@ const worker = new Worker(
     let response = ''
     let progress = 0
 
+    console.log("Getting channeld with CHANNEL_ID", channelId)
     const channel = (await discord.client.channels.fetch(
       channelId
     )) as TextChannel
     const message = await channel?.messages?.fetch(messageId)
 
+    console.log("STARTING NEW THREAD")
     const thread = await message.startThread({
       name: 'Feedback ' + JSON.parse(previousJson).companyName,
       autoArchiveDuration: 60,
