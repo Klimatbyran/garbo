@@ -62,9 +62,11 @@ async function waitUntilJobFinished(id: any, retries = 100) {
       throw new Error('Timeout waiting for job')
     }
     const jobStatus = await jobStatusResponse.json()
-    if (jobStatus.status === 'done') {
+
+    if (jobStatus.status === 'SUCCESS') {
       ready = true
     } else {
+      console.log('jobStatus', jobStatus)
       await new Promise((resolve) => setTimeout(resolve, 1000))
     }
   }
@@ -86,11 +88,9 @@ async function getResults(id: any) {
       },
     }
   )
-  const resultText = await resultResponse.text()
-  const doc = {
-    text: resultText,
-  }
-  const text = doc.text
+  const json = await resultResponse.json()
+  console.log('json', json)
+  const text = json.markdown
   return text
 }
 
