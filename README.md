@@ -33,7 +33,7 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
     npm i
     docker run -d -p 6379:6379 redis
     docker run -d -p 8000:8000 chromadb/chroma
-    docker run -d -p 9200:9200 elasticsearch
+    docker run -d -p 9200:9200 opensearchproject/opensearch
     npm run dev
 
 NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadPDF job.
@@ -47,6 +47,7 @@ Create a .env file in the root lib and add these tokens/secrets before running t
     DISCORD_APPLICATION_ID=
     DISCORD_TOKEN=
     DISCORD_SERVER_ID=
+    LLAMA_CLOUD_API_KEY=
     ELASTIC_NODE_URL=
     ELASTIC_INDEX_NAME=
 
