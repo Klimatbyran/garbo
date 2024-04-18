@@ -33,7 +33,7 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
     npm i
     docker run -d -p 6379:6379 redis
     docker run -d -p 8000:8000 chromadb/chroma
-    docker run -d -p 9200:9200 opensearchproject/opensearch
+    docker run -d -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=123456789%%aBCD" -p 9200:9200 opensearchproject/opensearch
     npm run dev
 
 NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadPDF job.
