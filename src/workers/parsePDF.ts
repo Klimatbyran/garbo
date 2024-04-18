@@ -4,6 +4,8 @@ import { splitText } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
 
+const minutes = 60
+
 /**
  * Creates a job to parse a PDF file.
  * @param buffer - The PDF file content as an ArrayBuffer.
@@ -29,6 +31,7 @@ async function createPDFParseJob(buffer: ArrayBuffer) {
     throw new Error(`Job response: ${jobResponse.status}`)
   }
   const result = await jobResponse.json()
+  console.log('result', result)
 
   const id = result.id
   return id
@@ -54,6 +57,7 @@ async function waitUntilJobFinished(id: any, retries = 100) {
       }
     )
     retries--
+    console.log('retries', retries)
     if (retries === 0) {
       throw new Error('Timeout waiting for job')
     }
@@ -95,6 +99,8 @@ class JobData extends Job {
     url: string
     channelId: string
     messageId: string
+    existingId: string
+    existingPdfHash: string
   }
 }
 
@@ -104,18 +110,27 @@ class JobData extends Job {
 const worker = new Worker(
   'parsePDF',
   async (job: JobData) => {
-    const { url, channelId, messageId } = job.data
+    const { url, channelId, messageId, existingId, existingPdfHash } = job.data
 
-    job.log(`Downloading from url: ${url}`)
-    const response = await fetch(url)
-    const buffer = await response.arrayBuffer()
-    const pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+    let id = existingId
+    let pdfHash = existingPdfHash
+    if (!existingId) {
+      job.log(`Downloading from url: ${url}`)
+      const response = await fetch(url)
+      const buffer = await response.arrayBuffer()
+      pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
-    job.log(`Creating job for url: ${url}`)
-    const id = await createPDFParseJob(buffer)
+      job.log(`Creating job for url: ${url}`)
+      id = await createPDFParseJob(buffer)
+      job.updateData({
+        ...job.data,
+        existingId: id,
+        existingPdfHash: pdfHash,
+      })
+    }
 
-    job.log(`Created PDF job id: ${id}`)
-    await waitUntilJobFinished(id)
+    job.log(`Wait until PDF is parsed: ${id}`)
+    await waitUntilJobFinished(id, 5 * minutes)
 
     job.log(`Finished waiting for job ${id}`)
     const text = await getResults(id)
