@@ -299,6 +299,26 @@ class Elastic {
     }
   }
 
+  async getReportData(documentId: string) {
+    try {
+      const response = await this.client.get({
+        index: this.indexName,
+        id: documentId
+      });
+  
+      if (response.found) {
+        console.log('Report data retrieved successfully.');
+        return response._source;
+      } else {
+        console.error('No report found for the given document ID.');
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error retrieving report data:`, error);
+      return null;
+    }
+  }
+
   async updateDocumentState(documentId: string, newState: string) {
     try {
       await this.client.update({

@@ -33,15 +33,15 @@ const createButtonRow = (documentId) => {
   // TODO: move to discord.ts
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
-      .setCustomId(`approve-${documentId}`)
+      .setCustomId(`approve_${documentId}`)
       .setLabel('Approve')
       .setStyle(ButtonStyle.Success),
     new ButtonBuilder()
-      .setCustomId(`edit-${documentId}`)
+      .setCustomId(`edit_${documentId}`)
       .setLabel('Feedback')
       .setStyle(ButtonStyle.Primary),
     new ButtonBuilder()
-      .setCustomId(`reject-${documentId}`)
+      .setCustomId(`reject_${documentId}`)
       .setLabel('Reject')
       .setStyle(ButtonStyle.Danger)
   )
@@ -66,6 +66,7 @@ const worker = new Worker(
     const scope3 = await scope3Table(parsedJson)
 
     job.log(`Sending message to Discord channel ${discord.channelId}`)
+    // send an empty message to the channel
     let message = null
     try {
       message = await discord.sendMessageToChannel(discord.channelId, {
@@ -88,18 +89,19 @@ ${url}
       throw error
     }
 
-    discord.once('edit', async (documentId, feedback) => {
+    /*discord.once('edit', async (documentId, feedback) => {
+      console.log('edit', documentId, feedback)
       job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
       job.log(`Creating feedback job`)
       await userFeedback.add('userFeedback', {
-        ...job.data,
+        url,
         documentId,
-        json: JSON.stringify(parsedJson, null, 2),
         messageId: message.id,
         channelId,
+        json: JSON.stringify(parsedJson, null, 2),
         feedback,
       })
-    })
+    })*/
 
     job.updateProgress(40)
     job.updateProgress(100)

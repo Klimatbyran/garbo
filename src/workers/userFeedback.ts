@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/reflect'
 import discord from '../discord'
+import elastic from '../elastic'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { scope3Table, summaryTable } from '../lib/discordTable'
@@ -18,10 +19,9 @@ const embedder = new OpenAIEmbeddingFunction({
 
 class JobData extends Job {
   data: {
-    url: string
+    documentId: string
     channelId: string
     messageId: string
-    json: string
     feedback: string
   }
 }
@@ -29,7 +29,18 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, url, json: previousJson, messageId, channelId } = job.data
+    const { feedback, documentId, channelId } = job.data
+
+    const reportData = await elastic.getReportData(documentId) as any
+    console.log("REPORT_DATA", reportData)
+    const previousJson = JSON.stringify(reportData.report, null, 2)
+    const url = reportData.url
+    const newMessage = await discord.sendMessageToChannel(discord.channelId, {
+      content: "Reflecting on feedback for " + documentId
+    })
+    const messageId = (newMessage as any).id
+    console.log("MESSAGE_ID", messageId)
+
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -46,7 +57,7 @@ const worker = new Worker(
         feedback,
       ],
     })
-
+    console.log("RESULTS", results)
     const pdfParagraphs = results.documents.flat()
     job.log(`Reflecting on: ${feedback}
     messageId: ${messageId}
@@ -71,11 +82,13 @@ const worker = new Worker(
     let response = ''
     let progress = 0
 
+    console.log("Getting channeld with CHANNEL_ID", channelId)
     const channel = (await discord.client.channels.fetch(
       channelId
     )) as TextChannel
     const message = await channel?.messages?.fetch(messageId)
 
+    console.log("STARTING NEW THREAD")
     const thread = await message.startThread({
       name: 'Feedback ' + JSON.parse(previousJson).companyName,
       autoArchiveDuration: 60,
@@ -104,7 +117,11 @@ const worker = new Worker(
       }
     }
 
-    if (reply) thread.send({ content: reply, components: [] })
+    if (reply) { 
+      thread.send({ content: reply, components: [] }) 
+    } else {
+      console.log('No reply')
+    }
 
     const json =
       response
@@ -134,6 +151,8 @@ const worker = new Worker(
         })
 
       job.log('Sent to thread' + thread.id)
+    } else {
+      console.error('Thread not found')
     }
 
     // Do something with job
