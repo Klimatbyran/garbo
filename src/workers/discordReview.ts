@@ -66,6 +66,7 @@ const worker = new Worker(
     const scope3 = await scope3Table(parsedJson)
 
     job.log(`Sending message to Discord channel ${discord.channelId}`)
+    // send an empty message to the channel
     let message = null
     try {
       message = await discord.sendMessageToChannel(discord.channelId, {
@@ -88,7 +89,7 @@ ${url}
       throw error
     }
 
-    discord.once('edit', async (documentId, feedback) => {
+    /*discord.once('edit', async (documentId, feedback) => {
       console.log('edit', documentId, feedback)
       job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
       job.log(`Creating feedback job`)
@@ -100,7 +101,7 @@ ${url}
         json: JSON.stringify(parsedJson, null, 2),
         feedback,
       })
-    })
+    })*/
 
     job.updateProgress(40)
     job.updateProgress(100)

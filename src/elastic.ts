@@ -308,8 +308,7 @@ class Elastic {
   
       if (response.found) {
         console.log('Report data retrieved successfully.');
-        const data = response._source as any;
-        return data.report;
+        return response._source;
       } else {
         console.error('No report found for the given document ID.');
         return null;

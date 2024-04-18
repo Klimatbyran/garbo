@@ -18,6 +18,7 @@ import commands from './commands'
 import config from './config/discord'
 import elastic from './elastic'
 import { EventEmitter } from 'events'
+import { userFeedback } from './queues'
 
 export class Discord extends EventEmitter {
   client: Client<boolean>
@@ -103,10 +104,16 @@ export class Discord extends EventEmitter {
 
             if (submitted) {
               const userInput = submitted.fields.getTextInputValue('editInput')
-              this.emit('edit', documentId, userInput)
+              //this.emit('edit', documentId, userInput)
 
               await submitted.reply({
-                content: `Tack för din granskning: \n ${userInput}`,
+                content: `Tack för din feedback: \n ${userInput}`,
+              })
+              await userFeedback.add('userFeedback', {
+                documentId,
+                messageId: '',
+                channelId,
+                feedback: userInput,
               })
             }
             break
