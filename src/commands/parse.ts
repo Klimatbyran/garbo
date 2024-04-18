@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { parsePDF } from '../queues'
+import { pdf2Markdown } from '../queues'
 
 export default {
   data: new SlashCommandBuilder()
@@ -31,7 +31,7 @@ export default {
     const channelId = interaction.channelId
     const messageId = reply.id
 
-    parsePDF.add('parse pdf ' + url.slice(-20), {
+    pdf2Markdown.add('parse pdf ' + url.slice(-20), {
       url,
       channelId,
       messageId,
