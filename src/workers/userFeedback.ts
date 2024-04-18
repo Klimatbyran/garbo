@@ -113,7 +113,11 @@ const worker = new Worker(
       }
     }
 
-    if (reply) thread.send({ content: reply, components: [] })
+    if (reply) { 
+      thread.send({ content: reply, components: [] }) 
+    } else {
+      console.log('No reply')
+    }
 
     const json =
       response
@@ -143,6 +147,8 @@ const worker = new Worker(
         })
 
       job.log('Sent to thread' + thread.id)
+    } else {
+      console.error('Thread not found')
     }
 
     // Do something with job
