@@ -16,6 +16,7 @@ import {
   discordReview,
   downloadPDF,
   indexParagraphs,
+  pdf2Markdown,
   parseText,
   reflectOnAnswer,
   searchVectors,
@@ -45,6 +46,7 @@ serverAdapter.setBasePath('/admin/queues')
 createBullBoard({
   queues: [
     new BullMQAdapter(downloadPDF),
+    new BullMQAdapter(pdf2Markdown),
     new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
