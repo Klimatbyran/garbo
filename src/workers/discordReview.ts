@@ -33,15 +33,15 @@ const createButtonRow = (documentId) => {
   // TODO: move to discord.ts
   return new ActionRowBuilder().addComponents(
     new ButtonBuilder()
-      .setCustomId(`approve-${documentId}`)
+      .setCustomId(`approve_${documentId}`)
       .setLabel('Approve')
       .setStyle(ButtonStyle.Success),
     new ButtonBuilder()
-      .setCustomId(`edit-${documentId}`)
+      .setCustomId(`edit_${documentId}`)
       .setLabel('Feedback')
       .setStyle(ButtonStyle.Primary),
     new ButtonBuilder()
-      .setCustomId(`reject-${documentId}`)
+      .setCustomId(`reject_${documentId}`)
       .setLabel('Reject')
       .setStyle(ButtonStyle.Danger)
   )
