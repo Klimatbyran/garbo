@@ -89,6 +89,7 @@ ${url}
     }
 
     discord.once('edit', async (documentId, feedback) => {
+      console.log('edit', documentId, feedback)
       job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
       job.log(`Creating feedback job`)
       await userFeedback.add('userFeedback', {
