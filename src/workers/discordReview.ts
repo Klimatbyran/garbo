@@ -51,7 +51,7 @@ const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
     job.updateProgress(5)
-    const { url, pdfHash, json } = job.data
+    const { url, pdfHash, json, channelId } = job.data
 
     job.log(`Sending for review in Discord: ${json}`)
 
@@ -70,7 +70,7 @@ const worker = new Worker(
     try {
       message = await discord.sendMessageToChannel(discord.channelId, {
         content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
-${job.data.url}
+${url}
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
@@ -89,30 +89,16 @@ ${job.data.url}
     }
 
     discord.once('edit', async (documentId, feedback) => {
-      job.log(
-        'received feedback: ' + feedback + ' for documentId: ' + documentId
-      )
-      if (documentId === documentId) {
-        job.log(`Got feedback: ${feedback}`)
-        const thread = await message.startThread({
-          name: 'Feedback ' + parsedJson.companyName,
-          autoArchiveDuration: 60,
-          reason: 'Feedback thread for review',
-        })
-        job.log(`Started thread: ${thread?.id}`)
-        await thread.send({
-          content: `Feedback: ${feedback}`,
-          components: [],
-        })
-        job.log(`Creating feedback job`)
-        await userFeedback.add('userFeedback', {
-          ...job.data,
-          documentId,
-          json: JSON.stringify(parsedJson, null, 2),
-          threadId: thread.id,
-          feedback,
-        })
-      }
+      job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
+      job.log(`Creating feedback job`)
+      await userFeedback.add('userFeedback', {
+        ...job.data,
+        documentId,
+        json: JSON.stringify(parsedJson, null, 2),
+        messageId: message.id,
+        channelId,
+        feedback,
+      })
     })
 
     job.updateProgress(40)
