@@ -19,6 +19,7 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     url: string
+    documentId: string
     channelId: string
     messageId: string
     json: string

@@ -92,11 +92,11 @@ ${url}
       job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
       job.log(`Creating feedback job`)
       await userFeedback.add('userFeedback', {
-        ...job.data,
+        url,
         documentId,
-        json: JSON.stringify(parsedJson, null, 2),
         messageId: message.id,
         channelId,
+        json: JSON.stringify(parsedJson, null, 2),
         feedback,
       })
     })
