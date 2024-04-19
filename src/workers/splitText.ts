@@ -18,19 +18,22 @@ class JobData extends Job {
 const worker = new Worker(
   'splitText',
   async (job: JobData) => {
-    const { url, channelId, markdown, messageId, pdfHash } = job.data
+    const {
+      url,
+      text,
+      channelId,
+      markdown = false,
+      messageId,
+      pdfHash,
+    } = job.data
 
-    job.log(`Splitting text: ${job.data.text.slice(0, 20)}`)
+    job.log(`Splitting text: ${text.slice(0, 20)}`)
 
-    const paragraphs = job.data.markdown
-      ? job.data.text.split('##').filter((p) => p.trim().length > 0)
-      : job.data.text.split('\n\n').filter((p) => p.trim().length > 0)
+    const paragraphs = markdown
+      ? text.split('##').filter((p) => p.trim().length > 0)
+      : text.split('\n\n').filter((p) => p.trim().length > 0)
 
-    const channel = (await discord.client.channels.fetch(
-      job.data.channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Bearbetar PDF...`)
+    discord.editMessage(job.data, `Bearbetar PDF...`)
 
     indexParagraphs.add(
       'found ' + paragraphs.length,
