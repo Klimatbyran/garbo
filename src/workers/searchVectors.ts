@@ -34,6 +34,7 @@ const worker = new Worker(
       name: 'emission_reports',
       embeddingFunction: embedder,
     })
+    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...COLLECTION OK')
 
     const results = await collection.query({
       nResults: 10,
@@ -45,9 +46,11 @@ const worker = new Worker(
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
       ],
     })
+    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...RESULTS OK')
 
     job.log(JSON.stringify(results))
 
+    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...DONE')
     parseText.add(
       'parse ' + url,
       {
@@ -61,7 +64,7 @@ const worker = new Worker(
         attempts: 5,
       }
     )
-
+    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...RETURNING')
     return results.documents
   },
   {
