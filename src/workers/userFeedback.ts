@@ -73,13 +73,14 @@ const worker = new Worker(
     const stream = await openai.chat.completions.create({
       messages: [
         { role: 'user', content: pdfParagraphs.join('\n\n') },
-        { role: 'user', content: previousPrompt },
+        { role: 'user', content: 'Previous prompt: ' + previousPrompt },
         { role: 'system', content: previousJson },
         { role: 'user', content: feedback },
         {
           role: 'user',
           content:
-            'Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.',
+            `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
+            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.`,
         },
       ],
       model: 'gpt-4-1106-preview',
