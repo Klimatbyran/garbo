@@ -43,9 +43,9 @@ const worker = new Worker(
     })
     const exists = await collection
       .get({
-        where: {
-          $and: [{ source: url }, { markdown }],
-        },
+        where: markdown
+          ? { $and: [{ source: url }, { markdown }] }
+          : { source: url },
       })
       .then((r) => r?.documents?.length > 0)
 
