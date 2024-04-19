@@ -23,8 +23,8 @@ const worker = new Worker(
     job.log(`Splitting text: ${job.data.text.slice(0, 20)}`)
 
     const paragraphs = job.data.markdown
-      ? job.data.text.split('##')
-      : job.data.text.split('\n\n')
+      ? job.data.text.split('##').filter((p) => p.trim().length > 0)
+      : job.data.text.split('\n\n').filter((p) => p.trim().length > 0)
 
     const channel = (await discord.client.channels.fetch(
       job.data.channelId
