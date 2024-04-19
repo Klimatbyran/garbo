@@ -97,14 +97,6 @@ async function getResults(id: any) {
   return text
 }
 
-async function editMessage(job: JobData, msg: string) {
-  const channel = (await discord.client.channels.fetch(
-    job.data.channelId
-  )) as TextChannel
-  const message = await channel.messages.fetch(job.data.messageId)
-  await message.edit(msg)
-}
-
 class JobData extends Job {
   data: {
     url: string
@@ -122,24 +114,23 @@ const worker = new Worker(
   'pdf2Markdown',
   async (job: JobData) => {
     const { url, channelId, messageId, existingId, existingPdfHash } = job.data
-
     let id = existingId
     let pdfHash = existingPdfHash
     if (!existingId) {
       job.log(`Downloading from url: ${url}`)
-      await editMessage(job, 'Laddar ner PDF...')
+      discord.editMessage(job.data, 'Laddar ner PDF...')
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
       job.log(`Creating job for url: ${url}`)
-      editMessage(job, 'Tolkar tabeller...')
+      discord.editMessage(job.data, 'Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
       } catch (error) {
-        editMessage(job, 'LLama fel: ' + error.message)
+        discord.editMessage(job.data, 'LLama fel: ' + error.message)
       }
       job.updateData({
         ...job.data,
@@ -151,7 +142,7 @@ const worker = new Worker(
     job.log(`Wait until PDF is parsed: ${id}`)
     await waitUntilJobFinished(id, 5 * minutes)
 
-    editMessage(job, 'Klar! Indexerar...')
+    discord.editMessage(job.data, 'Klar! Indexerar...')
     job.log(`Finished waiting for job ${id}`)
     const text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)

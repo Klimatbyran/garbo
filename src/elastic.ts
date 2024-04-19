@@ -303,19 +303,19 @@ class Elastic {
     try {
       const response = await this.client.get({
         index: this.indexName,
-        id: documentId
-      });
-  
+        id: documentId,
+      })
+
       if (response.found) {
-        console.log('Report data retrieved successfully.');
-        return response._source;
+        console.log('Report data retrieved successfully.')
+        return response._source
       } else {
-        console.error('No report found for the given document ID.');
-        return null;
+        console.error('No report found for the given document ID.')
+        return null
       }
     } catch (error) {
-      console.error(`Error retrieving report data:`, error);
-      return null;
+      console.error(`Error retrieving report data:`, error)
+      return null
     }
   }
 

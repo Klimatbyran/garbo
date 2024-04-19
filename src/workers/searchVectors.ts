@@ -5,23 +5,10 @@ import { OpenAIEmbeddingFunction } from 'chromadb'
 import { parseText } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
-
-const editMessage = async (
-  channelId: string,
-  messageId: string,
-  text: string
-) => {
-  const channel = (await discord.client.channels.fetch(
-    channelId
-  )) as TextChannel
-  const message = await channel.messages.fetch(messageId)
-  await message?.edit(text)
-}
 
 class JobData extends Job {
   data: {
@@ -41,7 +28,7 @@ const worker = new Worker(
 
     job.log('Searching ' + url)
 
-    editMessage(channelId, messageId, 'Hämtar ut utsläppsdata...')
+    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...')
 
     const collection = await client.getCollection({
       name: 'emission_reports',

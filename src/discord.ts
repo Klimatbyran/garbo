@@ -144,6 +144,15 @@ export class Discord extends EventEmitter {
     return this
   }
 
+  async editMessage(
+    { channelId, messageId }: { channelId: string; messageId: string },
+    msg: string
+  ) {
+    const channel = (await this.client.channels.fetch(channelId)) as TextChannel
+    const message = await channel.messages.fetch(messageId)
+    await message.edit(msg)
+  }
+
   async sendMessageToChannel(channelId, message) {
     try {
       const channel = await this.client.channels.fetch(channelId)

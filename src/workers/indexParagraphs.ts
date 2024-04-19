@@ -33,11 +33,7 @@ const worker = new Worker(
       pdfHash,
     } = job.data
 
-    const channel = (await discord.client.channels.fetch(
-      channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(messageId)
-    await message.edit(`Sparar i vektordatabas...`)
+    await discord.editMessage(job.data, `Sparar i vektordatabas...`)
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
