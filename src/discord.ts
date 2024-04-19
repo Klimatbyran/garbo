@@ -57,7 +57,7 @@ export class Discord extends EventEmitter {
       } else if (interaction.isButton()) {
         let reportState = ''
 
-        const [action, documentId] = interaction.customId.split('_')
+        const [action, documentId] = interaction.customId.split('=')
         switch (action) {
           case 'approve':
             this.emit('approve', documentId)
