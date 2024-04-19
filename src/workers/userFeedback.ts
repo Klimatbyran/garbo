@@ -35,10 +35,10 @@ const worker = new Worker(
     console.log("REPORT_DATA", reportData)
     const previousJson = JSON.stringify(reportData.report, null, 2)
     const url = reportData.url
-    const newMessage = await discord.sendMessageToChannel(discord.channelId, {
+    const feedbackMessage = await discord.sendMessageToChannel(discord.channelId, {
       content: "Reflecting on feedback for " + documentId
     })
-    const messageId = (newMessage as any).id
+    const messageId = feedbackMessage.id
     console.log("MESSAGE_ID", messageId)
 
     const client = new ChromaClient(chromadb)
@@ -59,6 +59,8 @@ const worker = new Worker(
     })
     console.log("RESULTS", results)
     const pdfParagraphs = results.documents.flat()
+
+    console.log("PDF_PARAGRAPHS", pdfParagraphs)
     job.log(`Reflecting on: ${feedback}
     messageId: ${messageId}
     )}
@@ -82,14 +84,14 @@ const worker = new Worker(
     let response = ''
     let progress = 0
 
-    console.log("Getting channeld with CHANNEL_ID", channelId)
+    /*console.log("Getting channeld with CHANNEL_ID", channelId)
     const channel = (await discord.client.channels.fetch(
       channelId
     )) as TextChannel
-    const message = await channel?.messages?.fetch(messageId)
+    const message = await channel?.messages?.fetch(messageId)*/
 
     console.log("STARTING NEW THREAD")
-    const thread = await message.startThread({
+    const thread = await feedbackMessage.startThread({
       name: 'Feedback ' + JSON.parse(previousJson).companyName,
       autoArchiveDuration: 60,
       reason: 'Feedback thread for review',

@@ -13,6 +13,7 @@ import {
   TextInputStyle,
   Embed,
   EmbedBuilder,
+  Message,
 } from 'discord.js'
 import commands from './commands'
 import config from './config/discord'
@@ -153,14 +154,14 @@ export class Discord extends EventEmitter {
     await message.edit(msg)
   }
 
-  async sendMessageToChannel(channelId, message) {
+  async sendMessageToChannel(channelId, message): Promise<Message> {
     try {
       const channel = await this.client.channels.fetch(channelId)
       if (!channel || !(channel instanceof TextChannel)) {
         console.error(`Kanalen hittades inte eller är inte en textkanal.`)
         return
       }
-      await channel.send(message)
+      return await channel.send(message)
     } catch (error) {
       console.error('Ett fel uppstod när meddelandet skulle skickas:', error)
     }
