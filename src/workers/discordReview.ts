@@ -2,17 +2,6 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import elastic from '../elastic'
 import discord from '../discord'
-import {
-  ModalBuilder,
-  ButtonBuilder,
-  TextInputBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-  ModalActionRowComponentBuilder,
-  TextInputStyle,
-  Embed,
-  EmbedBuilder,
-} from 'discord.js'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { userFeedback } from '../queues'
 
@@ -29,23 +18,6 @@ class JobData extends Job {
 async function saveToDb(id: string, report: any) {
   return await elastic.indexReport(id, report)
 }
-const createButtonRow = (documentId) => {
-  // TODO: move to discord.ts
-  return new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setCustomId(`approve~${documentId}`)
-      .setLabel('Approve')
-      .setStyle(ButtonStyle.Success),
-    new ButtonBuilder()
-      .setCustomId(`edit~${documentId}`)
-      .setLabel('Feedback')
-      .setStyle(ButtonStyle.Primary),
-    new ButtonBuilder()
-      .setCustomId(`reject~${documentId}`)
-      .setLabel('Reject')
-      .setStyle(ButtonStyle.Danger)
-  )
-}
 
 const worker = new Worker(
   'discordReview',
@@ -60,7 +32,7 @@ const worker = new Worker(
     parsedJson.url = url
     job.log(`Saving to db: ${pdfHash}`)
     const documentId = await saveToDb(pdfHash, parsedJson)
-    const buttonRow = createButtonRow(documentId)
+    const buttonRow = discord.createButtonRow(documentId)
 
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)

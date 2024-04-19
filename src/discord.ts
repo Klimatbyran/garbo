@@ -145,6 +145,23 @@ export class Discord extends EventEmitter {
     return this
   }
 
+  public createButtonRow = (customId: string) => {
+    return new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`approve~${customId}`)
+        .setLabel('Approve')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId(`edit~${customId}`)
+        .setLabel('Feedback')
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+        .setCustomId(`reject~${customId}`)
+        .setLabel('Reject')
+        .setStyle(ButtonStyle.Danger)
+    )
+  }
+
   async editMessage(
     { channelId, messageId }: { channelId: string; messageId: string },
     msg: string
