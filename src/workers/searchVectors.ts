@@ -11,10 +11,23 @@ const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
+const editMessage = async (
+  channelId: string,
+  messageId: string,
+  text: string
+) => {
+  const channel = (await discord.client.channels.fetch(
+    channelId
+  )) as TextChannel
+  const message = await channel.messages.fetch(messageId)
+  await message?.edit(text)
+}
+
 class JobData extends Job {
   data: {
     url: string
     channelId: string
+    markdown: boolean
     messageId: string
     pdfHash: string
   }
@@ -24,14 +37,11 @@ const worker = new Worker(
   'searchVectors',
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
-    const url = job.data.url
+    const { url, markdown = false, channelId, messageId, pdfHash } = job.data
 
     job.log('Searching ' + url)
-    const channel = (await discord.client.channels.fetch(
-      job.data.channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Hämtar ut utsläppsdata...`)
+
+    editMessage(channelId, messageId, 'Hämtar ut utsläppsdata...')
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -39,9 +49,10 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 5,
+      nResults: 10,
       where: {
         source: url,
+        markdown,
       },
       queryTexts: [
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
@@ -55,9 +66,9 @@ const worker = new Worker(
       {
         url,
         paragraphs: results.documents.flat(),
-        channelId: job.data.channelId,
-        messageId: job.data.messageId,
-        pdfHash: job.data.pdfHash,
+        channelId,
+        messageId,
+        pdfHash,
       },
       {
         attempts: 5,

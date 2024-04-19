@@ -159,12 +159,14 @@ const worker = new Worker(
     splitText.add('split text ' + text.slice(0, 20), {
       url,
       text,
+      markdown: true,
       channelId,
       messageId,
       pdfHash,
     })
   },
   {
+    concurrency: 10,
     connection: redis,
     autorun: false,
   }

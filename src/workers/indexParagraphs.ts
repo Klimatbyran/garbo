@@ -13,6 +13,7 @@ class JobData extends Job {
     paragraphs: string[]
     url: string
     channelId: string
+    markdown: boolean
     messageId: string
     pdfHash: string
   }
@@ -23,12 +24,19 @@ const worker = new Worker(
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
 
-    const paragraphs = job.data.paragraphs
-    const url = job.data.url
+    const {
+      paragraphs,
+      url,
+      channelId,
+      markdown = false,
+      messageId,
+      pdfHash,
+    } = job.data
+
     const channel = (await discord.client.channels.fetch(
-      job.data.channelId
+      channelId
     )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
+    const message = await channel.messages.fetch(messageId)
     await message.edit(`Sparar i vektordatabas...`)
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
@@ -41,6 +49,7 @@ const worker = new Worker(
       .get({
         where: {
           source: url,
+          markdown,
         },
       })
       .then((r) => r?.documents?.length > 0)
@@ -53,6 +62,7 @@ const worker = new Worker(
       const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
       const metadatas = paragraphs.map((p, i) => ({
         source: url,
+        markdown,
         type: 'company_sustainability_report',
         parsed: new Date().toISOString(),
         page: i,
@@ -67,9 +77,9 @@ const worker = new Worker(
 
     searchVectors.add('search ' + url, {
       url,
-      channelId: job.data.channelId,
-      messageId: job.data.messageId,
-      pdfHash: job.data.pdfHash,
+      channelId,
+      messageId,
+      pdfHash,
     })
 
     return paragraphs

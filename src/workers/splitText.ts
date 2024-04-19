@@ -7,6 +7,7 @@ import { TextChannel } from 'discord.js'
 class JobData extends Job {
   data: {
     url: string
+    markdown: boolean
     text: string
     channelId: string
     messageId: string
@@ -17,10 +18,13 @@ class JobData extends Job {
 const worker = new Worker(
   'splitText',
   async (job: JobData) => {
+    const { url, channelId, markdown, messageId, pdfHash } = job.data
+
     job.log(`Splitting text: ${job.data.text.slice(0, 20)}`)
 
-    const markdown = job.data.text.replace('##', '\n\n##')
-    const paragraphs = markdown.split('\n\n').filter((p) => p.length > 0)
+    const paragraphs = job.data.markdown
+      ? job.data.text.split('##')
+      : job.data.text.split('\n\n')
 
     const channel = (await discord.client.channels.fetch(
       job.data.channelId
@@ -32,10 +36,11 @@ const worker = new Worker(
       'found ' + paragraphs.length,
       {
         paragraphs,
-        url: job.data.url,
-        channelId: job.data.channelId,
-        messageId: job.data.messageId,
-        pdfHash: job.data.pdfHash,
+        url,
+        channelId,
+        markdown,
+        messageId,
+        pdfHash,
       },
       {
         attempts: 3,
@@ -49,6 +54,7 @@ const worker = new Worker(
     return paragraphs
   },
   {
+    concurrency: 100,
     connection: redis,
     autorun: false,
   }
