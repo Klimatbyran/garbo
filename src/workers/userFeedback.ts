@@ -31,15 +31,18 @@ const worker = new Worker(
   async (job: JobData) => {
     const { feedback, documentId, channelId } = job.data
 
-    const reportData = await elastic.getReportData(documentId) as any
-    console.log("REPORT_DATA", reportData)
+    const reportData = (await elastic.getReportData(documentId)) as any
+    console.log('REPORT_DATA', reportData)
     const previousJson = JSON.stringify(reportData.report, null, 2)
     const url = reportData.url
-    const feedbackMessage = await discord.sendMessageToChannel(discord.channelId, {
-      content: "Reflecting on feedback for " + documentId
-    })
+    const feedbackMessage = await discord.sendMessageToChannel(
+      discord.channelId,
+      {
+        content: 'Reflecting on feedback for ' + documentId,
+      }
+    )
     const messageId = feedbackMessage.id
-    console.log("MESSAGE_ID", messageId)
+    console.log('MESSAGE_ID', messageId)
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
@@ -50,6 +53,7 @@ const worker = new Worker(
     const results = await collection.query({
       nResults: 5,
       where: {
+        // TODO: add markdown here?
         source: url,
       },
       queryTexts: [
@@ -57,10 +61,10 @@ const worker = new Worker(
         feedback,
       ],
     })
-    console.log("RESULTS", results)
+    console.log('RESULTS', results)
     const pdfParagraphs = results.documents.flat()
 
-    console.log("PDF_PARAGRAPHS", pdfParagraphs)
+    console.log('PDF_PARAGRAPHS', pdfParagraphs)
     job.log(`Reflecting on: ${feedback}
     messageId: ${messageId}
     )}
@@ -90,7 +94,7 @@ const worker = new Worker(
     )) as TextChannel
     const message = await channel?.messages?.fetch(messageId)*/
 
-    console.log("STARTING NEW THREAD")
+    console.log('STARTING NEW THREAD')
     const thread = await feedbackMessage.startThread({
       name: 'Feedback ' + JSON.parse(previousJson).companyName,
       autoArchiveDuration: 60,
@@ -119,8 +123,8 @@ const worker = new Worker(
       }
     }
 
-    if (reply) { 
-      thread.send({ content: reply, components: [] }) 
+    if (reply) {
+      thread.send({ content: reply, components: [] })
     } else {
       console.log('No reply')
     }
