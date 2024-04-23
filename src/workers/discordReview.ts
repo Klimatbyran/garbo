@@ -43,7 +43,11 @@ const createButtonRow = (documentId) => {
     new ButtonBuilder()
       .setCustomId(`reject_${documentId}`)
       .setLabel('Reject')
-      .setStyle(ButtonStyle.Danger)
+      .setStyle(ButtonStyle.Danger),
+    new ButtonBuilder()
+      .setCustomId(`retry_${documentId}`)
+      .setLabel('🔁')
+      .setStyle(ButtonStyle.Secondary)
   )
 }
 

@@ -128,6 +128,13 @@ export class Discord extends EventEmitter {
               components: [],
             })
             break
+          case 'retry':
+            reportState = ''
+            this.emit('retry', documentId)
+            await submitted.reply({
+              content: `Prövar igen...`,
+            })
+            break
         }
         if (reportState !== '') {
           try {
