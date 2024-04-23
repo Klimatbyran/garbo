@@ -46,12 +46,9 @@ const worker = new Worker(
     reflectOnAnswer.add(
       'reflect on answer ' + response.slice(0, 20),
       {
+        ...job.data,
         answer: response,
-        url: job.data.url,
         paragraphs: pdfParagraphs,
-        channelId: job.data.channelId,
-        messageId: job.data.messageId,
-        pdfHash: job.data.pdfHash,
       },
       {
         attempts: 3,

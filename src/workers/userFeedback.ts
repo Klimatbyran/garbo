@@ -85,8 +85,6 @@ const worker = new Worker(
       model: 'gpt-4-1106-preview',
       stream: true,
     })
-    let response = ''
-    let progress = 0
 
     /*console.log("Getting channeld with CHANNEL_ID", channelId)
     const channel = (await discord.client.channels.fetch(
@@ -108,6 +106,8 @@ const worker = new Worker(
     })
 
     let reply = ''
+    let response = ''
+    let progress = 0
     for await (const part of stream) {
       const chunk = part.choices[0]?.delta?.content
       progress += 1
@@ -125,11 +125,11 @@ const worker = new Worker(
     }
 
     if (reply) {
-      const buttons = discord.createButtonRow(documentId)
+      // send the last message
       thread.send({ content: reply, components: [] })
-    } else {
-      console.log('No reply')
     }
+
+    job.log('Response: ' + response)
 
     const json =
       response
@@ -139,29 +139,26 @@ const worker = new Worker(
 
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
-    if (thread.isThread()) {
-      const summary = await summaryTable(parsedJson)
-      const scope3 = await scope3Table(parsedJson)
+    job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
+    const summary = await summaryTable(parsedJson)
+    const scope3 = await scope3Table(parsedJson)
 
-      await thread.send({
-        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
+    await thread.send({
+      content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
         \`${summary}\`
         ## Scope 3:
         \`${scope3}\`
         `,
+      components: [], // todo: add approve buttons
+    })
+
+    if (parsedJson.reviewComment)
+      await thread.send({
+        content: parsedJson.reviewComment,
         components: [], // todo: add approve buttons
       })
 
-      if (parsedJson.reviewComment)
-        await thread.send({
-          content: parsedJson.reviewComment,
-          components: [], // todo: add approve buttons
-        })
-
-      job.log('Sent to thread' + thread.id)
-    } else {
-      console.error('Thread not found')
-    }
+    job.log('Sent to thread' + thread.id)
 
     // Do something with job
     return response
