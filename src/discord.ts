@@ -19,7 +19,7 @@ import commands from './commands'
 import config from './config/discord'
 import elastic from './elastic'
 import { EventEmitter } from 'events'
-import { userFeedback } from './queues'
+import { pdf2Markdown, userFeedback } from './queues'
 
 export class Discord extends EventEmitter {
   client: Client<boolean>
@@ -131,6 +131,7 @@ export class Discord extends EventEmitter {
           case 'retry':
             reportState = ''
             this.emit('retry', documentId)
+
             await submitted.reply({
               content: `Prövar igen...`,
             })
@@ -165,7 +166,11 @@ export class Discord extends EventEmitter {
       new ButtonBuilder()
         .setCustomId(`reject~${customId}`)
         .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger)
+        .setStyle(ButtonStyle.Danger),
+      new ButtonBuilder()
+        .setCustomId(`retry~${customId}`)
+        .setLabel('🔁')
+        .setStyle(ButtonStyle.Secondary)
     )
   }
 
