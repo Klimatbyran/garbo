@@ -27,7 +27,11 @@ const worker = new Worker(
     if (message) await message.edit(`Laddar ner PDF...`)
 
     try {
-      const response = await fetch(url)
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'Garbo/1.0 (Linux; OpenAI 4;) Klimatkollen',
+        },
+      })
       if (!response.ok) {
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
