@@ -57,7 +57,7 @@ export class Discord extends EventEmitter {
       } else if (interaction.isButton()) {
         let reportState = ''
 
-        const [action, documentId] = interaction.customId.split('_')
+        const [action, documentId] = interaction.customId.split('~')
         switch (action) {
           case 'approve':
             this.emit('approve', documentId)
@@ -150,6 +150,23 @@ export class Discord extends EventEmitter {
   login(token = this.token) {
     this.client.login(token)
     return this
+  }
+
+  public createButtonRow = (customId: string) => {
+    return new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`approve~${customId}`)
+        .setLabel('Approve')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId(`edit~${customId}`)
+        .setLabel('Feedback')
+        .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+        .setCustomId(`reject~${customId}`)
+        .setLabel('Reject')
+        .setStyle(ButtonStyle.Danger)
+    )
   }
 
   async editMessage(

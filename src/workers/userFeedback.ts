@@ -94,6 +94,7 @@ const worker = new Worker(
     )) as TextChannel
     const message = await channel?.messages?.fetch(messageId)*/
 
+    // TODO check if we are in a thread - if not, create one
     console.log('STARTING NEW THREAD')
     const thread = await feedbackMessage.startThread({
       name: 'Feedback ' + JSON.parse(previousJson).companyName,
@@ -124,6 +125,7 @@ const worker = new Worker(
     }
 
     if (reply) {
+      const buttons = discord.createButtonRow(documentId)
       thread.send({ content: reply, components: [] })
     } else {
       console.log('No reply')
