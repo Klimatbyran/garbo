@@ -113,7 +113,7 @@ export class Discord extends EventEmitter {
               })
               await userFeedback.add('userFeedback', {
                 documentId,
-                messageId: '',
+                messageId: interaction.message.id,
                 channelId,
                 feedback: userInput,
               })
@@ -181,6 +181,18 @@ export class Discord extends EventEmitter {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     const message = await channel.messages.fetch(messageId)
     await message.edit(msg)
+  }
+
+  async createThread(
+    { channelId, messageId }: { channelId: string; messageId: string },
+    name: string
+  ) {
+    const channel = (await this.client.channels.fetch(channelId)) as TextChannel
+    const message = await channel.messages.fetch(messageId)
+    return message.startThread({
+      name: name,
+      autoArchiveDuration: 60,
+    })
   }
 
   async sendMessageToChannel(channelId, message): Promise<Message> {
