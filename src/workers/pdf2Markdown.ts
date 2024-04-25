@@ -140,7 +140,7 @@ const worker = new Worker(
     }
 
     job.log(`Wait until PDF is parsed: ${id}`)
-    await waitUntilJobFinished(id, 5 * minutes)
+    await waitUntilJobFinished(id, 10 * minutes)
 
     discord.editMessage(job.data, 'Klar! Indexerar...')
     job.log(`Finished waiting for job ${id}`)
@@ -158,6 +158,7 @@ const worker = new Worker(
   },
   {
     concurrency: 10,
+    skipStalledCheck: true,
     connection: redis,
     autorun: false,
   }
