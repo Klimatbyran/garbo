@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { downloadPDF } from '../queues'
+import { downloadPDF } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()

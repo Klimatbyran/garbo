@@ -1,5 +1,5 @@
 import { EmbedBuilder } from 'discord.js'
-import { saveToDb } from '../queues'
+import { saveToDb } from '../../queues'
 
 export default {
   async execute(interaction, job) {

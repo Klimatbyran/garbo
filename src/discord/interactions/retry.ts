@@ -1,4 +1,4 @@
-import { pdf2Markdown } from '../queues'
+import { pdf2Markdown } from '../../queues'
 
 export default {
   async execute(interaction, job) {

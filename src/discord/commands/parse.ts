@@ -1,9 +1,9 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { downloadPDF } from '../queues'
+import { pdf2Markdown } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('pdf')
+    .setName('parse')
     .addStringOption((option) =>
       option.setName('url').setDescription('URL to PDF file').setRequired(true)
     )
@@ -16,7 +16,7 @@ export default {
     const url = interaction.options.getString('url')
     if (!url) {
       await interaction.followUp({
-        content: 'No url provided. Try again with /pdf <url>',
+        content: 'No url provided. Try again with /parse <url>',
         ephemeral: true,
       })
 
@@ -24,17 +24,17 @@ export default {
     }
 
     const reply = await interaction.reply({
-      content: 'Tack! Nu är din årsredovisning placerad i kö.',
-      fetchReply: true
+      content:
+        'Tack! Nu är din årsredovisning placerad i kö för hantering av LLama.',
+      fetchReply: true,
     })
-    const channelId = interaction.channelId;
-    const messageId = reply.id;
+    const channelId = interaction.channelId
+    const messageId = reply.id
 
-    downloadPDF.add('download pdf ' + url.slice(-20), {
+    pdf2Markdown.add('parse pdf ' + url.slice(-20), {
       url,
       channelId,
       messageId,
     })
-
   },
 }

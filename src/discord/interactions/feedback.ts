@@ -1,5 +1,5 @@
 import { EmbedBuilder } from 'discord.js'
-import { userFeedback } from '../queues'
+import { userFeedback } from '../../queues'
 
 export default {
   async execute(interaction, job) {
