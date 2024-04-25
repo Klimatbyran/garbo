@@ -1,0 +1,37 @@
+import { Worker, Job } from 'bullmq'
+import redis from '../config/redis'
+import elastic from '../elastic'
+
+class JobData extends Job {
+  data: {
+    documentId: string
+    state: string
+    report: string
+  }
+}
+
+const worker = new Worker(
+  'saveToDb',
+  async (job: JobData) => {
+    const { documentId, state, report } = job.data
+    job.updateProgress(10)
+
+    if (report) {
+      job.log(`Saving report to db: ${documentId}`)
+      job.updateProgress(20)
+      await elastic.indexReport(documentId, report)
+    }
+    if (state) {
+      job.log(`Updating report state: ${state} #${documentId}`)
+      job.updateProgress(30)
+      await elastic.updateDocumentState(documentId, state)
+    }
+    job.updateProgress(100)
+  },
+  {
+    connection: redis,
+    autorun: false,
+  }
+)
+
+export default worker

@@ -1,9 +1,8 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import elastic from '../elastic'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
-import { userFeedback, pdf2Markdown } from '../queues'
+import { saveToDb } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -15,10 +14,6 @@ class JobData extends Job {
   }
 }
 
-async function saveToDb(id: string, report: any) {
-  return await elastic.indexReport(id, report)
-}
-
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
@@ -28,11 +23,16 @@ const worker = new Worker(
     job.log(`Sending for review in Discord: ${json}`)
 
     job.updateProgress(10)
-    const parsedJson = JSON.parse(json)
-    parsedJson.url = url
+    const parsedJson = { ...JSON.parse(json), url }
     job.log(`Saving to db: ${pdfHash}`)
-    const documentId = await saveToDb(pdfHash, parsedJson)
-    const buttonRow = discord.createButtonRow(documentId)
+    const documentId = pdfHash
+    await saveToDb.add('saveToDb', {
+      documentId,
+      report: parsedJson,
+    })
+
+    job.updateData({ ...job.data, documentId })
+    const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
@@ -61,34 +61,6 @@ ${url}
       throw error
     }
 
-    discord.on('retry', async (docId) => {
-      if (documentId !== docId) return //
-      job.log(`Retrying document: ${documentId}`)
-      await pdf2Markdown.add('pdf2Markdown', {
-        url,
-        channelId,
-        messageId: message.id,
-      })
-      message.edit(
-        `Parsing ${parsedJson.companyName} PDF report as markdown and trying again...`
-      )
-    })
-
-    discord.on('edit', async (docId, feedback) => {
-      if (documentId !== docId) return
-      job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
-      job.log(`Creating feedback job`)
-      await userFeedback.add('userFeedback', {
-        url,
-        documentId,
-        messageId: message.id,
-        channelId,
-        json: JSON.stringify(parsedJson, null, 2),
-        feedback,
-      })
-    })
-
-    job.updateProgress(40)
     job.updateProgress(100)
   },
   {

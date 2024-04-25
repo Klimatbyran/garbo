@@ -18,10 +18,11 @@ import {
 import commands from './commands'
 import config from './config/discord'
 import elastic from './elastic'
-import { EventEmitter } from 'events'
-import { discordReview, pdf2Markdown, userFeedback } from './queues'
-import retry from './commands/retry'
-import approve from './commands/approve'
+import { discordReview } from './queues'
+import retry from './interactions/retry'
+import approve from './interactions/approve'
+import feedback from './interactions/feedback'
+import reject from './interactions/reject'
 
 export class Discord {
   client: Client<boolean>
@@ -56,86 +57,27 @@ export class Discord {
           })
         }
       } else if (interaction.isButton()) {
-        let reportState = ''
-
         const [action, jobId] = interaction.customId.split('~')
         switch (action) {
-          case 'approve':
+          case 'approve': {
             const job = await discordReview.getJob(jobId)
             await approve.execute(interaction, job)
-            reportState = 'approved'
-
-            break
-          case 'edit':
-            reportState = 'edited'
-
-            const input = new TextInputBuilder()
-              .setCustomId('editInput')
-              .setLabel(`Granska utsläppsdata`)
-              .setStyle(TextInputStyle.Paragraph)
-
-            const actionRow =
-              new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-                input
-              )
-
-            const modal = new ModalBuilder()
-              .setCustomId('editModal')
-              .setTitle(`Granska data för...`) // ${parsedJson.companyName}`)
-              .addComponents(actionRow)
-            // todo diskutera hur detta görs på bästa sätt för mänskliga granskaren. vad är alex input?
-
-            await interaction.showModal(modal)
-
-            const submitted = await interaction
-              .awaitModalSubmit({
-                time: 60000 * 20, // user has to submit the modal within 20 minutes
-                filter: (i) => i.user.id === interaction.user.id, // only user who clicked button can interact with modal
-              })
-              .catch((error) => {
-                console.error(error)
-                return null
-              })
-
-            if (submitted) {
-              const userInput = submitted.fields.getTextInputValue('editInput')
-              //this.emit('edit', documentId, userInput)
-
-              await submitted.reply({
-                content: `Tack för din feedback: \n ${userInput}`,
-              })
-              await userFeedback.add('userFeedback', {
-                documentId,
-                messageId: interaction.message.id,
-                channelId,
-                feedback: userInput,
-              })
-            }
-            break
-          case 'reject':
-            reportState = 'rejected'
-            interaction.update({
-              content: 'Rejected!',
-              embeds: [],
-              components: [],
-            })
-            break
-          case 'retry': {
-            reportState = ''
-            const job = await discordReview.getJob(jobId)
-            retry.execute(interaction, job)
-
-            await submitted.reply({
-              content: `Prövar igen...`,
-            })
             break
           }
-        }
-        if (reportState !== '') {
-          try {
-            await elastic.updateDocumentState(documentId, reportState)
-          } catch (error) {
-            //job.log(`Error updating document state: ${error.message}`)
+          case 'edit': {
+            const job = await discordReview.getJob(jobId)
+            await feedback.execute(interaction, job)
+            break
+          }
+          case 'reject': {
+            const job = await discordReview.getJob(jobId)
+            await reject.execute(interaction, job)
+            break
+          }
+          case 'retry': {
+            const job = await discordReview.getJob(jobId)
+            retry.execute(interaction, job)
+            break
           }
         }
       }
@@ -147,22 +89,22 @@ export class Discord {
     return this
   }
 
-  public createButtonRow = (customId: string) => {
+  public createButtonRow = (jobId: string) => {
     return new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId(`approve~${customId}`)
+        .setCustomId(`approve~${jobId}`)
         .setLabel('Approve')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
-        .setCustomId(`edit~${customId}`)
+        .setCustomId(`edit~${jobId}`)
         .setLabel('Feedback')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
-        .setCustomId(`reject~${customId}`)
+        .setCustomId(`reject~${jobId}`)
         .setLabel('Reject')
         .setStyle(ButtonStyle.Danger),
       new ButtonBuilder()
-        .setCustomId(`retry~${customId}`)
+        .setCustomId(`retry~${jobId}`)
         .setLabel('🔁')
         .setStyle(ButtonStyle.Secondary)
     )

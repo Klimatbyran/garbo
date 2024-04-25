@@ -34,6 +34,8 @@ const worker = new Worker(
         },
       })
       if (!response.ok) {
+        if (message)
+          await message.edit(`Nedladdning misslyckades: ${response.statusText}`)
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
       if (message) await message.edit(`Tolkar PDF...`)

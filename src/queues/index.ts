@@ -15,6 +15,7 @@ const searchVectors = new Queue('searchVectors', options)
 const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
+const saveToDb = new Queue('saveToDb', options)
 
 export {
   downloadPDF,
@@ -26,4 +27,5 @@ export {
   reflectOnAnswer,
   discordReview,
   userFeedback,
+  saveToDb,
 }
