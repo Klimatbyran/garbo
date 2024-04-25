@@ -19,9 +19,11 @@ import commands from './commands'
 import config from './config/discord'
 import elastic from './elastic'
 import { EventEmitter } from 'events'
-import { pdf2Markdown, userFeedback } from './queues'
+import { discordReview, pdf2Markdown, userFeedback } from './queues'
+import retry from './commands/retry'
+import approve from './commands/approve'
 
-export class Discord extends EventEmitter {
+export class Discord {
   client: Client<boolean>
   rest: REST
   commands: Array<any>
@@ -29,7 +31,6 @@ export class Discord extends EventEmitter {
   channelId: string
 
   constructor({ token, guildId, clientId, channelId }) {
-    super()
     this.token = token
     this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
@@ -57,21 +58,13 @@ export class Discord extends EventEmitter {
       } else if (interaction.isButton()) {
         let reportState = ''
 
-        const [action, documentId] = interaction.customId.split('~')
+        const [action, jobId] = interaction.customId.split('~')
         switch (action) {
           case 'approve':
-            this.emit('approve', documentId)
+            const job = await discordReview.getJob(jobId)
+            await approve.execute(interaction, job)
             reportState = 'approved'
-            interaction.update({
-              embeds: [
-                new EmbedBuilder()
-                  .setTitle(`Godkänd (reportId: ${documentId})`)
-                  .setDescription(
-                    `Tack för din granskning, ${interaction?.user?.username}!`
-                  ),
-              ],
-              components: [],
-            })
+
             break
           case 'edit':
             reportState = 'edited'
@@ -121,21 +114,22 @@ export class Discord extends EventEmitter {
             break
           case 'reject':
             reportState = 'rejected'
-            this.emit('reject', documentId)
             interaction.update({
               content: 'Rejected!',
               embeds: [],
               components: [],
             })
             break
-          case 'retry':
+          case 'retry': {
             reportState = ''
-            this.emit('retry', documentId)
+            const job = await discordReview.getJob(jobId)
+            retry.execute(interaction, job)
 
             await submitted.reply({
               content: `Prövar igen...`,
             })
             break
+          }
         }
         if (reportState !== '') {
           try {

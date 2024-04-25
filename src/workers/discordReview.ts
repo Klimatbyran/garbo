@@ -61,7 +61,8 @@ ${url}
       throw error
     }
 
-    discord.on('retry', async (documentId) => {
+    discord.on('retry', async (docId) => {
+      if (documentId !== docId) return //
       job.log(`Retrying document: ${documentId}`)
       await pdf2Markdown.add('pdf2Markdown', {
         url,
@@ -73,8 +74,8 @@ ${url}
       )
     })
 
-    /*discord.once('edit', async (documentId, feedback) => {
-      console.log('edit', documentId, feedback)
+    discord.on('edit', async (docId, feedback) => {
+      if (documentId !== docId) return
       job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
       job.log(`Creating feedback job`)
       await userFeedback.add('userFeedback', {
@@ -85,7 +86,7 @@ ${url}
         json: JSON.stringify(parsedJson, null, 2),
         feedback,
       })
-    })*/
+    })
 
     job.updateProgress(40)
     job.updateProgress(100)

@@ -21,6 +21,8 @@ class JobData extends Job {
   data: {
     documentId: string
     channelId: string
+    url: string
+    json: string
     messageId: string
     feedback: string
   }
@@ -29,13 +31,7 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, documentId, channelId, messageId } = job.data
-
-    const reportData = (await elastic.getReportData(documentId)) as any
-    console.log('REPORT_DATA', reportData)
-    const previousJson = JSON.stringify(reportData.report, null, 2)
-    const url = reportData.url
-    console.log('MESSAGE_ID', messageId)
+    const { feedback, channelId, url, messageId, json: previousJson } = job.data
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
