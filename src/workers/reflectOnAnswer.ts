@@ -83,7 +83,11 @@ ${prompt}`)
     try {
       parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
     } catch (error) {
-      job.updateData({ ...job.data, json: json, previousError: error.message })
+      job.updateData({
+        ...job.data,
+        answer: json,
+        previousError: error.message,
+      })
       discord.sendMessage(
         job.data,
         `❌ ${error}:

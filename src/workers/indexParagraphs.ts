@@ -46,6 +46,7 @@ const worker = new Worker(
 
     if (exists) {
       job.log('Collection exists. Skipping reindexing.')
+      message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
     } else {
       job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
