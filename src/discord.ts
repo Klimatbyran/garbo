@@ -15,14 +15,14 @@ import {
   EmbedBuilder,
   Message,
 } from 'discord.js'
-import commands from './commands'
+import commands from './discord/commands'
 import config from './config/discord'
 import elastic from './elastic'
 import { discordReview } from './queues'
-import retry from './interactions/retry'
-import approve from './interactions/approve'
-import feedback from './interactions/feedback'
-import reject from './interactions/reject'
+import retry from './discord/interactions/retry'
+import approve from './discord/interactions/approve'
+import feedback from './discord/interactions/feedback'
+import reject from './discord/interactions/reject'
 
 export class Discord {
   client: Client<boolean>
@@ -64,7 +64,7 @@ export class Discord {
             await approve.execute(interaction, job)
             break
           }
-          case 'edit': {
+          case 'feedback': {
             const job = await discordReview.getJob(jobId)
             await feedback.execute(interaction, job)
             break
@@ -96,7 +96,7 @@ export class Discord {
         .setLabel('Approve')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
-        .setCustomId(`edit~${jobId}`)
+        .setCustomId(`feedback~${jobId}`)
         .setLabel('Feedback')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
