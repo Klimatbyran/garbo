@@ -124,8 +124,7 @@ const worker = new Worker(
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
-      job.log(`Creating job for url: ${url}`)
-      message = discord.sendMessage(job.data, '🤖 Tolkar tabeller...')
+      message = message.edit('🤖 Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)

@@ -27,7 +27,7 @@ const worker = new Worker(
 
     const message = await discord.sendMessage(
       job.data,
-      `Sparar i vektordatabas...`
+      `🤖 Sparar i vektordatabas...`
     )
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)

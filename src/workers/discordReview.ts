@@ -47,11 +47,7 @@ ${url}
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
-        ${
-          parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
-            : ''
-        }
+        
         `,
         components: [buttonRow],
       })
@@ -60,6 +56,17 @@ ${url}
       message.edit(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
+    if (parsedJson.reviewComment)
+      discord.sendMessage(
+        job.data,
+        `Kommentar från Garbo: ${parsedJson.reviewComment}`
+      )
+
+    if (parsedJson.agentResponse)
+      discord.sendMessage(
+        job.data,
+        `Svar på feedback: ${parsedJson.agentResponse}`
+      )
 
     job.updateProgress(100)
   },

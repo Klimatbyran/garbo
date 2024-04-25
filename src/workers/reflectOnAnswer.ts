@@ -18,14 +18,14 @@ class JobData extends Job {
     answer: string
     threadId: string
     pdfHash: string
+    previousError: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const pdfParagraphs = job.data.paragraphs
-    const answer = job.data.answer
+    const { paragraphs: pdfParagraphs, answer, previousError } = job.data
 
     const message = await discord.sendMessage(
       job.data,
@@ -46,17 +46,27 @@ ${prompt}`)
         },
         { role: 'user', content: previousPrompt },
         { role: 'system', content: job.data.answer },
+        previousError
+          ? { role: 'user', content: previousError }
+          : { role: 'user', content: '' },
         { role: 'user', content: prompt },
       ],
       model: 'gpt-4-1106-preview',
       stream: true,
     })
     let response = ''
+    let reply = ''
     let progress = 0
     for await (const part of stream) {
+      const chunk = part.choices[0]?.delta?.content || ''
       progress += 1
-      response += part.choices[0]?.delta?.content || ''
+      response += chunk
+      reply += chunk
       job.updateProgress(Math.min(100, (100 * progress) / 400))
+      if (reply.includes('\n') && !response.includes('```json')) {
+        discord.sendMessage(job.data, reply)
+        reply = ''
+      }
     }
 
     const json =
@@ -65,17 +75,31 @@ ${prompt}`)
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
-    const instruction = response.replace(json, '')
-    if (instruction.length) message.edit(instruction)
+    // const lastInstruction = response.split(json).at(-1)
+    // if (reply.length) discord.sendMessage(job.data, lastInstruction)
+    // //if (instruction.length) message.edit(instruction)
 
     let parsedJson
     try {
       parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
     } catch (error) {
-      discord.sendMessage(job.data, `❌ ${error}`)
+      job.updateData({ ...job.data, json: json, previousError: error.message })
+      discord.sendMessage(
+        job.data,
+        `❌ ${error}:
+\`\`\`
+${json}
+\`\`\`
+`
+      )
       throw error
     }
     const companyName = parsedJson.companyName
+
+    const thread = (await discord.client.channels.fetch(
+      job.data.threadId
+    )) as TextChannel
+    thread.setName(companyName)
 
     message.edit(`✅ ${companyName} klar`)
     discordReview.add(companyName, {
