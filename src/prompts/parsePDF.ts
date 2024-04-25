@@ -9,7 +9,13 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 4. **Negative emissions or Offsets**: Do not include negative emissions, nor in terms of negative values or carbon storage. Do not include emission reductions from carbon offsets.
 
-5. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+5. **Other emissions**: After identifying Greenhouse Gas emissions that are grouped into Scope 1, 2, 3 and/or the Scope 3 categories provided by the GHG protocol, go on to identify and present other GHG emissions which are not accounted for in these scopes or categories. Indicate the amount in the same format as all other emissions, and display the stated source of emissions.
+    For example, if a company states that emissions from “Packaging” amount to 100 ton CO2e, display this as a separate emission source.
+    If the report merges categories from the GHG protocol, such as reporting emissions from categories 4 and 9 together, this should be displayed as another emission source. 
+    If the report lists emissions from multiple sub-categories to any GHG protocol scope or category, this should be displayed as other emission sources. For example, emissions from flights and hotels could be disclosed separately in the report instead of as business travel.
+    The goal is that all emissions presented in the report are identified and displayed.
+
+6. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report.
 
     Example JSON structure:
     {
@@ -71,15 +77,15 @@ I have a text extracted from a PDF file containing a company's annual report and
       ]
     }
 
-6. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
+7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
-7. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+8. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 
-8. Comma separators. Never use any comma separators or spaces in the numbers.
+9. Comma separators. Never use any comma separators or spaces in the numbers.
 
 Then, send the results of your analysis back to me.
 `
