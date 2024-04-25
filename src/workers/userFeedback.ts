@@ -29,19 +29,12 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, documentId, channelId } = job.data
+    const { feedback, documentId, channelId, messageId } = job.data
 
     const reportData = (await elastic.getReportData(documentId)) as any
     console.log('REPORT_DATA', reportData)
     const previousJson = JSON.stringify(reportData.report, null, 2)
     const url = reportData.url
-    const feedbackMessage = await discord.sendMessageToChannel(
-      discord.channelId,
-      {
-        content: 'Reflecting on feedback for ' + documentId,
-      }
-    )
-    const messageId = feedbackMessage.id
     console.log('MESSAGE_ID', messageId)
 
     const client = new ChromaClient(chromadb)
@@ -94,11 +87,10 @@ const worker = new Worker(
 
     // TODO check if we are in a thread - if not, create one
     console.log('STARTING NEW THREAD')
-    const thread = await feedbackMessage.startThread({
-      name: 'Feedback ' + JSON.parse(previousJson).companyName,
-      autoArchiveDuration: 60,
-      reason: 'Feedback thread for review',
-    })
+    const thread = await discord.createThread(
+      { channelId, messageId },
+      'Feedback ' + JSON.parse(previousJson).companyName
+    )
     job.log(`Started thread: ${thread?.id}`)
     await thread.send({
       content: `Feedback: ${feedback}`,
@@ -145,13 +137,12 @@ const worker = new Worker(
     if (parsedJson.reviewComment)
       await thread.send({
         content: parsedJson.reviewComment,
-        components: [], // todo: add approve buttons
+        components: [],
       })
 
     job.log('Sent to thread' + thread.id)
 
-    // Do something with job
-    return response
+    return json
   },
   {
     concurrency: 10,
