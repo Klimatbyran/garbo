@@ -7,7 +7,9 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions.
 
-4. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+4. **Negative emissions or Offsets**: Do not include negative emissions, nor in terms of negative values or carbon storage. Do not include emission reductions from carbon offsets.
+
+5. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
 
     Example JSON structure:
     {
@@ -69,15 +71,15 @@ I have a text extracted from a PDF file containing a company's annual report and
       ]
     }
 
-5. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
+6. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
-6. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+7. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 
-7. Comma separators. Never use any comma separators or spaces in the numbers.
+8. Comma separators. Never use any comma separators or spaces in the numbers.
 
 Then, send the results of your analysis back to me.
 `
