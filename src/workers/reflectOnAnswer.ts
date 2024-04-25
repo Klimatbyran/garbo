@@ -62,8 +62,13 @@ ${prompt}`)
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
-    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
-
+    let parsedJson
+    try {
+      parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+    } catch (error) {
+      discord.sendMessage(job.data, `Fel: ${error}`)
+      throw error
+    }
     const companyName = parsedJson.companyName
 
     await discord.sendMessage(job.data, `Skickar för granskning`)

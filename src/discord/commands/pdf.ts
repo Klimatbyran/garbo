@@ -37,11 +37,11 @@ export default {
 ${url}`,
     })
 
-    const theadId = thread.id
+    const threadId = thread.id
 
     downloadPDF.add('download pdf ' + url.slice(-20), {
       url,
-      theadId,
+      threadId,
     })
   },
 }

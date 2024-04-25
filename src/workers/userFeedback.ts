@@ -8,6 +8,7 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { scope3Table, summaryTable } from '../lib/discordTable'
 import { TextChannel } from 'discord.js'
+import { discordReview } from '../queues'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -102,19 +103,14 @@ const worker = new Worker(
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
+    discord.sendMessage(job.data, response.replace(json, '...json...'))
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
     job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
-    const summary = await summaryTable(parsedJson)
-    const scope3 = await scope3Table(parsedJson)
 
-    await discord.sendMessageToChannel(job.data.threadId, {
-      content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
-        \`${summary}\`
-        ## Scope 3:
-        \`${scope3}\`
-        `,
-      components: [], // todo: add approve buttons
+    discordReview.add(job.name, {
+      ...job.data,
+      json: JSON.stringify(parsedJson, null, 2),
     })
 
     if (parsedJson.reviewComment)

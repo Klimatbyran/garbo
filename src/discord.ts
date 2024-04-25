@@ -134,16 +134,8 @@ export class Discord {
   }
 
   async sendMessageToChannel(channelId, message): Promise<Message> {
-    try {
-      const channel = await this.client.channels.fetch(channelId)
-      if (!channel || !(channel instanceof TextChannel)) {
-        console.error(`Kanalen hittades inte eller är inte en textkanal.`)
-        return
-      }
-      return await channel.send(message)
-    } catch (error) {
-      console.error('Ett fel uppstod när meddelandet skulle skickas:', error)
-    }
+    const channel = (await this.client.channels.fetch(channelId)) as TextChannel
+    return await channel.send(message)
   }
 }
 
