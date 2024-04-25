@@ -2,7 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { parseText } from '../queues'
+import { extractEmissions } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
 
@@ -47,7 +47,7 @@ const worker = new Worker(
 
     job.log(JSON.stringify(results))
 
-    parseText.add(
+    extractEmissions.add(
       'parse ' + url,
       {
         url,

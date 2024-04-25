@@ -8,7 +8,7 @@ const options: QueueOptions = {
 
 const downloadPDF = new Queue('downloadPDF', options)
 const pdf2Markdown = new Queue('pdf2Markdown', options)
-const parseText = new Queue('parseText', options)
+const extractEmissions = new Queue('extractEmissions', options)
 const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
@@ -20,7 +20,7 @@ const saveToDb = new Queue('saveToDb', options)
 export {
   downloadPDF,
   pdf2Markdown,
-  parseText,
+  extractEmissions,
   splitText,
   indexParagraphs,
   searchVectors,

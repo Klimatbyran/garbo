@@ -18,7 +18,7 @@ class JobData extends Job {
 }
 
 const worker = new Worker(
-  'parseText',
+  'extractEmissions',
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
     job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
