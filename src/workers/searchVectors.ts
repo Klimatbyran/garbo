@@ -27,7 +27,10 @@ const worker = new Worker(
 
     job.log('Searching ' + url)
 
-    discord.sendMessage(job.data, 'Hämtar ut utsläppsdata...')
+    const message = await discord.sendMessage(
+      job.data,
+      '🤖 Söker upp utsläppsdata...'
+    )
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -46,6 +49,7 @@ const worker = new Worker(
 
     job.log(JSON.stringify(results))
 
+    message.edit('✅ Hittade ' + results.documents.length + ' stycken.')
     extractEmissions.add(
       'parse ' + url,
       {

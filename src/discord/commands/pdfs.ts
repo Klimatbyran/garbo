@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js'
+import { SlashCommandBuilder, TextChannel } from 'discord.js'
 import { downloadPDF } from '../../queues'
 
 export default {
@@ -32,18 +32,20 @@ export default {
       return
     }
 
-    const reply = await interaction.reply({
-      content: `Tack! Nu är ${urls.length} årsredovisningar placerad i kö.`,
-      fetchReply: true,
-    })
-    const channelId = interaction.channelId
-    const messageId = reply.id
+    urls.forEach(async (url) => {
+      const thread = await (interaction.channel as TextChannel).threads.create({
+        name: url.slice(-20),
+        autoArchiveDuration: 1440,
+      })
 
-    urls.forEach((url) => {
+      thread.send({
+        content: `Tack! Nu är din årsredovisning placerad i kö: 
+${url}`,
+      })
+      const threadId = thread.id
       downloadPDF.add('download pdf ' + url.slice(-20), {
         url,
-        channelId,
-        messageId,
+        threadId,
       })
     })
   },

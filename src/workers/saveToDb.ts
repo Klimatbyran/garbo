@@ -17,7 +17,10 @@ const worker = new Worker(
   async (job: JobData) => {
     const { documentId, state, report } = job.data
     job.updateProgress(10)
-    discord.sendMessage(job.data, `Sparar till databasen..`)
+    const message = await discord.sendMessage(
+      job.data,
+      `Sparar till databasen..`
+    )
     if (report) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
@@ -28,6 +31,7 @@ const worker = new Worker(
       job.updateProgress(30)
       await elastic.updateDocumentState(documentId, state)
     }
+    message.edit(`✅ Sparad!`)
     job.updateProgress(100)
   },
   {

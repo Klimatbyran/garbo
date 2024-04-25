@@ -24,7 +24,10 @@ const worker = new Worker(
       ? text.split('##').filter((p) => p.trim().length > 0)
       : text.split('\n\n').filter((p) => p.trim().length > 0)
 
-    discord.sendMessage(job.data, `Delar upp i ${paragraphs.length} stycken...`)
+    await discord.sendMessage(
+      job.data,
+      `✅ Uppdelad i ${paragraphs.length} stycken...`
+    )
 
     indexParagraphs.add(
       'found ' + paragraphs.length,

@@ -115,21 +115,23 @@ const worker = new Worker(
     const { url, existingId, existingPdfHash } = job.data
     let id = existingId
     let pdfHash = existingPdfHash
+    let message = null
     if (!existingId) {
       job.log(`Downloading from url: ${url}`)
-      discord.sendMessage(job.data, 'Laddar ner PDF...')
+      message = discord.sendMessage(job.data, '🤖 Laddar ner PDF...')
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
       job.log(`Creating job for url: ${url}`)
-      discord.sendMessage(job.data, 'Tolkar tabeller...')
+      message = discord.sendMessage(job.data, '🤖 Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
       } catch (error) {
-        discord.sendMessage(job.data, 'LLama fel: ' + error.message)
+        discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
+        return
       }
       await job.updateData({
         ...job.data,
@@ -140,12 +142,13 @@ const worker = new Worker(
 
     job.log(`Wait until PDF is parsed: ${id}`)
     await waitUntilJobFinished(id, 10 * minutes)
+    message?.edit('Laddar ner resultatet...')
 
-    discord.sendMessage(job.data, 'Klar! Indexerar...')
     job.log(`Finished waiting for job ${id}`)
     const text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
 
+    message?.edit('✅ Tolkning klar!')
     splitText.add('split text ' + text.slice(0, 20), {
       ...job.data,
       pdfHash,

@@ -3,11 +3,8 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/reflect'
 import discord from '../discord'
-import elastic from '../elastic'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { scope3Table, summaryTable } from '../lib/discordTable'
-import { TextChannel } from 'discord.js'
 import { discordReview } from '../queues'
 
 const openai = new OpenAI({
@@ -72,12 +69,6 @@ const worker = new Worker(
       model: 'gpt-4-1106-preview',
       stream: true,
     })
-
-    /*console.log("Getting channeld with CHANNEL_ID", channelId)
-    const channel = (await discord.client.channels.fetch(
-      channelId
-    )) as TextChannel
-    const message = await channel?.messages?.fetch(messageId)*/
 
     discord.sendMessage(job.data, `Feedback: ${feedback}`)
 

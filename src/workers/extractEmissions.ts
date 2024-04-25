@@ -26,7 +26,10 @@ const worker = new Worker(
     )}
     ${prompt}`)
 
-    discord.sendMessage(job.data, `Extracting emissions...`)
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Hämtar utsläppsdata...`
+    )
 
     const stream = await openai.chat.completions.create({
       messages: [
@@ -44,6 +47,8 @@ const worker = new Worker(
     }
 
     job.log(response)
+
+    message.edit('✅ Utsläppsdata hämtad')
 
     reflectOnAnswer.add(
       'reflect on answer ' + response.slice(0, 20),

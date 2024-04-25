@@ -19,7 +19,7 @@ const worker = new Worker(
     const { url } = job.data
 
     job.log(`Downloading from url: ${url}`)
-    await discord.sendMessage(job.data, `Laddar ner PDF...`)
+    const message = await discord.sendMessage(job.data, `🤖 Laddar ner PDF...`)
 
     try {
       const response = await fetch(url, {
@@ -35,7 +35,7 @@ const worker = new Worker(
         )
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
-      await discord.sendMessage(job.data, `Tolkar PDF...`)
+      message.edit(`🤖 Tolkar PDF...`)
       const buffer = await response.arrayBuffer()
       let doc
       try {
@@ -44,10 +44,7 @@ const worker = new Worker(
         throw new Error('Error parsing PDF')
       }
       const text = doc.text
-      discord.sendMessage(
-        job.data,
-        `Hittade ${text.length} tecken. Delar upp i sidor...`
-      )
+      message.edit(`🤖 Hittade ${text.length} tecken. Delar upp i sidor...`)
 
       let pdfHash = ''
       try {
@@ -55,6 +52,7 @@ const worker = new Worker(
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }
+      message.edit(`✅ PDF nedladdad!`)
 
       splitText.add('split text ' + text.slice(0, 20), {
         ...job.data,

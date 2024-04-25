@@ -3,8 +3,6 @@ import { userFeedback } from '../../queues'
 
 export default {
   async execute(interaction, job) {
-    const { documentId, channelId } = job.data
-
     const submitted = await interaction
       .awaitModalSubmit({
         time: 60000 * 20, // user has to submit the modal within 20 minutes
@@ -23,9 +21,7 @@ export default {
         content: `Tack för din feedback: \n ${userInput}`,
       })
       await userFeedback.add('userFeedback', {
-        documentId,
-        messageId: interaction.message.id,
-        channelId,
+        ...job.data,
         feedback: userInput,
       })
     }

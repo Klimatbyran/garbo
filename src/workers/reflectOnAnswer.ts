@@ -27,7 +27,10 @@ const worker = new Worker(
     const pdfParagraphs = job.data.paragraphs
     const answer = job.data.answer
 
-    discord.sendMessage(job.data, `Reflekterar på svaret...`)
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Reflekterar... ${job.attemptsStarted || ''}`
+    )
 
     job.log(`Reflecting on: 
 ${answer}
@@ -62,16 +65,19 @@ ${prompt}`)
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
+    const instruction = response.replace(json, '')
+    if (instruction.length) message.edit(instruction)
+
     let parsedJson
     try {
       parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
     } catch (error) {
-      discord.sendMessage(job.data, `Fel: ${error}`)
+      discord.sendMessage(job.data, `❌ ${error}`)
       throw error
     }
     const companyName = parsedJson.companyName
 
-    await discord.sendMessage(job.data, `Skickar för granskning`)
+    message.edit(`✅ ${companyName} klar`)
     discordReview.add(companyName, {
       ...job.data,
       json: JSON.stringify(parsedJson, null, 2),

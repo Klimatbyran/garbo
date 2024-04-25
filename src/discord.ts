@@ -116,9 +116,15 @@ export class Discord {
   }
 
   async sendMessage({ threadId }: { threadId: string }, msg: string) {
-    const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
-    await thread.sendTyping()
-    thread.send(msg)
+    try {
+      const thread = (await this.client.channels.fetch(
+        threadId
+      )) as ThreadChannel
+      await thread.sendTyping()
+      return thread.send(msg)
+    } catch (e) {
+      console.error('Error sending message to thread', e)
+    }
   }
 
   async createThread(
