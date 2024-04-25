@@ -4,15 +4,9 @@ import {
   REST,
   Routes,
   TextChannel,
-  ModalBuilder,
   ButtonBuilder,
-  TextInputBuilder,
   ActionRowBuilder,
   ButtonStyle,
-  ModalActionRowComponentBuilder,
-  TextInputStyle,
-  Embed,
-  EmbedBuilder,
   Message,
 } from 'discord.js'
 import commands from './discord/commands'
@@ -42,6 +36,16 @@ export class Discord {
       const url = Routes.applicationGuildCommands(clientId, guildId)
       this.rest.put(url, { body: this.commands })
     })
+
+    // mentioned user
+    // this.client.on('messageCreate', async (message) => {
+    //   if (message.author.bot) return
+    //   const mentioned = message.mentions.users.filter((user) => user.id !== this.client.user.id).first()
+    //   if (mentioned) {
+    //     console.log('mentioned user:', mentioned.username)
+    //     // TODO: add message to feedback queue
+    // })
+
     this.client.on('interactionCreate', async (interaction) => {
       if (interaction.isCommand()) {
         const command = commands.find(

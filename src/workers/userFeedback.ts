@@ -88,10 +88,7 @@ const worker = new Worker(
       'Feedback ' + JSON.parse(previousJson).companyName
     )
     job.log(`Started thread: ${thread?.id}`)
-    await thread.send({
-      content: `Feedback: ${feedback}`,
-      components: [],
-    })
+    await thread.send(`Feedback: ${feedback}`)
 
     let response = ''
     let progress = 0
@@ -104,7 +101,7 @@ const worker = new Worker(
       }
     } catch (error) {
       job.log('Error: ' + error)
-      thread.send({ content: 'Error: ' + error, components: [] })
+      thread.send('Error: ' + error)
     }
 
     job.log('Response: ' + response)
@@ -130,11 +127,7 @@ const worker = new Worker(
       components: [], // todo: add approve buttons
     })
 
-    if (parsedJson.reviewComment)
-      await thread.send({
-        content: parsedJson.reviewComment,
-        components: [],
-      })
+    if (parsedJson.reviewComment) await thread.send(parsedJson.reviewComment)
 
     job.log('Sent to thread' + thread.id)
 
