@@ -78,8 +78,7 @@ const worker = new Worker(
         { role: 'user', content: feedback },
         {
           role: 'user',
-          content:
-            `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
+          content: `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
             No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.`,
         },
       ],
@@ -106,7 +105,6 @@ const worker = new Worker(
       components: [],
     })
 
-    let reply = ''
     let response = ''
     let progress = 0
     try {
@@ -115,20 +113,6 @@ const worker = new Worker(
         progress += 1
         response += chunk || ''
         job.updateProgress(Math.min(100, (100 * progress) / 400))
-        if (chunk?.includes('\n')) {
-          thread.send({
-            content: reply,
-            components: [],
-          })
-          reply = ''
-        } else {
-          reply += chunk
-        }
-      }
-
-      if (reply) {
-        // send the last message
-        thread.send({ content: reply, components: [] })
       }
     } catch (error) {
       job.log('Error: ' + error)
