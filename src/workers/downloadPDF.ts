@@ -27,7 +27,12 @@ const worker = new Worker(
     if (message) await message.edit(`Laddar ner PDF...`)
 
     try {
-      const response = await fetch(url)
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36', //Garbo/1.0 (Linux; OpenAI 4;) Klimatkollen',
+        },
+      })
       if (!response.ok) {
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }

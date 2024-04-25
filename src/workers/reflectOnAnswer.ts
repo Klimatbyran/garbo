@@ -73,11 +73,8 @@ ${prompt}`)
 
     await message.edit(`Klart! Skickar till Discord för granskning`)
     discordReview.add(companyName, {
+      ...job.data,
       json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
-      url: job.data.url,
-      channelId: job.data.channelId,
-      messageId: job.data.messageId,
-      pdfHash: job.data.pdfHash,
     })
 
     // Do something with job
