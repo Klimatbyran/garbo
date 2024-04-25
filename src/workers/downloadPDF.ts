@@ -9,22 +9,17 @@ import elastic from '../elastic'
 class JobData extends Job {
   data: {
     url: string
-    channelId: string
-    messageId: string
+    threadId: string
   }
 }
 
 const worker = new Worker(
   'downloadPDF',
   async (job: JobData) => {
-    const { url, channelId, messageId } = job.data
+    const { url } = job.data
 
     job.log(`Downloading from url: ${url}`)
-    const channel = (await discord.client.channels.fetch(
-      channelId
-    )) as TextChannel
-    const message = await channel?.messages?.fetch(messageId)
-    if (message) await message.edit(`Laddar ner PDF...`)
+    await discord.sendMessage(job.data, `Laddar ner PDF...`)
 
     try {
       const response = await fetch(url, {
@@ -34,26 +29,25 @@ const worker = new Worker(
         },
       })
       if (!response.ok) {
-        if (message)
-          await message.edit(`Nedladdning misslyckades: ${response.statusText}`)
+        await discord.sendMessage(
+          job.data,
+          `Nedladdning misslyckades: ${response.statusText}`
+        )
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
-      if (message) await message.edit(`Tolkar PDF...`)
+      await discord.sendMessage(job.data, `Tolkar PDF...`)
       const buffer = await response.arrayBuffer()
       let doc
       try {
         doc = await pdf(buffer)
       } catch (error) {
-        if (message)
-          await message.edit(`Fel vid tolkning av PDF: ${error.message}`)
-        job.log(`Error parsing PDF: ${error.message}`)
-        throw error
+        throw new Error('Error parsing PDF')
       }
       const text = doc.text
-      if (message)
-        await message.edit(
-          `Hittade ${text.length} tecken. Delar upp i sidor...`
-        )
+      discord.sendMessage(
+        job.data,
+        `Hittade ${text.length} tecken. Delar upp i sidor...`
+      )
 
       let pdfHash = ''
       try {
@@ -63,17 +57,18 @@ const worker = new Worker(
       }
 
       splitText.add('split text ' + text.slice(0, 20), {
+        ...job.data,
         url,
         text,
-        channelId,
-        messageId,
         pdfHash,
       })
 
       return doc.text
     } catch (error) {
-      if (message)
-        await message.edit(`Fel vid nedladdning av PDF: ${error.message}`)
+      discord.sendMessage(
+        job.data,
+        `Fel vid nedladdning av PDF: ${error.message}`
+      )
       job.log(`Error downloading PDF: ${error.message}`)
       throw error
     }

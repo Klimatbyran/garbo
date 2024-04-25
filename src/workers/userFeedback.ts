@@ -20,10 +20,9 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     documentId: string
-    channelId: string
     url: string
     json: string
-    messageId: string
+    threadId: string
     feedback: string
   }
 }
@@ -31,7 +30,7 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, channelId, url, messageId, json: previousJson } = job.data
+    const { feedback, url, json: previousJson } = job.data
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
@@ -55,8 +54,6 @@ const worker = new Worker(
 
     console.log('PDF_PARAGRAPHS', pdfParagraphs)
     job.log(`Reflecting on: ${feedback}
-    messageId: ${messageId}
-    )}
     ${previousJson}`)
 
     const stream = await openai.chat.completions.create({
@@ -81,14 +78,7 @@ const worker = new Worker(
     )) as TextChannel
     const message = await channel?.messages?.fetch(messageId)*/
 
-    // TODO check if we are in a thread - if not, create one
-    console.log('STARTING NEW THREAD')
-    const thread = await discord.createThread(
-      { channelId, messageId },
-      'Feedback ' + JSON.parse(previousJson).companyName
-    )
-    job.log(`Started thread: ${thread?.id}`)
-    await thread.send(`Feedback: ${feedback}`)
+    discord.sendMessage(job.data, `Feedback: ${feedback}`)
 
     let response = ''
     let progress = 0
@@ -101,7 +91,7 @@ const worker = new Worker(
       }
     } catch (error) {
       job.log('Error: ' + error)
-      thread.send('Error: ' + error)
+      discord.sendMessage(job.data, `Error: ${error}`)
     }
 
     job.log('Response: ' + response)
@@ -118,7 +108,7 @@ const worker = new Worker(
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
-    await thread.send({
+    await discord.sendMessageToChannel(job.data.threadId, {
       content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
         \`${summary}\`
         ## Scope 3:
@@ -127,9 +117,10 @@ const worker = new Worker(
       components: [], // todo: add approve buttons
     })
 
-    if (parsedJson.reviewComment) await thread.send(parsedJson.reviewComment)
+    if (parsedJson.reviewComment)
+      await discord.sendMessage(job.data, parsedJson.reviewComment)
 
-    job.log('Sent to thread' + thread.id)
+    job.log('Sent to thread' + job.data.threadId)
 
     return json
   },

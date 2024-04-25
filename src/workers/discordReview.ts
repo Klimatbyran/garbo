@@ -8,8 +8,7 @@ class JobData extends Job {
   data: {
     url: string
     json: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
 }
@@ -18,7 +17,7 @@ const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
     job.updateProgress(5)
-    const { url, pdfHash, json, channelId } = job.data
+    const { url, pdfHash, json, threadId } = job.data
 
     job.log(`Sending for review in Discord: ${json}`)
 
@@ -28,6 +27,7 @@ const worker = new Worker(
     const documentId = pdfHash
     await saveToDb.add('saveToDb', {
       documentId,
+      threadId,
       report: parsedJson,
     })
 
@@ -37,11 +37,11 @@ const worker = new Worker(
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
-    job.log(`Sending message to Discord channel ${discord.channelId}`)
+    job.log(`Sending message to Discord channel ${threadId}`)
     // send an empty message to the channel
     let message = null
     try {
-      message = await discord.sendMessageToChannel(discord.channelId, {
+      message = await discord.sendMessageToChannel(threadId, {
         content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${url}
 \`${summary}\`

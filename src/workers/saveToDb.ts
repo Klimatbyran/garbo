@@ -1,11 +1,13 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import elastic from '../elastic'
+import discord from '../discord'
 
 class JobData extends Job {
   data: {
     documentId: string
     state: string
+    threadId: string
     report: string
   }
 }
@@ -15,7 +17,7 @@ const worker = new Worker(
   async (job: JobData) => {
     const { documentId, state, report } = job.data
     job.updateProgress(10)
-
+    discord.sendMessage(job.data, `Sparar till databasen..`)
     if (report) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)

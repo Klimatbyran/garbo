@@ -16,8 +16,7 @@ class JobData extends Job {
     url: string
     paragraphs: string[]
     answer: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
 }
@@ -27,11 +26,9 @@ const worker = new Worker(
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
     const answer = job.data.answer
-    const channel = (await discord.client.channels.fetch(
-      job.data.channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Verifierar information...`)
+
+    discord.sendMessage(job.data, `Reflekterar på svaret...`)
+
     job.log(`Reflecting on: 
 ${answer}
 --- Prompt:
@@ -69,12 +66,10 @@ ${prompt}`)
 
     const companyName = parsedJson.companyName
 
-    job.updateData({ title: companyName })
-
-    await message.edit(`Klart! Skickar till Discord för granskning`)
+    await discord.sendMessage(job.data, `Skickar för granskning`)
     discordReview.add(companyName, {
       ...job.data,
-      json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
+      json: JSON.stringify(parsedJson, null, 2),
     })
 
     // Do something with job

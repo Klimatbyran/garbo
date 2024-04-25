@@ -1,4 +1,8 @@
-import { SlashCommandBuilder } from 'discord.js'
+import {
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  TextChannel,
+} from 'discord.js'
 import { downloadPDF } from '../../queues'
 
 export default {
@@ -11,7 +15,7 @@ export default {
       'Skicka in en årsredovisning och få tillbaka utsläppsdata.'
     ),
 
-  async execute(interaction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     console.log('pdf')
     const url = interaction.options.getString('url')
     if (!url) {
@@ -23,17 +27,21 @@ export default {
       return
     }
 
-    const reply = await interaction.reply({
-      content: 'Tack! Nu är din årsredovisning placerad i kö.',
-      fetchReply: true,
+    const thread = await (interaction.channel as TextChannel).threads.create({
+      name: 'pdf',
+      autoArchiveDuration: 1440,
     })
-    const channelId = interaction.channelId
-    const messageId = reply.id
+
+    thread.send({
+      content: `Tack! Nu är din årsredovisning placerad i kö: 
+${url}`,
+    })
+
+    const theadId = thread.id
 
     downloadPDF.add('download pdf ' + url.slice(-20), {
       url,
-      channelId,
-      messageId,
+      theadId,
     })
   },
 }

@@ -4,6 +4,7 @@ import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
 import { reflectOnAnswer } from '../queues'
 import config from '../config/openai'
+import discord from '../discord'
 
 const openai = new OpenAI(config)
 
@@ -11,8 +12,7 @@ class JobData extends Job {
   data: {
     url: string
     paragraphs: string[]
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
 }
@@ -25,6 +25,8 @@ const worker = new Worker(
       '\n\n'
     )}
     ${prompt}`)
+
+    discord.sendMessage(job.data, `Extracting emissions...`)
 
     const stream = await openai.chat.completions.create({
       messages: [

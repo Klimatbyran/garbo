@@ -12,9 +12,8 @@ class JobData extends Job {
   data: {
     paragraphs: string[]
     url: string
-    channelId: string
+    threadId: string
     markdown: boolean
-    messageId: string
     pdfHash: string
   }
 }
@@ -24,16 +23,9 @@ const worker = new Worker(
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
 
-    const {
-      paragraphs,
-      url,
-      channelId,
-      markdown = false,
-      messageId,
-      pdfHash,
-    } = job.data
+    const { paragraphs, url, markdown = false } = job.data
 
-    await discord.editMessage(job.data, `Sparar i vektordatabas...`)
+    await discord.sendMessage(job.data, `Sparar i vektordatabas...`)
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
@@ -71,10 +63,7 @@ const worker = new Worker(
     }
 
     searchVectors.add('search ' + url, {
-      url,
-      channelId,
-      messageId,
-      pdfHash,
+      ...job.data,
     })
 
     return paragraphs

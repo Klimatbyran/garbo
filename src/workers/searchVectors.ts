@@ -13,9 +13,8 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     url: string
-    channelId: string
+    threadId: string
     markdown: boolean
-    messageId: string
     pdfHash: string
   }
 }
@@ -24,11 +23,11 @@ const worker = new Worker(
   'searchVectors',
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
-    const { url, markdown = false, channelId, messageId, pdfHash } = job.data
+    const { url, markdown = false } = job.data
 
     job.log('Searching ' + url)
 
-    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...')
+    discord.sendMessage(job.data, 'Hämtar ut utsläppsdata...')
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -50,11 +49,8 @@ const worker = new Worker(
     extractEmissions.add(
       'parse ' + url,
       {
-        url,
+        ...job.data,
         paragraphs: results.documents.flat(),
-        channelId,
-        messageId,
-        pdfHash,
       },
       {
         attempts: 5,

@@ -3,8 +3,9 @@ import { saveToDb } from '../../queues'
 
 export default {
   async execute(interaction, job) {
-    const { documentId } = job.data
+    const { documentId, threadId } = job.data
     saveToDb.add('saveToDb', {
+      threadId,
       documentId,
       state: 'approved',
     })

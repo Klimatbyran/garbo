@@ -100,8 +100,7 @@ async function getResults(id: any) {
 class JobData extends Job {
   data: {
     url: string
-    channelId: string
-    messageId: string
+    threadId: string
     existingId: string
     existingPdfHash: string
   }
@@ -113,26 +112,26 @@ class JobData extends Job {
 const worker = new Worker(
   'pdf2Markdown',
   async (job: JobData) => {
-    const { url, channelId, messageId, existingId, existingPdfHash } = job.data
+    const { url, existingId, existingPdfHash } = job.data
     let id = existingId
     let pdfHash = existingPdfHash
     if (!existingId) {
       job.log(`Downloading from url: ${url}`)
-      discord.editMessage(job.data, 'Laddar ner PDF...')
+      discord.sendMessage(job.data, 'Laddar ner PDF...')
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
       job.log(`Creating job for url: ${url}`)
-      discord.editMessage(job.data, 'Tolkar tabeller...')
+      discord.sendMessage(job.data, 'Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
       } catch (error) {
-        discord.editMessage(job.data, 'LLama fel: ' + error.message)
+        discord.sendMessage(job.data, 'LLama fel: ' + error.message)
       }
-      job.updateData({
+      await job.updateData({
         ...job.data,
         existingId: id,
         existingPdfHash: pdfHash,
@@ -142,18 +141,16 @@ const worker = new Worker(
     job.log(`Wait until PDF is parsed: ${id}`)
     await waitUntilJobFinished(id, 10 * minutes)
 
-    discord.editMessage(job.data, 'Klar! Indexerar...')
+    discord.sendMessage(job.data, 'Klar! Indexerar...')
     job.log(`Finished waiting for job ${id}`)
     const text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
 
     splitText.add('split text ' + text.slice(0, 20), {
-      url,
+      ...job.data,
+      pdfHash,
       text,
       markdown: true,
-      channelId,
-      messageId,
-      pdfHash,
     })
   },
   {
