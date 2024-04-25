@@ -18,6 +18,7 @@
     "@hugocxl/react-to-image": "^0.0.9",
     "bullmq": "^5.1.1",
     "chromadb": "^1.7.3",
+    "compromise": "^14.13.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "embed-table": "^4.2.3",
