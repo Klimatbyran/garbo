@@ -3,7 +3,7 @@ import redis from '../config/redis'
 import elastic from '../elastic'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
-import { userFeedback } from '../queues'
+import { userFeedback, pdf2Markdown } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -60,6 +60,18 @@ ${url}
       message.edit(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
+
+    discord.on('retry', async (documentId) => {
+      job.log(`Retrying document: ${documentId}`)
+      await pdf2Markdown.add('pdf2Markdown', {
+        url,
+        channelId,
+        messageId: message.id,
+      })
+      message.edit(
+        `Parsing ${parsedJson.companyName} PDF report as markdown and trying again...`
+      )
+    })
 
     /*discord.once('edit', async (documentId, feedback) => {
       console.log('edit', documentId, feedback)
