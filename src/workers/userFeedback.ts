@@ -109,25 +109,30 @@ const worker = new Worker(
     let reply = ''
     let response = ''
     let progress = 0
-    for await (const part of stream) {
-      const chunk = part.choices[0]?.delta?.content
-      progress += 1
-      response += chunk || ''
-      job.updateProgress(Math.min(100, (100 * progress) / 400))
-      if (chunk?.includes('\n')) {
-        thread.send({
-          content: reply,
-          components: [],
-        })
-        reply = ''
-      } else {
-        reply += chunk
+    try {
+      for await (const part of stream) {
+        const chunk = part.choices[0]?.delta?.content
+        progress += 1
+        response += chunk || ''
+        job.updateProgress(Math.min(100, (100 * progress) / 400))
+        if (chunk?.includes('\n')) {
+          thread.send({
+            content: reply,
+            components: [],
+          })
+          reply = ''
+        } else {
+          reply += chunk
+        }
       }
-    }
 
-    if (reply) {
-      // send the last message
-      thread.send({ content: reply, components: [] })
+      if (reply) {
+        // send the last message
+        thread.send({ content: reply, components: [] })
+      }
+    } catch (error) {
+      job.log('Error: ' + error)
+      thread.send({ content: 'Error: ' + error, components: [] })
     }
 
     job.log('Response: ' + response)
