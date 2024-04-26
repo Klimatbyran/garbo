@@ -115,6 +115,19 @@ export class Discord {
     )
   }
 
+  public createFeedbackButtonRow = (jobId: string) => {
+    return new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`approve-feedback~${jobId}`)
+        .setLabel('Approve')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId(`reject-feedback~${jobId}`)
+        .setLabel('Reject')
+        .setStyle(ButtonStyle.Danger),
+    )
+  }
+
   async sendMessage({ threadId }: { threadId: string }, msg: string) {
     try {
       const thread = (await this.client.channels.fetch(
