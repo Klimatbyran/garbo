@@ -1,6 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { splitText } from '../queues'
+import { pdf2Markdown, splitText } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
 import discord from '../discord'
@@ -115,39 +115,47 @@ const worker = new Worker(
     const { url, existingId, existingPdfHash } = job.data
     let id = existingId
     let pdfHash = existingPdfHash
-    let message = null
-    if (!existingId) {
+    let text = null
+
+    let message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
+
+    const previousJob = (await pdf2Markdown.getCompleted()).find(
+      (p) => p.data.url === url
+    )
+    if (previousJob) {
+      message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
+      job.log(`Using existing job: ${id}`)
+      text = previousJob.data.text
+    } else if (!existingId) {
       job.log(`Downloading from url: ${url}`)
-      message = discord.sendMessage(job.data, '🤖 Laddar ner PDF...')
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
-      message = message.edit('🤖 Tolkar tabeller...')
+      message.edit('🤖 Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
       } catch (error) {
         discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
-        return
+        throw error
       }
       await job.updateData({
         ...job.data,
         existingId: id,
         existingPdfHash: pdfHash,
       })
+
+      job.log(`Wait until PDF is parsed: ${id}`)
+      await waitUntilJobFinished(id, 10 * minutes)
+      message.edit('🤖 Laddar ner resultatet...')
     }
 
-    job.log(`Wait until PDF is parsed: ${id}`)
-    await waitUntilJobFinished(id, 10 * minutes)
-    message?.edit('Laddar ner resultatet...')
-
     job.log(`Finished waiting for job ${id}`)
-    const text = await getResults(id)
+    text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
-
-    message?.edit('✅ Tolkning klar!')
+    message.edit('✅ Tolkning klar!')
     splitText.add('split text ' + text.slice(0, 20), {
       ...job.data,
       pdfHash,
