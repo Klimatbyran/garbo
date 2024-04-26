@@ -26,15 +26,15 @@ export default {
 
       return
     }
+    const message = await interaction.reply({
+      content: `Tack! Nu är din årsredovisning placerad i kö:
+${url}`,
+    })
 
     const thread = await (interaction.channel as TextChannel).threads.create({
       name: 'pdf',
       autoArchiveDuration: 1440,
-    })
-
-    thread.send({
-      content: `Tack! Nu är din årsredovisning placerad i kö: 
-${url}`,
+      startMessage: message.id,
     })
 
     const threadId = thread.id
