@@ -125,7 +125,7 @@ const worker = new Worker(
     if (previousJob) {
       message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
       job.log(`Using existing job: ${id}`)
-      text = previousJob.data.text
+      text = previousJob.returnvalue
     } else if (!existingId) {
       job.log(`Downloading from url: ${url}`)
 
@@ -162,6 +162,7 @@ const worker = new Worker(
       text,
       markdown: true,
     })
+    return text
   },
   {
     concurrency: 10,
