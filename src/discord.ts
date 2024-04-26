@@ -13,11 +13,12 @@ import {
 import commands from './discord/commands'
 import config from './config/discord'
 import elastic from './elastic'
-import { discordReview } from './queues'
+import { discordReview, userFeedback } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
 import feedback from './discord/interactions/feedback'
 import reject from './discord/interactions/reject'
+import mentioned from './discord/interactions/mentioned'
 
 export class Discord {
   client: Client<boolean>
@@ -38,14 +39,19 @@ export class Discord {
       this.rest.put(url, { body: this.commands })
     })
 
-    // mentioned user
-    // this.client.on('messageCreate', async (message) => {
-    //   if (message.author.bot) return
-    //   const mentioned = message.mentions.users.filter((user) => user.id !== this.client.user.id).first()
-    //   if (mentioned) {
-    //     console.log('mentioned user:', mentioned.username)
-    //     // TODO: add message to feedback queue
-    // })
+    this.client.on('messageCreate', async (message) => {
+      if (message.author.bot) return
+      const user = message.mentions.users
+        .filter((user) => user.id === this.client.user.id)
+        .first()
+      if (user) {
+        console.log('mentioned user:', user.username)
+        const job = (await discordReview.getCompleted())
+          .filter((job) => job.data.threadId === message.channel.id)
+          .at(0)
+        mentioned.execute(message.interaction, job)
+      }
+    })
 
     this.client.on('interactionCreate', async (interaction) => {
       if (interaction.isCommand()) {
