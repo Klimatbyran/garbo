@@ -1,4 +1,5 @@
 import { saveToDb } from '../../queues'
+import discord from '../../discord'
 
 export default {
   async execute(interaction, job) {
@@ -15,5 +16,6 @@ export default {
       embeds: [],
       components: [],
     })
+    discord.lockThread(threadId)
   },
 }

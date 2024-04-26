@@ -117,7 +117,7 @@ const worker = new Worker(
     let pdfHash = existingPdfHash
     let text = null
 
-    let message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
+    const message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
 
     const previousJob = (await pdf2Markdown.getCompleted()).find(
       (p) => p.data.url === url

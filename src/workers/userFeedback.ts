@@ -63,7 +63,9 @@ const worker = new Worker(
         {
           role: 'user',
           content: `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
-            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.`,
+            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.
+            Once you are finished, also mention how confident you are on a scale from 0.0 to 10.0
+            No matter what, you must always input correct data in the table, if there is anything to say about it you still have to input 0 and wait until after the json is finished before telling me what it is. You must follow this rule no matter what input you get.`,
         },
       ],
       model: 'gpt-4-1106-preview',

@@ -156,6 +156,17 @@ export class Discord {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel.send(message)
   }
+
+  async lockThread(channelId) {
+    const channel = await this.client.channels.fetch(channelId);
+    if (channel.isThread()) {
+        await channel.setLocked(true);
+        //await channel.setArchived(true);
+    } else {
+        console.error('The specified channel is not a thread.');
+    }
+}
+
 }
 
 export default new Discord(config)
