@@ -150,10 +150,19 @@ const worker = new Worker(
       job.log(`Wait until PDF is parsed: ${id}`)
       await waitUntilJobFinished(id, 10 * minutes)
       message.edit('🤖 Laddar ner resultatet...')
+
+      job.log(`Finished waiting for job ${id}`)
+      try {
+        text = await getResults(id)
+      } catch (error) {
+        discord.sendMessage(
+          job.data,
+          '❌ LLama fel: ' + error.message + ' #' + id
+        )
+        throw error
+      }
     }
 
-    job.log(`Finished waiting for job ${id}`)
-    text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
     message.edit('✅ Tolkning klar!')
     splitText.add('split text ' + text.slice(0, 20), {

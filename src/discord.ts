@@ -12,7 +12,6 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import elastic from './elastic'
 import { discordReview } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
@@ -66,22 +65,26 @@ export class Discord {
         switch (action) {
           case 'approve': {
             const job = await discordReview.getJob(jobId)
-            await approve.execute(interaction, job)
+            if (!job) await interaction.reply('Job not found')
+            else await approve.execute(interaction, job)
             break
           }
           case 'feedback': {
             const job = await discordReview.getJob(jobId)
-            await feedback.execute(interaction, job)
+            if (!job) await interaction.reply('Job not found')
+            else await feedback.execute(interaction, job)
             break
           }
           case 'reject': {
             const job = await discordReview.getJob(jobId)
-            await reject.execute(interaction, job)
+            if (!job) await interaction.reply('Job not found')
+            else await reject.execute(interaction, job)
             break
           }
           case 'retry': {
             const job = await discordReview.getJob(jobId)
-            retry.execute(interaction, job)
+            if (!job) await interaction.reply('Job not found')
+            else retry.execute(interaction, job)
             break
           }
         }
@@ -124,7 +127,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`reject-feedback~${jobId}`)
         .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger),
+        .setStyle(ButtonStyle.Danger)
     )
   }
 
@@ -158,15 +161,14 @@ export class Discord {
   }
 
   async lockThread(channelId) {
-    const channel = await this.client.channels.fetch(channelId);
+    const channel = await this.client.channels.fetch(channelId)
     if (channel.isThread()) {
-        await channel.setLocked(true);
-        //await channel.setArchived(true);
+      await channel.setLocked(true)
+      //await channel.setArchived(true);
     } else {
-        console.error('The specified channel is not a thread.');
+      console.error('The specified channel is not a thread.')
     }
-}
-
+  }
 }
 
 export default new Discord(config)

@@ -4,6 +4,7 @@ import {
   TextChannel,
 } from 'discord.js'
 import { downloadPDF } from '../../queues'
+import discord from '../../discord'
 
 export default {
   data: new SlashCommandBuilder()
@@ -26,20 +27,21 @@ export default {
 
       return
     }
-    /*const message = await interaction.reply({
+    const message = await interaction.reply({
       content: `Tack! Nu är din årsredovisning placerad i kö:
 ${url}`,
-    })*/
+    })
+      
+      const thread = discord.createThread('pdf')
 
-    const thread = await (interaction.channel as TextChannel).threads.create({
+    (message as TextMess).startThread(const thread = await (interaction.channel as TextChannel).threads.create({
       name: 'pdf',
       autoArchiveDuration: 1440,
-      //startMessage: message.id,
     })
-    thread.send({
+    /*thread.send({
       content: `Tack! Nu är din årsredovisning placerad i kö: 
       ${url}`,
-    })
+    })*/
 
     const threadId = thread.id
 

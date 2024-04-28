@@ -38,7 +38,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 10,
+      nResults: 5,
       where: markdown
         ? { $and: [{ source: url }, { markdown }] }
         : { source: url },
@@ -48,13 +48,13 @@ const worker = new Worker(
     })
 
     job.log(JSON.stringify(results))
-
-    message.edit('✅ Hittade ' + results.documents.length + ' stycken.')
+    const paragraphs = results.documents.flat()
+    message.edit('✅ Hittade ' + paragraphs.length + ' stycken.')
     extractEmissions.add(
       'parse ' + url,
       {
         ...job.data,
-        paragraphs: results.documents.flat(),
+        paragraphs,
       },
       {
         attempts: 5,

@@ -88,14 +88,7 @@ ${prompt}`)
         answer: json,
         previousError: error.message,
       })
-      discord.sendMessage(
-        job.data,
-        `❌ ${error}:
-\`\`\`
-${json}
-\`\`\`
-`
-      )
+      discord.sendMessage(job.data, `❌ ${error.message}:`)
       throw error
     }
     const companyName = parsedJson.companyName
