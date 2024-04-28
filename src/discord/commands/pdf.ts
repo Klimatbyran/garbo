@@ -31,13 +31,14 @@ export default {
       content: `Tack! Nu är din årsredovisning placerad i kö:
 ${url}`,
     })
-      
-      const thread = discord.createThread('pdf')
 
-    (message as TextMess).startThread(const thread = await (interaction.channel as TextChannel).threads.create({
-      name: 'pdf',
-      autoArchiveDuration: 1440,
-    })
+    const thread = await discord.createThread(
+      {
+        channelId: interaction.channel.id,
+        messageId: message.id,
+      },
+      'pdf'
+    )
     /*thread.send({
       content: `Tack! Nu är din årsredovisning placerad i kö: 
       ${url}`,
