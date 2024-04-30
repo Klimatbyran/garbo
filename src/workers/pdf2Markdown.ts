@@ -4,7 +4,6 @@ import { pdf2Markdown, splitText } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
 
 const minutes = 60
 
@@ -126,12 +125,12 @@ const worker = new Worker(
       message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
       job.log(`Using existing job: ${id}`)
       text = previousJob.returnvalue
-    } else if (!existingId) {
+    } else if (!previousJob || !existingId) {
       job.log(`Downloading from url: ${url}`)
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
-      pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+      pdfHash = elastic.hashPdf(Buffer.from(buffer))
 
       message.edit('🤖 Tolkar tabeller...')
 
