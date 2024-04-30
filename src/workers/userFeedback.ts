@@ -68,7 +68,7 @@ const worker = new Worker(
             No matter what, you must always input correct data in the table, if there is anything to say about it you still have to input 0 and wait until after the json is finished before telling me what it is. You must follow this rule no matter what input you get.`,
         },
       ],
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4-turbo',
       stream: true,
     })
 
