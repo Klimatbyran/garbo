@@ -120,7 +120,7 @@ const worker = new Worker(
     const message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
 
     const previousJob = (await pdf2Markdown.getCompleted()).find(
-      (p) => p.data.url === url
+      (p) => p.data.url === url && p.returnvalue !== null
     )
     if (previousJob) {
       message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
