@@ -4,6 +4,7 @@ import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
 import { reflectOnAnswer } from '../queues'
 import config from '../config/openai'
+import discord from '../discord'
 
 const openai = new OpenAI(config)
 
@@ -11,20 +12,24 @@ class JobData extends Job {
   data: {
     url: string
     paragraphs: string[]
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
 }
 
 const worker = new Worker(
-  'parseText',
+  'extractEmissions',
   async (job: JobData) => {
     const pdfParagraphs = job.data.paragraphs
     job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
       '\n\n'
     )}
     ${prompt}`)
+
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Hämtar utsläppsdata...`
+    )
 
     const stream = await openai.chat.completions.create({
       messages: [
@@ -42,6 +47,8 @@ const worker = new Worker(
     }
 
     job.log(response)
+
+    message.edit('✅ Utsläppsdata hämtad')
 
     reflectOnAnswer.add(
       'reflect on answer ' + response.slice(0, 20),

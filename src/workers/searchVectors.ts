@@ -2,7 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { parseText } from '../queues'
+import { extractEmissions } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
 
@@ -13,9 +13,8 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     url: string
-    channelId: string
+    threadId: string
     markdown: boolean
-    messageId: string
     pdfHash: string
   }
 }
@@ -24,11 +23,14 @@ const worker = new Worker(
   'searchVectors',
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
-    const { url, markdown = false, channelId, messageId, pdfHash } = job.data
+    const { url, markdown = false } = job.data
 
     job.log('Searching ' + url)
 
-    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...')
+    const message = await discord.sendMessage(
+      job.data,
+      '🤖 Söker upp utsläppsdata...'
+    )
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -36,7 +38,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 10,
+      nResults: 5,
       where: markdown
         ? { $and: [{ source: url }, { markdown }] }
         : { source: url },
@@ -46,15 +48,13 @@ const worker = new Worker(
     })
 
     job.log(JSON.stringify(results))
-
-    parseText.add(
+    const paragraphs = results.documents.flat()
+    message.edit('✅ Hittade ' + paragraphs.length + ' stycken.')
+    extractEmissions.add(
       'parse ' + url,
       {
-        url,
-        paragraphs: results.documents.flat(),
-        channelId,
-        messageId,
-        pdfHash,
+        ...job.data,
+        paragraphs,
       },
       {
         attempts: 5,

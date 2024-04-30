@@ -16,22 +16,22 @@ class JobData extends Job {
     url: string
     paragraphs: string[]
     answer: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
+    previousError: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const pdfParagraphs = job.data.paragraphs
-    const answer = job.data.answer
-    const channel = (await discord.client.channels.fetch(
-      job.data.channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Verifierar information...`)
+    const { paragraphs: pdfParagraphs, answer, previousError } = job.data
+
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Reflekterar... ${job.attemptsStarted || ''}`
+    )
+
     job.log(`Reflecting on: 
 ${answer}
 --- Prompt:
@@ -46,17 +46,27 @@ ${prompt}`)
         },
         { role: 'user', content: previousPrompt },
         { role: 'system', content: job.data.answer },
+        previousError
+          ? { role: 'user', content: previousError }
+          : { role: 'user', content: '' },
         { role: 'user', content: prompt },
       ],
       model: 'gpt-4-1106-preview',
       stream: true,
     })
     let response = ''
+    let reply = ''
     let progress = 0
     for await (const part of stream) {
+      const chunk = part.choices[0]?.delta?.content || ''
       progress += 1
-      response += part.choices[0]?.delta?.content || ''
+      response += chunk
+      reply += chunk
       job.updateProgress(Math.min(100, (100 * progress) / 400))
+      if (reply.includes('\n') && !response.includes('```json')) {
+        discord.sendMessage(job.data, reply)
+        reply = ''
+      }
     }
 
     const json =
@@ -65,16 +75,33 @@ ${prompt}`)
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
-    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+    // const lastInstruction = response.split(json).at(-1)
+    // if (reply.length) discord.sendMessage(job.data, lastInstruction)
+    // //if (instruction.length) message.edit(instruction)
 
+    let parsedJson
+    try {
+      parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+    } catch (error) {
+      job.updateData({
+        ...job.data,
+        answer: json,
+        previousError: error.message,
+      })
+      discord.sendMessage(job.data, `❌ ${error.message}:`)
+      throw error
+    }
     const companyName = parsedJson.companyName
 
-    job.updateData({ title: companyName })
+    const thread = (await discord.client.channels.fetch(
+      job.data.threadId
+    )) as TextChannel
+    thread.setName(companyName)
 
-    await message.edit(`Klart! Skickar till Discord för granskning`)
+    message.edit(`✅ ${companyName} klar`)
     discordReview.add(companyName, {
       ...job.data,
-      json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
+      json: JSON.stringify(parsedJson, null, 2),
     })
 
     // Do something with job

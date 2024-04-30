@@ -1,6 +1,6 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { splitText } from '../queues'
+import { pdf2Markdown, splitText } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
 import discord from '../discord'
@@ -100,8 +100,7 @@ async function getResults(id: any) {
 class JobData extends Job {
   data: {
     url: string
-    channelId: string
-    messageId: string
+    threadId: string
     existingId: string
     existingPdfHash: string
   }
@@ -113,48 +112,66 @@ class JobData extends Job {
 const worker = new Worker(
   'pdf2Markdown',
   async (job: JobData) => {
-    const { url, channelId, messageId, existingId, existingPdfHash } = job.data
+    const { url, existingId, existingPdfHash } = job.data
     let id = existingId
     let pdfHash = existingPdfHash
-    if (!existingId) {
+    let text = null
+
+    const message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
+
+    const previousJob = (await pdf2Markdown.getCompleted()).find(
+      (p) => p.data.url === url
+    )
+    if (previousJob) {
+      message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
+      job.log(`Using existing job: ${id}`)
+      text = previousJob.returnvalue
+    } else if (!existingId) {
       job.log(`Downloading from url: ${url}`)
-      discord.editMessage(job.data, 'Laddar ner PDF...')
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
       pdfHash = await elastic.hashPdf(Buffer.from(buffer))
 
-      job.log(`Creating job for url: ${url}`)
-      discord.editMessage(job.data, 'Tolkar tabeller...')
+      message.edit('🤖 Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
       } catch (error) {
-        discord.editMessage(job.data, 'LLama fel: ' + error.message)
+        discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
+        throw error
       }
-      job.updateData({
+      await job.updateData({
         ...job.data,
         existingId: id,
         existingPdfHash: pdfHash,
       })
+
+      job.log(`Wait until PDF is parsed: ${id}`)
+      await waitUntilJobFinished(id, 10 * minutes)
+      message.edit('🤖 Laddar ner resultatet...')
+
+      job.log(`Finished waiting for job ${id}`)
+      try {
+        text = await getResults(id)
+      } catch (error) {
+        discord.sendMessage(
+          job.data,
+          '❌ LLama fel: ' + error.message + ' #' + id
+        )
+        throw error
+      }
     }
 
-    job.log(`Wait until PDF is parsed: ${id}`)
-    await waitUntilJobFinished(id, 10 * minutes)
-
-    discord.editMessage(job.data, 'Klar! Indexerar...')
-    job.log(`Finished waiting for job ${id}`)
-    const text = await getResults(id)
     job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
-
+    message.edit('✅ Tolkning klar!')
     splitText.add('split text ' + text.slice(0, 20), {
-      url,
+      ...job.data,
+      pdfHash,
       text,
       markdown: true,
-      channelId,
-      messageId,
-      pdfHash,
     })
+    return text
   },
   {
     concurrency: 10,

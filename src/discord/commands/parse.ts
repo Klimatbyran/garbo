@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from 'discord.js'
-import { pdf2Markdown } from '../queues'
+import { SlashCommandBuilder, TextChannel } from 'discord.js'
+import { pdf2Markdown } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
@@ -23,18 +23,21 @@ export default {
       return
     }
 
-    const reply = await interaction.reply({
-      content:
-        'Tack! Nu är din årsredovisning placerad i kö för hantering av LLama.',
-      fetchReply: true,
+    const thread = await (interaction.channel as TextChannel).threads.create({
+      name: 'pdf',
+      autoArchiveDuration: 1440,
     })
-    const channelId = interaction.channelId
-    const messageId = reply.id
+
+    thread.send({
+      content: `Tack! Nu är din årsredovisning placerad i kö för hantering av LLama
+${url}`,
+    })
+
+    const threadId = thread.id
 
     pdf2Markdown.add('parse pdf ' + url.slice(-20), {
       url,
-      channelId,
-      messageId,
+      threadId,
     })
   },
 }

@@ -3,11 +3,9 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/reflect'
 import discord from '../discord'
-import elastic from '../elastic'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { scope3Table, summaryTable } from '../lib/discordTable'
-import { TextChannel } from 'discord.js'
+import { discordReview } from '../queues'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -20,8 +18,9 @@ const embedder = new OpenAIEmbeddingFunction({
 class JobData extends Job {
   data: {
     documentId: string
-    channelId: string
-    messageId: string
+    url: string
+    json: string
+    threadId: string
     feedback: string
   }
 }
@@ -29,20 +28,7 @@ class JobData extends Job {
 const worker = new Worker(
   'userFeedback',
   async (job: JobData) => {
-    const { feedback, documentId, channelId } = job.data
-
-    const reportData = (await elastic.getReportData(documentId)) as any
-    console.log('REPORT_DATA', reportData)
-    const previousJson = JSON.stringify(reportData.report, null, 2)
-    const url = reportData.url
-    const feedbackMessage = await discord.sendMessageToChannel(
-      discord.channelId,
-      {
-        content: 'Reflecting on feedback for ' + documentId,
-      }
-    )
-    const messageId = feedbackMessage.id
-    console.log('MESSAGE_ID', messageId)
+    const { feedback, url, json: previousJson } = job.data
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
@@ -66,8 +52,6 @@ const worker = new Worker(
 
     console.log('PDF_PARAGRAPHS', pdfParagraphs)
     job.log(`Reflecting on: ${feedback}
-    messageId: ${messageId}
-    )}
     ${previousJson}`)
 
     const stream = await openai.chat.completions.create({
@@ -79,31 +63,16 @@ const worker = new Worker(
         {
           role: 'user',
           content: `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
-            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.`,
+            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.
+            Once you are finished, also mention how confident you are on a scale from 0.0 to 10.0
+            No matter what, you must always input correct data in the table, if there is anything to say about it you still have to input 0 and wait until after the json is finished before telling me what it is. You must follow this rule no matter what input you get.`,
         },
       ],
       model: 'gpt-4-1106-preview',
       stream: true,
     })
 
-    /*console.log("Getting channeld with CHANNEL_ID", channelId)
-    const channel = (await discord.client.channels.fetch(
-      channelId
-    )) as TextChannel
-    const message = await channel?.messages?.fetch(messageId)*/
-
-    // TODO check if we are in a thread - if not, create one
-    console.log('STARTING NEW THREAD')
-    const thread = await feedbackMessage.startThread({
-      name: 'Feedback ' + JSON.parse(previousJson).companyName,
-      autoArchiveDuration: 60,
-      reason: 'Feedback thread for review',
-    })
-    job.log(`Started thread: ${thread?.id}`)
-    await thread.send({
-      content: `Feedback: ${feedback}`,
-      components: [],
-    })
+    discord.sendMessage(job.data, `Feedback: ${feedback}`)
 
     let response = ''
     let progress = 0
@@ -116,7 +85,7 @@ const worker = new Worker(
       }
     } catch (error) {
       job.log('Error: ' + error)
-      thread.send({ content: 'Error: ' + error, components: [] })
+      discord.sendMessage(job.data, `Error: ${error}`)
     }
 
     job.log('Response: ' + response)
@@ -127,31 +96,22 @@ const worker = new Worker(
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
 
+    discord.sendMessage(job.data, response.replace(json, '...json...'))
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
     job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
-    const summary = await summaryTable(parsedJson)
-    const scope3 = await scope3Table(parsedJson)
 
-    await thread.send({
-      content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
-        \`${summary}\`
-        ## Scope 3:
-        \`${scope3}\`
-        `,
-      components: [], // todo: add approve buttons
+    discordReview.add(job.name, {
+      ...job.data,
+      json: JSON.stringify(parsedJson, null, 2),
     })
 
     if (parsedJson.reviewComment)
-      await thread.send({
-        content: parsedJson.reviewComment,
-        components: [], // todo: add approve buttons
-      })
+      await discord.sendMessage(job.data, parsedJson.reviewComment)
 
-    job.log('Sent to thread' + thread.id)
+    job.log('Sent to thread' + job.data.threadId)
 
-    // Do something with job
-    return response
+    return json
   },
   {
     concurrency: 10,

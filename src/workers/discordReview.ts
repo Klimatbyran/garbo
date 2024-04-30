@@ -1,57 +1,53 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import elastic from '../elastic'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
-import { userFeedback, pdf2Markdown } from '../queues'
+import { saveToDb } from '../queues'
 
 class JobData extends Job {
   data: {
     url: string
     json: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
-}
-
-async function saveToDb(id: string, report: any) {
-  return await elastic.indexReport(id, report)
 }
 
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
     job.updateProgress(5)
-    const { url, pdfHash, json, channelId } = job.data
+    const { url, pdfHash, json, threadId } = job.data
 
     job.log(`Sending for review in Discord: ${json}`)
 
     job.updateProgress(10)
-    const parsedJson = JSON.parse(json)
-    parsedJson.url = url
+    const parsedJson = { ...JSON.parse(json), url }
     job.log(`Saving to db: ${pdfHash}`)
-    const documentId = await saveToDb(pdfHash, parsedJson)
-    const buttonRow = discord.createButtonRow(documentId)
+    const documentId = pdfHash
+    await saveToDb.add('saveToDb', {
+      documentId,
+      threadId,
+      report: parsedJson,
+    })
+
+    job.updateData({ ...job.data, documentId })
+    const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
-    job.log(`Sending message to Discord channel ${discord.channelId}`)
+    job.log(`Sending message to Discord channel ${threadId}`)
     // send an empty message to the channel
     let message = null
     try {
-      message = await discord.sendMessageToChannel(discord.channelId, {
+      message = await discord.sendMessageToChannel(threadId, {
         content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
 ${url}
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
-        ${
-          parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
-            : ''
-        }
+        
         `,
         components: [buttonRow],
       })
@@ -60,34 +56,18 @@ ${url}
       message.edit(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
-
-    discord.on('retry', async (documentId) => {
-      job.log(`Retrying document: ${documentId}`)
-      await pdf2Markdown.add('pdf2Markdown', {
-        url,
-        channelId,
-        messageId: message.id,
-      })
-      message.edit(
-        `Parsing ${parsedJson.companyName} PDF report as markdown and trying again...`
+    if (parsedJson.reviewComment)
+      discord.sendMessage(
+        job.data,
+        `Kommentar från Garbo: ${parsedJson.reviewComment}`
       )
-    })
 
-    /*discord.once('edit', async (documentId, feedback) => {
-      console.log('edit', documentId, feedback)
-      job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
-      job.log(`Creating feedback job`)
-      await userFeedback.add('userFeedback', {
-        url,
-        documentId,
-        messageId: message.id,
-        channelId,
-        json: JSON.stringify(parsedJson, null, 2),
-        feedback,
-      })
-    })*/
+    if (parsedJson.agentResponse)
+      discord.sendMessage(
+        job.data,
+        `Svar på feedback: ${parsedJson.agentResponse}`
+      )
 
-    job.updateProgress(40)
     job.updateProgress(100)
   },
   {

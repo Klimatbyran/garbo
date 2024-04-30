@@ -12,9 +12,8 @@ class JobData extends Job {
   data: {
     paragraphs: string[]
     url: string
-    channelId: string
+    threadId: string
     markdown: boolean
-    messageId: string
     pdfHash: string
   }
 }
@@ -24,16 +23,12 @@ const worker = new Worker(
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
 
-    const {
-      paragraphs,
-      url,
-      channelId,
-      markdown = false,
-      messageId,
-      pdfHash,
-    } = job.data
+    const { paragraphs, url, markdown = false } = job.data
 
-    await discord.editMessage(job.data, `Sparar i vektordatabas...`)
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Sparar i vektordatabas...`
+    )
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
@@ -51,6 +46,7 @@ const worker = new Worker(
 
     if (exists) {
       job.log('Collection exists. Skipping reindexing.')
+      message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
     } else {
       job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
@@ -67,14 +63,12 @@ const worker = new Worker(
         metadatas,
         documents: paragraphs,
       })
+      message.edit(`✅ Sparad i vektordatabasen`)
       job.log('Done!')
     }
 
     searchVectors.add('search ' + url, {
-      url,
-      channelId,
-      messageId,
-      pdfHash,
+      ...job.data,
     })
 
     return paragraphs

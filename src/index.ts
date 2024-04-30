@@ -17,24 +17,15 @@ import {
   downloadPDF,
   indexParagraphs,
   pdf2Markdown,
-  parseText,
+  extractEmissions,
   reflectOnAnswer,
   searchVectors,
   splitText,
   userFeedback,
+  saveToDb,
 } from './queues'
 import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
-
-// add dummy job
-// downloadPDF.add('dummy', {
-//   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
-// })
-
-/*
-downloadPDF.add('volvo', {
-  url: 'https://www.volvogroup.com/content/dam/volvo-group/markets/master/investors/reports-and-presentations/annual-reports/AB-Volvo-Annual-Report-2022.pdf',
-})*/
 
 // start workers
 Object.values(workers).forEach((worker) => worker.run())
@@ -50,10 +41,11 @@ createBullBoard({
     new BullMQAdapter(splitText),
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
-    new BullMQAdapter(parseText),
+    new BullMQAdapter(extractEmissions),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(discordReview),
     new BullMQAdapter(userFeedback),
+    new BullMQAdapter(saveToDb),
   ],
   serverAdapter: serverAdapter,
   options: {
@@ -76,7 +68,9 @@ app.listen(port, () => {
 })
 
 app.get('/', (req, res) => {
-  res.send(`Hi I'm Garbo!`)
+  res.send(
+    `Hi I'm Garbo! Queues: <br><a href="/admin/queues">/admin/queues</a>`
+  )
 })
 
 app.get('/api/imageFromHtml', async (req, res) => {
