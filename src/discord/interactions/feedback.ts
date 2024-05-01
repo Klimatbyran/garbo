@@ -1,5 +1,7 @@
 import {
   ActionRowBuilder,
+  CommandInteraction,
+  Interaction,
   ModalActionRowComponentBuilder,
   ModalBuilder,
   TextInputBuilder,
@@ -8,7 +10,7 @@ import {
 import { userFeedback } from '../../queues'
 
 export default {
-  async execute(interaction, job) {
+  async execute(interaction: CommandInteraction, job) {
     const input = new TextInputBuilder()
       .setCustomId('editInput')
       .setLabel(`Granska utsläppsdata`)
@@ -40,6 +42,7 @@ export default {
       const userInput = submitted.fields.getTextInputValue('editInput')
       //this.emit('edit', documentId, userInput)
 
+      interaction.channel.sendTyping()
       await submitted.reply({
         content: `Tack för din feedback: \n ${userInput}`,
       })
