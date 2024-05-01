@@ -1,5 +1,6 @@
 import {
   ActionRowBuilder,
+  ButtonInteraction,
   CommandInteraction,
   Interaction,
   ModalActionRowComponentBuilder,
@@ -10,7 +11,7 @@ import {
 import { userFeedback } from '../../queues'
 
 export default {
-  async execute(interaction: CommandInteraction, job) {
+  async execute(interaction: ButtonInteraction, job) {
     const input = new TextInputBuilder()
       .setCustomId('editInput')
       .setLabel(`Granska utsläppsdata`)
