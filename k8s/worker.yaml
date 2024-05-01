@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+  namespace: garbo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+        - image: ghcr.io/klimatbyran/garbo:1.1.145 # {"$imagepolicy": "flux-system:garbo"}
+          resources: {}
+          name: worker
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DISCORD_APPLICATION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_APPLICATION_ID
+            - name: DISCORD_SERVER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_SERVER_ID
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_TOKEN
+            - name: LLAMA_CLOUD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: LLAMA_CLOUD_API_KEY
+            - name: GOTENBERG_URL
+              value: http://gotenberg:3000
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAI_API_KEY
+            - name: OPENAI_ORG_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAI_ORG_ID
+            - name: ELASTIC_NODE_URL
+              value: http://elasticsearch:9200
+            - name: ELASTIC_INDEX_NAME
+              value: reports
+            # - name: CHROMA_TOKEN
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: chromadb-auth
+            #       key: token
+            - name: CHROMA_HOST
+              value: http://chromadb:8000
+            - name: REDIS_HOST
+              value: redis-master
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred

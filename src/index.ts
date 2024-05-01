@@ -28,7 +28,12 @@ import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
 
 // start workers
-Object.values(workers).forEach((worker) => worker.run())
+if (process.env.NODE_ENV === 'DISABLE_WORKERS') {
+  console.log('Running in api mode')
+} else {
+  console.log('Running in workers mode')
+  Object.values(workers).forEach((worker) => worker.run())
+}
 
 // start ui
 const serverAdapter = new ExpressAdapter()
