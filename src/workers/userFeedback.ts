@@ -72,7 +72,10 @@ const worker = new Worker(
       stream: true,
     })
 
-    discord.sendMessage(job.data, `Feedback: ${feedback}`)
+    discord.sendMessage(
+      job.data,
+      `Feedback: ${feedback} ${job.attemptsStarted || ''}`
+    )
 
     let response = ''
     let progress = 0
@@ -90,12 +93,18 @@ const worker = new Worker(
 
     job.log('Response: ' + response)
 
-    const json =
-      response
-        .match(/```json(.|\n)*```/)[0]
-        ?.replace(/```json|```/g, '')
-        .trim() || '{}'
-
+    let json
+    try {
+      json =
+        response
+          .match(/```json(.|\n)*```/)[0]
+          ?.replace(/```json|```/g, '')
+          .trim() || '{}'
+    } catch (error) {
+      job.log('Error: ' + error)
+      discord.sendMessage(job.data, response)
+      discord.sendMessage(job.data, `Fel vid tolkning av JSON: ${error}`)
+    }
     discord.sendMessage(job.data, response.replace(json, '...json...'))
     const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 

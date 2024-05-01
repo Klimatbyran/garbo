@@ -3,28 +3,28 @@ import {
   ModalActionRowComponentBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle
+  TextInputStyle,
 } from 'discord.js'
 import { userFeedback } from '../../queues'
 
 export default {
   async execute(interaction, job) {
     const input = new TextInputBuilder()
-    .setCustomId('editInput')
-    .setLabel(`Granska utsläppsdata`)
-    .setStyle(TextInputStyle.Paragraph)
+      .setCustomId('editInput')
+      .setLabel(`Granska utsläppsdata`)
+      .setStyle(TextInputStyle.Paragraph)
 
-  const actionRow =
-    new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
-      input
-    )
+    const actionRow =
+      new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
+        input
+      )
 
-  const modal = new ModalBuilder()
-    .setCustomId('editModal')
-    .setTitle(`Granska data för...`) // ${parsedJson.companyName}`)
-    .addComponents(actionRow)
+    const modal = new ModalBuilder()
+      .setCustomId('editModal')
+      .setTitle(`Granska data för...`) // ${parsedJson.companyName}`)
+      .addComponents(actionRow)
 
-  await interaction.showModal(modal)
+    await interaction.showModal(modal)
 
     const submitted = await interaction
       .awaitModalSubmit({
@@ -43,10 +43,16 @@ export default {
       await submitted.reply({
         content: `Tack för din feedback: \n ${userInput}`,
       })
-      await userFeedback.add('userFeedback', {
-        ...job.data,
-        feedback: userInput,
-      })
+      await userFeedback.add(
+        'userFeedback',
+        {
+          ...job.data,
+          feedback: userInput,
+        },
+        {
+          attempts: 3, // pröva tre gånger
+        }
+      )
     }
   },
 }
