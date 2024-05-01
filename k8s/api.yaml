@@ -20,8 +20,6 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: DISABLE_WORKERS
-              value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
