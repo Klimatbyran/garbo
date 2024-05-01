@@ -1,4 +1,4 @@
-import { Worker, Job } from 'bullmq'
+import { Worker, Job, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
@@ -18,9 +18,11 @@ class JobData extends Job {
   }
 }
 
+const flow = new FlowProducer({ connection: redis })
+
 const worker = new Worker(
   'extractEmissions',
-  async (job: JobData) => {
+  async (job: JobData, token: string) => {
     const pdfParagraphs = job.data.paragraphs
     job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
       '\n\n'
@@ -51,7 +53,35 @@ const worker = new Worker(
 
     message.edit('✅ Utsläppsdata hämtad')
 
-    reflectOnAnswer.add(
+    // NOT DONE: Add a flow with children
+    await flow.add({
+      name: 'reflections',
+      queueName: 'reflectOnAnswer',
+      data: job.data,
+      children: [
+        {
+          name: 'industry',
+          data: {
+            ...job.data,
+            prompt: 'extract industry and insert to the json',
+          },
+          queueName: 'grandchildrenQueueName',
+        },
+        {
+          name,
+          data: { idx: 1, foo: 'baz' },
+          queueName: 'grandchildrenQueueName',
+        },
+      ],
+      opts: {
+        parent: {
+          id: job.id,
+          queue: job.queueQualifiedName,
+        },
+      },
+    })
+
+    const reflect = await reflectOnAnswer.add(
       'reflect on answer ' + response.slice(0, 20),
       {
         ...job.data,
@@ -63,6 +93,8 @@ const worker = new Worker(
         attempts: 3,
       }
     )
+
+    reflect.moveToWaitingChildren()
 
     // Do something with job
     return response
