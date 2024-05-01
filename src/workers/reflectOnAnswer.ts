@@ -2,7 +2,6 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/parsePDF'
-import prompt from '../prompts/reflect'
 import { discordReview } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
@@ -19,13 +18,14 @@ class JobData extends Job {
     threadId: string
     pdfHash: string
     previousError: string
+    prompt: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const { paragraphs: pdfParagraphs, answer, previousError } = job.data
+    const { paragraphs, answer, previousError, prompt } = job.data
 
     const message = await discord.sendMessage(
       job.data,
@@ -39,7 +39,7 @@ ${prompt}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: 'user', content: pdfParagraphs.join('\n\n') },
+        { role: 'user', content: paragraphs.join('\n\n') },
         {
           role: 'user',
           content: 'From URL: ' + job.data.url,

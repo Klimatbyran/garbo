@@ -17,7 +17,7 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 6. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report.
 
-    Example JSON structure:
+    Example JSON structure. Not all fields are mandatory. The structure will be parsed by an LLM in the next steps.
     {
       "companyName": "Example Company",
       "emissions": [
@@ -87,7 +87,7 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 9. Comma separators. Never use any comma separators or spaces in the numbers.
 
-Then, send the results of your analysis back to me.
+Then, send the results of your analysis back to me. If you are uncertain about any part of the data, please provide a recommendation for further review.
 `
 
 export default prompt

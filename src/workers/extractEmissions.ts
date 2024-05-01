@@ -2,6 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
+import reflectPrompt from '../prompts/reflect'
 import { reflectOnAnswer } from '../queues'
 import config from '../config/openai'
 import discord from '../discord'
@@ -56,6 +57,7 @@ const worker = new Worker(
         ...job.data,
         answer: response,
         paragraphs: pdfParagraphs,
+        prompt: reflectPrompt,
       },
       {
         attempts: 3,
