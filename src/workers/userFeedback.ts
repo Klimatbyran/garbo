@@ -6,6 +6,7 @@ import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { discordReview } from '../queues'
+import prompt from '../prompts/feedback'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -62,11 +63,7 @@ const worker = new Worker(
         { role: 'user', content: feedback },
         {
           role: 'user',
-          content: `Please reply with new JSON. 
-            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies. You are allowed to add two more fields: agentResponse and confidenceScore.
-            - confidenceScore means how confident you are based on the input and feedback on a scale from 0 to 100
-            - agentResponse is a message to the user for more feedback or to clarify the response
-            Always specify start and end of JSON with \`\`\`json and \`\`\``,
+          content: prompt,
         },
       ],
       model: 'gpt-4-turbo',
