@@ -1,4 +1,8 @@
-import { SlashCommandBuilder, TextChannel } from 'discord.js'
+import {
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  TextChannel,
+} from 'discord.js'
 import { downloadPDF } from '../../queues'
 
 export default {
@@ -14,7 +18,7 @@ export default {
       'Skicka in en årsredovisning och få tillbaka utsläppsdata.'
     ),
 
-  async execute(interaction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     console.log('pdfs')
     const urls = interaction.options
       .getString('urls')
@@ -31,12 +35,16 @@ export default {
 
       return
     }
-    await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
+    //    await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
+    const message = await interaction.followUp(
+      `Processing ${urls.length} PDFs...`
+    )
 
     urls.forEach(async (url) => {
       const thread = await (interaction.channel as TextChannel).threads.create({
         name: url.slice(-20),
         autoArchiveDuration: 1440,
+        startMessage: message.id,
       })
 
       thread.send({
