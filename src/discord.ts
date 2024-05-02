@@ -68,31 +68,39 @@ export class Discord {
         }
       } else if (interaction.isButton()) {
         const [action, jobId] = interaction.customId.split('~')
-        switch (action) {
-          case 'approve': {
-            const job = await discordReview.getJob(jobId)
-            if (!job) await interaction.reply('Job not found')
-            else await approve.execute(interaction, job)
-            break
+        try {
+          switch (action) {
+            case 'approve': {
+              const job = await discordReview.getJob(jobId)
+              if (!job) await interaction.reply('Job not found')
+              else await approve.execute(interaction, job)
+              break
+            }
+            case 'feedback': {
+              const job = await discordReview.getJob(jobId)
+              if (!job) await interaction.reply('Job not found')
+              else await feedback.execute(interaction, job)
+              break
+            }
+            case 'reject': {
+              const job = await discordReview.getJob(jobId)
+              if (!job) await interaction.reply('Job not found')
+              else await reject.execute(interaction, job)
+              break
+            }
+            case 'retry': {
+              const job = await discordReview.getJob(jobId)
+              if (!job) await interaction.reply('Job not found')
+              else retry.execute(interaction, job)
+              break
+            }
           }
-          case 'feedback': {
-            const job = await discordReview.getJob(jobId)
-            if (!job) await interaction.reply('Job not found')
-            else await feedback.execute(interaction, job)
-            break
-          }
-          case 'reject': {
-            const job = await discordReview.getJob(jobId)
-            if (!job) await interaction.reply('Job not found')
-            else await reject.execute(interaction, job)
-            break
-          }
-          case 'retry': {
-            const job = await discordReview.getJob(jobId)
-            if (!job) await interaction.reply('Job not found')
-            else retry.execute(interaction, job)
-            break
-          }
+        } catch (error) {
+          console.error('Discord error:', error)
+          await interaction.reply({
+            content: 'There was an error while executing this command!',
+            ephemeral: true,
+          })
         }
       }
     })
