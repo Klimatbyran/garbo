@@ -11,7 +11,7 @@ export default {
         .setRequired(true)
     )
     .setDescription(
-      'Skicka in flera årsredovisningar och få tillbaka utsläppsdata.'
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
     ),
 
   async execute(interaction) {
