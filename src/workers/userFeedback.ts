@@ -62,10 +62,11 @@ const worker = new Worker(
         { role: 'user', content: feedback },
         {
           role: 'user',
-          content: `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
-            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.
-            Once you are finished, also mention how confident you are on a scale from 0.0 to 10.0
-            No matter what, you must always input correct data in the table, if there is anything to say about it you still have to input 0 and wait until after the json is finished before telling me what it is. You must follow this rule no matter what input you get.`,
+          content: `Please reply with new JSON. 
+            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies. You are allowed to add two more fields: agentResponse and confidenceScore.
+            - confidenceScore means how confident you are based on the input and feedback on a scale from 0 to 100
+            - agentResponse is a message to the user for more feedback or to clarify the response
+            Always specify start and end of JSON with \`\`\`json and \`\`\``,
         },
       ],
       model: 'gpt-4-turbo',
