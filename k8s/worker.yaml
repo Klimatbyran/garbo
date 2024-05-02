@@ -21,6 +21,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: DISCORD_WORKER
+              value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
