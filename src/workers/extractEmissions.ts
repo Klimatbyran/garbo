@@ -63,14 +63,28 @@ const worker = new Worker(
           name: 'industry',
           data: {
             ...job.data,
-            prompt: 'extract industry and insert to the json',
+            prompt:
+              'Extract industry, sector, industry group, according to GICS. Add it as field "industry", "sector", "industryGroup" in the JSON.',
           },
-          queueName: 'grandchildrenQueueName',
+          queueName: 'followUp',
         },
         {
-          name,
-          data: { idx: 1, foo: 'baz' },
-          queueName: 'grandchildrenQueueName',
+          name: 'scope1+2',
+          data: {
+            ...job.data,
+            prompt:
+              'Extract scope 1 and 2 emissions according to the GHG protocol. Add it as field emissions: [{year: 2021, "scope1": {}, "scope2": {}}] in the JSON.',
+          },
+          queueName: 'followUp',
+        },
+        {
+          name: 'scope3',
+          data: {
+            ...job.data,
+            prompt:
+              'Extract scope 3 emissions according to the GHG protocol. Add it as field emissions: [{year: 2021, "scope3": {}}] in the JSON.',
+          },
+          queueName: 'followUp',
         },
       ],
       opts: {
