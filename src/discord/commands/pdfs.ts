@@ -15,11 +15,13 @@ export default {
         .setRequired(true)
     )
     .setDescription(
-      'Skicka in en årsredovisning och få tillbaka utsläppsdata.'
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply({ ephemeral: true })
     console.log('pdfs')
+
     const urls = interaction.options
       .getString('urls')
       ?.split(/\s*,\s*|\s+/)
@@ -34,6 +36,10 @@ export default {
       })
 
       return
+    } else {
+      await interaction.followUp({
+        content: `Your PDFs are being processed`,
+      })
     }
     //await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
     const message = await interaction.reply(`Processing ${urls.length} PDFs...`)
@@ -46,8 +52,7 @@ export default {
       })
 
       thread.send({
-        content: `Tack! Nu är din årsredovisning placerad i kö: 
-${url}`,
+        content: `Tack! Nu är din årsredovisning placerad i kö: ${url}`,
       })
       const threadId = thread.id
       downloadPDF.add('download pdf ' + url.slice(-20), {
