@@ -123,8 +123,7 @@ ${prompt}`)
       json: JSON.stringify(parsedJson, null, 2),
     })
 
-    // Do something with job
-    return response
+    return JSON.stringify(parsedJson, null, 2)
   },
   {
     concurrency: 10,
