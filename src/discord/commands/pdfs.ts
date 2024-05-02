@@ -35,10 +35,8 @@ export default {
 
       return
     }
-    //    await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
-    const message = await interaction.followUp(
-      `Processing ${urls.length} PDFs...`
-    )
+    //await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
+    const message = await interaction.reply(`Processing ${urls.length} PDFs...`)
 
     urls.forEach(async (url) => {
       const thread = await (interaction.channel as TextChannel).threads.create({
