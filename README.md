@@ -64,6 +64,7 @@ Create a .env file in the root lib and add these tokens/secrets before running t
     DISCORD_APPLICATION_ID=
     DISCORD_TOKEN=
     DISCORD_SERVER_ID=
+    DISCORD_WORKER=
     LLAMA_CLOUD_API_KEY=
     ELASTIC_NODE_URL=
     ELASTIC_INDEX_NAME=
