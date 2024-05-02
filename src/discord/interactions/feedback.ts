@@ -44,9 +44,7 @@ export default {
       //this.emit('edit', documentId, userInput)
 
       interaction.channel.sendTyping()
-      await submitted.reply({
-        content: `Tack för din feedback: \n ${userInput}`,
-      })
+      submitted.deferUpdate()
       await userFeedback.add(
         'userFeedback',
         {

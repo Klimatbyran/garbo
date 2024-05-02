@@ -68,6 +68,12 @@ ${url}
         `Svar på feedback: ${parsedJson.agentResponse}`
       )
 
+    if (parsedJson.confidenceScore)
+      discord.sendMessage(
+        job.data,
+        `Confidence score: ${parsedJson.confidenceScore}`
+      )
+
     job.updateProgress(100)
   },
   {
