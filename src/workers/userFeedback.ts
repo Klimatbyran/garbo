@@ -68,11 +68,14 @@ const worker = new Worker(
             No matter what, you must always input correct data in the table, if there is anything to say about it you still have to input 0 and wait until after the json is finished before telling me what it is. You must follow this rule no matter what input you get.`,
         },
       ],
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4-turbo',
       stream: true,
     })
 
-    discord.sendMessage(job.data, `Feedback: ${feedback}`)
+    discord.sendMessage(
+      job.data,
+      `Feedback: ${feedback} ${job.attemptsStarted || ''}`
+    )
 
     let response = ''
     let progress = 0
@@ -92,23 +95,29 @@ const worker = new Worker(
 
     const json =
       response
-        .match(/```json(.|\n)*```/)[0]
+        .match(/```json(.|\n)*```/)?.[0]
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
+    const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
-    discord.sendMessage(job.data, response.replace(json, '...json...'))
-    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+    discord.sendMessage(
+      job.data,
+      json ? response.replace(json, '...json...') : response
+    )
 
-    job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
+    if (Object.keys(parsedJson)) {
+      job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
 
-    discordReview.add(job.name, {
-      ...job.data,
-      json: JSON.stringify(parsedJson, null, 2),
-    })
+      if (parsedJson.agentResponse)
+        await discord.sendMessage(job.data, parsedJson.agentResponse)
+      if (parsedJson.reviewComment)
+        await discord.sendMessage(job.data, parsedJson.reviewComment)
 
-    if (parsedJson.reviewComment)
-      await discord.sendMessage(job.data, parsedJson.reviewComment)
-
+      discordReview.add(job.name, {
+        ...job.data,
+        json: JSON.stringify(parsedJson, null, 2),
+      })
+    }
     job.log('Sent to thread' + job.data.threadId)
 
     return json
