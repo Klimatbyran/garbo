@@ -25,17 +25,23 @@ export class Discord {
   token: string
   channelId: string
 
-  constructor({ token, guildId, clientId, channelId }) {
+  constructor({ worker, token, guildId, clientId, channelId }) {
     this.token = token
     this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
     this.rest = new REST().setToken(token)
-    this.commands = commands.map((command) => command.data.toJSON())
-    this.client.on('ready', () => {
-      console.log('discord connected')
-      const url = Routes.applicationGuildCommands(clientId, guildId)
-      this.rest.put(url, { body: this.commands })
-    })
+    if (!worker) {
+      this.commands = commands.map((command) => command.data.toJSON())
+      this.client.on('ready', () => {
+        console.log('discord switch connected')
+        const url = Routes.applicationGuildCommands(clientId, guildId)
+        this.rest.put(url, { body: this.commands })
+      })
+    } else {
+      this.client.on('ready', () => {
+        console.log('discord worker connected')
+      })
+    }
 
     // mentioned user
     // this.client.on('messageCreate', async (message) => {
