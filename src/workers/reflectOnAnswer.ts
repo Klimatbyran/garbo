@@ -51,7 +51,7 @@ ${prompt}`)
           : { role: 'user', content: '' },
         { role: 'user', content: prompt },
       ],
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4-turbo',
       stream: true,
     })
     let response = ''

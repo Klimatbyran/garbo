@@ -12,7 +12,9 @@ export default {
     ),
 
   async execute(interaction) {
-    console.log('pdf')
+    console.log('parse')
+    await interaction.deferReply({ ephemeral: true })
+
     const url = interaction.options.getString('url')
     if (!url) {
       await interaction.followUp({
@@ -21,6 +23,10 @@ export default {
       })
 
       return
+    } else {
+      await interaction.followUp({
+        content: `Your PDF is being processed`,
+      })
     }
 
     const thread = await (interaction.channel as TextChannel).threads.create({
