@@ -44,7 +44,7 @@ export default {
       //this.emit('edit', documentId, userInput)
 
       interaction.channel.sendTyping()
-      submitted.deferUpdate()
+      //submitted.deferUpdate()
       await userFeedback.add(
         'userFeedback',
         {
