@@ -19,9 +19,9 @@ export default {
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    await interaction.deferReply({ ephemeral: true })
     console.log('pdfs')
     try {
+      await interaction.deferReply({ ephemeral: true })
       const urls = interaction.options
         .getString('urls')
         ?.split(/\s*,\s*|\s+/)
@@ -41,7 +41,6 @@ export default {
           content: `Your PDFs are being processed`,
         })
       }
-      await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
       // const message = await interaction.reply(
       //   `Processing ${urls.length} PDFs...`
       // )
@@ -55,13 +54,10 @@ export default {
           //startMessage: message.id,
         })
 
-        thread.send({
-          content: `Tack! Nu är din årsredovisning placerad i kö: ${url}`,
-        })
-        const threadId = thread.id
-        downloadPDF.add('download pdf ' + url.slice(-20), {
+        thread.send(`PDF i kö: ${url}`)
+        downloadPDF.add('download ' + url.slice(-20), {
           url,
-          threadId,
+          threadId: thread.id,
         })
       })
     } catch (error) {
