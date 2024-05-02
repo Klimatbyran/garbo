@@ -2,20 +2,20 @@ export type YearEmissions = {
   year: number
   scope1: {
     emissions: number
-    unit: string
-    baseYear: string
+    unit?: string
+    baseYear?: string
   }
   scope2: {
     emissions: string
-    unit: number
+    unit?: number
     mb: string
     lb: string
-    baseYear: string
+    baseYear?: string
   }
   scope3: {
     emissions: string
-    unit: number
-    baseYear: string
+    unit?: number
+    baseYear?: string
     categories: {
       [key: string]: number
     }
