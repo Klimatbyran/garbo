@@ -36,10 +36,10 @@ export default {
 
         return
       }
-      //await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
-      const message = await interaction.reply(
-        `Processing ${urls.length} PDFs...`
-      )
+      await interaction.deferReply() // Acknowledge the command to prevent 'interaction failed'
+      // const message = await interaction.reply(
+      //   `Processing ${urls.length} PDFs...`
+      // )
 
       urls.forEach(async (url) => {
         const thread = await (
@@ -47,7 +47,7 @@ export default {
         ).threads.create({
           name: url.slice(-20),
           autoArchiveDuration: 1440,
-          startMessage: message.id,
+          //startMessage: message.id,
         })
 
         thread.send({
