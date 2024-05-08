@@ -30,17 +30,18 @@ export default {
       const jsonYear = json.emissions.find(
         ({ year: y }) => y == year
       ) as YearEmissions
+      if (!jsonYear) return `❓ hittade ej facit`
       const s1 =
-        scope1.emissions == jsonYear.scope1.emissions
+        scope1?.emissions == jsonYear.scope1.emissions
           ? '✅'
           : `❌ ${scope1.emissions} != ${jsonYear.scope1.emissions}`
       const s2 =
-        scope2.emissions == jsonYear.scope2.emissions
+        scope2?.emissions == jsonYear.scope2.emissions
           ? '✅'
           : `❌ ${scope2.emissions} != ${jsonYear.scope2.emissions}`
 
       const s3Total =
-        scope3.emissions == jsonYear.scope3.emissions
+        scope3?.emissions == jsonYear.scope3.emissions
           ? '✅'
           : `❌ ${scope3.emissions} != ${jsonYear.scope3.emissions}`
 
