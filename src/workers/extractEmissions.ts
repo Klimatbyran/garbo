@@ -108,7 +108,7 @@ const worker = new Worker(
       }
     )
 
-    reflect.moveToWaitingChildren()
+    reflect.moveToWaitingChildren(token)
 
     // Do something with job
     return response
