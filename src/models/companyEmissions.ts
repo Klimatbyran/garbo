@@ -8,6 +8,7 @@ export type YearEmissions = {
   scope2: {
     emissions: number
     unit?: number
+    /** Market-based */
     mb: number
     /** Location-based */
     lb: number
