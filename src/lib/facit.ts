@@ -67,7 +67,6 @@ export function findFacit(url: string): Promise<CompanyData> {
         .on('data', (data) => all.push(data))
         .on('end', () => {
           const found = all.find((result) => result['url'] === url)
-          console.log('found', found)
           if (!found) {
             return reject(new Error('No company found'))
           }
