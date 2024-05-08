@@ -104,12 +104,10 @@ ${prompt}`)
       const facit = await findFacit(job.data.url)
       if (facit) {
         const summary = await summaryTable(facit)
-        const scope3 = await scope3Table(facit)
         discord.sendMessage(
           job.data,
           `# FACIT: ${companyName}
 \`${summary}\`
-\`${scope3}\`
         `
         )
       }
