@@ -12,6 +12,7 @@ import { userFeedback } from '../../queues'
 
 export default {
   async execute(interaction: ButtonInteraction, job) {
+    await interaction.deferReply()
     const input = new TextInputBuilder()
       .setCustomId('editInput')
       .setLabel(`Granska utsläppsdata`)
@@ -44,7 +45,7 @@ export default {
       //this.emit('edit', documentId, userInput)
 
       interaction.channel.sendTyping()
-      submitted.deferUpdate()
+      //submitted.deferUpdate()
       await userFeedback.add(
         'userFeedback',
         {

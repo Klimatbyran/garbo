@@ -14,14 +14,14 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:1.1.157 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:1.1.164 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
           ports:
             - containerPort: 3000
           env:
-            - name: DISCORD_WORKER
+            - name: WORKER
               value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:

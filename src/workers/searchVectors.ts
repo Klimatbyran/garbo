@@ -49,7 +49,7 @@ const worker = new Worker(
 
     job.log(JSON.stringify(results))
     const paragraphs = results.documents.flat()
-    message.edit('✅ Hittade ' + paragraphs.length + ' stycken.')
+    message.edit('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
     extractEmissions.add(
       'parse ' + url,
       {
