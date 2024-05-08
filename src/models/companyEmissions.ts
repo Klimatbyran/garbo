@@ -9,6 +9,7 @@ export type YearEmissions = {
     emissions: number
     unit?: number
     mb: number
+    /** Location-based */
     lb: number
     baseYear?: string
   }
