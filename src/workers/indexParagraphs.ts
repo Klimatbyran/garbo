@@ -32,46 +32,54 @@ const worker = new Worker(
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
-    const collection = await client.getOrCreateCollection({
-      name: 'emission_reports',
-      embeddingFunction: embedder,
-    })
-    const exists = await collection
-      .get({
-        where: markdown
-          ? { $and: [{ source: url }, { markdown }] }
-          : { source: url },
+    try {
+      const collection = await client.getOrCreateCollection({
+        name: 'emission_reports',
+        embeddingFunction: embedder,
       })
-      .then((r) => r?.documents?.length > 0)
+      const exists = await collection
+        .get({
+          where: markdown
+            ? { $and: [{ source: url }, { markdown }] }
+            : { source: url },
+        })
+        .then((r) => r?.documents?.length > 0)
 
-    if (exists) {
-      job.log('Collection exists. Skipping reindexing.')
-      message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
-    } else {
-      job.log('Indexing ' + paragraphs.length + ' paragraphs...')
+      if (exists) {
+        job.log('Collection exists. Skipping reindexing.')
+        message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
+      } else {
+        job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
-      const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
-      const metadatas = paragraphs.map((p, i) => ({
-        source: url,
-        markdown,
-        type: 'company_sustainability_report',
-        parsed: new Date().toISOString(),
-        page: i,
-      }))
-      await collection.add({
-        ids,
-        metadatas,
-        documents: paragraphs,
+        const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
+        const metadatas = paragraphs.map((p, i) => ({
+          source: url,
+          markdown,
+          type: 'company_sustainability_report',
+          parsed: new Date().toISOString(),
+          page: i,
+        }))
+        await collection.add({
+          ids,
+          metadatas,
+          documents: paragraphs,
+        })
+        message.edit(`✅ Sparad i vektordatabasen`)
+        job.log('Done!')
+      }
+
+      searchVectors.add('search ' + url, {
+        ...job.data,
       })
-      message.edit(`✅ Sparad i vektordatabasen`)
-      job.log('Done!')
+
+      return paragraphs
+    } catch (error) {
+      job.log('Error: ' + error)
+      message.edit(
+        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+      )
+      throw error
     }
-
-    searchVectors.add('search ' + url, {
-      ...job.data,
-    })
-
-    return paragraphs
   },
   {
     connection: redis,

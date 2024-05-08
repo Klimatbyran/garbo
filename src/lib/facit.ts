@@ -6,39 +6,46 @@ import { CompanyData } from '../models/companyEmissions'
 const parse = (str) =>
   parseFloat(str.replaceAll(',', '').replace(/[^0-9.]/g, ''))
 
-// Scope 1     ,Scope 2 (LB) ,Scope 2 (MB) ,Scope 1+2   ,Scope 3 (total)
+// csv headers:
+// companyName,url,23_scope1,23_scope2MB,23_scope2LB,23_scope3,23_total,23_scope1_2Sum,23_scope3Sum,23_totalSum,23_scope3_1,23_scope3_2,23_scope3_3,23_scope3_4,23_scope3_5,23_scope3_6,23_scope3_7,23_scope3_8,23_scope3_9,23_scope3_10,23_scope3_11,23_scope3_12,23_scope3_13,23_scope3_14,23_scope3_15,23_scope3_16
 function mapFacitToCompanyData(row): CompanyData {
   return {
     companyName: row['Company'],
+    url: row['url'],
     emissions: [
       {
         year: 2023,
         scope1: {
-          emissions: parse(row['23_Scope 1']),
+          emissions: parse(row['23_scope1']),
         },
         scope2: {
-          lb: parse(row['23_Scope 2 (LB)']),
-          mb: parse(row['23_Scope 2 (MB)']),
-          emissions: parse(row['23_Scope 1+2']),
+          lb: parse(row['23_scope2LB']),
+          mb: parse(row['23_scope2MB']),
+          emissions: parse(row['23_scope2MB']),
         },
         scope3: {
-          emissions: parse(row['23_Scope 3 (total)']),
+          emissions: parse(row['23_scope3']),
           categories: {
-            'Category 1': parse(row['Cat 1']),
-            'Category 2': parse(row['Cat 1']),
-            'Category 3': parse(row['Cat 3']),
-            'Category 4': parse(row['Cat 4']),
-            'Category 5': parse(row['Cat 5']),
-            'Category 6': parse(row['Cat 6']),
-            'Category 7': parse(row['Cat 7']),
-            'Category 8': parse(row['Cat 8']),
-            'Category 9': parse(row['Cat 9']),
-            'Category 10': parse(row['Cat 10']),
-            'Category 11': parse(row['Cat 11']),
-            'Category 12': parse(row['Cat 12']),
-            'Category 13': parse(row['Cat 13']),
-            'Category 14': parse(row['Cat 14']),
-            'Category 15': parse(row['Cat 15']),
+            '1_purchasedGoods': parse(row['23_scope3_1']),
+            '2_capitalGoods': parse(row['23_scope3_2']),
+            '3_fuelAndEnergyRelatedActivities': parse(row['23_scope3_3']),
+            '4_upstreamTransportationAndDistribution': parse(
+              row['23_scope3_4']
+            ),
+            '5_wasteGeneratedInOperations': parse(row['23_scope3_5']),
+            '6_businessTravel': parse(row['23_scope3_6']),
+            '7_employeeCommuting': parse(row['23_scope3_7']),
+            '8_upstreamLeasedAssets': parse(row['23_scope3_8']),
+            '9_downstreamTransportationAndDistribution': parse(
+              row['23_scope3_9']
+            ),
+            '10_processingOfSoldProducts': parse(row['23_scope3_10']),
+            '11_useOfSoldProducts': parse(row['23_scope3_11']),
+            '12_endOfLifeTreatmentOfSoldProducts': parse(row['23_scope3_12']),
+            '13_downstreamLeasedAssets': parse(row['23_scope3_13']),
+            '14_franchises': parse(row['23_scope3_14']),
+            '15_investments': parse(row['23_scope3_15']),
+            '16_other': parse(row['23_scope3_16']),
           },
         },
       },
