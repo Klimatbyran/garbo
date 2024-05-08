@@ -6,6 +6,8 @@ import prompt from '../prompts/reflect'
 import { discordReview } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
+import { findFacit } from '../lib/facit'
+import { scope3Table, summaryTable } from '../lib/discordTable'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -98,14 +100,28 @@ ${prompt}`)
     )) as TextChannel
     thread.setName(companyName)
 
+    try {
+      const facit = await findFacit(job.data.url)
+      if (facit) {
+        const summary = await summaryTable(facit)
+        discord.sendMessage(
+          job.data,
+          `# FACIT: ${companyName}
+\`${summary}\`
+        `
+        )
+      }
+    } catch (error) {
+      job.log(`Error when trying to read facit: ${error}`)
+    }
+
     message.edit(`✅ ${companyName} klar`)
     discordReview.add(companyName, {
       ...job.data,
       json: JSON.stringify(parsedJson, null, 2),
     })
 
-    // Do something with job
-    return response
+    return JSON.stringify(parsedJson, null, 2)
   },
   {
     concurrency: 10,

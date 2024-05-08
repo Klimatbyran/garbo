@@ -37,73 +37,74 @@ export class Discord {
         const url = Routes.applicationGuildCommands(clientId, guildId)
         this.rest.put(url, { body: this.commands })
       })
+
+      // mentioned user
+      // this.client.on('messageCreate', async (message) => {
+      //   if (message.author.bot) return
+      //   const mentioned = message.mentions.users.filter((user) => user.id !== this.client.user.id).first()
+      //   if (mentioned) {
+      //     console.log('mentioned user:', mentioned.username)
+      //     // TODO: add message to feedback queue
+      // })
+
+      this.client.on('interactionCreate', async (interaction) => {
+        if (interaction.isCommand()) {
+          const command = commands.find(
+            (command) => command.data.name === interaction.commandName
+          )
+          try {
+            await command.execute(interaction)
+          } catch (error) {
+            console.error('Discord error:', error)
+            // await interaction.reply({
+            //   content: 'There was an error while executing this command!',
+            //   ephemeral: true,
+            // })
+            return
+          }
+        } else if (interaction.isButton()) {
+          const [action, jobId] = interaction.customId.split('~')
+          try {
+            switch (action) {
+              case 'approve': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await approve.execute(interaction, job)
+                break
+              }
+              case 'feedback': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await feedback.execute(interaction, job)
+                break
+              }
+              case 'reject': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await reject.execute(interaction, job)
+                break
+              }
+              case 'retry': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else retry.execute(interaction, job)
+                break
+              }
+            }
+          } catch (error) {
+            console.error('Discord error:', error)
+            await interaction.reply({
+              content: 'There was an error while executing this command!',
+              ephemeral: true,
+            })
+          }
+        }
+      })
     } else {
       this.client.on('ready', () => {
         console.log('discord worker connected')
       })
     }
-
-    // mentioned user
-    // this.client.on('messageCreate', async (message) => {
-    //   if (message.author.bot) return
-    //   const mentioned = message.mentions.users.filter((user) => user.id !== this.client.user.id).first()
-    //   if (mentioned) {
-    //     console.log('mentioned user:', mentioned.username)
-    //     // TODO: add message to feedback queue
-    // })
-
-    this.client.on('interactionCreate', async (interaction) => {
-      if (interaction.isCommand()) {
-        const command = commands.find(
-          (command) => command.data.name === interaction.commandName
-        )
-        try {
-          await command.execute(interaction)
-        } catch (error) {
-          console.error('Discord error:', error)
-          await interaction.reply({
-            content: 'There was an error while executing this command!',
-            ephemeral: true,
-          })
-        }
-      } else if (interaction.isButton()) {
-        const [action, jobId] = interaction.customId.split('~')
-        try {
-          switch (action) {
-            case 'approve': {
-              const job = await discordReview.getJob(jobId)
-              if (!job) await interaction.reply('Job not found')
-              else await approve.execute(interaction, job)
-              break
-            }
-            case 'feedback': {
-              const job = await discordReview.getJob(jobId)
-              if (!job) await interaction.reply('Job not found')
-              else await feedback.execute(interaction, job)
-              break
-            }
-            case 'reject': {
-              const job = await discordReview.getJob(jobId)
-              if (!job) await interaction.reply('Job not found')
-              else await reject.execute(interaction, job)
-              break
-            }
-            case 'retry': {
-              const job = await discordReview.getJob(jobId)
-              if (!job) await interaction.reply('Job not found')
-              else retry.execute(interaction, job)
-              break
-            }
-          }
-        } catch (error) {
-          console.error('Discord error:', error)
-          await interaction.reply({
-            content: 'There was an error while executing this command!',
-            ephemeral: true,
-          })
-        }
-      }
-    })
   }
 
   login(token = this.token) {
