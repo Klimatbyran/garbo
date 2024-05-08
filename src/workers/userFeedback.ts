@@ -48,10 +48,8 @@ const worker = new Worker(
         feedback,
       ],
     })
-    console.log('RESULTS', results)
     const pdfParagraphs = results.documents.flat()
 
-    console.log('PDF_PARAGRAPHS', pdfParagraphs)
     job.log(`Reflecting on: ${feedback}
     ${previousJson}`)
 
