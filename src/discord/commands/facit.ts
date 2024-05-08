@@ -1,5 +1,5 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js'
-import { reflectOnAnswer } from '../../queues'
+import { discordReview, reflectOnAnswer } from '../../queues'
 import { findFacit } from '../../lib/facit'
 import { summaryTable } from '../../lib/discordTable'
 import { YearEmissions } from '../../models/companyEmissions'
@@ -10,13 +10,12 @@ export default {
     .setDescription('Replies with facit in a thread'),
 
   async execute(interaction: CommandInteraction) {
-    const jobs = await reflectOnAnswer.getCompleted()
+    const jobs = await discordReview.getCompleted()
     const job = jobs.find(
       ({ data: { threadId } }) => interaction.channelId === threadId
     )
     const {
-      data: { url },
-      returnvalue,
+      data: { url, json: returnvalue },
     } = job
     const json = JSON.parse(returnvalue)
     const facit = await findFacit(url)
@@ -56,12 +55,13 @@ export default {
         .filter(Boolean)
         .join('\n')
 
+      if (s1 === '✅' && s2 === '✅' && s3Total === '✅')
+        return `✅ ${year} ALL OK`
+
       return `\`${year}
-      
 scope1:${s1} 
 scope2:${s2}
 scope3:${s3Total}
-
 ${s3}
 \``
     })
