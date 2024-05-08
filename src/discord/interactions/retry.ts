@@ -3,6 +3,7 @@ import { pdf2Markdown } from '../../queues'
 export default {
   async execute(interaction, job) {
     const { url, threadId, json } = job.data
+    await interaction.deferReply({ ephemeral: true })
     const parsedJson = JSON.parse(json)
     await pdf2Markdown.add('pdf2Markdown', {
       url,

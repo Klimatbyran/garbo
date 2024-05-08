@@ -3,6 +3,7 @@ const prompt = `Please reply with new JSON.
             You are allowed to add two more fields: agentResponse and confidenceScore.
             - confidenceScore means how confident you are based on the input and feedback on a scale from 0 to 100
             - agentResponse is a message to the user for more feedback or to clarify the response. If you add this field, you don't have to also include this in the text around the json. We will show this field to the user.
+            Never do your own calculations. Also include all previous fields when you recieve new information.
             Always specify start and end of JSON with \`\`\`json and \`\`\``
 
 export default prompt
