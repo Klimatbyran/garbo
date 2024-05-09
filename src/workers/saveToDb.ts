@@ -25,13 +25,13 @@ const worker = new Worker(
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
       await elastic.indexReport(documentId, report)
-      message.edit(`✅ Sparad!`)
+      message?.edit(`✅ Sparad!`)
     }
     if (state) {
       job.log(`Updating report state: ${state} #${documentId}`)
       job.updateProgress(30)
       await elastic.updateDocumentState(documentId, state)
-      message.edit(`✅ Sparad: ${state}!`)
+      message?.edit(`✅ Sparad: ${state}!`)
     }
     job.updateProgress(100)
   },
