@@ -15,67 +15,20 @@ I have a text extracted from a PDF file containing a company's annual report and
     If the report lists emissions from multiple sub-categories to any GHG protocol scope or category, this should be displayed as other emission sources. For example, emissions from flights and hotels could be disclosed separately in the report instead of as business travel.
     The goal is that all emissions presented in the report are identified and displayed.
 
-6. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report.
+6. **Data Output Format**: Present the extracted data in a markdown format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report.
 
-    Example JSON structure:
-    {
-      "companyName": "Example Company",
-      "emissions": [
-        {
-          "year": "2019",
-          "scope1": {
-            "emissions": "1234",
-            "unit": "Mt CO2e",
-            "baseYear": "2019"
-          },
-          "scope2": {
-            "emissions": "123500",
-            "unit": "Mt CO2e",
-            "mb": "123500",
-            "lb": null
-            "baseYear": "2019"
-          },
-          "scope3": {
-            "emissions": "5322000",
-            "unit": "x1000 ton CO2e",
-            "baseYear": "2019",
-            "categories": {
-              "1_purchasedGoods": "100000000",
-              "2_capitalGoods": "100000000",
-              "3_fuelAndEnergyRelatedActivities": "100000000",
-              "4_upstreamTransportationAndDistribution": "100000000",
-              "5_wasteGeneratedInOperations": "100000000",
-              "6_businessTravel": "100000000",
-              "7_employeeCommuting": "100000000",
-              "8_upstreamLeasedAssets": "100000000",
-              "9_downstreamTransportationAndDistribution": "100000000",
-              "10_processingOfSoldProducts": "100000000",
-              "11_useOfSoldProducts": "100000000",
-              "12_endOfLifeTreatmentOfSoldProducts": "100000000",
-              "13_downstreamLeasedAssets": "100000000",
-              "14_franchises": "100000000",
-              "15_investments": "100000000",
-              "16_other": "100000000"
-            }
-          },
-          "totalEmissions": "1553",
-          "totalUnit": "Million ton CO2e"
-        },
-        {
-          "year": "2020",
-          "scope1": {
-            "emissions": null
-          },
-          "scope2": {
-            "emissions": null
-          }
-          "scope3": {
-            "emissions": null,
-            "categories": {}
-          }
-        }
-      ]
-    }
+Example:
+## CompanyName
+CO2          2023         2022         2021
+---      
+Scope 1      19 500       33 200       36 200      
+Scope 2      27 600       27 600       30 100      
+Scope 3      383 000      391 600      367 500
+ 
+Scope 3:
+3_fuelAndEne 134 000      128 000      113 000     
+4_upstreamTr 4 900        4 800        4 500       
+6_businessTr 245 000      255 000      250 000
 
 7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
