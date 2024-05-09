@@ -31,6 +31,10 @@ const worker = new Worker(
   async (job: JobData) => {
     const { feedback, url, json: previousJson } = job.data
 
+    discord.sendMessage(
+      job.data,
+      `🎯 Feedback: ${feedback} ${job.attemptsStarted || ''}`
+    )
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -38,7 +42,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 5,
+      nResults: 7,
       where: {
         // TODO: add markdown here?
         source: url,
@@ -50,14 +54,24 @@ const worker = new Worker(
     })
     const pdfParagraphs = results.documents.flat()
 
-    job.log(`Reflecting on: ${feedback}
-    ${previousJson}`)
+    job.log(`Reflecting on: 
+    ${feedback}
+    Context:
+    ${pdfParagraphs.join('\n\n')}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: 'user', content: pdfParagraphs.join('\n\n') },
+        {
+          role: 'system',
+          content:
+            'You are an expert in CSRD reporting and GHG protocol. Be consise and accurate.',
+        },
         { role: 'user', content: 'Previous prompt: ' + previousPrompt },
-        { role: 'system', content: previousJson },
+        { role: 'assistant', content: previousJson },
+        {
+          role: 'user',
+          content: 'Additional context from PDF:' + pdfParagraphs.join('\n\n'),
+        },
         { role: 'user', content: feedback },
         {
           role: 'user',
@@ -67,11 +81,6 @@ const worker = new Worker(
       model: 'gpt-4-turbo',
       stream: true,
     })
-
-    discord.sendMessage(
-      job.data,
-      `Feedback: ${feedback} ${job.attemptsStarted || ''}`
-    )
 
     let response = ''
     let progress = 0

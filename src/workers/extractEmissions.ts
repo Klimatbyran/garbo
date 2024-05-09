@@ -33,7 +33,13 @@ const worker = new Worker(
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: 'system', content: prompt },
+        {
+          role: 'system',
+          content:
+            'You are an expert in CSRD reporting. Be consise and accurate.',
+        },
+        { role: 'user', content: prompt },
+        { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
         { role: 'user', content: pdfParagraphs.join('\n\n') },
       ],
       model: 'gpt-4-turbo',

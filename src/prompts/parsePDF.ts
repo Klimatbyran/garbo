@@ -21,14 +21,14 @@ Example:
 ## CompanyName
 CO2          2023         2022         2021
 ---      
-Scope 1      19 500       33 200       36 200      
-Scope 2      27 600       27 600       30 100      
-Scope 3      383 000      391 600      367 500
+Scope 1      19500        33200        36200      
+Scope 2      27600        27600        30100      
+Scope 3      383000       391600       367500
  
 Scope 3:
-3_fuelAndEne 134 000      128 000      113 000     
-4_upstreamTr 4 900        4 800        4 500       
-6_businessTr 245 000      255 000      250 000
+3_fuelAndEne 134000       128000       113000     
+4_upstreamTr 4900         4800         4500       
+6_businessTr 245000       255000       250000
 
 7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 

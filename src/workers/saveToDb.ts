@@ -21,7 +21,7 @@ const worker = new Worker(
       job.data,
       `Sparar till databasen..`
     )
-    if (report) {
+    if (report && JSON.parse(report).emissions.length > 0) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
       await elastic.indexReport(documentId, report)

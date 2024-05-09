@@ -162,7 +162,8 @@ const worker = new Worker(
       }
     }
 
-    job.log(`Got ${text.length} chars. First pages are: ${text.slice(0, 2000)}`)
+    job.log(`Got result: 
+${text}`)
     message.edit('✅ Tolkning klar!')
     splitText.add('split text ' + text.slice(0, 20), {
       ...job.data,

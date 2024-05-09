@@ -41,9 +41,8 @@ export default {
 
     if (submitted) {
       const userInput = submitted.fields.getTextInputValue('editInput')
-      //this.emit('edit', documentId, userInput)
-
-      interaction.channel.sendTyping()
+      interaction.deferUpdate()
+      interaction.channel?.sendTyping()
       //submitted.deferUpdate()
       await userFeedback.add(
         'userFeedback',

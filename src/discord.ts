@@ -151,7 +151,7 @@ export class Discord {
       const thread = (await this.client.channels.fetch(
         threadId
       )) as ThreadChannel
-      await thread.sendTyping()
+      await thread?.sendTyping()
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
