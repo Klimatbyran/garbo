@@ -39,16 +39,16 @@ async function createPDFParseJob(buffer: ArrayBuffer) {
 }
 
 /**
- * Waits until a job is finished.
+ * Waits until a job is finished, yielding job status updates every second.
  * @param id - The ID of the job.
- * @param retries - The number of retries (default: 100).
+ * @param timeoutSeconds - The time in seconds before timing out (default: 600 seconds or 10 minutes).
  * @returns A promise that resolves to true when the job is finished.
  * @throws An error if the job times out.
  */
-async function waitUntilJobFinished(id: any, retries = 100) {
-  let ready = false
+async function* waitUntilJobFinished(id, timeoutSeconds = 600) {
+  const startTime = Date.now()
 
-  while (!ready) {
+  while (Date.now() - startTime < timeoutSeconds * 1000) {
     const jobStatusResponse = await fetch(
       `https://api.cloud.llamaindex.ai/api/parsing/job/${id}`,
       {
@@ -57,22 +57,18 @@ async function waitUntilJobFinished(id: any, retries = 100) {
         },
       }
     )
-    retries--
-    console.log('retries', retries)
-    if (retries === 0) {
-      throw new Error('Timeout waiting for job')
-    }
     const jobStatus = await jobStatusResponse.json()
 
     if (jobStatus.status === 'SUCCESS') {
-      ready = true
-    } else {
-      console.log('jobStatus', jobStatus)
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      return true
     }
+
+    yield jobStatus // Yield the current status for processing in the loop
+
+    await new Promise((resolve) => setTimeout(resolve, 1000)) // Wait for 1 second before checking again
   }
 
-  return true
+  throw new Error('Timeout waiting for job')
 }
 
 /**
@@ -122,7 +118,7 @@ const worker = new Worker(
       (p) => p.data.url === url && p.returnvalue !== null
     )
     if (previousJob) {
-      message.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
+      message?.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
       job.log(`Using existing job: ${id}`)
       text = previousJob.returnvalue
     } else if (!previousJob || !existingId) {
@@ -132,7 +128,7 @@ const worker = new Worker(
       const buffer = await response.arrayBuffer()
       pdfHash = elastic.hashPdf(Buffer.from(buffer))
 
-      message.edit('🤖 Tolkar tabeller...')
+      message?.edit('🤖 Tolkar tabeller...')
 
       try {
         id = await createPDFParseJob(buffer)
@@ -147,8 +143,14 @@ const worker = new Worker(
       })
 
       job.log(`Wait until PDF is parsed: ${id}`)
-      await waitUntilJobFinished(id, 10 * minutes)
-      message.edit('🤖 Laddar ner resultatet...')
+      const totalSeconds = 10 * minutes // Define total waiting time
+      let count = 0
+      for await (const jobStatus of waitUntilJobFinished(id, totalSeconds)) {
+        count++
+        job.log(jobStatus)
+        job.updateProgress(Math.round((count / totalSeconds) * 100)) // Update progress based on time elapsed
+      }
+      message?.edit('🤖 Laddar ner resultatet...')
 
       job.log(`Finished waiting for job ${id}`)
       try {
@@ -175,7 +177,6 @@ ${text}`)
   },
   {
     concurrency: 10,
-    skipStalledCheck: true,
     connection: redis,
     autorun: false,
   }

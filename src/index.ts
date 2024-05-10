@@ -20,6 +20,7 @@ import {
   splitText,
   userFeedback,
   saveToDb,
+  followUp,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
 
@@ -35,6 +36,7 @@ createBullBoard({
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(extractEmissions),
+    new BullMQAdapter(followUp),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(discordReview),
     new BullMQAdapter(userFeedback),

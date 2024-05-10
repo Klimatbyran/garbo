@@ -1,71 +1,82 @@
-const prompt = `
-I have previously sent a text for analysis by GPT-4. The answer I got back needs to be outputed in a strict json format.
+const prompt = `I have previously sent a text for analysis by GPT-4. The responses I received need to be aggregated and outputted in a strict JSON format.
 
-**Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+**Data Output Format**: Present the extracted data in a structured JSON format, including the company name, industry, sector, industry group, base year, URL, emissions data, goals, reliability, and review comments as per the specifications.
+**Market Based Emissions**: If the data includes market-based emissions, include them as the emissions for scope2.
 
-**Important** Always generate this exact JSON structure, even if you cannot find the data. Indicate missing data with the error codes below, but make sure that the JSON structure is consistent. For example, if you cannot find the scope 3 categories you must make sure that the categories object is a valid JSON array.
+**Important** Always generate this exact JSON structure:
 
-    Example JSON structure:
-
+\`\`\`json
+{
+  "companyName": "Example Company",
+  "industry": "Manufacturing",
+  "sector": "Industrial Goods",
+  "industryGroup": "Heavy Industry",
+  "baseYear": "2019",
+  "url": "https://example.com",
+  "emissions": [
     {
-      "companyName": "Example Company",
-      "industry": "Manufacturing",
-      "baseYear": "2019",
-      "url": "https://example.com",
-      "emissions": [
-       {
+      "year": "2019",
+      "scope1": {
+        "emissions": 1234,
+        "unit": "metric ton CO2e"
+      },
+      "scope2": {
+        "emissions": 1235,
+        "unit": "metric ton CO2e",
+        "mb": null,
+        "lb": "125"
+      },
+      "scope3": {
+        "emissions": 5322000,
+        "unit": "metric ton CO2e",
+        "categories": {
+          "1_purchasedGoods": 100000000,
+          "2_capitalGoods": 100000000,
+          "3_fuelAndEnergyRelatedActivities": 100000000,
+          "4_upstreamTransportationAndDistribution": 100000000,
+          "5_wasteGeneratedInOperations": 100000000,
+          "6_businessTravel": 100000000,
+          "7_employeeCommuting": 100000000,
+          "8_upstreamLeasedAssets": 100000000,
+          "9_downstreamTransportationAndDistribution": 100000000,
+          "10_processingOfSoldProducts": 100000000,
+          "11_useOfSoldProducts": 100000000,
+          "12_endOfLifeTreatmentOfSoldProducts": 100000000,
+          "13_downstreamLeasedAssets": 100000000,
+          "14_franchises": 100000000,
+          "15_investments": 100000000,
+          "16_other": 100000000
+        }
+      },
+      "turnover": [
+        {
           "year": "2019",
-          "scope1": {
-            "emissions": 1234,
-            "unit": "metric ton CO2e",
-            "baseYear": "2019"
-          },
-          "scope2": {
-            "emissions": 1235,
-            "unit": "metric ton CO2e",
-            "mb": null,
-            "lb": "125",
-            "baseYear": "2019"
-          },
-          "scope3": {
-            "emissions": 5322000,
-            "unit": "metric ton CO2e",
-            "baseYear": "2019",
-            "categories": {
-              "1_purchasedGoods": 100000000,
-              "2_capitalGoods": 100000000,
-              "3_fuelAndEnergyRelatedActivities": 100000000,
-              "4_upstreamTransportationAndDistribution": 100000000,
-              "5_wasteGeneratedInOperations": 100000000,
-              "6_businessTravel": 100000000,
-              "7_employeeCommuting": 100000000,
-              "8_upstreamLeasedAssets": 100000000,
-              "9_downstreamTransportationAndDistribution": 100000000,
-              "10_processingOfSoldProducts": 100000000,
-              "11_useOfSoldProducts": 100000000,
-              "12_endOfLifeTreatmentOfSoldProducts": 100000000,
-              "13_downstreamLeasedAssets": 100000000,
-              "14_franchises": 100000000,
-              "15_investments": 100000000,
-              "16_other": 100000000
-            }
-          },
-          "totalEmissions": 1553,
-          "totalUnit": "metric ton CO2e",
-        },
-      ],
-      "reliability": "High",
-      "needsReview": true,
-      "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
-      "reviewStatusCode": "412"
+          "value": 123456789,
+          "unit": "USD"
+        }
+      ]
+      "totalEmissions": 1553,
+      "totalUnit": "metric ton CO2e"
     }
-**Error Codes**: If you find errors which will not be reflected correctly, please indicate the error in a separate field called "status" in way that makes sense with HTTP Status codes.  For example:
-    - status: 'OK 200': Looks good
-    - status: 'Error 409': Data is not reasonable or in conflict with other data
-    - status: 'Error 412': Incomplete or unclear units
-    - status: 'Error 500': General data inconsistency or unavailability
+  ],
+  factors: [
+    {"product": "car", "description": "CO2e per km", "value": 0.2, "unit": "kgCO2e/km"}
+  ]
+  "goals": [
+    {
+      "description": "Net zero before [year].",
+      "year": 2038,
+      "reductionPercent": 100
+      "baseYear": "2019"
+    }
+  ],
+  "reliability": "High",
+  "needsReview": true,
+  "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
+}
+\`\`\`
 
-
+**Instructions**:
 This is the elastic schema that will be used to index the results. Make sure to follow this precisely, making sure each value is the correct data type.
 If the input doesn't match the data type, please make sure to convert it to the correct type even if it means setting it to null.
 If the input doesn't have a value, please make sure to set it to null or an empty string.
@@ -76,8 +87,52 @@ Every property should be present in the output, make especially sure to include 
   properties: {
     companyName: { type: 'keyword' },
     industry: { type: 'keyword' },
+    sector: { type: 'keyword' },
+    industryGroup: { type: 'keyword' },
     baseYear: { type: 'keyword' },
     url: { type: 'keyword' },
+
+    goals: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
+          properties: {
+            description: { type: 'text' },
+            year: { type: 'keyword' },
+            reductionPercent: { type: 'double' },
+            baseYear: { type: 'keyword' },
+          },
+        },
+      },
+    },
+    factors: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
+          properties: {
+            product: { type: 'keyword' },
+            description: { type: 'text' },
+            value: { type: 'double' },
+            unit: { type: 'keyword' },
+          },
+        },
+      },
+    },
+    turnover: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
+          properties: {
+            year: { type: 'keyword' },
+            value: { type: 'double' },
+            unit: { type: 'keyword' },
+          },
+        },
+      },
+    },
     emissions: {
       type: 'object',
       properties: {
@@ -149,10 +204,10 @@ Every property should be present in the output, make especially sure to include 
         },
       },
     },
+    
     reliability: { type: 'keyword' },
     needsReview: { type: 'boolean' },
     reviewComment: { type: 'text' },
-    reviewStatusCode: { type: 'keyword' },
   },
 }
 `

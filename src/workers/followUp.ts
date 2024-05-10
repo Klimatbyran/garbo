@@ -19,15 +19,17 @@ class JobData extends Job {
   data: {
     documentId: string
     url: string
-    json: string
+    answer: string
     prompt: string
+    threadId: string
+    previousError: string
   }
 }
 
 const worker = new Worker(
   'followUp',
   async (job: JobData) => {
-    const { prompt, url, json: previousJson } = job.data
+    const { prompt, url, answer, previousError } = job.data
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
@@ -43,24 +45,33 @@ const worker = new Worker(
       },
       queryTexts: [prompt],
     })
-    console.log('RESULTS', results)
     const pdfParagraphs = results.documents.flat()
 
-    console.log('PDF_PARAGRAPHS', pdfParagraphs)
     job.log(`Reflecting on: ${prompt}
-    ${previousJson}`)
+    ${answer}
+    
+    Context:
+    ${pdfParagraphs.join('\n\n')}
+    
+    `)
 
     const stream = await openai.chat.completions.create({
       messages: [
+        {
+          role: 'system',
+          content:
+            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting.',
+        },
         { role: 'user', content: pdfParagraphs.join('\n\n') },
         {
           role: 'user',
           content:
             'This is the result of a previous prompt. Please add diffs to the prompt based on the instructions below. For example, if you want to add a new field called "industry" the resulting prompt should look like this: \n\n```json\n{\n "industry": "Industry Y"\n}\n```',
         },
-        { role: 'system', content: previousJson },
+        { role: 'assistant', content: answer },
+        { role: 'user', content: previousError },
         { role: 'user', content: prompt },
-      ],
+      ].filter((m) => m.content) as any[],
       model: 'gpt-4-turbo',
       stream: true,
     })
@@ -85,9 +96,17 @@ const worker = new Worker(
         .match(/```json(.|\n)*```/)?.[0]
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
-    const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
-    return JSON.stringify(parsedJson, null, 2)
+    try {
+      const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+      return JSON.stringify(parsedJson, null, 2)
+    } catch (error) {
+      job.updateData({
+        ...job.data,
+        answer: json,
+        previousError: error.message,
+      })
+    }
   },
   {
     concurrency: 10,

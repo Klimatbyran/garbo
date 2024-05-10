@@ -2,11 +2,10 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/parsePDF'
+import prompt from '../prompts/extractJson'
 import { discordReview } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
-import { findFacit } from '../lib/facit'
-import { scope3Table, summaryTable } from '../lib/discordTable'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -20,39 +19,40 @@ class JobData extends Job {
     threadId: string
     pdfHash: string
     previousError: string
-    prompt: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const { paragraphs, answer, previousError, prompt } = job.data
+    const { paragraphs, answer, previousError } = job.data
 
     const message = await discord.sendMessage(
       job.data,
       `🤖 Reflekterar... ${job.attemptsStarted || ''}`
     )
 
+    const childrenValues = Object.values(await job.getChildrenValues()).map(
+      (j) => JSON.parse(j)
+    )
+
     job.log(`Reflecting on: 
 ${answer}
+--- Context:
+childrenValues: ${JSON.stringify(childrenValues, null, 2)}
 --- Prompt:
 ${prompt}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
+        { role: 'system', content: 'You are an expert in CSRD reporting.' },
         { role: 'user', content: paragraphs.join('\n\n') },
-        {
-          role: 'user',
-          content: 'From URL: ' + job.data.url,
-        },
         { role: 'user', content: previousPrompt },
-        { role: 'system', content: job.data.answer },
-        previousError
-          ? { role: 'user', content: previousError }
-          : { role: 'user', content: '' },
+        { role: 'assistant', content: job.data.answer },
+        { role: 'assistant', content: JSON.stringify(childrenValues) },
+        { role: 'user', content: previousError },
         { role: 'user', content: prompt },
-      ],
+      ].filter((m) => m.content) as any[],
       model: 'gpt-4-turbo',
       stream: true,
     })
@@ -65,8 +65,9 @@ ${prompt}`)
       response += chunk
       reply += chunk
       job.updateProgress(Math.min(100, (100 * progress) / 400))
-      if (reply.includes('\n') && !response.includes('```json')) {
-        discord.sendMessage(job.data, reply)
+      if (reply.includes('\n')) {
+        job.log(reply)
+        if (!response.includes('```json')) discord.sendMessage(job.data, reply)
         reply = ''
       }
     }

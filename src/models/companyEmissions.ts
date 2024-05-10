@@ -29,6 +29,8 @@ export type YearEmissions = {
 export type CompanyData = {
   companyName: string
   industry?: string
+  sector?: string
+  industryGroup?: string
   baseYear?: string
   url?: string
   emissions: Array<YearEmissions>
@@ -36,4 +38,13 @@ export type CompanyData = {
   needsReview?: boolean
   reviewComment?: string
   reviewStatusCode?: string
+  goals?: Array<{
+    year: number
+    target: number
+    unit: string
+  }>
+  initiatives?: Array<{
+    year: number
+    description: string
+  }>
 }
