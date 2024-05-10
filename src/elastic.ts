@@ -402,7 +402,11 @@ class Elastic {
       })) as any
 
       const reports =
-        result.hits?.hits?.map(({ _source: item }) => item.report) || []
+        result.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
+          ...item.report,
+          url: url || item.report.url,
+          id: pdfHash || _id,
+        })) || []
       return reports
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)
