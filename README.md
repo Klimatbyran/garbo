@@ -111,9 +111,9 @@ npm run dev-board
 docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
 
 # start how many workers you want:
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
 ```
 
 ### Next steps / Tasks
