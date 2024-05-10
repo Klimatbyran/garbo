@@ -40,8 +40,8 @@ export default {
         if (job) {
           row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
-              .setCustomId(`decline~${job.id}`)
-              .setLabel('Decline')
+              .setCustomId(`retry~${job.id}`)
+              .setLabel('Retry')
               .setStyle(ButtonStyle.Danger),
             new ButtonBuilder()
               .setCustomId(`feedback~${job.id}`)
