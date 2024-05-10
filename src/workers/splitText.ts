@@ -26,7 +26,7 @@ const worker = new Worker(
 
     await discord.sendMessage(
       job.data,
-      `✅ Uppdelad i ${paragraphs.length} stycken...`
+      `✅ Uppdelad i ${paragraphs.length} paragrafer...`
     )
 
     indexParagraphs.add(

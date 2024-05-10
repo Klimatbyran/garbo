@@ -16,15 +16,32 @@ Test the app in Discord channel #rapporter-att-granska by using the command /pdf
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
-1. Import PDF from URL
-2. Parse Text
-3. Send text to OpenAI for embeddings
-4. Index vector database with embeddings
-5. Build query from prompt together with relevant embeddings
-6. Send to LLM
-7. Verify the results first automatically
-8. Verify results in Discord channel
-9. Save to Wikidata or other database (not done)
+```mermaid
+flowchart TB
+
+    A[PDF]
+    B{Is in cache?}
+    C[Download PDF]
+    D[Index Database]
+    E[Search Database]
+    F[Extract Emissions]
+    G[JSON]
+
+    Industry[Extract Industry]
+    Goals[Extract Climate Goals]
+    Review[Reasonability Assessment]
+
+
+    DB[Elasticsearch/Kibana]
+
+    A --> B --> C --> D --> E ---> F ---> G
+    B --(Cached)--> E
+
+    F --> Industry --(.industry)--> G
+    F --> Goals --(.goals)--> G
+
+    G --> Review --> DB
+```
 
 ### Get Started
 

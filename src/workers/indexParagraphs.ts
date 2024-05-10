@@ -23,7 +23,7 @@ const worker = new Worker(
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
 
-    const { paragraphs, url, markdown = false } = job.data
+    const { paragraphs, url, markdown = false, threadId } = job.data
 
     const message = await discord.sendMessage(
       job.data,
@@ -32,46 +32,58 @@ const worker = new Worker(
     job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
     const embedder = new OpenAIEmbeddingFunction(openai)
 
-    const collection = await client.getOrCreateCollection({
-      name: 'emission_reports',
-      embeddingFunction: embedder,
-    })
-    const exists = await collection
-      .get({
-        where: markdown
-          ? { $and: [{ source: url }, { markdown }] }
-          : { source: url },
+    try {
+      const collection = await client.getOrCreateCollection({
+        name: 'emission_reports',
+        embeddingFunction: embedder,
       })
-      .then((r) => r?.documents?.length > 0)
+      const exists = await collection
+        .get({
+          where: markdown
+            ? { $and: [{ source: url }, { markdown }] }
+            : { source: url },
+        })
+        .then((r) => r?.documents?.length > 0)
 
-    if (exists) {
-      job.log('Collection exists. Skipping reindexing.')
-      message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
-    } else {
-      job.log('Indexing ' + paragraphs.length + ' paragraphs...')
+      if (exists) {
+        job.log('Collection exists. Skipping reindexing.')
+        message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
+      } else {
+        job.log('Indexing ' + paragraphs.length + ' paragraphs...')
 
-      const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
-      const metadatas = paragraphs.map((p, i) => ({
-        source: url,
+        const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
+        const metadatas = paragraphs.map((p, i) => ({
+          source: url,
+          markdown,
+          type: 'company_sustainability_report',
+          parsed: new Date().toISOString(),
+          page: i,
+        }))
+        await collection.add({
+          ids,
+          metadatas,
+          documents: paragraphs,
+        })
+        message.edit(`✅ Sparad i vektordatabasen`)
+        job.log('Done!')
+      }
+
+      searchVectors.add('search ' + url, {
+        // we arent just resending job.data here because it's too much data- we are now relying on the db
+        url,
+        threadId,
         markdown,
-        type: 'company_sustainability_report',
-        parsed: new Date().toISOString(),
-        page: i,
-      }))
-      await collection.add({
-        ids,
-        metadatas,
-        documents: paragraphs,
+        pdfHash: job.data.pdfHash,
       })
-      message.edit(`✅ Sparad i vektordatabasen`)
-      job.log('Done!')
+
+      return paragraphs
+    } catch (error) {
+      job.log('Error: ' + error)
+      message.edit(
+        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+      )
+      throw error
     }
-
-    searchVectors.add('search ' + url, {
-      ...job.data,
-    })
-
-    return paragraphs
   },
   {
     connection: redis,

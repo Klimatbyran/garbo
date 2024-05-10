@@ -5,6 +5,7 @@ import { OpenAIEmbeddingFunction } from 'chromadb'
 import { extractEmissions } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
+import prompt from '../prompts/parsePDF'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
@@ -38,23 +39,26 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 10,
+      nResults: markdown ? 7 : 5,
       where: markdown
         ? { $and: [{ source: url }, { markdown }] }
         : { source: url },
       queryTexts: [
+        prompt,
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
       ],
     })
 
-    job.log(JSON.stringify(results))
+    const paragraphs = results.documents.flat()
 
-    message.edit('✅ Hittade ' + results.documents.length + ' stycken.')
+    job.log('Paragraphs:\n\n' + paragraphs.join('\n\n'))
+
+    message.edit('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
     extractEmissions.add(
       'parse ' + url,
       {
         ...job.data,
-        paragraphs: results.documents.flat(),
+        paragraphs,
       },
       {
         attempts: 5,

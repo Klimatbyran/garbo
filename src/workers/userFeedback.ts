@@ -6,6 +6,7 @@ import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { discordReview } from '../queues'
+import prompt from '../prompts/feedback'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -30,6 +31,10 @@ const worker = new Worker(
   async (job: JobData) => {
     const { feedback, url, json: previousJson } = job.data
 
+    discord.sendMessage(
+      job.data,
+      `🎯 Feedback: ${feedback} ${job.attemptsStarted || ''}`
+    )
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -37,7 +42,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 5,
+      nResults: 7,
       where: {
         // TODO: add markdown here?
         source: url,
@@ -47,30 +52,35 @@ const worker = new Worker(
         feedback,
       ],
     })
-    console.log('RESULTS', results)
     const pdfParagraphs = results.documents.flat()
 
-    console.log('PDF_PARAGRAPHS', pdfParagraphs)
-    job.log(`Reflecting on: ${feedback}
-    ${previousJson}`)
+    job.log(`Reflecting on: 
+    ${feedback}
+    Context:
+    ${pdfParagraphs.join('\n\n')}`)
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: 'user', content: pdfParagraphs.join('\n\n') },
+        {
+          role: 'system',
+          content:
+            'You are an expert in CSRD reporting and GHG protocol. Be consise and accurate.',
+        },
         { role: 'user', content: 'Previous prompt: ' + previousPrompt },
-        { role: 'system', content: previousJson },
+        { role: 'assistant', content: previousJson },
+        {
+          role: 'user',
+          content: 'Additional context from PDF:' + pdfParagraphs.join('\n\n'),
+        },
         { role: 'user', content: feedback },
         {
           role: 'user',
-          content: `Please reply with new JSON. Add a new field called agentResponse with your reflections if needed.
-            No matter what the input is, you must always return the same JSON structure as the previous prompt specifies.`,
+          content: prompt,
         },
       ],
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4-turbo',
       stream: true,
     })
-
-    discord.sendMessage(job.data, `Feedback: ${feedback}`)
 
     let response = ''
     let progress = 0
@@ -90,23 +100,29 @@ const worker = new Worker(
 
     const json =
       response
-        .match(/```json(.|\n)*```/)[0]
+        .match(/```json(.|\n)*```/)?.[0]
         ?.replace(/```json|```/g, '')
         .trim() || '{}'
+    const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
-    discord.sendMessage(job.data, response.replace(json, '...json...'))
-    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+    discord.sendMessage(
+      job.data,
+      json ? response.replace(json, '...json...') : response
+    )
 
-    job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
+    if (Object.keys(parsedJson)) {
+      job.log('Parsed JSON: ' + JSON.stringify(parsedJson, null, 2))
 
-    discordReview.add(job.name, {
-      ...job.data,
-      json: JSON.stringify(parsedJson, null, 2),
-    })
+      if (parsedJson.agentResponse)
+        await discord.sendMessage(job.data, parsedJson.agentResponse)
+      if (parsedJson.reviewComment)
+        await discord.sendMessage(job.data, parsedJson.reviewComment)
 
-    if (parsedJson.reviewComment)
-      await discord.sendMessage(job.data, parsedJson.reviewComment)
-
+      discordReview.add(job.name, {
+        ...job.data,
+        json: JSON.stringify(parsedJson, null, 2),
+      })
+    }
     job.log('Sent to thread' + job.data.threadId)
 
     return json

@@ -5,13 +5,10 @@ import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import fs from 'fs/promises'
 
 import discord from './discord'
 import elastic from './elastic'
 
-// keep this line, otherwise the workers won't be started
-import * as workers from './workers'
 import {
   discordReview,
   downloadPDF,
@@ -24,11 +21,7 @@ import {
   userFeedback,
   saveToDb,
 } from './queues'
-import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
-
-// start workers
-Object.values(workers).forEach((worker) => worker.run())
 
 // start ui
 const serverAdapter = new ExpressAdapter()
@@ -71,30 +64,4 @@ app.get('/', (req, res) => {
   res.send(
     `Hi I'm Garbo! Queues: <br><a href="/admin/queues">/admin/queues</a>`
   )
-})
-
-app.get('/api/imageFromHtml', async (req, res) => {
-  const url = process.env.GOTENBERG_URL || 'http://localhost:3333'
-  const response = await fetch(`${url}/forms/chromium/screenshot/html`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      html: '<h1>Hello world</h1>',
-    }),
-  })
-  response.body.pipeThrough(res)
-})
-
-app.get(`/api/companies`, async function (req, res) {
-  //res.writeHead(200, { 'Content-Type': 'image/png' })
-  const exampleString = (
-    await fs.readFile('./src/data/example.json')
-  ).toString()
-  console.log('exampleString', exampleString)
-  const example = JSON.parse(exampleString)
-  const scope2 = await summaryTable(example)
-  const scope3 = await scope3Table(example)
-  res.end(scope2 + '\n' + scope3)
 })
