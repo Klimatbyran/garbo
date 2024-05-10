@@ -28,7 +28,7 @@ const worker = new Worker(
     await saveToDb.add('saveToDb', {
       documentId,
       threadId,
-      report: parsedJson,
+      report: JSON.stringify(parsedJson, null, 2),
     })
 
     job.updateData({ ...job.data, documentId })

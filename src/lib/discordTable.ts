@@ -1,6 +1,7 @@
 import { Table } from 'embed-table'
 import { EmbedBuilder } from 'discord.js'
 import { CompanyData } from '../models/companyEmissions'
+import { compareFacitToCompanyData, findFacit } from './facit'
 
 /*
 export const scope2Image = async (company: CompanyData) => {
@@ -23,22 +24,33 @@ export const summaryTable = async (company: CompanyData) => {
     return '*Ingen data rapporterad*'
   }
 
-  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
+  const emissions = company.emissions
+    ?.sort((a, b) => b.year - a.year)
+    .slice(0, 3)
+
+  const facit = await findFacit(company.companyName).catch(() => null)
+  const check = facit
+    ? compareFacitToCompanyData(facit, company)
+    : { scope1: null, scope2: null, scope3: null, summary: 'Facit hittades ej' }
 
   const table = [
-    [trimText('CO2'), ...emissions.map((e) => trimText(e.year))],
+    ['🎯', trimText('CO2e'), ...emissions.map((e) => trimText(e.year))],
     [
+      check.scope1 ? '✅' : check.scope1 === false ? '❌' : '❓',
       trimText('Scope 1'),
       ...emissions.map((e) => trimText(e.scope1?.emissions) || trimText('-')),
     ],
     [
+      check.scope2 ? '✅' : check.scope2 === false ? '❌' : '❓',
       trimText('Scope 2'),
       ...emissions.map((e) => trimText(e.scope2?.emissions) || trimText('-')),
     ],
     [
+      check.scope3 ? '✅' : check.scope3 === false ? '❌' : '❓',
       trimText('Scope 3'),
       ...emissions.map((e) => trimText(e.scope3?.emissions) || trimText('-')),
     ],
+    [check.summary || ''],
   ]
 
   return table.map((t) => t.join(' ')).join('\n')

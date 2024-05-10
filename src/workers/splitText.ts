@@ -20,9 +20,7 @@ const worker = new Worker(
 
     job.log(`Splitting text: ${text.slice(0, 20)}`)
 
-    const paragraphs = markdown
-      ? text.split('##').filter((p) => p.trim().length > 0)
-      : text.split('\n\n').filter((p) => p.trim().length > 0)
+    const paragraphs = text.split('\n\n').filter((p) => p.trim().length > 0)
 
     await discord.sendMessage(
       job.data,

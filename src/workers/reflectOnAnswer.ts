@@ -100,21 +100,6 @@ ${prompt}`)
     )) as TextChannel
     thread.setName(companyName)
 
-    try {
-      const facit = await findFacit(job.data.url)
-      if (facit) {
-        const summary = await summaryTable(facit)
-        discord.sendMessage(
-          job.data,
-          `# FACIT: ${companyName}
-\`${summary}\`
-        `
-        )
-      }
-    } catch (error) {
-      job.log(`Error when trying to read facit: ${error}`)
-    }
-
     message.edit(`✅ ${companyName} klar`)
     discordReview.add(companyName, {
       ...job.data,

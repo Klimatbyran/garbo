@@ -23,7 +23,7 @@ const worker = new Worker(
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
 
-    const { paragraphs, url, markdown = false } = job.data
+    const { paragraphs, url, markdown = false, threadId } = job.data
 
     const message = await discord.sendMessage(
       job.data,
@@ -69,7 +69,11 @@ const worker = new Worker(
       }
 
       searchVectors.add('search ' + url, {
-        ...job.data,
+        // we arent just resending job.data here because it's too much data- we are now relying on the db
+        url,
+        threadId,
+        markdown,
+        pdfHash: job.data.pdfHash,
       })
 
       return paragraphs

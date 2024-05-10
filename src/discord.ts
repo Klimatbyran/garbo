@@ -93,10 +93,6 @@ export class Discord {
             }
           } catch (error) {
             console.error('Discord error:', error)
-            await interaction.reply({
-              content: 'There was an error while executing this command!',
-              ephemeral: true,
-            })
           }
         }
       })
@@ -151,7 +147,7 @@ export class Discord {
       const thread = (await this.client.channels.fetch(
         threadId
       )) as ThreadChannel
-      await thread.sendTyping()
+      await thread?.sendTyping()
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
