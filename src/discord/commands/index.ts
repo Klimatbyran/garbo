@@ -1,7 +1,7 @@
 import ping from './ping'
-import pdf from './pdf'
 import pdfs from './pdfs'
 import parse from './parse'
 import list from './list'
+import facit from './facit'
 
-export default [ping, pdf, pdfs, parse, list]
+export default [ping, pdf, pdfs, parse, list, facit]

@@ -296,6 +296,7 @@ class Elastic {
       return documentId
     } catch (error) {
       console.error(`Error adding report data:`, error)
+      throw error
     }
   }
 

@@ -12,7 +12,6 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import elastic from './elastic'
 import { discordReview, userFeedback } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
@@ -27,17 +26,18 @@ export class Discord {
   token: string
   channelId: string
 
-  constructor({ token, guildId, clientId, channelId }) {
+  constructor({ worker, token, guildId, clientId, channelId }) {
     this.token = token
     this.channelId = channelId
     this.client = new Client({ intents: [GatewayIntentBits.Guilds] })
     this.rest = new REST().setToken(token)
-    this.commands = commands.map((command) => command.data.toJSON())
-    this.client.on('ready', () => {
-      console.log('discord connected')
-      const url = Routes.applicationGuildCommands(clientId, guildId)
-      this.rest.put(url, { body: this.commands })
-    })
+    if (!worker) {
+      this.commands = commands.map((command) => command.data.toJSON())
+      this.client.on('ready', () => {
+        console.log('discord switch connected')
+        const url = Routes.applicationGuildCommands(clientId, guildId)
+        this.rest.put(url, { body: this.commands })
+      })
 
     this.client.on('messageCreate', async (message) => {
       if (message.author.bot) return
@@ -53,46 +53,60 @@ export class Discord {
       }
     })
 
-    this.client.on('interactionCreate', async (interaction) => {
-      if (interaction.isCommand()) {
-        const command = commands.find(
-          (command) => command.data.name === interaction.commandName
-        )
-        try {
-          await command.execute(interaction)
-        } catch (error) {
-          console.error('Discord error:', error)
-          await interaction.reply({
-            content: 'There was an error while executing this command!',
-            ephemeral: true,
-          })
+      this.client.on('interactionCreate', async (interaction) => {
+        if (interaction.isCommand()) {
+          const command = commands.find(
+            (command) => command.data.name === interaction.commandName
+          )
+          try {
+            await command.execute(interaction)
+          } catch (error) {
+            console.error('Discord error:', error)
+            // await interaction.reply({
+            //   content: 'There was an error while executing this command!',
+            //   ephemeral: true,
+            // })
+            return
+          }
+        } else if (interaction.isButton()) {
+          const [action, jobId] = interaction.customId.split('~')
+          try {
+            switch (action) {
+              case 'approve': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await approve.execute(interaction, job)
+                break
+              }
+              case 'feedback': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await feedback.execute(interaction, job)
+                break
+              }
+              case 'reject': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else await reject.execute(interaction, job)
+                break
+              }
+              case 'retry': {
+                const job = await discordReview.getJob(jobId)
+                if (!job) await interaction.reply('Job not found')
+                else retry.execute(interaction, job)
+                break
+              }
+            }
+          } catch (error) {
+            console.error('Discord error:', error)
+          }
         }
-      } else if (interaction.isButton()) {
-        const [action, jobId] = interaction.customId.split('~')
-        switch (action) {
-          case 'approve': {
-            const job = await discordReview.getJob(jobId)
-            await approve.execute(interaction, job)
-            break
-          }
-          case 'feedback': {
-            const job = await discordReview.getJob(jobId)
-            await feedback.execute(interaction, job)
-            break
-          }
-          case 'reject': {
-            const job = await discordReview.getJob(jobId)
-            await reject.execute(interaction, job)
-            break
-          }
-          case 'retry': {
-            const job = await discordReview.getJob(jobId)
-            retry.execute(interaction, job)
-            break
-          }
-        }
-      }
-    })
+      })
+    } else {
+      this.client.on('ready', () => {
+        console.log('discord worker connected')
+      })
+    }
   }
 
   login(token = this.token) {
@@ -121,12 +135,25 @@ export class Discord {
     )
   }
 
+  public createFeedbackButtonRow = (jobId: string) => {
+    return new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`approve-feedback~${jobId}`)
+        .setLabel('Approve')
+        .setStyle(ButtonStyle.Success),
+      new ButtonBuilder()
+        .setCustomId(`reject-feedback~${jobId}`)
+        .setLabel('Reject')
+        .setStyle(ButtonStyle.Danger)
+    )
+  }
+
   async sendMessage({ threadId }: { threadId: string }, msg: string) {
     try {
       const thread = (await this.client.channels.fetch(
         threadId
       )) as ThreadChannel
-      await thread.sendTyping()
+      await thread?.sendTyping()
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
@@ -148,6 +175,16 @@ export class Discord {
   async sendMessageToChannel(channelId, message): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel.send(message)
+  }
+
+  async lockThread(channelId) {
+    const channel = await this.client.channels.fetch(channelId)
+    if (channel.isThread()) {
+      await channel.setLocked(true)
+      //await channel.setArchived(true);
+    } else {
+      console.error('The specified channel is not a thread.')
+    }
   }
 }
 

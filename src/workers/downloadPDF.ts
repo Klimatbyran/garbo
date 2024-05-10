@@ -36,6 +36,16 @@ const worker = new Worker(
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
       message.edit(`🤖 Tolkar PDF...`)
+
+      // save to disk
+      // const pdfPath = path.join(__dirname, 'temp.pdf')
+      // const pdfStream = fs.create
+      // const pdfStream = fs.create
+      // response.body.pipe(pdfStream)
+      // pdfStream.on('finish', () => {
+      //   console.log('pdf saved')
+      // })
+
       const buffer = await response.arrayBuffer()
       let doc
       try {

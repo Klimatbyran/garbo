@@ -28,7 +28,7 @@ const worker = new Worker(
     await saveToDb.add('saveToDb', {
       documentId,
       threadId,
-      report: parsedJson,
+      report: JSON.stringify(parsedJson, null, 2),
     })
 
     job.updateData({ ...job.data, documentId })
@@ -66,6 +66,12 @@ ${url}
       discord.sendMessage(
         job.data,
         `Svar på feedback: ${parsedJson.agentResponse}`
+      )
+
+    if (parsedJson.confidenceScore)
+      discord.sendMessage(
+        job.data,
+        `Confidence score: ${parsedJson.confidenceScore}`
       )
 
     job.updateProgress(100)

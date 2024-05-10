@@ -1,5 +1,6 @@
 import { EmbedBuilder } from 'discord.js'
 import { saveToDb } from '../../queues'
+import discord from '../../discord'
 
 export default {
   async execute(interaction, job) {
@@ -19,5 +20,6 @@ export default {
       ],
       components: [],
     })
+    discord.lockThread(threadId)
   },
 }
