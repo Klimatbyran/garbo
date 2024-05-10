@@ -2,14 +2,15 @@
   "name": "garbo",
   "version": "1.1.172",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
     "workers": "tsc && node dist/startWorkers.js",
-    "dev": "nodemon - exec 'ts-node' src/index.ts && nodemon - exec 'ts-node' src/startWorkers.ts"
+    "dev-workers": "nodemon -x ts-node src/startWorkers.ts",
+    "dev-board": "nodemon -x ts-node src/index.ts",
+    "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\""
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Christian Landgren, William Ryder mfl",
+  "license": "MIT",
   "dependencies": {
     "@bull-board/api": "^5.12.0",
     "@bull-board/express": "^5.12.0",
@@ -30,6 +31,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.2"
   }
