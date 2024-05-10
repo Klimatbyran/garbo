@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
+import { v4 as uuidv4 } from 'uuid';
 
 class JobData extends Job {
   data: {
@@ -23,10 +24,11 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = { ...JSON.parse(json), url }
-    job.log(`Saving to db: ${pdfHash}`)
-    const documentId = pdfHash
+    const documentId = uuidv4()
+    job.log(`Saving to db: ${documentId}`)
     await saveToDb.add('saveToDb', {
       documentId,
+      pdfHash,
       threadId,
       report: JSON.stringify(parsedJson, null, 2),
     })

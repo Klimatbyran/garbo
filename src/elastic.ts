@@ -258,7 +258,7 @@ class Elastic {
     }
   }
 
-  async indexReport(pdfHash: string, reportData: any) {
+  async indexReport(documentId: string, pdfHash: string, reportData: any) {
     try {
       let parsed
       if (typeof reportData === 'string') {
@@ -284,6 +284,7 @@ class Elastic {
 
       const response = await this.client.index({
         index: this.indexName,
+        id: documentId,
         body: {
           pdfHash: pdfHash,
           report,
@@ -291,7 +292,6 @@ class Elastic {
           timestamp: new Date(),
         },
       })
-      const documentId = response._id
       console.log(`Report data added. Document ID: ${documentId}`)
       return documentId
     } catch (error) {

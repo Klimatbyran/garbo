@@ -6,6 +6,7 @@ import discord from '../discord'
 class JobData extends Job {
   data: {
     documentId: string
+    pdfHash: string
     state: string
     threadId: string
     report: string
@@ -15,7 +16,7 @@ class JobData extends Job {
 const worker = new Worker(
   'saveToDb',
   async (job: JobData) => {
-    const { documentId, state, report } = job.data
+    const { documentId, pdfHash, state, report } = job.data
     job.updateProgress(10)
     const message = await discord.sendMessage(
       job.data,
@@ -24,7 +25,7 @@ const worker = new Worker(
     if (report && JSON.parse(report).emissions.length > 0) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
-      await elastic.indexReport(documentId, report)
+      await elastic.indexReport(documentId, pdfHash, report)
       message?.edit(`✅ Sparad!`)
     }
     if (state) {
