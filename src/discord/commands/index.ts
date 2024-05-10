@@ -4,4 +4,4 @@ import parse from './parse'
 import list from './list'
 import facit from './facit'
 
-export default [ping, pdf, pdfs, parse, list, facit]
+export default [ping, pdfs, parse, list, facit]
