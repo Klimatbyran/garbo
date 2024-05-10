@@ -300,7 +300,7 @@ class Elastic {
     }
   }
 
-  async getReportData(documentId: string) {
+  async getReportData(documentId: string): Promise<string> {
     try {
       const response = await this.client.get({
         index: this.indexName,
@@ -309,7 +309,7 @@ class Elastic {
 
       if (response.found) {
         console.log('Report data retrieved successfully.')
-        return response._source
+        return response._source as string
       } else {
         console.error('No report found for the given document ID.')
         return null

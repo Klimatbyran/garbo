@@ -19,7 +19,10 @@ export const scope2Image = async (company: CompanyData) => {
 const trimText = (text: string | number = '', length: number = 12) =>
   text && text.toLocaleString('sv-se').slice(0, length).padEnd(length, ' ')
 
-export const summaryTable = async (company: CompanyData) => {
+export const summaryTable = async (
+  company: CompanyData,
+  facit?: CompanyData
+) => {
   if (!company.emissions) {
     return '*Ingen data rapporterad*'
   }
@@ -28,7 +31,7 @@ export const summaryTable = async (company: CompanyData) => {
     ?.sort((a, b) => b.year - a.year)
     .slice(0, 3)
 
-  const facit = await findFacit(company.companyName).catch(() => null)
+  if (!facit) facit = await findFacit(company.companyName).catch(() => null)
   const check = facit
     ? compareFacitToCompanyData(facit, company)
     : { scope1: null, scope2: null, scope3: null, summary: 'Facit hittades ej' }
