@@ -41,7 +41,11 @@ export default {
 
     if (submitted) {
       const userInput = submitted.fields.getTextInputValue('editInput')
-      interaction.deferUpdate()
+
+      await submitted.reply({
+        content: 'Thanks for your feedback:',
+      })
+
       interaction.channel?.sendTyping()
       //submitted.deferUpdate()
       await userFeedback.add(

@@ -93,10 +93,6 @@ export class Discord {
             }
           } catch (error) {
             console.error('Discord error:', error)
-            await interaction.reply({
-              content: 'There was an error while executing this command!',
-              ephemeral: true,
-            })
           }
         }
       })
