@@ -56,6 +56,9 @@ const worker = new Worker(
 
     message.edit('✅ Utsläppsdata hämtad')
 
+    const markdown = response.match(/```markdown(.|\n)*```/)[0]
+    if (markdown) discord.sendMessage(job.data, markdown)
+
     reflectOnAnswer.add(
       'reflect on answer ' + response.slice(0, 20),
       {
