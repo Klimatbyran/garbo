@@ -21,6 +21,7 @@ I have a text extracted from a PDF file containing a company's annual report and
 Example:
 ## CompanyName emissions
 
+\`\`\`markdown
     | CO2 | 2023 | 2022 | 2021 |
     ---      
     | Scope 1 | 19500 | 33200 | 36200 | 
@@ -31,6 +32,7 @@ Example:
     | 4_upstreamTransportationAndDistribution | 4900 | 4800 |  4500 |
     | 6_businessTravel | 245000 | 255000 | 250000 |
     ---
+\`\`\`
 
 7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
@@ -41,6 +43,8 @@ Example:
     - 'Error 500': General data inconsistency or unavailability
 
 9. Comma separators. Never use any comma separators or spaces in the numbers.
+
+10. NEVER interpolate or guess values. If a value is missing, just leave it empty. Companies arent reporting all values for all years.
 
 Then, send the results of your analysis back to me.
 `
