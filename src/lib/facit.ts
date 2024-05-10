@@ -70,13 +70,13 @@ export function findFacit(urlOrCompanyName: string): Promise<CompanyData> {
         .on('end', () => {
           const found = all.find(
             (result) =>
-              result['url'].toLowerCase() === urlOrCompanyName.toLowerCase() ||
+              (urlOrCompanyName.startsWith('http') &&
+                result['url'] === urlOrCompanyName) ||
               result['companyName']
                 .toLowerCase()
-                .startsWith(urlOrCompanyName)
-                .toLocaleString() ||
+                .startsWith(urlOrCompanyName.toLowerCase()) ||
               urlOrCompanyName
-                .toLocaleLowerCase()
+                .toLowerCase()
                 .startsWith(result['companyName'].toLowerCase()) // also find Ericsson AB when searching for Ericsson
           )
           if (!found) {

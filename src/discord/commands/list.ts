@@ -18,8 +18,6 @@ export default {
       name: 'List of all approved reports',
       autoArchiveDuration: 1440,
     })
-    await interaction.deferReply()
-
     const list = await elastic.getAllLatestApprovedReports()
     await Promise.all(
       list.map(async (report) => {
