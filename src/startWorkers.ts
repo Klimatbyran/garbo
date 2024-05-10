@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 dotenv.config() // keep this line first in file
-process.env.WORKER = 'true'
 import discord from './discord'
 //
 

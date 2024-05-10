@@ -47,43 +47,84 @@ flowchart TB
 
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
-    npm i
-    docker run -d -p 6379:6379 redis
-    docker run -d -p 8000:8000 chromadb/chroma
-    docker run -d -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=123456789%%aBCD" -p 9200:9200 opensearchproject/opensearch
-    npm run dev
+```bash
+npm i
+docker run -d -p 6379:6379 redis
+docker run -d -p 8000:8000 chromadb/chroma
+# optional:
+docker run -d -p 9200:9200 iteam1337/elasticsearch
+npm start & npm run workers
+```
 
-NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadPDF job.
+## How to run the code
+
+The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
+
+```bash
+npm start
+```
+
+Now you can go to http://localhost:3000 and see the dashboard.
+
+The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
+
+```bash
+npm run workers
+```
 
 ### Environment/Secrets
 
 Create a .env file in the root lib and add these tokens/secrets before running the application:
 
-    OPENAI_API_KEY=
-    OPENAI_ORG_ID=
-    DISCORD_APPLICATION_ID=
-    DISCORD_TOKEN=
-    DISCORD_SERVER_ID=
-    LLAMA_CLOUD_API_KEY=
-    ELASTIC_NODE_URL=
-    ELASTIC_INDEX_NAME=
+```bash
+OPENAI_API_KEY=
+OPENAI_ORG_ID=
+DISCORD_APPLICATION_ID=
+DISCORD_TOKEN=
+DISCORD_SERVER_ID=
+
+# these are optional, the code works fine without Llama cloud and elasticsearch:
+LLAMA_CLOUD_API_KEY=
+ELASTIC_NODE_URL=
+ELASTIC_INDEX_NAME=
+```
+
+## How to run with nodemon
+
+Either you run both workers and board in the same terminal with same command through `concurrently`
+
+```bash
+npm run dev
+```
+
+or you start them separately
+
+```bash
+npm run dev-workers
+# new terminal:
+npm run dev-board
+```
+
+### How to run with Docker
+
+```bash
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
+
+# start how many workers you want:
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm run workers
+```
 
 ### Next steps / Tasks
-
-#### First Milestone
-
-- [x] Test on smaller PDF files
-- [x] Split PDF text into smaller chunks (maybe using langchain pdf instead of custom?)
-- [x] Add chunks to vector database (ChromaDB)
-- [x] Use vector database with langchain when doing queries to limit amount of tokens
-- [x] DevOps/Kubernetes setup for databases and deployment (see [https://github.com/Klimatbyran/infra](infra) repo - private)
-- [ ] Tests etc
 
 ### Operations
 
 This application is run in Kubernetes and uses FluxCD as CD pipeline. To create secret in the k8s cluster - use this command to transfer your .env file as secret to the application
 
-    kubectl create secret generic env --from-env-file=.env
+```bash
+kubectl create secret generic env --from-env-file=.env
+```
 
 ### License
 
