@@ -343,7 +343,7 @@ class Elastic {
   // TODO support report per year and company (not only latest approved). So; get the latest approved report for each company and year
   async getAllLatestApprovedReports() {
     try {
-      const { body } = (await this.client.search({
+      const result = (await this.client.search({
         index: this.indexName,
         body: {
           query: {
@@ -351,7 +351,7 @@ class Elastic {
               must: [
                 {
                   terms: {
-                    state: ['approved', 'pending'],
+                    state: ['approved'],
                   },
                 },
               ],
@@ -367,7 +367,7 @@ class Elastic {
               },
             },
           ],
-          size: 0,
+          size: 1000,
           aggs: {
             latest_reports: {
               terms: {
@@ -402,9 +402,7 @@ class Elastic {
       })) as any
 
       const reports =
-        body.aggregations?.latest_reports?.buckets?.map(
-          (bucket) => bucket.latest_report.hits.hits[0]._source
-        ) || []
+        result.hits?.hits?.map(({ _source: item }) => item.report) || []
       return reports
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)

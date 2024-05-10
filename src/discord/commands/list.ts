@@ -5,6 +5,8 @@ import {
 } from 'discord.js'
 import elastic from '../../elastic'
 import { summaryTable } from '../../lib/discordTable'
+import { CompanyData } from '../../models/companyEmissions'
+import { compareFacitToCompanyData, findFacit } from '../../lib/facit'
 
 export default {
   data: new SlashCommandBuilder()
@@ -18,10 +20,23 @@ export default {
     })
 
     const list = await elastic.getAllLatestApprovedReports()
-    list.forEach(async (report) => {
-      const summary = await summaryTable(report)
-      thread.send(`${report.companyName}
-${summary}`) // TODO: add retry button
-    })
+    await Promise.all(
+      list.map(async (report) => {
+        const company = {
+          ...report,
+          emissions: Object.values(report.emissions),
+        } as CompanyData
+        const summary = await summaryTable(company)
+
+        return thread.send({
+          content: `${report.companyName}
+\`\`\`
+${summary}
+\`\`\`
+`,
+          components: [], // TODO: add retry button
+        })
+      })
+    )
   },
 }
