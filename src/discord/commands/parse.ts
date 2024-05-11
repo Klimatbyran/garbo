@@ -5,7 +5,10 @@ export default {
   data: new SlashCommandBuilder()
     .setName('parse')
     .addStringOption((option) =>
-      option.setName('url').setDescription('URL to PDF file').setRequired(true)
+      option
+        .setName('urls')
+        .setDescription('URL(s) to PDF file(s)')
+        .setRequired(true)
     )
     .setDescription(
       'Skicka in en årsredovisning och få tillbaka utsläppsdata.'
