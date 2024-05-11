@@ -1,7 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
-import previousPrompt from '../prompts/reflect'
+import previousPrompt from '../prompts/parsePDF'
 import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'

@@ -78,7 +78,7 @@ const worker = new Worker(
           data: {
             ...data,
             prompt:
-              'Extract the company name. Just reply with the information in json format: \n\n```json\n{\n "companyName": "Company X", "orgNr": "1234567"\n}\n```',
+              'Extract the company name. Just reply with the information you can find in json format: \n\n```json\n{\n "companyName": "Company X", "website": "https://example.com", "orgNr": "1234567"\n}\n```',
           },
           queueName: 'followUp',
           opts: {
@@ -102,7 +102,7 @@ const worker = new Worker(
           data: {
             ...data,
             prompt:
-              'Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Add it as field emissions: Example:  \n\n```json\n[{year: 2021, "unit": "tCO2e", "scope1": {}, "scope2": {}}, {year: 2022, ...}, {year: 2023, ...}]\n```\n in the JSON.',
+              'Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude latest year. Include market based and location based. Add it as field emissions: Example:  \n\n```json\n{emissions: [{year: 2021, "unit": "tCO2e", "scope1": {}, "scope2": {}}, {year: 2022, ...}, {year: 2023, ...}]}\n```\n in the JSON.',
           },
           queueName: 'followUp',
           opts: {
@@ -114,7 +114,7 @@ const worker = new Worker(
           data: {
             ...data,
             prompt:
-              'Extract scope 3 emissions according to the GHG protocol. Add it as field emissions. Example: \n\n```json\n[{year: 2021, "scope3": { categories: {}}}, {year: 2022, ...}, {year: 2023, ...}]\n```\n in the JSON. Include as many categories as you can find and their scope 3 emissions.',
+              'Extract scope 3 emissions according to the GHG protocol. Add it as field emissions. Include all years you can find and never exclude latest year. Example: \n\n```json\n{emissions: [{year: 2021, "scope3": { categories: {}}}, {year: 2022, ...}, {year: 2023, ...}]}\n```\n in the JSON. Include as many categories as you can find and their scope 3 emissions.',
           },
           queueName: 'followUp',
           opts: {
@@ -174,7 +174,7 @@ const worker = new Worker(
           data: {
             ...data,
             prompt:
-              'Extract the key factors for others to multiply when calculating their scope 3 downstream emissions when using your products or services. For example- a travel company might use co2e per km for a car. Add it as field factors: Example:  \n\n```json\n{factors: [{description: "CO2e per km for car", value: 0.2, unit: "kgCO2e/km"}]}\n```\n in the JSON. Be as accurate as possible when extracting factors and only include ones mentioned in the text.',
+              'Extract the key factors for others to multiply when calculating their scope 3 downstream emissions when using your products or services. For example- a travel company might use co2e per km for a car. Add it as field factors: Example:  \n\n```json\n{"factors": [{"description": "CO2e per km for car", "value": 0.2, "unit": "kgCO2e/km"}]}\n```\n in the JSON. Be as accurate as possible when extracting factors and only include ones mentioned in the text.',
           },
           queueName: 'followUp',
           opts: {

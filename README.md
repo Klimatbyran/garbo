@@ -37,8 +37,15 @@ flowchart TB
     A --> B --> C --> D --> E ---> F ---> G
     B --(Cached)--> E
 
+    F --> CompanyName --(.company)--> G
     F --> Industry --(.industry)--> G
+    F --> Scope1+2 --(.scope1)--> G
+    F --> Scope3 --(.scope3)--> G
     F --> Goals --(.goals)--> G
+    F --> Initiatives --(.initiatives)--> G
+    F --> Contacts --(.contacts)--> G
+    F --> Turnover --(.turnover)--> G
+    F --> Factors --(.factors)--> G
 
     G --> Review --> DB
 ```
