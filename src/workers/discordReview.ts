@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
+import { v4 as uuidv4 } from 'uuid';
 
 class JobData extends Job {
   data: {
@@ -19,19 +20,21 @@ const worker = new Worker(
     job.updateProgress(5)
     const { url, pdfHash, json, threadId } = job.data
 
-    job.log(`Sending for review in Discord: ${json}`)
+    job.log(`Sending report (pdfHash: ${pdfHash}) for review in Discord:\n${json}`)
 
     job.updateProgress(10)
     const parsedJson = { ...JSON.parse(json), url }
-    job.log(`Saving to db: ${pdfHash}`)
-    const documentId = pdfHash
+    const documentId = uuidv4()
+    job.log(`Saving report to database with uuid: ${documentId}`)
     await saveToDb.add('saveToDb', {
       documentId,
+      pdfHash,
       threadId,
       report: JSON.stringify(parsedJson, null, 2),
     })
 
     job.updateData({ ...job.data, documentId })
+    job.log(`Job data updated with documentId: ${job.data}`)
     const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
@@ -75,6 +78,7 @@ ${url}
       )
 
     job.updateProgress(100)
+    return documentId
   },
   {
     connection: redis,
