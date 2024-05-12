@@ -53,7 +53,9 @@ function mapFacitToCompanyData(row): CompanyData {
   }
 }
 
-export function findFacit(url: string): Promise<CompanyData> {
+export function findFacit(urlOrCompanyName: string): Promise<CompanyData> {
+  if (!urlOrCompanyName)
+    return Promise.reject(new Error('No url or name provided'))
   const all = []
   return new Promise((resolve, reject) => {
     try {
@@ -66,7 +68,17 @@ export function findFacit(url: string): Promise<CompanyData> {
         )
         .on('data', (data) => all.push(data))
         .on('end', () => {
-          const found = all.find((result) => result['url'] === url)
+          const found = all.find(
+            (result) =>
+              (urlOrCompanyName.startsWith('http') &&
+                result['url'] === urlOrCompanyName) ||
+              result['companyName']
+                .toLowerCase()
+                .startsWith(urlOrCompanyName.toLowerCase()) ||
+              urlOrCompanyName
+                .toLowerCase()
+                .startsWith(result['companyName'].toLowerCase()) // also find Ericsson AB when searching for Ericsson
+          )
           if (!found) {
             return reject(new Error('No company found'))
           }
@@ -78,6 +90,57 @@ export function findFacit(url: string): Promise<CompanyData> {
       reject(error)
     }
   })
+}
+
+export function compareFacitToCompanyData(
+  facit: CompanyData,
+  companyData: CompanyData
+) {
+  const check = {
+    scope1:
+      Math.round(facit.emissions[0].scope1.emissions || 0) ===
+      Math.round(companyData.emissions[0].scope1.emissions || 0),
+    scope2:
+      Math.round(facit.emissions[0].scope2.emissions || 0) ===
+      Math.round(companyData.emissions[0].scope2.emissions || 0),
+    scope3:
+      Math.round(facit.emissions[0].scope3.emissions || 0 || 0) ===
+      Math.round(companyData.emissions[0].scope3.emissions),
+    scope3Categories: Object.entries(
+      facit.emissions[0].scope3?.categories || []
+    ).map(([category, value]) => {
+      return {
+        category,
+        value,
+        companyValue:
+          (companyData.emissions[0].scope3?.categories &&
+            companyData.emissions[0].scope3?.categories[category]) ||
+          0,
+        match:
+          Math.round(value || 0) ===
+          Math.round(
+            (companyData.emissions[0].scope3?.categories &&
+              companyData.emissions[0].scope3?.categories[category]) ||
+              0
+          ),
+      }
+    }),
+    summary: '',
+  }
+  check.summary = [
+    !check.scope1
+      ? `Scope 1 ska vara ${facit.emissions[0].scope1.emissions}`
+      : '',
+    !check.scope2
+      ? `Scope 2 ska vara ${facit.emissions[0].scope2.emissions}`
+      : '',
+    !check.scope3
+      ? `Scope 3 ska vara ${facit.emissions[0].scope3.emissions}`
+      : '',
+  ]
+    .filter((n) => n)
+    .join('\n')
+  return check
 }
 
 // findFacit(
