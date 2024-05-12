@@ -151,6 +151,7 @@ export class Discord {
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
+      return undefined
     }
   }
 

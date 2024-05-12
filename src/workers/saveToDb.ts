@@ -17,12 +17,19 @@ const worker = new Worker(
   'saveToDb',
   async (job: JobData) => {
     const { documentId, pdfHash, state, report } = job.data
+    const isNewEntry = report && JSON.parse(report).emissions.length > 0
+    if (isNewEntry) {
+      job.log(`New report: ${documentId}`)
+    } 
+    if (state) {
+      job.log(`Update report state: ${state} #${documentId}`)
+    }
     job.updateProgress(10)
     const message = await discord.sendMessage(
       job.data,
       `Sparar till databasen..`
     )
-    if (report && JSON.parse(report).emissions.length > 0) {
+    if (isNewEntry) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
       await elastic.indexReport(documentId, pdfHash, report)

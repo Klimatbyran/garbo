@@ -20,12 +20,12 @@ const worker = new Worker(
     job.updateProgress(5)
     const { url, pdfHash, json, threadId } = job.data
 
-    job.log(`Sending for review in Discord: ${json}`)
+    job.log(`Sending report (pdfHash: ${pdfHash}) for review in Discord:\n${json}`)
 
     job.updateProgress(10)
     const parsedJson = { ...JSON.parse(json), url }
     const documentId = uuidv4()
-    job.log(`Saving to db: ${documentId}`)
+    job.log(`Saving report to database with uuid: ${documentId}`)
     await saveToDb.add('saveToDb', {
       documentId,
       pdfHash,
@@ -34,6 +34,7 @@ const worker = new Worker(
     })
 
     job.updateData({ ...job.data, documentId })
+    job.log(`Job data updated with documentId: ${job.data}`)
     const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
@@ -77,6 +78,7 @@ ${url}
       )
 
     job.updateProgress(100)
+    return documentId
   },
   {
     connection: redis,
