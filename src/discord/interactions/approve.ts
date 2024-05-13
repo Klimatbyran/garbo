@@ -5,6 +5,7 @@ import discord from '../../discord'
 export default {
   async execute(interaction, job) {
     const { documentId, threadId } = job.data
+    job.log(`Approving documentId: ${documentId}`)
     saveToDb.add('saveToDb', {
       threadId,
       documentId,
