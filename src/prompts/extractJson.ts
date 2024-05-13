@@ -2,7 +2,7 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
 
 **Data Output Format**: Present the extracted data in a structured JSON format, including the company name, industry, sector, industry group, base year, URL, emissions data, goals, reliability, and review comments as per the specifications.
 **Market Based Emissions**: If the data includes market-based emissions, include them as the emissions for scope2.
-
+**Public Comment**: When seeing the data in whole, also feel free to update the publicComment accordingly. We are focused on the quality of the reporting, not the company itself or their emissions but if something is unclear or seems off, please mention it in the publicComment.
 **Important** Always generate this exact JSON structure:
 
 \`\`\`json
@@ -59,15 +59,29 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
       "totalUnit": "metric ton CO2e"
     }
   ],
-  factors: [
+  "factors": [
     {"product": "car", "description": "CO2e per km", "value": 0.2, "unit": "kgCO2e/km"}
-  ]
+  ],
+  "contacts": [
+    {"name": "John Doe", "role": "CSR Manager",
+    "email": "john@example.com", "phone": "123456789"}
+  ],
   "goals": [
     {
       "description": "Net zero before [year].",
       "year": 2038,
       "reductionPercent": 100
       "baseYear": "2019"
+    }
+  ],
+
+  "initiatives": [
+    {
+      "description": "We plan to switch to train for all business trips.",
+      "year": 2025,
+      "reductionPercent": 30,
+      "scope": "scope3.6_businessTravel",
+      "comment": "We expect this measure to reduce CO2 emissions in scope 3 business travel"
     }
   ],
   "reliability": "High",
@@ -92,6 +106,19 @@ Every property should be present in the output, make especially sure to include 
     baseYear: { type: 'keyword' },
     url: { type: 'keyword' },
 
+    initiatives: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
+          properties: {
+            description: { type: 'text' },
+            year: { type: 'keyword' },
+          },
+        },
+      },
+    },
+
     goals: {
       type: 'object',
       properties: {
@@ -100,7 +127,7 @@ Every property should be present in the output, make especially sure to include 
           properties: {
             description: { type: 'text' },
             year: { type: 'keyword' },
-            reductionPercent: { type: 'double' },
+            target: { type: 'double' },
             baseYear: { type: 'keyword' },
           },
         },
@@ -204,7 +231,21 @@ Every property should be present in the output, make especially sure to include 
         },
       },
     },
-    
+    contacts: {
+      type: 'object',
+      properties: {
+        '*': {
+          type: 'object',
+          properties: {
+            name: { type: 'text' },
+            role: { type: 'text' },
+            email: { type: 'keyword' },
+            phone: { type: 'keyword' },
+          },
+        },
+      },
+    },
+    publicComment: { type: 'text' },
     reliability: { type: 'keyword' },
     needsReview: { type: 'boolean' },
     reviewComment: { type: 'text' },

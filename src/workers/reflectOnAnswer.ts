@@ -18,6 +18,7 @@ class JobData extends Job {
     answer: string
     threadId: string
     pdfHash: string
+    previousAnswer: string
     previousError: string
   }
 }
@@ -25,7 +26,7 @@ class JobData extends Job {
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const { paragraphs, answer, previousError } = job.data
+    const { previousAnswer, answer, previousError } = job.data
 
     const message = await discord.sendMessage(
       job.data,
@@ -46,12 +47,12 @@ ${prompt}`)
     const stream = await openai.chat.completions.create({
       messages: [
         { role: 'system', content: 'You are an expert in CSRD reporting.' },
-        { role: 'user', content: paragraphs.join('\n\n') },
         { role: 'user', content: previousPrompt },
-        { role: 'assistant', content: job.data.answer },
+        { role: 'assistant', content: answer },
         { role: 'assistant', content: JSON.stringify(childrenValues) },
-        { role: 'user', content: previousError },
         { role: 'user', content: prompt },
+        { role: 'assistant', content: previousAnswer },
+        { role: 'user', content: previousError },
       ].filter((m) => m.content) as any[],
       model: 'gpt-4-turbo',
       stream: true,
@@ -88,7 +89,7 @@ ${prompt}`)
     } catch (error) {
       job.updateData({
         ...job.data,
-        answer: json,
+        previousAnswer: response,
         previousError: error.message,
       })
       discord.sendMessage(job.data, `❌ ${error.message}:`)

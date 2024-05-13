@@ -59,7 +59,7 @@ const worker = new Worker(
         {
           role: 'system',
           content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting.',
+            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. When asked to use JSON, please use the following format: \n\n```json\n{\n "field": "value"\n}\n``. Never use comments, ... or other non-JSON syntax within the json block even if they are used in the examples.`',
         },
         { role: 'user', content: pdfParagraphs.join('\n\n') },
         {

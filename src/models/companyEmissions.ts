@@ -37,9 +37,11 @@ export type CompanyData = {
   reliability?: string
   needsReview?: boolean
   reviewComment?: string
+  publicComment?: string
   reviewStatusCode?: string
   goals?: Array<{
     year: number
+    description: string
     target: number
     unit: string
   }>
