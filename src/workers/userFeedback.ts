@@ -78,7 +78,7 @@ const worker = new Worker(
           content: prompt,
         },
       ],
-      model: 'gpt-4-turbo',
+      model: 'gpt-4o',
       stream: true,
     })
 

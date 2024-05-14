@@ -71,7 +71,7 @@ const worker = new Worker(
         { role: 'user', content: previousError },
         { role: 'user', content: prompt },
       ].filter((m) => m.content) as any[],
-      model: 'gpt-4-turbo',
+      model: 'gpt-4o',
       stream: true,
     })
 
