@@ -121,7 +121,7 @@ Just reply with the information in json format:
 
 \`\`\`json
 {
-   "industry": {
+   "industry_nace": {
       "section": {
         "code": "C",
         "name": "Manufacturing"

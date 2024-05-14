@@ -6,7 +6,8 @@ import extractJson from '../prompts/extractJson'
 import config from '../config/openai'
 import discord from '../discord'
 import companyName from '../prompts/followUp/companyName'
-import industry from '../prompts/followUp/industry'
+import industryNace from '../prompts/followUp/industry_nace'
+import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
@@ -95,10 +96,21 @@ const worker = new Worker(
           },
         },
         {
-          name: 'industry',
+          name: 'industryGics',
           data: {
             ...data,
-            prompt: industry,
+            prompt: industryGics,
+          },
+          queueName: 'followUp',
+          opts: {
+            attempts: 3,
+          },
+        },
+        {
+          name: 'industryNace',
+          data: {
+            ...data,
+            prompt: industryNace,
           },
           queueName: 'followUp',
           opts: {
