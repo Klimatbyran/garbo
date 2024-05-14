@@ -96,16 +96,18 @@ export function compareFacitToCompanyData(
   facit: CompanyData,
   companyData: CompanyData
 ) {
+  if (!facit || !facit.emissions || !companyData || !companyData.emissions)
+    return { summary: 'No data', scope1: null, scope2: null, scope3: null }
   const check = {
     scope1:
-      Math.round(facit.emissions[0].scope1.emissions || 0) ===
-      Math.round(companyData.emissions[0].scope1.emissions || 0),
+      Math.round(facit.emissions[0].scope1?.emissions || 0) ===
+      Math.round(companyData.emissions[0].scope1?.emissions || 0),
     scope2:
-      Math.round(facit.emissions[0].scope2.emissions || 0) ===
-      Math.round(companyData.emissions[0].scope2.emissions || 0),
+      Math.round(facit.emissions[0].scope2?.emissions || 0) ===
+      Math.round(companyData.emissions[0].scope2?.emissions || 0),
     scope3:
-      Math.round(facit.emissions[0].scope3.emissions || 0 || 0) ===
-      Math.round(companyData.emissions[0].scope3.emissions),
+      Math.round(facit.emissions[0].scope3?.emissions || 0 || 0) ===
+      Math.round(companyData.emissions[0].scope3?.emissions),
     scope3Categories: Object.entries(
       facit.emissions[0].scope3?.categories || []
     ).map(([category, value]) => {
@@ -129,13 +131,13 @@ export function compareFacitToCompanyData(
   }
   check.summary = [
     !check.scope1
-      ? `Scope 1 ska vara ${facit.emissions[0].scope1.emissions}`
+      ? `Scope 1 ska vara ${facit.emissions[0].scope1?.emissions}`
       : '',
     !check.scope2
-      ? `Scope 2 ska vara ${facit.emissions[0].scope2.emissions}`
+      ? `Scope 2 ska vara ${facit.emissions[0].scope2?.emissions}`
       : '',
     !check.scope3
-      ? `Scope 3 ska vara ${facit.emissions[0].scope3.emissions}`
+      ? `Scope 3 ska vara ${facit.emissions[0].scope3?.emissions}`
       : '',
   ]
     .filter((n) => n)
