@@ -19,10 +19,13 @@ export default {
 
   async execute(interaction: ChatInputCommandInteraction) {
     const list = await elastic.getAllLatestApprovedReports()
+    if (list === null)
+      return interaction.reply('Inga godkända rapporter hittades.')
+
     const jobsFinished = discordReview.getCompleted()
 
     const thread = await (interaction.channel as TextChannel).threads.create({
-      name: `List of ${list.length} approved reports`,
+      name: `List of ${list?.length} approved reports`,
       autoArchiveDuration: 1440,
     })
 

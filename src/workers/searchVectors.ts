@@ -39,7 +39,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: markdown ? 7 : 5,
+      nResults: markdown ? 20 : 5,
       where: markdown
         ? { $and: [{ source: url }, { markdown }] }
         : { source: url },

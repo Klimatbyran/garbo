@@ -21,7 +21,7 @@ function mapFacitToCompanyData(row): CompanyData {
         scope2: {
           lb: parse(row['23_scope2LB']),
           mb: parse(row['23_scope2MB']),
-          emissions: parse(row['23_scope2MB']),
+          emissions: parse(row['23_scope2MB'] || row['23_scope2LB']),
         },
         scope3: {
           emissions: parse(row['23_scope3']),

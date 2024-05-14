@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
+import { parse } from 'dotenv'
 import { v4 as uuidv4 } from 'uuid';
 
 class JobData extends Job {
@@ -59,6 +60,23 @@ ${url}
       message.edit(`Error sending message to Discord channel: ${error.message}`)
       throw error
     }
+
+    if (parsedJson.goals)
+      discord.sendMessage(
+        job.data,
+        `Mål: 
+${parsedJson.goals.map((g) => ` - ${g.year}: ${g.description}`).join('\n')}`
+      )
+
+    if (parsedJson.initiatives)
+      discord.sendMessage(
+        job.data,
+        `Initiativ: 
+${parsedJson.initiatives
+  .map((i) => ` - ${i.year}: ${i.description}`)
+  .join('\n')}`
+      )
+
     if (parsedJson.reviewComment)
       discord.sendMessage(
         job.data,
@@ -75,6 +93,12 @@ ${url}
       discord.sendMessage(
         job.data,
         `Confidence score: ${parsedJson.confidenceScore}`
+      )
+
+    if (parsedJson.publicComment)
+      discord.sendMessage(
+        job.data,
+        `Publik kommentar från Garbo: ${parsedJson.publicComment}`
       )
 
     job.updateProgress(100)

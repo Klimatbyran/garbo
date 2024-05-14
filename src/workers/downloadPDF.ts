@@ -35,7 +35,7 @@ const worker = new Worker(
         )
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
-      message.edit(`🤖 Tolkar PDF...`)
+      message?.edit(`🤖 Tolkar PDF...`)
 
       // save to disk
       // const pdfPath = path.join(__dirname, 'temp.pdf')

@@ -18,19 +18,22 @@ I have a text extracted from a PDF file containing a company's annual report and
 6. **Data Output Format**: Present the extracted data in a markdown format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report. 
 7. **Data Output Example**: Present the data in the following format. The company name should be the first line of the markdown file.
 
-Example:
-## CompanyName emissions
+Example (replace the example name and data with the actual data from the report):
 
-    | CO2 | 2023 | 2022 | 2021 |
+\`\`\`markdown
+    
+    | ton CO2e | 2023 | 2022 | 2021 |
     ---      
-    | Scope 1 | 19500 | 33200 | 36200 | 
-    | Scope 2 | 27600 | 27600 | 30100 | 
-    | Scope 3 | 383000 | 391600 | 367500 |
+    | Scope 1 | 10000 | 10000 | 10000 | 
+    | Scope 2 | 10000 | 10000 | 10000 | 
+    | Scope 3 | 10000 | 10000 | 10000 |
     | ### Scope 3: |
-    | 3_fuelAndEnergyRelatedActivities | 134000 | 128000 |  113000 |
-    | 4_upstreamTransportationAndDistribution | 4900 | 4800 |  4500 |
-    | 6_businessTravel | 245000 | 255000 | 250000 |
+    | 3_fuelAndEnergyRelatedActivities | 10000 | 10000 |  10000 |
+    | 4_upstreamTransportationAndDistribution | 10000 | 10000 |  10000 |
+    | 6_businessTravel | 10000 | 10000 | 10000 |
+    ...
     ---
+\`\`\`
 
 7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
 
@@ -41,6 +44,8 @@ Example:
     - 'Error 500': General data inconsistency or unavailability
 
 9. Comma separators. Never use any comma separators or spaces in the numbers.
+
+10. NEVER interpolate or guess values. If a value is missing, just leave it empty. Companies arent reporting all values for all years.
 
 Then, send the results of your analysis back to me.
 `
