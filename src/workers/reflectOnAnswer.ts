@@ -54,7 +54,7 @@ ${prompt}`)
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
       ].filter((m) => m.content) as any[],
-      model: 'gpt-4-turbo',
+      model: 'gpt-4o',
       stream: true,
     })
     let response = ''

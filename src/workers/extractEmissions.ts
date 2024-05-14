@@ -44,7 +44,7 @@ const worker = new Worker(
         { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
         { role: 'user', content: pdfParagraphs.join('\n\n') },
       ],
-      model: 'gpt-4-turbo',
+      model: 'gpt-4o',
       stream: true,
     })
     let response = ''
