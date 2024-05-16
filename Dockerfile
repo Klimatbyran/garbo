@@ -13,7 +13,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 COPY package*.json /app/
 WORKDIR /app
-RUN npm install --omit=dev
+RUN bun install --omit=dev
 
 COPY . /app
-CMD ["npm", "start"]
+CMD ["bun", "start"]

@@ -57,12 +57,12 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
 NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more decent version of javascript runtime with typescript included)
 
 ```bash
-npm i
+bun i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
 # optional:
 docker run -d -p 9200:9200 iteam1337/elasticsearch
-npm start & npm run workers
+bun start & bun run workers
 ```
 
 ## How to run the code
@@ -70,7 +70,7 @@ npm start & npm run workers
 The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
 
 ```bash
-npm start
+bun start
 ```
 
 Now you can go to http://localhost:3000 and see the dashboard.
@@ -78,7 +78,7 @@ Now you can go to http://localhost:3000 and see the dashboard.
 The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
 
 ```bash
-npm run workers
+bun run workers
 ```
 
 ### Environment/Secrets
@@ -103,26 +103,26 @@ ELASTIC_INDEX_NAME=
 Either you run both workers and board in the same terminal with same command through `concurrently`
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 or you start them separately
 
 ```bash
-npm run dev-workers
+bun run dev-workers
 # new terminal:
-npm run dev-board
+bun run dev-board
 ```
 
 ### How to run with Docker
 
 ```bash
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo bun start
 
 # start how many workers you want:
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
 ```
 
 ### Next steps / Tasks
