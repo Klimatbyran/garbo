@@ -1,12 +1,13 @@
 {
   "name": "garbo",
-  "version": "1.1.180",
+  "version": "1.1.181",
   "description": "",
+  "type": "module",
   "scripts": {
-    "start": "node --loader=ts-node/esm dist/index.js",
-    "workers": "node --loader=ts-node/esm dist/startWorkers.js",
-    "dev-workers": "nodemon --loader=ts-node/esm src/startWorkers.ts",
-    "dev-board": "nodemon --loader=ts-node/esm  src/index.ts",
+    "start": "bun src/index.ts",
+    "workers": "bun src/startWorkers.ts",
+    "dev-workers": "bun --watch src/startWorkers.ts",
+    "dev-board": "bun --watch  src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\""
   },
   "author": "Christian Landgren, William Ryder mfl",
@@ -34,8 +35,6 @@
     "wikibase-sdk": "^10.0.2"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.0.2",
-    "ts-node": "^10.9.2"
+    "concurrently": "^8.2.2"
   }
 }
