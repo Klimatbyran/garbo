@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es2021",
+    "module": "ESNext",
+    "target": "ESNext",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "dist"
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "skipLibCheck": true
   },
-  "lib": ["es2021"]
+  "include": ["src"]
 }
