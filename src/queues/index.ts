@@ -17,6 +17,7 @@ const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
 const saveToDb = new Queue('saveToDb', options)
 const followUp = new Queue('followUp', options)
+const guessWikidata = new Queue('guessWikidata', options)
 
 export {
   downloadPDF,
@@ -30,4 +31,5 @@ export {
   discordReview,
   userFeedback,
   saveToDb,
+  guessWikidata,
 }

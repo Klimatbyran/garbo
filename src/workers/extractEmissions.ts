@@ -204,6 +204,16 @@ const worker = new Worker(
             attempts: 3,
           },
         },
+        {
+          name: 'wikidata',
+          data: {
+            ...data,
+          },
+          queueName: 'guessWikidata',
+          opts: {
+            attempts: 3,
+          },
+        },
       ],
       opts: {
         attempts: 3,
