@@ -60,8 +60,7 @@ NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more d
 bun i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
-# optional:
-docker run -d -p 9200:9200 iteam1337/elasticsearch
+docker run -d -p 9200:9200 iteam1337/elasticsearch # optional to run this locally, or portforward to another environment.
 bun start & bun run workers
 ```
 
