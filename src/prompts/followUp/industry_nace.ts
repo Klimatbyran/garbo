@@ -1,4 +1,4 @@
-const industry = `
+const industryNace = `
 Extract industry, sector, industry group, according to NACE:
 
 A AGRICULTURE, FORESTRY AND FISHING
@@ -135,4 +135,4 @@ Just reply with the information in json format:
 \`\`\`
 `
 
-export default industry
+export default industryNace

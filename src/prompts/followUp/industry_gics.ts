@@ -1,4 +1,4 @@
-const industry = `
+const industryGics = `
 Extract industry, sector, industry group, according to GICS:
 
 
@@ -324,4 +324,4 @@ Just reply with the information in json format:
 \`\`\`
 `
 
-export default industry
+export default industryGics
