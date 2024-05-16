@@ -2,9 +2,19 @@ import { Worker, Job, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
-import extractJson from '../prompts/extractJson'
 import config from '../config/openai'
 import discord from '../discord'
+import companyName from '../prompts/followUp/companyName'
+import industryNace from '../prompts/followUp/industry_nace'
+import industryGics from '../prompts/followUp/industry_gics'
+import scope12 from '../prompts/followUp/scope12'
+import scope3 from '../prompts/followUp/scope3'
+import goals from '../prompts/followUp/goals'
+import initiatives from '../prompts/followUp/initiatives'
+import contacts from '../prompts/followUp/contacts'
+import turnover from '../prompts/followUp/turnover'
+import factors from '../prompts/followUp/factors'
+import publicComment from '../prompts/followUp/publicComment'
 
 const openai = new OpenAI(config)
 
@@ -77,8 +87,7 @@ const worker = new Worker(
           name: 'companyName',
           data: {
             ...data,
-            prompt:
-              'Extract the company name. Just reply with the information you can find in json format: \n\n```json\n{\n "companyName": "Company X", "website": "https://example.com", "orgNr": "1234567"\n}\n```',
+            prompt: companyName,
           },
           queueName: 'followUp',
           opts: {
@@ -86,11 +95,21 @@ const worker = new Worker(
           },
         },
         {
-          name: 'industry',
+          name: 'industryGics',
           data: {
             ...data,
-            prompt:
-              'Extract industry, sector, industry group, according to GICS. Just reply with the information in json format: \n\n```json\n{\n "industry": "Industry X"\n}\n```',
+            prompt: industryGics,
+          },
+          queueName: 'followUp',
+          opts: {
+            attempts: 3,
+          },
+        },
+        {
+          name: 'industryNace',
+          data: {
+            ...data,
+            prompt: industryNace,
           },
           queueName: 'followUp',
           opts: {
@@ -101,8 +120,7 @@ const worker = new Worker(
           name: 'scope1+2',
           data: {
             ...data,
-            prompt:
-              'Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude latest year. Include market based and location based. Add it as field emissions: Example:  \n\n```json\n{emissions: [{year: 2021, "unit": "tCO2e", "scope1": {}, "scope2": {}}, {year: 2022, ...}, {year: 2023, ...}]}\n```\n in the JSON.',
+            prompt: scope12,
           },
           queueName: 'followUp',
           opts: {
@@ -113,8 +131,7 @@ const worker = new Worker(
           name: 'scope3',
           data: {
             ...data,
-            prompt:
-              'Extract scope 3 emissions according to the GHG protocol. Add it as field emissions. Include all years you can find and never exclude latest year. Example: \n\n```json\n{emissions: [{year: 2021, "scope3": { categories: {}}}, {year: 2022, ...}, {year: 2023, ...}]}\n```\n in the JSON. Include as many categories as you can find and their scope 3 emissions.',
+            prompt: scope3,
           },
           queueName: 'followUp',
           opts: {
@@ -125,8 +142,7 @@ const worker = new Worker(
           name: 'goals',
           data: {
             ...data,
-            prompt:
-              "Extract the company goals for reducing their carbon emissions Add it as field goals: Example:  \n\n```json\n{goals: [{description: 'Net zero before xxx.', year: xxx, reductionPercent: 100]}\n```\n in the JSON. Be as accurate as possible when extracting goals. These values will be plotted in a graph later on.",
+            prompt: goals,
           },
           queueName: 'followUp',
           opts: {
@@ -137,8 +153,7 @@ const worker = new Worker(
           name: 'sustainability initiatives',
           data: {
             ...data,
-            prompt:
-              'Extract the company sustainability initiatives. Add it as field initiatives: Example:  \n\n```json\n{iniatives: [{description: "We plan to switch to train for all business trips.", year: 2025, reductionPercent: 30, scope: "scope3.6_businessTravel", comment: "We expect this measure to reduce CO2 emissions in scope 3 business travel"}]}\n```\n in the JSON. Be as accurate as possible when extracting initiatives. These values will be plotted as dots on a graph later on.',
+            prompt: initiatives,
           },
           queueName: 'followUp',
           opts: {
@@ -149,8 +164,7 @@ const worker = new Worker(
           name: 'sustainability contacts',
           data: {
             ...data,
-            prompt:
-              'Extract the company sustainability contacts. Add it as field contacts: Example:  \n\n```json\n{contacts: [{name: "John Doe", role: "Sustainability Manager", email: "john@doe.se", phone: "123456789"}]}\n```\n in the JSON. Be as accurate as possible when extracting contacts. These values will be used to contact the company with the extract later on for manual approval.',
+            prompt: contacts,
           },
           queueName: 'followUp',
           opts: {
@@ -161,8 +175,7 @@ const worker = new Worker(
           name: 'turnover',
           data: {
             ...data,
-            prompt:
-              'Extract the company turnover. Add it as field turnover: Example:  \n\n```json\n{turnover: [{year: 2021, value: 1000000, currency: "SEK"}]}\n```\n in the JSON. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company.',
+            prompt: turnover,
           },
           queueName: 'followUp',
           opts: {
@@ -173,8 +186,7 @@ const worker = new Worker(
           name: 'key upstream emission factors',
           data: {
             ...data,
-            prompt:
-              'Extract the key factors for others to multiply when calculating their scope 3 downstream emissions when using your products or services. For example- a travel company might use co2e per km for a car. Add it as field factors: Example:  \n\n```json\n{"factors": [{"description": "CO2e per km for car", "value": 0.2, "unit": "kgCO2e/km"}]}\n```\n in the JSON. Be as accurate as possible when extracting factors and only include ones mentioned in the text.',
+            prompt: factors,
           },
           queueName: 'followUp',
           opts: {
@@ -185,8 +197,7 @@ const worker = new Worker(
           name: 'publicComment',
           data: {
             ...data,
-            prompt:
-              'Make a public comment on the company emissions and reporting quality. Be as accurate as possible and include a summary of most important information. This will be used to inform the public about the company emissions and their reporting. Just reply with the information you can find in json format in Swedish: \n\n```json\n{\n "publicComment": "Företag X rapporterar utsläpp i Scope 3 från kategorierna Inköpta varor och tjänster (1), Bränsle- och energirelaterade aktiviteter (3), Uppströms transport och distribution (4), Avfall genererat i verksamheten (5), Affärsresor (6), Anställdas pendling (7), Nedströms transport och distribution (9), och Användning av sålda produkter (11). De har satt mål att nå netto nollutsläpp innan Y." \n}\n```',
+            prompt: publicComment,
           },
           queueName: 'followUp',
           opts: {
