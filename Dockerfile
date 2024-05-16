@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM oven/bun:alpine
 
 RUN apk add --no-cache \
     chromium \
