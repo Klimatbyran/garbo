@@ -19,28 +19,30 @@ const worker = new Worker(
     const { documentId, pdfHash, state, report } = job.data
     const isNewEntry = report && JSON.parse(report).emissions.length > 0
     if (isNewEntry) {
-      job.log(`New report: ${documentId}`)
+      job.log(`Storing new report: ${documentId}`)
     } 
     if (state) {
-      job.log(`Update report state: ${state} #${documentId}`)
+      job.log(`Updating report state: ${state} #${documentId}`)
     }
     job.updateProgress(10)
-    const message = await discord.sendMessage(
-      job.data,
-      `Sparar till databasen..`
-    )
+    let messageText = ''
     if (isNewEntry) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
       await elastic.indexReport(documentId, pdfHash, report)
-      message?.edit(`✅ Sparad!`)
+      messageText = `✅ Sparad!`
     }
     if (state) {
       job.log(`Updating report state: ${state} #${documentId}`)
       job.updateProgress(30)
       await elastic.updateDocumentState(documentId, state)
-      message?.edit(`✅ Sparad: ${state}!`)
+      messageText = `✅ Sparad: ${state}!`
     }
+    job.log(`Sending message to Discord channel ${job.data.threadId}`)
+    await discord.sendMessage(
+      job.data,
+      messageText
+    )
     job.updateProgress(100)
   },
   {

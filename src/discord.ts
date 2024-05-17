@@ -151,7 +151,7 @@ export class Discord {
       await thread?.sendTyping()
       return thread.send(msg)
     } catch (e) {
-      console.error('Error sending message to thread', e)
+      console.error('Error sending message to thread: ', e)
       return undefined
     }
   }
