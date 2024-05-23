@@ -4,10 +4,10 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "bun src/index.ts",
-    "workers": "bun src/startWorkers.ts",
-    "dev-workers": "bun --watch src/startWorkers.ts",
-    "dev-board": "bun --watch  src/index.ts",
+    "start": "node --import tsx src/index.ts",
+    "workers": "node --import tsx src/startWorkers.ts",
+    "dev-workers": "node --import tsx --watch src/startWorkers.ts",
+    "dev-board": "node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\""
   },
   "author": "Christian Landgren, William Ryder mfl",
@@ -29,12 +29,16 @@
     "jest": "^29.7.0",
     "openai": "^4.38.5",
     "pdf-parse": "^1.1.1",
+    "pdf-parse-debugging-disabled": "^1.1.1",
+    "pdf2json": "^3.1.2",
     "redis": "^4.6.13",
     "typescript": "^5.4.5",
     "uuid": "^9.0.1",
     "wikibase-sdk": "^10.0.2"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.11.0"
   }
 }

@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config() // keep this line first in file
+import 'dotenv/config'
 
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
@@ -21,6 +20,7 @@ import {
   userFeedback,
   saveToDb,
   followUp,
+  guessWikidata,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
 
@@ -41,6 +41,7 @@ createBullBoard({
     new BullMQAdapter(discordReview),
     new BullMQAdapter(userFeedback),
     new BullMQAdapter(saveToDb),
+    new BullMQAdapter(guessWikidata),
   ],
   serverAdapter: serverAdapter,
   options: {

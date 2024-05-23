@@ -1,4 +1,4 @@
-FROM oven/bun:alpine
+FROM node:alpine-22
 
 RUN apk add --no-cache \
     chromium \
@@ -9,11 +9,9 @@ RUN apk add --no-cache \
     ca-certificates \
     ttf-freefont
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-
 COPY package*.json /app/
 WORKDIR /app
-RUN bun install --omit=dev
+RUN npm install --omit=dev
 
 COPY . /app
-CMD ["bun", "start"]
+CMD ["npm", "start"]

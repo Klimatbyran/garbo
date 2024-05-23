@@ -1,13 +1,13 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import pdf from 'pdf-parse'
+import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
 import elastic from '../elastic'
+import pdf2json from 'pdf2json'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     threadId: string
   }
@@ -47,6 +47,7 @@ const worker = new Worker(
       // })
 
       const buffer = await response.arrayBuffer()
+
       let doc
       try {
         doc = await pdf(buffer)
