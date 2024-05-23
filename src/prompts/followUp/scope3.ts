@@ -3,6 +3,8 @@ Extract scope 3 emissions according to the GHG protocol. Add it as field emissio
 
 Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other". NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null.
 
+Regarding transport: If you can't find the exact category, report it as "4_upstreamTransportationAndDistribution" or "9_downstreamTransportationAndDistribution" depending on the context.
+
 1_purchasedGoods
 2_capitalGoods
 3_fuelAndEnergyRelatedActivities
