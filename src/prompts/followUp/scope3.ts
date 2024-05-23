@@ -5,6 +5,8 @@ Important! Always report according to the offical GHG categories. If you can't f
 
 Regarding transport: If you can't find the exact category, report it as "4_upstreamTransportationAndDistribution" or "9_downstreamTransportationAndDistribution" depending on the context.
 
+If the company is idientified as a financial institution or investment company, look for emissions data from investements, the portfolio, or financed emissions. They are often found elsewhere in the report. 
+
 1_purchasedGoods
 2_capitalGoods
 3_fuelAndEnergyRelatedActivities
