@@ -3,6 +3,9 @@
   "version": "1.1.185",
   "description": "",
   "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "start": "node --import tsx src/index.ts",
     "workers": "node --import tsx src/startWorkers.ts",
@@ -33,11 +36,11 @@
     "redis": "^4.6.13",
     "typescript": "^5.4.5",
     "uuid": "^9.0.1",
-    "wikibase-sdk": "^10.0.2"
+    "wikibase-sdk": "^10.0.2",
+    "tsx": "^4.11.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.11.0"
+    "ts-node": "^10.9.2"
   }
 }
