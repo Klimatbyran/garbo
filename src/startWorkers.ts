@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config() // keep this line first in file
+import 'dotenv/config'
 import discord from './discord'
 //
 
