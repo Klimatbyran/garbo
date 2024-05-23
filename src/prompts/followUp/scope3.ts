@@ -1,7 +1,7 @@
 const scope3 = `
 Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude latest year. Include as many categories as you can find and their scope 3 emissions.
 
-Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other".
+Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other". NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null.
 
 1_purchasedGoods
 2_capitalGoods
