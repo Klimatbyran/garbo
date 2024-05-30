@@ -1,5 +1,8 @@
 import { SlashCommandBuilder, TextChannel } from 'discord.js'
-import { pdf2Markdown } from '../../queues'
+import { pdf2Markdown, searchVectors } from '../../queues'
+import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb';
+import chromadb from '../../config/chromadb';
+import openai from '../../config/openai'
 
 export default {
   data: new SlashCommandBuilder()
@@ -37,23 +40,51 @@ export default {
         content: `Your PDF is being processed`,
       })
     }
+    const client = new ChromaClient(chromadb);
+    const embedder = new OpenAIEmbeddingFunction(openai);
 
-    urls.forEach(async (url) => {
+    for (const url of urls) {
       const thread = await (interaction.channel as TextChannel).threads.create({
         name: url.slice(-20),
         autoArchiveDuration: 1440,
-        //startMessage: message.id,
-      })
-      const threadId = thread.id
+      });
+      const threadId = thread.id;
 
       thread.send({
         content: `Tack! Nu är din årsredovisning placerad i kö för hantering av LLama
 ${url}`,
-      })
-      pdf2Markdown.add('parse pdf ' + url.slice(-20), {
-        url,
-        threadId,
-      })
-    })
+      });
+
+      try {
+        const collection = await client.getOrCreateCollection({
+          name: 'emission_reports',
+          embeddingFunction: embedder,
+        });
+        const exists = await collection
+          .get({
+            where: { source: url },
+          })
+          .then((r) => r?.documents?.length > 0);
+
+        if (exists) {
+          console.log(`URL ${url} already exists in the database. Jumping to search vectors.`);
+          thread.send(`✅ Detta dokument fanns redan i vektordatabasen. Jumping to search vectors.`);
+          // Jump to the search vectors job
+          searchVectors.add('search ' + url.slice(-20), {
+            url,
+            threadId,
+          });
+        } else {
+          console.log(`URL ${url} does not exist. Proceeding with download.`);
+          pdf2Markdown.add('parse pdf ' + url.slice(-20), {
+            url,
+            threadId,
+          });
+        }
+      } catch (error) {
+        console.error(`Error checking URL ${url}: ${error}`);
+        thread.send(`❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`);
+      }
+    }
   },
-}
+};
