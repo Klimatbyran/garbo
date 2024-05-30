@@ -16,7 +16,7 @@ export default {
       ({ data: { threadId } }) => interaction.channelId === threadId
     )
     const {
-      data: { url, json: returnvalue },
+      data: { json: returnvalue },
     } = job
 
     let json
@@ -43,9 +43,6 @@ export default {
         files: [jsonFile],
       })
     } catch (error) {
-      await interaction.reply({
-        content: `Fel: ${error.message}`,
-      })
       console.log(error)
     }
   },
