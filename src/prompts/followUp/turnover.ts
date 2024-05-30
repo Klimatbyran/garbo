@@ -3,9 +3,10 @@ Extract the company turnover. Add it as field turnover. Be as accurate as possib
 
 Example:
 \`\`\`json
-{ 
+{
+  "companyName": "Company AB",
   "turnover": [
-    {"year": 2021, "value": 1000000, "currency": "SEK"}
+    {"year": 2021, "value": 1000000, "currency": "mSEK"}
   ]
 }
 \`\`\`

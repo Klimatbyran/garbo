@@ -75,15 +75,16 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
           "16_other": 100000000
         }
       },
-      "turnover": [
-        {
-          "year": "2019",
-          "value": 123456789,
-          "unit": "USD"
-        }
-      ]
+      
       "totalEmissions": 1553,
       "totalUnit": "metric ton CO2e"
+    }
+  ],
+  "turnover": [
+    {
+      "year": "2019",
+      "value": 123456789,
+      "unit": "SEK"
     }
   ],
   "factors": [
