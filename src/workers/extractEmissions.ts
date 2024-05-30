@@ -19,7 +19,7 @@ import publicComment from '../prompts/followUp/publicComment'
 const openai = new OpenAI(config)
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     paragraphs: string[]
     threadId: string
@@ -72,10 +72,17 @@ const worker = new Worker(
       .replace('```markdown', '```')
     discord.sendMessage(job.data, markdown.slice(0, 2000))
 
-    const data = {
-      threadId: job.data.threadId,
-      url: job.data.url,
-      answer: response,
+    const base = {
+      name: 'follow up',
+      data: {
+        threadId: job.data.threadId,
+        url: job.data.url,
+        answer: response,
+      },
+      queueName: 'followUp',
+      opts: {
+        attempts: 3,
+      },
     }
 
     await flow.add({
@@ -84,135 +91,64 @@ const worker = new Worker(
       data: { ...job.data, answer: response },
       children: [
         {
+          ...base,
           name: 'companyName',
-          data: {
-            ...data,
-            prompt: companyName,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: companyName },
         },
         {
+          ...base,
           name: 'industryGics',
-          data: {
-            ...data,
-            prompt: industryGics,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: industryGics },
         },
         {
+          ...base,
           name: 'industryNace',
-          data: {
-            ...data,
-            prompt: industryNace,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: industryNace },
         },
         {
+          ...base,
           name: 'scope1+2',
-          data: {
-            ...data,
-            prompt: scope12,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: scope12 },
         },
         {
+          ...base,
           name: 'scope3',
-          data: {
-            ...data,
-            prompt: scope3,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: scope3 },
         },
         {
+          ...base,
           name: 'goals',
-          data: {
-            ...data,
-            prompt: goals,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: goals },
         },
         {
-          name: 'sustainability initiatives',
-          data: {
-            ...data,
-            prompt: initiatives,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          ...base,
+          name: 'initiatives',
+          data: { ...base.data, prompt: initiatives },
         },
         {
+          ...base,
           name: 'sustainability contacts',
-          data: {
-            ...data,
-            prompt: contacts,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: contacts },
         },
         {
+          ...base,
           name: 'turnover',
-          data: {
-            ...data,
-            prompt: turnover,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: turnover },
         },
         {
+          ...base,
           name: 'key upstream emission factors',
-          data: {
-            ...data,
-            prompt: factors,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: factors },
         },
         {
+          ...base,
           name: 'publicComment',
-          data: {
-            ...data,
-            prompt: publicComment,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: publicComment },
         },
         {
-          name: 'wikidata',
-          data: {
-            ...data,
-          },
+          ...base,
+          name: 'guessWikidata',
           queueName: 'guessWikidata',
-          opts: {
-            attempts: 3,
-          },
         },
       ],
       opts: {
