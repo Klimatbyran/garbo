@@ -1,9 +1,13 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { pdf2Markdown, splitText } from '../queues'
+import { pdf2Markdown, splitText, searchVectors } from '../queues'
 import elastic from '../elastic'
 import llama from '../config/llama'
 import discord from '../discord'
+import { ChromaClient } from 'chromadb'
+import { OpenAIEmbeddingFunction } from 'chromadb'
+import chromadb from '../config/chromadb'
+import openai from '../config/openai'
 
 const minutes = 60
 
@@ -113,6 +117,40 @@ const worker = new Worker(
     let text = null
 
     const message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
+
+    // Initialize ChromaClient and embedding function
+    const client = new ChromaClient(chromadb)
+    const embedder = new OpenAIEmbeddingFunction(openai)
+
+    try {
+      // Check if the URL already exists in the vector database
+      const collection = await client.getOrCreateCollection({
+        name: 'emission_reports',
+        embeddingFunction: embedder,
+      })
+      const exists = await collection
+        .get({
+          where: { source: url },
+        })
+        .then((r) => r?.documents?.length > 0)
+
+      if (exists) {
+        // Skip to search vectors if the URL already exists
+        message?.edit('✅ Detta dokument fanns redan i vektordatabasen.')
+        job.log(`URL ${url} already exists. Skipping to search vectors.`)
+        searchVectors.add('search ' + url.slice(-20), {
+          url,
+          threadId: job.data.threadId,
+          markdown: true,
+          pdfHash: job.data.existingPdfHash,
+        })
+        return
+      }
+    } catch (error) {
+      console.error(`Error checking URL ${url} in the vector database: ${error}`)
+      message?.edit(`❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`)
+      throw error
+    }
 
     const previousJob = (await pdf2Markdown.getCompleted()).find(
       (p) => p.data.url === url && p.returnvalue !== null

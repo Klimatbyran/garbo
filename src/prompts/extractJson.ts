@@ -4,13 +4,40 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
 **Market Based Emissions**: If the data includes market-based emissions, include them as the emissions for scope2.
 **Public Comment**: When seeing the data in whole, also feel free to update the publicComment accordingly. We are focused on the quality of the reporting, not the company itself or their emissions but if something is unclear or seems off, please mention it in the publicComment.
 **Important** Always generate this exact JSON structure:
+**NEVER CALCULATE ANY EMISSIONS**  If you can't find any data or if you are uncertain, report it as null. If the company has reported individual categories but no totals- never try to calculate totals, just report it as is.
 
 \`\`\`json
 {
   "companyName": "Example Company",
-  "industry": "Manufacturing",
-  "sector": "Industrial Goods",
-  "industryGroup": "Heavy Industry",
+  "industryGics": {
+      "name": "XXX",
+      "sector": {
+        "code": "123",
+        "name": "XXX"
+      },
+      "group": {
+        "code": "1234",
+        "name": "XXX"
+      },
+      "industry": {
+        "code": "12345",
+        "name": "XXX"
+      },
+      "subIndustry": {
+        "code": "123456",
+        "name": "XXX"
+      }
+  },
+  "industryNace": {
+    "section": {
+      "code": "X",
+      "name": "XXXX"
+    },
+    "division": {
+      "code": "123",
+      "name": "XXX"
+    }
+  },
   "baseYear": "2019",
   "url": "https://example.com",
   "emissions": [
@@ -48,15 +75,16 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
           "16_other": 100000000
         }
       },
-      "turnover": [
-        {
-          "year": "2019",
-          "value": 123456789,
-          "unit": "USD"
-        }
-      ]
+      
       "totalEmissions": 1553,
       "totalUnit": "metric ton CO2e"
+    }
+  ],
+  "turnover": [
+    {
+      "year": "2019",
+      "value": 123456789,
+      "unit": "SEK"
     }
   ],
   "factors": [
@@ -100,9 +128,59 @@ Every property should be present in the output, make especially sure to include 
   type: 'object',
   properties: {
     companyName: { type: 'keyword' },
-    industry: { type: 'keyword' },
-    sector: { type: 'keyword' },
-    industryGroup: { type: 'keyword' },
+    industryGics: {
+      type: 'object',
+      properties: {
+        name: { type: 'keyword' },
+        sector: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+        group: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+        industry: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+        subIndustry: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+      },
+    },
+    industryNace: {
+      type: 'object',
+      properties: {
+        section: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+        division: {
+          type: 'object',
+          properties: {
+            code: { type: 'keyword' },
+            name: { type: 'keyword' },
+          },
+        },
+      },
+    },
     baseYear: { type: 'keyword' },
     url: { type: 'keyword' },
 

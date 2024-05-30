@@ -4,7 +4,7 @@ import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
 import { parse } from 'dotenv'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 class JobData extends Job {
   data: {
@@ -21,7 +21,9 @@ const worker = new Worker(
     job.updateProgress(5)
     const { url, pdfHash, json, threadId } = job.data
 
-    job.log(`Sending report (pdfHash: ${pdfHash}) for review in Discord:\n${json}`)
+    job.log(
+      `Sending report (pdfHash: ${pdfHash}) for review in Discord:\n${json}`
+    )
 
     job.updateProgress(10)
     const parsedJson = { ...JSON.parse(json), url }
@@ -46,7 +48,10 @@ const worker = new Worker(
     let message = null
     try {
       message = await discord.sendMessageToChannel(threadId, {
-        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
+        content: `# ${parsedJson.companyName} (*${
+          parsedJson.industryGics?.subIndustry?.name ||
+          parsedJson.industryGics?.name
+        }*)
 ${url}
 \`${summary}\`
 ## Scope 3:
