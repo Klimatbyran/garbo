@@ -16,7 +16,6 @@ class JobData extends Job {
     url: string
     threadId: string
     markdown: boolean
-    pdfHash: string
   }
 }
 
