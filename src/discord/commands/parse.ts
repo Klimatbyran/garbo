@@ -67,8 +67,8 @@ ${url}`,
           .then((r) => r?.documents?.length > 0);
 
         if (exists) {
-          console.log(`URL ${url} already exists in the database. Jumping to search vectors.`);
-          thread.send(`✅ Detta dokument fanns redan i vektordatabasen. Jumping to search vectors.`);
+          console.log(`URL ${url} already exists in the database.`);
+          thread.send(`✅ Detta dokument fanns redan i vektordatabasen.`);
           // Jump to the search vectors job
           searchVectors.add('search ' + url.slice(-20), {
             url,
