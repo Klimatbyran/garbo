@@ -1,8 +1,5 @@
 import { SlashCommandBuilder, TextChannel } from 'discord.js'
-import { pdf2Markdown, searchVectors } from '../../queues'
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb';
-import chromadb from '../../config/chromadb';
-import openai from '../../config/openai'
+import { pdf2Markdown } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
@@ -40,51 +37,23 @@ export default {
         content: `Your PDF is being processed`,
       })
     }
-    const client = new ChromaClient(chromadb);
-    const embedder = new OpenAIEmbeddingFunction(openai);
 
-    for (const url of urls) {
+    urls.forEach(async (url) => {
       const thread = await (interaction.channel as TextChannel).threads.create({
         name: url.slice(-20),
         autoArchiveDuration: 1440,
-      });
-      const threadId = thread.id;
+        //startMessage: message.id,
+      })
+      const threadId = thread.id
 
       thread.send({
         content: `Tack! Nu är din årsredovisning placerad i kö för hantering av LLama
 ${url}`,
-      });
-
-      try {
-        const collection = await client.getOrCreateCollection({
-          name: 'emission_reports',
-          embeddingFunction: embedder,
-        });
-        const exists = await collection
-          .get({
-            where: { source: url },
-          })
-          .then((r) => r?.documents?.length > 0);
-
-        if (exists) {
-          console.log(`URL ${url} already exists in the database.`);
-          thread.send(`✅ Detta dokument fanns redan i vektordatabasen.`);
-          // Jump to the search vectors job
-          searchVectors.add('search ' + url.slice(-20), {
-            url,
-            threadId,
-          });
-        } else {
-          console.log(`URL ${url} does not exist. Proceeding with download.`);
-          pdf2Markdown.add('parse pdf ' + url.slice(-20), {
-            url,
-            threadId,
-          });
-        }
-      } catch (error) {
-        console.error(`Error checking URL ${url}: ${error}`);
-        thread.send(`❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`);
-      }
-    }
+      })
+      pdf2Markdown.add('parse pdf ' + url.slice(-20), {
+        url,
+        threadId,
+      })
+    })
   },
-};
+}
