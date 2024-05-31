@@ -11,10 +11,15 @@ export default {
     .setDescription('Replies with json for the current thread'),
 
   async execute(interaction: CommandInteraction) {
+    const message = await interaction.reply('Hämtar json för denna tråd')
     const jobs = await discordReview.getCompleted()
     const job = jobs.find(
       ({ data: { threadId } }) => interaction.channelId === threadId
     )
+    if (!job)
+      return await message.edit(
+        'Hittade ingen json i denna tråd. Kan det vara så att den inte är klar? 🤔'
+      )
     const {
       data: { json: returnvalue },
     } = job
@@ -23,13 +28,11 @@ export default {
     try {
       json = JSON.parse(returnvalue)
       if (!json || returnvalue === '{}') {
-        await interaction.reply(
-          'Hittade inte json för denna tråd- är den klar?'
-        )
+        await message.edit('Hittade inte json för denna tråd- är den klar?')
         return
       }
     } catch (error) {
-      await interaction.reply('Kunde inte tolka json för denna tråd')
+      await message.edit('Kunde inte tolka json för denna tråd. Fel format?')
       return
     }
 
@@ -38,7 +41,7 @@ export default {
     })
 
     try {
-      await interaction.reply({
+      await message.edit({
         content: 'Här är resultatet',
         files: [jsonFile],
       })
