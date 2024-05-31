@@ -18,5 +18,3 @@ export async function searchCompany(companyName: string) {
 
   return searchResults.search
 }
-
-searchCompany('Volvo').then(console.log)

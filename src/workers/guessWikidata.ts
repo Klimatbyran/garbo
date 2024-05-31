@@ -7,6 +7,26 @@ const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 })
 
+const ask = async (prompt: string, context: string) => {
+  console.log(ask, prompt, context)
+  const response = await openai.chat.completions.create({
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are an expert in corporate reporting. Be concise and accurate.',
+      },
+      { role: 'user', content: prompt },
+      { role: 'assistant', content: 'Sure! Just send me the context?' },
+      { role: 'user', content: context },
+    ],
+    model: 'gpt-4o',
+    stream: false,
+  })
+
+  return response.choices[0].message.content
+}
+
 class JobData extends Job {
   declare data: {
     url: string
@@ -21,13 +41,18 @@ class JobData extends Job {
 const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
-    const { companyName, previousError, previousAnswer, paragraphs } = job.data
-    const prompt = `Please chose the appropriate wikidata node and return it as json. For example:
+    const { previousError, previousAnswer, paragraphs } = job.data
+    const companyName = await ask(
+      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
+      paragraphs
+    )
+    const prompt = `Please choose the appropriate wikidata node and return it as json. For example:
 
 \`\`\`json
 {
   "node": "Q123456",
   "url": "//www.wikidata.org/wiki/Q123456",
+  "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
   "label": "Company Name",
   "description": "Company Description",
 }
@@ -37,7 +62,7 @@ const worker = new Worker(
     const results = await searchCompany(companyName)
 
     if (results.length === 0) {
-      return JSON.stringify({ error: 'No wikidata page found found' }, null, 2)
+      return JSON.stringify({ error: 'No wikidata page found' }, null, 2)
     }
 
     if (results.length === 1) {
