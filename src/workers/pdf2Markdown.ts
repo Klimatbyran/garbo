@@ -131,6 +131,7 @@ const worker = new Worker(
       const exists = await collection
         .get({
           where: { source: url },
+          limit: 1,
         })
         .then((r) => r?.documents?.length > 0)
 
@@ -147,8 +148,12 @@ const worker = new Worker(
         return
       }
     } catch (error) {
-      console.error(`Error checking URL ${url} in the vector database: ${error}`)
-      message?.edit(`❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`)
+      console.error(
+        `Error checking URL ${url} in the vector database: ${error}`
+      )
+      message?.edit(
+        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+      )
       throw error
     }
 
