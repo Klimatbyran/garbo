@@ -147,7 +147,7 @@ const worker = new Worker(
         },
         {
           ...base,
-          data: { ...base.data, companyName: json.companyName },
+          data: { ...base.data, paragraphs: pdfParagraphs },
           name: 'guessWikidata',
           queueName: 'guessWikidata',
         },

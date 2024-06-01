@@ -2,29 +2,35 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import OpenAI from 'openai'
 import { searchCompany } from '../lib/wikidata'
+import { assert } from 'console'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 })
 
-const ask = async (prompt: string, context: string) => {
-  console.log(ask, prompt, context)
+const ask = async (messages) => {
   const response = await openai.chat.completions.create({
-    messages: [
-      {
-        role: 'system',
-        content:
-          'You are an expert in corporate reporting. Be concise and accurate.',
-      },
-      { role: 'user', content: prompt },
-      { role: 'assistant', content: 'Sure! Just send me the context?' },
-      { role: 'user', content: context },
-    ],
+    messages,
     model: 'gpt-4o',
     stream: false,
   })
 
   return response.choices[0].message.content
+}
+
+const askPrompt = async (prompt: string, context: string) => {
+  assert(prompt, 'Prompt is required')
+  assert(context, 'Context is required')
+  return await ask([
+    {
+      role: 'system',
+      content:
+        'You are an expert in corporate reporting. Be concise and accurate.',
+    },
+    { role: 'user', content: prompt },
+    { role: 'assistant', content: 'Sure! Just send me the context?' },
+    { role: 'user', content: context },
+  ])
 }
 
 class JobData extends Job {
@@ -42,10 +48,21 @@ const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
     const { previousError, previousAnswer, paragraphs } = job.data
-    const companyName = await ask(
+    const companyName = await askPrompt(
       'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
       paragraphs
     )
+
+    const results = await searchCompany(companyName)
+
+    if (results.length === 0) {
+      return JSON.stringify({ error: 'No wikidata page found' }, null, 2)
+    }
+
+    if (results.length === 1) {
+      return JSON.stringify(results[0], null, 2)
+    }
+
     const prompt = `Please choose the appropriate wikidata node and return it as json. For example:
 
 \`\`\`json
@@ -59,18 +76,8 @@ const worker = new Worker(
 \`\`\`
 `
 
-    const results = await searchCompany(companyName)
-
-    if (results.length === 0) {
-      return JSON.stringify({ error: 'No wikidata page found' }, null, 2)
-    }
-
-    if (results.length === 1) {
-      return JSON.stringify(results[0], null, 2)
-    }
-
-    const stream = await openai.chat.completions.create({
-      messages: [
+    const response = await ask(
+      [
         {
           role: 'system',
           content: `I have a company named ${companyName}. I want to generate a wikidata query for it. Please help me select the appropriate node id based on the query below. I'll include the context from a PDF with the company's yearly report to help you select the correct one.`,
@@ -80,23 +87,8 @@ const worker = new Worker(
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
         { role: 'user', content: prompt },
-      ].filter((m) => m.content) as any[],
-      model: 'gpt-4o',
-      stream: true,
-    })
-
-    let response = ''
-    let progress = 0
-    try {
-      for await (const part of stream) {
-        const chunk = part.choices[0]?.delta?.content
-        progress += 1
-        response += chunk || ''
-        job.updateProgress(Math.min(100, (100 * progress) / 400))
-      }
-    } catch (error) {
-      job.log('Error: ' + error)
-    }
+      ].filter((m) => m.content) as any[]
+    )
 
     job.log('Response: ' + response)
 
