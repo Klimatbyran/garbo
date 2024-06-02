@@ -24,13 +24,3 @@ spec:
                 name: garbo
                 port:
                   number: 80
-    - host: garbo.iteam.pub
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: garbo
-                port:
-                  number: 80
