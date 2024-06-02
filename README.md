@@ -93,8 +93,8 @@ DISCORD_SERVER_ID=
 
 # these are optional, the code works fine without Llama cloud and OpenSearch:
 LLAMA_CLOUD_API_KEY=
-ELASTIC_NODE_URL=
-ELASTIC_INDEX_NAME=
+OPENSEARCH_NODE_URL=
+OPENSEARCH_INDEX_NAME=
 ```
 
 ## How to run with nodemon
