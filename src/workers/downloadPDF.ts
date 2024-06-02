@@ -3,8 +3,7 @@ import redis from '../config/redis'
 import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
-import elastic from '../elastic'
+import opensearch from '../opensearch'
 
 class JobData extends Job {
   data: {
@@ -58,7 +57,7 @@ const worker = new Worker(
 
       let pdfHash = ''
       try {
-        pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+        pdfHash = await opensearch.hashPdf(Buffer.from(buffer))
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }

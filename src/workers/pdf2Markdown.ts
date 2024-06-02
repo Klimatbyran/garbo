@@ -1,7 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { pdf2Markdown, splitText, searchVectors } from '../queues'
-import elastic from '../elastic'
+import opensearch from '../opensearch'
 import llama from '../config/llama'
 import discord from '../discord'
 import { ChromaClient } from 'chromadb'
@@ -169,7 +169,7 @@ const worker = new Worker(
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
-      pdfHash = elastic.hashPdf(Buffer.from(buffer))
+      pdfHash = opensearch.hashPdf(Buffer.from(buffer))
 
       message?.edit('🤖 Tolkar tabeller...')
 
