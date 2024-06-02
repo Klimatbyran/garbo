@@ -35,9 +35,9 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
-            - name: ELASTIC_NODE_URL
+            - name: OPENSEARCH_NODE_URL
               value: http://opensearch:9200
-            - name: ELASTIC_INDEX_NAME
+            - name: OPENSEARCH_INDEX_NAME
               value: reports
             - name: CHROMA_HOST
               value: http://chromadb:8000

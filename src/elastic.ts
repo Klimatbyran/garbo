@@ -1,8 +1,8 @@
-import config from './config/elasticsearch'
-import { Client } from '@elastic/elasticsearch'
+import config from './config/opensearch'
+import { Client } from '@opensearch-project/opensearch'
 import * as crypto from 'crypto'
 
-class Elastic {
+class Opensearch {
   client: Client
   indexName: string
   pdfIndex: string
@@ -202,7 +202,7 @@ class Elastic {
         throw new Error('reportData is neither a string nor an object')
       }
 
-      // Convert from array to object for easier access in elastic
+      // Convert from array to object for easier access in opensearch
       const emissions = parsed.emissions.reduce((acc, curr) => {
         acc[curr.year] = curr
         return acc
@@ -346,4 +346,4 @@ class Elastic {
   }
 }
 
-export default new Elastic(config)
+export default new Opensearch(config)
