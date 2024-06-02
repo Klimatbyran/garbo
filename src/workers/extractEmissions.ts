@@ -70,7 +70,7 @@ const worker = new Worker(
     const markdown = response
       .match(/```markdown(.|\n)*```/)?.[0]
       .replace('```markdown', '```')
-    discord.sendMessage(job.data, markdown.slice(0, 2000))
+    if (markdown) discord.sendMessage(job.data, markdown.slice(0, 2000))
 
     const data = {
       threadId: job.data.threadId,
