@@ -15,7 +15,7 @@ class Elastic {
     } catch (error) {
       console.error('Node URL:', node)
       console.error('Index name:', indexName)
-      console.error('Elasticsearch constructor error:', error)
+      console.error('Opensearch constructor error:', error)
     }
   }
 
@@ -46,7 +46,7 @@ class Elastic {
         console.log(`Index ${this.pdfIndex} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch pdfIndex error:', error)
+      console.error('Opensearch pdfIndex error:', error)
     }
   }
 
@@ -158,7 +158,7 @@ class Elastic {
         console.log(`Index ${this.indexName} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch setupIndex error:', error)
+      console.error('Opensearch setupIndex error:', error)
     }
   }
 
