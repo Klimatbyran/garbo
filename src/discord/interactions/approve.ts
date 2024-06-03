@@ -6,11 +6,15 @@ export default {
   async execute(interaction, job) {
     const { documentId, threadId } = job.data
     job.log(`Approving documentId: ${documentId}`)
-    saveToDb.add('saveToDb', {
-      threadId,
-      documentId,
-      state: 'approved',
-    })
+    saveToDb.add(
+      'saveToDb',
+      {
+        threadId,
+        documentId,
+        state: 'approved',
+      },
+      { attempts: 10 }
+    )
     interaction.update({
       embeds: [
         new EmbedBuilder()

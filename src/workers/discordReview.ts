@@ -29,12 +29,16 @@ const worker = new Worker(
     const parsedJson = { ...JSON.parse(json), url }
     const documentId = uuidv4()
     job.log(`Saving report to database with uuid: ${documentId}`)
-    await saveToDb.add('saveToDb', {
-      documentId,
-      pdfHash,
-      threadId,
-      report: JSON.stringify(parsedJson, null, 2),
-    })
+    await saveToDb.add(
+      'saveToDb',
+      {
+        documentId,
+        pdfHash,
+        threadId,
+        report: JSON.stringify(parsedJson, null, 2),
+      },
+      { attempts: 10 }
+    )
 
     job.updateData({ ...job.data, documentId })
     job.log(`Job data updated with documentId: ${job.data}`)
