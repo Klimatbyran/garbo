@@ -9,6 +9,7 @@ import {
   ButtonStyle,
   Message,
   ThreadChannel,
+  ChatInputCommandInteraction,
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
@@ -53,7 +54,7 @@ export class Discord {
             (command) => command.data.name === interaction.commandName
           )
           try {
-            await command.execute(interaction)
+            await command.execute(interaction as ChatInputCommandInteraction)
           } catch (error) {
             console.error('Discord error:', error)
             // await interaction.reply({
@@ -151,6 +152,7 @@ export class Discord {
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
+      return undefined
     }
   }
 

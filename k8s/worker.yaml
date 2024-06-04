@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:1.1.175 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:1.1.208 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
@@ -55,9 +55,9 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: ELASTIC_NODE_URL
-              value: http://elasticsearch:9200
-            - name: ELASTIC_INDEX_NAME
+            - name: OPENSEARCH_NODE_URL
+              value: http://opensearch:9200
+            - name: OPENSEARCH_INDEX_NAME
               value: reports
             # - name: CHROMA_TOKEN
             #   valueFrom:

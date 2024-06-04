@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config() // keep this line first in file
+import 'dotenv/config'
 
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
@@ -7,7 +6,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 
 import discord from './discord'
-import elastic from './elastic'
+import opensearch from './opensearch'
 
 import {
   discordReview,
@@ -20,6 +19,7 @@ import {
   splitText,
   userFeedback,
   saveToDb,
+  followUp,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
 
@@ -35,6 +35,7 @@ createBullBoard({
     new BullMQAdapter(indexParagraphs),
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(extractEmissions),
+    new BullMQAdapter(followUp),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(discordReview),
     new BullMQAdapter(userFeedback),
@@ -50,7 +51,7 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndices()
+opensearch.setupIndices()
 
 app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())

@@ -6,7 +6,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import elastic from '../../elastic'
+import opensearch from '../../opensearch'
 import { summaryTable } from '../../lib/discordTable'
 import { CompanyData } from '../../models/companyEmissions'
 import { compareFacitToCompanyData, findFacit } from '../../lib/facit'
@@ -18,11 +18,14 @@ export default {
     .setDescription('Ta fram en lista på alla godkända rapporter.'),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    const list = await elastic.getAllLatestApprovedReports()
+    const list = await opensearch.getAllLatestApprovedReports()
+    if (list === null)
+      return interaction.reply('Inga godkända rapporter hittades.')
+
     const jobsFinished = discordReview.getCompleted()
 
     const thread = await (interaction.channel as TextChannel).threads.create({
-      name: `List of ${list.length} approved reports`,
+      name: `List of ${list?.length} approved reports`,
       autoArchiveDuration: 1440,
     })
 

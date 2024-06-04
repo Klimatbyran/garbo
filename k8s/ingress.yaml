@@ -4,17 +4,15 @@ kind: Ingress
 metadata:
   name: garbo
   annotations:
-    kubernetes.io/ingress.class: 'nginx'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
-    external-dns.alpha.kubernetes.io/hostname: garbo.klimatkollen.se.
 spec:
   tls:
     - hosts:
-        - garbo.klimatkollen.se
-      secretName: garbo-klimatkollen-se-tls
+        - api.klimatkollen.se
+      secretName: api-klimatkollen-se-tls
 
   rules:
-    - host: garbo.klimatkollen.se
+    - host: api.klimatkollen.se
       http:
         paths:
           - path: /

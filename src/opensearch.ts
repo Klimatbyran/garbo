@@ -1,8 +1,8 @@
-import config from './config/elasticsearch'
-import { Client } from '@elastic/elasticsearch'
+import config from './config/opensearch'
+import { Client } from '@opensearch-project/opensearch'
 import * as crypto from 'crypto'
 
-class Elastic {
+class Opensearch {
   client: Client
   indexName: string
   pdfIndex: string
@@ -15,7 +15,7 @@ class Elastic {
     } catch (error) {
       console.error('Node URL:', node)
       console.error('Index name:', indexName)
-      console.error('Elasticsearch constructor error:', error)
+      console.error('Opensearch constructor error:', error)
     }
   }
 
@@ -46,7 +46,7 @@ class Elastic {
         console.log(`Index ${this.pdfIndex} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch pdfIndex error:', error)
+      console.error('Opensearch pdfIndex error:', error)
     }
   }
 
@@ -158,77 +158,8 @@ class Elastic {
         console.log(`Index ${this.indexName} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch setupIndex error:', error)
+      console.error('Opensearch setupIndex error:', error)
     }
-  }
-
-  public isValidEmissionReport(report): boolean {
-    const isString = (value) => typeof value === 'string'
-    const isBoolean = (value) => typeof value === 'boolean'
-    const isDouble = (value) => typeof value === 'number'
-
-    const hasValidTopLevelProps =
-      isString(report.companyName) &&
-      isString(report.industry) &&
-      isString(report.baseYear) &&
-      isString(report.url) &&
-      isString(report.reliability) &&
-      isBoolean(report.needsReview) &&
-      isString(report.reviewComment) &&
-      isString(report.reviewStatusCode)
-    if (!hasValidTopLevelProps) return false
-
-    // Validate emissions object structure
-    if (typeof report.emissions !== 'object' || report.emissions === null)
-      return false
-
-    for (const year of Object.keys(report.emissions)) {
-      const yearData = report.emissions[year]
-      if (typeof yearData !== 'object' || yearData === null) return false
-      if (
-        !isString(yearData.year) ||
-        !isDouble(yearData.scope1.emissions) ||
-        !isDouble(yearData.totalEmissions) ||
-        !isDouble(yearData.totalUnit) ||
-        !isString(yearData.scope1.unit) ||
-        !isDouble(yearData.scope2.emissions) ||
-        !isString(yearData.scope2.unit) ||
-        !isDouble(yearData.scope2.mb) ||
-        !isDouble(yearData.scope2.lb) ||
-        !isDouble(yearData.scope3.emissions) ||
-        !isString(yearData.scope3.unit) ||
-        !isString(yearData.scope3.baseYear)
-      )
-        return false
-
-      // Validate categories within scope3
-      const categories = yearData.scope3.categories
-      if (typeof categories !== 'object' || categories === null) return false
-
-      const validCategories = [
-        '1_purchasedGoods',
-        '2_capitalGoods',
-        '3_fuelAndEnergyRelatedActivities',
-        '4_upstreamTransportationAndDistribution',
-        '5_wasteGeneratedInOperations',
-        '6_businessTravel',
-        '7_employeeCommuting',
-        '8_upstreamLeasedAssets',
-        '9_downstreamTransportationAndDistribution',
-        '10_processingOfSoldProducts',
-        '11_useOfSoldProducts',
-        '12_endOfLifeTreatmentOfSoldProducts',
-        '13_downstreamLeasedAssets',
-        '14_franchises',
-        '15_investments',
-        '16_other',
-      ]
-
-      for (const category of validCategories) {
-        if (!isDouble(categories[category])) return false
-      }
-    }
-    return true
   }
 
   public hashPdf(pdfBuffer: Buffer): string {
@@ -258,7 +189,7 @@ class Elastic {
     }
   }
 
-  async indexReport(pdfHash: string, reportData: any) {
+  async indexReport(documentId: string, pdfHash: string, reportData: any) {
     try {
       let parsed
       if (typeof reportData === 'string') {
@@ -271,7 +202,7 @@ class Elastic {
         throw new Error('reportData is neither a string nor an object')
       }
 
-      // Convert from array to object for easier access in elastic
+      // Convert from array to object for easier access in opensearch
       const emissions = parsed.emissions.reduce((acc, curr) => {
         acc[curr.year] = curr
         return acc
@@ -284,6 +215,7 @@ class Elastic {
 
       const response = await this.client.index({
         index: this.indexName,
+        id: documentId,
         body: {
           pdfHash: pdfHash,
           report,
@@ -291,7 +223,6 @@ class Elastic {
           timestamp: new Date(),
         },
       })
-      const documentId = response._id
       console.log(`Report data added. Document ID: ${documentId}`)
       return documentId
     } catch (error) {
@@ -359,7 +290,7 @@ class Elastic {
           },
           sort: [
             {
-              'report.companyName': {
+              'report.companyName.keyword': {
                 order: 'asc',
               },
               timestamp: {
@@ -415,4 +346,4 @@ class Elastic {
   }
 }
 
-export default new Elastic(config)
+export default new Opensearch(config)

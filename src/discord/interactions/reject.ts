@@ -5,11 +5,15 @@ export default {
   async execute(interaction, job) {
     const { documentId, threadId } = job.data
 
-    await saveToDb.add('saveToDb', {
-      documentId,
-      threadId,
-      state: 'rejected',
-    })
+    await saveToDb.add(
+      'saveToDb',
+      {
+        documentId,
+        threadId,
+        state: 'rejected',
+      },
+      { attempts: 10 }
+    )
 
     interaction.update({
       content: 'Rejected!',

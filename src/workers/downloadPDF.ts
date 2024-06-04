@@ -1,10 +1,9 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import pdf from 'pdf-parse'
+import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
-import elastic from '../elastic'
+import opensearch from '../opensearch'
 
 class JobData extends Job {
   data: {
@@ -35,7 +34,7 @@ const worker = new Worker(
         )
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
-      message.edit(`🤖 Tolkar PDF...`)
+      message?.edit(`🤖 Tolkar PDF...`)
 
       // save to disk
       // const pdfPath = path.join(__dirname, 'temp.pdf')
@@ -58,7 +57,7 @@ const worker = new Worker(
 
       let pdfHash = ''
       try {
-        pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+        pdfHash = await opensearch.hashPdf(Buffer.from(buffer))
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }

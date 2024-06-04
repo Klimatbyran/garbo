@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into Elasticsearch and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into OpenSearch and Wikidata.
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -32,13 +32,20 @@ flowchart TB
     Review[Reasonability Assessment]
 
 
-    DB[Elasticsearch/Kibana]
+    DB[OpenSearch/Kibana]
 
     A --> B --> C --> D --> E ---> F ---> G
     B --(Cached)--> E
 
+    F --> CompanyName --(.company)--> G
     F --> Industry --(.industry)--> G
+    F --> Scope1+2 --(.scope1)--> G
+    F --> Scope3 --(.scope3)--> G
     F --> Goals --(.goals)--> G
+    F --> Initiatives --(.initiatives)--> G
+    F --> Contacts --(.contacts)--> G
+    F --> Turnover --(.turnover)--> G
+    F --> Factors --(.factors)--> G
 
     G --> Review --> DB
 ```
@@ -47,13 +54,14 @@ flowchart TB
 
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
+NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more decent version of javascript runtime with typescript included)
+
 ```bash
-npm i
+bun i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
-# optional:
-docker run -d -p 9200:9200 iteam1337/elasticsearch
-npm start & npm run workers
+docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
+bun start & bun run workers
 ```
 
 ## How to run the code
@@ -61,7 +69,7 @@ npm start & npm run workers
 The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
 
 ```bash
-npm start
+bun start
 ```
 
 Now you can go to http://localhost:3000 and see the dashboard.
@@ -69,7 +77,7 @@ Now you can go to http://localhost:3000 and see the dashboard.
 The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
 
 ```bash
-npm run workers
+bun run workers
 ```
 
 ### Environment/Secrets
@@ -83,10 +91,10 @@ DISCORD_APPLICATION_ID=
 DISCORD_TOKEN=
 DISCORD_SERVER_ID=
 
-# these are optional, the code works fine without Llama cloud and elasticsearch:
+# these are optional, the code works fine without Llama cloud and OpenSearch:
 LLAMA_CLOUD_API_KEY=
-ELASTIC_NODE_URL=
-ELASTIC_INDEX_NAME=
+OPENSEARCH_NODE_URL=
+OPENSEARCH_INDEX_NAME=
 ```
 
 ## How to run with nodemon
@@ -94,26 +102,26 @@ ELASTIC_INDEX_NAME=
 Either you run both workers and board in the same terminal with same command through `concurrently`
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 or you start them separately
 
 ```bash
-npm run dev-workers
+bun run dev-workers
 # new terminal:
-npm run dev-board
+bun run dev-board
 ```
 
 ### How to run with Docker
 
 ```bash
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo bun start
 
 # start how many workers you want:
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
-docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
 ```
 
 ### Next steps / Tasks

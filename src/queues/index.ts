@@ -16,14 +16,16 @@ const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
 const saveToDb = new Queue('saveToDb', options)
+const followUp = new Queue('followUp', options)
 
 export {
   downloadPDF,
   pdf2Markdown,
-  extractEmissions,
   splitText,
   indexParagraphs,
   searchVectors,
+  extractEmissions,
+  followUp,
   reflectOnAnswer,
   discordReview,
   userFeedback,
