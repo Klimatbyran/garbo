@@ -15,6 +15,7 @@ import contacts from '../prompts/followUp/contacts'
 import turnover from '../prompts/followUp/turnover'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
+import fiscalYear from '../prompts/followUp/fiscalYear'
 
 const openai = new OpenAI(config)
 
@@ -177,6 +178,17 @@ const worker = new Worker(
           data: {
             ...data,
             prompt: turnover,
+          },
+          queueName: 'followUp',
+          opts: {
+            attempts: 3,
+          },
+        },
+        {
+          name: 'fiscalYear',
+          data: {
+            ...data,
+            prompt: fiscalYear,
           },
           queueName: 'followUp',
           opts: {

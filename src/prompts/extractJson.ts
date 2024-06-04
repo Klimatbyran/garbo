@@ -128,6 +128,13 @@ Every property should be present in the output, make especially sure to include 
   type: 'object',
   properties: {
     companyName: { type: 'keyword' },
+    fiscalYear: {
+      type: 'object',
+      properties: {
+        startMonth: { type: 'double' },
+        endMonth: { type: 'double' },
+      },
+    },
     industryGics: {
       type: 'object',
       properties: {
