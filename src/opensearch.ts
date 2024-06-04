@@ -274,6 +274,8 @@ class Opensearch {
   // TODO support report per year and company (not only latest approved). So; get the latest approved report for each company and year
   async getAllLatestApprovedReports() {
     try {
+      if (!this.client) throw new Error('Opensearch not connected')
+      console.log('fetching company reports')
       const result = (await this.client.search({
         index: this.indexName,
         body: {
@@ -332,8 +334,9 @@ class Opensearch {
         },
       })) as any
 
+      console.log('result', result)
       const reports =
-        result.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
+        result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
           ...item.report,
           url: url || item.report.url,
           id: pdfHash || _id,
