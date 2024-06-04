@@ -290,7 +290,7 @@ class Opensearch {
           },
           sort: [
             {
-              'report.companyName': {
+              'report.companyName.keyword': {
                 order: 'asc',
               },
               timestamp: {
