@@ -89,9 +89,9 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
   ],
   "employees": [
     {
-    "year": "2021", 
-    "value": "12345",
-    "unit": "FTE"
+      "year": "2021", 
+      "value": "12345",
+      "unit": "FTE"
     }
   ],
   "factors": [
