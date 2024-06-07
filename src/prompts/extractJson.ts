@@ -87,6 +87,13 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
       "unit": "SEK"
     }
   ],
+  "employees": [
+    {
+      "year": "2021", 
+      "value": "12345",
+      "unit": "FTE"
+    }
+  ],
   "factors": [
     {"product": "car", "description": "CO2e per km", "value": 0.2, "unit": "kgCO2e/km"}
   ],
@@ -128,6 +135,13 @@ Every property should be present in the output, make especially sure to include 
   type: 'object',
   properties: {
     companyName: { type: 'keyword' },
+    fiscalYear: {
+      type: 'object',
+      properties: {
+        startMonth: { type: 'double' },
+        endMonth: { type: 'double' },
+      },
+    },
     industryGics: {
       type: 'object',
       properties: {

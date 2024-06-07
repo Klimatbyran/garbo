@@ -1,7 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { pdf2Markdown, splitText, searchVectors } from '../queues'
-import elastic from '../elastic'
+import opensearch from '../opensearch'
 import llama from '../config/llama'
 import discord from '../discord'
 import { ChromaClient } from 'chromadb'
@@ -131,6 +131,7 @@ const worker = new Worker(
       const exists = await collection
         .get({
           where: { source: url },
+          limit: 1,
         })
         .then((r) => r?.documents?.length > 0)
 
@@ -147,8 +148,12 @@ const worker = new Worker(
         return
       }
     } catch (error) {
-      console.error(`Error checking URL ${url} in the vector database: ${error}`)
-      message?.edit(`❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`)
+      console.error(
+        `Error checking URL ${url} in the vector database: ${error}`
+      )
+      message?.edit(
+        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+      )
       throw error
     }
 
@@ -164,7 +169,7 @@ const worker = new Worker(
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
-      pdfHash = elastic.hashPdf(Buffer.from(buffer))
+      pdfHash = opensearch.hashPdf(Buffer.from(buffer))
 
       message?.edit('🤖 Tolkar tabeller...')
 

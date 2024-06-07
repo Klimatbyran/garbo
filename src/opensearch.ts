@@ -1,8 +1,8 @@
-import config from './config/elasticsearch'
-import { Client } from '@elastic/elasticsearch'
+import config from './config/opensearch'
+import { Client } from '@opensearch-project/opensearch'
 import * as crypto from 'crypto'
 
-class Elastic {
+class Opensearch {
   client: Client
   indexName: string
   pdfIndex: string
@@ -15,7 +15,7 @@ class Elastic {
     } catch (error) {
       console.error('Node URL:', node)
       console.error('Index name:', indexName)
-      console.error('Elasticsearch constructor error:', error)
+      console.error('Opensearch constructor error:', error)
     }
   }
 
@@ -46,7 +46,7 @@ class Elastic {
         console.log(`Index ${this.pdfIndex} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch pdfIndex error:', error)
+      console.error('Opensearch pdfIndex error:', error)
     }
   }
 
@@ -158,7 +158,7 @@ class Elastic {
         console.log(`Index ${this.indexName} already exists.`)
       }
     } catch (error) {
-      console.error('Elasticsearch setupIndex error:', error)
+      console.error('Opensearch setupIndex error:', error)
     }
   }
 
@@ -202,7 +202,7 @@ class Elastic {
         throw new Error('reportData is neither a string nor an object')
       }
 
-      // Convert from array to object for easier access in elastic
+      // Convert from array to object for easier access in opensearch
       const emissions = parsed.emissions.reduce((acc, curr) => {
         acc[curr.year] = curr
         return acc
@@ -274,6 +274,8 @@ class Elastic {
   // TODO support report per year and company (not only latest approved). So; get the latest approved report for each company and year
   async getAllLatestApprovedReports() {
     try {
+      if (!this.client) throw new Error('Opensearch not connected')
+      console.log('fetching company reports')
       const result = (await this.client.search({
         index: this.indexName,
         body: {
@@ -290,7 +292,7 @@ class Elastic {
           },
           sort: [
             {
-              'report.companyName': {
+              'report.companyName.keyword': {
                 order: 'asc',
               },
               timestamp: {
@@ -332,8 +334,9 @@ class Elastic {
         },
       })) as any
 
+      console.log('result', result)
       const reports =
-        result.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
+        result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
           ...item.report,
           url: url || item.report.url,
           id: pdfHash || _id,
@@ -346,4 +349,4 @@ class Elastic {
   }
 }
 
-export default new Elastic(config)
+export default new Opensearch(config)

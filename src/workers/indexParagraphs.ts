@@ -43,7 +43,7 @@ const worker = new Worker(
             ? { $and: [{ source: url }, { markdown }] }
             : { source: url },
         })
-        .then((r) => r?.documents?.length > 0)
+        .then((r) => r?.ids?.length > 0)
 
       if (exists) {
         job.log('Collection exists. Skipping reindexing.')

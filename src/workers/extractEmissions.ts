@@ -15,6 +15,7 @@ import contacts from '../prompts/followUp/contacts'
 import turnover from '../prompts/followUp/turnover'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
+import fiscalYear from '../prompts/followUp/fiscalYear'
 
 const openai = new OpenAI(config)
 
@@ -70,7 +71,8 @@ const worker = new Worker(
     const markdown = response
       .match(/```markdown(.|\n)*```/)?.[0]
       .replace('```markdown', '```')
-    discord.sendMessage(job.data, markdown.slice(0, 2000))
+    if (markdown) discord.sendMessage(job.data, markdown.slice(0, 2000))
+    else discord.sendMessage(job.data, response.slice(0, 2000))
 
     const base = {
       name: 'follow up',
@@ -137,8 +139,20 @@ const worker = new Worker(
         },
         {
           ...base,
+          name: 'fiscalYear',
+          data: {
+            ...base.data,
+            prompt: fiscalYear,
+          },
+          queueName: 'followUp',
+          opts: {
+            attempts: 3,
+          },
+        },
+        {
           name: 'key upstream emission factors',
           data: { ...base.data, prompt: factors },
+          queueName: 'followUp',
         },
         {
           ...base,

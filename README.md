@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into Elasticsearch and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into OpenSearch and Wikidata.
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -32,7 +32,7 @@ flowchart TB
     Review[Reasonability Assessment]
 
 
-    DB[Elasticsearch/Kibana]
+    DB[OpenSearch/Kibana]
 
     A --> B --> C --> D --> E ---> F ---> G
     B --(Cached)--> E
@@ -60,7 +60,7 @@ NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more d
 bun i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
-docker run -d -p 9200:9200 iteam1337/elasticsearch # optional to run this locally, or portforward to another environment.
+docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
 bun start & bun run workers
 ```
 
@@ -91,10 +91,10 @@ DISCORD_APPLICATION_ID=
 DISCORD_TOKEN=
 DISCORD_SERVER_ID=
 
-# these are optional, the code works fine without Llama cloud and elasticsearch:
+# these are optional, the code works fine without Llama cloud and OpenSearch:
 LLAMA_CLOUD_API_KEY=
-ELASTIC_NODE_URL=
-ELASTIC_INDEX_NAME=
+OPENSEARCH_NODE_URL=
+OPENSEARCH_INDEX_NAME=
 ```
 
 ## How to run with nodemon

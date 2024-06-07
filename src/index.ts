@@ -6,7 +6,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 
 import discord from './discord'
-import elastic from './elastic'
+import opensearch from './opensearch'
 
 import {
   discordReview,
@@ -53,7 +53,7 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndices()
+opensearch.setupIndices()
 
 app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())

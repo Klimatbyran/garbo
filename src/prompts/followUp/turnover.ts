@@ -1,5 +1,5 @@
 const turnover = `
-Extract the company turnover. Add it as field turnover. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". 
+Extract the company turnover. Add it as field turnover. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
 
 Example:
 \`\`\`json
