@@ -35,7 +35,7 @@ spec:
     - port: 3000
       targetPort: 3000
   selector:
-    app: garbo
+    app: gotenberg
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
