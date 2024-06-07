@@ -12,7 +12,7 @@ import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 import contacts from '../prompts/followUp/contacts'
-import turnover from '../prompts/followUp/turnover'
+import baseFacts from '../prompts/followUp/baseFacts'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
@@ -174,10 +174,10 @@ const worker = new Worker(
           },
         },
         {
-          name: 'turnover',
+          name: 'baseFacts',
           data: {
             ...data,
-            prompt: turnover,
+            prompt: baseFacts,
           },
           queueName: 'followUp',
           opts: {

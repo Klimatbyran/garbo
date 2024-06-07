@@ -5,6 +5,8 @@ const prompt = `I have previously sent a text for analysis by GPT-4. The respons
 **Public Comment**: When seeing the data in whole, also feel free to update the publicComment accordingly. We are focused on the quality of the reporting, not the company itself or their emissions but if something is unclear or seems off, please mention it in the publicComment.
 **Important** Always generate this exact JSON structure:
 **NEVER CALCULATE ANY EMISSIONS**  If you can't find any data or if you are uncertain, report it as null. If the company has reported individual categories but no totals- never try to calculate totals, just report it as is.
+**NEVER USE N/A or similar**. If a value is not available, report it as null or an empty string.
+**Units** If conversation is needed when extracting the data you are allowed to convert between units but never summarize or merge two fields to one. For example, if the data is in mSEK, you can convert it to SEK. If the emissions are in giga tonnes CO2 (or similar) you should convert it to tCO2e.
 
 \`\`\`json
 {
@@ -135,6 +137,7 @@ Every property should be present in the output, make especially sure to include 
   type: 'object',
   properties: {
     companyName: { type: 'keyword' },
+    description: { type: 'keyword' },
     fiscalYear: {
       type: 'object',
       properties: {
@@ -239,14 +242,15 @@ Every property should be present in the output, make especially sure to include 
         },
       },
     },
-    turnover: {
+    baseFacts: {
       type: 'object',
       properties: {
         '*': {
           type: 'object',
           properties: {
             year: { type: 'keyword' },
-            value: { type: 'double' },
+            turnover: { type: 'double' },
+            employees: { type: 'double' },
             unit: { type: 'keyword' },
           },
         },
