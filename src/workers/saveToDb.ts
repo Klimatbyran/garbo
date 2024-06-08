@@ -2,6 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import opensearch from '../opensearch'
 import discord from '../discord'
+import fs from 'fs'
 
 class JobData extends Job {
   data: {
@@ -17,7 +18,8 @@ const worker = new Worker(
   'saveToDb',
   async (job: JobData) => {
     const { documentId, pdfHash, state, report } = job.data
-    const isNewEntry = report && JSON.parse(report).emissions.length > 0
+    const parsed = JSON.parse(report)
+    const isNewEntry = report && parsed.emissions.length > 0
     if (isNewEntry) {
       job.log(`New report: ${documentId}`)
     }
@@ -32,13 +34,26 @@ const worker = new Worker(
     if (isNewEntry) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
-      await opensearch.indexReport(documentId, pdfHash, report)
+      console.log('savingg to file', parsed.companyName)
+      if (process.env.NODE_ENV === 'development') {
+        fs.writeFileSync(
+          `../data/${parsed.companyName}.json`,
+          JSON.stringify(JSON.parse(report), null, 2)
+        )
+      } else {
+        await opensearch.indexReport(documentId, pdfHash, report)
+      }
+      job.updateProgress(30)
       message?.edit(`✅ Sparad!`)
     }
     if (state) {
       job.log(`Updating report state: ${state} #${documentId}`)
-      job.updateProgress(30)
-      await opensearch.updateDocumentState(documentId, state)
+      job.updateProgress(40)
+      if (process.env.NODE_ENV === 'development') {
+        console.log('update state', state)
+      } else {
+        await opensearch.updateDocumentState(documentId, state)
+      }
       message?.edit(`✅ Sparad: ${state}!`)
     }
     job.updateProgress(100)

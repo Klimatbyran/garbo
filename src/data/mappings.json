@@ -73,6 +73,8 @@
           "type": "object",
           "properties": {
             "description": { "type": "text" },
+            "title": { "type": "text" },
+            "scope": { "type": "text" },
             "year": { "type": "keyword" }
           }
         }

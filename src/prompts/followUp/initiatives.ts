@@ -8,6 +8,7 @@ Example:
 { 
   "initiatives": [
     {
+      "title": "Switch to train",
       "description": "We plan to switch to train for all business trips.",
       year: 2025,
       reductionPercent: 30,
