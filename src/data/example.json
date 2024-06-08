@@ -1,5 +1,6 @@
 {
   "companyName": "Example Company",
+  "description": "Example Company is a Swedish company that produces things.",
   "industryGics": {
     "name": "XXX",
     "sector": {
@@ -36,6 +37,7 @@
       "year": "2019",
       "scope1": {
         "emissions": 1234,
+        "biogenic": 123,
         "unit": "tCO2e"
       },
       "scope2": {

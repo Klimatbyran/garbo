@@ -131,6 +131,7 @@
             "scope1": {
               "properties": {
                 "emissions": { "type": "double" },
+                "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" }
               }
             },

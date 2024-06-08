@@ -12,6 +12,9 @@ and review comments as per the specifications below. Never include any comments 
 If the data includes market-based emissions,
 include them as the emissions for scope 2.
 
+**Biogenic CO2**
+If the data includes biogenic CO2, include it in the scope 1 emissions.
+
 **Public Comment**
 When seeing the data in whole, also feel free to update the publicComment
 accordingly. We are focused on the quality of the reporting, not the company itself or their
@@ -31,15 +34,15 @@ units but never summarize or merge two fields into one. For example, if the data
 you can convert it to SEK. If the emissions are in giga tonnes CO2 (or similar), you should
 convert it to tCO2e (metric tonnes CO2e).
 
-**Example**: Always generate this exact JSON structure:
+**Example**: Always generate this exact JSON structure, never use the data from the example.
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
 \`\`\`
 
 **Instructions**:
 This is the elastic schema that will be used to index the results. Make sure to follow this precisely, making sure each value is the correct data type.
-If the input doesn't match the data type, please make sure to convert it to the correct type even if it means setting it to null.
-If the input doesn't have a value, please make sure to set it to null or an empty string.
+If the input doesn't match the data type, convert it (from string to number or vice versa) even if it means setting it to null.
+If the input doesn't have a value, please make sure to set it to null or an empty string (according to the mappings).
 Every property should be present in the output, make especially sure to include all the properties in the emission categories.
 
 \`\`\`json
