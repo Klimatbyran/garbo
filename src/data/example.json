@@ -1,144 +1,114 @@
 {
-  "emissions": [
-    {
-      "year": "2018",
-      "scope1": {
-        "emissions": "1544000",
-        "unit": "ton CO2e",
-        "baseYear": "2018"
-      },
-      "scope2": {
-        "emissions": "1408000",
-        "unit": "ton CO2e",
-        "locationBased": "1408000",
-        "marketBased": "1838000",
-        "baseYear": "2018"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2018",
-        "categories": {}
-      },
-      "totalEmissions": "Error 500",
-      "totalUnit": "ton CO2e"
+  "companyName": "Example Company",
+  "industryGics": {
+    "name": "XXX",
+    "sector": {
+      "code": "123",
+      "name": "XXX"
     },
+    "group": {
+      "code": "1234",
+      "name": "XXX"
+    },
+    "industry": {
+      "code": "12345",
+      "name": "XXX"
+    },
+    "subIndustry": {
+      "code": "123456",
+      "name": "XXX"
+    }
+  },
+  "industryNace": {
+    "section": {
+      "code": "X",
+      "name": "XXXX"
+    },
+    "division": {
+      "code": "123",
+      "name": "XXX"
+    }
+  },
+  "baseYear": "2019",
+  "url": "https://example.com",
+  "emissions": [
     {
       "year": "2019",
       "scope1": {
-        "emissions": "1537000",
-        "unit": "ton CO2e",
-        "baseYear": "2019"
+        "emissions": 1234,
+        "unit": "tCO2e"
       },
       "scope2": {
-        "emissions": "1292000",
-        "unit": "ton CO2e",
-        "locationBased": "1292000",
-        "marketBased": "1661000",
-        "baseYear": "2019"
+        "emissions": 1235,
+        "unit": "tCO2e",
+        "mb": 1235,
+        "lb": 125
       },
       "scope3": {
-        "emissions": "3595000",
-        "unit": "ton CO2e",
-        "baseYear": "2019",
+        "emissions": null,
+        "unit": "tCO2e",
         "categories": {
-          "1_purchasedGoods": "130000000",
-          "2_capitalGoods": "150000000",
-          "3_fuelAndEnergyRelatedActivities": "160000000",
-          "4_upstreamTransportationAndDistribution": "230000000",
-          "5_wasteGeneratedInOperations": "30000000",
-          "6_businessTravel": "430000000",
-          "7_employeeCommuting": "100000000",
-          "8_upstreamLeasedAssets": "100000000",
-          "9_downstreamTransportationAndDistribution": "100000000",
-          "10_processingOfSoldProducts": "100000000",
-          "11_useOfSoldProducts": "100000000",
-          "12_endOfLifeTreatmentOfSoldProducts": "100000000",
-          "13_downstreamLeasedAssets": "100000000",
-          "14_franchises": "100000000",
-          "15_investments": "100000000",
-          "16_other": "100000000"
+          "1_purchasedGoods": 100000000,
+          "2_capitalGoods": 100000000,
+          "3_fuelAndEnergyRelatedActivities": 100000000,
+          "4_upstreamTransportationAndDistribution": 100000000,
+          "5_wasteGeneratedInOperations": 100000000,
+          "6_businessTravel": 100000000,
+          "7_employeeCommuting": 100000000,
+          "8_upstreamLeasedAssets": 100000000,
+          "9_downstreamTransportationAndDistribution": 100000000,
+          "10_processingOfSoldProducts": 100000000,
+          "11_useOfSoldProducts": 100000000,
+          "12_endOfLifeTreatmentOfSoldProducts": 100000000,
+          "13_downstreamLeasedAssets": 100000000,
+          "14_franchises": 100000000,
+          "15_investments": 100000000,
+          "16_other": 100000000
         }
-      },
-      "totalEmissions": "2834000",
-      "totalUnit": "ton CO2e"
-    },
-    {
-      "year": "2020",
-      "scope1": {
-        "emissions": "1445000",
-        "unit": "ton CO2e",
-        "baseYear": "2020"
-      },
-      "scope2": {
-        "emissions": "1217000",
-        "unit": "ton CO2e",
-        "locationBased": "1217000",
-        "marketBased": "1436000",
-        "baseYear": "2020"
-      },
-      "scope3": {
-        "emissions": "3410000",
-        "unit": "ton CO2e",
-        "baseYear": "2020",
-        "categories": {}
-      },
-      "totalEmissions": "2662000",
-      "totalUnit": "ton CO2e"
-    },
-    {
-      "year": "2021",
-      "scope1": {
-        "emissions": "1410000",
-        "unit": "ton CO2e",
-        "baseYear": "2021"
-      },
-      "scope2": {
-        "emissions": "1216000",
-        "unit": "ton CO2e",
-        "locationBased": "1216000",
-        "marketBased": "1462000",
-        "baseYear": "2021"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2021",
-        "categories": {}
-      },
-      "totalEmissions": "2626000",
-      "totalUnit": "ton CO2e"
-    },
-    {
-      "year": "2022",
-      "scope1": {
-        "emissions": "1395000",
-        "unit": "ton CO2e",
-        "baseYear": "2022"
-      },
-      "scope2": {
-        "emissions": "1254000",
-        "unit": "ton CO2e",
-        "locationBased": "1254000",
-        "marketBased": "1499000",
-        "baseYear": "2022"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2022",
-        "categories": {}
-      },
-      "totalEmissions": "2649000",
-      "totalUnit": "ton CO2e"
+      }
     }
   ],
-  "companyName": "Essity",
-  "industry": "Hygiene and Health Company",
-  "baseYear": "2016",
-  "url": "https://essity.com",
+  "baseFacts": {
+    "2019": {
+      "turnover": 123456789,
+      "unit": "SEK",
+      "employees": 12345
+    }
+  },
+  "factors": [
+    {
+      "product": "car",
+      "description": "CO2e per km",
+      "value": 0.2,
+      "unit": "kgCO2e/km"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "John Doe",
+      "role": "CSR Manager",
+      "email": "john@example.com",
+      "phone": "123456789"
+    }
+  ],
+  "goals": [
+    {
+      "description": "Net zero before [year].",
+      "year": 2038,
+      "reductionPercent": 100,
+      "baseYear": "2019"
+    }
+  ],
+  "initiatives": [
+    {
+      "description": "We plan to switch to train for all business trips.",
+      "year": 2025,
+      "reductionPercent": 30,
+      "scope": "scope3",
+      "comment": "We expect this measure to reduce CO2 emissions in scope 3 business travel"
+    }
+  ],
   "reliability": "High",
   "needsReview": true,
-  "reviewComment": "Scope 3 emissions data is not available for 2018, 2021, and 2022, which impacted the accuracy of the total emissions for those years. Prior year adjustments for Scope 2 are mentioned but not detailed enough to be factored into the analysis. This requires clarification from the company for accurate annual accounting and should be reviewed by the reporting company.",
-  "reviewStatusCode": "412"
+  "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
 }

@@ -1,0 +1,213 @@
+{
+  "type": "object",
+  "properties": {
+    "companyName": { "type": "keyword" },
+    "description": { "type": "keyword" },
+    "fiscalYear": {
+      "type": "object",
+      "properties": {
+        "startMonth": { "type": "double" },
+        "endMonth": { "type": "double" }
+      }
+    },
+    "industryGics": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "keyword" },
+        "sector": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        },
+        "group": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        },
+        "industry": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        },
+        "subIndustry": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "industryNace": {
+      "type": "object",
+      "properties": {
+        "section": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        },
+        "division": {
+          "type": "object",
+          "properties": {
+            "code": { "type": "keyword" },
+            "name": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "baseYear": { "type": "keyword" },
+    "url": { "type": "keyword" },
+
+    "initiatives": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "description": { "type": "text" },
+            "year": { "type": "keyword" }
+          }
+        }
+      }
+    },
+
+    "goals": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "description": { "type": "text" },
+            "year": { "type": "keyword" },
+            "target": { "type": "double" },
+            "baseYear": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "factors": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "product": { "type": "keyword" },
+            "description": { "type": "text" },
+            "value": { "type": "double" },
+            "unit": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "baseFacts": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "year": { "type": "keyword" },
+            "turnover": { "type": "double" },
+            "unit": { "type": "keyword" },
+            "employees": { "type": "double" }
+          }
+        }
+      }
+    },
+    "emissions": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "year": { "type": "keyword" },
+            "scope1": {
+              "properties": {
+                "emissions": { "type": "double" },
+                "unit": { "type": "keyword" }
+              }
+            },
+            "scope2": {
+              "properties": {
+                "emissions": { "type": "double" },
+                "unit": { "type": "keyword" },
+                "mb": { "type": "double" },
+                "lb": { "type": "double" }
+              }
+            },
+            "scope3": {
+              "properties": {
+                "emissions": { "type": "double" },
+                "unit": { "type": "keyword" },
+                "baseYear": { "type": "keyword" },
+                "categories": {
+                  "properties": {
+                    "1_purchasedGoods": { "type": "double" },
+                    "2_capitalGoods": { "type": "double" },
+                    "3_fuelAndEnergyRelatedActivities": {
+                      "type": "double"
+                    },
+                    "4_upstreamTransportationAndDistribution": {
+                      "type": "double"
+                    },
+                    "5_wasteGeneratedInOperations": {
+                      "type": "double"
+                    },
+                    "6_businessTravel": { "type": "double" },
+                    "7_employeeCommuting": { "type": "double" },
+                    "8_upstreamLeasedAssets": {
+                      "type": "double"
+                    },
+                    "9_downstreamTransportationAndDistribution": {
+                      "type": "double"
+                    },
+                    "10_processingOfSoldProducts": {
+                      "type": "double"
+                    },
+                    "11_useOfSoldProducts": { "type": "double" },
+                    "12_endOfLifeTreatmentOfSoldProducts": {
+                      "type": "double"
+                    },
+                    "13_downstreamLeasedAssets": {
+                      "type": "double"
+                    },
+                    "14_franchises": { "type": "double" },
+                    "15_investments": { "type": "double" },
+                    "16_other": { "type": "double" }
+                  }
+                }
+              }
+            },
+            "totalEmissions": { "type": "double" },
+            "totalUnit": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "contacts": {
+      "type": "object",
+      "properties": {
+        "*": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "text" },
+            "role": { "type": "text" },
+            "email": { "type": "keyword" },
+            "phone": { "type": "keyword" }
+          }
+        }
+      }
+    },
+    "publicComment": { "type": "text" },
+    "reliability": { "type": "keyword" },
+    "needsReview": { "type": "boolean" },
+    "reviewComment": { "type": "text" }
+  }
+}
