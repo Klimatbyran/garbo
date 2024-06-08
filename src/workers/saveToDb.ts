@@ -18,8 +18,8 @@ const worker = new Worker(
   'saveToDb',
   async (job: JobData) => {
     const { documentId, pdfHash, state, report } = job.data
-    const parsed = JSON.parse(report)
-    const isNewEntry = report && parsed.emissions.length > 0
+    const parsed = report && JSON.parse(report)
+    const isNewEntry = parsed?.emissions.length > 0
     if (isNewEntry) {
       job.log(`New report: ${documentId}`)
     }
