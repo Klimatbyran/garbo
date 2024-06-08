@@ -102,6 +102,8 @@ class Opensearch {
 
   async indexReport(documentId: string, pdfHash: string, reportData: any) {
     try {
+      if (this.client === null) throw new Error('Opensearch not connected')
+
       let parsed
       if (typeof reportData === 'string') {
         console.log('Parsing report data')
