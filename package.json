@@ -40,7 +40,6 @@
     "wikibase-sdk": "^10.0.2"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "ts-node": "^10.9.2"
+    "concurrently": "^8.2.2"
   }
 }
