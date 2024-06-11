@@ -66,9 +66,9 @@ const worker = new Worker(
       )
     }
 
-    const prompt = `Please choose the appropriate wikidata node and return it as json. Prioritize the node with information about GHG carbon footprint if there are any. For example:
+    const prompt = `Please choose the appropriate wikidata node and return it as json. Prioritize the node with information about GHG carbon footprint if there are any.
 
-Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Keep the syntax below:
+Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Company Name should be filled from the wikidata node. Keep the syntax below:
 \`\`\`json
 { wikidata:
   {
