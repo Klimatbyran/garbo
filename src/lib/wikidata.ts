@@ -1,4 +1,4 @@
-import WBK from 'wikibase-sdk'
+import WBK, { EntityId } from 'wikibase-sdk'
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -8,8 +8,7 @@ const wbk = WBK({
 export async function searchCompany(companyName: string, retry = 3) {
   const searchEntitiesQuery = wbk.searchEntities({
     search: companyName,
-    language: 'en',
-    limit: 1,
+    limit: 3,
   })
 
   const searchResults = await fetch(searchEntitiesQuery).then((res) =>
@@ -23,5 +22,11 @@ export async function searchCompany(companyName: string, retry = 3) {
     )
   }
 
-  return searchResults.search
+  const url = wbk.getEntities({
+    ids: searchResults.search.map((result) => result.id),
+    props: ['info', 'claims', 'descriptions'],
+  })
+  const { entities } = await fetch(url).then((res) => res.json())
+
+  return entities
 }

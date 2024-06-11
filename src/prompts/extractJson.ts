@@ -8,6 +8,9 @@ Present the extracted data in a structured JSON format, including the company na
 industry, sector, industry group, base year, URL, emissions data, goals, reliability,
 and review comments as per the specifications below. Never include any comments in the JSON output.
 
+**Company Name**:
+When a wikidata article is presented, always use the name from the wikidata article.
+
 **Market-Based Emissions**
 If the data includes market-based emissions,
 include them as the emissions for scope 2.

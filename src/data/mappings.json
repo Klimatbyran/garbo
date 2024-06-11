@@ -140,6 +140,7 @@
             "scope2": {
               "properties": {
                 "emissions": { "type": "double" },
+                "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" },
                 "mb": { "type": "double" },
                 "lb": { "type": "double" }
@@ -148,6 +149,7 @@
             "scope3": {
               "properties": {
                 "emissions": { "type": "double" },
+                "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" },
                 "baseYear": { "type": "keyword" },
                 "categories": {
@@ -206,6 +208,16 @@
             "phone": { "type": "keyword" }
           }
         }
+      }
+    },
+    "wikidata": {
+      "type": "object",
+      "properties": {
+        "node": { "type": "keyword" },
+        "url": { "type": "keyword" },
+        "logo": { "type": "keyword" },
+        "label": { "type": "keyword" },
+        "description": { "type": "keyword" }
       }
     },
     "publicComment": { "type": "text" },

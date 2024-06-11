@@ -42,12 +42,14 @@
       },
       "scope2": {
         "emissions": 1235,
+        "biogenic": 123,
         "unit": "tCO2e",
         "mb": 1235,
         "lb": 125
       },
       "scope3": {
         "emissions": null,
+        "biogenic": null,
         "unit": "tCO2e",
         "categories": {
           "1_purchasedGoods": 100000000,
@@ -109,6 +111,13 @@
       "scope": "scope3"
     }
   ],
+  "wikidata": {
+    "node": "Q123456",
+    "url": "//www.wikidata.org/wiki/Q123456",
+    "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+    "label": "Company Name",
+    "description": "Company Description"
+  },
   "reliability": "High",
   "needsReview": true,
   "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
