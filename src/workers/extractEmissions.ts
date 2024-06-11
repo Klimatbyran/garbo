@@ -12,10 +12,11 @@ import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 import contacts from '../prompts/followUp/contacts'
-import turnover from '../prompts/followUp/turnover'
+import baseFacts from '../prompts/followUp/baseFacts'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
+import turnover from '../prompts/followUp/baseFacts'
 
 const openai = new OpenAI(config)
 
@@ -134,25 +135,18 @@ const worker = new Worker(
         },
         {
           ...base,
-          name: 'turnover',
-          data: { ...base.data, prompt: turnover },
+          name: 'baseFacts',
+          data: { ...base.data, prompt: baseFacts },
         },
         {
           ...base,
           name: 'fiscalYear',
-          data: {
-            ...base.data,
-            prompt: fiscalYear,
-          },
-          queueName: 'followUp',
-          opts: {
-            attempts: 3,
-          },
+          data: { ...base.data, prompt: fiscalYear },
         },
         {
+          ...base,
           name: 'key upstream emission factors',
           data: { ...base.data, prompt: factors },
-          queueName: 'followUp',
         },
         {
           ...base,
