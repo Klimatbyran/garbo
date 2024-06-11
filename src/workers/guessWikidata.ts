@@ -70,7 +70,7 @@ const worker = new Worker(
 
 Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Company Name should be filled from the wikidata node. Keep the syntax below:
 \`\`\`json
-{ wikidata:
+{ "wikidata":
   {
     "node": "Q123456",
     "url": "https://www.wikidata.org/wiki/Q123456",
