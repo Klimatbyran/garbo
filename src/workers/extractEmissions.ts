@@ -16,7 +16,6 @@ import baseFacts from '../prompts/followUp/baseFacts'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import turnover from '../prompts/followUp/baseFacts'
 
 const openai = new OpenAI(config)
 
