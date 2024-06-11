@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "companyName": { "type": "keyword" },
+    "wikidataId": { "type": "keyword" },
     "description": { "type": "keyword" },
     "fiscalYear": {
       "type": "object",
@@ -133,6 +134,7 @@
             "scope1": {
               "properties": {
                 "emissions": { "type": "double" },
+                "verified": { "type": "string" },
                 "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" }
               }
@@ -140,6 +142,7 @@
             "scope2": {
               "properties": {
                 "emissions": { "type": "double" },
+                "verified": { "type": "string" },
                 "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" },
                 "mb": { "type": "double" },
@@ -149,6 +152,7 @@
             "scope3": {
               "properties": {
                 "emissions": { "type": "double" },
+                "verified": { "type": "string" },
                 "biogenic": { "type": "double" },
                 "unit": { "type": "keyword" },
                 "baseYear": { "type": "keyword" },

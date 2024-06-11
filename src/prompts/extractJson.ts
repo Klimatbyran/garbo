@@ -37,6 +37,13 @@ units but never summarize or merge two fields into one. For example, if the data
 you can convert it to SEK. If the emissions are in giga tonnes CO2 (or similar), you should
 convert it to tCO2e (metric tonnes CO2e).
 
+**Verified by Wikidata**:
+If you find a Wikidata article that matches the company, you can use the data from the article
+to fill in the company name, ID, url, and logo. Also if you find ghg emissions data in the article,
+you can use that data to fill in the emissions data and mark them as verified by wikidata with a link
+to the article as a separate property: "verified": "https://www.wikidata.org/wiki/Q123456". Leave this
+field empty if the data is not verified by Wikidata.
+
 **Example**: Always generate this exact JSON structure, never use the data from the example.
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
