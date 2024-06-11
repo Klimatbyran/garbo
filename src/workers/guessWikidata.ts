@@ -3,14 +3,16 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import { searchCompany } from '../lib/wikidata'
 import { assert } from 'console'
+import { ChatCompletionMessageParam } from 'openai/resources'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 })
 
-const ask = async (messages) => {
+const ask = async (messages: ChatCompletionMessageParam[]) => {
+  console.log('Asking:', JSON.stringify(messages, null, 2))
   const response = await openai.chat.completions.create({
-    messages,
+    messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
     stream: false,
   })
@@ -38,6 +40,7 @@ class JobData extends Job {
     url: string
     companyName: string
     previousAnswer: string
+    answer: string
     threadId: string
     paragraphs: string
     previousError: string
@@ -47,12 +50,12 @@ class JobData extends Job {
 const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
-    const { previousError, previousAnswer, paragraphs } = job.data
+    const { previousError, previousAnswer, answer, paragraphs } = job.data
     const companyName = await askPrompt(
       'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
-      paragraphs
+      answer
     )
-
+    job.log('Searching for company name: ' + companyName)
     const results = await searchCompany(companyName)
 
     if (results.length === 0) {
