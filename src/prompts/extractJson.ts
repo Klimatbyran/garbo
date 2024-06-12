@@ -55,6 +55,8 @@ If the input doesn't match the data type, convert it (from string to number or v
 If the input doesn't have a value, please make sure to set it to null or an empty string (according to the mappings).
 Every property should be present in the output, make especially sure to include all the properties in the emission categories.
 
+*** LANGUAGE: ONLY WRITE IN SWEDISH! If the original texts are written in English, translate to Swedish *** 
+
 \`\`\`json
 ${JSON.stringify(mappings, null, 2)}
 \`\`\`

@@ -47,6 +47,8 @@ Example (replace the example name and data with the actual data from the report)
 
 10. NEVER interpolate or guess values. If a value is missing, just leave it empty. Companies arent reporting all values for all years.
 
+*** LANGUAGE: ONLY WRITE IN SWEDISH! ***
+
 Then, send the results of your analysis back to me.
 `
 
