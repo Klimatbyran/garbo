@@ -71,17 +71,16 @@ const worker = new Worker(
 Needs to be valid json. No comments etc here. Never guess any values. Only use the information from the context. Company Name should be filled from the wikidata node. Keep the syntax below:
 \`\`\`json
 { "wikidata":
-  {
+   {
     "node": "Q123456",
     "url": "https://www.wikidata.org/wiki/Q123456",
     "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
     "label": "Company Name",
     "description": "Company Description",
-    "url": "https://example.com",
     "emissions": [
       {
         "year": "2019",
-        "reference": "https://example.com",
+        "reference": "https://example.com/pdf.pdf",
         "scope1": {
           "emissions": 1234,
           "biogenic": 123,
@@ -116,8 +115,7 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
           }
         }
       }
-    ],
-
+    ]
   }
 }
 \`\`\`

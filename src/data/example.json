@@ -39,6 +39,7 @@
       "scope1": {
         "emissions": 1234,
         "biogenic": 123,
+        "verified": null,
         "unit": "tCO2e"
       },
       "scope2": {
@@ -51,6 +52,7 @@
       },
       "scope3": {
         "emissions": null,
+        "verified": "https://www.wikidata.org/wiki/Q123456",
         "biogenic": null,
         "unit": "tCO2e",
         "categories": {
@@ -115,10 +117,44 @@
   ],
   "wikidata": {
     "node": "Q123456",
-    "url": "//www.wikidata.org/wiki/Q123456",
+    "url": "https://www.wikidata.org/wiki/Q123456",
     "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
     "label": "Company Name",
-    "description": "Company Description"
+    "description": "Company Description",
+    "emissions": [
+      {
+        "year": "2019",
+        "reference": "https://example.com/pdf.pdf",
+        "scope1": {
+          "emissions": 1234,
+          "biogenic": 123,
+          "unit": "tCO2e"
+        },
+        "scope2": null,
+        "scope3": {
+          "emissions": null,
+          "unit": "tCO2e",
+          "categories": {
+            "1_purchasedGoods": 100000000,
+            "2_capitalGoods": 100000000,
+            "3_fuelAndEnergyRelatedActivities": 100000000,
+            "4_upstreamTransportationAndDistribution": 100000000,
+            "5_wasteGeneratedInOperations": 100000000,
+            "6_businessTravel": 100000000,
+            "7_employeeCommuting": 100000000,
+            "8_upstreamLeasedAssets": 100000000,
+            "9_downstreamTransportationAndDistribution": 100000000,
+            "10_processingOfSoldProducts": 100000000,
+            "11_useOfSoldProducts": 100000000,
+            "12_endOfLifeTreatmentOfSoldProducts": 100000000,
+            "13_downstreamLeasedAssets": 100000000,
+            "14_franchises": 100000000,
+            "15_investments": 100000000,
+            "16_other": 100000000
+          }
+        }
+      }
+    ]
   },
   "reliability": "High",
   "needsReview": true,
