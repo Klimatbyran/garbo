@@ -68,45 +68,39 @@
     "url": { "type": "keyword" },
 
     "initiatives": {
-      "type": "object",
-      "properties": {
-        "*": {
-          "type": "object",
-          "properties": {
-            "description": { "type": "text" },
-            "title": { "type": "text" },
-            "scope": { "type": "text" },
-            "year": { "type": "keyword" }
-          }
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "text" },
+          "title": { "type": "text" },
+          "scope": { "type": "text" },
+          "year": { "type": "keyword" }
         }
       }
     },
 
     "goals": {
-      "type": "object",
-      "properties": {
-        "*": {
-          "type": "object",
-          "properties": {
-            "description": { "type": "text" },
-            "year": { "type": "keyword" },
-            "target": { "type": "double" },
-            "baseYear": { "type": "keyword" }
-          }
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "text" },
+          "year": { "type": "keyword" },
+          "target": { "type": "double" },
+          "baseYear": { "type": "keyword" }
         }
       }
     },
     "factors": {
-      "type": "object",
-      "properties": {
-        "*": {
-          "type": "object",
-          "properties": {
-            "product": { "type": "keyword" },
-            "description": { "type": "text" },
-            "value": { "type": "double" },
-            "unit": { "type": "keyword" }
-          }
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product": { "type": "keyword" },
+          "description": { "type": "text" },
+          "value": { "type": "double" },
+          "unit": { "type": "keyword" }
         }
       }
     },
