@@ -7,7 +7,7 @@ Example:
 \`\`\`json
 {
   "companyName": "Company AB",
-  "description": "Company AB is a company that does things.",
+  "description": "En beskrivning av företaget.",
   "baseFacts": [
     {"year": 2021, "employees": 10000, "turnover": 12345, "currency": "SEK"},
     {"year": 2022, "employees": 10000, "turnover": 12345, "currency": "SEK"},
