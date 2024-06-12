@@ -79,7 +79,7 @@
   "baseFacts": {
     "2019": {
       "turnover": 123456789,
-      "unit": "SEK",
+      "currency": "SEK",
       "employees": 12345
     }
   },
