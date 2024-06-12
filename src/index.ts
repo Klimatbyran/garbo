@@ -20,6 +20,7 @@ import {
   userFeedback,
   saveToDb,
   followUp,
+  guessWikidata,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
 
@@ -40,6 +41,7 @@ createBullBoard({
     new BullMQAdapter(discordReview),
     new BullMQAdapter(userFeedback),
     new BullMQAdapter(saveToDb),
+    new BullMQAdapter(guessWikidata),
   ],
   serverAdapter: serverAdapter,
   options: {
