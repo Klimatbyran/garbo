@@ -4,7 +4,6 @@ import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
 import opensearch from '../opensearch'
-import pdf2json from 'pdf2json'
 
 class JobData extends Job {
   declare data: {
