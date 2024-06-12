@@ -28,9 +28,6 @@ export const summaryTable = async (company: CompanyData) => {
     ?.sort((a, b) => b.year - a.year)
     .slice(0, 3)
 
-  const goals = company.goals?.sort((a, b) => b.year - a.year)
-  const initiatives = company.initiatives?.sort((a, b) => b.year - a.year)
-
   const facit = await findFacit(company.companyName).catch(() => null)
   const check = facit
     ? compareFacitToCompanyData(facit, company)
