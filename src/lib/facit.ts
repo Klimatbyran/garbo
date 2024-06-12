@@ -12,9 +12,9 @@ function mapFacitToCompanyData(row): CompanyData {
   return {
     companyName: row['Company'],
     url: row['url'],
-    emissions: [
-      {
-        year: 2023,
+    emissions: {
+      '2023': {
+        year: '2023',
         scope1: {
           emissions: parse(row['23_scope1']),
         },
@@ -49,7 +49,7 @@ function mapFacitToCompanyData(row): CompanyData {
           },
         },
       },
-    ],
+    },
   }
 }
 
@@ -98,31 +98,33 @@ export function compareFacitToCompanyData(
 ) {
   if (!facit || !facit.emissions || !companyData || !companyData.emissions)
     return { summary: 'No data', scope1: null, scope2: null, scope3: null }
+
+  const year = Object.keys(facit.emissions)[0]
   const check = {
     scope1:
-      Math.round(facit.emissions[0].scope1?.emissions || 0) ===
-      Math.round(companyData.emissions[0].scope1?.emissions || 0),
+      Math.round(facit.emissions[year].scope1?.emissions || 0) ===
+      Math.round(companyData.emissions[year].scope1?.emissions || 0),
     scope2:
-      Math.round(facit.emissions[0].scope2?.emissions || 0) ===
-      Math.round(companyData.emissions[0].scope2?.emissions || 0),
+      Math.round(facit.emissions[year].scope2?.emissions || 0) ===
+      Math.round(companyData.emissions[year].scope2?.emissions || 0),
     scope3:
-      Math.round(facit.emissions[0].scope3?.emissions || 0 || 0) ===
-      Math.round(companyData.emissions[0].scope3?.emissions),
+      Math.round(facit.emissions[year].scope3?.emissions || 0 || 0) ===
+      Math.round(companyData.emissions[year].scope3?.emissions),
     scope3Categories: Object.entries(
-      facit.emissions[0].scope3?.categories || []
+      facit.emissions[year].scope3?.categories || []
     ).map(([category, value]) => {
       return {
         category,
         value,
         companyValue:
-          (companyData.emissions[0].scope3?.categories &&
-            companyData.emissions[0].scope3?.categories[category]) ||
+          (companyData.emissions[year].scope3?.categories &&
+            companyData.emissions[year].scope3?.categories[category]) ||
           0,
         match:
           Math.round(value || 0) ===
           Math.round(
-            (companyData.emissions[0].scope3?.categories &&
-              companyData.emissions[0].scope3?.categories[category]) ||
+            (companyData.emissions[year].scope3?.categories &&
+              companyData.emissions[year].scope3?.categories[category]) ||
               0
           ),
       }
@@ -131,13 +133,13 @@ export function compareFacitToCompanyData(
   }
   check.summary = [
     !check.scope1
-      ? `Scope 1 ska vara ${facit.emissions[0].scope1?.emissions}`
+      ? `Scope 1 ska vara ${facit.emissions[year].scope1?.emissions}`
       : '',
     !check.scope2
-      ? `Scope 2 ska vara ${facit.emissions[0].scope2?.emissions}`
+      ? `Scope 2 ska vara ${facit.emissions[year].scope2?.emissions}`
       : '',
     !check.scope3
-      ? `Scope 3 ska vara ${facit.emissions[0].scope3?.emissions}`
+      ? `Scope 3 ska vara ${facit.emissions[year].scope3?.emissions}`
       : '',
   ]
     .filter((n) => n)
@@ -145,8 +147,8 @@ export function compareFacitToCompanyData(
   return check
 }
 
-// findFacit(
-//   'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
-// ).then((result) => {
-//   console.log(JSON.stringify(result, null, 2))
-// })
+findFacit(
+  'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
+).then((result) => {
+  console.log(JSON.stringify(result, null, 2))
+})

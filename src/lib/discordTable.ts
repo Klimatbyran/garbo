@@ -3,19 +3,6 @@ import { EmbedBuilder } from 'discord.js'
 import { CompanyData } from '../models/companyEmissions'
 import { compareFacitToCompanyData, findFacit } from './facit'
 
-/*
-export const scope2Image = async (company: CompanyData) => {
-  const emissions = company.emissions.sort((a, b) => b.year - a.year)
-  const template = fs.readFileSync('src/lib/scope2.handlebars', 'utf8')
-  const url = fetch('http://localhost/')
-  const image = await nodeHtmlToImage({
-    html: template,
-    content: { ...company, emissions },
-  })
-  return image
-}
-*/
-
 const trimText = (text: string | number = '', length: number = 12) =>
   text && text.toLocaleString('sv-se').slice(0, length).padEnd(length, ' ')
 
@@ -24,9 +11,10 @@ export const summaryTable = async (company: CompanyData) => {
     return '*Ingen data rapporterad*'
   }
 
-  const emissions = company.emissions
-    ?.sort((a, b) => b.year - a.year)
+  const emissions = Object.keys(company.emissions)
+    .sort((a, b) => b.localeCompare(a))
     .slice(0, 3)
+    .map((year) => ({ ...company.emissions[year], year }))
 
   const facit = await findFacit(company.companyName).catch(() => null)
   const check = facit
@@ -61,7 +49,11 @@ export const scope3Table = async (company: CompanyData) => {
     return '*Ingen data rapporterad*'
   }
 
-  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
+  const emissions = Object.keys(company.emissions)
+    .sort((a, b) => b.localeCompare(a))
+    .slice(0, 3)
+    .map((year) => ({ ...company.emissions[year], year }))
+
   const categories = [
     ...new Set(
       emissions.map((e) => Object.keys(e.scope3?.categories || {})).flat()
