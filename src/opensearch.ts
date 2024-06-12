@@ -115,23 +115,12 @@ class Opensearch {
         throw new Error('reportData is neither a string nor an object')
       }
 
-      // Convert from array to object for easier access in opensearch
-      const emissions = parsed.emissions.reduce((acc, curr) => {
-        acc[curr.year] = curr
-        return acc
-      }, {})
-
-      const report = {
-        ...parsed,
-        emissions,
-      }
-
       const response = await this.client.index({
         index: this.indexName,
         id: documentId,
         body: {
           pdfHash: pdfHash,
-          report,
+          report: parsed,
           state: 'pending',
           timestamp: new Date(),
         },

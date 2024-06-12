@@ -7,9 +7,8 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 Example - feel free to add more fields and relevant data:
 \`\`\`json
 { 
-  "emissions": [
-    {
-      "year": 2021,
+  "emissions": {
+    "2021": {
       "scope1": {
         emissions: 40.3,
         unit: "tCO2e"
@@ -20,8 +19,8 @@ Example - feel free to add more fields and relevant data:
         unit: "tCO2e"
       }
     },
-    { "year": 2022, ...}, 
-    { "year": 2023, ...}] 
+    "2022": { ...},
+    "2023": { ...},
 }
 \`\`\`
 `

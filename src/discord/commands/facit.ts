@@ -25,47 +25,49 @@ export default {
       return
     }
     const summary = await summaryTable(facit)
-    const emojis = facit.emissions.map(({ scope1, scope2, scope3, year }) => {
-      console.log(json.emissions)
-      const jsonYear = json.emissions.find(
-        ({ year: y }) => y == year
-      ) as YearEmissions
-      if (!jsonYear) return `❓ hittade ej facit`
-      const s1 =
-        scope1?.emissions == jsonYear.scope1.emissions
-          ? '✅'
-          : `❌ ${scope1.emissions} != ${jsonYear.scope1.emissions}`
-      const s2 =
-        scope2?.emissions == jsonYear.scope2.emissions
-          ? '✅'
-          : `❌ ${scope2.emissions} != ${jsonYear.scope2.emissions}`
+    const emojis = Object.values(facit.emissions).map(
+      ({ scope1, scope2, scope3, year }) => {
+        console.log(json.emissions)
+        const jsonYear = json.emissions.find(
+          ({ year: y }) => y == year
+        ) as YearEmissions
+        if (!jsonYear) return `❓ hittade ej facit`
+        const s1 =
+          scope1?.emissions == jsonYear.scope1.emissions
+            ? '✅'
+            : `❌ ${scope1.emissions} != ${jsonYear.scope1.emissions}`
+        const s2 =
+          scope2?.emissions == jsonYear.scope2.emissions
+            ? '✅'
+            : `❌ ${scope2.emissions} != ${jsonYear.scope2.emissions}`
 
-      const s3Total =
-        scope3?.emissions == jsonYear.scope3.emissions
-          ? '✅'
-          : `❌ ${scope3.emissions} != ${jsonYear.scope3.emissions}`
+        const s3Total =
+          scope3?.emissions == jsonYear.scope3.emissions
+            ? '✅'
+            : `❌ ${scope3.emissions} != ${jsonYear.scope3.emissions}`
 
-      const s3 = Object.entries(jsonYear.scope3.categories)
-        .map(([category, value]) => {
-          const facitValue = scope3.categories[category]
-          if (!facitValue) return ''
-          return facitValue == value
-            ? `✅ ${category}`
-            : `❌ ${category}: ${facitValue} != ${value}`
-        })
-        .filter(Boolean)
-        .join('\n')
+        const s3 = Object.entries(jsonYear.scope3.categories)
+          .map(([category, value]) => {
+            const facitValue = scope3.categories[category]
+            if (!facitValue) return ''
+            return facitValue == value
+              ? `✅ ${category}`
+              : `❌ ${category}: ${facitValue} != ${value}`
+          })
+          .filter(Boolean)
+          .join('\n')
 
-      if (s1 === '✅' && s2 === '✅' && s3Total === '✅')
-        return `✅ ${year} ALL OK`
+        if (s1 === '✅' && s2 === '✅' && s3Total === '✅')
+          return `✅ ${year} ALL OK`
 
-      return `\`${year}
+        return `\`${year}
 scope1:${s1} 
 scope2:${s2}
 scope3:${s3Total}
 ${s3}
 \``
-    })
+      }
+    )
 
     await interaction.reply(emojis.join('\n'))
   },
