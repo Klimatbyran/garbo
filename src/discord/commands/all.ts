@@ -15,6 +15,7 @@ import {
   getAllCompanies,
 } from '../../lib/facit'
 import { discordReview, downloadPDF, saveToDb } from '../../queues'
+import { threadId } from 'worker_threads'
 
 export default {
   data: new SlashCommandBuilder()
@@ -27,22 +28,20 @@ export default {
       return interaction.reply('Inga rapporter hittades i facit.')
 
     const thread = await (interaction.channel as TextChannel).threads.create({
-      name: `List of ${list.length} reports`,
+      name: `All ${list.length} companies`,
     })
 
-    await downloadPDF.addBulk(
-      list.map((company) => ({
-        name: company.companyName,
+    thread.sendTyping()
+    list.map(async (company) => {
+      await downloadPDF.add(company.companyName, {
         data: {
           url: company.url,
           threadId: thread.id,
         },
-      }))
-    )
-
-    await thread.send({
-      content: `Lagt till: ${list.length} jobb i kön.`,
+      })
+      thread.send({
+        content: `Lagt till: ${company.companyName} i kön.`,
+      })
     })
-    thread.sendTyping()
   },
 }
