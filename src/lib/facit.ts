@@ -147,8 +147,30 @@ export function compareFacitToCompanyData(
   return check
 }
 
-findFacit(
-  'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
-).then((result) => {
-  console.log(JSON.stringify(result, null, 2))
-})
+export function getAllCompanies(): Promise<CompanyData[]> {
+  const all = []
+  return new Promise((resolve, reject) => {
+    try {
+      fs.createReadStream(path.join(process.cwd(), 'src/data/facit.csv'))
+        .pipe(
+          csv({
+            mapHeaders: ({ header }) => header.trim(),
+            mapValues: ({ value }) => value.trim(),
+          })
+        )
+        .on('data', (data) => all.push(data))
+        .on('end', () => {
+          resolve(all.map(mapFacitToCompanyData))
+        })
+    } catch (error) {
+      console.log('facit error', error)
+      reject(error)
+    }
+  })
+}
+
+// findFacit(
+//   'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
+// ).then((result) => {
+//   console.log(JSON.stringify(result, null, 2))
+// })

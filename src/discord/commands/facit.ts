@@ -2,7 +2,6 @@ import { CommandInteraction, SlashCommandBuilder } from 'discord.js'
 import { discordReview, reflectOnAnswer } from '../../queues'
 import { findFacit } from '../../lib/facit'
 import { summaryTable } from '../../lib/discordTable'
-import { YearEmissions } from '../../models/companyEmissions'
 
 export default {
   data: new SlashCommandBuilder()
