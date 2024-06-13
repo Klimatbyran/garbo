@@ -32,9 +32,9 @@ report it as null. If the company has reported individual categories but no tota
 try to calculate totals; just report it as is.
 
 **Units**:
-If conversion is needed when extracting the data, you are allowed to convert between
-units but never summarize or merge two fields into one. For example, if the data is in mSEK,
-you can convert it to SEK. If the emissions are in giga tonnes CO2 (or similar), you should
+If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
+unit but never summarize or merge two fields into one or convert between different currencies. For example, if the data is in MSEK, GSEK, MUSD, MEUR etc
+you should convert it to base currency (SEK, USD, EUR). If the emissions are in giga tonnes CO2 (or similar), you should
 convert it to tCO2e (metric tonnes CO2e).
 
 **Verified by Wikidata**:
@@ -44,18 +44,21 @@ you can use that data to fill in the emissions data and mark them as verified by
 to the article as a separate property: "verified": "https://www.wikidata.org/wiki/Q123456". Leave this
 field empty if the data is not verified by Wikidata.
 
+***LANGUAGE**:
+ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
+If the original texts are written in English, translate to Swedish.
+
 **Example**: Always generate this exact JSON structure, never use the data from the example.
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
 \`\`\`
 
-**Instructions**:
+**Data Schema**:
 This is the elastic schema that will be used to index the results. Make sure to follow this precisely, making sure each value is the correct data type.
 If the input doesn't match the data type, convert it (from string to number or vice versa) even if it means setting it to null.
 If the input doesn't have a value, please make sure to set it to null or an empty string (according to the mappings).
 Every property should be present in the output, make especially sure to include all the properties in the emission categories.
 
-*** LANGUAGE: ONLY WRITE IN SWEDISH! If the original texts are written in English, translate to Swedish *** 
 
 \`\`\`json
 ${JSON.stringify(mappings, null, 2)}
