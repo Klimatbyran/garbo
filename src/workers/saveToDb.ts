@@ -19,7 +19,7 @@ const worker = new Worker(
   async (job: JobData) => {
     const { documentId, pdfHash, state, report } = job.data
     const parsed = report && JSON.parse(report)
-    const isNewEntry = parsed?.emissions > 0
+    const isNewEntry = parsed?.emissions ? true : false
     if (isNewEntry) {
       job.log(`New report: ${documentId}`)
     }
