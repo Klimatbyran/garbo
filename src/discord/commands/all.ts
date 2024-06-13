@@ -1,21 +1,10 @@
 import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import opensearch from '../../opensearch'
-import { summaryTable } from '../../lib/discordTable'
-import { CompanyData } from '../../models/companyEmissions'
-import {
-  compareFacitToCompanyData,
-  findFacit,
-  getAllCompanies,
-} from '../../lib/facit'
-import { discordReview, downloadPDF, saveToDb } from '../../queues'
-import { threadId } from 'worker_threads'
+import { getAllCompanies } from '../../lib/facit'
+import { downloadPDF } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
