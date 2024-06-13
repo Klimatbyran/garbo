@@ -6,7 +6,8 @@ import discord from './discord'
 import * as workers from './workers'
 // start workers
 console.log('Starting workers...')
-Object.values(workers).forEach((worker) => worker.run())
+// autorun: true means we don't have to call run() manually
+//Object.values(workers).forEach((worker) => worker.run())
 
 console.log(
   Object.values(workers)
