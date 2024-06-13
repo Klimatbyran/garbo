@@ -63,6 +63,14 @@ Every property should be present in the output, make especially sure to include 
 \`\`\`json
 ${JSON.stringify(mappings, null, 2)}
 \`\`\`
+
+** Avoid repeating these errors ***
+Be careful about the schema. These are some examples of previous errors:
+Reason: failed to parse field [report.initiatives.year] of type [long] in document with id 'xxx'. Preview of field's value: 'ongoing'
+Reason: failed to parse field [report.emissions.2023.scope3.emissions] of type [long] in document with id 'xxx'. Preview of field's value: 'NaN'
+Reason: failed to parse field [report.factors.value] of type [float] in document with id 'xxx'. Preview of field's value: 'variable'
+Reason: failed to parse field [report.emissions.2021.scope3.categories.16_other] of type [long] in document with id 'xxx'. Preview of field's value: '{CO2_cargoandel_med_flyg=193, CO2_per_tonkilometer_med_flyg=485, CO2_per_tonkilometer_med_lastbil=88}
+Reason: failed to parse field [report.emissions.2022.scope3.categories.6_businessTravel] of type [long] in document with id 'xxx'. Preview of field's value: '{fly=35, train=0.11}
 `
 
 export default prompt
