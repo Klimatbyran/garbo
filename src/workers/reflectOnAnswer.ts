@@ -55,6 +55,11 @@ ${prompt}`)
         { role: 'user', content: previousPrompt },
         { role: 'assistant', content: answer },
         {
+          role: 'user',
+          content:
+            'Thanks. Could you extract more accurate data for each section?',
+        },
+        {
           role: 'assistant',
           content: (childrenValues && JSON.stringify(childrenValues)) || null,
         },
