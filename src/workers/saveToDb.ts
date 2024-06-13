@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import opensearch from '../opensearch'
 import discord from '../discord'
 import fs from 'fs'
+import { reflectOnAnswer } from '../queues'
 
 class JobData extends Job {
   data: {
@@ -41,7 +42,25 @@ const worker = new Worker(
           JSON.stringify(JSON.parse(report), null, 2)
         )
       } else {
-        await opensearch.indexReport(documentId, pdfHash, report)
+        try {
+          await opensearch.indexReport(documentId, pdfHash, report)
+        } catch (err) {
+          if (err.message.includes('mapper_parsing_exception')) {
+            job.log(`Retrying cased by parsing report: ${err.message}`)
+            // retry
+            await reflectOnAnswer.add(
+              'reflectOnAnswer',
+              {
+                documentId,
+                threadId: job.data.threadId,
+                previousAnswer: report,
+                previousError: err.message,
+              },
+              { attempts: 10 }
+            )
+          }
+          throw err
+        }
       }
       job.updateProgress(30)
       message?.edit(`✅ Sparad!`)

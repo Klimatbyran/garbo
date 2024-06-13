@@ -49,7 +49,10 @@ ${prompt}`)
         { role: 'system', content: 'You are an expert in CSRD reporting.' },
         { role: 'user', content: previousPrompt },
         { role: 'assistant', content: answer },
-        { role: 'assistant', content: JSON.stringify(childrenValues) },
+        {
+          role: 'assistant',
+          content: (childrenValues && JSON.stringify(childrenValues)) || null,
+        },
         { role: 'user', content: prompt },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
