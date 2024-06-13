@@ -25,6 +25,6 @@ export default {
       ],
       components: [],
     })
-    discord.lockThread(threadId)
+    //discord.lockThread(threadId)
   },
 }

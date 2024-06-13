@@ -10,7 +10,7 @@ const parse = (str) =>
 // companyName,url,23_scope1,23_scope2MB,23_scope2LB,23_scope3,23_total,23_scope1_2Sum,23_scope3Sum,23_totalSum,23_scope3_1,23_scope3_2,23_scope3_3,23_scope3_4,23_scope3_5,23_scope3_6,23_scope3_7,23_scope3_8,23_scope3_9,23_scope3_10,23_scope3_11,23_scope3_12,23_scope3_13,23_scope3_14,23_scope3_15,23_scope3_16
 function mapFacitToCompanyData(row): CompanyData {
   return {
-    companyName: row['Company'],
+    companyName: row['companyName'],
     url: row['url'],
     emissions: {
       '2023': {
@@ -148,9 +148,11 @@ export function compareFacitToCompanyData(
 }
 
 export function getAllCompanies(): Promise<CompanyData[]> {
-  const all = []
   return new Promise((resolve, reject) => {
     try {
+      const all = []
+      const fileName = path.join(process.cwd(), 'src/data/facit.csv')
+      console.log('fileName', fileName)
       fs.createReadStream(path.join(process.cwd(), 'src/data/facit.csv'))
         .pipe(
           csv({
@@ -159,7 +161,9 @@ export function getAllCompanies(): Promise<CompanyData[]> {
           })
         )
         .on('data', (data) => all.push(data))
+        .on('error', (error) => reject(error))
         .on('end', () => {
+          console.log('all', all)
           resolve(all.map(mapFacitToCompanyData))
         })
     } catch (error) {
@@ -168,6 +172,10 @@ export function getAllCompanies(): Promise<CompanyData[]> {
     }
   })
 }
+/*
+getAllCompanies().then((result) => {
+  console.log('facit:', JSON.stringify(result, null, 2))
+})*/
 
 // findFacit(
 //   'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
