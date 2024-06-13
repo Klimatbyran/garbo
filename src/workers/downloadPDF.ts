@@ -83,7 +83,6 @@ const worker = new Worker(
   },
   {
     connection: redis,
-    autorun: false,
   }
 )
 

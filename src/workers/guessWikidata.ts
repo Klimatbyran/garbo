@@ -1,39 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import OpenAI from 'openai'
 import { searchCompany } from '../lib/wikidata'
-import { assert } from 'console'
-import { ChatCompletionMessageParam } from 'openai/resources'
-
-const openai = new OpenAI({
-  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
-})
-
-const ask = async (messages: ChatCompletionMessageParam[]) => {
-  console.log('Asking:', JSON.stringify(messages, null, 2))
-  const response = await openai.chat.completions.create({
-    messages: messages.filter((m) => m.content),
-    model: 'gpt-4o',
-    stream: false,
-  })
-
-  return response.choices[0].message.content
-}
-
-const askPrompt = async (prompt: string, context: string) => {
-  assert(prompt, 'Prompt is required')
-  assert(context, 'Context is required')
-  return await ask([
-    {
-      role: 'system',
-      content:
-        'You are an expert in corporate reporting. Be concise and accurate.',
-    },
-    { role: 'user', content: prompt },
-    { role: 'assistant', content: 'Sure! Just send me the context?' },
-    { role: 'user', content: context },
-  ])
-}
+import { ask, askPrompt } from '../openai'
 
 class JobData extends Job {
   declare data: {
@@ -157,7 +125,6 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 

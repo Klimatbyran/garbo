@@ -13,6 +13,7 @@ const splitText = new Queue('splitText', options)
 const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
 const reflectOnAnswer = new Queue('reflectOnAnswer', options)
+const format = new Queue('format', options)
 const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
 const saveToDb = new Queue('saveToDb', options)
@@ -28,6 +29,7 @@ export {
   extractEmissions,
   followUp,
   reflectOnAnswer,
+  format,
   discordReview,
   userFeedback,
   saveToDb,

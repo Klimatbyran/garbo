@@ -117,7 +117,6 @@ ${parsedJson.initiatives
   },
   {
     connection: redis,
-    autorun: false,
   }
 )
 

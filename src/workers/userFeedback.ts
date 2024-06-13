@@ -7,6 +7,7 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { discordReview } from '../queues'
 import prompt from '../prompts/feedback'
+import { ask } from '../openai'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -59,42 +60,24 @@ const worker = new Worker(
     Context:
     ${pdfParagraphs.join('\n\n')}`)
 
-    const stream = await openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are an expert in CSRD reporting and GHG protocol. Be consise and accurate.',
-        },
-        { role: 'user', content: 'Previous prompt: ' + previousPrompt },
-        { role: 'assistant', content: previousJson },
-        {
-          role: 'user',
-          content: 'Additional context from PDF:' + pdfParagraphs.join('\n\n'),
-        },
-        { role: 'user', content: feedback },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      model: 'gpt-4o',
-      stream: true,
-    })
-
-    let response = ''
-    let progress = 0
-    try {
-      for await (const part of stream) {
-        const chunk = part.choices[0]?.delta?.content
-        progress += 1
-        response += chunk || ''
-        job.updateProgress(Math.min(100, (100 * progress) / 400))
-      }
-    } catch (error) {
-      job.log('Error: ' + error)
-      discord.sendMessage(job.data, `Error: ${error}`)
-    }
+    const response = await ask([
+      {
+        role: 'system',
+        content:
+          'You are an expert in CSRD reporting and GHG protocol. Be consise and accurate.',
+      },
+      { role: 'user', content: 'Previous prompt: ' + previousPrompt },
+      { role: 'assistant', content: previousJson },
+      {
+        role: 'user',
+        content: 'Additional context from PDF:' + pdfParagraphs.join('\n\n'),
+      },
+      { role: 'user', content: feedback },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
 
     job.log('Response: ' + response)
 
@@ -130,7 +113,6 @@ const worker = new Worker(
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 
