@@ -125,7 +125,6 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 

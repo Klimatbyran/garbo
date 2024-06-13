@@ -45,7 +45,6 @@ const worker = new Worker(
   {
     concurrency: 100,
     connection: redis,
-    autorun: false,
   }
 )
 

@@ -104,7 +104,6 @@ ${prompt}`)
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 
