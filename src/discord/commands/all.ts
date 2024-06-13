@@ -30,18 +30,21 @@ export default {
     const thread = await (interaction.channel as TextChannel).threads.create({
       name: `All ${list.length} companies`,
     })
+    console.log('list', list, thread.id)
 
     thread.sendTyping()
-    list.map(async (company) => {
-      await downloadPDF.add(company.companyName, {
-        data: {
-          url: company.url,
-          threadId: thread.id,
-        },
+
+    // queue = reduce
+    list.reduce(async (prev, company) => {
+      await prev
+      console.log('add company', company)
+      await downloadPDF.add(company.companyName || company.url, {
+        url: company.url,
+        threadId: thread.id,
       })
       thread.send({
         content: `Lagt till: ${company.companyName} i kön.`,
       })
-    })
+    }, Promise.resolve())
   },
 }
