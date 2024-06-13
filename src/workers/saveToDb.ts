@@ -42,25 +42,7 @@ const worker = new Worker(
           JSON.stringify(JSON.parse(report), null, 2)
         )
       } else {
-        try {
-          await opensearch.indexReport(documentId, pdfHash, report)
-        } catch (err) {
-          if (err.message.includes('mapper_parsing_exception')) {
-            job.log(`Retrying cased by parsing report: ${err.message}`)
-            // retry
-            await reflectOnAnswer.add(
-              'reflectOnAnswer',
-              {
-                documentId,
-                threadId: job.data.threadId,
-                previousAnswer: report,
-                previousError: err.message,
-              },
-              { attempts: 10 }
-            )
-          }
-          throw err
-        }
+        await opensearch.indexReport(documentId, pdfHash, report)
       }
       job.updateProgress(30)
       message?.edit(`✅ Sparad!`)
