@@ -34,7 +34,7 @@ flowchart TB
 
     DB[OpenSearch/Kibana]
 
-    A --> B --> C --> D --> E ---> F ---> G
+    A --> B --> C --> D --> E ---> F ---> G ---> H
     B --(Cached)--> E
 
     F --> CompanyName --(.company)--> G
@@ -47,7 +47,10 @@ flowchart TB
     F --> Turnover --(.turnover)--> G
     F --> Factors --(.factors)--> G
 
-    G --> Review --> DB
+    G --> Format --(json)--> H
+
+    H --> Review --> DB
+    H --> Review --> DB
 ```
 
 ### Get Started
