@@ -130,7 +130,7 @@ const worker = new Worker(
       })
       const exists = await collection
         .get({
-          where: { source: url },
+          where: { $and: [{ source: url }, { markdown: true }] },
           limit: 1,
         })
         .then((r) => r?.documents?.length > 0)
