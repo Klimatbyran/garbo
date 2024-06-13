@@ -16,6 +16,7 @@ import baseFacts from '../prompts/followUp/baseFacts'
 import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
+import { ask, askPrompt, askStream } from '../openai'
 
 const openai = new OpenAI(config)
 
@@ -44,27 +45,16 @@ const worker = new Worker(
       `🤖 Hämtar utsläppsdata...`
     )
 
-    const stream = await openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are an expert in CSRD reporting. Be consise and accurate.',
-        },
-        { role: 'user', content: prompt },
-        { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
-        { role: 'user', content: pdfParagraphs.join('\n\n') },
-      ],
-      model: 'gpt-4o',
-      stream: true,
-    })
-    let response = ''
-    let progress = 0
-    for await (const part of stream) {
-      response += part.choices[0]?.delta?.content || ''
-      job.updateProgress(Math.min(1, progress / 400))
-    }
-
+    const response = await ask([
+      {
+        role: 'system',
+        content:
+          'You are an expert in CSRD reporting. Be consise and accurate.',
+      },
+      { role: 'user', content: prompt },
+      { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
+      { role: 'user', content: pdfParagraphs.join('---PDF EXTRACT---\n\n') },
+    ])
     job.log(response)
 
     message.edit('✅ Utsläppsdata hämtad')
@@ -163,6 +153,8 @@ const worker = new Worker(
         attempts: 3,
       },
     })
+
+    discord.sendMessage(job.data, `🤖 Ställer följdfrågor...`)
 
     //chain.job.moveToWaitingChildren(token)
 

@@ -5,6 +5,7 @@ import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { discordReview } from '../queues'
+import { askStream } from '../openai'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -54,8 +55,9 @@ const worker = new Worker(
     
     `)
 
-    const stream = await openai.chat.completions.create({
-      messages: [
+    let progress = 0
+    const response = await askStream(
+      [
         {
           role: 'system',
           content:
@@ -73,23 +75,8 @@ const worker = new Worker(
         { role: 'assistant', content: answer },
         { role: 'user', content: previousError },
         { role: 'user', content: prompt },
-      ].filter((m) => m.content) as any[],
-      model: 'gpt-4o',
-      stream: true,
-    })
-
-    let response = ''
-    let progress = 0
-    try {
-      for await (const part of stream) {
-        const chunk = part.choices[0]?.delta?.content
-        progress += 1
-        response += chunk || ''
-        job.updateProgress(Math.min(100, (100 * progress) / 400))
-      }
-    } catch (error) {
-      job.log('Error: ' + error)
-    }
+      ].filter((m) => m.content) as any[]
+    )
 
     job.log('Response: ' + response)
 

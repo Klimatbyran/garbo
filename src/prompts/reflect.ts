@@ -48,30 +48,11 @@ field empty if the data is not verified by Wikidata.
 ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
 If the original texts are written in English, translate to Swedish.
 
-**Example**: Always generate this exact JSON structure, never use the data from the example.
+**Example**: Always generate this exact JSON structure but never use the data from the example.
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
 \`\`\`
 
-**Data Schema**:
-This is the elastic schema that will be used to index the results. Make sure to follow this precisely, making sure each value is the correct data type.
-If the input doesn't match the data type, convert it (from string to number or vice versa) even if it means setting it to null.
-If the input doesn't have a value, please make sure to set it to null or an empty string (according to the mappings).
-Every property should be present in the output, make especially sure to include all the properties in the emission categories.
-
-
-\`\`\`json
-${JSON.stringify(mappings, null, 2)}
-\`\`\`
-
-** Avoid repeating these errors ***
-Be careful about the schema. These are some examples of previous errors:
-Reason: failed to parse field [report.initiatives.year] of type [long] in document with id 'xxx'. Preview of field's value: 'ongoing'
-Reason: failed to parse field [report.emissions.2023.scope3.emissions] of type [long] in document with id 'xxx'. Preview of field's value: 'NaN'
-Reason: failed to parse field [report.factors.value] of type [float] in document with id 'xxx'. Preview of field's value: 'variable'
-Reason: failed to parse field [report.emissions.2021.scope3.categories.16_other] of type [long] in document with id 'xxx'. Preview of field's value: '{CO2_cargoandel_med_flyg=193, CO2_per_tonkilometer_med_flyg=485, CO2_per_tonkilometer_med_lastbil=88}
-Reason: failed to parse field [report.emissions.2022.scope3.categories.6_businessTravel] of type [long] in document with id 'xxx'. Preview of field's value: '{fly=35, train=0.11}
-Reason: failed to parse field [report.goals.year] of type [long] in document with id 'xxx'. Preview of field's value: 'kontinuerligt'
 `
 
 export default prompt

@@ -52,7 +52,7 @@ const askStream = async (
     }
   }
   // send the rest if there is any
-  if (paragraph) onParagraph(response, paragraph)
+  if (onParagraph && paragraph) onParagraph(response, paragraph)
 
   return response
 }
