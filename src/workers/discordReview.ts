@@ -99,7 +99,7 @@ ${parsedJson.initiatives
         job.data,
         `Svar på feedback: ${parsedJson.agentResponse}`
       )
-
+    /*
     if (parsedJson.confidenceScore)
       discord.sendMessage(
         job.data,
@@ -111,7 +111,7 @@ ${parsedJson.initiatives
         job.data,
         `Publik kommentar från Garbo: ${parsedJson.publicComment}`
       )
-
+*/
     job.updateProgress(100)
     return documentId
   },
