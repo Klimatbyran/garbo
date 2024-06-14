@@ -21,7 +21,7 @@ I have a text extracted from a PDF file containing a company's annual report and
 Example (replace the example name and data with the actual data from the report):
 
 \`\`\`markdown
-    
+
     | ton CO2e | 2023 | 2022 | 2021 |
     ---      
     | Scope 1 | 10000 | 10000 | 10000 | 
@@ -46,6 +46,8 @@ Example (replace the example name and data with the actual data from the report)
 9. Comma separators. Never use any comma separators or spaces in the numbers.
 
 10. NEVER interpolate or guess values. If a value is missing, just leave it empty. Companies arent reporting all values for all years.
+
+11. Company Name: The company name is always the title of the markdown file. The language of the report is always in Swedish.
 
 *** LANGUAGE: ONLY WRITE IN SWEDISH! ***
 

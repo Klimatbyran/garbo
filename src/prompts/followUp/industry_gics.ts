@@ -1,6 +1,5 @@
 const industryGics = `
 Extract industry, sector, industry group, according to GICS:
-Tack för den specificeringen. Här är den reviderade översättningen av GICS-strukturen med de svenska sektionsnamnen:
 
 ## Sektor: Energi (10)
 
@@ -313,7 +312,7 @@ svetenskaper (3520)
     - Fastighetsutveckling (60201030)
     - Fastighetstjänster (60201040)
 
-Just reply with the information in json format:
+Just reply with the information in json format. In Swedish, please.
 
 \`\`\`json
 {
