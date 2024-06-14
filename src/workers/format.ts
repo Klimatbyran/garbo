@@ -34,7 +34,12 @@ const worker = new Worker(
     let progress = 0
     const response = await askStream(
       [
-        { role: 'system', content: prompt },
+        {
+          role: 'system',
+          content:
+            'You are an expert in CSRD reporting. Be accurate and follow the instructions carefully. You are formatting a JSON object.',
+        },
+        { role: 'user', content: prompt },
         { role: 'user', content: previousJson },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
