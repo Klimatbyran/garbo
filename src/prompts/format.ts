@@ -1,12 +1,48 @@
 import mappings from '../data/mappings.json'
-import example from '../data/example.json'
 
 const prompt = `I have previously sent a text for analysis by GPT-4. The responses I received needs to be verified and corrected according to a schema to be able to save to the db. Below are your instructions.
 
+You are now in the step H of the process that starts with raw extraction and then more detailed extraction so please keep the most relevant data from the previous steps in mind and make sure to include it in the final output in the correct format.
+\`\`\`mermaid
+flowchart TB
+
+    A[PDF]
+    B{Is in cache?}
+    C[Download PDF]
+    D[Index Database]
+    E[Search Database]
+    F[Extract Emissions]
+    G[JSON]
+
+    Industry[Extract Industry]
+    Goals[Extract Climate Goals]
+    Review[Reasonability Assessment]
+
+
+    DB[OpenSearch/Kibana]
+
+    A --> B --> C --> D --> E ---> F ---> G ---> H
+    B --(Cached)--> E
+
+    F --> CompanyName --(.company)--> G
+    F --> Industry --(.industry)--> G
+    F --> Scope1+2 --(.scope1)--> G
+    F --> Scope3 --(.scope3)--> G
+    F --> Goals --(.goals)--> G
+    F --> Initiatives --(.initiatives)--> G
+    F --> Contacts --(.contacts)--> G
+    F --> Turnover --(.turnover)--> G
+    F --> Factors --(.factors)--> G
+    F --> Wikidata --(.wikidata)--> G
+
+    G --> Format --(json)--> H
+
+    H --> Review --> DB
+    H --> Review --> DB
+\`\`\`
+
 **Data Output Format**:
-Present the extracted data in a structured JSON format, including the company name,
-industry, sector, industry group, base year, URL, emissions data, goals, reliability,
-and review comments as per the specifications below. Never include any comments in the JSON output.
+Present the extracted data in a structured JSON format, including all information you have recieved from the previous steps. Never include any comments in the JSON output.
 
 **NEVER USE N/A or similar**
 If a value is not available, report it as null or an empty string.
