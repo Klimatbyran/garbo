@@ -50,20 +50,20 @@ const worker = new Worker(
       }
     )
 
-    const json =
-      response
-        .match(/```json(.|\n)*```/)?.[0]
-        ?.replace(/```json|```/g, '')
-        .trim() || null
-
     let parsedJson
     try {
+      const json =
+        response
+          .match(/```json(.|\n)*```/)?.[0]
+          ?.replace(/```json|```/g, '')
+          .trim() || null
+
       parsedJson = JSON.parse(json || response)
     } catch (error) {
       job.updateData({
         ...job.data,
         previousAnswer: response,
-        previousError: error.message,
+        previousError: 'Error when parsing json:' + error.message,
       })
       discord.sendMessage(job.data, `❌ ${error.message}:`)
       throw error
