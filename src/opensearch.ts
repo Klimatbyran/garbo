@@ -206,7 +206,7 @@ class Opensearch {
           aggs: {
             latest_reports: {
               terms: {
-                field: 'report.companyName.keyword',
+                field: 'report.wikidataId.keyword',
                 size: 1000,
                 order: {
                   latest_timestamp: 'desc',
