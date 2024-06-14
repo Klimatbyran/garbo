@@ -318,22 +318,22 @@ Just reply with the information in json format:
 \`\`\`json
 {
    "industry_gics": {
-      "name": "Gas Utilities",
+      "name": "Gasförsörjning",
       "sector": {
         "code": "55",
-        "name": "Utilities"
+        "name": "Kraftförsörjning"
       },
       "group": {
         "code": "5510",
-        "name": "Utilities"
+        "name": "Kraftförsörjning"
       },
       "industry": {
         "code": "551020",
-        "name": "Gas Utilities"
+        "name": "Gasförsörjning"
       },
       "subIndustry": {
         "code": "55102010",
-        "name": "Gas Utilities"
+        "name": "Gasförsörjning"
       },
    }
  }
