@@ -52,13 +52,13 @@ const worker = new Worker(
 
     const json =
       response
-        .match(/```json(.|\n)*```/)[0]
+        .match(/```json(.|\n)*```/)?.[0]
         ?.replace(/```json|```/g, '')
-        .trim() || '{}'
+        .trim() || null
 
     let parsedJson
     try {
-      parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+      parsedJson = JSON.parse(json || response)
     } catch (error) {
       job.updateData({
         ...job.data,
