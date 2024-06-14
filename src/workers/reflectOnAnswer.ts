@@ -99,10 +99,16 @@ ${prompt}`)
     thread.setName(companyName)
 
     message.edit(`✅ ${companyName} klar`)
-    format.add(companyName, {
-      threadId: job.data.threadId,
-      json: JSON.stringify(parsedJson, null, 2),
-    })
+    format.add(
+      companyName,
+      {
+        threadId: job.data.threadId,
+        json: JSON.stringify(parsedJson, null, 2),
+      },
+      {
+        attempts: 3,
+      }
+    )
 
     return JSON.stringify(parsedJson, null, 2)
   },
