@@ -215,7 +215,80 @@
         "url": { "type": "keyword" },
         "logo": { "type": "keyword" },
         "label": { "type": "keyword" },
-        "description": { "type": "keyword" }
+        "description": { "type": "keyword" },
+        "emissions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": { "type": "keyword" },
+              "reference": { "type": "keyword" },
+              "scope1": {
+                "type": "object",
+                "properties": {
+                  "emissions": { "type": "double" },
+                  "biogenic": { "type": "double" },
+                  "unit": { "type": "keyword" }
+                }
+              },
+              "scope2": {
+                "type": "object",
+                "properties": {
+                  "emissions": { "type": "double" },
+                  "biogenic": { "type": "double" },
+                  "unit": { "type": "keyword" },
+                  "mb": { "type": "double" },
+                  "lb": { "type": "double" }
+                }
+              },
+              "scope3": {
+                "type": "object",
+                "properties": {
+                  "emissions": { "type": "double" },
+                  "unit": { "type": "keyword" },
+                  "baseYear": { "type": "keyword" },
+                  "categories": {
+                    "type": "object",
+                    "properties": {
+                      "1_purchasedGoods": { "type": "double" },
+                      "2_capitalGoods": { "type": "double" },
+                      "3_fuelAndEnergyRelatedActivities": {
+                        "type": "double"
+                      },
+                      "4_upstreamTransportationAndDistribution": {
+                        "type": "double"
+                      },
+                      "5_wasteGeneratedInOperations": {
+                        "type": "double"
+                      },
+                      "6_businessTravel": { "type": "double" },
+                      "7_employeeCommuting": { "type": "double" },
+                      "8_upstreamLeasedAssets": {
+                        "type": "double"
+                      },
+                      "9_downstreamTransportationAndDistribution": {
+                        "type": "double"
+                      },
+                      "10_processingOfSoldProducts": {
+                        "type": "double"
+                      },
+                      "11_useOfSoldProducts": { "type": "double" },
+                      "12_endOfLifeTreatmentOfSoldProducts": {
+                        "type": "double"
+                      },
+                      "13_downstreamLeasedAssets": {
+                        "type": "double"
+                      },
+                      "14_franchises": { "type": "double" },
+                      "15_investments": { "type": "double" },
+                      "16_other": { "type": "double" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "publicComment": { "type": "text" },
