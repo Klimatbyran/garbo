@@ -129,24 +129,27 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
     "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
     "label": "Company Name",
     "description": "Company Description",
-    "emissions": [
-      {
-        "year": "2019",
+    "emissions": {
+      "2019": {
+        "year": "2023",
         "reference": "https://example.com/pdf.pdf",
         "scope1": {
           "emissions": 1234,
-          "biogenic": 123,
           "unit": "tCO2e"
+          "verified": "https://www.wikidata.org/wiki/Q123456",
+          "biogenic": 123,
         },
         "scope2": {
           "emissions": 1235,
           "unit": "tCO2e",
+          "verified": "https://www.wikidata.org/wiki/Q123456",
           "mb": 1235,
           "lb": 125
         },
         "scope3": {
           "emissions": null,
           "unit": "tCO2e",
+          "verified": "https://www.wikidata.org/wiki/Q123456",
           "categories": {
             "1_purchasedGoods": 100000000,
             "2_capitalGoods": 100000000,
@@ -167,7 +170,7 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
           }
         }
       }
-    ]
+    }
   }
 }
 \`\`\`

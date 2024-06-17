@@ -7,7 +7,7 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 Example - feel free to add more fields and relevant data:
 \`\`\`json
 { 
-  "emissions": {
+  "emissions_scope12": {
     "2021": {
       "scope1": {
         emissions: 40.3,

@@ -57,15 +57,15 @@ ${prompt}`)
         {
           role: 'user',
           content:
-            'Thanks. Could you extract more accurate data for each section?',
+            'Thanks. I have asked another expert to verify each datapoint from different sources. Here are the results:',
         },
         {
-          role: 'assistant',
+          role: 'user',
           content: (childrenValues && JSON.stringify(childrenValues)) || null,
         },
         { role: 'user', content: prompt },
-        { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: previousError },
+        { role: 'assistant', content: previousAnswer }, // these are used on retry
+        { role: 'user', content: previousError }, // these are used on retry and will be filtered out if there are no previous error
       ].filter((m) => m.content) as any[],
       (response, paragraph) => {
         if (!response.includes('```json'))

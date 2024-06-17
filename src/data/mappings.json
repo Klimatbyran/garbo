@@ -228,7 +228,8 @@
                 "properties": {
                   "emissions": { "type": "double" },
                   "biogenic": { "type": "double" },
-                  "unit": { "type": "keyword" }
+                  "unit": { "type": "keyword" },
+                  "verified": { "type": "keyword" }
                 }
               },
               "scope2": {
@@ -238,7 +239,8 @@
                   "biogenic": { "type": "double" },
                   "unit": { "type": "keyword" },
                   "mb": { "type": "double" },
-                  "lb": { "type": "double" }
+                  "lb": { "type": "double" },
+                  "verified": { "type": "keyword" }
                 }
               },
               "scope3": {
@@ -247,6 +249,7 @@
                   "emissions": { "type": "double" },
                   "unit": { "type": "keyword" },
                   "baseYear": { "type": "keyword" },
+                  "verified": { "type": "keyword" },
                   "categories": {
                     "type": "object",
                     "properties": {
