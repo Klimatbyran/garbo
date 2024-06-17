@@ -30,6 +30,17 @@ import companyRoutes from './routes/companyRoutes'
 const serverAdapter = new ExpressAdapter()
 serverAdapter.setBasePath('/admin/queues')
 
+async function restartActiveJobs(queue) {
+  const jobCounts = await queue.getJobCounts()
+  if (jobCounts.active > 0) {
+    const activeJobs = await queue.getJobs(['active'])
+    for (const job of activeJobs) {
+      await job.moveToFailed(new Error('Restarting active job'), true)
+      await job.retry()
+    }
+  }
+}
+
 createBullBoard({
   queues: [
     new BullMQAdapter(downloadPDF),
@@ -54,6 +65,23 @@ createBullBoard({
     },
   },
 })
+
+// manually restart jobs if they are in active state when we restart the server
+// todo: add a button to the UI to restart active jobs per queue
+restartActiveJobs(downloadPDF)
+restartActiveJobs(pdf2Markdown)
+restartActiveJobs(splitText)
+restartActiveJobs(indexParagraphs)
+restartActiveJobs(searchVectors)
+restartActiveJobs(extractEmissions)
+restartActiveJobs(followUp)
+restartActiveJobs(includeFacit)
+restartActiveJobs(reflectOnAnswer)
+restartActiveJobs(format)
+restartActiveJobs(discordReview)
+restartActiveJobs(userFeedback)
+restartActiveJobs(saveToDb)
+restartActiveJobs(guessWikidata)
 
 const app = express()
 discord.login()
