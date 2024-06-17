@@ -72,22 +72,6 @@ ${url}
       throw error
     }
 
-    if (parsedJson.goals)
-      discord.sendMessage(
-        job.data,
-        `Mål: 
-${parsedJson.goals.map((g) => ` - ${g.year}: ${g.description}`).join('\n')}`
-      )
-
-    if (parsedJson.initiatives)
-      discord.sendMessage(
-        job.data,
-        `Initiativ: 
-${parsedJson.initiatives
-  .map((i) => ` - ${i.year}: ${i.description}`)
-  .join('\n')}`
-      )
-
     if (parsedJson.reviewComment)
       discord.sendMessage(
         job.data,
