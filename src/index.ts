@@ -22,6 +22,7 @@ import {
   followUp,
   guessWikidata,
   format,
+  includeFacit,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
 
@@ -38,6 +39,7 @@ createBullBoard({
     new BullMQAdapter(searchVectors),
     new BullMQAdapter(extractEmissions),
     new BullMQAdapter(followUp),
+    new BullMQAdapter(includeFacit),
     new BullMQAdapter(reflectOnAnswer),
     new BullMQAdapter(format),
     new BullMQAdapter(discordReview),

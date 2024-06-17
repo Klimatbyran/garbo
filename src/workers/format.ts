@@ -5,6 +5,7 @@ import prompt from '../prompts/format'
 import { discordReview } from '../queues'
 import discord from '../discord'
 import { askStream } from '../openai'
+import { findFacit } from '../lib/facit'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
@@ -44,9 +45,10 @@ const worker = new Worker(
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
       ].filter((m) => m.content) as any[],
-      (response) => {
+      (response, paragraph) => {
         if (!response.includes('```json')) message?.edit(response)
         job.updateProgress(Math.min(100, (100 * progress++) / 10))
+        job.log(paragraph)
       }
     )
 
@@ -70,6 +72,11 @@ const worker = new Worker(
     }
     const companyName = parsedJson.companyName
 
+    const facit = await findFacit(job.data.url || companyName)
+    parsedJson = { ...parsedJson, facit } // overwrite the facit object and always use the correctly formatted one
+
+    job.log(`Final JSON: 
+${JSON.stringify(parsedJson, null, 2)}`)
     discordReview.add(companyName, {
       ...job.data,
       json: JSON.stringify(parsedJson, null, 2),
