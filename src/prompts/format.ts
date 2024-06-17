@@ -47,6 +47,9 @@ Present the extracted data in a structured JSON format, including all informatio
 **NEVER USE N/A or similar**
 If a value is not available, report it as null. For scope3 categories, you don't need to include the category if the value is null.
 
+**Fiscal Year**:
+If the fiscal year is broken, please use the latest year as key when presenting the data. For example: emissions for 2021/2022 should be presented under the key "2022". Specify the fiscal year in the JSON output.
+
 **Units**:
 If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
 unit but never summarize or merge two fields into one or convert between different currencies. For example, if the data is in MSEK, GSEK, MUSD, MEUR etc
