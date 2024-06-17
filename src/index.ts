@@ -25,18 +25,23 @@ import {
   includeFacit,
 } from './queues'
 import companyRoutes from './routes/companyRoutes'
+import { Queue } from 'bullmq'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
 serverAdapter.setBasePath('/admin/queues')
 
-async function restartActiveJobs(queue) {
-  const jobCounts = await queue.getJobCounts()
-  if (jobCounts.active > 0) {
-    const activeJobs = await queue.getJobs(['active'])
+async function restartActiveJobs(queue: Queue) {
+  const jobCounts = await queue.getActiveCount()
+  if (jobCounts > 0) {
+    const activeJobs = await queue.getActive()
     for (const job of activeJobs) {
-      await job.moveToFailed(new Error('Restarting active job'), true)
-      await job.retry()
+      try {
+        await job.moveToFailed(new Error('Restarting active job'), queue.token)
+        await job.retry()
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }
