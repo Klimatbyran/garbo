@@ -173,6 +173,80 @@ class Opensearch {
     }
   }
 
+  async getLatestApprovedReportsForWikidataId(wikidataId: string) {
+    try {
+      if (!this.client) throw new Error('Opensearch not connected')
+      console.log('fetching company report for wikidataId:', wikidataId)
+      const result = (await this.client.search({
+        index: this.indexName,
+        body: {
+          query: {
+            bool: {
+              must: [
+                {
+                  terms: {
+                    wikidataId: [wikidataId],
+                    state: ['approved'],
+                  },
+                },
+              ],
+            },
+          },
+          sort: [
+            {
+              timestamp: {
+                order: 'desc',
+              },
+            },
+          ],
+          size: 1000,
+          aggs: {
+            latest_reports: {
+              terms: {
+                field: 'report.wikidataId.keyword',
+                size: 1000,
+                order: {
+                  latest_timestamp: 'desc',
+                },
+              },
+              aggs: {
+                latest_timestamp: {
+                  max: {
+                    field: 'timestamp',
+                  },
+                },
+                latest_report: {
+                  top_hits: {
+                    size: 1,
+                    sort: [
+                      {
+                        timestamp: {
+                          order: 'desc',
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
+      })) as any
+
+      console.log('result', result)
+      const reports =
+        result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
+          ...item.report,
+          url: url || item.report.url,
+          id: pdfHash || _id,
+        })) || []
+      return reports[0]
+    } catch (error) {
+      console.error('Error fetching latest approved reports:', error)
+      return null
+    }
+  }
+
   // TODO support report per year and company (not only latest approved). So; get the latest approved report for each company and year
   async getAllLatestApprovedReports() {
     try {
