@@ -76,6 +76,7 @@ const worker = new Worker(
 ${JSON.stringify(parsedJson, null, 2)}`)
     discordReview.add(companyName, {
       ...job.data,
+      url: job.data.url || parsedJson.url,
       json: JSON.stringify(parsedJson, null, 2),
     })
 

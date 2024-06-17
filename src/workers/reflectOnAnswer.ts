@@ -102,6 +102,7 @@ ${prompt}`)
       companyName,
       {
         threadId: job.data.threadId,
+        url: job.data.url,
         json: JSON.stringify(parsedJson, null, 2),
       },
       {
