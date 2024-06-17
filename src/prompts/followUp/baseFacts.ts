@@ -21,13 +21,15 @@ Extract the company basic facts such as company description, turnover and number
 Example:
 \`\`\`json
 {
-  "companyName": "Company AB",
-  "description": "En beskrivning av företaget.",
-  "baseFacts": [
-    {"year": 2021, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-    {"year": 2022, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-    {"year": 2023, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-  ]
+  "baseFacts": {
+    "companyName": "Company AB",
+    "description": "En beskrivning av företaget.",
+    "baseFacts": [
+      {"year": 2021, "employees": 10000, "turnover": 12345, "currency": "SEK"},
+      {"year": 2022, "employees": 10000, "turnover": 12345, "currency": "SEK"},
+      {"year": 2023, "employees": 10000, "turnover": 12345, "currency": "SEK"},
+    ]
+  }
 }
 \`\`\`
 `

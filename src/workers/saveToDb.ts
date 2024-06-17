@@ -3,7 +3,6 @@ import redis from '../config/redis'
 import opensearch from '../opensearch'
 import discord from '../discord'
 import fs from 'fs'
-import { reflectOnAnswer } from '../queues'
 
 class JobData extends Job {
   data: {

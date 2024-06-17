@@ -1,9 +1,24 @@
 import mappings from '../data/mappings.json'
 import example from '../data/example.json'
 
-const prompt = `I have previously sent a text for analysis by GPT-4. The responses I received need to be aggregated and outputted in a strict JSON format.
+const prompt = `Thanks. Now we are ready to combine these results into a final output. 
 
+Please make sure to include all the data you have extracted in the previous steps.
 
+Sometimes data will be in conflict, please prioritize according to the following order:
+1. Company Name
+    A. from the baseFacts object
+    B. from wikidata object
+    C. from the PDF extracted in previous steps
+2. Industry (from the industry_gics object)
+3. Scope 1 and 2 emissions:
+    A. From the wikidata object if available (please mark these as verified)
+    B. From the emissions object
+    C. From the PDF extracted in previous steps
+4. Scope 3 emissions:
+    A. From the Wikidata object if available (please mark these as verified)
+    B. From the emissions object
+    C. From the PDF extracted in previous steps
 
 You are now in the step G of the process which means you should try to summarise the detailed extraction so please keep the most relevant data from the previous steps in mind and make sure to include it in the final output. The output format will be reviewed once more in later steps so you can include comments etc in the JSON.
 \`\`\`mermaid
