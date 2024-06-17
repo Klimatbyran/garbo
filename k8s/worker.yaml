@@ -4,7 +4,7 @@ metadata:
   name: worker
   namespace: garbo
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: worker
