@@ -32,7 +32,7 @@ Example - feel free to add more fields and relevant data:
 
 \`\`\`json
 { 
-  "emissions": [
+  "emissions_scope3": [
     {
       "year": 2021,
       "scope3": {
