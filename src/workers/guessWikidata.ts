@@ -130,7 +130,7 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
     "label": "Company Name",
     "description": "Company Description",
     "emissions": {
-      "2019": {
+      "2023": {
         "year": "2023",
         "reference": "https://example.com/pdf.pdf",
         "scope1": {
