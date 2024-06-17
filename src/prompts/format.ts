@@ -45,7 +45,7 @@ flowchart TB
 Present the extracted data in a structured JSON format, including all information you have recieved from the previous steps. Never include any comments in the JSON output.
 
 **NEVER USE N/A or similar**
-If a value is not available, report it as null or an empty string.
+If a value is not available, report it as null. For scope3 categories, you don't need to include the category if the value is null.
 
 **Units**:
 If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
@@ -71,7 +71,7 @@ ${JSON.stringify(mappings, null, 2)}
 \`\`\`
 
 
-
+Reply with JSON without any comments or markdown formatting.
 `
 
 export default prompt
