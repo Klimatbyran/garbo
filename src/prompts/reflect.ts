@@ -80,7 +80,7 @@ emissions but if something is unclear or seems off, please mention it in the pub
 **NEVER CALCULATE ANY EMISSIONS**
 If you can't find any data or if you are uncertain,
 report it as null. If the company has reported individual categories but no totals, never
-try to calculate totals; just report it as is.
+try to summarize totals; just report it as is. If you find totals in wikidata or facit objects, those are considered to be the truth.
 
 **Units**:
 If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
