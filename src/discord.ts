@@ -156,6 +156,11 @@ export class Discord {
     }
   }
 
+  async sendTyping({ threadId }: { threadId: string }) {
+    const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
+    return thread.sendTyping()
+  }
+
   async createThread(
     { channelId, messageId }: { channelId: string; messageId: string },
     name: string
