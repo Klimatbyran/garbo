@@ -83,6 +83,7 @@ const worker = new Worker(
   },
   {
     connection: redis,
+    concurrency: 10,
   }
 )
 
