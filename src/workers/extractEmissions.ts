@@ -4,7 +4,7 @@ import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
 import config from '../config/openai'
 import discord from '../discord'
-import companyName from '../prompts/followUp/companyName'
+import companyNamePrompt from '../prompts/followUp/companyName'
 import industryNace from '../prompts/followUp/industry_nace'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
@@ -64,8 +64,13 @@ const worker = new Worker(
     if (markdown) discord.sendMessage(job.data, markdown.slice(0, 2000))
     else discord.sendMessage(job.data, response.slice(0, 2000))
 
+    const companyName = await askPrompt(
+      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
+      markdown || response
+    )
+
     const base = {
-      name: 'follow up',
+      name: companyName,
       data: {
         threadId: job.data.threadId,
         url: job.data.url,
@@ -78,75 +83,84 @@ const worker = new Worker(
     }
 
     await flow.add({
-      name: 'reflections',
+      name: companyName,
       queueName: 'reflectOnAnswer',
       data: { ...job.data, answer: response },
       children: [
         {
           ...base,
-          name: 'companyName',
-          data: { ...base.data, prompt: companyName },
+          name: 'companyName ' + companyName,
+          data: { ...base.data, prompt: companyNamePrompt },
         },
         {
           ...base,
-          name: 'industryGics',
+          name: 'industryGics ' + companyName,
           data: { ...base.data, prompt: industryGics },
         },
         {
           ...base,
-          name: 'industryNace',
+          name: 'industryNace ' + companyName,
           data: { ...base.data, prompt: industryNace },
         },
         {
           ...base,
-          name: 'scope1+2',
+          name: 'scope1+2 ' + companyName,
           data: { ...base.data, prompt: scope12 },
         },
         {
           ...base,
-          name: 'scope3',
+          name: 'scope3 ' + companyName,
           data: { ...base.data, prompt: scope3 },
         },
         {
           ...base,
-          name: 'goals',
+          name: 'goals ' + companyName,
           data: { ...base.data, prompt: goals },
         },
         {
           ...base,
-          name: 'initiatives',
+          name: 'initiatives ' + companyName,
           data: { ...base.data, prompt: initiatives },
         },
         {
           ...base,
-          name: 'sustainability contacts',
+          name: 'sustainability contacts ' + companyName,
           data: { ...base.data, prompt: contacts },
         },
         {
           ...base,
-          name: 'baseFacts',
+          name: 'baseFacts ' + companyName,
           data: { ...base.data, prompt: baseFacts },
         },
         {
           ...base,
-          name: 'fiscalYear',
+          name: 'fiscalYear ' + companyName,
           data: { ...base.data, prompt: fiscalYear },
         },
         {
           ...base,
-          name: 'key upstream emission factors',
+          name: 'key upstream emission factors for ' + companyName,
           data: { ...base.data, prompt: factors },
         },
         {
           ...base,
-          name: 'publicComment',
+          name: 'publicComment ' + companyName,
           data: { ...base.data, prompt: publicComment },
         },
         {
           ...base,
-          data: { ...base.data, paragraphs: pdfParagraphs, url: job.data.url },
-          name: 'guessWikidata',
+          data: {
+            ...base.data,
+            companyName,
+            paragraphs: pdfParagraphs,
+            url: job.data.url,
+          },
           queueName: 'guessWikidata',
+        },
+        {
+          ...base,
+          data: { ...base.data, companyName, url: job.data.url },
+          queueName: 'includeFacit',
         },
       ],
       opts: {

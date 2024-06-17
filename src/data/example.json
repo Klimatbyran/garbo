@@ -56,7 +56,7 @@
         "biogenic": null,
         "unit": "tCO2e",
         "categories": {
-          "1_purchasedGoods": 100000000,
+          "1_purchasedGoods": null,
           "2_capitalGoods": 100000000,
           "3_fuelAndEnergyRelatedActivities": 100000000,
           "4_upstreamTransportationAndDistribution": 100000000,
@@ -135,26 +135,52 @@
           "emissions": null,
           "unit": "tCO2e",
           "categories": {
-            "1_purchasedGoods": 100000000,
-            "2_capitalGoods": 100000000,
-            "3_fuelAndEnergyRelatedActivities": 100000000,
-            "4_upstreamTransportationAndDistribution": 100000000,
-            "5_wasteGeneratedInOperations": 100000000,
-            "6_businessTravel": 100000000,
-            "7_employeeCommuting": 100000000,
-            "8_upstreamLeasedAssets": 100000000,
-            "9_downstreamTransportationAndDistribution": 100000000,
-            "10_processingOfSoldProducts": 100000000,
-            "11_useOfSoldProducts": 100000000,
-            "12_endOfLifeTreatmentOfSoldProducts": 100000000,
-            "13_downstreamLeasedAssets": 100000000,
-            "14_franchises": 100000000,
-            "15_investments": 100000000,
-            "16_other": 100000000
+            "1_purchasedGoods": null,
+            "2_capitalGoods": null,
+            "3_fuelAndEnergyRelatedActivities": 1234,
+            "4_upstreamTransportationAndDistribution": null,
+            "5_wasteGeneratedInOperations": null,
+            "6_businessTravel": null,
+            "7_employeeCommuting": null,
+            "8_upstreamLeasedAssets": null,
+            "9_downstreamTransportationAndDistribution": null,
+            "10_processingOfSoldProducts": null,
+            "11_useOfSoldProducts": null,
+            "12_endOfLifeTreatmentOfSoldProducts": null,
+            "13_downstreamLeasedAssets": null,
+            "14_franchises": null,
+            "15_investments": null,
+            "16_other": null
           }
         }
       }
     ]
+  },
+  "facit": {
+    "wikidataId": "Q123456",
+    "companyName": "Example Company",
+    "2019": {
+      "scope1": {
+        "emissions": 1234,
+        "biogenic": 123
+      },
+      "scope2": {
+        "emissions": 1235,
+        "biogenic": null,
+        "mb": 1235,
+        "lb": null
+      },
+      "scope3": {
+        "emissions": 1234,
+        "categories": {
+          "5_wasteGeneratedInOperations": 1234,
+          "6_businessTravel": 1234,
+          "7_employeeCommuting": 1234,
+          "13_downstreamLeasedAssets": 1234,
+          "14_franchises": 1234
+        }
+      }
+    }
   },
   "reliability": "High",
   "needsReview": true,

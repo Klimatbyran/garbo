@@ -97,11 +97,8 @@ const transformData = (data: any): any => {
 const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
-    const { previousError, previousAnswer, answer } = job.data
-    const companyName = await askPrompt(
-      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
-      answer
-    )
+    const { previousError, previousAnswer, companyName } = job.data
+
     job.log('Searching for company name: ' + companyName)
     const results = await searchCompany(companyName)
     job.log('Results: ' + JSON.stringify(results, null, 2))

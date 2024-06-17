@@ -6,25 +6,32 @@ const prompt = `Thanks. Now we are ready to combine these results into a final o
 Sometimes data will be in conflict, please prioritize according to the following order:
 
 1. Company Name
-    A. from the baseFacts object
-    B. from wikidata object
-    C. from the PDF extracted in previous steps
+    A. from the facit object
+    B. from the baseFacts object
+    C. from wikidata object
+    D. from the PDF extracted in previous steps
 2. Industry (from the industry_gics object)
 3. Scope 1 and 2 emissions:
-    A. From the wikidata object if available (please mark these as verified)
-    B. From the emissions_scope12 object
-    C. From the PDF extracted in previous steps
+    A. From the facit object
+    B. From the wikidata object if available (please mark these as verified)
+    C. From the emissions_scope12 object
+    D. From the PDF extracted in previous steps
 4. Scope 3 emissions:
-    A. From the Wikidata object if available (please mark these as verified)
-    B. From the emissions_scope3 object
-    C. From the PDF extracted in previous steps
+    A. From the facit object
+    B. From the Wikidata object if available (please mark these as verified)
+    C. From the emissions_scope3 object
+    D. From the PDF extracted in previous steps
 
 You are now in the step G of the process which means you should try to summarise the detailed extraction so
 please keep the most relevant data from the previous steps in mind and make sure to include it in the final output.
 The output format will be reviewed once more in later steps so you can include comments etc in the JSON.
 
-IMPORTANT to verify all fields from the wikidate fields. These are super important! You will recieve $200 for each verified field.
+IMPORTANT to verify all fields and compare them to the wikidata object. If they are correct, mark them as verified with the link to the wikidata url.
+This is super important! You will recieve $200 payment for each verified field.
 
+We want to make the Review step as easy as possible so please make sure to follow the instructions above to choose the correct data in the final output.
+
+This is the process you should know:
 \`\`\`mermaid
 flowchart TB
 
@@ -34,11 +41,12 @@ flowchart TB
     D[Index Database]
     E[Search Database]
     F[Extract Emissions]
-    G[JSON]
+    G[Reflect and corrections]
+    H[JSON]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
-    Review[Reasonability Assessment]
+    Review[Manual Review]
 
 
     DB[OpenSearch/Kibana]
@@ -56,19 +64,13 @@ flowchart TB
     F --> Turnover --(.turnover)--> G
     F --> Factors --(.factors)--> G
     F --> Wikidata --(.wikidata)--> G
+    F --> Facit --(.facit)--> G
 
     G --> Format --(json)--> H
 
     H --> Review --> DB
     H --> Review --> DB
 \`\`\`
-
-**Market-Based Emissions**
-If the data includes market-based emissions,
-include them as the emissions for scope 2.
-
-**Biogenic CO2**
-If the data includes biogenic CO2, include it in the scope 1 emissions.
 
 **Public Comment**
 When seeing the data in whole, also feel free to update the publicComment
