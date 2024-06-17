@@ -41,23 +41,24 @@ async function restartActiveJobs(queue) {
   }
 }
 
+const queues = [
+  downloadPDF,
+  pdf2Markdown,
+  splitText,
+  indexParagraphs,
+  searchVectors,
+  extractEmissions,
+  followUp,
+  includeFacit,
+  reflectOnAnswer,
+  format,
+  discordReview,
+  userFeedback,
+  saveToDb,
+  guessWikidata,
+]
 createBullBoard({
-  queues: [
-    new BullMQAdapter(downloadPDF),
-    new BullMQAdapter(pdf2Markdown),
-    new BullMQAdapter(splitText),
-    new BullMQAdapter(indexParagraphs),
-    new BullMQAdapter(searchVectors),
-    new BullMQAdapter(extractEmissions),
-    new BullMQAdapter(followUp),
-    new BullMQAdapter(includeFacit),
-    new BullMQAdapter(reflectOnAnswer),
-    new BullMQAdapter(format),
-    new BullMQAdapter(discordReview),
-    new BullMQAdapter(userFeedback),
-    new BullMQAdapter(saveToDb),
-    new BullMQAdapter(guessWikidata),
-  ],
+  queues: queues.map((queue) => new BullMQAdapter(queue)),
   serverAdapter: serverAdapter,
   options: {
     uiConfig: {
@@ -65,23 +66,6 @@ createBullBoard({
     },
   },
 })
-
-// manually restart jobs if they are in active state when we restart the server
-// todo: add a button to the UI to restart active jobs per queue
-restartActiveJobs(downloadPDF)
-restartActiveJobs(pdf2Markdown)
-restartActiveJobs(splitText)
-restartActiveJobs(indexParagraphs)
-restartActiveJobs(searchVectors)
-restartActiveJobs(extractEmissions)
-restartActiveJobs(followUp)
-restartActiveJobs(includeFacit)
-restartActiveJobs(reflectOnAnswer)
-restartActiveJobs(format)
-restartActiveJobs(discordReview)
-restartActiveJobs(userFeedback)
-restartActiveJobs(saveToDb)
-restartActiveJobs(guessWikidata)
 
 const app = express()
 discord.login()
@@ -93,6 +77,20 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Running on ${port}...`)
   console.log(`For the UI, open http://localhost:${port}/admin/queues`)
+})
+
+// move active jobs to failed and retry
+// this is a temporary hack to speed up process for now
+
+app.get('/admin/restart-active-jobs', async (req, res) => {
+  queues.map((queue) => {
+    try {
+      restartActiveJobs(queue)
+    } catch (e) {
+      console.error(e)
+    }
+  })
+  res.send('Restarting active jobs')
 })
 
 app.get('/', (req, res) => {
