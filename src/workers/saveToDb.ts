@@ -34,8 +34,8 @@ const worker = new Worker(
     if (isNewEntry) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
-      console.log('savingg to file', parsed.companyName)
       if (process.env.NODE_ENV === 'development') {
+        console.log('saving to file', parsed.companyName)
         fs.writeFileSync(
           `../data/${parsed.companyName}.json`,
           JSON.stringify(JSON.parse(report), null, 2)
@@ -60,6 +60,7 @@ const worker = new Worker(
   },
   {
     connection: redis,
+    concurrency: 10,
   }
 )
 
