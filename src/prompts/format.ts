@@ -59,9 +59,18 @@ If the input doesn't match the data type, convert it (from string to number or v
 If the input doesn't have a value, please make sure to set it to null or an empty string (according to the mappings).
 Every property should be present in the output, make especially sure to include all the properties in the emission categories.
 
+*** Avoid formatting errors***
+These are some examples that happens when the output is not correctly formatted:
+
+[report.emissions.2022.scope3.categories.16_other] of type [long] in document with id '935401c8-2f8b-4549-a650-4c1565e46080'. Preview of field's value: 'more than 80% of Camurus climate impact is in scope 3'
+ResponseError: illegal_argument_exception: [illegal_argument_exception] Reason: mapper [report.factors.value] cannot be changed from type [long] to [float]
+ResponseError: mapper_parsing_exception: [mapper_parsing_exception] Reason: failed to parse field [report.emissions.2022.scope3.categories.11_useOfSoldProducts] of type [long] in document with id '254318db-872a-479d-8540-38eb146c7ba0'. Preview of field's value: '{energyInput=374759000, energyLoss=59405000}'
+
 \`\`\`json
 ${JSON.stringify(mappings, null, 2)}
 \`\`\`
+
+
 
 `
 
