@@ -103,13 +103,13 @@ export function compareFacitToCompanyData(
   const check = {
     scope1:
       Math.round(facit.emissions[year].scope1?.emissions || 0) ===
-      Math.round(companyData.emissions[year].scope1?.emissions || 0),
+      Math.round(companyData.emissions[year]?.scope1?.emissions || 0),
     scope2:
       Math.round(facit.emissions[year].scope2?.emissions || 0) ===
-      Math.round(companyData.emissions[year].scope2?.emissions || 0),
+      Math.round(companyData.emissions[year]?.scope2?.emissions || 0),
     scope3:
       Math.round(facit.emissions[year].scope3?.emissions || 0 || 0) ===
-      Math.round(companyData.emissions[year].scope3?.emissions),
+      Math.round(companyData.emissions[year]?.scope3?.emissions),
     scope3Categories: Object.entries(
       facit.emissions[year].scope3?.categories || []
     ).map(([category, value]) => {
