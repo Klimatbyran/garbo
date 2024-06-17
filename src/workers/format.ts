@@ -54,13 +54,10 @@ const worker = new Worker(
 
     let parsedJson
     try {
-      const json =
-        response
-          .match(/```json(.|\n)*```/)?.[0]
-          ?.replace(/```json|```/g, '')
-          .trim() || null
+      const jsonMatch = response.match(/```json([\s\S]*?)```/)
+      const json = jsonMatch ? jsonMatch[1].trim() : response
 
-      parsedJson = JSON.parse(json || response)
+      parsedJson = JSON.parse(json)
     } catch (error) {
       job.updateData({
         ...job.data,
