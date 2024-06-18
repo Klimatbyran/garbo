@@ -91,14 +91,6 @@
       "unit": "kgCO2e/km"
     }
   ],
-  "contacts": [
-    {
-      "name": "John Doe",
-      "role": "CSR Manager",
-      "email": "john@example.com",
-      "phone": "123456789"
-    }
-  ],
   "goals": [
     {
       "description": "Net zero before [year].",

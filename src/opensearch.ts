@@ -185,8 +185,12 @@ class Opensearch {
               must: [
                 {
                   terms: {
-                    wikidataId: [wikidataId],
-                    state: ['approved', 'pending'],
+                    state: ['approved'],
+                  },
+                },
+                {
+                  terms: {
+                    'report.wikidataId.keyword': [wikidataId],
                   },
                 },
               ],
@@ -233,13 +237,15 @@ class Opensearch {
         },
       })) as any
 
-      console.log('result', result)
       const reports =
-        result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
-          ...item.report,
-          url: url || item.report.url,
-          id: pdfHash || _id,
-        })) || []
+        result?.body.aggregations?.latest_reports.buckets
+          .map((bucket) => bucket.latest_report.hits.hits[0]._source)
+          .map(({ report, timestamp, state }) => ({
+            ...report,
+            timestamp,
+            state,
+          })) || []
+
       return reports[0]
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)
