@@ -4,7 +4,7 @@ import { indexParagraphs } from '../queues'
 import discord from '../discord'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     markdown: boolean
     text: string

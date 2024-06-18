@@ -1,22 +1,15 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import OpenAI from 'openai'
-import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { discordReview } from '../queues'
 import { askStream } from '../openai'
-
-const openai = new OpenAI({
-  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
-})
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
 class JobData extends Job {
-  data: {
+  declare data: {
     documentId: string
     url: string
     answer: string

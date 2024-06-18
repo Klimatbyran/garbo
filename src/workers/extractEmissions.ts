@@ -1,8 +1,6 @@
 import { Worker, Job, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
-import OpenAI from 'openai'
 import prompt from '../prompts/parsePDF'
-import config from '../config/openai'
 import discord from '../discord'
 import companyNamePrompt from '../prompts/followUp/companyName'
 import industryNace from '../prompts/followUp/industry_nace'
@@ -13,12 +11,9 @@ import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 import contacts from '../prompts/followUp/contacts'
 import baseFacts from '../prompts/followUp/baseFacts'
-import factors from '../prompts/followUp/factors'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import { ask, askPrompt, askStream } from '../openai'
-
-const openai = new OpenAI(config)
+import { ask, askPrompt } from '../openai'
 
 class JobData extends Job {
   declare data: {

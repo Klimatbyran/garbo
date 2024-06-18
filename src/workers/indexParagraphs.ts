@@ -2,14 +2,13 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { indexParagraphs, searchVectors } from '../queues'
+import { searchVectors } from '../queues'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     paragraphs: string[]
     url: string
     threadId: string

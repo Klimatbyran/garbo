@@ -12,7 +12,7 @@ const embedder = new OpenAIEmbeddingFunction({
 })
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     threadId: string
     markdown: boolean
