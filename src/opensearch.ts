@@ -252,7 +252,7 @@ class Opensearch {
     try {
       if (!this.client) throw new Error('Opensearch not connected')
       console.log('fetching company reports')
-      const result = (await this.client.search({
+      const result = await this.client.search({
         index: this.indexName,
         body: {
           query: {
@@ -308,15 +308,23 @@ class Opensearch {
             },
           },
         },
-      })) as any
+      })
 
       console.log('result', result)
       const reports =
-        result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
-          ...item.report,
-          url: url || item.report.url,
-          id: pdfHash || _id,
-        })) || []
+        result.body.aggregations.latest_reports.buckets
+          .map((bucket) => bucket.latest_report.hits.hits[0]._source)
+          .map(({ report, timestamp, state }) => ({
+            ...report,
+            timestamp,
+            state,
+          })) || []
+
+      // result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
+      //   ...item.report,
+      //   url: url || item.report.url,
+      //   id: pdfHash || _id,
+      // })) || []
       return reports
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)
