@@ -53,6 +53,7 @@ const worker = new Worker(
 
     let parsedJson
     try {
+      job.log('Parsing JSON: \n\n' + response)
       const jsonMatch = response.match(/```json([\s\S]*?)```/)
       const json = jsonMatch?.length ? jsonMatch[1].trim() : response
       parsedJson = JSON.parse(json)

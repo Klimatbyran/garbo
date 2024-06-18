@@ -103,6 +103,8 @@ If the original texts are written in English, translate to Swedish.
 ${JSON.stringify(example, null, 2)}
 \`\`\`
 
+*** ONLY REPLY WITH VALID JSON ***
+You should wrap your json with \`\`\`json
 `
 
 export default prompt

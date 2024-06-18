@@ -74,7 +74,9 @@ ${JSON.stringify(mappings, null, 2)}
 \`\`\`
 
 
-Reply with JSON without any comments or markdown formatting.
+Reply with JSON without any comments, excuses or markdown formatting. Wrap your message with:
+\`\`\`json
+\`\`\`
 `
 
 export default prompt
