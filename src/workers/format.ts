@@ -38,7 +38,7 @@ const worker = new Worker(
         {
           role: 'system',
           content:
-            'You are an expert in CSRD reporting. Be accurate and follow the instructions carefully. You are formatting a JSON object.',
+            'You are an expert in CSRD reporting. Be accurate and follow the instructions carefully. Always reply with a JSON object.',
         },
         { role: 'user', content: prompt },
         { role: 'user', content: previousJson },
