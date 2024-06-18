@@ -45,7 +45,7 @@ flowchart TB
 Present the extracted data in a structured JSON format, including all information you have recieved from the previous steps. Never include any comments in the JSON output.
 
 **NEVER USE N/A or similar**
-If a value is not available, report it as null. For scope3 categories, you don't need to include the category if the value is null.
+If a value is not available, report it as null or remove the field. For scope3 categories, you don't need to include the category if the value is null.
 
 **Fiscal Year**:
 If the fiscal year is broken, please use the latest year as key when presenting the data. For example: emissions for 2021/2022 should be presented under the key "2022". Specify the fiscal year in the JSON output.
