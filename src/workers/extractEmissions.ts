@@ -137,11 +137,11 @@ const worker = new Worker(
           name: 'fiscalYear ' + companyName,
           data: { ...base.data, prompt: fiscalYear },
         },
-        {
+        /*{
           ...base,
           name: 'key upstream emission factors for ' + companyName,
           data: { ...base.data, prompt: factors },
-        },
+        },*/
         {
           ...base,
           name: 'publicComment ' + companyName,
