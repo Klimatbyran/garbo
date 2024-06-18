@@ -50,9 +50,10 @@ const worker = new Worker(
         message.edit(`✅ Detta dokument fanns redan i vektordatabasen`)
       } else {
         job.log('Indexing ' + paragraphs.length + ' paragraphs...')
+        const cleanedParagraphs = paragraphs.filter((p) => p.trim().length > 0)
 
-        const ids = paragraphs.map((p, i) => job.data.url + '#' + i)
-        const metadatas = paragraphs.map((p, i) => ({
+        const ids = cleanedParagraphs.map((p, i) => job.data.url + '#' + i)
+        const metadatas = cleanedParagraphs.map((p, i) => ({
           source: url,
           markdown,
           type: 'company_sustainability_report',
@@ -62,7 +63,7 @@ const worker = new Worker(
         await collection.add({
           ids,
           metadatas,
-          documents: paragraphs,
+          documents: cleanedParagraphs,
         })
         message.edit(`✅ Sparad i vektordatabasen`)
         job.log('Done!')
