@@ -1,9 +1,9 @@
-import { EmbedBuilder } from 'discord.js'
+import { ButtonInteraction, EmbedBuilder, Interaction } from 'discord.js'
 import { saveToDb } from '../../queues'
 import discord from '../../discord'
 
 export default {
-  async execute(interaction, job) {
+  async execute(interaction: ButtonInteraction, job) {
     const { documentId, threadId } = job.data
     job.log(`Approving documentId: ${documentId}`)
     saveToDb.add(
@@ -15,8 +15,11 @@ export default {
       },
       { attempts: 10 }
     )
-    interaction.update({
-      embeds: [
+    interaction.reply({
+      content: `Tack för din granskning, ${interaction?.user?.username}!`,
+    })
+    /*interaction.update({
+      embeds: interaction.[
         new EmbedBuilder()
           .setTitle(`Godkänd (reportId: ${documentId})`)
           .setDescription(
@@ -24,7 +27,7 @@ export default {
           ),
       ],
       components: [],
-    })
+    })*/
     //discord.lockThread(threadId)
   },
 }

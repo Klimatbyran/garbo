@@ -61,8 +61,8 @@ const worker = new Worker(
     const markdown = response
       .match(/```markdown(.|\n)*```/)?.[0]
       .replace('```markdown', '```')
-    if (markdown) discord.sendMessage(job.data, markdown.slice(0, 2000))
-    else discord.sendMessage(job.data, response.slice(0, 2000))
+
+    discord.sendMessage(job.data, '✅ Fått preliminära siffror')
 
     const companyName = await askPrompt(
       'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
