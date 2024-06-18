@@ -194,20 +194,6 @@
         }
       }
     },
-    "contacts": {
-      "type": "object",
-      "properties": {
-        "*": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "text" },
-            "role": { "type": "text" },
-            "email": { "type": "keyword" },
-            "phone": { "type": "keyword" }
-          }
-        }
-      }
-    },
     "wikidata": {
       "type": "object",
       "properties": {

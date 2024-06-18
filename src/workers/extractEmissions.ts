@@ -117,11 +117,12 @@ const worker = new Worker(
           name: 'initiatives ' + companyName,
           data: { ...base.data, prompt: initiatives },
         },
+        /*
         {
           ...base,
           name: 'sustainability contacts ' + companyName,
           data: { ...base.data, prompt: contacts },
-        },
+        },*/
         {
           ...base,
           name: 'baseFacts ' + companyName,
