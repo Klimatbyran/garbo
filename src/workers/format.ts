@@ -54,8 +54,7 @@ const worker = new Worker(
     let parsedJson
     try {
       const jsonMatch = response.match(/```json([\s\S]*?)```/)
-      const json = jsonMatch ? jsonMatch[1].trim() : response
-
+      const json = jsonMatch?.length ? jsonMatch[1].trim() : response
       parsedJson = JSON.parse(json)
     } catch (error) {
       job.updateData({

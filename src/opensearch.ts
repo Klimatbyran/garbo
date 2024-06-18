@@ -186,7 +186,7 @@ class Opensearch {
                 {
                   terms: {
                     wikidataId: [wikidataId],
-                    state: ['approved'],
+                    state: ['approved', 'pending'],
                   },
                 },
               ],

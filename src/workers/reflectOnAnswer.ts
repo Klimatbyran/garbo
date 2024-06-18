@@ -72,14 +72,10 @@ ${prompt}`)
       }
     )
 
-    const json =
-      response
-        .match(/```json(.|\n)*```/)[0]
-        ?.replace(/```json|```/g, '')
-        .trim() || '{}'
-
     let parsedJson
     try {
+      const jsonMatch = response.match(/```json([\s\S]*?)```/)
+      const json = jsonMatch?.length ? jsonMatch[1].trim() : response
       parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
     } catch (error) {
       job.updateData({
