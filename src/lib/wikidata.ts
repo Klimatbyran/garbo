@@ -8,7 +8,7 @@ const wbk = WBK({
 export async function searchCompany(companyName: string, retry = 3) {
   const searchEntitiesQuery = wbk.searchEntities({
     search: companyName,
-    limit: 3,
+    limit: 5,
   })
 
   const searchResults = await fetch(searchEntitiesQuery).then((res) =>

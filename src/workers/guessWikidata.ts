@@ -148,22 +148,8 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
           "unit": "tCO2e",
           "verified": "https://www.wikidata.org/wiki/Q123456",
           "categories": {
-            "1_purchasedGoods": 100000000,
-            "2_capitalGoods": 100000000,
-            "3_fuelAndEnergyRelatedActivities": 100000000,
-            "4_upstreamTransportationAndDistribution": 100000000,
-            "5_wasteGeneratedInOperations": 100000000,
-            "6_businessTravel": 100000000,
-            "7_employeeCommuting": 100000000,
-            "8_upstreamLeasedAssets": 100000000,
-            "9_downstreamTransportationAndDistribution": 100000000,
-            "10_processingOfSoldProducts": 100000000,
-            "11_useOfSoldProducts": 100000000,
-            "12_endOfLifeTreatmentOfSoldProducts": 100000000,
-            "13_downstreamLeasedAssets": 100000000,
-            "14_franchises": 100000000,
-            "15_investments": 100000000,
-            "16_other": 100000000
+            "5_wasteGeneratedInOperations": 1234,
+            "9_downstreamTransportationAndDistribution": 1234,
           }
         }
       }
@@ -171,18 +157,26 @@ Needs to be valid json. No comments etc here. Never guess any values. Only use t
   }
 }
 \`\`\`
+
+
+Please help me select the appropriate node id based on the wikidata search results below.
+Prioritize the company with carbon footprint reporting (claim: P5991). Also prioritize swedish companies.
 `
 
     const response = await ask(
       [
         {
           role: 'system',
-          content: `I have a company named ${companyName}. I want to generate a wikidata query for it. Please help me select the appropriate node id based on the query below. I'll include the context from a PDF with the company's yearly report to help you select the correct one.`,
+          content: `I have a company named ${companyName}. I want to generate a wikidata query for it. Be helpful and try to be accurate.`,
+        },
+        { role: 'user', content: prompt },
+        {
+          role: 'assistant',
+          content: 'OK. Just send me the wikidata search results?',
         },
         { role: 'user', content: JSON.stringify(results, null, 2) },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
-        { role: 'user', content: prompt },
       ].filter((m) => m.content?.length > 0) as any[]
     )
 
