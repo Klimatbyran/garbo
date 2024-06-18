@@ -31,14 +31,14 @@ import { Queue } from 'bullmq'
 const serverAdapter = new ExpressAdapter()
 serverAdapter.setBasePath('/admin/queues')
 
-async function restartActiveJobs(queue: Queue) {
+async function cancelActiveJobs(queue: Queue) {
   const jobCounts = await queue.getActiveCount()
   if (jobCounts > 0) {
     const activeJobs = await queue.getActive()
     for (const job of activeJobs) {
       try {
-        await job.moveToFailed(new Error('Restarting active job'), queue.token)
-        await job.retry()
+        await job.moveToFailed(new Error('Cancelling active job'), queue.token)
+        // await job.retry()
       } catch (e) {
         console.error(e)
       }
@@ -87,10 +87,10 @@ app.listen(port, () => {
 // move active jobs to failed and retry
 // this is a temporary hack to speed up process for now
 
-app.get('/admin/restart-active-jobs', async (req, res) => {
+app.get('/admin/cancel-active-jobs', async (req, res) => {
   queues.map((queue) => {
     try {
-      restartActiveJobs(queue)
+      cancelActiveJobs(queue)
     } catch (e) {
       console.error(e)
     }
