@@ -5,7 +5,7 @@ import discord from '../discord'
 import fs from 'fs'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     documentId: string
     pdfHash: string
     state: string

@@ -12,7 +12,7 @@ const openai = new OpenAI({
 })
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     json: string
     threadId: string

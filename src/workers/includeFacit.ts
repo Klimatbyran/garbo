@@ -1,7 +1,5 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import { searchCompany } from '../lib/wikidata'
-import { ask, askPrompt } from '../openai'
 import { findFacit } from '../lib/facit'
 
 class JobData extends Job {

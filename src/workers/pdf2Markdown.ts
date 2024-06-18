@@ -97,7 +97,7 @@ async function getResults(id: any) {
 }
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     threadId: string
     existingId: string
