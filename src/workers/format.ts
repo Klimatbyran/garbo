@@ -46,7 +46,6 @@ const worker = new Worker(
         { role: 'user', content: previousError },
       ].filter((m) => m.content) as any[],
       (response, paragraph) => {
-        if (!response.includes('```json')) message?.edit(response)
         job.updateProgress(Math.min(100, (100 * progress++) / 10))
         job.log(paragraph)
       }
