@@ -310,9 +310,8 @@ class Opensearch {
         },
       })
 
-      console.log('result', result)
       const reports =
-        result.body.aggregations.latest_reports.buckets
+        result?.body.aggregations?.latest_reports.buckets
           .map((bucket) => bucket.latest_report.hits.hits[0]._source)
           .map(({ report, timestamp, state }) => ({
             ...report,
@@ -320,15 +319,10 @@ class Opensearch {
             state,
           })) || []
 
-      // result.body.hits?.hits?.map(({ _source: item, _id, pdfHash, url }) => ({
-      //   ...item.report,
-      //   url: url || item.report.url,
-      //   id: pdfHash || _id,
-      // })) || []
       return reports
     } catch (error) {
       console.error('Error fetching latest approved reports:', error)
-      return null
+      return []
     }
   }
 }
