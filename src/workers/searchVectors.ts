@@ -48,7 +48,12 @@ const worker = new Worker(
       ],
     })
 
-    const paragraphs = results.documents.flat()
+    const paragraphs = results.documents?.flat() || []
+
+    if (paragraphs.length === 0) {
+      message.edit('❌ Hittade inga relevanta paragrafer.')
+      return results.documents
+    }
 
     job.log('Paragraphs:\n\n' + paragraphs.join('\n\n'))
 
