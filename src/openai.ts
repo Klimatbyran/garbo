@@ -40,6 +40,9 @@ const askStream = async (
     model: 'gpt-4o',
     temperature: 0.1,
     stream: true,
+    response_format: {
+      type: 'json_object',
+    },
   })
 
   let response = ''

@@ -28,6 +28,7 @@ const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
     const { previousAnswer, answer, previousError } = job.data
+    job.clearLogs()
 
     const message = await discord.sendMessage(
       job.data,
@@ -76,7 +77,7 @@ ${prompt}`)
     try {
       job.log('Parsing JSON: \n\n' + response)
       const jsonMatch = response.match(/```json([\s\S]*?)```/)
-      const json = jsonMatch?.length ? jsonMatch[1].trim() : response
+      const json = jsonMatch ? jsonMatch[1].trim() : response
       parsedJson = JSON.parse(json)
     } catch (error) {
       job.updateData({

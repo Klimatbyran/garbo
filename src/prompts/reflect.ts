@@ -98,7 +98,7 @@ Leave this field empty if the data is not verified by Wikidata.
 ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
 If the original texts are written in English, translate to Swedish.
 
-**Example**: The following is an example of the JSON structure you should output. Make sure to include all the properties in the output.
+**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties!
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
 \`\`\`
