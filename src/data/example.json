@@ -83,14 +83,6 @@
       "employees": 12345
     }
   },
-  "factors": [
-    {
-      "product": "car",
-      "description": "CO2e per km",
-      "value": 0.2,
-      "unit": "kgCO2e/km"
-    }
-  ],
   "goals": [
     {
       "description": "Net zero before [year].",
@@ -127,54 +119,14 @@
           "emissions": null,
           "unit": "tCO2e",
           "categories": {
-            "1_purchasedGoods": null,
-            "2_capitalGoods": null,
             "3_fuelAndEnergyRelatedActivities": 1234,
-            "4_upstreamTransportationAndDistribution": null,
-            "5_wasteGeneratedInOperations": null,
-            "6_businessTravel": null,
-            "7_employeeCommuting": null,
-            "8_upstreamLeasedAssets": null,
-            "9_downstreamTransportationAndDistribution": null,
-            "10_processingOfSoldProducts": null,
-            "11_useOfSoldProducts": null,
-            "12_endOfLifeTreatmentOfSoldProducts": null,
-            "13_downstreamLeasedAssets": null,
-            "14_franchises": null,
-            "15_investments": null,
-            "16_other": null
+            "15_investments": 532
           }
         }
       }
     ]
   },
-  "facit": {
-    "wikidataId": "Q123456",
-    "companyName": "Example Company",
-    "2019": {
-      "scope1": {
-        "emissions": 1234,
-        "biogenic": 123
-      },
-      "scope2": {
-        "emissions": 1235,
-        "biogenic": null,
-        "mb": 1235,
-        "lb": null
-      },
-      "scope3": {
-        "emissions": 1234,
-        "categories": {
-          "5_wasteGeneratedInOperations": 1234,
-          "6_businessTravel": 1234,
-          "7_employeeCommuting": 1234,
-          "13_downstreamLeasedAssets": 1234,
-          "14_franchises": 1234
-        }
-      }
-    }
-  },
-  "reliability": "High",
+  "reliability": "High|Medium|Low",
   "needsReview": true,
-  "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
+  "reviewComment": "Allt ser bra ut!"
 }

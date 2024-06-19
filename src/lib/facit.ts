@@ -76,9 +76,9 @@ export function findFacit(
               result['url'] === url ||
               result['companyName']
                 .toLowerCase()
-                .startsWith(companyName.toLowerCase()) ||
+                .startsWith(companyName?.toLowerCase()) ||
               companyName
-                .toLowerCase()
+                ?.toLowerCase()
                 .startsWith(result['companyName'].toLowerCase()) // also find Ericsson AB when searching for Ericsson
           )
           if (!found) {

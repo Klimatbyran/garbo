@@ -72,15 +72,11 @@ flowchart TB
     H --> Review --> DB
 \`\`\`
 
-**Public Comment**
-When seeing the data in whole, also feel free to update the publicComment
-accordingly. We are focused on the quality of the reporting, not the company itself or their
-emissions but if something is unclear or seems off, please mention it in the publicComment.
 
 **NEVER CALCULATE ANY EMISSIONS**
 If you can't find any data or if you are uncertain,
 report it as null. If the company has reported individual categories but no totals, never
-try to summarize totals; just report it as is. If you find totals in wikidata or facit objects, those are considered to be the truth.
+try to summarize totals; just report it as is. If you find totals in wikidata or facit objects, those are considered to be the truth and can be used.
 
 **Units**:
 If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
@@ -98,13 +94,13 @@ Leave this field empty if the data is not verified by Wikidata.
 ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
 If the original texts are written in English, translate to Swedish.
 
-**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties!
+
+**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties. Especially not scope3 categories. If the data contains information not fitted in the format below, please ignore them. Never add subproperties to a field.
+Omit fields that are not available but keep the structure (for example: "baseFacts": {}, "facit": {}, "emissions": { "2019": {"scope1": {}, "scope2": {}}}). Try to keep the size of the document down without creating any errors.
+
 \`\`\`json
 ${JSON.stringify(example, null, 2)}
 \`\`\`
-
-*** ONLY REPLY WITH VALID JSON ***
-You should wrap your json with \`\`\`json
 `
 
 export default prompt

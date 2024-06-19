@@ -28,7 +28,7 @@ If the company is idientified as a financial institution or investment company, 
 
 
 
-Example - feel free to add more fields and relevant data:
+Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
 
 \`\`\`json
 { 
@@ -40,6 +40,7 @@ Example - feel free to add more fields and relevant data:
           "1_purchasedGoods": 10,
           "2_capitalGoods": 20,
           "3_fuelAndEnergyRelatedActivities": 40
+          "14_franchises": 40
         }
         "totalEmissions": 100,
         "unit": "tCO2e"
