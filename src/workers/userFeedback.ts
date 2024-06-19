@@ -65,7 +65,9 @@ const worker = new Worker(
       { role: 'assistant', content: previousJson },
       {
         role: 'user',
-        content: 'Additional context from PDF:' + pdfParagraphs.join('\n\n'),
+        content:
+          'Additional context from PDF:' +
+          pdfParagraphs.join('---\n\n').slice(0, 4000),
       },
       { role: 'user', content: feedback },
       {
