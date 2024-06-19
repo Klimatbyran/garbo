@@ -18,7 +18,16 @@ Extract the company basic facts such as company description, turnover and number
 - if it makes sense, use MSEK or MEUR
 - if the currency is not specified, assume SEK
 
-Example:
+*** Dates: ***
+- if no year is specified, assume the current year ${new Date().getFullYear()}
+
+** Description **
+Beskrivning av företaget. Tänk på att vara så informativ som möjligt. Den här texten ska visas på en sida
+för hållbarhetsredovisning så det är viktigt att den är informativ och beskriver företaget väl men inte tillåter
+texter som kan uppfattas som greenwashing eller marknadsföring. Många företag är okända för allmänheten så det
+är viktigt att beskrivningen är informativ och beskriver företaget väl.
+
+Example, follow the format below:
 \`\`\`json
 {
   "baseFacts": {
