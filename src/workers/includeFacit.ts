@@ -15,7 +15,7 @@ class JobData extends Job {
 const worker = new Worker(
   'includeFacit',
   async (job: JobData) => {
-    const facit = await findFacit(job.data.url || job.data.companyName).catch(
+    const facit = await findFacit(job.data.url, job.data.companyName).catch(
       (error) => null
     )
     job.log('Found facit: ' + JSON.stringify(facit, null, 2))
