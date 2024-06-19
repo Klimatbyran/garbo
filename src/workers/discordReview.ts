@@ -4,6 +4,7 @@ import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
 import { v4 as uuidv4 } from 'uuid'
+import { parse } from 'path'
 
 class JobData extends Job {
   declare data: {
@@ -82,6 +83,9 @@ ${url}
         job.data,
         `Svar på feedback: ${parsedJson.agentResponse}`
       )
+
+    if (parsedJson.wikidataId)
+      discord.sendMessage(job.data, `Wikidata ID: ${parsedJson.wikidataId}`)
     /*
     if (parsedJson.confidenceScore)
       discord.sendMessage(
