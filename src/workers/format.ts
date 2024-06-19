@@ -69,7 +69,7 @@ const worker = new Worker(
     }
     const companyName = parsedJson.companyName
 
-    const facit = await findFacit(job.data.url || companyName)
+    const facit = await findFacit(job.data.url, companyName)
     parsedJson = { ...parsedJson, facit } // overwrite the facit object and always use the correctly formatted one
 
     job.log(`Final JSON: 

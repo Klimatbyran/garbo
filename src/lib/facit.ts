@@ -53,8 +53,11 @@ function mapFacitToCompanyData(row): CompanyData {
   }
 }
 
-export function findFacit(urlOrCompanyName: string): Promise<CompanyData> {
-  if (!urlOrCompanyName)
+export function findFacit(
+  url: string,
+  companyName: string
+): Promise<CompanyData> {
+  if (!url && !companyName)
     return Promise.reject(new Error('No url or name provided'))
   const all = []
   return new Promise((resolve, reject) => {
@@ -70,12 +73,11 @@ export function findFacit(urlOrCompanyName: string): Promise<CompanyData> {
         .on('end', () => {
           const found = all.find(
             (result) =>
-              (urlOrCompanyName.startsWith('http') &&
-                result['url'] === urlOrCompanyName) ||
+              result['url'] === url ||
               result['companyName']
                 .toLowerCase()
-                .startsWith(urlOrCompanyName.toLowerCase()) ||
-              urlOrCompanyName
+                .startsWith(companyName.toLowerCase()) ||
+              companyName
                 .toLowerCase()
                 .startsWith(result['companyName'].toLowerCase()) // also find Ericsson AB when searching for Ericsson
           )

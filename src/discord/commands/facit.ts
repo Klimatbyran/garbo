@@ -17,7 +17,7 @@ export default {
       data: { url, json: returnvalue },
     } = job
     const json = JSON.parse(returnvalue)
-    const facit = await findFacit(url)
+    const facit = await findFacit(url, json.companyName)
 
     if (!facit) {
       await interaction.reply('Hittade inte facit.')
