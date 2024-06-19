@@ -65,9 +65,14 @@ ${prompt}`)
           content: (childrenValues && JSON.stringify(childrenValues)) || null,
         },
         { role: 'user', content: prompt },
-        { role: 'assistant', content: previousAnswer }, // these are used on retry
-        { role: 'user', content: previousError }, // these are used on retry and will be filtered out if there are no previous error
-      ].filter((m) => m.content) as any[],
+        previousError && [
+          { role: 'assistant', content: previousAnswer },
+          { role: 'user', content: previousError },
+        ],
+        { role: 'user', content: 'Reply only with JSON' },
+      ]
+        .flat()
+        .filter((m) => m?.content) as any[],
       () => {
         discord.sendTyping(job.data)
       }
