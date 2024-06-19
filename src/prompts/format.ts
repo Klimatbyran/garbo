@@ -42,7 +42,7 @@ flowchart TB
 \`\`\`
 
 **Data Output Format**:
-Present the extracted data in a structured JSON format, including all information you have recieved from the previous steps. Never include any comments in the JSON output.
+Present the extracted data in a structured JSON format, including all information you have received from the previous steps. Never include any comments in the JSON output.
 
 **NEVER USE N/A or similar**
 If a value is not available, report it as null or remove the field. For scope3 categories, you don't need to include the category if the value is null.
