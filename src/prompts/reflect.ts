@@ -27,7 +27,7 @@ please keep the most relevant data from the previous steps in mind and make sure
 The output format will be reviewed once more in later steps so you can include comments etc in the JSON.
 
 IMPORTANT to verify all fields and compare them to the wikidata object. If they are correct, mark them as verified with the link to the wikidata url.
-This is super important! You will recieve $200 payment for each verified field.
+This is super important! You will receive $200 payment for each verified field.
 
 **NEVER CALCULATE ANY EMISSIONS**
 If you can't find any data or if you are uncertain,
