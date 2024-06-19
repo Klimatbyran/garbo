@@ -16,7 +16,9 @@ export const summaryTable = async (company: CompanyData) => {
     .slice(0, 3)
     .map((year) => ({ ...company.emissions[year], year }))
 
-  const facit = await findFacit(company.companyName).catch(() => null)
+  const facit = await findFacit(company.url, company.companyName).catch(
+    () => null
+  )
   const check = facit
     ? compareFacitToCompanyData(facit, company)
     : { scope1: null, scope2: null, scope3: null, summary: 'Facit hittades ej' }
