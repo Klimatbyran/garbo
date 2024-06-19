@@ -59,7 +59,7 @@ const worker = new Worker(
   },
   {
     connection: redis,
-    concurrency: 10,
+    concurrency: 1, // keep it as one to not introduce race conditions.
   }
 )
 
