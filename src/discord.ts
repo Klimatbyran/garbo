@@ -175,7 +175,7 @@ export class Discord {
 
   async sendMessageToChannel(channelId, message): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
-    return await channel.send(message)
+    return await channel?.send(message)
   }
 
   async lockThread(channelId) {
