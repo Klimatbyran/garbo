@@ -44,6 +44,7 @@ const worker = new Worker(
         { role: 'user', content: previousJson },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
+        { role: 'user', content: 'Reply only with JSON' },
       ].filter((m) => m.content) as any[],
       (response, paragraph) => {
         job.updateProgress(Math.min(100, (100 * progress++) / 10))
