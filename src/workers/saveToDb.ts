@@ -19,8 +19,7 @@ const worker = new Worker(
   async (job: JobData) => {
     const { documentId, pdfHash, state, report } = job.data
     const parsed = report && JSON.parse(report)
-    const isNewEntry = parsed?.emissions ? true : false
-    if (isNewEntry) {
+    if (report) {
       job.log(`New report: ${documentId}`)
     }
     if (state) {
@@ -31,7 +30,7 @@ const worker = new Worker(
       job.data,
       `Sparar till databasen..`
     )
-    if (isNewEntry) {
+    if (report) {
       job.log(`Saving report to db: ${documentId}`)
       job.updateProgress(20)
       if (process.env.NODE_ENV === 'development') {
