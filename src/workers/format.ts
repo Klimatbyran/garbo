@@ -41,11 +41,16 @@ const worker = new Worker(
             'You are an expert in CSRD reporting. Be accurate and follow the instructions carefully. Always reply with a JSON object.',
         },
         { role: 'user', content: prompt },
-        { role: 'user', content: previousJson },
-        { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: previousError },
+        previousError
+          ? [
+              { role: 'assistant', content: previousAnswer },
+              { role: 'user', content: previousError },
+            ]
+          : [{ role: 'user', content: previousJson }],
         { role: 'user', content: 'Reply only with JSON' },
-      ].filter((m) => m.content) as any[],
+      ]
+        .flat()
+        .filter((m) => m?.content) as any[],
       (response, paragraph) => {
         job.updateProgress(Math.min(100, (100 * progress++) / 10))
         job.log(paragraph)
