@@ -76,9 +76,9 @@ export function findFacit(
               result['url'] === url ||
               result['companyName']
                 .toLowerCase()
-                .startsWith(companyName?.toLowerCase()) ||
+                .startsWith(companyName.toLowerCase()) ||
               companyName
-                ?.toLowerCase()
+                .toLowerCase()
                 .startsWith(result['companyName'].toLowerCase()) // also find Ericsson AB when searching for Ericsson
           )
           if (!found) {
@@ -119,14 +119,14 @@ export function compareFacitToCompanyData(
         category,
         value,
         companyValue:
-          (companyData.emissions[year].scope3?.categories &&
-            companyData.emissions[year].scope3?.categories[category]) ||
+          (companyData.emissions[year]?.scope3?.categories &&
+            companyData.emissions[year].scope3.categories[category]) ||
           0,
         match:
           Math.round(value || 0) ===
           Math.round(
-            (companyData.emissions[year].scope3?.categories &&
-              companyData.emissions[year].scope3?.categories[category]) ||
+            (companyData.emissions[year]?.scope3?.categories &&
+              companyData.emissions[year].scope3.categories[category]) ||
               0
           ),
       }
