@@ -76,11 +76,7 @@ const worker = new Worker(
 
     job.log('Response: ' + response)
 
-    const json =
-      response
-        .match(/```json(.|\n)*```/)?.[0]
-        ?.replace(/```json|```/g, '')
-        .trim() || '{}'
+    const json = response.match(/```json([\s\S]*?)```/)?.[1] || response
     const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
 
     discord.sendMessage(
