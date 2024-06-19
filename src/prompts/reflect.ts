@@ -95,7 +95,7 @@ ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkol
 If the original texts are written in English, translate to Swedish.
 
 
-**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties. Especially not scope3 categories. If the data contains information not fitted in the format below, please ignore them.
+**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties. Especially not scope3 categories. If the data contains information not fitted in the format below, please ignore them. Never add subproperties to a field.
 Omit fields that are not available but keep the structure (for example: "baseFacts": {}, "facit": {}, "emissions": { "2019": {"scope1": {}, "scope2": {}}}). Try to keep the size of the document down without creating any errors.
 
 \`\`\`json
