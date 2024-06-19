@@ -38,7 +38,7 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 7,
+      nResults: 3,
       where: {
         // TODO: add markdown here?
         source: url,
