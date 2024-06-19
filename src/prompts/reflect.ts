@@ -29,50 +29,6 @@ The output format will be reviewed once more in later steps so you can include c
 IMPORTANT to verify all fields and compare them to the wikidata object. If they are correct, mark them as verified with the link to the wikidata url.
 This is super important! You will recieve $200 payment for each verified field.
 
-We want to make the Review step as easy as possible so please make sure to follow the instructions above to choose the correct data in the final output.
-
-This is the process you should know:
-\`\`\`mermaid
-flowchart TB
-
-    A[PDF]
-    B{Is in cache?}
-    C[Download PDF]
-    D[Index Database]
-    E[Search Database]
-    F[Extract Emissions]
-    G[Reflect and corrections]
-    H[JSON]
-
-    Industry[Extract Industry]
-    Goals[Extract Climate Goals]
-    Review[Manual Review]
-
-
-    DB[OpenSearch/Kibana]
-
-    A --> B --> C --> D --> E ---> F ---> G ---> H
-    B --(Cached)--> E
-
-    F --> CompanyName --(.company)--> G
-    F --> Industry --(.industry)--> G
-    F --> Scope1+2 --(.scope1)--> G
-    F --> Scope3 --(.scope3)--> G
-    F --> Goals --(.goals)--> G
-    F --> Initiatives --(.initiatives)--> G
-    F --> Contacts --(.contacts)--> G
-    F --> Turnover --(.turnover)--> G
-    F --> Factors --(.factors)--> G
-    F --> Wikidata --(.wikidata)--> G
-    F --> Facit --(.facit)--> G
-
-    G --> Format --(json)--> H
-
-    H --> Review --> DB
-    H --> Review --> DB
-\`\`\`
-
-
 **NEVER CALCULATE ANY EMISSIONS**
 If you can't find any data or if you are uncertain,
 report it as null. If the company has reported individual categories but no totals, never
