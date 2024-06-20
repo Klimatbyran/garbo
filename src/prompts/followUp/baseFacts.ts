@@ -1,7 +1,6 @@
 const turnover = `
 Extract the company basic facts such as company description, turnover and number of employees. Add it as field description and baseFacts. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
 
-*** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
 *** CompanyName: Use the name of the company as a normal person would refer to it. Not the legal name. For example:
 
 - Use "Google" instead of "Alphabet Inc."
@@ -12,6 +11,9 @@ Extract the company basic facts such as company description, turnover and number
 - Use "H&M" instead of "H & M Hennes & Mauritz AB"
 - Use "IKEA" instead of "Ingka Holding B.V."
 - Use "Vattenfall" instead of "Vattenfall AB"
+
+*** Turnover ***
+- Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK.
 
 *** Currencies: ***
 - turnover: SEK or EUR
@@ -26,6 +28,8 @@ Beskrivning av företaget. Tänk på att vara så informativ som möjligt. Den h
 för hållbarhetsredovisning så det är viktigt att den är informativ och beskriver företaget väl men inte tillåter
 texter som kan uppfattas som greenwashing eller marknadsföring. Många företag är okända för allmänheten så det
 är viktigt att beskrivningen är informativ och beskriver företaget väl.
+
+*** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
 
 Example, follow the format below:
 \`\`\`json
