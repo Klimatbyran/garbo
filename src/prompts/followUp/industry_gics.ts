@@ -312,27 +312,26 @@ svetenskaper (3520)
     - Fastighetsutveckling (60201030)
     - Fastighetstjänster (60201040)
 
-Just reply with the information in json format. In Swedish, please.
+Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
 
 \`\`\`json
 {
    "industry_gics": {
-      "name": "Gasförsörjning",
       "sector": {
-        "code": "55",
-        "name": "Kraftförsörjning"
+        "code": "12",
+        "name": "xx"
       },
       "group": {
-        "code": "5510",
-        "name": "Kraftförsörjning"
+        "code": "123",
+        "name": "xx"
       },
       "industry": {
-        "code": "551020",
-        "name": "Gasförsörjning"
+        "code": "12345",
+        "name": "xx"
       },
       "subIndustry": {
-        "code": "55102010",
-        "name": "Gasförsörjning"
+        "code": "1234567",
+        "name": "xx"
       },
    }
  }
