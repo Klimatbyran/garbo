@@ -2,7 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { askStream } from '../openai'
+import { ask, askStream } from '../openai'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
@@ -12,9 +12,10 @@ class JobData extends Job {
   declare data: {
     documentId: string
     url: string
-    answer: string
     prompt: string
     threadId: string
+    json: string
+    previousAnswer: string
     previousError: string
   }
 }
@@ -22,18 +23,28 @@ class JobData extends Job {
 const worker = new Worker(
   'followUp',
   async (job: JobData) => {
-    const { prompt, url, answer, previousError } = job.data
+    const { prompt, url, json, previousAnswer, previousError } = job.data
 
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
       embeddingFunction: embedder,
     })
+    /* might get better results if we query for imaginary results from a query instead of the actual query
+    const query = await ask([
+      {
+        role: 'user',
+        content:
+          'Please give me some example data from this prompt that I can use as search query in a vector database indexed from PDFs. OK?'
+      },
+      {role: 'assistant', content: 'OK sure, give '},
+          prompt,
+      },
+    ])*/
 
     const results = await collection.query({
       nResults: 5,
       where: {
-        // TODO: add markdown here?
         source: url,
       },
       queryTexts: [prompt],
@@ -41,10 +52,10 @@ const worker = new Worker(
     const pdfParagraphs = results.documents.flat()
 
     job.log(`Reflecting on: ${prompt}
-    ${answer}
+    ${json}
     
     Context:
-    ${pdfParagraphs.join('\n\n')}
+    ${pdfParagraphs.join('\n\n----------------\n\n')}
     
     `)
 
@@ -54,33 +65,49 @@ const worker = new Worker(
         {
           role: 'system',
           content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. When asked to use JSON, please use the following format: \n\n```json\n{\n "field": "value"\n}\n``. Never use comments, ... or other non-JSON syntax within the json block even if they are used in the examples.`',
-        },
-        {
-          role: 'user',
-          content: pdfParagraphs.join('---- EXTRACT FROM PDF --- \n\n'),
+            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
         },
         {
           role: 'user',
           content:
-            'This is the result of a previous prompt. Please add diffs to the prompt based on the instructions below. For example, if you want to add a new field called "industry" the resulting prompt should look like this: \n\n```json\n{\n "industry": "Industry Y"\n}\n```',
+            'Results from PDF: \n' +
+            pdfParagraphs.join('\n\n------------------------------\n\n'),
         },
-        { role: 'assistant', content: answer },
+        {
+          role: 'user',
+          content: `This is the result of a previous prompt:
+
+
+\`\`\`json
+${json}
+\`\`\`
+
+## Please add diffs to the prompt based on the instructions:
+${prompt}
+
+## Output:
+For example, if you want to add a new field called "industry" the response should look like this:
+\`\`\`json
+{
+  "industry": {...}
+}
+\`\`\``,
+        },
+        { role: 'asistant', content: previousAnswer },
         { role: 'user', content: previousError },
-        { role: 'user', content: prompt },
       ].filter((m) => m.content) as any[]
     )
 
     job.log('Response: ' + response)
-    const json = response.match(/```json([\s\S]*?)```/)?.[1] || response
+    const output = response.match(/```json([\s\S]*?)```/)?.[1] || response
 
     try {
-      const parsedJson = json ? JSON.parse(json) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+      const parsedJson = output ? JSON.parse(output) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
       return JSON.stringify(parsedJson, null, 2)
     } catch (error) {
       job.updateData({
         ...job.data,
-        answer: json,
+        previousAnswer: output,
         previousError: error.message,
       })
     }

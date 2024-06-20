@@ -40,8 +40,12 @@ const worker = new Worker(
       { attempts: 10 }
     )
 
-    job.updateData({ ...job.data, documentId })
-    job.log(`Job data updated with documentId: ${job.data}`)
+    await job.updateData({
+      ...job.data,
+      documentId,
+      json: JSON.stringify(parsedJson),
+    })
+    job.log(`Job data updated with documentId: ${job.data} and json.`)
     const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
@@ -99,8 +103,6 @@ ${url}
         `Publik kommentar från Garbo: ${parsedJson.publicComment}`
       )
 */
-
-    await job.updateData({ ...job.data, json: JSON.stringify(parsedJson) })
 
     job.updateProgress(100)
     return documentId
