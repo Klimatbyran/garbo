@@ -99,6 +99,9 @@ ${url}
         `Publik kommentar från Garbo: ${parsedJson.publicComment}`
       )
 */
+
+    await job.updateData({ ...job.data, json: JSON.stringify(parsedJson) })
+
     job.updateProgress(100)
     return documentId
   },
