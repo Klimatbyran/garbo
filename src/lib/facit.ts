@@ -7,7 +7,7 @@ const parse = (str) =>
   parseFloat(str.replaceAll(',', '').replace(/[^0-9.]/g, ''))
 
 // csv headers:
-// companyName,url,23_scope1,23_scope2MB,23_scope2LB,23_scope3,23_total,23_scope1_2Sum,23_scope3Sum,23_totalSum,23_scope3_1,23_scope3_2,23_scope3_3,23_scope3_4,23_scope3_5,23_scope3_6,23_scope3_7,23_scope3_8,23_scope3_9,23_scope3_10,23_scope3_11,23_scope3_12,23_scope3_13,23_scope3_14,23_scope3_15,23_scope3_16
+// companyName,url,23_scope1,23_scope2MB,23_scope2LB,23_scope3,23_total,23_scope1_2Sum,23_scope3Sum,23_totalSum,23_scope3_1,23_scope3_2,23_scope3_3,23_scope3_4,23_scope3_5,23_scope3_6,23_scope3_7,23_scope3_8,23_scope3_9,23_scope3_10,23_scope3_11,23_scope3_12,23_scope3_13,23_scope3_14,23_scope3_15,23_scope3_16,23_biogenic
 function mapFacitToCompanyData(row): CompanyData {
   return {
     companyName: row['companyName'],
@@ -48,6 +48,7 @@ function mapFacitToCompanyData(row): CompanyData {
             '16_other': parse(row['23_scope3_16']),
           },
         },
+        totalBiogenic: parse(row['23_biogenic']),
       },
     },
   }
@@ -180,7 +181,8 @@ getAllCompanies().then((result) => {
 })*/
 
 // findFacit(
-//   'https://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf'
+//   'https://www.astrazeneca.se/content/dam/az-se/dokument/hallbarhet/Sustainability-Report-2023.pdftps://www.arla.com/493552/globalassets/arla-global/company---overview/investor/annual-reports/2023/arla_annual-report-2023_se_v2.pdf',
+//   'AstraZeneca'
 // ).then((result) => {
 //   console.log(JSON.stringify(result, null, 2))
 // })
