@@ -40,6 +40,7 @@ const askStream = async (
     model: 'gpt-4o',
     temperature: 0.1,
     stream: true,
+    max_tokens: 4096,
     response_format: {
       type: 'json_object',
     },
