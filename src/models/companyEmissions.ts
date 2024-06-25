@@ -28,6 +28,7 @@ export type Emissions = {
     }
     totalEmissions?: string
     totalUnit?: string
+    totalBiogenic?: number
   }
 }
 

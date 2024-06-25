@@ -1,7 +1,7 @@
 import { CommandInteraction, SlashCommandBuilder } from 'discord.js'
-import { discordReview, reflectOnAnswer } from '../../queues'
+import { discordReview } from '../../queues'
 import { findFacit } from '../../lib/facit'
-import { summaryTable } from '../../lib/discordTable'
+// import { summaryTable } from '../../lib/discordTable'
 
 export default {
   data: new SlashCommandBuilder()
@@ -23,7 +23,7 @@ export default {
       await interaction.reply('Hittade inte facit.')
       return
     }
-    const summary = await summaryTable(facit)
+    // const summary = await summaryTable(facit)
     const emojis = Object.values(facit.emissions).map(
       ({ scope1, scope2, scope3, year }) => {
         console.log(json.emissions)
