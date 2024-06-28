@@ -18,7 +18,6 @@
   "dependencies": {
     "@bull-board/api": "^5.12.0",
     "@bull-board/express": "^5.12.0",
-    "@hugocxl/react-to-image": "^0.0.9",
     "@opensearch-project/opensearch": "^2.8.0",
     "@types/node": "^20.12.12",
     "bullmq": "^5.1.1",
