@@ -1,4 +1,3 @@
-import mappings from '../data/mappings.json'
 import example from '../data/example.json'
 
 const prompt = `Thanks. Now we are ready to combine these results into a final output. 
