@@ -1,5 +1,3 @@
-import { Table } from 'embed-table'
-import { EmbedBuilder } from 'discord.js'
 import { CompanyData } from '../models/companyEmissions'
 import { compareFacitToCompanyData, findFacit } from './facit'
 
