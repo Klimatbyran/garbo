@@ -1,6 +1,11 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db.db"
+}
+
 model Company {
-  id             Int          @id @default(autoincrement())
-  name           String       @unique
+  id             Int     @id @default(autoincrement())
+  name           String  @unique
   description    String
   /// wikidataId is primarily used to export to or import from wikidata
   wikidataId     String?
@@ -8,10 +13,10 @@ model Company {
   url            String
   industryGicsId Int
 
-  fiscalYears    FiscalYear[]
-  initiatives    Initiative[]
-  goals          Goal[]
-  industryGics   IndustryGics @relation(fields: [industryGicsId], references: [id])
+  fiscalYears  FiscalYear[]
+  initiatives  Initiative[]
+  goals        Goal[]
+  industryGics IndustryGics @relation(fields: [industryGicsId], references: [id])
 }
 
 model IndustryGics {
@@ -29,13 +34,14 @@ model IndustryGics {
 }
 
 model FiscalYear {
-  id        Int        @id @default(autoincrement())
-  year      String
-  emissions Emissions?
-  economy   Economy?
-  companyId Int
+  id          Int      @id @default(autoincrement())
+  year        String
+  economy     Economy?
+  companyId   Int
+  emissionsId Int
 
-  company Company @relation(fields: [companyId], references: [id])
+  emissions Emissions?
+  company   Company    @relation(fields: [companyId], references: [id])
 }
 
 /// Reported emissions for a specific fiscalYear
@@ -47,59 +53,59 @@ model Emissions {
   scope3Id     Int @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
-  scope1     Scope1     @relation(fields: [scope1Id], references: [id])
-  scope2     Scope2     @relation(fields: [scope2Id], references: [id])
-  scope3     Scope3     @relation(fields: [scope3Id], references: [id])
+  scope1     Scope1?
+  scope2     Scope2?
+  scope3     Scope3?
 }
 
 model Scope1 {
-  id        Int    @id @default(autoincrement())
-  value     Float
-  biogenic  Float?
-  unit      String
-  baseYear  String
-  sourceId  Int
-  emissionsId Int
-  
-  emissions Emissions?
-  source Source @relation(fields: [sourceId], references: [id])
+  id          Int    @id @default(autoincrement())
+  value       Float
+  biogenic    Float?
+  unit        String
+  baseYear    String
+  sourceId    Int
+  emissionsId Int    @unique
+
+  emissions Emissions @relation(fields: [emissionsId], references: [id])
+  source    Source    @relation(fields: [sourceId], references: [id])
 }
 
 model Scope2 {
-  id        Int    @id @default(autoincrement())
-  value     Float
-  biogenic  Float?
-  unit      String
-  mb        Float?
-  lb        Float?
-  baseYear  String
-  sourceId  Int
-  emissionsId Int
+  id          Int    @id @default(autoincrement())
+  value       Float
+  biogenic    Float?
+  unit        String
+  mb          Float?
+  lb          Float?
+  baseYear    String
+  sourceId    Int
+  emissionsId Int    @unique
 
-  emissions Emissions
-  source Source @relation(fields: [sourceId], references: [id])
+  emissions Emissions @relation(fields: [emissionsId], references: [id])
+  source    Source    @relation(fields: [sourceId], references: [id])
 }
 
 model Scope3 {
-  id        Int    @id @default(autoincrement())
-  value Float?
-  biogenic  Float?
-  unit      String
-  baseYear  String
-  sourceId  Int
-  emissionsId Int
+  id          Int    @id @default(autoincrement())
+  value       Float?
+  biogenic    Float?
+  unit        String
+  baseYear    String
+  sourceId    Int
+  emissionsId Int    @unique
 
-  emissions Emissions
+  emissions  Emissions        @relation(fields: [emissionsId], references: [id])
   categories Scope3Category[]
-  source Source @relation(fields: [sourceId], references: [id])
+  source     Source           @relation(fields: [sourceId], references: [id])
 }
 
 model Scope3Category {
-  id        Int                @id @default(autoincrement())
-  category  Scope3CategoryEnum
-  value Float?
-  scope3Id  Int
-  sourceId  Int
+  id       Int    @id @default(autoincrement())
+  category Int // 1-15 could be an enum but the sqlite provider does not support enums
+  value    Float?
+  scope3Id Int
+  sourceId Int
 
   scope3 Scope3 @relation(fields: [scope3Id], references: [id])
   source Source @relation(fields: [sourceId], references: [id])
@@ -110,8 +116,8 @@ model Economy {
   turnover     Float
   unit         String
   employees    Int
-  sourceId     Int    
-  fiscalYearId Int @unique
+  sourceId     Int
+  fiscalYearId Int    @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
   source     Source     @relation(fields: [sourceId], references: [id])
@@ -126,8 +132,8 @@ model Goal {
   sourceId    Int
   companyId   Int
 
-  source      Source  @relation(fields: [sourceId], references: [id])
-  company     Company @relation(fields: [companyId], references: [id])
+  source  Source  @relation(fields: [sourceId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
 }
 
 model Initiative {
@@ -139,8 +145,8 @@ model Initiative {
   companyId   Int
   sourceId    Int
 
-  company     Company @relation(fields: [companyId], references: [id])
-  source      Source @relation(fields: [sourceId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+  source  Source  @relation(fields: [sourceId], references: [id])
 }
 
 // IDEA: Maybe rename to metadata, since source is one of many kinds of metadata
@@ -151,32 +157,11 @@ model Source {
   userId      Int
   lastUpdated DateTime @default(now()) @updatedAt
 
-  goal Goal[]
-  initiative Initiative[]
-  economoy Economy[]
-  scope1 Scope1[]
-  scope2 Scope2[]
-  scope3 Scope3[]
+  goal           Goal[]
+  initiative     Initiative[]
+  economoy       Economy[]
+  scope1         Scope1[]
+  scope2         Scope2[]
+  scope3         Scope3[]
   scope3Category Scope3Category[]
-}
-
-// Since the enum values are represented as integers,
-// we will be able to use that to determine which category it is
-enum Scope3CategoryEnum {
-  purchasedGoods
-  capitalGoods
-  fuelAndEnergyRelatedActivities
-  upstreamTransportationAndDistribution
-  wasteGeneratedInOperations
-  businessTravel
-  employeeCommuting
-  upstreamLeasedAssets
-  downstreamTransportationAndDistribution
-  processingOfSoldProducts
-  useOfSoldProducts
-  endOfLifeTreatmentOfSoldProducts
-  downstreamLeasedAssets
-  franchises
-  investments
-  other
 }
