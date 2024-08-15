@@ -6,12 +6,12 @@ model Company {
   wikidataId     String?
   /// Company website URL
   url            String
-  fiscalYears    FiscalYear[]
   industryGicsId Int
 
-  // Is this relationship correct?
-  // Should companies be allowed to have several industries?
-  industryGics IndustryGics @relation(fields: [industryGicsId], references: [id])
+  fiscalYears    FiscalYear[]
+  initiatives    Initiative[]
+  goals          Goal[]
+  industryGics   IndustryGics @relation(fields: [industryGicsId], references: [id])
 }
 
 model IndustryGics {
@@ -41,10 +41,10 @@ model FiscalYear {
 /// Reported emissions for a specific fiscalYear
 model Emissions {
   id           Int @id @default(autoincrement())
-  fiscalYearId Int
-  scope1Id     Int
-  scope2Id     Int
-  scope3Id     Int
+  fiscalYearId Int @unique
+  scope1Id     Int @unique
+  scope2Id     Int @unique
+  scope3Id     Int @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
   scope1     Scope1     @relation(fields: [scope1Id], references: [id])
@@ -54,47 +54,52 @@ model Emissions {
 
 model Scope1 {
   id        Int    @id @default(autoincrement())
-  emissions Float
+  value     Float
   biogenic  Float?
   unit      String
   baseYear  String
-  sourceId  Int    @relation(fields: [sourceId], references: [id])
-
+  sourceId  Int
+  emissionsId Int
+  
+  emissions Emissions?
   source Source @relation(fields: [sourceId], references: [id])
 }
 
 model Scope2 {
   id        Int    @id @default(autoincrement())
-  emissions Float
+  value     Float
   biogenic  Float?
   unit      String
   mb        Float?
   lb        Float?
   baseYear  String
-  sourceId  Int    @relation(fields: [sourceId], references: [id])
+  sourceId  Int
+  emissionsId Int
 
+  emissions Emissions
   source Source @relation(fields: [sourceId], references: [id])
 }
 
 model Scope3 {
   id        Int    @id @default(autoincrement())
-  emissions Float?
+  value Float?
   biogenic  Float?
   unit      String
   baseYear  String
-  sourceId  Int    @relation(fields: [sourceId], references: [id])
+  sourceId  Int
+  emissionsId Int
 
+  emissions Emissions
   categories Scope3Category[]
-
   source Source @relation(fields: [sourceId], references: [id])
 }
 
 model Scope3Category {
   id        Int                @id @default(autoincrement())
   category  Scope3CategoryEnum
-  emissions Float?
-  scope3Id  Int                @relation(fields: [scope3Id], references: [id])
-  sourceId  Int                @relation(fields: [sourceId], references: [id])
+  value Float?
+  scope3Id  Int
+  sourceId  Int
 
   scope3 Scope3 @relation(fields: [scope3Id], references: [id])
   source Source @relation(fields: [sourceId], references: [id])
@@ -105,8 +110,8 @@ model Economy {
   turnover     Float
   unit         String
   employees    Int
-  sourceId     Int    @relation(fields: [sourceId], references: [id])
-  fiscalYearId Int    @relation(fields: [fiscalYearId], references: [id])
+  sourceId     Int    
+  fiscalYearId Int @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
   source     Source     @relation(fields: [sourceId], references: [id])
@@ -118,9 +123,11 @@ model Goal {
   year        String?
   target      Float?
   baseYear    String
-  companyId   Int     @relation(fields: [companyId], references: [id])
+  sourceId    Int
+  companyId   Int
 
-  company Company @relation(fields: [companyId], references: [id])
+  source      Source  @relation(fields: [sourceId], references: [id])
+  company     Company @relation(fields: [companyId], references: [id])
 }
 
 model Initiative {
@@ -129,17 +136,28 @@ model Initiative {
   description String
   year        String?
   scope       String
-  companyId   Int     @relation(fields: [companyId], references: [id])
+  companyId   Int
+  sourceId    Int
 
-  company Company @relation(fields: [companyId], references: [id])
+  company     Company @relation(fields: [companyId], references: [id])
+  source      Source @relation(fields: [sourceId], references: [id])
 }
 
+// IDEA: Maybe rename to metadata, since source is one of many kinds of metadata
 model Source {
   id          Int      @id @default(autoincrement())
   url         String?
   comment     String?
   userId      Int
   lastUpdated DateTime @default(now()) @updatedAt
+
+  goal Goal[]
+  initiative Initiative[]
+  economoy Economy[]
+  scope1 Scope1[]
+  scope2 Scope2[]
+  scope3 Scope3[]
+  scope3Category Scope3Category[]
 }
 
 // Since the enum values are represented as integers,
