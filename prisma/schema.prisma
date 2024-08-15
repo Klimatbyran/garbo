@@ -18,7 +18,7 @@ model Company {
   /// wikidataId is primarily used to export to or import from wikidata
   wikidataId     String?
   /// Company website URL
-  url            String
+  url            String?
   industryGicsId Int?
 
   fiscalYears  FiscalYear[]
