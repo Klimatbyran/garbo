@@ -31,9 +31,9 @@ model IndustryGics {
 model FiscalYear {
   id        Int        @id @default(autoincrement())
   year      String
-  companyId Int
   emissions Emissions?
   economy   Economy?
+  companyId Int
 
   company Company @relation(fields: [companyId], references: [id])
 }
