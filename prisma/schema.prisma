@@ -68,11 +68,11 @@ model Scope1 {
   biogenic    Float?
   unit        String
   baseYear    String
-  sourceId    Int
+  metadataId    Int
   emissionsId Int    @unique
 
   emissions Emissions @relation(fields: [emissionsId], references: [id])
-  source    Source    @relation(fields: [sourceId], references: [id])
+  metadata    Metadata    @relation(fields: [metadataId], references: [id])
 }
 
 model Scope2 {
@@ -83,11 +83,11 @@ model Scope2 {
   mb          Float?
   lb          Float?
   baseYear    String
-  sourceId    Int
+  metadataId    Int
   emissionsId Int    @unique
 
   emissions Emissions @relation(fields: [emissionsId], references: [id])
-  source    Source    @relation(fields: [sourceId], references: [id])
+  metadata    Metadata    @relation(fields: [metadataId], references: [id])
 }
 
 model Scope3 {
@@ -96,12 +96,12 @@ model Scope3 {
   biogenic    Float?
   unit        String
   baseYear    String
-  sourceId    Int
+  metadataId    Int @map("sourceId")
   emissionsId Int    @unique
 
   emissions  Emissions        @relation(fields: [emissionsId], references: [id])
   categories Scope3Category[]
-  source     Source           @relation(fields: [sourceId], references: [id])
+  metadata     Metadata           @relation(fields: [metadataId], references: [id])
 }
 
 model Scope3Category {
@@ -109,10 +109,10 @@ model Scope3Category {
   category Int // 1-15 could be an enum but the sqlite provider does not support enums
   value    Float?
   scope3Id Int
-  sourceId Int
+  metadataId Int
 
   scope3 Scope3 @relation(fields: [scope3Id], references: [id])
-  source Source @relation(fields: [sourceId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 model Economy {
@@ -120,11 +120,11 @@ model Economy {
   turnover     Float
   unit         String
   employees    Int
-  sourceId     Int
+  metadataId     Int
   fiscalYearId Int    @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
-  source     Source     @relation(fields: [sourceId], references: [id])
+  metadata     Metadata     @relation(fields: [metadataId], references: [id])
 }
 
 model Goal {
@@ -133,10 +133,10 @@ model Goal {
   year        String?
   target      Float?
   baseYear    String
-  sourceId    Int
+  metadataId    Int
   companyId   Int
 
-  source  Source  @relation(fields: [sourceId], references: [id])
+  metadata  Metadata  @relation(fields: [metadataId], references: [id])
   company Company @relation(fields: [companyId], references: [id])
 }
 
@@ -147,14 +147,13 @@ model Initiative {
   year        String?
   scope       String
   companyId   Int
-  sourceId    Int
+  metadataId    Int
 
   company Company @relation(fields: [companyId], references: [id])
-  source  Source  @relation(fields: [sourceId], references: [id])
+  metadata  Metadata  @relation(fields: [metadataId], references: [id])
 }
 
-// IDEA: Maybe rename to metadata, since source is one of many kinds of metadata
-model Source {
+model Metadata {
   id          Int      @id @default(autoincrement())
   url         String?
   comment     String?
@@ -168,4 +167,5 @@ model Source {
   scope2         Scope2[]
   scope3         Scope3[]
   scope3Category Scope3Category[]
+	@@map("metadata")
 }
