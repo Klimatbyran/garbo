@@ -36,9 +36,10 @@ model IndustryGics {
 model FiscalYear {
   id          Int      @id @default(autoincrement())
   startYear   Int
-  startMonth  String?
   /// When endYear is defined it means this is a broken fiscal year
   endYear     Int?
+  /// startMonth can be defined for broken fiscal years
+  startMonth  String?
   economy     Economy?
   companyId   Int
   emissionsId Int
