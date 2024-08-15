@@ -162,7 +162,7 @@ model Metadata {
 
   goal           Goal[]
   initiative     Initiative[]
-  economoy       Economy[]
+  economy        Economy[]
   scope1         Scope1[]
   scope2         Scope2[]
   scope3         Scope3[]
