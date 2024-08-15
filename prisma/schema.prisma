@@ -11,12 +11,12 @@ model Company {
   wikidataId     String?
   /// Company website URL
   url            String
-  industryGicsId Int
+  industryGicsId Int?
 
   fiscalYears  FiscalYear[]
   initiatives  Initiative[]
   goals        Goal[]
-  industryGics IndustryGics @relation(fields: [industryGicsId], references: [id])
+  industryGics IndustryGics? @relation(fields: [industryGicsId], references: [id])
 }
 
 model IndustryGics {
@@ -35,7 +35,10 @@ model IndustryGics {
 
 model FiscalYear {
   id          Int      @id @default(autoincrement())
-  year        String
+  startYear   Int
+  startMonth  String?
+  /// When endYear is defined it means this is a broken fiscal year
+  endYear     Int?
   economy     Economy?
   companyId   Int
   emissionsId Int
