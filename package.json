@@ -34,6 +34,7 @@
     "openai": "^4.38.5",
     "pdf-parse-debugging-disabled": "^1.1.1",
     "pdf2json": "^3.1.2",
+    "prisma-zod-generator": "^0.8.13",
     "redis": "^4.6.13",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5",

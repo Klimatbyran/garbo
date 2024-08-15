@@ -3,6 +3,14 @@ datasource db {
   url      = "file:./db.db"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
 model Company {
   id             Int     @id @default(autoincrement())
   name           String  @unique
@@ -157,6 +165,8 @@ model Metadata {
   id          Int      @id @default(autoincrement())
   url         String?
   comment     String?
+  /// TODO: Decide how we should work with userIds.
+  /// One idea is to let garbo use a specific ID, and set the SQL @default() value to be "Manual update" or something similar.
   userId      Int
   lastUpdated DateTime @default(now()) @updatedAt
 
