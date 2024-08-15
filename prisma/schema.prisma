@@ -68,11 +68,11 @@ model Scope1 {
   biogenic    Float?
   unit        String
   baseYear    String
-  metadataId    Int
+  metadataId  Int
   emissionsId Int    @unique
 
   emissions Emissions @relation(fields: [emissionsId], references: [id])
-  metadata    Metadata    @relation(fields: [metadataId], references: [id])
+  metadata  Metadata  @relation(fields: [metadataId], references: [id])
 }
 
 model Scope2 {
@@ -83,11 +83,11 @@ model Scope2 {
   mb          Float?
   lb          Float?
   baseYear    String
-  metadataId    Int
+  metadataId  Int
   emissionsId Int    @unique
 
   emissions Emissions @relation(fields: [emissionsId], references: [id])
-  metadata    Metadata    @relation(fields: [metadataId], references: [id])
+  metadata  Metadata  @relation(fields: [metadataId], references: [id])
 }
 
 model Scope3 {
@@ -96,22 +96,22 @@ model Scope3 {
   biogenic    Float?
   unit        String
   baseYear    String
-  metadataId    Int @map("sourceId")
+  metadataId  Int    @map("sourceId")
   emissionsId Int    @unique
 
   emissions  Emissions        @relation(fields: [emissionsId], references: [id])
   categories Scope3Category[]
-  metadata     Metadata           @relation(fields: [metadataId], references: [id])
+  metadata   Metadata         @relation(fields: [metadataId], references: [id])
 }
 
 model Scope3Category {
-  id       Int    @id @default(autoincrement())
-  category Int // 1-15 could be an enum but the sqlite provider does not support enums
-  value    Float?
-  scope3Id Int
+  id         Int    @id @default(autoincrement())
+  category   Int // 1-15 could be an enum but the sqlite provider does not support enums
+  value      Float?
+  scope3Id   Int
   metadataId Int
 
-  scope3 Scope3 @relation(fields: [scope3Id], references: [id])
+  scope3   Scope3   @relation(fields: [scope3Id], references: [id])
   metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
@@ -120,11 +120,11 @@ model Economy {
   turnover     Float
   unit         String
   employees    Int
-  metadataId     Int
+  metadataId   Int
   fiscalYearId Int    @unique
 
   fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
-  metadata     Metadata     @relation(fields: [metadataId], references: [id])
+  metadata   Metadata   @relation(fields: [metadataId], references: [id])
 }
 
 model Goal {
@@ -133,11 +133,11 @@ model Goal {
   year        String?
   target      Float?
   baseYear    String
-  metadataId    Int
+  metadataId  Int
   companyId   Int
 
-  metadata  Metadata  @relation(fields: [metadataId], references: [id])
-  company Company @relation(fields: [companyId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [id])
 }
 
 model Initiative {
@@ -147,10 +147,10 @@ model Initiative {
   year        String?
   scope       String
   companyId   Int
-  metadataId    Int
+  metadataId  Int
 
-  company Company @relation(fields: [companyId], references: [id])
-  metadata  Metadata  @relation(fields: [metadataId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 model Metadata {
@@ -167,5 +167,6 @@ model Metadata {
   scope2         Scope2[]
   scope3         Scope3[]
   scope3Category Scope3Category[]
-	@@map("metadata")
+
+  @@map("metadata")
 }
