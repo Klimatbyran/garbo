@@ -44,5 +44,9 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "prisma": "^5.18.0"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }
