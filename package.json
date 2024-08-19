@@ -42,6 +42,7 @@
     "wikibase-sdk": "^10.0.2"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "prisma": "^5.18.0"
   }
 }
