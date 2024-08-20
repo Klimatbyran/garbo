@@ -265,48 +265,81 @@ const companies = await fetch('https://api.klimatkollen.se/api/companies').then(
   (res) => res.json()
 )
 
-companies.forEach((company) => {
-
-  const gics = await prisma.industryGics.findFirstOrThrow({
-    where: {
-      subIndustryCode: company.industryGics.subIndustry.code,
-    },
-  })
-
-  prisma.company.create({
-    data: {
-      name: company.companyName,
-      description: company.description,
-      wikidataId: company.wikidataId,
-      industryGicsId: gics.id,
-      emissions: {
-        create: {
-          year: company.emissions['2022'].year,
-          scope1: {
-            create: {
-              emissions: company.emissions['2022'].scope1.emissions,
-              biogenic: company.emissions['2022'].scope1.biogenic,
-              verified: company.emissions['2022'].scope1.verified,
-              unit: company.emissions['2022'].scope1.unit,
-            },
-          },
-          scope2: {
-            create: {
-              emissions: company.emissions['2022'].scope2.emissions,
-              biogenic: company.emissions['2022'].scope2.biogenic,
-              verified: company.emissions['2022'].scope2.verified,
-              unit: company.emissions['2022'].scope2.unit,
-              mb: company.emissions['2022'].scope2.mb,
-              lb: company.emissions['2022'].scope2.lb,
-            },
-          },
-          scope3: {
-            create: {
-              emissions: company.emissions['2022'].scope3.emissions,
-
-            },
-          },
-        }
+/**
+ * Import companies once peer unique name
+ */
+async function addCompany(company: (typeof companies)[number]) {
+  try {
+    const name =
+      company.facit?.companyName ??
+      company.wikidata?.label ??
+      company.companyName
+    if (!name) {
+      console.error('name missing for', company)
+      return
     }
+
+    const wikidataId = company.wikidata?.node ?? company.wikidataId
+    if (!wikidataId) {
+      console.error('wikidataId missing for', name)
+      return
+    }
+    const created = await prisma.company.create({
+      data: {
+        name,
+        wikidataId,
+        description: company.description,
+      },
+    })
+    console.log(created)
+  } catch (e) {
+    // console.error(e.message)
   }
-})
+}
+
+Promise.all(companies.map(addCompany))
+
+// companies.forEach((company) => {
+//   const gics = await prisma.industryGics.findFirst({
+//     where: {
+//       subIndustryCode: company.industryGics.subIndustry.code,
+//     },
+//   })
+
+//   prisma.company.create({
+//     data: {
+//       name: company.companyName,
+//       description: company.description,
+//       wikidataId: company.wikidataId,
+//       industryGicsId: gics.id,
+//       emissions: {
+//         create: {
+//           year: company.emissions['2022'].year,
+//           scope1: {
+//             create: {
+//               emissions: company.emissions['2022'].scope1.emissions,
+//               biogenic: company.emissions['2022'].scope1.biogenic,
+//               verified: company.emissions['2022'].scope1.verified,
+//               unit: company.emissions['2022'].scope1.unit,
+//             },
+//           },
+//           scope2: {
+//             create: {
+//               emissions: company.emissions['2022'].scope2.emissions,
+//               biogenic: company.emissions['2022'].scope2.biogenic,
+//               verified: company.emissions['2022'].scope2.verified,
+//               unit: company.emissions['2022'].scope2.unit,
+//               mb: company.emissions['2022'].scope2.mb,
+//               lb: company.emissions['2022'].scope2.lb,
+//             },
+//           },
+//           scope3: {
+//             create: {
+//               emissions: company.emissions['2022'].scope3.emissions,
+
+//             },
+//           },
+//         }
+//     }
+//   }
+// })
