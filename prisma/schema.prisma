@@ -14,7 +14,7 @@ generator client {
 model Company {
   id             Int     @id @default(autoincrement())
   name           String  @unique
-  description    String
+  description    String?
   /// wikidataId is primarily used to export to or import from wikidata
   wikidataId     String?
   /// Company website URL
@@ -29,7 +29,6 @@ model Company {
 
 model IndustryGics {
   id              Int       @id @default(autoincrement())
-  name            String
   sectorCode      String
   sectorName      String
   groupCode       String
@@ -88,7 +87,9 @@ model Scope2 {
   value       Float
   biogenic    Float?
   unit        String
+  /// Market-based emissions
   mb          Float?
+  /// Location-based emissions
   lb          Float?
   baseYear    String
   metadataId  Int
