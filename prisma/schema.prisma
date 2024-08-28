@@ -12,71 +12,91 @@ generator client {
 }
 
 model Company {
-  id             Int     @id @default(autoincrement())
-  name           String  @unique
-  description    String?
-  /// wikidataId is primarily used to export to or import from wikidata
-  wikidataId     String?
+  /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
+  wikidataId       String  @id
+  name             String  @unique
+  description      String?
   /// Company website URL
-  url            String?
-  industryGicsId Int?
+  url              String?
+  industryGicsCode String
 
-  fiscalYears  FiscalYear[]
-  initiatives  Initiative[]
-  goals        Goal[]
-  industryGics IndustryGics? @relation(fields: [industryGicsId], references: [id])
+  /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
+  // swedishOrgNumber
+
+  // TODO: save country and city/region for each company
+
+  industryGics     IndustryGics      @relation(fields: [industryGicsCode], references: [subIndustryCode])
+  reportingPeriods ReportingPeriod[]
+  goals            Goal[]
+  initiatives      Initiative[]
+  baseYears        BaseYear[]
 }
 
+model BaseYear {
+  id         Int    @id @default(autoincrement())
+  // IDEA: maybe the year here should be in relation to a specific reporting period, since we need to account for special cases where reporting periods are not just one year
+  year       Int
+  scope      Int // 1-3
+  companyId  String
+  metadataId Int
+
+  metadata Metadata @relation(fields: [metadataId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [wikidataId])
+}
+
+/// A table containing the standardised GICS codes for categorizing companies into various industries.
 model IndustryGics {
-  id              Int       @id @default(autoincrement())
   sectorCode      String
   sectorName      String
   groupCode       String
   groupName       String
   industryCode    String
   industryName    String
-  subIndustryCode String
+  subIndustryCode String @id
   subIndustryName String
-  companies       Company[]
+
+  companies Company[]
 }
 
-model FiscalYear {
-  id          Int      @id @default(autoincrement())
-  startYear   Int
-  /// When endYear is defined it means this is a broken fiscal year
-  endYear     Int?
-  /// startMonth can be defined for broken fiscal years
-  startMonth  String?
-  economy     Economy?
-  companyId   Int
+/// A reporting period is a timespan for accounting emissions as well as financial data
+model ReportingPeriod {
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+
+  companyId   String
   emissionsId Int
+  metadataId  Int
 
-  emissions Emissions?
-  company   Company    @relation(fields: [companyId], references: [id])
+  initiatives Initiative[]
+  goals       Goal[]
+  metadata    Metadata     @relation(fields: [metadataId], references: [id])
+  economy     Economy?
+  emissions   Emissions?
+  company     Company      @relation(fields: [companyId], references: [wikidataId])
 }
 
-/// Reported emissions for a specific fiscalYear
+/// Reported emissions for a specific reporting period
 model Emissions {
-  id           Int @id @default(autoincrement())
-  fiscalYearId Int @unique
-  scope1Id     Int @unique
-  scope2Id     Int @unique
-  scope3Id     Int @unique
+  id                Int @id @default(autoincrement())
+  reportingPeriodId Int @unique
+  scope1Id          Int
+  scope2Id          Int
+  scope3Id          Int
 
-  fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
-  scope1     Scope1?
-  scope2     Scope2?
-  scope3     Scope3?
+  reportingPeriod ReportingPeriod @relation(fields: [reportingPeriodId], references: [id])
+  scope1          Scope1[]
+  scope2          Scope2[]
+  scope3          Scope3[]
 }
 
 model Scope1 {
   id          Int    @id @default(autoincrement())
-  value       Float
+  value       Float?
   biogenic    Float?
   unit        String
-  baseYear    String
   metadataId  Int
-  emissionsId Int    @unique
+  emissionsId Int
 
   emissions Emissions @relation(fields: [emissionsId], references: [id])
   metadata  Metadata  @relation(fields: [metadataId], references: [id])
@@ -84,14 +104,14 @@ model Scope1 {
 
 model Scope2 {
   id          Int    @id @default(autoincrement())
-  value       Float
+  // TODO: How does scope 2 value (total) compare to the market based vs location based emissions?
+  value       Float?
   biogenic    Float?
   unit        String
   /// Market-based emissions
   mb          Float?
   /// Location-based emissions
   lb          Float?
-  baseYear    String
   metadataId  Int
   emissionsId Int    @unique
 
@@ -100,84 +120,117 @@ model Scope2 {
 }
 
 model Scope3 {
-  id          Int    @id @default(autoincrement())
-  value       Float?
-  biogenic    Float?
-  unit        String
-  baseYear    String
-  metadataId  Int    @map("sourceId")
-  emissionsId Int    @unique
+  id       Int    @id @default(autoincrement())
+  /// We sometimes need to store the total value for scope 3 emissions because some companies only report a total number,
+  /// and don't disclose the emissions per scope 3 category.
+  value    Float?
+  biogenic Float?
+  unit     String
 
-  emissions  Emissions        @relation(fields: [emissionsId], references: [id])
-  categories Scope3Category[]
-  metadata   Metadata         @relation(fields: [metadataId], references: [id])
-}
+  // Scope 3 categories
+  c1_purchasedGoods                          Float?
+  c2_capitalGoods                            Float?
+  c3_fuelAndEnergyRelatedActivities          Float?
+  c4_upstreamTransportationAndDistribution   Float?
+  c5_wasteGeneratedInOperations              Float?
+  c6_businessTravel                          Float?
+  c7_employeeCommuting                       Float?
+  c8_upstreamLeasedAssets                    Float?
+  c9_downstreamTransportationAndDistribution Float?
+  c10_processingOfSoldProducts               Float?
+  c11_useOfSoldProducts                      Float?
+  c12_endOfLifeTreatmentOfSoldProducts       Float?
+  c13_downstreamLeasedAssets                 Float?
+  c14_franchises                             Float?
+  c15_investments                            Float?
+  /// Category 16 "Other" is not included in the GHG protocol
+  /// but we use it to handle companies who don't report scope 3 categories according to the GHG protocol.
+  c16_other                                  Float?
 
-model Scope3Category {
-  id         Int    @id @default(autoincrement())
-  category   Int // 1-15 could be an enum but the sqlite provider does not support enums
-  value      Float?
-  scope3Id   Int
-  metadataId Int
+  metadataId  Int @map("sourceId")
+  emissionsId Int @unique
 
-  scope3   Scope3   @relation(fields: [scope3Id], references: [id])
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+  emissions Emissions @relation(fields: [emissionsId], references: [id])
+  metadata  Metadata  @relation(fields: [metadataId], references: [id])
 }
 
 model Economy {
-  id           Int    @id @default(autoincrement())
-  turnover     Float
-  unit         String
-  employees    Int
-  metadataId   Int
-  fiscalYearId Int    @unique
+  id                Int    @id @default(autoincrement())
+  turnover          Float
+  unit              String
+  employees         Int
+  metadataId        Int
+  reportingPeriodId Int    @unique
 
-  fiscalYear FiscalYear @relation(fields: [fiscalYearId], references: [id])
-  metadata   Metadata   @relation(fields: [metadataId], references: [id])
+  reportingPeriod ReportingPeriod @relation(fields: [reportingPeriodId], references: [id])
+  metadata        Metadata        @relation(fields: [metadataId], references: [id])
 }
 
 model Goal {
-  id          Int     @id @default(autoincrement())
-  description String
-  year        String?
-  target      Float?
-  baseYear    String
-  metadataId  Int
-  companyId   Int
+  id                Int     @id @default(autoincrement())
+  description       String
+  year              String?
+  target            Float?
+  baseYear          String
+  metadataId        Int
+  companyId         String
+  reportingPeriodId Int?
 
-  metadata Metadata @relation(fields: [metadataId], references: [id])
-  company  Company  @relation(fields: [companyId], references: [id])
+  metadata        Metadata         @relation(fields: [metadataId], references: [id])
+  company         Company          @relation(fields: [companyId], references: [wikidataId])
+  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
 }
 
 model Initiative {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  year        String?
-  scope       String
-  companyId   Int
-  metadataId  Int
+  id                Int     @id @default(autoincrement())
+  title             String
+  description       String
+  year              String?
+  scope             String
+  companyId         String
+  metadataId        Int
+  reportingPeriodId Int?
 
-  company  Company  @relation(fields: [companyId], references: [id])
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+  company         Company          @relation(fields: [companyId], references: [wikidataId])
+  metadata        Metadata         @relation(fields: [metadataId], references: [id])
+  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
 }
 
+/// Every updated data point also has associated metadata about who changed it, when, and using what source
 model Metadata {
   id          Int      @id @default(autoincrement())
-  url         String?
   comment     String?
-  /// TODO: Decide how we should work with userIds.
-  /// One idea is to let garbo use a specific ID, and set the SQL @default() value to be "Manual update" or something similar.
-  userId      Int
   lastUpdated DateTime @default(now()) @updatedAt
+  userId      Int
+  sourceId    Int
 
-  goal           Goal[]
-  initiative     Initiative[]
-  economy        Economy[]
-  scope1         Scope1[]
-  scope2         Scope2[]
-  scope3         Scope3[]
-  scope3Category Scope3Category[]
+  source          Source            @relation(fields: [sourceId], references: [id])
+  goal            Goal[]
+  initiative      Initiative[]
+  economy         Economy[]
+  scope1          Scope1[]
+  scope2          Scope2[]
+  scope3          Scope3[]
+  reportingPeriod ReportingPeriod[]
+  baseYear        BaseYear[]
 
   @@map("metadata")
 }
+
+/// The source defines where a data point comes from, and can be re-used for
+/// multiple data points, for example linking the same report
+/// which allows updating the report URL in one place if it changes.
+model Source {
+  id      Int     @id @unique @default(autoincrement())
+  url     String?
+  /// The comment can be used to specify another source than a report URL
+  comment String?
+
+  // The same source can be used for metadata about multiple datapoints
+  metadata Metadata[]
+}
+
+// TODO: define this properly
+// model User {
+//   id  Int @id @default(autoincrement())
+// }
