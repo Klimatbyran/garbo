@@ -1,30 +1,24 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import pdf from 'pdf-parse'
+import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
-import { TextChannel } from 'discord.js'
-import elastic from '../elastic'
+import opensearch from '../opensearch'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
-    channelId: string
-    messageId: string
+    threadId: string
   }
 }
 
 const worker = new Worker(
   'downloadPDF',
   async (job: JobData) => {
-    const { url, channelId, messageId } = job.data
+    const { url } = job.data
 
     job.log(`Downloading from url: ${url}`)
-    const channel = (await discord.client.channels.fetch(
-      channelId
-    )) as TextChannel
-    const message = await channel?.messages?.fetch(messageId)
-    if (message) await message.edit(`Laddar ner PDF...`)
+    const message = await discord.sendMessage(job.data, `🤖 Laddar ner PDF...`)
 
     try {
       const response = await fetch(url, {
@@ -34,51 +28,62 @@ const worker = new Worker(
         },
       })
       if (!response.ok) {
+        await discord.sendMessage(
+          job.data,
+          `Nedladdning misslyckades: ${response.statusText}`
+        )
         throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
       }
-      if (message) await message.edit(`Tolkar PDF...`)
+      message?.edit(`🤖 Tolkar PDF...`)
+
+      // save to disk
+      // const pdfPath = path.join(__dirname, 'temp.pdf')
+      // const pdfStream = fs.create
+      // const pdfStream = fs.create
+      // response.body.pipe(pdfStream)
+      // pdfStream.on('finish', () => {
+      //   console.log('pdf saved')
+      // })
+
       const buffer = await response.arrayBuffer()
+
       let doc
       try {
         doc = await pdf(buffer)
       } catch (error) {
-        if (message)
-          await message.edit(`Fel vid tolkning av PDF: ${error.message}`)
-        job.log(`Error parsing PDF: ${error.message}`)
-        throw error
+        throw new Error('Error parsing PDF')
       }
       const text = doc.text
-      if (message)
-        await message.edit(
-          `Hittade ${text.length} tecken. Delar upp i sidor...`
-        )
+      message.edit(`🤖 Hittade ${text.length} tecken. Delar upp i sidor...`)
 
       let pdfHash = ''
       try {
-        pdfHash = await elastic.hashPdf(Buffer.from(buffer))
+        pdfHash = await opensearch.hashPdf(Buffer.from(buffer))
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }
+      message.edit(`✅ PDF nedladdad!`)
 
       splitText.add('split text ' + text.slice(0, 20), {
+        ...job.data,
         url,
         text,
-        channelId,
-        messageId,
         pdfHash,
       })
 
       return doc.text
     } catch (error) {
-      if (message)
-        await message.edit(`Fel vid nedladdning av PDF: ${error.message}`)
+      discord.sendMessage(
+        job.data,
+        `Fel vid nedladdning av PDF: ${error.message}`
+      )
       job.log(`Error downloading PDF: ${error.message}`)
       throw error
     }
   },
   {
     connection: redis,
-    autorun: false,
+    concurrency: 10,
   }
 )
 

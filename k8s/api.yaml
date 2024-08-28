@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: garbo
+  namespace: garbo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: garbo
+  template:
+    metadata:
+      labels:
+        app: garbo
+    spec:
+      containers:
+        - image: ghcr.io/klimatbyran/garbo:1.1.300 # {"$imagepolicy": "flux-system:garbo"}
+          resources: {}
+          name: garbo
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DISCORD_APPLICATION_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_APPLICATION_ID
+            - name: DISCORD_SERVER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_SERVER_ID
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_TOKEN
+            - name: OPENSEARCH_NODE_URL
+              value: http://opensearch:9200
+            - name: OPENSEARCH_INDEX_NAME
+              value: reports
+            - name: CHROMA_HOST
+              value: http://chromadb:8000
+            - name: REDIS_HOST
+              value: redis-master
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred

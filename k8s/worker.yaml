@@ -1,25 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: garbo
+  name: worker
   namespace: garbo
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
-      app: garbo
+      app: worker
   template:
     metadata:
       labels:
-        app: garbo
+        app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:1.1.133 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:1.1.300 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
-          name: garbo
+          command: ['npm', 'run', 'workers']
+          name: worker
           ports:
             - containerPort: 3000
           env:
+            - name: WORKER
+              value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
@@ -52,9 +55,9 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: ELASTIC_NODE_URL
-              value: http://elasticsearch:9200
-            - name: ELASTIC_INDEX_NAME
+            - name: OPENSEARCH_NODE_URL
+              value: http://opensearch:9200
+            - name: OPENSEARCH_INDEX_NAME
               value: reports
             # - name: CHROMA_TOKEN
             #   valueFrom:

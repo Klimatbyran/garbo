@@ -1,86 +1,114 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import elastic from '../elastic'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
-import { userFeedback } from '../queues'
+import { saveToDb } from '../queues'
+import { v4 as uuidv4 } from 'uuid'
+import { parse } from 'path'
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     json: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
   }
-}
-
-async function saveToDb(id: string, report: any) {
-  return await elastic.indexReport(id, report)
 }
 
 const worker = new Worker(
   'discordReview',
   async (job: JobData) => {
     job.updateProgress(5)
-    const { url, pdfHash, json, channelId } = job.data
+    const { url, pdfHash, json, threadId } = job.data
 
-    job.log(`Sending for review in Discord: ${json}`)
+    job.log(
+      `Sending report (pdfHash: ${pdfHash}) for review in Discord:\n${json}`
+    )
 
     job.updateProgress(10)
-    const parsedJson = JSON.parse(json)
-    parsedJson.url = url
-    job.log(`Saving to db: ${pdfHash}`)
-    const documentId = await saveToDb(pdfHash, parsedJson)
-    const buttonRow = discord.createButtonRow(documentId)
+    const parsedJson = { ...JSON.parse(json), url }
+    const documentId = uuidv4()
+    job.log(`Saving report to database with uuid: ${documentId}`)
+    await saveToDb.add(
+      'saveToDb',
+      {
+        documentId,
+        pdfHash,
+        threadId,
+        report: JSON.stringify(parsedJson, null, 2),
+      },
+      { attempts: 10 }
+    )
+
+    await job.updateData({
+      ...job.data,
+      documentId,
+      json: JSON.stringify(parsedJson),
+    })
+    job.log(`Job data updated with documentId: ${job.data} and json.`)
+    const buttonRow = discord.createButtonRow(job.id)
 
     const summary = await summaryTable(parsedJson)
     const scope3 = await scope3Table(parsedJson)
 
-    job.log(`Sending message to Discord channel ${discord.channelId}`)
+    job.log(`Sending message to Discord channel ${threadId}`)
     // send an empty message to the channel
     let message = null
     try {
-      message = await discord.sendMessageToChannel(discord.channelId, {
-        content: `# ${parsedJson.companyName} (*${parsedJson.industry}*)
+      message = await discord.sendMessageToChannel(threadId, {
+        content: `# ${parsedJson.companyName} (*${
+          parsedJson.industryGics?.subIndustry?.name ||
+          parsedJson.industryGics?.name
+        }*)
 ${url}
 \`${summary}\`
 ## Scope 3:
 \`${scope3}\`
-        ${
-          parsedJson.reviewComment
-            ? `Kommentar från Garbo: ${parsedJson.reviewComment.slice(0, 200)}`
-            : ''
-        }
+        
         `,
         components: [buttonRow],
       })
     } catch (error) {
       job.log(`Error sending message to Discord channel: ${error.message}`)
-      message.edit(`Error sending message to Discord channel: ${error.message}`)
+      message?.edit(
+        `Error sending message to Discord channel: ${error.message}`
+      )
       throw error
     }
 
-    /*discord.once('edit', async (documentId, feedback) => {
-      console.log('edit', documentId, feedback)
-      job.log(`Received feedback: ${feedback} for messageId: ${message?.id}`)
-      job.log(`Creating feedback job`)
-      await userFeedback.add('userFeedback', {
-        url,
-        documentId,
-        messageId: message.id,
-        channelId,
-        json: JSON.stringify(parsedJson, null, 2),
-        feedback,
-      })
-    })*/
+    if (parsedJson.reviewComment)
+      discord.sendMessage(
+        job.data,
+        `Kommentar från Garbo: ${parsedJson.reviewComment}`
+      )
 
-    job.updateProgress(40)
+    if (parsedJson.agentResponse)
+      discord.sendMessage(
+        job.data,
+        `Svar på feedback: ${parsedJson.agentResponse}`
+      )
+
+    if (parsedJson.wikidataId)
+      discord.sendMessage(job.data, `Wikidata ID: ${parsedJson.wikidataId}`)
+    /*
+    if (parsedJson.confidenceScore)
+      discord.sendMessage(
+        job.data,
+        `Confidence score: ${parsedJson.confidenceScore}`
+      )
+
+    if (parsedJson.publicComment)
+      discord.sendMessage(
+        job.data,
+        `Publik kommentar från Garbo: ${parsedJson.publicComment}`
+      )
+*/
+
     job.updateProgress(100)
+    return documentId
   },
   {
     connection: redis,
-    autorun: false,
   }
 )
 

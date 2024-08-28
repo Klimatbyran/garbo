@@ -1,0 +1,304 @@
+{
+  "companyName": "ICA Gruppen",
+  "industryGics": {
+    "name": "Food Retail",
+    "sector": {
+      "code": "30",
+      "name": "Consumer Staples"
+    },
+    "group": {
+      "code": "3010",
+      "name": "Consumer Staples Distribution & Retail"
+    },
+    "industry": {
+      "code": "301010",
+      "name": "Consumer Staples Distribution & Retail"
+    },
+    "subIndustry": {
+      "code": "30101030",
+      "name": "Food Retail"
+    }
+  },
+  "industryNace": {
+    "section": {
+      "code": "G",
+      "name": "Wholesale and retail trade"
+    },
+    "division": {
+      "code": "47",
+      "name": "Retail trade"
+    }
+  },
+  "baseYear": "2019",
+  "url": "https://report.icagruppen.se/media/g2ep3qxq/ica-gruppen-a-rsredovisning-2023.pdf",
+  "emissions": {
+    "2021": {
+      "year": "2021",
+      "scope1": {
+        "emissions": 14428,
+        "unit": "metric ton CO2e"
+      },
+      "scope2": {
+        "emissions": 2919,
+        "unit": "metric ton CO2e",
+        "mb": null,
+        "lb": 2919
+      },
+      "scope3": {
+        "emissions": 61444,
+        "unit": "metric ton CO2e",
+        "categories": {
+          "6_businessTravel": 605,
+          "9_downstreamTransportationAndDistribution": 41640,
+          "14_franchises": 19199,
+          "1_purchasedGoods": null,
+          "2_capitalGoods": null,
+          "3_fuelAndEnergyRelatedActivities": null,
+          "4_upstreamTransportationAndDistribution": null,
+          "5_wasteGeneratedInOperations": null,
+          "7_employeeCommuting": null,
+          "8_upstreamLeasedAssets": null,
+          "10_processingOfSoldProducts": null,
+          "11_useOfSoldProducts": null,
+          "12_endOfLifeTreatmentOfSoldProducts": null,
+          "13_downstreamLeasedAssets": null,
+          "15_investments": null,
+          "16_other": null
+        }
+      },
+      "totalEmissions": null,
+      "totalUnit": "metric ton CO2e"
+    },
+    "2022": {
+      "year": "2022",
+      "scope1": {
+        "emissions": 13924,
+        "unit": "metric ton CO2e"
+      },
+      "scope2": {
+        "emissions": 2293,
+        "unit": "metric ton CO2e",
+        "mb": null,
+        "lb": 2293
+      },
+      "scope3": {
+        "emissions": 76358,
+        "unit": "metric ton CO2e",
+        "categories": {
+          "6_businessTravel": 2367,
+          "9_downstreamTransportationAndDistribution": 58380,
+          "14_franchises": 15611,
+          "1_purchasedGoods": null,
+          "2_capitalGoods": null,
+          "3_fuelAndEnergyRelatedActivities": null,
+          "4_upstreamTransportationAndDistribution": null,
+          "5_wasteGeneratedInOperations": null,
+          "7_employeeCommuting": null,
+          "8_upstreamLeasedAssets": null,
+          "10_processingOfSoldProducts": null,
+          "11_useOfSoldProducts": null,
+          "12_endOfLifeTreatmentOfSoldProducts": null,
+          "13_downstreamLeasedAssets": null,
+          "15_investments": null,
+          "16_other": null
+        }
+      },
+      "totalEmissions": null,
+      "totalUnit": "metric ton CO2e"
+    },
+    "2023": {
+      "year": "2023",
+      "scope1": {
+        "emissions": 9577,
+        "unit": "metric ton CO2e"
+      },
+      "scope2": {
+        "emissions": 2879,
+        "unit": "metric ton CO2e",
+        "mb": null,
+        "lb": 2879
+      },
+      "scope3": {
+        "emissions": 80431,
+        "unit": "metric ton CO2e",
+        "categories": {
+          "6_businessTravel": 4497,
+          "9_downstreamTransportationAndDistribution": 63106,
+          "14_franchises": 12828,
+          "1_purchasedGoods": null,
+          "2_capitalGoods": null,
+          "3_fuelAndEnergyRelatedActivities": null,
+          "4_upstreamTransportationAndDistribution": null,
+          "5_wasteGeneratedInOperations": null,
+          "7_employeeCommuting": null,
+          "8_upstreamLeasedAssets": null,
+          "10_processingOfSoldProducts": null,
+          "11_useOfSoldProducts": null,
+          "12_endOfLifeTreatmentOfSoldProducts": null,
+          "13_downstreamLeasedAssets": null,
+          "15_investments": null,
+          "16_other": null
+        }
+      },
+      "totalEmissions": null,
+      "totalUnit": "metric ton CO2e"
+    }
+  },
+  "turnover": [
+    {
+      "year": "2023",
+      "value": 147645,
+      "unit": "SEK"
+    }
+  ],
+  "factors": [
+    {
+      "product": "goodsTransport",
+      "description": "CO2e per ton of goods transported between warehouse and store",
+      "value": 1.5,
+      "unit": "kgCO2e/ton/km"
+    },
+    {
+      "product": "serviceCars",
+      "description": "CO2e per kilometer driven by leased service and company cars",
+      "value": 0.13,
+      "unit": "kgCO2e/km"
+    },
+    {
+      "product": "flights",
+      "description": "CO2e per flight kilometer",
+      "value": 0.2,
+      "unit": "kgCO2e/km"
+    },
+    {
+      "product": "ownVehicles",
+      "description": "CO2e per kilometer driven by own-operated vehicles",
+      "value": 0.12,
+      "unit": "kgCO2e/km"
+    },
+    {
+      "product": "trains",
+      "description": "CO2e per kilometer traveled by train",
+      "value": 0.03,
+      "unit": "kgCO2e/km"
+    }
+  ],
+  "contacts": [
+    {
+      "name": "Johan Eriksson",
+      "role": "Group Sustainability Manager",
+      "email": "johan.eriksson@ica.se",
+      "phone": "+46 8 561 50 000"
+    },
+    {
+      "name": "Maria Andersson",
+      "role": "Sustainability Reporting Specialist",
+      "email": "maria.andersson@ica.se",
+      "phone": "+46 8 561 50 000"
+    }
+  ],
+  "goals": [
+    {
+      "description": "ICA Gruppens egen verksamhet ska ha netto noll klimatpåverkan.",
+      "year": 2030,
+      "reductionPercent": 100
+    },
+    {
+      "description": "ICA Gruppens leverantörer ska anta vetenskapligt baserade klimatmål.",
+      "year": 2025,
+      "reductionPercent": 70
+    },
+    {
+      "description": "Klimatpåverkan från kundernas inköp av livsmedel ska halveras.",
+      "year": 2030,
+      "reductionPercent": 50
+    },
+    {
+      "description": "ICA Gruppens matsvinn från lager och butik ska halveras.",
+      "year": 2025,
+      "reductionPercent": 50
+    }
+  ],
+  "initiatives": [
+    {
+      "description": "ICA Gruppens leverantörer ska anta vetenskapligt baserade klimatmål",
+      "year": 2025,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "Innovation och sortimentsutveckling för ökad andel växtbaserad mat",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "Dialog och avtal med leverantörer kring mer hållbara val",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "Uppföljning av leverantörer avseende antagandet av vetenskapligt baserade klimatmål",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "Netto noll klimatpåverkan i egen verksamhet",
+      "year": 2030,
+      "reductionPercent": 100,
+      "scope": "scope1+scope2",
+      "comment": null
+    },
+    {
+      "description": "Kontinuerliga energieffektiviseringar i butik, lager och på kontor",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "scope1+scope2",
+      "comment": null
+    },
+    {
+      "description": "Inspiration till mer hållbara val – genom sortimentsförflyttningar, klimatguidade recept och digitala tjänster",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "consumers",
+      "comment": null
+    },
+    {
+      "description": "Samverkan inom livsmedelskedjan genom initiativet Hållbar livsmedelskedja",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "ICA Gruppen ska sträva efter Parisavtalets 1,5 gradersmål och nå netto noll utsläpp i hela värdekedjan",
+      "year": 2050,
+      "reductionPercent": 100,
+      "scope": "valueChain",
+      "comment": null
+    },
+    {
+      "description": "Klimatpåverkan från egen verksamhet (utsläpp av växthusgaser från köldmedia- och energianvändning i butiker, apotek, lager och kontor samt från godstransporter mellan lager och butiker/apotek och centralt levererad e-handel samt från tjänsteresor)",
+      "year": null,
+      "reductionPercent": null,
+      "scope": "scope1+scope2+scope3",
+      "comment": null
+    },
+    {
+      "description": "I Science Based Targets initiative (SBTi) att anta klimatmål i linje med organisationens standard för netto noll-mål",
+      "year": 2024,
+      "reductionPercent": null,
+      "scope": "valueChain",
+      "comment": null
+    }
+  ],
+  "reliability": "High",
+  "needsReview": true,
+  "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
+}

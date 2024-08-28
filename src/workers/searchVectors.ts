@@ -2,21 +2,20 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { parseText } from '../queues'
+import { extractEmissions } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
+import prompt from '../prompts/parsePDF'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
-    channelId: string
+    threadId: string
     markdown: boolean
-    messageId: string
-    pdfHash: string
   }
 }
 
@@ -24,11 +23,14 @@ const worker = new Worker(
   'searchVectors',
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
-    const { url, markdown = false, channelId, messageId, pdfHash } = job.data
+    const { url, markdown = false } = job.data
 
     job.log('Searching ' + url)
 
-    discord.editMessage(job.data, 'Hämtar ut utsläppsdata...')
+    const message = await discord.sendMessage(
+      job.data,
+      '🤖 Söker upp utsläppsdata...'
+    )
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -36,25 +38,31 @@ const worker = new Worker(
     })
 
     const results = await collection.query({
-      nResults: 10,
+      nResults: markdown ? 20 : 5,
       where: markdown
         ? { $and: [{ source: url }, { markdown }] }
         : { source: url },
       queryTexts: [
+        prompt,
         'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
       ],
     })
 
-    job.log(JSON.stringify(results))
+    const paragraphs = results.documents?.flat() || []
 
-    parseText.add(
+    if (paragraphs.length === 0) {
+      message.edit('❌ Hittade inga relevanta paragrafer.')
+      return results.documents
+    }
+
+    job.log('Paragraphs:\n\n' + paragraphs.join('\n\n'))
+
+    message.edit('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
+    extractEmissions.add(
       'parse ' + url,
       {
-        url,
-        paragraphs: results.documents.flat(),
-        channelId,
-        messageId,
-        pdfHash,
+        ...job.data,
+        paragraphs,
       },
       {
         attempts: 5,
@@ -65,7 +73,6 @@ const worker = new Worker(
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 

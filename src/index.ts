@@ -1,60 +1,69 @@
-import dotenv from 'dotenv'
-dotenv.config() // keep this line first in file
+import 'dotenv/config'
 
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-import fs from 'fs/promises'
 
 import discord from './discord'
-import elastic from './elastic'
+import opensearch from './opensearch'
 
-// keep this line, otherwise the workers won't be started
-import * as workers from './workers'
 import {
   discordReview,
   downloadPDF,
   indexParagraphs,
   pdf2Markdown,
-  parseText,
+  extractEmissions,
   reflectOnAnswer,
   searchVectors,
   splitText,
   userFeedback,
+  saveToDb,
+  followUp,
+  guessWikidata,
+  format,
+  includeFacit,
 } from './queues'
-import { summaryTable, scope3Table } from './lib/discordTable'
 import companyRoutes from './routes/companyRoutes'
-
-// add dummy job
-// downloadPDF.add('dummy', {
-//   url: 'https://mb.cision.com/Main/17348/3740648/1941181.pdf',
-// })
-
-/*
-downloadPDF.add('volvo', {
-  url: 'https://www.volvogroup.com/content/dam/volvo-group/markets/master/investors/reports-and-presentations/annual-reports/AB-Volvo-Annual-Report-2022.pdf',
-})*/
-
-// start workers
-Object.values(workers).forEach((worker) => worker.run())
+import { Queue } from 'bullmq'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
 serverAdapter.setBasePath('/admin/queues')
 
+async function cancelActiveJobs(queue: Queue) {
+  const jobCounts = await queue.getActiveCount()
+  if (jobCounts > 0) {
+    const activeJobs = await queue.getActive()
+    for (const job of activeJobs) {
+      try {
+        await job.moveToFailed(new Error('Cancelling active job'), queue.token)
+        // await job.retry()
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+}
+
+const queues = [
+  downloadPDF,
+  pdf2Markdown,
+  splitText,
+  indexParagraphs,
+  searchVectors,
+  extractEmissions,
+  followUp,
+  includeFacit,
+  reflectOnAnswer,
+  format,
+  discordReview,
+  userFeedback,
+  saveToDb,
+  guessWikidata,
+]
 createBullBoard({
-  queues: [
-    new BullMQAdapter(downloadPDF),
-    new BullMQAdapter(pdf2Markdown),
-    new BullMQAdapter(splitText),
-    new BullMQAdapter(indexParagraphs),
-    new BullMQAdapter(searchVectors),
-    new BullMQAdapter(parseText),
-    new BullMQAdapter(reflectOnAnswer),
-    new BullMQAdapter(discordReview),
-    new BullMQAdapter(userFeedback),
-  ],
+  queues: queues.map((queue) => new BullMQAdapter(queue)),
   serverAdapter: serverAdapter,
   options: {
     uiConfig: {
@@ -65,7 +74,7 @@ createBullBoard({
 
 const app = express()
 discord.login()
-elastic.setupIndices()
+opensearch.setupIndices()
 
 app.use('/api', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())
@@ -75,32 +84,22 @@ app.listen(port, () => {
   console.log(`For the UI, open http://localhost:${port}/admin/queues`)
 })
 
-app.get('/', (req, res) => {
-  res.send(`Hi I'm Garbo!`)
-})
+// move active jobs to failed and retry
+// this is a temporary hack to speed up process for now
 
-app.get('/api/imageFromHtml', async (req, res) => {
-  const url = process.env.GOTENBERG_URL || 'http://localhost:3333'
-  const response = await fetch(`${url}/forms/chromium/screenshot/html`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      html: '<h1>Hello world</h1>',
-    }),
+app.get('/admin/cancel-active-jobs', async (req, res) => {
+  queues.map((queue) => {
+    try {
+      cancelActiveJobs(queue)
+    } catch (e) {
+      console.error(e)
+    }
   })
-  response.body.pipeThrough(res)
+  res.send('Restarting active jobs')
 })
 
-app.get(`/api/companies`, async function (req, res) {
-  //res.writeHead(200, { 'Content-Type': 'image/png' })
-  const exampleString = (
-    await fs.readFile('./src/data/example.json')
-  ).toString()
-  console.log('exampleString', exampleString)
-  const example = JSON.parse(exampleString)
-  const scope2 = await summaryTable(example)
-  const scope3 = await scope3Table(example)
-  res.end(scope2 + '\n' + scope3)
+app.get('/', (req, res) => {
+  res.send(
+    `Hi I'm Garbo! Queues: <br><a href="/admin/queues">/admin/queues</a>`
+  )
 })

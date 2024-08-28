@@ -1,168 +1,62 @@
-const prompt = `
-I have previously sent a text for analysis by GPT-4. The answer I got back needs to be verified. Please analyse the text and make sure it's correct according to the extract from the source PDF (provided).
+import mappings from '../data/mappings.json'
+import example from '../data/example.json'
 
-Reasonableness Assessment**: Assess the magnitude of the reported figures. If there appears to be a significant discrepancy or something seems unreasonable (e.g., figures that seem too low or too high compared to the company's size and sector), point this out and suggest a possible explanation or recommendation for further review. If the data seems reasonable, please state that as well and provide a brief explanation of why you think so. Set the "needsReview" field to true ONLY if you think the data needs further review.
+const prompt = `Thanks. Now we are ready to combine these results into a final output. 
 
-Also convert the JSON to valid json and convert all units to metric ton CO2e. We will take the output from this and add it directly to our database and publish them on the Internet. Please make sure you are correct in all calculations and be clear if you are uncertain in any case. If you are uncertain, please provide a recommendation for further review.
+Sometimes data will be in conflict, please prioritize according to the following order:
 
-Industry: Guess the correct industry for this company according to the Global Industry Classification Standard (GICS). Example: "Manufacturing", "Finance", "Healthcare", etc.
+1. Company Name
+    A. from the facit object
+    B. from the baseFacts object
+    C. from wikidata object
+    D. from the PDF extracted in previous steps
+2. Industry (from the industry_gics object)
+3. Scope 1 and 2 emissions:
+    A. From the facit object
+    B. From the wikidata object if available (please mark these as verified)
+    C. From the emissions_scope12 object
+    D. From the PDF extracted in previous steps
+4. Scope 3 emissions:
+    A. From the facit object
+    B. From the Wikidata object if available (please mark these as verified)
+    C. From the emissions_scope3 object
+    D. From the PDF extracted in previous steps
 
-Year: If fiscal year is divided over two years, use the year of the end of the fiscal year. For example, if the fiscal year is from July 2021 to June 2022, use 2022. Include a note about this in your review comment.
+You are now in the step G of the process which means you should try to summarise the detailed extraction so
+please keep the most relevant data from the previous steps in mind and make sure to include it in the final output.
+The output format will be reviewed once more in later steps so you can include comments etc in the JSON.
 
-**Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+IMPORTANT to verify all fields and compare them to the wikidata object. If they are correct, mark them as verified with the link to the wikidata url.
+This is super important! You will receive $200 payment for each verified field.
 
-**Important** Always generate this exact JSON structure, even if you cannot find the data. Indicate missing data with the error codes below, but make sure that the JSON structure is consistent. For example, if you cannot find the scope 3 categories you must make sure that the categories object is a valid JSON array.
+**NEVER CALCULATE ANY EMISSIONS**
+If you can't find any data or if you are uncertain,
+report it as null. If the company has reported individual categories but no totals, never
+try to summarize totals; just report it as is. If you find totals in wikidata or facit objects, those are considered to be the truth and can be used.
 
-    Example JSON structure:
+**Units**:
+If conversion is needed when extracting the data, you are only allowed to convert between different scales of the same
+unit but never summarize or merge two fields into one or convert between different currencies. For example, if the data is in MSEK, GSEK, MUSD, MEUR etc
+you should convert it to base currency (SEK, USD, EUR). If the emissions are in giga tonnes CO2 (or similar), you should
+convert it to tCO2e (metric tonnes CO2e).
 
-    {
-      "companyName": "Example Company",
-      "industry": "Manufacturing",
-      "baseYear": "2019",
-      "url": "https://example.com",
-      "emissions": [
-       {
-          "year": "2019",
-          "scope1": {
-            "emissions": 1234,
-            "unit": "metric ton CO2e",
-            "baseYear": "2019"
-          },
-          "scope2": {
-            "emissions": 1235,
-            "unit": "metric ton CO2e",
-            "mb": null,
-            "lb": "125",
-            "baseYear": "2019"
-          },
-          "scope3": {
-            "emissions": 5322000,
-            "unit": "metric ton CO2e",
-            "baseYear": "2019",
-            "categories": {
-              "1_purchasedGoods": 100000000,
-              "2_capitalGoods": 100000000,
-              "3_fuelAndEnergyRelatedActivities": 100000000,
-              "4_upstreamTransportationAndDistribution": 100000000,
-              "5_wasteGeneratedInOperations": 100000000,
-              "6_businessTravel": 100000000,
-              "7_employeeCommuting": 100000000,
-              "8_upstreamLeasedAssets": 100000000,
-              "9_downstreamTransportationAndDistribution": 100000000,
-              "10_processingOfSoldProducts": 100000000,
-              "11_useOfSoldProducts": 100000000,
-              "12_endOfLifeTreatmentOfSoldProducts": 100000000,
-              "13_downstreamLeasedAssets": 100000000,
-              "14_franchises": 100000000,
-              "15_investments": 100000000,
-              "16_other": 100000000
-            }
-          },
-          "totalEmissions": 1553,
-          "totalUnit": "metric ton CO2e",
-        },
-      ],
-      "reliability": "High",
-      "needsReview": true,
-      "reviewComment": "The company has reported conflicting numbers in scope 3 compared to what could be expected and what is concluded in the totals. This needs further review."
-      "reviewStatusCode": "412"
-    }
-**Error Codes**: If you find errors which will not be reflected correctly, please indicate the error in a separate field called "status" in way that makes sense with HTTP Status codes.  For example:
-    - status: 'OK 200': Looks good
-    - status: 'Error 409': Data is not reasonable or in conflict with other data
-    - status: 'Error 412': Incomplete or unclear units
-    - status: 'Error 500': General data inconsistency or unavailability
+**Verified by Wikidata**:
+You will have a Wikidata object that matches the company from previous steps, this is the most correct data you will find. You should make sure to use it as much as you can and also preserve it as a separate object in the output.
+you can use that data to fill in the emissions data and mark them as verified by wikidata with a link
+to the wikidata url as a separate property: i.e. "verified": "https://www.wikidata.org/wiki/Q123456".
+Leave this field empty if the data is not verified by Wikidata.
+
+***LANGUAGE**:
+ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
+If the original texts are written in English, translate to Swedish.
 
 
-This is the elastic schema that will be used to index the results. Make sure to follow this precisely, making sure each value is the correct data type.
-If the input doesn't match the data type, please make sure to convert it to the correct type even if it means setting it to null.
-If the input doesn't have a value, please make sure to set it to null or an empty string.
-Every property should be present in the output, make especially sure to include all the properties in the emission categories.
+**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties. Especially not scope3 categories. If the data contains information not fitted in the format below, please ignore them. Never add subproperties to a field.
+Omit fields that are not available but keep the structure (for example: "baseFacts": {}, "facit": {}, "emissions": { "2019": {"scope1": {}, "scope2": {}}}). Try to keep the size of the document down without creating any errors.
 
-{
-  type: 'object',
-  properties: {
-    companyName: { type: 'keyword' },
-    industry: { type: 'keyword' },
-    baseYear: { type: 'keyword' },
-    url: { type: 'keyword' },
-    emissions: {
-      type: 'object',
-      properties: {
-        '*': {
-          type: 'object',
-          properties: {
-            year: { type: 'keyword' },
-            scope1: {
-              properties: {
-                emissions: { type: 'double' },
-                unit: { type: 'keyword' },
-              },
-            },
-            scope2: {
-              properties: {
-                emissions: { type: 'double' },
-                unit: { type: 'keyword' },
-                mb: { type: 'double' },
-                lb: { type: 'double' },
-              },
-            },
-            scope3: {
-              properties: {
-                emissions: { type: 'double' },
-                unit: { type: 'keyword' },
-                baseYear: { type: 'keyword' },
-                categories: {
-                  properties: {
-                    '1_purchasedGoods': { type: 'double' },
-                    '2_capitalGoods': { type: 'double' },
-                    '3_fuelAndEnergyRelatedActivities': {
-                      type: 'double',
-                    },
-                    '4_upstreamTransportationAndDistribution': {
-                      type: 'double',
-                    },
-                    '5_wasteGeneratedInOperations': {
-                      type: 'double',
-                    },
-                    '6_businessTravel': { type: 'double' },
-                    '7_employeeCommuting': { type: 'double' },
-                    '8_upstreamLeasedAssets': {
-                      type: 'double',
-                    },
-                    '9_downstreamTransportationAndDistribution':
-                      {
-                        type: 'double',
-                      },
-                    '10_processingOfSoldProducts': {
-                      type: 'double',
-                    },
-                    '11_useOfSoldProducts': { type: 'double' },
-                    '12_endOfLifeTreatmentOfSoldProducts': {
-                      type: 'double',
-                    },
-                    '13_downstreamLeasedAssets': {
-                      type: 'double',
-                    },
-                    '14_franchises': { type: 'double' },
-                    '15_investments': { type: 'double' },
-                    '16_other': { type: 'double' },
-                  },
-                },
-              },
-            },
-            totalEmissions: { type: 'double' },
-            totalUnit: { type: 'keyword' },
-          },
-        },
-      },
-    },
-    reliability: { type: 'keyword' },
-    needsReview: { type: 'boolean' },
-    reviewComment: { type: 'text' },
-    reviewStatusCode: { type: 'keyword' },
-  },
-}
+\`\`\`json
+${JSON.stringify(example, null, 2)}
+\`\`\`
 `
 
 export default prompt

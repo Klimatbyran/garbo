@@ -3,81 +3,53 @@ I have a text extracted from a PDF file containing a company's annual report and
 
 1. **Reading PDF Files**: Read the text extract above. Look for sections containing data on CO2 emissions, specifically focusing on Scope 1 (direct GHG emissions), Scope 2 (indirect GHG emissions, market based (MB) or locatation based (LB)), and Scope 3 emissions (often marked in other unit x1000), also make sure to mark which GHG-categories that are included in scope 3. Use GHG protocol as a reference for what to look for. If you interpret tables, please know that some of the values might be empty - take extra care to ensure you are not confusing years when parsing the values. Please search specifically for tables featuring continuous annual series, such as data for consecutive years like 2022, 2021, 2020, and 2019, rather than just for separate years like 2022 and 2019.
 
-2. **Handling Units**: Pay close attention to the units and handle them correctly. If emissions are reported in thousands of metric tons (x1,000 ton CO2e), make this clear. Mt CO2e means million ton CO2e. If the figures are on a different scale, such as millions of tons (x1,000,000 ton CO2e), note this but never try to convert units. Also look for any side notes or footnotes that may explain the units. Be very attentive to whether the unit is metric tons (tonnes) or US tons. Always present the data in json even if there are disclaimers in the footnotes.
+2. **Handling Units**: Pay close attention to the units and handle them correctly. If emissions are reported in thousands of metric tons (x1,000 ton CO2e), make this clear. Mt CO2e means million ton CO2e. If the figures are on a different scale, such as millions of tons (x1,000,000 ton CO2e), note this but never try to convert units. Also look for any side notes or footnotes that may explain the units. Be very attentive to whether the unit is metric tons (tonnes) or US tons. Always present the data in as is even if there are disclaimers in the footnotes - include them in the output.
 
-3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions.
+3. **Biogenic Emissions**: Be very mindful of whether biogenic emissions (biogena utsläpp) are included in scope 1, scope 2, or scope 3 emissions. According to the GHG protocol, biogenic emissions must be excluded from scope 1, scope 2, and scope 3. Only include CO2e emissions. You can include biogenic emissions as a separate category or note if they are reported but never include them in the GHG reporting.
 
-4. **Data Output Format**: Present the extracted data in a structured JSON format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year.
+4. **Negative emissions or Offsets**: Do not include negative emissions, nor in terms of negative values or carbon storage. Do not include emission reductions from carbon offsets.
 
-    Example JSON structure:
-    {
-      "companyName": "Example Company",
-      "emissions": [
-        {
-          "year": "2019",
-          "scope1": {
-            "emissions": "1234",
-            "unit": "Mt CO2e",
-            "baseYear": "2019"
-          },
-          "scope2": {
-            "emissions": "123500",
-            "unit": "Mt CO2e",
-            "mb": "123500",
-            "lb": null
-            "baseYear": "2019"
-          },
-          "scope3": {
-            "emissions": "5322000",
-            "unit": "x1000 ton CO2e",
-            "baseYear": "2019",
-            "categories": {
-              "1_purchasedGoods": "100000000",
-              "2_capitalGoods": "100000000",
-              "3_fuelAndEnergyRelatedActivities": "100000000",
-              "4_upstreamTransportationAndDistribution": "100000000",
-              "5_wasteGeneratedInOperations": "100000000",
-              "6_businessTravel": "100000000",
-              "7_employeeCommuting": "100000000",
-              "8_upstreamLeasedAssets": "100000000",
-              "9_downstreamTransportationAndDistribution": "100000000",
-              "10_processingOfSoldProducts": "100000000",
-              "11_useOfSoldProducts": "100000000",
-              "12_endOfLifeTreatmentOfSoldProducts": "100000000",
-              "13_downstreamLeasedAssets": "100000000",
-              "14_franchises": "100000000",
-              "15_investments": "100000000",
-              "16_other": "100000000"
-            }
-          },
-          "totalEmissions": "1553",
-          "totalUnit": "Million ton CO2e"
-        },
-        {
-          "year": "2020",
-          "scope1": {
-            "emissions": null
-          },
-          "scope2": {
-            "emissions": null
-          }
-          "scope3": {
-            "emissions": null,
-            "categories": {}
-          }
-        }
-      ]
-    }
+5. **Other emissions**: After identifying Greenhouse Gas emissions that are grouped into Scope 1, 2, 3 and/or the Scope 3 categories provided by the GHG protocol, go on to identify and present other GHG emissions which are not accounted for in these scopes or categories. Indicate the amount in the same format as all other emissions, and display the stated source of emissions.
+    For example, if a company states that emissions from “Packaging” amount to 100 ton CO2e, display this as a separate emission source.
+    If the report merges categories from the GHG protocol, such as reporting emissions from categories 4 and 9 together, this should be displayed as another emission source. 
+    If the report lists emissions from multiple sub-categories to any GHG protocol scope or category, this should be displayed as other emission sources. For example, emissions from flights and hotels could be disclosed separately in the report instead of as business travel.
+    The goal is that all emissions presented in the report are identified and displayed.
 
-5. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
+6. **Data Output Format**: Present the extracted data in a markdown format. Include the year, Scope 1, Scope 2, Scope 3, and total emissions for each year. Include other identified emission sources by adding more numbered categories (16, 17 etc) clearly naming them in the same way as they are presented in the report. 
+7. **Data Output Example**: Present the data in the following format. The company name should be the first line of the markdown file.
 
-6. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
+Example (replace the example name and data with the actual data from the report):
+
+\`\`\`markdown
+
+    | ton CO2e | 2023 | 2022 | 2021 |
+    ---      
+    | Scope 1 | 10000 | 10000 | 10000 | 
+    | Scope 2 | 10000 | 10000 | 10000 | 
+    | Scope 3 | 10000 | 10000 | 10000 |
+    | ### Scope 3: |
+    | 3_fuelAndEnergyRelatedActivities | 10000 | 10000 |  10000 |
+    | 4_upstreamTransportationAndDistribution | 10000 | 10000 |  10000 |
+    | 6_businessTravel | 10000 | 10000 | 10000 |
+    ...
+    ---
+\`\`\`
+
+7. **Never calculate total**: Don't forget to include the total CO2 emissions for each year if presented. Never try to calculate any values! For Scope 2 - if both market based (MB) and location based (LB) emissions are presented, include both values and select market based (MB) for the total emissions.
+
+8. **Error Codes**: If not all information is available firstly use null, if there is an error or inconsistency- please use the following error codes to indicate missing data (using HTTP Status codes as inspiration):
 
     - 'Error 409': Data is not reasonable or in conflict with other data
     - 'Error 412': Incomplete or unclear units
     - 'Error 500': General data inconsistency or unavailability
 
-7. Comma separators. Never use any comma separators or spaces in the numbers.
+9. Comma separators. Never use any comma separators or spaces in the numbers.
+
+10. NEVER interpolate or guess values. If a value is missing, just leave it empty. Companies arent reporting all values for all years.
+
+11. Company Name: The company name is always the title of the markdown file. The language of the report is always in Swedish.
+
+*** LANGUAGE: ONLY WRITE IN SWEDISH! ***
 
 Then, send the results of your analysis back to me.
 `

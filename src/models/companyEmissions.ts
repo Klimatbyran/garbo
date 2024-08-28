@@ -1,37 +1,58 @@
-export type YearEmissions = {
-  year: number
-  scope1: {
-    emissions: number
-    unit: string
-    baseYear: string
-  }
-  scope2: {
-    emissions: string
-    unit: number
-    mb: string
-    lb: string
-    baseYear: string
-  }
-  scope3: {
-    emissions: string
-    unit: number
-    baseYear: string
-    categories: {
-      [key: string]: number
+export type Emissions = {
+  [year: string]: {
+    year: string
+    scope1: {
+      emissions: number
+      verified?: string
+      unit?: string
+      baseYear?: string
     }
+    scope2: {
+      emissions: number
+      verified?: string
+      unit?: number
+      /** Market-based */
+      mb: number
+      /** Location-based */
+      lb: number
+      baseYear?: string
+    }
+    scope3: {
+      emissions: number
+      verified?: string
+      unit?: number
+      baseYear?: string
+      categories: {
+        [key: string]: number
+      }
+    }
+    totalEmissions?: string
+    totalUnit?: string
+    totalBiogenic?: number
   }
-  totalEmissions?: string
-  totalUnit?: string
 }
 
 export type CompanyData = {
   companyName: string
   industry?: string
+  sector?: string
+  industryGroup?: string
   baseYear?: string
   url?: string
-  emissions: Array<YearEmissions>
+  emissions: Emissions
   reliability?: string
   needsReview?: boolean
   reviewComment?: string
+  publicComment?: string
   reviewStatusCode?: string
+  goals?: Array<{
+    year: number
+    description: string
+    target: number
+    unit: string
+  }>
+  initiatives?: Array<{
+    year: number
+    description: string
+  }>
 }

@@ -3,87 +3,121 @@ import redis from '../config/redis'
 import OpenAI from 'openai'
 import previousPrompt from '../prompts/parsePDF'
 import prompt from '../prompts/reflect'
-import { discordReview } from '../queues'
+import { format } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
+import { askStream } from '../openai'
 
 const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 })
 
 class JobData extends Job {
-  data: {
+  declare data: {
     url: string
     paragraphs: string[]
     answer: string
-    channelId: string
-    messageId: string
+    threadId: string
     pdfHash: string
+    previousAnswer: string
+    previousError: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const pdfParagraphs = job.data.paragraphs
-    const answer = job.data.answer
-    const channel = (await discord.client.channels.fetch(
-      job.data.channelId
-    )) as TextChannel
-    const message = await channel.messages.fetch(job.data.messageId)
-    await message.edit(`Verifierar information...`)
+    const { previousAnswer, answer, previousError } = job.data
+    job.clearLogs()
+
+    const message = await discord.sendMessage(
+      job.data,
+      `🤖 Reflekterar... ${job.attemptsStarted || ''}`
+    )
+
+    const childrenValues = Object.values(await job.getChildrenValues()).map(
+      (j) => JSON.parse(j)
+    )
+
     job.log(`Reflecting on: 
 ${answer}
+--- Context:
+childrenValues: ${JSON.stringify(childrenValues, null, 2)}
 --- Prompt:
 ${prompt}`)
 
-    const stream = await openai.chat.completions.create({
-      messages: [
-        { role: 'user', content: pdfParagraphs.join('\n\n') },
+    const response = await askStream(
+      [
         {
-          role: 'user',
-          content: 'From URL: ' + job.data.url,
+          role: 'system',
+          content:
+            'You are an expert in CSRD reporting. Be accurate and follow the instructions carefully.',
         },
         { role: 'user', content: previousPrompt },
-        { role: 'system', content: job.data.answer },
+        { role: 'assistant', content: answer },
+        {
+          role: 'user',
+          content:
+            'Thanks. I have asked another expert to verify each datapoint from different sources. Here are the results:',
+        },
+        {
+          role: 'user',
+          content: (childrenValues && JSON.stringify(childrenValues)) || null,
+        },
         { role: 'user', content: prompt },
-      ],
-      model: 'gpt-4-1106-preview',
-      stream: true,
-    })
-    let response = ''
-    let progress = 0
-    for await (const part of stream) {
-      progress += 1
-      response += part.choices[0]?.delta?.content || ''
-      job.updateProgress(Math.min(100, (100 * progress) / 400))
+        previousError && [
+          { role: 'assistant', content: previousAnswer },
+          { role: 'user', content: previousError },
+        ],
+        { role: 'user', content: 'Reply only with JSON' },
+      ]
+        .flat()
+        .filter((m) => m?.content) as any[],
+      () => {
+        discord.sendTyping(job.data)
+      }
+    )
+
+    let parsedJson
+    try {
+      job.log('Parsing JSON: \n\n' + response)
+      const jsonMatch = response.match(/```json([\s\S]*?)```/)
+      const json = jsonMatch ? jsonMatch[1].trim() : response
+      parsedJson = JSON.parse(json)
+    } catch (error) {
+      job.updateData({
+        ...job.data,
+        previousAnswer: response,
+        previousError: error.message,
+      })
+      discord.sendMessage(job.data, `❌ ${error.message}:`)
+      throw error
     }
-
-    const json =
-      response
-        .match(/```json(.|\n)*```/)[0]
-        ?.replace(/```json|```/g, '')
-        .trim() || '{}'
-
-    const parsedJson = JSON.parse(json) // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
-
     const companyName = parsedJson.companyName
 
-    job.updateData({ title: companyName })
+    const thread = (await discord.client.channels.fetch(
+      job.data.threadId
+    )) as TextChannel
+    thread.setName(companyName)
 
-    await message.edit(`Klart! Skickar till Discord för granskning`)
-    discordReview.add(companyName, {
-      ...job.data,
-      json: JSON.stringify(parsedJson, null, 2) || '{"Error": "No JSON found"}',
-    })
+    message.edit(`✅ ${companyName} klar`)
+    format.add(
+      companyName,
+      {
+        threadId: job.data.threadId,
+        url: job.data.url,
+        json: JSON.stringify(parsedJson, null, 2),
+      },
+      {
+        attempts: 3,
+      }
+    )
 
-    // Do something with job
-    return response
+    return JSON.stringify(parsedJson, null, 2)
   },
   {
     concurrency: 10,
     connection: redis,
-    autorun: false,
   }
 )
 

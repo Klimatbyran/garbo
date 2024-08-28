@@ -1,144 +1,132 @@
 {
-  "emissions": [
-    {
-      "year": "2018",
-      "scope1": {
-        "emissions": "1544000",
-        "unit": "ton CO2e",
-        "baseYear": "2018"
-      },
-      "scope2": {
-        "emissions": "1408000",
-        "unit": "ton CO2e",
-        "locationBased": "1408000",
-        "marketBased": "1838000",
-        "baseYear": "2018"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2018",
-        "categories": {}
-      },
-      "totalEmissions": "Error 500",
-      "totalUnit": "ton CO2e"
+  "companyName": "Example Company",
+  "description": "Example Company is a Swedish company that produces things.",
+  "wikidataId": "Q123456",
+  "industryGics": {
+    "name": "XXX",
+    "sector": {
+      "code": "123",
+      "name": "XXX"
     },
-    {
+    "group": {
+      "code": "1234",
+      "name": "XXX"
+    },
+    "industry": {
+      "code": "12345",
+      "name": "XXX"
+    },
+    "subIndustry": {
+      "code": "123456",
+      "name": "XXX"
+    }
+  },
+  "industryNace": {
+    "section": {
+      "code": "X",
+      "name": "XXXX"
+    },
+    "division": {
+      "code": "123",
+      "name": "XXX"
+    }
+  },
+  "baseYear": "2019",
+  "url": "https://example.com",
+  "emissions": {
+    "2019": {
       "year": "2019",
       "scope1": {
-        "emissions": "1537000",
-        "unit": "ton CO2e",
-        "baseYear": "2019"
+        "emissions": 1234,
+        "biogenic": 123,
+        "verified": null,
+        "unit": "tCO2e"
       },
       "scope2": {
-        "emissions": "1292000",
-        "unit": "ton CO2e",
-        "locationBased": "1292000",
-        "marketBased": "1661000",
-        "baseYear": "2019"
+        "emissions": 1235,
+        "biogenic": 123,
+        "verified": "https://www.wikidata.org/wiki/Q123456",
+        "unit": "tCO2e",
+        "mb": 1235,
+        "lb": 125
       },
       "scope3": {
-        "emissions": "3595000",
-        "unit": "ton CO2e",
-        "baseYear": "2019",
+        "emissions": null,
+        "verified": "https://www.wikidata.org/wiki/Q123456",
+        "biogenic": null,
+        "unit": "tCO2e",
         "categories": {
-          "1_purchasedGoods": "130000000",
-          "2_capitalGoods": "150000000",
-          "3_fuelAndEnergyRelatedActivities": "160000000",
-          "4_upstreamTransportationAndDistribution": "230000000",
-          "5_wasteGeneratedInOperations": "30000000",
-          "6_businessTravel": "430000000",
-          "7_employeeCommuting": "100000000",
-          "8_upstreamLeasedAssets": "100000000",
-          "9_downstreamTransportationAndDistribution": "100000000",
-          "10_processingOfSoldProducts": "100000000",
-          "11_useOfSoldProducts": "100000000",
-          "12_endOfLifeTreatmentOfSoldProducts": "100000000",
-          "13_downstreamLeasedAssets": "100000000",
-          "14_franchises": "100000000",
-          "15_investments": "100000000",
-          "16_other": "100000000"
+          "1_purchasedGoods": null,
+          "2_capitalGoods": null,
+          "3_fuelAndEnergyRelatedActivities": null,
+          "4_upstreamTransportationAndDistribution": null,
+          "5_wasteGeneratedInOperations": 1234,
+          "6_businessTravel": null,
+          "7_employeeCommuting": null,
+          "8_upstreamLeasedAssets": null,
+          "9_downstreamTransportationAndDistribution": null,
+          "10_processingOfSoldProducts": null,
+          "11_useOfSoldProducts": null,
+          "12_endOfLifeTreatmentOfSoldProducts": null,
+          "13_downstreamLeasedAssets": null,
+          "14_franchises": null,
+          "15_investments": null,
+          "16_other": null
         }
-      },
-      "totalEmissions": "2834000",
-      "totalUnit": "ton CO2e"
-    },
+      }
+    }
+  },
+  "baseFacts": {
+    "2019": {
+      "turnover": 123456789,
+      "currency": "SEK",
+      "employees": 12345
+    }
+  },
+  "goals": [
     {
-      "year": "2020",
-      "scope1": {
-        "emissions": "1445000",
-        "unit": "ton CO2e",
-        "baseYear": "2020"
-      },
-      "scope2": {
-        "emissions": "1217000",
-        "unit": "ton CO2e",
-        "locationBased": "1217000",
-        "marketBased": "1436000",
-        "baseYear": "2020"
-      },
-      "scope3": {
-        "emissions": "3410000",
-        "unit": "ton CO2e",
-        "baseYear": "2020",
-        "categories": {}
-      },
-      "totalEmissions": "2662000",
-      "totalUnit": "ton CO2e"
-    },
-    {
-      "year": "2021",
-      "scope1": {
-        "emissions": "1410000",
-        "unit": "ton CO2e",
-        "baseYear": "2021"
-      },
-      "scope2": {
-        "emissions": "1216000",
-        "unit": "ton CO2e",
-        "locationBased": "1216000",
-        "marketBased": "1462000",
-        "baseYear": "2021"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2021",
-        "categories": {}
-      },
-      "totalEmissions": "2626000",
-      "totalUnit": "ton CO2e"
-    },
-    {
-      "year": "2022",
-      "scope1": {
-        "emissions": "1395000",
-        "unit": "ton CO2e",
-        "baseYear": "2022"
-      },
-      "scope2": {
-        "emissions": "1254000",
-        "unit": "ton CO2e",
-        "locationBased": "1254000",
-        "marketBased": "1499000",
-        "baseYear": "2022"
-      },
-      "scope3": {
-        "emissions": null,
-        "unit": null,
-        "baseYear": "2022",
-        "categories": {}
-      },
-      "totalEmissions": "2649000",
-      "totalUnit": "ton CO2e"
+      "description": "Net zero before [year].",
+      "year": 2038,
+      "reductionPercent": 100,
+      "baseYear": "2019"
     }
   ],
-  "companyName": "Essity",
-  "industry": "Hygiene and Health Company",
-  "baseYear": "2016",
-  "url": "https://essity.com",
-  "reliability": "High",
+  "initiatives": [
+    {
+      "title": "Switch to train",
+      "description": "We plan to switch to train for all business trips.",
+      "year": 2028,
+      "scope": "scope3"
+    }
+  ],
+  "wikidata": {
+    "node": "Q123456",
+    "url": "https://www.wikidata.org/wiki/Q123456",
+    "logo": "https://commons.wikimedia.org/wiki/File:Example.jpg",
+    "label": "Company Name",
+    "description": "Company Description",
+    "emissions": [
+      {
+        "year": "2019",
+        "reference": "https://example.com/pdf.pdf",
+        "scope1": {
+          "emissions": 1234,
+          "biogenic": 123,
+          "unit": "tCO2e"
+        },
+        "scope2": null,
+        "scope3": {
+          "emissions": null,
+          "unit": "tCO2e",
+          "categories": {
+            "3_fuelAndEnergyRelatedActivities": 1234,
+            "15_investments": 532
+          }
+        }
+      }
+    ]
+  },
+  "reliability": "High|Medium|Low",
   "needsReview": true,
-  "reviewComment": "Scope 3 emissions data is not available for 2018, 2021, and 2022, which impacted the accuracy of the total emissions for those years. Prior year adjustments for Scope 2 are mentioned but not detailed enough to be factored into the analysis. This requires clarification from the company for accurate annual accounting and should be reviewed by the reporting company.",
-  "reviewStatusCode": "412"
+  "reviewComment": "Allt ser bra ut!"
 }

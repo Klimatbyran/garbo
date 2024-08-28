@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into Elasticsearch and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into OpenSearch and Wikidata.
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -16,57 +16,126 @@ Test the app in Discord channel #rapporter-att-granska by using the command /pdf
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
-1. Import PDF from URL
-2. Parse Text
-3. Send text to OpenAI for embeddings
-4. Index vector database with embeddings
-5. Build query from prompt together with relevant embeddings
-6. Send to LLM
-7. Verify the results first automatically
-8. Verify results in Discord channel
-9. Save to Wikidata or other database (not done)
+```mermaid
+flowchart TB
+
+    A[PDF]
+    B{Is in cache?}
+    C[Download PDF]
+    D[Index Database]
+    E[Search Database]
+    F[Extract Emissions]
+    G[JSON]
+
+    Industry[Extract Industry]
+    Goals[Extract Climate Goals]
+    Review[Reasonability Assessment]
+
+
+    DB[OpenSearch/Kibana]
+
+    A --> B --> C --> D --> E ---> F ---> G ---> H
+    B --(Cached)--> E
+
+    F --> CompanyName --(.company)--> G
+    F --> Industry --(.industry)--> G
+    F --> Scope1+2 --(.scope1)--> G
+    F --> Scope3 --(.scope3)--> G
+    F --> Goals --(.goals)--> G
+    F --> Initiatives --(.initiatives)--> G
+    F --> Contacts --(.contacts)--> G
+    F --> Turnover --(.turnover)--> G
+    F --> Factors --(.factors)--> G
+
+    G --> Format --(json)--> H
+
+    H --> Review --> DB
+    H --> Review --> DB
+```
 
 ### Get Started
 
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
-    npm i
-    docker run -d -p 6379:6379 redis
-    docker run -d -p 8000:8000 chromadb/chroma
-    docker run -d -e "OPENSEARCH_INITIAL_ADMIN_PASSWORD=123456789%%aBCD" -p 9200:9200 opensearchproject/opensearch
-    npm run dev
+NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more decent version of javascript runtime with typescript included)
 
-NOTE: To add a new job to the queue manually you can uncomment the lines in index.ts to create a new downloadPDF job.
+```bash
+bun i
+docker run -d -p 6379:6379 redis
+docker run -d -p 8000:8000 chromadb/chroma
+docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
+bun start & bun run workers
+```
+
+## How to run the code
+
+The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
+
+```bash
+bun start
+```
+
+Now you can go to http://localhost:3000 and see the dashboard.
+
+The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
+
+```bash
+bun run workers
+```
 
 ### Environment/Secrets
 
 Create a .env file in the root lib and add these tokens/secrets before running the application:
 
-    OPENAI_API_KEY=
-    OPENAI_ORG_ID=
-    DISCORD_APPLICATION_ID=
-    DISCORD_TOKEN=
-    DISCORD_SERVER_ID=
-    LLAMA_CLOUD_API_KEY=
-    ELASTIC_NODE_URL=
-    ELASTIC_INDEX_NAME=
+```bash
+OPENAI_API_KEY=
+OPENAI_ORG_ID=
+DISCORD_APPLICATION_ID=
+DISCORD_TOKEN=
+DISCORD_SERVER_ID=
+
+# these are optional, the code works fine without Llama cloud and OpenSearch:
+LLAMA_CLOUD_API_KEY=
+OPENSEARCH_NODE_URL=
+OPENSEARCH_INDEX_NAME=
+```
+
+## How to run with nodemon
+
+Either you run both workers and board in the same terminal with same command through `concurrently`
+
+```bash
+bun run dev
+```
+
+or you start them separately
+
+```bash
+bun run dev-workers
+# new terminal:
+bun run dev-board
+```
+
+### How to run with Docker
+
+```bash
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo bun start
+
+# start how many workers you want:
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo bun run workers
+```
 
 ### Next steps / Tasks
-
-#### First Milestone
-
-- [x] Test on smaller PDF files
-- [x] Split PDF text into smaller chunks (maybe using langchain pdf instead of custom?)
-- [x] Add chunks to vector database (ChromaDB)
-- [x] Use vector database with langchain when doing queries to limit amount of tokens
-- [x] DevOps/Kubernetes setup for databases and deployment (see [https://github.com/Klimatbyran/infra](infra) repo - private)
-- [ ] Tests etc
 
 ### Operations
 
 This application is run in Kubernetes and uses FluxCD as CD pipeline. To create secret in the k8s cluster - use this command to transfer your .env file as secret to the application
 
-    kubectl create secret generic env --from-env-file=.env
+```bash
+kubectl create secret generic env --from-env-file=.env
+```
 
 ### License
 

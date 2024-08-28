@@ -1,19 +1,7 @@
 import { Table } from 'embed-table'
 import { EmbedBuilder } from 'discord.js'
 import { CompanyData } from '../models/companyEmissions'
-
-/*
-export const scope2Image = async (company: CompanyData) => {
-  const emissions = company.emissions.sort((a, b) => b.year - a.year)
-  const template = fs.readFileSync('src/lib/scope2.handlebars', 'utf8')
-  const url = fetch('http://localhost/')
-  const image = await nodeHtmlToImage({
-    html: template,
-    content: { ...company, emissions },
-  })
-  return image
-}
-*/
+import { compareFacitToCompanyData, findFacit } from './facit'
 
 const trimText = (text: string | number = '', length: number = 12) =>
   text && text.toLocaleString('sv-se').slice(0, length).padEnd(length, ' ')
@@ -23,22 +11,36 @@ export const summaryTable = async (company: CompanyData) => {
     return '*Ingen data rapporterad*'
   }
 
-  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
+  const emissions = Object.keys(company.emissions)
+    .sort((a, b) => b.localeCompare(a))
+    .slice(0, 3)
+    .map((year) => ({ ...company.emissions[year], year }))
+
+  const facit = await findFacit(company.url, company.companyName).catch(
+    () => null
+  )
+  const check = facit
+    ? compareFacitToCompanyData(facit, company)
+    : { scope1: null, scope2: null, scope3: null, summary: 'Facit hittades ej' }
 
   const table = [
-    [trimText('CO2'), ...emissions.map((e) => trimText(e.year))],
+    ['🎯', trimText('CO2e'), ...emissions.map((e) => trimText(e.year))],
     [
+      check.scope1 ? '✅' : check.scope1 === false ? '❌' : '❓',
       trimText('Scope 1'),
       ...emissions.map((e) => trimText(e.scope1?.emissions) || trimText('-')),
     ],
     [
+      check.scope2 ? '✅' : check.scope2 === false ? '❌' : '❓',
       trimText('Scope 2'),
       ...emissions.map((e) => trimText(e.scope2?.emissions) || trimText('-')),
     ],
     [
+      check.scope3 ? '✅' : check.scope3 === false ? '❌' : '❓',
       trimText('Scope 3'),
       ...emissions.map((e) => trimText(e.scope3?.emissions) || trimText('-')),
     ],
+    [check.summary || ''],
   ]
 
   return table.map((t) => t.join(' ')).join('\n')
@@ -49,7 +51,11 @@ export const scope3Table = async (company: CompanyData) => {
     return '*Ingen data rapporterad*'
   }
 
-  const emissions = company.emissions?.sort((a, b) => b.year - a.year)
+  const emissions = Object.keys(company.emissions)
+    .sort((a, b) => b.localeCompare(a))
+    .slice(0, 3)
+    .map((year) => ({ ...company.emissions[year], year }))
+
   const categories = [
     ...new Set(
       emissions.map((e) => Object.keys(e.scope3?.categories || {})).flat()
