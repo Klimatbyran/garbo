@@ -1,13 +1,7 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: nlm-ingestor
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nlm-ingestor
-  namespace: nlm-ingestor
 spec:
   replicas: 1
   selector:
