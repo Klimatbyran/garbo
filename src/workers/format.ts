@@ -1,15 +1,10 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import OpenAI from 'openai'
 import prompt from '../prompts/format'
 import { discordReview } from '../queues'
 import discord from '../discord'
 import { askStream } from '../openai'
 import { findFacit } from '../lib/facit'
-
-const openai = new OpenAI({
-  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
-})
 
 class JobData extends Job {
   declare data: {

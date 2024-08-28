@@ -2,7 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { ask, askStream } from '../openai'
+import { askStream } from '../openai'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,

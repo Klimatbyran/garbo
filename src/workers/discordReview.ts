@@ -4,7 +4,6 @@ import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
 import { v4 as uuidv4 } from 'uuid'
-import { parse } from 'path'
 
 class JobData extends Job {
   declare data: {
