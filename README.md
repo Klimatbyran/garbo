@@ -26,6 +26,9 @@ flowchart TB
     E[Search Database]
     F[Extract Emissions]
     G[JSON]
+    N[Find all tables]
+    S[Screenshot]
+    V[AI Vision API]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
@@ -35,6 +38,7 @@ flowchart TB
     DB[OpenSearch/Kibana]
 
     A --> B --> C --> D --> E ---> F ---> G ---> H
+    C --> N --> S --> V --> D
     B --(Cached)--> E
 
     F --> CompanyName --(.company)--> G

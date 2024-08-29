@@ -24,6 +24,7 @@
     "@types/node": "^20.12.12",
     "bullmq": "^5.1.1",
     "chromadb": "^1.7.3",
+    "compromise": "^14.13.0",
     "csv-parser": "^3.0.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
