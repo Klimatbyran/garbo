@@ -23,7 +23,7 @@
     "@hugocxl/react-to-image": "^0.0.9",
     "@opensearch-project/opensearch": "^2.8.0",
     "@prisma/client": "^5.19.0",
-    "@types/node": "^20.12.12",
+    "@types/node": "^22.5.2",
     "bullmq": "^5.1.1",
     "chromadb": "^1.7.3",
     "csv-parser": "^3.0.0",
@@ -40,11 +40,13 @@
     "tsx": "^4.11.0",
     "typescript": "^5.4.5",
     "uuid": "^9.0.1",
-    "wikibase-sdk": "^10.0.2"
+    "wikibase-sdk": "^10.0.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "prisma": "^5.19.0"
+    "prisma": "^5.19.0",
+    "deepl-node": "^1.13.1"
   },
   "prettier": {
     "semi": false,

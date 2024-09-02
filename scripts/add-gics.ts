@@ -1,4 +1,7 @@
 import { IndustryGics, PrismaClient } from '@prisma/client'
+import { mkdir, writeFile } from 'fs/promises'
+import { resolve } from 'path'
+import { translateWithDeepL } from './utils'
 
 const prisma = new PrismaClient()
 
@@ -1139,8 +1142,17 @@ const GICS_2023 = {
   },
 }
 
+// NOTE: Maybe this type will be useful when working with translated strings in the future
+type IndustryGicsWithTranslations = IndustryGics & {
+  sectorName: string
+  groupName: string
+  industryName: string
+  subIndustryName: string
+  subIndustryDescription: string
+}
+
 function prepareCodes() {
-  const gicsCodes: IndustryGics[] = []
+  const gicsCodes: IndustryGicsWithTranslations[] = []
 
   const subIndustries = Object.keys(GICS_2023).filter(
     (code) => code.length === 8
@@ -1167,6 +1179,99 @@ function prepareCodes() {
   return gicsCodes
 }
 
-await prisma.industryGics.createMany({
-  data: prepareCodes(),
-})
+const codes = prepareCodes()
+
+function getIndustryGicsCodesWithoutStrings(codes: IndustryGics[]) {
+  return codes.map(
+    ({ subIndustryCode, groupCode, industryCode, sectorCode }) => ({
+      sectorCode,
+      groupCode,
+      industryCode,
+      subIndustryCode,
+    })
+  )
+}
+
+function getIndustryGicsCodesWithoutCodes(
+  codes: IndustryGicsWithTranslations[]
+) {
+  return codes.map((code) => ({
+    ...code,
+    sectorCode: undefined,
+    groupCode: undefined,
+    industryCode: undefined,
+  }))
+}
+
+async function addIndustryGicsCodesToDB(codes: IndustryGics[]) {
+  await prisma.industryGics.createMany({
+    data: getIndustryGicsCodesWithoutStrings(codes),
+  })
+}
+
+const translateRecords = async (records: IndustryGicsWithTranslations[]) => {
+  const updatedRecords: IndustryGicsWithTranslations[] = []
+
+  const ignoredKeys = new Set([
+    'sectorCode',
+    'groupCode',
+    'industryCode',
+    'subIndustryCode',
+  ])
+
+  for (const record of records.slice(1)) {
+    const updated = structuredClone(record)
+
+    const keysToTranslate = Object.keys(record).filter((key) => {
+      if (record[key] === '') return false
+      if (ignoredKeys.has(key)) return false
+      return true
+    })
+
+    const translated = await translateWithDeepL(
+      keysToTranslate.map((key) => updated[key]),
+      'en',
+      'sv'
+    )
+
+    keysToTranslate.forEach((key, i) => {
+      updated[key] = translated[i]
+    })
+
+    updatedRecords.push(updated)
+  }
+
+  return updatedRecords
+}
+
+async function translateIndustryGicsStrings(
+  codes: IndustryGicsWithTranslations[]
+) {
+  await mkdir(resolve('output/sv'), { recursive: true })
+  await mkdir(resolve('output/en'), { recursive: true })
+
+  await writeFile(
+    resolve(`output/en/industry-gics.json`),
+    JSON.stringify(getIndustryGicsCodesWithoutCodes(codes), null, 2),
+    {
+      encoding: 'utf-8',
+    }
+  )
+
+  const updated = await translateRecords(structuredClone(codes))
+
+  await writeFile(
+    resolve(`output/sv/industry-gics.json`),
+    JSON.stringify(getIndustryGicsCodesWithoutCodes(updated), null, 2),
+    {
+      encoding: 'utf-8',
+    }
+  )
+}
+
+async function main() {
+  // await addIndustryGicsCodesToDB(codes)
+  // await translateIndustryGicsStrings(codes)
+}
+
+await main()
