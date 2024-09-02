@@ -32,6 +32,9 @@ model Company {
   baseYears        BaseYear[]
 }
 
+// TODO: Maybe remove the BaseYear table, and instead keep references to specific base years directly on the company
+// for example: baseYearScope1/2/3
+// Then we could make use of the startDate and endDate, and align it with reporting periods
 model BaseYear {
   id         Int    @id @default(autoincrement())
   // IDEA: maybe the year here should be in relation to a specific reporting period, since we need to account for special cases where reporting periods are not just one year
@@ -171,6 +174,10 @@ model Goal {
   description       String
   year              String?
   target            Float?
+  // TODO: Maybe reference ReportingPeriod instead
+  // However, baseYears for goals might be different than other reporting periods for the company.
+  // Thus, we in some cases need to reference something else than the reporting periods
+  // For now, let's store them as strings, but in the future maybe use another representation.
   baseYear          String
   metadataId        Int
   companyId         String
