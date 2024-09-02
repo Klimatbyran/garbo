@@ -11,7 +11,8 @@
     "workers": "node --import tsx src/startWorkers.ts",
     "dev-workers": "node --import tsx --watch src/startWorkers.ts",
     "dev-board": "node --import tsx --watch src/index.ts",
-    "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\""
+    "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
+    "db:studio": "prisma studio"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",
@@ -21,7 +22,7 @@
     "@google/generative-ai": "^0.1.3",
     "@hugocxl/react-to-image": "^0.0.9",
     "@opensearch-project/opensearch": "^2.8.0",
-    "@prisma/client": "^5.18.0",
+    "@prisma/client": "^5.19.0",
     "@types/node": "^20.12.12",
     "bullmq": "^5.1.1",
     "chromadb": "^1.7.3",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "prisma": "^5.18.0"
+    "prisma": "^5.19.0"
   },
   "prettier": {
     "semi": false,
