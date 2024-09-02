@@ -261,29 +261,51 @@ const prisma = new PrismaClient()
 
   */
 
-const companies = await fetch('https://api.klimatkollen.se/api/companies').then(
-  (res) => res.json()
-)
+// const companies = await fetch('https://api.klimatkollen.se/api/companies').then(
+//   (res) => res.json()
+// )
+
+import companies from './companies.json'
+
+function getFirstDefinedValue(...values: (string | null | undefined)[]) {
+  for (const value of values) {
+    if (value && value.length) {
+      return value
+    }
+  }
+}
 
 /**
- * Import companies once peer unique name
+ * Import companies once per unique name
  */
-async function addCompany(company: (typeof companies)[number]) {
+async function addCompanyBaseFacts(company: (typeof companies)[number]) {
+  let name: string | null | undefined
+  let wikidataId: string | null | undefined
+
   try {
-    const name =
-      company.facit?.companyName ??
-      company.wikidata?.label ??
+    name = getFirstDefinedValue(
+      company.facit?.companyName,
+      company.wikidata?.label,
       company.companyName
+    )
     if (!name) {
-      console.error('name missing for', company)
-      return
+      throw new Error('name missing for ' + JSON.stringify(company, null, 2))
     }
 
-    const wikidataId = company.wikidata?.node ?? company.wikidataId
+    wikidataId = getFirstDefinedValue(
+      company.wikidata?.node,
+      company.wikidataId
+    )
     if (!wikidataId) {
-      console.error('wikidataId missing for', name)
-      return
+      throw new Error('wikidataId missing for ' + name)
     }
+  } catch (e) {
+    console.error(e.message)
+  }
+
+  if (!(name && wikidataId)) return
+
+  try {
     const created = await prisma.company.create({
       data: {
         name,
@@ -297,7 +319,7 @@ async function addCompany(company: (typeof companies)[number]) {
   }
 }
 
-Promise.all(companies.map(addCompany))
+await Promise.all(companies.map(addCompanyBaseFacts))
 
 // companies.forEach((company) => {
 //   const gics = await prisma.industryGics.findFirst({
