@@ -18,14 +18,14 @@ model Company {
   description      String?
   /// Company website URL
   url              String?
-  industryGicsCode String
+  industryGicsCode String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
 
   // TODO: save country and city/region for each company
 
-  industryGics     IndustryGics      @relation(fields: [industryGicsCode], references: [subIndustryCode])
+  industryGics     IndustryGics?     @relation(fields: [industryGicsCode], references: [subIndustryCode])
   reportingPeriods ReportingPeriod[]
   goals            Goal[]
   initiatives      Initiative[]
@@ -48,15 +48,18 @@ model BaseYear {
 }
 
 /// A table containing the standardised GICS codes for categorizing companies into various industries.
+/// TODO: How to handle multilingual names and descriptions?
+/// IDEA: Maybe move the name and description fields into the i18n files instead to be able to maintain standardized translations?
 model IndustryGics {
-  sectorCode      String
-  sectorName      String
-  groupCode       String
-  groupName       String
-  industryCode    String
-  industryName    String
-  subIndustryCode String @id
-  subIndustryName String
+  sectorCode             String
+  sectorName             String
+  groupCode              String
+  groupName              String
+  industryCode           String
+  industryName           String
+  subIndustryCode        String @id
+  subIndustryName        String
+  subIndustryDescription String
 
   companies Company[]
 }
