@@ -1,6 +1,7 @@
 node_modules
 dist
 .env
-db.*
+# Allow multiple local databases - useful to gitignore named db backups
+db*.*
 
 prisma/generated
