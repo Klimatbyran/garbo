@@ -51,15 +51,10 @@ model BaseYear {
 /// TODO: How to handle multilingual names and descriptions?
 /// IDEA: Maybe move the name and description fields into the i18n files instead to be able to maintain standardized translations?
 model IndustryGics {
-  sectorCode             String
-  sectorName             String
-  groupCode              String
-  groupName              String
-  industryCode           String
-  industryName           String
-  subIndustryCode        String @id
-  subIndustryName        String
-  subIndustryDescription String
+  sectorCode      String
+  groupCode       String
+  industryCode    String
+  subIndustryCode String @id
 
   companies Company[]
 }
