@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { Company, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -319,7 +319,53 @@ async function addCompanyBaseFacts(company: (typeof companies)[number]) {
   }
 }
 
-await Promise.all(companies.map(addCompanyBaseFacts))
+// await Promise.all(companies.map(addCompanyBaseFacts))
+
+// Find all companies that have industryGics defined
+// console.log(
+//   companies
+//     .map(
+//       (c) =>
+//         getFirstDefinedValue(
+//           c.facit?.companyName,
+//           c.wikidata?.label,
+//           c.companyName
+//         ) +
+//         '\t\t\t' +
+//         getFirstDefinedValue(c.industryGics?.subIndustry?.code)
+//     )
+//     .join('\n')
+// )
+
+const dbCompanies = await prisma.company.findMany({ take: 150 })
+
+async function addIndustryGics(company: Company) {
+  const industryGics = companies.find(
+    (c) =>
+      company.wikidataId ===
+      getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
+  )?.industryGics
+
+  if (industryGics) {
+    // Ignore cases invalid GICS sub-industry codes
+    if (industryGics?.subIndustry?.code?.length !== 8) {
+      console.log(industryGics)
+      return
+    }
+    await prisma.company.update({
+      where: {
+        wikidataId: company.wikidataId,
+      },
+      data: {
+        industryGicsCode: industryGics?.subIndustry?.code,
+      },
+    })
+  }
+}
+
+await Promise.all(dbCompanies.map(addIndustryGics))
+
+// TODO: translate all the GICS codes to Swedish
 
 // companies.forEach((company) => {
 //   const gics = await prisma.industryGics.findFirst({
