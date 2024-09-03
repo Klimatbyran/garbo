@@ -83,12 +83,12 @@ model ReportingPeriod {
 model Emissions {
   id                     Int  @id @default(autoincrement())
   reportingPeriodId      Int  @unique
-  scope1Id               Int
-  scope2Id               Int
-  scope3Id               Int
-  biogenicEmissionsId    Int?
-  scope1And2Id           Int?
-  statedTotalEmissionsId Int?
+  scope1Id               Int  @unique
+  scope2Id               Int  @unique
+  scope3Id               Int  @unique
+  biogenicEmissionsId    Int? @unique
+  scope1And2Id           Int? @unique
+  statedTotalEmissionsId Int? @unique
 
   // TODO: add calculated field `total` which combines scope 1 + 2 + 3.
   // This should be be calculated during runtime and returned as part of the API data.
@@ -98,10 +98,9 @@ model Emissions {
   scope1And2           Scope1And2?
   biogenicEmissions    BiogenicEmissions?
   reportingPeriod      ReportingPeriod       @relation(fields: [reportingPeriodId], references: [id])
-  // TODO: Maybe only have one scope 1,2,3 for each emissions since we no longer use this DB for change requests
-  scope1               Scope1[]
-  scope2               Scope2[]
-  scope3               Scope3[]
+  scope1               Scope1                @relation(fields: [scope1Id], references: [id])
+  scope2               Scope2                @relation(fields: [scope2Id], references: [id])
+  scope3               Scope3                @relation(fields: [scope3Id], references: [id])
 }
 
 /// This is used when companies only report a total number for either overall- or scope 3 emissions.
@@ -151,10 +150,10 @@ model Scope1 {
   total       Float?
   unit        String
   metadataId  Int
-  emissionsId Int
+  emissionsId Int    @unique
 
-  emissions Emissions @relation(fields: [emissionsId], references: [id])
-  metadata  Metadata  @relation(fields: [metadataId], references: [id])
+  emissions Emissions?
+  metadata  Metadata   @relation(fields: [metadataId], references: [id])
 }
 
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
@@ -171,8 +170,8 @@ model Scope2 {
   metadataId  Int
   emissionsId Int    @unique
 
-  emissions Emissions @relation(fields: [emissionsId], references: [id])
-  metadata  Metadata  @relation(fields: [metadataId], references: [id])
+  emissions Emissions?
+  metadata  Metadata   @relation(fields: [metadataId], references: [id])
 }
 
 // IDEA: We need to separate scope3 into separate categories
@@ -215,8 +214,8 @@ model Scope3 {
   metadataId  Int @map("sourceId")
   emissionsId Int @unique
 
-  emissions Emissions @relation(fields: [emissionsId], references: [id])
-  metadata  Metadata  @relation(fields: [metadataId], references: [id])
+  emissions Emissions?
+  metadata  Metadata   @relation(fields: [metadataId], references: [id])
 }
 
 model Economy {
