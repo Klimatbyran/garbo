@@ -26,6 +26,8 @@ model Company {
 
   // TODO: save country and city/region for each company
 
+  // IDEA: tags: make it possible to categorise the data - e.g. "MVP", "batch 1" to enable further comparisons
+
   industryGics     IndustryGics?     @relation(fields: [industryGicsCode], references: [subIndustryCode])
   reportingPeriods ReportingPeriod[]
   goals            Goal[]
@@ -96,7 +98,7 @@ model Emissions {
   scope1And2           Scope1And2?
   biogenicEmissions    BiogenicEmissions?
   reportingPeriod      ReportingPeriod       @relation(fields: [reportingPeriodId], references: [id])
-  // TODO: Maybe only have one scope1,2,3 for each emissions since we no longer store historic data.
+  // TODO: Maybe only have one scope 1,2,3 for each emissions since we no longer use this DB for change requests
   scope1               Scope1[]
   scope2               Scope2[]
   scope3               Scope3[]
@@ -154,9 +156,6 @@ model Scope1 {
   emissions Emissions @relation(fields: [emissionsId], references: [id])
   metadata  Metadata  @relation(fields: [metadataId], references: [id])
 }
-
-// TODO: do we need to store various scope 2 values separately, with their own metadata?
-// Or is it fine to store it all together, which will make the metadata update when either of the mb, lb or unknown values are changed?
 
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
 /// We generally prefer using market-based emissions, but if that doesn't exist we could use location-based ones, and finally unknown.
@@ -266,17 +265,18 @@ model Initiative {
   reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
 }
 
-/// Every updated data point also has associated metadata about who changed it, when, and using what source
+/// Every data point has associated metadata about who changed it, when, and using what source
 model Metadata {
   id          Int      @id @default(autoincrement())
-  /// The comment is used to add relevant information about why the change was made
+  /// The comment is used to add relevant information about why the datapoint looks like it does
   comment     String?
   lastUpdated DateTime @default(now()) @updatedAt
   userId      Int
   sourceId    Int
 
-  // IDEA: Maybe store multiple sources for each data point
-  // might be valuable
+  // TODO: Maybe store multiple sources for each data point. Yes, this would be useful.
+  // However, do we really need it? let's decide if we actually implement it
+
   source               Source                 @relation(fields: [sourceId], references: [id])
   goal                 Goal[]
   initiative           Initiative[]
@@ -289,8 +289,24 @@ model Metadata {
   BiogenicEmissions    BiogenicEmissions[]
   Scope1And2           Scope1And2[]
   StatedTotalEmissions StatedTotalEmissions[]
+  dataOrigin           DataOrigin?
 
   @@map("metadata")
+}
+
+// TODO: better name for status?
+// TODO: add status - verified, AI extracted, estimated
+
+// TODO: origin/method/kind/type might be better name 
+// TODO: should we separate verified into a separate
+
+/// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
+model DataOrigin {
+  id         Int    @id @default(autoincrement())
+  name       String
+  metadataId Int    @unique
+
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 /// The source defines where a data point comes from, and can be re-used for
