@@ -222,7 +222,7 @@ model Economy {
   id         Int     @id @default(autoincrement())
   turnover   Float?
   unit       String?
-  employees  Int?
+  employees  Float?
   metadataId Int
 
   reportingPeriod ReportingPeriod?
