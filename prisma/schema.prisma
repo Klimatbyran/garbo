@@ -252,9 +252,9 @@ model Goal {
 model Initiative {
   id                Int     @id @default(autoincrement())
   title             String
-  description       String
+  description       String?
   year              String?
-  scope             String
+  scope             String?
   companyId         String
   metadataId        Int
   reportingPeriodId Int?
