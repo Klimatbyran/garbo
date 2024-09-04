@@ -68,21 +68,21 @@ model ReportingPeriod {
   endDate   DateTime
 
   companyId   String
-  emissionsId Int?
+  emissionsId Int?   @unique
+  economyId   Int?   @unique
   metadataId  Int
 
   initiatives Initiative[]
   goals       Goal[]
   metadata    Metadata     @relation(fields: [metadataId], references: [id])
-  economy     Economy?
-  emissions   Emissions?
+  economy     Economy?     @relation(fields: [economyId], references: [id])
+  emissions   Emissions?   @relation(fields: [emissionsId], references: [id])
   company     Company      @relation(fields: [companyId], references: [wikidataId])
 }
 
 /// Reported emissions for a specific reporting period
 model Emissions {
   id                     Int  @id @default(autoincrement())
-  reportingPeriodId      Int  @unique
   scope1Id               Int  @unique
   scope2Id               Int  @unique
   scope3Id               Int  @unique
@@ -97,7 +97,7 @@ model Emissions {
   statedTotalEmissions StatedTotalEmissions?
   scope1And2           Scope1And2?
   biogenicEmissions    BiogenicEmissions?
-  reportingPeriod      ReportingPeriod       @relation(fields: [reportingPeriodId], references: [id])
+  reportingPeriod      ReportingPeriod?
   scope1               Scope1                @relation(fields: [scope1Id], references: [id])
   scope2               Scope2                @relation(fields: [scope2Id], references: [id])
   scope3               Scope3                @relation(fields: [scope3Id], references: [id])
@@ -219,15 +219,14 @@ model Scope3 {
 }
 
 model Economy {
-  id                Int    @id @default(autoincrement())
-  turnover          Float
-  unit              String
-  employees         Int
-  metadataId        Int
-  reportingPeriodId Int    @unique
+  id         Int    @id @default(autoincrement())
+  turnover   Float
+  unit       String
+  employees  Int
+  metadataId Int
 
-  reportingPeriod ReportingPeriod @relation(fields: [reportingPeriodId], references: [id])
-  metadata        Metadata        @relation(fields: [metadataId], references: [id])
+  reportingPeriod ReportingPeriod?
+  metadata        Metadata         @relation(fields: [metadataId], references: [id])
 }
 
 model Goal {
