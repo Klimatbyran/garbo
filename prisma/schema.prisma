@@ -219,10 +219,10 @@ model Scope3 {
 }
 
 model Economy {
-  id         Int    @id @default(autoincrement())
-  turnover   Float
-  unit       String
-  employees  Int
+  id         Int     @id @default(autoincrement())
+  turnover   Float?
+  unit       String?
+  employees  Int?
   metadataId Int
 
   reportingPeriod ReportingPeriod?
