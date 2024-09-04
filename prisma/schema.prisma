@@ -146,11 +146,10 @@ model BiogenicEmissions {
 }
 
 model Scope1 {
-  id          Int    @id @default(autoincrement())
-  total       Float?
-  unit        String
-  metadataId  Int
-  emissionsId Int    @unique
+  id         Int    @id @default(autoincrement())
+  total      Float?
+  unit       String
+  metadataId Int
 
   emissions Emissions?
   metadata  Metadata   @relation(fields: [metadataId], references: [id])
@@ -159,16 +158,15 @@ model Scope1 {
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
 /// We generally prefer using market-based emissions, but if that doesn't exist we could use location-based ones, and finally unknown.
 model Scope2 {
-  id          Int    @id @default(autoincrement())
-  unit        String
+  id         Int    @id @default(autoincrement())
+  unit       String
   /// Market-based emissions
-  mb          Float?
+  mb         Float?
   /// Location-based emissions
-  lb          Float?
+  lb         Float?
   /// Unknown scope 2 emissions could be either market-based or location-based
-  unknown     Float?
-  metadataId  Int
-  emissionsId Int    @unique
+  unknown    Float?
+  metadataId Int
 
   emissions Emissions?
   metadata  Metadata   @relation(fields: [metadataId], references: [id])
@@ -211,8 +209,7 @@ model Scope3 {
   /// "Other" is not included in the GHG protocol, but we use it to handle companies who invent their own scope 3 "categories".
   other                                      Float?
 
-  metadataId  Int @map("sourceId")
-  emissionsId Int @unique
+  metadataId Int @map("sourceId")
 
   emissions Emissions?
   metadata  Metadata   @relation(fields: [metadataId], references: [id])
