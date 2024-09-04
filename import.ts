@@ -398,6 +398,21 @@ async function main() {
               },
             }
           : undefined,
+        goals: Array.isArray(company.goals)
+          ? {
+              createMany: {
+                data: company.goals.map(
+                  (goal: (typeof company.goals)[number]) => ({
+                    description: goal.description,
+                    year: goal.year?.toString() || null,
+                    target: goal.target,
+                    baseYear: goal.baseYear,
+                    metadataId: metadata.id,
+                  })
+                ),
+              },
+            }
+          : undefined,
       },
     })
   }
