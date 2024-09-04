@@ -266,12 +266,12 @@ model Initiative {
 
 /// Every data point has associated metadata about who changed it, when, and using what source
 model Metadata {
-  id          Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   /// The comment is used to add relevant information about why the datapoint looks like it does
-  comment     String?
-  lastUpdated DateTime @default(now()) @updatedAt
-  userId      Int
-  sourceId    Int
+  comment   String?
+  updatedAt DateTime @default(now()) @updatedAt
+  userId    Int
+  sourceId  Int
 
   // TODO: Maybe store multiple sources for each data point. Yes, this would be useful.
   // However, do we really need it? let's decide if we actually implement it
@@ -289,6 +289,7 @@ model Metadata {
   Scope1And2           Scope1And2[]
   StatedTotalEmissions StatedTotalEmissions[]
   dataOrigin           DataOrigin?
+  user                 User                   @relation(fields: [userId], references: [id])
 
   @@map("metadata")
 }
@@ -329,7 +330,11 @@ model EmissionUnit {
   unit String
 }
 
-// TODO: define this properly
-// model User {
-//   id  Int @id @default(autoincrement())
-// }
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+
+  // TODO: connect with github ID
+  Metadata Metadata[]
+}
