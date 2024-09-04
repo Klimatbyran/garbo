@@ -1,4 +1,4 @@
-import { Company, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -389,6 +389,13 @@ async function main() {
 
     const { id } = await prisma.emissions.create({
       data: {
+        biogenicEmissions: {
+          create: {
+            total: emissions.totalBiogenic || null,
+            unit: tCO2e,
+            metadataId: 1,
+          },
+        },
         scope1: {
           create: {
             total: emissions.scope1?.emissions || null,
