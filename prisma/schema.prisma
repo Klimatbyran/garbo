@@ -93,7 +93,7 @@ model Emissions {
   // TODO: add calculated field `total` which combines scope 1 + 2 + 3.
   // This should be be calculated during runtime and returned as part of the API data.
   // The computed total could be used to compare against the statedTotal provided by the company report
-  // In cases where we find discrepancies, we should highlight this in the UI.
+  // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions, we should highlight this in the UI.
   statedTotalEmissions StatedTotalEmissions?
   scope1And2           Scope1And2?
   biogenicEmissions    BiogenicEmissions?
