@@ -20,6 +20,7 @@ const saveToDb = new Queue('saveToDb', options)
 const followUp = new Queue('followUp', options)
 const guessWikidata = new Queue('guessWikidata', options)
 const includeFacit = new Queue('includeFacit', options)
+const nlm = new Queue('nlm', options)
 
 export {
   downloadPDF,
@@ -36,4 +37,5 @@ export {
   userFeedback,
   saveToDb,
   guessWikidata,
+  nlm,
 }
