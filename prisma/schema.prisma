@@ -239,7 +239,7 @@ model Goal {
   // However, baseYears for goals might be different than other reporting periods for the company.
   // Thus, we in some cases need to reference something else than the reporting periods
   // For now, let's store them as strings, but in the future maybe use another representation.
-  baseYear          String
+  baseYear          String?
   metadataId        Int
   companyId         String
   reportingPeriodId Int?
