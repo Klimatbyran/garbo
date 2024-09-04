@@ -7,16 +7,60 @@ const router = express.Router()
 
 router.get('/companies', async (req: Request, res: Response) => {
   try {
-    // TODO: get all companies
     const companies = await prisma.company.findMany({
-      select: {
-        wikidataId: true,
-        name: true,
-        description: true,
-        industryGics: true,
-        goals: true,
-        initiatives: true,
-        reportingPeriods: true,
+      include: {
+        //industryGics: true,
+        //goals: true,
+        //initiatives: true,
+        reportingPeriods: {
+          select: {
+            startDate: true,
+            endDate: true,
+            emissions: {
+              select: {
+                scope1: {
+                  select: {
+                    total: true,
+                    unit: true,
+                  },
+                },
+                scope2: {
+                  select: {
+                    lb: true,
+                    mb: true,
+                    unknown: true,
+                    unit: true,
+                  },
+                },
+                scope3: {
+                  select: {
+                    c1_purchasedGoods: true,
+                    c2_capitalGoods: true,
+                    c3_fuelAndEnergyRelatedActivities: true,
+                    c4_upstreamTransportationAndDistribution: true,
+                    c5_wasteGeneratedInOperations: true,
+                    c6_businessTravel: true,
+                    c7_employeeCommuting: true,
+                    c8_upstreamLeasedAssets: true,
+                    c9_downstreamTransportationAndDistribution: true,
+                    c10_processingOfSoldProducts: true,
+                    c11_useOfSoldProducts: true,
+                    c12_endOfLifeTreatmentOfSoldProducts: true,
+                    c13_downstreamLeasedAssets: true,
+                    c14_franchises: true,
+                    c15_investments: true,
+                    other: true,
+                    unit: true,
+                  },
+                },
+              },
+            },
+            metadata: true,
+          },
+          orderBy: {
+            startDate: 'desc',
+          },
+        },
       },
     })
     res.json(companies)
