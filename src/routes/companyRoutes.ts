@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
+import { getGics } from '../lib/gics'
 
 const prisma = new PrismaClient()
 
@@ -24,7 +25,14 @@ const metadata = {
   },
 }
 
-router.get('/companies', async (req: Request, res: Response) => {
+const cache = () => {
+  return (req: Request, res: Response, next: Function) => {
+    res.set('Cache-Control', 'public, max-age=3000')
+    next()
+  }
+}
+
+router.get('/companies', cache(), async (req: Request, res: Response) => {
   try {
     const companies = await prisma.company.findMany({
       select: {
@@ -49,6 +57,7 @@ router.get('/companies', async (req: Request, res: Response) => {
                   select: {
                     total: true,
                     unit: true,
+                    metadata,
                   },
                 },
                 scope2: {
@@ -57,6 +66,7 @@ router.get('/companies', async (req: Request, res: Response) => {
                     mb: true,
                     unknown: true,
                     unit: true,
+                    metadata,
                   },
                 },
                 scope3: {
@@ -76,8 +86,16 @@ router.get('/companies', async (req: Request, res: Response) => {
                     c13_downstreamLeasedAssets: true,
                     c14_franchises: true,
                     c15_investments: true,
+                    statedTotalEmissions: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
                     other: true,
                     unit: true,
+                    metadata,
                   },
                 },
               },
@@ -92,6 +110,9 @@ router.get('/companies', async (req: Request, res: Response) => {
         goals: {
           select: {
             description: true,
+            year: true,
+            baseYear: true,
+            target: true,
             metadata,
           },
           orderBy: {
@@ -112,7 +133,78 @@ router.get('/companies', async (req: Request, res: Response) => {
         },
       },
     })
-    res.json(companies)
+    res.json(
+      companies
+        // Calculate total emissions for each scope type
+        .map((company) => ({
+          ...company,
+          reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+            ...reportingPeriod,
+            emissions: {
+              ...reportingPeriod.emissions,
+              scope2:
+                (reportingPeriod.emissions?.scope2 && {
+                  ...reportingPeriod.emissions.scope2,
+                  calculatedTotalEmissions:
+                    reportingPeriod.emissions.scope2.mb ||
+                    reportingPeriod.emissions.scope2.lb ||
+                    reportingPeriod.emissions.scope2.unknown,
+                }) ||
+                undefined,
+              scope3:
+                (reportingPeriod.emissions?.scope3 && {
+                  ...reportingPeriod.emissions.scope3,
+                  calculatedTotalEmissions: Object.entries(
+                    reportingPeriod.emissions.scope3
+                  )
+                    .filter(([key, value]) =>
+                      [
+                        'c1_purchasedGoods',
+                        'c2_capitalGoods',
+                        'c3_fuelAndEnergyRelatedActivities',
+                        'c4_upstreamTransportationAndDistribution',
+                        'c5_wasteGeneratedInOperations',
+                        'c6_businessTravel',
+                        'c7_employeeCommuting',
+                        'c8_upstreamLeasedAssets',
+                        'c9_downstreamTransportationAndDistribution',
+                        'c10_processingOfSoldProducts',
+                        'c11_useOfSoldProducts',
+                        'c12_endOfLifeTreatmentOfSoldProducts',
+                        'c13_downstreamLeasedAssets',
+                        'c14_franchises',
+                        'c15_investments',
+                        'other',
+                      ].includes(key)
+                    )
+                    .map(([key, value]) => parseFloat(value?.toString()) || 0)
+                    .reduce((total, value) => value + total, 0),
+                }) ||
+                undefined,
+            },
+            metadata: reportingPeriod.metadata[0],
+          })),
+          industryGics: company.industryGics
+            ? getGics(company.industryGics.subIndustryCode)
+            : undefined,
+        }))
+        // Calculate total emissions for each reporting period
+        .map((company) => ({
+          ...company,
+          reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+            ...reportingPeriod,
+            emissions: {
+              ...reportingPeriod.emissions,
+              calculatedTotalEmissions:
+                reportingPeriod.emissions?.scope1?.total +
+                (reportingPeriod.emissions?.scope2?.calculatedTotalEmissions ||
+                  0) +
+                (reportingPeriod.emissions?.scope3?.calculatedTotalEmissions ||
+                  0),
+            },
+          })),
+        }))
+    )
   } catch (error) {
     console.error('Failed to fetch company emission reports:', error)
     res.status(500).json({ error: 'Error fetching company emission reports' })
