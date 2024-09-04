@@ -5,13 +5,32 @@ const prisma = new PrismaClient()
 
 const router = express.Router()
 
+const metadata = {
+  select: {
+    comment: true,
+    updatedAt: true,
+    user: {
+      select: {
+        email: true,
+        name: true,
+      },
+    },
+    source: {
+      select: {
+        url: true,
+        comment: true,
+      },
+    },
+  },
+}
+
 router.get('/companies', async (req: Request, res: Response) => {
   try {
     const companies = await prisma.company.findMany({
-      include: {
-        //industryGics: true,
-        //goals: true,
-        //initiatives: true,
+      select: {
+        wikidataId: true,
+        name: true,
+        description: true,
         reportingPeriods: {
           select: {
             startDate: true,
@@ -55,10 +74,32 @@ router.get('/companies', async (req: Request, res: Response) => {
                 },
               },
             },
-            metadata: true,
+            metadata,
           },
           orderBy: {
             startDate: 'desc',
+          },
+        },
+        industryGics: true,
+        goals: {
+          select: {
+            description: true,
+            metadata,
+          },
+          orderBy: {
+            year: 'desc',
+          },
+        },
+        initiatives: {
+          select: {
+            title: true,
+            description: true,
+            year: true,
+            scope: true,
+            metadata,
+          },
+          orderBy: {
+            year: 'desc',
           },
         },
       },
