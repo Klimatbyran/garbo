@@ -232,6 +232,7 @@ const prisma = new PrismaClient()
           "scope3": {
             "emissions": 31719,
             "categories": {
+              "1_purchasedGoods": 2493,
               "2_capitalGoods": 14213,
               "3_fuelAndEnergyRelatedActivities": 1292,
               "4_upstreamTransportationAndDistribution": 1983,
@@ -407,6 +408,42 @@ async function main() {
         scope3: {
           create: {
             //total: emissions.scope3?.emissions || null,
+            c1_purchasedGoods:
+              emissions.scope3?.categories?.['1_purchasedGoods'],
+            c2_capitalGoods: emissions.scope3?.categories?.['2_capitalGoods'],
+            c3_fuelAndEnergyRelatedActivities:
+              emissions.scope3?.categories?.[
+                '3_fuelAndEnergyRelatedActivities'
+              ],
+            c4_upstreamTransportationAndDistribution:
+              emissions.scope3?.categories?.[
+                '4_upstreamTransportationAndDistribution'
+              ],
+            c5_wasteGeneratedInOperations:
+              emissions.scope3?.categories?.['5_wasteGeneratedInOperations'],
+            c6_businessTravel:
+              emissions.scope3?.categories?.['6_businessTravel'],
+            c7_employeeCommuting:
+              emissions.scope3?.categories?.['7_employeeCommuting'],
+            c8_upstreamLeasedAssets:
+              emissions.scope3?.categories?.['8_upstreamLeasedAssets'],
+            c9_downstreamTransportationAndDistribution:
+              emissions.scope3?.categories?.[
+                '9_downstreamTransportationAndDistribution'
+              ],
+            c10_processingOfSoldProducts:
+              emissions.scope3?.categories?.['10_processingOfSoldProducts'],
+            c11_useOfSoldProducts:
+              emissions.scope3?.categories?.['11_useOfSoldProducts'],
+            c12_endOfLifeTreatmentOfSoldProducts:
+              emissions.scope3?.categories?.[
+                '12_endOfLifeTreatmentOfSoldProducts'
+              ],
+            c13_downstreamLeasedAssets:
+              emissions.scope3?.categories?.['13_downstreamLeasedAssets'],
+            c14_franchises: emissions.scope3?.categories?.['14_franchises'],
+            c15_investments: emissions.scope3?.categories?.['15_investments'],
+            other: emissions.scope3?.categories?.['16_other'],
             metadataId: 1,
             unit: tCO2e,
           },
