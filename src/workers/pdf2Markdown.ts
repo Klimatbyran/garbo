@@ -1,7 +1,7 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { pdf2Markdown, splitText, searchVectors } from '../queues'
-import opensearch from '../opensearch'
+import * as crypto from 'crypto'
 import llama from '../config/llama'
 import discord from '../discord'
 import { ChromaClient } from 'chromadb'
@@ -40,6 +40,10 @@ async function createPDFParseJob(buffer: ArrayBuffer) {
 
   const id = result.id
   return id
+}
+
+function hashPdf(pdfBuffer: Buffer): string {
+  return crypto.createHash('sha256').update(pdfBuffer).digest('hex')
 }
 
 /**
@@ -169,7 +173,7 @@ const worker = new Worker(
 
       const response = await fetch(url)
       const buffer = await response.arrayBuffer()
-      pdfHash = opensearch.hashPdf(Buffer.from(buffer))
+      pdfHash = hashPdf(Buffer.from(buffer))
 
       message?.edit('🤖 Tolkar tabeller...')
 

@@ -55,10 +55,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: OPENSEARCH_NODE_URL
-              value: http://opensearch:9200
-            - name: OPENSEARCH_INDEX_NAME
-              value: reports
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:

@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into OpenSearch and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -32,7 +32,7 @@ flowchart TB
     Review[Reasonability Assessment]
 
 
-    DB[OpenSearch/Kibana]
+    DB[Database]
 
     A --> B --> C --> D --> E ---> F ---> G ---> H
     B --(Cached)--> E
@@ -61,7 +61,6 @@ Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root director
 npm i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
-docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
 npm start & npm run workers
 ```
 
@@ -92,10 +91,8 @@ DISCORD_APPLICATION_ID=
 DISCORD_TOKEN=
 DISCORD_SERVER_ID=
 
-# these are optional, the code works fine without Llama cloud and OpenSearch:
+# these are optional, the code works fine without Llama cloud:
 LLAMA_CLOUD_API_KEY=
-OPENSEARCH_NODE_URL=
-OPENSEARCH_INDEX_NAME=
 ```
 
 ## How to run with nodemon

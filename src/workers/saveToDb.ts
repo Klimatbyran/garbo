@@ -1,6 +1,5 @@
 import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
-import opensearch from '../opensearch'
 import discord from '../discord'
 import fs from 'fs'
 
@@ -40,7 +39,7 @@ const worker = new Worker(
           JSON.stringify(JSON.parse(report), null, 2)
         )
       } else {
-        await opensearch.indexReport(documentId, pdfHash, report)
+        throw new Error('Not implemented')
       }
       job.updateProgress(30)
       message?.edit(`✅ Sparad!`)
@@ -51,7 +50,7 @@ const worker = new Worker(
       if (process.env.NODE_ENV === 'development') {
         console.log('update state', state)
       } else {
-        await opensearch.updateDocumentState(documentId, state)
+        throw new Error('Not implemented')
       }
       message?.edit(`✅ Sparad: ${state}!`)
     }

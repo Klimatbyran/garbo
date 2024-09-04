@@ -35,10 +35,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
-            - name: OPENSEARCH_NODE_URL
-              value: http://opensearch:9200
-            - name: OPENSEARCH_INDEX_NAME
-              value: reports
             - name: CHROMA_HOST
               value: http://chromadb:8000
             - name: REDIS_HOST
