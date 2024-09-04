@@ -332,18 +332,6 @@ async function getGicsCode(company: (typeof companies)[number]) {
   )?.subIndustryCode
 }
 
-function getCompanyInitiatives() {
-  // const initiatives = companies.find(
-  //   (c) =>
-  //     company.wikidataId ===
-  //     getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
-  // )?.initiatives
-  // if (!Array.isArray(initiatives)) {
-  //   console.log(initiatives)
-  //   return
-  // }
-}
-
 async function main() {
   // Delete database first and apply all migrations
   // INIT
@@ -371,10 +359,79 @@ async function main() {
     },
   })
 
+  async function createEconomy(economy) {
+    const { id } = await prisma.economy.create({
+      data: {
+        turnover: economy.turnover,
+        employees: economy.employees,
+        unit: economy.unit,
+        metadataId: metadata.id,
+      },
+      select: {
+        id: true,
+      },
+    })
+
+    return id
+  }
+
+  const tCO2e = 'tCO2e'
+
+  async function createEmissionsForYear(
+    year: string,
+    company: (typeof companies)[number]
+  ) {
+    const emissions = company.emissions?.[year]
+    if (!emissions) {
+      return null
+    }
+
+    const { id } = await prisma.emissions.create({
+      data: {
+        scope1: {
+          create: {
+            total: emissions.scope1?.emissions || null,
+            unit: tCO2e,
+            metadataId: 1,
+          },
+        },
+        scope2: {
+          create: {
+            mb: emissions.scope2?.mb || null,
+            lb: emissions.scope2?.lb || null,
+            unknown: emissions.scope2?.emissions || null,
+            unit: tCO2e,
+            metadataId: 1,
+          },
+        },
+        scope3: {
+          create: {
+            //total: emissions.scope3?.emissions || null,
+            metadataId: 1,
+            unit: tCO2e,
+          },
+        },
+      },
+      select: {
+        id: true,
+      },
+    })
+
+    return id
+  }
+
   // IMPORT
   for (const company of companies) {
     const gicsCode = await getGicsCode(company)
     console.log(gicsCode, getName(company))
+
+    const years = [
+      ...new Set([
+        ...Object.keys(company.baseFacts ?? {}),
+        ...Object.keys(company.emissions ?? {}),
+      ]),
+    ]
+
     const added = await prisma.company.create({
       data: {
         name: getName(company),
@@ -413,6 +470,35 @@ async function main() {
               },
             }
           : undefined,
+
+        reportingPeriods:
+          company.baseFacts || company.emissions
+            ? {
+                createMany: {
+                  data: await Promise.all(
+                    years.map(async (year) => {
+                      const { turnover, employees } = company.baseFacts?.[
+                        year
+                      ] ?? { turnover: null, employees: null }
+                      return {
+                        startDate: new Date(`${year}-01-01`),
+                        endDate: new Date(`${year}-12-31`),
+                        economyId: await createEconomy({
+                          turnover: turnover ? parseFloat(turnover) : null,
+                          employees,
+                          unit: 'SEK',
+                        }),
+                        emissionsId: await createEmissionsForYear(
+                          year,
+                          company
+                        ),
+                        metadataId: metadata.id,
+                      }
+                    })
+                  ),
+                },
+              }
+            : undefined,
       },
     })
   }
