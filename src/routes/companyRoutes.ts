@@ -35,6 +35,14 @@ router.get('/companies', async (req: Request, res: Response) => {
           select: {
             startDate: true,
             endDate: true,
+            economy: {
+              select: {
+                turnover: true,
+                employees: true,
+                unit: true,
+                metadata,
+              },
+            },
             emissions: {
               select: {
                 scope1: {
