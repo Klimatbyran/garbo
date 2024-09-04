@@ -266,56 +266,15 @@ const prisma = new PrismaClient()
 // )
 
 import companies from './companies.json'
+import { addIndustryGicsCodesToDB } from './scripts/add-gics'
+import { promisify } from 'util'
+import { exec } from 'child_process'
 
 function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   for (const value of values) {
     if (value && value.length) {
       return value
     }
-  }
-}
-
-/**
- * Import companies once per unique name
- */
-async function addCompanyBaseFacts(company: (typeof companies)[number]) {
-  let name: string | null | undefined
-  let wikidataId: string | null | undefined
-
-  try {
-    name = getFirstDefinedValue(
-      company.facit?.companyName,
-      company.wikidata?.label,
-      company.companyName
-    )
-    if (!name) {
-      throw new Error('name missing for ' + JSON.stringify(company, null, 2))
-    }
-
-    wikidataId = getFirstDefinedValue(
-      company.wikidata?.node,
-      company.wikidataId
-    )
-    if (!wikidataId) {
-      throw new Error('wikidataId missing for ' + name)
-    }
-  } catch (e) {
-    console.error(e.message)
-  }
-
-  if (!(name && wikidataId)) return
-
-  try {
-    const created = await prisma.company.create({
-      data: {
-        name,
-        wikidataId,
-        description: company.description,
-      },
-    })
-    console.log(created)
-  } catch (e) {
-    // console.error(e.message)
   }
 }
 
@@ -337,77 +296,91 @@ async function addCompanyBaseFacts(company: (typeof companies)[number]) {
 //     .join('\n')
 // )
 
-const dbCompanies = await prisma.company.findMany({ take: 150 })
+// async function addCompanyInitiatives(company: Company) {
+//   const initiatives = companies.find(
+//     (c) =>
+//       company.wikidataId ===
+//       getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
+//   )?.initiatives
 
-async function addIndustryGics(company: Company) {
-  const industryGics = companies.find(
-    (c) =>
-      company.wikidataId ===
-      getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
-  )?.industryGics
+//   if (!Array.isArray(initiatives)) {
+//     console.log(initiatives)
+//     return
+//   }
+//   await prisma.company.update({
+//     where: {
+//       wikidataId: company.wikidataId,
+//     },
+//     data: {
+//       initiatives: {
+//         createMany: {
+//           // data: initiatives.map()
+//         },
+//       },
+//     },
+//   })
+// }
 
-  if (industryGics) {
-    // Ignore cases invalid GICS sub-industry codes
-    if (industryGics?.subIndustry?.code?.length !== 8) {
-      console.log(industryGics)
-      return
-    }
-    await prisma.company.update({
+function getName(company: (typeof companies)[number]) {
+  let name = getFirstDefinedValue(
+    company.facit?.companyName,
+    company.wikidata?.label,
+    company.companyName
+  )
+  if (!name) {
+    throw new Error('name missing for ' + JSON.stringify(company, null, 2))
+  }
+
+  return name
+}
+
+function getWikidataId(company: (typeof companies)[number]) {
+  let wikidataId = getFirstDefinedValue(
+    company.wikidata?.node,
+    company.wikidataId
+  )
+  if (!wikidataId) {
+    throw new Error('wikidataId missing for ' + name)
+  }
+
+  return wikidataId
+}
+
+async function getGicsCode(company: (typeof companies)[number]) {
+  const code = company.industryGics?.subIndustry?.code
+  if (!code) {
+    return
+  }
+  return (
+    await prisma.industryGics.findUnique({
       where: {
-        wikidataId: company.wikidataId,
-      },
-      data: {
-        industryGicsCode: industryGics?.subIndustry?.code,
+        subIndustryCode: code,
       },
     })
+  )?.subIndustryCode
+}
+
+async function main() {
+  // Delete database first and apply all migrations
+  // INIT
+  await promisify(exec)('npx prisma migrate reset --force')
+  await addIndustryGicsCodesToDB()
+
+  // IMPORT
+  for (const company of companies) {
+    const gicsCode = await getGicsCode(company)
+    console.log(gicsCode, getName(company))
+    const added = await prisma.company.create({
+      data: {
+        name: getName(company),
+        description: company.description,
+        wikidataId: getWikidataId(company),
+        industryGicsCode: gicsCode || undefined,
+      },
+    })
+    console.log(added.name, 'added')
   }
 }
 
-await Promise.all(dbCompanies.map(addIndustryGics))
-
-// TODO: translate all the GICS codes to Swedish
-
-// companies.forEach((company) => {
-//   const gics = await prisma.industryGics.findFirst({
-//     where: {
-//       subIndustryCode: company.industryGics.subIndustry.code,
-//     },
-//   })
-
-//   prisma.company.create({
-//     data: {
-//       name: company.companyName,
-//       description: company.description,
-//       wikidataId: company.wikidataId,
-//       industryGicsId: gics.id,
-//       emissions: {
-//         create: {
-//           year: company.emissions['2022'].year,
-//           scope1: {
-//             create: {
-//               emissions: company.emissions['2022'].scope1.emissions,
-//               biogenic: company.emissions['2022'].scope1.biogenic,
-//               verified: company.emissions['2022'].scope1.verified,
-//               unit: company.emissions['2022'].scope1.unit,
-//             },
-//           },
-//           scope2: {
-//             create: {
-//               emissions: company.emissions['2022'].scope2.emissions,
-//               biogenic: company.emissions['2022'].scope2.biogenic,
-//               verified: company.emissions['2022'].scope2.verified,
-//               unit: company.emissions['2022'].scope2.unit,
-//               mb: company.emissions['2022'].scope2.mb,
-//               lb: company.emissions['2022'].scope2.lb,
-//             },
-//           },
-//           scope3: {
-//             create: {
-//               emissions: company.emissions['2022'].scope3.emissions,
-
-//             },
-//           },
-//         }
-//     }
-//   }
-// })
+await main()
+// companies.deleteAll()

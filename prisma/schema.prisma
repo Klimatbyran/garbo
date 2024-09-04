@@ -14,7 +14,7 @@ generator client {
 model Company {
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
   wikidataId       String  @id
-  name             String  @unique
+  name             String
   description      String?
   /// Company website URL
   url              String?
