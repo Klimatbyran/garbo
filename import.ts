@@ -278,35 +278,7 @@ function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   }
 }
 
-// await Promise.all(companies.map(addCompanyBaseFacts))
-
-// Find all companies that have industryGics defined
-// console.log(
-//   companies
-//     .map(
-//       (c) =>
-//         getFirstDefinedValue(
-//           c.facit?.companyName,
-//           c.wikidata?.label,
-//           c.companyName
-//         ) +
-//         '\t\t\t' +
-//         getFirstDefinedValue(c.industryGics?.subIndustry?.code)
-//     )
-//     .join('\n')
-// )
-
 // async function addCompanyInitiatives(company: Company) {
-//   const initiatives = companies.find(
-//     (c) =>
-//       company.wikidataId ===
-//       getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
-//   )?.initiatives
-
-//   if (!Array.isArray(initiatives)) {
-//     console.log(initiatives)
-//     return
-//   }
 //   await prisma.company.update({
 //     where: {
 //       wikidataId: company.wikidataId,
@@ -360,11 +332,44 @@ async function getGicsCode(company: (typeof companies)[number]) {
   )?.subIndustryCode
 }
 
+function getCompanyInitiatives() {
+  // const initiatives = companies.find(
+  //   (c) =>
+  //     company.wikidataId ===
+  //     getFirstDefinedValue(c.wikidata?.node, c.wikidataId)
+  // )?.initiatives
+  // if (!Array.isArray(initiatives)) {
+  //   console.log(initiatives)
+  //   return
+  // }
+}
+
 async function main() {
   // Delete database first and apply all migrations
   // INIT
   await promisify(exec)('npx prisma migrate reset --force')
   await addIndustryGicsCodesToDB()
+  const user = await prisma.user.create({
+    data: {
+      email: 'hej@klimatkollen.se',
+      name: 'Klimatkollen',
+    },
+  })
+  const source = await prisma.source.create({
+    data: {
+      comment: 'Garbo import',
+      url: 'https://klimatkollen.se',
+    },
+  })
+
+  const metadata = await prisma.metadata.create({
+    data: {
+      comment: 'Initial import',
+      updatedAt: new Date(),
+      userId: user.id,
+      sourceId: source.id,
+    },
+  })
 
   // IMPORT
   for (const company of companies) {
@@ -376,9 +381,25 @@ async function main() {
         description: company.description,
         wikidataId: getWikidataId(company),
         industryGicsCode: gicsCode || undefined,
+        initiatives: Array.isArray(company.initiatives)
+          ? {
+              createMany: {
+                data: company.initiatives.map(
+                  (initiative: (typeof company.initiatives)[number]) => ({
+                    title: initiative.title,
+                    description: initiative.description,
+                    year: initiative.year,
+                    scope: Array.isArray(initiative.scope)
+                      ? initiative.scope.join(',')
+                      : initiative.scope,
+                    metadataId: metadata.id,
+                  })
+                ),
+              },
+            }
+          : undefined,
       },
     })
-    console.log(added.name, 'added')
   }
 }
 
