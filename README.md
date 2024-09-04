@@ -57,14 +57,12 @@ flowchart TB
 
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
-NOTE! First [install bun](https://bun.sh/docs/installation#installing) (a more decent version of javascript runtime with typescript included)
-
 ```bash
-bun i
+npm i
 docker run -d -p 6379:6379 redis
 docker run -d -p 8000:8000 chromadb/chroma
 docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
-bun start & bun run workers
+npm start & npm run workers
 ```
 
 ## How to run the code
@@ -72,7 +70,7 @@ bun start & bun run workers
 The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
 
 ```bash
-bun start
+npm start
 ```
 
 Now you can go to http://localhost:3000 and see the dashboard.
@@ -80,7 +78,7 @@ Now you can go to http://localhost:3000 and see the dashboard.
 The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
 
 ```bash
-bun run workers
+npm run workers
 ```
 
 ### Environment/Secrets
@@ -105,26 +103,26 @@ OPENSEARCH_INDEX_NAME=
 Either you run both workers and board in the same terminal with same command through `concurrently`
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 or you start them separately
 
 ```bash
-bun run dev-workers
+npm run dev-workers
 # new terminal:
-bun run dev-board
+npm run dev-board
 ```
 
 ### How to run with Docker
 
 ```bash
-docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo bun start
+docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
 
 # start how many workers you want:
-docker run -d ghcr.io/klimatbyran/garbo bun run workers
-docker run -d ghcr.io/klimatbyran/garbo bun run workers
-docker run -d ghcr.io/klimatbyran/garbo bun run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
+docker run -d ghcr.io/klimatbyran/garbo npm run workers
 ```
 
 ### Next steps / Tasks
