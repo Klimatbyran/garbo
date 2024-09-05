@@ -285,9 +285,9 @@ model Metadata {
   scope3               Scope3[]
   reportingPeriod      ReportingPeriod[]
   baseYear             BaseYear[]
-  BiogenicEmissions    BiogenicEmissions[]
-  Scope1And2           Scope1And2[]
-  StatedTotalEmissions StatedTotalEmissions[]
+  biogenicEmissions    BiogenicEmissions[]
+  scope1And2           Scope1And2[]
+  statedTotalEmissions StatedTotalEmissions[]
   dataOrigin           DataOrigin?
   user                 User                   @relation(fields: [userId], references: [id])
 }
@@ -331,7 +331,7 @@ model EmissionUnit {
 model Currency {
   id      Int       @id @default(autoincrement())
   name    String    @unique
-  Economy Economy[]
+  economy Economy[]
 }
 
 model User {
@@ -340,5 +340,5 @@ model User {
   name  String
 
   // TODO: connect with github ID
-  Metadata Metadata[]
+  metadata Metadata[]
 }
