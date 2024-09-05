@@ -267,6 +267,12 @@ import { addIndustryGicsCodesToDB } from './scripts/add-gics'
 import { promisify } from 'util'
 import { exec } from 'child_process'
 
+async function prepareEmissionUnits() {
+  return {
+    tCO2e: await prisma.emissionUnit.create({ data: { name: 'tCO2e' } }),
+  }
+}
+
 async function prepareCurrencies(allCompanies: typeof companies) {
   const uniqueCurrencies = new Set<string>()
 
@@ -398,7 +404,9 @@ async function main() {
     return id
   }
 
-  const tCO2e = 'tCO2e'
+  const EMISSION_UNITS = await prepareEmissionUnits()
+
+  const tCO2e = EMISSION_UNITS.tCO2e
 
   async function createEmissionsForYear(
     year: string,
@@ -413,7 +421,7 @@ async function main() {
       ? {
           create: {
             total: emissions.totalBiogenic,
-            unit: tCO2e,
+            unitId: tCO2e.id,
             metadataId: 1,
           },
         }
@@ -425,7 +433,7 @@ async function main() {
       ? {
           create: {
             total: Number(emissions.scope3?.emissions ?? 0),
-            unit: tCO2e,
+            unitId: tCO2e.id,
             metadataId: 1,
           },
         }
@@ -437,7 +445,7 @@ async function main() {
         scope1: {
           create: {
             total: emissions.scope1?.emissions || null,
-            unit: tCO2e,
+            unitId: tCO2e.id,
             metadataId: 1,
           },
         },
@@ -446,7 +454,7 @@ async function main() {
             mb: emissions.scope2?.mb || null,
             lb: emissions.scope2?.lb || null,
             unknown: emissions.scope2?.emissions || null,
-            unit: tCO2e,
+            unitId: tCO2e.id,
             metadataId: 1,
           },
         },
@@ -490,7 +498,7 @@ async function main() {
             c15_investments: emissions.scope3?.categories?.['15_investments'],
             other: emissions.scope3?.categories?.['16_other'],
             metadataId: 1,
-            unit: tCO2e,
+            unitId: tCO2e.id,
           },
         },
       },
