@@ -1,4 +1,4 @@
-import { Currency, PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -405,19 +405,35 @@ async function main() {
     company: (typeof companies)[number]
   ) {
     const emissions = company.emissions?.[year]
-    if (!emissions) {
-      return null
-    }
+    if (!emissions) return null
 
-    const { id } = await prisma.emissions.create({
-      data: {
-        biogenicEmissions: {
+    const biogenicEmissions:
+      | Prisma.BiogenicEmissionsCreateNestedOneWithoutEmissionsInput
+      | undefined = Number.isFinite(emissions.totalBiogenic)
+      ? {
           create: {
-            total: emissions.totalBiogenic || null,
+            total: emissions.totalBiogenic,
             unit: tCO2e,
             metadataId: 1,
           },
-        },
+        }
+      : undefined
+
+    const statedTotalScope3Emissions:
+      | Prisma.StatedTotalEmissionsUncheckedCreateNestedOneWithoutScope3Input
+      | undefined = Number.isFinite(emissions.scope3?.emissions)
+      ? {
+          create: {
+            total: Number(emissions.scope3?.emissions ?? 0),
+            unit: tCO2e,
+            metadataId: 1,
+          },
+        }
+      : undefined
+
+    const { id } = await prisma.emissions.create({
+      data: {
+        biogenicEmissions,
         scope1: {
           create: {
             total: emissions.scope1?.emissions || null,
@@ -436,7 +452,7 @@ async function main() {
         },
         scope3: {
           create: {
-            //total: emissions.scope3?.emissions || null,
+            statedTotalEmissions: statedTotalScope3Emissions,
             c1_purchasedGoods:
               emissions.scope3?.categories?.['1_purchasedGoods'],
             c2_capitalGoods: emissions.scope3?.categories?.['2_capitalGoods'],
