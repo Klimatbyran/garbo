@@ -213,12 +213,19 @@ model Scope3 {
 }
 
 model Economy {
-  id         Int     @id @default(autoincrement())
-  turnover   Float?
-  unit       String?
-  employees  Float?
-  metadataId Int
+  id            Int     @id @default(autoincrement())
+  // TODO: Consider splitting Economy into separate data points, where each one of them has their own metadata.
+  // This will make it easier to separate partially verified data
+  // TODO: Store turnover with another datatype to prevent rounding errors, never store it as float
+  turnover      Float?
+  currencyId    Int?
+  /// Number of employees (using various methods)
+  employees     Float?
+  /// The unit defining the number of employees
+  employeesUnit String?
+  metadataId    Int
 
+  currency        Currency?        @relation(fields: [currencyId], references: [id])
   reportingPeriod ReportingPeriod?
   metadata        Metadata         @relation(fields: [metadataId], references: [id])
 }
@@ -321,6 +328,12 @@ model EmissionUnit {
   id   Int    @id @default(autoincrement())
   /// In general, a unit like "tCO2e"
   unit String
+}
+
+model Currency {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Economy Economy[]
 }
 
 model User {

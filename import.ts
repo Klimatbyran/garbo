@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { Currency, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -262,14 +262,27 @@ const prisma = new PrismaClient()
 
   */
 
-// const companies = await fetch('https://api.klimatkollen.se/api/companies').then(
-//   (res) => res.json()
-// )
-
 import companies from './companies.json'
 import { addIndustryGicsCodesToDB } from './scripts/add-gics'
 import { promisify } from 'util'
 import { exec } from 'child_process'
+
+async function prepareCurrencies(allCompanies: typeof companies) {
+  const uniqueCurrencies = new Set<string>()
+
+  for (const company of allCompanies) {
+    for (const [year, baseFacts] of Object.entries(company.baseFacts ?? {})) {
+      if (baseFacts?.unit) {
+        const currency = baseFacts.unit.toUpperCase()
+        uniqueCurrencies.add(currency)
+      }
+    }
+  }
+
+  return prisma.currency.createManyAndReturn({
+    data: [...uniqueCurrencies].map((name) => ({ name })),
+  })
+}
 
 function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   for (const value of values) {
@@ -278,21 +291,6 @@ function getFirstDefinedValue(...values: (string | null | undefined)[]) {
     }
   }
 }
-
-// async function addCompanyInitiatives(company: Company) {
-//   await prisma.company.update({
-//     where: {
-//       wikidataId: company.wikidataId,
-//     },
-//     data: {
-//       initiatives: {
-//         createMany: {
-//           // data: initiatives.map()
-//         },
-//       },
-//     },
-//   })
-// }
 
 function getName(company: (typeof companies)[number]) {
   let name = getFirstDefinedValue(
@@ -313,7 +311,7 @@ function getWikidataId(company: (typeof companies)[number]) {
     company.wikidataId
   )
   if (!wikidataId) {
-    throw new Error('wikidataId missing for ' + name)
+    throw new Error('wikidataId missing for ' + getName(company))
   }
 
   return wikidataId
@@ -334,9 +332,11 @@ async function getGicsCode(company: (typeof companies)[number]) {
 }
 
 async function main() {
-  // Delete database first and apply all migrations
   // INIT
+  // Delete database first and apply all migrations
   await promisify(exec)('npx prisma migrate reset --force')
+
+  const currencies = await prepareCurrencies(companies)
   await addIndustryGicsCodesToDB()
   const user = await prisma.user.create({
     data: {
@@ -361,11 +361,18 @@ async function main() {
   })
 
   async function createEconomy(economy) {
+    // if the currency exists, use it, otherwise create it
+
+    const currencyId = economy.currency
+      ? currencies.find((c) => c.name === economy.currency.toUpperCase())?.id
+      : null
+
     const { id } = await prisma.economy.create({
       data: {
         turnover: economy.turnover,
         employees: economy.employees,
-        unit: economy.unit,
+        // TODO: Add employeesUnit when importing the facit data
+        currencyId,
         metadataId: metadata.id,
       },
       select: {
@@ -521,16 +528,22 @@ async function main() {
                 createMany: {
                   data: await Promise.all(
                     years.map(async (year) => {
-                      const { turnover, employees } = company.baseFacts?.[
-                        year
-                      ] ?? { turnover: null, employees: null }
+                      const {
+                        turnover,
+                        employees,
+                        unit: currency,
+                      } = company.baseFacts?.[year] ?? {
+                        turnover: null,
+                        employees: null,
+                        unit: null,
+                      }
                       return {
                         startDate: new Date(`${year}-01-01`),
                         endDate: new Date(`${year}-12-31`),
                         economyId: await createEconomy({
                           turnover: turnover ? parseFloat(turnover) : null,
                           employees,
-                          unit: 'SEK',
+                          currency: currency || null,
                         }),
                         emissionsId: await createEmissionsForYear(
                           year,
