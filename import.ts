@@ -344,6 +344,8 @@ async function main() {
       name: 'Klimatkollen',
     },
   })
+
+  // TODO: properly create sources for all unique report URLs
   const source = await prisma.source.create({
     data: {
       comment: 'Garbo import',
@@ -351,12 +353,18 @@ async function main() {
     },
   })
 
+  // TODO: properly create metadata for every datapoint
   const metadata = await prisma.metadata.create({
     data: {
       comment: 'Initial import',
       updatedAt: new Date(),
       userId: user.id,
       sourceId: source.id,
+      dataOrigin: {
+        create: {
+          name: 'Garbo extraction',
+        },
+      },
     },
   })
 
