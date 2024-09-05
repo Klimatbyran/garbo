@@ -29,6 +29,12 @@ const metadata = {
   },
 }
 
+const unit = {
+  select: {
+    name: true,
+  },
+}
+
 const cache = () => {
   return (req: Request, res: Response, next: Function) => {
     res.set('Cache-Control', 'public, max-age=3000')
@@ -64,7 +70,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 scope1: {
                   select: {
                     total: true,
-                    unit: true,
+                    unit,
                     metadata,
                   },
                 },
@@ -73,7 +79,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     lb: true,
                     mb: true,
                     unknown: true,
-                    unit: true,
+                    unit,
                     metadata,
                   },
                 },
@@ -97,19 +103,19 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     statedTotalEmissions: {
                       select: {
                         total: true,
-                        unit: true,
+                        unit,
                         metadata,
                       },
                     },
                     other: true,
-                    unit: true,
+                    unit,
                     metadata,
                   },
                 },
                 biogenicEmissions: {
                   select: {
                     total: true,
-                    unit: true,
+                    unit,
                     metadata,
                   },
                 },
