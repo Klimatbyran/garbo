@@ -102,6 +102,13 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     metadata,
                   },
                 },
+                biogenicEmissions: {
+                  select: {
+                    total: true,
+                    unit: true,
+                    metadata,
+                  },
+                },
               },
             },
             metadata,
