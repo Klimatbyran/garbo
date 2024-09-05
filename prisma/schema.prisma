@@ -206,7 +206,7 @@ model Scope3 {
   /// "Other" is not included in the GHG protocol, but we use it to handle companies who invent their own scope 3 "categories".
   other                                      Float?
 
-  metadataId Int @map("sourceId")
+  metadataId Int
 
   emissions Emissions?
   metadata  Metadata   @relation(fields: [metadataId], references: [id])
@@ -290,8 +290,6 @@ model Metadata {
   StatedTotalEmissions StatedTotalEmissions[]
   dataOrigin           DataOrigin?
   user                 User                   @relation(fields: [userId], references: [id])
-
-  @@map("metadata")
 }
 
 // TODO: better name for status?

@@ -319,13 +319,14 @@ function getWikidataId(company: (typeof companies)[number]) {
 
 async function getGicsCode(company: (typeof companies)[number]) {
   const code = company.industryGics?.subIndustry?.code
-  if (!code) {
-    return
-  }
+  if (!code) return
   return (
     await prisma.industryGics.findUnique({
       where: {
         subIndustryCode: code,
+      },
+      select: {
+        subIndustryCode: true,
       },
     })
   )?.subIndustryCode
