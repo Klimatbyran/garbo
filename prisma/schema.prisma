@@ -214,7 +214,7 @@ model Scope3 {
 
 model Economy {
   id            Int     @id @default(autoincrement())
-  // TODO: Consider splitting Economy into separate data points, where each one of them has their own metadata.
+  // TODO: Consider splitting Economy into separate datapoints, where each one of them has their own metadata.
   // This will make it easier to separate partially verified data
   // TODO: Store turnover with another datatype to prevent rounding errors, never store it as float
   turnover      Float?
@@ -264,18 +264,22 @@ model Initiative {
   reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
 }
 
-/// Every data point has associated metadata about who changed it, when, and using what source
+/// Every datapoint has associated metadata about who changed it, when, and using what source
 model Metadata {
-  id        Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   /// The comment is used to add relevant information about why the datapoint looks like it does
-  comment   String?
-  updatedAt DateTime @default(now()) @updatedAt
-  userId    Int
-  sourceId  Int
+  comment    String?
+  updatedAt  DateTime @default(now()) @updatedAt
+  /// The userId who last updated the associated datapoint
+  updaterId  Int
+  /// The userID who verified the associated datapoint.
+  /// Should only be set after human verification, and null if it has not been verified.
+  /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
+  verifierId Int?
+  sourceId   Int
 
-  // TODO: Maybe store multiple sources for each data point. Yes, this would be useful.
+  // TODO: Maybe store multiple sources for each datapoint. Yes, this would be useful.
   // However, do we really need it? let's decide if we actually implement it
-
   source               Source                 @relation(fields: [sourceId], references: [id])
   goal                 Goal[]
   initiative           Initiative[]
@@ -289,7 +293,8 @@ model Metadata {
   scope1And2           Scope1And2[]
   statedTotalEmissions StatedTotalEmissions[]
   dataOrigin           DataOrigin?
-  user                 User                   @relation(fields: [userId], references: [id])
+  updater              User                   @relation("metadata_updater", fields: [updaterId], references: [id])
+  verifier             User?                  @relation("metadata_verifier", fields: [verifierId], references: [id])
 }
 
 // TODO: better name for status?
@@ -298,9 +303,6 @@ model Metadata {
 // IDEA: One way to keep track of which data is verified or not would be to keep track of all users who are trusted editors
 // This would make it possible to mark all datapoints edited by that user as verified (or not).
 // This would stay up to date with each change, and we wouldn't have to keep a `verified: boolean` field.
-
-// TODO: origin/method/kind/type might be better name 
-// TODO: should we separate verified into a separate
 
 /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
 model DataOrigin {
@@ -311,8 +313,8 @@ model DataOrigin {
   metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
-/// The source defines where a data point comes from, and can be re-used for
-/// multiple data points, for example linking the same report
+/// Sources define where a datapoint comes from, and can be re-used for
+/// multiple datapoints, for example linking the same report
 /// which allows updating the report URL in one place if it changes.
 model Source {
   id      Int     @id @unique @default(autoincrement())
@@ -344,5 +346,6 @@ model User {
   name  String
 
   // TODO: connect with github ID
-  metadata Metadata[]
+  updater  Metadata[] @relation("metadata_updater")
+  verifier Metadata[] @relation("metadata_verifier")
 }
