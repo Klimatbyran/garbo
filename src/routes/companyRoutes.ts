@@ -10,9 +10,13 @@ const metadata = {
   select: {
     comment: true,
     updatedAt: true,
-    user: {
+    updater: {
       select: {
-        email: true,
+        name: true,
+      },
+    },
+    verifier: {
+      select: {
         name: true,
       },
     },

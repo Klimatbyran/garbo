@@ -346,6 +346,7 @@ model User {
   name  String
 
   // TODO: connect with github ID
+  // TODO: store github profile image - or get it via API
   updater  Metadata[] @relation("metadata_updater")
   verifier Metadata[] @relation("metadata_verifier")
 }

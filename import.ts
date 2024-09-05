@@ -339,11 +339,17 @@ async function main() {
 
   const currencies = await prepareCurrencies(companies)
   await addIndustryGicsCodesToDB()
-  const user = await prisma.user.create({
-    data: {
-      email: 'hej@klimatkollen.se',
-      name: 'Klimatkollen',
-    },
+  const [user, alex] = await prisma.user.createManyAndReturn({
+    data: [
+      {
+        email: 'hej@klimatkollen.se',
+        name: 'Klimatkollen',
+      },
+      {
+        email: 'alex@klimatkollen.se',
+        name: 'Alexandra Palmquist',
+      },
+    ],
   })
 
   // TODO: properly create sources for all unique report URLs
@@ -359,7 +365,7 @@ async function main() {
     data: {
       comment: 'Initial import',
       updatedAt: new Date(),
-      userId: user.id,
+      updaterId: user.id,
       sourceId: source.id,
       dataOrigin: {
         create: {
