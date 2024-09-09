@@ -372,7 +372,9 @@ async function main() {
       comment: 'Initial import',
       updatedAt: new Date(),
       updaterId: user.id,
-      sourceId: source.id,
+      sources: {
+        connect: [{ id: source.id }],
+      },
       dataOrigin: {
         create: {
           name: 'Garbo extraction',

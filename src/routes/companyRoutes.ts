@@ -20,7 +20,7 @@ const metadata = {
         name: true,
       },
     },
-    source: {
+    sources: {
       select: {
         url: true,
         comment: true,

@@ -286,10 +286,8 @@ model Metadata {
   /// Should only be set after human verification, and null if it has not been verified.
   /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
   verifierId Int?
-  sourceId   Int
 
-  // TODO: Maybe store multiple sources for each datapoint. Yes, this would be useful.
-  source               Source                 @relation(fields: [sourceId], references: [id])
+  sources              Source[]
   goal                 Goal[]
   initiative           Initiative[]
   economy              Economy[]
@@ -327,7 +325,7 @@ model DataOrigin {
 /// multiple datapoints, for example linking the same report
 /// which allows updating the report URL in one place if it changes.
 model Source {
-  id      Int     @id @unique @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   url     String?
   /// The comment can be used to specify another source than a report URL
   comment String?
