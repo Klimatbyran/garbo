@@ -1,6 +1,8 @@
 import { IndustryGics, PrismaClient } from '@prisma/client'
 import { mkdir, writeFile } from 'fs/promises'
 import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+
 import { translateWithDeepL } from './utils'
 
 const prisma = new PrismaClient()
@@ -1190,15 +1192,25 @@ function getIndustryGicsCodesWithoutStrings(codes: IndustryGics[]) {
   )
 }
 
-function getIndustryGicsCodesWithoutCodes(
-  codes: IndustryGicsWithTranslations[]
-) {
-  return codes.map((code) => ({
-    ...code,
-    sectorCode: undefined,
-    groupCode: undefined,
-    industryCode: undefined,
-  }))
+function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
+  const translations = {}
+  for (const {
+    subIndustryCode,
+    sectorName,
+    groupName,
+    industryName,
+    subIndustryName,
+    subIndustryDescription,
+  } of codes) {
+    translations[subIndustryCode] = {
+      sectorName,
+      groupName,
+      industryName,
+      subIndustryName,
+      subIndustryDescription,
+    }
+  }
+  return translations
 }
 
 export async function addIndustryGicsCodesToDB(
@@ -1252,7 +1264,7 @@ async function translateIndustryGicsStrings(
 
   await writeFile(
     resolve(`output/en/industry-gics.json`),
-    JSON.stringify(getIndustryGicsCodesWithoutCodes(codes), null, 2),
+    JSON.stringify(getGicsTranslationFile(codes), null, 2),
     {
       encoding: 'utf-8',
     }
@@ -1262,17 +1274,32 @@ async function translateIndustryGicsStrings(
 
   await writeFile(
     resolve(`output/sv/industry-gics.json`),
-    JSON.stringify(getIndustryGicsCodesWithoutCodes(updated), null, 2),
+    JSON.stringify(getGicsTranslationFile(updated), null, 2),
     {
       encoding: 'utf-8',
     }
   )
 }
 
-// async function main() {
-//   const codes = prepareCodes()
-//   await addIndustryGicsCodesToDB(codes)
-//   // await translateIndustryGicsStrings(codes)
-// }
+/**
+ * Check if this script was called directly
+ */
+function isMainModule() {
+  if (import.meta.url.startsWith('file:')) {
+    const modulePath = fileURLToPath(import.meta.url)
+    if (process.argv[1] === modulePath) {
+      return true
+    }
+  }
+  return false
+}
 
-// await main()
+async function main() {
+  // const codes = prepareCodes()
+  // await addIndustryGicsCodesToDB(codes)
+  // await translateIndustryGicsStrings(codes)
+}
+
+if (isMainModule()) {
+  await main()
+}

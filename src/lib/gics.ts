@@ -3,7 +3,7 @@ import en from '../../output/en/industry-gics.json'
 
 export function getGics(code) {
   return {
-    sv: sv.find((item) => item.subIndustryCode === code),
-    en: en.find((item) => item.subIndustryCode === code),
+    sv: sv[code],
+    en: en[code],
   }
 }
