@@ -36,9 +36,14 @@ model Company {
   internalComment String?
 }
 
-// TODO: Maybe remove the BaseYear table, and instead keep references to specific base years directly on the company
-// for example: baseYearScope1/2/3
-// Then we could make use of the startDate and endDate, and align it with reporting periods
+// TODO: Handle broken reporting periods which start in one year and end the next year.
+// Maybe reference reporting periods directly in order to only store the dates in one place.
+
+// TODO: question for Alex: Can we assume that base years always are the first year with reported emissions?
+// E.g. if they started reporting in 2020, would that be the base year? Or can they say 2015 as base year, without knowing anything about their emissions from that year?
+
+// TODO: Improve structure of base years to handle the case where we have the same value for all scopes.
+// The simple solution is to always store three BaseYears, even if they have the same value. This adds more data, to be processed and transferred, but will be simpler to understand and work with.
 model BaseYear {
   id         Int    @id @default(autoincrement())
   // IDEA: maybe the year here should be in relation to a specific reporting period, since we need to account for special cases where reporting periods are not just one year
@@ -282,7 +287,7 @@ model Metadata {
   updatedAt  DateTime @default(now()) @updatedAt
   /// The userId who last updated the associated datapoint
   updaterId  Int
-  /// The userID who verified the associated datapoint.
+  /// The userId who verified the associated datapoint.
   /// Should only be set after human verification, and null if it has not been verified.
   /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
   verifierId Int?
@@ -304,13 +309,6 @@ model Metadata {
   verifier             User?                  @relation("metadata_verifier", fields: [verifierId], references: [id])
   Industry             Industry[]
 }
-
-// TODO: better name for status?
-// TODO: add status - verified, AI extracted, estimated
-
-// IDEA: One way to keep track of which data is verified or not would be to keep track of all users who are trusted editors
-// This would make it possible to mark all datapoints edited by that user as verified (or not).
-// This would stay up to date with each change, and we wouldn't have to keep a `verified: boolean` field.
 
 /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
 model DataOrigin {
@@ -334,10 +332,9 @@ model Source {
   metadata Metadata[]
 }
 
-// TODO: Update how the unit is selected from the DB in the companyRoutes
+/// A unit for measuring emissions, e.g. "tCO2e"
 model EmissionUnit {
   id                   Int                    @id @default(autoincrement())
-  /// A unit for measuring emissions, e.g. "tCO2e"
   name                 String                 @unique
   StatedTotalEmissions StatedTotalEmissions[]
   Scope1And2           Scope1And2[]
