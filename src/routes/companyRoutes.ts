@@ -127,7 +127,19 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
             startDate: 'desc',
           },
         },
-        industryGics: true,
+        industry: {
+          select: {
+            industryGics: {
+              select: {
+                sectorCode: true,
+                groupCode: true,
+                industryCode: true,
+                subIndustryCode: true,
+              },
+            },
+            metadata,
+          },
+        },
         goals: {
           select: {
             description: true,
@@ -205,8 +217,15 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
             },
             metadata: reportingPeriod.metadata[0],
           })),
-          industryGics: company.industryGics
-            ? getGics(company.industryGics.subIndustryCode)
+          // Add translations for GICS data
+          industry: company.industry
+            ? {
+                ...company.industry,
+                industryGics: {
+                  ...company.industry.industryGics,
+                  ...getGics(company.industry.industryGics.subIndustryCode),
+                },
+              }
             : undefined,
         }))
         // Calculate total emissions for each reporting period
