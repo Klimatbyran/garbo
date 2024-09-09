@@ -52,6 +52,7 @@ model BaseYear {
 }
 
 /// Connecting a company to a specific industry and metadata
+/// This also gives us the flexibility to add more ways to keep track of which industry a company belongs to.
 model Industry {
   id                  Int    @id @default(autoincrement())
   gicsSubIndustryCode String
@@ -104,10 +105,6 @@ model Emissions {
   scope1And2Id           Int? @unique
   statedTotalEmissionsId Int? @unique
 
-  // TODO: add calculated field `total` which combines scope 1 + 2 + 3.
-  // This should be be calculated during runtime and returned as part of the API data.
-  // The computed total could be used to compare against the statedTotal provided by the company report
-  // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions, we should highlight this in the UI.
   statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
   scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
   biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])

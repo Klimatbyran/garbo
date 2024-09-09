@@ -119,6 +119,13 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     metadata,
                   },
                 },
+                statedTotalEmissions: {
+                  select: {
+                    total: true,
+                    unit: true,
+                    metadata,
+                  },
+                },
               },
             },
             metadata,
@@ -229,6 +236,9 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
             : undefined,
         }))
         // Calculate total emissions for each reporting period
+        // This allows comparing against the statedTotalEmissions provided by the company report
+        // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
+        // we should highlight this in the UI.
         .map((company) => ({
           ...company,
           reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
