@@ -13,13 +13,11 @@ generator client {
 
 model Company {
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
-  wikidataId       String  @id
-  name             String
-  description      String?
+  wikidataId  String  @id
+  name        String
+  description String?
   /// Company website URL
-  url              String?
-  // IDEA: This needs metadata so we can distinguish between AI generated industry gics and human verified data.
-  industryGicsCode String?
+  url         String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
@@ -28,11 +26,14 @@ model Company {
 
   // IDEA: tags: make it possible to categorise the data - e.g. "MVP", "batch 1" to enable further comparisons
 
-  industryGics     IndustryGics?     @relation(fields: [industryGicsCode], references: [subIndustryCode])
+  industry         Industry?
   reportingPeriods ReportingPeriod[]
   goals            Goal[]
   initiatives      Initiative[]
   baseYears        BaseYear[]
+
+  /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
+  internalComment String?
 }
 
 // TODO: Maybe remove the BaseYear table, and instead keep references to specific base years directly on the company
@@ -50,15 +51,26 @@ model BaseYear {
   company  Company  @relation(fields: [companyId], references: [wikidataId])
 }
 
+/// Connecting a company to a specific industry and metadata
+model Industry {
+  id                  Int    @id @default(autoincrement())
+  gicsSubIndustryCode String
+  metadataId          Int
+  companyWikidataId   String @unique
+
+  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId])
+  metadata     Metadata     @relation(fields: [metadataId], references: [id])
+  industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
+}
+
 /// A table containing the standardised GICS codes for categorizing companies into various industries.
-// TODO: Add IndustryGics to DB seeding script
 model IndustryGics {
   sectorCode      String
   groupCode       String
   industryCode    String
   subIndustryCode String @id
 
-  companies Company[]
+  industries Industry[]
 }
 
 /// A reporting period is a timespan for accounting emissions as well as financial data
@@ -280,7 +292,6 @@ model Metadata {
   sourceId   Int
 
   // TODO: Maybe store multiple sources for each datapoint. Yes, this would be useful.
-  // However, do we really need it? let's decide if we actually implement it
   source               Source                 @relation(fields: [sourceId], references: [id])
   goal                 Goal[]
   initiative           Initiative[]
@@ -296,6 +307,7 @@ model Metadata {
   dataOrigin           DataOrigin?
   updater              User                   @relation("metadata_updater", fields: [updaterId], references: [id])
   verifier             User?                  @relation("metadata_verifier", fields: [verifierId], references: [id])
+  Industry             Industry[]
 }
 
 // TODO: better name for status?

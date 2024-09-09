@@ -340,7 +340,7 @@ async function getGicsCode(company: (typeof companies)[number]) {
 
 async function main() {
   // INIT
-  // Delete database first and apply all migrations
+  console.log('Resetting database and applying migrations...')
   await promisify(exec)('npx prisma migrate reset --force')
 
   const currencies = await prepareCurrencies(companies)
@@ -527,7 +527,14 @@ async function main() {
         name: getName(company),
         description: company.description,
         wikidataId: getWikidataId(company),
-        industryGicsCode: gicsCode || undefined,
+        industry: gicsCode
+          ? {
+              create: {
+                gicsSubIndustryCode: gicsCode,
+                metadataId: metadata.id,
+              },
+            }
+          : undefined,
         initiatives: Array.isArray(company.initiatives)
           ? {
               createMany: {
@@ -601,4 +608,3 @@ async function main() {
 }
 
 await main()
-// companies.deleteAll()
