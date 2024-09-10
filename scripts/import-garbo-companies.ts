@@ -256,6 +256,7 @@ export async function importGarboData({
     ]
 
     const added = await prisma.company.create({
+      select: { wikidataId: true },
       data: {
         name: getName(company),
         description: company.description,
