@@ -15,7 +15,7 @@ async function reset() {
 }
 
 export async function seedDB() {
-  const [[garbo, alex], currencies] = await Promise.all([
+  const [[garbo, alex], currencies, gicsCodes] = await Promise.all([
     prisma.user.createManyAndReturn({
       data: [
         {
@@ -32,7 +32,7 @@ export async function seedDB() {
     addIndustryGicsCodesToDB(),
   ])
 
-  return { users: { garbo, alex }, currencies }
+  return { users: { garbo, alex }, currencies, gicsCodes }
 }
 
 async function main() {

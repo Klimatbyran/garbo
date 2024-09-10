@@ -72,25 +72,10 @@ function getWikidataId(company: (typeof garboCompanies)[number]) {
   return wikidataId
 }
 
-async function getGicsCode(company: (typeof garboCompanies)[number]) {
-  const code = company.industryGics?.subIndustry?.code
-  if (!code) return
-  // IDEA: maybe just use a connect here instead.
-  return (
-    await prisma.industryGics.findUnique({
-      where: {
-        subIndustryCode: code,
-      },
-      select: {
-        subIndustryCode: true,
-      },
-    })
-  )?.subIndustryCode
-}
-
 export async function importGarboData({
   users: { garbo, alex },
   currencies,
+  gicsCodes,
 }: Awaited<ReturnType<typeof seedDB>>) {
   // TODO: properly create sources for all unique report URLs
   const source = await prisma.source.create({
@@ -257,7 +242,10 @@ export async function importGarboData({
 
   // IMPORT
   for (const company of garboCompanies) {
-    const gicsCode = await getGicsCode(company)
+    const subIndustryCode = company.industryGics?.subIndustry?.code
+    const gicsCode = subIndustryCode
+      ? gicsCodes[subIndustryCode]?.subIndustryCode
+      : undefined
     console.log(gicsCode, getName(company))
 
     const years = [

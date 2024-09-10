@@ -3,8 +3,6 @@ import { mkdir, writeFile } from 'fs/promises'
 import { resolve } from 'path'
 import { fileURLToPath } from 'url'
 
-import { translateWithDeepL } from './utils'
-
 const prisma = new PrismaClient()
 
 // Definitions from https://github.com/bluealba/gics/blob/master/definitions/20230318.js
@@ -1216,12 +1214,23 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
 export async function addIndustryGicsCodesToDB(
   codes: IndustryGics[] = prepareCodes()
 ) {
-  await prisma.industryGics.createMany({
+  const created = await prisma.industryGics.createManyAndReturn({
     data: getIndustryGicsCodesWithoutStrings(codes),
   })
+
+  return created.reduce<Record<string, (typeof created)[number]>>(
+    (gicsCodes, code) => {
+      if (!gicsCodes[code.subIndustryCode]) {
+        gicsCodes[code.subIndustryCode] = code
+      }
+      return gicsCodes
+    },
+    {}
+  )
 }
 
 const translateRecords = async (records: IndustryGicsWithTranslations[]) => {
+  const { translateWithDeepL } = await import('./utils')
   const updatedRecords: IndustryGicsWithTranslations[] = []
 
   const ignoredKeys = new Set([
