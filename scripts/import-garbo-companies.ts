@@ -1,19 +1,12 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 
-const prisma = new PrismaClient()
+import garboCompanies from '../companies.json'
+import { seedDB, prisma } from './import'
 
-import companies from '../companies.json'
-import { addIndustryGicsCodesToDB } from './add-gics'
-import { promisify } from 'util'
-import { exec } from 'child_process'
-
-async function prepareEmissionUnits() {
-  return {
-    tCO2e: await prisma.emissionUnit.create({ data: { name: 'tCO2e' } }),
-  }
-}
-
-async function prepareCurrencies(allCompanies: typeof companies) {
+// IDEA: Maybe get unique currencies also from the spreadsheet data
+export async function getUniqueCurrenciesFromGarboData(
+  allCompanies: typeof garboCompanies = garboCompanies
+) {
   const uniqueCurrencies = new Set<string>()
 
   for (const company of allCompanies) {
@@ -25,9 +18,25 @@ async function prepareCurrencies(allCompanies: typeof companies) {
     }
   }
 
-  return prisma.currency.createManyAndReturn({
+  const created = await prisma.currency.createManyAndReturn({
     data: [...uniqueCurrencies].map((name) => ({ name })),
   })
+
+  return created.reduce<Record<string, (typeof created)[number]>>(
+    (currencies, currency) => {
+      if (!currencies[currency.name]) {
+        currencies[currency.name] = currency
+      }
+      return currencies
+    },
+    {}
+  )
+}
+
+async function prepareEmissionUnits() {
+  return {
+    tCO2e: await prisma.emissionUnit.create({ data: { name: 'tCO2e' } }),
+  }
 }
 
 function getFirstDefinedValue(...values: (string | null | undefined)[]) {
@@ -38,7 +47,7 @@ function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   }
 }
 
-function getName(company: (typeof companies)[number]) {
+function getName(company: (typeof garboCompanies)[number]) {
   let name = getFirstDefinedValue(
     company.facit?.companyName,
     company.wikidata?.label,
@@ -51,7 +60,7 @@ function getName(company: (typeof companies)[number]) {
   return name
 }
 
-function getWikidataId(company: (typeof companies)[number]) {
+function getWikidataId(company: (typeof garboCompanies)[number]) {
   let wikidataId = getFirstDefinedValue(
     company.wikidata?.node,
     company.wikidataId
@@ -63,9 +72,10 @@ function getWikidataId(company: (typeof companies)[number]) {
   return wikidataId
 }
 
-async function getGicsCode(company: (typeof companies)[number]) {
+async function getGicsCode(company: (typeof garboCompanies)[number]) {
   const code = company.industryGics?.subIndustry?.code
   if (!code) return
+  // IDEA: maybe just use a connect here instead.
   return (
     await prisma.industryGics.findUnique({
       where: {
@@ -78,26 +88,10 @@ async function getGicsCode(company: (typeof companies)[number]) {
   )?.subIndustryCode
 }
 
-async function main() {
-  // INIT
-  console.log('Resetting database and applying migrations...')
-  await promisify(exec)('npx prisma migrate reset --force')
-
-  const currencies = await prepareCurrencies(companies)
-  await addIndustryGicsCodesToDB()
-  const [user, alex] = await prisma.user.createManyAndReturn({
-    data: [
-      {
-        email: 'hej@klimatkollen.se',
-        name: 'Klimatkollen',
-      },
-      {
-        email: 'alex@klimatkollen.se',
-        name: 'Alexandra Palmquist',
-      },
-    ],
-  })
-
+export async function importGarboData({
+  users: { garbo, alex },
+  currencies,
+}: Awaited<ReturnType<typeof seedDB>>) {
   // TODO: properly create sources for all unique report URLs
   const source = await prisma.source.create({
     data: {
@@ -111,7 +105,7 @@ async function main() {
     data: {
       comment: 'Initial import',
       updatedAt: new Date(),
-      updaterId: user.id,
+      updaterId: garbo.id,
       sources: {
         connect: [{ id: source.id }],
       },
@@ -127,7 +121,7 @@ async function main() {
     // if the currency exists, use it, otherwise create it
 
     const currencyId = economy.currency
-      ? currencies.find((c) => c.name === economy.currency.toUpperCase())?.id
+      ? currencies[economy.currency.toUpperCase()]?.id
       : null
 
     const { id } = await prisma.economy.create({
@@ -162,7 +156,7 @@ async function main() {
 
   async function createEmissionsForYear(
     year: string,
-    company: (typeof companies)[number]
+    company: (typeof garboCompanies)[number]
   ) {
     const emissions = company.emissions?.[year]
     if (!emissions) return null
@@ -262,7 +256,7 @@ async function main() {
   }
 
   // IMPORT
-  for (const company of companies) {
+  for (const company of garboCompanies) {
     const gicsCode = await getGicsCode(company)
     console.log(gicsCode, getName(company))
 
@@ -357,5 +351,3 @@ async function main() {
     })
   }
 }
-
-await main()

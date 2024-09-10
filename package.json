@@ -13,8 +13,7 @@
     "dev-board": "node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "db:studio": "prisma studio --browser none",
-    "db:import-garbo": "node --import=tsx --watch scripts/import-garbo-json.ts",
-    "db:import-spreadsheet": "node --import=tsx --watch scripts/import-spreadsheet.ts"
+    "db:import": "node --import=tsx --watch scripts/import.ts"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",
