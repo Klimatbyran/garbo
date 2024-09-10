@@ -85,21 +85,6 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 },
                 scope3: {
                   select: {
-                    c1_purchasedGoods: true,
-                    c2_capitalGoods: true,
-                    c3_fuelAndEnergyRelatedActivities: true,
-                    c4_upstreamTransportationAndDistribution: true,
-                    c5_wasteGeneratedInOperations: true,
-                    c6_businessTravel: true,
-                    c7_employeeCommuting: true,
-                    c8_upstreamLeasedAssets: true,
-                    c9_downstreamTransportationAndDistribution: true,
-                    c10_processingOfSoldProducts: true,
-                    c11_useOfSoldProducts: true,
-                    c12_endOfLifeTreatmentOfSoldProducts: true,
-                    c13_downstreamLeasedAssets: true,
-                    c14_franchises: true,
-                    c15_investments: true,
                     statedTotalEmissions: {
                       select: {
                         total: true,
@@ -107,8 +92,17 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                         metadata,
                       },
                     },
-                    other: true,
-                    unit,
+                    scope3Categories: {
+                      select: {
+                        category: true,
+                        total: true,
+                        unit,
+                        metadata,
+                      },
+                      orderBy: {
+                        category: 'asc',
+                      },
+                    },
                     metadata,
                   },
                 },
@@ -194,31 +188,14 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
               scope3:
                 (reportingPeriod.emissions?.scope3 && {
                   ...reportingPeriod.emissions.scope3,
-                  calculatedTotalEmissions: Object.entries(
-                    reportingPeriod.emissions.scope3
-                  )
-                    .filter(([key, value]) =>
-                      [
-                        'c1_purchasedGoods',
-                        'c2_capitalGoods',
-                        'c3_fuelAndEnergyRelatedActivities',
-                        'c4_upstreamTransportationAndDistribution',
-                        'c5_wasteGeneratedInOperations',
-                        'c6_businessTravel',
-                        'c7_employeeCommuting',
-                        'c8_upstreamLeasedAssets',
-                        'c9_downstreamTransportationAndDistribution',
-                        'c10_processingOfSoldProducts',
-                        'c11_useOfSoldProducts',
-                        'c12_endOfLifeTreatmentOfSoldProducts',
-                        'c13_downstreamLeasedAssets',
-                        'c14_franchises',
-                        'c15_investments',
-                        'other',
-                      ].includes(key)
-                    )
-                    .map(([key, value]) => parseFloat(value?.toString()) || 0)
-                    .reduce((total, value) => value + total, 0),
+                  calculatedTotalEmissions:
+                    reportingPeriod.emissions.scope3.scope3Categories.reduce(
+                      (total, category) =>
+                        Number.isFinite(category.total)
+                          ? category.total + total
+                          : total,
+                      0
+                    ),
                 }) ||
                 undefined,
             },

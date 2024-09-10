@@ -197,34 +197,56 @@ model Scope3 {
   /// Sometimes, companies only report a total value for scope 3 emissions without disclosing the scope 3 categories.
   /// Other times, they might report both, but their stated total scope 3 emissions might be different than the actual sum of their scope 3 categories.
   /// To get around this, we separate statedTotalEmissions from the actual mathematical total that we summarize during runtime.
-  statedTotalEmissionsId Int?                  @unique
-  statedTotalEmissions   StatedTotalEmissions?
+  statedTotalEmissionsId Int? @unique
+  metadataId             Int
 
-  // Scope 3 categories
-  c1_purchasedGoods                          Float?
-  c2_capitalGoods                            Float?
-  c3_fuelAndEnergyRelatedActivities          Float?
-  c4_upstreamTransportationAndDistribution   Float?
-  c5_wasteGeneratedInOperations              Float?
-  c6_businessTravel                          Float?
-  c7_employeeCommuting                       Float?
-  c8_upstreamLeasedAssets                    Float?
-  c9_downstreamTransportationAndDistribution Float?
-  c10_processingOfSoldProducts               Float?
-  c11_useOfSoldProducts                      Float?
-  c12_endOfLifeTreatmentOfSoldProducts       Float?
-  c13_downstreamLeasedAssets                 Float?
-  c14_franchises                             Float?
-  c15_investments                            Float?
-  /// "Other" is not included in the GHG protocol, but we use it to handle companies who invent their own scope 3 "categories".
-  other                                      Float?
+  // The scope 3 categories, both reported and estimated.
+  // TODO: Add validation so there can only be one for each category, and max 16 entries.
+  scope3Categories     Scope3Category[]
+  statedTotalEmissions StatedTotalEmissions?
+  emissions            Emissions?
+  metadata             Metadata              @relation(fields: [metadataId], references: [id])
+}
 
-  metadataId Int
+/// Details about scope 3 categories. Here's a list of valid categories and their names:
+/// 
+/// 1. purchasedGoods
+/// 2. capitalGoods
+/// 3. fuelAndEnergyRelatedActivities
+/// 4. upstreamTransportationAndDistribution
+/// 5. wasteGeneratedInOperations
+/// 6. businessTravel
+/// 7. employeeCommuting
+/// 8. upstreamLeasedAssets
+/// 9. downstreamTransportationAndDistribution
+/// 10. processingOfSoldProducts
+/// 11. useOfSoldProducts
+/// 12. endOfLifeTreatmentOfSoldProducts
+/// 13. downstreamLeasedAssets
+/// 14. franchises
+/// 15. investments
+/// 16. other
+model Scope3Category {
+  id       Int @id @default(autoincrement())
+  /// Int from 1-15 defining the scope 3 category.
+  /// 16 is a special value for "other", which is not included in the GHG protocol,
+  /// but useful to handle companies who invent their own scope 3 "categories".
+  category Int
+
+  // IDEA: When we want to keep track of detailed emissions for each scope 3 category, we could
+  // add statedTotalEmissions (to this DB schema) and calculatedTotalEmissions (during runtime).
+  // This distinction would help us keep track of detailed emissions within each scope 3 category, for example
+  // knowing the composition of cat 6. business travel, and how it changes across different years.
+  // This would also make easier to detect discrepancies between stated emissions and the actual calculated total value
+  // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
+  total      Float?
   unitId     Int
+  scope3Id   Int
+  metadataId Int
 
-  unit      EmissionUnit @relation(fields: [unitId], references: [id])
-  emissions Emissions?
-  metadata  Metadata     @relation(fields: [metadataId], references: [id])
+  unit     EmissionUnit @relation(fields: [unitId], references: [id])
+  scope3   Scope3       @relation(fields: [scope3Id], references: [id])
+  metadata Metadata     @relation(fields: [metadataId], references: [id])
 }
 
 model Economy {
@@ -307,7 +329,8 @@ model Metadata {
   dataOrigin           DataOrigin?
   updater              User                   @relation("metadata_updater", fields: [updaterId], references: [id])
   verifier             User?                  @relation("metadata_verifier", fields: [verifierId], references: [id])
-  Industry             Industry[]
+  industries           Industry[]
+  scope3Categories     Scope3Category[]
 }
 
 /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
@@ -336,12 +359,12 @@ model Source {
 model EmissionUnit {
   id                   Int                    @id @default(autoincrement())
   name                 String                 @unique
-  StatedTotalEmissions StatedTotalEmissions[]
-  Scope1And2           Scope1And2[]
-  BiogenicEmissions    BiogenicEmissions[]
-  Scope1               Scope1[]
-  Scope2               Scope2[]
-  Scope3               Scope3[]
+  statedTotalEmissions StatedTotalEmissions[]
+  scope1And2           Scope1And2[]
+  biogenicEmissions    BiogenicEmissions[]
+  scope1               Scope1[]
+  scope2               Scope2[]
+  scope3Category       Scope3Category[]
 }
 
 model Currency {

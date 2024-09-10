@@ -12,7 +12,7 @@
     "dev-workers": "node --import tsx --watch src/startWorkers.ts",
     "dev-board": "node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
-    "db:studio": "prisma studio",
+    "db:studio": "prisma studio --browser none",
     "db:import": "node --import=tsx --watch import.ts"
   },
   "author": "Christian Landgren, William Ryder mfl",
