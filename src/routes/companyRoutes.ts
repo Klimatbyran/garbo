@@ -55,11 +55,22 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
             endDate: true,
             economy: {
               select: {
-                turnover: true,
-                employees: true,
-                currency: {
+                turnover: {
                   select: {
-                    name: true,
+                    value: true,
+                    currency: {
+                      select: {
+                        name: true,
+                      },
+                    },
+                    metadata,
+                  },
+                },
+                employees: {
+                  select: {
+                    value: true,
+                    unit: true,
+                    metadata,
                   },
                 },
                 metadata,
