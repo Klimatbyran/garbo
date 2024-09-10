@@ -392,10 +392,20 @@ async function main() {
 
     const { id } = await prisma.economy.create({
       data: {
-        turnover: economy.turnover,
-        employees: economy.employees,
-        // TODO: Add employeesUnit when importing the facit data
-        currencyId,
+        turnover: {
+          create: {
+            value: economy.turnover,
+            currencyId,
+            metadataId: metadata.id,
+          },
+        },
+        employees: {
+          create: {
+            value: economy.employees,
+            // TODO: Add employees unit when importing the facit data
+            metadataId: metadata.id,
+          },
+        },
         metadataId: metadata.id,
       },
       select: {

@@ -250,21 +250,39 @@ model Scope3Category {
 }
 
 model Economy {
-  id            Int     @id @default(autoincrement())
-  // TODO: Consider splitting Economy into separate datapoints, where each one of them has their own metadata.
-  // This will make it easier to separate partially verified data
-  // TODO: Store turnover with another datatype to prevent rounding errors, never store it as float
-  turnover      Float?
-  currencyId    Int?
-  /// Number of employees (using various methods)
-  employees     Float?
-  /// The unit defining the number of employees
-  employeesUnit String?
-  metadataId    Int
+  id         Int @id @default(autoincrement())
+  metadataId Int
 
-  currency        Currency?        @relation(fields: [currencyId], references: [id])
+  turnover        Turnover?
+  employees       Employees?
   reportingPeriod ReportingPeriod?
   metadata        Metadata         @relation(fields: [metadataId], references: [id])
+}
+
+model Turnover {
+  id         Int    @id @default(autoincrement())
+  // IDEA: Should we store turnover with another datatype to prevent rounding errors? Money doesn't seem to be a good fit for storing as floats.
+  value      Float?
+  currencyId Int?
+  economyId  Int    @unique
+  metadataId Int
+
+  currency Currency? @relation(fields: [currencyId], references: [id])
+  economy  Economy   @relation(fields: [economyId], references: [id])
+  metadata Metadata  @relation(fields: [metadataId], references: [id])
+}
+
+model Employees {
+  id         Int     @id @default(autoincrement())
+  /// Number of employees (using various methods)
+  value      Float?
+  /// How the number of employees were calculated, e.g. Full-time equivalents (FTE) or similar.
+  unit       String?
+  economyId  Int     @unique
+  metadataId Int
+
+  economy  Economy  @relation(fields: [economyId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 model Goal {
@@ -331,6 +349,8 @@ model Metadata {
   verifier             User?                  @relation("metadata_verifier", fields: [verifierId], references: [id])
   industries           Industry[]
   scope3Categories     Scope3Category[]
+  turnover             Turnover[]
+  employees            Employees[]
 }
 
 /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
@@ -368,9 +388,9 @@ model EmissionUnit {
 }
 
 model Currency {
-  id      Int       @id @default(autoincrement())
-  name    String    @unique
-  economy Economy[]
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  turnover Turnover[]
 }
 
 model User {

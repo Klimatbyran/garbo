@@ -116,7 +116,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 statedTotalEmissions: {
                   select: {
                     total: true,
-                    unit: true,
+                    unit,
                     metadata,
                   },
                 },
@@ -191,6 +191,8 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                   calculatedTotalEmissions:
                     reportingPeriod.emissions.scope3.scope3Categories.reduce(
                       (total, category) =>
+                        // TODO: Question for Alex - do we also want to include the "16. Other" category in the calculcatedTotalEmissions for all scope 3 categories?
+                        // Or should we keep it separate?
                         Number.isFinite(category.total)
                           ? category.total + total
                           : total,
