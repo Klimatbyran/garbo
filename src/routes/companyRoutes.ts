@@ -452,22 +452,21 @@ router.post(
     const metadata = res.locals.metadata
     const reportingPeriod = res.locals.reportingPeriod
 
-    const emissions = await prisma.emissions.upsert({
-      where: { id: reportingPeriod.emissionsId },
-      create: {
-        reportingPeriods: {
-          connect: {
-            id: reportingPeriod.id,
+    const emissions = reportingPeriod.emissionsId
+      ? await prisma.emissions.findFirst({
+          where: { id: reportingPeriod.emissionsId },
+          select: { id: true, scope1Id: true, scope2Id: true },
+        })
+      : await prisma.emissions.create({
+          data: {
+            reportingPeriods: {
+              connect: {
+                id: reportingPeriod.id,
+              },
+            },
           },
-        },
-      },
-      update: {},
-      select: {
-        id: true,
-        scope1Id: true,
-        scope2Id: true,
-      },
-    })
+          select: { id: true, scope1Id: true, scope2Id: true },
+        })
 
     try {
       scope1 && (await updateScope1(emissions, scope1, metadata))
