@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
-import { PrismaClient } from '@prisma/client'
+import { Prisma, PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
+import bodyParser from 'body-parser'
 
 const prisma = new PrismaClient()
 
@@ -29,11 +30,8 @@ const metadata = {
   },
 }
 
-const unit = {
-  select: {
-    name: true,
-  },
-}
+const tCO2e = 'tCO2e'
+const unit = tCO2e
 
 const cache = () => {
   return (req: Request, res: Response, next: Function) => {
@@ -81,7 +79,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 scope1: {
                   select: {
                     total: true,
-                    unit,
+                    unit: true,
                     metadata,
                   },
                 },
@@ -90,7 +88,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     lb: true,
                     mb: true,
                     unknown: true,
-                    unit,
+                    unit: true,
                     metadata,
                   },
                 },
@@ -99,7 +97,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                     statedTotalEmissions: {
                       select: {
                         total: true,
-                        unit,
+                        unit: true,
                         metadata,
                       },
                     },
@@ -107,7 +105,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                       select: {
                         category: true,
                         total: true,
-                        unit,
+                        unit: true,
                         metadata,
                       },
                       orderBy: {
@@ -120,14 +118,14 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 biogenicEmissions: {
                   select: {
                     total: true,
-                    unit,
+                    unit: true,
                     metadata,
                   },
                 },
                 statedTotalEmissions: {
                   select: {
                     total: true,
-                    unit,
+                    unit: true,
                     metadata,
                   },
                 },
@@ -250,6 +248,81 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Error fetching company emission reports' })
   }
 })
+
+const fakeAuth = (options?) => (req, res, next) => {
+  req.user = {
+    id: 2,
+    name: 'Alexandra Palmqvist',
+    email: 'alex@klimatkollen.se',
+  }
+  next()
+}
+
+router.post(
+  '/companies/:wikidataId/:year/emissions',
+  fakeAuth(),
+  bodyParser.json(),
+  async (req: Request, res: Response) => {
+    console.log(req.body.scope1)
+
+    const wikidataId = req.params.wikidataId
+    const year = req.params.year
+    const scope1 = parseFloat(req.body.scope1)
+    const url = req.body.url
+
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
+    const reportingPeriod = await prisma.reportingPeriod.findFirst({
+      where: {
+        companyId: wikidataId,
+        // TODO: Handle date ranges (date within the same year)
+        endDate: {
+          gt: new Date(`${year}-01-01`),
+          lte: new Date(`${year}-12-31`),
+        } as Prisma.DateTimeFilter,
+      },
+    })
+
+    // TODO: create a reportingPeriod if it doesn't exist
+    // await prisma.
+
+    const metadata = {
+      source: url,
+      userId: req.user.id,
+    }
+
+    await prisma.emissions.upsert({
+      where: {
+        // TODO: crash when reportingPeriod is null
+        id: reportingPeriod.emissionsId,
+      },
+      create: {
+        // TODO: only update the included data
+        scope1: {
+          create: {
+            total: scope1,
+            unit: tCO2e,
+
+            metadata: {
+              create: {
+                ...metadata,
+              },
+            },
+          },
+        },
+      },
+      update: {
+        // TODO: only update the included data
+        scope1: {
+          update: {
+            data: {
+              total: scope1,
+            },
+          },
+        },
+      },
+    })
+  }
+)
 
 // router.get('/companies/:wikidataId', async (req: Request, res: Response) => {
 //   try {

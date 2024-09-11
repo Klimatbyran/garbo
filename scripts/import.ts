@@ -6,6 +6,8 @@ import {
   getUniqueCurrenciesFromGarboData,
   importGarboData,
 } from './import-garbo-companies'
+import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
+import { isMainModule } from './utils'
 
 export const prisma = new PrismaClient()
 
@@ -35,15 +37,19 @@ export async function seedDB() {
   return { users: { garbo, alex }, currencies, gicsCodes }
 }
 
+export type InitialDBState = Awaited<ReturnType<typeof seedDB>>
+
 async function main() {
   await reset()
   const seededData = await seedDB()
 
   await importGarboData(seededData)
-  // TODO: importSpreadsheetData
+  await importSpreadsheetCompanies(seededData)
 }
 
-await main()
+if (isMainModule(import.meta.url)) {
+  await main()
+}
 
 // IDEA: We could use connectOrCreate to conditionally create entities only when needed.
 // TODO: Import using https://github.com/exceljs/exceljs since that seems more updated.

@@ -1,7 +1,7 @@
 import { IndustryGics, PrismaClient } from '@prisma/client'
 import { mkdir, writeFile } from 'fs/promises'
 import { resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { isMainModule } from './utils'
 
 const prisma = new PrismaClient()
 
@@ -1290,25 +1290,12 @@ async function translateIndustryGicsStrings(
   )
 }
 
-/**
- * Check if this script was called directly
- */
-function isMainModule() {
-  if (import.meta.url.startsWith('file:')) {
-    const modulePath = fileURLToPath(import.meta.url)
-    if (process.argv[1] === modulePath) {
-      return true
-    }
-  }
-  return false
-}
-
 async function main() {
   // const codes = prepareCodes()
   // await addIndustryGicsCodesToDB(codes)
   // await translateIndustryGicsStrings(codes)
 }
 
-if (isMainModule()) {
+if (isMainModule(import.meta.url)) {
   await main()
 }

@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client'
 
 import garboCompanies from '../companies.json'
-import { seedDB, prisma } from './import'
+import { InitialDBState, prisma } from './import'
 
 // IDEA: Maybe get unique currencies also from the spreadsheet data
 export async function getUniqueCurrenciesFromGarboData(
@@ -31,12 +31,6 @@ export async function getUniqueCurrenciesFromGarboData(
     },
     {}
   )
-}
-
-async function prepareEmissionUnits() {
-  return {
-    tCO2e: await prisma.emissionUnit.create({ data: { name: 'tCO2e' } }),
-  }
 }
 
 function getFirstDefinedValue(...values: (string | null | undefined)[]) {
@@ -76,24 +70,14 @@ export async function importGarboData({
   users: { garbo, alex },
   currencies,
   gicsCodes,
-}: Awaited<ReturnType<typeof seedDB>>) {
-  // TODO: properly create sources for all unique report URLs
-  const source = await prisma.source.create({
-    data: {
-      comment: 'Garbo import',
-      url: 'https://klimatkollen.se',
-    },
-  })
-
+}: InitialDBState) {
   // TODO: properly create metadata for every datapoint
   const metadata = await prisma.metadata.create({
     data: {
       comment: 'Initial import',
+      source: 'https://klimatkollen.se',
       updatedAt: new Date(),
-      updaterId: garbo.id,
-      sources: {
-        connect: [{ id: source.id }],
-      },
+      userId: garbo.id,
       dataOrigin: {
         create: {
           name: 'Garbo extraction',
@@ -135,9 +119,7 @@ export async function importGarboData({
     return id
   }
 
-  const EMISSION_UNITS = await prepareEmissionUnits()
-
-  const tCO2e = EMISSION_UNITS.tCO2e
+  const tCO2e = 'tCO2e'
 
   async function createEmissionsForYear(
     year: string,
@@ -150,7 +132,7 @@ export async function importGarboData({
       return {
         category,
         total: emissions.scope3?.categories?.[key],
-        unitId: tCO2e.id,
+        unit: tCO2e,
         metadataId: metadata.id,
       }
     }
@@ -161,7 +143,7 @@ export async function importGarboData({
       ? {
           create: {
             total: emissions.totalBiogenic,
-            unitId: tCO2e.id,
+            unit: tCO2e,
             metadataId: 1,
           },
         }
@@ -173,7 +155,7 @@ export async function importGarboData({
       ? {
           create: {
             total: Number(emissions.scope3?.emissions ?? 0),
-            unitId: tCO2e.id,
+            unit: tCO2e,
             metadataId: 1,
           },
         }
@@ -185,7 +167,7 @@ export async function importGarboData({
         scope1: {
           create: {
             total: emissions.scope1?.emissions || null,
-            unitId: tCO2e.id,
+            unit: tCO2e,
             metadataId: 1,
           },
         },
@@ -194,7 +176,7 @@ export async function importGarboData({
             mb: emissions.scope2?.mb || null,
             lb: emissions.scope2?.lb || null,
             unknown: emissions.scope2?.emissions || null,
-            unitId: tCO2e.id,
+            unit: tCO2e,
             metadataId: 1,
           },
         },
