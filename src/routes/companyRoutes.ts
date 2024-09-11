@@ -46,7 +46,6 @@ async function updateScope1(
   scope1: Scope1,
   metadata: Metadata
 ) {
-  console.log('updating scope1')
   await prisma.emissions.upsert({
     where: {
       id: reportingPeriod.emissionsId,
@@ -80,7 +79,6 @@ async function updateScope1(
       },
     },
   })
-  console.log('DONE updating scope1')
 }
 
 async function updateScope2(
@@ -389,23 +387,26 @@ const reportingPeriod = () => async (req, res, next) => {
     }))
   res.locals.reportingPeriod = reportingPeriod
 
+  // TODO: If we created the reportingPeriod, we also create emissions for this reportingPeriod
+
   next()
 }
 
 router.use('/companies', fakeAuth())
 router.use('/companies', bodyParser.json())
 
-// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use(
   '/companies/:wikidataId',
   validateRequest({
     params: z.object({
       wikidataId: z.string().regex(/Q\d+/),
     }),
-  }),
-  createMetadata()
+  })
 )
-router.use('/companies/:wikidataId', async (req, res, next) => {
+
+// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
+router.use('/companies/:wikidataId', createMetadata())
+router.use('/companies/:wikidataId/:year', async (req, res, next) => {
   const { wikidataId } = req.params
   const company = await prisma.company.findFirst({ where: { wikidataId } })
   if (!company) {
@@ -461,8 +462,6 @@ router.post(
     }),
   }),
   async (req, res) => {
-    console.log({ body: req.body })
-
     const { scope1, scope2 } = req.body
     const metadata = res.locals.metadata
     const reportingPeriod = res.locals.reportingPeriod
@@ -471,8 +470,36 @@ router.post(
       scope1 && (await updateScope1(reportingPeriod, scope1, metadata))
       scope2 && (await updateScope2(reportingPeriod, scope2, metadata))
     } catch (error) {
+      // TODO: fix cases where 500 occurs
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })
+    }
+
+    res.status(200).send()
+  }
+)
+
+router.post(
+  '/companies/:wikidataId',
+  validateRequest({ body: z.object({ name: z.string() }) }),
+  async (req, res) => {
+    const { name } = req.body
+    const { wikidataId } = req.params
+
+    try {
+      await prisma.company.upsert({
+        where: {
+          wikidataId,
+        },
+        create: {
+          name,
+          wikidataId,
+        },
+        update: {},
+      })
+    } catch (error) {
+      console.error('Failed to create company', error)
+      return res.status(500).json({ error: 'Failed to create company' })
     }
 
     res.status(200).send()

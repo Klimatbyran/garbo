@@ -30,47 +30,61 @@ export async function importSpreadsheetCompanies() {
         'Scope 2 (location based)': lb,
         'Start date': startDate,
         'End date': endDate,
+        'Company name': name,
         url,
       }) => ({
+        name,
         wikidataId,
         scope1: { total: scope1 },
         scope2: { mb, lb },
         startDate,
         endDate,
-        url,
+        url: url?.hyperlink,
       })
     )
 
   // console.log(rows)
 
-  for (const {
-    wikidataId,
-    scope1,
-    scope2: scope2Unchecked,
-    url,
-    startDate,
-    endDate,
-  } of rows) {
+  for (const row of rows) {
+    const {
+      wikidataId,
+      scope1,
+      scope2: scope2Unchecked,
+      url,
+      startDate,
+      endDate,
+      name,
+    } = row
     // TODO: Maybe use zod to parse input data add default values to handle edge cases instead?
     const scope2 =
       scope2Unchecked.mb || scope2Unchecked.lb ? scope2Unchecked : undefined
 
     // TODO: Create companies that do not exist. Maybe do a first pass of the import to create companies with a separate endpoint, and then add emissions and more datapoints later
 
-    await fetch(
+    await postJSON(
       `http://localhost:3000/api/companies/${wikidataId}/${endDate.getFullYear()}/emissions`,
-      {
-        body: JSON.stringify({ scope1, scope2, url, startDate, endDate }),
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      }
+      { scope1, scope2, url, startDate, endDate }
     ).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
         console.error(res.status, res.statusText, wikidataId, body)
+
+        if (res.status === 404) {
+          await postJSON(`http://localhost:3000/api/companies/${wikidataId}`, {
+            name,
+          })
+        }
       }
     })
   }
+}
+
+async function postJSON(url: string, body: any) {
+  return fetch(url, {
+    body: JSON.stringify(body),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  })
 }
 
 async function main() {
