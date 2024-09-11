@@ -8,6 +8,12 @@ export interface ReportingPeriod {
   metadataId: number
 }
 
+export type Emissions = {
+  id: number
+  scope1Id?: number
+  scope2Id?: number
+}
+
 export type Scope1 = {
   total?: number
 }

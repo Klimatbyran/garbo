@@ -32,14 +32,14 @@ export async function importSpreadsheetCompanies() {
         'End date': endDate,
         'Company name': name,
         url,
-      }) => ({
+      }: any) => ({
         name,
         wikidataId,
         scope1: { total: scope1 },
         scope2: { mb, lb },
         startDate,
         endDate,
-        url: url?.hyperlink,
+        url: typeof url === 'string' ? url : url?.hyperlink,
       })
     )
 

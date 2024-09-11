@@ -4,7 +4,7 @@ import { getGics } from '../lib/gics'
 import bodyParser from 'body-parser'
 import { z } from 'zod'
 import { validateRequest } from 'zod-express-middleware'
-import type { ReportingPeriod, Scope1, Scope2 } from '../types/Company'
+import type { Emissions, Scope1, Scope2 } from '../types/Company'
 
 const prisma = new PrismaClient()
 
@@ -42,82 +42,64 @@ interface Metadata {
 }
 
 async function updateScope1(
-  reportingPeriod: ReportingPeriod,
+  emissions: Emissions,
   scope1: Scope1,
   metadata: Metadata
 ) {
-  await prisma.emissions.upsert({
+  return await prisma.scope1.upsert({
     where: {
-      id: reportingPeriod.emissionsId,
+      id: emissions.scope1Id,
     },
     create: {
-      scope1: {
+      ...scope1,
+      unit: tCO2e,
+      metadata: {
         create: {
-          ...scope1,
-          unit: tCO2e,
-
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
+          ...metadata,
         },
       },
     },
     update: {
-      scope1: {
-        update: {
-          data: {
-            ...scope1,
-            metadata: {
-              create: {
-                ...metadata,
-              },
-            },
-          },
+      ...scope1,
+      metadata: {
+        create: {
+          ...metadata,
         },
       },
     },
+    select: { id: true },
   })
+  // TODO: check if the error persists even with a full DB reset.
+  // Or maybe always do an upsert for the scope1, since we already checked that the emissions existed earlier in this endpoint
 }
 
 async function updateScope2(
-  reportingPeriod: ReportingPeriod,
+  emissions: Emissions,
   scope2: Scope2,
   metadata: Metadata
 ) {
-  await prisma.emissions.upsert({
+  return await prisma.scope2.upsert({
     where: {
-      id: reportingPeriod.emissionsId,
+      id: emissions.scope2Id,
     },
     create: {
-      scope2: {
+      ...scope2,
+      unit,
+      metadata: {
         create: {
-          ...scope2,
-          unit,
-
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
+          ...metadata,
         },
       },
     },
     update: {
-      scope2: {
-        update: {
-          data: {
-            ...scope2,
-            metadata: {
-              create: {
-                ...metadata,
-              },
-            },
-          },
+      ...scope2,
+      metadata: {
+        create: {
+          ...metadata,
         },
       },
     },
+    select: { id: true },
   })
 }
 
@@ -387,8 +369,6 @@ const reportingPeriod = () => async (req, res, next) => {
     }))
   res.locals.reportingPeriod = reportingPeriod
 
-  // TODO: If we created the reportingPeriod, we also create emissions for this reportingPeriod
-
   next()
 }
 
@@ -466,9 +446,46 @@ router.post(
     const metadata = res.locals.metadata
     const reportingPeriod = res.locals.reportingPeriod
 
+    // const emissions = Number.isFinite(reportingPeriod.emissionsId)
+    //   ? await prisma.emissions.findFirst({
+    //       where: { id: reportingPeriod.emissionsId },
+    //       select: {
+    //         id: true,
+    //         scope1Id: true,
+    //         scope2Id: true,
+    //       },
+    //     })
+    //   : await prisma.emissions.create({
+    //       data: {
+    //         reportingPeriods: {
+    //           connect: {
+    //             id: reportingPeriod.id,
+    //           },
+    //         },
+    //       },
+    //       select: { id: true, scope1Id: true, scope2Id: true },
+    //     })
+
+    const emissions = await prisma.emissions.upsert({
+      where: { id: reportingPeriod.emissionsId },
+      create: {
+        reportingPeriods: {
+          connect: {
+            id: reportingPeriod.id,
+          },
+        },
+      },
+      update: {},
+      select: {
+        id: true,
+        scope1Id: true,
+        scope2Id: true,
+      },
+    })
+
     try {
-      scope1 && (await updateScope1(reportingPeriod, scope1, metadata))
-      scope2 && (await updateScope2(reportingPeriod, scope2, metadata))
+      scope1 && (await updateScope1(emissions, scope1, metadata))
+      scope2 && (await updateScope2(emissions, scope2, metadata))
     } catch (error) {
       // TODO: fix cases where 500 occurs
       console.error('Failed to update emissions:', error)
