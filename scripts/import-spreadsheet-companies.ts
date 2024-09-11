@@ -61,17 +61,32 @@ export async function importSpreadsheetCompanies() {
 
     // TODO: Create companies that do not exist. Maybe do a first pass of the import to create companies with a separate endpoint, and then add emissions and more datapoints later
 
-    await postJSON(
+    const emissionsArgs = [
       `http://localhost:3000/api/companies/${wikidataId}/${endDate.getFullYear()}/emissions`,
-      { scope1, scope2, url, startDate, endDate }
-    ).then(async (res) => {
+      { scope1, scope2, url, startDate, endDate },
+    ] as const
+
+    await postJSON(...emissionsArgs).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
         console.error(res.status, res.statusText, wikidataId, body)
 
         if (res.status === 404) {
+          console.log('Creating company...', wikidataId)
           await postJSON(`http://localhost:3000/api/companies/${wikidataId}`, {
             name,
+          }).then(async (res) => {
+            if (!res.ok) {
+              const body = await res.text()
+              console.error(res.status, res.statusText, wikidataId, body)
+            } else {
+              await postJSON(...emissionsArgs).then(async (res) => {
+                if (!res.ok) {
+                  const body = await res.text()
+                  console.error(res.status, res.statusText, wikidataId, body)
+                }
+              })
+            }
           })
         }
       }
