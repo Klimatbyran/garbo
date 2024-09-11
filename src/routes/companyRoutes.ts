@@ -13,21 +13,16 @@ const router = express.Router()
 const metadata = {
   select: {
     comment: true,
+    source: true,
     updatedAt: true,
-    updater: {
+    user: {
       select: {
         name: true,
       },
     },
-    verifier: {
+    verifiedBy: {
       select: {
         name: true,
-      },
-    },
-    sources: {
-      select: {
-        url: true,
-        comment: true,
       },
     },
   },
