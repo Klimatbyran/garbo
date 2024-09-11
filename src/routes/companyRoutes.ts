@@ -33,6 +33,39 @@ const metadata = {
 const tCO2e = 'tCO2e'
 const unit = tCO2e
 
+async function findOrCreateReportingPeriod(
+  wikidataId: string,
+  year: any,
+  metadata: { source: any; userId: any }
+) {
+  return (
+    (await prisma.reportingPeriod.findFirst({
+      where: {
+        companyId: wikidataId,
+        // TODO: Handle date ranges (date within the same year)
+        endDate: {
+          gte: new Date(`${year}-01-01`),
+          lte: new Date(`${year}-12-31`),
+        },
+      },
+    })) ||
+    (await prisma.reportingPeriod.create({
+      data: {
+        company: {
+          connect: {
+            wikidataId,
+          },
+        },
+        startDate: new Date(`${year}-01-01`),
+        endDate: new Date(`${year}-12-31`),
+        metadata: {
+          create: metadata,
+        },
+      },
+    }))
+  )
+}
+
 const cache = () => {
   return (req: Request, res: Response, next: Function) => {
     res.set('Cache-Control', 'public, max-age=3000')
@@ -265,30 +298,33 @@ router.post(
   async (req: Request, res: Response) => {
     console.log(req.body.scope1)
 
-    const wikidataId = req.params.wikidataId
+    const wikidataId = req.params.wikidataId as string
     const year = req.params.year
     const scope1 = parseFloat(req.body.scope1)
     const url = req.body.url
 
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    const reportingPeriod = await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: wikidataId,
-        // TODO: Handle date ranges (date within the same year)
-        endDate: {
-          gt: new Date(`${year}-01-01`),
-          lte: new Date(`${year}-12-31`),
-        } as Prisma.DateTimeFilter,
-      },
-    })
+    // TODO: use zod middlewares for validation or fastify
+    if (!wikidataId || !year || !scope1 || !url) {
+      return res.status(400).json({ error: 'Missing required fields' })
+    }
 
-    // TODO: create a reportingPeriod if it doesn't exist
-    // await prisma.
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
 
     const metadata = {
       source: url,
       userId: req.user.id,
     }
+
+    const reportingPeriod = await findOrCreateReportingPeriod(
+      wikidataId,
+      year,
+      metadata
+    )
+
+    // TODO: create a reportingPeriod if it doesn't exist
+    // await prisma.
+
+    // type X = Prisma.ReportingPeriodCreateInput['']
 
     await prisma.emissions.upsert({
       where: {

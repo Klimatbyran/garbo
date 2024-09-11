@@ -86,8 +86,8 @@ model ReportingPeriod {
   endDate   DateTime
 
   companyId   String
-  emissionsId Int?   @unique
-  economyId   Int?   @unique
+  emissionsId Int?
+  economyId   Int?
   metadataId  Int
 
   initiatives Initiative[]
@@ -113,7 +113,7 @@ model Emissions {
   statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
   scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
   biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])
-  reportingPeriod      ReportingPeriod?
+  reportingPeriods     ReportingPeriod[]
   scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
   scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
   scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
@@ -249,8 +249,8 @@ model Economy {
 
   turnover        Turnover?
   employees       Employees?
-  reportingPeriod ReportingPeriod?
-  metadata        Metadata         @relation(fields: [metadataId], references: [id])
+  reportingPeriod ReportingPeriod[]
+  metadata        Metadata          @relation(fields: [metadataId], references: [id])
 }
 
 model Turnover {

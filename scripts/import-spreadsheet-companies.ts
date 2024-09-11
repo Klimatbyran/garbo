@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import ExcelJS from 'exceljs'
 
-import { InitialDBState, prisma } from './import'
+import { InitialDBState } from './import'
 
 // export async function importSpreadsheetCompanies({}: InitialDBState) {
 export async function importSpreadsheetCompanies(seededData: InitialDBState) {
