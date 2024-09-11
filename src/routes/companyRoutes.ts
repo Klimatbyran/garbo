@@ -46,31 +46,33 @@ async function updateScope1(
   scope1: Scope1,
   metadata: Metadata
 ) {
-  return await prisma.scope1.upsert({
-    where: {
-      id: emissions.scope1Id,
-    },
-    create: {
-      ...scope1,
-      unit: tCO2e,
-      metadata: {
-        create: {
-          ...metadata,
+  return emissions.scope1Id
+    ? await prisma.scope1.update({
+        where: {
+          id: emissions.scope1Id,
         },
-      },
-    },
-    update: {
-      ...scope1,
-      metadata: {
-        create: {
-          ...metadata,
+        data: {
+          ...scope1,
+          metadata: {
+            create: {
+              ...metadata,
+            },
+          },
         },
-      },
-    },
-    select: { id: true },
-  })
-  // TODO: check if the error persists even with a full DB reset.
-  // Or maybe always do an upsert for the scope1, since we already checked that the emissions existed earlier in this endpoint
+        select: { id: true },
+      })
+    : await prisma.scope1.create({
+        data: {
+          ...scope1,
+          unit: tCO2e,
+          metadata: {
+            create: {
+              ...metadata,
+            },
+          },
+        },
+        select: { id: true },
+      })
 }
 
 async function updateScope2(
@@ -78,29 +80,33 @@ async function updateScope2(
   scope2: Scope2,
   metadata: Metadata
 ) {
-  return await prisma.scope2.upsert({
-    where: {
-      id: emissions.scope2Id,
-    },
-    create: {
-      ...scope2,
-      unit,
-      metadata: {
-        create: {
-          ...metadata,
+  return emissions.scope2Id
+    ? await prisma.scope2.update({
+        where: {
+          id: emissions.scope2Id,
         },
-      },
-    },
-    update: {
-      ...scope2,
-      metadata: {
-        create: {
-          ...metadata,
+        data: {
+          ...scope2,
+          metadata: {
+            create: {
+              ...metadata,
+            },
+          },
         },
-      },
-    },
-    select: { id: true },
-  })
+        select: { id: true },
+      })
+    : await prisma.scope2.create({
+        data: {
+          ...scope2,
+          unit: tCO2e,
+          metadata: {
+            create: {
+              ...metadata,
+            },
+          },
+        },
+        select: { id: true },
+      })
 }
 
 const cache = () => {
@@ -446,26 +452,6 @@ router.post(
     const metadata = res.locals.metadata
     const reportingPeriod = res.locals.reportingPeriod
 
-    // const emissions = Number.isFinite(reportingPeriod.emissionsId)
-    //   ? await prisma.emissions.findFirst({
-    //       where: { id: reportingPeriod.emissionsId },
-    //       select: {
-    //         id: true,
-    //         scope1Id: true,
-    //         scope2Id: true,
-    //       },
-    //     })
-    //   : await prisma.emissions.create({
-    //       data: {
-    //         reportingPeriods: {
-    //           connect: {
-    //             id: reportingPeriod.id,
-    //           },
-    //         },
-    //       },
-    //       select: { id: true, scope1Id: true, scope2Id: true },
-    //     })
-
     const emissions = await prisma.emissions.upsert({
       where: { id: reportingPeriod.emissionsId },
       create: {
@@ -487,7 +473,6 @@ router.post(
       scope1 && (await updateScope1(emissions, scope1, metadata))
       scope2 && (await updateScope2(emissions, scope2, metadata))
     } catch (error) {
-      // TODO: fix cases where 500 occurs
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })
     }
