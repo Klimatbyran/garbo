@@ -378,6 +378,31 @@ const reportingPeriod = () => async (req, res, next) => {
   next()
 }
 
+const ensureEmissionsExists = () => async (req, res, next) => {
+  const reportingPeriod = res.locals.reportingPeriod
+  const emissionsId = res.locals.reportingPeriod.emissionsId
+
+  const emissions = emissionsId
+    ? await prisma.emissions.findFirst({
+        where: { id: emissionsId },
+        select: { id: true, scope1Id: true, scope2Id: true },
+      })
+    : await prisma.emissions.create({
+        data: {
+          reportingPeriods: {
+            connect: {
+              id: reportingPeriod.id,
+            },
+          },
+        },
+        select: { id: true, scope1Id: true, scope2Id: true },
+      })
+
+  res.locals.emissions = emissions
+
+  next()
+}
+
 router.use('/companies', fakeAuth())
 router.use('/companies', bodyParser.json())
 
@@ -421,6 +446,8 @@ router.use(
   reportingPeriod()
 )
 
+router.use('/companies/:wikidataId/:year/emissions', ensureEmissionsExists())
+
 // POST/companies/Q12345/2022-2023/emissions
 router.post(
   '/companies/:wikidataId/:year/emissions',
@@ -450,23 +477,7 @@ router.post(
   async (req, res) => {
     const { scope1, scope2 } = req.body
     const metadata = res.locals.metadata
-    const reportingPeriod = res.locals.reportingPeriod
-
-    const emissions = reportingPeriod.emissionsId
-      ? await prisma.emissions.findFirst({
-          where: { id: reportingPeriod.emissionsId },
-          select: { id: true, scope1Id: true, scope2Id: true },
-        })
-      : await prisma.emissions.create({
-          data: {
-            reportingPeriods: {
-              connect: {
-                id: reportingPeriod.id,
-              },
-            },
-          },
-          select: { id: true, scope1Id: true, scope2Id: true },
-        })
+    const emissions = res.locals.emissions
 
     try {
       scope1 && (await updateScope1(emissions, scope1, metadata))
