@@ -2,6 +2,9 @@ import express, { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
 import bodyParser from 'body-parser'
+import { z } from 'zod'
+import { validateRequest } from 'zod-express-middleware'
+import type { ReportingPeriod, Scope1, Scope2 } from '../types/Company'
 
 const prisma = new PrismaClient()
 
@@ -33,37 +36,91 @@ const metadata = {
 const tCO2e = 'tCO2e'
 const unit = tCO2e
 
-async function findOrCreateReportingPeriod(
-  wikidataId: string,
-  year: any,
-  metadata: { source: any; userId: any }
+interface Metadata {
+  source: any
+  userId: any
+}
+
+async function updateScope1(
+  reportingPeriod: ReportingPeriod,
+  scope1: Scope1,
+  metadata: Metadata
 ) {
-  return (
-    (await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: wikidataId,
-        // TODO: Handle date ranges (date within the same year)
-        endDate: {
-          gte: new Date(`${year}-01-01`),
-          lte: new Date(`${year}-12-31`),
-        },
-      },
-    })) ||
-    (await prisma.reportingPeriod.create({
-      data: {
-        company: {
-          connect: {
-            wikidataId,
+  console.log('updating scope1')
+  await prisma.emissions.upsert({
+    where: {
+      id: reportingPeriod.emissionsId,
+    },
+    create: {
+      scope1: {
+        create: {
+          ...scope1,
+          unit: tCO2e,
+
+          metadata: {
+            create: {
+              ...metadata,
+            },
           },
         },
-        startDate: new Date(`${year}-01-01`),
-        endDate: new Date(`${year}-12-31`),
-        metadata: {
-          create: metadata,
+      },
+    },
+    update: {
+      scope1: {
+        update: {
+          data: {
+            ...scope1,
+            metadata: {
+              create: {
+                ...metadata,
+              },
+            },
+          },
         },
       },
-    }))
-  )
+    },
+  })
+  console.log('DONE updating scope1')
+}
+
+async function updateScope2(
+  reportingPeriod: ReportingPeriod,
+  scope2: Scope2,
+  metadata: Metadata
+) {
+  await prisma.emissions.upsert({
+    where: {
+      id: reportingPeriod.emissionsId,
+    },
+    create: {
+      scope2: {
+        create: {
+          ...scope2,
+          unit,
+
+          metadata: {
+            create: {
+              ...metadata,
+            },
+          },
+        },
+      },
+    },
+    update: {
+      scope2: {
+        update: {
+          data: {
+            ...scope2,
+            metadata: {
+              create: {
+                ...metadata,
+              },
+            },
+          },
+        },
+      },
+    },
+  })
 }
 
 const cache = () => {
@@ -283,7 +340,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
 })
 
 const fakeAuth = (options?) => (req, res, next) => {
-  req.user = {
+  res.locals.user = {
     id: 2,
     name: 'Alexandra Palmqvist',
     email: 'alex@klimatkollen.se',
@@ -291,72 +348,134 @@ const fakeAuth = (options?) => (req, res, next) => {
   next()
 }
 
+const createMetadata = () => async (req, res, next) => {
+  const metadata = {
+    source: req.body.url,
+    userId: res.locals.user.id,
+  }
+  res.locals.metadata = metadata
+  next()
+}
+
+const reportingPeriod = () => async (req, res, next) => {
+  const { wikidataId } = req.params
+  const { startDate, endDate } = req.body
+
+  const metadata = res.locals.metadata
+
+  const reportingPeriod =
+    (await prisma.reportingPeriod.findFirst({
+      where: {
+        companyId: wikidataId,
+        endDate: {
+          gte: new Date(endDate),
+          lte: new Date(endDate),
+        },
+      },
+    })) ||
+    (await prisma.reportingPeriod.create({
+      data: {
+        company: {
+          connect: {
+            wikidataId,
+          },
+        },
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        metadata: {
+          create: metadata,
+        },
+      },
+    }))
+  res.locals.reportingPeriod = reportingPeriod
+
+  next()
+}
+
+router.use('/companies', fakeAuth())
+router.use('/companies', bodyParser.json())
+
+// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
+router.use(
+  '/companies/:wikidataId',
+  validateRequest({
+    params: z.object({
+      wikidataId: z.string().regex(/Q\d+/),
+    }),
+  }),
+  createMetadata()
+)
+router.use('/companies/:wikidataId', async (req, res, next) => {
+  const { wikidataId } = req.params
+  const company = await prisma.company.findFirst({ where: { wikidataId } })
+  if (!company) {
+    return res.status(404).json({ error: 'Company not found' })
+  }
+  res.locals.company = company
+  next()
+})
+
+router.use(
+  '/companies/:wikidataId/:year',
+  validateRequest({
+    params: z.object({
+      year: z.string().regex(/\d{4}(?:-\d{4})?/),
+    }),
+    body: z
+      .object({
+        startDate: z.coerce.date(),
+        endDate: z.coerce.date(),
+      })
+      .refine(
+        ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
+        { message: 'startDate must be earlier than endDate' }
+      ),
+  }),
+  reportingPeriod()
+)
+
+// POST/companies/Q12345/2022-2023/emissions
 router.post(
   '/companies/:wikidataId/:year/emissions',
-  fakeAuth(),
-  bodyParser.json(),
-  async (req: Request, res: Response) => {
-    console.log(req.body.scope1)
+  validateRequest({
+    body: z.object({
+      scope1: z
+        .object({
+          total: z.number(),
+        })
+        .optional(),
+      scope2: z
+        .object({
+          mb: z.number().optional(),
+          lb: z.number().optional(),
+          unknown: z.number().optional(),
+        })
+        .refine(
+          ({ mb, lb, unknown }) =>
+            mb !== undefined || lb !== undefined || unknown !== undefined,
+          {
+            message: 'One of the fields must be defined if scope2 is provided',
+          }
+        )
+        .optional(),
+    }),
+  }),
+  async (req, res) => {
+    console.log({ body: req.body })
 
-    const wikidataId = req.params.wikidataId as string
-    const year = req.params.year
-    const scope1 = parseFloat(req.body.scope1)
-    const url = req.body.url
+    const { scope1, scope2 } = req.body
+    const metadata = res.locals.metadata
+    const reportingPeriod = res.locals.reportingPeriod
 
-    // TODO: use zod middlewares for validation or fastify
-    if (!wikidataId || !year || !scope1 || !url) {
-      return res.status(400).json({ error: 'Missing required fields' })
+    try {
+      scope1 && (await updateScope1(reportingPeriod, scope1, metadata))
+      scope2 && (await updateScope2(reportingPeriod, scope2, metadata))
+    } catch (error) {
+      console.error('Failed to update emissions:', error)
+      return res.status(500).json({ error: 'Failed to update emissions' })
     }
 
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-
-    const metadata = {
-      source: url,
-      userId: req.user.id,
-    }
-
-    const reportingPeriod = await findOrCreateReportingPeriod(
-      wikidataId,
-      year,
-      metadata
-    )
-
-    // TODO: create a reportingPeriod if it doesn't exist
-    // await prisma.
-
-    // type X = Prisma.ReportingPeriodCreateInput['']
-
-    await prisma.emissions.upsert({
-      where: {
-        // TODO: crash when reportingPeriod is null
-        id: reportingPeriod.emissionsId,
-      },
-      create: {
-        // TODO: only update the included data
-        scope1: {
-          create: {
-            total: scope1,
-            unit: tCO2e,
-
-            metadata: {
-              create: {
-                ...metadata,
-              },
-            },
-          },
-        },
-      },
-      update: {
-        // TODO: only update the included data
-        scope1: {
-          update: {
-            data: {
-              total: scope1,
-            },
-          },
-        },
-      },
-    })
+    res.status(200).send()
   }
 )
 

@@ -1230,7 +1230,7 @@ export async function addIndustryGicsCodesToDB(
 }
 
 const translateRecords = async (records: IndustryGicsWithTranslations[]) => {
-  const { translateWithDeepL } = await import('./utils')
+  const { translateWithDeepL } = await import('./translate')
   const updatedRecords: IndustryGicsWithTranslations[] = []
 
   const ignoredKeys = new Set([

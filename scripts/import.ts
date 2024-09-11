@@ -44,7 +44,7 @@ async function main() {
   const seededData = await seedDB()
 
   await importGarboData(seededData)
-  await importSpreadsheetCompanies(seededData)
+  await importSpreadsheetCompanies()
 }
 
 if (isMainModule(import.meta.url)) {
