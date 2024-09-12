@@ -102,6 +102,31 @@ function getCompanyBaseFacts() {
     )
 }
 
+/**
+ * Translate the reporting period dates into another year. Can handle leap years.
+ */
+function getPeriodDatesForYear(year: number, startDate: Date, endDate: Date) {
+  const start = new Date(
+    `${year}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-01`
+  )
+  const end = new Date(
+    `${year}-${(endDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${getLastDayInMonth(year, endDate.getMonth())}`
+  )
+
+  return [start, end]
+}
+
+/**
+ * NOTE: Month is 0-indexed like Date.getMonth()
+ *
+ * Credit: https://stackoverflow.com/a/5301829
+ */
+function getLastDayInMonth(year: number, month: number) {
+  return 32 - new Date(year, month, 32).getDate()
+}
+
 function getReportingPeriods(
   rawCompanies: {
     wikidataId: string
@@ -200,10 +225,16 @@ function getReportingPeriods(
 
         const { wikidataId: companyId, startDate, endDate } = company
 
+        const [periodStart, periodEnd] = getPeriodDatesForYear(
+          year,
+          startDate,
+          endDate
+        )
+
         const reportingPeriod = {
           companyId,
-          startDate,
-          endDate,
+          startDate: periodStart,
+          endDate: periodEnd,
           emissions,
           economy,
         }
@@ -218,6 +249,9 @@ function getReportingPeriods(
   return reportingPeriodsByCompany
 }
 
+/**
+ * Get an array of numbers from start to end, with inclusive boundaries.
+ */
 function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
@@ -252,7 +286,7 @@ function getCompanyData() {
 
   const reportingPeriodsByCompany = getReportingPeriods(
     Object.values(rawCompanies),
-    [2023]
+    range(2015, 2023).reverse()
     // NOTE: When we want all historic data, we could do like this:
     // range(2015, 2023)
   )
