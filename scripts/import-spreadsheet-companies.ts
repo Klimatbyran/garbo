@@ -325,8 +325,6 @@ function getCompanyData() {
   const reportingPeriodsByCompany = getReportingPeriods(
     Object.values(rawCompanies),
     range(2015, 2023).reverse()
-    // NOTE: When we want all historic data, we could do like this:
-    // range(2015, 2023)
   )
 
   const companies: CompanyInput[] = []
@@ -344,9 +342,9 @@ function getCompanyData() {
   return companies
 }
 
+// TODO: Rewrite importSpreadsheetCompanies() to just take care of uploading data, and by using the new format.
 export async function importSpreadsheetCompanies() {
   const rows = getReportingPeriodDates()
-  // TODO: Use combined row to create companies and their emissions
 
   for (const row of rows) {
     const { wikidataId, startDate, endDate } = row
