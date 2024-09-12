@@ -246,7 +246,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
-          ...(Number.isFinite(scope2MB) || Number.isFinite(scope2LB)
+          ...(Number.isFinite(employees) || Boolean(employeesUnit)
             ? {
                 employees: {
                   value: employees,
@@ -275,8 +275,8 @@ function getReportingPeriods(
         if (!reportingPeriodsByCompany[companyId]) {
           reportingPeriodsByCompany[companyId] = []
         }
-        if (!reportingPeriod.emissions || !reportingPeriod.economy) {
-          // TODO: Do we want to create empty reportingPeriods? We could probably ignore them.
+        // Ignore reportingPeriods without any meaningful data
+        if (!reportingPeriod.emissions && !reportingPeriod.economy) {
           console.log('skipping', year, 'for', name)
           return
         }
@@ -405,7 +405,7 @@ async function main() {
     companies.length,
     `and skipped`,
     skippedCompanyNames.size,
-    `companies due to missing data.\n\n`
+    `companies due to missing wikidataId.\n\n`
   )
 
   await writeFile(
