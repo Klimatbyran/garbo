@@ -24,7 +24,6 @@
     "@hugocxl/react-to-image": "^0.0.9",
     "@prisma/client": "^5.19.0",
     "@types/node": "^22.5.2",
-    "body-parser": "^1.20.3",
     "bullmq": "^5.1.1",
     "chromadb": "^1.7.3",
     "csv-parser": "^3.0.0",

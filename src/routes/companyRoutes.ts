@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
-import bodyParser from 'body-parser'
 import { z } from 'zod'
 import { validateRequest } from 'zod-express-middleware'
 import type { Emissions, Scope1, Scope2 } from '../types/Company'
@@ -399,7 +398,7 @@ const ensureEmissionsExists = () => async (req, res, next) => {
 }
 
 router.use('/companies', fakeAuth())
-router.use('/companies', bodyParser.json())
+router.use('/companies', express.json())
 
 router.use(
   '/companies/:wikidataId',
