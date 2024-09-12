@@ -20,6 +20,44 @@ export const DATA_ORIGIN = {
 
 export type DataOrigin = keyof typeof DATA_ORIGIN
 
+export type CompanyInput = {
+  wikidataId: string
+  name: string
+  description?: string
+  reportingPeriods: ReportingPeriodInput[]
+}
+
+export type MetadataInput = {
+  comment?: string
+  source?: string
+}
+
+export type ReportingPeriodInput = {
+  startDate: Date
+  endDate: Date
+  companyId: string
+  metadata: MetadataInput
+  emissions: EmissionsInput
+}
+
+export type EmissionsInput = {
+  scope1?: Scope1Input
+  scope2?: Scope2Input
+  metadata: MetadataInput
+}
+
+export type Scope1Input = {
+  total?: number
+  metadata: MetadataInput
+}
+
+export type Scope2Input = {
+  mb?: number
+  lb?: number
+  unknown?: number
+  metadata: MetadataInput
+}
+
 export async function seedDB() {
   const [[garbo, alex], gicsCodes] = await Promise.all([
     prisma.user.createManyAndReturn({
@@ -53,10 +91,3 @@ async function main() {
 if (isMainModule(import.meta.url)) {
   await main()
 }
-
-// IDEA: We could use connectOrCreate to conditionally create entities only when needed.
-// TODO: Import using https://github.com/exceljs/exceljs since that seems more updated.
-
-// Import first from facit, since we want that data as the main source.
-// Import from garbo to fill in missing datapoints.
-// IDEA: Maybe combine data from both data sources and import it all at the same time?

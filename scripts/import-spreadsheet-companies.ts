@@ -1,69 +1,123 @@
 import { resolve } from 'path'
 import ExcelJS from 'exceljs'
 
+import { CompanyInput } from './import'
 import { isMainModule } from './utils'
 
-export async function importSpreadsheetCompanies() {
-  const workbook = new ExcelJS.Workbook()
-  await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
+const workbook = new ExcelJS.Workbook()
+await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
 
+function getSheetHeaders({
+  sheet,
+  row,
+}: {
+  sheet: ExcelJS.Worksheet
+  row: number
+}) {
+  return Object.values(sheet.getRow(row).values!)
+}
+
+function getReportingPeriodDates() {
   const sheet = workbook.getWorksheet('Wiki')!
+  const headerRow = 1
+  const headers = getSheetHeaders({ sheet, row: headerRow })
 
-  const rows = sheet
+  return sheet
     .getSheetValues()
-    .slice(2) // Skip empty rows and header
-    .map((row) => {
-      if (!row) return row
-      const headers = Object.values(sheet.getRow(1).values!)
+    .slice(headerRow + 1) // Skip header
+    .reduce<{ wikidataId: string; startDate: Date; endDate: Date }[]>(
+      (rowValues, row) => {
+        if (!row) return rowValues
 
-      return headers.reduce((acc, header, i) => {
+        const wantedColumns = headers.reduce((acc, header, i) => {
+          const index = i + 1
+          acc[header!.toString()] = row[index]?.result || row[index]
+          return acc
+        }, {})
+
+        const {
+          'Wiki id': wikidataId,
+          'Start date': startDate,
+          'End date': endDate,
+        } = wantedColumns as any
+
+        if (wikidataId) {
+          rowValues.push({
+            wikidataId,
+            startDate,
+            endDate,
+          })
+        }
+
+        return rowValues
+      },
+      []
+    )
+}
+
+function getCompanyBaseFacts() {
+  const sheet = workbook.getWorksheet('Overview')!
+  const headerRow = 2
+  const headers = getSheetHeaders({ sheet, row: headerRow })
+
+  return sheet
+    .getSheetValues()
+    .slice(headerRow + 1) // Skip header
+    .reduce<{ wikidataId: string; name: string }[]>((rowValues, row) => {
+      if (!row) return rowValues
+
+      const wantedColumns = headers.reduce((acc, header, i) => {
         const index = i + 1
         acc[header!.toString()] = row[index]?.result || row[index]
         return acc
       }, {})
-    })
-    .map(
-      ({
-        'Wiki id': wikidataId,
-        ' Scope 1': scope1,
-        'Scope 2 (market based)': mb,
-        'Scope 2 (location based)': lb,
-        'Start date': startDate,
-        'End date': endDate,
-        'Company name': name,
-        url,
-      }: any) => ({
-        name,
-        wikidataId,
-        scope1: { total: scope1 },
-        scope2: { mb, lb },
-        startDate,
-        endDate,
-        url: typeof url === 'string' ? url : url?.hyperlink,
-      })
-    )
 
-  // console.log(rows)
+      // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
+      const { 'Wiki ID': wikidataId, Company: name } = wantedColumns as any
+
+      if (wikidataId) {
+        rowValues.push({
+          name,
+          wikidataId,
+        })
+      }
+
+      return rowValues
+    }, [])
+}
+
+function getCompanyData() {
+  const reportingPeriodDates = getReportingPeriodDates()
+  const baseFacts = getCompanyBaseFacts()
+
+  const companies: Record<string, Partial<CompanyInput>> = {}
+
+  for (const reportingPeriod of reportingPeriodDates) {
+    companies[reportingPeriod.wikidataId] = reportingPeriod
+  }
+
+  for (const facts of baseFacts) {
+    companies[facts.wikidataId] = {
+      ...facts,
+      ...companies[facts.wikidataId],
+    }
+  }
+
+  console.log(companies)
+}
+
+export async function importSpreadsheetCompanies() {
+  const rows = getReportingPeriodDates()
+  // TODO: Use combined row to create companies and their emissions
 
   for (const row of rows) {
-    const {
-      wikidataId,
-      scope1,
-      scope2: scope2Unchecked,
-      url,
-      startDate,
-      endDate,
-      name,
-    } = row
-    // TODO: Maybe use zod to parse input data add default values to handle edge cases instead?
-    const scope2 =
-      scope2Unchecked.mb || scope2Unchecked.lb ? scope2Unchecked : undefined
+    const { wikidataId, startDate, endDate } = row
 
     // TODO: Create companies that do not exist. Maybe do a first pass of the import to create companies with a separate endpoint, and then add emissions and more datapoints later
 
     const emissionsArgs = [
       `http://localhost:3000/api/companies/${wikidataId}/${endDate.getFullYear()}/emissions`,
-      { scope1, scope2, url, startDate, endDate },
+      { startDate, endDate },
     ] as const
 
     // TODO: save metadata for each datapoint and set the correct user
@@ -106,7 +160,9 @@ async function postJSON(url: string, body: any) {
 }
 
 async function main() {
-  await importSpreadsheetCompanies()
+  getCompanyData()
+
+  // TODO: await importSpreadsheetCompanies()
 }
 
 if (isMainModule(import.meta.url)) {

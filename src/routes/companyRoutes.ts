@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
 import { z } from 'zod'
@@ -105,7 +105,7 @@ async function updateScope2(
 }
 
 const cache = () => {
-  return (req: Request, res: Response, next: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     res.set('Cache-Control', 'public, max-age=3000')
     next()
   }
@@ -316,83 +316,90 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
   }
 })
 
-const fakeAuth = (options?) => (req, res, next) => {
-  res.locals.user = {
-    id: 2,
-    name: 'Alexandra Palmqvist',
-    email: 'alex@klimatkollen.se',
+const fakeAuth =
+  (options?) => (req: Request, res: Response, next: NextFunction) => {
+    res.locals.user = {
+      id: 2,
+      name: 'Alexandra Palmqvist',
+      email: 'alex@klimatkollen.se',
+    }
+    next()
   }
-  next()
-}
 
-const createMetadata = () => async (req, res, next) => {
-  const metadata = {
-    source: req.body.url,
-    userId: res.locals.user.id,
+const createMetadata =
+  () => async (req: Request, res: Response, next: NextFunction) => {
+    // TODO: Find a better way to determine if changes by the current user should count as verified or not
+    const verifiedByUserId = res.locals.user.id === 2 ? 2 : null
+    const metadata = {
+      source: req.body.url,
+      userId: res.locals.user.id,
+      verifiedByUserId,
+    }
+    res.locals.metadata = metadata
+    next()
   }
-  res.locals.metadata = metadata
-  next()
-}
 
-const reportingPeriod = () => async (req, res, next) => {
-  const { wikidataId } = req.params
-  const { startDate, endDate } = req.body
+const reportingPeriod =
+  () => async (req: Request, res: Response, next: NextFunction) => {
+    const { wikidataId } = req.params
+    const { startDate, endDate } = req.body
 
-  const metadata = res.locals.metadata
+    const metadata = res.locals.metadata
 
-  const reportingPeriod =
-    (await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: wikidataId,
-        endDate: {
-          gte: new Date(endDate),
-          lte: new Date(endDate),
-        },
-      },
-    })) ||
-    (await prisma.reportingPeriod.create({
-      data: {
-        company: {
-          connect: {
-            wikidataId,
+    const reportingPeriod =
+      (await prisma.reportingPeriod.findFirst({
+        where: {
+          companyId: wikidataId,
+          endDate: {
+            gte: new Date(endDate),
+            lte: new Date(endDate),
           },
         },
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        metadata: {
-          create: metadata,
-        },
-      },
-    }))
-  res.locals.reportingPeriod = reportingPeriod
-
-  next()
-}
-
-const ensureEmissionsExists = () => async (req, res, next) => {
-  const reportingPeriod = res.locals.reportingPeriod
-  const emissionsId = res.locals.reportingPeriod.emissionsId
-
-  const emissions = emissionsId
-    ? await prisma.emissions.findFirst({
-        where: { id: emissionsId },
-        select: { id: true, scope1Id: true, scope2Id: true },
-      })
-    : await prisma.emissions.create({
+      })) ||
+      (await prisma.reportingPeriod.create({
         data: {
-          reportingPeriods: {
+          company: {
             connect: {
-              id: reportingPeriod.id,
+              wikidataId,
             },
           },
+          startDate: new Date(startDate),
+          endDate: new Date(endDate),
+          metadata: {
+            create: metadata,
+          },
         },
-        select: { id: true, scope1Id: true, scope2Id: true },
-      })
+      }))
+    res.locals.reportingPeriod = reportingPeriod
 
-  res.locals.emissions = emissions
+    next()
+  }
 
-  next()
-}
+const ensureEmissionsExists =
+  () => async (req: Request, res: Response, next: NextFunction) => {
+    const reportingPeriod = res.locals.reportingPeriod
+    const emissionsId = res.locals.reportingPeriod.emissionsId
+
+    const emissions = emissionsId
+      ? await prisma.emissions.findFirst({
+          where: { id: emissionsId },
+          select: { id: true, scope1Id: true, scope2Id: true },
+        })
+      : await prisma.emissions.create({
+          data: {
+            reportingPeriods: {
+              connect: {
+                id: reportingPeriod.id,
+              },
+            },
+          },
+          select: { id: true, scope1Id: true, scope2Id: true },
+        })
+
+    res.locals.emissions = emissions
+
+    next()
+  }
 
 router.use('/companies', fakeAuth())
 router.use('/companies', express.json())
@@ -408,15 +415,47 @@ router.use(
 
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/companies/:wikidataId', createMetadata())
-router.use('/companies/:wikidataId/:year', async (req, res, next) => {
-  const { wikidataId } = req.params
-  const company = await prisma.company.findFirst({ where: { wikidataId } })
-  if (!company) {
-    return res.status(404).json({ error: 'Company not found' })
+
+// TODO: Allow creating a company with more data included.
+router.post(
+  '/companies/:wikidataId',
+  validateRequest({ body: z.object({ name: z.string() }) }),
+  async (req, res) => {
+    const { name } = req.body
+    const { wikidataId } = req.params
+
+    try {
+      await prisma.company.upsert({
+        where: {
+          wikidataId,
+        },
+        create: {
+          name,
+          wikidataId,
+        },
+        update: {},
+      })
+    } catch (error) {
+      console.error('Failed to create company', error)
+      return res.status(500).json({ error: 'Failed to create company' })
+    }
+
+    res.status(200).send()
   }
-  res.locals.company = company
-  next()
-})
+)
+
+router.use(
+  '/companies/:wikidataId/:year',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { wikidataId } = req.params
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found' })
+    }
+    res.locals.company = company
+    next()
+  }
+)
 
 router.use(
   '/companies/:wikidataId/:year',
@@ -476,33 +515,6 @@ router.post(
     } catch (error) {
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })
-    }
-
-    res.status(200).send()
-  }
-)
-
-router.post(
-  '/companies/:wikidataId',
-  validateRequest({ body: z.object({ name: z.string() }) }),
-  async (req, res) => {
-    const { name } = req.body
-    const { wikidataId } = req.params
-
-    try {
-      await prisma.company.upsert({
-        where: {
-          wikidataId,
-        },
-        create: {
-          name,
-          wikidataId,
-        },
-        update: {},
-      })
-    } catch (error) {
-      console.error('Failed to create company', error)
-      return res.status(500).json({ error: 'Failed to create company' })
     }
 
     res.status(200).send()
