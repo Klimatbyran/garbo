@@ -1,11 +1,19 @@
-import { resolve } from 'path'
 import ExcelJS from 'exceljs'
+import { resolve } from 'path'
+import { writeFile } from 'fs/promises'
 
-import { CompanyInput } from './import'
+import {
+  CompanyInput,
+  EmissionsInput,
+  MetadataInput,
+  ReportingPeriodInput,
+} from './import'
 import { isMainModule } from './utils'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
+
+const skippedCompanyNames = new Set()
 
 function getSheetHeaders({
   sheet,
@@ -63,47 +71,205 @@ function getCompanyBaseFacts() {
   return sheet
     .getSheetValues()
     .slice(headerRow + 1) // Skip header
-    .reduce<{ wikidataId: string; name: string }[]>((rowValues, row) => {
-      if (!row) return rowValues
+    .reduce<{ wikidataId: string; name: string; internalComment?: string }[]>(
+      (rowValues, row) => {
+        if (!row) return rowValues
 
-      const wantedColumns = headers.reduce((acc, header, i) => {
-        const index = i + 1
-        acc[header!.toString()] = row[index]?.result || row[index]
-        return acc
-      }, {})
+        const wantedColumns = headers.reduce((acc, header, i) => {
+          const index = i + 1
+          acc[header!.toString()] = row[index]?.result || row[index]
+          return acc
+        }, {})
 
-      // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
-      const { 'Wiki ID': wikidataId, Company: name } = wantedColumns as any
+        // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
+        const {
+          'Wiki ID': wikidataId,
+          Company: name,
+          'General Comment': internalComment,
+        } = wantedColumns as any
 
-      if (wikidataId) {
-        rowValues.push({
-          name,
-          wikidataId,
-        })
-      }
+        if (wikidataId) {
+          rowValues.push({
+            name,
+            wikidataId,
+            internalComment,
+          })
+        }
 
-      return rowValues
-    }, [])
+        return rowValues
+      },
+      []
+    )
+}
+
+function getReportingPeriods(
+  rawCompanies: {
+    wikidataId: string
+    name: string
+    startDate: Date
+    endDate: Date
+  }[],
+  years: number[]
+): Record<string, ReportingPeriodInput[]> {
+  const reportingPeriodsByCompany: Record<string, ReportingPeriodInput[]> = {}
+
+  // For each year, get the reporting period of each company
+  for (const year of years) {
+    const sheet = workbook.getWorksheet(year.toString())!
+    const headerRow = 2
+    const headers = getSheetHeaders({ sheet, row: headerRow })
+
+    sheet
+      .getSheetValues()
+      .slice(headerRow + 1) // Skip header
+      .forEach((row) => {
+        if (!row) return
+
+        const wantedColumns = headers.reduce((acc, header, i) => {
+          const index = i + 1
+          acc[header!.toString()] = row[index]?.result || row[index]
+          return acc
+        }, {})
+
+        // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
+        const {
+          Company: name,
+          // [`URL ${year}`]: source,
+          'Scope 1': scope1Total,
+          'Scope 2 (LB)': scope2LB,
+          'Scope 2 (MB)': scope2MB,
+          'Scope 3 (total)': scope3StatedTotal,
+          Total: statedTotal,
+          'Biogenic (outside of scopes)': biogenic,
+          Turnover: turnover,
+          Currency: currency,
+          'No of Employees': employees,
+          Unit: employeesUnit,
+        } = wantedColumns as any
+
+        const company = rawCompanies.find((c) => c.name === name)
+
+        if (!company) {
+          console.error(
+            `${year}: Company ${name} was not included since it's missing "Wiki ID" in the "Overview" sheet.`
+          )
+          skippedCompanyNames.add(name)
+          return
+        }
+
+        // TODO: Add comment and source URL as metadata for this year.
+
+        const emissions = {
+          scope1: {
+            total: scope1Total,
+          },
+          scope2: {
+            mb: scope2MB,
+            lb: scope2LB,
+          },
+          scope3: {
+            statedTotalEmissions: {
+              total: scope3StatedTotal,
+            },
+            scope3Categories: Array.from({ length: 15 }, (_, i) => i + 1)
+              .map((category) => ({
+                category,
+                total: wantedColumns[`Cat ${category}`],
+              }))
+              .concat([{ category: 16, total: wantedColumns[`Other`] }])
+              .filter((c) => Number.isFinite(c.total)),
+          },
+          statedTotalEmissions: {
+            total: statedTotal,
+          },
+          biogenic: {
+            total: biogenic,
+          },
+        }
+
+        const economy = {
+          turnover: {
+            value: turnover,
+            currency,
+          },
+          employees: {
+            value: employees,
+            unit: employeesUnit,
+          },
+        }
+
+        const { wikidataId: companyId, startDate, endDate } = company
+
+        const reportingPeriod = {
+          companyId,
+          startDate,
+          endDate,
+          emissions,
+          economy,
+        }
+
+        if (!reportingPeriodsByCompany[companyId]) {
+          reportingPeriodsByCompany[companyId] = []
+        }
+        reportingPeriodsByCompany[companyId].push(reportingPeriod)
+      })
+  }
+
+  return reportingPeriodsByCompany
+}
+
+function range(start: number, end: number) {
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
 function getCompanyData() {
   const reportingPeriodDates = getReportingPeriodDates()
   const baseFacts = getCompanyBaseFacts()
 
-  const companies: Record<string, Partial<CompanyInput>> = {}
+  const rawCompanies: Record<
+    string,
+    {
+      wikidataId: string
+      name: string
+      startDate: Date
+      endDate: Date
+    }
+  > = {}
 
-  for (const reportingPeriod of reportingPeriodDates) {
-    companies[reportingPeriod.wikidataId] = reportingPeriod
-  }
-
-  for (const facts of baseFacts) {
-    companies[facts.wikidataId] = {
-      ...facts,
-      ...companies[facts.wikidataId],
+  for (const dates of reportingPeriodDates) {
+    rawCompanies[dates.wikidataId] = {
+      ...rawCompanies[dates.wikidataId],
+      ...dates,
     }
   }
 
-  console.log(companies)
+  for (const facts of baseFacts) {
+    rawCompanies[facts.wikidataId] = {
+      ...facts,
+      ...rawCompanies[facts.wikidataId],
+    }
+  }
+
+  const reportingPeriodsByCompany = getReportingPeriods(
+    Object.values(rawCompanies),
+    [2023]
+    // NOTE: When we want all historic data, we could do like this:
+    // range(2015, 2023)
+  )
+
+  const companies: CompanyInput[] = []
+
+  for (const [wikidataId, reportingPeriods] of Object.entries(
+    reportingPeriodsByCompany
+  )) {
+    companies.push({
+      wikidataId,
+      name: rawCompanies[wikidataId].name,
+      reportingPeriods,
+    })
+  }
+
+  return companies
 }
 
 export async function importSpreadsheetCompanies() {
@@ -160,9 +326,23 @@ async function postJSON(url: string, body: any) {
 }
 
 async function main() {
-  getCompanyData()
+  const companies = getCompanyData()
 
-  // TODO: await importSpreadsheetCompanies()
+  console.log(
+    `\n\n✅ Imported`,
+    companies.length,
+    `and skipped`,
+    skippedCompanyNames.size,
+    `companies due to missing data.\n\n`
+  )
+
+  await writeFile(
+    resolve('output/spreadsheet-import.json'),
+    JSON.stringify(companies, null, 2),
+    { encoding: 'utf-8' }
+  )
+
+  // TODO: upload company data
 }
 
 if (isMainModule(import.meta.url)) {

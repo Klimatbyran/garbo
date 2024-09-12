@@ -36,26 +36,34 @@ export type ReportingPeriodInput = {
   startDate: Date
   endDate: Date
   companyId: string
-  metadata: MetadataInput
   emissions: EmissionsInput
+  economy: EconomyInput
 }
 
 export type EmissionsInput = {
   scope1?: Scope1Input
   scope2?: Scope2Input
-  metadata: MetadataInput
+}
+
+export type EconomyInput = {
+  turnover: {
+    value?: number
+    currency?: string
+  }
+  employees: {
+    value?: number
+    unit?: string
+  }
 }
 
 export type Scope1Input = {
   total?: number
-  metadata: MetadataInput
 }
 
 export type Scope2Input = {
   mb?: number
   lb?: number
   unknown?: number
-  metadata: MetadataInput
 }
 
 export async function seedDB() {
