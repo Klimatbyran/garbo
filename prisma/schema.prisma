@@ -342,7 +342,7 @@ model Metadata {
   scope1And2           Scope1And2[]
   statedTotalEmissions StatedTotalEmissions[]
   user                 User                   @relation("metadata_user_id", fields: [userId], references: [id])
-  verifiedBy           User?                  @relation("metadata_verified_by", fields: [userId], references: [id])
+  verifiedBy           User?                  @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
   industries           Industry[]
   scope3Categories     Scope3Category[]
   turnover             Turnover[]
