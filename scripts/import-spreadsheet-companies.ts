@@ -175,52 +175,85 @@ function getReportingPeriods(
         const company = rawCompanies.find((c) => c.name === name)
 
         if (!company) {
-          console.error(
-            `${year}: Company ${name} was not included since it's missing "Wiki ID" in the "Overview" sheet.`
-          )
+          // NOTE: This logging will be useful to find companies without Wiki ID and which thus can't be imported.
+          // console.error(
+          //   `${year}: Company ${name} was not included since it's missing "Wiki ID" in the "Overview" sheet.`
+          // )
           skippedCompanyNames.add(name)
           return
         }
 
         // TODO: Add comment and source URL as metadata for this year.
 
+        const scope3Categories = Array.from({ length: 15 }, (_, i) => i + 1)
+          .map((category) => ({
+            category,
+            total: wantedColumns[`Cat ${category}`],
+          }))
+          .concat([{ category: 16, total: wantedColumns[`Other`] }])
+          .filter((c) => Number.isFinite(c.total))
+
+        const scope3 = {
+          ...(Number.isFinite(scope3StatedTotal)
+            ? {
+                statedTotalEmissions: {
+                  total: scope3StatedTotal,
+                },
+              }
+            : {}),
+          ...(scope3Categories.length ? { scope3Categories } : {}),
+        }
+
         const emissions = {
-          scope1: {
-            total: scope1Total,
-          },
-          scope2: {
-            mb: scope2MB,
-            lb: scope2LB,
-          },
-          scope3: {
-            statedTotalEmissions: {
-              total: scope3StatedTotal,
-            },
-            scope3Categories: Array.from({ length: 15 }, (_, i) => i + 1)
-              .map((category) => ({
-                category,
-                total: wantedColumns[`Cat ${category}`],
-              }))
-              .concat([{ category: 16, total: wantedColumns[`Other`] }])
-              .filter((c) => Number.isFinite(c.total)),
-          },
-          statedTotalEmissions: {
-            total: statedTotal,
-          },
-          biogenic: {
-            total: biogenic,
-          },
+          ...(Number.isFinite(scope1Total)
+            ? {
+                scope1: {
+                  total: scope1Total,
+                },
+              }
+            : {}),
+          ...(Number.isFinite(scope2MB) || Number.isFinite(scope2LB)
+            ? {
+                scope2: {
+                  mb: scope2MB,
+                  lb: scope2LB,
+                },
+              }
+            : {}),
+          ...(Object.keys(scope3).length ? scope3 : {}),
+          ...(Number.isFinite(statedTotal)
+            ? {
+                statedTotalEmissions: {
+                  total: statedTotal,
+                },
+              }
+            : {}),
+          ...(Number.isFinite(biogenic)
+            ? {
+                biogenic: {
+                  total: biogenic,
+                },
+              }
+            : {}),
         }
 
         const economy = {
-          turnover: {
-            value: turnover,
-            currency,
-          },
-          employees: {
-            value: employees,
-            unit: employeesUnit,
-          },
+          ...(Number.isFinite(turnover)
+            ? {
+                turnover: {
+                  value: turnover,
+                  currency,
+                },
+              }
+            : {}),
+          ...(Number.isFinite(scope2MB) || Number.isFinite(scope2LB)
+            ? {
+                employees: {
+                  value: employees,
+                  unit: employeesUnit,
+                },
+              }
+            : {}),
         }
 
         const { wikidataId: companyId, startDate, endDate } = company
@@ -235,12 +268,17 @@ function getReportingPeriods(
           companyId,
           startDate: periodStart,
           endDate: periodEnd,
-          emissions,
-          economy,
+          ...(Object.keys(emissions).length ? { emissions } : {}),
+          ...(Object.keys(economy).length ? { economy } : {}),
         }
 
         if (!reportingPeriodsByCompany[companyId]) {
           reportingPeriodsByCompany[companyId] = []
+        }
+        if (!reportingPeriod.emissions || !reportingPeriod.economy) {
+          // TODO: Do we want to create empty reportingPeriods? We could probably ignore them.
+          console.log('skipping', year, 'for', name)
+          return
         }
         reportingPeriodsByCompany[companyId].push(reportingPeriod)
       })

@@ -36,24 +36,16 @@ export type ReportingPeriodInput = {
   startDate: Date
   endDate: Date
   companyId: string
-  emissions: EmissionsInput
-  economy: EconomyInput
+  emissions?: EmissionsInput
+  economy?: EconomyInput
 }
 
 export type EmissionsInput = {
   scope1?: Scope1Input
   scope2?: Scope2Input
-}
-
-export type EconomyInput = {
-  turnover: {
-    value?: number
-    currency?: string
-  }
-  employees: {
-    value?: number
-    unit?: string
-  }
+  scope3?: Scope3Input
+  statedTotalEmissions?: StatedTotalEmissionsInput
+  biogenic?: BiogenicInput
 }
 
 export type Scope1Input = {
@@ -64,6 +56,35 @@ export type Scope2Input = {
   mb?: number
   lb?: number
   unknown?: number
+}
+
+export type Scope3Input = {
+  scope3Categories?: Scope3CategoryInput[]
+  statedTotalEmissions?: StatedTotalEmissionsInput
+}
+
+export type Scope3CategoryInput = {
+  category: number
+  total: number
+}
+
+export type StatedTotalEmissionsInput = {
+  total: number
+}
+
+export type BiogenicInput = {
+  total: number
+}
+
+export type EconomyInput = {
+  turnover?: {
+    value?: number
+    currency?: string
+  }
+  employees?: {
+    value?: number
+    unit?: string
+  }
 }
 
 export async function seedDB() {
