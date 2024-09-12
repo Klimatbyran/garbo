@@ -2,10 +2,7 @@ import { Prisma, PrismaClient } from '@prisma/client'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { addIndustryGicsCodesToDB } from './add-gics'
-import {
-  getUniqueCurrenciesFromGarboData,
-  importGarboData,
-} from './import-garbo-companies'
+import { importGarboData } from './import-garbo-companies'
 import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
 import { isMainModule } from './utils'
 
@@ -16,8 +13,15 @@ async function reset() {
   await promisify(exec)('npx prisma migrate reset --force')
 }
 
+export const DATA_ORIGIN = {
+  garbo: 'garbo',
+  manual: 'manual',
+}
+
+export type DataOrigin = keyof typeof DATA_ORIGIN
+
 export async function seedDB() {
-  const [[garbo, alex], currencies, gicsCodes] = await Promise.all([
+  const [[garbo, alex], gicsCodes] = await Promise.all([
     prisma.user.createManyAndReturn({
       data: [
         {
@@ -30,11 +34,10 @@ export async function seedDB() {
         },
       ],
     }),
-    getUniqueCurrenciesFromGarboData(),
     addIndustryGicsCodesToDB(),
   ])
 
-  return { users: { garbo, alex }, currencies, gicsCodes }
+  return { users: { garbo, alex }, gicsCodes }
 }
 
 export type InitialDBState = Awaited<ReturnType<typeof seedDB>>

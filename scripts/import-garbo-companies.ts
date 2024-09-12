@@ -1,37 +1,7 @@
 import { Prisma } from '@prisma/client'
 
 import garboCompanies from '../companies.json'
-import { InitialDBState, prisma } from './import'
-
-// IDEA: Maybe get unique currencies also from the spreadsheet data
-export async function getUniqueCurrenciesFromGarboData(
-  allCompanies: typeof garboCompanies = garboCompanies
-) {
-  const uniqueCurrencies = new Set<string>()
-
-  for (const company of allCompanies) {
-    for (const [year, baseFacts] of Object.entries(company.baseFacts ?? {})) {
-      if (baseFacts?.unit) {
-        const currency = baseFacts.unit.toUpperCase()
-        uniqueCurrencies.add(currency)
-      }
-    }
-  }
-
-  const created = await prisma.currency.createManyAndReturn({
-    data: [...uniqueCurrencies].map((name) => ({ name })),
-  })
-
-  return created.reduce<Record<string, (typeof created)[number]>>(
-    (currencies, currency) => {
-      if (!currencies[currency.name]) {
-        currencies[currency.name] = currency
-      }
-      return currencies
-    },
-    {}
-  )
-}
+import { DATA_ORIGIN, InitialDBState, prisma } from './import'
 
 function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   for (const value of values) {
@@ -68,7 +38,6 @@ function getWikidataId(company: (typeof garboCompanies)[number]) {
 
 export async function importGarboData({
   users: { garbo, alex },
-  currencies,
   gicsCodes,
 }: InitialDBState) {
   // TODO: properly create metadata for every datapoint
@@ -78,27 +47,19 @@ export async function importGarboData({
       source: 'https://klimatkollen.se',
       updatedAt: new Date(),
       userId: garbo.id,
-      dataOrigin: {
-        create: {
-          name: 'Garbo extraction',
-        },
-      },
+      dataOrigin: DATA_ORIGIN.garbo,
     },
   })
 
   async function createEconomy(economy) {
-    // if the currency exists, use it, otherwise create it
-
-    const currencyId = economy.currency
-      ? currencies[economy.currency.toUpperCase()]?.id
-      : null
+    const currency = economy.currency?.trim()?.toUpperCase() || null
 
     const { id } = await prisma.economy.create({
       data: {
         turnover: {
           create: {
             value: economy.turnover,
-            currencyId,
+            currency,
             metadataId: metadata.id,
           },
         },

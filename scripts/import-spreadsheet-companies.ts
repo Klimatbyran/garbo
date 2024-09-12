@@ -66,6 +66,7 @@ export async function importSpreadsheetCompanies() {
       { scope1, scope2, url, startDate, endDate },
     ] as const
 
+    // TODO: save metadata for each datapoint and set the correct user
     await postJSON(...emissionsArgs).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
@@ -82,6 +83,8 @@ export async function importSpreadsheetCompanies() {
             } else {
               await postJSON(...emissionsArgs).then(async (res) => {
                 if (!res.ok) {
+                  // TODO: Investigate why companies that were created via a retry didn't get any emissions or scopes.
+                  // Maybe the data needs to be passed in differently?
                   const body = await res.text()
                   console.error(res.status, res.statusText, wikidataId, body)
                 }

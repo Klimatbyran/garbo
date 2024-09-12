@@ -254,16 +254,15 @@ model Economy {
 }
 
 model Turnover {
-  id         Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   // IDEA: Should we store turnover with another datatype to prevent rounding errors? Money doesn't seem to be a good fit for storing as floats.
   value      Float?
-  currencyId Int?
-  economyId  Int    @unique
+  currency   String?
+  economyId  Int     @unique
   metadataId Int
 
-  currency Currency? @relation(fields: [currencyId], references: [id])
-  economy  Economy   @relation(fields: [economyId], references: [id])
-  metadata Metadata  @relation(fields: [metadataId], references: [id])
+  economy  Economy  @relation(fields: [economyId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 model Employees {
@@ -327,6 +326,10 @@ model Metadata {
   /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
   verifiedByUserId Int?
 
+  /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
+  /// Value is a string enum with vlaues like `garbo`, `manual`, `estimated:exiobase`
+  dataOrigin String?
+
   goal                 Goal[]
   initiative           Initiative[]
   economy              Economy[]
@@ -338,28 +341,12 @@ model Metadata {
   biogenicEmissions    BiogenicEmissions[]
   scope1And2           Scope1And2[]
   statedTotalEmissions StatedTotalEmissions[]
-  dataOrigin           DataOrigin?
   user                 User                   @relation("metadata_user_id", fields: [userId], references: [id])
   verifiedBy           User?                  @relation("metadata_verified_by", fields: [userId], references: [id])
   industries           Industry[]
   scope3Categories     Scope3Category[]
   turnover             Turnover[]
   employees            Employees[]
-}
-
-/// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
-model DataOrigin {
-  id         Int    @id @default(autoincrement())
-  name       String
-  metadataId Int    @unique
-
-  metadata Metadata @relation(fields: [metadataId], references: [id])
-}
-
-model Currency {
-  id       Int        @id @default(autoincrement())
-  name     String     @unique
-  turnover Turnover[]
 }
 
 model User {

@@ -24,6 +24,7 @@ const metadata = {
         name: true,
       },
     },
+    dataOrigin: true,
   },
 }
 
@@ -126,11 +127,7 @@ router.get('/companies', cache(), async (req: Request, res: Response) => {
                 turnover: {
                   select: {
                     value: true,
-                    currency: {
-                      select: {
-                        name: true,
-                      },
-                    },
+                    currency: true,
                     metadata,
                   },
                 },
