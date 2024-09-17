@@ -152,14 +152,16 @@ function getReportingPeriods(
 
         const wantedColumns = headers.reduce((acc, header, i) => {
           const index = i + 1
-          acc[header!.toString()] = row[index]?.result || row[index]
+          acc[header!.toString()] =
+            row[index]?.result || row[index]?.hyperlink || row[index]
           return acc
         }, {})
 
         // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
+        // Or if this should be imported later, do it in a separate script
         const {
           Company: name,
-          // [`URL ${year}`]: source,
+          [`URL ${year}`]: reportURL,
           'Scope 1': scope1Total,
           'Scope 2 (LB)': scope2LB,
           'Scope 2 (MB)': scope2MB,
@@ -268,13 +270,12 @@ function getReportingPeriods(
           companyId,
           startDate: periodStart,
           endDate: periodEnd,
+          reportURL,
           ...(Object.keys(emissions).length ? { emissions } : {}),
           ...(Object.keys(economy).length ? { economy } : {}),
         }
 
-        if (!reportingPeriodsByCompany[companyId]) {
-          reportingPeriodsByCompany[companyId] = []
-        }
+        reportingPeriodsByCompany[companyId] ??= []
         // Ignore reportingPeriods without any meaningful data
         if (!reportingPeriod.emissions && !reportingPeriod.economy) {
           console.log('skipping', year, 'for', name)
@@ -294,7 +295,7 @@ function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
-function getCompanyData() {
+function getCompanyData(years: number[]) {
   const reportingPeriodDates = getReportingPeriodDates()
   const baseFacts = getCompanyBaseFacts()
 
@@ -324,7 +325,7 @@ function getCompanyData() {
 
   const reportingPeriodsByCompany = getReportingPeriods(
     Object.values(rawCompanies),
-    range(2015, 2023).reverse()
+    years
   )
 
   const companies: CompanyInput[] = []
@@ -396,7 +397,9 @@ async function postJSON(url: string, body: any) {
 }
 
 async function main() {
-  const companies = getCompanyData()
+  // TODO: use this to import historical data:
+  // const companies = getCompanyData(range(2015, 2023).reverse())
+  const companies = getCompanyData([2023])
 
   console.log(
     `\n\n✅ Imported`,
