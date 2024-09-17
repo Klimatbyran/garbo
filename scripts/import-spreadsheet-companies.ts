@@ -222,7 +222,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
-          ...(Object.keys(scope3).length ? scope3 : {}),
+          ...(Object.keys(scope3).length ? { scope3 } : {}),
           ...(Number.isFinite(statedTotal)
             ? {
                 statedTotalEmissions: {
