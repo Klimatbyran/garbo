@@ -12,6 +12,9 @@ generator client {
 }
 
 model Company {
+  // // NOTE: Maybe just use an integer as the ID for companies, and use the unique hash instead.
+  // // We want to separate the company id from the URL slug
+  // id          String  @id @default(cuid())
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
   wikidataId  String  @id
   name        String
@@ -84,6 +87,10 @@ model ReportingPeriod {
   id        Int      @id @default(autoincrement())
   startDate DateTime
   endDate   DateTime
+  /// Save URLs to the sustainability- and potentially also the yearly report for this reporting period.
+  /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
+  /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
+  reportURL String?
 
   companyId   String
   emissionsId Int?
