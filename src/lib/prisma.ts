@@ -81,26 +81,25 @@ export async function ensureReportingPeriodExists(
   startDate: Date,
   endDate: Date
 ) {
-  const reportingPeriod =
-    (await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: company.wikidataId,
-        endDate,
-      },
-    })) ||
-    (await prisma.reportingPeriod.create({
-      data: {
-        startDate,
-        endDate,
-        company: {
-          connect: {
-            wikidataId: company.wikidataId,
-          },
-        },
-        metadata: {
-          create: metadata,
+  const existingReportingPeriod = await prisma.reportingPeriod.findFirst({
+    where: {
+      companyId: company.wikidataId,
+      endDate,
+    },
+  })
+  if (existingReportingPeriod) return existingReportingPeriod
+  return await prisma.reportingPeriod.create({
+    data: {
+      startDate,
+      endDate,
+      company: {
+        connect: {
+          wikidataId: company.wikidataId,
         },
       },
-    }))
-  return reportingPeriod
+      metadata: {
+        create: metadata,
+      },
+    },
+  })
 }
