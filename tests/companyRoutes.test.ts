@@ -19,7 +19,7 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('fakeAuth middleware should set user in res.locals', async () => {
-    app.get('/companies', (req, res) => {
+    app.get('/test-auth', fakeAuth(), (req, res) => {
       res.json(res.locals.user)
     })
 
@@ -33,7 +33,7 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('createMetadata middleware should set metadata in res.locals', async () => {
-    app.post('/test-metadata', (req, res) => {
+    app.post('/test-metadata', createMetadata(), (req, res) => {
       res.json(res.locals.metadata)
     })
 
