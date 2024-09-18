@@ -341,8 +341,23 @@ const createMetadata =
 
 const reportingPeriod =
   () => async (req: Request, res: Response, next: NextFunction) => {
-    const { wikidataId } = req.params
-    const { startDate, endDate } = req.body
+    const { wikidataId, year } = req.params
+    const { startDate, endDate, reportURL } = req.body
+
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found' })
+    }
+    res.locals.company = company
+
+    const endYear = year.split('-').at(-1)
+    if (endYear !== endDate.slice(0, 4)) {
+      return res.status(400).json({
+        error: 'The URL param year must be the same year as the endDate',
+      })
+    }
+
+    console.log(wikidataId, company.name)
 
     const metadata = res.locals.metadata
 
@@ -350,21 +365,20 @@ const reportingPeriod =
       (await prisma.reportingPeriod.findFirst({
         where: {
           companyId: wikidataId,
-          endDate: {
-            gte: new Date(endDate),
-            lte: new Date(endDate),
-          },
+          // TODO: find the reporting period with the same endYear
+          endDate: {},
         },
       })) ||
       (await prisma.reportingPeriod.create({
         data: {
+          startDate,
+          endDate,
+          reportURL,
           company: {
             connect: {
-              wikidataId,
+              wikidataId: company.wikidataId,
             },
           },
-          startDate: new Date(startDate),
-          endDate: new Date(endDate),
           metadata: {
             create: metadata,
           },
@@ -419,9 +433,11 @@ router.use('/companies/:wikidataId', createMetadata())
 // TODO: Allow creating a company with more data included.
 router.post(
   '/companies/:wikidataId',
-  validateRequest({ body: z.object({ name: z.string() }) }),
+  validateRequest({
+    body: z.object({ name: z.string(), description: z.string().optional() }),
+  }),
   async (req, res) => {
-    const { name } = req.body
+    const { name, description } = req.body
     const { wikidataId } = req.params
 
     try {
@@ -431,9 +447,10 @@ router.post(
         },
         create: {
           name,
+          description,
           wikidataId,
         },
-        update: {},
+        update: { name, description },
       })
     } catch (error) {
       console.error('Failed to create company', error)
@@ -441,19 +458,6 @@ router.post(
     }
 
     res.status(200).send()
-  }
-)
-
-router.use(
-  '/companies/:wikidataId/:year',
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { wikidataId } = req.params
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    if (!company) {
-      return res.status(404).json({ error: 'Company not found' })
-    }
-    res.locals.company = company
-    next()
   }
 )
 
@@ -467,6 +471,7 @@ router.use(
       .object({
         startDate: z.coerce.date(),
         endDate: z.coerce.date(),
+        reportURL: z.string().optional(),
       })
       .refine(
         ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
@@ -502,6 +507,9 @@ router.post(
           }
         )
         .optional(),
+      // statedTotalEmissions
+      // biogenic
+      // scope3 with all sub properties
     }),
   }),
   async (req, res) => {

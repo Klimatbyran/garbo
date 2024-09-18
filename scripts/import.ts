@@ -3,12 +3,12 @@ import { exec } from 'child_process'
 import { promisify } from 'util'
 import { addIndustryGicsCodesToDB } from './add-gics'
 import { importGarboData } from './import-garbo-companies'
-import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
+// import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
 import { isMainModule } from './utils'
 
 export const prisma = new PrismaClient()
 
-async function reset() {
+export async function reset() {
   console.log('Resetting database and applying migrations...')
   await promisify(exec)('npx prisma migrate reset --force')
 }
@@ -114,7 +114,8 @@ async function main() {
   const seededData = await seedDB()
 
   await importGarboData(seededData)
-  await importSpreadsheetCompanies()
+  // TODO: Combine into one import for all data. First adding garbo data and then from the spreadsheet
+  // await importSpreadsheetCompanies()
 }
 
 if (isMainModule(import.meta.url)) {

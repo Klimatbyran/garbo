@@ -37,7 +37,7 @@ function getWikidataId(company: (typeof garboCompanies)[number]) {
 }
 
 export async function importGarboData({
-  users: { garbo, alex },
+  users: { garbo },
   gicsCodes,
 }: InitialDBState) {
   // TODO: properly create metadata for every datapoint

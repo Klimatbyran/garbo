@@ -7,6 +7,7 @@ import {
   EmissionsInput,
   MetadataInput,
   ReportingPeriodInput,
+  reset,
 } from './import'
 import { isMainModule } from './utils'
 
@@ -343,48 +344,68 @@ function getCompanyData(years: number[]) {
   return companies
 }
 
-// TODO: Rewrite importSpreadsheetCompanies() to just take care of uploading data, and by using the new format.
-export async function importSpreadsheetCompanies() {
-  const rows = getReportingPeriodDates()
-
-  for (const row of rows) {
-    const { wikidataId, startDate, endDate } = row
-
-    // TODO: Create companies that do not exist. Maybe do a first pass of the import to create companies with a separate endpoint, and then add emissions and more datapoints later
-
-    const emissionsArgs = [
-      `http://localhost:3000/api/companies/${wikidataId}/${endDate.getFullYear()}/emissions`,
-      { startDate, endDate },
-    ] as const
-
-    // TODO: save metadata for each datapoint and set the correct user
-    await postJSON(...emissionsArgs).then(async (res) => {
+export async function createCompanies(companies: CompanyInput[]) {
+  for (const { wikidataId, name, description } of companies) {
+    await postJSON(`http://localhost:3000/api/companies/${wikidataId}`, {
+      wikidataId,
+      name,
+      description,
+    }).then(async (res) => {
       if (!res.ok) {
-        const body = await res.text()
+        const body = await res.json()
         console.error(res.status, res.statusText, wikidataId, body)
-
-        if (res.status === 404) {
-          console.log('Creating company...', wikidataId)
-          await postJSON(`http://localhost:3000/api/companies/${wikidataId}`, {
-            name,
-          }).then(async (res) => {
-            if (!res.ok) {
-              const body = await res.text()
-              console.error(res.status, res.statusText, wikidataId, body)
-            } else {
-              await postJSON(...emissionsArgs).then(async (res) => {
-                if (!res.ok) {
-                  // TODO: Investigate why companies that were created via a retry didn't get any emissions or scopes.
-                  // Maybe the data needs to be passed in differently?
-                  const body = await res.text()
-                  console.error(res.status, res.statusText, wikidataId, body)
-                }
-              })
-            }
-          })
-        }
       }
     })
+  }
+}
+
+export async function updateCompanies(companies: CompanyInput[]) {
+  for (const company of companies) {
+    const { wikidataId, reportingPeriods } = company
+
+    for (const reportingPeriod of reportingPeriods) {
+      const emissionsArgs = [
+        `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
+        {
+          startDate: reportingPeriod.startDate,
+          endDate: reportingPeriod.endDate,
+        },
+      ] as const
+
+      // TODO: save metadata for each datapoint and set the correct user
+      await postJSON(...emissionsArgs).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+
+          // TODO: most likely possible to remove this
+          // if (res.status === 404) {
+          //   console.log('Creating company...', wikidataId)
+          //   await postJSON(
+          //     `http://localhost:3000/api/companies/${wikidataId}`,
+          //     {
+          //       name,
+          //       description,
+          //     }
+          //   ).then(async (res) => {
+          //     if (!res.ok) {
+          //       const body = await res.text()
+          //       console.error(res.status, res.statusText, wikidataId, body)
+          //     } else {
+          //       await postJSON(...emissionsArgs).then(async (res) => {
+          //         if (!res.ok) {
+          //           // TODO: Investigate why companies that were created via a retry didn't get any emissions or scopes.
+          //           // Maybe the data needs to be passed in differently?
+          //           const body = await res.text()
+          //           console.error(res.status, res.statusText, wikidataId, body)
+          //         }
+          //       })
+          //     }
+          //   })
+          // }
+        }
+      })
+    }
   }
 }
 
@@ -399,7 +420,12 @@ async function postJSON(url: string, body: any) {
 async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
-  const companies = getCompanyData([2023])
+  const companies = getCompanyData([2023]).slice(0, 3)
+
+  await reset()
+
+  await createCompanies(companies)
+  await updateCompanies(companies)
 
   console.log(
     `\n\n✅ Imported`,
@@ -409,11 +435,11 @@ async function main() {
     `companies due to missing wikidataId.\n\n`
   )
 
-  await writeFile(
-    resolve('output/spreadsheet-import.json'),
-    JSON.stringify(companies, null, 2),
-    { encoding: 'utf-8' }
-  )
+  // await writeFile(
+  //   resolve('output/spreadsheet-import.json'),
+  //   JSON.stringify(companies, null, 2),
+  //   { encoding: 'utf-8' }
+  // )
 
   // TODO: upload company data
 }
