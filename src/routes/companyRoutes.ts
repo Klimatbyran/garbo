@@ -2,8 +2,9 @@ import express, { NextFunction, Request, Response } from 'express'
 import { Prisma, PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
 import { z } from 'zod'
-import { validateRequest } from 'zod-express-middleware'
+import { processRequest, validateRequest } from 'zod-express-middleware'
 import type { Emissions, Scope1, Scope2 } from '../types/Company'
+import { assert } from 'console'
 
 const prisma = new PrismaClient()
 
@@ -350,16 +351,31 @@ const reportingPeriod =
     }
     res.locals.company = company
 
-    const endYear = year.split('-').at(-1)
-    if (endYear !== endDate.slice(0, 4)) {
+    const endYear = parseInt(year.split('-').at(-1))
+    if (endYear !== endDate.getFullYear()) {
       return res.status(400).json({
-        error: 'The URL param year must be the same year as the endDate',
+        error:
+          'The URL param year must be the same year as the endDate (' +
+          endYear +
+          ') ',
       })
     }
 
     console.log(wikidataId, company.name)
 
     const metadata = res.locals.metadata
+
+    assert(company.wikidataId === wikidataId, 'Company wikidataId mismatch')
+    assert(startDate, 'startDate must be provided')
+    assert(endDate, 'endDate must be provided')
+    assert(
+      startDate.getTime() < endDate.getTime(),
+      'startDate must be earlier than endDate'
+    )
+    assert(
+      startDate.getTime() < endDate.getTime(),
+      'startDate must be earlier than endDate'
+    )
 
     const reportingPeriod =
       (await prisma.reportingPeriod.findFirst({
@@ -369,6 +385,7 @@ const reportingPeriod =
           endDate: {},
         },
       })) ||
+      console.log('creating company') ||
       (await prisma.reportingPeriod.create({
         data: {
           startDate,
@@ -376,7 +393,7 @@ const reportingPeriod =
           reportURL,
           company: {
             connect: {
-              wikidataId: company.wikidataId,
+              wikidataId,
             },
           },
           metadata: {
@@ -463,7 +480,7 @@ router.post(
 
 router.use(
   '/companies/:wikidataId/:year',
-  validateRequest({
+  processRequest({
     params: z.object({
       year: z.string().regex(/\d{4}(?:-\d{4})?/),
     }),
