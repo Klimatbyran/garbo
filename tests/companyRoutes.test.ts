@@ -16,7 +16,7 @@ const prisma = new PrismaClient()
 
 describe('Company Routes Middlewares', () => {
   beforeAll(async () => {
-    execSync('npx prisma migrate reset --force --skip-seed')
+    //execSync('npx prisma migrate reset --force --skip-seed')
     // Setup any necessary data or mocks
   })
 
@@ -103,6 +103,9 @@ describe('Company Routes Middlewares', () => {
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       id: 1,
+      economyId: 1,
+      emissionsId: 1,
+      metadataId: 1,
       startDate: '2023-01-01T00:00:00.000Z',
       endDate: '2023-12-31T00:00:00.000Z',
       reportURL: null,

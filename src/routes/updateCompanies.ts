@@ -1,19 +1,16 @@
 import express, { NextFunction, Request, Response } from 'express'
-import { Prisma, PrismaClient } from '@prisma/client'
-import { getGics } from '../lib/gics'
+import { PrismaClient } from '@prisma/client'
 import { z } from 'zod'
-import { processRequest, validateRequest } from 'zod-express-middleware'
-import type { Emissions, Scope1, Scope2 } from '../types/Company'
-import { assert } from 'console'
+import { validateRequest } from 'zod-express-middleware'
+
+import { updateScope1, updateScope2 } from '../lib/db'
 import {
-  cache,
   createMetadata,
   fakeAuth,
   reportingPeriod,
   ensureEmissionsExists,
 } from './middlewares'
-
-const prisma = new PrismaClient()
+import { prisma } from '../lib/prisma'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
@@ -24,79 +21,11 @@ interface Metadata {
   userId: any
 }
 
-async function updateScope1(
-  emissions: Emissions,
-  scope1: Scope1,
-  metadata: Metadata
-) {
-  return emissions.scope1Id
-    ? await prisma.scope1.update({
-        where: {
-          id: emissions.scope1Id,
-        },
-        data: {
-          ...scope1,
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
-        },
-        select: { id: true },
-      })
-    : await prisma.scope1.create({
-        data: {
-          ...scope1,
-          unit: tCO2e,
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
-        },
-        select: { id: true },
-      })
-}
-
-async function updateScope2(
-  emissions: Emissions,
-  scope2: Scope2,
-  metadata: Metadata
-) {
-  return emissions.scope2Id
-    ? await prisma.scope2.update({
-        where: {
-          id: emissions.scope2Id,
-        },
-        data: {
-          ...scope2,
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
-        },
-        select: { id: true },
-      })
-    : await prisma.scope2.create({
-        data: {
-          ...scope2,
-          unit: tCO2e,
-          metadata: {
-            create: {
-              ...metadata,
-            },
-          },
-        },
-        select: { id: true },
-      })
-}
-
-router.use('/companies', fakeAuth())
-router.use('/companies', express.json())
+router.use('/', fakeAuth())
+router.use('/', express.json())
 
 router.use(
-  '/companies/:wikidataId',
+  '/:wikidataId',
   validateRequest({
     params: z.object({
       wikidataId: z.string().regex(/Q\d+/),
@@ -105,11 +34,11 @@ router.use(
 )
 
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
-router.use('/companies/:wikidataId', createMetadata(prisma))
+router.use('/:wikidataId', createMetadata(prisma))
 
 // TODO: Allow creating a company with more data included.
 router.post(
-  '/companies/:wikidataId',
+  '/:wikidataId',
   validateRequest({
     body: z.object({ name: z.string(), description: z.string().optional() }),
   }),
@@ -138,20 +67,13 @@ router.post(
   }
 )
 
-router.use(
-  '/companies/:wikidataId/:year',
+router.use('/:wikidataId/:year', reportingPeriod(prisma))
 
-  reportingPeriod(prisma)
-)
+router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 
-router.use(
-  '/companies/:wikidataId/:year/emissions',
-  ensureEmissionsExists(prisma)
-)
-
-// POST/companies/Q12345/2022-2023/emissions
+// POST//Q12345/2022-2023/emissions
 router.post(
-  '/companies/:wikidataId/:year/emissions',
+  '/:wikidataId/:year/emissions',
   validateRequest({
     body: z.object({
       scope1: z

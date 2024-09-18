@@ -74,7 +74,7 @@ createBullBoard({
 const app = express()
 discord.login()
 
-app.use('/api', companyRoutes)
+app.use('/api/companies', companyRoutes)
 app.use('/admin/queues', serverAdapter.getRouter())
 const port = process.env.PORT || 3000
 app.listen(port, () => {
