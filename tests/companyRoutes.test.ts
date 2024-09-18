@@ -106,7 +106,7 @@ describe('Company Routes Middlewares', () => {
       startDate: '2023-01-01T00:00:00.000Z',
       endDate: '2023-12-31T00:00:00.000Z',
       reportURL: null,
-      companyId: 1,
+      companyId: 'Q1234',
     })
   })
 })
