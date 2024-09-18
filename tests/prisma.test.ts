@@ -26,25 +26,27 @@ describe('Prisma DB queries and mutations', () => {
   })
 
   it('should create a new reporting period if it does not exist', async () => {
-    // TODO: create a proper company
-    const company = {
-      wikidataId: 'Q123',
-      name: 'test company',
-      description: null,
-      url: null,
-      internalComment: null,
-    }
+    // Create a proper company entry
+    const company = await prisma.company.create({
+      data: {
+        wikidataId: 'Q123',
+        name: 'test company',
+        description: null,
+        url: null,
+        internalComment: null,
+      },
+    });
 
-    // TODO: create proper metadata
-    const metadata = {
-      id: 1,
-      comment: 'test comment',
-      source: null,
-      updatedAt: new Date(),
-      userId: 1,
-      verifiedByUserId: null,
-      dataOrigin: null,
-    }
+    // Create proper metadata entry
+    const metadata = await prisma.metadata.create({
+      data: {
+        comment: 'test comment',
+        source: null,
+        userId: 1,
+        verifiedByUserId: null,
+        dataOrigin: null,
+      },
+    });
 
     // spy on prisma.reportingPeriod.findFirst to make sure it does in fact not find anything for a new company.
     // Maybe: spy on prisma.reportingPeriod.create and make sure it creates the reportingPeriod as expected
