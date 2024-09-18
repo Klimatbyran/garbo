@@ -93,6 +93,9 @@ describe('Company Routes Middlewares', () => {
     jest.spyOn(prisma.company, 'findFirst').mockResolvedValue({
       name: 'Test Company',
       wikidataId: 'Q1234',
+      description: 'Test Company Description',
+      url: 'http://testcompany.com',
+      internalComment: 'No comments',
     })
 
     jest.spyOn(prisma.reportingPeriod, 'findFirst').mockResolvedValue(null)
@@ -103,6 +106,9 @@ describe('Company Routes Middlewares', () => {
       endDate: new Date('2023-12-31'),
       reportURL: null,
       companyId: 'Q1234',
+      emissionsId: 1,
+      economyId: 1,
+      metadataId: 1,
     })
 
     const response = await request(testApp)
