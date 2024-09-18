@@ -75,7 +75,7 @@ export async function updateScope2(
       })
 }
 
-export async function upsertReportingPeriod(
+export async function ensureReportingPeriodExists(
   company: Company,
   metadata: Metadata,
   startDate: Date,
@@ -85,7 +85,7 @@ export async function upsertReportingPeriod(
     (await prisma.reportingPeriod.findFirst({
       where: {
         companyId: company.wikidataId,
-        endDate: endDate,
+        endDate,
       },
     })) ||
     (await prisma.reportingPeriod.create({
