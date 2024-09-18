@@ -1,7 +1,7 @@
 import request from 'supertest'
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-import { createMetadata, fakeAuth } from '../src/routes/middlewares'
+import { createMetadata, fakeAuth, reportingPeriod } from '../src/routes/middlewares'
 
 const app = express()
 app.use(express.json())
@@ -53,5 +53,16 @@ describe('Company Routes Middlewares', () => {
     })
   })
 
-  // Additional tests for reportingPeriod and ensureEmissionsExists middlewares can be added here
+  test('reportingPeriod middleware should set period in res.locals', async () => {
+    app.get('/test-reporting-period', reportingPeriod(), (req, res) => {
+      res.json(res.locals.period)
+    })
+
+    const response = await request(app).get('/test-reporting-period')
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      startDate: expect.any(String),
+      endDate: expect.any(String),
+    })
+  })
 })
