@@ -380,7 +380,7 @@ const reportingPeriod =
     const reportingPeriod =
       (await prisma.reportingPeriod.findFirst({
         where: {
-          companyId: wikidataId,
+          companyId: company.id,
           // TODO: find the reporting period with the same endYear
           endDate: {},
         },
