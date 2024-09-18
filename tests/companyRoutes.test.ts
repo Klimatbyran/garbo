@@ -29,6 +29,9 @@ describe('Company Routes Middlewares', () => {
     })
 
     const response = await request(app).get('/companies')
+    if (response.status !== 200) {
+      console.error('Error response:', response.body)
+    }
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       id: 2,
