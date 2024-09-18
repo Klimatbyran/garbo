@@ -27,13 +27,20 @@ describe('Company Routes Middlewares', () => {
   test('fakeAuth middleware should set user in res.locals', async () => {
     app.get('/companies', fakeAuth(), (req, res) => {
       res.json(res.locals.user)
-      description: 'A test company',
+      description: 'Test Company Description',
       url: 'http://testcompany.com',
       internalComment: 'No comments',
+    })
+
+    jest.spyOn(prisma.reportingPeriod, 'create').mockResolvedValue({
+      id: 1,
+      startDate: new Date('2023-01-01'),
+      endDate: new Date('2023-12-31'),
+      reportURL: null,
+      companyId: 'Q1234',
       emissionsId: 1,
       economyId: 1,
       metadataId: 1,
-    })
 
     const response = await request(app).get('/companies')
     if (response.status !== 200) {
