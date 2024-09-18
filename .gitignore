@@ -7,3 +7,5 @@ db*.*
 prisma/generated
 
 *.xlsx
+.aider*
+*.db*
