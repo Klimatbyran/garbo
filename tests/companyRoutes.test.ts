@@ -66,9 +66,14 @@ describe('Company Routes Middlewares', () => {
   test('reportingPeriod middleware should set period in res.locals', async () => {
     const testApp = express()
     testApp.use(express.json())
-    testApp.get('/test-reporting-period', validateReportingPeriod, reportingPeriod(prisma), (req, res) => {
-      res.json(res.locals.period)
-    })
+    testApp.get(
+      '/test-reporting-period',
+      validateReportingPeriod(),
+      reportingPeriod(prisma),
+      (req, res) => {
+        res.json(res.locals.period)
+      }
+    )
 
     const response = await request(testApp).get('/test-reporting-period')
     expect(response.status).toBe(200)
