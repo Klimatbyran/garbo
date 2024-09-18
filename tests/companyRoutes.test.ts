@@ -66,16 +66,20 @@ describe('Company Routes Middlewares', () => {
   test('reportingPeriod middleware should set period in res.locals', async () => {
     const testApp = express()
     testApp.use(express.json())
-    testApp.get(
-      '/test-reporting-period',
+    testApp.post(
+      '/:wikidataId/:year',
       validateReportingPeriod(),
       reportingPeriod(prisma),
       (req, res) => {
+        console.log('res.locals.period', res.locals.period)
         res.json(res.locals.period)
       }
     )
 
-    const response = await request(testApp).get('/test-reporting-period?startDate=2023-01-01&endDate=2023-12-31')
+    const response = await request(testApp).post('/Q1234/2023/', {
+      startDate: '2023-01-01',
+      endDate: '2023-12-31',
+    })
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       startDate: expect.any(String),
