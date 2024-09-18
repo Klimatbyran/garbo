@@ -109,7 +109,7 @@ const jsonToTables = (json) => {
   return tables
 }
 
-async function getPngsFromPdfPage(url, pageIndex) {
+async function getPngsFromPdfPage(url) {
   // Ladda PDF-dokumentet
   const pages = await pdf2img.convert(url, {
     scale: 2,
@@ -121,6 +121,7 @@ async function getPngsFromPdfPage(url, pageIndex) {
 async function extractRegionAsPng(png, outputPath, x, y, width, height) {
   // Ladda PDF-dokumentet
   // Använd `sharp` för att beskära och spara regionen
+  console.log('Extracting region', x, y, width, height)
   await sharp(png)
     .extract({ left: x, top: y, width: width, height: height })
     .toFile(outputPath)
@@ -130,10 +131,8 @@ const run = async () => {
   const example = fs.readFileSync('test.json', 'utf-8')
   const json = JSON.parse(example)
   //const markdown = jsonToMarkdown(json)
-  const tables = jsonToTables(json).filter(
-    ({ content }) =>
-      content.toLowerCase().includes('ghg') ||
-      content.toLowerCase().includes('co2')
+  const tables = jsonToTables(json).filter(({ content }) =>
+    content.toLowerCase().includes('solvent')
   )
   // Group pages
   const pages = tables.reduce((acc, table) => {
@@ -146,21 +145,23 @@ const run = async () => {
 
   const pdfPath = 'test.pdf'
   const pngs = await getPngsFromPdfPage(pdfPath)
+  const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   // Extract tables as PNG
   Object.entries(pages)
     .slice(0, 1)
     .map(async ([pageIndex, tables]) => {
-      const png = pngs.at(pageIndex + 1) // page 0 is the first page
+      const png = pngs.at(pageIndex - 1) // page 0 is the first page
       // For each table on this page, extract the region as PNG
       Promise.all(
         tables.slice(0, 1).map(async (table) => {
           const { bbox } = table
           const [x1, y1, x2, y2] = bbox
+          console.log('x1,y1,x2,y2', x1, y1, x2, y2)
           const x = Math.round(x1 * 2)
           const y = Math.round(y1 * 2)
-          const width = Math.round(x2 * 2) - x
-          const height = Math.round(y2 * 2) - y
+          const width = Math.round(pageWidth) - x
+          const height = Math.round(pageHeight) - y
           console.log(pdfPath, pageIndex, x, y, width, height, table)
 
           const outputPath = `output/table-${pageIndex}-${table.name}.png`
