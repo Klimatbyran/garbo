@@ -27,6 +27,12 @@ describe('Company Routes Middlewares', () => {
   test('fakeAuth middleware should set user in res.locals', async () => {
     app.get('/companies', fakeAuth(), (req, res) => {
       res.json(res.locals.user)
+      description: 'A test company',
+      url: 'http://testcompany.com',
+      internalComment: 'No comments',
+      emissionsId: 1,
+      economyId: 1,
+      metadataId: 1,
     })
 
     const response = await request(app).get('/companies')
