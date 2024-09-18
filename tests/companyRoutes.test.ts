@@ -60,7 +60,7 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('reportingPeriod middleware should set period in res.locals', async () => {
-    app.get('/test-reporting-period', reportingPeriod(), (req, res) => {
+    app.get('/test-reporting-period', reportingPeriod(prisma), (req, res) => {
       res.json(res.locals.period)
     })
 
