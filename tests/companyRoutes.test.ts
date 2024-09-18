@@ -75,7 +75,7 @@ describe('Company Routes Middlewares', () => {
       }
     )
 
-    const response = await request(testApp).get('/test-reporting-period')
+    const response = await request(testApp).get('/test-reporting-period?startDate=2023-01-01&endDate=2023-12-31')
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       startDate: expect.any(String),
