@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from 'express'
-import { PrismaClient } from '@prisma/client'
 import { z } from 'zod'
 import { validateRequest } from 'zod-express-middleware'
 
@@ -10,7 +9,7 @@ import {
   reportingPeriod,
   ensureEmissionsExists,
 } from './middlewares'
-import { prisma } from '../lib/prisma'
+import { prisma } from '../lib/db'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
@@ -37,7 +36,7 @@ router.use(
 router.use('/:wikidataId', createMetadata(prisma))
 
 // TODO: Allow creating a company with more data included.
-router.post(
+router.use(
   '/:wikidataId',
   validateRequest({
     body: z.object({ name: z.string(), description: z.string().optional() }),

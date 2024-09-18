@@ -23,7 +23,8 @@ import {
   format,
   includeFacit,
 } from './queues'
-import companyRoutes from './routes/readCompanies'
+import readCompanies from './routes/readCompanies'
+import updateCompanies from './routes/updateCompanies'
 import { Queue } from 'bullmq'
 
 // start ui
@@ -74,7 +75,8 @@ createBullBoard({
 const app = express()
 discord.login()
 
-app.use('/api/companies', companyRoutes)
+app.use('/api/companies', readCompanies)
+app.use('/api/companies', updateCompanies)
 app.use('/admin/queues', serverAdapter.getRouter())
 const port = process.env.PORT || 3000
 app.listen(port, () => {
