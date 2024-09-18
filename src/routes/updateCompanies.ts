@@ -105,8 +105,8 @@ router.post(
     const emissions = res.locals.emissions
 
     try {
-      scope1 && (await updateScope1(emissions, scope1, metadata))
-      scope2 && (await updateScope2(emissions, scope2, metadata))
+      scope1 && (await updateScope1(emissions.scoep1Id, scope1, metadata))
+      scope2 && (await updateScope2(emissions.scope2Id, scope2, metadata))
     } catch (error) {
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })

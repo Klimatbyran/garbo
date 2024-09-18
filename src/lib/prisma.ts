@@ -1,11 +1,4 @@
-import {
-  PrismaClient,
-  Emissions,
-  Metadata,
-  Scope1,
-  Scope2,
-  Company,
-} from '@prisma/client'
+import { PrismaClient, Metadata, Scope1, Scope2, Company } from '@prisma/client'
 
 export const prisma = new PrismaClient()
 
@@ -15,14 +8,14 @@ const tCO2e = 'tCO2e'
 
 // TODO: use actual types inferred from Parameters<typeof prisma.scope1.update>
 export async function updateScope1(
-  emissions: Emissions,
+  id: Scope1['id'],
   scope1: Scope1,
   metadata: Metadata
 ) {
-  return emissions.scope1Id
+  return id
     ? await prisma.scope1.update({
         where: {
-          id: emissions.scope1Id,
+          id,
         },
         data: {
           ...scope1,
@@ -49,14 +42,14 @@ export async function updateScope1(
 }
 
 export async function updateScope2(
-  emissions: Emissions,
+  id: Scope2['id'],
   scope2: Scope2,
   metadata: Metadata
 ) {
-  return emissions.scope2Id
+  return id
     ? await prisma.scope2.update({
         where: {
-          id: emissions.scope2Id,
+          id,
         },
         data: {
           ...scope2,
