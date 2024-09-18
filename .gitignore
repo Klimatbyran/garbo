@@ -1,11 +1,11 @@
 node_modules
 dist
 .env
-# Allow multiple local databases - useful to gitignore named db backups
-db*.*
 
 prisma/generated
 
 *.xlsx
 .aider*
-*.db*
+
+# Ignore local SQLite databases
+*.db
