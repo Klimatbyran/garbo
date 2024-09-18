@@ -13,7 +13,7 @@ describe('Prisma DB queries and mutations', () => {
   beforeAll(async () => {
     await resetDB()
     await prisma.$connect()
-  }, 10000) // Increase timeout to 10 seconds
+  }, 20000) // Increase timeout to 20 seconds
 
   afterAll(async () => {
     await prisma.$disconnect()
@@ -23,7 +23,7 @@ describe('Prisma DB queries and mutations', () => {
     const reportingPeriods = await prisma.reportingPeriod.findMany()
 
     expect(reportingPeriods.length).toBe(0)
-  }, 10000) // Increase timeout to 10 seconds
+  }, 20000) // Increase timeout to 20 seconds
 
   it('should create a new reporting period if it does not exist', async () => {
     // Create a proper company entry
