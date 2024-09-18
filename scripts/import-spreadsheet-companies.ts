@@ -410,11 +410,16 @@ export async function updateCompanies(companies: CompanyInput[]) {
 }
 
 async function postJSON(url: string, body: any) {
-  return fetch(url, {
-    body: JSON.stringify(body),
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  })
+  try {
+    return await fetch(url, {
+      body: JSON.stringify(body),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+  } catch (error) {
+    console.error('Failed to fetch:', error)
+    throw error
+  }
 }
 
 async function main() {
