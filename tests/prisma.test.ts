@@ -11,7 +11,7 @@ export async function resetDB() {
 
 describe('Prisma DB queries and mutations', () => {
   beforeAll(async () => {
-    //await resetDB()
+    await resetDB()
     await prisma.$connect()
   })
 
