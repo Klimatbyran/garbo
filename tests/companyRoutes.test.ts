@@ -19,11 +19,11 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('fakeAuth middleware should set user in res.locals', async () => {
-    app.get('/test-auth', (req, res) => {
+    app.get('/companies', (req, res) => {
       res.json(res.locals.user)
     })
 
-    const response = await request(app).get('/test-auth')
+    const response = await request(app).get('/companies')
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       id: 2,
@@ -37,7 +37,9 @@ describe('Company Routes Middlewares', () => {
       res.json(res.locals.metadata)
     })
 
-    const response = await request(app).post('/test-metadata').send({ url: 'http://example.com' })
+    const response = await request(app)
+      .post('/test-metadata')
+      .send({ url: 'http://example.com' })
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       source: 'http://example.com',
