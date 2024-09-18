@@ -9,6 +9,8 @@ import {
 
 export const prisma = new PrismaClient()
 
+const tCO2e = 'tCO2e'
+
 // type X = Parameters<typeof prisma.scope1.update>[0]
 
 // TODO: use actual types inferred from Parameters<typeof prisma.scope1.update>

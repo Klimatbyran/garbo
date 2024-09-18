@@ -2,14 +2,14 @@ import express, { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { validateRequest } from 'zod-express-middleware'
 
-import { updateScope1, updateScope2 } from '../lib/db'
+import { updateScope1, updateScope2 } from '../lib/prisma'
 import {
   createMetadata,
   fakeAuth,
   reportingPeriod,
   ensureEmissionsExists,
 } from './middlewares'
-import { prisma } from '../lib/db'
+import { prisma } from '../lib/prisma'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
