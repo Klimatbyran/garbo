@@ -1,8 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import { z } from 'zod'
 import { validateRequest } from 'zod-express-middleware'
 
-import { updateScope1, updateScope2 } from '../lib/prisma'
+import { updateScope1, updateScope2, upsertCompany } from '../lib/prisma'
 import {
   createMetadata,
   fakeAuth,
@@ -46,17 +46,7 @@ router.use(
     const { wikidataId } = req.params
 
     try {
-      await prisma.company.upsert({
-        where: {
-          wikidataId,
-        },
-        create: {
-          name,
-          description,
-          wikidataId,
-        },
-        update: { name, description },
-      })
+      await upsertCompany({ wikidataId, name, description })
     } catch (error) {
       console.error('Failed to create company', error)
       return res.status(500).json({ error: 'Failed to create company' })
