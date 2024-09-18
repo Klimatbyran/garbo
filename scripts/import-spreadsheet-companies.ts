@@ -424,7 +424,10 @@ async function main() {
 
   await reset()
 
+  console.log('Creating companies...')
   await createCompanies(companies)
+
+  console.log('Updating companies...')
   await updateCompanies(companies)
 
   console.log(
