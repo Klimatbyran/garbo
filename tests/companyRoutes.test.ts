@@ -63,29 +63,50 @@ describe('Company Routes Middlewares', () => {
     })
   })
 
-  test('reportingPeriod middleware should set period in res.locals', async () => {
+  test('reportingPeriod middleware should set reportingPeriod in res.locals', async () => {
     const testApp = express()
     testApp.use(express.json())
     testApp.post(
       '/:wikidataId/:year',
+      fakeAuth(),
       validateReportingPeriod(),
       reportingPeriod(prisma),
       (req, res) => {
-        console.log('res.locals.period', res.locals.period)
-        res.json(res.locals.period)
+        res.json(res.locals.reportingPeriod)
       }
     )
 
+    // Mock the Prisma client methods
+    jest.spyOn(prisma.company, 'findFirst').mockResolvedValue({
+      id: 1,
+      name: 'Test Company',
+      wikidataId: 'Q1234',
+    })
+
+    jest.spyOn(prisma.reportingPeriod, 'findFirst').mockResolvedValue(null)
+
+    jest.spyOn(prisma.reportingPeriod, 'create').mockResolvedValue({
+      id: 1,
+      startDate: new Date('2023-01-01'),
+      endDate: new Date('2023-12-31'),
+      reportURL: null,
+      companyId: 1,
+    })
+
     const response = await request(testApp)
-      .post('/Q1234/2023/')
+      .post('/Q1234/2023')
       .send({
         startDate: '2023-01-01',
         endDate: '2023-12-31',
       })
+
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
-      startDate: expect.any(String),
-      endDate: expect.any(String),
+      id: 1,
+      startDate: '2023-01-01T00:00:00.000Z',
+      endDate: '2023-12-31T00:00:00.000Z',
+      reportURL: null,
+      companyId: 1,
     })
   })
 })
