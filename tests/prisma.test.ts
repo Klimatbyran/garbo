@@ -11,7 +11,7 @@ export async function resetDB() {
 
 describe('Prisma DB queries and mutations', () => {
   beforeAll(async () => {
-    await resetDB()
+    //await resetDB()
     await prisma.$connect()
   }, 10000) // Increase timeout to 10 seconds
 
@@ -35,18 +35,15 @@ describe('Prisma DB queries and mutations', () => {
         url: null,
         internalComment: null,
       },
-    });
+    })
 
     // Create proper metadata entry
     const metadata = await prisma.metadata.create({
       data: {
         comment: 'test comment',
-        source: null,
         userId: 1,
-        verifiedByUserId: null,
-        dataOrigin: null,
       },
-    });
+    })
 
     // spy on prisma.reportingPeriod.findFirst to make sure it does in fact not find anything for a new company.
     // Maybe: spy on prisma.reportingPeriod.create and make sure it creates the reportingPeriod as expected
