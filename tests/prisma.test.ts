@@ -37,11 +37,19 @@ describe('Prisma DB queries and mutations', () => {
       },
     })
 
+    // Create a proper user entry
+    const user = await prisma.user.create({
+      data: {
+        email: 'test@example.com',
+        name: 'Test User',
+      },
+    })
+
     // Create proper metadata entry
     const metadata = await prisma.metadata.create({
       data: {
         comment: 'test comment',
-        userId: 1,
+        userId: user.id,
       },
     })
 
