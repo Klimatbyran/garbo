@@ -1,11 +1,10 @@
 import request from 'supertest'
 import express from 'express'
-import companyRoutes from '../src/routes/companyRoutes'
 import { PrismaClient } from '@prisma/client'
+import { createMetadata, fakeAuth } from '../src/routes/middlewares'
 
 const app = express()
 app.use(express.json())
-app.use('/companies', companyRoutes)
 
 const prisma = new PrismaClient()
 
@@ -19,7 +18,7 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('fakeAuth middleware should set user in res.locals', async () => {
-    app.get('/test-auth', fakeAuth(), (req, res) => {
+    app.get('/companies', fakeAuth(), (req, res) => {
       res.json(res.locals.user)
     })
 
@@ -33,9 +32,15 @@ describe('Company Routes Middlewares', () => {
   })
 
   test('createMetadata middleware should set metadata in res.locals', async () => {
-    app.post('/test-metadata', createMetadata(), (req, res) => {
-      res.json(res.locals.metadata)
-    })
+    const prisma = jest.fn() as unknown as PrismaClient
+    app.post(
+      '/test-metadata',
+      fakeAuth(),
+      createMetadata(prisma),
+      (req, res) => {
+        res.json(res.locals.metadata)
+      }
+    )
 
     const response = await request(app)
       .post('/test-metadata')
