@@ -13,7 +13,8 @@
     "dev-board": "node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "db:studio": "prisma studio --browser none",
-    "db:import": "node --import=tsx --watch scripts/import.ts"
+    "db:import": "node --import=tsx --watch scripts/import.ts",
+    "test": "DOTENV_CONFIG_PATH=./.env.test jest"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",

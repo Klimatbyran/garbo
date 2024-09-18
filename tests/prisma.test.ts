@@ -1,27 +1,27 @@
-import { prisma } from '../src/lib/prisma';
+import { promisify } from 'util'
+import { exec } from 'child_process'
+import { prisma, upsertReportingPeriod } from '../src/lib/prisma'
 
-describe('Prisma Client', () => {
+export async function resetDB() {
+  console.log('Resetting testing database')
+  await promisify(exec)('npx prisma db push --force-reset', {
+    env: process.env,
+  })
+}
+
+describe('Prisma DB queries and mutations', () => {
   beforeAll(async () => {
-    await prisma.$connect();
-  });
+    await resetDB()
+    await prisma.$connect()
+  })
 
   afterAll(async () => {
-    await prisma.$disconnect();
-  });
+    await prisma.$disconnect()
+  })
 
-  it('should save a record to the database', async () => {
-    // Assuming there is a model called 'Example' in your Prisma schema
-    const exampleData = { name: 'Test Example' };
-    const createdExample = await prisma.example.create({
-      data: exampleData,
-    });
+  it('should find no existing reportingPeriods with an empty testing DB', async () => {
+    const reportingPeriods = await prisma.reportingPeriod.findMany()
 
-    expect(createdExample).toHaveProperty('id');
-    expect(createdExample.name).toBe(exampleData.name);
-
-    // Clean up
-    await prisma.example.delete({
-      where: { id: createdExample.id },
-    });
-  });
-});
+    expect(reportingPeriods.length).toBe(0)
+  })
+})
