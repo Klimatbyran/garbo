@@ -23,7 +23,7 @@ import {
   format,
   includeFacit,
 } from './queues'
-import companyRoutes from './routes/companyRoutes'
+import companyRoutes from './routes/readCompanies'
 import { Queue } from 'bullmq'
 
 // start ui
