@@ -75,7 +75,6 @@ describe('Company Routes Middlewares', () => {
 
     // Mock the Prisma client methods
     jest.spyOn(prisma.company, 'findFirst').mockResolvedValue({
-      id: 1,
       name: 'Test Company',
       wikidataId: 'Q1234',
       description: 'Test Company Description',
@@ -96,12 +95,10 @@ describe('Company Routes Middlewares', () => {
       metadataId: 1,
     })
 
-    const response = await request(testApp)
-      .post('/Q1234/2023')
-      .send({
-        startDate: '2023-01-01',
-        endDate: '2023-12-31',
-      })
+    const response = await request(testApp).post('/Q1234/2023').send({
+      startDate: '2023-01-01',
+      endDate: '2023-12-31',
+    })
 
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
