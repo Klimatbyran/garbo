@@ -2,7 +2,11 @@ import request from 'supertest'
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
 import { execSync } from 'child_process'
-import { createMetadata, fakeAuth, reportingPeriod } from '../src/routes/middlewares'
+import {
+  createMetadata,
+  fakeAuth,
+  reportingPeriod,
+} from '../src/routes/middlewares'
 
 const app = express()
 app.use(express.json())
@@ -11,12 +15,8 @@ const prisma = new PrismaClient()
 
 describe('Company Routes Middlewares', () => {
   beforeAll(async () => {
-    // Setup any necessary data or mocks
-  })
-
-  beforeEach(() => {
-    // Reset the Prisma database before each test
     execSync('npx prisma migrate reset --force --skip-seed')
+    // Setup any necessary data or mocks
   })
 
   afterAll(async () => {
