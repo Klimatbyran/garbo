@@ -11,7 +11,7 @@ export async function resetDB() {
 
 describe('Prisma DB queries and mutations', () => {
   beforeAll(async () => {
-    await resetDB()
+    await resetDB() // TODO: fix faster method of cleaning the db.
     await prisma.$connect()
   }, 30000) // Increase timeout to 30 seconds
 
