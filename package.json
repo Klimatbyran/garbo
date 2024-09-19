@@ -14,7 +14,8 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "db:studio": "prisma studio --browser none",
     "db:import": "node --import=tsx --watch scripts/import.ts",
-    "test": "DOTENV_CONFIG_PATH=./.env.test jest"
+    "test": "DOTENV_CONFIG_PATH=./.env.test jest",
+    "prisma": "DATABASE_URL=file:./test.db prisma"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",

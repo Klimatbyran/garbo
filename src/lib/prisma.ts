@@ -43,8 +43,8 @@ export async function updateScope1(
 
 export async function updateScope2(
   id: Scope2['id'],
-  scope2: Scope2,
-  metadata: Metadata
+  scope2: Omit<Scope2, 'id'>,
+  metadata: Omit<Metadata, 'id'>
 ) {
   return id
     ? await prisma.scope2.update({
@@ -75,9 +75,31 @@ export async function updateScope2(
       })
 }
 
+export async function upsertCompany({
+  wikidataId,
+  name,
+  description,
+}: {
+  wikidataId: string
+  name: string
+  description?: string
+}) {
+  return prisma.company.upsert({
+    where: {
+      wikidataId,
+    },
+    create: {
+      name,
+      description,
+      wikidataId,
+    },
+    update: { name, description },
+  })
+}
+
 export async function ensureReportingPeriodExists(
   company: Company,
-  metadata: Metadata,
+  metadata: Parameters<typeof prisma.metadata.create>[0]['data'],
   startDate: Date,
   endDate: Date
 ) {
