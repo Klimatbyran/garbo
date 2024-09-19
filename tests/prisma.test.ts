@@ -10,7 +10,7 @@ export async function resetDB() {
 }
 
 describe('Prisma DB queries and mutations', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await resetDB()
     await prisma.$connect()
   }, 20000) // Increase timeout to 20 seconds
@@ -27,9 +27,10 @@ describe('Prisma DB queries and mutations', () => {
 
   it('should create a new reporting period if it does not exist', async () => {
     // Create a proper company entry
+    const uniqueSuffix = Date.now().toString();
     const company = await prisma.company.create({
       data: {
-        wikidataId: 'Q123',
+        wikidataId: `Q123-${uniqueSuffix}`,
         name: 'test company',
         description: null,
         url: null,
@@ -40,7 +41,7 @@ describe('Prisma DB queries and mutations', () => {
     // Create a proper user entry
     const user = await prisma.user.create({
       data: {
-        email: 'test@example.com',
+        email: `test-${uniqueSuffix}@example.com`,
         name: 'Test User',
       },
     })
