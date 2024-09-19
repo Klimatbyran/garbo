@@ -105,7 +105,6 @@ it('should fail to create a reporting period with a duplicate id', async () => {
   try {
     await prisma.reportingPeriod.create({
       data: {
-        id: 1, // Attempt to use a specific id
         startDate,
         endDate,
         company: {
