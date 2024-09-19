@@ -28,9 +28,7 @@ export async function resetDB() {
     prisma.user.deleteMany(),
   ])
 
-  const { stdout } = await promisify(exec)(`npx prisma db seed`, {
+  await promisify(exec)(`npx prisma db seed`, {
     env: process.env,
   })
-
-  console.log(stdout)
 }
