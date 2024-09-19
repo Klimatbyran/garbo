@@ -15,7 +15,7 @@
     "db:studio": "prisma studio --browser none",
     "import": "node --import=tsx --env-file=.env.development scripts/import-spreadsheet-companies.ts",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest",
-    "prisma": "DATABASE_URL=file:./test.db prisma"
+    "prisma": "DATABASE_URL=file:./dev.db prisma"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",
