@@ -57,12 +57,6 @@ export const reportingPeriod =
     const { wikidataId, year } = req.params
     const { startDate, endDate, reportURL } = req.body
 
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    if (!company) {
-      return res.status(404).json({ error: 'Company not found' })
-    }
-    res.locals.company = company
-
     const endYear = parseInt(year.split('-').at(-1))
     if (endYear !== endDate.getFullYear()) {
       return res.status(400).json({

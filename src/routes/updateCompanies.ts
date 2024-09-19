@@ -10,6 +10,7 @@ import {
   ensureEmissionsExists,
 } from './middlewares'
 import { prisma } from '../lib/prisma'
+import { Company } from '@prisma/client'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
@@ -23,36 +24,56 @@ interface Metadata {
 router.use('/', fakeAuth())
 router.use('/', express.json())
 
+// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
+router.use('/:wikidataId', createMetadata(prisma))
+
+router.post(
+  '/:wikidataId',
+  validateRequest({
+    body: z.object({
+      name: z.string(),
+      description: z.string().optional(),
+      url: z.string().url().optional(),
+      internalComment: z.string().optional(),
+    }),
+  }),
+  async (req, res) => {
+    const { name, description, url, internalComment } = req.body
+    const { wikidataId } = req.params
+    let company: Company
+
+    try {
+      company = await upsertCompany({
+        wikidataId,
+        name,
+        description,
+        url,
+        internalComment,
+      })
+    } catch (error) {
+      console.error('Failed to upsert company', error)
+      return res.status(500).json({ error: 'Failed to upsert company' })
+    }
+
+    res.status(200).json(company)
+  }
+)
+
+// NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
 router.use(
   '/:wikidataId',
   validateRequest({
     params: z.object({
       wikidataId: z.string().regex(/Q\d+/),
     }),
-  })
-)
-
-// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
-router.use('/:wikidataId', createMetadata(prisma))
-
-// TODO: Allow creating a company with more data included.
-router.use(
-  '/:wikidataId',
-  validateRequest({
-    body: z.object({ name: z.string(), description: z.string().optional() }),
   }),
   async (req, res) => {
-    const { name, description } = req.body
-    const { wikidataId } = req.params
-
-    try {
-      await upsertCompany({ wikidataId, name, description })
-    } catch (error) {
-      console.error('Failed to create company', error)
-      return res.status(500).json({ error: 'Failed to create company' })
+    const { wikidataId } = req.body
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
+    if (!company) {
+      return res.status(404).json({ error: 'Company not found' })
     }
-
-    res.status(200).send()
+    res.locals.company = company
   }
 )
 

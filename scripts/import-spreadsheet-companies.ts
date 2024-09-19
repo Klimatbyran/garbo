@@ -374,6 +374,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
 
       // TODO: save metadata for each datapoint and set the correct user
       await postJSON(...emissionsArgs).then(async (res) => {
+        console.log(res.status, res.statusText)
         if (!res.ok) {
           const body = await res.text()
           console.error(res.status, res.statusText, wikidataId, body)

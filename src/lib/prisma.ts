@@ -79,10 +79,14 @@ export async function upsertCompany({
   wikidataId,
   name,
   description,
+  url,
+  internalComment,
 }: {
   wikidataId: string
   name: string
   description?: string
+  url?: string
+  internalComment?: string
 }) {
   return prisma.company.upsert({
     where: {
@@ -92,8 +96,12 @@ export async function upsertCompany({
       name,
       description,
       wikidataId,
+      url,
+      internalComment,
     },
-    update: { name, description },
+    // TODO: Should we allow updating the wikidataId?
+    // Probably yes, but that might also need to be reflected in all related records too.
+    update: { name, description, url, internalComment },
   })
 }
 
