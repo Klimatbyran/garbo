@@ -98,7 +98,9 @@ export async function ensureReportingPeriodExists(
         },
       },
       metadata: {
-        connect: metadata,
+        connect: {
+          id: metadata.id,
+        },
       },
     },
   })
