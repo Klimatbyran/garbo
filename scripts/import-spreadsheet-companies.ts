@@ -7,9 +7,9 @@ import {
   EmissionsInput,
   MetadataInput,
   ReportingPeriodInput,
-  reset,
 } from './import'
 import { isMainModule } from './utils'
+import { resetDB } from '../src/lib/dev-utils'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -427,7 +427,7 @@ async function main() {
   // const companies = getCompanyData(range(2015, 2023).reverse())
   const companies = getCompanyData([2023]).slice(0, 3)
 
-  await reset()
+  await resetDB()
 
   console.log('Creating companies...')
   await createCompanies(companies)

@@ -1,20 +1,13 @@
-import { promisify } from 'util'
-import { exec } from 'child_process'
 import {
   prisma,
   ensureReportingPeriodExists,
   upsertCompany,
 } from '../src/lib/prisma'
-
-export async function resetDB() {
-  await promisify(exec)('npx prisma db push --force-reset', {
-    env: process.env,
-  })
-}
+import { resetDB } from '../src/lib/dev-utils'
 
 describe('reporting periods', () => {
   beforeAll(async () => {
-    await resetDB() // TODO: fix faster method of cleaning the db.
+    await resetDB()
     await prisma.$connect()
   }, 30000) // Increase timeout to 30 seconds
 
@@ -64,14 +57,12 @@ describe('reporting periods', () => {
     const startDate = new Date('2023-01-01')
     const endDate = new Date('2023-12-31')
 
-    // const reportingPeriod = await ensureReportingPeriodExists(
-    //   company,
-    //   metadata,
-    //   startDate,
-    //   endDate
-    // )
-
-    // console.log(reportingPeriod)
+    const reportingPeriod = await ensureReportingPeriodExists(
+      company,
+      metadata,
+      startDate,
+      endDate
+    )
 
     expect(reportingPeriod.companyId).toBe(company.wikidataId)
   }, 10000) // Increase timeout to 10 seconds

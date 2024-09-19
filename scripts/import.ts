@@ -1,17 +1,11 @@
 import { Prisma, PrismaClient } from '@prisma/client'
-import { exec } from 'child_process'
-import { promisify } from 'util'
-import { addIndustryGicsCodesToDB } from './add-gics'
+import { getAllGicsCodesLookup } from './add-gics'
 import { importGarboData } from './import-garbo-companies'
 // import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
 import { isMainModule } from './utils'
+import { resetDB } from '../src/lib/dev-utils'
 
 export const prisma = new PrismaClient()
-
-export async function reset() {
-  console.log('Resetting database and applying migrations...')
-  await promisify(exec)('npx prisma migrate reset --force')
-}
 
 export const DATA_ORIGIN = {
   garbo: 'garbo',
@@ -87,31 +81,20 @@ export type EconomyInput = {
   }
 }
 
-export async function seedDB() {
+export async function getSeededData() {
   const [[garbo, alex], gicsCodes] = await Promise.all([
-    prisma.user.createManyAndReturn({
-      data: [
-        {
-          email: 'hej@klimatkollen.se',
-          name: 'Garbo (Klimatkollen)',
-        },
-        {
-          email: 'alex@klimatkollen.se',
-          name: 'Alexandra Palmquist',
-        },
-      ],
-    }),
-    addIndustryGicsCodesToDB(),
+    prisma.user.findMany(),
+    getAllGicsCodesLookup(),
   ])
 
   return { users: { garbo, alex }, gicsCodes }
 }
 
-export type InitialDBState = Awaited<ReturnType<typeof seedDB>>
+export type InitialDBState = Awaited<ReturnType<typeof getSeededData>>
 
 async function main() {
-  await reset()
-  const seededData = await seedDB()
+  await resetDB()
+  const seededData = await getSeededData()
 
   await importGarboData(seededData)
   // TODO: Combine into one import for all data. First adding garbo data and then from the spreadsheet

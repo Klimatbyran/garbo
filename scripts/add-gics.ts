@@ -1211,14 +1211,15 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
   return translations
 }
 
-export async function addIndustryGicsCodesToDB(
-  codes: IndustryGics[] = prepareCodes()
-) {
-  const created = await prisma.industryGics.createManyAndReturn({
-    data: getIndustryGicsCodesWithoutStrings(codes),
-  })
+export async function seedGicsCodes() {
+  const codes = getIndustryGicsCodesWithoutStrings(prepareCodes())
+  await prisma.industryGics.createMany({ data: codes })
+}
 
-  return created.reduce<Record<string, (typeof created)[number]>>(
+export async function getAllGicsCodesLookup() {
+  const codes = await prisma.industryGics.findMany()
+
+  return codes.reduce<Record<string, (typeof codes)[number]>>(
     (gicsCodes, code) => {
       if (!gicsCodes[code.subIndustryCode]) {
         gicsCodes[code.subIndustryCode] = code
