@@ -20,8 +20,8 @@ export async function updateScope1(
         data: {
           ...scope1,
           metadata: {
-            create: {
-              ...metadata,
+            connect: {
+              id: metadata.id,
             },
           },
         },
@@ -32,8 +32,8 @@ export async function updateScope1(
           ...scope1,
           unit: tCO2e,
           metadata: {
-            create: {
-              ...metadata,
+            connect: {
+              id: metadata.id,
             },
           },
         },
@@ -54,8 +54,8 @@ export async function updateScope2(
         data: {
           ...scope2,
           metadata: {
-            create: {
-              ...metadata,
+            connect: {
+              id: metadata.id,
             },
           },
         },
@@ -98,9 +98,7 @@ export async function ensureReportingPeriodExists(
         },
       },
       metadata: {
-        connect: {
-          id: metadata.id,
-        },
+        connect: metadata,
       },
     },
   })

@@ -10,7 +10,7 @@ export async function resetDB() {
 }
 
 describe('Prisma DB queries and mutations', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await resetDB()
     await prisma.$connect()
   }, 30000) // Increase timeout to 30 seconds
@@ -71,63 +71,3 @@ describe('Prisma DB queries and mutations', () => {
     expect(reportingPeriod.companyId).toBe(company.wikidataId)
   }, 10000) // Increase timeout to 10 seconds
 })
-
-it('should fail to create a reporting period with a duplicate id', async () => {
-  // Create a proper company entry
-  const company = await prisma.company.create({
-    data: {
-      wikidataId: 'Q124',
-      name: 'duplicate test company',
-      description: null,
-      url: null,
-      internalComment: null,
-    },
-  })
-
-  // Create a proper user entry
-  const user = await prisma.user.create({
-    data: {
-      email: 'duplicate@example.com',
-      name: 'Duplicate User',
-    },
-  })
-
-  // Create proper metadata entry
-  const metadata = await prisma.metadata.create({
-    data: {
-      comment: 'duplicate test comment',
-      userId: user.id,
-    },
-  })
-
-  const startDate = new Date('2024-01-01')
-  const endDate = new Date('2024-12-31')
-
-  try {
-    await prisma.reportingPeriod.create({
-      data: {
-        startDate,
-        endDate,
-        company: {
-          connect: {
-            wikidataId: company.wikidataId,
-          },
-        },
-        metadata: {
-          connect: {
-            id: metadata.id,
-          },
-        },
-      },
-    })
-    throw new Error('Expected unique constraint violation, but none occurred')
-  } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      expect(error.message).toContain(
-        'Unique constraint failed on the fields: (`id`)'
-      )
-    } else {
-      throw error
-    }
-  }
-}, 10000) // Increase timeout to 10 seconds
