@@ -27,7 +27,7 @@ describe('Prisma DB queries and mutations', () => {
 
   it('should create a new reporting period if it does not exist', async () => {
     // Create a proper company entry
-    const uniqueSuffix = Date.now().toString();
+    const uniqueSuffix = Date.now().toString()
     const company = await prisma.company.create({
       data: {
         wikidataId: `Q123-${uniqueSuffix}`,
@@ -114,12 +114,16 @@ it('should fail to create a reporting period with a duplicate id', async () => {
           },
         },
         metadata: {
-          create: metadata,
+          connect: {
+            id: metadata.id,
+          },
         },
       },
     })
     throw new Error('Expected unique constraint violation, but none occurred')
   } catch (error) {
-    expect(error.message).toContain('Unique constraint failed on the fields: (`id`)')
+    expect(error.message).toContain(
+      'Unique constraint failed on the fields: (`id`)'
+    )
   }
 }, 10000) // Increase timeout to 10 seconds
