@@ -73,8 +73,6 @@ export const reportingPeriod =
       })
     }
 
-    console.log(wikidataId, company.name)
-
     const metadata = res.locals.metadata
 
     const reportingPeriod =
