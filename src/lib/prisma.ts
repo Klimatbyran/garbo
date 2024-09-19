@@ -108,12 +108,17 @@ export async function upsertCompany({
 export async function ensureReportingPeriodExists(
   company: Company,
   metadata: Parameters<typeof prisma.metadata.create>[0]['data'],
-  startDate: Date,
-  endDate: Date
+  {
+    startDate,
+    endDate,
+    reportURL,
+  }: { startDate: Date; endDate: Date; reportURL?: string }
 ) {
   const existingReportingPeriod = await prisma.reportingPeriod.findFirst({
     where: {
       companyId: company.wikidataId,
+      // NOTE: Maybe only check it's the same year of the endDate, instead of requiring the exact date to be provided in the request body.
+      // We might want to allow just sending a GET request to for example /2023/emissions.
       endDate,
     },
   })
@@ -122,13 +127,16 @@ export async function ensureReportingPeriodExists(
     data: {
       startDate,
       endDate,
+      reportURL,
       company: {
         connect: {
           wikidataId: company.wikidataId,
         },
       },
       metadata: {
-        connect: metadata,
+        connect: {
+          id: metadata.id,
+        },
       },
     },
   })

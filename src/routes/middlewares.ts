@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
-import { processRequest, validateRequest } from 'zod-express-middleware'
+import { processRequest } from 'zod-express-middleware'
 import { z } from 'zod'
+import { ensureReportingPeriodExists } from '../lib/prisma'
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -54,7 +55,7 @@ export const validateReportingPeriod = () =>
 export const reportingPeriod =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const { wikidataId, year } = req.params
+    const { year } = req.params
     const { startDate, endDate, reportURL } = req.body
 
     const endYear = parseInt(year.split('-').at(-1))
@@ -68,37 +69,21 @@ export const reportingPeriod =
     }
 
     const metadata = res.locals.metadata
+    const company = res.locals.company
 
-    const reportingPeriod =
-      (await prisma.reportingPeriod.findFirst({
-        where: {
-          companyId: wikidataId,
-          // TODO: find the reporting period with the same endYear
-          endDate: {},
-        },
-      })) ||
-      (await prisma.reportingPeriod.create({
-        data: {
-          startDate,
-          endDate,
-          reportURL,
-          company: {
-            connect: {
-              wikidataId,
-            },
-          },
-          metadata: {
-            create: metadata,
-          },
-        },
-      }))
+    const reportingPeriod = await ensureReportingPeriodExists(
+      company,
+      metadata,
+      { startDate, endDate, reportURL }
+    )
     res.locals.reportingPeriod = reportingPeriod
 
     next()
   }
 
 export const ensureEmissionsExists =
-  (prisma) => async (req: Request, res: Response, next: NextFunction) => {
+  (prisma: PrismaClient) =>
+  async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
     const emissionsId = res.locals.reportingPeriod.emissionsId
 

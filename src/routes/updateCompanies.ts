@@ -8,6 +8,7 @@ import {
   fakeAuth,
   reportingPeriod,
   ensureEmissionsExists,
+  validateReportingPeriod,
 } from './middlewares'
 import { prisma } from '../lib/prisma'
 import { Company } from '@prisma/client'
@@ -67,17 +68,23 @@ router.use(
       wikidataId: z.string().regex(/Q\d+/),
     }),
   }),
-  async (req, res) => {
-    const { wikidataId } = req.body
+  async (req, res, next) => {
+    const { wikidataId } = req.params
     const company = await prisma.company.findFirst({ where: { wikidataId } })
     if (!company) {
       return res.status(404).json({ error: 'Company not found' })
     }
     res.locals.company = company
+
+    next()
   }
 )
 
-router.use('/:wikidataId/:year', reportingPeriod(prisma))
+router.use(
+  '/:wikidataId/:year',
+  validateReportingPeriod(),
+  reportingPeriod(prisma)
+)
 
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 
@@ -101,7 +108,8 @@ router.post(
           ({ mb, lb, unknown }) =>
             mb !== undefined || lb !== undefined || unknown !== undefined,
           {
-            message: 'One of the fields must be defined if scope2 is provided',
+            message:
+              'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
           }
         )
         .optional(),
