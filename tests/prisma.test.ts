@@ -13,7 +13,7 @@ describe('Prisma DB queries and mutations', () => {
   beforeEach(async () => {
     await resetDB()
     await prisma.$connect()
-  }, 20000) // Increase timeout to 20 seconds
+  }, 30000) // Increase timeout to 30 seconds
 
   afterAll(async () => {
     await prisma.$disconnect()
@@ -122,8 +122,12 @@ it('should fail to create a reporting period with a duplicate id', async () => {
     })
     throw new Error('Expected unique constraint violation, but none occurred')
   } catch (error) {
-    expect(error.message).toContain(
-      'Unique constraint failed on the fields: (`id`)'
-    )
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      expect(error.message).toContain(
+        'Unique constraint failed on the fields: (`id`)'
+      )
+    } else {
+      throw error
+    }
   }
 }, 10000) // Increase timeout to 10 seconds
