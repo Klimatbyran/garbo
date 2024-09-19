@@ -1,8 +1,25 @@
 import { NextFunction, Request, Response } from 'express'
-import { PrismaClient } from '@prisma/client'
-import { processRequest } from 'zod-express-middleware'
+import {
+  Company,
+  Metadata,
+  PrismaClient,
+  ReportingPeriod,
+  User,
+} from '@prisma/client'
+import { processRequest, processRequestBody } from 'zod-express-middleware'
 import { z } from 'zod'
 import { ensureReportingPeriodExists } from '../lib/prisma'
+
+declare global {
+  namespace Express {
+    interface Locals {
+      user: User
+      company: Company
+      reportingPeriod: ReportingPeriod
+      metadata?: Metadata
+    }
+  }
+}
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -11,27 +28,71 @@ export const cache = () => {
   }
 }
 
+const ALEX_ID = 2
+
 export const fakeAuth =
-  () => (req: Request, res: Response, next: NextFunction) => {
-    res.locals.user = {
-      id: 2,
-      name: 'Alexandra Palmqvist',
-      email: 'alex@klimatkollen.se',
-    }
+  (prisma: PrismaClient) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await prisma.user.findFirst({ where: { id: ALEX_ID } })
+    res.locals.user = user
     next()
   }
+
+export const validateMetadata = () =>
+  processRequestBody(
+    z.object({
+      metadata: z
+        .object({
+          comment: z.string().optional(),
+          source: z.string().optional(),
+          dataOrigin: z.string().optional(),
+        })
+        .optional(),
+    })
+  )
 
 export const createMetadata =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    // TODO: Find a better way to determine if changes by the current user should count as verified or not
-    const verifiedByUserId = res.locals.user.id === 2 ? 2 : null
-    const metadata = {
-      source: req.body.url,
-      userId: res.locals.user.id,
-      verifiedByUserId,
+    let createdMetadata = undefined
+    // TODO: If we use a DB transaction (initiated before this middleware is called),
+    // then we could always create metadata and just abort the transaction for invalid requests.
+    // This would make it easy to work with, but still allow us to prevent adding metadata not connected to any actual changes.
+
+    // We only need to create metadata when creating or updating data
+    if (req.method === 'POST') {
+      // TODO: Find a better way to determine if changes by the current user should count as verified or not
+      // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
+      const verifiedByUserId = res.locals.user.id === ALEX_ID ? ALEX_ID : null
+
+      if (!res.locals.user?.id) {
+        return res.status(401)
+      }
+
+      const { comment, source, dataOrigin } = req.body.metadata ?? {}
+
+      createdMetadata = await prisma.metadata.create({
+        data: {
+          comment,
+          source,
+          dataOrigin,
+          user: {
+            connect: {
+              id: res.locals.user.id,
+            },
+          },
+          verifiedBy: verifiedByUserId
+            ? {
+                connect: {
+                  id: verifiedByUserId,
+                },
+              }
+            : undefined,
+        },
+      })
     }
-    res.locals.metadata = metadata
+    res.locals.metadata = createdMetadata
+
     next()
   }
 
