@@ -60,8 +60,7 @@ describe('reporting periods', () => {
     const reportingPeriod = await ensureReportingPeriodExists(
       company,
       metadata,
-      startDate,
-      endDate
+      { startDate, endDate }
     )
 
     expect(reportingPeriod.companyId).toBe(company.wikidataId)

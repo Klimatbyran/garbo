@@ -6,7 +6,7 @@ import {
   ReportingPeriod,
   User,
 } from '@prisma/client'
-import { processRequest, processRequestBody } from 'zod-express-middleware'
+import { validateRequest, validateRequestBody } from 'zod-express-middleware'
 import { z } from 'zod'
 import { ensureReportingPeriodExists } from '../lib/prisma'
 
@@ -39,7 +39,7 @@ export const fakeAuth =
   }
 
 export const validateMetadata = () =>
-  processRequestBody(
+  validateRequestBody(
     z.object({
       metadata: z
         .object({
@@ -97,7 +97,7 @@ export const createMetadata =
   }
 
 export const validateReportingPeriod = () =>
-  processRequest({
+  validateRequest({
     params: z.object({
       year: z.string().regex(/\d{4}(?:-\d{4})?/),
     }),
@@ -108,6 +108,9 @@ export const validateReportingPeriod = () =>
         reportURL: z.string().optional(),
       })
       .refine(
+        // TODO: Ensure this works as expected for broken reporting periods especially.
+        // For example for Q2789310:
+        // 2022-03-01 is before 2023-02-28, but it doesn't seem to work as expected.
         ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
         { message: 'startDate must be earlier than endDate' }
       ),

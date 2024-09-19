@@ -346,14 +346,20 @@ function getCompanyData(years: number[]) {
 
 export async function createCompanies(companies: CompanyInput[]) {
   for (const { wikidataId, name, description } of companies) {
-    await postJSON(`http://localhost:3000/api/companies/${wikidataId}`, {
+    console.log(wikidataId, name)
+    await postJSON(`http://localhost:3000/api/companies`, {
       wikidataId,
       name,
       description,
     }).then(async (res) => {
       if (!res.ok) {
         const body = await res.json()
-        console.error(res.status, res.statusText, wikidataId, body)
+        console.error(
+          res.status,
+          res.statusText,
+          wikidataId,
+          JSON.stringify(body, null, 2)
+        )
       }
     })
   }
@@ -426,7 +432,7 @@ async function postJSON(url: string, body: any) {
 async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
-  const companies = getCompanyData([2023]).slice(0, 3)
+  const companies = getCompanyData([2023])
 
   await resetDB()
 

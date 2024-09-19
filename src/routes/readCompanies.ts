@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { getGics } from '../lib/gics'
-import { z } from 'zod'
 import { cache } from './middlewares'
 
 const prisma = new PrismaClient()
