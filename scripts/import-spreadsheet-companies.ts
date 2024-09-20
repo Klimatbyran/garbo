@@ -366,13 +366,8 @@ export async function createCompanies(companies: CompanyInput[]) {
       internalComment,
     }).then(async (res) => {
       if (!res.ok) {
-        const body = await res.json()
-        console.error(
-          res.status,
-          res.statusText,
-          wikidataId,
-          JSON.stringify(body, null, 2)
-        )
+        const body = await res.text()
+        console.error(res.status, res.statusText, wikidataId, body)
       }
     })
   }
@@ -383,11 +378,14 @@ export async function updateCompanies(companies: CompanyInput[]) {
     const { wikidataId, reportingPeriods } = company
 
     for (const reportingPeriod of reportingPeriods) {
+      if (!reportingPeriod.emissions) continue
+
       const emissionsArgs = [
         `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
         {
           startDate: reportingPeriod.startDate,
           endDate: reportingPeriod.endDate,
+          emissions: reportingPeriod.emissions,
         },
       ] as const
 
@@ -396,32 +394,6 @@ export async function updateCompanies(companies: CompanyInput[]) {
         if (!res.ok) {
           const body = await res.text()
           console.error(res.status, res.statusText, wikidataId, body)
-
-          // TODO: most likely possible to remove this
-          // if (res.status === 404) {
-          //   console.log('Creating company...', wikidataId)
-          //   await postJSON(
-          //     `http://localhost:3000/api/companies/${wikidataId}`,
-          //     {
-          //       name,
-          //       description,
-          //     }
-          //   ).then(async (res) => {
-          //     if (!res.ok) {
-          //       const body = await res.text()
-          //       console.error(res.status, res.statusText, wikidataId, body)
-          //     } else {
-          //       await postJSON(...emissionsArgs).then(async (res) => {
-          //         if (!res.ok) {
-          //           // TODO: Investigate why companies that were created via a retry didn't get any emissions or scopes.
-          //           // Maybe the data needs to be passed in differently?
-          //           const body = await res.text()
-          //           console.error(res.status, res.statusText, wikidataId, body)
-          //         }
-          //       })
-          //     }
-          //   })
-          // }
         }
       })
     }

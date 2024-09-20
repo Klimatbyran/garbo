@@ -1,21 +1,26 @@
-import { PrismaClient, Metadata, Scope1, Scope2, Company } from '@prisma/client'
+import {
+  PrismaClient,
+  Metadata,
+  Scope1,
+  Scope2,
+  Company,
+  Emissions,
+} from '@prisma/client'
+import { OptionalNullable } from './type-utils'
 
 export const prisma = new PrismaClient()
 
 const tCO2e = 'tCO2e'
 
-// type X = Parameters<typeof prisma.scope1.update>[0]
-
-// TODO: use actual types inferred from Parameters<typeof prisma.scope1.update>
 export async function updateScope1(
-  id: Scope1['id'],
-  scope1: Scope1,
+  emissions: Emissions,
+  scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>>,
   metadata: Metadata
 ) {
-  return id
+  return emissions.scope1Id
     ? await prisma.scope1.update({
         where: {
-          id,
+          id: emissions.scope1Id,
         },
         data: {
           ...scope1,
@@ -36,20 +41,25 @@ export async function updateScope1(
               id: metadata.id,
             },
           },
+          emissions: {
+            connect: {
+              id: emissions.id,
+            },
+          },
         },
         select: { id: true },
       })
 }
 
 export async function updateScope2(
-  id: Scope2['id'],
-  scope2: Omit<Scope2, 'id'>,
-  metadata: Omit<Metadata, 'id'>
+  emissions: Emissions,
+  scope2: OptionalNullable<Omit<Scope2, 'id' | 'metadataId' | 'unit'>>,
+  metadata: Metadata
 ) {
-  return id
+  return emissions.scope2Id
     ? await prisma.scope2.update({
         where: {
-          id,
+          id: emissions.scope2Id,
         },
         data: {
           ...scope2,
@@ -66,8 +76,13 @@ export async function updateScope2(
           ...scope2,
           unit: tCO2e,
           metadata: {
-            create: {
-              ...metadata,
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: {
+            connect: {
+              id: emissions.id,
             },
           },
         },
@@ -100,7 +115,10 @@ export async function upsertCompany({
       internalComment,
     },
     // TODO: Should we allow updating the wikidataId?
-    // Probably yes, but that might also need to be reflected in all related records too.
+    // Probably yes from a business perspective, but that also means we need to update all related records too.
+    // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
+    // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
+    // However, no matter what, we could still use wikidataId in the API and in the URL structure.
     update: { name, description, url, internalComment },
   })
 }

@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { z } from 'zod'
-import { processRequestBody, validateRequest } from 'zod-express-middleware'
+import { validateRequest, validateRequestBody } from 'zod-express-middleware'
 
 import { updateScope1, updateScope2, upsertCompany } from '../lib/prisma'
 import {
@@ -31,23 +31,26 @@ router.use('/', express.json())
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
+const upsertCompanyBodySchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  url: z.string().url().optional(),
+  internalComment: z.string().optional(),
+  wikidataId: wikidataIdSchema,
+})
+
 // NOTE: The request body seems to be consumed the first time it we call the middleware processRequest()
 // Thus, we can only call processRequest() and similar methods for actual API endpoints.
 // Middlewares should only use validateRequest() and similar methods.
 // NOTE: This might be worth looking into the `zod-express-middleware` package and see if we could improve this behaviour.
-const validateCompanyUpsert = () =>
-  processRequestBody(
-    z.object({
-      name: z.string(),
-      description: z.string().optional(),
-      url: z.string().url().optional(),
-      internalComment: z.string().optional(),
-      wikidataId: wikidataIdSchema,
-    })
-  )
+const validateCompanyUpsert = () => validateRequestBody(upsertCompanyBodySchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  const { name, description, url, internalComment, wikidataId } = req.body
+  const { data, error } = upsertCompanyBodySchema.safeParse(req.body)
+  if (error) {
+    return res.status(400).json({ error })
+  }
+  const { name, description, url, internalComment, wikidataId } = data
 
   let company: Company
 
@@ -102,44 +105,59 @@ router.use(
 
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 
+const postEmissionsBodySchema = z.object({
+  emissions: z.object({
+    scope1: z
+      .object({
+        total: z.number(),
+      })
+      .optional(),
+    scope2: z
+      .object({
+        mb: z.number().optional(),
+        lb: z.number().optional(),
+        unknown: z.number().optional(),
+      })
+      .refine(
+        ({ mb, lb, unknown }) =>
+          mb !== undefined || lb !== undefined || unknown !== undefined,
+        {
+          message:
+            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        }
+      )
+      .optional(),
+    // statedTotalEmissions
+    // biogenic
+    // scope3 with all sub properties
+  }),
+})
+
 // POST//Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
-  validateRequest({
-    body: z.object({
-      scope1: z
-        .object({
-          total: z.number(),
-        })
-        .optional(),
-      scope2: z
-        .object({
-          mb: z.number().optional(),
-          lb: z.number().optional(),
-          unknown: z.number().optional(),
-        })
-        .refine(
-          ({ mb, lb, unknown }) =>
-            mb !== undefined || lb !== undefined || unknown !== undefined,
-          {
-            message:
-              'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-          }
-        )
-        .optional(),
-      // statedTotalEmissions
-      // biogenic
-      // scope3 with all sub properties
-    }),
-  }),
+  validateRequestBody(postEmissionsBodySchema),
   async (req, res) => {
-    const { scope1, scope2 } = req.body
+    const { data, error } = postEmissionsBodySchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+
+    const { scope1, scope2 } = data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
     try {
-      scope1 && (await updateScope1(emissions.scoep1Id, scope1, metadata))
-      scope2 && (await updateScope2(emissions.scope2Id, scope2, metadata))
+      // Only update if the input contains relevant changes
+      // NOTE: The types for scope1 and scope2 say the objects always exist. However, this is not true.
+      // There seems to be a type error in zod which doesn't take into account optional objects.
+      if (scope1) {
+        await updateScope1(emissions, scope1, metadata)
+      }
+
+      if (scope2) {
+        await updateScope2(emissions, scope2, metadata)
+      }
     } catch (error) {
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import {
   Company,
+  Emissions,
   Metadata,
   PrismaClient,
   ReportingPeriod,
@@ -17,6 +18,7 @@ declare global {
       company: Company
       reportingPeriod: ReportingPeriod
       metadata?: Metadata
+      emissions?: Emissions
     }
   }
 }
@@ -122,6 +124,8 @@ export const reportingPeriod =
     // NOTE: Since we have to use validateRequest() for middlewares,
     // we have to parse the request body twice.
     // We should find a cleaner and more declarative pattern for this.
+    // NOTE: Maybe we could setup proper error handling, and just use the regular zodSchema.parse(req.body) which throws `ZodError`s?
+    // This would allow us to simplify the code and replace all res.status(400).json({ error }) in every middleware/endpoint with a shared error hanlder instead.
     const { data, error } = reportingPeriodBodySchema.safeParse(req.body)
     if (error) {
       return res.status(400).json({ error })
@@ -160,7 +164,6 @@ export const ensureEmissionsExists =
     const emissions = emissionsId
       ? await prisma.emissions.findFirst({
           where: { id: emissionsId },
-          select: { id: true, scope1Id: true, scope2Id: true },
         })
       : await prisma.emissions.create({
           data: {
@@ -170,7 +173,6 @@ export const ensureEmissionsExists =
               },
             },
           },
-          select: { id: true, scope1Id: true, scope2Id: true },
         })
 
     res.locals.emissions = emissions
