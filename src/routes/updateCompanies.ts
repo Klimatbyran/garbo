@@ -47,10 +47,7 @@ const validateCompanyUpsert = () =>
   )
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  console.log('create/update company')
   const { name, description, url, internalComment, wikidataId } = req.body
-
-  console.log(name, wikidataId)
 
   let company: Company
 
@@ -84,7 +81,6 @@ router.use(
     }),
   }),
   async (req, res, next) => {
-    console.log('check company exists')
     const { wikidataId } = req.params
     const company = await prisma.company.findFirst({ where: { wikidataId } })
     if (!company) {

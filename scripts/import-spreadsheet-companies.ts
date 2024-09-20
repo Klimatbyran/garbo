@@ -314,6 +314,8 @@ function getCompanyData(years: number[]) {
     {
       wikidataId: string
       name: string
+      description?: string
+      internalComment?: string
       startDate: Date
       endDate: Date
     }
@@ -346,6 +348,8 @@ function getCompanyData(years: number[]) {
     companies.push({
       wikidataId,
       name: rawCompanies[wikidataId].name,
+      description: rawCompanies[wikidataId].description,
+      internalComment: rawCompanies[wikidataId].internalComment,
       reportingPeriods,
     })
   }
@@ -354,12 +358,12 @@ function getCompanyData(years: number[]) {
 }
 
 export async function createCompanies(companies: CompanyInput[]) {
-  for (const { wikidataId, name, description } of companies) {
-    console.log(wikidataId, name)
+  for (const { wikidataId, name, description, internalComment } of companies) {
     await postJSON(`http://localhost:3000/api/companies`, {
       wikidataId,
       name,
       description,
+      internalComment,
     }).then(async (res) => {
       if (!res.ok) {
         const body = await res.json()
@@ -389,7 +393,6 @@ export async function updateCompanies(companies: CompanyInput[]) {
 
       // TODO: save metadata for each datapoint and set the correct user
       await postJSON(...emissionsArgs).then(async (res) => {
-        console.log(res.status, res.statusText)
         if (!res.ok) {
           const body = await res.text()
           console.error(res.status, res.statusText, wikidataId, body)

@@ -18,6 +18,7 @@ export type CompanyInput = {
   wikidataId: string
   name: string
   description?: string
+  internalComment?: string
   reportingPeriods: ReportingPeriodInput[]
 }
 
