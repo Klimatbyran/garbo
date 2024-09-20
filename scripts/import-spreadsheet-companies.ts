@@ -106,14 +106,23 @@ function getCompanyBaseFacts() {
 /**
  * Translate the reporting period dates into another year. Can handle leap years.
  */
-function getPeriodDatesForYear(year: number, startDate: Date, endDate: Date) {
+function getPeriodDatesForYear(
+  endYear: number,
+  startDate: Date,
+  endDate: Date
+) {
+  // Handle broken reporting periods
+  const diff = endDate.getFullYear() - startDate.getFullYear()
+
   const start = new Date(
-    `${year}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-01`
+    `${endYear - diff}-${(startDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-01`
   )
   const end = new Date(
-    `${year}-${(endDate.getMonth() + 1)
+    `${endYear}-${(endDate.getMonth() + 1)
       .toString()
-      .padStart(2, '0')}-${getLastDayInMonth(year, endDate.getMonth())}`
+      .padStart(2, '0')}-${getLastDayInMonth(endYear, endDate.getMonth())}`
   )
 
   return [start, end]
