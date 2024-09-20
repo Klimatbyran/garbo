@@ -5,6 +5,7 @@ import {
   Scope2,
   Company,
   Emissions,
+  BiogenicEmissions,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -74,6 +75,47 @@ export async function updateScope2(
     : await prisma.scope2.create({
         data: {
           ...scope2,
+          unit: tCO2e,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: {
+            connect: {
+              id: emissions.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+}
+
+export async function updateBiogenic(
+  emissions: Emissions,
+  biogenic: OptionalNullable<
+    Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit'>
+  >,
+  metadata: Metadata
+) {
+  return emissions.biogenicEmissionsId
+    ? await prisma.biogenicEmissions.update({
+        where: {
+          id: emissions.biogenicEmissionsId,
+        },
+        data: {
+          ...biogenic,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : await prisma.biogenicEmissions.create({
+        data: {
+          ...biogenic,
           unit: tCO2e,
           metadata: {
             connect: {

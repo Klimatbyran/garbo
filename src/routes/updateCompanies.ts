@@ -2,7 +2,12 @@ import express, { Request, Response } from 'express'
 import { z } from 'zod'
 import { validateRequest, validateRequestBody } from 'zod-express-middleware'
 
-import { updateScope1, updateScope2, upsertCompany } from '../lib/prisma'
+import {
+  updateBiogenic,
+  updateScope1,
+  updateScope2,
+  upsertCompany,
+} from '../lib/prisma'
 import {
   createMetadata,
   fakeAuth,
@@ -127,9 +132,12 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
+    biogenic: z.object({ total: z.number() }).optional(),
     // statedTotalEmissions
-    // biogenic
-    // scope3 with all sub properties
+    // scope3
+    // scope3 categories
+    // scope3 statedTotalEmissions
+    // scope1And2
   }),
 })
 
@@ -143,7 +151,7 @@ router.post(
       return res.status(400).json({ error })
     }
 
-    const { scope1, scope2 } = data.emissions
+    const { scope1, scope2, biogenic } = data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
@@ -157,6 +165,10 @@ router.post(
 
       if (scope2) {
         await updateScope2(emissions, scope2, metadata)
+      }
+
+      if (biogenic) {
+        await updateBiogenic(emissions, biogenic, metadata)
       }
     } catch (error) {
       console.error('Failed to update emissions:', error)

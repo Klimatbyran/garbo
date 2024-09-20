@@ -195,6 +195,19 @@ function getReportingPeriods(
           return
         }
 
+        const scope1 = {
+          ...(Number.isFinite(scope1Total)
+            ? {
+                total: scope1Total,
+              }
+            : {}),
+        }
+
+        const scope2 = {
+          ...(Number.isFinite(scope2MB) ? { mb: scope2MB } : {}),
+          ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
+        }
+
         // TODO: Add comment and source URL as metadata for this year.
 
         const scope3Categories = Array.from({ length: 15 }, (_, i) => i + 1)
@@ -217,21 +230,8 @@ function getReportingPeriods(
         }
 
         const emissions = {
-          ...(Number.isFinite(scope1Total)
-            ? {
-                scope1: {
-                  total: scope1Total,
-                },
-              }
-            : {}),
-          ...(Number.isFinite(scope2MB) || Number.isFinite(scope2LB)
-            ? {
-                scope2: {
-                  mb: scope2MB,
-                  lb: scope2LB,
-                },
-              }
-            : {}),
+          ...(Object.keys(scope1).length ? { scope1 } : {}),
+          ...(Object.keys(scope2).length ? { scope2 } : {}),
           ...(Object.keys(scope3).length ? { scope3 } : {}),
           ...(Number.isFinite(statedTotal)
             ? {
@@ -389,7 +389,6 @@ export async function updateCompanies(companies: CompanyInput[]) {
         },
       ] as const
 
-      // TODO: save metadata for each datapoint and set the correct user
       await postJSON(...emissionsArgs).then(async (res) => {
         if (!res.ok) {
           const body = await res.text()
