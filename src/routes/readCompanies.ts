@@ -26,7 +26,7 @@ const metadata = {
   },
 }
 
-router.get('/companies', cache(), async (req: Request, res: Response) => {
+router.get('/', cache(), async (req: Request, res: Response) => {
   try {
     const companies = await prisma.company.findMany({
       select: {
