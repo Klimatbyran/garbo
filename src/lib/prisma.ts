@@ -134,7 +134,6 @@ export async function upsertScope3(
               id: updatedScope3.id,
             },
             data: {
-              // TODO: StatedTotalEmissions
               ...scope3Category,
               metadata: {
                 connect: {
@@ -148,7 +147,6 @@ export async function upsertScope3(
             data: {
               ...scope3Category,
               unit: tCO2e,
-              // TODO: StatedTotalEmissions
               scope3: {
                 connect: {
                   id: updatedScope3.id,
@@ -164,6 +162,27 @@ export async function upsertScope3(
           })
     )
   )
+
+  if (scope3.statedTotalEmissions) {
+    const statedTotalEmissions = await upsertStatedTotalEmissions(
+      emissions,
+      scope3.statedTotalEmissions,
+      metadata,
+      updatedScope3
+    )
+
+    await prisma.scope3.update({
+      where: { id: updatedScope3.id },
+      data: {
+        statedTotalEmissions: {
+          connect: {
+            id: statedTotalEmissions.id,
+          },
+        },
+      },
+      select: { id: true },
+    })
+  }
 }
 
 export async function upsertBiogenic(
@@ -215,43 +234,45 @@ export async function upsertStatedTotalEmissions(
     ? scope3.statedTotalEmissionsId
     : emissions.statedTotalEmissionsId
 
-  return prisma.statedTotalEmissions.upsert({
-    where: {
-      id: statedTotalEmissionsId,
-    },
-    update: {
-      ...statedTotalEmissions,
-      metadata: {
-        connect: {
-          id: metadata.id,
-        },
-      },
-    },
-    create: {
-      ...statedTotalEmissions,
-      unit: tCO2e,
-      metadata: {
-        connect: {
-          id: metadata.id,
-        },
-      },
-      emissions: scope3
-        ? undefined
-        : {
+  return statedTotalEmissionsId
+    ? prisma.statedTotalEmissions.update({
+        where: { id: statedTotalEmissionsId },
+        data: {
+          ...statedTotalEmissions,
+          metadata: {
             connect: {
-              id: emissions.id,
+              id: metadata.id,
             },
           },
-      scope3: scope3
-        ? {
+        },
+        select: { id: true },
+      })
+    : prisma.statedTotalEmissions.create({
+        data: {
+          ...statedTotalEmissions,
+          unit: tCO2e,
+          emissions: scope3
+            ? undefined
+            : {
+                connect: {
+                  id: emissions.id,
+                },
+              },
+          scope3: scope3
+            ? {
+                connect: {
+                  id: scope3.id,
+                },
+              }
+            : undefined,
+          metadata: {
             connect: {
-              id: scope3.id,
+              id: metadata.id,
             },
-          }
-        : undefined,
-    },
-    select: { id: true },
-  })
+          },
+        },
+        select: { id: true },
+      })
 }
 
 export async function upsertCompany({
