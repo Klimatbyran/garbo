@@ -127,6 +127,10 @@ model Emissions {
 }
 
 /// This is used when companies only report a total number for either overall- or scope 3 emissions.
+/// TODO: Maybe this should be simplified to just be a `statedTotal` property for the Emissions, and `statedTotal` for Scope3?
+/// However, the main reason behind using a separate entity for StatedTotalEmissions is because then we can keep track of metadata
+/// specifically for the stated totals from the report. For example if the company changes an incorrect statedTotal that does not match the actual calculated total.
+/// Not sure if this is worth it, in this structure though. Might be too complicated.
 model StatedTotalEmissions {
   id         Int    @id @default(autoincrement())
   total      Float?

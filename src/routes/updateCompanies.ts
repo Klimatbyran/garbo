@@ -3,10 +3,10 @@ import { z } from 'zod'
 import { validateRequest, validateRequestBody } from 'zod-express-middleware'
 
 import {
-  updateBiogenic,
-  updateScope1,
-  updateScope2,
-  updateStatedTotalEmissions,
+  upsertBiogenic,
+  upsertScope1,
+  upsertScope2,
+  upsertStatedTotalEmissions,
   upsertCompany,
 } from '../lib/prisma'
 import {
@@ -163,11 +163,11 @@ router.post(
       // There seems to be a type error in zod which doesn't take into account optional objects.
 
       await Promise.allSettled([
-        scope1 && updateScope1(emissions, scope1, metadata),
-        scope2 && updateScope2(emissions, scope2, metadata),
+        scope1 && upsertScope1(emissions, scope1, metadata),
+        scope2 && upsertScope2(emissions, scope2, metadata),
         statedTotalEmissions &&
-          updateStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
-        biogenic && updateBiogenic(emissions, biogenic, metadata),
+          upsertStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
+        biogenic && upsertBiogenic(emissions, biogenic, metadata),
       ])
     } catch (error) {
       console.error('Failed to update emissions:', error)

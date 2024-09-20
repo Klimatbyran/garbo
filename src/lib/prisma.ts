@@ -15,127 +15,114 @@ export const prisma = new PrismaClient()
 
 const tCO2e = 'tCO2e'
 
-// IDEA: Rewrite all of these operations as upserts instead.
-export async function updateScope1(
+export async function upsertScope1(
   emissions: Emissions,
   scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>>,
   metadata: Metadata
 ) {
-  return emissions.scope1Id
-    ? await prisma.scope1.update({
-        where: {
-          id: emissions.scope1Id,
+  return prisma.scope1.upsert({
+    where: {
+      id: emissions.scope1Id,
+    },
+    update: {
+      ...scope1,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        data: {
-          ...scope1,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+      },
+    },
+    create: {
+      ...scope1,
+      unit: tCO2e,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        select: { id: true },
-      })
-    : await prisma.scope1.create({
-        data: {
-          ...scope1,
-          unit: tCO2e,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-          emissions: {
-            connect: {
-              id: emissions.id,
-            },
-          },
+      },
+      emissions: {
+        connect: {
+          id: emissions.id,
         },
-        select: { id: true },
-      })
+      },
+    },
+    select: { id: true },
+  })
 }
 
-export async function updateScope2(
+export async function upsertScope2(
   emissions: Emissions,
   scope2: OptionalNullable<Omit<Scope2, 'id' | 'metadataId' | 'unit'>>,
   metadata: Metadata
 ) {
-  return emissions.scope2Id
-    ? await prisma.scope2.update({
-        where: {
-          id: emissions.scope2Id,
+  return prisma.scope2.upsert({
+    where: {
+      id: emissions.scope2Id,
+    },
+    update: {
+      ...scope2,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        data: {
-          ...scope2,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+      },
+    },
+    create: {
+      ...scope2,
+      unit: tCO2e,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        select: { id: true },
-      })
-    : await prisma.scope2.create({
-        data: {
-          ...scope2,
-          unit: tCO2e,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-          emissions: {
-            connect: {
-              id: emissions.id,
-            },
-          },
+      },
+      emissions: {
+        connect: {
+          id: emissions.id,
         },
-        select: { id: true },
-      })
+      },
+    },
+    select: { id: true },
+  })
 }
 
-export async function updateBiogenic(
+export async function upsertBiogenic(
   emissions: Emissions,
   biogenic: OptionalNullable<
     Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit'>
   >,
   metadata: Metadata
 ) {
-  return emissions.biogenicEmissionsId
-    ? await prisma.biogenicEmissions.update({
-        where: {
-          id: emissions.biogenicEmissionsId,
+  return prisma.biogenicEmissions.upsert({
+    where: {
+      id: emissions.biogenicEmissionsId,
+    },
+    update: {
+      ...biogenic,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        data: {
-          ...biogenic,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+      },
+    },
+    create: {
+      ...biogenic,
+      unit: tCO2e,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        select: { id: true },
-      })
-    : await prisma.biogenicEmissions.create({
-        data: {
-          ...biogenic,
-          unit: tCO2e,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-          emissions: {
-            connect: {
-              id: emissions.id,
-            },
-          },
+      },
+      emissions: {
+        connect: {
+          id: emissions.id,
         },
-        select: { id: true },
-      })
+      },
+    },
+    select: { id: true },
+  })
 }
 
-export async function updateStatedTotalEmissions(
+export async function upsertStatedTotalEmissions(
   emissions: Emissions,
   statedTotalEmissions: OptionalNullable<
     Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
@@ -147,47 +134,43 @@ export async function updateStatedTotalEmissions(
     ? scope3.statedTotalEmissionsId
     : emissions.statedTotalEmissionsId
 
-  return statedTotalEmissionsId
-    ? await prisma.statedTotalEmissions.update({
-        where: {
-          id: statedTotalEmissionsId,
+  return prisma.statedTotalEmissions.upsert({
+    where: {
+      id: statedTotalEmissionsId,
+    },
+    update: {
+      ...statedTotalEmissions,
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        data: {
-          ...statedTotalEmissions,
-          metadata: {
+      },
+    },
+    create: {
+      ...statedTotalEmissions,
+      unit: tCO2e,
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+      emissions: scope3
+        ? undefined
+        : {
             connect: {
-              id: metadata.id,
+              id: emissions.id,
             },
           },
-        },
-        select: { id: true },
-      })
-    : await prisma.statedTotalEmissions.create({
-        data: {
-          ...statedTotalEmissions,
-          unit: tCO2e,
-          metadata: {
+      scope3: scope3
+        ? {
             connect: {
-              id: metadata.id,
+              id: scope3.id,
             },
-          },
-          emissions: scope3
-            ? undefined
-            : {
-                connect: {
-                  id: emissions.id,
-                },
-              },
-          scope3: scope3
-            ? {
-                connect: {
-                  id: scope3.id,
-                },
-              }
-            : undefined,
-        },
-        select: { id: true },
-      })
+          }
+        : undefined,
+    },
+    select: { id: true },
+  })
 }
 
 export async function upsertCompany({
