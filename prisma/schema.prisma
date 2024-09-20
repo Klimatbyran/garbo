@@ -128,10 +128,10 @@ model Emissions {
 
 /// This is used when companies only report a total number for either overall- or scope 3 emissions.
 model StatedTotalEmissions {
-  id         Int   @id @default(autoincrement())
-  total      Float
+  id         Int    @id @default(autoincrement())
+  total      Float?
   metadataId Int
-  scope3Id   Int?  @unique
+  scope3Id   Int?   @unique
 
   unit      String
   emissions Emissions?
@@ -141,8 +141,8 @@ model StatedTotalEmissions {
 
 /// This is used when companies have bad reporting where they have combined scope 1+2 as one value
 model Scope1And2 {
-  id         Int   @id @default(autoincrement())
-  total      Float
+  id         Int    @id @default(autoincrement())
+  total      Float?
   metadataId Int
 
   unit      String
