@@ -169,11 +169,14 @@ function getReportingPeriods(
 
         // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
         // Or if this should be imported later, do it in a separate script
+
+        // TODO: Add comment and reportURL as metadata for this year.
         const {
           Company: name,
           [`URL ${year}`]: reportURL,
           'Scope 1': scope1Total,
           'Scope 2 (LB)': scope2LB,
+          // TODO: Add scope1And2
           'Scope 2 (MB)': scope2MB,
           'Scope 3 (total)': scope3StatedTotal,
           Total: statedTotal,
@@ -207,8 +210,6 @@ function getReportingPeriods(
           ...(Number.isFinite(scope2MB) ? { mb: scope2MB } : {}),
           ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
         }
-
-        // TODO: Add comment and source URL as metadata for this year.
 
         const scope3Categories = Array.from({ length: 15 }, (_, i) => i + 1)
           .map((category) => ({

@@ -6,6 +6,8 @@ import {
   Company,
   Emissions,
   BiogenicEmissions,
+  StatedTotalEmissions,
+  Scope3,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -13,6 +15,7 @@ export const prisma = new PrismaClient()
 
 const tCO2e = 'tCO2e'
 
+// IDEA: Rewrite all of these operations as upserts instead.
 export async function updateScope1(
   emissions: Emissions,
   scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>>,
@@ -127,6 +130,61 @@ export async function updateBiogenic(
               id: emissions.id,
             },
           },
+        },
+        select: { id: true },
+      })
+}
+
+export async function updateStatedTotalEmissions(
+  emissions: Emissions,
+  statedTotalEmissions: OptionalNullable<
+    Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
+  >,
+  metadata: Metadata,
+  scope3?: Scope3
+) {
+  const statedTotalEmissionsId = scope3
+    ? scope3.statedTotalEmissionsId
+    : emissions.statedTotalEmissionsId
+
+  return statedTotalEmissionsId
+    ? await prisma.statedTotalEmissions.update({
+        where: {
+          id: statedTotalEmissionsId,
+        },
+        data: {
+          ...statedTotalEmissions,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : await prisma.statedTotalEmissions.create({
+        data: {
+          ...statedTotalEmissions,
+          unit: tCO2e,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: scope3
+            ? undefined
+            : {
+                connect: {
+                  id: emissions.id,
+                },
+              },
+          scope3: scope3
+            ? {
+                connect: {
+                  id: scope3.id,
+                },
+              }
+            : undefined,
         },
         select: { id: true },
       })

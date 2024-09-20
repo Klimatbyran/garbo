@@ -6,6 +6,7 @@ import {
   updateBiogenic,
   updateScope1,
   updateScope2,
+  updateStatedTotalEmissions,
   upsertCompany,
 } from '../lib/prisma'
 import {
@@ -34,6 +35,7 @@ router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
 
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
+// IDEA: Allow metadata to be provided together with the request, to make it possible to add source, comment and similar
 router.use('/', validateMetadata(), createMetadata(prisma))
 
 const upsertCompanyBodySchema = z.object({
@@ -133,7 +135,7 @@ const postEmissionsBodySchema = z.object({
       )
       .optional(),
     biogenic: z.object({ total: z.number() }).optional(),
-    // statedTotalEmissions
+    statedTotalEmissions: z.object({ total: z.number() }).optional(),
     // scope3
     // scope3 categories
     // scope3 statedTotalEmissions
@@ -151,25 +153,22 @@ router.post(
       return res.status(400).json({ error })
     }
 
-    const { scope1, scope2, biogenic } = data.emissions
+    const { scope1, scope2, biogenic, statedTotalEmissions } = data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
     try {
       // Only update if the input contains relevant changes
-      // NOTE: The types for scope1 and scope2 say the objects always exist. However, this is not true.
+      // NOTE: The types for partial inputs like scope1 and scope2 say the objects always exist. However, this is not true.
       // There seems to be a type error in zod which doesn't take into account optional objects.
-      if (scope1) {
-        await updateScope1(emissions, scope1, metadata)
-      }
 
-      if (scope2) {
-        await updateScope2(emissions, scope2, metadata)
-      }
-
-      if (biogenic) {
-        await updateBiogenic(emissions, biogenic, metadata)
-      }
+      await Promise.allSettled([
+        scope1 && updateScope1(emissions, scope1, metadata),
+        scope2 && updateScope2(emissions, scope2, metadata),
+        statedTotalEmissions &&
+          updateStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
+        biogenic && updateBiogenic(emissions, biogenic, metadata),
+      ])
     } catch (error) {
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })
