@@ -96,31 +96,37 @@ export const createMetadata =
     next()
   }
 
+const reportingPeriodBodySchema = z
+  .object({
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    reportURL: z.string().optional(),
+  })
+  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
+    message: 'startDate must be earlier than endDate',
+  })
+
 export const validateReportingPeriod = () =>
   validateRequest({
     params: z.object({
       year: z.string().regex(/\d{4}(?:-\d{4})?/),
     }),
-    body: z
-      .object({
-        startDate: z.coerce.date(),
-        endDate: z.coerce.date(),
-        reportURL: z.string().optional(),
-      })
-      .refine(
-        // TODO: Ensure this works as expected for broken reporting periods especially.
-        // For example for Q2789310:
-        // 2022-03-01 is before 2023-02-28, but it doesn't seem to work as expected.
-        ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
-        { message: 'startDate must be earlier than endDate' }
-      ),
+    body: reportingPeriodBodySchema,
   })
 
 export const reportingPeriod =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const { year } = req.params
-    const { startDate, endDate, reportURL } = req.body
+
+    // NOTE: Since we have to use validateRequest() for middlewares,
+    // we have to parse the request body twice.
+    // We should find a cleaner and more declarative pattern for this.
+    const { data, error } = reportingPeriodBodySchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+    const { startDate, endDate, reportURL } = data
 
     const endYear = parseInt(year.split('-').at(-1))
     if (endYear !== endDate.getFullYear()) {
