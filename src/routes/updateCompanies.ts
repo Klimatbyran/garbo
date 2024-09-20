@@ -137,17 +137,19 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
-    scope3: z.object({
-      scope3Categories: z
-        .array(
-          z.object({
-            category: z.number().int().min(1).max(16),
-            total: z.number(),
-          })
-        )
-        .optional(),
-      statedTotalEmissions: statedTotalEmissionsSchema,
-    }),
+    scope3: z
+      .object({
+        scope3Categories: z
+          .array(
+            z.object({
+              category: z.number().int().min(1).max(16),
+              total: z.number(),
+            })
+          )
+          .optional(),
+        statedTotalEmissions: statedTotalEmissionsSchema,
+      })
+      .optional(),
     biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     // scope1And2
