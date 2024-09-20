@@ -388,6 +388,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
       const emissionsArgs = [
         `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
         {
+          // TODO: POST metadata separately with comment and source. Also allow including dataOrigin based on specific enum values.
           startDate: reportingPeriod.startDate,
           endDate: reportingPeriod.endDate,
           reportURL: reportingPeriod.reportURL,
@@ -422,6 +423,13 @@ async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
   const companies = getCompanyData([2023])
+  // NOTE: Useful for testing upload of only specific companies
+  // .filter(
+  //   (x) =>
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
+  // )
+  // .slice(0, 1)
 
   await resetDB()
 
