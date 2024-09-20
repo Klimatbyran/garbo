@@ -288,7 +288,11 @@ function getReportingPeriods(
         reportingPeriodsByCompany[companyId] ??= []
         // Ignore reportingPeriods without any meaningful data
         if (!reportingPeriod.emissions && !reportingPeriod.economy) {
-          console.log('skipping', year, 'for', name)
+          console.log(
+            'Skipping',
+            year,
+            `for "${name}" due to missing emissions and economy data`
+          )
           return
         }
         reportingPeriodsByCompany[companyId].push(reportingPeriod)
