@@ -8,6 +8,7 @@ import {
   upsertScope2,
   upsertStatedTotalEmissions,
   upsertCompany,
+  upsertScope3,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -112,6 +113,8 @@ router.use(
 
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 
+const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
+
 const postEmissionsBodySchema = z.object({
   emissions: z.object({
     scope1: z
@@ -134,11 +137,19 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
+    scope3: z.object({
+      scope3Categories: z
+        .array(
+          z.object({
+            category: z.number().int().min(1).max(16),
+            total: z.number(),
+          })
+        )
+        .optional(),
+      statedTotalEmissions: statedTotalEmissionsSchema,
+    }),
     biogenic: z.object({ total: z.number() }).optional(),
-    statedTotalEmissions: z.object({ total: z.number() }).optional(),
-    // scope3
-    // scope3 categories
-    // scope3 statedTotalEmissions
+    statedTotalEmissions: statedTotalEmissionsSchema,
     // scope1And2
   }),
 })
@@ -153,7 +164,8 @@ router.post(
       return res.status(400).json({ error })
     }
 
-    const { scope1, scope2, biogenic, statedTotalEmissions } = data.emissions
+    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
+      data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
@@ -165,6 +177,8 @@ router.post(
       await Promise.allSettled([
         scope1 && upsertScope1(emissions, scope1, metadata),
         scope2 && upsertScope2(emissions, scope2, metadata),
+        // TODO: type error for scope 3 categories - similar to the zod type bug for scope 1 and 2, it's not handling optional types correctly.
+        scope3 && upsertScope3(emissions, scope3 as unknown, metadata),
         statedTotalEmissions &&
           upsertStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
         biogenic && upsertBiogenic(emissions, biogenic, metadata),

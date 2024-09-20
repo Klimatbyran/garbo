@@ -85,6 +85,87 @@ export async function upsertScope2(
   })
 }
 
+export async function upsertScope3(
+  emissions: Emissions,
+  scope3: {
+    scope3Categories?: { category: number; total: number }[]
+    statedTotalEmissions?: OptionalNullable<
+      Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
+    >
+  },
+  metadata: Metadata
+) {
+  const updatedScope3 = emissions.scope3Id
+    ? await prisma.scope3.findFirst({
+        where: { id: emissions.scope3Id },
+        include: { scope3Categories: { select: { id: true, category: true } } },
+      })
+    : await prisma.scope3.create({
+        data: {
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: {
+            connect: {
+              id: emissions.id,
+            },
+          },
+        },
+        include: {
+          scope3Categories: {
+            select: {
+              id: true,
+              category: true,
+            },
+          },
+        },
+      })
+
+  // Update existing scope 3 categories and create new ones
+  await Promise.all(
+    scope3.scope3Categories.map((scope3Category) =>
+      updatedScope3.scope3Categories.find(
+        ({ category }) => scope3Category.category === category
+      )
+        ? prisma.scope3Category.update({
+            where: {
+              id: updatedScope3.id,
+            },
+            data: {
+              // TODO: StatedTotalEmissions
+              ...scope3Category,
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+        : prisma.scope3Category.create({
+            data: {
+              ...scope3Category,
+              unit: tCO2e,
+              // TODO: StatedTotalEmissions
+              scope3: {
+                connect: {
+                  id: updatedScope3.id,
+                },
+              },
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+    )
+  )
+}
+
 export async function upsertBiogenic(
   emissions: Emissions,
   biogenic: OptionalNullable<
