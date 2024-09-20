@@ -37,6 +37,7 @@ router.get('/', cache(), async (req: Request, res: Response) => {
           select: {
             startDate: true,
             endDate: true,
+            reportURL: true,
             economy: {
               select: {
                 turnover: {

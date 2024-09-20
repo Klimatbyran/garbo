@@ -389,6 +389,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
         {
           startDate: reportingPeriod.startDate,
           endDate: reportingPeriod.endDate,
+          reportURL: reportingPeriod.reportURL,
           emissions: reportingPeriod.emissions,
         },
       ] as const

@@ -30,6 +30,7 @@ export type MetadataInput = {
 export type ReportingPeriodInput = {
   startDate: Date
   endDate: Date
+  reportURL?: string
   companyId: string
   emissions?: EmissionsInput
   economy?: EconomyInput
