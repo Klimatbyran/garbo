@@ -224,6 +224,9 @@ router.post(
     const metadata = res.locals.metadata
     const economy = res.locals.economy
 
+    // Normalise currency
+    turnover.currency = turnover.currency?.trim()?.toUpperCase()
+
     try {
       // Only update if the input contains relevant changes
       await Promise.allSettled([
