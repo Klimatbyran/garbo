@@ -388,11 +388,14 @@ export async function updateCompanies(companies: CompanyInput[]) {
       const emissionsArgs = [
         `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
         {
-          // TODO: POST metadata separately with comment and source. Also allow including dataOrigin based on specific enum values.
           startDate: reportingPeriod.startDate,
           endDate: reportingPeriod.endDate,
           reportURL: reportingPeriod.reportURL,
           emissions: reportingPeriod.emissions,
+          metadata: {
+            comment: 'Import from spreadsheet with verified data',
+            source: reportingPeriod.reportURL,
+          },
         },
       ] as const
 

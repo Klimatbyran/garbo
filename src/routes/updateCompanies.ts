@@ -25,18 +25,12 @@ const router = express.Router()
 const tCO2e = 'tCO2e'
 const unit = tCO2e
 
-interface Metadata {
-  source: any
-  userId: any
-}
-
 const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
 
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
-// IDEA: Allow metadata to be provided together with the request, to make it possible to add source, comment and similar
 router.use('/', validateMetadata(), createMetadata(prisma))
 
 const upsertCompanyBodySchema = z.object({
