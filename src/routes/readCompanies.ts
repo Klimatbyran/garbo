@@ -54,7 +54,6 @@ router.get('/', cache(), async (req: Request, res: Response) => {
                     metadata,
                   },
                 },
-                metadata,
               },
             },
             emissions: {
