@@ -11,7 +11,7 @@ function getFirstDefinedValue(...values: (string | null | undefined)[]) {
   }
 }
 
-function getName(company: (typeof garboCompanies)[number]) {
+export function getName(company: (typeof garboCompanies)[number]) {
   let name = getFirstDefinedValue(
     company.facit?.companyName,
     company.wikidata?.label,
@@ -24,7 +24,7 @@ function getName(company: (typeof garboCompanies)[number]) {
   return name
 }
 
-function getWikidataId(company: (typeof garboCompanies)[number]) {
+export function getWikidataId(company: (typeof garboCompanies)[number]) {
   let wikidataId = getFirstDefinedValue(
     company.wikidata?.node,
     company.wikidataId
@@ -66,15 +66,11 @@ export async function importGarboData({
         employees: {
           create: {
             value: economy.employees,
-            // TODO: Add employees unit when importing the facit data
             metadataId: metadata.id,
           },
         },
-        metadataId: metadata.id,
       },
-      select: {
-        id: true,
-      },
+      select: { id: true },
     })
 
     return id

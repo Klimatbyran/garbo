@@ -37,6 +37,10 @@ const ALEX_ID = 2
 export const fakeAuth =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
+    // TODO: Allow specifying the user with an HTTP header.
+    // IDEA: garbo:auth-token-axbxmnabmxbambsmn or alex:auth-token-axbxmnabmxbambsmn
+    // Then find the user and use their ID for the metadata.
+    // TODO: respond with HTTP 401 if token was not valid to remove access to actions that require auth.
     const user = await prisma.user.findFirst({ where: { id: ALEX_ID } })
     res.locals.user = user
     next()

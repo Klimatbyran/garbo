@@ -11,6 +11,7 @@ import {
   Economy,
   Employees,
   Turnover,
+  Goal,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -317,6 +318,49 @@ export async function upsertCompany({
     // However, no matter what, we could still use wikidataId in the API and in the URL structure.
     update: { name, description, url, internalComment },
   })
+}
+
+export async function upsertGoals(
+  wikidataId: Company['wikidataId'],
+  goals: OptionalNullable<
+    Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId'>
+  >[],
+  metadata: Metadata
+) {
+  return prisma.$transaction(
+    goals.map(({ id, ...goal }) =>
+      id
+        ? prisma.goal.update({
+            where: { id },
+            data: {
+              ...goal,
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+        : prisma.goal.create({
+            data: {
+              ...goal,
+              description: goal.description,
+              company: {
+                connect: {
+                  wikidataId,
+                },
+              },
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+    )
+  )
 }
 
 export async function upsertTurnover(

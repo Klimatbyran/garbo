@@ -10,6 +10,8 @@ import {
 } from './import'
 import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
+import { getName, getWikidataId } from './import-garbo-companies'
+import { Metadata } from '@prisma/client'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -352,6 +354,7 @@ function getCompanyData(years: number[]) {
   for (const [wikidataId, reportingPeriods] of Object.entries(
     reportingPeriodsByCompany
   )) {
+    // TODO: Add company description from garbo data if it is missing
     companies.push({
       wikidataId,
       name: rawCompanies[wikidataId].name,
@@ -447,6 +450,50 @@ async function postJSON(url: string, body: any) {
   }
 }
 
+async function importGarboData() {
+  const garboCompanies = await import('../companies.json')
+
+  const metadata = {
+    comment: 'Imported from Garbo',
+    source: 'https://klimatkollen.se',
+  }
+
+  const ABB = garboCompanies.default.find((c) => getName(c).includes('ABB'))!
+
+  // for (const company of garboCompanies) {
+  for (const company of [ABB]) {
+    const wikidataId = getWikidataId(company)
+    const reportURL = company?.facit?.url || company.url
+
+    if (Array.isArray(company.goals)) {
+      const goals = company.goals.map(
+        (goal: (typeof company.goals)[number]) => ({
+          description: goal.description || undefined,
+          year: goal.year?.toString() || undefined,
+          target: goal.target || undefined,
+          baseYear: goal.baseYear || undefined,
+        })
+      )
+
+      await postJSON(
+        `http://localhost:3000/api/companies/${wikidataId}/goals`,
+        {
+          goals,
+          metadata: {
+            ...metadata,
+            source: reportURL || metadata.source,
+          },
+        }
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
+  }
+}
+
 async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
@@ -467,6 +514,17 @@ async function main() {
 
   console.log('Updating companies...')
   await updateCompanies(companies)
+
+  // TODO: Add garbo data for goals
+
+  // For all the garbo companies, use the wikidataId to add the relevant data.
+
+  await importGarboData()
+
+  // TODO: Add garbo data for initiatives
+  // TODO: Add garbo data for industryGics
+
+  // TODO: Add industryGics based on spreadsheet data (or garbo data if it is missing)
 
   console.log(
     `\n\n✅ Imported`,

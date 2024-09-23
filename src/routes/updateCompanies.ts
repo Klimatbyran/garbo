@@ -11,6 +11,7 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
+  upsertGoals,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -37,11 +38,11 @@ router.use('/', express.json())
 router.use('/', validateMetadata(), createMetadata(prisma))
 
 const upsertCompanyBodySchema = z.object({
+  wikidataId: wikidataIdSchema,
   name: z.string(),
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
-  wikidataId: wikidataIdSchema,
 })
 
 // NOTE: The request body seems to be consumed the first time it we call the middleware processRequest()
@@ -79,6 +80,7 @@ async function handleCompanyUpsert(req: Request, res: Response) {
 // However, the middlewares didn't run in the expected order so the quick workaround was to just have two endpoints doing the same thing.
 // Feel free to debug and improve!
 router.post('/', validateCompanyUpsert(), handleCompanyUpsert)
+router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
 
 // NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
 router.use(
@@ -100,7 +102,49 @@ router.use(
   }
 )
 
-router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
+const initiativesSchema = z.array(
+  z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    year: z.string().optional(),
+    scope: z.string().optional(),
+  })
+)
+
+const goalsSchema = z.object({
+  goals: z.array(
+    z.object({
+      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
+      id: z.number().optional(),
+      description: z.string(),
+      year: z.string().optional(),
+      target: z.number().optional(),
+      baseYear: z.string().optional(),
+    })
+  ),
+})
+
+router.post(
+  '/:wikidataId/goals',
+  validateRequestBody(goalsSchema),
+  async (req, res) => {
+    const { data, error } = goalsSchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+    const { goals } = data
+
+    if (goals?.length) {
+      const { wikidataId } = req.params
+      const metadata = res.locals.metadata
+
+      await upsertGoals(wikidataId, goals, metadata)
+    }
+    res.status(200).send()
+  }
+)
+
+// TODO: Schema for POST /initiatives route: z.array(initiativeSchema)
 
 router.use(
   '/:wikidataId/:year',
