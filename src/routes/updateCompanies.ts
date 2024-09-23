@@ -12,6 +12,7 @@ import {
   upsertTurnover,
   upsertEmployees,
   upsertGoals,
+  upsertInitiatives,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -102,15 +103,6 @@ router.use(
   }
 )
 
-const initiativesSchema = z.array(
-  z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    year: z.string().optional(),
-    scope: z.string().optional(),
-  })
-)
-
 const goalsSchema = z.object({
   goals: z.array(
     z.object({
@@ -144,7 +136,38 @@ router.post(
   }
 )
 
-// TODO: Schema for POST /initiatives route: z.array(initiativeSchema)
+const initiativesSchema = z.object({
+  initiatives: z.array(
+    z.object({
+      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
+      id: z.number().optional(),
+      title: z.string(),
+      description: z.string().optional(),
+      year: z.string().optional(),
+      scope: z.string().optional(),
+    })
+  ),
+})
+
+router.post(
+  '/:wikidataId/initiatives',
+  validateRequestBody(initiativesSchema),
+  async (req, res) => {
+    const { data, error } = initiativesSchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+    const { initiatives } = data
+
+    if (initiatives?.length) {
+      const { wikidataId } = req.params
+      const metadata = res.locals.metadata
+
+      await upsertInitiatives(wikidataId, initiatives, metadata)
+    }
+    res.status(200).send()
+  }
+)
 
 router.use(
   '/:wikidataId/:year',

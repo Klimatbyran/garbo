@@ -12,6 +12,7 @@ import {
   Employees,
   Turnover,
   Goal,
+  Initiative,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -346,6 +347,49 @@ export async function upsertGoals(
             data: {
               ...goal,
               description: goal.description,
+              company: {
+                connect: {
+                  wikidataId,
+                },
+              },
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+    )
+  )
+}
+
+export async function upsertInitiatives(
+  wikidataId: Company['wikidataId'],
+  initiatives: OptionalNullable<
+    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId'>
+  >[],
+  metadata: Metadata
+) {
+  return prisma.$transaction(
+    initiatives.map(({ id, ...initiative }) =>
+      id
+        ? prisma.initiative.update({
+            where: { id },
+            data: {
+              ...initiative,
+              metadata: {
+                connect: {
+                  id: metadata.id,
+                },
+              },
+            },
+            select: { id: true },
+          })
+        : prisma.initiative.create({
+            data: {
+              ...initiative,
+              title: initiative.title,
               company: {
                 connect: {
                   wikidataId,

@@ -469,19 +469,68 @@ async function importGarboData() {
     const reportURL = company?.facit?.url || company.url
 
     if (Array.isArray(company.goals)) {
-      const goals = company.goals.map(
-        (goal: (typeof company.goals)[number]) => ({
-          description: goal.description || undefined,
-          year: goal.year?.toString() || undefined,
-          target: goal.target || undefined,
-          baseYear: goal.baseYear || undefined,
-        })
-      )
+      const goals = company.goals
+        .map(
+          ({
+            description,
+            year,
+            target,
+            baseYear,
+          }: (typeof company.goals)[number]) => {
+            if (description || year || target || baseYear) {
+              return {
+                description: description || undefined,
+                target: target || undefined,
+                year: year?.toString() || undefined,
+                baseYear: baseYear || undefined,
+              }
+            }
+          }
+        )
+        .filter(Boolean)
 
       await postJSON(
         `http://localhost:3000/api/companies/${wikidataId}/goals`,
         {
           goals,
+          metadata: {
+            ...metadata,
+            source: reportURL || metadata.source,
+          },
+        }
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
+
+    if (Array.isArray(company.initiatives)) {
+      const initiatives = company.initiatives
+        .map(
+          ({
+            title,
+            description,
+            scope,
+            year,
+          }: (typeof company.initiatives)[number]) => {
+            if (title || description || scope || year) {
+              return {
+                title: title || undefined,
+                description: description || undefined,
+                year: year?.toString() || undefined,
+                scope: scope || undefined,
+              }
+            }
+          }
+        )
+        .filter(Boolean)
+
+      await postJSON(
+        `http://localhost:3000/api/companies/${wikidataId}/initiatives`,
+        {
+          initiatives,
           metadata: {
             ...metadata,
             source: reportURL || metadata.source,
