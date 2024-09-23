@@ -426,13 +426,14 @@ async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
   const companies = getCompanyData([2023])
-  // NOTE: Useful for testing upload of only specific companies
-  // .filter(
-  //   (x) =>
-  //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
-  //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
-  // )
-  // .slice(0, 1)
+    // NOTE: Useful for testing upload of only specific companies
+    // .filter(
+    //   (x) =>
+    //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
+    //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
+    // )
+    .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)
+    .slice(0, 1)
 
   await resetDB()
 

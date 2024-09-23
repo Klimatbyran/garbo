@@ -196,34 +196,38 @@ export async function upsertBiogenic(
   >,
   metadata: Metadata
 ) {
-  return prisma.biogenicEmissions.upsert({
-    where: {
-      id: emissions.biogenicEmissionsId,
-    },
-    update: {
-      ...biogenic,
-      metadata: {
-        connect: {
-          id: metadata.id,
+  return emissions.biogenicEmissionsId
+    ? prisma.biogenicEmissions.update({
+        where: {
+          id: emissions.biogenicEmissionsId,
         },
-      },
-    },
-    create: {
-      ...biogenic,
-      unit: tCO2e,
-      metadata: {
-        connect: {
-          id: metadata.id,
+        data: {
+          ...biogenic,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
         },
-      },
-      emissions: {
-        connect: {
-          id: emissions.id,
+        select: { id: true },
+      })
+    : prisma.biogenicEmissions.create({
+        data: {
+          ...biogenic,
+          unit: tCO2e,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: {
+            connect: {
+              id: emissions.id,
+            },
+          },
         },
-      },
-    },
-    select: { id: true },
-  })
+        select: { id: true },
+      })
 }
 
 export async function upsertStatedTotalEmissions(
