@@ -255,11 +255,12 @@ model Scope3Category {
 }
 
 model Economy {
-  id         Int @id @default(autoincrement())
-  metadataId Int
+  id          Int  @id @default(autoincrement())
+  turnoverId  Int? @unique
+  employeesId Int? @unique
 
-  turnover        Turnover?
-  employees       Employees?
+  turnover        Turnover?        @relation(fields: [turnoverId], references: [id])
+  employees       Employees?       @relation(fields: [employeesId], references: [id])
   reportingPeriod ReportingPeriod?
 }
 
@@ -268,10 +269,9 @@ model Turnover {
   // IDEA: Should we store turnover with another datatype to prevent rounding errors? Money doesn't seem to be a good fit for storing as floats.
   value      Float?
   currency   String?
-  economyId  Int     @unique
   metadataId Int
 
-  economy  Economy  @relation(fields: [economyId], references: [id])
+  economy  Economy?
   metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
@@ -281,10 +281,9 @@ model Employees {
   value      Float?
   /// How the number of employees were calculated, e.g. Full-time equivalents (FTE) or similar.
   unit       String?
-  economyId  Int     @unique
   metadataId Int
 
-  economy  Economy  @relation(fields: [economyId], references: [id])
+  economy  Economy?
   metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
@@ -342,7 +341,6 @@ model Metadata {
 
   goal                 Goal[]
   initiative           Initiative[]
-  economy              Economy[]
   scope1               Scope1[]
   scope2               Scope2[]
   scope3               Scope3[]
