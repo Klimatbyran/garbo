@@ -167,7 +167,7 @@ export const ensureEmissionsExists =
         })
       : await prisma.emissions.create({
           data: {
-            reportingPeriods: {
+            reportingPeriod: {
               connect: {
                 id: reportingPeriod.id,
               },
