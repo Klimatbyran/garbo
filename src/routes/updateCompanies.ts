@@ -9,6 +9,8 @@ import {
   upsertStatedTotalEmissions,
   upsertCompany,
   upsertScope3,
+  upsertTurnover,
+  upsertEmployees,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -184,6 +186,53 @@ router.post(
     } catch (error) {
       console.error('Failed to update emissions:', error)
       return res.status(500).json({ error: 'Failed to update emissions' })
+    }
+
+    res.status(200).send()
+  }
+)
+
+const postEconomyBodySchema = z.object({
+  economy: z
+    .object({
+      turnover: z
+        .object({
+          value: z.number().optional(),
+          currency: z.string().optional(),
+        })
+        .optional(),
+      employees: z
+        .object({
+          value: z.number().optional(),
+          currency: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
+router.post(
+  '/:wikidataId/:year/economy',
+  validateRequestBody(postEconomyBodySchema),
+  async (req, res) => {
+    const { data, error } = postEconomyBodySchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+
+    const { turnover, employees } = data.economy
+    const metadata = res.locals.metadata
+    const economy = res.locals.economy
+
+    try {
+      // Only update if the input contains relevant changes
+      await Promise.allSettled([
+        turnover && upsertTurnover(economy, turnover, metadata),
+        employees && upsertEmployees(economy, employees, metadata),
+      ])
+    } catch (error) {
+      console.error('Failed to update economy:', error)
+      return res.status(500).json({ error: 'Failed to update economy' })
     }
 
     res.status(200).send()

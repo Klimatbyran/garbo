@@ -385,28 +385,51 @@ export async function updateCompanies(companies: CompanyInput[]) {
     const { wikidataId, reportingPeriods } = company
 
     for (const reportingPeriod of reportingPeriods) {
-      if (!reportingPeriod.emissions) continue
-
-      const emissionsArgs = [
-        `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
-        {
-          startDate: reportingPeriod.startDate,
-          endDate: reportingPeriod.endDate,
-          reportURL: reportingPeriod.reportURL,
-          emissions: reportingPeriod.emissions,
-          metadata: {
-            comment: 'Import from spreadsheet with verified data',
-            source: reportingPeriod.reportURL,
+      if (reportingPeriod.emissions) {
+        const emissionsArgs = [
+          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
+          {
+            startDate: reportingPeriod.startDate,
+            endDate: reportingPeriod.endDate,
+            reportURL: reportingPeriod.reportURL,
+            emissions: reportingPeriod.emissions,
+            metadata: {
+              comment: 'Import from spreadsheet with verified data',
+              source: reportingPeriod.reportURL,
+            },
           },
-        },
-      ] as const
+        ] as const
 
-      await postJSON(...emissionsArgs).then(async (res) => {
-        if (!res.ok) {
-          const body = await res.text()
-          console.error(res.status, res.statusText, wikidataId, body)
-        }
-      })
+        await postJSON(...emissionsArgs).then(async (res) => {
+          if (!res.ok) {
+            const body = await res.text()
+            console.error(res.status, res.statusText, wikidataId, body)
+          }
+        })
+      }
+
+      if (reportingPeriod.economy) {
+        const economyArgs = [
+          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
+          {
+            startDate: reportingPeriod.startDate,
+            endDate: reportingPeriod.endDate,
+            reportURL: reportingPeriod.reportURL,
+            economy: reportingPeriod.economy,
+            metadata: {
+              comment: 'Import from spreadsheet with verified data',
+              source: reportingPeriod.reportURL,
+            },
+          },
+        ] as const
+
+        await postJSON(...economyArgs).then(async (res) => {
+          if (!res.ok) {
+            const body = await res.text()
+            console.error(res.status, res.statusText, wikidataId, body)
+          }
+        })
+      }
     }
   }
 }

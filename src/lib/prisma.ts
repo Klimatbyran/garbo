@@ -8,6 +8,9 @@ import {
   BiogenicEmissions,
   StatedTotalEmissions,
   Scope3,
+  Economy,
+  Employees,
+  Turnover,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -314,6 +317,82 @@ export async function upsertCompany({
     // However, no matter what, we could still use wikidataId in the API and in the URL structure.
     update: { name, description, url, internalComment },
   })
+}
+
+export async function upsertTurnover(
+  economy: Economy,
+  turnover: OptionalNullable<Omit<Turnover, 'id' | 'metadataId' | 'unit'>>,
+  metadata: Metadata
+) {
+  return economy.turnoverId
+    ? prisma.turnover.update({
+        where: {
+          id: economy.turnoverId,
+        },
+        data: {
+          ...turnover,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : prisma.turnover.create({
+        data: {
+          ...turnover,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          economy: {
+            connect: {
+              id: economy.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+}
+
+export async function upsertEmployees(
+  economy: Economy,
+  employees: OptionalNullable<Omit<Employees, 'id' | 'metadataId'>>,
+  metadata: Metadata
+) {
+  return economy.employeesId
+    ? prisma.employees.update({
+        where: {
+          id: economy.employeesId,
+        },
+        data: {
+          ...employees,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : prisma.employees.create({
+        data: {
+          ...employees,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          economy: {
+            connect: {
+              id: economy.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
 }
 
 export async function ensureReportingPeriodExists(
