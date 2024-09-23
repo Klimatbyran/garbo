@@ -374,6 +374,9 @@ export async function createCompanies(companies: CompanyInput[]) {
       name,
       description,
       internalComment,
+      metadata: {
+        comment: 'Import from spreadsheet with verified data',
+      },
     }).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
