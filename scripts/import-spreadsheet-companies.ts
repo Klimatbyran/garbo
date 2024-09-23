@@ -84,12 +84,14 @@ function getCompanyBaseFacts() {
 
         // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
         const {
+          Batch,
           'Wiki ID': wikidataId,
           Company: name,
           'General Comment': internalComment,
         } = wantedColumns as any
 
-        if (wikidataId) {
+        // TODO: temporarily only include companies from the MVP batch
+        if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
           rowValues.push({
             name,
             wikidataId,
