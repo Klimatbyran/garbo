@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import {
   Company,
+  Economy,
   Emissions,
   Metadata,
   PrismaClient,
@@ -19,6 +20,7 @@ declare global {
       reportingPeriod: ReportingPeriod
       metadata?: Metadata
       emissions?: Emissions
+      economy?: Economy
     }
   }
 }
@@ -93,8 +95,8 @@ export const createMetadata =
         },
       })
     }
-    res.locals.metadata = createdMetadata
 
+    res.locals.metadata = createdMetadata
     next()
   }
 
@@ -150,8 +152,8 @@ export const reportingPeriod =
       metadata,
       { startDate, endDate, reportURL }
     )
-    res.locals.reportingPeriod = reportingPeriod
 
+    res.locals.reportingPeriod = reportingPeriod
     next()
   }
 
@@ -176,6 +178,29 @@ export const ensureEmissionsExists =
         })
 
     res.locals.emissions = emissions
+    next()
+  }
 
+export const ensureEconomyExists =
+  (prisma: PrismaClient) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    const reportingPeriod = res.locals.reportingPeriod
+    const economyId = res.locals.reportingPeriod.economyId
+
+    const economy = economyId
+      ? await prisma.economy.findFirst({
+          where: { id: economyId },
+        })
+      : await prisma.economy.create({
+          data: {
+            reportingPeriod: {
+              connect: {
+                id: reportingPeriod.id,
+              },
+            },
+          },
+        })
+
+    res.locals.economy = economy
     next()
   }

@@ -17,6 +17,7 @@ import {
   ensureEmissionsExists,
   validateReportingPeriod,
   validateMetadata,
+  ensureEconomyExists,
 } from './middlewares'
 import { prisma } from '../lib/prisma'
 import { Company } from '@prisma/client'
@@ -106,6 +107,7 @@ router.use(
 )
 
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
+router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
 
 const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
 
@@ -146,7 +148,7 @@ const postEmissionsBodySchema = z.object({
       .optional(),
     biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    // scope1And2
+    // TODO: add scope1And2
   }),
 })
 
