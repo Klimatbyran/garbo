@@ -453,18 +453,20 @@ async function postJSON(url: string, body: any) {
   }
 }
 
-async function importGarboData() {
+// TODO: Make sure data imported from garbo gets the correct user
+async function importGarboData(companies: CompanyInput[]) {
   const garboCompanies = await import('../companies.json')
+
+  const actualCompanies = garboCompanies.default.filter((company) =>
+    companies.some((c) => c.wikidataId === getWikidataId(company))
+  )
 
   const metadata = {
     comment: 'Imported from Garbo',
     source: 'https://klimatkollen.se',
   }
 
-  const ABB = garboCompanies.default.find((c) => getName(c).includes('ABB'))!
-
-  // for (const company of garboCompanies) {
-  for (const company of [ABB]) {
+  for (const company of actualCompanies) {
     const wikidataId = getWikidataId(company)
     const reportURL = company?.facit?.url || company.url
 
@@ -571,7 +573,7 @@ async function main() {
 
   // For all the garbo companies, use the wikidataId to add the relevant data.
 
-  await importGarboData()
+  await importGarboData(companies)
 
   // TODO: Add garbo data for initiatives
   // TODO: Add garbo data for industryGics

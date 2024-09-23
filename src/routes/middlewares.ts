@@ -25,6 +25,16 @@ declare global {
   }
 }
 
+const envSchema = z.object({
+  /**
+   * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
+   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
+   */
+  API_TOKENS: z.string().transform((tokens) => tokens.split(',')),
+})
+
+const ENV = envSchema.parse(process.env)
+
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
     res.set('Cache-Control', 'public, max-age=3000')
@@ -41,6 +51,7 @@ export const fakeAuth =
     // IDEA: garbo:auth-token-axbxmnabmxbambsmn or alex:auth-token-axbxmnabmxbambsmn
     // Then find the user and use their ID for the metadata.
     // TODO: respond with HTTP 401 if token was not valid to remove access to actions that require auth.
+    // IDEA: Pass valid tokens as comma-separated values in an ENV-variable. This would allow us to use one token for Garbo and another one for Alex
     const user = await prisma.user.findFirst({ where: { id: ALEX_ID } })
     res.locals.user = user
     next()
