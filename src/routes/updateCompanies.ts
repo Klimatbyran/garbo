@@ -325,7 +325,9 @@ router.post(
     const economy = res.locals.economy
 
     // Normalise currency
-    turnover.currency = turnover.currency?.trim()?.toUpperCase()
+    if (turnover) {
+      turnover.currency = turnover?.currency?.trim()?.toUpperCase()
+    }
 
     try {
       // Only update if the input contains relevant changes
