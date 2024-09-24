@@ -13,6 +13,7 @@ import {
   upsertEmployees,
   upsertGoals,
   upsertInitiatives,
+  upsertIndustry,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -164,6 +165,38 @@ router.post(
       const metadata = res.locals.metadata
 
       await upsertInitiatives(wikidataId, initiatives, metadata)
+    }
+    res.status(200).send()
+  }
+)
+
+const industrySchema = z.object({
+  industry: z.object({
+    /** If the id is provided, the entity will be updated. Otherwise it will be created. */
+    id: z.number().optional(),
+    subIndustryCode: z.string(),
+  }),
+})
+
+router.post(
+  '/:wikidataId/industry',
+  validateRequestBody(industrySchema),
+  async (req, res) => {
+    const { data, error } = industrySchema.safeParse(req.body)
+    if (error) {
+      return res.status(400).json({ error })
+    }
+    const { industry } = data
+
+    if (industry) {
+      const { wikidataId } = req.params
+      const metadata = res.locals.metadata
+
+      await upsertIndustry(
+        wikidataId,
+        { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
+        metadata
+      )
     }
     res.status(200).send()
   }

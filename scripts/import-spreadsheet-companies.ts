@@ -7,6 +7,7 @@ import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
 import { getName, getWikidataId } from './import-garbo-companies'
 import garboCompanies from '../companies.json'
+import { getAllGicsCodesLookup, gicsCodes } from './add-gics'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -98,37 +99,59 @@ function getCompanyBaseFacts() {
   return sheet
     .getSheetValues()
     .slice(headerRow + 1) // Skip header
-    .reduce<{ wikidataId: string; name: string; internalComment?: string }[]>(
-      (rowValues, row) => {
-        if (!row) return rowValues
+    .reduce<
+      {
+        wikidataId: string
+        name: string
+        internalComment?: string
+        subIndustryCode?: string
+      }[]
+    >((rowValues, row) => {
+      if (!row) return rowValues
 
-        const wantedColumns = headers.reduce((acc, header, i) => {
-          const index = i + 1
-          acc[header!.toString()] = row[index]?.result || row[index]
-          return acc
-        }, {})
+      const wantedColumns = headers.reduce((acc, header, i) => {
+        const index = i + 1
+        acc[header!.toString()] = row[index]?.result || row[index]
+        return acc
+      }, {})
 
-        // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
-        const {
-          Batch,
-          'Wiki ID': wikidataId,
-          Company: name,
-          'General Comment': internalComment,
-        } = wantedColumns as any
+      // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
+      const {
+        Batch,
+        'Wiki ID': wikidataId,
+        Company: name,
+        'General Comment': internalComment,
+        Code: gicsIndustryCode,
+      } = wantedColumns as any
 
-        // TODO: temporarily only include companies from the MVP batch
-        if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
-          rowValues.push({
-            name,
-            wikidataId,
-            internalComment,
-          })
+      // TODO: temporarily only include companies from the MVP batch
+      if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
+        const industryCode = gicsIndustryCode.toString()
+        const relevantCodes = gicsCodes.filter(
+          (c) => c.industryCode === industryCode
+        )
+        if (name === 'ABB') {
+          console.log(industryCode, relevantCodes)
         }
 
-        return rowValues
-      },
-      []
-    )
+        const gics = relevantCodes?.at(0)
+
+        if (!gics && name === 'ABB') {
+          console.error(
+            `Unable to find subIndustryCode for ${name} with industryCode ${industryCode}`
+          )
+        }
+
+        rowValues.push({
+          name,
+          wikidataId,
+          internalComment,
+          subIndustryCode: gics?.subIndustryCode,
+        })
+      }
+
+      return rowValues
+    }, [])
 }
 
 /**
@@ -351,6 +374,7 @@ function getCompanyData(years: number[]) {
       internalComment?: string
       startDate: Date
       endDate: Date
+      subIndustryCode?: string
     }
   > = {}
 
@@ -383,6 +407,7 @@ function getCompanyData(years: number[]) {
       name: rawCompanies[wikidataId].name,
       description: rawCompanies[wikidataId].description,
       internalComment: rawCompanies[wikidataId].internalComment,
+      subIndustryCode: rawCompanies[wikidataId].subIndustryCode,
       reportingPeriods,
     })
   }
@@ -396,8 +421,14 @@ export async function updateCompanies(companies: CompanyInput[]) {
   }
 
   for (const company of companies) {
-    const { wikidataId, name, description, reportingPeriods, internalComment } =
-      company
+    const {
+      wikidataId,
+      name,
+      description,
+      reportingPeriods,
+      internalComment,
+      subIndustryCode,
+    } = company
 
     await postJSON(
       `http://localhost:3000/api/companies`,
@@ -466,11 +497,34 @@ export async function updateCompanies(companies: CompanyInput[]) {
           }
         })
       }
+
+      if (subIndustryCode) {
+        console.log('spreadsheet', { subIndustryCode })
+        await postJSON(
+          `http://localhost:3000/api/companies/${wikidataId}/industry`,
+          {
+            industry: { subIndustryCode },
+            metadata: {
+              ...verifiedMetadata,
+              source: reportingPeriod.reportURL,
+            },
+          }
+        ).then(async (res) => {
+          if (!res.ok) {
+            const body = await res.text()
+            console.error(res.status, res.statusText, wikidataId, body)
+          }
+        })
+      }
     }
   }
 }
 
-async function postJSON(url: string, body: any, user: keyof typeof USERS) {
+async function postJSON(
+  url: string,
+  body: any,
+  user: keyof typeof USERS = 'garbo'
+) {
   try {
     return await fetch(url, {
       body: JSON.stringify(body),
@@ -501,20 +555,17 @@ async function importGarboData(companies: CompanyInput[]) {
     const reportURL = company?.facit?.url || company.url
     const name = getName(company)
     const description = company.description || undefined
+    const subIndustryCode = company.industryGics?.subIndustry?.code
 
-    await postJSON(
-      `http://localhost:3000/api/companies`,
-      {
-        wikidataId,
-        name,
-        description,
-        metadata: {
-          ...metadata,
-          source: reportURL || metadata.source,
-        },
+    await postJSON(`http://localhost:3000/api/companies`, {
+      wikidataId,
+      name,
+      description,
+      metadata: {
+        ...metadata,
+        source: reportURL || metadata.source,
       },
-      'garbo'
-    ).then(async (res) => {
+    }).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
         console.error(res.status, res.statusText, wikidataId, body)
@@ -550,8 +601,7 @@ async function importGarboData(companies: CompanyInput[]) {
             ...metadata,
             source: reportURL || metadata.source,
           },
-        },
-        'alex'
+        }
       ).then(async (res) => {
         if (!res.ok) {
           const body = await res.text()
@@ -589,8 +639,26 @@ async function importGarboData(companies: CompanyInput[]) {
             ...metadata,
             source: reportURL || metadata.source,
           },
-        },
-        'alex'
+        }
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
+
+    if (subIndustryCode) {
+      console.log('garbo', { subIndustryCode })
+      await postJSON(
+        `http://localhost:3000/api/companies/${wikidataId}/industry`,
+        {
+          industry: { subIndustryCode },
+          metadata: {
+            ...metadata,
+            source: reportURL || metadata.source,
+          },
+        }
       ).then(async (res) => {
         if (!res.ok) {
           const body = await res.text()
@@ -614,6 +682,8 @@ async function main() {
     .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)
     .slice(0, 1)
 
+  console.log(companies)
+
   await resetDB()
 
   console.log('Creating companies based on Garbo data...')
@@ -621,10 +691,6 @@ async function main() {
 
   console.log('Updating companies based on spreadsheet data...')
   await updateCompanies(companies)
-
-  // TODO: Add garbo data for industryGics
-
-  // TODO: Add industryGics based on spreadsheet data (or garbo data if it is missing)
 
   console.log(
     `\n\n✅ Imported`,

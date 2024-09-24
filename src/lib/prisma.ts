@@ -13,6 +13,7 @@ import {
   Turnover,
   Goal,
   Initiative,
+  Industry,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -476,6 +477,51 @@ export async function upsertEmployees(
           economy: {
             connect: {
               id: economy.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+}
+
+export async function upsertIndustry(
+  wikidataId: Company['wikidataId'],
+  {
+    id,
+    ...industry
+  }: OptionalNullable<Omit<Industry, 'id' | 'metadataId'>> & { id?: number },
+  metadata: Metadata
+) {
+  return id
+    ? prisma.industry.update({
+        where: { id },
+        data: {
+          industryGics: {
+            connect: {
+              subIndustryCode: industry.gicsSubIndustryCode,
+            },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : prisma.industry.create({
+        data: {
+          company: {
+            connect: { wikidataId },
+          },
+          industryGics: {
+            connect: {
+              subIndustryCode: industry.gicsSubIndustryCode,
+            },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
           },
         },

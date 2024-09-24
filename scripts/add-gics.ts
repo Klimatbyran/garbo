@@ -1179,6 +1179,8 @@ function prepareCodes() {
   return gicsCodes
 }
 
+export const gicsCodes = prepareCodes()
+
 function getIndustryGicsCodesWithoutStrings(codes: IndustryGics[]) {
   return codes.map(
     ({ subIndustryCode, groupCode, industryCode, sectorCode }) => ({
