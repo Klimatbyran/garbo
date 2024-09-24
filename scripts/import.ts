@@ -19,7 +19,10 @@ export type CompanyInput = {
   name: string
   description?: string
   internalComment?: string
-  subIndustryCode?: string
+  industry?: {
+    subIndustryCode: string
+    industryCode: string
+  }
   reportingPeriods: ReportingPeriodInput[]
 }
 

@@ -104,7 +104,10 @@ function getCompanyBaseFacts() {
         wikidataId: string
         name: string
         internalComment?: string
-        subIndustryCode?: string
+        industry?: {
+          subIndustryCode: string
+          industryCode: string
+        }
       }[]
     >((rowValues, row) => {
       if (!row) return rowValues
@@ -126,19 +129,20 @@ function getCompanyBaseFacts() {
 
       // TODO: temporarily only include companies from the MVP batch
       if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
-        const industryCode = gicsIndustryCode.toString()
-        const relevantCodes = gicsCodes.filter(
-          (c) => c.industryCode === industryCode
-        )
-        if (name === 'ABB') {
-          console.log(industryCode, relevantCodes)
-        }
+        //
+        const industryCode = Number.isFinite(gicsIndustryCode)
+          ? gicsIndustryCode.toString()
+          : undefined
 
-        const gics = relevantCodes?.at(0)
+        const gics = industryCode
+          ? gicsCodes.filter((c) => c.industryCode === industryCode).at(0)
+          : undefined
 
-        if (!gics && name === 'ABB') {
+        if (!gics) {
           console.error(
-            `Unable to find subIndustryCode for ${name} with industryCode ${industryCode}`
+            `Unable to find subIndustryCode for ${name} with industryCode ${JSON.stringify(
+              gicsIndustryCode
+            )}`
           )
         }
 
@@ -146,7 +150,13 @@ function getCompanyBaseFacts() {
           name,
           wikidataId,
           internalComment,
-          subIndustryCode: gics?.subIndustryCode,
+          // TODO: Temporarily include
+          industry: gics
+            ? {
+                industryCode,
+                subIndustryCode: gics.subIndustryCode,
+              }
+            : undefined,
         })
       }
 
@@ -375,6 +385,7 @@ function getCompanyData(years: number[]) {
       startDate: Date
       endDate: Date
       subIndustryCode?: string
+      industry?: { subIndustryCode: string; industryCode: string }
     }
   > = {}
 
@@ -407,7 +418,7 @@ function getCompanyData(years: number[]) {
       name: rawCompanies[wikidataId].name,
       description: rawCompanies[wikidataId].description,
       internalComment: rawCompanies[wikidataId].internalComment,
-      subIndustryCode: rawCompanies[wikidataId].subIndustryCode,
+      industry: rawCompanies[wikidataId].industry,
       reportingPeriods,
     })
   }
@@ -427,7 +438,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
       description,
       reportingPeriods,
       internalComment,
-      subIndustryCode,
+      industry,
     } = company
 
     await postJSON(
@@ -498,12 +509,14 @@ export async function updateCompanies(companies: CompanyInput[]) {
         })
       }
 
-      if (subIndustryCode) {
-        console.log('spreadsheet', { subIndustryCode })
+      if (industry?.subIndustryCode) {
+        console.log('spreadsheet', {
+          subIndustryCode: industry.subIndustryCode,
+        })
         await postJSON(
           `http://localhost:3000/api/companies/${wikidataId}/industry`,
           {
-            industry: { subIndustryCode },
+            industry: { subIndustryCode: industry.subIndustryCode },
             metadata: {
               ...verifiedMetadata,
               source: reportingPeriod.reportURL,
@@ -556,6 +569,18 @@ async function importGarboData(companies: CompanyInput[]) {
     const name = getName(company)
     const description = company.description || undefined
     const subIndustryCode = company.industryGics?.subIndustry?.code
+
+    const facitCompany = companies.find((c) => c.wikidataId === wikidataId)!
+
+    if (
+      facitCompany?.industry?.industryCode !==
+      company.industryGics?.industry?.code
+    ) {
+      console.error(
+        `${name}: industryCode ${company.industryGics?.industry?.code} from garbo does not match industryCode ${facitCompany?.industry?.industryCode} from facit`
+      )
+    }
+    continue
 
     await postJSON(`http://localhost:3000/api/companies`, {
       wikidataId,
@@ -673,21 +698,32 @@ async function main() {
   // TODO: use this to import historical data:
   // const companies = getCompanyData(range(2015, 2023).reverse())
   const companies = getCompanyData([2023])
-    // NOTE: Useful for testing upload of only specific companies
-    // .filter(
-    //   (x) =>
-    //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
-    //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
-    // )
-    .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)
-    .slice(0, 1)
-
-  console.log(companies)
+  // NOTE: Useful for testing upload of only specific companies
+  // .filter(
+  //   (x) =>
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
+  // )
+  // .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)
+  // .slice(0, 1)
 
   await resetDB()
 
   console.log('Creating companies based on Garbo data...')
   await importGarboData(companies)
+
+  process.exit(0)
+
+  /*
+  TODO: The gicsCodes for these companies need to be updated.
+
+  Better Collective: industryCode 253010 from garbo does not match industryCode 502020 from facit
+  Storskogen Group: industryCode null from garbo does not match industryCode undefined from facit
+  SCA: industryCode null from garbo does not match industryCode undefined from facit
+  Swedish Orphan Biovitrum: industryCode 3520 from garbo does not match industryCode undefined from facit
+  L E Lundbergföretagen AB: industryCode 601040 from garbo does not match industryCode undefined from facit
+  
+  */
 
   console.log('Updating companies based on spreadsheet data...')
   await updateCompanies(companies)
