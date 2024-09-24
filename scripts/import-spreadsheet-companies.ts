@@ -129,7 +129,6 @@ function getCompanyBaseFacts() {
 
       // TODO: temporarily only include companies from the MVP batch
       if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
-        //
         const industryCode = Number.isFinite(gicsIndustryCode)
           ? gicsIndustryCode.toString()
           : undefined
@@ -138,19 +137,18 @@ function getCompanyBaseFacts() {
           ? gicsCodes.filter((c) => c.industryCode === industryCode).at(0)
           : undefined
 
-        if (!gics) {
-          console.error(
-            `Unable to find subIndustryCode for ${name} with industryCode ${JSON.stringify(
-              gicsIndustryCode
-            )}`
-          )
-        }
+        // if (!gics) {
+        //   console.error(
+        //     `Unable to find subIndustryCode for ${name} with industryCode ${JSON.stringify(
+        //       gicsIndustryCode
+        //     )}`
+        //   )
+        // }
 
         rowValues.push({
           name,
           wikidataId,
           internalComment,
-          // TODO: Temporarily include
           industry: gics
             ? {
                 industryCode,
@@ -509,26 +507,33 @@ export async function updateCompanies(companies: CompanyInput[]) {
         })
       }
 
-      if (industry?.subIndustryCode) {
-        console.log('spreadsheet', {
-          subIndustryCode: industry.subIndustryCode,
-        })
-        await postJSON(
-          `http://localhost:3000/api/companies/${wikidataId}/industry`,
-          {
-            industry: { subIndustryCode: industry.subIndustryCode },
-            metadata: {
-              ...verifiedMetadata,
-              source: reportingPeriod.reportURL,
-            },
-          }
-        ).then(async (res) => {
-          if (!res.ok) {
-            const body = await res.text()
-            console.error(res.status, res.statusText, wikidataId, body)
-          }
-        })
-      }
+      // TODO: Figure out a better way to import gics industries from spreadsheet data
+      // The main problem is that we have the less specific industryCode (6 digits)
+      // instead of the subIndustryCode that we want (8 digits).
+      // A hack is to just select the first subIndustryCode for a given industryCode,
+      // but that means we lose specificity and essentially guess when importing data that is then labelled as verified.
+      // Hence, we only import the garbo gics code initially, and will come back to this later.
+
+      // if (industry?.subIndustryCode) {
+      //   console.log('spreadsheet', {
+      //     subIndustryCode: industry.subIndustryCode,
+      //   })
+      //   await postJSON(
+      //     `http://localhost:3000/api/companies/${wikidataId}/industry`,
+      //     {
+      //       industry: { subIndustryCode: industry.subIndustryCode },
+      //       metadata: {
+      //         ...verifiedMetadata,
+      //         source: reportingPeriod.reportURL,
+      //       },
+      //     }
+      //   ).then(async (res) => {
+      //     if (!res.ok) {
+      //       const body = await res.text()
+      //       console.error(res.status, res.statusText, wikidataId, body)
+      //     }
+      //   })
+      // }
     }
   }
 }
@@ -568,19 +573,6 @@ async function importGarboData(companies: CompanyInput[]) {
     const reportURL = company?.facit?.url || company.url
     const name = getName(company)
     const description = company.description || undefined
-    const subIndustryCode = company.industryGics?.subIndustry?.code
-
-    const facitCompany = companies.find((c) => c.wikidataId === wikidataId)!
-
-    if (
-      facitCompany?.industry?.industryCode !==
-      company.industryGics?.industry?.code
-    ) {
-      console.error(
-        `${name}: industryCode ${company.industryGics?.industry?.code} from garbo does not match industryCode ${facitCompany?.industry?.industryCode} from facit`
-      )
-    }
-    continue
 
     await postJSON(`http://localhost:3000/api/companies`, {
       wikidataId,
@@ -673,8 +665,10 @@ async function importGarboData(companies: CompanyInput[]) {
       })
     }
 
+    const subIndustryCode = company.industryGics?.subIndustry?.code
+
     if (subIndustryCode) {
-      console.log('garbo', { subIndustryCode })
+      // console.log('garbo', { subIndustryCode })
       await postJSON(
         `http://localhost:3000/api/companies/${wikidataId}/industry`,
         {
@@ -711,19 +705,6 @@ async function main() {
 
   console.log('Creating companies based on Garbo data...')
   await importGarboData(companies)
-
-  process.exit(0)
-
-  /*
-  TODO: The gicsCodes for these companies need to be updated.
-
-  Better Collective: industryCode 253010 from garbo does not match industryCode 502020 from facit
-  Storskogen Group: industryCode null from garbo does not match industryCode undefined from facit
-  SCA: industryCode null from garbo does not match industryCode undefined from facit
-  Swedish Orphan Biovitrum: industryCode 3520 from garbo does not match industryCode undefined from facit
-  L E Lundbergföretagen AB: industryCode 601040 from garbo does not match industryCode undefined from facit
-  
-  */
 
   console.log('Updating companies based on spreadsheet data...')
   await updateCompanies(companies)
