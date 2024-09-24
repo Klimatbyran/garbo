@@ -641,7 +641,9 @@ async function importGarboData(companies: CompanyInput[]) {
                 title: title || undefined,
                 description: description || undefined,
                 year: year?.toString() || undefined,
-                scope: scope || undefined,
+                scope: Array.isArray(scope)
+                  ? scope.join(',')
+                  : scope || undefined,
               }
             }
           }
