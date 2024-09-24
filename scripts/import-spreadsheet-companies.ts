@@ -1,11 +1,12 @@
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
+import { z } from 'zod'
 
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
-import { getWikidataId } from './import-garbo-companies'
-import { z } from 'zod'
+import { getName, getWikidataId } from './import-garbo-companies'
+import garboCompanies from '../companies.json'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -377,7 +378,6 @@ function getCompanyData(years: number[]) {
   for (const [wikidataId, reportingPeriods] of Object.entries(
     reportingPeriodsByCompany
   )) {
-    // TODO: Add company description from garbo data if it is missing
     companies.push({
       wikidataId,
       name: rawCompanies[wikidataId].name,
@@ -390,17 +390,24 @@ function getCompanyData(years: number[]) {
   return companies
 }
 
-export async function createCompanies(companies: CompanyInput[]) {
-  for (const { wikidataId, name, description, internalComment } of companies) {
+export async function updateCompanies(companies: CompanyInput[]) {
+  const verifiedMetadata = {
+    comment: 'Import from spreadsheet with verified data',
+  }
+
+  for (const company of companies) {
+    const { wikidataId, name, description, reportingPeriods, internalComment } =
+      company
+
     await postJSON(
       `http://localhost:3000/api/companies`,
       {
         wikidataId,
         name,
-        description,
+        description: description || undefined,
         internalComment,
         metadata: {
-          comment: 'Import from spreadsheet with verified data',
+          ...verifiedMetadata,
         },
       },
       'alex'
@@ -410,12 +417,6 @@ export async function createCompanies(companies: CompanyInput[]) {
         console.error(res.status, res.statusText, wikidataId, body)
       }
     })
-  }
-}
-
-export async function updateCompanies(companies: CompanyInput[]) {
-  for (const company of companies) {
-    const { wikidataId, reportingPeriods } = company
 
     for (const reportingPeriod of reportingPeriods) {
       if (reportingPeriod.emissions) {
@@ -427,7 +428,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
             reportURL: reportingPeriod.reportURL,
             emissions: reportingPeriod.emissions,
             metadata: {
-              comment: 'Import from spreadsheet with verified data',
+              ...verifiedMetadata,
               source: reportingPeriod.reportURL,
             },
           },
@@ -451,7 +452,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
             reportURL: reportingPeriod.reportURL,
             economy: reportingPeriod.economy,
             metadata: {
-              comment: 'Import from spreadsheet with verified data',
+              ...verifiedMetadata,
               source: reportingPeriod.reportURL,
             },
           },
@@ -485,11 +486,8 @@ async function postJSON(url: string, body: any, user: keyof typeof USERS) {
   }
 }
 
-// TODO: Make sure data imported from garbo gets the correct user
 async function importGarboData(companies: CompanyInput[]) {
-  const garboCompanies = await import('../companies.json')
-
-  const actualCompanies = garboCompanies.default.filter((company) =>
+  const actualCompanies = garboCompanies.filter((company) =>
     companies.some((c) => c.wikidataId === getWikidataId(company))
   )
 
@@ -501,6 +499,27 @@ async function importGarboData(companies: CompanyInput[]) {
   for (const company of actualCompanies) {
     const wikidataId = getWikidataId(company)
     const reportURL = company?.facit?.url || company.url
+    const name = getName(company)
+    const description = company.description || undefined
+
+    await postJSON(
+      `http://localhost:3000/api/companies`,
+      {
+        wikidataId,
+        name,
+        description,
+        metadata: {
+          ...metadata,
+          source: reportURL || metadata.source,
+        },
+      },
+      'garbo'
+    ).then(async (res) => {
+      if (!res.ok) {
+        const body = await res.text()
+        console.error(res.status, res.statusText, wikidataId, body)
+      }
+    })
 
     if (Array.isArray(company.goals)) {
       const goals = company.goals
@@ -597,19 +616,12 @@ async function main() {
 
   await resetDB()
 
-  console.log('Creating companies...')
-  await createCompanies(companies)
-
-  console.log('Updating companies...')
-  await updateCompanies(companies)
-
-  // TODO: Add garbo data for goals
-
-  // For all the garbo companies, use the wikidataId to add the relevant data.
-
+  console.log('Creating companies based on Garbo data...')
   await importGarboData(companies)
 
-  // TODO: Add garbo data for initiatives
+  console.log('Updating companies based on spreadsheet data...')
+  await updateCompanies(companies)
+
   // TODO: Add garbo data for industryGics
 
   // TODO: Add industryGics based on spreadsheet data (or garbo data if it is missing)
@@ -627,8 +639,6 @@ async function main() {
   //   JSON.stringify(companies, null, 2),
   //   { encoding: 'utf-8' }
   // )
-
-  // TODO: upload company data
 }
 
 if (isMainModule(import.meta.url)) {

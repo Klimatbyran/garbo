@@ -50,12 +50,6 @@ const USERS = {
 export const fakeAuth =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    // TODO: Allow specifying the user with an HTTP header.
-    // IDEA: garbo:auth-token-axbxmnabmxbambsmn or alex:auth-token-axbxmnabmxbambsmn
-    // Then find the user and use their ID for the metadata.
-    // TODO: respond with HTTP 401 if token was not valid to remove access to actions that require auth.
-    // IDEA: Pass valid tokens as comma-separated values in an ENV-variable. This would allow us to use one token for Garbo and another one for Alex
-
     const token = req.header('Authorization')?.replace('Bearer ', '')
     if (token) {
       if (ENV.API_TOKENS.includes(token)) {
