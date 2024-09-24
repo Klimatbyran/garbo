@@ -1,17 +1,11 @@
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
-import { writeFile } from 'fs/promises'
 
-import {
-  CompanyInput,
-  EmissionsInput,
-  MetadataInput,
-  ReportingPeriodInput,
-} from './import'
+import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
-import { getName, getWikidataId } from './import-garbo-companies'
-import { Metadata } from '@prisma/client'
+import { getWikidataId } from './import-garbo-companies'
+import { z } from 'zod'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -26,6 +20,35 @@ function getSheetHeaders({
   row: number
 }) {
   return Object.values(sheet.getRow(row).values!)
+}
+
+const envSchema = z.object({
+  /**
+   * API tokens, parsed from a string like garbo:lk3h2k1,alex:ax32bg4
+   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
+   */
+  API_TOKENS: z.string().transform((tokens) =>
+    tokens
+      .split(',')
+      .reduce<{ garbo: string; alex: string }>((tokens, token) => {
+        const [name] = token.split(':')
+        tokens[name] = token
+        return tokens
+      }, {} as any)
+  ),
+})
+
+const ENV = envSchema.parse(process.env)
+
+const USERS = {
+  garbo: {
+    id: 1,
+    token: ENV.API_TOKENS.garbo,
+  },
+  alex: {
+    id: 2,
+    token: ENV.API_TOKENS.alex,
+  },
 }
 
 function getReportingPeriodDates() {
@@ -369,15 +392,19 @@ function getCompanyData(years: number[]) {
 
 export async function createCompanies(companies: CompanyInput[]) {
   for (const { wikidataId, name, description, internalComment } of companies) {
-    await postJSON(`http://localhost:3000/api/companies`, {
-      wikidataId,
-      name,
-      description,
-      internalComment,
-      metadata: {
-        comment: 'Import from spreadsheet with verified data',
+    await postJSON(
+      `http://localhost:3000/api/companies`,
+      {
+        wikidataId,
+        name,
+        description,
+        internalComment,
+        metadata: {
+          comment: 'Import from spreadsheet with verified data',
+        },
       },
-    }).then(async (res) => {
+      'alex'
+    ).then(async (res) => {
       if (!res.ok) {
         const body = await res.text()
         console.error(res.status, res.statusText, wikidataId, body)
@@ -404,6 +431,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
               source: reportingPeriod.reportURL,
             },
           },
+          'alex',
         ] as const
 
         await postJSON(...emissionsArgs).then(async (res) => {
@@ -427,6 +455,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
               source: reportingPeriod.reportURL,
             },
           },
+          'alex',
         ] as const
 
         await postJSON(...economyArgs).then(async (res) => {
@@ -440,12 +469,15 @@ export async function updateCompanies(companies: CompanyInput[]) {
   }
 }
 
-async function postJSON(url: string, body: any) {
+async function postJSON(url: string, body: any, user: keyof typeof USERS) {
   try {
     return await fetch(url, {
       body: JSON.stringify(body),
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${USERS[user].token}`,
+      },
     })
   } catch (error) {
     console.error('Failed to fetch:', error)
@@ -499,7 +531,8 @@ async function importGarboData(companies: CompanyInput[]) {
             ...metadata,
             source: reportURL || metadata.source,
           },
-        }
+        },
+        'alex'
       ).then(async (res) => {
         if (!res.ok) {
           const body = await res.text()
@@ -537,7 +570,8 @@ async function importGarboData(companies: CompanyInput[]) {
             ...metadata,
             source: reportURL || metadata.source,
           },
-        }
+        },
+        'alex'
       ).then(async (res) => {
         if (!res.ok) {
           const body = await res.text()

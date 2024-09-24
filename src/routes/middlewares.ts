@@ -42,7 +42,10 @@ export const cache = () => {
   }
 }
 
-const ALEX_ID = 2
+const USERS = {
+  garbo: 1,
+  alex: 2,
+}
 
 export const fakeAuth =
   (prisma: PrismaClient) =>
@@ -52,8 +55,22 @@ export const fakeAuth =
     // Then find the user and use their ID for the metadata.
     // TODO: respond with HTTP 401 if token was not valid to remove access to actions that require auth.
     // IDEA: Pass valid tokens as comma-separated values in an ENV-variable. This would allow us to use one token for Garbo and another one for Alex
-    const user = await prisma.user.findFirst({ where: { id: ALEX_ID } })
-    res.locals.user = user
+
+    const token = req.header('Authorization')?.replace('Bearer ', '')
+    if (token) {
+      if (ENV.API_TOKENS.includes(token)) {
+        const [username] = token.split(':')
+        const user = await prisma.user.findFirst({
+          where: { id: USERS[username] },
+        })
+        res.locals.user = user
+      }
+    }
+
+    if (!res.locals.user?.id) {
+      return res.status(401).send()
+    }
+
     next()
   }
 
@@ -82,11 +99,8 @@ export const createMetadata =
     if (req.method === 'POST') {
       // TODO: Find a better way to determine if changes by the current user should count as verified or not
       // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
-      const verifiedByUserId = res.locals.user.id === ALEX_ID ? ALEX_ID : null
-
-      if (!res.locals.user?.id) {
-        return res.status(401)
-      }
+      const verifiedByUserId =
+        res.locals.user.id === USERS.alex ? USERS.alex : null
 
       const { comment, source, dataOrigin } = req.body.metadata ?? {}
 
