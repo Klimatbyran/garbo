@@ -3,7 +3,7 @@ import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { saveToDb } from '../queues'
-import { v4 as uuidv4 } from 'uuid'
+import { randomUUID } from 'crypto'
 
 class JobData extends Job {
   declare data: {
@@ -26,7 +26,7 @@ const worker = new Worker(
 
     job.updateProgress(10)
     const parsedJson = { ...JSON.parse(json), url }
-    const documentId = uuidv4()
+    const documentId = randomUUID()
     job.log(`Saving report to database with uuid: ${documentId}`)
     await saveToDb.add(
       'saveToDb',
