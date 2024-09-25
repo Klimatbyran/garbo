@@ -3,6 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { CompanyData } from '../models/companyEmissions'
 
+const facitPath = path.join(process.cwd(), 'src/data/facit.csv')
+
 const parse = (str) =>
   parseFloat(str.replaceAll(',', '').replace(/[^0-9.]/g, ''))
 
@@ -63,7 +65,7 @@ export function findFacit(
   const all = []
   return new Promise((resolve, reject) => {
     try {
-      fs.createReadStream(path.join(process.cwd(), 'src/data/facit.csv'))
+      fs.createReadStream(facitPath)
         .pipe(
           csv({
             mapHeaders: ({ header }) => header.trim(),
@@ -154,9 +156,7 @@ export function getAllCompanies(): Promise<CompanyData[]> {
   return new Promise((resolve, reject) => {
     try {
       const all = []
-      const fileName = path.join(process.cwd(), 'src/data/facit.csv')
-      console.log('fileName', fileName)
-      fs.createReadStream(path.join(process.cwd(), 'src/data/facit.csv'))
+      fs.createReadStream(facitPath)
         .pipe(
           csv({
             mapHeaders: ({ header }) => header.trim(),
