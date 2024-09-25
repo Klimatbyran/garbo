@@ -6,7 +6,6 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 
 import discord from './discord'
-import opensearch from './opensearch'
 
 import {
   discordReview,
@@ -24,7 +23,8 @@ import {
   format,
   includeFacit,
 } from './queues'
-import companyRoutes from './routes/companyRoutes'
+import readCompanies from './routes/readCompanies'
+import updateCompanies from './routes/updateCompanies'
 import { Queue } from 'bullmq'
 
 // start ui
@@ -74,9 +74,9 @@ createBullBoard({
 
 const app = express()
 discord.login()
-opensearch.setupIndices()
 
-app.use('/api', companyRoutes)
+app.use('/api/companies', readCompanies)
+app.use('/api/companies', updateCompanies)
 app.use('/admin/queues', serverAdapter.getRouter())
 const port = process.env.PORT || 3000
 app.listen(port, () => {

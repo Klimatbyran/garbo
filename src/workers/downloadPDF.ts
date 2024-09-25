@@ -3,13 +3,17 @@ import redis from '../config/redis'
 import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
 import discord from '../discord'
-import opensearch from '../opensearch'
+import * as crypto from 'crypto'
 
 class JobData extends Job {
   declare data: {
     url: string
     threadId: string
   }
+}
+
+function hashPdf(pdfBuffer: Buffer): string {
+  return crypto.createHash('sha256').update(pdfBuffer).digest('hex')
 }
 
 const worker = new Worker(
@@ -58,7 +62,7 @@ const worker = new Worker(
 
       let pdfHash = ''
       try {
-        pdfHash = await opensearch.hashPdf(Buffer.from(buffer))
+        pdfHash = await hashPdf(Buffer.from(buffer))
       } catch (error) {
         job.log(`Error indexing PDF: ${error.message}`)
       }

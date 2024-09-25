@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:1.1.300 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:2.0.2 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
@@ -55,10 +55,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            - name: OPENSEARCH_NODE_URL
-              value: http://opensearch:9200
-            - name: OPENSEARCH_INDEX_NAME
-              value: reports
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
@@ -73,6 +69,11 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred

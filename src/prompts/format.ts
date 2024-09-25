@@ -19,7 +19,7 @@ flowchart TB
     Review[Reasonability Assessment]
 
 
-    DB[OpenSearch/Kibana]
+    DB[Database]
 
     A --> B --> C --> D --> E ---> F ---> G ---> H
     B --(Cached)--> E

@@ -1,3 +1,14 @@
 node_modules
 dist
-.env
+.env*
+!env.example
+
+prisma/generated
+
+*.xlsx
+.aider*
+
+# Ignore local SQLite databases
+*.db
+*.db-journal
+*.pdf
