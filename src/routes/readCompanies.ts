@@ -1,11 +1,11 @@
 import express, { Request, Response } from 'express'
 import { validateRequestParams } from 'zod-express-middleware'
+import { z } from 'zod'
 
 import { getGics } from '../lib/gics'
-import { cache } from './middlewares'
+import { cache, enableCors } from './middlewares'
 import { wikidataIdSchema } from './companySchemas'
 import { prisma } from '../lib/prisma'
-import { z } from 'zod'
 
 const router = express.Router()
 
@@ -27,6 +27,10 @@ const metadata = {
     dataOrigin: true,
   },
 }
+
+router.use(
+  enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
+)
 
 // TODO: Find a way to de-duplicate the logic so we select the same properties both for GET /companies and GET /companies/:wikidataId
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId

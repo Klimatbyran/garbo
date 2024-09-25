@@ -25,6 +25,7 @@
     "@types/node": "^22.7.0",
     "bullmq": "^5.13.2",
     "chromadb": "^1.9.2",
+    "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "discord.js": "^14.16.2",
     "dotenv": "^16.4.5",
@@ -41,13 +42,14 @@
     "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.13",
-    "jest": "^29.7.0",
     "concurrently": "^9.0.1",
     "deepl-node": "^1.14.0",
     "dotenv-cli": "^7.4.2",
     "exceljs": "^4.4.0",
+    "jest": "^29.7.0",
     "prisma": "^5.20.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5"

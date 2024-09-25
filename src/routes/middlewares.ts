@@ -10,6 +10,8 @@ import {
 } from '@prisma/client'
 import { validateRequest, validateRequestBody } from 'zod-express-middleware'
 import { z } from 'zod'
+import cors, { CorsOptionsDelegate } from 'cors'
+
 import { ensureReportingPeriodExists } from '../lib/prisma'
 
 declare global {
@@ -227,3 +229,15 @@ export const ensureEconomyExists =
     res.locals.economy = economy
     next()
   }
+
+const getCorsOptionsBasedOnOrigin =
+  (allowedOrigins: string[]): CorsOptionsDelegate =>
+  (req: Request, callback) => {
+    const corsOptions = allowedOrigins.includes(req.header('Origin'))
+      ? { origin: true }
+      : { origin: false }
+    callback(null, corsOptions)
+  }
+
+export const enableCors = (allowedOrigins: string[]) =>
+  cors(getCorsOptionsBasedOnOrigin(allowedOrigins))
