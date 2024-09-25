@@ -43,8 +43,8 @@ export const cache = () => {
 }
 
 const USERS = {
-  garbo: 1,
-  alex: 2,
+  garbo: 'hej@klimatkollen.se',
+  alex: 'alex@klimatkollen.se',
 }
 
 export const fakeAuth =
@@ -55,7 +55,7 @@ export const fakeAuth =
       if (ENV.API_TOKENS.includes(token)) {
         const [username] = token.split(':')
         const user = await prisma.user.findFirst({
-          where: { id: USERS[username] },
+          where: { email: USERS[username] },
         })
         res.locals.user = user
       }
@@ -93,8 +93,8 @@ export const createMetadata =
     if (req.method === 'POST') {
       // TODO: Find a better way to determine if changes by the current user should count as verified or not
       // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
-      const verifiedByUserId =
-        res.locals.user.id === USERS.alex ? USERS.alex : null
+      const verifiedByUserEmail =
+        res.locals.user.email === USERS.alex ? USERS.alex : null
 
       const { comment, source, dataOrigin } = req.body.metadata ?? {}
 
@@ -108,10 +108,10 @@ export const createMetadata =
               id: res.locals.user.id,
             },
           },
-          verifiedBy: verifiedByUserId
+          verifiedBy: verifiedByUserEmail
             ? {
                 connect: {
-                  id: verifiedByUserId,
+                  email: verifiedByUserEmail,
                 },
               }
             : undefined,

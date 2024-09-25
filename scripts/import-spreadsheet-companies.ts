@@ -44,11 +44,11 @@ const ENV = envSchema.parse(process.env)
 
 const USERS = {
   garbo: {
-    id: 1,
+    email: 'hej@klimatkollen.se',
     token: ENV.API_TOKENS.garbo,
   },
   alex: {
-    id: 2,
+    email: 'alex@klimatkollen.se',
     token: ENV.API_TOKENS.alex,
   },
 }

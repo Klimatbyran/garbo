@@ -22,25 +22,8 @@ async function common() {
   return Promise.all([seedGicsCodes(), seedUsers()])
 }
 
-async function development() {
-  await common()
-}
-
-async function test() {
-  await common()
-}
-
 async function main() {
-  switch (process.env.NODE_ENV) {
-    case 'development':
-      await development()
-      break
-    case 'test':
-      await test()
-      break
-    default:
-      break
-  }
+  common()
 }
 
 main()
