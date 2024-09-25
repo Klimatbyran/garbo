@@ -26,12 +26,11 @@ import {
 } from './middlewares'
 import { prisma } from '../lib/prisma'
 import { Company } from '@prisma/client'
+import { wikidataIdSchema } from './companySchemas'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
 const unit = tCO2e
-
-const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())

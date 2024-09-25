@@ -1,0 +1,3 @@
+import { z } from 'zod'
+
+export const wikidataIdSchema = z.string().regex(/Q\d+/)
