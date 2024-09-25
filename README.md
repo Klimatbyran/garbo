@@ -57,9 +57,12 @@ flowchart TB
 
 Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
+Run postgres locally.
+
 ```bash
 npm i
 docker run -d -p 6379:6379 redis
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 chromadb/chroma
 npm start & npm run workers
 ```

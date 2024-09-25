@@ -14,7 +14,7 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx --env-file=.env.development scripts/import-spreadsheet-companies.ts",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest",
-    "prisma": "DATABASE_URL=file:./dev.db prisma"
+    "prisma": "dotenv -e .env.development -- prisma"
   },
   "author": "Christian Landgren, William Ryder mfl",
   "license": "MIT",
@@ -50,6 +50,7 @@
     "@types/jest": "^29.5.13",
     "concurrently": "^8.2.2",
     "deepl-node": "^1.13.1",
+    "dotenv-cli": "^7.4.2",
     "exceljs": "^4.4.0",
     "prisma": "^5.19.0",
     "supertest": "^7.0.0",
