@@ -69,6 +69,11 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred

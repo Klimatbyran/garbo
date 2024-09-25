@@ -11,3 +11,4 @@ prisma/generated
 # Ignore local SQLite databases
 *.db
 *.db-journal
+*.pdf
