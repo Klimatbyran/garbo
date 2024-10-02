@@ -14,7 +14,9 @@ class JobData extends Job {
     wikidataId: string
     documentId: string
     url: string
+    apiSubEndpoint: string
     prompt: string
+    schema: string
     threadId: string
     json: string
     previousAnswer: string
@@ -25,8 +27,16 @@ class JobData extends Job {
 const worker = new Worker(
   'followUp',
   async (job: JobData) => {
-    const { prompt, url, json, previousAnswer, previousError, wikidataId } =
-      job.data
+    const {
+      prompt,
+      schema,
+      url,
+      json,
+      previousAnswer,
+      apiSubEndpoint,
+      previousError,
+      wikidataId,
+    } = job.data
 
     // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)
@@ -99,20 +109,22 @@ For example, if you want to add a new field called "industry" the response shoul
         },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
-      ].filter((m) => m.content) as any[]
+      ].filter((m) => m.content) as any[],
+      {
+        response_format: schema,
+      }
     )
 
     job.log('Response: ' + response)
-    const output = response.match(/```json([\s\S]*?)```/)?.[1] || response
 
+    // TODO: Find out why we don't get ts error for missing vars
     try {
-      const parsedJson = output ? JSON.parse(output) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
-      await saveCompany(wikidataId, `initiatives`, parsedJson)
-      return JSON.stringify(parsedJson, null, 2)
+      await saveCompany(wikidataId, apiSubEndpoint, JSON.parse(response))
+      return JSON.stringify(response, null, 2)
     } catch (error) {
       job.updateData({
         ...job.data,
-        previousAnswer: output,
+        previousAnswer: response,
         previousError: error.message,
       })
       throw error

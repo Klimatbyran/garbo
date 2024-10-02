@@ -122,7 +122,7 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
         )
       }
 
-      saveCompany(wikidataId, '', {
+      await saveCompany(wikidataId, '', {
         name: companyName,
         wikidataId,
         metadata: {

@@ -7,13 +7,14 @@ import industryNace from '../prompts/followUp/industry_nace'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
-import goals from '../prompts/followUp/goals'
+import * as goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 // import contacts from '../prompts/followUp/contacts'
 import baseFacts from '../prompts/followUp/baseFacts'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
 import { ask, askPrompt } from '../openai'
+import { zodResponseFormat } from 'openai/helpers/zod'
 
 class JobData extends Job {
   declare data: {
@@ -82,38 +83,51 @@ const worker = new Worker(
       children: [
         {
           ...base,
-          name: 'companyName ' + companyName,
-          data: { ...base.data, prompt: companyNamePrompt },
-        },
-        {
-          ...base,
           name: 'industryGics ' + companyName,
-          data: { ...base.data, prompt: industryGics },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'industry',
+            prompt: industryGics,
+          },
         },
-        {
-          ...base,
-          name: 'industryNace ' + companyName,
-          data: { ...base.data, prompt: industryNace },
-        },
+        // TODO: Decide if we should store NACE codes. If so, we need to update the DB and API.
+        // {
+        //   ...base,
+        //   name: 'industryNace ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     apiSubEndpoint: 'industry',
+        //     prompt: industryNace,
+        //   },
+        // },
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: { ...base.data, prompt: scope12 },
+          data: { ...base.data, apiSubEndpoint: 'emissions', prompt: scope12 },
         },
         {
           ...base,
           name: 'scope3 ' + companyName,
-          data: { ...base.data, prompt: scope3 },
+          data: { ...base.data, apiSubEndpoint: 'emissions', prompt: scope3 },
         },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: { ...base.data, prompt: goals },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'goals',
+            prompt: goals.prompt,
+            schema: zodResponseFormat(goals.schema, 'goals'),
+          },
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: { ...base.data, prompt: initiatives },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'initiatives',
+            prompt: initiatives,
+          },
         },
         /*
         {
@@ -124,18 +138,18 @@ const worker = new Worker(
         {
           ...base,
           name: 'baseFacts ' + companyName,
-          data: { ...base.data, prompt: baseFacts },
+          data: { ...base.data, apiSubEndpoint: 'economy', prompt: baseFacts },
         },
         {
           ...base,
           name: 'fiscalYear ' + companyName,
-          data: { ...base.data, prompt: fiscalYear },
+          data: { ...base.data, apiSubEndpoint: 'economy', prompt: fiscalYear },
         },
         /*{
           ...base,
           name: 'key upstream emission factors for ' + companyName,
           data: { ...base.data, prompt: factors },
-        },*/
+        },
         {
           ...base,
           name: 'publicComment ' + companyName,
@@ -146,7 +160,7 @@ const worker = new Worker(
           ...base,
           data: { ...base.data, companyName, url: job.data.url },
           queueName: 'includeFacit',
-        },
+        },*/
       ],
       opts: {
         attempts: 3,

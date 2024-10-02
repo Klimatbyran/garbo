@@ -15,9 +15,8 @@ Example:
     {
       "title": "Byta till tåg för tjänsteresor",
       "description": "Vi planerar att byta till tåg för tjänsteresor inom Sverige.",
-      year: 2025,
-      reductionPercent: 30,
-      scope: "scope3",
+      "year": "2025",
+      "scope": "scope3",
     }
   ]
 }

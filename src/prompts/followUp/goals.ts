@@ -1,4 +1,19 @@
-const goals = `
+import { z } from 'zod'
+
+// TODO: In the future, import the schemas from a shared place
+export const schema = z.object({
+  goals: z.array(
+    z.object({
+      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
+      description: z.string(),
+      year: z.string().optional(),
+      target: z.number().optional(),
+      baseYear: z.string().optional(),
+    })
+  ),
+})
+
+export const prompt = `
 Extract the company goals for reducing their carbon emissions add it as field goals.
 Be as accurate as possible when extracting goals. These values will be plotted in a graph later on.
 
@@ -12,13 +27,11 @@ If no year is mentioned, set year to null.
 \`\`\`json
 { 
   "goals": [
-    { description: 'Minska utsläppen med 50%', 
+    { description: 'Minska utsläppen med X%', 
       year: xxx, 
-      reductionPercent: 100
+      target: xxx,
     }
   ]
 }
 \`\`\`
 `
-
-export default goals

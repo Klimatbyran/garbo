@@ -31,7 +31,7 @@
     "dotenv": "^16.4.5",
     "embed-table": "^4.2.3",
     "express": "^4.21.0",
-    "openai": "^4.63.0",
+    "openai": "^4.67.0",
     "pdf-parse-debugging-disabled": "^1.1.1",
     "prisma-zod-generator": "^0.8.13",
     "redis": "^4.7.0",
@@ -39,7 +39,8 @@
     "typescript": "^5.6.2",
     "wikibase-sdk": "^10.1.1",
     "zod": "^3.23.8",
-    "zod-express-middleware": "^1.4.0"
+    "zod-express-middleware": "^1.4.0",
+    "zod-to-json-schema": "^3.23.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
