@@ -35,3 +35,4 @@ If no year is mentioned, set year to null.
 }
 \`\`\`
 `
+export default { prompt, schema }

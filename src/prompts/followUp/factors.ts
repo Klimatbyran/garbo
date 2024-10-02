@@ -23,4 +23,4 @@ Example:
 \`\`\`
 `
 
-export default factors
+export default { prompt, schema }

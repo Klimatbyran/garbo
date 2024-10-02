@@ -42,4 +42,4 @@ Your task:
 3. Ensure no example data is included in the final output.
 `
 
-export default contacts
+export default { prompt, schema }

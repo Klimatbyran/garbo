@@ -64,4 +64,4 @@ Example, follow the format below:
 \`\`\`
 `
 
-export default turnover
+export default { prompt, schema }

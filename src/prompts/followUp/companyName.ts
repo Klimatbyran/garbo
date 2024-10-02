@@ -18,4 +18,4 @@ Extract the company name or organisation name. Also try to find other useful inf
 \`\`\`
 `
 
-export default companyName
+export default { prompt, schema }
