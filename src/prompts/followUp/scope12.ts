@@ -23,21 +23,22 @@ Include market based and location based in scope 2. Always use tonnes CO2e as un
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null.
 
 Example - feel free to add more fields and relevant data:
-{ 
+{
   "emissions_scope12": {
     "2021": {
       "scope1": {
-        emissions: 40.3,
-        unit: "tCO2e"
+        "emissions": 40.3,
+        "unit": "tCO2e"
       },
       "scope2": {
-        mb: 10.4,
-        lb: 14.5,
-        unit: "tCO2e"
+        "mb": 10.4,
+        "lb": 14.5,
+        "unit": "tCO2e"
       }
     },
-    "2022": { ...},
-    "2023": { ...},
+    "2022": { ... },
+    "2023": { ... }
+  }
 }
 `
 

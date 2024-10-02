@@ -44,7 +44,7 @@ If the company is idientified as a financial institution or investment company, 
 
 
 Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
-{ 
+{
   "emissions_scope3": [
     {
       "year": 2021,
@@ -52,15 +52,16 @@ Example: Keep this format and add as many years as you can find. Keep the catego
         "categories": {
           "1_purchasedGoods": 10,
           "2_capitalGoods": 20,
-          "3_fuelAndEnergyRelatedActivities": 40
+          "3_fuelAndEnergyRelatedActivities": 40,
           "14_franchises": 40
-        }
+        },
         "totalEmissions": 100,
         "unit": "tCO2e"
-      },
+      }
     },
-    { "year": 2022, ...}, 
-    { "year": 2023, ...}] 
+    { "year": 2022, ... },
+    { "year": 2023, ... }
+  ]
 }
 `
 

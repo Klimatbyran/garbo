@@ -16,8 +16,14 @@ Extract the key emission factors for others to multiply when calculating their s
 Be as accurate as possible when extracting factors and only include ones mentioned in the text. These values will be used to automatically calculate the emissions for products in an automated form where the user enter amount of km and we will return the emissions.
 
 Example:
-{ 
-  "factors": [{ "description": "CO2e per km for car", "value": 0.2, "unit": "kgCO2e/km"}]
+{
+  "factors": [
+    {
+      "description": "CO2e per km for car",
+      "value": 0.2,
+      "unit": "kgCO2e/km"
+    }
+  ]
 }
 `
 

@@ -24,11 +24,13 @@ If no year is mentioned, set year to null.
 
 ** LANGUAGE: WRITE IN SWEDISH. If text is in english, translate to Swedish **
 
-{ 
+{
   "goals": [
-    { description: 'Minska utsläppen med X%', 
-      year: xxx, 
-      target: xxx,
+    {
+      "description": "Minska utsläppen med X%",
+      "year": null,
+      "target": null,
+      "baseYear": null
     }
   ]
 }

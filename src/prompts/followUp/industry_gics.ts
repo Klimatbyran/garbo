@@ -336,23 +336,24 @@ svetenskaper (3520)
     - Fastighetstjänster (60201040)
 
 Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
-   "industry_gics": {
-      "sector": {
-        "code": "12",
-        "name": "xx"
-      },
-      "group": {
-        "code": "123",
-        "name": "xx"
-      },
-      "industry": {
-        "code": "12345",
-        "name": "xx"
-      },
-      "subIndustry": {
-        "code": "1234567",
-        "name": "xx"
-      },
-   }
- }
+{
+  "industry_gics": {
+    "sector": {
+      "code": "12",
+      "name": "xx"
+    },
+    "group": {
+      "code": "123",
+      "name": "xx"
+    },
+    "industry": {
+      "code": "12345",
+      "name": "xx"
+    },
+    "subIndustry": {
+      "code": "1234567",
+      "name": "xx"
+    }
+  }
+}
 export default { prompt, schema }

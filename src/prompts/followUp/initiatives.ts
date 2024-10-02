@@ -22,13 +22,13 @@ Prioritize the list and only include the most important initiatives. If the list
 If the text is in english, translate it to swedish.
 
 Example:
-{ 
+{
   "initiatives": [
     {
       "title": "Byta till tåg för tjänsteresor",
       "description": "Vi planerar att byta till tåg för tjänsteresor inom Sverige.",
       "year": "2025",
-      "scope": "scope3",
+      "scope": "scope3"
     }
   ]
 }

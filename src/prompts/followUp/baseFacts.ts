@@ -54,9 +54,24 @@ Example, follow the format below:
     "companyName": "Company AB",
     "description": "En beskrivning av företaget.",
     "history": [
-      {"year": 2021, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-      {"year": 2022, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-      {"year": 2023, "employees": 10000, "turnover": 12345, "currency": "SEK"},
+      {
+        "year": 2021,
+        "employees": 10000,
+        "turnover": 12345,
+        "currency": "SEK"
+      },
+      {
+        "year": 2022,
+        "employees": 10000,
+        "turnover": 12345,
+        "currency": "SEK"
+      },
+      {
+        "year": 2023,
+        "employees": 10000,
+        "turnover": 12345,
+        "currency": "SEK"
+      }
     ]
   }
 }
