@@ -22,6 +22,7 @@ Prioritize the list and only include the most important initiatives. If the list
 If the text is in english, translate it to swedish.
 
 Example:
+\`\`\`json
 {
   "initiatives": [
     {
@@ -32,6 +33,7 @@ Example:
     }
   ]
 }
+\`\`\`
 `
 
 export default { prompt, schema }
