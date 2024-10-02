@@ -83,19 +83,11 @@ const worker = new Worker(
         {
           ...base,
           name: 'industryGics ' + companyName,
-          data: {
-            ...base.data,
-            apiSubEndpoint: 'industry',
-            prompt: industryGics,
-            schema: zodResponseFormat(industryGics.schema, 'industry_gics'),
-            schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
-            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
-            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
-            schema: zodResponseFormat(contacts.schema, 'contacts'),
-            schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
-            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
-            schema: zodResponseFormat(factors.schema, 'factors'),
-            schema: zodResponseFormat(publicComment.schema, 'publicComment'),
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'industry', 
+            prompt: industryGics.prompt, 
+            schema: zodResponseFormat(industryGics.schema, 'industry_gics') 
           },
         },
         // TODO: Decide if we should store NACE codes. If so, we need to update the DB and API.
@@ -111,56 +103,89 @@ const worker = new Worker(
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: { ...base.data, apiSubEndpoint: 'emissions', prompt: scope12 },
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'emissions', 
+            prompt: scope12.prompt, 
+            schema: zodResponseFormat(scope12.schema, 'emissions_scope12') 
+          },
         },
         {
           ...base,
           name: 'scope3 ' + companyName,
-          data: { ...base.data, apiSubEndpoint: 'emissions', prompt: scope3 },
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'emissions', 
+            prompt: scope3.prompt, 
+            schema: zodResponseFormat(scope3.schema, 'emissions_scope3') 
+          },
         },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: {
-            ...base.data,
-            apiSubEndpoint: 'goals',
-            prompt: goals.prompt,
-            schema: zodResponseFormat(goals.schema, 'goals'),
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'goals', 
+            prompt: goals.prompt, 
+            schema: zodResponseFormat(goals.schema, 'goals') 
           },
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: {
-            ...base.data,
-            apiSubEndpoint: 'initiatives',
-            prompt: initiatives,
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'initiatives', 
+            prompt: initiatives.prompt, 
+            schema: zodResponseFormat(initiatives.schema, 'initiatives') 
           },
         },
         {
           ...base,
           name: 'sustainability contacts ' + companyName,
-          data: { ...base.data, prompt: contacts },
+          data: { 
+            ...base.data, 
+            prompt: contacts.prompt, 
+            schema: zodResponseFormat(contacts.schema, 'contacts') 
+          },
         },*/
         {
           ...base,
           name: 'baseFacts ' + companyName,
-          data: { ...base.data, apiSubEndpoint: 'economy', prompt: baseFacts },
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'economy', 
+            prompt: baseFacts.prompt, 
+            schema: zodResponseFormat(baseFacts.schema, 'baseFacts') 
+          },
         },
         {
           ...base,
           name: 'fiscalYear ' + companyName,
-          data: { ...base.data, apiSubEndpoint: 'economy', prompt: fiscalYear },
+          data: { 
+            ...base.data, 
+            apiSubEndpoint: 'economy', 
+            prompt: fiscalYear.prompt, 
+            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear') 
+          },
         },
         /*{
           ...base,
           name: 'key upstream emission factors for ' + companyName,
-          data: { ...base.data, prompt: factors },
+          data: { 
+            ...base.data, 
+            prompt: factors.prompt, 
+            schema: zodResponseFormat(factors.schema, 'factors') 
+          },
         },
         {
           ...base,
           name: 'publicComment ' + companyName,
-          data: { ...base.data, prompt: publicComment },
+          data: { 
+            ...base.data, 
+            prompt: publicComment.prompt, 
+            schema: zodResponseFormat(publicComment.schema, 'publicComment') 
+          },
         },
 
         {
