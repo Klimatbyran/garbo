@@ -1,4 +1,22 @@
-const scope12 = `
+import { z } from 'zod'
+
+export const schema = z.object({
+  emissions_scope12: z.record(
+    z.object({
+      scope1: z.object({
+        emissions: z.number(),
+        unit: z.string(),
+      }),
+      scope2: z.object({
+        mb: z.number(),
+        lb: z.number(),
+        unit: z.string(),
+      }),
+    })
+  ),
+})
+
+export const prompt = `
 Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude latest year.
 Include market based and location based in scope 2. Always use tonnes CO2e as unit, so if emissions are presented in other units (for example in kilotonnes), convert this to tonnes. Add it as field emissions:
 
@@ -25,4 +43,4 @@ Example - feel free to add more fields and relevant data:
 \`\`\`
 `
 
-export default { prompt: scope12 }
+export default { prompt, schema }

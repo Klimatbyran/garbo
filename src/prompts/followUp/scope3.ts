@@ -1,4 +1,19 @@
-const scope3 = `
+import { z } from 'zod'
+
+export const schema = z.object({
+  emissions_scope3: z.array(
+    z.object({
+      year: z.number(),
+      scope3: z.object({
+        categories: z.record(z.number()),
+        totalEmissions: z.number(),
+        unit: z.string(),
+      }),
+    })
+  ),
+})
+
+export const prompt = `
 Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude latest year. Include as many categories as you can find and their scope 3 emissions.
 
 Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other".
@@ -52,4 +67,4 @@ Example: Keep this format and add as many years as you can find. Keep the catego
 \`\`\`
 `
 
-export default { prompt: scope3 }
+export default { prompt, schema }
