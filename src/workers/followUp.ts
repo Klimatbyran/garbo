@@ -100,12 +100,11 @@ ${json}
 ${prompt}
 
 ## Output:
-For example, if you want to add a new field called "industry" the response should look like this:
-\`\`\`json
+For example, if you want to add a new field called "industry" the response should look like this (only reply with valid json):
 {
   "industry": {...}
 }
-\`\`\``,
+`,
         },
         { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
@@ -115,12 +114,18 @@ For example, if you want to add a new field called "industry" the response shoul
       }
     )
 
-    job.log('Response: ' + response)
+    job.log('NEW Response: ' + response)
 
-    // TODO: Find out why we don't get ts error for missing vars
     try {
-      await saveCompany(wikidataId, apiSubEndpoint, JSON.parse(response))
-      return JSON.stringify(response, null, 2)
+      const jsonMatch = response.match(/```json([\s\S]*?)```/)
+      const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
+      const metadata = {
+        source: url,
+        comment: 'Parsed with AI by Garbo',
+      }
+      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
+      job.log('Saved to API')
+      return JSON.stringify(json, null, 2)
     } catch (error) {
       job.updateData({
         ...job.data,

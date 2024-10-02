@@ -35,6 +35,15 @@ const unit = tCO2e
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
 
+router.use('/', (req, res, next) => {
+  console.log('\n\n------Request received at', new Date().toISOString())
+  console.log('Request body:', req.body)
+  console.log('Request params:', req.params)
+  console.log('Request query:', req.query)
+  console.log('Request url:', req.url)
+  next()
+})
+
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
@@ -44,6 +53,7 @@ const upsertCompanyBodySchema = z.object({
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
+  // TODO: add history for turnover etc.
 })
 
 // NOTE: The request body seems to be consumed the first time it we call the middleware processRequest()
@@ -132,7 +142,7 @@ router.post(
 
       await upsertGoals(wikidataId, goals, metadata)
     }
-    res.status(200).send()
+    res.status(200).json({ ok: true })
   }
 )
 
@@ -165,7 +175,7 @@ router.post(
 
       await upsertInitiatives(wikidataId, initiatives, metadata)
     }
-    res.status(200).send()
+    res.status(200).json({ ok: true })
   }
 )
 
@@ -191,13 +201,16 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await upsertIndustry(
+      return upsertIndustry(
         wikidataId,
         { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
         metadata
-      )
+      ).catch((error) => {
+        console.error('Failed to update industry:', error)
+        return res.status(500).json({ error: 'Failed to update industry' })
+      })
     }
-    res.status(200).send()
+    res.status(200).json({ ok: true })
   }
 )
 
@@ -287,7 +300,7 @@ router.post(
       return res.status(500).json({ error: 'Failed to update emissions' })
     }
 
-    res.status(200).send()
+    res.status(200).json({ ok: true })
   }
 )
 
@@ -339,7 +352,7 @@ router.post(
       return res.status(500).json({ error: 'Failed to update economy' })
     }
 
-    res.status(200).send()
+    res.status(200).json({ ok: true })
   }
 )
 

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  emissions_scope12: z.record(
+  emissions: z.record(
     z.object({
       scope1: z.object({
         emissions: z.number(),
@@ -24,15 +24,15 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 
 Example - feel free to add more fields and relevant data:
 {
-  "emissions_scope12": {
+  "emissions": {
     "2021": {
       "scope1": {
-        "emissions": 40.3,
+        "emissions": 12.3,
         "unit": "tCO2e"
       },
       "scope2": {
-        "mb": 10.4,
-        "lb": 14.5,
+        "mb": 23.4,
+        "lb": 34.5,
         "unit": "tCO2e"
       }
     },

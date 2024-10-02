@@ -1,18 +1,18 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  baseFacts: z.object({
-    companyName: z.string(),
-    description: z.string(),
-    history: z.array(
-      z.object({
-        year: z.number(),
-        employees: z.number(),
-        turnover: z.number(),
-        currency: z.string(),
-      })
-    ),
-  }),
+  description: z.string(),
+  wikidataId: z.string(),
+  name: z.string(),
+  url: z.string().url().optional(),
+  history: z.array(
+    z.object({
+      year: z.number(),
+      employees: z.number(),
+      turnover: z.number(),
+      currency: z.string(),
+    })
+  ),
 })
 
 export const prompt = `
@@ -50,30 +50,29 @@ texter som kan uppfattas som greenwashing eller marknadsföring. Många företag
 
 Example, follow the format below. Do not use markdown in the output:
 {
-  "baseFacts": {
-    "companyName": "Company AB",
-    "description": "En beskrivning av företaget.",
-    "history": [
-      {
-        "year": 2021,
-        "employees": 10000,
-        "turnover": 12345,
-        "currency": "SEK"
-      },
-      {
-        "year": 2022,
-        "employees": 10000,
-        "turnover": 12345,
-        "currency": "SEK"
-      },
-      {
-        "year": 2023,
-        "employees": 10000,
-        "turnover": 12345,
-        "currency": "SEK"
-      }
-    ]
-  }
+  "name": "Company AB",
+  "description": "En beskrivning av företaget.",
+  "url": "https://company.com",
+  "history": [
+    {
+      "year": 2021,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    },
+    {
+      "year": 2022,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    },
+    {
+      "year": 2023,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    }
+  ]
 }
 `
 

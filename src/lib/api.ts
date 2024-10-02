@@ -18,17 +18,16 @@ export async function saveToAPI(
     },
   }
   if (body) {
-    config.body = JSON.stringify(body)
+    config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  return fetch(`${BASE_URL}${endpoint}`, config).then(async (response) => {
-    if (response.ok) {
-      return response.json()
-    } else {
-      const errorMessage = await response.text()
-      return Promise.reject(new Error(errorMessage))
-    }
-  })
+  const response = await fetch(`${BASE_URL}${endpoint}`, config)
+  if (response.ok) {
+    return response.json()
+  } else {
+    const errorMessage = await response.text()
+    return Promise.reject(new Error('API error:' + errorMessage))
+  }
 }
 
 export async function saveCompany(

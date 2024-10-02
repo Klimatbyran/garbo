@@ -1,23 +1,8 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  industry_gics: z.object({
-    sector: z.object({
-      code: z.string(),
-      name: z.string(),
-    }),
-    group: z.object({
-      code: z.string(),
-      name: z.string(),
-    }),
-    industry: z.object({
-      code: z.string(),
-      name: z.string(),
-    }),
-    subIndustry: z.object({
-      code: z.string(),
-      name: z.string(),
-    }),
+  industry: z.object({
+    subIndustryCode: z.string(),
   }),
 })
 
@@ -337,23 +322,9 @@ svetenskaper (3520)
 
 Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA. Do not use markdown in the output.
 {
-  "industry_gics": {
-    "sector": {
-      "code": "12",
-      "name": "xx"
-    },
-    "group": {
-      "code": "123",
-      "name": "xx"
-    },
-    "industry": {
-      "code": "12345",
-      "name": "xx"
-    },
-    "subIndustry": {
-      "code": "1234567",
-      "name": "xx"
-    }
+  "industry": {
+    "subIndustryCode": "1234567",
   }
-}
+}`
+
 export default { prompt, schema }

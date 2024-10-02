@@ -54,7 +54,7 @@ const worker = new Worker(
     ])
     job.log(response)
 
-    message.edit('✅ Utsläppsdata hämtad')
+    message?.edit('✅ Utsläppsdata hämtad')
     const markdown = response
       .match(/```markdown(.|\n)*```/)?.[0]
       .replace('```markdown', '```')
@@ -83,90 +83,80 @@ const worker = new Worker(
         {
           ...base,
           name: 'industryGics ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'industry', 
-            prompt: industryGics.prompt, 
-            schema: zodResponseFormat(industryGics.schema, 'industry_gics') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'industry',
+            prompt: industryGics.prompt,
+            schema: zodResponseFormat(industryGics.schema, 'industry_gics'),
           },
         },
-        // TODO: Decide if we should store NACE codes. If so, we need to update the DB and API.
-        // {
-        //   ...base,
-        //   name: 'industryNace ' + companyName,
-        //   data: {
-        //     ...base.data,
-        //     apiSubEndpoint: 'industry',
-        //     prompt: industryNace,
-        //   },
-        // },
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'emissions', 
-            prompt: scope12.prompt, 
-            schema: zodResponseFormat(scope12.schema, 'emissions_scope12') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'emissions',
+            prompt: scope12.prompt,
+            schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
           },
         },
         {
           ...base,
           name: 'scope3 ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'emissions', 
-            prompt: scope3.prompt, 
-            schema: zodResponseFormat(scope3.schema, 'emissions_scope3') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'emissions',
+            prompt: scope3.prompt,
+            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
           },
         },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'goals', 
-            prompt: goals.prompt, 
-            schema: zodResponseFormat(goals.schema, 'goals') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'goals',
+            prompt: goals.prompt,
+            schema: zodResponseFormat(goals.schema, 'goals'),
           },
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'initiatives', 
-            prompt: initiatives.prompt, 
-            schema: zodResponseFormat(initiatives.schema, 'initiatives') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'initiatives',
+            prompt: initiatives.prompt,
+            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
           },
         },
         {
           ...base,
           name: 'sustainability contacts ' + companyName,
-          data: { 
-            ...base.data, 
-            prompt: contacts.prompt, 
-            schema: zodResponseFormat(contacts.schema, 'contacts') 
-          },
-        },*/
-        {
-          ...base,
-          name: 'baseFacts ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'economy', 
-            prompt: baseFacts.prompt, 
-            schema: zodResponseFormat(baseFacts.schema, 'baseFacts') 
+          data: {
+            ...base.data,
+            prompt: contacts.prompt,
+            schema: zodResponseFormat(contacts.schema, 'contacts'),
           },
         },
         {
           ...base,
+          name: 'baseFacts ' + companyName,
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'economy',
+            prompt: baseFacts.prompt,
+            schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+          },
+        },
+        /*{
+          ...base,
           name: 'fiscalYear ' + companyName,
-          data: { 
-            ...base.data, 
-            apiSubEndpoint: 'economy', 
-            prompt: fiscalYear.prompt, 
-            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear') 
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'economy',
+            prompt: fiscalYear.prompt,
+            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
           },
         },
         /*{
@@ -186,13 +176,12 @@ const worker = new Worker(
             prompt: publicComment.prompt, 
             schema: zodResponseFormat(publicComment.schema, 'publicComment') 
           },
-        },
-
+        },*/
         {
           ...base,
           data: { ...base.data, companyName, url: job.data.url },
           queueName: 'includeFacit',
-        },*/
+        },
       ],
       opts: {
         attempts: 3,

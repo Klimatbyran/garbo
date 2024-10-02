@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  emissions_scope3: z.array(
+  emissions: z.array(
     z.object({
       year: z.number(),
       scope3: z.object({
@@ -45,7 +45,7 @@ If the company is idientified as a financial institution or investment company, 
 
 Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
 {
-  "emissions_scope3": [
+  "emissions": [
     {
       "year": 2021,
       "scope3": {
