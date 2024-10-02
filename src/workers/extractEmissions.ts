@@ -9,11 +9,12 @@ import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import * as goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-// import contacts from '../prompts/followUp/contacts'
+import contacts from '../prompts/followUp/contacts'
 import baseFacts from '../prompts/followUp/baseFacts'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import { ask, askPrompt } from '../openai'
+import factors from '../prompts/followUp/factors'
+import { ask } from '../openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 
 class JobData extends Job {
@@ -129,7 +130,6 @@ const worker = new Worker(
             prompt: initiatives,
           },
         },
-        /*
         {
           ...base,
           name: 'sustainability contacts ' + companyName,
