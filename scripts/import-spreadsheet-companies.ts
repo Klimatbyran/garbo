@@ -92,7 +92,7 @@ function getReportingPeriodDates() {
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('Overview')!
+  const sheet = workbook.getWorksheet('o')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
@@ -746,7 +746,7 @@ async function main() {
     companies.length,
     `and skipped`,
     skippedCompanyNames.size,
-    `companies due to missing wikidataId.\n\n`
+    `companies.\n\n`
   )
 
   // await writeFile(
