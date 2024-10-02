@@ -3,7 +3,7 @@ import redis from '../config/redis'
 import { searchCompany } from '../lib/wikidata'
 import { ask, askPrompt } from '../openai'
 import { extractEmissions } from '../queues'
-import { saveCompany, saveToAPI } from '../lib/api'
+import { saveCompany } from '../lib/api'
 
 class JobData extends Job {
   declare data: {
