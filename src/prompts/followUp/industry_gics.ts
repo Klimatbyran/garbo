@@ -21,7 +21,7 @@ export const schema = z.object({
   }),
 })
 
-const industryGics = `
+export const prompt = `
 Extract industry, sector, industry group, according to GICS:
 
 ## Sektor: Energi (10)

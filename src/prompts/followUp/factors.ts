@@ -10,7 +10,7 @@ export const schema = z.object({
   ),
 })
 
-const factors = `
+export const prompt = `
 Extract the key emission factors for others to multiply when calculating their scope 3 downstream emissions when using your products or services. For example- a travel company might use co2e per km for a car.
 
 Be as accurate as possible when extracting factors and only include ones mentioned in the text. These values will be used to automatically calculate the emissions for products in an automated form where the user enter amount of km and we will return the emissions.

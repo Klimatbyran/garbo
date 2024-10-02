@@ -6,7 +6,7 @@ export const schema = z.object({
   orgNr: z.string().optional(),
 })
 
-const companyName = `
+export const prompt = `
 Extract the company name or organisation name. Also try to find other useful information about the organisation and include in the json. Just reply with the information you can find in json format:
 
 \`\`\`json
