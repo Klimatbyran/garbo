@@ -14,7 +14,6 @@ Example (replace with actual data):
 {
    "publicComment": "Example AB rapporterar överlag en heltäckande rapport av sina egna utsläpp. Däremot har man antagligen utelämnat en hel del utsläpp i Scope 3 från kategorierna Inköpta varor och tjänster som bör vara en betyande del av den här typen av företags utsläpp. Nedströms transport och distribution (9) och Användning av sålda produkter (11) bör även vara höga men saknas helt i rapporten. De har satt mål att nå netto nollutsläpp innan Y vilket är enlighet med branschens standard. Överlag en bra rapportering och realistiska men inte ambitösa mål. Bra jobbat."
 }
-\`\`\`
 `
 
 export default publicComment
