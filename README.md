@@ -25,32 +25,42 @@ flowchart TB
     D[Index Database]
     E[Search Database]
     F[Extract Emissions]
-    G[JSON]
+
+    API.Economy[POST /economy]
+    API.Industry[POST /industry]
+    API.Emissions[POST /emissions]
+    API.Goals[POST /goals]
+    API.Company[POST /company]
+    API.Factors[POST /factors TODO]
+    API.Contacts[POST /contacts TODO]
+    API.Review[POST /validate TODO]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
-    Review[Reasonability Assessment]
+    Review[Discord Review]
 
 
-    DB[Database]
+    A --> B --> C --> D --> E ---> F
 
-    A --> B --> C --> D --> E ---> F ---> G ---> H
-    B --(Cached)--> E
+    F --> CompanyName --(.company)--> API.Company
+    F --> Industry --(.industry)--> API.Industry
+    F --> Scope1+2 --(.scope1)--> API.Emissions
+    F --> Scope3 --(.scope3)--> API.Emissions
+    F --> Goals --(.goals)--> API.Goals
+    F --> Initiatives --(.initiatives)--> API.Goals
+    F --> Contacts --(.contacts)--> API.Contacts
+    F --> Turnover --(.turnover)--> API.Economy
+    F --> Factors --(.factors)--> API.Factors
 
-    F --> CompanyName --(.company)--> G
-    F --> Industry --(.industry)--> G
-    F --> Scope1+2 --(.scope1)--> G
-    F --> Scope3 --(.scope3)--> G
-    F --> Goals --(.goals)--> G
-    F --> Initiatives --(.initiatives)--> G
-    F --> Contacts --(.contacts)--> G
-    F --> Turnover --(.turnover)--> G
-    F --> Factors --(.factors)--> G
+    API.Economy --> Review
+    API.Industry --> Review
+    API.Emissions --> Review
+    API.Goals --> Review
+    API.Factors --> Review
+    API.Contacts --> Review
+    API.Company --> Review
 
-    G --> Format --(json)--> H
-
-    H --> Review --> DB
-    H --> Review --> DB
+    Review --> API.Review
 ```
 
 ### Get Started
