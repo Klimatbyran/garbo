@@ -24,7 +24,7 @@ If no year is mentioned, set year to null.
 
 ** LANGUAGE: WRITE IN SWEDISH. If text is in english, translate to Swedish **
 
-{
+{ Do not use markdown in the output.
   "goals": [
     {
       "description": "Minska utsläppen med X%",

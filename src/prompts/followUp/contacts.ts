@@ -37,7 +37,7 @@ Example (never keep any example data in your final response):
 Your task:
 1. Extract only the real data available. If a piece of information (like name, role, email, or phone) is missing, omit that field entirely.
 2. If no contacts are found, return an empty array as follows: "contacts": [].
-3. Ensure no example data is included in the final output.
+3. Ensure no example data is included in the final output. Do not use markdown in the output.
 `
 
 export default { prompt, schema }

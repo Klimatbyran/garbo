@@ -335,7 +335,7 @@ svetenskaper (3520)
     - Fastighetsutveckling (60201030)
     - Fastighetstjänster (60201040)
 
-Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
+Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA. Do not use markdown in the output.
 {
   "industry_gics": {
     "sector": {

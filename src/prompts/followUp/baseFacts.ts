@@ -48,7 +48,7 @@ texter som kan uppfattas som greenwashing eller marknadsföring. Många företag
 
 *** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
 
-Example, follow the format below:
+Example, follow the format below. Do not use markdown in the output:
 {
   "baseFacts": {
     "companyName": "Company AB",

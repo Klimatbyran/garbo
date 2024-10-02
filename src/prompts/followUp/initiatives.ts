@@ -21,7 +21,7 @@ Prioritize the list and only include the most important initiatives. If the list
 *** Language: Write in SWEDISH ***
 If the text is in english, translate it to swedish.
 
-Example:
+Example: Do not use markdown in the output.
 \`\`\`json
 {
   "initiatives": [
