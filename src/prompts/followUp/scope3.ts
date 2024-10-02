@@ -52,4 +52,4 @@ Example: Keep this format and add as many years as you can find. Keep the catego
 \`\`\`
 `
 
-export default scope3
+export default { prompt: scope3 }

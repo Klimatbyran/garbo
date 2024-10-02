@@ -25,4 +25,4 @@ Example - feel free to add more fields and relevant data:
 \`\`\`
 `
 
-export default scope12
+export default { prompt: scope12 }
