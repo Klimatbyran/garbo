@@ -337,7 +337,6 @@ svetenskaper (3520)
 
 Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
 
-\`\`\`json
 {
    "industry_gics": {
       "sector": {
@@ -358,7 +357,4 @@ Just reply with the information in json format. In Swedish, please. NEVER USE EX
       },
    }
  }
-\`\`\`
 `
-
-export default industryGics
