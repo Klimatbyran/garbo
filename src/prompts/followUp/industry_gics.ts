@@ -21,7 +21,6 @@ export const schema = z.object({
   }),
 })
 
-export const prompt = `
 Extract industry, sector, industry group, according to GICS:
 
 ## Sektor: Energi (10)
@@ -357,4 +356,4 @@ Just reply with the information in json format. In Swedish, please. NEVER USE EX
       },
    }
  }
-`
+export default { prompt, schema }
