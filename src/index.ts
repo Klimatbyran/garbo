@@ -17,7 +17,6 @@ import {
   searchVectors,
   splitText,
   userFeedback,
-  saveToDb,
   followUp,
   guessWikidata,
   format,
@@ -59,7 +58,6 @@ const queues = [
   format,
   discordReview,
   userFeedback,
-  saveToDb,
   guessWikidata,
 ]
 createBullBoard({

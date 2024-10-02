@@ -2,7 +2,7 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { extractEmissions } from '../queues'
+import { extractEmissions, guessWikidata } from '../queues'
 import chromadb from '../config/chromadb'
 import discord from '../discord'
 import prompt from '../prompts/parsePDF'
@@ -58,16 +58,23 @@ const worker = new Worker(
     job.log('Paragraphs:\n\n' + paragraphs.join('\n\n'))
 
     message.edit('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
-    extractEmissions.add(
-      'parse ' + url,
+
+    guessWikidata.add(
+      'guess ' + url.slice(-20),
       {
-        ...job.data,
+        url,
+        companyName: url,
         paragraphs,
+        previousAnswer: '',
+        answer: '',
+        threadId: job.data.threadId,
+        previousError: '',
       },
       {
         attempts: 5,
       }
     )
+
     return results.documents
   },
   {

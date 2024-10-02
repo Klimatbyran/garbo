@@ -19,18 +19,18 @@ Some of the following steps will be performed in parallel and most will be async
 ```mermaid
 flowchart TB
 
-    A[PDF]
-    B{Is in cache?}
-    C[Download PDF]
-    D[Index Database]
-    E[Search Database]
-    F[Extract Emissions]
+    PDF[PDF]
+    Cache{Is in cache?}
+    Download[Download PDF]
+    Index[Index Paragraphs]
+    Search[Search Vectors]
+    Emissions[Extract Emissions]
+    Wikidata[Guess Wikidata]
 
     API.Economy[POST /economy]
     API.Industry[POST /industry]
     API.Emissions[POST /emissions]
     API.Goals[POST /goals]
-    API.Company[POST /company]
     API.Factors[POST /factors TODO]
     API.Contacts[POST /contacts TODO]
     API.Review[POST /validate TODO]
@@ -40,17 +40,17 @@ flowchart TB
     Review[Discord Review]
 
 
-    A --> B --> C --> D --> E ---> F
+    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
+    Cache --(yes)--> Search
 
-    F --> CompanyName --(.company)--> API.Company
-    F --> Industry --(.industry)--> API.Industry
-    F --> Scope1+2 --(.scope1)--> API.Emissions
-    F --> Scope3 --(.scope3)--> API.Emissions
-    F --> Goals --(.goals)--> API.Goals
-    F --> Initiatives --(.initiatives)--> API.Goals
-    F --> Contacts --(.contacts)--> API.Contacts
-    F --> Turnover --(.turnover)--> API.Economy
-    F --> Factors --(.factors)--> API.Factors
+    Emissions --> Industry --(.industry)--> API.Industry
+    Emissions --> Scope1+2 --(.scope1)--> API.Emissions
+    Emissions --> Scope3 --(.scope3)--> API.Emissions
+    Emissions --> Goals --(.goals)--> API.Goals
+    Emissions --> Initiatives --(.initiatives)--> API.Goals
+    Emissions --> Contacts --(.contacts)--> API.Contacts
+    Emissions --> Turnover --(.turnover)--> API.Economy
+    Emissions --> Factors --(.factors)--> API.Factors
 
     API.Economy --> Review
     API.Industry --> Review
@@ -58,7 +58,6 @@ flowchart TB
     API.Goals --> Review
     API.Factors --> Review
     API.Contacts --> Review
-    API.Company --> Review
 
     Review --> API.Review
 ```

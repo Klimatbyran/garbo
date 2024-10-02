@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
+import { saveCompany, saveToAPI } from '../lib/api'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
@@ -10,6 +11,7 @@ const embedder = new OpenAIEmbeddingFunction({
 
 class JobData extends Job {
   declare data: {
+    wikidataId: string
     documentId: string
     url: string
     prompt: string
@@ -23,8 +25,10 @@ class JobData extends Job {
 const worker = new Worker(
   'followUp',
   async (job: JobData) => {
-    const { prompt, url, json, previousAnswer, previousError } = job.data
+    const { prompt, url, json, previousAnswer, previousError, wikidataId } =
+      job.data
 
+    // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -93,7 +97,7 @@ For example, if you want to add a new field called "industry" the response shoul
 }
 \`\`\``,
         },
-        { role: 'asistant', content: previousAnswer },
+        { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
       ].filter((m) => m.content) as any[]
     )
@@ -103,6 +107,7 @@ For example, if you want to add a new field called "industry" the response shoul
 
     try {
       const parsedJson = output ? JSON.parse(output) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
+      await saveCompany(wikidataId, `initiatives`, parsedJson)
       return JSON.stringify(parsedJson, null, 2)
     } catch (error) {
       job.updateData({
@@ -110,6 +115,7 @@ For example, if you want to add a new field called "industry" the response shoul
         previousAnswer: output,
         previousError: error.message,
       })
+      throw error
     }
   },
   {

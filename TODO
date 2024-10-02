@@ -1,0 +1,19 @@
+Milstolpe 1 - Uppdatera lokal databas och frontend från Discord med ny PDF.
+
+[x] Koppla ihop Garbo med lokal miljö, env
+[x] Rensa bort allt som heter saveToDb
+[x] Ta guesswikidataId och flytta tidigare i kön
+[x] Ta en av garbos workers, t ex initiatives och kör anrop mot lokalt api
+[ ] Implementera structured output i schemat för Open AI API
+[ ] Tryck Approve i Discord och få en grön flagga i frontend
+
+-- SENARE --
+[ ] Om WikidataID saknas, skicka meddelande till Discord med länk till skapa Wikidata och förslag på Företagsnamn
+[ ] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
+[ ] Lägg schema ihop med prompt
+[ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
+[ ] Dokumentera biogenic emissions i vårt mermaid-flödeschema
+[ ] Skapa helpers för att hantera fel och pröva igen för workers.
+[ ] När dev-board startar, kontrollera att databasen är seedad och har kört senaste migrationerna? Annars kasta ett fel
+[ ] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
+[ ] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments

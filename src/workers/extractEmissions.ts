@@ -19,6 +19,8 @@ class JobData extends Job {
   declare data: {
     url: string
     paragraphs: string[]
+    companyName: string
+    wikidataId: string
     threadId: string
     pdfHash: string
   }
@@ -29,8 +31,8 @@ const flow = new FlowProducer({ connection: redis })
 const worker = new Worker(
   'extractEmissions',
   async (job: JobData, token: string) => {
-    const pdfParagraphs = job.data.paragraphs
-    job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
+    const { paragraphs, companyName, wikidataId } = job.data
+    job.log(`Asking AI for following context and prompt: ${paragraphs.join(
       '\n\n'
     )}
     ${prompt}`)
@@ -48,7 +50,7 @@ const worker = new Worker(
       },
       { role: 'user', content: prompt },
       { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
-      { role: 'user', content: pdfParagraphs.join('---PDF EXTRACT---\n\n') },
+      { role: 'user', content: paragraphs.join('---PDF EXTRACT---\n\n') },
     ])
     job.log(response)
 
@@ -59,14 +61,10 @@ const worker = new Worker(
 
     discord.sendMessage(job.data, '✅ Fått preliminära siffror')
 
-    const companyName = await askPrompt(
-      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
-      markdown || response
-    )
-
     const base = {
       name: companyName,
       data: {
+        wikidataId,
         threadId: job.data.threadId,
         url: job.data.url,
         answer: response,
@@ -143,16 +141,7 @@ const worker = new Worker(
           name: 'publicComment ' + companyName,
           data: { ...base.data, prompt: publicComment },
         },
-        {
-          ...base,
-          data: {
-            ...base.data,
-            companyName,
-            paragraphs: pdfParagraphs,
-            url: job.data.url,
-          },
-          queueName: 'guessWikidata',
-        },
+
         {
           ...base,
           data: { ...base.data, companyName, url: job.data.url },
