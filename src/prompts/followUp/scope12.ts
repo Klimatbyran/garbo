@@ -23,7 +23,6 @@ Include market based and location based in scope 2. Always use tonnes CO2e as un
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null.
 
 Example - feel free to add more fields and relevant data:
-\`\`\`json
 { 
   "emissions_scope12": {
     "2021": {
@@ -40,7 +39,6 @@ Example - feel free to add more fields and relevant data:
     "2022": { ...},
     "2023": { ...},
 }
-\`\`\`
 `
 
 export default { prompt, schema }

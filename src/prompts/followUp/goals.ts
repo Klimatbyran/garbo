@@ -24,7 +24,6 @@ If no year is mentioned, set year to null.
 
 ** LANGUAGE: WRITE IN SWEDISH. If text is in english, translate to Swedish **
 
-\`\`\`json
 { 
   "goals": [
     { description: 'Minska utsläppen med X%', 
@@ -33,6 +32,5 @@ If no year is mentioned, set year to null.
     }
   ]
 }
-\`\`\`
 `
 export default { prompt, schema }

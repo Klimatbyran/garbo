@@ -44,8 +44,6 @@ If the company is idientified as a financial institution or investment company, 
 
 
 Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
-
-\`\`\`json
 { 
   "emissions_scope3": [
     {
@@ -64,7 +62,6 @@ Example: Keep this format and add as many years as you can find. Keep the catego
     { "year": 2022, ...}, 
     { "year": 2023, ...}] 
 }
-\`\`\`
 `
 
 export default { prompt, schema }

@@ -336,8 +336,6 @@ svetenskaper (3520)
     - Fastighetstjänster (60201040)
 
 Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
-
-{
    "industry_gics": {
       "sector": {
         "code": "12",
@@ -357,5 +355,4 @@ Just reply with the information in json format. In Swedish, please. NEVER USE EX
       },
    }
  }
-\`\`\`
 export default { prompt, schema }

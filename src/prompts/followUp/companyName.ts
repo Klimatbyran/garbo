@@ -15,7 +15,6 @@ Extract the company name or organisation name. Also try to find other useful inf
    "website": "https://example.com",
    "orgNr": "1234567"
  }
-\`\`\`
 `
 
 export default { prompt, schema }

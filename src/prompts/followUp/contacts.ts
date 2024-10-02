@@ -23,7 +23,6 @@ NEVER GUESS VALUES OR KEEP EXAMPLE DATA
 IMPORTANT: If a field does not exist or is not found, it should be omitted from the output. Do not use placeholder values like "N/A" or empty strings.
 
 Example (never keep any example data in your final response):
-\`\`\`json
 {
   "contacts": [
     {
@@ -34,7 +33,6 @@ Example (never keep any example data in your final response):
     }
   ]
 }
-\`\`\`
 
 Your task:
 1. Extract only the real data available. If a piece of information (like name, role, email, or phone) is missing, omit that field entirely.
