@@ -1,3 +1,16 @@
+import { z } from 'zod'
+
+export const schema = z.object({
+  contacts: z.array(
+    z.object({
+      name: z.string().optional(),
+      role: z.string().optional(),
+      email: z.string().optional(),
+      phone: z.string().optional(),
+    })
+  ),
+})
+
 const contacts = `
 Extract the company sustainability contacts. Add it as field contacts:
 Be as accurate as possible when extracting contacts. These values will be

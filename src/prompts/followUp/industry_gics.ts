@@ -1,3 +1,26 @@
+import { z } from 'zod'
+
+export const schema = z.object({
+  industry_gics: z.object({
+    sector: z.object({
+      code: z.string(),
+      name: z.string(),
+    }),
+    group: z.object({
+      code: z.string(),
+      name: z.string(),
+    }),
+    industry: z.object({
+      code: z.string(),
+      name: z.string(),
+    }),
+    subIndustry: z.object({
+      code: z.string(),
+      name: z.string(),
+    }),
+  }),
+})
+
 const industryGics = `
 Extract industry, sector, industry group, according to GICS:
 

@@ -1,3 +1,20 @@
+import { z } from 'zod'
+
+export const schema = z.object({
+  baseFacts: z.object({
+    companyName: z.string(),
+    description: z.string(),
+    history: z.array(
+      z.object({
+        year: z.number(),
+        employees: z.number(),
+        turnover: z.number(),
+        currency: z.string(),
+      })
+    ),
+  }),
+})
+
 const turnover = `
 Extract the company basic facts such as company description, turnover and number of employees. Add it as field description and baseFacts. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
 

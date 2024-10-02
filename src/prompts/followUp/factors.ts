@@ -1,3 +1,15 @@
+import { z } from 'zod'
+
+export const schema = z.object({
+  factors: z.array(
+    z.object({
+      description: z.string(),
+      value: z.number(),
+      unit: z.string(),
+    })
+  ),
+})
+
 const factors = `
 Extract the key emission factors for others to multiply when calculating their scope 3 downstream emissions when using your products or services. For example- a travel company might use co2e per km for a car.
 
