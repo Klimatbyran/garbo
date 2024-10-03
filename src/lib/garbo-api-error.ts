@@ -11,4 +11,8 @@ export class GarboAPIError extends Error {
     this.originalError = originalError
     this.statusCode = statusCode
   }
+
+  static unauthorized() {
+    return new GarboAPIError('Unauthorized', undefined, 401)
+  }
 }

@@ -65,7 +65,7 @@ export const fakeAuth =
     }
 
     if (!res.locals.user?.id) {
-      return res.status(401).send()
+      throw GarboAPIError.unauthorized()
     }
 
     next()
