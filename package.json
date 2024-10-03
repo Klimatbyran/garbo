@@ -22,7 +22,6 @@
     "@bull-board/api": "^5.23.0",
     "@bull-board/express": "^5.23.0",
     "@prisma/client": "^5.20.0",
-    "@types/node": "^22.7.0",
     "bullmq": "^5.13.2",
     "chromadb": "^1.9.2",
     "cors": "^2.8.5",
@@ -30,7 +29,7 @@
     "discord.js": "^14.16.2",
     "dotenv": "^16.4.5",
     "embed-table": "^4.2.3",
-    "express": "^4.21.0",
+    "express": "^5.0.0",
     "openai": "^4.67.0",
     "pdf-parse-debugging-disabled": "^1.1.1",
     "prisma-zod-generator": "^0.8.13",
@@ -42,8 +41,9 @@
     "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {
+    "@types/node": "^22.7.0",
     "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.13",
     "concurrently": "^9.0.1",
     "deepl-node": "^1.14.0",
@@ -53,6 +53,12 @@
     "prisma": "^5.20.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5"
+  },
+  "overrides": {
+    "zod-express-middleware": {
+      "express": "^4.17.21 || ^5.0.0",
+      "@types/express": "^4.17.21 || ^5.0.0"
+    }
   },
   "prettier": {
     "semi": false,
