@@ -79,7 +79,9 @@ async function handleCompanyUpsert(req: Request, res: Response) {
       internalComment,
     })
   } catch (error) {
-    throw new GarboAPIError('Failed to upsert company', error)
+    throw new GarboAPIError('Failed to upsert company', {
+      original: error,
+    })
   }
 
   res.status(200).json(company)
@@ -103,7 +105,7 @@ router.use(
     const { wikidataId } = req.params
     const company = await prisma.company.findFirst({ where: { wikidataId } })
     if (!company) {
-      return res.status(404).json({ error: 'Company not found' })
+      throw new GarboAPIError('Company not found', { statusCode: 404 })
     }
     res.locals.company = company
 

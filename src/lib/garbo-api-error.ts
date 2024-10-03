@@ -1,18 +1,23 @@
 export class GarboAPIError extends Error {
   statusCode: number
-  originalError?: Error
+  original?: Error
 
   constructor(
     message: string,
-    originalError?: Error,
-    statusCode: number = 400
+    options: {
+      statusCode?: number
+      original?: Error
+    } = {}
   ) {
     super(message)
-    this.originalError = originalError
+
+    const { statusCode = 400, original } = options
+
     this.statusCode = statusCode
+    this.original = original
   }
 
   static unauthorized() {
-    return new GarboAPIError('Unauthorized', undefined, 401)
+    return new GarboAPIError('Unauthorized', { statusCode: 401 })
   }
 }

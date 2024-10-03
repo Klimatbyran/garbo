@@ -255,7 +255,7 @@ export const errorHandler = (
     res.status(400).json({ error: error.message })
     return
   } else if (error instanceof GarboAPIError) {
-    console.error(error.originalError)
+    console.error(error.original)
     res.status(error.statusCode).json({ error: error.message })
     return
   }
