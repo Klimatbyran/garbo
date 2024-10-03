@@ -84,7 +84,7 @@ async function handleCompanyUpsert(req: Request, res: Response) {
     })
   }
 
-  res.status(200).json(company)
+  res.json(company)
 }
 
 // NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param
@@ -130,11 +130,7 @@ router.post(
   '/:wikidataId/goals',
   validateRequestBody(goalsSchema),
   async (req, res) => {
-    const { data, error } = goalsSchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { goals } = data
+    const { goals } = goalsSchema.parse(req.body)
 
     if (goals?.length) {
       const { wikidataId } = req.params
@@ -142,7 +138,7 @@ router.post(
 
       await upsertGoals(wikidataId, goals, metadata)
     }
-    res.status(200).json({ ok: true })
+    res.json({ ok: true })
   }
 )
 
@@ -163,11 +159,7 @@ router.post(
   '/:wikidataId/initiatives',
   validateRequestBody(initiativesSchema),
   async (req, res) => {
-    const { data, error } = initiativesSchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { initiatives } = data
+    const { initiatives } = initiativesSchema.parse(req.body)
 
     if (initiatives?.length) {
       const { wikidataId } = req.params
@@ -175,7 +167,7 @@ router.post(
 
       await upsertInitiatives(wikidataId, initiatives, metadata)
     }
-    res.status(200).json({ ok: true })
+    res.json({ ok: true })
   }
 )
 
@@ -191,26 +183,24 @@ router.post(
   '/:wikidataId/industry',
   validateRequestBody(industrySchema),
   async (req, res) => {
-    const { data, error } = industrySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { industry } = data
+    const { industry } = industrySchema.parse(req.body)
 
     if (industry) {
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      return upsertIndustry(
+      await upsertIndustry(
         wikidataId,
         { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
         metadata
       ).catch((error) => {
-        console.error('Failed to update industry:', error)
-        return res.status(500).json({ error: 'Failed to update industry' })
+        throw new GarboAPIError('Failed to update industry', {
+          original: error,
+          statusCode: 500,
+        })
       })
     }
-    res.status(200).json({ ok: true })
+    res.json({ ok: true })
   }
 )
 
@@ -271,13 +261,10 @@ router.post(
   '/:wikidataId/:year/emissions',
   validateRequestBody(postEmissionsBodySchema),
   async (req, res) => {
-    const { data, error } = postEmissionsBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
+    const {
+      emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
+    } = postEmissionsBodySchema.parse(req.body)
 
-    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
-      data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
@@ -296,11 +283,13 @@ router.post(
         biogenic && upsertBiogenic(emissions, biogenic, metadata),
       ])
     } catch (error) {
-      console.error('Failed to update emissions:', error)
-      return res.status(500).json({ error: 'Failed to update emissions' })
+      throw new GarboAPIError('Failed to update emissions', {
+        original: error,
+        statusCode: 500,
+      })
     }
 
-    res.status(200).json({ ok: true })
+    res.json({ ok: true })
   }
 )
 
@@ -327,12 +316,10 @@ router.post(
   '/:wikidataId/:year/economy',
   validateRequestBody(postEconomyBodySchema),
   async (req, res) => {
-    const { data, error } = postEconomyBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
+    const {
+      economy: { turnover, employees },
+    } = postEconomyBodySchema.parse(req.body)
 
-    const { turnover, employees } = data.economy
     const metadata = res.locals.metadata
     const economy = res.locals.economy
 
@@ -348,11 +335,13 @@ router.post(
         employees && upsertEmployees(economy, employees, metadata),
       ])
     } catch (error) {
-      console.error('Failed to update economy:', error)
-      return res.status(500).json({ error: 'Failed to update economy' })
+      throw new GarboAPIError('Failed to update economy', {
+        original: error,
+        statusCode: 500,
+      })
     }
 
-    res.status(200).json({ ok: true })
+    res.json({ ok: true })
   }
 )
 

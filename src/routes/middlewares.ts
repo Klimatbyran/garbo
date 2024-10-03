@@ -152,22 +152,16 @@ export const reportingPeriod =
     // NOTE: Since we have to use validateRequest() for middlewares,
     // we have to parse the request body twice.
     // We should find a cleaner and more declarative pattern for this.
-    // NOTE: Maybe we could setup proper error handling, and just use the regular zodSchema.parse(req.body) which throws `ZodError`s?
-    // This would allow us to simplify the code and replace all res.status(400).json({ error }) in every middleware/endpoint with a shared error hanlder instead.
-    const { data, error } = reportingPeriodBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { startDate, endDate, reportURL } = data
+    // Look if we can solve this in a good way for express. Otherwise see how fastify handles schema validation.
+    const { startDate, endDate, reportURL } = reportingPeriodBodySchema.parse(
+      req.body
+    )
 
     const endYear = parseInt(year.split('-').at(-1))
     if (endYear !== endDate.getFullYear()) {
-      return res.status(400).json({
-        error:
-          'The URL param year must be the same year as the endDate (' +
-          endYear +
-          ') ',
-      })
+      throw new GarboAPIError(
+        `The URL param year must be the same year as the endDate (${endYear})`
+      )
     }
 
     const metadata = res.locals.metadata
@@ -260,5 +254,5 @@ export const errorHandler = (
     return
   }
 
-  res.status(500).json({ error: 'Internal server error' })
+  res.status(500).json({ error: 'Internal Server Error' })
 }

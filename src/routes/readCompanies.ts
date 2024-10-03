@@ -6,6 +6,7 @@ import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
 import { wikidataIdSchema } from './companySchemas'
 import { prisma } from '../lib/prisma'
+import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
 
@@ -235,8 +236,10 @@ router.get('/', cache(), async (req: Request, res: Response) => {
         }))
     )
   } catch (error) {
-    console.error('Failed to fetch company emission reports:', error)
-    res.status(500).json({ error: 'Error fetching company emission reports' })
+    throw new GarboAPIError('Failed to load companies', {
+      original: error,
+      statusCode: 500,
+    })
   }
 })
 
@@ -384,7 +387,7 @@ router.get(
       })
 
       if (!company) {
-        return res.status(404).json({ error: 'Company not found' })
+        throw new GarboAPIError('Company not found', { statusCode: 404 })
       }
 
       res.json(
@@ -460,8 +463,10 @@ router.get(
           .at(0)
       )
     } catch (error) {
-      console.error('Failed to fetch company:', error)
-      res.status(500).json({ error: 'Error fetching company' })
+      throw new GarboAPIError('Failed to load company', {
+        original: error,
+        statusCode: 500,
+      })
     }
   }
 )
