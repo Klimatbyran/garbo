@@ -25,6 +25,7 @@ import {
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
 import { Queue } from 'bullmq'
+import { errorHandler } from './routes/middlewares'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
@@ -76,11 +77,6 @@ discord.login()
 app.use('/api/companies', readCompanies)
 app.use('/api/companies', updateCompanies)
 app.use('/admin/queues', serverAdapter.getRouter())
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`Running on ${port}...`)
-  console.log(`For the UI, open http://localhost:${port}/admin/queues`)
-})
 
 // move active jobs to failed and retry
 // this is a temporary hack to speed up process for now
@@ -100,4 +96,12 @@ app.get('/', (req, res) => {
   res.send(
     `Hi I'm Garbo! Queues: <br><a href="/admin/queues">/admin/queues</a>`
   )
+})
+
+app.use(errorHandler)
+
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`Running on ${port}...`)
+  console.log(`For the UI, open http://localhost:${port}/admin/queues`)
 })

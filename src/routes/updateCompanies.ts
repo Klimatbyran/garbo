@@ -27,6 +27,7 @@ import {
 import { prisma } from '../lib/prisma'
 import { Company } from '@prisma/client'
 import { wikidataIdSchema } from './companySchemas'
+import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
@@ -60,14 +61,12 @@ const upsertCompanyBodySchema = z.object({
 // Thus, we can only call processRequest() and similar methods for actual API endpoints.
 // Middlewares should only use validateRequest() and similar methods.
 // NOTE: This might be worth looking into the `zod-express-middleware` package and see if we could improve this behaviour.
+// Or look into how fastify handles schema validation.
 const validateCompanyUpsert = () => validateRequestBody(upsertCompanyBodySchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  const { data, error } = upsertCompanyBodySchema.safeParse(req.body)
-  if (error) {
-    return res.status(400).json({ error })
-  }
-  const { name, description, url, internalComment, wikidataId } = data
+  const { name, description, url, internalComment, wikidataId } =
+    upsertCompanyBodySchema.parse(req.body)
 
   let company: Company
 
@@ -80,11 +79,10 @@ async function handleCompanyUpsert(req: Request, res: Response) {
       internalComment,
     })
   } catch (error) {
-    console.error('Failed to upsert company', error)
-    return res.status(500).json({ error: 'Failed to upsert company' })
+    throw new GarboAPIError('Failed to upsert company', error)
   }
 
-  return res.status(200).json(company)
+  res.status(200).json(company)
 }
 
 // NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param

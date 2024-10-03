@@ -9,10 +9,11 @@ import {
   User,
 } from '@prisma/client'
 import { validateRequest, validateRequestBody } from 'zod-express-middleware'
-import { z } from 'zod'
+import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 
 import { ensureReportingPeriodExists } from '../lib/prisma'
+import { GarboAPIError } from '../lib/garbo-api-error'
 
 declare global {
   namespace Express {
@@ -241,3 +242,23 @@ const getCorsOptionsBasedOnOrigin =
 
 export const enableCors = (allowedOrigins: string[]) =>
   cors(getCorsOptionsBasedOnOrigin(allowedOrigins))
+
+export const errorHandler = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  console.error(error)
+
+  if (error instanceof ZodError) {
+    res.status(400).json({ error: error.message })
+    return
+  } else if (error instanceof GarboAPIError) {
+    console.error(error.originalError)
+    res.status(error.statusCode).json({ error: error.message })
+    return
+  }
+
+  res.status(500).json({ error: 'Internal server error' })
+}
