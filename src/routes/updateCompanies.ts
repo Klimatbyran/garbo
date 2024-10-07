@@ -11,10 +11,11 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
-  upsertInitiatives,
   upsertIndustry,
   createGoals,
   updateGoal,
+  createInitiatives,
+  updateInitiative,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -26,7 +27,7 @@ import {
   ensureEconomyExists,
 } from './middlewares'
 import { prisma } from '../lib/prisma'
-import { Company } from '@prisma/client'
+import { Company, Prisma } from '@prisma/client'
 import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
@@ -136,27 +137,37 @@ router.patch(
     const { goal } = req.body
     const { id } = req.params
     const metadata = res.locals.metadata
-    await updateGoal(id, goal, metadata)
+    await updateGoal(id, goal, metadata).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Goal not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
+    })
     res.json({ ok: true })
   }
 )
 
-const initiativesSchema = z.object({
-  initiatives: z.array(
-    z.object({
-      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-      id: z.number().optional(),
-      title: z.string(),
-      description: z.string().optional(),
-      year: z.string().optional(),
-      scope: z.string().optional(),
-    })
-  ),
+const initiativeSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  year: z.string().optional(),
+  scope: z.string().optional(),
 })
 
 router.post(
   '/:wikidataId/initiatives',
-  processRequest({ body: initiativesSchema, params: wikidataIdParamSchema }),
+  processRequest({
+    body: z.object({
+      initiatives: z.array(initiativeSchema),
+    }),
+    params: wikidataIdParamSchema,
+  }),
   async (req, res) => {
     const { initiatives } = req.body
 
@@ -164,8 +175,34 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await upsertInitiatives(wikidataId, initiatives, metadata)
+      await createInitiatives(wikidataId, initiatives, metadata)
     }
+    res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/initiatives/:id',
+  processRequest({
+    body: z.object({ initiative: initiativeSchema }),
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { initiative } = req.body
+    const { id } = req.params
+    const metadata = res.locals.metadata
+    await updateInitiative(id, initiative, metadata).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Initiative not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
+    })
     res.json({ ok: true })
   }
 )

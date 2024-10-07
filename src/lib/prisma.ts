@@ -373,47 +373,55 @@ export async function updateGoal(
   })
 }
 
-export async function upsertInitiatives(
+export async function createInitiatives(
   wikidataId: Company['wikidataId'],
   initiatives: OptionalNullable<
-    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId'>
+    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
   >[],
   metadata: Metadata
 ) {
   return prisma.$transaction(
-    initiatives.map(({ id, ...initiative }) =>
-      id
-        ? prisma.initiative.update({
-            where: { id },
-            data: {
-              ...initiative,
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+    initiatives.map((initiative) =>
+      prisma.initiative.create({
+        data: {
+          ...initiative,
+          title: initiative.title,
+          company: {
+            connect: {
+              wikidataId,
             },
-            select: { id: true },
-          })
-        : prisma.initiative.create({
-            data: {
-              ...initiative,
-              title: initiative.title,
-              company: {
-                connect: {
-                  wikidataId,
-                },
-              },
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
-            select: { id: true },
-          })
+          },
+        },
+        select: { id: true },
+      })
     )
   )
+}
+
+export async function updateInitiative(
+  id: Initiative['id'],
+  initiative: OptionalNullable<
+    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
+  >,
+  metadata: Metadata
+) {
+  return prisma.initiative.update({
+    where: { id },
+    data: {
+      ...initiative,
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function upsertTurnover(
