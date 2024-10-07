@@ -8,7 +8,7 @@ import {
   ReportingPeriod,
   User,
 } from '@prisma/client'
-import { validateRequest, validateRequestBody } from 'zod-express-middleware'
+import { validateRequest, validateRequestBody } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 
@@ -243,13 +243,14 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error(error)
+  req.log.error(error)
 
   if (error instanceof ZodError) {
-    res.status(400).json({ error: error.message })
+    // TODO: try to remove the extra JSON.parse here
+    res.status(400).json({ error: JSON.parse(error.message) })
     return
   } else if (error instanceof GarboAPIError) {
-    console.error(error.original)
+    req.log.error(error.original)
     res.status(error.statusCode).json({ error: error.message })
     return
   }

@@ -1,10 +1,9 @@
 import express, { Request, Response } from 'express'
-import { validateRequestParams } from 'zod-express-middleware'
-import { z } from 'zod'
+import { validateRequestParams } from './zod-middleware'
 
 import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
-import { wikidataIdSchema } from './companySchemas'
+import { wikidataIdParamSchema } from './companySchemas'
 import { prisma } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
@@ -245,11 +244,7 @@ router.get('/', cache(), async (req: Request, res: Response) => {
 
 router.get(
   '/:wikidataId',
-  validateRequestParams(
-    z.object({
-      wikidataId: wikidataIdSchema,
-    })
-  ),
+  validateRequestParams(wikidataIdParamSchema),
   cache(),
   async (req: Request, res: Response) => {
     const { wikidataId } = req.params

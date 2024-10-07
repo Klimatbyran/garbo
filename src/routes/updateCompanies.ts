@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { z } from 'zod'
-import { validateRequest, validateRequestBody } from 'zod-express-middleware'
+import { processRequest, processRequestBody } from './zod-middleware'
 
 import {
   upsertBiogenic,
@@ -26,7 +26,7 @@ import {
 } from './middlewares'
 import { prisma } from '../lib/prisma'
 import { Company } from '@prisma/client'
-import { wikidataIdSchema } from './companySchemas'
+import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
@@ -35,15 +35,6 @@ const unit = tCO2e
 
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
-
-router.use('/', (req, res, next) => {
-  console.log('\n\n------Request received at', new Date().toISOString())
-  console.log('Request body:', req.body)
-  console.log('Request params:', req.params)
-  console.log('Request query:', req.query)
-  console.log('Request url:', req.url)
-  next()
-})
 
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
@@ -57,12 +48,7 @@ const upsertCompanyBodySchema = z.object({
   // TODO: add history for turnover etc.
 })
 
-// NOTE: The request body seems to be consumed the first time it we call the middleware processRequest()
-// Thus, we can only call processRequest() and similar methods for actual API endpoints.
-// Middlewares should only use validateRequest() and similar methods.
-// NOTE: This might be worth looking into the `zod-express-middleware` package and see if we could improve this behaviour.
-// Or look into how fastify handles schema validation.
-const validateCompanyUpsert = () => validateRequestBody(upsertCompanyBodySchema)
+const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
   const { name, description, url, internalComment, wikidataId } =
@@ -96,10 +82,8 @@ router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
 // NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
 router.use(
   '/:wikidataId',
-  validateRequest({
-    params: z.object({
-      wikidataId: wikidataIdSchema,
-    }),
+  processRequest({
+    params: wikidataIdParamSchema,
   }),
   async (req, res, next) => {
     const { wikidataId } = req.params
@@ -128,9 +112,9 @@ const goalsSchema = z.object({
 
 router.post(
   '/:wikidataId/goals',
-  validateRequestBody(goalsSchema),
+  processRequest({ body: goalsSchema, params: wikidataIdParamSchema }),
   async (req, res) => {
-    const { goals } = goalsSchema.parse(req.body)
+    const { goals } = req.body
 
     if (goals?.length) {
       const { wikidataId } = req.params
@@ -157,9 +141,9 @@ const initiativesSchema = z.object({
 
 router.post(
   '/:wikidataId/initiatives',
-  validateRequestBody(initiativesSchema),
+  processRequest({ body: initiativesSchema, params: wikidataIdParamSchema }),
   async (req, res) => {
-    const { initiatives } = initiativesSchema.parse(req.body)
+    const { initiatives } = req.body
 
     if (initiatives?.length) {
       const { wikidataId } = req.params
@@ -181,9 +165,9 @@ const industrySchema = z.object({
 
 router.post(
   '/:wikidataId/industry',
-  validateRequestBody(industrySchema),
+  processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
-    const { industry } = industrySchema.parse(req.body)
+    const { industry } = req.body
 
     if (industry) {
       const { wikidataId } = req.params
@@ -259,7 +243,7 @@ const postEmissionsBodySchema = z.object({
 // POST//Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
-  validateRequestBody(postEmissionsBodySchema),
+  processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
     const {
       emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
@@ -314,7 +298,7 @@ const postEconomyBodySchema = z.object({
 
 router.post(
   '/:wikidataId/:year/economy',
-  validateRequestBody(postEconomyBodySchema),
+  processRequestBody(postEconomyBodySchema),
   async (req, res) => {
     const {
       economy: { turnover, employees },

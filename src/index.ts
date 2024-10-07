@@ -1,10 +1,10 @@
 import 'dotenv/config'
-
 import express from 'express'
 import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
-
+import { Queue } from 'bullmq'
+import pino from 'pino-http'
 import discord from './discord'
 
 import {
@@ -24,7 +24,6 @@ import {
 } from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
-import { Queue } from 'bullmq'
 import { errorHandler } from './routes/middlewares'
 
 // start ui
@@ -73,6 +72,23 @@ createBullBoard({
 
 const app = express()
 discord.login()
+
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end()
+})
+
+app.use(
+  pino(
+    process.stdin.isTTY
+      ? {
+          transport: {
+            target: 'pino-pretty',
+          },
+          level: 'info',
+        }
+      : undefined
+  )
+)
 
 app.use('/api/companies', readCompanies)
 app.use('/api/companies', updateCompanies)
