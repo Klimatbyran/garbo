@@ -14,6 +14,7 @@ import cors, { CorsOptionsDelegate } from 'cors'
 
 import { ensureReportingPeriodExists } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
+import { ENV } from '../lib/env'
 
 declare global {
   namespace Express {
@@ -27,16 +28,6 @@ declare global {
     }
   }
 }
-
-const envSchema = z.object({
-  /**
-   * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
-   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
-   */
-  API_TOKENS: z.string().transform((tokens) => tokens.split(',')),
-})
-
-const ENV = envSchema.parse(process.env)
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {

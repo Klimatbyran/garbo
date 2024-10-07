@@ -1,7 +1,10 @@
 const BASE_URL = 'http://localhost:3000/api'
-const GARBO_TOKEN = 'garbo:auth-123'
 
-export async function saveToAPI(
+import { ENV } from './env'
+
+const GARBO_TOKEN = ENV.API_TOKENS.find((token) => token.startsWith('garbo'))
+
+async function saveToAPI(
   endpoint: string,
   { body, ...customConfig }: RequestInit = {}
 ) {

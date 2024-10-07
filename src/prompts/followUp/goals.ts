@@ -4,7 +4,6 @@ import { z } from 'zod'
 export const schema = z.object({
   goals: z.array(
     z.object({
-      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
       description: z.string(),
       year: z.string().optional(),
       target: z.number().optional(),
