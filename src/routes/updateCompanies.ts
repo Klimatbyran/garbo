@@ -11,9 +11,10 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
-  upsertGoals,
   upsertInitiatives,
   upsertIndustry,
+  createGoals,
+  updateGoal,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -97,22 +98,21 @@ router.use(
   }
 )
 
-const goalsSchema = z.object({
-  goals: z.array(
-    z.object({
-      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-      id: z.number().optional(),
-      description: z.string(),
-      year: z.string().optional(),
-      target: z.number().optional(),
-      baseYear: z.string().optional(),
-    })
-  ),
+const goalSchema = z.object({
+  description: z.string(),
+  year: z.string().optional(),
+  target: z.number().optional(),
+  baseYear: z.string().optional(),
 })
 
 router.post(
   '/:wikidataId/goals',
-  processRequest({ body: goalsSchema, params: wikidataIdParamSchema }),
+  processRequest({
+    body: z.object({
+      goals: z.array(goalSchema),
+    }),
+    params: wikidataIdParamSchema,
+  }),
   async (req, res) => {
     const { goals } = req.body
 
@@ -120,8 +120,23 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await upsertGoals(wikidataId, goals, metadata)
+      await createGoals(wikidataId, goals, metadata)
     }
+    res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/goals/:id',
+  processRequest({
+    body: z.object({ goal: goalSchema }),
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { goal } = req.body
+    const { id } = req.params
+    const metadata = res.locals.metadata
+    await updateGoal(id, goal, metadata)
     res.json({ ok: true })
   }
 )

@@ -322,47 +322,55 @@ export async function upsertCompany({
   })
 }
 
-export async function upsertGoals(
+export async function createGoals(
   wikidataId: Company['wikidataId'],
   goals: OptionalNullable<
-    Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId'>
+    Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
   >[],
   metadata: Metadata
 ) {
   return prisma.$transaction(
-    goals.map(({ id, ...goal }) =>
-      id
-        ? prisma.goal.update({
-            where: { id },
-            data: {
-              ...goal,
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+    goals.map((goal) =>
+      prisma.goal.create({
+        data: {
+          ...goal,
+          description: goal.description,
+          company: {
+            connect: {
+              wikidataId,
             },
-            select: { id: true },
-          })
-        : prisma.goal.create({
-            data: {
-              ...goal,
-              description: goal.description,
-              company: {
-                connect: {
-                  wikidataId,
-                },
-              },
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
-            select: { id: true },
-          })
+          },
+        },
+        select: { id: true },
+      })
     )
   )
+}
+
+export async function updateGoal(
+  id: Goal['id'],
+  goal: OptionalNullable<
+    Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
+  >,
+  metadata: Metadata
+) {
+  return prisma.goal.update({
+    where: { id },
+    data: {
+      ...goal,
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function upsertInitiatives(
