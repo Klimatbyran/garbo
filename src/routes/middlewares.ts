@@ -238,7 +238,7 @@ export const errorHandler = (
 
   if (error instanceof ZodError) {
     // TODO: try to remove the extra JSON.parse here
-    res.status(400).json({ error: JSON.parse(error.message) })
+    res.status(422).json({ error: JSON.parse(error.message) })
     return
   } else if (error instanceof GarboAPIError) {
     req.log.error(error.original)
