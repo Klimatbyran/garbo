@@ -87,7 +87,7 @@ const worker = new Worker(
             ...base.data,
             apiSubEndpoint: 'industry',
             prompt: industryGics.prompt,
-            schema: zodResponseFormat(industryGics.schema, 'industry_gics'),
+            schema: zodResponseFormat(industryGics.schema, 'industry'),
           },
         },
         {
@@ -97,19 +97,21 @@ const worker = new Worker(
             ...base.data,
             apiSubEndpoint: 'emissions',
             prompt: scope12.prompt,
+            // Not sure why we named it "emissions_scope12" - maybe to avoid overwriting the result of the other job?
+            // Need to make sure it can easily be saved to the API, which expects "emissions" as the key.
             schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
           },
         },
-        {
-          ...base,
-          name: 'scope3 ' + companyName,
-          data: {
-            ...base.data,
-            apiSubEndpoint: 'emissions',
-            prompt: scope3.prompt,
-            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
-          },
-        },
+        // {
+        //   ...base,
+        //   name: 'scope3 ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     apiSubEndpoint: 'emissions',
+        //     prompt: scope3.prompt,
+        //     schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+        //   },
+        // },
         {
           ...base,
           name: 'goals ' + companyName,
@@ -130,25 +132,25 @@ const worker = new Worker(
             schema: zodResponseFormat(initiatives.schema, 'initiatives'),
           },
         },
-        {
-          ...base,
-          name: 'sustainability contacts ' + companyName,
-          data: {
-            ...base.data,
-            prompt: contacts.prompt,
-            schema: zodResponseFormat(contacts.schema, 'contacts'),
-          },
-        },
-        {
-          ...base,
-          name: 'baseFacts ' + companyName,
-          data: {
-            ...base.data,
-            apiSubEndpoint: 'economy',
-            prompt: baseFacts.prompt,
-            schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
-          },
-        },
+        // {
+        //   ...base,
+        //   name: 'sustainability contacts ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     prompt: contacts.prompt,
+        //     schema: zodResponseFormat(contacts.schema, 'contacts'),
+        //   },
+        // },
+        // {
+        //   ...base,
+        //   name: 'baseFacts ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     apiSubEndpoint: 'economy',
+        //     prompt: baseFacts.prompt,
+        //     schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+        //   },
+        // },
         /*{
           ...base,
           name: 'fiscalYear ' + companyName,
@@ -177,11 +179,11 @@ const worker = new Worker(
             schema: zodResponseFormat(publicComment.schema, 'publicComment') 
           },
         },*/
-        {
-          ...base,
-          data: { ...base.data, companyName, url: job.data.url },
-          queueName: 'includeFacit',
-        },
+        // {
+        //   ...base,
+        //   data: { ...base.data, companyName, url: job.data.url },
+        //   queueName: 'includeFacit',
+        // },
       ],
       opts: {
         attempts: 3,

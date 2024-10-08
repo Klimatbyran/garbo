@@ -3,7 +3,7 @@ import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
-import { saveCompany, saveToAPI } from '../lib/api'
+import { saveCompany } from '../lib/api'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,

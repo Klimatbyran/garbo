@@ -260,9 +260,15 @@ const postEmissionsBodySchema = z.object({
       .optional(),
     scope2: z
       .object({
-        mb: z.number().optional(),
-        lb: z.number().optional(),
-        unknown: z.number().optional(),
+        mb: z
+          .number({ description: 'Market-based scope 2 emissions' })
+          .optional(),
+        lb: z
+          .number({ description: 'Location-based scope 2 emissions' })
+          .optional(),
+        unknown: z
+          .number({ description: 'Unspecified Scope 2 emissions' })
+          .optional(),
       })
       .refine(
         ({ mb, lb, unknown }) =>
@@ -273,6 +279,7 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
+    // TODO: Ensure these schemas match with the schemas given to the LLM
     scope3: z
       .object({
         scope3Categories: z
