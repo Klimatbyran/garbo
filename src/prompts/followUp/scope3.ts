@@ -1,20 +1,27 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  emissions: z.array(
-    z.object({
-      year: z.number(),
-      scope3: z.object({
-        categories: z.record(z.number()),
-        totalEmissions: z.number(),
-        unit: z.string(),
-      }),
-    })
-  ),
+  emissions: z.object({
+    scope3: z
+      .object({
+        scope3Categories: z
+          .array(
+            z.object({
+              category: z.number().int().min(1).max(16),
+              total: z.number(),
+            })
+          )
+          .optional(),
+        statedTotalEmissions: z.object({ total: z.number() }).optional(),
+      })
+      .optional(),
+    biogenic: z.object({ total: z.number() }).optional(),
+    statedTotalEmissions: z.object({ total: z.number() }).optional(),
+  }),
 })
 
 export const prompt = `
-Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude the latest year. Include as many categories as you can find and their scope 3 emissions.
+Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude latest year. Include as many categories as you can find and their scope 3 emissions.
 
 Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other".
 
