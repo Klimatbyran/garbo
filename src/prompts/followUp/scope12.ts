@@ -9,25 +9,6 @@ import { z } from 'zod'
 // If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
 
 const schema = z.object({
-  emissions: z.record(
-    z.object({
-      scope1: z.object({
-        emissions: z.number(),
-        unit: z.string(),
-      }),
-      scope2: z.object({
-        mb: z.number(),
-        lb: z.number(),
-        // TODO: Should we update the API to allow providing custom units?
-        // If so, we should likely standardise and convert units to always save "tCO2e" to make it easy to understand and use the API data.
-        unit: z.string(),
-      }),
-    })
-  ),
-})
-
-// TODO: use the actual schema to allow saving to the API.
-const schema2 = z.object({
   scope1: z
     .object({
       total: z.number(),
@@ -82,4 +63,4 @@ Example - feel free to add more fields and relevant data:
 }
 `
 
-export { prompt, schema }
+export default { prompt, schema }
