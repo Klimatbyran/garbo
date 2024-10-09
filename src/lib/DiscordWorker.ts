@@ -10,7 +10,15 @@ export type DiscordWorkerJobData = {
   messageId?: string
 }
 
-class DiscordJob<DiscordWorkerJobData> extends Job {
+class DiscordJob<DataType = DiscordWorkerJobData> extends Job<DataType> {
+  constructor(
+    queue: Queue<DataType>,
+    name: string,
+    data: DataType,
+    opts: any
+  ) {
+    super(queue, name, data, opts)
+  }
   constructor(
     queue: Queue<DiscordWorkerJobData>,
     name: string,
