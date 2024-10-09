@@ -31,24 +31,21 @@ Regarding transport: If you can't find the exact category, report it as "4_upstr
 
 If the company is idientified as a financial institution or investment company, look for emissions data from investements, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
 
-1_purchasedGoods
-2_capitalGoods
-3_fuelAndEnergyRelatedActivities
-4_upstreamTransportationAndDistribution
-5_wasteGeneratedInOperations
-6_businessTravel
-7_employeeCommuting
-8_upstreamLeasedAssets
-9_downstreamTransportationAndDistribution
-10_processingOfSoldProducts
-11_useOfSoldProducts
-12_endOfLifeTreatmentOfSoldProducts
-13_downstreamLeasedAssets
-14_franchises
-15_investments
-16_other
-
-
+1: purchasedGoods
+2: capitalGoods
+3: fuelAndEnergyRelatedActivities
+4: upstreamTransportationAndDistribution
+5: wasteGeneratedInOperations
+6: businessTravel
+7: employeeCommuting
+8: upstreamLeasedAssets
+9: downstreamTransportationAndDistribution
+10: processingOfSoldProducts
+11: useOfSoldProducts
+12: endOfLifeTreatmentOfSoldProducts
+13: downstreamLeasedAssets
+14: franchises
+15: investments
 
 Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
 {
@@ -56,14 +53,13 @@ Example: Keep this format and add as many years as you can find. Keep the catego
     {
       "year": 2021,
       "scope3": {
-        "categories": {
-          "1_purchasedGoods": 10,
-          "2_capitalGoods": 20,
-          "3_fuelAndEnergyRelatedActivities": 40,
-          "14_franchises": 40
-        },
-        "totalEmissions": 100,
-        "unit": "tCO2e"
+        "categories": [
+          { "category": 1, "total": 10},
+          { "category": 2, "total": 20},
+          { "category": 3, "total": 40},
+          { "category": 14, "total": 40}
+        ],
+        "totalEmissions": 110,
       }
     },
     { "year": 2022, ... },
