@@ -15,14 +15,13 @@ class JobData extends Job {
     threadId: string
     pdfHash: string
     previousAnswer: string
-    previousError: string
   }
 }
 
 const worker = new Worker(
   'reflectOnAnswer',
   async (job: JobData) => {
-    const { previousAnswer, answer, previousError } = job.data
+    const { previousAnswer, answer } = job.data
     job.clearLogs()
 
     const message = await discord.sendMessage(
@@ -60,10 +59,12 @@ ${prompt}`)
           content: (childrenValues && JSON.stringify(childrenValues)) || null,
         },
         { role: 'user', content: prompt },
-        previousError && [
-          { role: 'assistant', content: previousAnswer },
-          { role: 'user', content: previousError },
-        ],
+        Array.isArray(job.stacktrace)
+          ? [
+              { role: 'assistant', content: previousAnswer },
+              { role: 'user', content: job.stacktrace.join('\n') },
+            ]
+          : undefined,
         { role: 'user', content: 'Reply only with JSON' },
       ]
         .flat()
@@ -85,7 +86,6 @@ ${prompt}`)
       job.updateData({
         ...job.data,
         previousAnswer: response,
-        previousError: error.message,
       })
       discord.sendMessage(job.data, `❌ ${error.message}:`)
       throw error

@@ -9,7 +9,6 @@ class JobData extends Job {
     previousAnswer: string
     answer: string
     threadId: string
-    previousError: string
   }
 }
 const worker = new Worker(

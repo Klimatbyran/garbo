@@ -20,7 +20,6 @@ class JobData extends Job {
     threadId: string
     json: string
     previousAnswer: string
-    previousError: string
   }
 }
 
@@ -34,7 +33,6 @@ const worker = new Worker(
       json,
       previousAnswer,
       apiSubEndpoint,
-      previousError,
       wikidataId,
     } = job.data
 
@@ -73,7 +71,6 @@ const worker = new Worker(
     
     `)
 
-    let progress = 0
     const response = await askStream(
       [
         {
@@ -107,7 +104,7 @@ For example, if you want to add a new field called "industry" the response shoul
 `,
         },
         { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: previousError },
+        { role: 'user', content: job.stacktrace.join('') },
       ].filter((m) => m.content) as any[],
       {
         response_format: schema,
@@ -130,7 +127,6 @@ For example, if you want to add a new field called "industry" the response shoul
       job.updateData({
         ...job.data,
         previousAnswer: response,
-        previousError: error.message,
       })
       throw error
     }

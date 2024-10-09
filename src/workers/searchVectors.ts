@@ -68,7 +68,6 @@ const worker = new Worker(
         previousAnswer: '',
         answer: '',
         threadId: job.data.threadId,
-        previousError: '',
       },
       {
         attempts: 5,

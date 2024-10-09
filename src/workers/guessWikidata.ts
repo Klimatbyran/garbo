@@ -13,14 +13,13 @@ class JobData extends Job {
     threadId: string
     paragraphs: string[]
     previousAnswer: string
-    previousError: string
   }
 }
 
 const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
-    const { previousError, previousAnswer, paragraphs, url } = job.data
+    const { previousAnswer, paragraphs, url } = job.data
     const companyName = await askPrompt(
       'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
       paragraphs.join('-------------PDF EXTRACT-------------------\n\n')
@@ -107,7 +106,9 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
         },
         { role: 'user', content: JSON.stringify(results, null, 2) },
         { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: previousError },
+        Array.isArray(job.stacktrace)
+          ? { role: 'user', content: job.stacktrace.join('\n') }
+          : undefined,
       ].filter((m) => m.content?.length > 0) as any[]
     )
 
@@ -156,7 +157,6 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
       await job.updateData({
         ...job.data,
         previousAnswer: response,
-        previousError: error.message,
       })
       throw error
     }
