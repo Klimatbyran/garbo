@@ -1,20 +1,19 @@
-import { Worker, WorkerOptions } from 'bullmq'
+import { Worker, WorkerOptions, Job } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 
-export interface DiscordWorkerJobData extends WorkerJobData {
-  sendMessage: (message: string) => Promise<void>
-  editMessage: (messageId: string, editedMessage: string) => Promise<void>
-  data: {
-    threadId: string
-    previousAnswer?: string
-  }
+// NOTE: Maybe this interface could be a class extending the base Job class.
+// Then we would get better type completion
+export type DiscordWorkerJobData = {
+  threadId: string
+  previousAnswer?: string
+  messageId: string
 }
 
-export class DiscordWorker<T extends DiscordWorkerJobData> extends Worker {
+export class DiscordWorker<JobData> extends Worker {
   constructor(
     name: string,
-    processor: (job: T) => Promise<void>,
+    processor: (job) => Promise<void>,
     options?: WorkerOptions
   ) {
     super(
@@ -24,10 +23,21 @@ export class DiscordWorker<T extends DiscordWorkerJobData> extends Worker {
         await processor({
           ...job,
           sendMessage: async (message: string) => {
-            await discord.sendMessage({ threadId }, message)
+            try {
+              const messageId = (
+                await discord.sendMessage({ threadId }, message)
+              ).id
+              job.updateData({ messageId })
+            } catch (err) {
+              job.log(`Error sending message: ${err.message}`)
+            }
           },
-          editMessage: async (messageId: string, editedMessage: string) => {
-            await discord.editMessage({ threadId, messageId }, editedMessage)
+          editMessage: async (editedMessage: string) => {
+            try {
+              await discord.editMessage(job.data, editedMessage)
+            } catch (err) {
+              job.log(`Error editing message: ${err.message}`)
+            }
           },
         })
       },
