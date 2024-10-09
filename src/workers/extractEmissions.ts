@@ -159,13 +159,13 @@ const worker = new Worker(
             schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
           },
         },
-        {
+        /*{
           ...base,
           name: 'publicComment ' + companyName,
-          data: { 
-            ...base.data, 
-            prompt: publicComment.prompt, 
-            schema: zodResponseFormat(publicComment.schema, 'publicComment') 
+          data: {
+            ...base.data,
+            prompt: publicComment.prompt,
+            schema: zodResponseFormat(publicComment.schema, 'publicComment'),
           },
         },*/
         // {

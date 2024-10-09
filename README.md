@@ -54,6 +54,7 @@ flowchart TB
     API.Industry --> Review
     API.Emissions --> Review
     API.Goals --> Review
+    API.Factors --> Review
     API.Contacts --> Review
 
     Review --> API.Review
