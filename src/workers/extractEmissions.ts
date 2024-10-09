@@ -95,8 +95,6 @@ const worker = new Worker(
             ...base.data,
             apiSubEndpoint: 'emissions',
             prompt: scope12.prompt,
-            // Not sure why we named it "emissions_scope12" - maybe to avoid overwriting the result of the other job?
-            // Need to make sure it can easily be saved to the API, which expects "emissions" as the key.
             schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
           },
         },
