@@ -9,19 +9,23 @@ export interface DiscordWorkerJobData {
   }
 }
 
-export class DiscordWorker<T>DiscordWorkerJobData> extends Worker {
-  constructor(name: string, worker, options?: WorkerOptions) {
-    super(name, worker, {
+export class DiscordWorker<T extends DiscordWorkerJobData> extends Worker {
+  constructor(name: string, processor: (job: T) => Promise<void>, options?: WorkerOptions) {
+    super(name, async (job) => {
+      const { threadId } = job.data;
+      await processor({
+        ...job,
+        sendMessage: async (message: string) => {
+          await discord.sendMessage({ threadId }, message);
+        },
+        editMessage: async (messageId: string, editedMessage: string) => {
+          await discord.editMessage({ threadId, messageId }, editedMessage);
+        },
+      });
+    }, {
       concurrency: 10, // default concurrency
       connection: redis,
       ...options,
-    })
-    const threadId = worker.data.threadId
-    worker.sendToDiscord = async (message: string) => {
-      await discord.sendMessage({ threadId }, message)
-    }
-    worker.editMessage = async (editedMessage: string) => {
-      message.edit(editedMessage)
-    }
+    });
   }
 }
