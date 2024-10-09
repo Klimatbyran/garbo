@@ -8,7 +8,7 @@ import { z } from 'zod'
 // Alternatively, we might default to reporting periods of January 1st - December 31st to keep it simple and consistant.
 // If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
 
-export const schema = z.object({
+const schema = z.object({
   emissions: z.record(
     z.object({
       scope1: z.object({
@@ -56,7 +56,7 @@ const schema2 = z.object({
     .optional(),
 })
 
-export const prompt = `
+const prompt = `
 Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude latest year.
 Include market based and location based in scope 2. Always use tonnes CO2e as unit, so if emissions are presented in other units (for example in kilotonnes), convert this to tonnes. Add it as field emissions:
 
@@ -82,4 +82,4 @@ Example - feel free to add more fields and relevant data:
 }
 `
 
-export default { prompt, schema }
+export { prompt, schema }
