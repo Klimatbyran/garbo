@@ -1,9 +1,10 @@
-import { Worker, Job } from 'bullmq'
+import { Worker, Job, UnrecoverableError } from 'bullmq'
 import redis from '../config/redis'
 import { searchCompany } from '../lib/wikidata'
 import { ask, askPrompt } from '../openai'
 import { extractEmissions } from '../queues'
 import { saveCompany } from '../lib/api'
+import discord from '../discord'
 
 class JobData extends Job {
   declare data: {
@@ -19,7 +20,6 @@ const worker = new Worker(
   'guessWikidata',
   async (job: JobData) => {
     const { previousError, previousAnswer, paragraphs, url } = job.data
-
     const companyName = await askPrompt(
       'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
       paragraphs.join('-------------PDF EXTRACT-------------------\n\n')
@@ -36,10 +36,12 @@ const worker = new Worker(
     job.log('Transformed: ' + JSON.stringify(transformed, null, 2))
     */
     if (results.length === 0) {
-      return JSON.stringify(
-        { wikidata: { error: 'No wikidata page found' } },
-        null,
-        2
+      const message = await discord.sendMessage(
+        job.data,
+        `❌ Hittade ingen Wikidata artikel för ${companyName}.`
+      )
+      throw new UnrecoverableError(
+        `No Wikipedia article found for company with name "${companyName}"`
       )
     }
 
