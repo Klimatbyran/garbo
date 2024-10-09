@@ -2,7 +2,9 @@ import { Worker, WorkerOptions } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 
-export interface DiscordWorkerJobData {
+export interface DiscordWorkerJobData extends WorkerJobData {
+  sendMessage: (message: string) => Promise<void>
+  editMessage: (messageId: string, editedMessage: string) => Promise<void>
   data: {
     threadId: string
     previousAnswer?: string
