@@ -6,6 +6,8 @@ Milstolpe 1 - Uppdatera lokal databas och frontend från Discord med ny PDF.
 [x] Ta en av garbos workers, t ex initiatives och kör anrop mot lokalt api
 [x] Implementera goals på samma sätt som initiatives
 
+Milstolpe 1.5 - Förenkla flödet i garbo
+
 ## BaseFacts
 
 [x] Lägg schema ihop med prompt

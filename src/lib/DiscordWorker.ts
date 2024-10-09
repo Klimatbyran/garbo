@@ -10,23 +10,13 @@ export type DiscordWorkerJobData = {
   messageId?: string
 }
 
-class DiscordJob<DataType = DiscordWorkerJobData> extends Job<DataType> {
-  constructor(
-    queue: Queue<DataType>,
-    name: string,
-    data: DataType,
-    opts: any
-  ) {
+class DiscordJob<DataType = DiscordWorkerJobData> extends Job {
+  constructor(queue: Queue<DataType>, name: string, data: DataType, opts: any) {
     super(queue, name, data, opts)
   }
-  constructor(
-    queue: Queue<DiscordWorkerJobData>,
-    name: string,
-    data: DiscordWorkerJobData,
-    opts: any
-  ) {
-    super(queue, name, data, opts)
-  }
+
+  declare data: DiscordWorkerJobData
+
   async sendMessage(message: string) {
     try {
       const { id } = await discord.sendMessage(
@@ -61,7 +51,7 @@ export class DiscordWorker<
     super(
       name,
       async (job) => {
-        const discordJob = new DiscordJob(job.queue, job.data, job.opts)
+        const discordJob = new DiscordJob(job.queue, name, job.data, job.opts)
         await processor(discordJob)
       },
       {

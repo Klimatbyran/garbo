@@ -1,15 +1,11 @@
-import { Job } from 'bullmq'
 import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
-import discord from '../discord'
 import * as crypto from 'crypto'
 import { DiscordWorker, DiscordWorkerJobData } from '../lib/DiscordWorker'
 
-class JobData implements DiscordWorkerJobData {
-  declare data: {
-    url: string
-    threadId: string
-  }
+type JobData = DiscordWorkerJobData & {
+  url: string
+  threadId: string
 }
 
 function hashPdf(pdfBuffer: Buffer): string {
@@ -29,22 +25,10 @@ const worker = new DiscordWorker<JobData>('downloadPDF', async (job) => {
       },
     })
     if (!response.ok) {
-      await discord.sendMessage(
-        job.data,
-        `Nedladdning misslyckades: ${response.statusText}`
-      )
+      await job.sendMessage(`Nedladdning misslyckades: ${response.statusText}`)
       throw new Error(`Nedladdning misslyckades: ${response.statusText}`)
     }
-    message?.edit(`🤖 Tolkar PDF...`)
-
-    // save to disk
-    // const pdfPath = path.join(__dirname, 'temp.pdf')
-    // const pdfStream = fs.create
-    // const pdfStream = fs.create
-    // response.body.pipe(pdfStream)
-    // pdfStream.on('finish', () => {
-    //   console.log('pdf saved')
-    // })
+    job.editMessage(`🤖 Tolkar PDF...`)
 
     const buffer = await response.arrayBuffer()
 
@@ -55,7 +39,7 @@ const worker = new DiscordWorker<JobData>('downloadPDF', async (job) => {
       throw new Error('Error parsing PDF')
     }
     const text = doc.text
-    message.edit(`🤖 Hittade ${text.length} tecken. Delar upp i sidor...`)
+    job.editMessage(`🤖 Hittade ${text.length} tecken. Delar upp i sidor...`)
 
     let pdfHash = ''
     try {
@@ -63,7 +47,7 @@ const worker = new DiscordWorker<JobData>('downloadPDF', async (job) => {
     } catch (error) {
       job.log(`Error indexing PDF: ${error.message}`)
     }
-    message.edit(`✅ PDF nedladdad!`)
+    job.editMessage(`✅ PDF nedladdad!`)
 
     splitText.add('split text ' + text.slice(0, 20), {
       ...job.data,
@@ -74,10 +58,7 @@ const worker = new DiscordWorker<JobData>('downloadPDF', async (job) => {
 
     return doc.text
   } catch (error) {
-    discord.sendMessage(
-      job.data,
-      `Fel vid nedladdning av PDF: ${error.message}`
-    )
+    job.sendMessage(`Fel vid nedladdning av PDF: ${error.message}`)
     job.log(`Error downloading PDF: ${error.message}`)
     throw error
   }

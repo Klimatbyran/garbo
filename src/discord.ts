@@ -173,6 +173,21 @@ export class Discord {
     })
   }
 
+  async editMessage(
+    {
+      channelId,
+      threadId,
+      messageId,
+    }: { channelId: string; threadId: string; messageId: string },
+    editedMessage: string
+  ) {
+    const channel = (await this.client.channels.fetch(
+      threadId || channelId
+    )) as TextChannel
+    const message = await channel.messages.fetch(messageId)
+    return message?.edit(editedMessage)
+  }
+
   async sendMessageToChannel(channelId, message): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)
