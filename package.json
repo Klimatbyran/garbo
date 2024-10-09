@@ -7,8 +7,8 @@
     "node": ">=22.0.0"
   },
   "scripts": {
-    "start": "node --import tsx src/index.ts",
-    "workers": "node --import tsx src/startWorkers.ts",
+    "start": "tsx src/index.ts",
+    "workers": "tsx src/startWorkers.ts",
     "dev-workers": "DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/startWorkers.ts",
     "dev-board": "DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
