@@ -38,8 +38,11 @@ flowchart TB
     Goals[Extract Climate Goals]
     Review[Discord Review]
 
+    Precheck --> GuessWikidata --> Emissions
+    Precheck --> FiscalYear --> Emissions
 
-    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
+    PDF --> Cache --(no)--> Download --> Index --> Search --> Precheck
+
     Cache --(yes)--> Search
 
     Emissions --> Industry --(.industry)--> API.Industry
