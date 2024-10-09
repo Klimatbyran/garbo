@@ -98,16 +98,16 @@ const worker = new Worker(
             schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
           },
         },
-        // {
-        //   ...base,
-        //   name: 'scope3 ' + companyName,
-        //   data: {
-        //     ...base.data,
-        //     apiSubEndpoint: 'emissions',
-        //     prompt: scope3.prompt,
-        //     schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
-        //   },
-        // },
+        {
+          ...base,
+          name: 'scope3 ' + companyName,
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'emissions',
+            prompt: scope3.prompt,
+            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+          },
+        },
         {
           ...base,
           name: 'goals ' + companyName,

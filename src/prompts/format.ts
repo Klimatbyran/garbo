@@ -1,5 +1,3 @@
-import mappings from '../data/mappings.json'
-
 const prompt = `I have previously sent a text for analysis by GPT-4. The responses I received needs to be verified and corrected according to a schema to be able to save to the db. Below are your instructions.
 
 You are now in the step H of the process that starts with raw extraction and then more detailed extraction so please keep the most relevant data from the previous steps in mind and make sure to include it in the final output in the correct format.
@@ -68,10 +66,6 @@ These are some examples that happens when the output is not correctly formatted:
 [report.emissions.2022.scope3.categories.16_other] of type [long] in document with id '935401c8-2f8b-4549-a650-4c1565e46080'. Preview of field's value: 'more than 80% of Camurus climate impact is in scope 3'
 ResponseError: illegal_argument_exception: [illegal_argument_exception] Reason: mapper [report.factors.value] cannot be changed from type [long] to [float]
 ResponseError: mapper_parsing_exception: [mapper_parsing_exception] Reason: failed to parse field [report.emissions.2022.scope3.categories.11_useOfSoldProducts] of type [long] in document with id '254318db-872a-479d-8540-38eb146c7ba0'. Preview of field's value: '{energyInput=374759000, energyLoss=59405000}'
-
-\`\`\`json
-${JSON.stringify(mappings, null, 2)}
-\`\`\`
 
 
 Reply with JSON without any comments, excuses or markdown formatting. Wrap your message with:

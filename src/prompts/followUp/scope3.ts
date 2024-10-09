@@ -27,7 +27,7 @@ Important! Always report according to the official GHG categories. If you can't 
 
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. If the company has reported individual categories but no totals, never try to calculate totals, just report it as is.
 
-Regarding transport: If you can't find the exact category, report it as "4_upstreamTransportationAndDistribution" or "9_downstreamTransportationAndDistribution" depending on the context.
+Regarding transport: If you can't find the exact category, report it as category 4 or 9 depending on the context.
 
 If the company is identified as a financial institution or investment company, look for emissions data from investments, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
 
@@ -46,8 +46,11 @@ If the company is identified as a financial institution or investment company, l
 13: downstreamLeasedAssets
 14: franchises
 15: investments
+16: other
 
-Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
+Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16: other category.
+
+\`\`\`json
 {
   "emissions": [
     {
@@ -66,6 +69,7 @@ Example: Keep this format and add as many years as you can find. Keep the catego
     { "year": 2023, ... }
   ]
 }
+\`\`\`
 `
 
 export default { prompt, schema }
