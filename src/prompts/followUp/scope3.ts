@@ -4,7 +4,7 @@ export const schema = z.object({
   emissions: z.object({
     scope3: z
       .object({
-        scope3Categories: z
+        categories: z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
@@ -53,7 +53,7 @@ Example: Keep this format and add as many years as you can find. Keep the catego
     {
       "year": 2021,
       "scope3": {
-        "scope3Categories": [
+        "categories": [
           { "category": 1, "total": 10},
           { "category": 2, "total": 20},
           { "category": 3, "total": 40},
