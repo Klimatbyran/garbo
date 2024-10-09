@@ -10,9 +10,14 @@ export type DiscordWorkerJobData = {
   messageId?: string
 }
 
-class DiscordJob<DataType = DiscordWorkerJobData> extends Job<DataType> {
-  constructor(queue: Queue<DataType>, data: DataType, opts: any) {
-    super(queue, data, opts)
+class DiscordJob<DiscordWorkerJobData> extends Job {
+  constructor(
+    queue: Queue<DiscordWorkerJobData>,
+    name: string,
+    data: DiscordWorkerJobData,
+    opts: any
+  ) {
+    super(queue, name, data, opts)
   }
   async sendMessage(message: string) {
     try {
