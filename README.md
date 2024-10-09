@@ -2,7 +2,7 @@
 
 This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self reported data from companies.
 
-Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through a set of commands in [Klimatkollen's Discord](https://discord.gg/N5P64QPQ6v) and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
@@ -10,7 +10,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #rapporter-att-granska by using the command /pdf <url> and Garbo will be answering with a parsed JSON
+Test the app in Discord channel [#rapporter-att-granska](https://discord.com/channels/1049333222309371965/1201463851447758879), by using the command /parse <url> and Garbo will be answering with a parsed JSON.
 
 ## Data Flow
 
@@ -64,7 +64,7 @@ flowchart TB
 
 ### Get Started
 
-Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
+Get an OPENAI_API_KEY from OpenAI, as well as a POSTGRES_PASSWORD, and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
 ```bash
 npm i
