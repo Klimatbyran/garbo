@@ -98,7 +98,7 @@ export async function upsertScope2(
 export async function upsertScope3(
   emissions: Emissions,
   scope3: {
-    scope3Categories?: { category: number; total: number }[]
+    categories?: { category: number; total: number }[]
     statedTotalEmissions?: OptionalNullable<
       Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
     >
@@ -108,7 +108,7 @@ export async function upsertScope3(
   const updatedScope3 = emissions.scope3Id
     ? await prisma.scope3.findFirst({
         where: { id: emissions.scope3Id },
-        include: { scope3Categories: { select: { id: true, category: true } } },
+        include: { categories: { select: { id: true, category: true } } },
       })
     : await prisma.scope3.create({
         data: {
@@ -124,7 +124,7 @@ export async function upsertScope3(
           },
         },
         include: {
-          scope3Categories: {
+          categories: {
             select: {
               id: true,
               category: true,
@@ -135,8 +135,8 @@ export async function upsertScope3(
 
   // Update existing scope 3 categories and create new ones
   await Promise.all(
-    scope3.scope3Categories.map((scope3Category) =>
-      updatedScope3.scope3Categories.find(
+    scope3.categories.map((scope3Category) =>
+      updatedScope3.categories.find(
         ({ category }) => scope3Category.category === category
       )
         ? prisma.scope3Category.update({

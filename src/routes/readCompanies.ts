@@ -32,7 +32,6 @@ router.use(
   enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
 )
 
-// TODO: Find a way to de-duplicate the logic so we select the same properties both for GET /companies and GET /companies/:wikidataId
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
 router.get('/', cache(), async (req: Request, res: Response) => {
@@ -92,7 +91,7 @@ router.get('/', cache(), async (req: Request, res: Response) => {
                         metadata,
                       },
                     },
-                    scope3Categories: {
+                    categories: {
                       select: {
                         category: true,
                         total: true,
@@ -189,10 +188,8 @@ router.get('/', cache(), async (req: Request, res: Response) => {
                 (reportingPeriod.emissions?.scope3 && {
                   ...reportingPeriod.emissions.scope3,
                   calculatedTotalEmissions:
-                    reportingPeriod.emissions.scope3.scope3Categories.reduce(
+                    reportingPeriod.emissions.scope3.categories.reduce(
                       (total, category) =>
-                        // TODO: Question for Alex - do we also want to include the "16. Other" category in the calculcatedTotalEmissions for all scope 3 categories?
-                        // Or should we keep it separate?
                         Number.isFinite(category.total)
                           ? category.total + total
                           : total,
@@ -305,7 +302,7 @@ router.get(
                           metadata,
                         },
                       },
-                      scope3Categories: {
+                      categories: {
                         select: {
                           category: true,
                           total: true,
@@ -408,10 +405,8 @@ router.get(
                     (reportingPeriod.emissions?.scope3 && {
                       ...reportingPeriod.emissions.scope3,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.scope3Categories.reduce(
+                        reportingPeriod.emissions.scope3.categories.reduce(
                           (total, category) =>
-                            // TODO: Question for Alex - do we also want to include the "16. Other" category in the calculcatedTotalEmissions for all scope 3 categories?
-                            // Or should we keep it separate?
                             Number.isFinite(category.total)
                               ? category.total + total
                               : total,

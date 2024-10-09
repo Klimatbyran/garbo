@@ -270,7 +270,7 @@ function getReportingPeriods(
           ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
         }
 
-        const scope3Categories = Array.from({ length: 15 }, (_, i) => i + 1)
+        const categories = Array.from({ length: 15 }, (_, i) => i + 1)
           .map((category) => ({
             category,
             total: wantedColumns[`Cat ${category}`],
@@ -286,7 +286,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
-          ...(scope3Categories.length ? { scope3Categories } : {}),
+          ...(categories.length ? { categories } : {}),
         }
 
         const emissions = {
@@ -697,7 +697,7 @@ async function main() {
   // NOTE: Useful for testing upload of only specific companies
   // .filter(
   //   (x) =>
-  //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.categories &&
   //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
   // )
   // .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)

@@ -115,7 +115,7 @@ export function compareFacitToCompanyData(
     scope3:
       Math.round(facit.emissions[year].scope3?.emissions || 0 || 0) ===
       Math.round(companyData.emissions[year]?.scope3?.emissions),
-    scope3Categories: Object.entries(
+    categories: Object.entries(
       facit.emissions[year].scope3?.categories || []
     ).map(([category, value]) => {
       return {

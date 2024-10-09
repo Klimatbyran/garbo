@@ -279,10 +279,9 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
-    // TODO: Ensure these schemas match with the schemas given to the LLM
     scope3: z
       .object({
-        scope3Categories: z
+        categories: z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
