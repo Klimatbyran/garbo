@@ -22,4 +22,4 @@ Example:
 \`\`\`
 `
 
-export { schema, prompt }
+export default { schema, prompt }

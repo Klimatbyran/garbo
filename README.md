@@ -31,7 +31,6 @@ flowchart TB
     API.Industry[POST /industry]
     API.Emissions[POST /emissions]
     API.Goals[POST /goals]
-    API.Factors[POST /factors TODO]
     API.Contacts[POST /contacts TODO]
     API.Review[POST /validate TODO]
 
@@ -50,13 +49,11 @@ flowchart TB
     Emissions --> Initiatives --(.initiatives)--> API.Goals
     Emissions --> Contacts --(.contacts)--> API.Contacts
     Emissions --> Turnover --(.turnover)--> API.Economy
-    Emissions --> Factors --(.factors)--> API.Factors
 
     API.Economy --> Review
     API.Industry --> Review
     API.Emissions --> Review
     API.Goals --> Review
-    API.Factors --> Review
     API.Contacts --> Review
 
     Review --> API.Review

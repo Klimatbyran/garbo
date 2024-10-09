@@ -7,11 +7,9 @@ import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-import contacts from '../prompts/followUp/contacts'
 import baseFacts from '../prompts/followUp/baseFacts'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import factors from '../prompts/followUp/factors'
 import { ask } from '../openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 
@@ -141,17 +139,17 @@ const worker = new Worker(
         //     schema: zodResponseFormat(contacts.schema, 'contacts'),
         //   },
         // },
-        // {
-        //   ...base,
-        //   name: 'baseFacts ' + companyName,
-        //   data: {
-        //     ...base.data,
-        //     apiSubEndpoint: 'economy',
-        //     prompt: baseFacts.prompt,
-        //     schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
-        //   },
-        // },
-        /*{
+        {
+          ...base,
+          name: 'baseFacts ' + companyName,
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'economy',
+            prompt: baseFacts.prompt,
+            schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+          },
+        },
+        {
           ...base,
           name: 'fiscalYear ' + companyName,
           data: {
@@ -159,15 +157,6 @@ const worker = new Worker(
             apiSubEndpoint: 'economy',
             prompt: fiscalYear.prompt,
             schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
-          },
-        },
-        /*{
-          ...base,
-          name: 'key upstream emission factors for ' + companyName,
-          data: { 
-            ...base.data, 
-            prompt: factors.prompt, 
-            schema: zodResponseFormat(factors.schema, 'factors') 
           },
         },
         {
