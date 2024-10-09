@@ -330,5 +330,6 @@ Example:
   }
 }
 \`\`\`
+`
 
 export default { prompt, schema }
