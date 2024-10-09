@@ -2,10 +2,11 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import previousPrompt from '../prompts/parsePDF'
 import prompt from '../prompts/reflect'
-import { format } from '../queues'
 import discord from '../discord'
 import { TextChannel } from 'discord.js'
 import { askStream } from '../openai'
+import { findFacit } from '../lib/facit'
+import { discordReview } from '../queues'
 
 class JobData extends Job {
   declare data: {
@@ -92,23 +93,18 @@ ${prompt}`)
     }
     const companyName = parsedJson.companyName
 
-    const thread = (await discord.client.channels.fetch(
-      job.data.threadId
-    )) as TextChannel
-    thread.setName(companyName)
-
     message.edit(`✅ ${companyName} klar`)
-    format.add(
-      companyName,
-      {
-        threadId: job.data.threadId,
-        url: job.data.url,
-        json: JSON.stringify(parsedJson, null, 2),
-      },
-      {
-        attempts: 3,
-      }
-    )
+
+    const facit = await findFacit(job.data.url, companyName)
+    parsedJson = { ...parsedJson, facit } // overwrite the facit object and always use the correctly formatted one
+
+    job.log(`Final JSON: 
+${JSON.stringify(parsedJson, null, 2)}`)
+    discordReview.add(companyName, {
+      ...job.data,
+      url: job.data.url || parsedJson.url,
+      json: JSON.stringify(parsedJson, null, 2),
+    })
 
     return JSON.stringify(parsedJson, null, 2)
   },

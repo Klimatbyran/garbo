@@ -5,6 +5,7 @@ import { ask, askPrompt } from '../openai'
 import { extractEmissions } from '../queues'
 import { saveCompany } from '../lib/api'
 import discord from '../discord'
+import { TextChannel } from 'discord.js'
 
 class JobData extends Job {
   declare data: {
@@ -123,6 +124,11 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
           `Missing wikidataId for company with name "${companyName}"`
         )
       }
+
+      const thread = (await discord.client.channels.fetch(
+        job.data.threadId
+      )) as TextChannel
+      thread.setName(companyName)
 
       await saveCompany(wikidataId, '', {
         name: companyName,
