@@ -1,4 +1,12 @@
-const industryGics = `
+import { z } from 'zod'
+
+export const schema = z.object({
+  industry: z.object({
+    subIndustryCode: z.string(),
+  }),
+})
+
+export const prompt = `
 Extract industry, sector, industry group, according to GICS:
 
 ## Sektor: Energi (10)
@@ -312,30 +320,11 @@ svetenskaper (3520)
     - Fastighetsutveckling (60201030)
     - Fastighetstjänster (60201040)
 
-Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA
-
-\`\`\`json
+Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA. Do not use markdown in the output.
 {
-   "industry_gics": {
-      "sector": {
-        "code": "12",
-        "name": "xx"
-      },
-      "group": {
-        "code": "123",
-        "name": "xx"
-      },
-      "industry": {
-        "code": "12345",
-        "name": "xx"
-      },
-      "subIndustry": {
-        "code": "1234567",
-        "name": "xx"
-      },
-   }
- }
-\`\`\`
-`
+  "industry": {
+    "subIndustryCode": "1234567",
+  }
+}`
 
-export default industryGics
+export default { prompt, schema }

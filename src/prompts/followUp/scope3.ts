@@ -1,4 +1,19 @@
-const scope3 = `
+import { z } from 'zod'
+
+export const schema = z.object({
+  emissions: z.array(
+    z.object({
+      year: z.number(),
+      scope3: z.object({
+        categories: z.record(z.number()),
+        totalEmissions: z.number(),
+        unit: z.string(),
+      }),
+    })
+  ),
+})
+
+export const prompt = `
 Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude latest year. Include as many categories as you can find and their scope 3 emissions.
 
 Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other".
@@ -7,7 +22,7 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 
 Regarding transport: If you can't find the exact category, report it as "4_upstreamTransportationAndDistribution" or "9_downstreamTransportationAndDistribution" depending on the context.
 
-If the company is idientified as a financial institution or investment company, look for emissions data from investements, the portfolio, or financed emissions. They are often found elsewhere in the report. 
+If the company is idientified as a financial institution or investment company, look for emissions data from investements, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
 
 1_purchasedGoods
 2_capitalGoods
@@ -29,27 +44,25 @@ If the company is idientified as a financial institution or investment company, 
 
 
 Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
-
-\`\`\`json
-{ 
-  "emissions_scope3": [
+{
+  "emissions": [
     {
       "year": 2021,
       "scope3": {
         "categories": {
           "1_purchasedGoods": 10,
           "2_capitalGoods": 20,
-          "3_fuelAndEnergyRelatedActivities": 40
+          "3_fuelAndEnergyRelatedActivities": 40,
           "14_franchises": 40
-        }
+        },
         "totalEmissions": 100,
         "unit": "tCO2e"
-      },
+      }
     },
-    { "year": 2022, ...}, 
-    { "year": 2023, ...}] 
+    { "year": 2022, ... },
+    { "year": 2023, ... }
+  ]
 }
-\`\`\`
 `
 
-export default scope3
+export default { prompt, schema }

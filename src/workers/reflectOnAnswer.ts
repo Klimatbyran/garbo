@@ -68,8 +68,10 @@ ${prompt}`)
       ]
         .flat()
         .filter((m) => m?.content) as any[],
-      () => {
-        discord.sendTyping(job.data)
+      {
+        onParagraph: () => {
+          discord.sendTyping(job.data)
+        },
       }
     )
 

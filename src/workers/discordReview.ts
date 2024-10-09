@@ -2,7 +2,6 @@ import { Worker, Job } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
-import { saveToDb } from '../queues'
 import { randomUUID } from 'crypto'
 
 class JobData extends Job {
@@ -28,16 +27,6 @@ const worker = new Worker(
     const parsedJson = { ...JSON.parse(json), url }
     const documentId = randomUUID()
     job.log(`Saving report to database with uuid: ${documentId}`)
-    await saveToDb.add(
-      'saveToDb',
-      {
-        documentId,
-        pdfHash,
-        threadId,
-        report: JSON.stringify(parsedJson, null, 2),
-      },
-      { attempts: 10 }
-    )
 
     await job.updateData({
       ...job.data,

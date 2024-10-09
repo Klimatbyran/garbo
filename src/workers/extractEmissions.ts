@@ -2,23 +2,25 @@ import { Worker, Job, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import prompt from '../prompts/parsePDF'
 import discord from '../discord'
-import companyNamePrompt from '../prompts/followUp/companyName'
-import industryNace from '../prompts/followUp/industry_nace'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-// import contacts from '../prompts/followUp/contacts'
+import contacts from '../prompts/followUp/contacts'
 import baseFacts from '../prompts/followUp/baseFacts'
 import publicComment from '../prompts/followUp/publicComment'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import { ask, askPrompt } from '../openai'
+import factors from '../prompts/followUp/factors'
+import { ask } from '../openai'
+import { zodResponseFormat } from 'openai/helpers/zod'
 
 class JobData extends Job {
   declare data: {
     url: string
     paragraphs: string[]
+    companyName: string
+    wikidataId: string
     threadId: string
     pdfHash: string
   }
@@ -29,8 +31,8 @@ const flow = new FlowProducer({ connection: redis })
 const worker = new Worker(
   'extractEmissions',
   async (job: JobData, token: string) => {
-    const pdfParagraphs = job.data.paragraphs
-    job.log(`Asking AI for following context and prompt: ${pdfParagraphs.join(
+    const { paragraphs, companyName, wikidataId } = job.data
+    job.log(`Asking AI for following context and prompt: ${paragraphs.join(
       '\n\n'
     )}
     ${prompt}`)
@@ -48,25 +50,21 @@ const worker = new Worker(
       },
       { role: 'user', content: prompt },
       { role: 'assistant', content: 'Sure! Just send me the PDF data?' },
-      { role: 'user', content: pdfParagraphs.join('---PDF EXTRACT---\n\n') },
+      { role: 'user', content: paragraphs.join('---PDF EXTRACT---\n\n') },
     ])
     job.log(response)
 
-    message.edit('✅ Utsläppsdata hämtad')
+    message?.edit('✅ Utsläppsdata hämtad')
     const markdown = response
       .match(/```markdown(.|\n)*```/)?.[0]
       .replace('```markdown', '```')
 
     discord.sendMessage(job.data, '✅ Fått preliminära siffror')
 
-    const companyName = await askPrompt(
-      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name',
-      markdown || response
-    )
-
     const base = {
       name: companyName,
       data: {
+        wikidataId,
         threadId: job.data.threadId,
         url: job.data.url,
         answer: response,
@@ -84,80 +82,108 @@ const worker = new Worker(
       children: [
         {
           ...base,
-          name: 'companyName ' + companyName,
-          data: { ...base.data, prompt: companyNamePrompt },
-        },
-        {
-          ...base,
           name: 'industryGics ' + companyName,
-          data: { ...base.data, prompt: industryGics },
-        },
-        {
-          ...base,
-          name: 'industryNace ' + companyName,
-          data: { ...base.data, prompt: industryNace },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'industry',
+            prompt: industryGics.prompt,
+            schema: zodResponseFormat(industryGics.schema, 'industry'),
+          },
         },
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: { ...base.data, prompt: scope12 },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'emissions',
+            prompt: scope12.prompt,
+            // Not sure why we named it "emissions_scope12" - maybe to avoid overwriting the result of the other job?
+            // Need to make sure it can easily be saved to the API, which expects "emissions" as the key.
+            schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
+          },
         },
-        {
-          ...base,
-          name: 'scope3 ' + companyName,
-          data: { ...base.data, prompt: scope3 },
-        },
+        // {
+        //   ...base,
+        //   name: 'scope3 ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     apiSubEndpoint: 'emissions',
+        //     prompt: scope3.prompt,
+        //     schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+        //   },
+        // },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: { ...base.data, prompt: goals },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'goals',
+            prompt: goals.prompt,
+            schema: zodResponseFormat(goals.schema, 'goals'),
+          },
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: { ...base.data, prompt: initiatives },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'initiatives',
+            prompt: initiatives.prompt,
+            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+          },
         },
-        /*
-        {
-          ...base,
-          name: 'sustainability contacts ' + companyName,
-          data: { ...base.data, prompt: contacts },
-        },*/
-        {
-          ...base,
-          name: 'baseFacts ' + companyName,
-          data: { ...base.data, prompt: baseFacts },
-        },
-        {
+        // {
+        //   ...base,
+        //   name: 'sustainability contacts ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     prompt: contacts.prompt,
+        //     schema: zodResponseFormat(contacts.schema, 'contacts'),
+        //   },
+        // },
+        // {
+        //   ...base,
+        //   name: 'baseFacts ' + companyName,
+        //   data: {
+        //     ...base.data,
+        //     apiSubEndpoint: 'economy',
+        //     prompt: baseFacts.prompt,
+        //     schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+        //   },
+        // },
+        /*{
           ...base,
           name: 'fiscalYear ' + companyName,
-          data: { ...base.data, prompt: fiscalYear },
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'economy',
+            prompt: fiscalYear.prompt,
+            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
+          },
         },
         /*{
           ...base,
           name: 'key upstream emission factors for ' + companyName,
-          data: { ...base.data, prompt: factors },
-        },*/
+          data: { 
+            ...base.data, 
+            prompt: factors.prompt, 
+            schema: zodResponseFormat(factors.schema, 'factors') 
+          },
+        },
         {
           ...base,
           name: 'publicComment ' + companyName,
-          data: { ...base.data, prompt: publicComment },
-        },
-        {
-          ...base,
-          data: {
-            ...base.data,
-            companyName,
-            paragraphs: pdfParagraphs,
-            url: job.data.url,
+          data: { 
+            ...base.data, 
+            prompt: publicComment.prompt, 
+            schema: zodResponseFormat(publicComment.schema, 'publicComment') 
           },
-          queueName: 'guessWikidata',
-        },
-        {
-          ...base,
-          data: { ...base.data, companyName, url: job.data.url },
-          queueName: 'includeFacit',
-        },
+        },*/
+        // {
+        //   ...base,
+        //   data: { ...base.data, companyName, url: job.data.url },
+        //   queueName: 'includeFacit',
+        // },
       ],
       opts: {
         attempts: 3,

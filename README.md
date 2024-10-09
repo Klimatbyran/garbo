@@ -19,38 +19,47 @@ Some of the following steps will be performed in parallel and most will be async
 ```mermaid
 flowchart TB
 
-    A[PDF]
-    B{Is in cache?}
-    C[Download PDF]
-    D[Index Database]
-    E[Search Database]
-    F[Extract Emissions]
-    G[JSON]
+    PDF[PDF]
+    Cache{Is in cache?}
+    Download[Download PDF]
+    Index[Index Paragraphs]
+    Search[Search Vectors]
+    Emissions[Extract Emissions]
+    Wikidata[Guess Wikidata]
+
+    API.Economy[POST /economy]
+    API.Industry[POST /industry]
+    API.Emissions[POST /emissions]
+    API.Goals[POST /goals]
+    API.Factors[POST /factors TODO]
+    API.Contacts[POST /contacts TODO]
+    API.Review[POST /validate TODO]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
-    Review[Reasonability Assessment]
+    Review[Discord Review]
 
 
-    DB[Database]
+    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
+    Cache --(yes)--> Search
 
-    A --> B --> C --> D --> E ---> F ---> G ---> H
-    B --(Cached)--> E
+    Emissions --> Industry --(.industry)--> API.Industry
+    Emissions --> Scope1+2 --(.scope1)--> API.Emissions
+    Emissions --> Scope3 --(.scope3)--> API.Emissions
+    Emissions --> Goals --(.goals)--> API.Goals
+    Emissions --> Initiatives --(.initiatives)--> API.Goals
+    Emissions --> Contacts --(.contacts)--> API.Contacts
+    Emissions --> Turnover --(.turnover)--> API.Economy
+    Emissions --> Factors --(.factors)--> API.Factors
 
-    F --> CompanyName --(.company)--> G
-    F --> Industry --(.industry)--> G
-    F --> Scope1+2 --(.scope1)--> G
-    F --> Scope3 --(.scope3)--> G
-    F --> Goals --(.goals)--> G
-    F --> Initiatives --(.initiatives)--> G
-    F --> Contacts --(.contacts)--> G
-    F --> Turnover --(.turnover)--> G
-    F --> Factors --(.factors)--> G
+    API.Economy --> Review
+    API.Industry --> Review
+    API.Emissions --> Review
+    API.Goals --> Review
+    API.Factors --> Review
+    API.Contacts --> Review
 
-    G --> Format --(json)--> H
-
-    H --> Review --> DB
-    H --> Review --> DB
+    Review --> API.Review
 ```
 
 ### Get Started

@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { z } from 'zod'
-import { validateRequest, validateRequestBody } from 'zod-express-middleware'
+import { processRequest, processRequestBody } from './zod-middleware'
 
 import {
   upsertBiogenic,
@@ -11,9 +11,11 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
-  upsertGoals,
-  upsertInitiatives,
   upsertIndustry,
+  createGoals,
+  updateGoal,
+  createInitiatives,
+  updateInitiative,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -25,8 +27,9 @@ import {
   ensureEconomyExists,
 } from './middlewares'
 import { prisma } from '../lib/prisma'
-import { Company } from '@prisma/client'
-import { wikidataIdSchema } from './companySchemas'
+import { Company, Prisma } from '@prisma/client'
+import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
+import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
 const tCO2e = 'tCO2e'
@@ -44,20 +47,14 @@ const upsertCompanyBodySchema = z.object({
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
+  // TODO: add history for turnover etc.
 })
 
-// NOTE: The request body seems to be consumed the first time it we call the middleware processRequest()
-// Thus, we can only call processRequest() and similar methods for actual API endpoints.
-// Middlewares should only use validateRequest() and similar methods.
-// NOTE: This might be worth looking into the `zod-express-middleware` package and see if we could improve this behaviour.
-const validateCompanyUpsert = () => validateRequestBody(upsertCompanyBodySchema)
+const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  const { data, error } = upsertCompanyBodySchema.safeParse(req.body)
-  if (error) {
-    return res.status(400).json({ error })
-  }
-  const { name, description, url, internalComment, wikidataId } = data
+  const { name, description, url, internalComment, wikidataId } =
+    upsertCompanyBodySchema.parse(req.body)
 
   let company: Company
 
@@ -70,11 +67,12 @@ async function handleCompanyUpsert(req: Request, res: Response) {
       internalComment,
     })
   } catch (error) {
-    console.error('Failed to upsert company', error)
-    return res.status(500).json({ error: 'Failed to upsert company' })
+    throw new GarboAPIError('Failed to upsert company', {
+      original: error,
+    })
   }
 
-  return res.status(200).json(company)
+  res.json(company)
 }
 
 // NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param
@@ -86,16 +84,14 @@ router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
 // NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
 router.use(
   '/:wikidataId',
-  validateRequest({
-    params: z.object({
-      wikidataId: wikidataIdSchema,
-    }),
+  processRequest({
+    params: wikidataIdParamSchema,
   }),
   async (req, res, next) => {
     const { wikidataId } = req.params
     const company = await prisma.company.findFirst({ where: { wikidataId } })
     if (!company) {
-      return res.status(404).json({ error: 'Company not found' })
+      throw new GarboAPIError('Company not found', { statusCode: 404 })
     }
     res.locals.company = company
 
@@ -103,69 +99,111 @@ router.use(
   }
 )
 
-const goalsSchema = z.object({
-  goals: z.array(
-    z.object({
-      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-      id: z.number().optional(),
-      description: z.string(),
-      year: z.string().optional(),
-      target: z.number().optional(),
-      baseYear: z.string().optional(),
-    })
-  ),
+const goalSchema = z.object({
+  description: z.string(),
+  year: z.string().optional(),
+  target: z.number().optional(),
+  baseYear: z.string().optional(),
 })
 
 router.post(
   '/:wikidataId/goals',
-  validateRequestBody(goalsSchema),
+  processRequest({
+    body: z.object({
+      goals: z.array(goalSchema),
+    }),
+    params: wikidataIdParamSchema,
+  }),
   async (req, res) => {
-    const { data, error } = goalsSchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { goals } = data
+    const { goals } = req.body
 
     if (goals?.length) {
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await upsertGoals(wikidataId, goals, metadata)
+      await createGoals(wikidataId, goals, metadata)
     }
-    res.status(200).send()
+    res.json({ ok: true })
   }
 )
 
-const initiativesSchema = z.object({
-  initiatives: z.array(
-    z.object({
-      /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-      id: z.number().optional(),
-      title: z.string(),
-      description: z.string().optional(),
-      year: z.string().optional(),
-      scope: z.string().optional(),
+router.patch(
+  '/:wikidataId/goals/:id',
+  processRequest({
+    body: z.object({ goal: goalSchema }),
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { goal } = req.body
+    const { id } = req.params
+    const metadata = res.locals.metadata
+    await updateGoal(id, goal, metadata).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Goal not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
     })
-  ),
+    res.json({ ok: true })
+  }
+)
+
+const initiativeSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  year: z.string().optional(),
+  scope: z.string().optional(),
 })
 
 router.post(
   '/:wikidataId/initiatives',
-  validateRequestBody(initiativesSchema),
+  processRequest({
+    body: z.object({
+      initiatives: z.array(initiativeSchema),
+    }),
+    params: wikidataIdParamSchema,
+  }),
   async (req, res) => {
-    const { data, error } = initiativesSchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { initiatives } = data
+    const { initiatives } = req.body
 
     if (initiatives?.length) {
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await upsertInitiatives(wikidataId, initiatives, metadata)
+      await createInitiatives(wikidataId, initiatives, metadata)
     }
-    res.status(200).send()
+    res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/initiatives/:id',
+  processRequest({
+    body: z.object({ initiative: initiativeSchema }),
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { initiative } = req.body
+    const { id } = req.params
+    const metadata = res.locals.metadata
+    await updateInitiative(id, initiative, metadata).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Initiative not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
+    })
+    res.json({ ok: true })
   }
 )
 
@@ -179,13 +217,9 @@ const industrySchema = z.object({
 
 router.post(
   '/:wikidataId/industry',
-  validateRequestBody(industrySchema),
+  processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
-    const { data, error } = industrySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { industry } = data
+    const { industry } = req.body
 
     if (industry) {
       const { wikidataId } = req.params
@@ -195,9 +229,14 @@ router.post(
         wikidataId,
         { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
         metadata
-      )
+      ).catch((error) => {
+        throw new GarboAPIError('Failed to update industry', {
+          original: error,
+          statusCode: 500,
+        })
+      })
     }
-    res.status(200).send()
+    res.json({ ok: true })
   }
 )
 
@@ -221,9 +260,15 @@ const postEmissionsBodySchema = z.object({
       .optional(),
     scope2: z
       .object({
-        mb: z.number().optional(),
-        lb: z.number().optional(),
-        unknown: z.number().optional(),
+        mb: z
+          .number({ description: 'Market-based scope 2 emissions' })
+          .optional(),
+        lb: z
+          .number({ description: 'Location-based scope 2 emissions' })
+          .optional(),
+        unknown: z
+          .number({ description: 'Unspecified Scope 2 emissions' })
+          .optional(),
       })
       .refine(
         ({ mb, lb, unknown }) =>
@@ -234,6 +279,7 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
+    // TODO: Ensure these schemas match with the schemas given to the LLM
     scope3: z
       .object({
         scope3Categories: z
@@ -256,15 +302,12 @@ const postEmissionsBodySchema = z.object({
 // POST//Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
-  validateRequestBody(postEmissionsBodySchema),
+  processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
-    const { data, error } = postEmissionsBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
+    const {
+      emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
+    } = postEmissionsBodySchema.parse(req.body)
 
-    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
-      data.emissions
     const metadata = res.locals.metadata
     const emissions = res.locals.emissions
 
@@ -283,11 +326,13 @@ router.post(
         biogenic && upsertBiogenic(emissions, biogenic, metadata),
       ])
     } catch (error) {
-      console.error('Failed to update emissions:', error)
-      return res.status(500).json({ error: 'Failed to update emissions' })
+      throw new GarboAPIError('Failed to update emissions', {
+        original: error,
+        statusCode: 500,
+      })
     }
 
-    res.status(200).send()
+    res.json({ ok: true })
   }
 )
 
@@ -312,14 +357,12 @@ const postEconomyBodySchema = z.object({
 
 router.post(
   '/:wikidataId/:year/economy',
-  validateRequestBody(postEconomyBodySchema),
+  processRequestBody(postEconomyBodySchema),
   async (req, res) => {
-    const { data, error } = postEconomyBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
+    const {
+      economy: { turnover, employees },
+    } = postEconomyBodySchema.parse(req.body)
 
-    const { turnover, employees } = data.economy
     const metadata = res.locals.metadata
     const economy = res.locals.economy
 
@@ -335,11 +378,13 @@ router.post(
         employees && upsertEmployees(economy, employees, metadata),
       ])
     } catch (error) {
-      console.error('Failed to update economy:', error)
-      return res.status(500).json({ error: 'Failed to update economy' })
+      throw new GarboAPIError('Failed to update economy', {
+        original: error,
+        statusCode: 500,
+      })
     }
 
-    res.status(200).send()
+    res.json({ ok: true })
   }
 )
 

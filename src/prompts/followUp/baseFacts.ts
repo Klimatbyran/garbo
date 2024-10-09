@@ -1,4 +1,21 @@
-const turnover = `
+import { z } from 'zod'
+
+export const schema = z.object({
+  description: z.string(),
+  wikidataId: z.string(),
+  name: z.string(),
+  url: z.string().url().optional(),
+  history: z.array(
+    z.object({
+      year: z.number(),
+      employees: z.number(),
+      turnover: z.number(),
+      currency: z.string(),
+    })
+  ),
+})
+
+export const prompt = `
 Extract the company basic facts such as company description, turnover and number of employees. Add it as field description and baseFacts. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
 
 *** CompanyName: Use the name of the company as a normal person would refer to it. Not the legal name. For example:
@@ -31,20 +48,32 @@ texter som kan uppfattas som greenwashing eller marknadsföring. Många företag
 
 *** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
 
-Example, follow the format below:
-\`\`\`json
+Example, follow the format below. Do not use markdown in the output:
 {
-  "baseFacts": {
-    "companyName": "Company AB",
-    "description": "En beskrivning av företaget.",
-    "history": [
-      {"year": 2021, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-      {"year": 2022, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-      {"year": 2023, "employees": 10000, "turnover": 12345, "currency": "SEK"},
-    ]
-  }
+  "name": "Company AB",
+  "description": "En beskrivning av företaget.",
+  "url": "https://company.com",
+  "history": [
+    {
+      "year": 2021,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    },
+    {
+      "year": 2022,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    },
+    {
+      "year": 2023,
+      "employees": 10000,
+      "turnover": 12345,
+      "currency": "SEK"
+    }
+  ]
 }
-\`\`\`
 `
 
-export default turnover
+export default { prompt, schema }

@@ -46,9 +46,11 @@ const worker = new Worker(
       ]
         .flat()
         .filter((m) => m?.content) as any[],
-      (response, paragraph) => {
-        job.updateProgress(Math.min(100, (100 * progress++) / 10))
-        job.log(paragraph)
+      {
+        onParagraph: (response, paragraph) => {
+          job.updateProgress(Math.min(100, (100 * progress++) / 10))
+          job.log(paragraph)
+        },
       }
     )
 

@@ -3,6 +3,7 @@ import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
+import { saveCompany } from '../lib/api'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
@@ -10,9 +11,12 @@ const embedder = new OpenAIEmbeddingFunction({
 
 class JobData extends Job {
   declare data: {
+    wikidataId: string
     documentId: string
     url: string
+    apiSubEndpoint: string
     prompt: string
+    schema: string
     threadId: string
     json: string
     previousAnswer: string
@@ -23,8 +27,18 @@ class JobData extends Job {
 const worker = new Worker(
   'followUp',
   async (job: JobData) => {
-    const { prompt, url, json, previousAnswer, previousError } = job.data
+    const {
+      prompt,
+      schema,
+      url,
+      json,
+      previousAnswer,
+      apiSubEndpoint,
+      previousError,
+      wikidataId,
+    } = job.data
 
+    // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -86,30 +100,39 @@ ${json}
 ${prompt}
 
 ## Output:
-For example, if you want to add a new field called "industry" the response should look like this:
-\`\`\`json
+For example, if you want to add a new field called "industry" the response should look like this (only reply with valid json):
 {
   "industry": {...}
 }
-\`\`\``,
+`,
         },
-        { role: 'asistant', content: previousAnswer },
+        { role: 'assistant', content: previousAnswer },
         { role: 'user', content: previousError },
-      ].filter((m) => m.content) as any[]
+      ].filter((m) => m.content) as any[],
+      {
+        response_format: schema,
+      }
     )
 
-    job.log('Response: ' + response)
-    const output = response.match(/```json([\s\S]*?)```/)?.[1] || response
+    job.log('NEW Response: ' + response)
 
     try {
-      const parsedJson = output ? JSON.parse(output) : {} // we want to make sure it's valid JSON- otherwise we'll get an error which will trigger a new retry
-      return JSON.stringify(parsedJson, null, 2)
+      const jsonMatch = response.match(/```json([\s\S]*?)```/)
+      const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
+      const metadata = {
+        source: url,
+        comment: 'Parsed with AI by Garbo',
+      }
+      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
+      job.log('Saved to API')
+      return JSON.stringify(json, null, 2)
     } catch (error) {
       job.updateData({
         ...job.data,
-        previousAnswer: output,
+        previousAnswer: response,
         previousError: error.message,
       })
+      throw error
     }
   },
   {

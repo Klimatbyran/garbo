@@ -8,11 +8,13 @@ import {
   ReportingPeriod,
   User,
 } from '@prisma/client'
-import { validateRequest, validateRequestBody } from 'zod-express-middleware'
-import { z } from 'zod'
+import { validateRequest, validateRequestBody } from './zod-middleware'
+import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 
 import { ensureReportingPeriodExists } from '../lib/prisma'
+import { GarboAPIError } from '../lib/garbo-api-error'
+import { ENV } from '../lib/env'
 
 declare global {
   namespace Express {
@@ -26,16 +28,6 @@ declare global {
     }
   }
 }
-
-const envSchema = z.object({
-  /**
-   * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
-   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
-   */
-  API_TOKENS: z.string().transform((tokens) => tokens.split(',')),
-})
-
-const ENV = envSchema.parse(process.env)
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -64,7 +56,7 @@ export const fakeAuth =
     }
 
     if (!res.locals.user?.id) {
-      return res.status(401).send()
+      throw GarboAPIError.unauthorized()
     }
 
     next()
@@ -92,7 +84,7 @@ export const createMetadata =
     // This would make it easy to work with, but still allow us to prevent adding metadata not connected to any actual changes.
 
     // We only need to create metadata when creating or updating data
-    if (req.method === 'POST') {
+    if (req.method === 'POST' || req.method === 'PATCH') {
       // TODO: Find a better way to determine if changes by the current user should count as verified or not
       // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
       const verifiedByUserEmail =
@@ -151,22 +143,16 @@ export const reportingPeriod =
     // NOTE: Since we have to use validateRequest() for middlewares,
     // we have to parse the request body twice.
     // We should find a cleaner and more declarative pattern for this.
-    // NOTE: Maybe we could setup proper error handling, and just use the regular zodSchema.parse(req.body) which throws `ZodError`s?
-    // This would allow us to simplify the code and replace all res.status(400).json({ error }) in every middleware/endpoint with a shared error hanlder instead.
-    const { data, error } = reportingPeriodBodySchema.safeParse(req.body)
-    if (error) {
-      return res.status(400).json({ error })
-    }
-    const { startDate, endDate, reportURL } = data
+    // Look if we can solve this in a good way for express. Otherwise see how fastify handles schema validation.
+    const { startDate, endDate, reportURL } = reportingPeriodBodySchema.parse(
+      req.body
+    )
 
     const endYear = parseInt(year.split('-').at(-1))
     if (endYear !== endDate.getFullYear()) {
-      return res.status(400).json({
-        error:
-          'The URL param year must be the same year as the endDate (' +
-          endYear +
-          ') ',
-      })
+      throw new GarboAPIError(
+        `The URL param year must be the same year as the endDate (${endYear})`
+      )
     }
 
     const metadata = res.locals.metadata
@@ -241,3 +227,24 @@ const getCorsOptionsBasedOnOrigin =
 
 export const enableCors = (allowedOrigins: string[]) =>
   cors(getCorsOptionsBasedOnOrigin(allowedOrigins))
+
+export const errorHandler = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  req.log.error(error)
+
+  if (error instanceof ZodError) {
+    // TODO: try to remove the extra JSON.parse here
+    res.status(422).json({ error: JSON.parse(error.message) })
+    return
+  } else if (error instanceof GarboAPIError) {
+    req.log.error(error.original)
+    res.status(error.statusCode).json({ error: error.message })
+    return
+  }
+
+  res.status(500).json({ error: 'Internal Server Error' })
+}
