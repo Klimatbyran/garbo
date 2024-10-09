@@ -38,8 +38,8 @@ const schema = z.object({
 })
 
 const prompt = `
-Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude latest year.
-Include market based and location based in scope 2. Always use tonnes CO2e as unit, so if emissions are presented in other units (for example in kilotonnes), convert this to tonnes.
+Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude the latest year.
+Include market-based and location-based in scope 2. Always use tonnes CO2e as the unit, so if emissions are presented in other units (for example, in kilotonnes), convert this to tonnes.
 
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. Do not use markdown in the output.
 
@@ -47,13 +47,12 @@ Example - feel free to add more fields and relevant data:
 {
   "2021": {
     "scope1": {
-      "emissions": 12.3,
-      "unit": "tCO2e"
+      "total": 12.3
     },
     "scope2": {
       "mb": 23.4,
       "lb": 34.5,
-      "unit": "tCO2e"
+      "unknown": null
     }
   },
   "2022": { ... },
