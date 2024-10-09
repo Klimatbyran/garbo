@@ -39,7 +39,7 @@ export class DiscordWorker<JobData> extends Worker {
               job.log(`Error editing message: ${err.message}`)
             }
           },
-        })
+        } as Job)
       },
       {
         concurrency: 10, // default concurrency
