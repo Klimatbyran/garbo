@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job } from 'bullmq'
+import { Worker, WorkerOptions, Job as BaseJob } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 
@@ -10,7 +10,26 @@ export type DiscordWorkerJobData = {
   messageId: string
 }
 
-export class DiscordWorker<JobData> extends Worker {
+class DiscordJob extends BaseJob {
+  async sendMessage(message: string) {
+    try {
+      const messageId = (await discord.sendMessage({ threadId: this.data.threadId }, message)).id;
+      this.updateData({ messageId });
+    } catch (err) {
+      console.error(`Error sending message: ${err.message}`);
+    }
+  }
+
+  async editMessage(editedMessage: string) {
+    try {
+      await discord.editMessage(this.data, editedMessage);
+    } catch (err) {
+      console.error(`Error editing message: ${err.message}`);
+    }
+  }
+}
+
+export class DiscordWorker<JobData> extends Worker<DiscordJob> {
   constructor(
     name: string,
     processor: (job) => Promise<void>,
@@ -20,26 +39,8 @@ export class DiscordWorker<JobData> extends Worker {
       name,
       async (job) => {
         const { threadId } = job.data
-        await processor({
-          ...job,
-          sendMessage: async (message: string) => {
-            try {
-              const messageId = (
-                await discord.sendMessage({ threadId }, message)
-              ).id
-              job.updateData({ messageId })
-            } catch (err) {
-              job.log(`Error sending message: ${err.message}`)
-            }
-          },
-          editMessage: async (editedMessage: string) => {
-            try {
-              await discord.editMessage(job.data, editedMessage)
-            } catch (err) {
-              job.log(`Error editing message: ${err.message}`)
-            }
-          },
-        } as Job)
+        const discordJob = new DiscordJob(job.queue, job.data, job.opts);
+        await processor(discordJob);
       },
       {
         concurrency: 10, // default concurrency
