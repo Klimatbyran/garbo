@@ -11,11 +11,12 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
-  upsertIndustry,
   createGoals,
   updateGoal,
   createInitiatives,
   updateInitiative,
+  createIndustry,
+  updateIndustry,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -209,8 +210,6 @@ router.patch(
 
 const industrySchema = z.object({
   industry: z.object({
-    /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-    id: z.number().optional(),
     subIndustryCode: z.string(),
   }),
 })
@@ -221,21 +220,50 @@ router.post(
   async (req, res) => {
     const { industry } = req.body
 
-    if (industry) {
-      const { wikidataId } = req.params
-      const metadata = res.locals.metadata
+    // NOTE: This extra check is only necessary because we don't get correct TS types from the zod middleware processRequest().
+    // Ideally, we could update the generic types of the zod-middleware to return the exact inferred schema, instead of turning everything into optional fields.
+    const subIndustryCode = industry?.subIndustryCode
+    if (!subIndustryCode) {
+      throw new GarboAPIError('Unable to update industry')
+    }
 
-      await upsertIndustry(
-        wikidataId,
-        { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
-        metadata
-      ).catch((error) => {
+    const { wikidataId } = req.params
+    const metadata = res.locals.metadata
+
+    await createIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+      (error) => {
+        throw new GarboAPIError('Failed to create industry', {
+          original: error,
+          statusCode: 500,
+        })
+      }
+    )
+    res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/industry',
+  processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
+  async (req, res) => {
+    const { industry } = req.body
+
+    const subIndustryCode = industry?.subIndustryCode
+    if (!subIndustryCode) {
+      throw new GarboAPIError('Unable to update industry')
+    }
+
+    const { wikidataId } = req.params
+    const metadata = res.locals.metadata
+
+    await updateIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+      (error) => {
         throw new GarboAPIError('Failed to update industry', {
           original: error,
           statusCode: 500,
         })
-      })
-    }
+      }
+    )
     res.json({ ok: true })
   }
 )

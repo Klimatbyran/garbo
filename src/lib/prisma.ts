@@ -500,49 +500,52 @@ export async function upsertEmployees(
       })
 }
 
-export async function upsertIndustry(
+export async function createIndustry(
   wikidataId: Company['wikidataId'],
-  {
-    id,
-    ...industry
-  }: OptionalNullable<Omit<Industry, 'id' | 'metadataId'>> & { id?: number },
+  industry: { subIndustryCode: string },
   metadata: Metadata
 ) {
-  return id
-    ? prisma.industry.update({
-        where: { id },
-        data: {
-          industryGics: {
-            connect: {
-              subIndustryCode: industry.gicsSubIndustryCode,
-            },
-          },
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+  prisma.industry.create({
+    data: {
+      company: {
+        connect: { wikidataId },
+      },
+      industryGics: {
+        connect: {
+          subIndustryCode: industry.subIndustryCode,
         },
-        select: { id: true },
-      })
-    : prisma.industry.create({
-        data: {
-          company: {
-            connect: { wikidataId },
-          },
-          industryGics: {
-            connect: {
-              subIndustryCode: industry.gicsSubIndustryCode,
-            },
-          },
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+      },
+      metadata: {
+        connect: {
+          id: metadata.id,
         },
-        select: { id: true },
-      })
+      },
+    },
+    select: { id: true },
+  })
+}
+
+export async function updateIndustry(
+  wikidataId: Company['wikidataId'],
+  industry: { subIndustryCode: string },
+  metadata: Metadata
+) {
+  return prisma.industry.update({
+    where: { companyWikidataId: wikidataId },
+    data: {
+      industryGics: {
+        connect: {
+          subIndustryCode: industry.subIndustryCode,
+        },
+      },
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function ensureReportingPeriodExists(
