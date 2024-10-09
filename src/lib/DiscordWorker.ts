@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Processor } from 'bullmq'
+import { Worker, WorkerOptions, Job, Processor, Queue } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 
@@ -10,7 +10,10 @@ export type DiscordWorkerJobData = {
   messageId?: string
 }
 
-class DiscordJob extends Job {
+class DiscordJob<DataType = DiscordWorkerJobData> extends Job<DataType> {
+  constructor(queue: Queue<DataType>, data: DataType, opts: any) {
+    super(queue, data, opts)
+  }
   async sendMessage(message: string) {
     try {
       const { id } = await discord.sendMessage(
