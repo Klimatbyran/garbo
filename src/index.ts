@@ -19,7 +19,6 @@ import {
   userFeedback,
   followUp,
   guessWikidata,
-  format,
   includeFacit,
 } from './queues'
 import readCompanies from './routes/readCompanies'
@@ -55,7 +54,6 @@ const queues = [
   followUp,
   includeFacit,
   reflectOnAnswer,
-  format,
   discordReview,
   userFeedback,
   guessWikidata,
