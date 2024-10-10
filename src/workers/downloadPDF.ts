@@ -1,7 +1,24 @@
 import pdf from 'pdf-parse-debugging-disabled'
-import { splitText } from '../queues'
+import { downloadPDF, splitText } from '../queues'
 import * as crypto from 'crypto'
 import { DiscordWorker, DiscordWorkerJobData } from '../lib/DiscordWorker'
+
+type DiscordJobData = {
+  threadId: string
+}
+
+type DownloadPDFJobData = DiscordJobData & {
+  url: string
+}
+
+// IDEA: Maybe rather extend the queue to define the jobs created in that queue? Not sure.
+export function createDownloadPDFJob(
+  name: string,
+  jobData: DownloadPDFJobData
+) {
+  // NOTE: Maybe slightly better to co-locate job creation with the worker. We could also pass along basic job data with a common helper.
+  downloadPDF.add(name, jobData)
+}
 
 type JobData = DiscordWorkerJobData & {
   url: string

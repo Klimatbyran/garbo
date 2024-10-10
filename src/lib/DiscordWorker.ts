@@ -2,13 +2,18 @@ import { Worker, WorkerOptions, Job, Processor, Queue } from 'bullmq'
 import redis from '../config/redis'
 import discord from '../discord'
 
-// NOTE: Maybe this interface could be a class extending the base Job class.
-// Then we would get better type completion
+// // NOTE: Maybe this interface could be a class extending the base Job class.
+// // Then we would get better type completion
 export type DiscordWorkerJobData = {
-  threadId?: string
+  threadId: string
   previousAnswer?: string
-  messageId?: string
+  messageId: string
+  channelId: string
 }
+
+// // TODO: Properly extend with our own class.
+// // Maybe we could use Object.assign() to add custom methods and properties to the job?
+// // Or maybe read the source code for the Worker and Job classes to see how the Job need to be created.
 
 class DiscordJob<DataType = DiscordWorkerJobData> extends Job {
   constructor(queue: Queue<DataType>, name: string, data: DataType, opts: any) {
@@ -52,7 +57,7 @@ export class DiscordWorker<
       name,
       async (job) => {
         const discordJob = new DiscordJob(job.queue, name, job.data, job.opts)
-        await processor(discordJob)
+        return processor(discordJob)
       },
       {
         concurrency: 10, // default concurrency
