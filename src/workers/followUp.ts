@@ -103,9 +103,15 @@ For example, if you want to add a new field called "industry" the response shoul
 }
 `,
         },
-        { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: job.stacktrace.join('') },
-      ].filter((m) => m.content) as any[],
+        Array.isArray(job.stacktrace)
+          ? [
+              { role: 'assistant', content: previousAnswer },
+              { role: 'user', content: job.stacktrace.join('') },
+            ]
+          : undefined,
+      ]
+        .flat()
+        .filter((m) => m?.content) as any[],
       {
         response_format: schema,
       }
