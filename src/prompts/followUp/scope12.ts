@@ -9,33 +9,37 @@ import { z } from 'zod'
 // If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
 
 const schema = z.object({
-  years: z.array(z.number()).nonempty({ message: 'At least one year must be provided' }),
-  scope1: z
-    .object({
-      total: z.number(),
+  emissions: z.array(
+    z.object({
+      year: z.number(),
+      scope1: z
+        .object({
+          total: z.number(),
+        })
+        .optional(),
+      scope2: z
+        .object({
+          mb: z
+            .number({ description: 'Market-based scope 2 emissions' })
+            .optional(),
+          lb: z
+            .number({ description: 'Location-based scope 2 emissions' })
+            .optional(),
+          unknown: z
+            .number({ description: 'Unspecified Scope 2 emissions' })
+            .optional(),
+        })
+        .refine(
+          ({ mb, lb, unknown }) =>
+            mb !== undefined || lb !== undefined || unknown !== undefined,
+          {
+            message:
+              'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+          }
+        )
+        .optional(),
     })
-    .optional(),
-  scope2: z
-    .object({
-      mb: z
-        .number({ description: 'Market-based scope 2 emissions' })
-        .optional(),
-      lb: z
-        .number({ description: 'Location-based scope 2 emissions' })
-        .optional(),
-      unknown: z
-        .number({ description: 'Unspecified Scope 2 emissions' })
-        .optional(),
-    })
-    .refine(
-      ({ mb, lb, unknown }) =>
-        mb !== undefined || lb !== undefined || unknown !== undefined,
-      {
-        message:
-          'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-      }
-    )
-    .optional(),
+  ),
 })
 
 const prompt = `
