@@ -1,19 +1,24 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  scope3: z
-    .object({
-      categories: z
-        .array(
-          z.object({
-            category: z.number().int(),
-            total: z.number(),
-          })
-        )
+  scope3: z.array(
+    z.object({
+      year: z.number(),
+      scope3: z
+        .object({
+          categories: z
+            .array(
+              z.object({
+                category: z.number().int(),
+                total: z.number(),
+              })
+            )
+            .optional(),
+          statedTotalEmissions: z.object({ total: z.number() }).optional(),
+        })
         .optional(),
-      statedTotalEmissions: z.object({ total: z.number() }).optional(),
     })
-    .optional(),
+  ),
   biogenic: z.object({ total: z.number() }).optional(),
   statedTotalEmissions: z.object({ total: z.number() }).optional(),
 })
