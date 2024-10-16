@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { validateRequestParams } from './zod-middleware'
+import { NextFunction } from 'express'
 
 import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
@@ -34,7 +35,7 @@ router.use(
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
-router.get('/', cache(), async (req: Request, res: Response) => {
+router.get('/', cache(), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const companies = await prisma.company.findMany({
       select: {
@@ -232,10 +233,10 @@ router.get('/', cache(), async (req: Request, res: Response) => {
         }))
     )
   } catch (error) {
-    throw new GarboAPIError('Failed to load companies', {
+    next(new GarboAPIError('Failed to load companies', {
       original: error,
       statusCode: 500,
-    })
+    }))
   }
 })
 
@@ -243,7 +244,7 @@ router.get(
   '/:wikidataId',
   validateRequestParams(wikidataIdParamSchema),
   cache(),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const { wikidataId } = req.params
     const company = await prisma.company.findFirst({
       where: { wikidataId },
@@ -378,7 +379,7 @@ router.get(
     })
 
     if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
+      return next(new GarboAPIError('Company not found', { statusCode: 404 }))
     }
 
     res.json(
@@ -447,7 +448,20 @@ router.get(
         }))
         .at(0)
     )
+  } catch (error) {
+    next(new GarboAPIError('Failed to load company', {
+      original: error,
+      statusCode: 500,
+    }))
   }
-)
+})
+
+// Error handler middleware
+router.use((err: GarboAPIError, req: Request, res: Response, next: NextFunction) => {
+  res.status(err.statusCode || 500).json({
+    error: err.message,
+    details: err.original || null,
+  })
+})
 
 export default router
