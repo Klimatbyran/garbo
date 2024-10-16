@@ -455,6 +455,7 @@ router.get(
     }))
   }
 })
+})
 
 // Error handler middleware
 router.use((err: GarboAPIError, req: Request, res: Response, next: NextFunction) => {
