@@ -45,7 +45,8 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 
 Example - feel free to add more fields and relevant data:
 {
-  "2021": {
+  emissions: [{
+    "year": 2021,
     "scope1": {
       "total": 12.3
     },
@@ -54,10 +55,7 @@ Example - feel free to add more fields and relevant data:
       "lb": 34.5,
       "unknown": null
     }
-  },
-  "2022": { ... },
-  "2023": { ... }
-}
+  }]
 `
 
 export default { prompt, schema }
