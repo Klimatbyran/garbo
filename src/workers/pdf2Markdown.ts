@@ -8,6 +8,7 @@ import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
+import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 
 const minutes = 60
 
@@ -100,10 +101,8 @@ async function getResults(id: any) {
   return text
 }
 
-class JobData extends Job {
-  declare data: {
-    url: string
-    threadId: string
+class JobData extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     existingId: string
     existingPdfHash: string
   }
@@ -112,120 +111,111 @@ class JobData extends Job {
 /**
  * Worker responsible for parsing PDF files using LLama index parse endpoint.
  */
-const worker = new Worker(
-  'pdf2Markdown',
-  async (job: JobData) => {
-    const { url, existingId, existingPdfHash } = job.data
-    let id = existingId
-    let pdfHash = existingPdfHash
-    let text = null
+const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
+  const { url, existingId, existingPdfHash } = job.data
+  let id = existingId
+  let pdfHash = existingPdfHash
+  let text = null
 
-    const message = await discord.sendMessage(job.data, '🤖 Kollar cache...')
+  await job.sendMessage('🤖 Kollar cache...')
 
-    // Initialize ChromaClient and embedding function
-    const client = new ChromaClient(chromadb)
-    const embedder = new OpenAIEmbeddingFunction(openai)
+  // Initialize ChromaClient and embedding function
+  const client = new ChromaClient(chromadb)
+  const embedder = new OpenAIEmbeddingFunction(openai)
+
+  try {
+    // Check if the URL already exists in the vector database
+    const collection = await client.getOrCreateCollection({
+      name: 'emission_reports',
+      embeddingFunction: embedder,
+    })
+    const exists = await collection
+      .get({
+        where: { $and: [{ source: url }, { markdown: true }] },
+        limit: 1,
+      })
+      .then((r) => r?.documents?.length > 0)
+
+    if (exists) {
+      // Skip to search vectors if the URL already exists
+      job.editMessage('✅ Detta dokument fanns redan i vektordatabasen.')
+      job.log(`URL ${url} already exists. Skipping to search vectors.`)
+      searchVectors.add('search ' + url.slice(-20), {
+        url,
+        threadId: job.data.threadId,
+        markdown: true,
+        pdfHash: job.data.existingPdfHash,
+      })
+      return
+    }
+  } catch (error) {
+    console.error(`Error checking URL ${url} in the vector database: ${error}`)
+    job.editMessage(
+      `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+    )
+    throw error
+  }
+
+  const previousJob = (await pdf2Markdown.getCompleted()).find(
+    (p) => p.data.url === url && p.returnvalue !== null
+  )
+  if (previousJob) {
+    job.editMessage('👌 Filen var redan hanterad. Återanvänder resultat.')
+    job.log(`Using existing job: ${id}`)
+    text = previousJob.returnvalue
+  } else if (!previousJob || !existingId) {
+    job.log(`Downloading from url: ${url}`)
+
+    const response = await fetch(url)
+    const buffer = await response.arrayBuffer()
+    pdfHash = hashPdf(Buffer.from(buffer))
+
+    job.editMessage('🤖 Tolkar tabeller...')
 
     try {
-      // Check if the URL already exists in the vector database
-      const collection = await client.getOrCreateCollection({
-        name: 'emission_reports',
-        embeddingFunction: embedder,
-      })
-      const exists = await collection
-        .get({
-          where: { $and: [{ source: url }, { markdown: true }] },
-          limit: 1,
-        })
-        .then((r) => r?.documents?.length > 0)
-
-      if (exists) {
-        // Skip to search vectors if the URL already exists
-        message?.edit('✅ Detta dokument fanns redan i vektordatabasen.')
-        job.log(`URL ${url} already exists. Skipping to search vectors.`)
-        searchVectors.add('search ' + url.slice(-20), {
-          url,
-          threadId: job.data.threadId,
-          markdown: true,
-          pdfHash: job.data.existingPdfHash,
-        })
-        return
-      }
+      id = await createPDFParseJob(buffer)
     } catch (error) {
-      console.error(
-        `Error checking URL ${url} in the vector database: ${error}`
-      )
-      message?.edit(
-        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+      discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
+      throw error
+    }
+    await job.updateData({
+      ...job.data,
+      existingId: id,
+      existingPdfHash: pdfHash,
+    })
+
+    job.log(`Wait until PDF is parsed: ${id}`)
+    const totalSeconds = 10 * minutes // Define total waiting time
+    let count = 0
+    for await (const jobStatus of waitUntilJobFinished(id, totalSeconds)) {
+      count++
+      job.log(jobStatus)
+      job.updateProgress(Math.round((count / totalSeconds) * 100)) // Update progress based on time elapsed
+    }
+    job.editMessage('🤖 Laddar ner resultatet...')
+
+    job.log(`Finished waiting for job ${id}`)
+    try {
+      text = await getResults(id)
+    } catch (error) {
+      discord.sendMessage(
+        job.data,
+        '❌ LLama fel: ' + error.message + ' #' + id
       )
       throw error
     }
-
-    const previousJob = (await pdf2Markdown.getCompleted()).find(
-      (p) => p.data.url === url && p.returnvalue !== null
-    )
-    if (previousJob) {
-      message?.edit('👌 Filen var redan hanterad. Återanvänder resultat.')
-      job.log(`Using existing job: ${id}`)
-      text = previousJob.returnvalue
-    } else if (!previousJob || !existingId) {
-      job.log(`Downloading from url: ${url}`)
-
-      const response = await fetch(url)
-      const buffer = await response.arrayBuffer()
-      pdfHash = hashPdf(Buffer.from(buffer))
-
-      message?.edit('🤖 Tolkar tabeller...')
-
-      try {
-        id = await createPDFParseJob(buffer)
-      } catch (error) {
-        discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
-        throw error
-      }
-      await job.updateData({
-        ...job.data,
-        existingId: id,
-        existingPdfHash: pdfHash,
-      })
-
-      job.log(`Wait until PDF is parsed: ${id}`)
-      const totalSeconds = 10 * minutes // Define total waiting time
-      let count = 0
-      for await (const jobStatus of waitUntilJobFinished(id, totalSeconds)) {
-        count++
-        job.log(jobStatus)
-        job.updateProgress(Math.round((count / totalSeconds) * 100)) // Update progress based on time elapsed
-      }
-      message?.edit('🤖 Laddar ner resultatet...')
-
-      job.log(`Finished waiting for job ${id}`)
-      try {
-        text = await getResults(id)
-      } catch (error) {
-        discord.sendMessage(
-          job.data,
-          '❌ LLama fel: ' + error.message + ' #' + id
-        )
-        throw error
-      }
-    }
-
-    job.log(`Got result: 
-${text}`)
-    message.edit('✅ Tolkning klar!')
-    splitText.add('split text ' + text.slice(0, 20), {
-      ...job.data,
-      pdfHash,
-      text,
-      markdown: true,
-    })
-    return text
-  },
-  {
-    concurrency: 10,
-    connection: redis,
   }
-)
+
+  job.log(`Got result: 
+${text}`)
+  job.editMessage('✅ Tolkning klar!')
+  splitText.add('split text ' + text.slice(0, 20), {
+    ...job.data,
+    pdfHash,
+    text,
+    markdown: true,
+  })
+  return text
+})
 
 export default worker

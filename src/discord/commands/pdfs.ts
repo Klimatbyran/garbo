@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import { createDownloadPDFJob } from '../../workers/downloadPDF'
+import { downloadPDF } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
@@ -55,7 +55,7 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
-        createDownloadPDFJob('download ' + url.slice(-20), {
+        downloadPDF.add('download ' + url.slice(-20), {
           url,
           threadId: thread.id,
         })

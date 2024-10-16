@@ -17,15 +17,31 @@ class JobData extends DiscordJob {
 const worker = new DiscordWorker('reflectOnAnswer', async (job: JobData) => {
   await job.sendMessage(`🤖 Reflekterar... ${job.attemptsStarted || ''}`)
 
-  const childrenValues = Object.values(await job.getChildrenValues()).map((j) =>
-    JSON.parse(j)
-  )
+  // {
+  //  "jobId1": { "turnover": { ... } },
+  //  "jobId2": { "emissions": { ... } }
+  // }
+
+  const values = await job
+    .getChildrenValues()
+    .then((values) => Object.values(values))
+    .then((values) =>
+      values.map((value) => Object.entries(JSON.parse(value))).flat()
+    )
+    .then((values) => Object.fromEntries(values))
+
+  // {
+  //   "industry": { ...},
+  //   "scope12": { ... },
+  //   "scope3": { ... },
+  //   "goals": { ... },
+  // }
 
   // TODO: save each answer to db.
 
   job.log(`Reflecting on: 
 --- Context:
-childrenValues: ${JSON.stringify(childrenValues, null, 2)}
+childrenValues: ${JSON.stringify(values, null, 2)}
 --- Prompt:
 ${prompt}`)
 
@@ -42,7 +58,7 @@ ${prompt}`)
       },
       {
         role: 'user',
-        content: (childrenValues && JSON.stringify(childrenValues)) || null,
+        content: (values && JSON.stringify(values)) || null,
       },
       { role: 'user', content: prompt },
       Array.isArray(job.stacktrace)
