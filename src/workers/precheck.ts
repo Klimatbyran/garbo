@@ -132,11 +132,6 @@ const worker = new Worker(
             schema: zodResponseFormat(publicComment.schema, 'publicComment'),
           },
         },*/
-        // {
-        //   ...base,
-        //   data: { ...base.data, companyName, url: job.data.url },
-        //   queueName: 'includeFacit',
-        // },
       ],
       opts: {
         attempts: 3,

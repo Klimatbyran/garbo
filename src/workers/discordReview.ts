@@ -6,10 +6,10 @@ import { randomUUID } from 'crypto'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
-  url: string
-  pdfHash: string
-  json: string
-  threadId: string
+  declare data: DiscordJob['data'] & {
+    pdfHash: string
+    json: string
+  }
 }
 
 const worker = new DiscordWorker<JobData>(

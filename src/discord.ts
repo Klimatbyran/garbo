@@ -143,7 +143,10 @@ export class Discord {
     )
   }
 
-  async sendMessage({ threadId }: { threadId: string }, msg: string) {
+  async sendMessage(
+    { threadId }: { threadId: string },
+    msg: string | { content: string; components: any[] }
+  ) {
     try {
       const thread = (await this.client.channels.fetch(
         threadId

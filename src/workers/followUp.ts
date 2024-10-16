@@ -4,45 +4,41 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
 import { saveCompany } from '../lib/api'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
-class JobData extends Job {
-  declare data: {
-    wikidataId: string
+class JobData extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     documentId: string
-    url: string
     apiSubEndpoint: string
     prompt: string
     schema: string
-    threadId: string
     json: string
     previousAnswer: string
   }
 }
 
-const worker = new Worker(
-  'followUp',
-  async (job: JobData) => {
-    const {
-      prompt,
-      schema,
-      url,
-      json,
-      previousAnswer,
-      apiSubEndpoint,
-      wikidataId,
-    } = job.data
+const worker = new DiscordWorker<JobData>('followUp', async (job: JobData) => {
+  const {
+    prompt,
+    schema,
+    url,
+    json,
+    previousAnswer,
+    apiSubEndpoint,
+    wikidataId,
+  } = job.data
 
-    // TODO: Move these to an helper function, e.g. getParagraphs()
-    const client = new ChromaClient(chromadb)
-    const collection = await client.getCollection({
-      name: 'emission_reports',
-      embeddingFunction: embedder,
-    })
-    /* might get better results if we query for imaginary results from a query instead of the actual query
+  // TODO: Move these to an helper function, e.g. getParagraphs()
+  const client = new ChromaClient(chromadb)
+  const collection = await client.getCollection({
+    name: 'emission_reports',
+    embeddingFunction: embedder,
+  })
+  /* might get better results if we query for imaginary results from a query instead of the actual query
     const query = await ask([
       {
         role: 'user',
@@ -54,16 +50,16 @@ const worker = new Worker(
       },
     ])*/
 
-    const results = await collection.query({
-      nResults: 5,
-      where: {
-        source: url,
-      },
-      queryTexts: [prompt],
-    })
-    const pdfParagraphs = results.documents.flat()
+  const results = await collection.query({
+    nResults: 5,
+    where: {
+      source: url,
+    },
+    queryTexts: [prompt],
+  })
+  const pdfParagraphs = results.documents.flat()
 
-    job.log(`Reflecting on: ${prompt}
+  job.log(`Reflecting on: ${prompt}
     ${json}
     
     Context:
@@ -71,22 +67,22 @@ const worker = new Worker(
     
     `)
 
-    const response = await askStream(
-      [
-        {
-          role: 'system',
-          content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
-        },
-        {
-          role: 'user',
-          content:
-            'Results from PDF: \n' +
-            pdfParagraphs.join('\n\n------------------------------\n\n'),
-        },
-        {
-          role: 'user',
-          content: `This is the result of a previous prompt:
+  const response = await askStream(
+    [
+      {
+        role: 'system',
+        content:
+          'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+      },
+      {
+        role: 'user',
+        content:
+          'Results from PDF: \n' +
+          pdfParagraphs.join('\n\n------------------------------\n\n'),
+      },
+      {
+        role: 'user',
+        content: `This is the result of a previous prompt:
 
 
 \`\`\`json
@@ -102,45 +98,40 @@ For example, if you want to add a new field called "industry" the response shoul
   "industry": {...}
 }
 `,
-        },
-        Array.isArray(job.stacktrace)
-          ? [
-              { role: 'assistant', content: previousAnswer },
-              { role: 'user', content: job.stacktrace.join('') },
-            ]
-          : undefined,
-      ]
-        .flat()
-        .filter((m) => m?.content) as any[],
-      {
-        response_format: schema,
-      }
-    )
-
-    job.log('NEW Response: ' + response)
-
-    try {
-      const jsonMatch = response.match(/```json([\s\S]*?)```/)
-      const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
-      const metadata = {
-        source: url,
-        comment: 'Parsed with AI by Garbo',
-      }
-      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
-      job.log('Saved to API')
-      return JSON.stringify(json, null, 2)
-    } catch (error) {
-      job.updateData({
-        ...job.data,
-        previousAnswer: response,
-      })
-      throw error
+      },
+      Array.isArray(job.stacktrace)
+        ? [
+            { role: 'assistant', content: previousAnswer },
+            { role: 'user', content: job.stacktrace.join('') },
+          ]
+        : undefined,
+    ]
+      .flat()
+      .filter((m) => m?.content) as any[],
+    {
+      response_format: schema,
     }
-  },
-  {
-    concurrency: 10,
-    connection: redis,
+  )
+
+  job.log('NEW Response: ' + response)
+
+  try {
+    const jsonMatch = response.match(/```json([\s\S]*?)```/)
+    const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
+    const metadata = {
+      source: url,
+      comment: 'Parsed with AI by Garbo',
+    }
+    await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
+    job.log('Saved to API')
+    return JSON.stringify(json, null, 2)
+  } catch (error) {
+    job.updateData({
+      ...job.data,
+      previousAnswer: response,
+    })
+    throw error
   }
-)
+})
 
 export default worker

@@ -1,22 +1,18 @@
-import { Worker, Job, UnrecoverableError } from 'bullmq'
-import redis from '../config/redis'
+import { UnrecoverableError } from 'bullmq'
 import { searchCompany } from '../lib/wikidata'
 import { ask, askPrompt } from '../openai'
 import { extractEmissions } from '../queues'
 import { saveCompany } from '../lib/api'
-import discord from '../discord'
-import { TextChannel } from 'discord.js'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
-class JobData extends Job {
-  declare data: {
-    url: string
-    threadId: string
+class JobData extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     paragraphs: string[]
     previousAnswer: string
   }
 }
 
-const worker = new Worker(
+const worker = new DiscordWorker<JobData>(
   'guessWikidata',
   async (job: JobData) => {
     const { previousAnswer, paragraphs, url } = job.data
@@ -30,14 +26,8 @@ const worker = new Worker(
     job.log('Searching for company name: ' + companyName)
     const results = await searchCompany(companyName)
     job.log('Results: ' + JSON.stringify(results, null, 2))
-    /*
-    TODO: evaluate if we need to transform the data or not
-    const transformed = transformData(results)
-    job.log('Transformed: ' + JSON.stringify(transformed, null, 2))
-    */
     if (results.length === 0) {
-      const message = await discord.sendMessage(
-        job.data,
+      await job.sendMessage(
         `❌ Hittade ingen Wikidata artikel för ${companyName}.`
       )
       throw new UnrecoverableError(
@@ -126,10 +116,7 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
         )
       }
 
-      const thread = (await discord.client.channels.fetch(
-        job.data.threadId
-      )) as TextChannel
-      thread.setName(companyName)
+      job.setThreadName(companyName)
 
       await saveCompany(wikidataId, '', {
         name: companyName,
@@ -160,10 +147,6 @@ Prioritize the company with carbon footprint reporting (claim: P5991). Also prio
       })
       throw error
     }
-  },
-  {
-    concurrency: 10,
-    connection: redis,
   }
 )
 

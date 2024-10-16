@@ -19,7 +19,6 @@ import {
   userFeedback,
   followUp,
   guessWikidata,
-  includeFacit,
 } from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
@@ -52,7 +51,6 @@ const queues = [
   searchVectors,
   extractEmissions,
   followUp,
-  includeFacit,
   reflectOnAnswer,
   discordReview,
   userFeedback,

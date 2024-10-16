@@ -1,5 +1,4 @@
 import { CompanyData } from '../models/companyEmissions'
-import { compareFacitToCompanyData, findFacit } from './facit'
 
 const trimText = (text: string | number = '', length: number = 12) =>
   text && text.toLocaleString('sv-se').slice(0, length).padEnd(length, ' ')
@@ -14,12 +13,12 @@ export const summaryTable = async (company: CompanyData) => {
     .slice(0, 3)
     .map((year) => ({ ...company.emissions[year], year }))
 
-  const facit = await findFacit(company.url, company.companyName).catch(
-    () => null
-  )
-  const check = facit
-    ? compareFacitToCompanyData(facit, company)
-    : { scope1: null, scope2: null, scope3: null, summary: 'Facit hittades ej' }
+  const check = {
+    scope1: null,
+    scope2: null,
+    scope3: null,
+    summary: 'Facit hittades ej',
+  }
 
   const table = [
     ['🎯', trimText('CO2e'), ...emissions.map((e) => trimText(e.year))],

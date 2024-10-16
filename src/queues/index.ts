@@ -16,7 +16,6 @@ const extractEmissions = new Queue('extractEmissions', options)
 const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const followUp = new Queue('followUp', options)
 const discordReview = new Queue('discordReview', options)
-const includeFacit = new Queue('includeFacit', options)
 const userFeedback = new Queue('userFeedback', options)
 
 export {
@@ -30,6 +29,5 @@ export {
   reflectOnAnswer,
   followUp,
   discordReview,
-  includeFacit,
   userFeedback,
 }

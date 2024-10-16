@@ -13,13 +13,14 @@ Milstolpe 1.5 - Förenkla flödet i garbo
 [x] Lägg schema ihop med prompt
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[ ] uppdatera basobjekt
+[x] updatera till DiscordJob
 
 ## FiscalYear
 
 [x] Lägg schema ihop med prompt
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+[x] updatera till DiscordJob
 
 ## Factors
 
@@ -34,6 +35,7 @@ Milstolpe 1.5 - Förenkla flödet i garbo
 [x] Lägg schema ihop med prompt
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+[x] updatera till DiscordJob
 
 ## Scope3
 
@@ -41,23 +43,29 @@ Milstolpe 1.5 - Förenkla flödet i garbo
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
 [x] Döp om `scope3Categories` till `categories` i Prisma och API
+[x] updatera till DiscordJob
 
 ## Industry
 
 [x] Lägg schema ihop med prompt
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-
 [x] Separera API endpoints för industry för ett företag med POST och PATCH
+[x] updatera till DiscordJob
 
 ## Initiatives
 
 [x] Lägg schema ihop med prompt
 [x] Implementera structured output i schemat för Open AI API
 [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+[x] updatera till DiscordJob
+
+## ReflectOnAnswer
+
+[ ] Summera till separata discord steg.
+[ ] Spara till databasen i separata job?
 
 [?] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
-[ ] DiscordWorker klass för att minska kodduplicering
 
 [ ] Lägg ihop tre workers i samma steg - companyName, guessWikidata, fiscalYear
 [ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
