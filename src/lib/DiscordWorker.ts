@@ -17,15 +17,15 @@ export class DiscordJob extends Job {
   editMessage: (msg: string) => Promise<any>
 }
 
-export class DiscordWorker extends Worker {
+export class DiscordWorker<T extends DiscordJob> extends Worker<T> {
   constructor(
     name: string,
-    callback: (job: DiscordJob) => Promise<any>,
-    options?: any
+    callback: (job: T) => Promise<any>,
+    options?: WorkerOptions
   ) {
     super(
       name,
-      (job: DiscordJob) => {
+      async (job: T) => {
         job.sendMessage = (msg) => {
           return (job.message = discord.sendMessage(job.data, msg))
         }
