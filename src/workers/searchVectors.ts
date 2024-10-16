@@ -1,11 +1,8 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import { guessWikidata } from '../queues'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import chromadb from '../config/chromadb'
-import discord from '../discord'
 import prompt from '../prompts/parsePDF'
 
 const embedder = new OpenAIEmbeddingFunction({

@@ -175,7 +175,7 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
     try {
       id = await createPDFParseJob(buffer)
     } catch (error) {
-      discord.sendMessage(job.data, '❌ LLama fel: ' + error.message)
+      job.sendMessage('❌ LLama fel: ' + error.message)
       throw error
     }
     await job.updateData({
@@ -198,10 +198,7 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
     try {
       text = await getResults(id)
     } catch (error) {
-      discord.sendMessage(
-        job.data,
-        '❌ LLama fel: ' + error.message + ' #' + id
-      )
+      job.sendMessage('❌ LLama fel: ' + error.message + ' #' + id)
       throw error
     }
   }
