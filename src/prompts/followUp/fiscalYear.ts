@@ -1,8 +1,12 @@
 import { z } from 'zod'
 
 const schema = z.object({
-  startMonth: z.number(),
-  endMonth: z.number(),
+  economy: z.object({
+    fiscalYear: z.object({
+      startMonth: z.number(),
+      endMonth: z.number(),
+    }),
+  }),
 })
 
 const prompt = `
@@ -16,8 +20,12 @@ Standard is 1 jan -> 31 dec which is default and if nothing is mentioned in the 
 Example:
 \`\`\`json
 {
-  "startMonth": 1,
-  "endMonth": 12
+  "economy": {
+    "fiscalYear": {
+      "startMonth": 1,
+      "endMonth": 12
+    }
+  }
 }
 \`\`\`
 `

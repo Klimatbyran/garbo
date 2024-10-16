@@ -1,5 +1,3 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
@@ -122,7 +120,10 @@ For example, if you want to add a new field called "industry" the response shoul
       source: url,
       comment: 'Parsed with AI by Garbo',
     }
-    await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
+
+    // TODO: Move this to a later step in the worker process.
+    if (apiSubEndpoint)
+      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
     job.log('Saved to API')
     return JSON.stringify(json, null, 2)
   } catch (error) {

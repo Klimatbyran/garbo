@@ -1,6 +1,6 @@
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { guessWikidata } from '../queues'
+import { precheck } from '../queues'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import chromadb from '../config/chromadb'
 import prompt from '../prompts/parsePDF'
@@ -50,18 +50,15 @@ const worker = new DiscordWorker('searchVectors', async (job: JobData) => {
 
   job.editMessage('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
 
-  guessWikidata.add(
-    'guess ' + url.slice(-20),
+  precheck.add(
+    'precheck ' + url.slice(-20),
     {
       url,
-      companyName: url,
       paragraphs,
-      previousAnswer: '',
-      answer: '',
       threadId: job.data.threadId,
     },
     {
-      attempts: 5,
+      attempts: 2,
     }
   )
 

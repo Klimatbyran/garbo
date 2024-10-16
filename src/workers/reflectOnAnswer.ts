@@ -8,7 +8,6 @@ class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     paragraphs: string[]
     answer: string
-    pdfHash: string
     previousPrompt: string
     previousAnswer: string
   }

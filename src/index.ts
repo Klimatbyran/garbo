@@ -18,6 +18,7 @@ import {
   splitText,
   userFeedback,
   followUp,
+  precheck,
   guessWikidata,
 } from './queues'
 import readCompanies from './routes/readCompanies'
@@ -49,12 +50,13 @@ const queues = [
   splitText,
   indexParagraphs,
   searchVectors,
+  precheck,
+  guessWikidata,
   extractEmissions,
   followUp,
   reflectOnAnswer,
   discordReview,
   userFeedback,
-  guessWikidata,
 ]
 createBullBoard({
   queues: queues.map((queue) => new BullMQAdapter(queue)),

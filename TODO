@@ -1,85 +1,92 @@
-Milstolpe 1 - Uppdatera lokal databas och frontend från Discord med ny PDF.
+## Milstolpe 1 - Uppdatera lokal databas och frontend från Discord med ny PDF
 
-[x] Koppla ihop Garbo med lokal miljö, env
-[x] Rensa bort allt som heter saveToDb
-[x] Ta guesswikidataId och flytta tidigare i kön
-[x] Ta en av garbos workers, t ex initiatives och kör anrop mot lokalt api
-[x] Implementera goals på samma sätt som initiatives
+    [x] Koppla ihop Garbo med lokal miljö, env
+    [x] Rensa bort allt som heter saveToDb
+    [x] Ta guesswikidataId och flytta tidigare i kön
+    [x] Ta en av garbos workers, t ex initiatives och kör anrop mot lokalt api
+    [x] Implementera goals på samma sätt som initiatives
 
-Milstolpe 1.5 - Förenkla flödet i garbo
+## Milstolpe 1.5 - Förenkla flödet i garbo
 
-## BaseFacts
+### BaseFacts
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] updatera till DiscordJob
 
-## FiscalYear
+### FiscalYear
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] updatera till DiscordJob
 
-## Factors
+### Factors
 
-[x] Ta bort
+    [x] Ta bort
 
-## Contacts
+### Contacts
 
-[x] Ta bort / flytta till unused
+    [x] Ta bort / flytta till unused
 
-## Scope1+2
+### Scope1+2
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] updatera till DiscordJob
 
-## Scope3
+### Scope3
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] Döp om `scope3Categories` till `categories` i Prisma och API
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] Döp om `scope3Categories` till `categories` i Prisma och API
+    [x] updatera till DiscordJob
 
-## Industry
+### Industry
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] Separera API endpoints för industry för ett företag med POST och PATCH
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] Separera API endpoints för industry för ett företag med POST och PATCH
+    [x] updatera till DiscordJob
 
-## Initiatives
+### Initiatives
 
-[x] Lägg schema ihop med prompt
-[x] Implementera structured output i schemat för Open AI API
-[x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
-[x] updatera till DiscordJob
+    [x] Lägg schema ihop med prompt
+    [x] Implementera structured output i schemat för Open AI API
+    [x] Med hjälp av Aider- se till att exempel och schema stämmer överrens
+    [x] updatera till DiscordJob
 
-## ReflectOnAnswer
+### Precheck
 
-[ ] Summera till separata discord steg.
-[ ] Spara till databasen i separata job?
+    [x] Ask CompanyName
+    [x] Skapa flow med Wikidata, FiscalYear
 
-[?] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
+### ReflectOnAnswer
 
-[ ] Lägg ihop tre workers i samma steg - companyName, guessWikidata, fiscalYear
-[ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
+    [ ] Ta bort spara i FollowUp
+    [ ] Summera svaren till separata discord steg.
+    [ ] Spara till API
+    [?] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
+    [ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
+    [x] Ta bort facit baserat på CSV-filen och skicka till Discord utan facit.
 
-[ ] Ta bort facit baserat på CSV-filen och skicka till Discord utan facit.
+## Later
 
-[ ] Preview miljö
-
--- SENARE --
-[ ] Tryck Approve i Discord och få en grön flagga i frontend
-[ ] Om WikidataID saknas, skicka meddelande till Discord med länk till skapa Wikidata och förslag på Företagsnamn
-[ ] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
-[ ] Dokumentera biogenic emissions i vårt mermaid-flödeschema
-[ ] När dev-board startar, kontrollera att databasen är seedad och har kört senaste migrationerna? Annars kasta ett fel
-[ ] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
-[ ] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments
-[ ] Metabase
+    [ ] Importera mid cap-data och komplettera med garbo
+    [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer
+    [ ] Gör Garbo som repo enklare att använda vid första tillfället
+      [ ] Kräv ej NODE_ENV=development vid uppstart eller ställ in som default
+      [ ] Använd .env.example som default
+      [ ] Tydligare felmeddelanden om man inte har redis, chromadb, postgresql igång
+    [ ] Tryck Approve i Discord och få en grön flagga i frontend
+    [ ] Om WikidataID saknas, skicka meddelande till Discord med länk till skapa Wikidata och förslag på Företagsnamn
+    [ ] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
+    [ ] Dokumentera biogenic emissions i vårt mermaid-flödeschema
+    [ ] När dev-board startar, kontrollera att databasen är seedad och har kört senaste migrationerna? Annars kasta ett fel
+    [ ] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
+    [ ] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments
+    [ ] Metabase

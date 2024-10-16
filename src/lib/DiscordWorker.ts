@@ -7,7 +7,9 @@ export class DiscordJob extends Job {
   declare data: {
     url: string
     threadId: string
+    channelId: string
     wikidataId?: string
+    messageId?: string
   }
   message: any
   sendMessage: (
@@ -26,10 +28,20 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     super(
       name,
       async (job: T) => {
-        job.sendMessage = (msg) => {
-          return (job.message = discord.sendMessage(job.data, msg))
+        job.sendMessage = async (msg) => {
+          job.message = await discord.sendMessage(job.data, msg)
+          await job.updateData({ ...job.data, messageId: job.message.id })
+          return job.message
         }
         job.editMessage = (msg) => {
+          if (!job.message && job.data.messageId) {
+            const { channelId, threadId, messageId } = job.data
+            job.message = discord.findMessage({
+              channelId,
+              threadId,
+              messageId,
+            })
+          }
           if (job.message) {
             try {
               return job.message.edit(msg)

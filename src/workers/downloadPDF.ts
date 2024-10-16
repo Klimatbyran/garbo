@@ -1,12 +1,7 @@
 import pdf from 'pdf-parse-debugging-disabled'
 import { splitText } from '../queues'
-import * as crypto from 'crypto'
 import { DiscordWorker } from '../lib/DiscordWorker'
 import { UnrecoverableError } from 'bullmq'
-
-function hashPdf(pdfBuffer: Buffer): string {
-  return crypto.createHash('sha256').update(pdfBuffer).digest('hex')
-}
 
 const headers = {
   'User-Agent':
@@ -25,7 +20,6 @@ const worker = new DiscordWorker('downloadPDF', async (job) => {
 
   const buffer = await response.arrayBuffer()
   const doc = await pdf(buffer)
-  const pdfHash = hashPdf(Buffer.from(buffer))
   const text = doc.text
   job.editMessage(`✅ PDF nedladdad!`)
   job.sendMessage(`🤖 Hittade ${text.length} tecken. Delar upp i sidor...`)
@@ -33,7 +27,6 @@ const worker = new DiscordWorker('downloadPDF', async (job) => {
     ...job.data,
     url,
     text,
-    pdfHash,
   })
 
   return doc.text

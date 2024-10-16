@@ -158,13 +158,18 @@ export const reportingPeriod =
     const metadata = res.locals.metadata
     const company = res.locals.company
 
-    const reportingPeriod = await ensureReportingPeriodExists(
-      company,
-      metadata,
-      { startDate, endDate, reportURL }
-    )
+    if (req.method === 'POST' || req.method === 'PATCH') {
+      // TODO: Only allow creating a reporting period when updating other data
+      // TODO: Maybe throw 404 if the reporting period was not found and it is a GET request
+      const reportingPeriod = await ensureReportingPeriodExists(
+        company,
+        metadata,
+        { startDate, endDate, reportURL }
+      )
 
-    res.locals.reportingPeriod = reportingPeriod
+      res.locals.reportingPeriod = reportingPeriod
+    }
+
     next()
   }
 

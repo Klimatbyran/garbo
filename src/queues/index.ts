@@ -17,6 +17,7 @@ const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const followUp = new Queue('followUp', options)
 const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
+const precheck = new Queue('precheck', options)
 
 export {
   downloadPDF,
@@ -24,6 +25,7 @@ export {
   splitText,
   indexParagraphs,
   searchVectors,
+  precheck,
   guessWikidata,
   extractEmissions,
   reflectOnAnswer,

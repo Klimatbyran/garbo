@@ -1,5 +1,3 @@
-import { Worker, Job, Processor } from 'bullmq'
-import redis from '../config/redis'
 import discord from '../discord'
 import { summaryTable, scope3Table } from '../lib/discordTable'
 import { randomUUID } from 'crypto'
@@ -7,7 +5,6 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    pdfHash: string
     json: string
   }
 }
@@ -15,8 +12,7 @@ class JobData extends DiscordJob {
 const worker = new DiscordWorker<JobData>(
   'discordReview',
   async (job: JobData) => {
-    const { url, pdfHash, json, threadId } = job.data
-    job.log(`Sending report (pdfHash: ${pdfHash}) for review:\n${json}`)
+    const { url, json, threadId } = job.data
     const parsedJson = { ...JSON.parse(json), url }
     const documentId = randomUUID()
     job.log(`Saving report to database with uuid: ${documentId}`)

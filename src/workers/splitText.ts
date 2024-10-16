@@ -1,19 +1,14 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { indexParagraphs } from '../queues'
-import discord from '../discord'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    markdown: boolean
     text: string
-    pdfHash: string
   }
 }
 
 const worker = new DiscordWorker('splitText', async (job: JobData) => {
-  const { text, markdown = false } = job.data
+  const { text } = job.data
 
   job.log(`Splitting text: ${text.slice(0, 20)}`)
 

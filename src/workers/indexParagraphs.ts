@@ -1,18 +1,14 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import { searchVectors } from '../queues'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
-import discord from '../discord'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     paragraphs: string[]
     markdown: boolean
-    pdfHash: string
   }
 }
 
@@ -67,7 +63,6 @@ const worker = new DiscordWorker('indexParagraphs', async (job: JobData) => {
       url,
       threadId,
       markdown,
-      pdfHash: job.data.pdfHash,
     })
 
     return paragraphs

@@ -2,7 +2,6 @@ import { FlowProducer } from 'bullmq'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import redis from '../config/redis'
 import prompt from '../prompts/parsePDF'
-import discord from '../discord'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
@@ -13,13 +12,10 @@ import fiscalYear from '../prompts/followUp/fiscalYear'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
-  declare data: {
-    url: string
+  declare data: DiscordJob['data'] & {
     paragraphs: string[]
     companyName: string
     wikidataId: string
-    threadId: string
-    pdfHash: string
   }
 }
 

@@ -1,9 +1,5 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { pdf2Markdown, splitText, searchVectors } from '../queues'
-import * as crypto from 'crypto'
 import llama from '../config/llama'
-import discord from '../discord'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
@@ -41,10 +37,6 @@ async function createPDFParseJob(buffer: ArrayBuffer) {
 
   const id = result.id
   return id
-}
-
-function hashPdf(pdfBuffer: Buffer): string {
-  return crypto.createHash('sha256').update(pdfBuffer).digest('hex')
 }
 
 /**
@@ -104,7 +96,6 @@ async function getResults(id: any) {
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     existingId: string
-    existingPdfHash: string
   }
 }
 
@@ -112,9 +103,8 @@ class JobData extends DiscordJob {
  * Worker responsible for parsing PDF files using LLama index parse endpoint.
  */
 const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
-  const { url, existingId, existingPdfHash } = job.data
+  const { url, existingId } = job.data
   let id = existingId
-  let pdfHash = existingPdfHash
   let text = null
 
   await job.sendMessage('🤖 Kollar cache...')
@@ -144,7 +134,6 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
         url,
         threadId: job.data.threadId,
         markdown: true,
-        pdfHash: job.data.existingPdfHash,
       })
       return
     }
@@ -168,7 +157,6 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
 
     const response = await fetch(url)
     const buffer = await response.arrayBuffer()
-    pdfHash = hashPdf(Buffer.from(buffer))
 
     job.editMessage('🤖 Tolkar tabeller...')
 
@@ -181,7 +169,6 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
     await job.updateData({
       ...job.data,
       existingId: id,
-      existingPdfHash: pdfHash,
     })
 
     job.log(`Wait until PDF is parsed: ${id}`)
@@ -208,7 +195,6 @@ ${text}`)
   job.editMessage('✅ Tolkning klar!')
   splitText.add('split text ' + text.slice(0, 20), {
     ...job.data,
-    pdfHash,
     text,
     markdown: true,
   })
