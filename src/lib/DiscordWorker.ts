@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Processor, Queue } from 'bullmq'
+import { Worker, WorkerOptions, Job } from 'bullmq'
 import { TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
@@ -10,6 +10,9 @@ export class DiscordJob extends Job {
     channelId: string
     wikidataId?: string
     messageId?: string
+
+    // TODO: find a better type for this
+    childrenValues: any
   }
   message: any
   sendMessage: (
@@ -17,6 +20,7 @@ export class DiscordJob extends Job {
   ) => Promise<any>
   editMessage: (msg: string) => Promise<any>
   setThreadName: (name: string) => Promise<any>
+  getChildrenEntries: () => Promise<any>
 }
 
 export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
@@ -28,6 +32,16 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     super(
       name,
       async (job: T) => {
+        job.getChildrenEntries = async () => {
+          const values = await job
+            .getChildrenValues()
+            .then((values) => Object.values(values))
+            .then((values) =>
+              values.map((value) => Object.entries(JSON.parse(value))).flat()
+            )
+            .then((values) => Object.fromEntries(values))
+          return values
+        }
         job.sendMessage = async (msg) => {
           job.message = await discord.sendMessage(job.data, msg)
           await job.updateData({ ...job.data, messageId: job.message.id })
@@ -60,6 +74,8 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
           return thread.setName(name)
         }
         try {
+          const values = await job.getChildrenEntries()
+          await job.updateData({ ...job.data, childrenValues: values })
           return callback(job)
         } catch (err) {
           job.sendMessage(`❌ ${this.name}: ${err.message}`)

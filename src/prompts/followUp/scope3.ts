@@ -7,7 +7,7 @@ export const schema = z.object({
         categories: z
           .array(
             z.object({
-              category: z.number().int().min(1).max(16),
+              category: z.number().int(),
               total: z.number(),
             })
           )

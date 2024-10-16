@@ -16,24 +16,19 @@ class JobData extends DiscordJob {
 const flow = new FlowProducer({ connection: redis })
 
 const worker = new DiscordWorker('precheck', async (job: JobData) => {
-  const { paragraphs } = job.data
+  const { paragraphs, ...baseData } = job.data
 
-  const companyName =
-    job.data.companyName ||
-    (await askPrompt(
-      'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
-      paragraphs.join('-------------PDF EXTRACT-------------------\n\n')
-    ))
+  const companyName = await askPrompt(
+    'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
+    paragraphs.join('-------------PDF EXTRACT-------------------\n\n')
+  )
 
   job.log('Company name: ' + companyName)
   job.setThreadName(companyName)
-  await job.updateData({
-    ...job.data,
-    companyName,
-  })
 
   const base = {
     queueName: 'followUp',
+    data: { ...baseData, companyName },
     opts: {
       attempts: 3,
     },
@@ -44,14 +39,14 @@ const worker = new DiscordWorker('precheck', async (job: JobData) => {
   await flow.add({
     name: 'precheck done ' + companyName,
     queueName: 'extractEmissions', // this is where the result from the children will be sent
-    data: { ...job.data },
+    data: { ...base.data },
     children: [
       {
         ...base,
         name: 'guesswikidata ' + companyName,
         queueName: 'guessWikidata',
         data: {
-          ...job.data,
+          ...base.data,
           schema: zodResponseFormat(wikidata.schema, 'wikidata'),
         },
       },
@@ -59,7 +54,7 @@ const worker = new DiscordWorker('precheck', async (job: JobData) => {
         ...base,
         name: 'fiscalYear ' + companyName,
         data: {
-          ...job.data,
+          ...base.data,
           prompt: fiscalYear.prompt,
           schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
         },

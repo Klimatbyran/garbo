@@ -111,28 +111,8 @@ For example, if you want to add a new field called "industry" the response shoul
     }
   )
 
-  job.log('NEW Response: ' + response)
-
-  try {
-    const jsonMatch = response.match(/```json([\s\S]*?)```/)
-    const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
-    const metadata = {
-      source: url,
-      comment: 'Parsed with AI by Garbo',
-    }
-
-    // TODO: Move this to a later step in the worker process.
-    if (apiSubEndpoint)
-      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
-    job.log('Saved to API')
-    return JSON.stringify(json, null, 2)
-  } catch (error) {
-    job.updateData({
-      ...job.data,
-      previousAnswer: response,
-    })
-    throw error
-  }
+  job.log('Response: ' + response)
+  return response
 })
 
 export default worker

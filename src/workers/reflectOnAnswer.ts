@@ -62,6 +62,7 @@ ${prompt}`)
       { role: 'user', content: prompt },
       Array.isArray(job.stacktrace)
         ? [
+            // TODO: add previousAnswer?
             { role: 'assistant', content: previousAnswer },
             { role: 'user', content: job.stacktrace.join('\n') },
           ]

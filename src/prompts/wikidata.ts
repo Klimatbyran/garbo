@@ -1,6 +1,4 @@
 import { z } from 'zod'
-import scope12 from './followUp/scope12'
-import scope3 from './followUp/scope3'
 
 const prompt = `Please choose the appropriate wikidata node and return it as json. Prioritize the node with information about GHG carbon footprint if there are any.
 

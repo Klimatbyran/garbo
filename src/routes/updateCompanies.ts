@@ -326,7 +326,7 @@ const postEmissionsBodySchema = z.object({
   }),
 })
 
-// POST//Q12345/2022-2023/emissions
+// POST /Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsBodySchema),

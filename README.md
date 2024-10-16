@@ -40,19 +40,19 @@ flowchart TB
     CheckDb{Exists in API?}
 
     Emissions --(followUp)--> Industry --> CheckDb --(yes)--> Review --> API.Industry
-                              Industry --> CheckDb --(no)--> API.Industry
+                                           CheckDb --(no)--> API.Industry
     Emissions --(followUp)--> Scope1+2 --> CheckDb --(yes)--> Review --> API.Emissions
-                              Scope1+2 --> CheckDb --(no)--> API.Emissions
+                                           CheckDb --(no)--> API.Emissions
     Emissions --(followUp)--> Scope3 --> CheckDb --(yes)--> Review --> API.Emissions
-                              Scope3 --> CheckDb --(no)--> API.Emissions
+                                           CheckDb --(no)--> API.Emissions
     Emissions --(followUp)--> Goals --> CheckDb --(yes)--> Review --> API.Goals
-                              Goals --> CheckDb --(no)--> API.Goals
+                                           CheckDb --(no)--> API.Goals
     Emissions --(followUp)--> Initiatives --> CheckDb --(yes)--> Review --> API.Initiatives
-                              Initiatives --> CheckDb --(no)--> API.Initiatives
+                                           CheckDb --(no)--> API.Initiatives
     Emissions --(followUp)--> Contacts --> CheckDb --(yes)--> Review --> API.Contacts
-                              Contacts --> CheckDb --(no)--> API.Contacts
+                                           CheckDb --(no)--> API.Contacts
     Emissions --(followUp)--> Turnover --> CheckDb --(yes)--> Review --> API.Economy
-                              Turnover --> CheckDb --(no)--> API.Economy
+                                           CheckDb --(no)--> API.Economy
 
 ```
 

@@ -18,6 +18,7 @@ const followUp = new Queue('followUp', options)
 const discordReview = new Queue('discordReview', options)
 const userFeedback = new Queue('userFeedback', options)
 const precheck = new Queue('precheck', options)
+const saveToAPI = new Queue('saveToAPI', options)
 
 export {
   downloadPDF,
@@ -32,4 +33,5 @@ export {
   followUp,
   discordReview,
   userFeedback,
+  saveToAPI,
 }

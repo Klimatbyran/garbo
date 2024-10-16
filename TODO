@@ -67,15 +67,20 @@
 
 ### ReflectOnAnswer
 
-    [ ] Ta bort spara i FollowUp
+    [x] Ta bort spara i FollowUp
     [ ] Summera svaren till separata discord steg.
-    [ ] Spara till API
+    [ ] Spara till API i eget jobb
     [?] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
     [ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
     [x] Ta bort facit baserat på CSV-filen och skicka till Discord utan facit.
 
 ## Later
 
+    [ ] Extract biogenic emissions with Garbo (create a new worker based on scope 1+2)
+    [ ] Ta bort paragraphs från hela kedjan
+    [ ] Kan vi på något sätt hålla alla workers och köer på ett och samma ställe?
+    [ ] Ta bort Barrel-files
+    [ ] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
     [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer
     [ ] Gör Garbo som repo enklare att använda vid första tillfället
