@@ -17,7 +17,7 @@ export class DiscordJob extends Job {
   editMessage: (msg: string) => Promise<any>
 }
 
-export class DiscordWorker<T extends DiscordJob> extends Worker<T> {
+export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
   constructor(
     name: string,
     callback: (job: T) => Promise<any>,
