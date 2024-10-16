@@ -29,7 +29,18 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
         job.sendMessage = (msg) => {
           return (job.message = discord.sendMessage(job.data, msg))
         }
-        job.editMessage = (msg) => job.message?.edit(msg)
+        job.editMessage = (msg) => {
+          if (job.message) {
+            try {
+              return job.message.edit(msg)
+            } catch (err) {
+              job.log('error editing Discord message:' + err.message)
+              return job.sendMessage(msg)
+            }
+          } else {
+            return job.sendMessage(msg)
+          }
+        }
         job.setThreadName = async (name) => {
           const thread = (await discord.client.channels.fetch(
             job.data.threadId
