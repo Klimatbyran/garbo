@@ -34,6 +34,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<T> {
       },
       {
         connection: redis,
+        concurrency: 10,
         ...options,
       }
     )
