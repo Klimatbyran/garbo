@@ -9,6 +9,7 @@ import { z } from 'zod'
 // If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
 
 const schema = z.object({
+  years: z.array(z.number()).nonempty({ message: 'At least one year must be provided' }),
   scope1: z
     .object({
       total: z.number(),
