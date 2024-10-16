@@ -1,23 +1,21 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  emissions: z.object({
-    scope3: z
-      .object({
-        categories: z
-          .array(
-            z.object({
-              category: z.number().int(),
-              total: z.number(),
-            })
-          )
-          .optional(),
-        statedTotalEmissions: z.object({ total: z.number() }).optional(),
-      })
-      .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
-    statedTotalEmissions: z.object({ total: z.number() }).optional(),
-  }),
+  scope3: z
+    .object({
+      categories: z
+        .array(
+          z.object({
+            category: z.number().int(),
+            total: z.number(),
+          })
+        )
+        .optional(),
+      statedTotalEmissions: z.object({ total: z.number() }).optional(),
+    })
+    .optional(),
+  biogenic: z.object({ total: z.number() }).optional(),
+  statedTotalEmissions: z.object({ total: z.number() }).optional(),
 })
 
 export const prompt = `
@@ -52,7 +50,7 @@ Example: Keep this format and add as many years as you can find. Keep the catego
 
 \`\`\`json
 {
-  "emissions": [
+  "scope3": [
     {
       "year": 2021,
       "scope3": {
