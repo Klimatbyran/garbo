@@ -19,8 +19,6 @@ export const schema = z.object({
         .optional(),
     })
   ),
-  biogenic: z.object({ total: z.number() }).optional(),
-  statedTotalEmissions: z.object({ total: z.number() }).optional(),
 })
 
 export const prompt = `

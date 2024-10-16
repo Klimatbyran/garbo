@@ -8,6 +8,7 @@ import { resetDB } from '../src/lib/dev-utils'
 import { getName, getWikidataId } from './import-garbo-companies'
 import garboCompanies from '../companies.json'
 import { getAllGicsCodesLookup, gicsCodes } from './add-gics'
+import { getPeriodDatesForYear } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -160,40 +161,6 @@ function getCompanyBaseFacts() {
 
       return rowValues
     }, [])
-}
-
-/**
- * Translate the reporting period dates into another year. Can handle leap years.
- */
-function getPeriodDatesForYear(
-  endYear: number,
-  startDate: Date,
-  endDate: Date
-) {
-  // Handle broken reporting periods
-  const diff = endDate.getFullYear() - startDate.getFullYear()
-
-  const start = new Date(
-    `${endYear - diff}-${(startDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-01`
-  )
-  const end = new Date(
-    `${endYear}-${(endDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-${getLastDayInMonth(endYear, endDate.getMonth())}`
-  )
-
-  return [start, end]
-}
-
-/**
- * NOTE: Month is 0-indexed like Date.getMonth()
- *
- * Credit: https://stackoverflow.com/a/5301829
- */
-function getLastDayInMonth(year: number, month: number) {
-  return 32 - new Date(year, month, 32).getDate()
 }
 
 function getReportingPeriods(

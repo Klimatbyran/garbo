@@ -44,6 +44,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
         }
         job.sendMessage = async (msg) => {
           job.message = await discord.sendMessage(job.data, msg)
+          if (!job.message) return undefined // TODO: throw error?
           await job.updateData({ ...job.data, messageId: job.message.id })
           return job.message
         }

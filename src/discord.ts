@@ -148,6 +148,8 @@ export class Discord {
     msg: string | { content: string; components: any[] }
   ) {
     try {
+      if (!threadId) throw new Error('Thread ID is required')
+
       const thread = (await this.client.channels.fetch(
         threadId
       )) as ThreadChannel

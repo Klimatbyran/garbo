@@ -9,7 +9,7 @@ import { z } from 'zod'
 // If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
 
 const schema = z.object({
-  emissions: z.array(
+  scope12: z.array(
     z.object({
       year: z.number(),
       scope1: z
@@ -50,7 +50,7 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 
 Example - feel free to add more fields and relevant data:
 {
-  emissions: [{
+  "scope12": [{
     "year": 2021,
     "scope1": {
       "total": 12.3

@@ -4,6 +4,10 @@ import { askPrompt } from '../openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { createCompany, fetchCompany, saveCompany } from '../lib/api'
+import {
+  getPeriodDatesForYear,
+  getReportingPeriodDates,
+} from '../lib/reportingPeriodDates'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -16,8 +20,14 @@ class JobData extends DiscordJob {
 }
 
 const worker = new DiscordWorker('saveToAPI', async (job: JobData) => {
-  const { apiSubEndpoint, companyName, url, wikidata, childrenValues } =
-    job.data
+  const {
+    apiSubEndpoint,
+    companyName,
+    url,
+    fiscalYear,
+    wikidata,
+    childrenValues,
+  } = job.data
 
   job.sendMessage(`🤖 sparar ${companyName}.${apiSubEndpoint} till API...`)
   job.log('Values: ' + JSON.stringify(job.data, null, 2))
@@ -50,19 +60,52 @@ const worker = new DiscordWorker('saveToAPI', async (job: JobData) => {
       metadata,
     })
   }
+  const { scope12, scope3, industry } = childrenValues
+  job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
+  await Promise.all(
+    scope12.map(({ year, scope1, scope2 }) => {
+      const [startDate, endDate] = getReportingPeriodDates(
+        year,
+        fiscalYear.startMonth,
+        fiscalYear.endMonth
+      )
+      const body = {
+        startDate,
+        endDate,
+        emissions: {
+          scope1,
+          scope2,
+        },
+        metadata,
+      }
+      return saveCompany(wikidataId, `${year}/emissions`, body)
+    })
+  )
 
-  const values = Object.entries(childrenValues).map(
-    ([apiSubEndpoint, value]) => {
-      // TODO: save each answer to db.
-      job.sendMessage(`🤖 Sparar ${apiSubEndpoint}...`)
-      return saveCompany(wikidataId, apiSubEndpoint, {
-        [apiSubEndpoint]: value,
+  job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
+  await Promise.all(
+    scope3.map(({ year, scope3 }) => {
+      const [startDate, endDate] = getReportingPeriodDates(
+        year,
+        fiscalYear.startMonth,
+        fiscalYear.endMonth
+      )
+      return saveCompany(wikidataId, `${year}/emissions`, {
+        startDate,
+        endDate,
+        emissions: {
+          scope3,
+        },
         metadata,
       })
-      // return values
-    }
+    })
   )
-  return values
+
+  job.editMessage(`🤖 Sparar GICS industri...`)
+  await saveCompany(wikidataId, 'industry', {
+    industry,
+    metadata,
+  })
 })
 
 export default worker

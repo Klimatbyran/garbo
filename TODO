@@ -69,29 +69,30 @@
 
     [x] Ta bort spara i FollowUp
     [ ] Summera svaren till separata discord steg.
-    [ ] Spara till API i eget jobb
-    [?] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
-    [ ] Hitta nytt sätt att skapa ett övergripande flöde av workers
+    [x] Spara till API i eget jobb
+    [x] Hitta nytt sätt att skapa ett övergripande flöde av workers
     [x] Ta bort facit baserat på CSV-filen och skicka till Discord utan facit.
+
+    [x] Ta bort paragraphs från hela kedjan
 
 ## Later
 
     [ ] Extract biogenic emissions with Garbo (create a new worker based on scope 1+2)
-    [ ] Ta bort paragraphs från hela kedjan
     [ ] Kan vi på något sätt hålla alla workers och köer på ett och samma ställe?
     [ ] Ta bort Barrel-files
     [ ] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
     [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer
+    [-] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
     [ ] Gör Garbo som repo enklare att använda vid första tillfället
       [ ] Kräv ej NODE_ENV=development vid uppstart eller ställ in som default
       [ ] Använd .env.example som default
       [ ] Tydligare felmeddelanden om man inte har redis, chromadb, postgresql igång
     [ ] Tryck Approve i Discord och få en grön flagga i frontend
     [ ] Om WikidataID saknas, skicka meddelande till Discord med länk till skapa Wikidata och förslag på Företagsnamn
-    [ ] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
+    [x] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
     [ ] Dokumentera biogenic emissions i vårt mermaid-flödeschema
     [ ] När dev-board startar, kontrollera att databasen är seedad och har kört senaste migrationerna? Annars kasta ett fel
-    [ ] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
-    [ ] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments
+    [x] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
+    [x] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments
     [ ] Metabase
