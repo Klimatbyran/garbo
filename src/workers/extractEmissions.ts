@@ -103,17 +103,7 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           prompt: baseFacts.prompt,
           schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
         },
-      },
-      {
-        ...base,
-        name: 'fiscalYear ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'economy',
-          prompt: fiscalYear.prompt,
-          schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
-        },
-      },*/
+      }*/
     ],
     opts: {
       attempts: 3,

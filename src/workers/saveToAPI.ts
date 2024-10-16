@@ -1,13 +1,7 @@
-import wikidata from '../prompts/wikidata'
-import fiscalYear from '../prompts/followUp/fiscalYear'
 import { askPrompt } from '../openai'
-import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { createCompany, fetchCompany, saveCompany } from '../lib/api'
-import {
-  getPeriodDatesForYear,
-  getReportingPeriodDates,
-} from '../lib/reportingPeriodDates'
+import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -50,6 +44,8 @@ const worker = new DiscordWorker('saveToAPI', async (job: JobData) => {
     )
     job.log('Diff: ' + diff)
     job.sendMessage(`🤖 Diff: ${diff}`)
+
+    // TODO: Approve changes before sending to api
   } else {
     job.sendMessage(
       `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`

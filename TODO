@@ -68,17 +68,24 @@
 ### ReflectOnAnswer
 
     [x] Ta bort spara i FollowUp
-    [ ] Summera svaren till separata discord steg.
+    [x] Summera svaren till separata discord steg.
     [x] Spara till API i eget jobb
     [x] Hitta nytt sätt att skapa ett övergripande flöde av workers
     [x] Ta bort facit baserat på CSV-filen och skicka till Discord utan facit.
 
     [x] Ta bort paragraphs från hela kedjan
 
-## Later
+## Next week
 
     [ ] Extract biogenic emissions with Garbo (create a new worker based on scope 1+2)
+    [ ] Extract goals with garbo
+    [ ] Extract initiatives with garbo
+
     [ ] Kan vi på något sätt hålla alla workers och köer på ett och samma ställe?
+    [ ] Tryck Approve i Discord och få en grön flagga i frontend. Flytta från reflectOnAnswer till saveToAPI
+
+## Later
+
     [ ] Ta bort Barrel-files
     [ ] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
@@ -88,7 +95,6 @@
       [ ] Kräv ej NODE_ENV=development vid uppstart eller ställ in som default
       [ ] Använd .env.example som default
       [ ] Tydligare felmeddelanden om man inte har redis, chromadb, postgresql igång
-    [ ] Tryck Approve i Discord och få en grön flagga i frontend
     [ ] Om WikidataID saknas, skicka meddelande till Discord med länk till skapa Wikidata och förslag på Företagsnamn
     [x] Sök i API om vi redan har företaget innan vi gissar wikidataid (i GuessWikidataId)
     [ ] Dokumentera biogenic emissions i vårt mermaid-flödeschema
