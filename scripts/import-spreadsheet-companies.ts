@@ -92,7 +92,7 @@ function getReportingPeriodDates() {
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('o')!
+  const sheet = workbook.getWorksheet('Overview')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
