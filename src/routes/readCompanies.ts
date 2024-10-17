@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import { validateRequestParams } from './zod-middleware'
 
 import { getGics } from '../lib/gics'
-import { cache, enableCors } from './middlewares'
+import { cache } from './middlewares'
 import { wikidataIdParamSchema } from './companySchemas'
 import { prisma } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
@@ -27,10 +27,6 @@ const metadata = {
     dataOrigin: true,
   },
 }
-
-router.use(
-  enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
-)
 
 // TODO: Find a way to de-duplicate the logic so we select the same properties both for GET /companies and GET /companies/:wikidataId
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId

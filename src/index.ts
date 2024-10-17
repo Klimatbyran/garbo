@@ -6,6 +6,7 @@ import { ExpressAdapter } from '@bull-board/express'
 import { Queue } from 'bullmq'
 import pino from 'pino-http'
 import discord from './discord'
+import cors from 'cors'
 
 import {
   discordReview,
@@ -24,7 +25,7 @@ import {
 } from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
-import { errorHandler } from './routes/middlewares'
+import { errorHandler, enableCors } from './routes/middlewares'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
@@ -72,6 +73,12 @@ createBullBoard({
 
 const app = express()
 discord.login()
+
+app.use(
+  process.env.NODE_ENV === 'development'
+    ? cors()
+    : enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
+)
 
 app.get('/favicon.ico', (req, res) => {
   res.status(204).end()
