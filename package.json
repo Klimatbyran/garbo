@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node --import tsx src/index.ts",
     "workers": "node --import tsx src/startWorkers.ts",
-    "dev-workers": "DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/startWorkers.ts",
-    "dev-board": "DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/index.ts",
+    "dev-workers": "cross-env DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/startWorkers.ts",
+    "dev-board": "cross-env DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx --env-file=.env.development scripts/import-spreadsheet-companies.ts",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest",
@@ -46,6 +46,7 @@
     "@types/jest": "^29.5.13",
     "@types/node": "^22.7.0",
     "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
     "deepl-node": "^1.14.0",
     "dotenv-cli": "^7.4.2",
     "exceljs": "^4.4.0",
