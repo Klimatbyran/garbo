@@ -92,7 +92,7 @@ function getReportingPeriodDates() {
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('Overview')!
+  const sheet = workbook.getWorksheet('o')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
@@ -128,7 +128,7 @@ function getCompanyBaseFacts() {
       } = wantedColumns as any
 
       // TODO: temporarily only include companies from the MVP batch
-      if (wikidataId && Batch?.trim()?.toUpperCase() === 'MVP') {
+      if (wikidataId && Batch?.trim()?.toUpperCase() !== 'MVP') {
         const industryCode = Number.isFinite(gicsIndustryCode)
           ? gicsIndustryCode.toString()
           : undefined
@@ -167,8 +167,8 @@ function getCompanyBaseFacts() {
  */
 function getPeriodDatesForYear(
   endYear: number,
-  startDate: Date,
-  endDate: Date
+  startDate: Date = new Date(`${endYear}-01-01`),
+  endDate: Date = new Date(`${endYear}-12-31`)
 ) {
   // Handle broken reporting periods
   const diff = endDate.getFullYear() - startDate.getFullYear()
@@ -197,7 +197,7 @@ function getLastDayInMonth(year: number, month: number) {
 }
 
 function getReportingPeriods(
-  rawCompanies: {
+  wantedCompanies: {
     wikidataId: string
     name: string
     startDate: Date
@@ -231,6 +231,7 @@ function getReportingPeriods(
 
         // TODO: Add comment and reportURL as metadata for this year.
         const {
+          Batch: batch,
           Company: name,
           [`URL ${year}`]: reportURL,
           'Scope 1': scope1Total,
@@ -244,15 +245,28 @@ function getReportingPeriods(
           Currency: currency,
           'No of Employees': employees,
           Unit: employeesUnit,
+          Comment: comment,
         } = wantedColumns as any
 
-        const company = rawCompanies.find((c) => c.name === name)
+        const company = wantedCompanies.find((c) => {
+          // NOTE: Figure out why some companies are missing their names.
+          const companyName = String(c.name)?.trim()?.toLowerCase()
+          return companyName === name.trim().toLowerCase()
+
+          // NOTE: This can be useful to verify we don't have any name mis-matches.
+          // if (companyName) {
+          //   return name.trim().toLowerCase() === companyName
+          // } else {
+          //   console.log({ cDotName: c.name, companyName, name })
+          //   // console.log(`comparing ${name} and ${c.name} for`, reportURL)
+          //   return false
+          // }
+        })
 
         if (!company) {
-          // NOTE: This logging will be useful to find companies without Wiki ID and which thus can't be imported.
-          // console.error(
-          //   `${year}: Company ${name} was not included since it's missing "Wiki ID" in the "Overview" sheet.`
-          // )
+          if (batch.trim().toUpperCase() !== 'MVP') {
+            console.error(`${year}: Company ${name} was not included.`)
+          }
           skippedCompanyNames.add(name)
           return
         }
@@ -336,10 +350,12 @@ function getReportingPeriods(
           endDate
         )
 
+        // TODO: Save the comment for each reporting period, and add it as part of the
         const reportingPeriod = {
           companyId,
           startDate: periodStart,
           endDate: periodEnd,
+          comment: comment?.trim(),
           reportURL,
           ...(Object.keys(emissions).length ? { emissions } : {}),
           ...(Object.keys(economy).length ? { economy } : {}),
@@ -351,7 +367,8 @@ function getReportingPeriods(
           console.log(
             'Skipping',
             year,
-            `for "${name}" due to missing emissions and economy data`
+            `for "${name}" due to missing emissions and economy data`,
+            comment ? { comment: reportingPeriod.comment } : ''
           )
           return
         }
@@ -395,9 +412,22 @@ function getCompanyData(years: number[]) {
   }
 
   for (const facts of baseFacts) {
+    if (
+      rawCompanies[facts.wikidataId] &&
+      rawCompanies[facts.wikidataId].name !== facts.name
+    ) {
+      console.error(
+        `Duplicate wikidataId for ${facts.name} and ${
+          rawCompanies[facts.wikidataId].name
+        } in the "Overview" tab`
+      )
+      // process.exit(1)
+      continue
+    }
+
     rawCompanies[facts.wikidataId] = {
-      ...facts,
       ...rawCompanies[facts.wikidataId],
+      ...facts,
     }
   }
 
@@ -716,7 +746,7 @@ async function main() {
     companies.length,
     `and skipped`,
     skippedCompanyNames.size,
-    `companies due to missing wikidataId.\n\n`
+    `companies.\n\n`
   )
 
   // await writeFile(
