@@ -1,13 +1,5 @@
 import { z } from 'zod'
 
-// TODO: handle reporting period. Do we need it before we can extract emissions?
-// Or should we extract reporting periods here too?
-// we could turn the expected schema into an array of reporting periods, where each period includes the emissions for that period.
-// Or maybe we should avoid that complexity and just use the endDate (or endYear) for each reporting period?
-// This would force manual handling of reporting period dates, but it might be more reliable than garbo extraction.
-// Alternatively, we might default to reporting periods of January 1st - December 31st to keep it simple and consistant.
-// If the reporting period dates are extracted in a previous step, we could re-use them in here. However, that might make it harder to let garbo only suggest changes for the emissions for example.
-
 const schema = z.object({
   scope12: z.array(
     z.object({
