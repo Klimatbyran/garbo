@@ -49,11 +49,8 @@ flowchart TB
                                            CheckDb --(no)--> API.Goals
     Emissions --(followUp)--> Initiatives --> CheckDb --(yes)--> Review --> API.Initiatives
                                            CheckDb --(no)--> API.Initiatives
-    Emissions --(followUp)--> Contacts --> CheckDb --(yes)--> Review --> API.Contacts
-                                           CheckDb --(no)--> API.Contacts
     Emissions --(followUp)--> Turnover --> CheckDb --(yes)--> Review --> API.Economy
                                            CheckDb --(no)--> API.Economy
-
 ```
 
 ### Get Started
