@@ -78,6 +78,7 @@ app.get('/favicon.ico', (req, res) => {
 })
 
 app.use(
+  '/api',
   pino(
     process.stdin.isTTY
       ? {
