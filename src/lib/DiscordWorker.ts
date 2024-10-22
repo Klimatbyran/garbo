@@ -33,21 +33,32 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
       name,
       async (job: T) => {
         job.getChildrenEntries = async () => {
-          const values = await job
+          return job
             .getChildrenValues()
             .then((values) => Object.values(values))
             .then((values) =>
-              values.map((value) => Object.entries(JSON.parse(value))).flat()
+              values
+                .map((value) => {
+                  // Only parse the result for children jobs that returned potential JSON
+                  if (value && typeof value === 'string') {
+                    // NOTE: This still assumes all children jobs return JSON, and will crash if we return string results.
+                    return Object.entries(JSON.parse(value))
+                  } else {
+                    return []
+                  }
+                })
+                .flat()
             )
             .then((values) => Object.fromEntries(values))
-          return values
         }
+
         job.sendMessage = async (msg) => {
           job.message = await discord.sendMessage(job.data, msg)
           if (!job.message) return undefined // TODO: throw error?
           await job.updateData({ ...job.data, messageId: job.message.id })
           return job.message
         }
+
         job.editMessage = (msg) => {
           if (!job.message && job.data.messageId) {
             const { channelId, threadId, messageId } = job.data
@@ -68,12 +79,14 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
             return job.sendMessage(msg)
           }
         }
+
         job.setThreadName = async (name) => {
           const thread = (await discord.client.channels.fetch(
             job.data.threadId
           )) as TextChannel
           return thread.setName(name)
         }
+
         try {
           const values = await job.getChildrenEntries()
           await job.updateData({ ...job.data, childrenValues: values })
