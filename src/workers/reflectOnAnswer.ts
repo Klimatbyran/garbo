@@ -21,13 +21,7 @@ const worker = new DiscordWorker('reflectOnAnswer', async (job: JobData) => {
   //  "jobId2": { "emissions": { ... } }
   // }
 
-  const values = await job
-    .getChildrenValues()
-    .then((values) => Object.values(values))
-    .then((values) =>
-      values.map((value) => Object.entries(JSON.parse(value))).flat()
-    )
-    .then((values) => Object.fromEntries(values))
+  const values = job.data.childrenValues
 
   // {
   //   "industry": { ...},
@@ -62,8 +56,7 @@ ${prompt}`)
       { role: 'user', content: prompt },
       Array.isArray(job.stacktrace)
         ? [
-            // TODO: add previousAnswer?
-            { role: 'assistant', content: previousAnswer },
+            { role: 'assistant', content: job.data.previousAnswer },
             { role: 'user', content: job.stacktrace.join('\n') },
           ]
         : undefined,
