@@ -94,7 +94,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     callback: (job: T) => any,
     options?: WorkerOptions
   ) {
-    super(name, callback, {
+    super(name, (job: T) => callback(addDiscordMethods(job)), {
       connection: redis,
       concurrency: 10,
       ...options,
