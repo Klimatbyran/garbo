@@ -13,11 +13,13 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import { discordReview } from './queues'
+import { saveToAPI } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
 import feedback from './discord/interactions/feedback'
 import reject from './discord/interactions/reject'
+import { DiscordJob } from './lib/DiscordWorker'
+import { JobData as SaveToApiJob } from './workers/saveToAPI'
 
 export class Discord {
   client: Client<boolean>
@@ -68,25 +70,25 @@ export class Discord {
           try {
             switch (action) {
               case 'approve': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
                 break
               }
               case 'feedback': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await feedback.execute(interaction, job)
                 break
               }
               case 'reject': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await reject.execute(interaction, job)
                 break
               }
               case 'retry': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else retry.execute(interaction, job)
                 break
@@ -114,8 +116,8 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`approve~${jobId}`)
         .setLabel('Approve')
-        .setStyle(ButtonStyle.Success),
-      new ButtonBuilder()
+        .setStyle(ButtonStyle.Success)
+      /*new ButtonBuilder()
         .setCustomId(`feedback~${jobId}`)
         .setLabel('Feedback')
         .setStyle(ButtonStyle.Primary),
@@ -126,7 +128,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`retry~${jobId}`)
         .setLabel('🔁')
-        .setStyle(ButtonStyle.Secondary)
+        .setStyle(ButtonStyle.Secondary)*/
     )
   }
 

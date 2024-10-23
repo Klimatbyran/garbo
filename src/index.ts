@@ -21,6 +21,7 @@ import {
   precheck,
   guessWikidata,
   saveToAPI,
+  checkDB,
 } from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
@@ -58,6 +59,7 @@ const queues = [
   reflectOnAnswer,
   discordReview,
   userFeedback,
+  checkDB,
   saveToAPI,
 ]
 createBullBoard({

@@ -37,8 +37,8 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
     data: { ...base.data },
     children: [
       {
-        name: 'saveToAPI',
-        queueName: 'saveToAPI',
+        name: 'checkDB',
+        queueName: 'checkDB',
         data: {
           ...base.data,
         },

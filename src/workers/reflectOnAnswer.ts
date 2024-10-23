@@ -89,8 +89,8 @@ ${prompt}`)
 
   job.editMessage(`✅ ${companyName} klar`)
 
-  job.log(`Final JSON: 
-${JSON.stringify(parsedJson, null, 2)}`)
+  job.log(`Final JSON: \n${JSON.stringify(parsedJson, null, 2)}`)
+
   discordReview.add(companyName, {
     ...job.data,
     url: job.data.url || parsedJson.url,

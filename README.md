@@ -37,20 +37,20 @@ flowchart TB
 
     Cache --(yes)--> Search
 
-    CheckDb{Exists in API?}
+    CheckDB{Exists in API?}
 
-    Emissions --(followUp)--> Industry --> CheckDb --(yes)--> Review --> API.Industry
-                                           CheckDb --(no)--> API.Industry
-    Emissions --(followUp)--> Scope1+2 --> CheckDb --(yes)--> Review --> API.Emissions
-                                           CheckDb --(no)--> API.Emissions
-    Emissions --(followUp)--> Scope3 --> CheckDb --(yes)--> Review --> API.Emissions
-                                           CheckDb --(no)--> API.Emissions
-    Emissions --(followUp)--> Goals --> CheckDb --(yes)--> Review --> API.Goals
-                                           CheckDb --(no)--> API.Goals
-    Emissions --(followUp)--> Initiatives --> CheckDb --(yes)--> Review --> API.Initiatives
-                                           CheckDb --(no)--> API.Initiatives
-    Emissions --(followUp)--> Turnover --> CheckDb --(yes)--> Review --> API.Economy
-                                           CheckDb --(no)--> API.Economy
+    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
+                                           CheckDB --(no)--> API.Industry
+    Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
+                                           CheckDB --(no)--> API.Goals
+    Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Economy
 ```
 
 ### Get Started

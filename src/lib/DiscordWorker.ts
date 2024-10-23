@@ -32,6 +32,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     super(
       name,
       async (job: T) => {
+        let message = null
         job.getChildrenEntries = async () => {
           return job
             .getChildrenValues()
@@ -53,24 +54,24 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
         }
 
         job.sendMessage = async (msg) => {
-          job.message = await discord.sendMessage(job.data, msg)
-          if (!job.message) return undefined // TODO: throw error?
-          await job.updateData({ ...job.data, messageId: job.message.id })
-          return job.message
+          message = await discord.sendMessage(job.data, msg)
+          if (!message) return undefined // TODO: throw error?
+          await job.updateData({ ...job.data, messageId: message.id })
+          return message
         }
 
         job.editMessage = (msg) => {
-          if (!job.message && job.data.messageId) {
+          if (!message && job.data.messageId) {
             const { channelId, threadId, messageId } = job.data
-            job.message = discord.findMessage({
+            message = discord.findMessage({
               channelId,
               threadId,
               messageId,
             })
           }
-          if (job.message) {
+          if (message) {
             try {
-              return job.message.edit(msg)
+              return message.edit(msg)
             } catch (err) {
               job.log('error editing Discord message:' + err.message)
               return job.sendMessage(msg)
