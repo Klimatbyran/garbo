@@ -13,6 +13,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
+    childrenValues: any
   }
 }
 
@@ -33,44 +34,37 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
 
   await flow.add({
     name: companyName,
-    queueName: 'reflectOnAnswer',
-    data: { ...base.data },
+    queueName: 'checkDB',
+    data: {
+      ...base.data,
+    },
     children: [
       {
-        name: 'checkDB',
-        queueName: 'checkDB',
+        ...base,
+        name: 'industryGics ' + companyName,
         data: {
           ...base.data,
+          prompt: industryGics.prompt,
+          schema: zodResponseFormat(industryGics.schema, 'industry'),
         },
-        children: [
-          {
-            ...base,
-            name: 'industryGics ' + companyName,
-            data: {
-              ...base.data,
-              prompt: industryGics.prompt,
-              schema: zodResponseFormat(industryGics.schema, 'industry'),
-            },
-          },
-          {
-            ...base,
-            name: 'scope1+2 ' + companyName,
-            data: {
-              ...base.data,
-              prompt: scope12.prompt,
-              schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
-            },
-          },
-          {
-            ...base,
-            name: 'scope3 ' + companyName,
-            data: {
-              ...base.data,
-              prompt: scope3.prompt,
-              schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
-            },
-          },
-        ],
+      },
+      {
+        ...base,
+        name: 'scope1+2 ' + companyName,
+        data: {
+          ...base.data,
+          prompt: scope12.prompt,
+          schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
+        },
+      },
+      {
+        ...base,
+        name: 'scope3 ' + companyName,
+        data: {
+          ...base.data,
+          prompt: scope3.prompt,
+          schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+        },
       },
       /*
       

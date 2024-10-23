@@ -18,7 +18,6 @@ import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
 import feedback from './discord/interactions/feedback'
 import reject from './discord/interactions/reject'
-import { DiscordJob } from './lib/DiscordWorker'
 import { JobData as SaveToApiJob } from './workers/saveToAPI'
 
 export class Discord {

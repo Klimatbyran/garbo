@@ -10,9 +10,6 @@ export class DiscordJob extends Job {
     channelId: string
     wikidataId?: string
     messageId?: string
-
-    // TODO: find a better type for this
-    childrenValues: any
   }
   message: any
   sendMessage: (
@@ -33,6 +30,9 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
       name,
       async (job: T) => {
         let message = null
+        /**
+         * Combine results of children jobs into a single object.
+         */
         job.getChildrenEntries = async () => {
           return job
             .getChildrenValues()
@@ -90,7 +90,9 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
 
         try {
           const values = await job.getChildrenEntries()
-          await job.updateData({ ...job.data, childrenValues: values })
+          if (values && Object.keys(values).length) {
+            await job.updateData({ ...job.data, childrenValues: values })
+          }
           return callback(job)
         } catch (err) {
           job.sendMessage(`❌ ${this.name}: ${err.message}`)

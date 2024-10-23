@@ -17,8 +17,10 @@ export class JobData extends DiscordJob {
 }
 
 const worker = new DiscordWorker('checkDB', async (job: JobData) => {
-  const { companyName, url, fiscalYear, wikidata, childrenValues } = job.data
+  const { companyName, url, fiscalYear, wikidata, childrenValues, threadId } =
+    job.data
 
+  // TODO: do we need to run this 3 times?
   job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
   const wikidataId = wikidata.node
   const existingCompany = await fetchCompany(wikidataId).catch(() => null)
@@ -40,14 +42,13 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   }
 
   const { scope12, scope3, industry } = childrenValues
+  const base = { companyName, url, fiscalYear, wikidata, threadId }
+
   if (scope12 || scope3) {
     await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
     saveToAPI.add(companyName + ' emissions', {
+      ...base,
       apiSubEndpoint: 'emissions',
-      companyName,
-      url,
-      fiscalYear,
-      wikidata,
       scope12,
       scope3,
     })
@@ -56,10 +57,8 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   if (industry) {
     await job.editMessage(`🤖 Skapar jobb för att spara branschdata...`)
     saveToAPI.add(companyName + ' industry', {
+      ...base,
       apiSubEndpoint: 'industry',
-      companyName,
-      url,
-      wikidata,
       industry,
     })
   }

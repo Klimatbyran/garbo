@@ -17,6 +17,8 @@ export class JobData extends DiscordJob {
   }
 }
 
+const ONE_DAY = 1000 * 60 * 60 * 24
+
 const worker = new DiscordWorker('saveToAPI', async (job: JobData) => {
   const {
     apiSubEndpoint = 'general',
@@ -46,7 +48,8 @@ const worker = new DiscordWorker('saveToAPI', async (job: JobData) => {
       `What is changed between these two json values? Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.
 Be as breif as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
-Focus on the actual values that have changed in the following section(s): ${apiSubEndpoint}`,
+Focus on the actual values that have changed in the following section(s): ${apiSubEndpoint}
+NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO CHANGES".`,
       JSON.stringify({
         before: existingCompany,
         after: {
@@ -58,70 +61,76 @@ Focus on the actual values that have changed in the following section(s): ${apiS
     )
     job.log('Diff: ' + diff)
 
+    if (diff === 'NO CHANGES') {
+      return 'No changes'
+    }
+
     const buttonRow = discord.createButtonRow(job.id)
-    job.sendMessage({
+    await job.sendMessage({
       content: `# ${companyName}
 ${diff.slice(0, 2000)}`,
       components: [buttonRow],
     })
-    return 'Waiting for approval'
-  }
-
-  if (approved && scope12) {
-    job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
-    await Promise.all(
-      scope12.map(({ year, scope1, scope2 }) => {
-        const [startDate, endDate] = getReportingPeriodDates(
-          year,
-          fiscalYear.startMonth,
-          fiscalYear.endMonth
-        )
-        const body = {
-          startDate,
-          endDate,
-          emissions: {
-            scope1,
-            scope2,
-          },
-          metadata,
-        }
-        return saveCompany(wikidataId, `${year}/emissions`, body)
-      })
-    )
-    job.log('Saved scope1 and/or scope2')
-  }
-
-  if (approved && scope3) {
-    job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
-    await Promise.all(
-      scope3.map(({ year, scope3 }) => {
-        const [startDate, endDate] = getReportingPeriodDates(
-          year,
-          fiscalYear.startMonth,
-          fiscalYear.endMonth
-        )
-        return saveCompany(wikidataId, `${year}/emissions`, {
-          startDate,
-          endDate,
-          emissions: {
-            scope3,
-          },
-          metadata,
+    return 'Waiting approval' //await job.moveToDelayed(Date.now() + ONE_DAY)
+  } else {
+    if (scope12) {
+      job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
+      await Promise.all(
+        scope12.map(({ year, scope1, scope2 }) => {
+          const [startDate, endDate] = getReportingPeriodDates(
+            year,
+            fiscalYear.startMonth,
+            fiscalYear.endMonth
+          )
+          job.log(`Saving scope1 and scope2 for ${year}`)
+          const body = {
+            startDate,
+            endDate,
+            emissions: {
+              scope1,
+              scope2,
+            },
+            metadata,
+          }
+          return saveCompany(wikidataId, `${year}/emissions`, body)
         })
-      })
-    )
-    job.log('Saved scope3')
-  }
+      )
+      job.log('Saved scope1 and/or scope2')
+    }
 
-  if (approved && industry) {
-    job.editMessage(`🤖 Sparar GICS industri...`)
-    await saveCompany(wikidataId, 'industry', {
-      industry,
-      metadata,
-    })
-    job.log('Saved industry')
+    if (scope3) {
+      job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
+      await Promise.all(
+        scope3.map(({ year, scope3 }) => {
+          const [startDate, endDate] = getReportingPeriodDates(
+            year,
+            fiscalYear.startMonth,
+            fiscalYear.endMonth
+          )
+          job.log(`Saving scope3 for ${year}`)
+          return saveCompany(wikidataId, `${year}/emissions`, {
+            startDate,
+            endDate,
+            emissions: {
+              scope3,
+            },
+            metadata,
+          })
+        })
+      )
+      job.log('Saved scope3')
+    }
+
+    if (industry) {
+      job.editMessage(`🤖 Sparar GICS industri...`)
+      await saveCompany(wikidataId, 'industry', {
+        industry,
+        metadata,
+      })
+      job.log('Saved industry')
+    }
+    return 'saved'
   }
-  return 'saved'
 })
 
 export default worker
