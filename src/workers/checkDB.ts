@@ -17,8 +17,11 @@ export class JobData extends DiscordJob {
 }
 
 const worker = new DiscordWorker('checkDB', async (job: JobData) => {
-  const { companyName, url, fiscalYear, wikidata, childrenValues, threadId } =
+  const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
     job.data
+
+  const childrenValues = await job.getChildrenEntries()
+  await job.updateData({ ...job.data, childrenValues })
 
   // TODO: do we need to run this 3 times?
   job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
@@ -42,7 +45,7 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   }
 
   const { scope12, scope3, industry } = childrenValues
-  const base = { companyName, url, fiscalYear, wikidata, threadId }
+  const base = { companyName, url, fiscalYear, wikidata, threadId, channelId }
 
   if (scope12 || scope3) {
     await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)

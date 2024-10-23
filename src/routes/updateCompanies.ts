@@ -219,7 +219,6 @@ router.post(
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
     const { industry } = req.body
-
     // NOTE: This extra check is only necessary because we don't get correct TS types from the zod middleware processRequest().
     // Ideally, we could update the generic types of the zod-middleware to return the exact inferred schema, instead of turning everything into optional fields.
     const subIndustryCode = industry?.subIndustryCode

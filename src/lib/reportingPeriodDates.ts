@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 /**
  * Translate the reporting period dates into another year. Can handle leap years.
  */
@@ -28,11 +29,10 @@ export function getReportingPeriodDates(
   startMonth: number,
   endMonth: number
 ) {
-  const start = new Date(year, startMonth - 1, 1)
-  const end = new Date(
-    year,
-    endMonth - 1,
-    getLastDayInMonth(year, endMonth - 1)
+  const start = format(new Date(year, startMonth - 1, 1), 'yyyy-MM-dd')
+  const end = format(
+    new Date(year, endMonth - 1, getLastDayInMonth(year, endMonth - 1)),
+    'yyyy-MM-dd'
   )
 
   return [start, end]
