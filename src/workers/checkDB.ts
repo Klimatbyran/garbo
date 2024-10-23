@@ -47,6 +47,12 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   const { scope12, scope3, industry } = childrenValues
   const base = { companyName, url, fiscalYear, wikidata, threadId, channelId }
 
+  // TODO convert to flow
+  // Send to done, which is a simple worker to post a message to discord
+  // Include the link to the company webpage, and the link to the JSON data for the company
+  // Link to localhost or the production website
+  // We want to know when all steps have been completed to print a message to discord
+
   if (scope12 || scope3) {
     await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
     saveToAPI.add(companyName + ' emissions', {

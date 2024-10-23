@@ -13,15 +13,16 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    childrenValues: any
   }
 }
 
 const flow = new FlowProducer({ connection: redis })
 
 const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
-  const { companyName, childrenValues } = job.data
+  const { companyName } = job.data
   job.sendMessage(`🤖 Hämtar utsläppsdata...`)
+
+  const childrenValues = await job.getChildrenEntries()
 
   const base = {
     name: companyName,

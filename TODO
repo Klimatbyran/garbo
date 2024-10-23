@@ -82,12 +82,12 @@
     [ ] Extract initiatives with garbo
 
     [ ] Kan vi på något sätt hålla alla workers och köer på ett och samma ställe?
-    [ ] Tryck Approve i Discord och få en grön flagga i frontend. Flytta från reflectOnAnswer till saveToAPI
+    [x] Tryck Approve i Discord och få en grön flagga i frontend. Flytta från reflectOnAnswer till saveToAPI
 
 ## Later
 
     [ ] Ta bort Barrel-files
-    [ ] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
+    [x] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
     [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer
     [-] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
