@@ -16,7 +16,6 @@ import config from './config/discord'
 import { saveToAPI } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
-import feedback from './discord/interactions/feedback'
 import reject from './discord/interactions/reject'
 import { JobData as SaveToApiJob } from './workers/saveToAPI'
 

@@ -8,15 +8,12 @@ import pino from 'pino-http'
 
 import discord from './discord'
 import {
-  discordReview,
   downloadPDF,
   indexParagraphs,
   pdf2Markdown,
   extractEmissions,
-  reflectOnAnswer,
   searchVectors,
   splitText,
-  userFeedback,
   followUp,
   precheck,
   guessWikidata,
@@ -56,9 +53,6 @@ const queues = [
   guessWikidata,
   extractEmissions,
   followUp,
-  reflectOnAnswer,
-  discordReview,
-  userFeedback,
   checkDB,
   saveToAPI,
 ]

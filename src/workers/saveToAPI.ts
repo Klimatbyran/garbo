@@ -56,6 +56,7 @@ const worker = new DiscordWorker<JobData>(
 The purpose is to let an editor approve the changes or suggest changes in Discord.
 Be as breif as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
 Focus on the actual values that have changed in the following section(s): ${apiSubEndpoint}
+When handling years and ambigous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
 NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO CHANGES".`,
         JSON.stringify({
           before: existingCompany,

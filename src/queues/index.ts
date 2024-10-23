@@ -13,10 +13,7 @@ const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
 const guessWikidata = new Queue('guessWikidata', options)
 const extractEmissions = new Queue('extractEmissions', options)
-const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const followUp = new Queue('followUp', options)
-const discordReview = new Queue('discordReview', options)
-const userFeedback = new Queue('userFeedback', options)
 const precheck = new Queue('precheck', options)
 const saveToAPI = new Queue('saveToAPI', options)
 const checkDB = new Queue('checkDB', options)
@@ -30,10 +27,7 @@ export {
   precheck,
   guessWikidata,
   extractEmissions,
-  reflectOnAnswer,
   followUp,
-  discordReview,
-  userFeedback,
   saveToAPI,
   checkDB,
 }
