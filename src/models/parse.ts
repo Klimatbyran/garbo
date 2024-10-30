@@ -114,5 +114,8 @@ export async function extractPngsFromPages(
     )
   })
 
-  return Promise.all(tablePromises)
+  const resolvedTables = await Promise.all(
+    tablePromises.flatMap((promise) => promise)
+  )
+  return resolvedTables
 }
