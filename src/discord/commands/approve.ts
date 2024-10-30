@@ -1,5 +1,4 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js'
-import opensearch from '../../opensearch'
 
 export default {
   data: new SlashCommandBuilder()
@@ -25,7 +24,7 @@ export default {
         })
         return
       } else {
-        await opensearch.updateDocumentState(documentId, 'approved')
+        throw new Error('Not implemented')
         await interaction.followUp({
           content: `Rapport godkänd: ${documentId}`,
         })

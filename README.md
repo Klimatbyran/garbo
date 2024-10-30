@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into OpenSearch and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -19,53 +19,58 @@ Some of the following steps will be performed in parallel and most will be async
 ```mermaid
 flowchart TB
 
-    A[PDF]
-    B{Is in cache?}
-    C[Download PDF]
-    D[Index Database]
-    E[Search Database]
-    F[Extract Emissions]
-    G[JSON]
-    N[Find all tables]
-    S[Screenshot]
-    V[AI Vision API]
+    PDF[PDF]
+    Cache{Is in cache?}
+    Download[Download PDF]
+    Index[Index Paragraphs]
+    Search[Search Vectors]
+    Emissions[Extract Emissions]
+    Wikidata[Guess Wikidata]
+
+    API.Economy[POST /economy]
+    API.Industry[POST /industry]
+    API.Emissions[POST /emissions]
+    API.Goals[POST /goals]
+    API.Factors[POST /factors TODO]
+    API.Contacts[POST /contacts TODO]
+    API.Review[POST /validate TODO]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
-    Review[Reasonability Assessment]
+    Review[Discord Review]
 
 
-    DB[OpenSearch/Kibana]
+    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
+    Cache --(yes)--> Search
 
-    A --> B --> C --> D --> E ---> F ---> G ---> H
-    C --> N --> S --> V --> D
-    B --(Cached)--> E
+    Emissions --> Industry --(.industry)--> API.Industry
+    Emissions --> Scope1+2 --(.scope1)--> API.Emissions
+    Emissions --> Scope3 --(.scope3)--> API.Emissions
+    Emissions --> Goals --(.goals)--> API.Goals
+    Emissions --> Initiatives --(.initiatives)--> API.Goals
+    Emissions --> Contacts --(.contacts)--> API.Contacts
+    Emissions --> Turnover --(.turnover)--> API.Economy
+    Emissions --> Factors --(.factors)--> API.Factors
 
-    F --> CompanyName --(.company)--> G
-    F --> Industry --(.industry)--> G
-    F --> Scope1+2 --(.scope1)--> G
-    F --> Scope3 --(.scope3)--> G
-    F --> Goals --(.goals)--> G
-    F --> Initiatives --(.initiatives)--> G
-    F --> Contacts --(.contacts)--> G
-    F --> Turnover --(.turnover)--> G
-    F --> Factors --(.factors)--> G
+    API.Economy --> Review
+    API.Industry --> Review
+    API.Emissions --> Review
+    API.Goals --> Review
+    API.Factors --> Review
+    API.Contacts --> Review
 
-    G --> Format --(json)--> H
-
-    H --> Review --> DB
-    H --> Review --> DB
+    Review --> API.Review
 ```
 
 ### Get Started
 
-Get an OPENAI_API_KEY from OpenAI and add it to a .env file in the root directory. Run redis locally or add REDIS_HOST and REDIS_PORT into the .env file.
+Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
 
 ```bash
 npm i
 docker run -d -p 6379:6379 redis
+docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 chromadb/chroma
-docker run -d -p 9200:9200 opensearch # TODO: add instructions for running opensearch locally
 npm start & npm run workers
 ```
 
@@ -96,10 +101,8 @@ DISCORD_APPLICATION_ID=
 DISCORD_TOKEN=
 DISCORD_SERVER_ID=
 
-# these are optional, the code works fine without Llama cloud and OpenSearch:
+# these are optional, the code works fine without Llama cloud:
 LLAMA_CLOUD_API_KEY=
-OPENSEARCH_NODE_URL=
-OPENSEARCH_INDEX_NAME=
 ```
 
 ## How to run with nodemon

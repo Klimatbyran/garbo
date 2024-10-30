@@ -33,17 +33,23 @@ const askPrompt = async (prompt: string, context: string) => {
 
 const askStream = async (
   messages: ChatCompletionMessageParam[],
-  onParagraph?
+  // TODO: Improve type for options to match OpenAI
+  // options?: OpenAI.RequestOptions & {
+  //   onParagraph?: (response: string, paragraph: string) => void
+  // }
+  options: any
 ) => {
+  const { onParagraph, ...openAIOptions } = options
   const stream = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
-    model: 'gpt-4o',
+    model: 'gpt-4o-2024-08-06',
     temperature: 0.1,
     stream: true,
     max_tokens: 4096,
     response_format: {
       type: 'json_object',
     },
+    ...openAIOptions,
   })
 
   let response = ''
@@ -52,13 +58,14 @@ const askStream = async (
     const chunk = part.choices[0]?.delta?.content || ''
     response += chunk
     paragraph += chunk
-    if (onParagraph && chunk.includes('\n')) {
-      onParagraph(response, paragraph)
+    if (options?.onParagraph && chunk.includes('\n')) {
+      options?.onParagraph(response, paragraph)
       paragraph = ''
     }
   }
   // send the rest if there is any
-  if (onParagraph && paragraph) onParagraph(response, paragraph)
+  if (options?.onParagraph && paragraph)
+    options?.onParagraph(response, paragraph)
 
   return response
 }
