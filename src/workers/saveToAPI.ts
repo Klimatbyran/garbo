@@ -1,6 +1,6 @@
 import { askPrompt } from '../openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { fetchCompany, saveCompany } from '../lib/api'
+import { apiFetch, fetchCompany, saveCompany } from '../lib/api'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import discord from '../discord'
 import redis from '../config/redis'
@@ -138,9 +138,12 @@ ${diff.slice(0, 2000)}`,
 
       if (industry) {
         job.editMessage(`🤖 Sparar GICS industri...`)
-        return await saveCompany(wikidataId, 'industry', {
-          industry,
-          metadata,
+        return await apiFetch(`/companies/${wikidataId}/industry`, {
+          body: {
+            industry,
+            metadata,
+          },
+          method: 'PUT',
         })
       }
       throw new Error('No data to save')

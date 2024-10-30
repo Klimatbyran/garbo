@@ -214,7 +214,7 @@ const industrySchema = z.object({
   }),
 })
 
-router.post(
+router.put(
   '/:wikidataId/industry',
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
@@ -229,40 +229,32 @@ router.post(
     const { wikidataId } = req.params
     const metadata = res.locals.metadata
 
-    await createIndustry(wikidataId, { subIndustryCode }, metadata).catch(
-      (error) => {
-        throw new GarboAPIError('Failed to create industry', {
-          original: error,
-          statusCode: 500,
-        })
-      }
-    )
-    res.json({ ok: true })
-  }
-)
+    const current = await prisma.industry.findFirst({
+      where: { companyWikidataId: wikidataId },
+    })
 
-router.patch(
-  '/:wikidataId/industry',
-  processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
-  async (req, res) => {
-    const { industry } = req.body
-
-    const subIndustryCode = industry?.subIndustryCode
-    if (!subIndustryCode) {
-      throw new GarboAPIError('Unable to update industry')
+    if (current) {
+      console.log('updating industry', subIndustryCode)
+      await updateIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+        (error) => {
+          throw new GarboAPIError('Failed to update industry', {
+            original: error,
+            statusCode: 500,
+          })
+        }
+      )
+    } else {
+      console.log('creating industry', subIndustryCode)
+      await createIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+        (error) => {
+          throw new GarboAPIError('Failed to create industry', {
+            original: error,
+            statusCode: 500,
+          })
+        }
+      )
     }
 
-    const { wikidataId } = req.params
-    const metadata = res.locals.metadata
-
-    await updateIndustry(wikidataId, { subIndustryCode }, metadata).catch(
-      (error) => {
-        throw new GarboAPIError('Failed to update industry', {
-          original: error,
-          statusCode: 500,
-        })
-      }
-    )
     res.json({ ok: true })
   }
 )

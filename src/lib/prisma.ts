@@ -505,7 +505,7 @@ export async function createIndustry(
   industry: { subIndustryCode: string },
   metadata: Metadata
 ) {
-  prisma.industry.create({
+  return prisma.industry.create({
     data: {
       company: {
         connect: { wikidataId },
