@@ -1,13 +1,8 @@
 import { askPrompt } from '../openai'
-import {
-  addDiscordMethods,
-  DiscordJob,
-  DiscordWorker,
-} from '../lib/DiscordWorker'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { fetchCompany, saveCompany } from '../lib/api'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import discord from '../discord'
-import { Worker } from 'bullmq'
 import redis from '../config/redis'
 
 export class JobData extends DiscordJob {

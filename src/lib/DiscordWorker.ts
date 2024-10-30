@@ -21,7 +21,7 @@ export class DiscordJob extends Job {
   getChildrenEntries: () => Promise<any>
 }
 
-export function addDiscordMethods(job: DiscordJob) {
+function addDiscordMethods(job: DiscordJob) {
   let message = null
   /**
    * Combine results of children jobs into a single object.
