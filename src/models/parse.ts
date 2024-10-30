@@ -158,7 +158,16 @@ async function parsePdfToJson(url: string): Promise<any> {
 }
 
 export async function extractTablePngsFromPDF(url: string) {
-  const json = await parsePdfToJson(url)
+  console.log('fetching pdf from', url)
+  const pdfResponse = await fetch(url)
+  if (!pdfResponse.ok) {
+    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
+  }
+  console.log('fetched pdf ok')
+
+  const stream = pdfResponse.body
+
+  const json = await parsePdfToJson(stream)
   console.log('read json')
   const tables = jsonToTables(json).filter(({ content }) =>
     content.toLowerCase().includes('co2')
@@ -172,8 +181,7 @@ export async function extractTablePngsFromPDF(url: string) {
   }, {})
   console.log('pages', pages)
 
-  console.log('reading pdf', url)
-  const pngs = await getPngsFromPdfPage(url)
+  const pngs = await getPngsFromPdfPage(stream)
   console.log('found', pngs.length, pages.length, 'pages')
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
