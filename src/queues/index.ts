@@ -6,17 +6,21 @@ const options: QueueOptions = {
   defaultJobOptions: { removeOnComplete: false },
 }
 
-const downloadPDF = new Queue('downloadPDF', options)
-const pdf2Markdown = new Queue('pdf2Markdown', options)
-const splitText = new Queue('splitText', options)
-const indexParagraphs = new Queue('indexParagraphs', options)
-const searchVectors = new Queue('searchVectors', options)
-const guessWikidata = new Queue('guessWikidata', options)
-const extractEmissions = new Queue('extractEmissions', options)
-const followUp = new Queue('followUp', options)
-const precheck = new Queue('precheck', options)
-const saveToAPI = new Queue('saveToAPI', options)
-const checkDB = new Queue('checkDB', options)
+function createQueue(name: string) {
+  return new Queue(name, options)
+}
+
+const downloadPDF = createQueue('downloadPDF')
+const pdf2Markdown = createQueue('pdf2Markdown')
+const splitText = createQueue('splitText')
+const indexParagraphs = createQueue('indexParagraphs')
+const searchVectors = createQueue('searchVectors')
+const guessWikidata = createQueue('guessWikidata')
+const extractEmissions = createQueue('extractEmissions')
+const followUp = createQueue('followUp')
+const precheck = createQueue('precheck')
+const saveToAPI = createQueue('saveToAPI')
+const checkDB = createQueue('checkDB')
 
 export {
   downloadPDF,
