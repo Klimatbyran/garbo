@@ -131,8 +131,9 @@ async function parsePdfToJson(pdfPath: string): Promise<any> {
   const formData = new FormData()
   formData.append('file', fs.createReadStream(pdfPath))
 
+  const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010';
   const response = await fetch(
-    'http://localhost:5010/api/parseDocument?renderFormat=json',
+    `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`,
     {
       method: 'POST',
       body: formData,
