@@ -67,19 +67,19 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   )
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
-  const pagesMap = tables.reduce((acc, table) => {
+  return tables.reduce((acc: Page[], table) => {
     const pageIndex = table.page_idx
-    if (!acc[pageIndex]) {
-      acc[pageIndex] = []
+    const page = acc.find((p) => p.pageIndex === pageIndex)
+    if (page) {
+      page.tables.push({ ...table, pageWidth, pageHeight } as Table)
+    } else {
+      acc.push({
+        pageIndex,
+        tables: [{ ...table, pageWidth, pageHeight } as Table],
+      })
     }
-    acc[pageIndex].push({ ...table, pageWidth, pageHeight } as Table)
     return acc
-  }, {} as ObjectArray)
-
-  return Object.entries(pagesMap).map(([pageIndex, tables]) => ({
-    pageIndex,
-    tables: tables as Table[],
-  }))
+  }, [])
 }
 
 export async function extractPngsFromPages(
