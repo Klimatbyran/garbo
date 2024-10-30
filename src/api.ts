@@ -6,18 +6,16 @@ import { errorHandler } from './routes/middlewares'
 
 const apiRouter = express.Router()
 
-apiRouter.use(
-  pino(
-    process.stdin.isTTY
-      ? {
-          transport: {
-            target: 'pino-pretty',
-          },
-          level: 'info',
-        }
-      : undefined
-  )
-)
+const pinoConfig = process.stdin.isTTY
+  ? {
+      transport: {
+        target: 'pino-pretty',
+      },
+      level: 'info',
+    }
+  : undefined
+
+apiRouter.use(pino(pinoConfig))
 
 apiRouter.use('/companies', readCompanies)
 apiRouter.use('/companies', updateCompanies)
