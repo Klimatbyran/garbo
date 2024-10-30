@@ -7,19 +7,6 @@ import { Queue } from 'bullmq'
 import pino from 'pino-http'
 
 import discord from './discord'
-import {
-  downloadPDF,
-  indexParagraphs,
-  pdf2Markdown,
-  extractEmissions,
-  searchVectors,
-  splitText,
-  followUp,
-  precheck,
-  guessWikidata,
-  saveToAPI,
-  checkDB,
-} from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
 import { errorHandler } from './routes/middlewares'
@@ -43,19 +30,24 @@ async function cancelActiveJobs(queue: Queue) {
   }
 }
 
-const queues = [
-  downloadPDF,
-  pdf2Markdown,
-  splitText,
-  indexParagraphs,
-  searchVectors,
-  precheck,
-  guessWikidata,
-  extractEmissions,
-  followUp,
-  checkDB,
-  saveToAPI,
+const workers = [
+  'downloadPDF',
+  'pdf2Markdown',
+  'splitText',
+  'indexParagraphs',
+  'searchVectors',
+  'precheck',
+  'guessWikidata',
+  'extractEmissions',
+  'followUp',
+  'checkDB',
+  'saveToAPI',
 ]
+
+const queues = workers.map(
+  (name) => new Queue(name, { connection: { host: process.env.REDIS_URL } })
+)
+
 createBullBoard({
   queues: queues.map((queue) => new BullMQAdapter(queue)),
   serverAdapter: serverAdapter,
