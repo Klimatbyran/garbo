@@ -126,17 +126,22 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
     .toFile(outputPath)
 }
 
-async function parsePdfToJson(pdfPath: string): Promise<any> {
+async function parsePdfToJson(url: string): Promise<any> {
   const formData = new FormData()
-  const pdfResponse = await fetch(pdfPath)
+  console.log('fetching pdf from', url)
+  const pdfResponse = await fetch(url)
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
+  console.log('fetched pdf ok')
+
   const fileBuffer = await pdfResponse.arrayBuffer()
   const fileBlob = new Blob([fileBuffer])
   formData.append('file', fileBlob, 'file.pdf')
 
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010'
+  console.log('parsing pdf from', nlmIngestorUrl)
+
   const response = await fetch(
     `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`,
     {
