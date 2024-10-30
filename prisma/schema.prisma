@@ -208,7 +208,7 @@ model Scope3 {
 
   // The scope 3 categories, both reported and estimated.
   // TODO: Add validation so there can only be one for each category, and max 16 entries.
-  scope3Categories     Scope3Category[]
+  categories           Scope3Category[]
   statedTotalEmissions StatedTotalEmissions?
   emissions            Emissions?
   metadata             Metadata              @relation(fields: [metadataId], references: [id])
@@ -352,7 +352,7 @@ model Metadata {
   user                 User                   @relation("metadata_user_id", fields: [userId], references: [id])
   verifiedBy           User?                  @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
   industries           Industry[]
-  scope3Categories     Scope3Category[]
+  categories           Scope3Category[]
   turnover             Turnover[]
   employees            Employees[]
 }

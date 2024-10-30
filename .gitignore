@@ -13,3 +13,4 @@ prisma/generated
 *.db
 *.db-journal
 *.pdf
+*.code-workspace

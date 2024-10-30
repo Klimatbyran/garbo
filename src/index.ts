@@ -5,22 +5,20 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 import { Queue } from 'bullmq'
 import pino from 'pino-http'
-import discord from './discord'
 
+import discord from './discord'
 import {
-  discordReview,
   downloadPDF,
   indexParagraphs,
   pdf2Markdown,
   extractEmissions,
-  reflectOnAnswer,
   searchVectors,
   splitText,
-  userFeedback,
   followUp,
+  precheck,
   guessWikidata,
-  format,
-  includeFacit,
+  saveToAPI,
+  checkDB,
 } from './queues'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
@@ -51,14 +49,12 @@ const queues = [
   splitText,
   indexParagraphs,
   searchVectors,
+  precheck,
+  guessWikidata,
   extractEmissions,
   followUp,
-  includeFacit,
-  reflectOnAnswer,
-  format,
-  discordReview,
-  userFeedback,
-  guessWikidata,
+  checkDB,
+  saveToAPI,
 ]
 createBullBoard({
   queues: queues.map((queue) => new BullMQAdapter(queue)),
@@ -78,6 +74,7 @@ app.get('/favicon.ico', (req, res) => {
 })
 
 app.use(
+  '/api',
   pino(
     process.stdin.isTTY
       ? {
@@ -114,6 +111,7 @@ app.get('/', (req, res) => {
   )
 })
 
+// TODO: Why does this error handler not capture errors thrown in readCompanies?
 app.use(errorHandler)
 
 const port = process.env.PORT || 3000

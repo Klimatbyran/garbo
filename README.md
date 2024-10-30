@@ -25,41 +25,32 @@ flowchart TB
     Index[Index Paragraphs]
     Search[Search Vectors]
     Emissions[Extract Emissions]
-    Wikidata[Guess Wikidata]
-
-    API.Economy[POST /economy]
-    API.Industry[POST /industry]
-    API.Emissions[POST /emissions]
-    API.Goals[POST /goals]
-    API.Factors[POST /factors TODO]
-    API.Contacts[POST /contacts TODO]
-    API.Review[POST /validate TODO]
 
     Industry[Extract Industry]
     Goals[Extract Climate Goals]
     Review[Discord Review]
 
+    Precheck --> GuessWikidata --> Emissions
+    Precheck --> FiscalYear --> Emissions
 
-    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
+    PDF --> Cache --(no)--> Download --> Index --> Search --> Precheck
+
     Cache --(yes)--> Search
 
-    Emissions --> Industry --(.industry)--> API.Industry
-    Emissions --> Scope1+2 --(.scope1)--> API.Emissions
-    Emissions --> Scope3 --(.scope3)--> API.Emissions
-    Emissions --> Goals --(.goals)--> API.Goals
-    Emissions --> Initiatives --(.initiatives)--> API.Goals
-    Emissions --> Contacts --(.contacts)--> API.Contacts
-    Emissions --> Turnover --(.turnover)--> API.Economy
-    Emissions --> Factors --(.factors)--> API.Factors
+    CheckDB{Exists in API?}
 
-    API.Economy --> Review
-    API.Industry --> Review
-    API.Emissions --> Review
-    API.Goals --> Review
-    API.Factors --> Review
-    API.Contacts --> Review
-
-    Review --> API.Review
+    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
+                                           CheckDB --(no)--> API.Industry
+    Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
+                                           CheckDB --(no)--> API.Goals
+    Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Economy
 ```
 
 ### Get Started
