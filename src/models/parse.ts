@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fetch from 'node-fetch'
 import nlp from 'compromise'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
@@ -129,7 +129,11 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
 
 async function parsePdfToJson(pdfPath: string): Promise<any> {
   const formData = new FormData();
-  const fileBuffer = await fs.promises.readFile(pdfPath);
+  const pdfResponse = await fetch(pdfPath);
+  if (!pdfResponse.ok) {
+    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`);
+  }
+  const fileBuffer = await pdfResponse.arrayBuffer();
   const fileBlob = new Blob([fileBuffer]);
   formData.append('file', fileBlob, 'file.pdf');
 
