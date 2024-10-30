@@ -127,15 +127,13 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
     .toFile(outputPath)
 }
 
-const run = async () => {
+export async function extractTablePngsFromPDF(url: string) {
   const example = fs.readFileSync('test.json', 'utf-8')
   const json = JSON.parse(example)
   console.log('read json')
-  //const markdown = jsonToMarkdown(json)
   const tables = jsonToTables(json).filter(({ content }) =>
     content.toLowerCase().includes('co2')
   )
-  // Group pages
   const pages = tables.reduce((acc, table) => {
     if (!acc[table.page_idx]) {
       acc[table.page_idx] = []
@@ -145,19 +143,16 @@ const run = async () => {
   }, {})
   console.log('pages', pages)
 
-  const pdfPath = 'test.pdf'
-  console.log('reading pdf', pdfPath)
-  const pngs = await getPngsFromPdfPage(pdfPath)
+  console.log('reading pdf', url)
+  const pngs = await getPngsFromPdfPage(url)
   console.log('found', pngs.length, pages.length, 'pages')
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
-  // Extract tables as PNG
-  await Promise.all(
+  const results = await Promise.all(
     Object.entries(pages).map(async ([pageIndex, tables]) => {
       console.log('extracting tables from page', pageIndex)
-      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1) // page 0 is the first page
+      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
       console.log('got png. extracting tables from page', pageIndex)
-      // For each table on this page, extract the region as PNG
       return Promise.all(
         (tables as any[]).map(async (table) => {
           const { bbox } = table
@@ -169,21 +164,22 @@ const run = async () => {
           const y = Math.round(y1 * 2) - padding
           const width = Math.min(
             Math.round(x2 * 2 - x) + padding,
-            Math.round(pageWidth * 2 - x) - padding // max width of page
+            Math.round(pageWidth * 2 - x) - padding
           )
           const height = Math.min(
-            table.rows.length * rowHeight + padding * 2, // estimate height
-            Math.round(pageHeight * 2 - y) - padding // max height of page
+            table.rows.length * rowHeight + padding * 2,
+            Math.round(pageHeight * 2 - y) - padding
           )
-          console.log(pdfPath, pageIndex, x, y, width, height, table)
+          console.log(url, pageIndex, x, y, width, height, table)
 
           const outputPath = `output/table-${pageIndex}-${table.name}.png`
           console.log('extracting screenshot to outputPath', outputPath)
-          return extractRegionAsPng(png, outputPath, x, y, width, height)
+          await extractRegionAsPng(png, outputPath, x, y, width, height)
+          return { outputPath, ...table }
         })
       )
     })
   )
-}
 
-run()
+  return results.flat()
+}
