@@ -92,20 +92,22 @@ export async function extractPngsFromPages(
   // (table image)[ { page: 0, x: 0, y:0, width: 300, height: 400 } ]
   const tables = new RegExp(/\(table image\)\[ ([json])\]/g)
   */
-  return await Promise.all(
-    Object.entries(relevantPages)
-      .map(async ([pageIndex, tables]) => {
-        console.log('extracting tables from page', pageIndex)
-        const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
-        return tables.map(async (table) => {
-          const { x, y, width, height } = calculateBoundingBoxForTable(table)
-          const filename = `output/table-${pageIndex}-${table.name}.png`
-          console.log(url, pageIndex, x, y, width, height, table)
-          console.log('extracting screenshot to outputPath', filename)
-          await extractRegionAsPng(png, filename, x, y, width, height)
-          return { ...table, filename } as Table
-        })
+  const tablePromises: Promise<Table>[] = []
+
+  for (const [pageIndex, tables] of Object.entries(relevantPages)) {
+    console.log('extracting tables from page', pageIndex)
+    const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
+    for (const table of tables) {
+      const { x, y, width, height } = calculateBoundingBoxForTable(table)
+      const filename = `output/table-${pageIndex}-${table.name}.png`
+      console.log(url, pageIndex, x, y, width, height, table)
+      console.log('extracting screenshot to outputPath', filename)
+      const tablePromise = extractRegionAsPng(png, filename, x, y, width, height).then(() => {
+        return { ...table, filename } as Table
       })
-      .flat()
-  )
+      tablePromises.push(tablePromise)
+    }
+  }
+
+  return await Promise.all(tablePromises)
 }
