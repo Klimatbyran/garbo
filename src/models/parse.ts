@@ -1,141 +1,51 @@
-import nlp from 'compromise'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
+import {
+  calculateBoundingBoxForTable,
+  jsonToTables,
+  Table,
+} from '../lib/jsonExtraction'
 
-const deHyphenate = (text) => {
-  return text
-    ? nlp(
-        text
-          .toString()
-          .replace(/\n/g, ' ')
-          .replace(/\u2013/g, '-')
-      )
-        .deHyphenate()
-        .normalize()
-        .out('text')
-    : ''
-}
+type ObjectArray = { [pageIndex: string]: any[] }
 
-const paragraph = (block) => {
-  const sentences = block.sentences.map((sentence, index) => {
-    return deHyphenate(sentence)
-  })
-  return sentences.filter((sentence) => sentence !== '').join('\n')
-}
-const table = (block) => {
-  if (!block.table_rows) return block.name
-  const headerRow = block.table_rows?.find((row) => row.type === 'table_header')
-  const dataRows = block.table_rows?.filter(
-    (row) => row.type !== 'table_header'
-  )
-
-  const headers =
-    headerRow?.cells.map((cell) => deHyphenate(cell.cell_value)) || []
-  const rows = dataRows.map((row) => {
-    if (row.type === 'full_row') {
-      return [`| ${deHyphenate(row.cell_value)} |`]
-    }
-    return row.cells.map((cell) => {
-      const value = deHyphenate(cell.cell_value)
-      return `| ${value}`
-    })
-  })
-
-  const maxColumns = Math.max(
-    headers.length,
-    ...rows.map((row) =>
-      row.reduce((sum, cell) => sum + (cell.match(/\|/g) || []).length - 1, 0)
-    )
-  )
-  const separator = Array(maxColumns).fill('---')
-
-  const formattedHeaders = `| ${headers.join(' | ')} |`
-  const formattedSeparator = `| ${separator.join(' | ')} |`
-  const formattedRows = rows.map((row) => row.join(' '))
-
-  return [formattedHeaders, formattedSeparator, ...formattedRows].join('\n')
-}
-const header = (block) => {
-  const level = block.level + 1
-  const headerText = block.sentences.join(' ')
-  return `${'#'.repeat(level + 1)} ${headerText}`
-}
-
-const listItem = (block) => {
-  return `- ${block.sentences.join(' ')}`
-}
-
-const fullRow = (block) => {
-  return deHyphenate(block.cell_value)
-}
-
-const blockToMarkdown = (block) => {
-  switch (block.tag) {
-    case 'para':
-      return paragraph(block)
-    case 'table':
-      return table(block)
-    case 'header':
-      return header(block)
-    case 'list_item':
-      return listItem(block)
-    case 'full_row':
-      return fullRow(block)
-    default:
-      return ''
-  }
-}
-
-const jsonToMarkdown = (json) => {
-  const blocks = json.return_dict.result.blocks
-  const markdown = blocks.map(blockToMarkdown).join('\n\n')
-  return markdown
-}
-
-const jsonToTables = (json) => {
-  const blocks = json.return_dict.result.blocks
-  const tables = blocks
-    .filter((block) => block.tag === 'table')
-    .map((block) => ({ ...block, content: table(block) }))
-    .map(({ page_idx, bbox, name, level, content, table_rows }) => ({
-      page_idx,
-      rows: table_rows,
-      bbox,
-      name,
-      level,
-      content,
-    }))
-  return tables
-}
-
-async function getPngsFromPdfPage(stream: NodeJS.ReadableStream) {
+async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
     scale: 2,
   })
-
   return pages
 }
 
-async function fetchPdf(url: string): Promise<NodeJS.ReadableStream> {
+async function extractRegionAsPng(png, outputPath, x, y, width, height) {
+  // Ladda PDF-dokumentet
+  // Använd `sharp` för att beskära och spara regionen
+  console.log('Extracting region', x, y, width, height)
+  return await sharp(png)
+    .extract({ left: x, top: y, width: width, height: height })
+    .toFile(outputPath)
+}
+
+async function fetchPdf(url: string): Promise<ArrayBuffer> {
   console.log('fetching pdf from', url)
   const pdfResponse = await fetch(url)
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
   console.log('fetched pdf ok')
-  return pdfResponse.body
+  return pdfResponse.arrayBuffer()
 }
-  const formData = new FormData()
-  formData.append('file', stream, 'file.pdf')
 
+async function extractJsonFromPdf(buffer: Buffer) {
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010'
   console.log('parsing pdf from', nlmIngestorUrl)
+
+  const formData = new FormData()
+  formData.append('file', buffer, 'document.pdf')
 
   const response = await fetch(
     `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`,
     {
       method: 'POST',
-      body: formData,
+      body: buffer,
     }
   )
 
@@ -146,136 +56,56 @@ async function fetchPdf(url: string): Promise<NodeJS.ReadableStream> {
   return response.json()
 }
 
-function extractTablesFromJson(json: any) {
-  const tables = jsonToTables(json).filter(({ content }) =>
-    content.toLowerCase().includes('co2')
+function extractTablesFromJson(json: any, searchTerm: string): ObjectArray {
+  const tables = jsonToTables(json).filter(
+    ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
   )
-  const pages = tables.reduce((acc, table) => {
-    if (!acc[table.page_idx]) {
-      acc[table.page_idx] = []
-    }
-    acc[table.page_idx].push(table)
-    return acc
-  }, {})
-  console.log('pages', pages)
-  return { tables, pages }
-}
-
-async function extractPngsFromPages(
-  stream: NodeJS.ReadableStream,
-  pages: Record<number, any[]>,
-  pageWidth: number,
-  pageHeight: number,
-  url: string
-) {
-  const pngs = await getPngsFromPdfPage(stream)
-  console.log('found', pngs.length, pages.length, 'pages')
-
-  const results = await Promise.all(
-    Object.entries(pages).map(async ([pageIndex, tables]) => {
-      console.log('extracting tables from page', pageIndex)
-      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
-      console.log('got png. extracting tables from page', pageIndex)
-      return Promise.all(
-        (tables as any[]).map(async (table) => {
-          const { bbox } = table
-          const [x1, y1, x2, y2] = bbox
-          console.log('x1,y1,x2,y2', x1, y1, x2, y2)
-          const padding = 15
-          const rowHeight = 45
-          const x = Math.round(x1 * 2) - padding
-          const y = Math.round(y1 * 2) - padding
-          const width = Math.min(
-            Math.round(x2 * 2 - x) + padding,
-            Math.round(pageWidth * 2 - x) - padding
-          )
-          const height = Math.min(
-            table.rows.length * rowHeight + padding * 2,
-            Math.round(pageHeight * 2 - y) - padding
-          )
-          console.log(url, pageIndex, x, y, width, height, table)
-
-          const outputPath = `output/table-${pageIndex}-${table.name}.png`
-          console.log('extracting screenshot to outputPath', outputPath)
-          await extractRegionAsPng(png, outputPath, x, y, width, height)
-          return { outputPath, ...table }
-        })
-      )
-    })
-  )
-
-  return results.flat()
-}
-
-export async function processPdfAndExtractTables(url: string) {
-  const stream = await fetchPdf(url)
-  const json = await parsePdfToJson(stream)
-  console.log('read json')
-
-  const { pages } = extractTablesFromJson(json)
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
-  return extractPngsFromPages(stream, pages, pageWidth, pageHeight, url)
+  const pages = tables.reduce(
+    (acc, table) =>
+      Object.assign(acc, {
+        [table.page_idx]: [
+          ...(acc[table.page_idx] || []),
+          { ...table, pageWidth, pageHeight },
+        ],
+      }),
+    {}
+  )
+  return pages
 }
-  console.log('fetching pdf from', url)
-  const pdfResponse = await fetch(url)
-  if (!pdfResponse.ok) {
-    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
-  }
-  console.log('fetched pdf ok')
 
-  const stream = pdfResponse.body
+export async function extractPngsFromPages(
+  url: string,
+  outputDir: string
+): Promise<Table[]> {
+  const arrayBuffer = await fetchPdf(url)
+  const buffer = Buffer.from(arrayBuffer)
+  const json = await extractJsonFromPdf(buffer)
+  const pngs = await getPngsFromPdfPage(buffer)
+  const relevantPages = extractTablesFromJson(json, 'co2')
 
-  const json = await parsePdfToJson(stream)
-  console.log('read json')
-  const tables = jsonToTables(json).filter(({ content }) =>
-    content.toLowerCase().includes('co2')
-  )
-  const pages = tables.reduce((acc, table) => {
-    if (!acc[table.page_idx]) {
-      acc[table.page_idx] = []
-    }
-    acc[table.page_idx].push(table)
-    return acc
-  }, {})
-  console.log('pages', pages)
-
-  const pngs = await getPngsFromPdfPage(stream)
-  console.log('found', pngs.length, pages.length, 'pages')
-  const [pageWidth, pageHeight] = json.return_dict.page_dim
-
-  const results = await Promise.all(
-    Object.entries(pages).map(async ([pageIndex, tables]) => {
-      console.log('extracting tables from page', pageIndex)
-      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
-      console.log('got png. extracting tables from page', pageIndex)
-      return Promise.all(
-        (tables as any[]).map(async (table) => {
-          const { bbox } = table
-          const [x1, y1, x2, y2] = bbox
-          console.log('x1,y1,x2,y2', x1, y1, x2, y2)
-          const padding = 15
-          const rowHeight = 45
-          const x = Math.round(x1 * 2) - padding
-          const y = Math.round(y1 * 2) - padding
-          const width = Math.min(
-            Math.round(x2 * 2 - x) + padding,
-            Math.round(pageWidth * 2 - x) - padding
-          )
-          const height = Math.min(
-            table.rows.length * rowHeight + padding * 2,
-            Math.round(pageHeight * 2 - y) - padding
-          )
+  /* TODO: return markdown with all tables extracted as images to be
+           able to keep the rest of the text as well as the images together
+           
+  const markdown = jsonToMarkdown(json)
+  // (table image)[ { page: 0, x: 0, y:0, width: 300, height: 400 } ]
+  const tables = new RegExp(/\(table image\)\[ ([json])\]/g)
+  */
+  return await Promise.all(
+    Object.entries(relevantPages)
+      .map(async ([pageIndex, tables]) => {
+        console.log('extracting tables from page', pageIndex)
+        const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
+        return tables.map(async (table) => {
+          const { x, y, width, height } = calculateBoundingBoxForTable(table)
+          const filename = `output/table-${pageIndex}-${table.name}.png`
           console.log(url, pageIndex, x, y, width, height, table)
-
-          const outputPath = `output/table-${pageIndex}-${table.name}.png`
-          console.log('extracting screenshot to outputPath', outputPath)
-          await extractRegionAsPng(png, outputPath, x, y, width, height)
-          return { outputPath, ...table }
+          console.log('extracting screenshot to outputPath', filename)
+          await extractRegionAsPng(png, filename, x, y, width, height)
+          return { ...table, filename } as Table
         })
-      )
-    })
+      })
+      .flat()
   )
-
-  return results.flat()
 }
