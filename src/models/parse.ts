@@ -128,8 +128,10 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
 }
 
 async function parsePdfToJson(pdfPath: string): Promise<any> {
-  const formData = new FormData()
-  formData.append('file', fs.createReadStream(pdfPath))
+  const formData = new FormData();
+  const fileBuffer = await fs.promises.readFile(pdfPath);
+  const fileBlob = new Blob([fileBuffer]);
+  formData.append('file', fileBlob, 'file.pdf');
 
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010';
   const response = await fetch(
