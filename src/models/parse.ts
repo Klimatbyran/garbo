@@ -86,15 +86,16 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   }, [])
 }
 
-export async function extractPngsFromPages(
+export async function extractTablesFromPDF(
   url: string,
-  outputDir: string
+  outputDir: string,
+  searchTerm: string
 ): Promise<Table[]> {
   const arrayBuffer = await fetchPdf(url)
   const buffer = Buffer.from(arrayBuffer)
   const json = await extractJsonFromPdf(buffer)
   const pngs = await getPngsFromPdfPage(buffer)
-  const pages = extractTablesFromJson(json, 'co2')
+  const pages = extractTablesFromJson(json, searchTerm)
 
   const tablePromises = pages.flatMap(({ pageIndex, tables }) =>
     tables.map((table) =>
