@@ -42,6 +42,10 @@ async function extractJsonFromPdf(buffer: Buffer) {
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
 
+  //const fileBuffer = await pdfResponse.arrayBuffer()
+  //const fileBlob = new Blob([fileBuffer])
+  //formData.append('file', fileBlob, 'file.pdf')
+
   const response = await fetch(
     `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`,
     {
