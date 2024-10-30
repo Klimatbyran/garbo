@@ -116,7 +116,15 @@ async function getPngsFromPdfPage(stream: NodeJS.ReadableStream) {
   return pages
 }
 
-async function parsePdfToJson(stream: NodeJS.ReadableStream): Promise<any> {
+async function fetchPdf(url: string): Promise<NodeJS.ReadableStream> {
+  console.log('fetching pdf from', url)
+  const pdfResponse = await fetch(url)
+  if (!pdfResponse.ok) {
+    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
+  }
+  console.log('fetched pdf ok')
+  return pdfResponse.body
+}
   const formData = new FormData()
   formData.append('file', stream, 'file.pdf')
 
@@ -138,21 +146,7 @@ async function parsePdfToJson(stream: NodeJS.ReadableStream): Promise<any> {
   return response.json()
 }
 
-export async function processPdfAndExtractTables(url: string) {
-  console.log('fetching pdf from', url)
-  const pdfResponse = await fetch(url)
-  if (!pdfResponse.ok) {
-    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
-  }
-  console.log('fetched pdf ok')
-
-  const stream = pdfResponse.body
-
-  // Send PDF to NLM ingestor and parse JSON
-  const json = await parsePdfToJson(stream)
-  console.log('read json')
-
-  // Extract tables from JSON
+function extractTablesFromJson(json: any) {
   const tables = jsonToTables(json).filter(({ content }) =>
     content.toLowerCase().includes('co2')
   )
@@ -164,11 +158,18 @@ export async function processPdfAndExtractTables(url: string) {
     return acc
   }, {})
   console.log('pages', pages)
+  return { tables, pages }
+}
 
-  // Extract PNGs from PDF pages
+async function extractPngsFromPages(
+  stream: NodeJS.ReadableStream,
+  pages: Record<number, any[]>,
+  pageWidth: number,
+  pageHeight: number,
+  url: string
+) {
   const pngs = await getPngsFromPdfPage(stream)
   console.log('found', pngs.length, pages.length, 'pages')
-  const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   const results = await Promise.all(
     Object.entries(pages).map(async ([pageIndex, tables]) => {
@@ -204,6 +205,17 @@ export async function processPdfAndExtractTables(url: string) {
   )
 
   return results.flat()
+}
+
+export async function processPdfAndExtractTables(url: string) {
+  const stream = await fetchPdf(url)
+  const json = await parsePdfToJson(stream)
+  console.log('read json')
+
+  const { pages } = extractTablesFromJson(json)
+  const [pageWidth, pageHeight] = json.return_dict.page_dim
+
+  return extractPngsFromPages(stream, pages, pageWidth, pageHeight, url)
 }
   console.log('fetching pdf from', url)
   const pdfResponse = await fetch(url)
