@@ -138,7 +138,73 @@ async function parsePdfToJson(stream: NodeJS.ReadableStream): Promise<any> {
   return response.json()
 }
 
-export async function extractTablePngsFromPDF(url: string) {
+export async function processPdfAndExtractTables(url: string) {
+  console.log('fetching pdf from', url)
+  const pdfResponse = await fetch(url)
+  if (!pdfResponse.ok) {
+    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
+  }
+  console.log('fetched pdf ok')
+
+  const stream = pdfResponse.body
+
+  // Send PDF to NLM ingestor and parse JSON
+  const json = await parsePdfToJson(stream)
+  console.log('read json')
+
+  // Extract tables from JSON
+  const tables = jsonToTables(json).filter(({ content }) =>
+    content.toLowerCase().includes('co2')
+  )
+  const pages = tables.reduce((acc, table) => {
+    if (!acc[table.page_idx]) {
+      acc[table.page_idx] = []
+    }
+    acc[table.page_idx].push(table)
+    return acc
+  }, {})
+  console.log('pages', pages)
+
+  // Extract PNGs from PDF pages
+  const pngs = await getPngsFromPdfPage(stream)
+  console.log('found', pngs.length, pages.length, 'pages')
+  const [pageWidth, pageHeight] = json.return_dict.page_dim
+
+  const results = await Promise.all(
+    Object.entries(pages).map(async ([pageIndex, tables]) => {
+      console.log('extracting tables from page', pageIndex)
+      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
+      console.log('got png. extracting tables from page', pageIndex)
+      return Promise.all(
+        (tables as any[]).map(async (table) => {
+          const { bbox } = table
+          const [x1, y1, x2, y2] = bbox
+          console.log('x1,y1,x2,y2', x1, y1, x2, y2)
+          const padding = 15
+          const rowHeight = 45
+          const x = Math.round(x1 * 2) - padding
+          const y = Math.round(y1 * 2) - padding
+          const width = Math.min(
+            Math.round(x2 * 2 - x) + padding,
+            Math.round(pageWidth * 2 - x) - padding
+          )
+          const height = Math.min(
+            table.rows.length * rowHeight + padding * 2,
+            Math.round(pageHeight * 2 - y) - padding
+          )
+          console.log(url, pageIndex, x, y, width, height, table)
+
+          const outputPath = `output/table-${pageIndex}-${table.name}.png`
+          console.log('extracting screenshot to outputPath', outputPath)
+          await extractRegionAsPng(png, outputPath, x, y, width, height)
+          return { outputPath, ...table }
+        })
+      )
+    })
+  )
+
+  return results.flat()
+}
   console.log('fetching pdf from', url)
   const pdfResponse = await fetch(url)
   if (!pdfResponse.ok) {
