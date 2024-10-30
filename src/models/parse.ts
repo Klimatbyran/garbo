@@ -86,14 +86,6 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   }, [])
 }
 
-const _queue = []
-const _concurrency = 5
-
-const queue = (promise) => {
-  _queue.push(promise)
-  return promise.finally(() => _queue.shift())
-}
-
 export async function extractPngsFromPages(
   url: string,
   outputDir: string
@@ -104,25 +96,23 @@ export async function extractPngsFromPages(
   const pngs = await getPngsFromPdfPage(buffer)
   const pages = extractTablesFromJson(json, 'co2')
 
-  const tablePromises = pages.flatMap(({ pageIndex, tables }) =>
+  const tablePromises = pages.flatMap(({ pageIndex, tables }) => {
     console.log('extracting tables from page', pageIndex)
-    queue(
-      pngs.getPage(pageIndex + 1).then((png) =>
-        tables.map((table) => {
-          const { x, y, width, height } = calculateBoundingBoxForTable(table)
-          const pngName = `table-${pageIndex}-${table.name}.png`
-          const filename = path.join(outputDir, pngName)
-          console.log(url, pageIndex, x, y, width, height, table)
-          console.log('extracting screenshot to outputPath', filename)
-          return extractRegionAsPng(png, filename, x, y, width, height).then(
-            () => {
-              return { ...table, filename } as Table
-            }
-          )
-        })
-      )
+    return pngs.getPage(pageIndex + 1).then((png) =>
+      tables.map((table) => {
+        const { x, y, width, height } = calculateBoundingBoxForTable(table)
+        const pngName = `table-${pageIndex}-${table.name}.png`
+        const filename = path.join(outputDir, pngName)
+        console.log(url, pageIndex, x, y, width, height, table)
+        console.log('extracting screenshot to outputPath', filename)
+        return extractRegionAsPng(png, filename, x, y, width, height).then(
+          () => {
+            return { ...table, filename } as Table
+          }
+        )
+      })
     )
-  )
+  })
 
-  return Promise.all(tablePromises.flat())
+  return Promise.all(tablePromises)
 }
