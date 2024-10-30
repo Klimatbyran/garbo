@@ -59,23 +59,26 @@ async function extractJsonFromPdf(buffer: Buffer) {
 type Page = {
   pageIndex: string
   tables: any[]
+  pageWidth: number
+  pageHeight: number
 }
 
 function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   const tables = jsonToTables(json).filter(
     ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
   )
-  const [pageWidth, pageHeight] = json.return_dict.page_dim
-
   return tables.reduce((acc: Page[], table) => {
+    const [pageWidth, pageHeight] = json.return_dict.page_dim
     const pageIndex = table.page_idx
     const page = acc.find((p) => p.pageIndex === pageIndex)
     if (page) {
-      page.tables.push({ ...table, pageWidth, pageHeight } as Table)
+      page.tables.push({ ...table } as Table)
     } else {
       acc.push({
         pageIndex,
-        tables: [{ ...table, pageWidth, pageHeight } as Table],
+        tables: [{ ...table } as Table],
+        pageWidth,
+        pageHeight,
       })
     }
     return acc
