@@ -1,4 +1,3 @@
-import fetch, { FormData } from 'node-fetch'
 import nlp from 'compromise'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
