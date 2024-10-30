@@ -96,7 +96,7 @@ export async function extractPngsFromPages(
   const pngs = await getPngsFromPdfPage(buffer)
   const pages = extractTablesFromJson(json, 'co2')
 
-  const tablePromises = pages.map(async ({ pageIndex, tables }) => {
+  const tablePromises = pages.flatMap(({ pageIndex, tables }) => {
     console.log('extracting tables from page', pageIndex)
     const png = await pngs.getPage(pageIndex + 1)
     const pageTablePromises = tables.map((table) => {
@@ -109,8 +109,8 @@ export async function extractPngsFromPages(
         return { ...table, filename } as Table
       })
     })
-    return Promise.all(pageTablePromises)
+    return pageTablePromises
   })
 
-  return (await Promise.all(tablePromises)).flat()
+  return Promise.all(tablePromises)
 }
