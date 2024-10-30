@@ -5,6 +5,7 @@ import {
   jsonToTables,
   Table,
 } from '../lib/jsonExtraction'
+import path from 'path'
 
 type ObjectArray = { [pageIndex: string]: any[] }
 
@@ -57,26 +58,26 @@ async function extractJsonFromPdf(buffer: Buffer) {
 }
 
 type Page = {
-  pageIndex: string
-  tables: any[]
+  pageIndex: number
   pageWidth: number
   pageHeight: number
+  tables: any[]
 }
 
 function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   const tables = jsonToTables(json).filter(
     ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
   )
-  return tables.reduce((acc: Page[], table) => {
+  return tables.reduce((acc: Page[], table: Table) => {
     const [pageWidth, pageHeight] = json.return_dict.page_dim
     const pageIndex = table.page_idx
     const page = acc.find((p) => p.pageIndex === pageIndex)
     if (page) {
-      page.tables.push({ ...table } as Table)
+      page.tables.push(table)
     } else {
       acc.push({
         pageIndex,
-        tables: [{ ...table } as Table],
+        tables: [table],
         pageWidth,
         pageHeight,
       })
@@ -97,10 +98,11 @@ export async function extractPngsFromPages(
 
   const tablePromises = pages.map(async ({ pageIndex, tables }) => {
     console.log('extracting tables from page', pageIndex)
-    const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
+    const png = await pngs.getPage(pageIndex + 1)
     const pageTablePromises = tables.map((table) => {
       const { x, y, width, height } = calculateBoundingBoxForTable(table)
-      const filename = `output/table-${pageIndex}-${table.name}.png`
+      const pngName = `table-${pageIndex}-${table.name}.png`
+      const filename = path.join(outputDir, pngName)
       console.log(url, pageIndex, x, y, width, height, table)
       console.log('extracting screenshot to outputPath', filename)
       return extractRegionAsPng(png, filename, x, y, width, height).then(() => {
