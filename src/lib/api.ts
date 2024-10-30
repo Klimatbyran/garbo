@@ -4,9 +4,9 @@ import { ENV } from './env'
 
 const GARBO_TOKEN = ENV.API_TOKENS.find((token) => token.startsWith('garbo'))
 
-async function apiFetch(
+export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: RequestInit = {}
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const headers = {
     'Content-Type': 'application/json',
