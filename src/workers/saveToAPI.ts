@@ -54,8 +54,8 @@ const worker = new DiscordWorker<JobData>(
       url,
       fiscalYear,
       wikidata,
-      scope12,
-      scope3,
+      scope12 = [],
+      scope3 = [],
       industry,
       approved = false,
     } = job.data
@@ -88,17 +88,16 @@ ${diff.slice(0, 2000)}`,
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
     } else {
-      if (scope12) {
-        job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
-        return Promise.all(
-          scope12.map(async ({ year, scope1, scope2 }, i) => {
+      if (scope12?.length || scope3?.length) {
+        job.editMessage(`🤖 Sparar utsläppsdata...`)
+        return Promise.all([
+          ...scope12.map(async ({ year, scope1, scope2 }) => {
             const [startDate, endDate] = getReportingPeriodDates(
               year,
               fiscalYear.startMonth,
               fiscalYear.endMonth
             )
             job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-            job.updateProgress(i / scope12.length)
             job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
             const body = {
               startDate,
@@ -113,21 +112,14 @@ ${diff.slice(0, 2000)}`,
               `/companies/${wikidataId}/${year}/emissions`,
               { body }
             )
-          })
-        )
-      }
-
-      if (scope3) {
-        job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
-        return Promise.all(
-          scope3.map(async ({ year, scope3 }, i) => {
+          }),
+          ...scope3.map(async ({ year, scope3 }) => {
             const [startDate, endDate] = getReportingPeriodDates(
               year,
               fiscalYear.startMonth,
               fiscalYear.endMonth
             )
             job.sendMessage(`🤖 Sparar utsläppsdata scope 3 för ${year}...`)
-            job.updateProgress(i / scope3.length)
             job.log(`Saving scope3 for ${year}`)
             const body = {
               startDate,
@@ -141,8 +133,8 @@ ${diff.slice(0, 2000)}`,
               `/companies/${wikidataId}/${year}/emissions`,
               { body }
             )
-          })
-        )
+          }),
+        ])
       }
 
       if (industry) {
