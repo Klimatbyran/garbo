@@ -1,5 +1,4 @@
 import fs from 'fs'
-import fetch from 'node-fetch'
 import nlp from 'compromise'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
@@ -132,10 +131,13 @@ async function parsePdfToJson(pdfPath: string): Promise<any> {
   const formData = new FormData()
   formData.append('file', fs.createReadStream(pdfPath))
 
-  const response = await fetch('http://localhost:5010/api/parseDocument?renderFormat=json', {
-    method: 'POST',
-    body: formData,
-  })
+  const response = await fetch(
+    'http://localhost:5010/api/parseDocument?renderFormat=json',
+    {
+      method: 'POST',
+      body: formData,
+    }
+  )
 
   if (!response.ok) {
     throw new Error(`Failed to parse PDF: ${response.statusText}`)
