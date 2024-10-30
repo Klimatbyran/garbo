@@ -7,7 +7,6 @@ import { Queue } from 'bullmq'
 
 import discord from './discord'
 import apiRouter from './api'
-import { initializeQueues } from './api'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
