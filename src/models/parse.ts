@@ -92,8 +92,8 @@ export async function extractPngsFromPages(
   // (table image)[ { page: 0, x: 0, y:0, width: 300, height: 400 } ]
   const tables = new RegExp(/\(table image\)\[ ([json])\]/g)
   */
-  return await Promise.all(
-    Object.entries(relevantPages).flatMap(([pageIndex, tables]) => {
+  const promises = Object.entries(relevantPages).flatMap(
+    ([pageIndex, tables]) => {
       console.log('extracting tables from page', pageIndex)
       return pngs.getPage(parseInt(pageIndex, 10) + 1).then((png) =>
         tables.map((table) => {
@@ -101,11 +101,15 @@ export async function extractPngsFromPages(
           const filename = `output/table-${pageIndex}-${table.name}.png`
           console.log(url, pageIndex, x, y, width, height, table)
           console.log('extracting screenshot to outputPath', filename)
-          return extractRegionAsPng(png, filename, x, y, width, height).then(() => {
-            return { ...table, filename } as Table
-          })
+          return extractRegionAsPng(png, filename, x, y, width, height).then(
+            () => {
+              return { ...table, filename } as Table
+            }
+          )
         })
       )
-    })
+    }
   )
+
+  return Promise.all(promises.flat())
 }
