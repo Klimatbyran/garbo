@@ -10,6 +10,7 @@ import discord from './discord'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
 import { errorHandler } from './routes/middlewares'
+import { initializeQueues } from './api'
 
 // start ui
 const serverAdapter = new ExpressAdapter()
@@ -44,9 +45,7 @@ const workers = [
   'saveToAPI',
 ]
 
-const queues = workers.map(
-  (name) => new Queue(name, { connection: { host: process.env.REDIS_URL } })
-)
+const queues = initializeQueues(workers, process.env.REDIS_URL)
 
 createBullBoard({
   queues: queues.map((queue) => new BullMQAdapter(queue)),
