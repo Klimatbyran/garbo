@@ -108,36 +108,17 @@ const jsonToTables = (json) => {
   return tables
 }
 
-async function getPngsFromPdfPage(url) {
-  // Ladda PDF-dokumentet
-  const pages = await pdf(url, {
+async function getPngsFromPdfPage(stream: NodeJS.ReadableStream) {
+  const pages = await pdf(stream, {
     scale: 2,
   })
 
   return pages
 }
 
-async function extractRegionAsPng(png, outputPath, x, y, width, height) {
-  // Ladda PDF-dokumentet
-  // Använd `sharp` för att beskära och spara regionen
-  console.log('Extracting region', x, y, width, height)
-  return await sharp(png)
-    .extract({ left: x, top: y, width: width, height: height })
-    .toFile(outputPath)
-}
-
-async function parsePdfToJson(url: string): Promise<any> {
+async function parsePdfToJson(stream: NodeJS.ReadableStream): Promise<any> {
   const formData = new FormData()
-  console.log('fetching pdf from', url)
-  const pdfResponse = await fetch(url)
-  if (!pdfResponse.ok) {
-    throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
-  }
-  console.log('fetched pdf ok')
-
-  const fileBuffer = await pdfResponse.arrayBuffer()
-  const fileBlob = new Blob([fileBuffer])
-  formData.append('file', fileBlob, 'file.pdf')
+  formData.append('file', stream, 'file.pdf')
 
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010'
   console.log('parsing pdf from', nlmIngestorUrl)
