@@ -1,8 +1,5 @@
-import { askPrompt } from '../openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { createCompany, fetchCompany, saveCompany } from '../lib/api'
-import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
-import discord from '../discord'
+import { apiFetch } from '../lib/api'
 import { saveToAPI } from '../queues'
 
 export class JobData extends DiscordJob {
@@ -26,7 +23,9 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   // TODO: do we need to run this 3 times?
   job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
   const wikidataId = wikidata.node
-  const existingCompany = await fetchCompany(wikidataId).catch(() => null)
+  const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+    () => null
+  )
 
   if (!existingCompany) {
     const metadata = {
@@ -37,11 +36,12 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
     job.sendMessage(
       `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
     )
-    await createCompany({
+    const body = {
       name: companyName,
       wikidataId,
       metadata,
-    })
+    }
+    await apiFetch(`/companies`, { body })
   }
 
   const { scope12, scope3, industry } = childrenValues

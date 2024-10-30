@@ -35,23 +35,3 @@ export async function apiFetch(
     throw new Error('API error:' + errorMessage)
   }
 }
-
-export async function saveCompany(
-  wikidataId: string,
-  subEndpoint: string,
-  body: any
-) {
-  return apiFetch(`/companies/${wikidataId}/${subEndpoint}`, { body })
-}
-
-export async function createCompany(body: {
-  wikidataId: string
-  name: string
-  metadata: any
-}) {
-  return apiFetch('/companies', { body: body as unknown as BodyInit })
-}
-
-export async function fetchCompany(wikidataId: string) {
-  return apiFetch(`/companies/${wikidataId}`).catch(() => null)
-}

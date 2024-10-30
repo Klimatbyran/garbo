@@ -1,7 +1,6 @@
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../openai'
-import { saveCompany } from '../lib/api'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 const embedder = new OpenAIEmbeddingFunction({

@@ -1,6 +1,6 @@
 import { askPrompt } from '../openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { apiFetch, fetchCompany, saveCompany } from '../lib/api'
+import { apiFetch } from '../lib/api'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import discord from '../discord'
 import redis from '../config/redis'
@@ -62,7 +62,9 @@ const worker = new DiscordWorker<JobData>(
 
     job.sendMessage(`🤖 sparar ${companyName}.${apiSubEndpoint} till API...`)
     const wikidataId = wikidata.node
-    const existingCompany = await fetchCompany(wikidataId).catch(() => null)
+    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+      () => null
+    )
 
     const metadata = {
       source: url,
@@ -107,7 +109,10 @@ ${diff.slice(0, 2000)}`,
               },
               metadata,
             }
-            return await saveCompany(wikidataId, `${year}/emissions`, body)
+            return await apiFetch(
+              `/companies/${wikidataId}/${year}/emissions`,
+              { body }
+            )
           })
         )
       }
@@ -124,14 +129,18 @@ ${diff.slice(0, 2000)}`,
             job.sendMessage(`🤖 Sparar utsläppsdata scope 3 för ${year}...`)
             job.updateProgress(i / scope3.length)
             job.log(`Saving scope3 for ${year}`)
-            return await saveCompany(wikidataId, `${year}/emissions`, {
+            const body = {
               startDate,
               endDate,
               emissions: {
                 scope3,
               },
               metadata,
-            })
+            }
+            return await apiFetch(
+              `/companies/${wikidataId}/${year}/emissions`,
+              { body }
+            )
           })
         )
       }
