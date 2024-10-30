@@ -56,23 +56,30 @@ async function extractJsonFromPdf(buffer: Buffer) {
   return response.json()
 }
 
-function extractTablesFromJson(json: any, searchTerm: string): ObjectArray {
+type Page = {
+  pageIndex: string
+  tables: any[]
+}
+
+function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   const tables = jsonToTables(json).filter(
     ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
   )
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
-  const pages = tables.reduce(
-    (acc, table) =>
-      Object.assign(acc, {
-        [table.page_idx]: [
-          ...(acc[table.page_idx] || []),
-          { ...table, pageWidth, pageHeight },
-        ],
-      }),
-    {}
-  )
-  return pages
+  const pagesMap = tables.reduce((acc, table) => {
+    const pageIndex = table.page_idx
+    if (!acc[pageIndex]) {
+      acc[pageIndex] = []
+    }
+    acc[pageIndex].push({ ...table, pageWidth, pageHeight })
+    return acc
+  }, {} as ObjectArray)
+
+  return Object.entries(pagesMap).map(([pageIndex, tables]) => ({
+    pageIndex,
+    tables,
+  }))
 }
 
 export async function extractPngsFromPages(
@@ -83,33 +90,22 @@ export async function extractPngsFromPages(
   const buffer = Buffer.from(arrayBuffer)
   const json = await extractJsonFromPdf(buffer)
   const pngs = await getPngsFromPdfPage(buffer)
-  const relevantPages = extractTablesFromJson(json, 'co2')
+  const pages = extractTablesFromJson(json, 'co2')
 
-  /* TODO: return markdown with all tables extracted as images to be
-           able to keep the rest of the text as well as the images together
-           
-  const markdown = jsonToMarkdown(json)
-  // (table image)[ { page: 0, x: 0, y:0, width: 300, height: 400 } ]
-  const tables = new RegExp(/\(table image\)\[ ([json])\]/g)
-  */
-  const promises = Object.entries(relevantPages).flatMap(
-    ([pageIndex, tables]) => {
-      console.log('extracting tables from page', pageIndex)
-      return pngs.getPage(parseInt(pageIndex, 10) + 1).then((png) =>
-        tables.map((table) => {
-          const { x, y, width, height } = calculateBoundingBoxForTable(table)
-          const filename = `output/table-${pageIndex}-${table.name}.png`
-          console.log(url, pageIndex, x, y, width, height, table)
-          console.log('extracting screenshot to outputPath', filename)
-          return extractRegionAsPng(png, filename, x, y, width, height).then(
-            () => {
-              return { ...table, filename } as Table
-            }
-          )
-        })
-      )
-    }
-  )
+  const tablePromises = pages.map(async ({ pageIndex, tables }) => {
+    console.log('extracting tables from page', pageIndex)
+    const png = await pngs.getPage(parseInt(pageIndex, 10) + 1)
+    const pageTablePromises = tables.map((table) => {
+      const { x, y, width, height } = calculateBoundingBoxForTable(table)
+      const filename = `output/table-${pageIndex}-${table.name}.png`
+      console.log(url, pageIndex, x, y, width, height, table)
+      console.log('extracting screenshot to outputPath', filename)
+      return extractRegionAsPng(png, filename, x, y, width, height).then(() => {
+        return { ...table, filename } as Table
+      })
+    })
+    return Promise.all(pageTablePromises)
+  })
 
-  return Promise.all(promises.flat())
+  return (await Promise.all(tablePromises)).flat()
 }
