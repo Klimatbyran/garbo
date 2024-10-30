@@ -86,6 +86,14 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   }, [])
 }
 
+const _queue = []
+const _concurrency = 5
+
+const queue = (promise) => {
+  _queue.push(promise)
+  return promise.finally(() => _queue.shift())
+}
+
 export async function extractPngsFromPages(
   url: string,
   outputDir: string
