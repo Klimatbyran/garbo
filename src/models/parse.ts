@@ -1,4 +1,5 @@
 import fs from 'fs'
+import fetch from 'node-fetch'
 import nlp from 'compromise'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
@@ -127,9 +128,24 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
     .toFile(outputPath)
 }
 
+async function parsePdfToJson(pdfPath: string): Promise<any> {
+  const formData = new FormData()
+  formData.append('file', fs.createReadStream(pdfPath))
+
+  const response = await fetch('http://localhost:5010/api/parseDocument?renderFormat=json', {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to parse PDF: ${response.statusText}`)
+  }
+
+  return response.json()
+}
+
 export async function extractTablePngsFromPDF(url: string) {
-  const example = fs.readFileSync('test.json', 'utf-8')
-  const json = JSON.parse(example)
+  const json = await parsePdfToJson(url)
   console.log('read json')
   const tables = jsonToTables(json).filter(({ content }) =>
     content.toLowerCase().includes('co2')
