@@ -7,9 +7,7 @@ import { Queue } from 'bullmq'
 import pino from 'pino-http'
 
 import discord from './discord'
-import readCompanies from './routes/readCompanies'
-import updateCompanies from './routes/updateCompanies'
-import { errorHandler } from './routes/middlewares'
+import apiRouter from './api'
 import { initializeQueues } from './api'
 
 // start ui
@@ -78,8 +76,7 @@ app.use(
   )
 )
 
-app.use('/api/companies', readCompanies)
-app.use('/api/companies', updateCompanies)
+app.use('/api', apiRouter)
 app.use('/admin/queues', serverAdapter.getRouter())
 
 // move active jobs to failed and retry
