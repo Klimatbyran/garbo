@@ -25,12 +25,7 @@ apiRouter.use('/companies', updateCompanies)
 // TODO: Why does this error handler not capture errors thrown in readCompanies?
 apiRouter.use(errorHandler)
 
-import pino from 'pino-http'
-import { errorHandler } from './routes/middlewares'
-
-const app = express()
-
-app.use(
+apiRouter.use(
   pino(
     process.stdin.isTTY
       ? {
@@ -43,9 +38,7 @@ app.use(
   )
 )
 
-app.use('/api', apiRouter)
-
 // TODO: Why does this error handler not capture errors thrown in readCompanies?
 app.use(errorHandler)
 
-export default app
+export default apiRouter
