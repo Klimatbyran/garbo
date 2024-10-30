@@ -4,7 +4,6 @@ import { createBullBoard } from '@bull-board/api'
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter'
 import { ExpressAdapter } from '@bull-board/express'
 import { Queue } from 'bullmq'
-import pino from 'pino-http'
 
 import discord from './discord'
 import apiRouter from './api'
@@ -62,21 +61,7 @@ app.get('/favicon.ico', (req, res) => {
   res.status(204).end()
 })
 
-app.use(
-  '/api',
-  pino(
-    process.stdin.isTTY
-      ? {
-          transport: {
-            target: 'pino-pretty',
-          },
-          level: 'info',
-        }
-      : undefined
-  )
-)
-
-app.use('/api', apiRouter)
+app.use(apiRouter)
 app.use('/admin/queues', serverAdapter.getRouter())
 
 // move active jobs to failed and retry

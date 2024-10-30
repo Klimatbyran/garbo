@@ -25,4 +25,27 @@ apiRouter.use('/companies', updateCompanies)
 // TODO: Why does this error handler not capture errors thrown in readCompanies?
 apiRouter.use(errorHandler)
 
-export default apiRouter
+import pino from 'pino-http'
+import { errorHandler } from './routes/middlewares'
+
+const app = express()
+
+app.use(
+  pino(
+    process.stdin.isTTY
+      ? {
+          transport: {
+            target: 'pino-pretty',
+          },
+          level: 'info',
+        }
+      : undefined
+  )
+)
+
+app.use('/api', apiRouter)
+
+// TODO: Why does this error handler not capture errors thrown in readCompanies?
+app.use(errorHandler)
+
+export default app
