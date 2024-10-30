@@ -114,5 +114,5 @@ export async function extractPngsFromPages(
     )
   })
 
-  return Promise.all(tablePromises)
+  return Promise.all(tablePromises.flat())
 }
