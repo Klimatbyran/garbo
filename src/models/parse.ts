@@ -72,16 +72,13 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
     if (!acc[pageIndex]) {
       acc[pageIndex] = []
     }
-    acc[pageIndex].push({ ...table, pageWidth, pageHeight })
+    acc[pageIndex].push({ ...table, pageWidth, pageHeight } as Table)
     return acc
   }, {} as ObjectArray)
 
   return Object.entries(pagesMap).map(([pageIndex, tables]) => ({
     pageIndex,
-    tables: tables as any[],
-  }))
-    pageIndex,
-    tables,
+    tables: tables as Table[],
   }))
 }
 
