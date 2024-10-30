@@ -1,8 +1,7 @@
 import fs from 'fs'
 import nlp from 'compromise'
 import sharp from 'sharp'
-import { PDFDocument } from 'pdf-lib'
-import pdf2img from 'pdf-img-convert'
+import { pdf } from 'pdf-to-img'
 
 const deHyphenate = (text) => {
   return text
@@ -99,8 +98,9 @@ const jsonToTables = (json) => {
   const tables = blocks
     .filter((block) => block.tag === 'table')
     .map((block) => ({ ...block, content: table(block) }))
-    .map(({ page_idx, bbox, name, level, content }) => ({
+    .map(({ page_idx, bbox, name, level, content, table_rows }) => ({
       page_idx,
+      rows: table_rows,
       bbox,
       name,
       level,
@@ -111,7 +111,7 @@ const jsonToTables = (json) => {
 
 async function getPngsFromPdfPage(url) {
   // Ladda PDF-dokumentet
-  const pages = await pdf2img.convert(url, {
+  const pages = await pdf(url, {
     scale: 2,
   })
 
@@ -122,7 +122,7 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
   // Ladda PDF-dokumentet
   // Använd `sharp` för att beskära och spara regionen
   console.log('Extracting region', x, y, width, height)
-  await sharp(png)
+  return await sharp(png)
     .extract({ left: x, top: y, width: width, height: height })
     .toFile(outputPath)
 }
@@ -130,9 +130,10 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
 const run = async () => {
   const example = fs.readFileSync('test.json', 'utf-8')
   const json = JSON.parse(example)
+  console.log('read json')
   //const markdown = jsonToMarkdown(json)
   const tables = jsonToTables(json).filter(({ content }) =>
-    content.toLowerCase().includes('solvent')
+    content.toLowerCase().includes('co2')
   )
   // Group pages
   const pages = tables.reduce((acc, table) => {
@@ -142,33 +143,47 @@ const run = async () => {
     acc[table.page_idx].push(table)
     return acc
   }, {})
+  console.log('pages', pages)
 
   const pdfPath = 'test.pdf'
+  console.log('reading pdf', pdfPath)
   const pngs = await getPngsFromPdfPage(pdfPath)
+  console.log('found', pngs.length, pages.length, 'pages')
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   // Extract tables as PNG
-  Object.entries(pages)
-    .slice(0, 1)
-    .map(async ([pageIndex, tables]) => {
-      const png = pngs.at(pageIndex - 1) // page 0 is the first page
+  await Promise.all(
+    Object.entries(pages).map(async ([pageIndex, tables]) => {
+      console.log('extracting tables from page', pageIndex)
+      const png = await pngs.getPage(parseInt(pageIndex, 10) + 1) // page 0 is the first page
+      console.log('got png. extracting tables from page', pageIndex)
       // For each table on this page, extract the region as PNG
-      Promise.all(
-        tables.slice(0, 1).map(async (table) => {
+      return Promise.all(
+        (tables as any[]).map(async (table) => {
           const { bbox } = table
           const [x1, y1, x2, y2] = bbox
           console.log('x1,y1,x2,y2', x1, y1, x2, y2)
-          const x = Math.round(x1 * 2)
-          const y = Math.round(y1 * 2)
-          const width = Math.round(pageWidth) - x
-          const height = Math.round(pageHeight) - y
+          const padding = 15
+          const rowHeight = 45
+          const x = Math.round(x1 * 2) - padding
+          const y = Math.round(y1 * 2) - padding
+          const width = Math.min(
+            Math.round(x2 * 2 - x) + padding,
+            Math.round(pageWidth * 2 - x) - padding // max width of page
+          )
+          const height = Math.min(
+            table.rows.length * rowHeight + padding * 2, // estimate height
+            Math.round(pageHeight * 2 - y) - padding // max height of page
+          )
           console.log(pdfPath, pageIndex, x, y, width, height, table)
 
           const outputPath = `output/table-${pageIndex}-${table.name}.png`
+          console.log('extracting screenshot to outputPath', outputPath)
           return extractRegionAsPng(png, outputPath, x, y, width, height)
         })
       )
     })
+  )
 }
 
 run()

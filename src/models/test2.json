@@ -1,0 +1,4418 @@
+{
+  "return_dict": {
+    "num_pages": 13,
+    "page_dim": [595.28, 841.89],
+    "result": {
+      "blocks": [
+        {
+          "bbox": [75.12, 731.0, 326.92, 744.58],
+          "block_class": "cls_0",
+          "block_idx": 0,
+          "level": 0,
+          "page_idx": 0,
+          "sentences": ["2023 Sustainability notes with GRI index"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 56.28, 496.7099999999999, 118.28],
+          "block_class": "cls_2",
+          "block_idx": 1,
+          "level": 0,
+          "page_idx": 1,
+          "sentences": ["Sustainability notes including GRI content index"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 145.79, 529.35, 201.79],
+          "block_class": "cls_3",
+          "block_idx": 2,
+          "level": 1,
+          "page_idx": 1,
+          "sentences": [
+            "Alfa Laval\u2019s Sustainability Report 2023 consists of sustainability disclosures in the Annual Report 2023 and supplementary information in the below Sustainability Notes.",
+            "Alfa Laval reports in accordance with the GRI Standards and the GRI statement of use and content index are found on page 10\u201313 in this document."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 229.86, 198.36, 245.86],
+          "block_class": "cls_4",
+          "block_idx": 3,
+          "level": 1,
+          "page_idx": 1,
+          "sentences": ["Sustainability notes"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 254.03, 514.9, 272.53],
+          "block_class": "cls_5",
+          "block_idx": 4,
+          "level": 2,
+          "page_idx": 1,
+          "sentences": [
+            "The sustainability notes consist of sustainability information that supplements the disclosures in the Annual Report.",
+            "The aim of these notes is to ensure complete sustainability reporting according to the GRI Standards."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 285.53, 528.01, 335.53],
+          "block_class": "cls_5",
+          "block_idx": 5,
+          "level": 2,
+          "page_idx": 1,
+          "sentences": [
+            "The supplementary information regarding material aspects is structured according to Alfa Laval\u2019s sustainability target areas \u2013 climate, circularity, caring and committed \u2013 and divided into topics according to the GRI.",
+            "Please note that not all target areas and corresponding material topics have supplementary information in these notes, some are fully reported in the Annual Report.",
+            "Economic Performance has been removed as a material topic from the Sustainability Report, as this is well addressed in other parts of the Annual Report.",
+            "Certain GRI topical indicators that do not directly correspond to Alfa Laval material sustainability topics have also been removed."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 348.53, 526.34, 398.53],
+          "block_class": "cls_5",
+          "block_idx": 6,
+          "level": 2,
+          "page_idx": 1,
+          "sentences": [
+            "Environmental data disclosed in the annual report (AR) and in the Sustainability notes (SN - these notes), such as waste, water and energy are reported at the site level and collected through Alfa Laval\u2019s sustainability data reporting tool.",
+            "Data is consolidated based on operational control.",
+            "The data has been compiled based on invoices or physical meters following the financial year.",
+            "All operations, service centres and large offices are required to report environmental and health & safety data.",
+            "Employee data covers all Alfa Laval branded companies reporting through our human resources system, corresponding to about 85 percent of total Alfa Laval employees."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 443.46, 201.98, 455.46],
+          "block_class": "cls_6",
+          "block_idx": 7,
+          "level": 2,
+          "page_idx": 1,
+          "sentences": ["Note 1. General disclosures"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 467.96, 244.39, 474.96],
+          "block_class": "cls_7",
+          "block_idx": 8,
+          "level": 3,
+          "page_idx": 1,
+          "sentences": [
+            "1.1 Entities included in the sustainability report (GRI 2-2)."
+          ],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 476.96, 274.41, 510.96],
+          "block_class": "cls_8",
+          "block_idx": 9,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "a) Alfa Laval\u2019s sustainability reporting for 2023 provided in the Annual Report and in the Sustainability Notes on alfalaval.com covers the parent company (Alfa Laval AB) and its subsidiaries which constitutes the Alfa Laval Group with the exceptions listed below."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 521.96, 257.24, 537.96],
+          "block_class": "cls_8",
+          "block_idx": 10,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "b) In the sustainability report, the included companies have been restricted to:"
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 539.96, 266.53, 555.96],
+          "block_class": "cls_8",
+          "block_idx": 11,
+          "level": 5,
+          "page_idx": 1,
+          "sentences": [
+            "All operation and service centre sites must report energy, waste, chemicals, water and health & safety data."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 557.96, 273.52, 573.96],
+          "block_class": "cls_8",
+          "block_idx": 12,
+          "level": 5,
+          "page_idx": 1,
+          "sentences": [
+            "Large offices (> 25 employees) must report energy, waste, chemi- cals, water and health & safety data."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 575.96, 260.94, 591.96],
+          "block_class": "cls_8",
+          "block_idx": 13,
+          "level": 5,
+          "page_idx": 1,
+          "sentences": [
+            "Field-service sites must report health & safety data but do not have to report any other type of data."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 593.96, 258.71, 609.96],
+          "block_class": "cls_8",
+          "block_idx": 14,
+          "level": 5,
+          "page_idx": 1,
+          "sentences": [
+            "Non-Alfa Laval brands are currently not included in employee diversity disclosures."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 620.96, 266.96, 645.96],
+          "block_class": "cls_8",
+          "block_idx": 15,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "c, ii) In 2023 year\u2019s report, Desmet, Scanjet, Bunker Metrics are excluded.",
+            "These are new acquisitions 2023 and will be added in the sustainability reporting latest within three years."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 656.96, 256.33, 663.96],
+          "block_class": "cls_7",
+          "block_idx": 16,
+          "level": 3,
+          "page_idx": 1,
+          "sentences": [
+            "1.2 Reporting period, frequency and contact point (GRI 2-3)."
+          ],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 665.96, 271.58, 699.96],
+          "block_class": "cls_8",
+          "block_idx": 17,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Reporting period: January 1 to December 31.",
+            "The Alfa Laval Sustainability Report (including information in the sustainability sec- tion in the Annual Report and these Sustainability Notes) is published annually in April."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 466.68, 454.9, 482.68],
+          "block_class": "cls_7",
+          "block_idx": 18,
+          "level": 3,
+          "page_idx": 1,
+          "sentences": [
+            "1.3 Restatements of information (GRI 2-4). CO2 emissions"
+          ],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 484.68, 530.9, 509.68],
+          "block_class": "cls_8",
+          "block_idx": 19,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Scope 1: Added emissions in 2020-22 for company cars that were pre- viously excluded due to oversight.",
+            "Emissions increased by approxi- mately 1,800 tons CO2e per year."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 511.68, 529.42, 536.6799999999998],
+          "block_class": "cls_8",
+          "block_idx": 20,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Scope 3, category 2, Capital goods: Added emissions for 2020-21 and updated for 2022 using average spend-based method.",
+            "Emissions for 2022 increased by approximately 16,000 tons CO2e."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 538.68, 529.86, 563.68],
+          "block_class": "cls_8",
+          "block_idx": 21,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Scope 3, category 6, Business travel: Using more accurate emis- sions data for 2023 as proxy also for 2020-2022.",
+            "Emissions increased on average by 20,000 tons CO2e per year."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 565.68, 531.24, 599.68],
+          "block_class": "cls_8",
+          "block_idx": 22,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Scope 3, category 11, Use of sold products: Data for 2020-22 cor- rected (previously included avoided emissions for some business units).",
+            "Emissions increased by 13 Mtons CO2e (2020), 12 Mtons CO2e (2021), and 16 Mtons CO2e (2022)."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 610.68, 375.86, 617.68],
+          "block_class": "cls_7",
+          "block_idx": 23,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": ["Other information"],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 619.68, 528.04, 644.68],
+          "block_class": "cls_8",
+          "block_idx": 24,
+          "level": 5,
+          "page_idx": 1,
+          "sentences": [
+            "Waste recycled: Reporting vs. waste target 2020-23 limited to opera- tion sites included in 2020 baseline instead of all sites, resulting in a slightly higher recycling percentage annually."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 655.68, 425.0, 662.68],
+          "block_class": "cls_7",
+          "block_idx": 25,
+          "level": 3,
+          "page_idx": 1,
+          "sentences": ["1.4 External assurance (GRI 2-5)."],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 664.68, 530.14, 725.68],
+          "block_class": "cls_8",
+          "block_idx": 26,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "Alfa Laval\u2019s Board of Directors and Executive Management are respon- sible for the preparation of the Sustainability Report including the Statutory Sustainability Report.",
+            "Alfa Laval seeks external assurance of the Sustainability Report including the Statutory Sustainability Report.",
+            "The assurance provider is the company\u2019s external auditors Ernst & Young, elected at the Annual General Meeting.",
+            "The Auditor\u2019s Limited Assurance Report is published in the Annual Report."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 736.68, 524.9, 743.68],
+          "block_class": "cls_7",
+          "block_idx": 27,
+          "level": 3,
+          "page_idx": 1,
+          "sentences": [
+            "1.5 Activities, value chain other business relationships (GRI 2-6)."
+          ],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 745.68, 525.54, 752.68],
+          "block_class": "cls_8",
+          "block_idx": 28,
+          "level": 4,
+          "page_idx": 1,
+          "sentences": [
+            "d) No significant changes compared to the previous reporting period."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 62.03, 142.65, 69.03],
+          "block_class": "cls_7",
+          "block_idx": 29,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": ["1.6 Employees (GRI 2-7)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [67.11, 90.5, 525.83, 97.5],
+          "block_class": "cls_7",
+          "block_idx": 30,
+          "left": 67.11,
+          "level": 4,
+          "name": "1.5 Activities, value chain other business relationships (GRI 2-6).",
+          "page_idx": 2,
+          "table_rows": [
+            {
+              "block_idx": 30,
+              "cells": [
+                { "cell_value": "Headcount per December 31, 2023*" },
+                { "cell_value": "Asia" },
+                { "cell_value": "Central & Eastern Europe" },
+                { "cell_value": "Latin America" },
+                { "cell_value": "Nordic" },
+                { "cell_value": "North America" },
+                { "cell_value": "Western Europe" },
+                { "cell_value": "Other" },
+                { "cell_value": "Total" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 31,
+              "cells": [
+                { "cell_value": "Number of employees" },
+                { "cell_value": "5 405" },
+                { "cell_value": "735" },
+                { "cell_value": "672" },
+                { "cell_value": "6 403" },
+                { "cell_value": "1 287" },
+                { "cell_value": "2 557" },
+                { "cell_value": "151" },
+                { "cell_value": "17 210" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 32,
+              "cells": [
+                { "cell_value": "Number of temporary employees" },
+                { "cell_value": "59" },
+                { "cell_value": "10" },
+                { "cell_value": "42" },
+                { "cell_value": "516" },
+                { "cell_value": "8" },
+                { "cell_value": "164" },
+                { "cell_value": "8" },
+                { "cell_value": "807" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 33,
+              "cells": [
+                { "cell_value": "Number of permanent employees" },
+                { "cell_value": "5 346" },
+                { "cell_value": "725" },
+                { "cell_value": "630" },
+                { "cell_value": "5 887" },
+                { "cell_value": "1 279" },
+                { "cell_value": "2 393" },
+                { "cell_value": "143" },
+                { "cell_value": "16 403" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 34,
+              "cells": [
+                { "cell_value": "Number of full time employees" },
+                { "cell_value": "5 402" },
+                { "cell_value": "723" },
+                { "cell_value": "631" },
+                { "cell_value": "6 123" },
+                { "cell_value": "1 273" },
+                { "cell_value": "2 388" },
+                { "cell_value": "149" },
+                { "cell_value": "16 689" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 35,
+              "cells": [
+                { "cell_value": "Number of part-time employees" },
+                { "cell_value": "3" },
+                { "cell_value": "12" },
+                { "cell_value": "41" },
+                { "cell_value": "280" },
+                { "cell_value": "14" },
+                { "cell_value": "169" },
+                { "cell_value": "2" },
+                { "cell_value": "521" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 90.5
+        },
+        {
+          "bbox": [63.78, 225.83, 189.5, 231.83],
+          "block_class": "cls_9",
+          "block_idx": 36,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": ["Data includes Alfa Laval branded entities only."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [67.11, 259.96, 525.76, 266.96],
+          "block_class": "cls_7",
+          "block_idx": 37,
+          "left": 67.11,
+          "level": 3,
+          "name": "1.5 Activities, value chain other business relationships (GRI 2-6).",
+          "page_idx": 2,
+          "table_rows": [
+            {
+              "block_idx": 37,
+              "cells": [
+                { "cell_value": "Headcount per December 31, 2023*" },
+                { "cell_value": "Female" },
+                { "cell_value": "Male" },
+                { "cell_value": "Non Disclosed" },
+                { "cell_value": "Total" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 38,
+              "cells": [
+                { "cell_value": "Number of employees" },
+                { "cell_value": "3 806" },
+                { "cell_value": "13 375" },
+                { "cell_value": "29" },
+                { "cell_value": "17 210" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 39,
+              "cells": [
+                { "cell_value": "Number of temporary employees" },
+                { "cell_value": "286" },
+                { "cell_value": "520" },
+                { "cell_value": "1" },
+                { "cell_value": "807" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 40,
+              "cells": [
+                { "cell_value": "Number of permanent employees" },
+                { "cell_value": "3 520" },
+                { "cell_value": "12 855" },
+                { "cell_value": "28" },
+                { "cell_value": "16 403" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 41,
+              "cells": [
+                { "cell_value": "Number of full time employees" },
+                { "cell_value": "3 543" },
+                { "cell_value": "13 118" },
+                { "cell_value": "28" },
+                { "cell_value": "16 689" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 42,
+              "cells": [
+                { "cell_value": "Number of part-time employees" },
+                { "cell_value": "263" },
+                { "cell_value": "257" },
+                { "cell_value": "1" },
+                { "cell_value": "521" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 259.96
+        },
+        {
+          "bbox": [63.78, 377.29, 189.5, 383.29],
+          "block_class": "cls_9",
+          "block_idx": 43,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": ["Data includes Alfa Laval branded entities only."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 406.44, 272.1, 530.44],
+          "block_class": "cls_8",
+          "block_idx": 44,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "d) Alfa Laval employs the vast majority of its workers on permanent and full-time basis due to the high skill nature of work in most parts of the company.",
+            "Temporary employments are applied in some countries during probation period, for leave coverage and in fewer instances as the position is only required in a specific time limited capacity.",
+            "Many of these employments are part of our Nordic operation.",
+            "Furthermore, in China the distinction between permanent and temporary are not as clear as in other regions and for reporting reasons are indexed as tem- porary although having a long-lasting employment relationship with the company.",
+            "Part-time employment is offered to employees where this is a wish and the company can accommodate or where this is a statutory right.",
+            "Alfa Laval does not typically employ workers with non-guaranteed working hours and there is no consolidated information on this."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 541.44, 270.36, 557.44],
+          "block_class": "cls_8",
+          "block_idx": 45,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "e) The number of employees increased from 2022 to 2023, but there were no other significant fluctuations during the reporting period."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 568.44, 265.16, 584.44],
+          "block_class": "cls_7",
+          "block_idx": 46,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": [
+            "1.7 Role of the highest governance body in overseeing the man- agement of impacts (GRI 2-12)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 586.44, 274.11, 665.44],
+          "block_class": "cls_8",
+          "block_idx": 47,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "The highest governance body (Board of Directors) sets the overall direction for the company, including deciding on the sustainability strategy and targets proposed by Group Management that address material impacts.",
+            "The Board regularly reviews the company\\'s sustain- ability performance and evaluates the effectiveness of processes to manage material sustainability impacts.",
+            "Apart from shareholders, the Board does not normally directly engage with stakeholders on sustain- ability impacts, but is informed by management about key aspects of such stakeholder engagement that takes place throughout the year."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 676.44, 270.72, 683.44],
+          "block_class": "cls_7",
+          "block_idx": 48,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": [
+            "1.8 Delegation of responsibility for managing impacts (GRI 2-13)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 685.44, 275.56, 701.44],
+          "block_class": "cls_8",
+          "block_idx": 49,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "Group Management coordinates and different internal forums work with focus areas from the sustainability strategy on behalf of the Board."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 406.44, 526.87, 485.44],
+          "block_class": "cls_8",
+          "block_idx": 50,
+          "level": 5,
+          "page_idx": 2,
+          "sentences": [
+            "A number of these focus areas are coordinated through Group Sustainability under the Senior Vice President & Chief Legal Officer/ Head of Group Affairs, who is also the Secretary to the Board and keeps the Board continuously updated on developments affecting the company\\'s sustainability management and performance.",
+            "Other focus areas are coordinated through corporate functions such as Human Resources and Global Sourcing.",
+            "Responsibility for the day-to-day management of sustainability impacts is delegated to the leadership teams of the divisions and business units."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 496.44, 480.38, 503.44],
+          "block_class": "cls_7",
+          "block_idx": 51,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": ["1.9 Communication of critical concerns (GRI 2-16)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 505.44, 529.18, 557.44],
+          "block_class": "cls_8",
+          "block_idx": 52,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "a) Critical concerns are raised to the Risk and Compliance Board (RCB) where members of Group Management are present.",
+            "At times between RCB meetings, Senior Vice President & Chief Legal Officer represents the RCB.",
+            "Senior Vice President & Chief Legal Officer is also a member of the Group Management.",
+            "Group Management decides if the concern is to be raised to the Board or not."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 568.44, 525.4, 584.44],
+          "block_class": "cls_8",
+          "block_idx": 53,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "b) There were no (0) critical concerns communicated to the Board of Directors during the reporting period."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 595.44, 528.42, 602.44],
+          "block_class": "cls_7",
+          "block_idx": 54,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": [
+            "1.10 Collective knowledge of highest governance body (GRI 2-17)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 604.44, 526.45, 656.44],
+          "block_class": "cls_8",
+          "block_idx": 55,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "a) The Board of Directors receives information from internal experts, makes site visits and attends external meetings and conferences on sustainability-related issues.",
+            "The Board is regularly updated by mem- bers of Group Management and vice presidents of group functions on relevant sustinability topics pertaining to Alfa Laval\\'s sustainability strategy and performance."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 667.44, 529.71, 683.44],
+          "block_class": "cls_7",
+          "block_idx": 56,
+          "level": 3,
+          "page_idx": 2,
+          "sentences": [
+            "1.11 Evaluation of the performance of the highest governance body (GRI 2-18)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 685.44, 531.5, 719.44],
+          "block_class": "cls_8",
+          "block_idx": 57,
+          "level": 4,
+          "page_idx": 2,
+          "sentences": [
+            "a) The Board evaluates its work through a yearly survey.",
+            "In the survey performance regarding sustainability including environmental and social aspects are included.",
+            "Safety and anti-corruption are other exam- ples on what is included in the evaluation."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 62.03, 272.55, 87.03],
+          "block_class": "cls_8",
+          "block_idx": 58,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "c) In response to the yearly survey (see 2-18 a) answers from previous years, on how the company works with risks (including crisis manage- ment and whistle blowing) has been lifted to the Board."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 98.03, 185.26, 105.03],
+          "block_class": "cls_7",
+          "block_idx": 59,
+          "level": 3,
+          "page_idx": 3,
+          "sentences": ["1.12 Remuneration policies (GRI 2-19)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 107.03, 275.63, 141.03],
+          "block_class": "cls_8",
+          "block_idx": 60,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "Remuneration policies for the Board of Directors and Group Management are disclosed in the Annual Report.",
+            "These policies do not currently include remuneration based on sustainability-related perfor- mance or attainment of specific sustainability targets."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 62.03, 531.33, 87.03],
+          "block_class": "cls_8",
+          "block_idx": 61,
+          "level": 5,
+          "page_idx": 3,
+          "sentences": [
+            "1.15 Embedding policy commitments (GRI 2-24).",
+            "a i, ii) The accountability to implement the commitments lies with each Business Unit.",
+            "Group Sustainability leads and facilitates."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 98.03, 529.46, 141.03],
+          "block_class": "cls_8",
+          "block_idx": 62,
+          "level": 5,
+          "page_idx": 3,
+          "sentences": [
+            "iii) How Alfa Laval implements its commitments is described in the Business Principles.",
+            "For instance, as an employee, you should \u201cApply these Business Principles in the daily work and take personal responsi- bility for complying with them.\u201d",
+            "As a manager, you should: \u201cLead by example\u201d and \u201cEnsure that your team is trained regularly\u201d."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 152.03, 216.64, 159.03],
+          "block_class": "cls_7",
+          "block_idx": 63,
+          "level": 3,
+          "page_idx": 3,
+          "sentences": ["1.13 Annual total compensation ratio (GRI 2-21)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 161.03, 271.92, 258.03],
+          "block_class": "cls_8",
+          "block_idx": 64,
+          "level": 3,
+          "page_idx": 3,
+          "sentences": [
+            "This information will be disclosed in the executive remuneration report published on alfalaval.com 1.14 Policy commitments (GRI 2-23).",
+            "a, i and b, i) The Alfa Laval Business Principles were first published in 2003 and revised in 2012 to incorporate the 2011 \u201cProtect, Respect and Remedy\u201d concept of the United Nations Guiding Principles on Business and Human Rights, and the 2011 revision of the OECD Guidelines for multi-national enterprises.",
+            "The revision made in 2017 incorporated the concepts in the 2015 UK Modern Slavery Act. The Business Principles are approved by the Alfa Laval Board."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 152.03, 521.26, 168.03],
+          "block_class": "cls_8",
+          "block_idx": 65,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "a, iv) Through training in the Business Principles and information on the intranet."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 179.03, 503.58, 186.03],
+          "block_class": "cls_7",
+          "block_idx": 66,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "1.16 Processes to remediate negative impacts (GRI 2-25)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 188.03, 531.05, 231.03],
+          "block_class": "cls_8",
+          "block_idx": 67,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "It is always possible to communicate grievances through contact infor- mation on alfalaval.com and to local sites.",
+            "When larger changes of facilities and/or operations are planned, communication with local and other stake holders is ensured through standardized processes required by national laws and local authorities."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 269.03, 276.35, 330.03],
+          "block_class": "cls_8",
+          "block_idx": 68,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "a, iii) Applying the precautionary principle is part of what the Business Principles stipulates.",
+            "By educating in the Business Principles, we also ensure precautionary measures.",
+            "The environmental policy stipulates that a precautionary approach should be taken to environmental chal- lenges.",
+            "Most major operation sites are working in accordance with ISO 14001 which requires a precautionary approach to environmental man- agement."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 341.03, 276.09, 366.03],
+          "block_class": "cls_10",
+          "block_idx": 69,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "a, iv, and b) The Business Principles stipulate respecting human rights: \u201cWe have a firm commitment to act responsibly and respect human rights.\u201d",
+            "(Tom Erixon, CEO)."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 377.03, 266.76, 411.03],
+          "block_class": "cls_8",
+          "block_idx": 70,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "b, ii) Our Business Principles audits highlight six critical areas: child labor, young labor, forced labor, freedom of association, health and safety, fire protection and environment.",
+            "We consider all stakeholders are equally important with regards to respecting human rights."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 233.03, 531.34, 294.03],
+          "block_class": "cls_8",
+          "block_idx": 71,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "Most major operation sites are certified according to ISO 14001, and thus have processes in place to comply with the ISO 14001 require- ments regarding complaints to be answered promptly and clearly - seeing this input as an opportunity for improvement of the environmen- tal management system - and requirements on management review, including \u201crelevant communication(s) from interested parties, including complaints\u201d."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 305.03, 492.01, 312.03],
+          "block_class": "cls_7",
+          "block_idx": 72,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "1.17 Compliance with laws and regulations (GRI 2-27)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 314.03, 523.97, 339.03],
+          "block_class": "cls_8",
+          "block_idx": 73,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "Legislative compliance ensures our business legitimacy.",
+            "No significant fines or non-monetary sanctions regarding environmental or socioeco- nomic performance have come to Alfa Laval\u2019s attention during 2023."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 350.03, 453.19, 357.03],
+          "block_class": "cls_7",
+          "block_idx": 74,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": ["1.18 Membership associations (GRI 2-28)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 359.03, 529.94, 393.03],
+          "block_class": "cls_8",
+          "block_idx": 75,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "Alfa Laval is a member of Teknikf\u00f6retagen (the Association of Swedish Engineering Industries), International Chamber of Commerce (ICC) Business Sweden, Long Duration Energy Storage Council, Hydrogen Council."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 404.03, 479.92, 411.03],
+          "block_class": "cls_7",
+          "block_idx": 76,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": ["1.19 Collective bargaining agreements (GRI 2-30)."],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 413.03, 529.29, 456.03],
+          "block_class": "cls_8",
+          "block_idx": 77,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "a) Our Business Principles stipulate that all employees shall be free to form and to join trade unions or similar external representative organi- zations and to bargain collectively.",
+            "The coverage varies from country to country.",
+            "Globally, approximately 52% of employees are covered by col- lective bargaining agreements."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 422.03, 238.21, 438.03],
+          "block_class": "cls_8",
+          "block_idx": 78,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "c) Our policy commitments can be found here: alfalaval.com/about-us/sustainability/a-matter-of-trust/"
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 493.06, 145.14, 505.06],
+          "block_class": "cls_6",
+          "block_idx": 79,
+          "level": 2,
+          "page_idx": 3,
+          "sentences": ["Note 2. Climate"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 516.06, 272.32, 523.06],
+          "block_class": "cls_7",
+          "block_idx": 80,
+          "level": 3,
+          "page_idx": 3,
+          "sentences": [
+            "2.1 Greenhouse gas (GHG) emissions (GRI 305-1, 305-2, 305-3)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [67.11, 540.64, 282.26, 547.64],
+          "block_class": "cls_7",
+          "block_idx": 81,
+          "left": 67.11,
+          "level": 4,
+          "name": "Note 2. Climate",
+          "page_idx": 3,
+          "table_rows": [
+            {
+              "block_idx": 81,
+              "cells": [
+                { "cell_value": "CO2 emissions (tons CO2e)" },
+                { "cell_value": "2020" },
+                { "cell_value": "2023" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 82,
+              "cells": [
+                { "cell_value": "Scope 1" },
+                { "cell_value": "21,612" },
+                { "cell_value": "16,282" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 83,
+              "cells": [
+                { "cell_value": "Scope 2 (market-based)" },
+                { "cell_value": "23,027" },
+                { "cell_value": "5,082" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 84,
+              "cells": [
+                { "cell_value": "Scope 2 (location-based)" },
+                { "cell_value": "65,534" },
+                { "cell_value": "50,071" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 85,
+              "cell_value": "5) Data was consolidated based on operational control. For information on the overall data collection and consolidation approach please see page 2.",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 86,
+              "cells": [
+                { "cell_value": "Scope 3" },
+                { "cell_value": "41,855,905" },
+                { "cell_value": "44,554,244" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 540.64
+        },
+        {
+          "bbox": [318.9, 534.25, 523.29, 548.25],
+          "block_class": "cls_9",
+          "block_idx": 87,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "1) No gases other than CO2 were included in the calculations, as emissions of CH4, N2O, HFCs, PFCs, SF6, NF3 are negligible in all scopes."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 550.25, 524.05, 564.25],
+          "block_class": "cls_9",
+          "block_idx": 88,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "2) Alfa Laval uses energy derived from biomass at certain sites, but we do not presently have accurate calculations of these emissions."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 566.25, 525.84, 588.25],
+          "block_class": "cls_9",
+          "block_idx": 89,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "3) 2020 has been chosen as base year, as 2020 is the first year of Alfa Laval\u2019s sustainability target period 2020\u20132023.",
+            "Base year emissions have been recalculated for scope 1 and scope 3, see Note 1.3."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 590.25, 509.32, 604.25],
+          "block_class": "cls_9",
+          "block_idx": 90,
+          "level": 4,
+          "page_idx": 3,
+          "sentences": [
+            "4) Emission factors come from databases maintained by IEA and Defra, national residual mix, and from local energy suppliers."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [86.46, 90.38, 454.46999999999997, 97.38],
+          "block_class": "cls_7",
+          "block_idx": 91,
+          "left": 86.46,
+          "level": 3,
+          "name": "Note 2. Climate",
+          "page_idx": 4,
+          "table_rows": [
+            {
+              "block_idx": 91,
+              "cells": [
+                { "cell_value": "Scope 3 emissions 2023" },
+                { "cell_value": "tons CO2e" },
+                { "cell_value": "Method description" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 92,
+              "cells": [
+                { "cell_value": "Category 1: Purchased goods and services" },
+                { "cell_value": "605,623" },
+                {
+                  "cell_value": "Average data method. Emission factors from Defra."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 93,
+              "cells": [
+                { "cell_value": "Category 2: Capital goods" },
+                { "cell_value": "62,110" },
+                {
+                  "cell_value": "Spend-based method. Emission factors from Defra."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 94,
+              "cells": [
+                { "cell_value": "Category 3: Fuel- and energy-related" },
+                { "cell_value": "17,150" },
+                {
+                  "cell_value": "Average data method. Emission factors from Defra (spend-based) and IEA for T&D losses."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 95,
+              "cells": [
+                { "cell_value": "Category 4: Upstream transport" },
+                { "cell_value": "48,308" },
+                {
+                  "cell_value": "Distance-based method. Data from forwarder reports."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 96,
+              "cells": [
+                { "cell_value": "Category 5: Waste" },
+                { "cell_value": "2,203" },
+                { "cell_value": "Waste-type-specific method" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 97,
+              "cells": [
+                { "cell_value": "Category 6: Business travel" },
+                { "cell_value": "26,443" },
+                {
+                  "cell_value": "Distance-based method. Data from Alfa Laval travel management system."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 98,
+              "cells": [
+                { "cell_value": "Category 7: Employee commuting" },
+                { "cell_value": "27,717" },
+                {
+                  "cell_value": "Average data method. Calculated using 1.3 CO2 ton per employee. Estimation based on employee surveys."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 99,
+              "cells": [
+                { "cell_value": "Category 8: Upstream leased assets" },
+                { "cell_value": "EXCLUDED" },
+                {
+                  "cell_value": "Company cars are included in scope 1, no other leased assets upstream. Leased facilities are included in our scope 1 and 2."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 100,
+              "cells": [
+                { "cell_value": "Category 9: Downstream transport" },
+                { "cell_value": "9,662" },
+                {
+                  "cell_value": "Distance-based method. Estimated as 20% of Category 4."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 101,
+              "cells": [
+                { "cell_value": "Category 10: Processing of sold products" },
+                { "cell_value": "EXCLUDED" },
+                { "cell_value": "N/A in our business model." }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 102,
+              "cells": [
+                { "cell_value": "Category 11: Use of sold products" },
+                { "cell_value": "43,749,138" },
+                {
+                  "cell_value": "Direct use-phase method. Gross life cycle energy consumption of sold products in fiscal year multiplied with emission factors from IEA and Defra."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 103,
+              "cells": [
+                {
+                  "cell_value": "Category 12: End-of-life treatment of sold products"
+                },
+                { "cell_value": "5,889" },
+                {
+                  "cell_value": "Waste-type-specific method. Using sourced weight as basis. Split between incineration, recycled and landfill."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 104,
+              "cells": [
+                { "cell_value": "Category 13: Downstream leased assets" },
+                { "cell_value": "EXCLUDED" },
+                { "cell_value": "N/A in our business model." }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 105,
+              "cells": [
+                { "cell_value": "Category 14: Franchises" },
+                { "cell_value": "EXCLUDED" },
+                { "cell_value": "N/A in our business model." }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 106,
+              "cells": [
+                { "cell_value": "Category 15: Investments" },
+                { "cell_value": "EXCLUDED" },
+                {
+                  "cell_value": "Emissions from our minority ownerships is negligible."
+                }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 90.38
+        },
+        {
+          "bbox": [63.78, 62.03, 163.56, 69.03],
+          "block_class": "cls_7",
+          "block_idx": 107,
+          "level": 3,
+          "page_idx": 4,
+          "sentences": ["Scope 3 emissions by category"],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 446.29, 156.55, 458.29],
+          "block_class": "cls_6",
+          "block_idx": 108,
+          "level": 2,
+          "page_idx": 4,
+          "sentences": ["Note 3. Circularity"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 469.29, 180.87, 476.29],
+          "block_class": "cls_7",
+          "block_idx": 109,
+          "level": 3,
+          "page_idx": 4,
+          "sentences": ["3.1 Energy consumption (GRI 302-1)."],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 478.29, 275.25, 584.29],
+          "block_class": "cls_8",
+          "block_idx": 110,
+          "level": 4,
+          "page_idx": 4,
+          "sentences": [
+            "Consumption of non-renewable fuel includes the consumption of light oil, heavy oil, liquefied petroleum gas and natural gas.",
+            "Consumption of renewable fuel includes the consumption of biogas.",
+            "Electricity con- sumption includes both the consumption of purchased electricity and the consumption of self-generated electricity (solar power) which accounts for 2 percent of the total electricity consumed.",
+            "Energy used in vehicles that are owned or controlled by the organization is not included in the figures below.",
+            "Alfa Laval does not sell any significant (>1%) amounts of electricity, heating, cooling nor steam.",
+            "Data is col- lected from sites on a quarterly basis from invoices and meter readings.",
+            "Generic conversion factors for fuels and local units of measurement are applied automatically in the Alfa Laval sustainability reporting tool."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [67.11, 601.75, 236.32000000000005, 617.75],
+          "block_class": "cls_7",
+          "block_idx": 111,
+          "left": 67.11,
+          "level": 5,
+          "name": "3.1 Energy consumption (GRI 302-1).",
+          "page_idx": 4,
+          "table_rows": [
+            {
+              "block_idx": 111,
+              "cells": [
+                { "cell_value": "Energy consumed 2023" },
+                { "cell_value": "MWh" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 112,
+              "cells": [
+                { "cell_value": "Non-renewable fuel consumption" },
+                { "cell_value": "55,706" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 113,
+              "cells": [
+                { "cell_value": "Renewable fuel consumption" },
+                { "cell_value": "2,800" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 114,
+              "cells": [
+                { "cell_value": "Heating consumption" },
+                { "cell_value": "25,898" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 115,
+              "cells": [
+                { "cell_value": "Electricity consumption" },
+                { "cell_value": "216,718" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 116,
+              "cells": [
+                { "cell_value": "Cooling consumption" },
+                { "cell_value": "25" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 117,
+              "cells": [
+                { "cell_value": "Steam consumption" },
+                { "cell_value": "526" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 118,
+              "cells": [
+                { "cell_value": "Total energy consumed" },
+                { "cell_value": "301,673" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 119,
+              "cell_value": "3.2 Water and effluents (GRI 303-1, 303-2, 303-3). Interactions with water as a shared resource (303-1)",
+              "col_span": 3,
+              "type": "full_row"
+            }
+          ],
+          "tag": "table",
+          "top": 601.75
+        },
+        {
+          "bbox": [318.9, 487.08, 529.59, 566.0800000000002],
+          "block_class": "cls_8",
+          "block_idx": 120,
+          "level": 3,
+          "page_idx": 4,
+          "sentences": [
+            "Alfa Laval\u2019s main production processes do not consume significant amounts of water, as most water is used in the testing of our products and in service procedures, returning to the environment after municipal wastewater treatment.",
+            "To minimize possible water impacts caused by our own activities, Alfa Laval actively works on decreasing water with- drawals and increasing water efficiency using water recirculation sys- tems in our operations and service centres.",
+            "Effluent water is pre- treated as necessary before discharging to municipal wastewater treatment networks."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 568.08, 531.21, 629.08],
+          "block_class": "cls_8",
+          "block_idx": 121,
+          "level": 4,
+          "page_idx": 4,
+          "sentences": [
+            "Alfa Laval strives to optimize the use of water in the most efficient manner in our business, and especially at our facilities located in water- stressed regions.",
+            "We have set water targets for these areas where water scarcity is a concern.",
+            "We have identified water-stressed areas by using the World Resources Institute \u2018Aqueduct Water Risk Atlas\u2019 tool.",
+            "Sites are considered as water-stressed if their baseline water stress is classified as high or above according to this tool."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 631.08, 528.64, 692.08],
+          "block_class": "cls_8",
+          "block_idx": 122,
+          "level": 4,
+          "page_idx": 4,
+          "sentences": [
+            "To address water-related impacts, Alfa Laval has set both short- and long-term targets to minimize water withdrawals in our facilities located in water-stressed areas.",
+            "Moreover, our suppliers are assessed for risks of environmental impacts associated with production pro- cesses.",
+            "Many of our products make a significant contribution to reduc- ing the water use and environmental impact of our customers\u2019 indus- trial processes."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 694.08, 527.09, 728.08],
+          "block_class": "cls_8",
+          "block_idx": 123,
+          "level": 4,
+          "page_idx": 4,
+          "sentences": [
+            "Alfa Laval\u2019s water targets are based on the assessment of material impacts.",
+            "This assessment is performed together with stakeholders such as suppliers and the communities in which we operate, including universities and local governments."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 62.03, 250.47, 69.03],
+          "block_class": "cls_7",
+          "block_idx": 124,
+          "level": 3,
+          "page_idx": 5,
+          "sentences": [
+            "Management of water discharge-related impacts (303-2)"
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 71.03, 271.54, 114.03],
+          "block_class": "cls_8",
+          "block_idx": 125,
+          "level": 3,
+          "page_idx": 5,
+          "sentences": [
+            "Alfa Laval does not have any direct effluent discharges to systems other than local municipal wastewater treatment networks.",
+            "All our sites are located in countries that have regulated wastewater treat- ment in place.",
+            "We have not set any minimum standards for the quality of effluent discharge beyond adhering to local regulations."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 116.03, 274.6, 168.03],
+          "block_class": "cls_8",
+          "block_idx": 126,
+          "level": 4,
+          "page_idx": 5,
+          "sentences": [
+            "All effluent is collected by third-party sources and treated following local regulations.",
+            "Wastewater discharges to the municipal wastewater treatment network comply with effluent parameters thresholds from local authorities.",
+            "In specific cases in which effluent parameters are above thresholds, effluent is first stored and then collected by qualified industrial wastewater treatment companies."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 179.03, 149.35, 186.03],
+          "block_class": "cls_7",
+          "block_idx": 127,
+          "level": 3,
+          "page_idx": 5,
+          "sentences": ["Water withdrawal (303-3)"],
+          "tag": "para"
+        },
+        {
+          "bbox": [67.11, 197.45, 271.39, 204.45],
+          "block_class": "cls_7",
+          "block_idx": 128,
+          "left": 67.11,
+          "level": 4,
+          "name": "3.1 Energy consumption (GRI 302-1).",
+          "page_idx": 5,
+          "table_rows": [
+            {
+              "block_idx": 128,
+              "cells": [
+                { "cell_value": "Total water withdrawal 2023" },
+                { "cell_value": "ML" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 129,
+              "cells": [
+                { "cell_value": "Third-party water:" },
+                {
+                  "cell_value": {
+                    "bbox": [260.01, 216.87, 272.66, 223.87],
+                    "block_class": "cls_8",
+                    "block_idx": 131,
+                    "page_idx": 5,
+                    "sentences": ["678"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 130,
+              "cells": [
+                { "cell_value": "Surface water:" },
+                {
+                  "cell_value": {
+                    "bbox": [263.96, 236.29, 272.66, 243.29],
+                    "block_class": "cls_8",
+                    "block_idx": 132,
+                    "page_idx": 5,
+                    "sentences": ["45"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 131,
+              "cells": [
+                { "cell_value": "Groundwater:" },
+                {
+                  "cell_value": {
+                    "bbox": [263.84, 255.72, 272.66, 262.72],
+                    "block_class": "cls_8",
+                    "block_idx": 133,
+                    "page_idx": 5,
+                    "sentences": ["65"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 132,
+              "cells": [
+                {
+                  "cell_value": "Water withdrawal (water-stressed areas) 2023"
+                },
+                {
+                  "cell_value": {
+                    "bbox": [257.97, 275.14, 268.16, 282.14],
+                    "block_class": "cls_7",
+                    "block_idx": 134,
+                    "page_idx": 5,
+                    "sentences": ["ML"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 133,
+              "cells": [
+                { "cell_value": "Third-party water:" },
+                {
+                  "cell_value": {
+                    "bbox": [259.25, 294.56, 272.66, 301.56],
+                    "block_class": "cls_8",
+                    "block_idx": 135,
+                    "page_idx": 5,
+                    "sentences": ["230"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 134,
+              "cells": [
+                { "cell_value": "Surface water:" },
+                {
+                  "cell_value": {
+                    "bbox": [268.2, 313.99, 272.66, 320.99],
+                    "block_class": "cls_8",
+                    "block_idx": 136,
+                    "page_idx": 5,
+                    "sentences": ["8"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 135,
+              "cells": [
+                { "cell_value": "Groundwater:" },
+                {
+                  "cell_value": {
+                    "bbox": [265.57, 333.41, 272.66, 340.41],
+                    "block_class": "cls_8",
+                    "block_idx": 137,
+                    "page_idx": 5,
+                    "sentences": ["16"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 136,
+              "cell_value": "Data is reported quarterly by Alfa Laval sites based on meter readings and invoices. All water withdrawn has less than 1,000 mg/L of total dissolved solids and is therefore considered freshwater. Alfa Laval does not use any seawater or produced water. Water-stressed areas were determined using the WRI \u2018Aqueduct Water Risk Atlas\u2019 tool. Currently Alfa Laval has 48 sites (based on geographic location) located in water-stressed areas (classified as high- and extremely high risk according to the \u2018Aqueduct Water Risk Atlas).",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 137,
+              "cell_value": "3.3 Waste (GRI 306-1, 306-2, 306-5). Waste generation and significant waste-related impacts (306-1)",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 138,
+              "cell_value": "Most of Alfa Laval\u2019s products are made from metals which means that the majority of waste generated in terms of weight is recycled. Packaging material from purchased products and materials and scrap from our operations and service centers are significant waste fractions at Alfa Laval sites. By reducing, reusing and recycling packing material and scrap, Alfa Laval aims to continuously decrease waste volumes.",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 139,
+              "cell_value": "Management of significant waste-related impacts (306-2) Alfa Laval\u2019s waste is managed by certified waste management com- panies. Waste-related data is monitored and mainly provided by these companies. Alfa Laval has developed an internal waste guideline to improve sorting and classification of waste in order to take steps towards our long-term target of zero waste to landfill by 2030.",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 140,
+              "cell_value": "Waste directed to disposal (306-5) During 2023, Alfa Laval generated 28,926 metric tons of waste, of which 19,350 tons (67%) were diverted from disposal and 9,576 tons (33%) were sent to disposal. All waste disposal occurs offsite.",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 141,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [511.81, 85.2, 527.69, 92.2],
+                    "block_class": "cls_7",
+                    "block_idx": 146,
+                    "page_idx": 5,
+                    "sentences": ["Tons"],
+                    "tag": "para"
+                  }
+                },
+                {
+                  "cell_value": "Waste directed to offsite disposal by disposal operation* Waste type"
+                },
+                { "cell_value": "Tons" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 142,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [514.36, 124.04, 527.68, 131.04000000000002],
+                    "block_class": "cls_8",
+                    "block_idx": 148,
+                    "page_idx": 5,
+                    "sentences": ["399"],
+                    "tag": "para"
+                  }
+                },
+                {
+                  "cell_value": "Hazardous waste Incineration (with energy recovery)"
+                },
+                { "cell_value": "399" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 143,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [516.32, 143.47, 527.68, 150.47],
+                    "block_class": "cls_8",
+                    "block_idx": 149,
+                    "page_idx": 5,
+                    "sentences": ["212"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Incineration (without energy recovery)" },
+                { "cell_value": "212" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 144,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [516.2, 162.32, 527.68, 169.32],
+                    "block_class": "cls_8",
+                    "block_idx": 150,
+                    "page_idx": 5,
+                    "sentences": ["153"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Landfilling" },
+                { "cell_value": "153" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 145,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [508.57, 181.18, 527.69, 188.18],
+                    "block_class": "cls_8",
+                    "block_idx": 151,
+                    "page_idx": 5,
+                    "sentences": ["2,592"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Other disposal operations" },
+                { "cell_value": "2,592" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 146,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [507.68, 200.6, 527.69, 207.6],
+                    "block_class": "cls_7",
+                    "block_idx": 152,
+                    "page_idx": 5,
+                    "sentences": ["3,355"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Total" },
+                { "cell_value": "3,355" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 147,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [511.72, 239.45, 527.68, 246.45],
+                    "block_class": "cls_8",
+                    "block_idx": 154,
+                    "page_idx": 5,
+                    "sentences": ["3,011"],
+                    "tag": "para"
+                  }
+                },
+                {
+                  "cell_value": "Non-hazardous waste Incineration (with energy recovery)"
+                },
+                { "cell_value": "3,011" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 148,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [516.09, 258.87, 527.69, 265.87],
+                    "block_class": "cls_8",
+                    "block_idx": 155,
+                    "page_idx": 5,
+                    "sentences": ["182"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Incineration (without energy recovery)" },
+                { "cell_value": "182" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 149,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [508.19, 277.73, 527.68, 284.73],
+                    "block_class": "cls_8",
+                    "block_idx": 156,
+                    "page_idx": 5,
+                    "sentences": ["3,028"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Landfilling" },
+                { "cell_value": "3,028" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 150,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [523.08, 296.58, 527.69, 303.58],
+                    "block_class": "cls_8",
+                    "block_idx": 157,
+                    "page_idx": 5,
+                    "sentences": ["0"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Other disposal operations" },
+                { "cell_value": "0" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 151,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": {
+                    "bbox": [508.92, 315.44, 527.68, 322.44],
+                    "block_class": "cls_7",
+                    "block_idx": 158,
+                    "page_idx": 5,
+                    "sentences": ["6,221"],
+                    "tag": "para"
+                  }
+                },
+                { "cell_value": "Total" },
+                { "cell_value": "6,221" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 197.45
+        },
+        {
+          "bbox": [318.9, 339.76, 528.58, 353.76],
+          "block_class": "cls_9",
+          "block_idx": 152,
+          "level": 5,
+          "page_idx": 5,
+          "sentences": [
+            "No onsite disposal takes place at Alfa Laval; all waste is managed by certified waste management companies."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 380.76, 394.43, 392.76],
+          "block_class": "cls_6",
+          "block_idx": 153,
+          "level": 3,
+          "page_idx": 5,
+          "sentences": ["Note 4. Caring"],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 403.76, 508.69, 410.76],
+          "block_class": "cls_7",
+          "block_idx": 154,
+          "level": 4,
+          "page_idx": 5,
+          "sentences": [
+            "4.1 New employee hires and employee turnover (GRI 401-1)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [509.17, 420.22, 713.1700000000001, 427.22],
+          "block_class": "cls_7",
+          "block_idx": 155,
+          "left": 509.17,
+          "level": 5,
+          "name": "Note 4. Caring",
+          "page_idx": 5,
+          "table_rows": [
+            {
+              "block_idx": 155,
+              "cells": [{ "cell_value": "" }, { "cell_value": "2023" }],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 156,
+              "cells": [
+                { "cell_value": "New employee hires" },
+                { "cell_value": "3,156" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 157,
+              "cells": [
+                { "cell_value": "Of whom are women" },
+                { "cell_value": "908" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 158,
+              "cells": [
+                { "cell_value": "Of whom are men" },
+                { "cell_value": "2,243" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 159,
+              "cells": [
+                { "cell_value": "Of whom are under 30" },
+                { "cell_value": "1,663" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 160,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350" },
+                { "cell_value": "1,273" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 161,
+              "cells": [
+                { "cell_value": "Of whom are over 50" },
+                { "cell_value": "220" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 162,
+              "cells": [{ "cell_value": "Asia" }, { "cell_value": "771" }],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 163,
+              "cells": [
+                { "cell_value": "Central & Eastern Europe" },
+                { "cell_value": "142" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 164,
+              "cells": [
+                { "cell_value": "Latin America" },
+                { "cell_value": "151" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 165,
+              "cells": [{ "cell_value": "Nordic" }, { "cell_value": "1,394" }],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 166,
+              "cells": [
+                { "cell_value": "North America" },
+                { "cell_value": "231" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 167,
+              "cells": [{ "cell_value": "Other" }, { "cell_value": "31" }],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 168,
+              "cells": [
+                { "cell_value": "Western Europe" },
+                { "cell_value": "436" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 420.22
+        },
+        {
+          "bbox": [68.28, 69.12, 272.28, 76.12],
+          "block_class": "cls_7",
+          "block_idx": 169,
+          "left": 68.28,
+          "level": 5,
+          "name": "Note 4. Caring",
+          "page_idx": 6,
+          "table_rows": [
+            {
+              "block_idx": 169,
+              "cells": [
+                { "cell_value": "Rate of new employee hires" },
+                { "cell_value": "18%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 170,
+              "cells": [
+                { "cell_value": "Of whom are women" },
+                { "cell_value": "29%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 171,
+              "cells": [
+                { "cell_value": "Of whom are men" },
+                { "cell_value": "71%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 172,
+              "cells": [
+                { "cell_value": "Of whom are under 30" },
+                { "cell_value": "53%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 173,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350" },
+                { "cell_value": "40%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 174,
+              "cells": [
+                { "cell_value": "Of whom are over 50" },
+                { "cell_value": "7%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 175,
+              "cells": [
+                { "cell_value": "Asia" },
+                { "cell_value": "24%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 176,
+              "cells": [
+                { "cell_value": "Central & Eastern Europe" },
+                { "cell_value": "4%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 177,
+              "cells": [
+                { "cell_value": "Latin America" },
+                { "cell_value": "5%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 178,
+              "cells": [
+                { "cell_value": "Nordic" },
+                { "cell_value": "44%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 179,
+              "cells": [
+                { "cell_value": "North America" },
+                { "cell_value": "7%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 180,
+              "cells": [
+                { "cell_value": "Other" },
+                { "cell_value": "1%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 181,
+              "cells": [
+                { "cell_value": "Western Europe" },
+                { "cell_value": "14%" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 182,
+              "cells": [
+                { "cell_value": "Total number of employee turnover*" },
+                { "cell_value": "2,390" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 183,
+              "cells": [
+                { "cell_value": "Of whom are women" },
+                { "cell_value": "591" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 184,
+              "cells": [
+                { "cell_value": "Of whom are men" },
+                { "cell_value": "1,790" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 185,
+              "cells": [
+                { "cell_value": "Of whom are under 30" },
+                { "cell_value": "958" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 186,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350" },
+                { "cell_value": "928" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 187,
+              "cells": [
+                { "cell_value": "Of whom are over 50" },
+                { "cell_value": "504" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 188,
+              "cells": [
+                { "cell_value": "Asia" },
+                { "cell_value": "568" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 189,
+              "cells": [
+                { "cell_value": "Central & Eastern Europe" },
+                { "cell_value": "111" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 190,
+              "cells": [
+                { "cell_value": "Latin America" },
+                { "cell_value": "94" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 191,
+              "cells": [
+                { "cell_value": "Nordic" },
+                { "cell_value": "1,009" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 192,
+              "cells": [
+                { "cell_value": "North America" },
+                { "cell_value": "202" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 193,
+              "cells": [
+                { "cell_value": "Other" },
+                { "cell_value": "27" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 194,
+              "cells": [
+                { "cell_value": "Western Europe" },
+                { "cell_value": "379" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 195,
+              "cell_value": "Turnover includes both temporary and permanent employees.",
+              "col_span": 4,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 196,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Rate of employee turnover" },
+                { "cell_value": "14%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 197,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Of whom are women" },
+                { "cell_value": "25%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 198,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Of whom are men" },
+                { "cell_value": "75%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 199,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Of whom are under 30" },
+                { "cell_value": "40%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 200,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Of whom are 30\u201350" },
+                { "cell_value": "39%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 201,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Of whom are over 50" },
+                { "cell_value": "21%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 202,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Asia" },
+                { "cell_value": "24%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 203,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Central & Eastern Europe" },
+                { "cell_value": "5%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 204,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Latin America" },
+                { "cell_value": "4%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 205,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Nordic" },
+                { "cell_value": "42%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 206,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "North America" },
+                { "cell_value": "8%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 207,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Other" },
+                { "cell_value": "1%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 208,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "" },
+                { "cell_value": "Western Europe" },
+                { "cell_value": "16%" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 69.12
+        },
+        {
+          "bbox": [318.9, 347.41, 526.06, 354.41],
+          "block_class": "cls_7",
+          "block_idx": 209,
+          "level": 4,
+          "page_idx": 6,
+          "sentences": [
+            "4.2 Average hours of training per year per employee (GRI 404-1)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 356.41, 528.45, 399.41],
+          "block_class": "cls_8",
+          "block_idx": 210,
+          "level": 4,
+          "page_idx": 6,
+          "sentences": [
+            "Relevant training can have a significant positive impact on employees\\' career and personal development.",
+            "Alfa Laval has established a learn- ing strategy with the ambition to bolster employees\\' behaviour and performance with re-skilling and up-skilling various competencies and capabilities through appropriate learning solutions."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 401.41, 529.32, 462.41],
+          "block_class": "cls_8",
+          "block_idx": 211,
+          "level": 5,
+          "page_idx": 6,
+          "sentences": [
+            "The starting point for selecting appropriate training is the perfor- mance development dialogue that every Alfa Laval employee has with their manager each year.",
+            "A large number of global and local trainings are made available through a learning portal accessible by all employ- ees via the intranet.",
+            "In addition, the Alfa Laval Academy has dedicated faculties developing training programs for specific employee groups, focusing on products and applications, leadership and sustainability."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 464.41, 525.38, 480.41],
+          "block_class": "cls_8",
+          "block_idx": 212,
+          "level": 5,
+          "page_idx": 6,
+          "sentences": [
+            "Alfa Laval monitors the number of training hours undertaken by employees during the year but there is no quantitative target in place."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [386.46, 498.87, 590.06, 505.87],
+          "block_class": "cls_7",
+          "block_idx": 213,
+          "left": 386.46,
+          "level": 6,
+          "name": "Note 4. Caring",
+          "page_idx": 6,
+          "table_rows": [
+            {
+              "block_idx": 213,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "Total hours" },
+                { "cell_value": "Employees" },
+                { "cell_value": "Average" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 214,
+              "cells": [
+                { "cell_value": "Women" },
+                { "cell_value": "41,157" },
+                { "cell_value": "3,806" },
+                { "cell_value": "10.81" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 215,
+              "cells": [
+                { "cell_value": "Men" },
+                { "cell_value": "149,544" },
+                { "cell_value": "13,375" },
+                { "cell_value": "11.18" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 216,
+              "cells": [
+                { "cell_value": "Managers" },
+                { "cell_value": "31,425" },
+                { "cell_value": "2,299" },
+                { "cell_value": "13.67" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 217,
+              "cells": [
+                { "cell_value": "Employees" },
+                { "cell_value": "159,613" },
+                { "cell_value": "14,911" },
+                { "cell_value": "10.70" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 498.87
+        },
+        {
+          "bbox": [63.78, 62.5, 267.84, 69.5],
+          "block_class": "cls_7",
+          "block_idx": 218,
+          "level": 6,
+          "page_idx": 7,
+          "sentences": [
+            "4.3.",
+            "Diversity of governance bodies and employees (GRI 405-1)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [254.62, 80.92, 459.59000000000003, 87.92],
+          "block_class": "cls_7",
+          "block_idx": 219,
+          "left": 254.62,
+          "level": 7,
+          "name": "Note 4. Caring",
+          "page_idx": 7,
+          "table_rows": [
+            {
+              "block_idx": 219,
+              "cells": [
+                { "cell_value": "", "col_span": 1 },
+                { "cell_value": "2023", "col_span": 1 }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 220,
+              "cells": [
+                { "cell_value": "Board of Directors" },
+                { "cell_value": "11" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 221,
+              "cells": [
+                { "cell_value": "Of whom are men (%) Of whom are women (%)" },
+                { "cell_value": "82% 18%" },
+                {
+                  "cell_value": "Hazard identification, risk assessment, incident investigation (403-2) The Health & Safety Policy requires that all sites ensure that all employees have the required skills and competencies to safely con- duct their tasks and comply with applicable legislation. Also, all sites are required to ensure that managers have sufficient training to orga- nize the work in a safe manner. Managers must ensure that all employ- ees are aware of the main hazards in their workplace, are sufficiently competent to identify new hazards, and understand how they can con- tribute to a safe work environment."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 222,
+              "cells": [
+                { "cell_value": "Of whom are under 30 (%)" },
+                { "cell_value": "0%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 223,
+              "cells": [
+                {
+                  "cell_value": "Of whom are 30\u201350 (%) Of whom are over 50 (%)"
+                },
+                { "cell_value": "0% 100%" },
+                {
+                  "cell_value": "To assess the quality of the safety processes, all sites must verify the effectiveness of the training conducted and document evidence of competence and training. Continuous communication updates in the health & safety network enables involvement in the development, implementation and ongoing review of health & safety processes. Employees are encouraged to report all risk observations, which are registered along with all near misses and actual incidents."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 224,
+              "cells": [
+                { "cell_value": "Group management" },
+                { "cell_value": "9" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 225,
+              "cells": [
+                { "cell_value": "Of whom are men (%)" },
+                { "cell_value": "78%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 226,
+              "cells": [
+                { "cell_value": "Of whom are women (%)" },
+                { "cell_value": "22%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 227,
+              "cells": [
+                { "cell_value": "Of whom are under 30 (%)" },
+                { "cell_value": "0%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 228,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350 (%)" },
+                { "cell_value": "33%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 229,
+              "cells": [
+                { "cell_value": "Of whom are over 50 (%)" },
+                { "cell_value": "67%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 230,
+              "cells": [
+                { "cell_value": "Managers (excl. group management)" },
+                { "cell_value": "2,290" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 80.92
+        },
+        {
+          "bbox": [318.9, 206.03, 523.87, 213.03],
+          "block_class": "cls_8",
+          "block_idx": 231,
+          "left": 318.9,
+          "level": 5,
+          "name": "All sites are required to establish, implement, and maintain pro- cesses to investigate and suggest corrective actions based on the cause of all incidents and hazards. For example, sites must implement an incident investigation system to ensure that the analysis of all lost- time injuries and serious potential incidents determines the underlying root causes. In addition, corrective action plans and trends in the causes of incidents must be identified by each site. Application of appropriate corrective and preventive actions in the event of legislative non-compliance, recurring non-conformities, or observations resulting from audits and management review must also be ensured by all sites. All sites are required to put in place a process to eliminate hazards and reduce risks according to the hierarchy of controls: 1) eliminate hazards; 2) substitute hazardous processes; 3) isolate people from hazards; 4) change the way people work; and 5) use adequate per- sonal protective equipment.",
+          "page_idx": 7,
+          "table_rows": [
+            {
+              "block_idx": 231,
+              "cell_value": "All sites are required to establish, implement, and maintain pro- cesses to investigate and suggest corrective actions based on the cause of all incidents and hazards. For example, sites must implement an incident investigation system to ensure that the analysis of all lost- time injuries and serious potential incidents determines the underlying root causes. In addition, corrective action plans and trends in the causes of incidents must be identified by each site. Application of appropriate corrective and preventive actions in the event of legislative non-compliance, recurring non-conformities, or observations resulting from audits and management review must also be ensured by all sites. All sites are required to put in place a process to eliminate hazards and reduce risks according to the hierarchy of controls: 1) eliminate hazards; 2) substitute hazardous processes; 3) isolate people from hazards; 4) change the way people work; and 5) use adequate per- sonal protective equipment.",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 232,
+              "cells": [
+                { "cell_value": "Of whom are men (%)" },
+                { "cell_value": "78%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 233,
+              "cells": [
+                {
+                  "cell_value": "Of whom are women (%) Of whom are under 30 (%)"
+                },
+                { "cell_value": "22% 2%" },
+                {
+                  "cell_value": "The Health & Safety Policy encourages employees to challenge unsafe behaviour in the workplace and remove themselves from poten- tially dangerous work situations. A company-wide whistleblowing sys- tem enables workers to report hazardous situations and breaches anonymously. There is a Whistleblower Protection and Anti-Retaliation Policy to protect those who report concerns from reprisals."
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 234,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350 (%)" },
+                { "cell_value": "67%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 235,
+              "cells": [
+                { "cell_value": "Of whom are over 50 (%)" },
+                { "cell_value": "31%" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 236,
+              "cells": [
+                { "cell_value": "Employees (excl. managers)" },
+                { "cell_value": "14,911" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 206.03
+        },
+        {
+          "bbox": [318.9, 404.03, 950.61, 456.03],
+          "block_class": "cls_8",
+          "block_idx": 237,
+          "left": 318.9,
+          "level": 5,
+          "name": "Occupational health services (403-3) Each major site has access to an external occupational health service. Each unit also has access to internal health & safety resources who support the organization in identifying, reducing, and eliminating hazards. Our Health & Safety Manual and Alfa Laval Production System ensure that processes, pro- tective equipment and training are in place and monitored regularly.",
+          "page_idx": 7,
+          "table_rows": [
+            {
+              "block_idx": 237,
+              "cell_value": "Occupational health services (403-3) Each major site has access to an external occupational health service. Each unit also has access to internal health & safety resources who support the organization in identifying, reducing, and eliminating hazards. Our Health & Safety Manual and Alfa Laval Production System ensure that processes, pro- tective equipment and training are in place and monitored regularly.",
+              "col_span": 2,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 238,
+              "cells": [
+                { "cell_value": "Of whom are men (%)" },
+                {
+                  "cell_value": {
+                    "bbox": [258.34, 469.38, 273.05, 476.38],
+                    "block_class": "cls_8",
+                    "block_idx": 240,
+                    "page_idx": 7,
+                    "sentences": ["78%"],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 239,
+              "cells": [
+                { "cell_value": "Of whom are women (%)" },
+                {
+                  "cell_value": {
+                    "bbox": [257.86, 488.81, 273.05, 495.81],
+                    "block_class": "cls_8",
+                    "block_idx": 241,
+                    "page_idx": 7,
+                    "sentences": ["22%"],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 240,
+              "cells": [
+                { "cell_value": "Of whom are under 30 (%)" },
+                {
+                  "cell_value": {
+                    "bbox": [257.62, 508.23, 273.05, 515.23],
+                    "block_class": "cls_8",
+                    "block_idx": 242,
+                    "page_idx": 7,
+                    "sentences": ["20%"],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 241,
+              "cells": [
+                { "cell_value": "Of whom are 30\u201350 (%)" },
+                {
+                  "cell_value": {
+                    "bbox": [258.04, 527.65, 273.05, 534.65],
+                    "block_class": "cls_8",
+                    "block_idx": 243,
+                    "page_idx": 7,
+                    "sentences": ["54%"],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 242,
+              "cells": [
+                { "cell_value": "Of whom are over 50 (%)" },
+                {
+                  "cell_value": {
+                    "bbox": [257.81, 547.08, 273.05, 554.08],
+                    "block_class": "cls_8",
+                    "block_idx": 244,
+                    "page_idx": 7,
+                    "sentences": ["26%"],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 243,
+              "cells": [
+                {
+                  "cell_value": "4.4 Occupational health and safety (GRI 403). Occupational health and safety management system (403-1)"
+                },
+                {
+                  "cell_value": {
+                    "bbox": [318.9, 467.03, 531.0, 591.03],
+                    "block_class": "cls_7",
+                    "block_idx": 245,
+                    "page_idx": 7,
+                    "sentences": [
+                      "Worker participation, consultation, and communication on occu- pational health and safety (403-4) All Alfa Laval employees have access to the Health & Safety Manual, Health & Safety Policy and directives.",
+                      "All employees should contribute to the identification of haz- ards, the assessment of risks and implementation of risk control mea- sures.",
+                      "Employees must also report any incident or hazard at work to their manager or supervisor.",
+                      "The Alfa Laval Health, Safety & Environ- ment (HSE) network consists of health and safety specialists at our local sites.",
+                      "The network has the responsibility to discuss health and safety and to drive improvements at the local level.",
+                      "The Alfa Laval Group HSE team has the responsibility to coordinate health & safety management globally.",
+                      "The network has quarterly meetings and collab- orates with various organizations within Alfa Laval, such as HR, Sustainability, Group Risk, Group Audit, Operations and Service."
+                    ],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 244,
+              "cells": [
+                {
+                  "cell_value": "After conducting a corporate risk analysis, Alfa Laval has identified pri- orities to ensure a safe working environment for all employees. Alfa Laval\\'s Health & Safety Policy and directives define principles and rules to achieve a better working environment, requiring that workplaces have high standards for safety and well-being. The Alfa Laval Global Health & Safety Manual underlines the accountability of managers to fulfil and uphold the policy. The work is supported by local health & safety management systems. As a mini- mum, all Alfa Laval\u2019s sites are expected to comply with local legislation and regulations on safe working environments."
+                },
+                {
+                  "cell_value": {
+                    "bbox": [63.78, 641.17, 530.52, 684.17],
+                    "block_class": "cls_8",
+                    "block_idx": 247,
+                    "page_idx": 7,
+                    "sentences": [
+                      "The Alfa Laval Global Health & Safety Manual underlines the accountability of managers to fulfil and uphold the policy.",
+                      "The work is supported by local health & safety management systems.",
+                      "As a mini- mum, all Alfa Laval\u2019s sites are expected to comply with local legislation and regulations on safe working environments.",
+                      "Worker training on occupational health and safety (403-5) Alfa Laval\u2019s methods to raise awareness- \u201cStop-Think-Act\u201d and 3PR (Three Prioritized Risks)- has significantly improved the safety culture in the company.",
+                      "The \u201cI care\u201d initiative has the purpose of promoting safe behaviours.",
+                      "This initiative builds on four crucial steps: Awareness, Interest, Engagement, Sustain and Improve.",
+                      "Promotion of worker health (403-6) Alfa Laval mainly offers medical and healthcare services for occupational injuries and illness."
+                    ],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 245,
+              "cells": [
+                {
+                  "cell_value": "The Health & Safety Policy has been approved by the CEO and the Health & Safety Manual has been approved by the Health & Safety Council. The policy and directives in the manual are mandatory for the entire Alfa Laval Group, and apply to all employees, consultants, con- tracted workers and visitors to Alfa Laval sites, as well as employees working at customer sites or travelling for work purposes. The local Managing Director or Site Manager is responsible for the implementation of the directives described in the manual and account- able for people\u2019s health and safety."
+                },
+                {
+                  "cell_value": {
+                    "bbox": [63.78, 740.17, 530.11, 765.17],
+                    "block_class": "cls_8",
+                    "block_idx": 249,
+                    "page_idx": 7,
+                    "sentences": [
+                      "The local Managing Director or Site Manager is responsible for the implementation of the directives described in the manual and account- able for people\u2019s health and safety.",
+                      "Prevention and mitigation of health & safety impacts directly linked by business relationships (403-7) The Alfa Laval Health & Safety Policy applies to all employees, as well as consultants and con- tracted workers, in all situations and locations.",
+                      "Health & safety is also a key focus area in Business Principles audits carried out at suppliers.",
+                      "Further details on these audits are presented in the Annual Report."
+                    ],
+                    "tag": "para"
+                  }
+                }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 404.03
+        },
+        {
+          "bbox": [63.78, 62.03, 159.22, 69.03],
+          "block_class": "cls_7",
+          "block_idx": 246,
+          "level": 4,
+          "page_idx": 8,
+          "sentences": ["Work-related injuries (403-9)"],
+          "tag": "para"
+        },
+        {
+          "bbox": [67.11, 87.49, 271.78, 94.49],
+          "block_class": "cls_7",
+          "block_idx": 247,
+          "left": 67.11,
+          "level": 5,
+          "name": "Note 4. Caring",
+          "page_idx": 8,
+          "table_rows": [
+            {
+              "block_idx": 247,
+              "cells": [
+                { "cell_value": "Health & safety data" },
+                { "cell_value": "2023" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 248,
+              "cells": [
+                { "cell_value": "Number of fatalities" },
+                { "cell_value": "1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 249,
+              "cells": [
+                { "cell_value": "Rate of fatalities1)" },
+                { "cell_value": "0.03%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 250,
+              "cells": [
+                {
+                  "cell_value": "Number of high-consequence work-related injuries"
+                },
+                { "cell_value": "4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 251,
+              "cells": [
+                {
+                  "cell_value": "Rate of high-consequence work-related injuries2)"
+                },
+                { "cell_value": "0.11%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 252,
+              "cells": [
+                {
+                  "cell_value": "Number of recordable work-related injuries/LTIs*"
+                },
+                { "cell_value": "90" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 253,
+              "cells": [
+                {
+                  "cell_value": "Rate of recordable work-related injuries/ rate of LTIs3)"
+                },
+                { "cell_value": "2.45%" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 254,
+              "cells": [
+                { "cell_value": "Main types of work-related injuries" },
+                {
+                  "cell_value": "Slip trip and falls, struck by moving, flying, or falling object"
+                }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 255,
+              "cells": [
+                { "cell_value": "Number of hours worked" },
+                { "cell_value": "36,789,563" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 87.49
+        },
+        {
+          "bbox": [63.78, 318.09, 257.27, 332.09],
+          "block_class": "cls_9",
+          "block_idx": 256,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "Currently recordable work-related injuries only includes injuries with lost time (LTIs).",
+            "The reported number of LTIs in the table includes fatalities."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 342.09, 273.28, 372.09],
+          "block_class": "cls_9",
+          "block_idx": 257,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "Injuries due to commuting incidents where transport has not been organized by Alfa Laval have not been included.",
+            "Number of injuries includes data on employees, temporary employees and visitors, but not contractors.",
+            "Rates have been calculated based on 1,000,000 hours worked."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [67.78, 386.59, 247.64000000000001, 408.09],
+          "block_class": "cls_9",
+          "block_idx": 258,
+          "level": 6,
+          "page_idx": 8,
+          "sentences": [
+            "1) Rate of fatalities as a result of work-related injury = Number of fatalities as a result of work-related injury x 1,000,000"
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [67.78, 407.09, 266.72, 449.59],
+          "block_class": "cls_9",
+          "block_idx": 259,
+          "level": 7,
+          "page_idx": 8,
+          "sentences": [
+            "Number of hours worked 2) Rate of high- consequence work- related injuries (excluding fatalities) = Number of high- consequence work-related injuries (excluding fatalities) x 1,000,000"
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [67.78, 456.09, 266.72, 503.09],
+          "block_class": "cls_9",
+          "block_idx": 260,
+          "level": 7,
+          "page_idx": 8,
+          "sentences": [
+            "Number of hours worked 3) Rate of recordable work-related injuries/ LTIs (including fatalities) = Number of recordable work-related injuries/LTIs x 1,000,000 Number of hours worked"
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 516.59, 253.92, 530.59],
+          "block_class": "cls_9",
+          "block_idx": 261,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "Identified work-related hazards that can potentially pose a risk for high- consequence injuries are:"
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [72.28, 532.59, 240.15, 538.59],
+          "block_class": "cls_9",
+          "block_idx": 262,
+          "level": 6,
+          "page_idx": 8,
+          "sentences": [
+            "Injured while handling material with crane or lifting equipment"
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 540.59, 120.16, 546.59],
+          "block_class": "cls_9",
+          "block_idx": 263,
+          "level": 6,
+          "page_idx": 8,
+          "sentences": ["Fall from heights"],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [72.28, 548.59, 118.63, 554.59],
+          "block_class": "cls_9",
+          "block_idx": 264,
+          "level": 6,
+          "page_idx": 8,
+          "sentences": ["Confined space"],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [63.78, 564.59, 274.95, 610.59],
+          "block_class": "cls_9",
+          "block_idx": 265,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "The hazards have been identified through Alfa Laval\\'s process for hazard identification, risk assessment and incident investigation.",
+            "Historically, a number of serious injuries can be connected to these hazards.",
+            "In 2023, the identified hazards contributed to three of the four reported high-consequence injuries.",
+            "Alfa Laval is working on setting clearer standards for these hazards to minimize potential risks in line with the hierarchy of controls."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 60.78, 418.18, 72.78],
+          "block_class": "cls_6",
+          "block_idx": 266,
+          "level": 3,
+          "page_idx": 8,
+          "sentences": ["Note 5. Committed"],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 83.78, 508.12, 90.78],
+          "block_class": "cls_7",
+          "block_idx": 267,
+          "level": 4,
+          "page_idx": 8,
+          "sentences": [
+            "5.1 Operations assessed for risks of corruption (GRI 205-1)."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 92.78, 529.74, 162.78],
+          "block_class": "cls_8",
+          "block_idx": 268,
+          "level": 4,
+          "page_idx": 8,
+          "sentences": [
+            "a) Alfa Laval carries out an annual enterprise risk assessment, includ- ing risks related to corruption.",
+            "The assessment is performed by corpo- rate functions and all business units based on materials prepared by the global risk management function.",
+            "Through this assessment rele- vant risks for each part of the company are identified and highlighted to Group Management, including operations that may be facing risks of corrupt business practices.",
+            "The risk assessment covers all (100%)of Alfa Laval\\'s operations."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 173.78, 531.16, 207.78],
+          "block_class": "cls_8",
+          "block_idx": 269,
+          "level": 4,
+          "page_idx": 8,
+          "sentences": [
+            "b) While the assessment confirms that Alfa Laval has a presence in certain countries with a heightened corruption risk, no significant risks of corruption were identified that require actions not already addressed through Alfa Laval\\'s ongoing compliance and ethics program."
+          ],
+          "tag": "list_item"
+        },
+        {
+          "bbox": [318.9, 218.78, 513.75, 234.78],
+          "block_class": "cls_7",
+          "block_idx": 270,
+          "level": 4,
+          "page_idx": 8,
+          "sentences": ["5.2 Supplier assessments (GRI 308-1, 414-1)"],
+          "tag": "header"
+        },
+        {
+          "bbox": [318.9, 227.78, 521.12, 252.78],
+          "block_class": "cls_8",
+          "block_idx": 271,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "New suppliers screened using environmental criteria (308-1) All new suppliers in the identified risk countries were screened using environmental criteria."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [318.9, 263.78, 521.12, 288.78],
+          "block_class": "cls_8",
+          "block_idx": 272,
+          "level": 5,
+          "page_idx": 8,
+          "sentences": [
+            "New suppliers screened using social criteria (414-1) All new suppliers in the identified risk countries were screened using social criteria."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 56.28, 303.16, 86.28],
+          "block_class": "cls_2",
+          "block_idx": 273,
+          "level": 0,
+          "page_idx": 9,
+          "sentences": ["GRI Content Index"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 103.55, 521.51, 129.55],
+          "block_class": "cls_3",
+          "block_idx": 274,
+          "level": 1,
+          "page_idx": 9,
+          "sentences": [
+            "Alfa Laval AB has reported in accordance with the GRI Standards for the period 1 January 2023 to 31 December 2023.",
+            "Sustainability reporting is made annually."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 133.55, 524.82, 159.55],
+          "block_class": "cls_3",
+          "block_idx": 275,
+          "level": 1,
+          "page_idx": 9,
+          "sentences": [
+            "GRI 1: Foundation 2021 has been used but no GRI Sector Standards since none are applicable to our business at present."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [96.38, 190.72, 483.15, 197.72],
+          "block_class": "cls_7",
+          "block_idx": 276,
+          "level": 2,
+          "page_idx": 9,
+          "sentences": ["GRI Standard and disclosure Omission"],
+          "tag": "para"
+        },
+        {
+          "bbox": [317.13, 209.58, 511.23, 234.58],
+          "block_class": "cls_7",
+          "block_idx": 277,
+          "level": 2,
+          "page_idx": 9,
+          "sentences": [
+            "Page reference AR = Annual Report SN = Sustainability notes Requirement(s) omitted Reason"
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [97.54, 246.72, 163.76, 253.72],
+          "block_class": "cls_7",
+          "block_idx": 278,
+          "level": 2,
+          "page_idx": 9,
+          "sentences": ["General disclosures"],
+          "tag": "para"
+        },
+        {
+          "bbox": [97.54, 266.14, 204.07, 273.14],
+          "block_class": "cls_7",
+          "block_idx": 279,
+          "level": 2,
+          "page_idx": 9,
+          "sentences": ["GRI 2: General disclosures 2021"],
+          "tag": "para"
+        },
+        {
+          "bbox": [68.28, 285.57, 214.55, 292.57],
+          "block_class": "cls_7",
+          "block_idx": 280,
+          "level": 2,
+          "page_idx": 9,
+          "sentences": ["The organisation and its reporting practices"],
+          "tag": "para"
+        },
+        {
+          "bbox": [68.08, 304.99, 401.56, 320.99],
+          "block_class": "cls_8",
+          "block_idx": 281,
+          "left": 68.08,
+          "level": 3,
+          "name": "GRI Content Index",
+          "page_idx": 9,
+          "table_rows": [
+            {
+              "block_idx": 281,
+              "cells": [
+                { "cell_value": "2-1" },
+                { "cell_value": "Organizational details" },
+                { "cell_value": "AR 81-82, 102, 112\u2013113" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 282,
+              "cells": [
+                { "cell_value": "2-2" },
+                {
+                  "cell_value": "Entities included in the organization\u2019s sustainability reporting"
+                },
+                { "cell_value": "AR 167-170 SN note 1.1" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 283,
+              "cells": [
+                { "cell_value": "2-3" },
+                {
+                  "cell_value": "Reporting period, frequency and contact point"
+                },
+                { "cell_value": "AR 47, 102 SN note 1.2" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 284,
+              "cells": [
+                { "cell_value": "2-4" },
+                { "cell_value": "Restatements of information" },
+                { "cell_value": "SN note 1.3" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 285,
+              "cells": [
+                { "cell_value": "2-5" },
+                { "cell_value": "External assurance" },
+                { "cell_value": "AR 79 SN note 1.4" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 286,
+              "cell_value": "Activities and workers",
+              "col_span": 5,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 287,
+              "cells": [
+                { "cell_value": "2-6" },
+                {
+                  "cell_value": "Activities, value chain and other business relationships"
+                },
+                { "cell_value": "AR 3, 16\u201345, 72-73 SN note 1.5" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 288,
+              "cells": [
+                { "cell_value": "2-7" },
+                { "cell_value": "Employees" },
+                { "cell_value": "SN note 1.6" },
+                { "cell_value": "2-7 b (iii)" },
+                { "cell_value": "Information unavailable" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 289,
+              "cells": [
+                { "cell_value": "2-8" },
+                { "cell_value": "Workers who are not employees" },
+                { "cell_value": "" },
+                { "cell_value": "2-8" },
+                { "cell_value": "Information unavailable" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 290,
+              "cell_value": "Governance",
+              "col_span": 5,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 291,
+              "cells": [
+                { "cell_value": "2-9" },
+                { "cell_value": "Governance structure and composition" },
+                { "cell_value": "AR 84, 88-95" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 292,
+              "cells": [
+                { "cell_value": "2-10" },
+                {
+                  "cell_value": "Nomination and selection of the highest governance body"
+                },
+                { "cell_value": "AR 86-89" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 293,
+              "cells": [
+                { "cell_value": "2-11" },
+                { "cell_value": "Chair of the highest governance body" },
+                { "cell_value": "AR 90-91, 94" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 294,
+              "cells": [
+                { "cell_value": "2-12" },
+                {
+                  "cell_value": "Role of the highest governance body in overseeing the management of impacts"
+                },
+                { "cell_value": "AR 83-84, 90-91, 97 SN note 1.7" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 295,
+              "cells": [
+                { "cell_value": "2-13" },
+                {
+                  "cell_value": "Delegation of responsibility for managing impacts"
+                },
+                { "cell_value": "AR 84, 91, 96 SN note 1.8" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 296,
+              "cells": [
+                { "cell_value": "2-14" },
+                {
+                  "cell_value": "Role of highest governance body in sustainability reporting"
+                },
+                { "cell_value": "AR 91-92" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 297,
+              "cells": [
+                { "cell_value": "2-15" },
+                { "cell_value": "Conflicts of interest" },
+                { "cell_value": "AR 90-91" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 298,
+              "cells": [
+                { "cell_value": "2-16" },
+                { "cell_value": "Communication of critical concerns" },
+                { "cell_value": "SN note 1.9" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 299,
+              "cells": [
+                { "cell_value": "2-17" },
+                {
+                  "cell_value": "Collective knowledge of the highest governance body"
+                },
+                { "cell_value": "AR 90-91 SN note 1.10" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 304.99
+        },
+        {
+          "bbox": [97.34, 124.7, 556.46, 140.7],
+          "block_class": "cls_8",
+          "block_idx": 300,
+          "left": 97.34,
+          "level": 3,
+          "name": "GRI Content Index",
+          "page_idx": 10,
+          "table_rows": [
+            {
+              "block_idx": 300,
+              "cells": [
+                { "cell_value": "" },
+                {
+                  "cell_value": "Evaluation of the performance of the highest governance body"
+                },
+                { "cell_value": "AR 90-91 SN note 1.11" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 301,
+              "cells": [
+                { "cell_value": "2-19" },
+                { "cell_value": "Remuneration policies" },
+                { "cell_value": "AR 90-93, 153-155, 183-185 SN note 1.12" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 302,
+              "cells": [
+                { "cell_value": "2-20" },
+                { "cell_value": "Process to determine remuneration" },
+                { "cell_value": "AR 87, 91, 153-155, 183-185" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 303,
+              "cells": [
+                { "cell_value": "2-21" },
+                { "cell_value": "Annual total compensation ratio" },
+                { "cell_value": "SN note 1.13" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 304,
+              "cell_value": "Strategy, policies, and practices",
+              "col_span": 5,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 305,
+              "cells": [
+                { "cell_value": "2-22" },
+                {
+                  "cell_value": "Statement on sustainable development strategy"
+                },
+                { "cell_value": "AR 6\u20137, 83, 91" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 306,
+              "cells": [
+                { "cell_value": "2-23" },
+                { "cell_value": "Policy commitments" },
+                { "cell_value": "AR 15, 46-74 SN note 1.14" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 307,
+              "cells": [
+                { "cell_value": "2-24" },
+                { "cell_value": "Embedding policy commitments" },
+                { "cell_value": "AR 46-74, 83 SN note 1.15" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 308,
+              "cells": [
+                { "cell_value": "2-25" },
+                { "cell_value": "Processes to remediate negative impacts" },
+                { "cell_value": "AR 46-74 SN note 1.16" },
+                { "cell_value": "2-25 d, e" },
+                { "cell_value": "Information unavailable" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 309,
+              "cells": [
+                { "cell_value": "2-26" },
+                {
+                  "cell_value": "Mechanisms for seeking advice and raising concerns"
+                },
+                { "cell_value": "AR 70-73" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 310,
+              "cells": [
+                { "cell_value": "2-27" },
+                { "cell_value": "Compliance with laws and regulations" },
+                { "cell_value": "SN note 1.17" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 311,
+              "cells": [
+                { "cell_value": "2-28" },
+                { "cell_value": "Membership associations" },
+                { "cell_value": "SN note 1.18" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 312,
+              "cell_value": "Stakeholder engagement",
+              "col_span": 5,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 313,
+              "cells": [
+                { "cell_value": "2-29" },
+                { "cell_value": "Approach to stakeholder engagement" },
+                { "cell_value": "AR 51" },
+                { "cell_value": "" },
+                { "cell_value": "" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 314,
+              "cells": [
+                { "cell_value": "2-30" },
+                { "cell_value": "Collective bargaining agreements" },
+                { "cell_value": "SN note 1.19" },
+                { "cell_value": "2-30 b" },
+                { "cell_value": "Information unavailable" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 124.7
+        },
+        {
+          "bbox": [68.08, 470.05, 118.33, 477.05],
+          "block_class": "cls_7",
+          "block_idx": 315,
+          "level": 2,
+          "page_idx": 10,
+          "sentences": ["Material topics"],
+          "tag": "para"
+        },
+        {
+          "bbox": [68.28, 489.48, 158.86, 496.48],
+          "block_class": "cls_7",
+          "block_idx": 316,
+          "level": 2,
+          "page_idx": 10,
+          "sentences": ["GRI 3: Material topics 2021"],
+          "tag": "para"
+        },
+        {
+          "bbox": [68.08, 508.9, 401.56, 515.9],
+          "block_class": "cls_8",
+          "block_idx": 317,
+          "left": 68.08,
+          "level": 3,
+          "name": "GRI Content Index",
+          "page_idx": 10,
+          "table_rows": [
+            {
+              "block_idx": 317,
+              "cells": [
+                { "cell_value": "3-1" },
+                { "cell_value": "Process to determine material topics" },
+                { "cell_value": "AR 51" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 318,
+              "cells": [
+                { "cell_value": "3-2" },
+                { "cell_value": "List of material topics" },
+                { "cell_value": "AR 50-51" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 319,
+              "cell_value": "GRI 205: Anti-corruption 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 320,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 68-71" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 321,
+              "cells": [
+                { "cell_value": "205-1" },
+                {
+                  "cell_value": "Operations assessed for risks related to corruption"
+                },
+                { "cell_value": "SN note 5.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 322,
+              "cell_value": "GRI 302: Energy 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 323,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 54\u201355, 60 SN note 3.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 324,
+              "cells": [
+                { "cell_value": "302-1" },
+                { "cell_value": "Energy consumption within the organisation" },
+                { "cell_value": "AR 54-55, 60 SN note 3.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 325,
+              "cell_value": "GRI 303: Water and effluents 2018",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 326,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 58-61 SN note 3.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 327,
+              "cells": [
+                { "cell_value": "303-1" },
+                {
+                  "cell_value": "Interactions with water as a shared resource"
+                },
+                { "cell_value": "SN note 3.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 328,
+              "cells": [
+                { "cell_value": "303-2" },
+                {
+                  "cell_value": "Management of water discharge-related impacts"
+                },
+                { "cell_value": "SN note 3.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 329,
+              "cells": [
+                { "cell_value": "303-3" },
+                { "cell_value": "Water withdrawal" },
+                { "cell_value": "SN note 3.2" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 508.9
+        },
+        {
+          "bbox": [68.28, 124.83, 151.78, 131.82999999999998],
+          "block_class": "cls_7",
+          "block_idx": 330,
+          "level": 2,
+          "page_idx": 11,
+          "sentences": ["GRI 305: Emissions 2016"],
+          "tag": "header"
+        },
+        {
+          "bbox": [68.08, 140.79, 401.56, 156.79],
+          "block_class": "cls_8",
+          "block_idx": 331,
+          "left": 68.08,
+          "level": 3,
+          "name": "GRI 305: Emissions 2016",
+          "page_idx": 11,
+          "table_rows": [
+            {
+              "block_idx": 331,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201357 SN note 2.1" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 332,
+              "cells": [
+                { "cell_value": "305-1" },
+                { "cell_value": "Direct (Scope 1) GHG emissions" },
+                { "cell_value": "AR 53\u201354 SN note 2.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 333,
+              "cells": [
+                { "cell_value": "305-2" },
+                { "cell_value": "Energy indirect (Scope 2) GHG emissions" },
+                { "cell_value": "AR 53\u201354 SN note 2.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 334,
+              "cells": [
+                { "cell_value": "305-3" },
+                { "cell_value": "Other indirect (Scope 3) GHG emissions" },
+                { "cell_value": "AR 53, 56\u201357 SN note 2.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 335,
+              "cell_value": "GRI 306: Waste 2020",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 336,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 58-61" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 337,
+              "cells": [
+                { "cell_value": "306-1" },
+                {
+                  "cell_value": "Waste generation and significant waste-related impacts"
+                },
+                { "cell_value": "AR 58\u201361 SN note 3.3" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 338,
+              "cells": [
+                { "cell_value": "306-2" },
+                {
+                  "cell_value": "Management of significant waste related impacts"
+                },
+                { "cell_value": "AR 58\u201361 SN note 3.3" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 339,
+              "cells": [
+                { "cell_value": "306-5" },
+                { "cell_value": "Waste directed to disposal" },
+                { "cell_value": "AR 58\u201361 SN note 3.3" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 340,
+              "cell_value": "GRI 308: Supplier environmental assessment 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 341,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 72\u201374 SN note 5.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 342,
+              "cells": [
+                { "cell_value": "308-1" },
+                {
+                  "cell_value": "New suppliers that were screened using environmental criteria"
+                },
+                { "cell_value": "AR 72\u201374 SN note 5.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 343,
+              "cell_value": "GRI 401: Employment 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 344,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 66\u201367" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 345,
+              "cells": [
+                { "cell_value": "401-1" },
+                { "cell_value": "New employee hires and employee turnover" },
+                { "cell_value": "SN note 4.1" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 346,
+              "cell_value": "GRI 403: Occupational health & safety 2018",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 347,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 62\u201364 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 348,
+              "cells": [
+                { "cell_value": "403-1" },
+                {
+                  "cell_value": "Occupational health and safety management system"
+                },
+                { "cell_value": "AR 62\u201364 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 349,
+              "cells": [
+                { "cell_value": "403-2" },
+                {
+                  "cell_value": "Hazard identification, risk assessment, and incident investigation"
+                },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 350,
+              "cells": [
+                { "cell_value": "403-3" },
+                { "cell_value": "Occupational health services" },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 351,
+              "cells": [
+                { "cell_value": "403-4" },
+                {
+                  "cell_value": "Worker participation, consultation, and communication on occupational health and safety"
+                },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 352,
+              "cells": [
+                { "cell_value": "403-5" },
+                {
+                  "cell_value": "Worker training on occupational health and safety"
+                },
+                { "cell_value": "AR 62\u201364 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 353,
+              "cells": [
+                { "cell_value": "403-6" },
+                { "cell_value": "Promotion of worker health" },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 354,
+              "cells": [
+                { "cell_value": "403-7" },
+                {
+                  "cell_value": "Prevention and mitigation of occupational health and safety impacts directly linked by business relationships"
+                },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 140.79
+        },
+        {
+          "bbox": [97.34, 124.7, 430.81000000000006, 131.7],
+          "block_class": "cls_8",
+          "block_idx": 355,
+          "left": 97.34,
+          "level": 4,
+          "name": "GRI 305: Emissions 2016",
+          "page_idx": 12,
+          "table_rows": [
+            {
+              "block_idx": 355,
+              "cells": [
+                { "cell_value": "" },
+                { "cell_value": "Work-related injuries" },
+                { "cell_value": "AR 62-64 SN note 4.4" }
+              ],
+              "type": "table_header"
+            },
+            {
+              "block_idx": 356,
+              "cell_value": "GRI 404: Training and education 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 357,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 66\u201367 SN note 4.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 358,
+              "cells": [
+                { "cell_value": "404-1" },
+                {
+                  "cell_value": "Average hours of training per year per employee"
+                },
+                { "cell_value": "SN note 4.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 359,
+              "cell_value": "GRI 405: Diversity and equal opportunities 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 360,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48\u201351, 66\u201367" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 361,
+              "cells": [
+                { "cell_value": "405-1" },
+                {
+                  "cell_value": "Diversity of governance bodies and employees"
+                },
+                { "cell_value": "SN note 4.3" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 362,
+              "cell_value": "GRI 414: Supplier social assessment 2016",
+              "col_span": 3,
+              "type": "full_row"
+            },
+            {
+              "block_idx": 363,
+              "cells": [
+                { "cell_value": "3-3" },
+                { "cell_value": "Management of material topics" },
+                { "cell_value": "AR 48-51, 72-74 SN note 5.2" }
+              ],
+              "type": "table_data_row"
+            },
+            {
+              "block_idx": 364,
+              "cells": [
+                { "cell_value": "414-1" },
+                {
+                  "cell_value": "New suppliers that were screened using social criteria"
+                },
+                { "cell_value": "AR 72-74" }
+              ],
+              "type": "table_data_row"
+            }
+          ],
+          "tag": "table",
+          "top": 124.7
+        },
+        {
+          "bbox": [364.62, 332.05, 401.56, 339.05],
+          "block_class": "cls_8",
+          "block_idx": 365,
+          "level": 4,
+          "page_idx": 12,
+          "sentences": ["SN note 5.2"],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 527.43, 117.63, 534.43],
+          "block_class": "cls_7",
+          "block_idx": 366,
+          "level": 2,
+          "page_idx": 13,
+          "sentences": ["This is Alfa Laval"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 537.43, 232.47, 604.43],
+          "block_class": "cls_8",
+          "block_idx": 367,
+          "level": 3,
+          "page_idx": 13,
+          "sentences": [
+            "Alfa Laval is active in the areas of Energy, Marine, and Food & Water, offering its expertise, products, and service to a wide range of industries in some 100 countries.",
+            "The company is committed to optimizing processes, creating responsible growth, and driving progress \u2013 always going the extra mile to support customers in achieving their business goals and sustainability targets."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 617.43, 231.81, 694.43],
+          "block_class": "cls_8",
+          "block_idx": 368,
+          "level": 3,
+          "page_idx": 13,
+          "sentences": [
+            "Alfa Laval\u2019s innovative technologies are dedicated to purifying, refining, and reusing materials, promoting more responsible use of natural resources.",
+            "They contribute to improved energy efficiency and heat recovery, better water treatment, and reduced emissions.",
+            "Thereby, Alfa Laval is not only accelerating success for its customers, but also for people and the planet.",
+            "Making the world better, every day.",
+            "It\u2019s all about Advancing better\u2122."
+          ],
+          "tag": "para"
+        },
+        {
+          "bbox": [63.78, 707.43, 146.26, 714.43],
+          "block_class": "cls_7",
+          "block_idx": 369,
+          "level": 2,
+          "page_idx": 13,
+          "sentences": ["How to contact Alfa Laval"],
+          "tag": "header"
+        },
+        {
+          "bbox": [63.78, 717.43, 233.68, 734.43],
+          "block_class": "cls_8",
+          "block_idx": 370,
+          "level": 3,
+          "page_idx": 13,
+          "sentences": [
+            "Up-to-date Alfa Laval contact details for all countries are always available on our website at www.alfalaval.com"
+          ],
+          "tag": "para"
+        }
+      ],
+      "styles": [
+        {
+          "class_name": "cls_0",
+          "style": {
+            "font-family": "North Star Medium",
+            "font-size": 19.56,
+            "font-style": "normal",
+            "font-weight": 500,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_1",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 12.96,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_2",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 43.199999999999996,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_3",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 15.839999999999998,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_4",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 23.04,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_5",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 11.52,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_6",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 17.28,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_7",
+          "style": {
+            "font-family": "North Star DemiBold",
+            "font-size": 10.08,
+            "font-style": "normal",
+            "font-weight": 600,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_8",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 10.08,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_9",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 8.64,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_10",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 10.08,
+            "font-style": "italic",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_11",
+          "style": {
+            "font-family": "North Star DemiBold",
+            "font-size": 8.64,
+            "font-style": "normal",
+            "font-weight": 600,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        },
+        {
+          "class_name": "cls_12",
+          "style": {
+            "font-family": "North Star",
+            "font-size": 5.04,
+            "font-style": "normal",
+            "font-weight": 400,
+            "text-align": "left",
+            "text-transform": "none"
+          }
+        }
+      ]
+    }
+  },
+  "status": 200
+}

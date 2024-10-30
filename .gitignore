@@ -3,3 +3,7 @@ dist
 .env
 *.db*
 .aider*
+prisma/
+.env*
+*.xlsx
+.DS_Store
