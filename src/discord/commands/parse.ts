@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, TextChannel } from 'discord.js'
-import { pdf2Markdown } from '../../queues'
+import pdf2Markdown from '../../workers/pdf2Markdown'
 
 export default {
   data: new SlashCommandBuilder()
@@ -50,7 +50,7 @@ export default {
         content: `Tack! Nu är din årsredovisning placerad i kö för hantering av LLama
 ${url}`,
       })
-      pdf2Markdown.add('parse pdf ' + url.slice(-20), {
+      pdf2Markdown.queue.add('parse pdf ' + url.slice(-20), {
         url,
         threadId,
       })

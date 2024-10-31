@@ -1,10 +1,11 @@
-import { pdf2Markdown, splitText, searchVectors } from '../queues'
 import llama from '../config/llama'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import searchVectors from './searchVectors'
+import splitText from './splitText'
 
 const minutes = 60
 
@@ -102,7 +103,7 @@ class JobData extends DiscordJob {
 /**
  * Worker responsible for parsing PDF files using LLama index parse endpoint.
  */
-const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
+const pdf2Markdown = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
   const { url, existingId } = job.data
   let id = existingId
   let text = null
@@ -130,7 +131,7 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
       // Skip to search vectors if the URL already exists
       job.editMessage('✅ Detta dokument fanns redan i vektordatabasen.')
       job.log(`URL ${url} already exists. Skipping to search vectors.`)
-      searchVectors.add('search ' + url.slice(-20), {
+      searchVectors.queue.add('search ' + url.slice(-20), {
         url,
         threadId: job.data.threadId,
         markdown: true,
@@ -145,7 +146,7 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
     throw error
   }
 
-  const previousJob = (await pdf2Markdown.getCompleted()).find(
+  const previousJob = (await pdf2Markdown.queue.getCompleted()).find(
     (p) => p.data.url === url && p.returnvalue !== null
   )
   if (previousJob) {
@@ -193,7 +194,7 @@ const worker = new DiscordWorker('pdf2Markdown', async (job: JobData) => {
   job.log(`Got result: 
 ${text}`)
   job.editMessage('✅ Tolkning klar!')
-  splitText.add('split text ' + text.slice(0, 20), {
+  splitText.queue.add('split text ' + text.slice(0, 20), {
     ...job.data,
     text,
     markdown: true,
@@ -201,4 +202,4 @@ ${text}`)
   return text
 })
 
-export default worker
+export default pdf2Markdown

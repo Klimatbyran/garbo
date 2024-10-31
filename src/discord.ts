@@ -13,11 +13,12 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import { saveToAPI } from './queues'
 import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
-import { JobData as SaveToApiJob } from './workers/saveToAPI'
+import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
+
+const getJob = (jobId) => saveToAPI.queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -68,25 +69,25 @@ export class Discord {
           try {
             switch (action) {
               case 'approve': {
-                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
                 break
               }
-              case 'feedback': {
-                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
+              /*case 'feedback': {
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await feedback.execute(interaction, job)
                 break
-              }
+              }*/
               case 'reject': {
-                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await reject.execute(interaction, job)
                 break
               }
               case 'retry': {
-                const job = (await saveToAPI.getJob(jobId)) as SaveToApiJob
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else retry.execute(interaction, job)
                 break

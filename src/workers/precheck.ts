@@ -2,7 +2,7 @@ import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
 import fiscalYear from '../prompts/followUp/fiscalYear'
-import { askPrompt } from '../openai'
+import { askPrompt } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
@@ -15,7 +15,7 @@ class JobData extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const worker = new DiscordWorker('precheck', async (job: JobData) => {
+const precheck = new DiscordWorker('precheck', async (job: JobData) => {
   const { paragraphs, ...baseData } = job.data
 
   const companyName = await askPrompt(
@@ -66,4 +66,4 @@ const worker = new DiscordWorker('precheck', async (job: JobData) => {
   })
 })
 
-export default worker
+export default precheck

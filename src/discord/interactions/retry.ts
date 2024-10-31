@@ -1,11 +1,11 @@
-import { pdf2Markdown } from '../../queues'
+import pdf2Markdown from '../../workers/pdf2Markdown'
 
 export default {
   async execute(interaction, job) {
     const { url, threadId, json } = job.data
     await interaction.deferReply({ ephemeral: true })
     const parsedJson = JSON.parse(json)
-    await pdf2Markdown.add('pdf2Markdown', {
+    await pdf2Markdown.queue.add('pdf2Markdown', {
       url,
       threadId,
     })

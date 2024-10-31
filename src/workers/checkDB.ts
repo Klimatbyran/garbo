@@ -1,6 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import { saveToAPI } from '../queues'
+import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -13,7 +13,7 @@ export class JobData extends DiscordJob {
   }
 }
 
-const worker = new DiscordWorker('checkDB', async (job: JobData) => {
+const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
     job.data
 
@@ -55,7 +55,7 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
 
   if (scope12 || scope3) {
     await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
-    saveToAPI.add(companyName + ' emissions', {
+    saveToAPI.queue.add(companyName + ' emissions', {
       ...base,
       apiSubEndpoint: 'emissions',
       scope12,
@@ -65,7 +65,7 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
 
   if (industry) {
     await job.editMessage(`🤖 Skapar jobb för att spara branschdata...`)
-    saveToAPI.add(companyName + ' industry', {
+    saveToAPI.queue.add(companyName + ' industry', {
       ...base,
       apiSubEndpoint: 'industry',
       industry,
@@ -75,4 +75,4 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
   return JSON.stringify(childrenValues, null, 2)
 })
 
-export default worker
+export default checkDB
