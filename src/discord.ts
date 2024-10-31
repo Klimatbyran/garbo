@@ -146,7 +146,7 @@ export class Discord {
 
   async sendMessage(
     { threadId }: { threadId: string },
-    msg: string | { content: string; components: any[] }
+    msg: string | { files?: any[]; content: string; components?: any[] }
   ) {
     try {
       if (!threadId) throw new Error('Thread ID is required')

@@ -4,10 +4,8 @@ import {
   calculateBoundingBoxForTable,
   jsonToTables,
   Table,
-} from '../lib/jsonExtraction'
+} from './jsonExtraction'
 import path from 'path'
-
-type ObjectArray = { [pageIndex: string]: any[] }
 
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
@@ -25,17 +23,16 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
     .toFile(outputPath)
 }
 
-async function fetchPdf(url: string): Promise<ArrayBuffer> {
-  console.log('fetching pdf from', url)
-  const pdfResponse = await fetch(url)
+export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
+  const pdfResponse = await fetch(url, { headers })
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
-  console.log('fetched pdf ok')
-  return pdfResponse.arrayBuffer()
+  const arrayBuffer = await pdfResponse.arrayBuffer()
+  return Buffer.from(arrayBuffer)
 }
 
-async function extractJsonFromPdf(buffer: Buffer) {
+export async function extractJsonFromPdf(buffer: Buffer) {
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010'
   console.log('parsing pdf from', nlmIngestorUrl)
 
@@ -64,7 +61,10 @@ type Page = {
   tables: any[]
 }
 
-function extractTablesFromJson(json: any, searchTerm: string): Page[] {
+export function findRelevantTablesGroupdOnPages(
+  json: any,
+  searchTerm: string
+): Page[] {
   const tables = jsonToTables(json).filter(
     ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
   )
@@ -86,32 +86,35 @@ function extractTablesFromJson(json: any, searchTerm: string): Page[] {
   }, [])
 }
 
-export async function extractTablesFromPDF(
-  url: string,
+export async function extractTablesFromJson(
+  pdf: Buffer,
+  json: any,
   outputDir: string,
   searchTerm: string
 ): Promise<Table[]> {
-  const arrayBuffer = await fetchPdf(url)
-  const buffer = Buffer.from(arrayBuffer)
-  const json = await extractJsonFromPdf(buffer)
-  const pngs = await getPngsFromPdfPage(buffer)
-  const pages = extractTablesFromJson(json, searchTerm)
+  const pngs = await getPngsFromPdfPage(pdf)
+  const pages = findRelevantTablesGroupdOnPages(json, searchTerm)
 
-  const tablePromises = pages.flatMap(({ pageIndex, tables }) =>
-    tables.map((table) =>
-      pngs.getPage(pageIndex + 1).then((png) => {
-        const { x, y, width, height } = calculateBoundingBoxForTable(table)
-        const pngName = `table-${pageIndex}-${table.name}.png`
-        const filename = path.join(outputDir, pngName)
-        console.log(url, pageIndex, x, y, width, height, table)
-        console.log('extracting screenshot to outputPath', filename)
-        return extractRegionAsPng(png, filename, x, y, width, height).then(
-          () => {
-            return { ...table, filename } as Table
-          }
-        )
-      })
-    )
+  const tablePromises = pages.flatMap(
+    ({ pageIndex, tables, pageWidth, pageHeight }) =>
+      tables.map((table) =>
+        pngs.getPage(pageIndex + 1).then((png) => {
+          const { x, y, width, height } = calculateBoundingBoxForTable(
+            table,
+            pageWidth,
+            pageHeight
+          )
+          const pngName = `table-${pageIndex}-${table.name}.png`
+          const filename = path.join(outputDir, pngName)
+          //console.log(url, pageIndex, x, y, width, height, table)
+          console.log('extracting screenshot to outputPath', filename)
+          return extractRegionAsPng(png, filename, x, y, width, height).then(
+            () => {
+              return { ...table, filename } as Table
+            }
+          )
+        })
+      )
   )
 
   return Promise.all(tablePromises)

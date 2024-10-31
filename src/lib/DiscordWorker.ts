@@ -14,7 +14,7 @@ export class DiscordJob extends Job {
 
   message: any
   sendMessage: (
-    msg: string | { content: string; components: any[] }
+    msg: string | { files?: any[]; content?: string; components?: any[] }
   ) => Promise<any>
   editMessage: (msg: string) => Promise<any>
   setThreadName: (name: string) => Promise<any>

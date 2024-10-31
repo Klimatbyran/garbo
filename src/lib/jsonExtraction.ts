@@ -92,8 +92,12 @@ const blockToMarkdown = (block) => {
   }
 }
 
-export const calculateBoundingBoxForTable = (table: any) => {
-  const { bbox, pageWidth, pageHeight } = table
+export const calculateBoundingBoxForTable = (
+  table: any,
+  pageWidth: number,
+  pageHeight: number
+) => {
+  const { bbox } = table
   const [x1, y1, x2, y2] = bbox
   console.log('x1,y1,x2,y2', x1, y1, x2, y2)
   const padding = 15
