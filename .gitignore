@@ -2,7 +2,6 @@ node_modules
 dist
 .env
 .aider*
-prisma/
 .env*
 .DS_Store
 !env.example
