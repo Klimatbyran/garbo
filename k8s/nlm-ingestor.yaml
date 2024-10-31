@@ -1,27 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gotenberg
-  namespace: gotenberg
+  name: nlm
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gotenberg
+      app: nlm
   template:
     metadata:
       labels:
-        app: gotenberg
+        app: nlm
     spec:
       containers:
-        - image: gotenberg/gotenberg
+        - image: ghcr.io/nlmatics/nlm-ingestor
           resources:
             limits:
-              cpu: 500m
+              cpu: 1000m
               memory: 2Gi
-          name: gotenberg
+          name: nlm
           ports:
-            - containerPort: 3000
+            - containerPort: 5001
           imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
@@ -29,34 +28,34 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: gotenberg
+  name: nlm
 spec:
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 5001
+      targetPort: 5001
   selector:
-    app: gotenberg
+    app: nlm
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: gotenberg
+  name: nlm
   annotations:
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
 spec:
   tls:
     - hosts:
-        - gotenberg.klimatkollen.se
-      secretName: gotenberg-klimatkollen-se-tls
+        - nlm.klimatkollen.se
+      secretName: nlm-klimatkollen-se-tls
 
   rules:
-    - host: gotenberg.klimatkollen.se
+    - host: nlm.klimatkollen.se
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: gotenberg
+                name: nlm
                 port:
-                  number: 3000
+                  number: 5001
