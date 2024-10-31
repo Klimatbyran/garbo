@@ -4,9 +4,9 @@ export const schema = z.object({
   initiatives: z.array(
     z.object({
       title: z.string(),
-      description: z.string(),
-      year: z.string(),
-      scope: z.string(),
+      description: z.string().optional(),
+      year: z.string().optional(),
+      scope: z.string().optional(),
     })
   ),
 })
@@ -21,7 +21,7 @@ Prioritize the list and only include the most important initiatives. If the list
 *** Language: Write in SWEDISH ***
 If the text is in english, translate it to swedish.
 
-Example: Do not use markdown in the output.
+Example: Ensure the output is in JSON format and do not use markdown.
 \`\`\`json
 {
   "initiatives": [

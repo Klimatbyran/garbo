@@ -4,9 +4,9 @@ import { ENV } from './env'
 
 const GARBO_TOKEN = ENV.API_TOKENS.find((token) => token.startsWith('garbo'))
 
-async function saveToAPI(
+export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: RequestInit = {}
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const headers = {
     'Content-Type': 'application/json',
@@ -29,14 +29,9 @@ async function saveToAPI(
     return response.json()
   } else {
     const errorMessage = await response.text()
-    return Promise.reject(new Error('API error:' + errorMessage))
-  }
-}
+    const status = response.status
+    if (status === 404) return null
 
-export async function saveCompany(
-  wikidataId: string,
-  subEndpoint: string,
-  body: any
-) {
-  return saveToAPI(`/companies/${wikidataId}/${subEndpoint}`, { body })
+    throw new Error('API error:' + errorMessage)
+  }
 }

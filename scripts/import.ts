@@ -59,7 +59,7 @@ export type Scope2Input = {
 }
 
 export type Scope3Input = {
-  scope3Categories?: Scope3CategoryInput[]
+  categories?: Scope3CategoryInput[]
   statedTotalEmissions?: StatedTotalEmissionsInput
 }
 

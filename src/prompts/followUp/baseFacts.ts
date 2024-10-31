@@ -16,7 +16,7 @@ export const schema = z.object({
 })
 
 export const prompt = `
-Extract the company basic facts such as company description, turnover and number of employees. Add it as field description and baseFacts. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
+Extract the company basic facts such as company description, turnover and number of employees. Add it as field description. Be as accurate as possible when extracting turnover. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years. 
 
 *** CompanyName: Use the name of the company as a normal person would refer to it. Not the legal name. For example:
 

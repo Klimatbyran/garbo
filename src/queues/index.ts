@@ -13,12 +13,10 @@ const indexParagraphs = new Queue('indexParagraphs', options)
 const searchVectors = new Queue('searchVectors', options)
 const guessWikidata = new Queue('guessWikidata', options)
 const extractEmissions = new Queue('extractEmissions', options)
-const reflectOnAnswer = new Queue('reflectOnAnswer', options)
 const followUp = new Queue('followUp', options)
-const format = new Queue('format', options)
-const discordReview = new Queue('discordReview', options)
-const includeFacit = new Queue('includeFacit', options)
-const userFeedback = new Queue('userFeedback', options)
+const precheck = new Queue('precheck', options)
+const saveToAPI = new Queue('saveToAPI', options)
+const checkDB = new Queue('checkDB', options)
 
 export {
   downloadPDF,
@@ -26,12 +24,10 @@ export {
   splitText,
   indexParagraphs,
   searchVectors,
+  precheck,
   guessWikidata,
   extractEmissions,
-  reflectOnAnswer,
   followUp,
-  format,
-  discordReview,
-  includeFacit,
-  userFeedback,
+  saveToAPI,
+  checkDB,
 }

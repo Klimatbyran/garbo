@@ -6,12 +6,13 @@ const openai = new OpenAI({
   apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
 })
 
-const ask = async (messages: ChatCompletionMessageParam[]) => {
+const ask = async (messages: ChatCompletionMessageParam[], options?: any) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
     temperature: 0.1,
     stream: false,
+    ...options,
   })
 
   return response.choices[0].message.content

@@ -75,6 +75,7 @@ export const validateMetadata = () =>
     })
   )
 
+const editMethods = new Set(['POST', 'PATCH', 'PUT'])
 export const createMetadata =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -84,7 +85,7 @@ export const createMetadata =
     // This would make it easy to work with, but still allow us to prevent adding metadata not connected to any actual changes.
 
     // We only need to create metadata when creating or updating data
-    if (req.method === 'POST' || req.method === 'PATCH') {
+    if (editMethods.has(req.method)) {
       // TODO: Find a better way to determine if changes by the current user should count as verified or not
       // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
       const verifiedByUserEmail =
@@ -158,13 +159,18 @@ export const reportingPeriod =
     const metadata = res.locals.metadata
     const company = res.locals.company
 
-    const reportingPeriod = await ensureReportingPeriodExists(
-      company,
-      metadata,
-      { startDate, endDate, reportURL }
-    )
+    if (req.method === 'POST' || req.method === 'PATCH') {
+      // TODO: Only allow creating a reporting period when updating other data
+      // TODO: Maybe throw 404 if the reporting period was not found and it is a GET request
+      const reportingPeriod = await ensureReportingPeriodExists(
+        company,
+        metadata,
+        { startDate, endDate, reportURL }
+      )
 
-    res.locals.reportingPeriod = reportingPeriod
+      res.locals.reportingPeriod = reportingPeriod
+    }
+
     next()
   }
 
