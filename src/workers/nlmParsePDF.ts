@@ -14,7 +14,7 @@ const nlmParsePDF = new DiscordWorker('nlmParsePDF', async (job) => {
   job.log(`Downloading from url: ${url}`)
   try {
     const pdf = await fetchPdf(url, { headers })
-    job.editMessage(`✅ PDF nedladdad`)
+    job.editMessage(`✅ PDF nedladdad. Tolkar PDF via nlm-ingestor...`)
     const json = await extractJsonFromPdf(pdf)
     job.editMessage(`✅ PDF tolkad`)
 

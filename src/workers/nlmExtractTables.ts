@@ -24,8 +24,8 @@ const nlmExtractTables = new DiscordWorker(
     try {
       const markdown = jsonToMarkdown(json)
       indexParagraphs.queue.add('indexParagraphs', {
+        ...job.data,
         paragraphs: markdown.split('### '),
-        url,
         markdown: true,
       })
 
