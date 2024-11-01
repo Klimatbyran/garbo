@@ -55,14 +55,14 @@ flowchart TB
 
 ### Get Started
 
-Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
+Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env.development (look in the .env.example) file in the root directory. Run redis, chromadb and postgresql locally like this:
 
 ```bash
 npm i
 docker run -d -p 6379:6379 redis
 docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 chromadb/chroma
-npm start & npm run workers
+npm run dev
 ```
 
 ## How to run the code
@@ -70,49 +70,20 @@ npm start & npm run workers
 The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
 
 ```bash
-npm start
+npm run dev-board
 ```
 
-Now you can go to http://localhost:3000 and see the dashboard.
+Now you can go to <http://localhost:3000> and see the dashboard.
 
 The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
 
 ```bash
-npm run workers
-```
-
-### Environment/Secrets
-
-Create a .env file in the root lib and add these tokens/secrets before running the application:
-
-```bash
-OPENAI_API_KEY=
-OPENAI_ORG_ID=
-DISCORD_APPLICATION_ID=
-DISCORD_TOKEN=
-DISCORD_SERVER_ID=
-
-# these are optional, the code works fine without Llama cloud:
-LLAMA_CLOUD_API_KEY=
-```
-
-## How to run with nodemon
-
-Either you run both workers and board in the same terminal with same command through `concurrently`
-
-```bash
-npm run dev
-```
-
-or you start them separately
-
-```bash
 npm run dev-workers
-# new terminal:
-npm run dev-board
 ```
 
 ### How to run with Docker
+
+To run the application
 
 ```bash
 docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
@@ -123,11 +94,18 @@ docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 ```
 
-### Next steps / Tasks
+### Operations / DevOps
 
-### Operations
+This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s is automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
 
-This application is run in Kubernetes and uses FluxCD as CD pipeline. To create secret in the k8s cluster - use this command to transfer your .env file as secret to the application
+```helm
+postgresql (bitnami)
+redis (bitnami)
+chromadb
+metabase
+```
+
+To create secret in the k8s cluster - use this command to transfer your .env file as secret to the cluster:
 
 ```bash
 kubectl create secret generic env --from-env-file=.env
