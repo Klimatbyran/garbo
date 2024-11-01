@@ -1,6 +1,6 @@
 ## Klimatkollen Garbo AI
 
-This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self reported data from companies.
+This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
@@ -53,6 +53,10 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
+### Environment Setup
+
+Ensure you have Node.js version 22.0.0 or higher installed. You will also need Docker to run Redis, PostgreSQL, and ChromaDB containers.
+
 ### Get Started
 
 Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env.development (look in the .env.example) file in the root directory. Run redis, chromadb and postgresql locally like this:
@@ -90,6 +94,14 @@ To start the workers responsible for doing the actual work, which can be scaled 
 npm run dev-workers
 ```
 
+### Testing
+
+To run the tests, use the following command:
+
+```bash
+npm test
+```
+
 ### How to run with Docker
 
 To run the application
@@ -119,6 +131,14 @@ To create secret in the k8s cluster - use this command to transfer your .env fil
 ```bash
 kubectl create secret generic env --from-env-file=.env
 ```
+
+### Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+### Contact
+
+For any questions or issues, please contact the maintainers at [contact@klimatbyran.com](mailto:contact@klimatbyran.com).
 
 ### License
 
