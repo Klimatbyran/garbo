@@ -142,4 +142,4 @@ For any questions or issues, please contact the maintainers at [hej@klimatkollen
 
 ### License
 
-MIT @ Klimatbyrån Ideell Förening
+This project is licensed under the terms of the [MIT License](LICENSE) © Klimatbyrån Ideell Förening.
