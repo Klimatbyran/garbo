@@ -53,19 +53,60 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
-### Get Started
+## Get Started
 
-Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
+### Setting up environment variables
 
-```bash
+Make a copy of the file `.env` and name it `.env.development`. Fill it in using the instructions in the file.
+
+### Installing dependencies
+
+```sh
 npm i
-docker run -d -p 6379:6379 redis
-docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
-docker run -d -p 8000:8000 chromadb/chroma
-npm start & npm run workers
 ```
 
-## How to run the code
+> [!NOTE]
+> If you use a Linux-based operating system, you might need to install additional dependencies for the third-party package `canvas`. Follow the [instructions](https://www.npmjs.com/package/canvas).
+
+### Starting the containers
+
+This project expects some containers running in the background to work properly. We use Postgres as oour primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+
+The simplest way to start the containers the first time is to run the following docker commands.
+
+```bash
+docker run -d -p 6379:6379 --name garbo_redis redis
+docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
+docker run -d -p 5010:5010 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
+```
+
+Next time, you can start the containers back up using
+
+```sh
+docker start garbo_redis garbo_postgres garbo_chroma garbo_ingestor
+```
+
+You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives.
+
+### Starting the Garbo project in development mode
+
+Either you run both workers and board in the same terminal with same command through `concurrently`
+
+```bash
+npm run dev
+```
+
+or you start them separately
+
+```bash
+npm run dev-workers
+
+# In a new terminal:
+npm run dev-board
+```
+
+### How to run the code in production
 
 The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
 
@@ -79,37 +120,6 @@ The second one is the workers responsible for doing the actual work. This part c
 
 ```bash
 npm run workers
-```
-
-### Environment/Secrets
-
-Create a .env file in the root lib and add these tokens/secrets before running the application:
-
-```bash
-OPENAI_API_KEY=
-OPENAI_ORG_ID=
-DISCORD_APPLICATION_ID=
-DISCORD_TOKEN=
-DISCORD_SERVER_ID=
-
-# these are optional, the code works fine without Llama cloud:
-LLAMA_CLOUD_API_KEY=
-```
-
-## How to run with nodemon
-
-Either you run both workers and board in the same terminal with same command through `concurrently`
-
-```bash
-npm run dev
-```
-
-or you start them separately
-
-```bash
-npm run dev-workers
-# new terminal:
-npm run dev-board
 ```
 
 ### How to run with Docker
