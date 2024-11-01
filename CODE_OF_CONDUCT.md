@@ -2,10 +2,9 @@
 
 ## Welcome
 
-Welcome! Here we gather those who build, run, and spread Klimatkollen.se. The rules are simple – get involved where you feel you can help! Many do this in their spare time, and no one is expected to respond quickly or at all. Look for the channel that suits you best and start by reading through who is here and feel free to write a few words about yourself. Don't forget to write your real name if you don't want to be anonymous. Contact any of the following people if you have questions:
+Welcome! Here we gather those who build, run, and spread Klimatkollen.se. The rules are simple – get involved where you feel you can help! Many do this in their spare time, and no one is expected to respond quickly or at all. Here is an invite to our Discord server:
 
-- @Elvira – Tech Lead for Klimatkollen
-- @Ola Spännar and @klimatfrida – Founders
+[Discord invite](https://discord.gg/5Jqvyfesm3)
 
 ## Our Mission
 
@@ -27,6 +26,6 @@ We want to create a digital climate movement. This means that the next person wh
 
 ## Sensitive Questions
 
-If you have sensitive questions, such as security issues or information shared with you in confidence, you should not write them here but contact ola@infoman.se or fridaberryeklund@gmail.com. Do not share information from here with outsiders without first asking the user for permission.
+If you have sensitive questions, such as security issues or information shared with you in confidence, you should not write them here but contact [ola@infoman.se](mailto:ola@infoman.se) or [fridaberryeklund@gmail.com](mailto:fridaberryeklund@gmail.com). Do not share information from here with outsiders without first asking the user for permission.
 
-Ultimately, our most important goal is to reduce climate emissions in Sweden and reach the Paris Agreement. Thank you for contributing your time and knowledge!
+Ultimately, our most important goal is to reduce climate emissions in Sweden (and the planet) and reach the Paris Agreement. Thank you for contributing your time and knowledge!

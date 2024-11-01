@@ -9,7 +9,7 @@ Thank you for considering contributing to Garbo! We welcome contributions from t
 2. **Clone Your Fork**: Clone your forked repository to your local machine.
 
    ```bash
-   git clone https://github.com/your-username/garbo.git
+   git clone https://github.com/klimatbyran/garbo.git
    cd garbo
    ```
 
@@ -24,7 +24,7 @@ Thank you for considering contributing to Garbo! We welcome contributions from t
 5. **Commit Your Changes**: Commit your changes with a clear and descriptive commit message.
 
    ```bash
-   git commit -m "Add feature: your feature description"
+   git commit -m "feat: your feature description"
    ```
 
 6. **Push to Your Fork**: Push your changes to your forked repository.

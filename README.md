@@ -72,7 +72,7 @@ npm run dev
 
 ## How to run the code
 
-The code consists of two different starting points. You can start both the BullMQ queue UI and the workers concurrently using:
+The code consists of two different starting points. You can start both the BullMQ queue UI, the API and the workers concurrently using:
 
 ```bash
 npm run dev
@@ -82,7 +82,7 @@ This command will start both the dev-board and dev-workers concurrently. Now you
 
 If you want to run them separately, use the following commands:
 
-To serve the BullMQ queue UI and listen to new events from Discord:
+To serve the BullMQ queue UI and the API:
 
 ```bash
 npm run dev-board
