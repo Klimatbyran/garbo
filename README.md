@@ -138,8 +138,8 @@ We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for 
 
 ### Contact
 
-For any questions or issues, please contact the maintainers at [contact@klimatbyran.com](mailto:contact@klimatbyran.com).
+For any questions or issues, please contact the maintainers at [hej@klimatkollen.se](mailto:hej@klimatkollen.se) and you will get an invite to our Discord.
 
 ### License
 
-MIT
+MIT @ Klimatbyrån Ideell Förening
