@@ -63,19 +63,28 @@ docker run -d -p 6379:6379 redis
 docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 chromadb/chroma
 npm run dev
+# This command will start both the dev-board and dev-workers concurrently.
 ```
 
 ## How to run the code
 
-The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
+The code consists of two different starting points. You can start both the BullMQ queue UI and the workers concurrently using:
+
+```bash
+npm run dev
+```
+
+This command will start both the dev-board and dev-workers concurrently. Now you can go to <http://localhost:3000> and see the dashboard.
+
+If you want to run them separately, use the following commands:
+
+To serve the BullMQ queue UI and listen to new events from Discord:
 
 ```bash
 npm run dev-board
 ```
 
-Now you can go to <http://localhost:3000> and see the dashboard.
-
-The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
+To start the workers responsible for doing the actual work, which can be scaled horizontally:
 
 ```bash
 npm run dev-workers
