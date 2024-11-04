@@ -57,7 +57,7 @@ flowchart TB
 
 ### Setting up environment variables
 
-Make a copy of the file `.env` and name it `.env.development`. Fill it in using the instructions in the file.
+Make a copy of the file `.env.example` and name it `.env.development`. Fill it in using the instructions in the file.
 
 ### Installing dependencies
 
@@ -70,7 +70,7 @@ npm i
 
 ### Starting the containers
 
-This project expects some containers running in the background to work properly. We use Postgres as oour primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
 
 The simplest way to start the containers the first time is to run the following docker commands.
 
