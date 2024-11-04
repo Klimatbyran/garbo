@@ -113,6 +113,9 @@ docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
+
+# first time you need to initialize the postgres database:
+npm run prisma db push
 ```
 
 ### Operations / DevOps
