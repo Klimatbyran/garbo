@@ -53,24 +53,53 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
-### Environment Setup
+## Get started
 
 Ensure you have Node.js version 22.0.0 or higher installed. You will also need Docker to run Redis, PostgreSQL, and ChromaDB containers.
 
-### Get Started
+### Setting up environment variables
 
-Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env.development (look in the .env.example) file in the root directory. Run redis, chromadb and postgresql locally like this:
+Make a copy of the file `.env.example` and name it `.env.development`. Fill it in using the instructions in the file.
 
-```bash
+### Installing dependencies
+
+```sh
 npm i
-docker run -d -p 6379:6379 redis
-docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
-docker run -d -p 8000:8000 chromadb/chroma
-npm run dev
-# This command will start both the dev-board and dev-workers concurrently.
 ```
 
-## How to run the code
+> [!NOTE]
+> If you use a Linux-based operating system, you might need to install additional dependencies for the third-party package `canvas`. Follow the [instructions](https://www.npmjs.com/package/canvas).
+
+### Starting the containers
+
+This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+
+The simplest way to start the containers the first time is to run the following docker commands.
+
+```bash
+docker run -d -p 6379:6379 --name garbo_redis redis
+docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
+docker run -d -p 5010:5010 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
+```
+
+Next time, you can start the containers back up using
+
+```sh
+docker start garbo_redis garbo_postgres garbo_chroma garbo_ingestor
+```
+
+You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives.
+
+### Seeding the database for development
+
+This applies migrations and seeding data needed for development.
+
+```sh
+npm run prisma migrate dev
+```
+
+### Starting the Garbo project in development mode
 
 The code consists of two different starting points. You can start both the BullMQ queue UI, the API and the workers concurrently using:
 
