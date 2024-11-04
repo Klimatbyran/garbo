@@ -11,8 +11,8 @@ Welcome! Here we gather those who build, run, and spread Klimatkollen.se. The ru
 Klimatkollen exists to provide citizens with insight and answers to three questions:
 
 1. How are the climate emissions progressing?
-2. What will happen if they continue as they are today?
-3. How should it go according to the Paris Agreement?
+2. What is the forecast if emissions continue as today?
+3. How should emissions be reduced to meet the Paris Agreement?
 
 From 2024–2026, we have support from Google.org to develop AI and show how companies' emissions are progressing.
 
@@ -26,6 +26,6 @@ We want to create a digital climate movement. This means that the next person wh
 
 ## Sensitive Questions
 
-If you have sensitive questions, such as security issues or information shared with you in confidence, you should not write them here but contact [ola@infoman.se](mailto:ola@infoman.se) or [fridaberryeklund@gmail.com](mailto:fridaberryeklund@gmail.com). Do not share information from here with outsiders without first asking the user for permission.
+If you have sensitive questions, such as security issues or information shared with you in confidence, you should not write them here but contact [ola@klimatkollen.se](mailto:ola@klimatkollen.se) or [frida@klimatkollen.se](mailto:frida@klimatkollen.se). Do not share information from here with outsiders without first asking the user for permission.
 
 Ultimately, our most important goal is to reduce climate emissions in Sweden (and the planet) and reach the Paris Agreement. Thank you for contributing your time and knowledge!
