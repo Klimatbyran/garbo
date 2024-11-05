@@ -45,6 +45,68 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
   return diff
 }
 
+/**
+ * Group all emissions data related to each reporting period.
+ * Saving everything at once avoids race conditions.
+ */
+function groupEmissionsByReportingPeriod({
+  scope12,
+  scope3,
+  fiscalYear,
+  metadata,
+}) {
+  const reportingPeriods: Record<
+    string,
+    {
+      startDate: string
+      endDate: string
+      emissions: {
+        scope1?: any
+        scope2?: any
+        scope3?: any
+        statedTotalEmissions?: any
+      }
+      metadata: any
+    }
+  > = {}
+
+  function getReportingPeriodEmissions(year: number) {
+    const [startDate, endDate] = getReportingPeriodDates(
+      year,
+      fiscalYear.startMonth,
+      fiscalYear.endMonth
+    )
+
+    return {
+      startDate,
+      endDate,
+      emissions: {},
+      metadata,
+    }
+  }
+
+  scope12.forEach(({ year, scope1, scope2 }) => {
+    reportingPeriods[year] ??= getReportingPeriodEmissions(year)
+
+    reportingPeriods[year].emissions = {
+      ...reportingPeriods[year].emissions,
+      scope1,
+      scope2,
+    }
+  })
+
+  scope3.forEach(({ year, scope3 }) => {
+    reportingPeriods[year] ??= getReportingPeriodEmissions(year)
+
+    reportingPeriods[year].emissions = {
+      ...reportingPeriods[year].emissions,
+      scope3,
+    }
+  })
+
+  return reportingPeriods
+}
+
 const worker = new DiscordWorker<JobData>(
   'saveToAPI',
   async (job) => {
@@ -90,51 +152,31 @@ ${diff.slice(0, 2000)}`,
     } else {
       if (scope12?.length || scope3?.length) {
         job.editMessage(`🤖 Sparar utsläppsdata...`)
-        return Promise.all([
-          ...scope12.map(async ({ year, scope1, scope2 }) => {
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
+
+        const reportingPeriods = groupEmissionsByReportingPeriod({
+          scope12,
+          scope3,
+          fiscalYear,
+          metadata,
+        })
+
+        return Promise.all(
+          Object.entries(reportingPeriods).map(([year, reportingPeriod]) => {
+            job.log(
+              `Saving [${Object.keys(reportingPeriod.emissions).join(
+                ', '
+              )}] for ${reportingPeriod.startDate}-${reportingPeriod.endDate}`
             )
-            job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-            job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                scope1,
-                scope2,
-              },
-              metadata,
-            }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
+            job.sendMessage(
+              `🤖 ${year}: Sparar utsläppsdata [${Object.keys(
+                reportingPeriod.emissions
+              ).join(', ')}]...`
             )
-          }),
-          ...scope3.map(async ({ year, scope3 }) => {
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.sendMessage(`🤖 Sparar utsläppsdata scope 3 för ${year}...`)
-            job.log(`Saving scope3 for ${year}`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                scope3,
-              },
-              metadata,
-            }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
-            )
-          }),
-        ])
+            return apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+              body: reportingPeriod,
+            })
+          })
+        )
       }
 
       if (industry) {
