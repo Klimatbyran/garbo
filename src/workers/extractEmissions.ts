@@ -18,56 +18,58 @@ class JobData extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
-  const { companyName } = job.data
-  job.sendMessage(`🤖 Hämtar utsläppsdata...`)
+const extractEmissions = new DiscordWorker<JobData>(
+  'extractEmissions',
+  async (job) => {
+    const { companyName } = job.data
+    job.sendMessage(`🤖 Hämtar utsläppsdata...`)
 
-  const childrenValues = await job.getChildrenEntries()
+    const childrenValues = await job.getChildrenEntries()
 
-  const base = {
-    name: companyName,
-    data: { ...job.data, ...childrenValues },
-    queueName: 'followUp',
-    opts: {
-      attempts: 3,
-    },
-  }
+    const base = {
+      name: companyName,
+      data: { ...job.data, ...childrenValues },
+      queueName: 'followUp',
+      opts: {
+        attempts: 3,
+      },
+    }
 
-  await flow.add({
-    name: companyName,
-    queueName: 'checkDB',
-    data: {
-      ...base.data,
-    },
-    children: [
-      {
-        ...base,
-        name: 'industryGics ' + companyName,
-        data: {
-          ...base.data,
-          prompt: industryGics.prompt,
-          schema: zodResponseFormat(industryGics.schema, 'industry'),
-        },
+    await flow.add({
+      name: companyName,
+      queueName: 'checkDB',
+      data: {
+        ...base.data,
       },
-      {
-        ...base,
-        name: 'scope1+2 ' + companyName,
-        data: {
-          ...base.data,
-          prompt: scope12.prompt,
-          schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
+      children: [
+        {
+          ...base,
+          name: 'industryGics ' + companyName,
+          data: {
+            ...base.data,
+            prompt: industryGics.prompt,
+            schema: zodResponseFormat(industryGics.schema, 'industry'),
+          },
         },
-      },
-      {
-        ...base,
-        name: 'scope3 ' + companyName,
-        data: {
-          ...base.data,
-          prompt: scope3.prompt,
-          schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+        {
+          ...base,
+          name: 'scope1+2 ' + companyName,
+          data: {
+            ...base.data,
+            prompt: scope12.prompt,
+            schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
+          },
         },
-      },
-      /*
+        {
+          ...base,
+          name: 'scope3 ' + companyName,
+          data: {
+            ...base.data,
+            prompt: scope3.prompt,
+            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+          },
+        },
+        /*
       
       {
         ...base,
@@ -99,13 +101,14 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
         },
       }*/
-    ],
-    opts: {
-      attempts: 3,
-    },
-  })
+      ],
+      opts: {
+        attempts: 3,
+      },
+    })
 
-  job.sendMessage(`🤖 Ställer följdfrågor...`)
-})
+    job.sendMessage(`🤖 Ställer följdfrågor...`)
+  }
+)
 
-export default worker
+export default extractEmissions

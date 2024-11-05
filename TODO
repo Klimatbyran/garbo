@@ -86,7 +86,7 @@
 
 ## Later
 
-    [ ] Ta bort Barrel-files
+    [x] Ta bort Barrel-files
     [x] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
     [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer

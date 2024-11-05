@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import { TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
@@ -14,7 +14,7 @@ export class DiscordJob extends Job {
 
   message: any
   sendMessage: (
-    msg: string | { content: string; components: any[] }
+    msg: string | { files?: any[]; content?: string; components?: any[] }
   ) => Promise<any>
   editMessage: (msg: string) => Promise<any>
   setThreadName: (name: string) => Promise<any>
@@ -89,6 +89,7 @@ function addDiscordMethods(job: DiscordJob) {
 }
 
 export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
+  queue: Queue
   constructor(
     name: string,
     callback: (job: T) => any,
@@ -99,5 +100,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
       concurrency: 10,
       ...options,
     })
+
+    this.queue = new Queue(name, { connection: redis })
   }
 }

@@ -1,5 +1,5 @@
-import { indexParagraphs } from '../queues'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import indexParagraphs from './indexParagraphs'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -7,7 +7,7 @@ class JobData extends DiscordJob {
   }
 }
 
-const worker = new DiscordWorker('splitText', async (job: JobData) => {
+const splitText = new DiscordWorker('splitText', async (job: JobData) => {
   const { text } = job.data
 
   job.log(`Splitting text: ${text.slice(0, 20)}`)
@@ -16,7 +16,7 @@ const worker = new DiscordWorker('splitText', async (job: JobData) => {
 
   await job.sendMessage(`✅ Uppdelad i ${paragraphs.length} paragrafer...`)
 
-  indexParagraphs.add(
+  indexParagraphs.queue.add(
     'found ' + paragraphs.length,
     {
       ...job.data,
@@ -32,4 +32,4 @@ const worker = new DiscordWorker('splitText', async (job: JobData) => {
   return paragraphs
 })
 
-export default worker
+export default splitText

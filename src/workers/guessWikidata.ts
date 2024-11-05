@@ -1,6 +1,6 @@
 import { UnrecoverableError } from 'bullmq'
 import { searchCompany } from '../lib/wikidata'
-import { ask } from '../openai'
+import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata from '../prompts/wikidata'
@@ -11,7 +11,7 @@ class JobData extends DiscordJob {
   }
 }
 
-const worker = new DiscordWorker<JobData>(
+const guessWikidata = new DiscordWorker<JobData>(
   'guessWikidata',
   async (job: JobData) => {
     const { companyName } = job.data
@@ -58,4 +58,4 @@ const worker = new DiscordWorker<JobData>(
   }
 )
 
-export default worker
+export default guessWikidata

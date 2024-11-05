@@ -1,4 +1,4 @@
-import { askPrompt } from '../openai'
+import { askPrompt } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
@@ -45,7 +45,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
   return diff
 }
 
-const worker = new DiscordWorker<JobData>(
+const saveToAPI = new DiscordWorker<JobData>(
   'saveToAPI',
   async (job) => {
     const {
@@ -156,4 +156,4 @@ ${diff.slice(0, 2000)}`,
   }
 )
 
-export default worker
+export default saveToAPI
