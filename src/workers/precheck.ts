@@ -1,7 +1,7 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import fiscalYear from '../prompts/followUp/fiscalYear'
+import fiscalYear from '../prompts/fiscalYear'
 import { askPrompt } from '../openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
