@@ -43,7 +43,8 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
     await apiFetch(`/companies`, { body })
   }
 
-  const { scope12, scope3, biogenic, industry } = childrenValues
+  const { scope12, scope3, biogenic, industry, goals, initiatives } =
+    childrenValues
   const base = { companyName, url, fiscalYear, wikidata, threadId, channelId }
 
   // TODO convert to flow
@@ -69,6 +70,24 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
       ...base,
       apiSubEndpoint: 'industry',
       industry,
+    })
+  }
+
+  if (goals) {
+    await job.editMessage(`🤖 Skapar jobb för att spara mål...`)
+    saveToAPI.add(companyName + ' goals', {
+      ...base,
+      apiSubEndpoint: 'goals',
+      goals,
+    })
+  }
+
+  if (initiatives) {
+    await job.editMessage(`🤖 Skapar jobb för att spara initiativ...`)
+    saveToAPI.add(companyName + ' initiatives', {
+      ...base,
+      apiSubEndpoint: 'initiatives',
+      initiatives,
     })
   }
 

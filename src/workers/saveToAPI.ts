@@ -15,6 +15,8 @@ export class JobData extends DiscordJob {
     scope3?: any
     biogenic?: any
     industry?: any
+    goals?: any
+    initiatives?: any
     approved?: boolean
   }
 }
@@ -23,7 +25,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry }
+  { scope12, scope3, biogenic, industry, initiatives, goals }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
@@ -31,6 +33,8 @@ const askDiff = async (
   )
     return ''
   if (industry && !existingCompany.industry) return ''
+  if (initiatives && !existingCompany.initiatives) return ''
+  if (goals && !existingCompany.goals) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
@@ -138,6 +142,8 @@ const worker = new DiscordWorker<JobData>(
       scope12 = [],
       scope3 = [],
       biogenic = [],
+      goals,
+      initiatives,
       industry,
       approved = false,
     } = job.data
@@ -153,7 +159,14 @@ const worker = new DiscordWorker<JobData>(
       comment: 'Parsed by Garbo AI',
     }
     const diff = !approved
-      ? await askDiff(existingCompany, { scope12, scope3, biogenic, industry })
+      ? await askDiff(existingCompany, {
+          scope12,
+          scope3,
+          biogenic,
+          industry,
+          initiatives,
+          goals,
+        })
       : ''
 
     if (diff) {
@@ -211,6 +224,30 @@ ${diff}`.slice(0, 2000),
           method: 'PUT',
         })
       }
+
+      // TODO: Figure out why we sometimes get "This interaction failed" as an error message after approving in discord
+      if (goals) {
+        job.editMessage(`🤖 Sparar mål...`)
+        return await apiFetch(`/companies/${wikidataId}/goals`, {
+          body: {
+            goals,
+            metadata,
+          },
+          method: 'POST',
+        })
+      }
+
+      if (initiatives) {
+        job.editMessage(`🤖 Sparar initiativ...`)
+        return await apiFetch(`/companies/${wikidataId}/initiatives`, {
+          body: {
+            initiatives,
+            metadata,
+          },
+          method: 'POST',
+        })
+      }
+
       throw new Error('No data to save')
     }
   },

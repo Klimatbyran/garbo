@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-// TODO: In the future, import the schemas from a shared place
 export const schema = z.object({
   goals: z.array(
     z.object({

@@ -76,8 +76,6 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           schema: zodResponseFormat(biogenic.schema, 'emissions_biogenic'),
         },
       },
-      /*
-      
       {
         ...base,
         name: 'goals ' + companyName,
@@ -98,6 +96,8 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           schema: zodResponseFormat(initiatives.schema, 'initiatives'),
         },
       },
+
+      /*
       {
         ...base,
         name: 'baseFacts ' + companyName,
