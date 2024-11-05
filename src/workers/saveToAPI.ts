@@ -13,6 +13,7 @@ export class JobData extends DiscordJob {
     fiscalYear: any
     scope12?: any
     scope3?: any
+    biogenic?: any
     industry?: any
     approved?: boolean
   }
@@ -20,8 +21,14 @@ export class JobData extends DiscordJob {
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 
-const askDiff = async (existingCompany, { scope12, scope3, industry }) => {
-  if ((scope12 || scope3) && !existingCompany.reportingPeriods?.length)
+const askDiff = async (
+  existingCompany,
+  { scope12, scope3, biogenic, industry }
+) => {
+  if (
+    (scope12 || scope3 || biogenic) &&
+    !existingCompany.reportingPeriods?.length
+  )
     return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
@@ -37,6 +44,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
       after: {
         scope12,
         scope3,
+        biogenic,
         industry,
       },
     })
@@ -52,6 +60,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
 function groupEmissionsByReportingPeriod({
   scope12,
   scope3,
+  biogenic,
   fiscalYear,
   metadata,
 }) {
@@ -64,6 +73,7 @@ function groupEmissionsByReportingPeriod({
         scope1?: any
         scope2?: any
         scope3?: any
+        biogenic?: any
         statedTotalEmissions?: any
       }
       metadata: any
@@ -104,6 +114,15 @@ function groupEmissionsByReportingPeriod({
     }
   })
 
+  biogenic.forEach(({ year, biogenic }) => {
+    reportingPeriods[year] ??= getReportingPeriodEmissions(year)
+
+    reportingPeriods[year].emissions = {
+      ...reportingPeriods[year].emissions,
+      biogenic,
+    }
+  })
+
   return reportingPeriods
 }
 
@@ -118,6 +137,7 @@ const worker = new DiscordWorker<JobData>(
       wikidata,
       scope12 = [],
       scope3 = [],
+      biogenic = [],
       industry,
       approved = false,
     } = job.data
@@ -133,11 +153,12 @@ const worker = new DiscordWorker<JobData>(
       comment: 'Parsed by Garbo AI',
     }
     const diff = !approved
-      ? await askDiff(existingCompany, { scope12, scope3, industry })
+      ? await askDiff(existingCompany, { scope12, scope3, biogenic, industry })
       : ''
 
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
+      // TODO: Add info about diff type to the message title to make it easier to review the changes
       await job.sendMessage({
         content: `# ${companyName}
 ${diff}`.slice(0, 2000),
@@ -150,12 +171,13 @@ ${diff}`.slice(0, 2000),
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
     } else {
-      if (scope12?.length || scope3?.length) {
+      if (scope12?.length || scope3?.length || biogenic?.length) {
         job.editMessage(`🤖 Sparar utsläppsdata...`)
 
         const reportingPeriods = groupEmissionsByReportingPeriod({
           scope12,
           scope3,
+          biogenic,
           fiscalYear,
           metadata,
         })

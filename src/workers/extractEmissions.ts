@@ -9,6 +9,7 @@ import initiatives from '../prompts/followUp/initiatives'
 import baseFacts from '../prompts/followUp/baseFacts'
 import fiscalYear from '../prompts/followUp/fiscalYear'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import biogenic from '../prompts/followUp/biogenic'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -65,6 +66,15 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           ...base.data,
           prompt: scope3.prompt,
           schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+        },
+      },
+      {
+        ...base,
+        name: 'biogenic ' + companyName,
+        data: {
+          ...base.data,
+          prompt: biogenic.prompt,
+          schema: zodResponseFormat(biogenic.schema, 'emissions_biogenic'),
         },
       },
       /*
