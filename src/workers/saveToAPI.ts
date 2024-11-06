@@ -224,7 +224,7 @@ const worker = new DiscordWorker<JobData>(
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
       await job.sendMessage({
-        content: `# ${companyName}: ${apiSubEndpoint}
+        content: `# ${companyName}: \`${apiSubEndpoint}\`
 ${diff}`.slice(0, 2000),
         components: [buttonRow],
       })
