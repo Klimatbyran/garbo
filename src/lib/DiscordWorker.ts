@@ -2,6 +2,9 @@ import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import { TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
+import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import openai from '../config/openai'
+import chromadb from '../config/chromadb'
 
 export class DiscordJob extends Job {
   declare data: {
@@ -18,10 +21,13 @@ export class DiscordJob extends Job {
   ) => Promise<any>
   editMessage: (msg: string) => Promise<any>
   setThreadName: (name: string) => Promise<any>
+  sendTyping: () => Promise<any>
   getChildrenEntries: () => Promise<any>
+  embedder: OpenAIEmbeddingFunction
+  chromaClient: ChromaClient
 }
 
-function addDiscordMethods(job: DiscordJob) {
+function addCustomMethods(job: DiscordJob) {
   let message = null
   /**
    * Combine results of children jobs into a single object.
@@ -38,7 +44,7 @@ function addDiscordMethods(job: DiscordJob) {
               // NOTE: This still assumes all children jobs return JSON, and will crash if we return string results.
               return Object.entries(JSON.parse(value))
             } else {
-              return []
+              return Object.entries(value)
             }
           })
           .flat()
@@ -46,11 +52,15 @@ function addDiscordMethods(job: DiscordJob) {
       .then((values) => Object.fromEntries(values))
   }
 
-  job.sendMessage = async (msg) => {
+  job.sendMessage = async (msg: any) => {
     message = await discord.sendMessage(job.data, msg)
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })
     return message
+  }
+
+  job.sendTyping = async () => {
+    return discord.sendTyping(job.data)
   }
 
   job.editMessage = (msg) => {
@@ -85,6 +95,9 @@ function addDiscordMethods(job: DiscordJob) {
     )) as TextChannel
     return thread.setName(name)
   }
+
+  job.embedder = new OpenAIEmbeddingFunction(openai)
+  job.chromaClient = new ChromaClient(chromadb)
   return job
 }
 
@@ -95,7 +108,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     callback: (job: T) => any,
     options?: WorkerOptions
   ) {
-    super(name, (job: T) => callback(addDiscordMethods(job) as T), {
+    super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
       concurrency: 10,
       ...options,

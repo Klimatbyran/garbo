@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import downloadPDF from '../../workers/downloadPDF'
+import nlmParsePDF from '../../workers/nlmParsePDF'
 
 export default {
   data: new SlashCommandBuilder()
@@ -55,7 +55,7 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
-        downloadPDF.queue.add('download ' + url.slice(-20), {
+        nlmParsePDF.queue.add('download ' + url.slice(-20), {
           url,
           threadId: thread.id,
         })

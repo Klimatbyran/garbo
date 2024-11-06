@@ -35,27 +35,3 @@ spec:
       targetPort: 5001
   selector:
     app: nlm
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nlm
-  annotations:
-    cert-manager.io/cluster-issuer: 'letsencrypt-prod'
-spec:
-  tls:
-    - hosts:
-        - nlm.klimatkollen.se
-      secretName: nlm-klimatkollen-se-tls
-
-  rules:
-    - host: nlm.klimatkollen.se
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: nlm
-                port:
-                  number: 5001

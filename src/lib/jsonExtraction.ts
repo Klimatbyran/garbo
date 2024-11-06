@@ -99,7 +99,6 @@ export const calculateBoundingBoxForTable = (
 ) => {
   const { bbox } = table
   const [x1, y1, x2, y2] = bbox
-  console.log('x1,y1,x2,y2', x1, y1, x2, y2)
   const padding = 15
   const rowHeight = 45
   const x = Math.round(x1 * 2) - padding
@@ -109,15 +108,25 @@ export const calculateBoundingBoxForTable = (
     Math.round(pageWidth * 2 - x) - padding
   )
   const height = Math.min(
-    table.rows.length * rowHeight + padding * 2,
+    table.rows.length * rowHeight + padding * 2, // TODO: remove when the BBOX bug is fixed
     Math.round(pageHeight * 2 - y) - padding
   )
   return { x, y, width, height }
 }
 
-export const jsonToMarkdown = (json) => {
+export const jsonToMarkdown = (json): string => {
   const blocks = json.return_dict.result.blocks
-  const markdown = blocks.map(blockToMarkdown).join('\n\n')
+  const { markdown } = blocks.reduce(
+    ({ markdown, pageNr }, block) => {
+      const currentPage = block.page_idx
+      if (currentPage !== pageNr) {
+        markdown += `\n<!-- PAGE: ${currentPage} -->\n`
+      }
+      markdown += blockToMarkdown(block) + '\n\n'
+      return { pageNr: currentPage, markdown }
+    },
+    { result: '', pageNr: 0 }
+  )
   return markdown
 }
 

@@ -1,4 +1,4 @@
-## Klimatkollen Garbo AI
+# Klimatkollen Garbo AI
 
 This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
@@ -21,9 +21,8 @@ flowchart TB
 
     PDF[PDF]
     Cache{Is in cache?}
-    Download[Download PDF]
-    Index[Index Paragraphs]
-    Search[Search Vectors]
+    NLM[Parse PDF]
+    Tables[Extract Tables]
     Emissions[Extract Emissions]
 
     Industry[Extract Industry]
@@ -33,9 +32,9 @@ flowchart TB
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
 
-    PDF --> Cache --(no)--> Download --> Index --> Search --> Precheck
+    PDF --> Cache --(no)--> NLM --> Tables --> Precheck
 
-    Cache --(yes)--> Search
+    Cache --(yes)--> Precheck
 
     CheckDB{Exists in API?}
 
@@ -80,7 +79,7 @@ The simplest way to start the containers the first time is to run the following 
 docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
-docker run -d -p 5010:5010 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
+docker run -d -p 5010:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
 
 Next time, you can start the containers back up using
