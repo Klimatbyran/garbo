@@ -50,6 +50,8 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
         scope3,
         biogenic,
         industry,
+        initiatives,
+        goals,
       },
     })
   )
@@ -169,6 +171,11 @@ const worker = new DiscordWorker<JobData>(
         })
       : ''
 
+    // TODO: Figure out why the diff doesn't work reliably for goals and initiatives
+    // It sometimes doesn't save goals or initiatives, even though they are empty and we have a value we want to save
+    // This is likely a race condition, causing the slower updates to always go through a manual review, even though the data is not available.
+    // What if we only kept the defined keys within the existingCompany (before) and the new one (after)?
+    // That way, we might reduce the cluttering and keep the diff more focused on actual changes?
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
       // TODO: Add info about diff type to the message title to make it easier to review the changes
