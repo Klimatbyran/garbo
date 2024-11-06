@@ -37,12 +37,11 @@ export async function extractJsonFromPdf(buffer: Buffer) {
   if (!nlmIngestorUrl) {
     throw new Error('NLM_INGESTOR_URL is not set')
   }
-  console.log('parsing pdf from', nlmIngestorUrl)
 
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
   const url = `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`
-  console.log('fetching from', url)
+
   let response: Response
   try {
     response = await fetch(url, {

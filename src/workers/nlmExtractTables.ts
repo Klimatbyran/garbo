@@ -27,10 +27,6 @@ const extractTextViaVisionAPI = async (
   },
   context: string
 ) => {
-  console.log('Extracting text from screenshot via Vision API')
-  console.log('Filename:', filename)
-  console.log('Name:', name)
-  console.log('Context:', context)
   const result = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [

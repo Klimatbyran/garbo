@@ -10,8 +10,6 @@ const indexMarkdown = new DiscordWorker(
     const client = new ChromaClient(chromadb)
     const { url } = job.data
     const childrenValues = await job.getChildrenEntries()
-    const children = await job.getChildrenValues()
-    console.log('childrenValues', childrenValues, children)
     const { markdown } = childrenValues
     const paragraphs = markdown
       .split('\n###')

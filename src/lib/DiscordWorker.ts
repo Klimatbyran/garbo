@@ -39,7 +39,6 @@ function addCustomMethods(job: DiscordJob) {
       .then((values) =>
         values
           .map((value) => {
-            console.log('value', value)
             // Only parse the result for children jobs that returned potential JSON
             if (value && typeof value === 'string') {
               // NOTE: This still assumes all children jobs return JSON, and will crash if we return string results.
@@ -54,7 +53,6 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.sendMessage = async (msg: any) => {
-    console.log('sending message', msg, job.data)
     message = await discord.sendMessage(job.data, msg)
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })

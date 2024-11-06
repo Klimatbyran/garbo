@@ -99,7 +99,6 @@ export const calculateBoundingBoxForTable = (
 ) => {
   const { bbox } = table
   const [x1, y1, x2, y2] = bbox
-  console.log('x1,y1,x2,y2', x1, y1, x2, y2)
   const padding = 15
   const rowHeight = 45
   const x = Math.round(x1 * 2) - padding
@@ -112,7 +111,6 @@ export const calculateBoundingBoxForTable = (
     table.rows.length * rowHeight + padding * 2, // TODO: remove when the BBOX bug is fixed
     Math.round(pageHeight * 2 - y) - padding
   )
-  console.log('x,y,width,height', x, y, width, height)
   return { x, y, width, height }
 }
 

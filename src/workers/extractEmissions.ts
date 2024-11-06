@@ -34,7 +34,6 @@ const extractEmissions = new DiscordWorker<JobData>(
         attempts: 3,
       },
     }
-    console.log('base', base)
 
     await flow.add({
       name: companyName,
