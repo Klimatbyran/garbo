@@ -144,7 +144,8 @@ docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 
 # first time you need to initialize the postgres database:
-npm run prisma db push
+npm run prisma db push # create tables
+npm run prisma db seed # seed the data with initial content
 ```
 
 ### Operations / DevOps
