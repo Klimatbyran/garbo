@@ -108,20 +108,32 @@ export async function extractTablesFromJson(
     ({ pageIndex, tables, pageWidth, pageHeight }) =>
       tables.map((table) =>
         pngs.getPage(pageIndex + 1).then((png) => {
+          /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
+             När den är fixad kan denna användas istället för att beskära hela sidan. */
+          /* TODO: fixa boundingbox för tabeller
           const { x, y, width, height } = calculateBoundingBoxForTable(
             table,
             pageWidth,
             pageHeight
-          )
-          const pngName = `table-${pageIndex}-${table.name}.png`
+          )*/
+          const name = table.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()
+          const pngName = `table-${pageIndex}-${name}.png`
           const filename = path.join(outputDir, pngName)
+
+          const pageWidth2 = Math.floor(pageWidth * 2)
+          const pageHeight2 = Math.floor(pageHeight * 2)
           //console.log(url, pageIndex, x, y, width, height, table)
           console.log('extracting screenshot to outputPath', filename)
-          return extractRegionAsPng(png, filename, x, y, width, height).then(
-            () => {
-              return { ...table, filename } as Table
-            }
-          )
+          return extractRegionAsPng(
+            png,
+            filename,
+            0,
+            0,
+            pageWidth2,
+            pageHeight2
+          ).then(() => {
+            return { ...table, filename } as Table
+          })
         })
       )
   )

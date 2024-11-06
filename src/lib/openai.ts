@@ -71,4 +71,4 @@ const askStream = async (
   return response
 }
 
-export { ask, askPrompt, askStream }
+export { openai, ask, askPrompt, askStream }

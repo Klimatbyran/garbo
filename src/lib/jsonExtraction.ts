@@ -118,18 +118,18 @@ export const calculateBoundingBoxForTable = (
 
 export const jsonToMarkdown = (json): string => {
   const blocks = json.return_dict.result.blocks
-  const markdown = blocks.reduce(
-    ({ result, pageNr }, block) => {
+  const { markdown } = blocks.reduce(
+    ({ markdown, pageNr }, block) => {
       const currentPage = block.page_idx
       if (currentPage !== pageNr) {
-        result += `\n<!-- PAGE: ${currentPage} -->\n`
+        markdown += `\n<!-- PAGE: ${currentPage} -->\n`
       }
-      result += blockToMarkdown(block) + '\n\n'
-      return { pageNr: currentPage, result }
+      markdown += blockToMarkdown(block) + '\n\n'
+      return { pageNr: currentPage, markdown }
     },
     { result: '', pageNr: 0 }
   )
-  return markdown.result
+  return markdown
 }
 
 export const jsonToTables = (json) => {
