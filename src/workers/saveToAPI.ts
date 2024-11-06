@@ -17,6 +17,7 @@ export class JobData extends DiscordJob {
     industry?: any
     goals?: any
     initiatives?: any
+    economy?: any
     approved?: boolean
   }
 }
@@ -25,13 +26,14 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry, initiatives, goals }
+  { scope12, scope3, biogenic, industry, initiatives, goals, economy }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
     !existingCompany.reportingPeriods?.length
   )
     return ''
+  if (economy && !existingCompany.reportingPeriods.length) return ''
   if (industry && !existingCompany.industry) return ''
   if (initiatives && !existingCompany.initiatives) return ''
   if (goals && !existingCompany.goals) return ''
@@ -52,6 +54,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
         industry,
         initiatives,
         goals,
+        economy,
       },
     })
   )
@@ -132,6 +135,46 @@ function groupEmissionsByReportingPeriod({
   return reportingPeriods
 }
 
+/**
+ * Group all economy data related to each reporting period.
+ * Saving everything at once avoids race conditions.
+ */
+function groupEconomyByReportingPeriod({ economy, fiscalYear, metadata }) {
+  const reportingPeriods: Record<
+    string,
+    {
+      startDate: string
+      endDate: string
+      economy: {
+        turnover?: any
+        employees?: any
+      }
+      metadata: any
+    }
+  > = {}
+
+  function getReportingPeriodEconomy(year: number, economy: any) {
+    const [startDate, endDate] = getReportingPeriodDates(
+      year,
+      fiscalYear.startMonth,
+      fiscalYear.endMonth
+    )
+
+    return {
+      startDate,
+      endDate,
+      economy,
+      metadata,
+    }
+  }
+
+  economy.forEach(({ year, economy }) => {
+    reportingPeriods[year] ??= getReportingPeriodEconomy(year, economy)
+  })
+
+  return reportingPeriods
+}
+
 const worker = new DiscordWorker<JobData>(
   'saveToAPI',
   async (job) => {
@@ -144,6 +187,7 @@ const worker = new DiscordWorker<JobData>(
       scope12 = [],
       scope3 = [],
       biogenic = [],
+      economy = [],
       goals,
       initiatives,
       industry,
@@ -168,6 +212,7 @@ const worker = new DiscordWorker<JobData>(
           industry,
           initiatives,
           goals,
+          economy,
         })
       : ''
 
@@ -214,6 +259,9 @@ ${diff}`.slice(0, 2000),
               ).join(', ')}]...`
             )
             return apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+              // IDEA: Here, we might be able to add the reportURL to the request body
+              // However, it would only get saved when the underlying reporting period is created
+              // so we still might want to have a specific endpoint for saving it.
               body: reportingPeriod,
             })
           })
@@ -252,6 +300,37 @@ ${diff}`.slice(0, 2000),
           },
           method: 'POST',
         })
+      }
+
+      if (economy.length) {
+        job.editMessage(`🤖 Sparar ekomidata...`)
+
+        const reportingPeriods = groupEconomyByReportingPeriod({
+          economy,
+          fiscalYear,
+          metadata,
+        })
+
+        return Promise.all(
+          Object.entries(reportingPeriods).map(([year, reportingPeriod]) => {
+            job.log(
+              `Saving [${Object.keys(reportingPeriod.economy).join(
+                ', '
+              )}] for ${reportingPeriod.startDate}-${reportingPeriod.endDate}`
+            )
+            job.sendMessage(
+              `🤖 ${year}: Sparar ekonomidata [${Object.keys(
+                reportingPeriod.economy
+              ).join(', ')}]...`
+            )
+            return apiFetch(`/companies/${wikidataId}/${year}/economy`, {
+              // IDEA: Here, we might be able to add the reportURL to the request body
+              // However, it would only get saved when the underlying reporting period is created
+              // so we still might want to have a specific endpoint for saving it.
+              body: reportingPeriod,
+            })
+          })
+        )
       }
 
       throw new Error('No data to save')

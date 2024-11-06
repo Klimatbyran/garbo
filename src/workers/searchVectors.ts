@@ -39,6 +39,8 @@ const worker = new DiscordWorker('searchVectors', async (job: JobData) => {
     ],
   })
 
+  // TODO: Should we query chroma DB for relevant paragraphs about the economy data?
+
   const paragraphs = results.documents?.flat() || []
 
   if (paragraphs.length === 0) {

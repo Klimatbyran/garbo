@@ -1,13 +1,14 @@
 import { FlowProducer } from 'bullmq'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import redis from '../config/redis'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import biogenic from '../prompts/followUp/biogenic'
+import economy from '../prompts/followUp/economy'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -91,6 +92,15 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
           ...base.data,
           prompt: initiatives.prompt,
           schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+        },
+      },
+      {
+        ...base,
+        name: 'economy ' + companyName,
+        data: {
+          ...base.data,
+          prompt: economy.prompt,
+          schema: zodResponseFormat(economy.schema, 'economy'),
         },
       },
     ],
