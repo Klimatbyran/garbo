@@ -4,7 +4,6 @@ import { saveToAPI } from '../queues'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    apiSubEndpoint: string
     companyName?: string
     wikidata: any
     fiscalYear: any
@@ -37,6 +36,7 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
     )
     const body = {
       name: companyName,
+      description: childrenValues.description,
       wikidataId,
       metadata,
     }
@@ -90,6 +90,16 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
       initiatives,
     })
   }
+
+  // TODO: Allow updating the company description (or regenerating it multiple times)
+  // if (existingCompany && description) {
+  //   await job.editMessage(`🤖 Skapar jobb för att spara beskrivning...`)
+  //   saveToAPI.add(companyName + ' description', {
+  //     ...base,
+  //     wikidataId: wikidata.node,
+  //     description,
+  //   })
+  // }
 
   return JSON.stringify(childrenValues, null, 2)
 })

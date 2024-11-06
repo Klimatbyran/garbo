@@ -18,6 +18,8 @@ const flow = new FlowProducer({ connection: redis })
 const worker = new DiscordWorker('precheck', async (job: JobData) => {
   const { paragraphs, ...baseData } = job.data
 
+  // IDEA: Maybe ask for name and description at the same time when we have the full context?
+
   const companyName = await askPrompt(
     'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
     paragraphs.join('-------------PDF EXTRACT-------------------\n\n')

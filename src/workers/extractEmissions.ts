@@ -6,9 +6,9 @@ import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-import baseFacts from '../prompts/followUp/baseFacts'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import biogenic from '../prompts/followUp/biogenic'
+import description from '../prompts/followUp/description'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -81,7 +81,6 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
         name: 'goals ' + companyName,
         data: {
           ...base.data,
-          apiSubEndpoint: 'goals',
           prompt: goals.prompt,
           schema: zodResponseFormat(goals.schema, 'goals'),
         },
@@ -91,23 +90,19 @@ const worker = new DiscordWorker<JobData>('extractEmissions', async (job) => {
         name: 'initiatives ' + companyName,
         data: {
           ...base.data,
-          apiSubEndpoint: 'initiatives',
           prompt: initiatives.prompt,
           schema: zodResponseFormat(initiatives.schema, 'initiatives'),
         },
       },
-
-      /*
       {
         ...base,
-        name: 'baseFacts ' + companyName,
+        name: 'description ' + companyName,
         data: {
           ...base.data,
-          apiSubEndpoint: 'economy',
-          prompt: baseFacts.prompt,
-          schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+          prompt: description.prompt,
+          schema: zodResponseFormat(description.schema, 'description'),
         },
-      }*/
+      },
     ],
     opts: {
       attempts: 3,
