@@ -77,9 +77,9 @@
 
 ## Next week
 
-    [ ] Extract biogenic emissions with Garbo (create a new worker based on scope 1+2)
-    [ ] Extract goals with garbo
-    [ ] Extract initiatives with garbo
+    [x] Extract biogenic emissions with Garbo (create a new worker based on scope 1+2)
+    [x] Extract goals with garbo
+    [x] Extract initiatives with garbo
 
     [ ] Kan vi på något sätt hålla alla workers och köer på ett och samma ställe?
     [x] Tryck Approve i Discord och få en grön flagga i frontend. Flytta från reflectOnAnswer till saveToAPI
@@ -90,6 +90,8 @@
     [x] Mother of flow - Add ResultType to DiscordWorker to enforce returned data type
     [ ] Importera mid cap-data och komplettera med garbo
     [ ] Preview miljö (separat från production) - förbered för att skicka ut till hållbarhetschefer
+    [x] Skapa `staging`-branches för både `garbo` och `beta`.
+    [ ] Skapa `staging`-kluster som uppdateras från `staging`-branchen i `garbo` resp. `beta`
     [-] Använd job.stacktrace för att hantera fel och pröva igen för workers istället för manuell hantering.
     [ ] Gör Garbo som repo enklare att använda vid första tillfället
       [ ] Kräv ej NODE_ENV=development vid uppstart eller ställ in som default
@@ -101,4 +103,4 @@
     [ ] När dev-board startar, kontrollera att databasen är seedad och har kört senaste migrationerna? Annars kasta ett fel
     [x] Flytta ordning på köerna i board för att matcha nya mermaid-flödeschemat
     [x] IDEA: Export a helper function to create a new job for a given queue, defined together with the worker itself, to enforce type checking on arguments
-    [ ] Metabase
+    [x] Metabase
