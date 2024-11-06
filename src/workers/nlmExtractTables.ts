@@ -41,6 +41,10 @@ const nlmExtractTables = new DiscordWorker(
 ${results.map((r) => ' -  Sida ' + r.page_idx + ': ' + r.name).join('\n')}`)
       }
       job.log(`Found ${results.length} tables`)
+      const markdownText = jsonToMarkdown(json)
+      job.log(markdownText)
+
+      return markdownText
     } catch (error) {
       job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
       throw new UnrecoverableError(`Download Failed: ${error.message}`)
