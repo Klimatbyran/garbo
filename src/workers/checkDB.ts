@@ -5,6 +5,7 @@ import { saveToAPI } from '../queues'
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName?: string
+    description?: string
     wikidata: any
     fiscalYear: any
     childrenValues?: any
@@ -13,8 +14,15 @@ export class JobData extends DiscordJob {
 }
 
 const worker = new DiscordWorker('checkDB', async (job: JobData) => {
-  const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
-    job.data
+  const {
+    companyName,
+    description,
+    url,
+    fiscalYear,
+    wikidata,
+    threadId,
+    channelId,
+  } = job.data
 
   const childrenValues = await job.getChildrenEntries()
   await job.updateData({ ...job.data, childrenValues })
@@ -36,7 +44,7 @@ const worker = new DiscordWorker('checkDB', async (job: JobData) => {
     )
     const body = {
       name: companyName,
-      description: childrenValues.description,
+      description,
       wikidataId,
       metadata,
     }
