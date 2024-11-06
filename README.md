@@ -31,7 +31,6 @@ flowchart TB
 
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
-    Precheck --> ExtractTables --> Emissions
 
     PDF --> Cache --(no)--> NLM --> Tables --> Precheck
 
