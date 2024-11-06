@@ -178,9 +178,8 @@ const worker = new DiscordWorker<JobData>(
     // That way, we might reduce the cluttering and keep the diff more focused on actual changes?
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
-      // TODO: Add info about diff type to the message title to make it easier to review the changes
       await job.sendMessage({
-        content: `# ${companyName}
+        content: `# ${companyName}: ${apiSubEndpoint}
 ${diff}`.slice(0, 2000),
         components: [buttonRow],
       })
