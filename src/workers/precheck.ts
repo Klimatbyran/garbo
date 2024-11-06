@@ -49,6 +49,10 @@ The following is an extract from a PDF:`,
     },
   }
 
+  // TODO: get economy data here too, since we need the full context and not just the emissions related paragraphs
+  // However, we need to be able to retry employees and turnover separately, so it needs to be a child job started in extractEmissions.
+  // Ideally, we could just use a different context for those jobs, to improve the output quality.
+
   job.sendMessage(`🤖 Ställer frågor om basfakta...`)
 
   await flow.add({
