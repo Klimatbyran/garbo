@@ -2,7 +2,6 @@ import 'dotenv/config'
 import discord from './discord'
 import { workers } from './workers'
 
-// start workers
 console.log('Starting workers...')
 Promise.all(workers.map((worker) => worker.run()))
   .then((results) => results.join('\n'))

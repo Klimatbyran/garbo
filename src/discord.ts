@@ -13,7 +13,6 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
 import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
@@ -86,12 +85,6 @@ export class Discord {
                 else await reject.execute(interaction, job)
                 break
               }
-              case 'retry': {
-                const job = (await getJob(jobId)) as SaveToApiJob
-                if (!job) await interaction.reply('Job not found')
-                else retry.execute(interaction, job)
-                break
-              }
             }
           } catch (error) {
             console.error('Discord error:', error)
@@ -123,11 +116,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`reject~${jobId}`)
         .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger),
-      new ButtonBuilder()
-        .setCustomId(`retry~${jobId}`)
-        .setLabel('🔁')
-        .setStyle(ButtonStyle.Secondary)*/
+        .setStyle(ButtonStyle.Danger),*/
     )
   }
 
@@ -203,7 +192,10 @@ export class Discord {
     return message
   }
 
-  async sendMessageToChannel(channelId, message): Promise<Message> {
+  async sendMessageToChannel(
+    channelId: string,
+    message: any
+  ): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)
   }

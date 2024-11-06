@@ -8,7 +8,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    paragraphs: string[]
+    cachedMarkdown?: string
     companyName?: string
   }
 }
@@ -16,11 +16,12 @@ class JobData extends DiscordJob {
 const flow = new FlowProducer({ connection: redis })
 
 const precheck = new DiscordWorker('precheck', async (job: JobData) => {
-  const { paragraphs, ...baseData } = job.data
+  const { cachedMarkdown, ...baseData } = job.data
+  const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
   const companyName = await askPrompt(
     'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
-    paragraphs.join('-------------PDF EXTRACT-------------------\n\n')
+    markdown.substring(0, 5000)
   )
 
   job.log('Company name: ' + companyName)
@@ -43,7 +44,7 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
     children: [
       {
         ...base,
-        name: 'guesswikidata ' + companyName,
+        name: 'guessWikidata ' + companyName,
         queueName: 'guessWikidata',
         data: {
           ...base.data,

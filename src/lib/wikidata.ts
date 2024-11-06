@@ -90,6 +90,7 @@ export async function searchCompany(companyName: string, retry = 3) {
   const searchEntitiesQuery = wbk.searchEntities({
     search: companyName,
     type: 'item',
+    // IDEA: Maybe determine language based on report or company origin. Or maybe search in multiple languages.
     language: 'sv', // 'en
     limit: 20,
   })

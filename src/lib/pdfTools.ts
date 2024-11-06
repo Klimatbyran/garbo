@@ -33,27 +33,29 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
 }
 
 export async function extractJsonFromPdf(buffer: Buffer) {
-  const nlmIngestorUrl = process.env.NLM_INGESTOR_URL || 'http://localhost:5010'
+  const nlmIngestorUrl = process.env.NLM_INGESTOR_URL
+  if (!nlmIngestorUrl) {
+    throw new Error('NLM_INGESTOR_URL is not set')
+  }
   console.log('parsing pdf from', nlmIngestorUrl)
 
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
-
-  let response
+  const url = `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`
+  console.log('fetching from', url)
+  let response: Response
   try {
-    response = await fetch(
-      `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`,
-      {
-        method: 'POST',
-        body: formData,
-      }
-    )
+    response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    })
   } catch (err) {
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorUrl +
         ')'
     )
+    response = { ok: false, statusText: err.message } as Response
   }
 
   if (!response.ok) {
