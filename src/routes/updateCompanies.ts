@@ -366,7 +366,7 @@ const postEconomyBodySchema = z.object({
       employees: z
         .object({
           value: z.number().optional(),
-          currency: z.string().optional(),
+          unit: z.string().optional(),
         })
         .optional(),
     })
