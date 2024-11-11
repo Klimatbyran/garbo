@@ -96,8 +96,8 @@ const saveToAPI = new DiscordWorker<JobData>(
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
       await job.sendMessage({
-        content: `# ${companyName}
-${diff.slice(0, 2000)}`,
+        content: `# ${companyName}: \`${apiSubEndpoint}\`
+        ${diff}`.slice(0, 2000),
         components: [buttonRow],
       })
 
