@@ -4,7 +4,6 @@ import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    apiSubEndpoint: string
     companyName?: string
     wikidata: any
     fiscalYear: any
@@ -20,7 +19,6 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   const childrenValues = await job.getChildrenEntries()
   await job.updateData({ ...job.data, childrenValues })
 
-  // TODO: do we need to run this 3 times?
   job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
   const wikidataId = wikidata.node
   const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
@@ -44,7 +42,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     await apiFetch(`/companies`, { body })
   }
 
-  const { scope12, scope3, industry } = childrenValues
+  const { scope12, scope3, biogenic, industry } = childrenValues
   const base = { companyName, url, fiscalYear, wikidata, threadId, channelId }
 
   // TODO convert to flow
@@ -53,13 +51,14 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   // Link to localhost or the production website
   // We want to know when all steps have been completed to print a message to discord
 
-  if (scope12 || scope3) {
+  if (scope12 || scope3 || biogenic) {
     await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
     saveToAPI.queue.add(companyName + ' emissions', {
       ...base,
       apiSubEndpoint: 'emissions',
       scope12,
       scope3,
+      biogenic,
     })
   }
 
