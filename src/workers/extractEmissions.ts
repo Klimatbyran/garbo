@@ -6,7 +6,6 @@ import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-import baseFacts from '../prompts/followUp/baseFacts'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import biogenic from '../prompts/followUp/biogenic'
 
@@ -100,15 +99,6 @@ const extractEmissions = new DiscordWorker<JobData>(
           schema: zodResponseFormat(initiatives.schema, 'initiatives'),
         },
       },
-      {
-        ...base,
-        name: 'baseFacts ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'economy',
-          prompt: baseFacts.prompt,
-          schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
-        },
       }*/
       ],
       opts: {
