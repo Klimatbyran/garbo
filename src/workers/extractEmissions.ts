@@ -8,6 +8,7 @@ import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import biogenic from '../prompts/followUp/biogenic'
+import economy from '../prompts/followUp/economy'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -75,6 +76,15 @@ const extractEmissions = new DiscordWorker<JobData>(
             ...base.data,
             prompt: biogenic.prompt,
             schema: zodResponseFormat(biogenic.schema, 'emissions_biogenic'),
+          },
+        },
+        {
+          ...base,
+          name: 'economy ' + companyName,
+          data: {
+            ...base.data,
+            prompt: economy.prompt,
+            schema: zodResponseFormat(economy.schema, 'economy'),
           },
         },
         /*

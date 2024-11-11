@@ -51,7 +51,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     await apiFetch(`/companies`, { body })
   }
 
-  const { scope12, scope3, biogenic, industry } = childrenValues
+  const { scope12, scope3, biogenic, industry, economy } = childrenValues
   const base = {
     companyName,
     url,
@@ -84,6 +84,15 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
       ...base,
       apiSubEndpoint: 'industry',
       industry,
+    })
+  }
+
+  if (economy) {
+    await job.editMessage(`🤖 Skapar jobb för att spara ekonomidata...`)
+    saveToAPI.queue.add(companyName + ' economy', {
+      ...base,
+      apiSubEndpoint: 'economy',
+      economy,
     })
   }
 

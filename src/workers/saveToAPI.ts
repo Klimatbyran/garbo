@@ -15,6 +15,7 @@ export class JobData extends DiscordJob {
     scope3?: any
     biogenic?: any
     industry?: any
+    economy?: any
     approved?: boolean
   }
 }
@@ -23,13 +24,14 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry }
+  { scope12, scope3, biogenic, industry, economy }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
     !existingCompany.reportingPeriods?.length
   )
     return ''
+  if (economy && !existingCompany.reportingPeriods.length) return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
@@ -46,6 +48,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
         scope3,
         biogenic,
         industry,
+        economy,
       },
     })
   )
@@ -65,6 +68,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       scope12 = [],
       scope3 = [],
       biogenic = [],
+      economy = [],
       industry,
       approved = false,
     } = job.data
@@ -80,7 +84,13 @@ const saveToAPI = new DiscordWorker<JobData>(
       comment: 'Parsed by Garbo AI',
     }
     const diff = !approved
-      ? await askDiff(existingCompany, { scope12, scope3, biogenic, industry })
+      ? await askDiff(existingCompany, {
+          scope12,
+          scope3,
+          biogenic,
+          industry,
+          economy,
+        })
       : ''
 
     if (diff) {
@@ -177,6 +187,31 @@ ${diff.slice(0, 2000)}`,
           method: 'PUT',
         })
       }
+
+      if (economy?.length) {
+        job.editMessage(`🤖 Sparar ekonomidata...`)
+        return Promise.all([
+          ...economy.map(async ({ year, economy }) => {
+            const [startDate, endDate] = getReportingPeriodDates(
+              year,
+              fiscalYear.startMonth,
+              fiscalYear.endMonth
+            )
+            job.log(`Saving economy for ${startDate}-${endDate}`)
+            job.sendMessage(`🤖 Sparar ekonomidata för ${year}...`)
+            const body = {
+              startDate,
+              endDate,
+              economy,
+              metadata,
+            }
+            return await apiFetch(`/companies/${wikidataId}/${year}/economy`, {
+              body,
+            })
+          }),
+        ])
+      }
+
       throw new Error('No data to save')
     }
   },
