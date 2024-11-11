@@ -16,6 +16,7 @@ export class JobData extends DiscordJob {
     biogenic?: any
     industry?: any
     economy?: any
+    goals?: any
     approved?: boolean
   }
 }
@@ -24,7 +25,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry, economy }
+  { scope12, scope3, biogenic, industry, economy, goals }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
@@ -32,6 +33,7 @@ const askDiff = async (
   )
     return ''
   if (economy && !existingCompany.reportingPeriods.length) return ''
+  if (goals && !existingCompany.goals) return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
@@ -49,6 +51,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
         biogenic,
         industry,
         economy,
+        goals,
       },
     })
   )
@@ -69,6 +72,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       scope3 = [],
       biogenic = [],
       economy = [],
+      goals,
       industry,
       approved = false,
     } = job.data
@@ -89,6 +93,7 @@ const saveToAPI = new DiscordWorker<JobData>(
           scope3,
           biogenic,
           industry,
+          goals,
           economy,
         })
       : ''
@@ -185,6 +190,17 @@ const saveToAPI = new DiscordWorker<JobData>(
             metadata,
           },
           method: 'PUT',
+        })
+      }
+
+      if (goals) {
+        job.editMessage(`🤖 Sparar mål...`)
+        return await apiFetch(`/companies/${wikidataId}/goals`, {
+          body: {
+            goals,
+            metadata,
+          },
+          method: 'POST',
         })
       }
 
