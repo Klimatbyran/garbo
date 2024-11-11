@@ -97,18 +97,15 @@ const extractEmissions = new DiscordWorker<JobData>(
             schema: zodResponseFormat(goals.schema, 'goals'),
           },
         },
-        /*
-      {
-        ...base,
-        name: 'initiatives ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'initiatives',
-          prompt: initiatives.prompt,
-          schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+        {
+          ...base,
+          name: 'initiatives ' + companyName,
+          data: {
+            ...base.data,
+            prompt: initiatives.prompt,
+            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+          },
         },
-      },
-      }*/
       ],
       opts: {
         attempts: 3,

@@ -17,6 +17,7 @@ export class JobData extends DiscordJob {
     industry?: any
     economy?: any
     goals?: any
+    initiatives?: any
     approved?: boolean
   }
 }
@@ -25,7 +26,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry, economy, goals }
+  { scope12, scope3, biogenic, industry, economy, goals, initiatives }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
@@ -34,6 +35,7 @@ const askDiff = async (
     return ''
   if (economy && !existingCompany.reportingPeriods.length) return ''
   if (goals && !existingCompany.goals) return ''
+  if (initiatives && !existingCompany.initiatives) return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
@@ -52,6 +54,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
         industry,
         economy,
         goals,
+        initiatives,
       },
     })
   )
@@ -73,6 +76,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       biogenic = [],
       economy = [],
       goals,
+      initiatives,
       industry,
       approved = false,
     } = job.data
@@ -94,6 +98,7 @@ const saveToAPI = new DiscordWorker<JobData>(
           biogenic,
           industry,
           goals,
+          initiatives,
           economy,
         })
       : ''
@@ -198,6 +203,17 @@ const saveToAPI = new DiscordWorker<JobData>(
         return await apiFetch(`/companies/${wikidataId}/goals`, {
           body: {
             goals,
+            metadata,
+          },
+          method: 'POST',
+        })
+      }
+
+      if (initiatives) {
+        job.editMessage(`🤖 Sparar initiativ...`)
+        return await apiFetch(`/companies/${wikidataId}/initiatives`, {
+          body: {
+            initiatives,
             metadata,
           },
           method: 'POST',
