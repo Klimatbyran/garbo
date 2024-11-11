@@ -5,6 +5,7 @@ import saveToAPI from './saveToAPI'
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName?: string
+    description?: string
     wikidata: any
     fiscalYear: any
     childrenValues?: any
@@ -13,8 +14,15 @@ export class JobData extends DiscordJob {
 }
 
 const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
-  const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
-    job.data
+  const {
+    companyName,
+    description,
+    url,
+    fiscalYear,
+    wikidata,
+    threadId,
+    channelId,
+  } = job.data
 
   const childrenValues = await job.getChildrenEntries()
   await job.updateData({ ...job.data, childrenValues })
@@ -36,6 +44,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     )
     const body = {
       name: companyName,
+      description,
       wikidataId,
       metadata,
     }
@@ -43,7 +52,14 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   }
 
   const { scope12, scope3, biogenic, industry } = childrenValues
-  const base = { companyName, url, fiscalYear, wikidata, threadId, channelId }
+  const base = {
+    companyName,
+    url,
+    fiscalYear,
+    wikidata,
+    threadId,
+    channelId,
+  }
 
   // TODO convert to flow
   // Send to done, which is a simple worker to post a message to discord
