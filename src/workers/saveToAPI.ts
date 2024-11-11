@@ -13,6 +13,7 @@ export class JobData extends DiscordJob {
     fiscalYear: any
     scope12?: any
     scope3?: any
+    biogenic?: any
     industry?: any
     approved?: boolean
   }
@@ -20,8 +21,14 @@ export class JobData extends DiscordJob {
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 
-const askDiff = async (existingCompany, { scope12, scope3, industry }) => {
-  if ((scope12 || scope3) && !existingCompany.reportingPeriods?.length)
+const askDiff = async (
+  existingCompany,
+  { scope12, scope3, biogenic, industry }
+) => {
+  if (
+    (scope12 || scope3 || biogenic) &&
+    !existingCompany.reportingPeriods?.length
+  )
     return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
@@ -37,6 +44,7 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
       after: {
         scope12,
         scope3,
+        biogenic,
         industry,
       },
     })
@@ -56,6 +64,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       wikidata,
       scope12 = [],
       scope3 = [],
+      biogenic = [],
       industry,
       approved = false,
     } = job.data
@@ -71,7 +80,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       comment: 'Parsed by Garbo AI',
     }
     const diff = !approved
-      ? await askDiff(existingCompany, { scope12, scope3, industry })
+      ? await askDiff(existingCompany, { scope12, scope3, biogenic, industry })
       : ''
 
     if (diff) {
@@ -88,7 +97,7 @@ ${diff.slice(0, 2000)}`,
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
     } else {
-      if (scope12?.length || scope3?.length) {
+      if (scope12?.length || scope3?.length || biogenic?.length) {
         job.editMessage(`🤖 Sparar utsläppsdata...`)
         return Promise.all([
           ...scope12.map(async ({ year, scope1, scope2 }) => {
@@ -126,6 +135,27 @@ ${diff.slice(0, 2000)}`,
               endDate,
               emissions: {
                 scope3,
+              },
+              metadata,
+            }
+            return await apiFetch(
+              `/companies/${wikidataId}/${year}/emissions`,
+              { body }
+            )
+          }),
+          ...biogenic.map(async ({ year, biogenic }) => {
+            const [startDate, endDate] = getReportingPeriodDates(
+              year,
+              fiscalYear.startMonth,
+              fiscalYear.endMonth
+            )
+            job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
+            job.log(`Saving biogenic for ${year}`)
+            const body = {
+              startDate,
+              endDate,
+              emissions: {
+                biogenic,
               },
               metadata,
             }
