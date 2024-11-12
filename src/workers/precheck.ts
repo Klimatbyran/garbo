@@ -5,6 +5,7 @@ import fiscalYear from '../prompts/followUp/fiscalYear'
 import { askPrompt } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import equality from '../prompts/followUp/equality'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -35,6 +36,8 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
     },
   }
 
+  console.log('companyName', companyName)
+
   job.sendMessage(`🤖 Ställer frågor om basfakta...`)
 
   await flow.add({
@@ -58,6 +61,15 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
           ...base.data,
           prompt: fiscalYear.prompt,
           schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
+        },
+      },
+      {
+        ...base,
+        name: `equality ${companyName}`,
+        data: {
+          ...base.data,
+          prompt: equality.prompt,
+          schema: zodResponseFormat(equality.schema, 'genderEquality'),
         },
       },
     ],

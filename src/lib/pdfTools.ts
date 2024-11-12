@@ -7,6 +7,8 @@ import {
 } from './jsonExtraction'
 import path from 'path'
 
+const MAX_NAME_LENGTH = 50
+
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
     scale: 2,
@@ -25,21 +27,31 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
 
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
   const pdfResponse = await fetch(url, { headers })
+
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
+
   const arrayBuffer = await pdfResponse.arrayBuffer()
   return Buffer.from(arrayBuffer)
 }
 
 export async function extractJsonFromPdf(buffer: Buffer) {
+  console.log(
+    'we here: process.env.NLM_INGESTOR_URL: ',
+    process.env.NLM_INGESTOR_URL
+  )
   const nlmIngestorUrl = process.env.NLM_INGESTOR_URL
   if (!nlmIngestorUrl) {
     throw new Error('NLM_INGESTOR_URL is not set')
   }
 
   const formData = new FormData()
-  formData.append('file', new Blob([buffer]), 'document.pdf')
+  formData.append(
+    'file',
+    new Blob([buffer], { type: 'application/pdf' }),
+    'document.pdf'
+  )
   const url = `${nlmIngestorUrl}/api/parseDocument?renderFormat=json`
 
   let response: Response
@@ -49,6 +61,7 @@ export async function extractJsonFromPdf(buffer: Buffer) {
       body: formData,
     })
   } catch (err) {
+    console.log('err; ', err)
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorUrl +
@@ -117,8 +130,14 @@ export async function extractTablesFromJson(
             pageWidth,
             pageHeight
           )*/
-          const name = table.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()
-          const pngName = `table-${pageIndex}-${name}.png`
+          const name: string = table.name
+            .replace(/[^a-z0-9]/gi, '_')
+            .toLowerCase()
+
+          const pngName = `table-${pageIndex}-${name.slice(
+            0,
+            MAX_NAME_LENGTH
+          )}.png`
           const filename = path.join(outputDir, pngName)
 
           const pageWidth2 = Math.floor(pageWidth * 2)

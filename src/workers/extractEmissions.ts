@@ -8,6 +8,7 @@ import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
 import baseFacts from '../prompts/followUp/baseFacts'
 import fiscalYear from '../prompts/followUp/fiscalYear'
+import equality from '../prompts/followUp/equality'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
@@ -69,6 +70,7 @@ const extractEmissions = new DiscordWorker<JobData>(
             schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
           },
         },
+
         /*
       
       {
