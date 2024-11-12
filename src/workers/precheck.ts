@@ -36,8 +36,6 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
     },
   }
 
-  console.log('companyName', companyName)
-
   job.sendMessage(`🤖 Ställer frågor om basfakta...`)
 
   await flow.add({
