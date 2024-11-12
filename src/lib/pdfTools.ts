@@ -57,7 +57,6 @@ export async function extractJsonFromPdf(buffer: Buffer) {
       body: formData,
     })
   } catch (err) {
-    console.log('err; ', err)
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorUrl +
@@ -138,8 +137,7 @@ export async function extractTablesFromJson(
 
           const pageWidth2 = Math.floor(pageWidth * 2)
           const pageHeight2 = Math.floor(pageHeight * 2)
-          //console.log(url, pageIndex, x, y, width, height, table)
-          console.log('extracting screenshot to outputPath', filename)
+
           return extractRegionAsPng(
             png,
             filename,

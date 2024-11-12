@@ -637,7 +637,6 @@ async function importGarboData(companies: CompanyInput[]) {
     const subIndustryCode = company.industryGics?.subIndustry?.code
 
     if (subIndustryCode) {
-      // console.log('garbo', { subIndustryCode })
       await postJSON(
         `http://localhost:3000/api/companies/${wikidataId}/industry`,
         {

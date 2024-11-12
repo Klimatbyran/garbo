@@ -4,11 +4,6 @@ import redis from '../config/redis'
 import industryGics from '../prompts/followUp/industry_gics'
 import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
-import goals from '../prompts/followUp/goals'
-import initiatives from '../prompts/followUp/initiatives'
-import baseFacts from '../prompts/followUp/baseFacts'
-import fiscalYear from '../prompts/followUp/fiscalYear'
-import equality from '../prompts/followUp/equality'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 class JobData extends DiscordJob {
