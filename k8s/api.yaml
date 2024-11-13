@@ -61,6 +61,4 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
-          imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regcred
+          imagePullPolicy: IfNotPresent
