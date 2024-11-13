@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:2.0.8 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:3.1.5 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
@@ -38,8 +38,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
-            - name: GOTENBERG_URL
-              value: http://gotenberg:3000
+            - name: API_TOKENS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_TOKENS
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -71,6 +74,4 @@ spec:
                   key: postgres-password
             - name: NLM_INGESTOR_URL
               value: http://nlm:5001
-          imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regcred
+          imagePullPolicy: IfNotPresent

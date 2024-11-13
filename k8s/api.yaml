@@ -14,7 +14,7 @@ spec:
         app: garbo
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:2.0.8 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:3.1.5 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           name: garbo
           ports:
@@ -35,6 +35,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAI_API_KEY
             - name: API_TOKENS
               valueFrom:
                 secretKeyRef:
@@ -56,6 +61,4 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
-          imagePullPolicy: Always
-      imagePullSecrets:
-        - name: regcred
+          imagePullPolicy: IfNotPresent
