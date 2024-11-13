@@ -178,10 +178,10 @@ export const ensureEmissionsExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const emissionsId = res.locals.reportingPeriod.emissionsId
+    const emissionsId = res.locals.reportingPeriod.emissionsId ?? 0
 
     const emissions = await prisma.emissions.upsert({
-      where: { id: emissionsId },
+      where: { id: emissionsId ?? 0 },
       update: {},
       create: {
         reportingPeriod: {
@@ -203,7 +203,7 @@ export const ensureEconomyExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const economyId = res.locals.reportingPeriod.economyId
+    const economyId = res.locals.reportingPeriod.economyId ?? 0
 
     const economy = await prisma.economy.upsert({
       where: { id: economyId },

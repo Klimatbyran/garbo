@@ -120,29 +120,36 @@ const saveToAPI = new DiscordWorker<JobData>(
       if (scope12?.length || scope3?.length || biogenic?.length) {
         job.editMessage(`🤖 Sparar utsläppsdata...`)
         return Promise.all([
-          ...scope12.map(async ({ year, scope1, scope2 }) => {
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-            job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                scope1,
-                scope2,
-              },
-              metadata,
-            }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
-            )
-          }),
-          ...scope3.map(async ({ year, scope3 }) => {
+          ...(await scope12.reduce(
+            async (lastPromise, { year, scope1, scope2 }) => {
+              const arr = await lastPromise
+              const [startDate, endDate] = getReportingPeriodDates(
+                year,
+                fiscalYear.startMonth,
+                fiscalYear.endMonth
+              )
+              job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
+              job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
+              const body = {
+                startDate,
+                endDate,
+                emissions: {
+                  scope1,
+                  scope2,
+                },
+                metadata,
+              }
+              return [
+                ...arr,
+                await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                  body,
+                }),
+              ]
+            },
+            Promise.resolve([])
+          )),
+          ...(await scope3.reduce(async (lastPromise, { year, scope3 }) => {
+            const arr = await lastPromise
             const [startDate, endDate] = getReportingPeriodDates(
               year,
               fiscalYear.startMonth,
@@ -158,12 +165,15 @@ const saveToAPI = new DiscordWorker<JobData>(
               },
               metadata,
             }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
-            )
-          }),
-          ...biogenic.map(async ({ year, biogenic }) => {
+            return [
+              ...arr,
+              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                body,
+              }),
+            ]
+          }, Promise.resolve([]))),
+          ...(await biogenic.reduce(async (lastPromise, { year, biogenic }) => {
+            const arr = await lastPromise
             const [startDate, endDate] = getReportingPeriodDates(
               year,
               fiscalYear.startMonth,
@@ -179,11 +189,13 @@ const saveToAPI = new DiscordWorker<JobData>(
               },
               metadata,
             }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
-            )
-          }),
+            return [
+              ...arr,
+              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                body,
+              }),
+            ]
+          }, Promise.resolve([]))),
         ])
       }
 
