@@ -111,6 +111,7 @@ export const calculateBoundingBoxForTable = (
     table.rows.length * rowHeight + padding * 2, // TODO: remove when the BBOX bug is fixed
     Math.round(pageHeight * 2 - y) - padding
   )
+  console.log('x,y,width,height', x, y, width, height)
   return { x, y, width, height }
 }
 
