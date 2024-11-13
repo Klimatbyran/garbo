@@ -116,7 +116,7 @@ const nlmParsePDF = new DiscordWorker(
       throw new UnrecoverableError(`Download Failed: ${error.message}`)
     }
   },
-  { concurrency: 1, connection: redis, skipStalledCheck: true }
+  { concurrency: 1, connection: redis }
 )
 
 export default nlmParsePDF
