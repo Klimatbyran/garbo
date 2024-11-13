@@ -55,6 +55,11 @@ const nlmParsePDF = new DiscordWorker(
           clearInterval(interval)
         }
         await job.editMessage(`✅ PDF tolkad`)
+        job.log('found json:\n' + JSON.stringify(json))
+        job.updateData({
+          ...job.data,
+          json,
+        })
 
         const base = {
           data: {
