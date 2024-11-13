@@ -6,8 +6,16 @@ RUN apk add --no-cache \
     freetype \
     freetype-dev \
     harfbuzz \
+    python3 \
+    make \
+    g++ \
     ca-certificates \
-    ttf-freefont
+    ttf-freefont \
+    pixman-dev \
+    cairo-dev \
+    pango-dev \
+    giflib-dev \
+    libjpeg-turbo-dev
 
 COPY package*.json /app/
 COPY prisma /app/
