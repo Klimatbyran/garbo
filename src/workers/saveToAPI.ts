@@ -13,16 +13,29 @@ export class JobData extends DiscordJob {
     fiscalYear: any
     scope12?: any
     scope3?: any
+    biogenic?: any
     industry?: any
+    economy?: any
+    goals?: any
+    initiatives?: any
     approved?: boolean
   }
 }
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 
-const askDiff = async (existingCompany, { scope12, scope3, industry }) => {
-  if ((scope12 || scope3) && !existingCompany.reportingPeriods?.length)
+const askDiff = async (
+  existingCompany,
+  { scope12, scope3, biogenic, industry, economy, goals, initiatives }
+) => {
+  if (
+    (scope12 || scope3 || biogenic) &&
+    !existingCompany.reportingPeriods?.length
+  )
     return ''
+  if (economy && !existingCompany.reportingPeriods.length) return ''
+  if (goals && !existingCompany.goals) return ''
+  if (initiatives && !existingCompany.initiatives) return ''
   if (industry && !existingCompany.industry) return ''
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
@@ -37,7 +50,11 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
       after: {
         scope12,
         scope3,
+        biogenic,
         industry,
+        economy,
+        goals,
+        initiatives,
       },
     })
   )
@@ -56,6 +73,10 @@ const saveToAPI = new DiscordWorker<JobData>(
       wikidata,
       scope12 = [],
       scope3 = [],
+      biogenic = [],
+      economy = [],
+      goals,
+      initiatives,
       industry,
       approved = false,
     } = job.data
@@ -71,14 +92,22 @@ const saveToAPI = new DiscordWorker<JobData>(
       comment: 'Parsed by Garbo AI',
     }
     const diff = !approved
-      ? await askDiff(existingCompany, { scope12, scope3, industry })
+      ? await askDiff(existingCompany, {
+          scope12,
+          scope3,
+          biogenic,
+          industry,
+          goals,
+          initiatives,
+          economy,
+        })
       : ''
 
     if (diff) {
       const buttonRow = discord.createButtonRow(job.id)
       await job.sendMessage({
-        content: `# ${companyName}
-${diff.slice(0, 2000)}`,
+        content: `# ${companyName}: \`${apiSubEndpoint}\`
+        ${diff}`.slice(0, 2000),
         components: [buttonRow],
       })
 
@@ -88,32 +117,39 @@ ${diff.slice(0, 2000)}`,
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
     } else {
-      if (scope12?.length || scope3?.length) {
+      if (scope12?.length || scope3?.length || biogenic?.length) {
         job.editMessage(`🤖 Sparar utsläppsdata...`)
         return Promise.all([
-          ...scope12.map(async ({ year, scope1, scope2 }) => {
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-            job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                scope1,
-                scope2,
-              },
-              metadata,
-            }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
-            )
-          }),
-          ...scope3.map(async ({ year, scope3 }) => {
+          ...(await scope12.reduce(
+            async (lastPromise, { year, scope1, scope2 }) => {
+              const arr = await lastPromise
+              const [startDate, endDate] = getReportingPeriodDates(
+                year,
+                fiscalYear.startMonth,
+                fiscalYear.endMonth
+              )
+              job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
+              job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
+              const body = {
+                startDate,
+                endDate,
+                emissions: {
+                  scope1,
+                  scope2,
+                },
+                metadata,
+              }
+              return [
+                ...arr,
+                await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                  body,
+                }),
+              ]
+            },
+            Promise.resolve([])
+          )),
+          ...(await scope3.reduce(async (lastPromise, { year, scope3 }) => {
+            const arr = await lastPromise
             const [startDate, endDate] = getReportingPeriodDates(
               year,
               fiscalYear.startMonth,
@@ -129,11 +165,37 @@ ${diff.slice(0, 2000)}`,
               },
               metadata,
             }
-            return await apiFetch(
-              `/companies/${wikidataId}/${year}/emissions`,
-              { body }
+            return [
+              ...arr,
+              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                body,
+              }),
+            ]
+          }, Promise.resolve([]))),
+          ...(await biogenic.reduce(async (lastPromise, { year, biogenic }) => {
+            const arr = await lastPromise
+            const [startDate, endDate] = getReportingPeriodDates(
+              year,
+              fiscalYear.startMonth,
+              fiscalYear.endMonth
             )
-          }),
+            job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
+            job.log(`Saving biogenic for ${year}`)
+            const body = {
+              startDate,
+              endDate,
+              emissions: {
+                biogenic,
+              },
+              metadata,
+            }
+            return [
+              ...arr,
+              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+                body,
+              }),
+            ]
+          }, Promise.resolve([]))),
         ])
       }
 
@@ -147,6 +209,53 @@ ${diff.slice(0, 2000)}`,
           method: 'PUT',
         })
       }
+
+      if (goals) {
+        job.editMessage(`🤖 Sparar mål...`)
+        return await apiFetch(`/companies/${wikidataId}/goals`, {
+          body: {
+            goals,
+            metadata,
+          },
+          method: 'POST',
+        })
+      }
+
+      if (initiatives) {
+        job.editMessage(`🤖 Sparar initiativ...`)
+        return await apiFetch(`/companies/${wikidataId}/initiatives`, {
+          body: {
+            initiatives,
+            metadata,
+          },
+          method: 'POST',
+        })
+      }
+
+      if (economy?.length) {
+        job.editMessage(`🤖 Sparar ekonomidata...`)
+        return Promise.all([
+          ...economy.map(async ({ year, economy }) => {
+            const [startDate, endDate] = getReportingPeriodDates(
+              year,
+              fiscalYear.startMonth,
+              fiscalYear.endMonth
+            )
+            job.log(`Saving economy for ${startDate}-${endDate}`)
+            job.sendMessage(`🤖 Sparar ekonomidata för ${year}...`)
+            const body = {
+              startDate,
+              endDate,
+              economy,
+              metadata,
+            }
+            return await apiFetch(`/companies/${wikidataId}/${year}/economy`, {
+              body,
+            })
+          }),
+        ])
+      }
+
       throw new Error('No data to save')
     }
   },

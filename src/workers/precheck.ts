@@ -1,7 +1,7 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import fiscalYear from '../prompts/followUp/fiscalYear'
+import fiscalYear from '../prompts/fiscalYear'
 import { askPrompt } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
@@ -20,16 +20,29 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
   const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
   const companyName = await askPrompt(
-    'What is the name of the company? Respond only with the company name. We will search Wikidata after this name. The following is an extract from a PDF:',
+    'What is the name of the company? Respond only with the company name. We will search Wikidata for this name. The following is an extract from a PDF:',
     markdown.substring(0, 5000)
   )
 
   job.log('Company name: ' + companyName)
-  job.setThreadName(companyName)
+
+  await job.setThreadName(companyName)
+
+  const description = await askPrompt(
+    `Give a short description of the company. Respond only with the company description text.
+** Description **
+Beskrivning av företaget. Tänk på att vara så informativ som möjligt. Den här texten ska visas på en sida
+för hållbarhetsredovisning så det är viktigt att den är informativ och beskriver företaget väl men inte tillåter
+texter som kan uppfattas som greenwashing eller marknadsföring. Många företag är okända för allmänheten så det
+är viktigt att beskrivningen är informativ och beskriver företaget väl.
+*** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
+The following is an extract from a PDF:`,
+    markdown.substring(0, 5000)
+  )
 
   const base = {
     queueName: 'followUp',
-    data: { ...baseData, companyName },
+    data: { ...baseData, companyName, description },
     opts: {
       attempts: 3,
     },

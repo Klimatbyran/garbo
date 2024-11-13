@@ -376,7 +376,7 @@ export async function updateGoal(
 export async function createInitiatives(
   wikidataId: Company['wikidataId'],
   initiatives: OptionalNullable<
-    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
+    Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
   >[],
   metadata: Metadata
 ) {
@@ -406,7 +406,7 @@ export async function createInitiatives(
 export async function updateInitiative(
   id: Initiative['id'],
   initiative: OptionalNullable<
-    Omit<Initiative, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
+    Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
   >,
   metadata: Metadata
 ) {
@@ -555,22 +555,24 @@ export async function ensureReportingPeriodExists(
     startDate,
     endDate,
     reportURL,
-  }: { startDate: Date; endDate: Date; reportURL?: string }
+    year,
+  }: { startDate: Date; endDate: Date; reportURL?: string; year: string }
 ) {
-  const existingReportingPeriod = await prisma.reportingPeriod.findFirst({
+  return prisma.reportingPeriod.upsert({
     where: {
-      companyId: company.wikidataId,
+      reportingPeriodId: {
+        companyId: company.wikidataId,
+        year,
+      },
       // NOTE: Maybe only check it's the same year of the endDate, instead of requiring the exact date to be provided in the request body.
       // We might want to allow just sending a GET request to for example /2023/emissions.
-      endDate,
     },
-  })
-  if (existingReportingPeriod) return existingReportingPeriod
-  return await prisma.reportingPeriod.create({
-    data: {
+    update: {},
+    create: {
       startDate,
       endDate,
       reportURL,
+      year,
       company: {
         connect: {
           wikidataId: company.wikidataId,

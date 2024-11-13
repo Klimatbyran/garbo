@@ -165,7 +165,7 @@ export const reportingPeriod =
       const reportingPeriod = await ensureReportingPeriodExists(
         company,
         metadata,
-        { startDate, endDate, reportURL }
+        { startDate, endDate, reportURL, year }
       )
 
       res.locals.reportingPeriod = reportingPeriod
@@ -178,21 +178,22 @@ export const ensureEmissionsExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const emissionsId = res.locals.reportingPeriod.emissionsId
+    const emissionsId = res.locals.reportingPeriod.emissionsId ?? 0
 
-    const emissions = emissionsId
-      ? await prisma.emissions.findFirst({
-          where: { id: emissionsId },
-        })
-      : await prisma.emissions.create({
-          data: {
-            reportingPeriod: {
-              connect: {
-                id: reportingPeriod.id,
-              },
+    const emissions = await prisma.emissions.upsert({
+      where: { id: emissionsId ?? 0 },
+      update: {},
+      create: {
+        reportingPeriod: {
+          connect: {
+            reportingPeriodId: {
+              year: reportingPeriod.year,
+              companyId: reportingPeriod.companyId,
             },
           },
-        })
+        },
+      },
+    })
 
     res.locals.emissions = emissions
     next()
@@ -202,21 +203,22 @@ export const ensureEconomyExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const economyId = res.locals.reportingPeriod.economyId
+    const economyId = res.locals.reportingPeriod.economyId ?? 0
 
-    const economy = economyId
-      ? await prisma.economy.findFirst({
-          where: { id: economyId },
-        })
-      : await prisma.economy.create({
-          data: {
-            reportingPeriod: {
-              connect: {
-                id: reportingPeriod.id,
-              },
+    const economy = await prisma.economy.upsert({
+      where: { id: economyId },
+      update: {},
+      create: {
+        reportingPeriod: {
+          connect: {
+            reportingPeriodId: {
+              year: reportingPeriod.year,
+              companyId: reportingPeriod.companyId,
             },
           },
-        })
+        },
+      },
+    })
 
     res.locals.economy = economy
     next()

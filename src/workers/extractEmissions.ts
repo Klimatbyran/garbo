@@ -6,9 +6,9 @@ import scope12 from '../prompts/followUp/scope12'
 import scope3 from '../prompts/followUp/scope3'
 import goals from '../prompts/followUp/goals'
 import initiatives from '../prompts/followUp/initiatives'
-import baseFacts from '../prompts/followUp/baseFacts'
-import fiscalYear from '../prompts/followUp/fiscalYear'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import biogenic from '../prompts/followUp/biogenic'
+import economy from '../prompts/followUp/economy'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -69,38 +69,43 @@ const extractEmissions = new DiscordWorker<JobData>(
             schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
           },
         },
-        /*
-      
-      {
-        ...base,
-        name: 'goals ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'goals',
-          prompt: goals.prompt,
-          schema: zodResponseFormat(goals.schema, 'goals'),
+        {
+          ...base,
+          name: 'biogenic ' + companyName,
+          data: {
+            ...base.data,
+            prompt: biogenic.prompt,
+            schema: zodResponseFormat(biogenic.schema, 'emissions_biogenic'),
+          },
         },
-      },
-      {
-        ...base,
-        name: 'initiatives ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'initiatives',
-          prompt: initiatives.prompt,
-          schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+        {
+          ...base,
+          name: 'economy ' + companyName,
+          data: {
+            ...base.data,
+            prompt: economy.prompt,
+            schema: zodResponseFormat(economy.schema, 'economy'),
+          },
         },
-      },
-      {
-        ...base,
-        name: 'baseFacts ' + companyName,
-        data: {
-          ...base.data,
-          apiSubEndpoint: 'economy',
-          prompt: baseFacts.prompt,
-          schema: zodResponseFormat(baseFacts.schema, 'baseFacts'),
+        {
+          ...base,
+          name: 'goals ' + companyName,
+          data: {
+            ...base.data,
+            apiSubEndpoint: 'goals',
+            prompt: goals.prompt,
+            schema: zodResponseFormat(goals.schema, 'goals'),
+          },
         },
-      }*/
+        {
+          ...base,
+          name: 'initiatives ' + companyName,
+          data: {
+            ...base.data,
+            prompt: initiatives.prompt,
+            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+          },
+        },
       ],
       opts: {
         attempts: 3,

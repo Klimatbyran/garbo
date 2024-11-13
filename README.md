@@ -79,7 +79,7 @@ The simplest way to start the containers the first time is to run the following 
 docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
-docker run -d -p 5010:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
+docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
 
 Next time, you can start the containers back up using
