@@ -22,7 +22,7 @@ ALTER TABLE "Initiative" DROP COLUMN "reportingPeriodId";
 
 -- AlterTable
 ALTER TABLE "ReportingPeriod" ADD COLUMN "year" TEXT;
-UPDATE "ReportingPeriod" SET "year" = DATE_PART("year", "endDate"::date);
+UPDATE "ReportingPeriod" SET "year" = DATE_PART('year', "endDate"::date);
 ALTER TABLE "ReportingPeriod" ALTER COLUMN "year" SET NOT NULL;
 
 ALTER TABLE "ReportingPeriod" DROP CONSTRAINT "ReportingPeriod_pkey",
