@@ -11,11 +11,12 @@ import {
   upsertScope3,
   upsertTurnover,
   upsertEmployees,
-  upsertIndustry,
   createGoals,
   updateGoal,
   createInitiatives,
   updateInitiative,
+  createIndustry,
+  updateIndustry,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -209,33 +210,51 @@ router.patch(
 
 const industrySchema = z.object({
   industry: z.object({
-    /** If the id is provided, the entity will be updated. Otherwise it will be created. */
-    id: z.number().optional(),
     subIndustryCode: z.string(),
   }),
 })
 
-router.post(
+router.put(
   '/:wikidataId/industry',
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
     const { industry } = req.body
-
-    if (industry) {
-      const { wikidataId } = req.params
-      const metadata = res.locals.metadata
-
-      await upsertIndustry(
-        wikidataId,
-        { ...industry, gicsSubIndustryCode: industry.subIndustryCode },
-        metadata
-      ).catch((error) => {
-        throw new GarboAPIError('Failed to update industry', {
-          original: error,
-          statusCode: 500,
-        })
-      })
+    // NOTE: This extra check is only necessary because we don't get correct TS types from the zod middleware processRequest().
+    // Ideally, we could update the generic types of the zod-middleware to return the exact inferred schema, instead of turning everything into optional fields.
+    const subIndustryCode = industry?.subIndustryCode
+    if (!subIndustryCode) {
+      throw new GarboAPIError('Unable to update industry')
     }
+
+    const { wikidataId } = req.params
+    const metadata = res.locals.metadata
+
+    const current = await prisma.industry.findFirst({
+      where: { companyWikidataId: wikidataId },
+    })
+
+    if (current) {
+      console.log('updating industry', subIndustryCode)
+      await updateIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+        (error) => {
+          throw new GarboAPIError('Failed to update industry', {
+            original: error,
+            statusCode: 500,
+          })
+        }
+      )
+    } else {
+      console.log('creating industry', subIndustryCode)
+      await createIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+        (error) => {
+          throw new GarboAPIError('Failed to create industry', {
+            original: error,
+            statusCode: 500,
+          })
+        }
+      )
+    }
+
     res.json({ ok: true })
   }
 )
@@ -279,10 +298,9 @@ const postEmissionsBodySchema = z.object({
         }
       )
       .optional(),
-    // TODO: Ensure these schemas match with the schemas given to the LLM
     scope3: z
       .object({
-        scope3Categories: z
+        categories: z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
@@ -299,7 +317,7 @@ const postEmissionsBodySchema = z.object({
   }),
 })
 
-// POST//Q12345/2022-2023/emissions
+// POST /Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsBodySchema),
@@ -348,7 +366,7 @@ const postEconomyBodySchema = z.object({
       employees: z
         .object({
           value: z.number().optional(),
-          currency: z.string().optional(),
+          unit: z.string().optional(),
         })
         .optional(),
     })

@@ -1,30 +1,24 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
-import { askStream } from '../openai'
-import { saveCompany } from '../lib/api'
+import { askStream } from '../lib/openai'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
-class JobData extends Job {
-  declare data: {
-    wikidataId: string
+class JobData extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     documentId: string
-    url: string
     apiSubEndpoint: string
     prompt: string
     schema: string
-    threadId: string
     json: string
     previousAnswer: string
-    previousError: string
   }
 }
 
-const worker = new Worker(
+const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
     const {
@@ -34,7 +28,6 @@ const worker = new Worker(
       json,
       previousAnswer,
       apiSubEndpoint,
-      previousError,
       wikidataId,
     } = job.data
 
@@ -73,7 +66,6 @@ const worker = new Worker(
     
     `)
 
-    let progress = 0
     const response = await askStream(
       [
         {
@@ -106,39 +98,23 @@ For example, if you want to add a new field called "industry" the response shoul
 }
 `,
         },
-        { role: 'assistant', content: previousAnswer },
-        { role: 'user', content: previousError },
-      ].filter((m) => m.content) as any[],
+        Array.isArray(job.stacktrace)
+          ? [
+              { role: 'assistant', content: previousAnswer },
+              { role: 'user', content: job.stacktrace.join('') },
+            ]
+          : undefined,
+      ]
+        .flat()
+        .filter((m) => m?.content) as any[],
       {
         response_format: schema,
       }
     )
 
-    job.log('NEW Response: ' + response)
-
-    try {
-      const jsonMatch = response.match(/```json([\s\S]*?)```/)
-      const json = JSON.parse(jsonMatch ? jsonMatch[1].trim() : response)
-      const metadata = {
-        source: url,
-        comment: 'Parsed with AI by Garbo',
-      }
-      await saveCompany(wikidataId, apiSubEndpoint, { ...json, metadata })
-      job.log('Saved to API')
-      return JSON.stringify(json, null, 2)
-    } catch (error) {
-      job.updateData({
-        ...job.data,
-        previousAnswer: response,
-        previousError: error.message,
-      })
-      throw error
-    }
-  },
-  {
-    concurrency: 10,
-    connection: redis,
+    job.log('Response: ' + response)
+    return response
   }
 )
 
-export default worker
+export default followUp

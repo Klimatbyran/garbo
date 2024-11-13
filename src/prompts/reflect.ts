@@ -1,5 +1,3 @@
-import example from '../data/example.json'
-
 const prompt = `Thanks. Now we are ready to combine these results into a final output. 
 
 Sometimes data will be in conflict, please prioritize according to the following order:
@@ -49,13 +47,8 @@ Leave this field empty if the data is not verified by Wikidata.
 ONLY WRITE IN SWEDISH! The data will be shown on a swedish site called Klimatkollen.se.
 If the original texts are written in English, translate to Swedish.
 
+Use a Markdown Table format for the output. Please be very verbose in the output, this will be shown in Discord and will be used to verify the data.
 
-**Example**: The following is an example of the JSON structure you should output. Make sure to stick to the format provided in the example, never add new fields or properties. Especially not scope3 categories. If the data contains information not fitted in the format below, please ignore them. Never add subproperties to a field.
-Omit fields that are not available but keep the structure (for example: "baseFacts": {}, "facit": {}, "emissions": { "2019": {"scope1": {}, "scope2": {}}}). Try to keep the size of the document down without creating any errors.
-
-\`\`\`json
-${JSON.stringify(example, null, 2)}
-\`\`\`
 `
 
 export default prompt

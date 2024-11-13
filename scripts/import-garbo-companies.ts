@@ -143,7 +143,7 @@ export async function importGarboData({
         scope3: {
           create: {
             statedTotalEmissions: statedTotalScope3Emissions,
-            scope3Categories: {
+            categories: {
               createMany: {
                 data: [
                   '1_purchasedGoods',

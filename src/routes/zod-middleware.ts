@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express'
 import { ZodSchema } from 'zod'
 
+// TODO: We need to improve the generic types here.
+// Ideally we should to return the exact inferred schema, instead of turning everything into optional fields.
 type RequestValidation<TParams, TQuery, TBody> = {
   params?: ZodSchema<TParams>
   query?: ZodSchema<TQuery>
@@ -50,7 +52,6 @@ export function validateRequestParams<Params = unknown>(
   return validateRequest({ params: schema })
 }
 
-// TODO: will the body and params be overwritten?
 export function processRequest<
   Params = unknown,
   Query = unknown,

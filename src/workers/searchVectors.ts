@@ -1,25 +1,21 @@
-import { Worker, Job } from 'bullmq'
-import redis from '../config/redis'
 import { ChromaClient } from 'chromadb'
 import { OpenAIEmbeddingFunction } from 'chromadb'
-import { extractEmissions, guessWikidata } from '../queues'
+import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import chromadb from '../config/chromadb'
-import discord from '../discord'
 import prompt from '../prompts/parsePDF'
+import precheck from './precheck'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: process.env.OPENAI_API_KEY,
 })
 
-class JobData extends Job {
-  declare data: {
-    url: string
-    threadId: string
+class JobData extends DiscordJob {
+  declare data: DiscordJob['data'] & {
     markdown: boolean
   }
 }
 
-const worker = new Worker(
+const searchVectors = new DiscordWorker(
   'searchVectors',
   async (job: JobData) => {
     const client = new ChromaClient(chromadb)
@@ -27,10 +23,7 @@ const worker = new Worker(
 
     job.log('Searching ' + url)
 
-    const message = await discord.sendMessage(
-      job.data,
-      '🤖 Söker upp utsläppsdata...'
-    )
+    await job.sendMessage('🤖 Söker upp utsläppsdata...')
 
     const collection = await client.getCollection({
       name: 'emission_reports',
@@ -51,36 +44,30 @@ const worker = new Worker(
     const paragraphs = results.documents?.flat() || []
 
     if (paragraphs.length === 0) {
-      message.edit('❌ Hittade inga relevanta paragrafer.')
+      job.editMessage('❌ Hittade inga relevanta paragrafer.')
       return results.documents
     }
 
     job.log('Paragraphs:\n\n' + paragraphs.join('\n\n'))
 
-    message.edit('✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.')
+    job.editMessage(
+      '✅ Hittade ' + paragraphs.length + ' relevanta paragrafer.'
+    )
 
-    guessWikidata.add(
-      'guess ' + url.slice(-20),
+    precheck.queue.add(
+      'precheck ' + url.slice(-20),
       {
         url,
-        companyName: url,
         paragraphs,
-        previousAnswer: '',
-        answer: '',
         threadId: job.data.threadId,
-        previousError: '',
       },
       {
-        attempts: 5,
+        attempts: 2,
       }
     )
 
     return results.documents
-  },
-  {
-    concurrency: 10,
-    connection: redis,
   }
 )
 
-export default worker
+export default searchVectors
