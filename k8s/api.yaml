@@ -14,7 +14,8 @@ spec:
         app: garbo
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.0.3 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:2.0.9
+          # will be: 3.0.3 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           name: garbo
           ports:
