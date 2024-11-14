@@ -17,7 +17,7 @@ import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
 import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
 
-const getJob = (jobId) => saveToAPI.queue.getJob(jobId)
+const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -147,7 +147,7 @@ export class Discord {
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
-      return undefined
+      return null
     }
   }
 
@@ -200,9 +200,9 @@ export class Discord {
     return await channel?.send(message)
   }
 
-  async lockThread(channelId) {
+  async lockThread(channelId: string) {
     const channel = await this.client.channels.fetch(channelId)
-    if (channel.isThread()) {
+    if (channel?.isThread()) {
       await channel.setLocked(true)
       //await channel.setArchived(true);
     } else {

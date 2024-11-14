@@ -113,6 +113,7 @@ const extractEmissions = new DiscordWorker<JobData>(
     })
 
     job.sendMessage(`🤖 Ställer följdfrågor...`)
+    return true
   }
 )
 
