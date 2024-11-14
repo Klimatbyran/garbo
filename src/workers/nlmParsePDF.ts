@@ -69,6 +69,7 @@ const nlmParsePDF = new DiscordWorker(
         }
 
         const name = url.slice(-20)
+        await job.editMessage(`🤖 Tolkar tabeller...`)
 
         await flow.add({
           ...base,
@@ -111,6 +112,7 @@ const nlmParsePDF = new DiscordWorker(
           cachedMarkdown: markdown,
         })
       }
+      return true
     } catch (error) {
       job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
       throw new UnrecoverableError(`Download Failed: ${error.message}`)
