@@ -105,7 +105,8 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
+    // Enforce explicit return values to avoid accidentally stalled jobs which stay in "Active" without moving on.
+    callback: (job: T) => Exclude<any, undefined | unknown>,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {

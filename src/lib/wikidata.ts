@@ -1,4 +1,5 @@
 import WBK, { EntityId } from 'wikibase-sdk'
+import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
 const transformData = (data: any): any => {
   return Object.entries(data)
@@ -86,12 +87,28 @@ const wbk = WBK({
   sparqlEndpoint: 'https://query.wikidata.org/sparql',
 })
 
-export async function searchCompany(companyName: string, retry = 3) {
+type WikidataSearchResult = {
+  id: string
+  labels?: { language: string; value: string }
+  descriptions?: { language: string; value: string }
+  claims?: any
+}
+
+export async function searchCompany({
+  companyName,
+  language = 'sv',
+  retry = 3,
+}: {
+  companyName: string
+  language?: SearchEntitiesOptions['language']
+  retry?: number
+}): Promise<WikidataSearchResult[]> {
+  // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
   const searchEntitiesQuery = wbk.searchEntities({
     search: companyName,
     type: 'item',
     // IDEA: Maybe determine language based on report or company origin. Or maybe search in multiple languages.
-    language: 'sv', // 'en
+    language,
     limit: 20,
   })
 
@@ -100,15 +117,15 @@ export async function searchCompany(companyName: string, retry = 3) {
   )
 
   if (searchResults.search.length === 0 && retry > 0) {
-    return searchCompany(
-      companyName.split(' ').slice(0, -1).join(' '), // retry with Telia Group -> Telia
-      retry - 1
-    )
+    return searchCompany({
+      companyName: companyName.split(' ').slice(0, -1).join(' '), // retry with Telia Group -> Telia
+      retry: retry - 1,
+    })
   }
 
   const url = wbk.getEntities({
     ids: searchResults.search.map((result) => result.id),
-    props: ['info', 'claims', 'descriptions'],
+    props: ['info', 'claims', 'descriptions', 'labels'],
   })
   const { entities } = await fetch(url).then((res) => res.json())
 
@@ -116,5 +133,11 @@ export async function searchCompany(companyName: string, retry = 3) {
     (entity: any) => entity.claims.P5991
   )
 
-  return companies
+  // Prioritise companies which include "carbon footprint" (P5991)
+  // Otherwise fall back to returning the top results and hope for the best
+  // IDEA: Maybe we could make a qualified guess here, for example by filtering the data for certain keywords
+  // related to companies?
+  return (
+    companies.length ? companies : Object.values(entities)
+  ) as WikidataSearchResult[]
 }
