@@ -108,7 +108,7 @@ export async function searchCompany(companyName: string, retry = 3) {
 
   const url = wbk.getEntities({
     ids: searchResults.search.map((result) => result.id),
-    props: ['info', 'claims', 'descriptions'],
+    props: ['info', 'claims', 'descriptions', 'labels'],
   })
   const { entities } = await fetch(url).then((res) => res.json())
 
