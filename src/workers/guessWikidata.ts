@@ -51,7 +51,7 @@ const guessWikidata = new DiscordWorker<JobData>(
         Array.isArray(job.stacktrace)
           ? { role: 'user', content: job.stacktrace.join('\n') }
           : undefined,
-      ].filter((m) => m.content?.length > 0) as any[],
+      ].filter((m) => m && m.content?.length > 0) as any[],
       {
         response_format: zodResponseFormat(wikidata.schema, 'wikidata'),
       }
