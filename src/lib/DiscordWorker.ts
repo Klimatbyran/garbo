@@ -63,10 +63,10 @@ function addCustomMethods(job: DiscordJob) {
     return discord.sendTyping(job.data)
   }
 
-  job.editMessage = (msg) => {
+  job.editMessage = async (msg) => {
     if (!message && job.data.messageId) {
       const { channelId, threadId, messageId } = job.data
-      message = discord.findMessage({
+      message = await discord.findMessage({
         channelId,
         threadId,
         messageId,

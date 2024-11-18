@@ -53,6 +53,13 @@ export class Discord {
           const command = commands.find(
             (command) => command.data.name === interaction.commandName
           )
+          if (!command) {
+            console.error(
+              `Discord error: Command "${interaction.commandName}" not found`
+            )
+            return
+          }
+
           try {
             await command.execute(interaction as ChatInputCommandInteraction)
           } catch (error) {
@@ -185,9 +192,15 @@ export class Discord {
     threadId?: string
     messageId: string
   }) {
-    const channel = (await this.client.channels.fetch(
-      threadId || channelId
-    )) as TextChannel
+    const id = threadId || channelId
+    if (!id) {
+      console.error(`Discord error: Unable to find message - no id provided:`, {
+        channelId,
+        threadId,
+      })
+      return null
+    }
+    const channel = (await this.client.channels.fetch(id)) as TextChannel
     const message = await channel.messages.fetch(messageId)
     return message
   }
