@@ -25,8 +25,8 @@ flowchart TB
     Tables[Extract Tables]
     Emissions[Extract Emissions]
 
-    Industry[Extract Industry]
-    Goals[Extract Climate Goals]
+    Industry[Industry]
+    Goals[Climate Goals]
     Review[Discord Review]
 
     Precheck --> GuessWikidata --> Emissions
@@ -44,11 +44,15 @@ flowchart TB
                                            CheckDB --(no)--> API.Emissions
     Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
                                            CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Biogenic --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
     Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
                                            CheckDB --(no)--> API.Goals
     Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
 ```
 

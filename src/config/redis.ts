@@ -1,5 +1,7 @@
+import { ENV } from '../lib/env'
+
 export default {
-  host: process.env.REDIS_HOST || 'localhost',
-  port: +process.env.REDIS_PORT || 6379,
-  password: process.env.REDIS_PASSWORD || undefined,
+  host: ENV.REDIS_HOST,
+  port: ENV.REDIS_PORT,
+  password: ENV.REDIS_PASSWORD,
 }

@@ -2,9 +2,10 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import chromadb from '../config/chromadb'
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { ENV } from '../lib/env'
 
 const embedder = new OpenAIEmbeddingFunction({
-  openai_api_key: process.env.OPENAI_API_KEY,
+  openai_api_key: ENV.OPENAI_API_KEY,
 })
 
 class JobData extends DiscordJob {

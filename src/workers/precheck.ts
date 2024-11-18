@@ -78,6 +78,8 @@ The following is an extract from a PDF:`,
       attempts: 3,
     },
   })
+
+  return true
 })
 
 export default precheck

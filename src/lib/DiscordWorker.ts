@@ -1,5 +1,5 @@
 import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
-import { TextChannel } from 'discord.js'
+import { Message, TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
@@ -28,7 +28,7 @@ export class DiscordJob extends Job {
 }
 
 function addCustomMethods(job: DiscordJob) {
-  let message = null
+  let message: Message<true> | null = null
   /**
    * Combine results of children jobs into a single object.
    */
@@ -63,10 +63,10 @@ function addCustomMethods(job: DiscordJob) {
     return discord.sendTyping(job.data)
   }
 
-  job.editMessage = (msg) => {
+  job.editMessage = async (msg) => {
     if (!message && job.data.messageId) {
       const { channelId, threadId, messageId } = job.data
-      message = discord.findMessage({
+      message = await discord.findMessage({
         channelId,
         threadId,
         messageId,
@@ -101,12 +101,12 @@ function addCustomMethods(job: DiscordJob) {
   return job
 }
 
-export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
+export class DiscordWorker<T extends DiscordJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
     // Enforce explicit return values to avoid accidentally stalled jobs which stay in "Active" without moving on.
-    callback: (job: T) => Exclude<any, undefined | unknown>,
+    callback: (job: T) => Promise<string | boolean | number | {}>,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
