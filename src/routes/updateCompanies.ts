@@ -122,7 +122,7 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await createGoals(wikidataId, goals, metadata)
+      await createGoals(wikidataId, goals, metadata!)
     }
     res.json({ ok: true })
   }
@@ -138,7 +138,7 @@ router.patch(
     const { goal } = req.body
     const { id } = req.params
     const metadata = res.locals.metadata
-    await updateGoal(id, goal, metadata).catch((error) => {
+    await updateGoal(id, goal, metadata!).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -176,7 +176,7 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await createInitiatives(wikidataId, initiatives, metadata)
+      await createInitiatives(wikidataId, initiatives, metadata!)
     }
     res.json({ ok: true })
   }
@@ -192,7 +192,7 @@ router.patch(
     const { initiative } = req.body
     const { id } = req.params
     const metadata = res.locals.metadata
-    await updateInitiative(id, initiative, metadata).catch((error) => {
+    await updateInitiative(id, initiative, metadata!).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -235,7 +235,7 @@ router.put(
 
     if (current) {
       console.log('updating industry', subIndustryCode)
-      await updateIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+      await updateIndustry(wikidataId, { subIndustryCode }, metadata!).catch(
         (error) => {
           throw new GarboAPIError('Failed to update industry', {
             original: error,
@@ -245,7 +245,7 @@ router.put(
       )
     } else {
       console.log('creating industry', subIndustryCode)
-      await createIndustry(wikidataId, { subIndustryCode }, metadata).catch(
+      await createIndustry(wikidataId, { subIndustryCode }, metadata!).catch(
         (error) => {
           throw new GarboAPIError('Failed to create industry', {
             original: error,
@@ -326,8 +326,8 @@ router.post(
       emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
     } = postEmissionsBodySchema.parse(req.body)
 
-    const metadata = res.locals.metadata
-    const emissions = res.locals.emissions
+    const metadata = res.locals.metadata!
+    const emissions = res.locals.emissions!
 
     try {
       // Only update if the input contains relevant changes
@@ -337,8 +337,7 @@ router.post(
       await Promise.allSettled([
         scope1 && upsertScope1(emissions, scope1, metadata),
         scope2 && upsertScope2(emissions, scope2, metadata),
-        // TODO: type error for scope 3 categories - similar to the zod type bug for scope 1 and 2, it's not handling optional types correctly.
-        scope3 && upsertScope3(emissions, scope3 as unknown, metadata),
+        scope3 && upsertScope3(emissions, scope3, metadata),
         statedTotalEmissions &&
           upsertStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
         biogenic && upsertBiogenic(emissions, biogenic, metadata),
@@ -377,12 +376,11 @@ router.post(
   '/:wikidataId/:year/economy',
   processRequestBody(postEconomyBodySchema),
   async (req, res) => {
-    const {
-      economy: { turnover, employees },
-    } = postEconomyBodySchema.parse(req.body)
+    const parsedBody = postEconomyBodySchema.parse(req.body)
+    const { turnover, employees } = parsedBody.economy ?? {}
 
-    const metadata = res.locals.metadata
-    const economy = res.locals.economy
+    const metadata = res.locals.metadata!
+    const economy = res.locals.economy!
 
     // Normalise currency
     if (turnover) {

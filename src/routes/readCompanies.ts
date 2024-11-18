@@ -29,6 +29,10 @@ const metadata = {
   },
 }
 
+function isNumber(n: unknown): n is number {
+  return Number.isFinite(n)
+}
+
 router.use(
   enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
 )
@@ -195,7 +199,7 @@ router.get(
                       calculatedTotalEmissions:
                         reportingPeriod.emissions.scope3.categories.reduce(
                           (total, category) =>
-                            Number.isFinite(category.total)
+                            isNumber(category.total)
                               ? category.total + total
                               : total,
                           0
@@ -229,7 +233,7 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    reportingPeriod.emissions?.scope1?.total +
+                    (reportingPeriod.emissions?.scope1?.total || 0) +
                     (reportingPeriod.emissions?.scope2
                       ?.calculatedTotalEmissions || 0) +
                     (reportingPeriod.emissions?.scope3
@@ -418,7 +422,7 @@ router.get(
                       calculatedTotalEmissions:
                         reportingPeriod.emissions.scope3.categories.reduce(
                           (total, category) =>
-                            Number.isFinite(category.total)
+                            isNumber(category.total)
                               ? category.total + total
                               : total,
                           0
@@ -452,7 +456,7 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    reportingPeriod.emissions?.scope1?.total +
+                    (reportingPeriod.emissions?.scope1?.total || 0) +
                     (reportingPeriod.emissions?.scope2
                       ?.calculatedTotalEmissions || 0) +
                     (reportingPeriod.emissions?.scope3
