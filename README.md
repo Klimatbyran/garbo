@@ -6,7 +6,7 @@ Garbo is invoked through a set of commands in Discord and has a pipeline of task
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
-<!-- ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e) -->
+![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
 ## Current Status
 
