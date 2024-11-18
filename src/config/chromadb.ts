@@ -1,9 +1,11 @@
+import { ENV } from '../lib/env'
+
 export default {
-  path: process.env.CHROMA_HOST || 'http://127.0.0.1:8000',
-  auth: process.env.CHROMA_TOKEN
+  path: ENV.CHROMA_HOST,
+  auth: ENV.CHROMA_TOKEN
     ? {
         provider: 'token',
-        credentials: process.env.CHROMA_TOKEN || '',
+        credentials: ENV.CHROMA_TOKEN,
       }
     : undefined,
 }

@@ -4,9 +4,10 @@ import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import chromadb from '../config/chromadb'
 import prompt from '../prompts/parsePDF'
 import precheck from './precheck'
+import { ENV } from '../lib/env'
 
 const embedder = new OpenAIEmbeddingFunction({
-  openai_api_key: process.env.OPENAI_API_KEY,
+  openai_api_key: ENV.OPENAI_API_KEY,
 })
 
 class JobData extends DiscordJob {
