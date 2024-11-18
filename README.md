@@ -126,6 +126,30 @@ To start the workers responsible for doing the actual work, which can be scaled 
 npm run dev-workers
 ```
 
+### Restoring a DB backup locally
+
+These steps can be useful to test DB migrations, or develop with data that is similar to the that in the production environment.
+
+1. Optional: Create a local test DB.
+
+```sh
+docker run -d -p 5432:5432 --name garbo_test_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+```
+
+Alternatively, make sure your local postgres container is running.
+
+2. Download the DB dump file. Ask someone from Klimatkollen to get one.
+
+3. Restore the backup. This will initially connect to the default `postgres` database without making any modifications and then create any databases if they do not exist
+
+```sh
+docker exec -i container_name pg_restore -U postgres -C -v -d postgres < ~/Downloads/backup_garbo_XYZ.dump
+```
+
+4. Apply DB migrations with `npm run prisma migrate dev`.
+
+5. Restart the Garbo API and workers.
+
 ### Testing
 
 To run the tests, use the following command:
