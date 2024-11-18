@@ -6,7 +6,7 @@ Garbo is invoked through a set of commands in Discord and has a pipeline of task
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
-![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
+<!-- ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e) -->
 
 ## Current Status
 
@@ -25,8 +25,8 @@ flowchart TB
     Tables[Extract Tables]
     Emissions[Extract Emissions]
 
-    Industry[Extract Industry]
-    Goals[Extract Climate Goals]
+    Industry[Industry]
+    Goals[Climate Goals]
     Review[Discord Review]
 
     Precheck --> GuessWikidata --> Emissions
@@ -44,11 +44,15 @@ flowchart TB
                                            CheckDB --(no)--> API.Emissions
     Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
                                            CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Biogenic --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
     Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
                                            CheckDB --(no)--> API.Goals
     Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
 ```
 
