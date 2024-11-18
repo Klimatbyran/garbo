@@ -105,11 +105,15 @@ export async function upsertScope3(
   },
   metadata: Metadata
 ) {
-  const updatedScope3 = emissions.scope3Id
+  const existing = emissions.scope3Id
     ? await prisma.scope3.findFirst({
         where: { id: emissions.scope3Id },
         include: { categories: { select: { id: true, category: true } } },
       })
+    : null
+
+  const updatedScope3 = existing
+    ? existing
     : await prisma.scope3.create({
         data: {
           metadata: {
@@ -135,7 +139,7 @@ export async function upsertScope3(
 
   // Update existing scope 3 categories and create new ones
   await Promise.all(
-    scope3.categories.map((scope3Category) =>
+    (scope3.categories ?? []).map((scope3Category) =>
       updatedScope3.categories.find(
         ({ category }) => scope3Category.category === category
       )
