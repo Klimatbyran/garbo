@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const schema = z.object({
   industry: z.object({
-    subIndustryCode: z.string(),
+    subIndustryCode: z.string().length(8),
   }),
 })
 
@@ -326,7 +326,7 @@ Example:
 \`\`\`json
 {
   "industry": {
-    "subIndustryCode": "1234567"
+    "subIndustryCode": "12345678"
   }
 }
 \`\`\`
