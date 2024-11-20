@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const schema = z.object({
   industry: z.object({
-    subIndustryCode: z.string().length(8),
+    subIndustryCode: z.string(),
   }),
 })
 
