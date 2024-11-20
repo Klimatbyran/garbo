@@ -3,8 +3,4 @@ kind: Kustomization
 namespace: garbo
 
 resources:
-  - worker.yaml
-  - api.yaml
-  - ingress.yaml
-  - nlm-ingestor.yaml
-  - service.yaml
+  - ../../base
