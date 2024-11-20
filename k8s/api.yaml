@@ -40,6 +40,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_API_KEY
+            - name: OPENAI_ORG_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAI_ORG_ID
             - name: API_TOKENS
               valueFrom:
                 secretKeyRef:
