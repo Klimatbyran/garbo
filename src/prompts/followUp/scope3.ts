@@ -30,6 +30,8 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 
 Regarding transport: If you can't find the exact category, report it as category 4 or 9 depending on the context.
 
+UNITS: All emissions should be reported in metric tons of CO2 equivalent. If the unit is different (as an example kton), convert it.
+
 If the company is identified as a financial institution or investment company, look for emissions data from investments, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
 
 1: purchasedGoods
