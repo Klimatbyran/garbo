@@ -1,11 +1,18 @@
-import { ENV } from '../lib/env'
+import { z } from 'zod'
+
+const envSchema = z.object({
+  CHROMA_HOST: z.string().default('http://127.0.0.1:8000'),
+  CHROMA_TOKEN: z.string().optional(),
+})
+
+const env = envSchema.parse(process.env)
 
 export default {
-  path: ENV.CHROMA_HOST,
-  auth: ENV.CHROMA_TOKEN
+  path: env.CHROMA_HOST,
+  auth: env.CHROMA_TOKEN
     ? {
         provider: 'token',
-        credentials: ENV.CHROMA_TOKEN,
+        credentials: env.CHROMA_TOKEN,
       }
     : undefined,
 }

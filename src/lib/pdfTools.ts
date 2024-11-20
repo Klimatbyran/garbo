@@ -6,7 +6,7 @@ import {
   Table,
 } from './jsonExtraction'
 import path from 'path'
-import { ENV } from './env'
+import nlmIngestorConfig from '../config/nlmIngestor'
 
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
@@ -36,7 +36,7 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
 export async function extractJsonFromPdf(buffer: Buffer) {
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
-  const url = `${ENV.NLM_INGESTOR_URL}/api/parseDocument?renderFormat=json`
+  const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
 
   let response: Response
   try {
@@ -47,7 +47,7 @@ export async function extractJsonFromPdf(buffer: Buffer) {
   } catch (err) {
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
-        ENV.NLM_INGESTOR_URL +
+        nlmIngestorConfig.url +
         ')'
     )
     response = { ok: false, statusText: err.message } as Response

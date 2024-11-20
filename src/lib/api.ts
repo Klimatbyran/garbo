@@ -1,8 +1,6 @@
-const BASE_URL = 'http://localhost:3000/api'
+import apiConfig from '../config/api'
 
-import { ENV } from './env'
-
-const GARBO_TOKEN = ENV.API_TOKENS.find((token) => token.startsWith('garbo'))
+const GARBO_TOKEN = apiConfig.tokens.find((token) => token.startsWith('garbo'))
 
 export async function apiFetch(
   endpoint: string,
@@ -24,7 +22,7 @@ export async function apiFetch(
     config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  const response = await fetch(`${BASE_URL}${endpoint}`, config)
+  const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
   if (response.ok) {
     return response.json()
   } else {
