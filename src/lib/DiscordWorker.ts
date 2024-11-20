@@ -116,6 +116,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker<any> {
     })
 
     import('dotenv/config')
+    console.log('env', process.env)
 
     this.queue = new Queue(name, { connection: redis })
   }
