@@ -33,9 +33,12 @@ function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-router.use(
-  enableCors(['https://beta.klimatkollen.se', 'https://klimatkollen.se'])
-)
+const origins =
+  process.env.NODE_ENV === 'development'
+    ? ['http://localhost:4321']
+    : ['https://beta.klimatkollen.se', 'https://klimatkollen.se']
+
+router.use(enableCors(origins))
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
