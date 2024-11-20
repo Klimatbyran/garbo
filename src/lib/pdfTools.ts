@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
 import {
@@ -7,6 +6,7 @@ import {
   Table,
 } from './jsonExtraction'
 import path from 'path'
+import nlmIngestor from '../config/nlmIngestor'
 
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
@@ -34,7 +34,7 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
 }
 
 export async function extractJsonFromPdf(buffer: Buffer) {
-  const nlmIngestorUrl = process.env.NLM_INGESTOR_URL
+  const nlmIngestorUrl = nlmIngestor.url
   if (!nlmIngestorUrl) {
     throw new Error('NLM_INGESTOR_URL is not set')
   }
