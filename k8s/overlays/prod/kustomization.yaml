@@ -7,5 +7,6 @@ resources:
   - ingress.yaml
 
 images:
-  - name: garbo
-    newName: flux-system:garbo
+  - name: ghcr.io/klimatbyran/garbo
+    newName: ghcr.io/klimatbyran/garbo # {"$imagepolicy": "flux-system:garbo:name"}
+    newTag: 3.1.18 # {"$imagepolicy": "flux-system:garbo:tag"}
