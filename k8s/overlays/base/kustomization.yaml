@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: garbo
 
 resources:
   - worker.yaml
@@ -8,8 +7,3 @@ resources:
   - ingress.yaml
   - nlm-ingestor.yaml
   - service.yaml
-
-images:
-  - name: ghcr.io/klimatbyran/garbo
-    newName: ghcr.io/klimatbyran/garbo # {"$imagepolicy": "flux-system:garbo-dev:name"}
-    newTag: 3.1.18 # {"$imagepolicy": "flux-system:garbo-dev:tag"}

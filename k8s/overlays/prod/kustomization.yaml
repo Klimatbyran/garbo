@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: garbo-prod
 
 resources:
-  - ../../base
+  - ../base
   - ingress.yaml
 
 images:
