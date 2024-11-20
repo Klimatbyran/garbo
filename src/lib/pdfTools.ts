@@ -35,6 +35,7 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
 
 export async function extractJsonFromPdf(buffer: Buffer) {
   const nlmIngestorUrl = nlmIngestor.url
+  console.log('nlmIngestorUrl', nlmIngestorUrl)
   if (!nlmIngestorUrl) {
     throw new Error('NLM_INGESTOR_URL is not set')
   }
