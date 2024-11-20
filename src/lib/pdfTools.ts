@@ -8,6 +8,8 @@ import {
 import path from 'path'
 import nlmIngestorConfig from '../config/nlmIngestor'
 
+const MAX_LENGTH_TABLE_NAME = 50
+
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
     scale: 2,
@@ -113,7 +115,10 @@ export async function extractTablesFromJson(
             pageWidth,
             pageHeight
           )*/
-          const name = table.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()
+          const name = table.name
+            .replace(/[^a-z0-9]/gi, '_')
+            .toLowerCase()
+            .substring(0, MAX_LENGTH_TABLE_NAME)
           const pngName = `table-${pageIndex}-${name}.png`
           const filename = path.join(outputDir, pngName)
 
