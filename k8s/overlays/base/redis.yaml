@@ -1,0 +1,27 @@
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: garbo
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: redis
+      version: "18.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+      interval: 12h
+  values:
+    master:
+      resourcesPreset: "large"
+    replica:
+      replicaCount: 1
+      resourcesPreset: "medium"
+    persistence:
+      enabled: true
+      size: 20Gi

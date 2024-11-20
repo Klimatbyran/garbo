@@ -5,6 +5,7 @@ namespace: garbo
 resources:
   - ../base
   - ingress.yaml
+  - metabase.yaml
 
 images:
   - name: ghcr.io/klimatbyran/garbo

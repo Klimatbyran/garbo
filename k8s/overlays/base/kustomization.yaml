@@ -2,6 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - postgresql.yaml
+  - redis.yaml
+  - chromadb.yaml
+  - pre-deploy/db-migrate.yaml
   - worker.yaml
   - api.yaml
   - ingress.yaml

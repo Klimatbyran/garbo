@@ -1,0 +1,30 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: chroma
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://amikos-tech.github.io/chromadb-chart/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: chromadb
+  namespace: garbo
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: chromadb
+      version: "0.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: chroma
+        namespace: flux-system
+      interval: 12h
+  values:
+    chromadb:
+      auth:
+        enabled: false
+      dataVolumeSize: 20Gi

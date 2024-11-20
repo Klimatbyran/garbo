@@ -1,0 +1,54 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: pmint93
+  namespace: flux-system
+spec:
+  interval: 24h
+  url: https://pmint93.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metabase
+  namespace: garbo
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: metabase
+      sourceRef:
+        kind: HelmRepository
+        name: pmint93
+        namespace: flux-system
+      interval: 12h
+  values:
+    replicaCount: 1
+    image:
+      repository: metabase/metabase
+      tag: v0.51.1.6
+    database:
+      type: postgres
+      host: postgresql.garbo.svc.cluster.local
+      dbname: metabase
+      username: postgres
+      port: 5432
+      existingSecret: postgresql
+      existingSecretPasswordKey: postgres-password
+    password:
+      complexity: normal
+      length: 6
+    timeZone: UTC
+    ingress:
+      enabled: true
+      hosts:
+        - metabase.klimatkollen.se
+      path: /
+      pathType: Prefix
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls:
+        - hosts:
+            - metabase.klimatkollen.se
+          secretName: metabase-tls
