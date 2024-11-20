@@ -4,3 +4,4 @@ namespace: garbo-dev
 
 resources:
   - ../../base
+  - ingress.yaml
