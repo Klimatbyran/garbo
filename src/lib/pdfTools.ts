@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
 import {
