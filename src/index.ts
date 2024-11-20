@@ -4,9 +4,9 @@ import queue from './queue'
 
 import discord from './discord'
 import api from './api'
-import { ENV } from './lib/env'
+import apiConfig from './config/api'
 
-const port = ENV.PORT
+const port = apiConfig.port
 const app = express()
 
 app.get('/favicon.ico', express.static('public/favicon.png'))

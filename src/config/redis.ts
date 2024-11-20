@@ -1,7 +1,15 @@
-import { ENV } from '../lib/env'
+import { z } from 'zod'
+
+const envSchema = z.object({
+  REDIS_HOST: z.string().default('localhost'),
+  REDIS_PORT: z.coerce.number().default(6379),
+  REDIS_PASSWORD: z.string().optional(),
+})
+
+const env = envSchema.parse(process.env)
 
 export default {
-  host: ENV.REDIS_HOST,
-  port: ENV.REDIS_PORT,
-  password: ENV.REDIS_PASSWORD,
+  host: env.REDIS_HOST,
+  port: env.REDIS_PORT,
+  password: env.REDIS_PASSWORD,
 }

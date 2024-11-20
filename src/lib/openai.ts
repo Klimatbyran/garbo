@@ -1,10 +1,10 @@
 import { assert } from 'console'
 import OpenAI from 'openai'
 import { ChatCompletionMessageParam } from 'openai/resources'
-import { ENV } from './env'
+import openaiConfig from '../config/openai'
 
 const openai = new OpenAI({
-  apiKey: ENV.OPENAI_API_KEY,
+  apiKey: openaiConfig.apiKey,
 })
 
 const ask = async (messages: ChatCompletionMessageParam[], options?: any) => {

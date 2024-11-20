@@ -14,7 +14,7 @@ import cors, { CorsOptionsDelegate } from 'cors'
 
 import { ensureReportingPeriodExists } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
-import { ENV } from '../lib/env'
+import apiConfig from '../config/api'
 
 declare global {
   namespace Express {
@@ -46,7 +46,7 @@ export const fakeAuth =
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('Authorization')?.replace('Bearer ', '')
     if (token) {
-      if (ENV.API_TOKENS.includes(token)) {
+      if (apiConfig.tokens.includes(token)) {
         const [username] = token.split(':')
         const user = await prisma.user.findFirst({
           where: { email: USERS[username] },
