@@ -10,4 +10,3 @@ Promise.all(workers.map((worker) => worker.run()))
 
 discord.login()
 console.log('Discord bot started')
-console.log('env', process.env)
