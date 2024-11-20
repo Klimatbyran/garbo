@@ -8,11 +8,22 @@ metadata:
 spec:
   tls:
     - hosts:
-        - api.klimatkollen.se
-      secretName: api-klimatkollen-se-tls
+        - beta.dev.klimatkollen.se
+        - api.dev.klimatkollen.se
+      secretName: dev-klimatkollen-se-tls
 
   rules:
-    - host: api.klimatkollen.se
+    - host: beta.dev.klimatkollen.se
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: garbo
+                port:
+                  number: 80
+    - host: api.dev.klimatkollen.se
       http:
         paths:
           - path: /
