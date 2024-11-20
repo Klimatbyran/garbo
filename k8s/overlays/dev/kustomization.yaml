@@ -5,3 +5,6 @@ namespace: garbo-dev
 resources:
   - ../../base
   - ingress.yaml
+
+resources:
+  - namespace.yaml
