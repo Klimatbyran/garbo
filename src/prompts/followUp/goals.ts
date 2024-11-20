@@ -13,7 +13,7 @@ export const schema = z.object({
 })
 
 export const prompt = `
-Extract the company goals for reducing their carbon emissions add it as field goals.
+Extract the company goals for reducing their carbon emissions.
 Be as accurate as possible when extracting goals. These values will be plotted in a graph later on.
 
 
@@ -21,9 +21,11 @@ Prioritize the list and only include the most important goals. If the list is lo
 
 If no year is mentioned, set year to null.
 
-** LANGUAGE: WRITE IN SWEDISH. If text is in english, translate to Swedish **
+** LANGUAGE: WRITE IN SWEDISH. If text is in English, translate to Swedish **
 
-{ Do not use markdown in the output.
+Example: Ensure the output is in JSON format and do not use markdown.
+\`\`\`json
+{
   "goals": [
     {
       "description": "Minska utsläppen med X%",
@@ -33,5 +35,5 @@ If no year is mentioned, set year to null.
     }
   ]
 }
-`
+\`\`\``
 export default { prompt, schema }

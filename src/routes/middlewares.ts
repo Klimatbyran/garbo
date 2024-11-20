@@ -14,7 +14,7 @@ import cors, { CorsOptionsDelegate } from 'cors'
 
 import { ensureReportingPeriodExists } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
-import { ENV } from '../lib/env'
+import apiConfig from '../config/api'
 
 declare global {
   namespace Express {
@@ -46,12 +46,14 @@ export const fakeAuth =
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('Authorization')?.replace('Bearer ', '')
     if (token) {
-      if (ENV.API_TOKENS.includes(token)) {
+      if (apiConfig.tokens.includes(token)) {
         const [username] = token.split(':')
         const user = await prisma.user.findFirst({
           where: { email: USERS[username] },
         })
-        res.locals.user = user
+        if (user) {
+          res.locals.user = user
+        }
       }
     }
 
@@ -79,7 +81,7 @@ const editMethods = new Set(['POST', 'PATCH', 'PUT'])
 export const createMetadata =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    let createdMetadata = undefined
+    let createdMetadata: Metadata | undefined = undefined
     // TODO: If we use a DB transaction (initiated before this middleware is called),
     // then we could always create metadata and just abort the transaction for invalid requests.
     // This would make it easy to work with, but still allow us to prevent adding metadata not connected to any actual changes.
@@ -149,14 +151,14 @@ export const reportingPeriod =
       req.body
     )
 
-    const endYear = parseInt(year.split('-').at(-1))
+    const endYear = parseInt(year.split('-').at(-1)!)
     if (endYear !== endDate.getFullYear()) {
       throw new GarboAPIError(
         `The URL param year must be the same year as the endDate (${endYear})`
       )
     }
 
-    const metadata = res.locals.metadata
+    const metadata = res.locals.metadata!
     const company = res.locals.company
 
     if (req.method === 'POST' || req.method === 'PATCH') {
@@ -227,9 +229,11 @@ export const ensureEconomyExists =
 const getCorsOptionsBasedOnOrigin =
   (allowedOrigins: string[]): CorsOptionsDelegate =>
   (req: Request, callback) => {
-    const corsOptions = allowedOrigins.includes(req.header('Origin'))
-      ? { origin: true }
-      : { origin: false }
+    const origin = req.header('Origin')
+    const corsOptions =
+      origin && allowedOrigins.includes(origin)
+        ? { origin: true }
+        : { origin: false }
     callback(null, corsOptions)
   }
 

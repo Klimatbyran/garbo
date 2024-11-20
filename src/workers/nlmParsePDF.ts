@@ -116,6 +116,7 @@ const nlmParsePDF = new DiscordWorker(
         })
         return added.id
       }
+      return true
     } catch (error) {
       job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
       throw new UnrecoverableError(`Download Failed: ${error.message}`)

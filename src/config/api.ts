@@ -6,6 +6,14 @@ const envSchema = z.object({
    * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
    */
   API_TOKENS: z.string().transform((tokens) => tokens.split(',')),
+  API_BASE_URL: z.string().default('http://localhost:3000/api'),
+  PORT: z.coerce.number().default(3000),
 })
 
-export const ENV = envSchema.parse(process.env)
+const env = envSchema.parse(process.env)
+
+export default {
+  tokens: env.API_TOKENS,
+  baseURL: env.API_BASE_URL,
+  port: env.PORT,
+}

@@ -17,7 +17,7 @@ import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
 import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
 
-const getJob = (jobId) => saveToAPI.queue.getJob(jobId)
+const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -53,6 +53,13 @@ export class Discord {
           const command = commands.find(
             (command) => command.data.name === interaction.commandName
           )
+          if (!command) {
+            console.error(
+              `Discord error: Command "${interaction.commandName}" not found`
+            )
+            return
+          }
+
           try {
             await command.execute(interaction as ChatInputCommandInteraction)
           } catch (error) {
@@ -147,7 +154,7 @@ export class Discord {
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
-      return undefined
+      return null
     }
   }
 
@@ -185,9 +192,15 @@ export class Discord {
     threadId?: string
     messageId: string
   }) {
-    const channel = (await this.client.channels.fetch(
-      threadId || channelId
-    )) as TextChannel
+    const id = threadId || channelId
+    if (!id) {
+      console.error(`Discord error: Unable to find message - no id provided:`, {
+        channelId,
+        threadId,
+      })
+      return null
+    }
+    const channel = (await this.client.channels.fetch(id)) as TextChannel
     const message = await channel.messages.fetch(messageId)
     return message
   }
@@ -200,9 +213,9 @@ export class Discord {
     return await channel?.send(message)
   }
 
-  async lockThread(channelId) {
+  async lockThread(channelId: string) {
     const channel = await this.client.channels.fetch(channelId)
-    if (channel.isThread()) {
+    if (channel?.isThread()) {
       await channel.setLocked(true)
       //await channel.setArchived(true);
     } else {

@@ -45,6 +45,8 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_TOKENS
+            - name: API_BASE_URL
+              value: http://garbo/api
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
