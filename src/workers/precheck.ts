@@ -50,36 +50,41 @@ The following is an extract from a PDF:`,
 
   job.sendMessage(`🤖 Ställer frågor om basfakta...`)
 
-  await flow.add({
-    name: 'precheck done ' + companyName,
-    queueName: 'extractEmissions', // this is where the result from the children will be sent
-    data: { ...base.data },
-    children: [
-      {
-        ...base,
-        name: 'guessWikidata ' + companyName,
-        queueName: 'guessWikidata',
-        data: {
-          ...base.data,
-          schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+  try {
+    const extractEmissions = await flow.add({
+      name: 'precheck done ' + companyName,
+      queueName: 'extractEmissions', // this is where the result from the children will be sent
+      data: { ...base.data },
+      children: [
+        {
+          ...base,
+          name: 'guessWikidata ' + companyName,
+          queueName: 'guessWikidata',
+          data: {
+            ...base.data,
+            schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+          },
         },
-      },
-      {
-        ...base,
-        name: 'fiscalYear ' + companyName,
-        data: {
-          ...base.data,
-          prompt: fiscalYear.prompt,
-          schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
+        {
+          ...base,
+          name: 'fiscalYear ' + companyName,
+          data: {
+            ...base.data,
+            prompt: fiscalYear.prompt,
+            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
+          },
         },
+      ],
+      opts: {
+        attempts: 3,
       },
-    ],
-    opts: {
-      attempts: 3,
-    },
-  })
-
-  return true
+    })
+    return extractEmissions.job?.id
+  } catch (error) {
+    job.log('Error: ' + error)
+    job.editMessage('❌ Error: ' + error)
+    throw error
+  }
 })
 
 export default precheck

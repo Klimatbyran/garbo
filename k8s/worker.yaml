@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.1.8 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:3.1.16 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
@@ -76,4 +76,4 @@ spec:
                   key: postgres-password
             - name: NLM_INGESTOR_URL
               value: http://nlm:5001
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always

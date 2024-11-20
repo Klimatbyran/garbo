@@ -1,13 +1,13 @@
 {
   "name": "garbo",
-  "version": "3.1.8",
+  "version": "3.1.16",
   "description": "",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "start": "npx prisma migrate deploy && node --import tsx src/index.ts",
+    "start": "node --import tsx src/index.ts",
     "migrate": "npx prisma migrate deploy",
     "workers": "node --import tsx src/startWorkers.ts",
     "dev-workers": "cross-env DOTENV_CONFIG_PATH=./.env.development node --import tsx --watch src/startWorkers.ts",
@@ -24,7 +24,7 @@
     "@bull-board/express": "^6.3.2",
     "@prisma/client": "^5.21.1",
     "@types/node": "^20.12.12",
-    "bullmq": "^5.21.2",
+    "bullmq": "^5.28.0",
     "chromadb": "^1.9.2",
     "compromise": "^14.13.0",
     "cors": "^2.8.5",

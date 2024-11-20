@@ -3,6 +3,7 @@ import { FlowProducer, UnrecoverableError } from 'bullmq'
 import { extractJsonFromPdf, fetchPdf } from '../lib/pdfTools'
 import redis from '../config/redis'
 import precheck from './precheck'
+import { jsonToMarkdown } from '../lib/jsonExtraction'
 
 const headers = {
   'User-Agent':
@@ -54,7 +55,8 @@ const nlmParsePDF = new DiscordWorker(
         } finally {
           clearInterval(interval)
         }
-        job.log('found json:\n' + JSON.stringify(json))
+        const markdown = jsonToMarkdown(json)
+        job.log('text found:\n' + markdown)
         job.updateData({
           ...job.data,
           json,
@@ -71,7 +73,7 @@ const nlmParsePDF = new DiscordWorker(
         const name = url.slice(-20)
         await job.editMessage(`🤖 Tolkar tabeller...`)
 
-        await flow.add({
+        const precheck = await flow.add({
           ...base,
           name: 'precheck ' + name,
           queueName: 'precheck',
@@ -90,6 +92,7 @@ const nlmParsePDF = new DiscordWorker(
             },
           ],
         })
+        job.log('flow started: ' + precheck.job?.id)
       } else {
         job.editMessage(`✅ PDF redan tolkad och indexerad. Fortsätter...`)
         const collection = await job.chromaClient.getCollection({
@@ -107,10 +110,11 @@ const nlmParsePDF = new DiscordWorker(
 
         const markdown = result.documents.join('\n\n')
 
-        precheck.queue.add('precheck', {
+        const added = await precheck.queue.add('precheck', {
           ...job.data,
           cachedMarkdown: markdown,
         })
+        return added.id
       }
       return true
     } catch (error) {
