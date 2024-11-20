@@ -8,3 +8,7 @@ resources:
   - ingress.yaml
   - nlm-ingestor.yaml
   - service.yaml
+
+images:
+  - name: garbo
+    newName: flux-system:garbo-dev

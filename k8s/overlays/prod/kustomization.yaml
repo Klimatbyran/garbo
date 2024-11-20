@@ -5,3 +5,7 @@ namespace: garbo-prod
 resources:
   - ../../base
   - ingress.yaml
+
+images:
+  - name: garbo
+    newName: flux-system:garbo
