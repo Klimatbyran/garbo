@@ -34,11 +34,7 @@ const followUp = new DiscordWorker<JobData>(
       default: { schema, prompt },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    console.log(
-      schema,
-      prompt,
-      resolve(import.meta.dirname, `../prompts/${type}`)
-    )
+    console.log(schema)
 
     // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)
@@ -117,7 +113,7 @@ For example, if you want to add a new field called "industry" the response shoul
         .flat()
         .filter((m) => m?.content) as any[],
       {
-        response_format: zodResponseFormat(schema, type),
+        response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
       }
     )
 
