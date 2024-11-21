@@ -1,13 +1,16 @@
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { JobType } from '../types/Company'
+
+import { zodResponseFormat } from 'openai/helpers/zod'
+import { resolve } from 'path'
 import { vectorDB } from '../lib/vectordb'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
     apiSubEndpoint: string
-    prompt: string
-    schema: string
+    type: JobType
     json: string
     previousAnswer: string
   }
@@ -16,7 +19,11 @@ class JobData extends DiscordJob {
 const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
-    const { prompt, schema, url, json, previousAnswer } = job.data
+    const { type, url, json, previousAnswer } = job.data
+
+    const {
+      default: { schema, prompt },
+    } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
     const markdown = await vectorDB.getRelevantMarkdown(url, [prompt], 5)
 
@@ -68,7 +75,7 @@ For example, if you want to add a new field called "industry" the response shoul
         .flat()
         .filter((m) => m?.content) as any[],
       {
-        response_format: schema,
+        response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
       }
     )
 

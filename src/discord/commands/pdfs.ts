@@ -19,7 +19,6 @@ export default {
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    console.log('pdfs')
     try {
       await interaction.deferReply({ ephemeral: true })
       const urls = interaction.options

@@ -124,7 +124,7 @@ export async function extractTablesFromJson(
 
           const pageWidth2 = Math.floor(pageWidth * 2)
           const pageHeight2 = Math.floor(pageHeight * 2)
-          //console.log(url, pageIndex, x, y, width, height, table)
+
           console.log('extracting screenshot to outputPath', filename)
           return extractRegionAsPng(
             png,
