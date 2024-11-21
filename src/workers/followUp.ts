@@ -1,12 +1,6 @@
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
-import chromadb from '../config/chromadb'
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import openaiConfig from '../config/openai'
-
-const embedder = new OpenAIEmbeddingFunction({
-  openai_api_key: openaiConfig.openai_api_key,
-})
+import { vectorDB } from '../lib/vectordb'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -22,48 +16,15 @@ class JobData extends DiscordJob {
 const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
-    const {
-      prompt,
-      schema,
-      url,
-      json,
-      previousAnswer,
-      apiSubEndpoint,
-      wikidataId,
-    } = job.data
+    const { prompt, schema, url, json, previousAnswer } = job.data
 
-    // TODO: Move these to an helper function, e.g. getParagraphs()
-    const client = new ChromaClient(chromadb)
-    const collection = await client.getCollection({
-      name: 'emission_reports',
-      embeddingFunction: embedder,
-    })
-    /* might get better results if we query for imaginary results from a query instead of the actual query
-    const query = await ask([
-      {
-        role: 'user',
-        content:
-          'Please give me some example data from this prompt that I can use as search query in a vector database indexed from PDFs. OK?'
-      },
-      {role: 'assistant', content: 'OK sure, give '},
-          prompt,
-      },
-    ])*/
-
-    const results = await collection.query({
-      nResults: 5,
-      where: {
-        source: url,
-      },
-      queryTexts: [prompt],
-    })
-    const pdfParagraphs = results.documents.flat()
+    const markdown = await vectorDB.getRelevantMarkdown(url, [prompt], 5)
 
     job.log(`Reflecting on: ${prompt}
     ${json}
     
     Context:
-    ${pdfParagraphs.join('\n\n----------------\n\n')}
+    ${markdown}
     
     `)
 
@@ -76,9 +37,7 @@ const followUp = new DiscordWorker<JobData>(
         },
         {
           role: 'user',
-          content:
-            'Results from PDF: \n' +
-            pdfParagraphs.join('\n\n------------------------------\n\n'),
+          content: 'Results from PDF: \n' + markdown,
         },
         {
           role: 'user',
