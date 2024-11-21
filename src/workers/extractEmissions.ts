@@ -1,18 +1,13 @@
 import { FlowProducer } from 'bullmq'
-import { zodResponseFormat } from 'openai/helpers/zod'
 import redis from '../config/redis'
 import industryGics from '../prompts/followUp/industry_gics'
-import scope12 from '../prompts/followUp/scope12'
-import scope3 from '../prompts/followUp/scope3'
-import goals from '../prompts/followUp/goals'
-import initiatives from '../prompts/followUp/initiatives'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import biogenic from '../prompts/followUp/biogenic'
-import economy from '../prompts/followUp/economy'
+import { JobType } from '../types/Company'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
+    type: JobType
   }
 }
 
@@ -21,10 +16,12 @@ const flow = new FlowProducer({ connection: redis })
 const extractEmissions = new DiscordWorker<JobData>(
   'extractEmissions',
   async (job) => {
-    const { companyName } = job.data
+    const { companyName, type } = job.data
     job.sendMessage(`🤖 Hämtar utsläppsdata...`)
 
     const childrenValues = await job.getChildrenEntries()
+
+    console.log('type1111', type)
 
     const base = {
       name: companyName,
@@ -34,6 +31,8 @@ const extractEmissions = new DiscordWorker<JobData>(
         attempts: 3,
       },
     }
+
+    console.log('IndustryGics', JobType.IndustryGics)
 
     await flow.add({
       name: companyName,
@@ -47,8 +46,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'industryGics ' + companyName,
           data: {
             ...base.data,
-            prompt: industryGics.prompt,
-            schema: zodResponseFormat(industryGics.schema, 'industry'),
+            type: JobType.IndustryGics,
           },
         },
         {
@@ -56,8 +54,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'scope1+2 ' + companyName,
           data: {
             ...base.data,
-            prompt: scope12.prompt,
-            schema: zodResponseFormat(scope12.schema, 'emissions_scope12'),
+            type: JobType.Scope12,
           },
         },
         {
@@ -65,8 +62,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'scope3 ' + companyName,
           data: {
             ...base.data,
-            prompt: scope3.prompt,
-            schema: zodResponseFormat(scope3.schema, 'emissions_scope3'),
+            type: JobType.Scope3,
           },
         },
         {
@@ -74,8 +70,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'biogenic ' + companyName,
           data: {
             ...base.data,
-            prompt: biogenic.prompt,
-            schema: zodResponseFormat(biogenic.schema, 'emissions_biogenic'),
+            type: JobType.Biogenic,
           },
         },
         {
@@ -83,8 +78,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'economy ' + companyName,
           data: {
             ...base.data,
-            prompt: economy.prompt,
-            schema: zodResponseFormat(economy.schema, 'economy'),
+            type: JobType.Economy,
           },
         },
         {
@@ -93,8 +87,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           data: {
             ...base.data,
             apiSubEndpoint: 'goals',
-            prompt: goals.prompt,
-            schema: zodResponseFormat(goals.schema, 'goals'),
+            type: JobType.Goals,
           },
         },
         {
@@ -102,8 +95,7 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'initiatives ' + companyName,
           data: {
             ...base.data,
-            prompt: initiatives.prompt,
-            schema: zodResponseFormat(initiatives.schema, 'initiatives'),
+            type: JobType.Initiatives,
           },
         },
       ],

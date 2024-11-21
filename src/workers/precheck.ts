@@ -5,18 +5,20 @@ import fiscalYear from '../prompts/fiscalYear'
 import { askPrompt } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { JobType } from '../types/Company'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
+    type: JobType
   }
 }
 
 const flow = new FlowProducer({ connection: redis })
 
 const precheck = new DiscordWorker('precheck', async (job: JobData) => {
-  const { cachedMarkdown, ...baseData } = job.data
+  const { cachedMarkdown, type, ...baseData } = job.data
   const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
   const companyName = await askPrompt(
@@ -41,7 +43,6 @@ The following is an extract from a PDF:`,
   )
 
   const base = {
-    queueName: 'followUp',
     data: { ...baseData, companyName, description },
     opts: {
       attempts: 3,
@@ -62,16 +63,16 @@ The following is an extract from a PDF:`,
           queueName: 'guessWikidata',
           data: {
             ...base.data,
-            schema: zodResponseFormat(wikidata.schema, 'wikidata'),
+            schema: zodResponseFormat(wikidata.schema, type),
           },
         },
         {
           ...base,
+          queueName: 'followUp',
           name: 'fiscalYear ' + companyName,
           data: {
             ...base.data,
-            prompt: fiscalYear.prompt,
-            schema: zodResponseFormat(fiscalYear.schema, 'fiscalYear'),
+            type: JobType.FiscalYear,
           },
         },
       ],

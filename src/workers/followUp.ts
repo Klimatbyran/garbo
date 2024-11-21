@@ -3,6 +3,10 @@ import chromadb from '../config/chromadb'
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import openaiConfig from '../config/openai'
+import { JobType } from '../types/Company'
+
+import { zodResponseFormat } from 'openai/helpers/zod'
+import { resolve } from 'path'
 
 const embedder = new OpenAIEmbeddingFunction({
   openai_api_key: openaiConfig.openai_api_key,
@@ -12,8 +16,7 @@ class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
     apiSubEndpoint: string
-    prompt: string
-    schema: string
+    type: JobType
     json: string
     previousAnswer: string
   }
@@ -22,15 +25,20 @@ class JobData extends DiscordJob {
 const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
+    const { type, url, json, previousAnswer, apiSubEndpoint, wikidataId } =
+      job.data
+
+    console.log('type', type)
+
     const {
-      prompt,
+      default: { schema, prompt },
+    } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
+
+    console.log(
       schema,
-      url,
-      json,
-      previousAnswer,
-      apiSubEndpoint,
-      wikidataId,
-    } = job.data
+      prompt,
+      resolve(import.meta.dirname, `../prompts/${type}`)
+    )
 
     // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)
@@ -109,7 +117,7 @@ For example, if you want to add a new field called "industry" the response shoul
         .flat()
         .filter((m) => m?.content) as any[],
       {
-        response_format: schema,
+        response_format: zodResponseFormat(schema, type),
       }
     )
 
