@@ -4,6 +4,7 @@ import { extractJsonFromPdf, fetchPdf } from '../lib/pdfTools'
 import redis from '../config/redis'
 import precheck from './precheck'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
+import { vectorDB } from '../lib/vectordb'
 
 const headers = {
   'User-Agent':
@@ -24,16 +25,7 @@ const nlmParsePDF = new DiscordWorker(
         `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. Tar upp till 3 minuter ☕️ ...`
       )
 
-      const collection = await job.chromaClient.getOrCreateCollection({
-        name: 'emission_reports',
-        embeddingFunction: job.embedder,
-      })
-      const exists = await collection
-        .get({
-          where: { source: url },
-          limit: 1,
-        })
-        .then((r) => r?.documents?.length > 0)
+      const exists = await vectorDB.hasReport(url)
 
       if (!exists) {
         const before = Date.now()
@@ -95,20 +87,10 @@ const nlmParsePDF = new DiscordWorker(
         job.log('flow started: ' + precheck.job?.id)
       } else {
         job.editMessage(`✅ PDF redan tolkad och indexerad. Fortsätter...`)
-        const collection = await job.chromaClient.getCollection({
-          name: 'emission_reports',
-          embeddingFunction: job.embedder,
-        })
-        const result = await collection.query({
-          where: {
-            source: url,
-          },
-          queryTexts: [
-            'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
-          ],
-        })
 
-        const markdown = result.documents.join('\n\n')
+        const markdown = await vectorDB.getRelevantMarkdown(url, [
+          'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
+        ])
 
         const added = await precheck.queue.add('precheck', {
           ...job.data,
