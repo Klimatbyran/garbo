@@ -28,13 +28,9 @@ const followUp = new DiscordWorker<JobData>(
     const { type, url, json, previousAnswer, apiSubEndpoint, wikidataId } =
       job.data
 
-    console.log('type', type)
-
     const {
       default: { schema, prompt },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
-
-    console.log(schema)
 
     // TODO: Move these to an helper function, e.g. getParagraphs()
     const client = new ChromaClient(chromadb)

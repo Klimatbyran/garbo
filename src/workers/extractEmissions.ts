@@ -16,12 +16,10 @@ const flow = new FlowProducer({ connection: redis })
 const extractEmissions = new DiscordWorker<JobData>(
   'extractEmissions',
   async (job) => {
-    const { companyName, type } = job.data
+    const { companyName } = job.data
     job.sendMessage(`🤖 Hämtar utsläppsdata...`)
 
     const childrenValues = await job.getChildrenEntries()
-
-    console.log('type1111', type)
 
     const base = {
       name: companyName,
@@ -31,8 +29,6 @@ const extractEmissions = new DiscordWorker<JobData>(
         attempts: 3,
       },
     }
-
-    console.log('IndustryGics', JobType.IndustryGics)
 
     await flow.add({
       name: companyName,
