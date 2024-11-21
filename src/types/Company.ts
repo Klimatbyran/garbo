@@ -32,8 +32,8 @@ export enum JobType {
   Economy = 'followUp/economy',
   Goals = 'followUp/goals',
   Initiatives = 'followUp/initiatives',
+  FiscalYear = 'followUp/fiscalYear',
 
-  FiscalYear = 'fiscalYear',
   Wikidata = 'wikidata',
   Precheck = 'precheck',
   ExtractEmissions = 'extractEmissions',
