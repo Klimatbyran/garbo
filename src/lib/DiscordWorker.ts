@@ -2,9 +2,6 @@ import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import { Message, TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
-import openai from '../config/openai'
-import chromadb from '../config/chromadb'
 
 export class DiscordJob extends Job {
   declare data: {
@@ -23,8 +20,6 @@ export class DiscordJob extends Job {
   setThreadName: (name: string) => Promise<any>
   sendTyping: () => Promise<any>
   getChildrenEntries: () => Promise<any>
-  embedder: OpenAIEmbeddingFunction
-  chromaClient: ChromaClient
 }
 
 function addCustomMethods(job: DiscordJob) {
@@ -96,8 +91,6 @@ function addCustomMethods(job: DiscordJob) {
     return thread.setName(name)
   }
 
-  job.embedder = new OpenAIEmbeddingFunction(openai)
-  job.chromaClient = new ChromaClient(chromadb)
   return job
 }
 
