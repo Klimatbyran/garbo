@@ -26,4 +26,10 @@ Example:
 \`\`\`
 `
 
-export default { schema, prompt }
+const queryTexts = [
+  'Fiscal year start and end months',
+  'Company fiscal year',
+  'Fiscal year dates',
+]
+
+export default { schema, prompt, queryTexts }

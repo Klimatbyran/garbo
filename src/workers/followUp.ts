@@ -22,10 +22,10 @@ const followUp = new DiscordWorker<JobData>(
     const { type, url, json, previousAnswer } = job.data
 
     const {
-      default: { schema, prompt },
+      default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    const markdown = await vectorDB.getRelevantMarkdown(url, [prompt], 5)
+    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
 
     job.log(`Reflecting on: ${prompt}
     ${json}

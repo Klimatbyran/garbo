@@ -36,4 +36,10 @@ Example: Ensure the output is in JSON format and do not use markdown.
 \`\`\`
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Sustainability initiatives',
+  'Key climate actions',
+  'Environmental goals and plans',
+]
+
+export default { prompt, schema, queryTexts }

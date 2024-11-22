@@ -73,4 +73,10 @@ Example: Keep this format and add as many years as you can find. Keep the catego
 \`\`\`
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Scope 3 emissions by category',
+  'GHG protocol Scope 3 data',
+  'Emissions per year and category',
+]
+
+export default { prompt, schema, queryTexts }
