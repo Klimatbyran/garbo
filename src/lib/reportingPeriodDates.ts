@@ -38,9 +38,6 @@ export function getReportingPeriodDates(
     'yyyy-MM-dd'
   )
 
-  console.log(`DEBUG: startYear=${startYear}, endYear=${endYear}`)
-  console.log(`DEBUG: start=${start}, end=${end}`)
-
   return [start, end]
 }
 

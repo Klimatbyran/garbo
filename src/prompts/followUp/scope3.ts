@@ -77,6 +77,12 @@ const queryTexts = [
   'Scope 3 emissions by category',
   'GHG protocol Scope 3 data',
   'Emissions per year and category',
+  `purchasedGoods capitalGoods fuelAndEnergyRelatedActivities 
+  upstreamTransportationAndDistribution wasteGeneratedInOperations 
+  businessTravel employeeCommuting upstreamLeasedAssets 
+  downstreamTransportationAndDistribution processingOfSoldProducts 
+  useOfSoldProducts endOfLifeTreatmentOfSoldProducts downstreamLeasedAssets 
+  franchises investments other`,
 ]
 
 export default { prompt, schema, queryTexts }
