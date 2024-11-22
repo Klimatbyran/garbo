@@ -4,7 +4,7 @@ import wikidata from '../prompts/wikidata'
 import { askPrompt } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types/Company'
+import { JobType } from '../types'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {

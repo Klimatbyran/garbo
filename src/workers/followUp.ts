@@ -1,6 +1,6 @@
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types/Company'
+import { JobType } from '../types'
 
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
