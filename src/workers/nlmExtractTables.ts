@@ -107,7 +107,7 @@ ${results.map((r) => ' -  Sida ' + r.page_idx + ': ' + r.name).join('\n')}`)
         )
         job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
 
-        // TODO: This is techniqually a dubblicate since the markdownText already contains the tables
+        // TODO: This is techniqually a duplicate since the markdownText already contains the tables
         // Also worth trying to shorten this down due to "lost in the middle tendencies"
         return {
           markdown:
