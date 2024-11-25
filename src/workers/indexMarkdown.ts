@@ -10,16 +10,20 @@ const indexMarkdown = new DiscordWorker(
     const childrenValues = await job.getChildrenEntries()
     const { markdown }: { markdown: string } = childrenValues
 
-    const paragraphs = markdown
-      .split('\n###')
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0)
+    const chunkSize = 1000
+    const overlapSize = 200
+
+    const chunks: string[] = []
+    for (let i = 0; i < markdown.length; i += chunkSize - overlapSize) {
+      const chunk = markdown.slice(i, i + chunkSize).trim()
+      if (chunk.length > 0) chunks.push(chunk)
+    }
 
     await job.sendMessage(`🤖 Sparar i vektordatabas...`)
-    job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
+    job.log('Indexing ' + chunks.length + ' chunks from url: ' + url)
 
     try {
-      await vectorDB.addReport(url, markdown, paragraphs)
+      await vectorDB.addReport(url, markdown, chunks)
       job.editMessage(`✅ Sparad i vektordatabasen`)
       job.log('Done!')
 

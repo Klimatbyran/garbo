@@ -11,9 +11,9 @@ const collection = await client.getOrCreateCollection({
   embeddingFunction: embedder,
 })
 
-async function addReport(url: string, markdown: string, paragraphs: string[]) {
-  const ids = paragraphs.map((p, i) => url + '#' + i)
-  const metadatas = paragraphs.map((p, i) => ({
+async function addReport(url: string, markdown: string, chunks: string[]) {
+  const ids = chunks.map((_, i) => url + '#' + i)
+  const metadatas = chunks.map((_, i) => ({
     source: url,
     markdown,
     type: 'company_sustainability_report', // this is our own type to be able to filter in the future if needed
@@ -23,7 +23,7 @@ async function addReport(url: string, markdown: string, paragraphs: string[]) {
   await collection.add({
     ids,
     metadatas,
-    documents: paragraphs,
+    documents: chunks,
   })
 }
 
