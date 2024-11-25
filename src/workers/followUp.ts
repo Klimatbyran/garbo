@@ -19,7 +19,7 @@ class JobData extends DiscordJob {
 const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
-    const { type, url, json, previousAnswer } = job.data
+    const { type, url, previousAnswer } = job.data
 
     const {
       default: { schema, prompt, queryTexts },
@@ -28,7 +28,6 @@ const followUp = new DiscordWorker<JobData>(
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
 
     job.log(`Reflecting on: ${prompt}
-    ${json}
     
     Context:
     ${markdown}
@@ -49,11 +48,6 @@ const followUp = new DiscordWorker<JobData>(
         {
           role: 'user',
           content: `This is the result of a previous prompt:
-
-
-\`\`\`json
-${json}
-\`\`\`
 
 ## Please add diffs to the prompt based on the instructions:
 ${prompt}
