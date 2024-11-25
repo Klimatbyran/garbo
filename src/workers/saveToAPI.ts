@@ -104,16 +104,21 @@ const saveToAPI = new DiscordWorker<JobData>(
       : ''
 
     if (diff) {
+      if (diff === 'NO CHANGES') {
+        await job.sendMessage({
+          content: `# ${companyName}: \`${apiSubEndpoint}\`
+          ${diff}`.slice(0, 2000),
+        })
+
+        return diff
+      }
+
       const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
         content: `# ${companyName}: \`${apiSubEndpoint}\`
         ${diff}`.slice(0, 2000),
         components: [buttonRow],
       })
-
-      if (diff === 'NO CHANGES') {
-        return diff
-      }
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
     } else {
