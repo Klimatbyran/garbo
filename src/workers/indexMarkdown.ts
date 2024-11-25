@@ -13,17 +13,17 @@ const indexMarkdown = new DiscordWorker(
     const chunkSize = 1000
     const overlapSize = 200
 
-    const paragraphs: string[] = []
+    const chunks: string[] = []
     for (let i = 0; i < markdown.length; i += chunkSize - overlapSize) {
-      const chunk = markdown.slice(i, i + chunkSize)
-      paragraphs.push(chunk.trim())
+      const chunk = markdown.slice(i, i + chunkSize).trim()
+      if (chunk.length > 0) chunks.push(chunk)
     }
 
     await job.sendMessage(`🤖 Sparar i vektordatabas...`)
-    job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
+    job.log('Indexing ' + chunks.length + ' chunks from url: ' + url)
 
     try {
-      await vectorDB.addReport(url, markdown, paragraphs)
+      await vectorDB.addReport(url, markdown, chunks)
       job.editMessage(`✅ Sparad i vektordatabasen`)
       job.log('Done!')
 
