@@ -29,7 +29,7 @@ export function getReportingPeriodDates(
   startMonth: number,
   endMonth: number
 ) {
-  const startYear = startMonth > endMonth ? year - 1 : year
+  const startYear = startMonth >= endMonth ? year - 1 : year
   const endYear = year
 
   const start = format(new Date(startYear, startMonth - 1, 1), 'yyyy-MM-dd')

@@ -47,17 +47,7 @@ const followUp = new DiscordWorker<JobData>(
         },
         {
           role: 'user',
-          content: `This is the result of a previous prompt:
-
-## Please add diffs to the prompt based on the instructions:
-${prompt}
-
-## Output:
-For example, if you want to add a new field called "industry" the response should look like this (only reply with valid json):
-{
-  "industry": {...}
-}
-`,
+          content: prompt,
         },
         Array.isArray(job.stacktrace)
           ? [
