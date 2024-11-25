@@ -1,8 +1,7 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
-import industryGics from '../prompts/followUp/industry_gics'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types/Company'
+import { JobType } from '../types'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {

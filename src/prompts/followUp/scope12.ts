@@ -55,4 +55,10 @@ Example - feel free to add more fields and relevant data:
   }]
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Scope 1 and 2 emissions',
+  'Market-based and location-based emissions',
+  'GHG protocol Scope 1 and 2 data',
+]
+
+export default { prompt, schema, queryTexts }

@@ -66,4 +66,10 @@ Example, follow the format below. Do not use markdown in the output:
 }
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Extract turnover (intäkter, omsättning) values in SEK or EUR for all available years.',
+  'Extract the number of employees with their units (e.g., FTE) for all available years.',
+  'Retrieve company economy data including turnover in SEK or EUR and number of employees with units for each year.',
+]
+
+export default { prompt, schema, queryTexts }

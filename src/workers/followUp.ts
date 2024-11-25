@@ -1,6 +1,6 @@
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types/Company'
+import { JobType } from '../types'
 
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
@@ -19,16 +19,15 @@ class JobData extends DiscordJob {
 const followUp = new DiscordWorker<JobData>(
   'followUp',
   async (job: JobData) => {
-    const { type, url, json, previousAnswer } = job.data
+    const { type, url, previousAnswer } = job.data
 
     const {
-      default: { schema, prompt },
+      default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    const markdown = await vectorDB.getRelevantMarkdown(url, [prompt], 5)
+    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
 
     job.log(`Reflecting on: ${prompt}
-    ${json}
     
     Context:
     ${markdown}
@@ -48,22 +47,7 @@ const followUp = new DiscordWorker<JobData>(
         },
         {
           role: 'user',
-          content: `This is the result of a previous prompt:
-
-
-\`\`\`json
-${json}
-\`\`\`
-
-## Please add diffs to the prompt based on the instructions:
-${prompt}
-
-## Output:
-For example, if you want to add a new field called "industry" the response should look like this (only reply with valid json):
-{
-  "industry": {...}
-}
-`,
+          content: prompt,
         },
         Array.isArray(job.stacktrace)
           ? [
