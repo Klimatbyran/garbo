@@ -6,7 +6,6 @@ import {
   Paragraph,
   Table as NLMIngestorTable,
   ListItem,
-  TableRow,
   ParsedDocument,
 } from './nlm-ingestor-schema'
 
@@ -92,10 +91,6 @@ const listItem = (block: ListItem) => {
   return `- ${block.sentences.join(' ')}`
 }
 
-const fullRow = (block: TableRow) => {
-  return deHyphenate(block.cell_value)
-}
-
 const blockToMarkdown = (block: Block) => {
   switch (block.tag) {
     case 'para':
@@ -106,9 +101,6 @@ const blockToMarkdown = (block: Block) => {
       return header(block as Header)
     case 'list_item':
       return listItem(block as ListItem)
-    case 'full_row':
-      // NOTE: Seems like this is never called since `full_row` is always part of a `table` block.
-      return fullRow(block as TableRow)
     default:
       return ''
   }

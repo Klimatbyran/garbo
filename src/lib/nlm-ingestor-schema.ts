@@ -43,7 +43,6 @@ const TableRowSchema = z.object({
   cell_value: z.string().optional(),
   col_span: z.number().optional(),
 })
-export type TableRow = z.infer<typeof TableRowSchema>
 
 export const BaseBlockSchema = z.object({
   bbox: z.array(z.number()).optional(),
