@@ -1,14 +1,16 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { readFileSync } from 'fs'
 import { UnrecoverableError } from 'bullmq'
+import path from 'path'
+
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
-import path from 'path'
 import { openai } from '../lib/openai'
-import { readFileSync } from 'fs'
+import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    json: string
+    json: ParsedDocument
   }
 }
 

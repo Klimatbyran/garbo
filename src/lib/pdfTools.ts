@@ -4,9 +4,14 @@ import {
   calculateBoundingBoxForTable,
   jsonToTables,
   Table,
+  TableWithFilename,
 } from './jsonExtraction'
 import path from 'path'
 import nlmIngestorConfig from '../config/nlmIngestor'
+import {
+  type ParsedDocument,
+  ParsedDocumentSchema,
+} from './nlm-ingestor-schema'
 
 const MAX_LENGTH_TABLE_NAME = 50
 
@@ -35,7 +40,9 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
   return Buffer.from(arrayBuffer)
 }
 
-export async function extractJsonFromPdf(buffer: Buffer) {
+export async function extractJsonFromPdf(
+  buffer: Buffer
+): Promise<ParsedDocument> {
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
   const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
@@ -59,7 +66,17 @@ export async function extractJsonFromPdf(buffer: Buffer) {
     throw new Error(`Failed to parse PDF: ${response.statusText}`)
   }
 
-  return response.json()
+  const body = await response.json()
+  try {
+    const data = ParsedDocumentSchema.parse(body)
+    return data
+  } catch (error) {
+    console.error(error)
+    throw new Error(
+      `Failed to parse PDF: nlm-ingestor response schema did not match expected format: ${error.message}`,
+      { cause: error }
+    )
+  }
 }
 
 type Page = {
@@ -70,7 +87,7 @@ type Page = {
 }
 
 export function findRelevantTablesGroupdOnPages(
-  json: any,
+  json: ParsedDocument,
   searchTerm: string
 ): Page[] {
   const tables = jsonToTables(json).filter(
@@ -96,10 +113,10 @@ export function findRelevantTablesGroupdOnPages(
 
 export async function extractTablesFromJson(
   pdf: Buffer,
-  json: any,
+  json: ParsedDocument,
   outputDir: string,
   searchTerm: string
-): Promise<Table[]> {
+): Promise<TableWithFilename[]> {
   const pngs = await getPngsFromPdfPage(pdf)
   const pages = findRelevantTablesGroupdOnPages(json, searchTerm)
 
@@ -134,7 +151,7 @@ export async function extractTablesFromJson(
             pageWidth2,
             pageHeight2
           ).then(() => {
-            return { ...table, filename } as Table
+            return { ...table, filename } as TableWithFilename
           })
         })
       )
