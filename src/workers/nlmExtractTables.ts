@@ -65,6 +65,17 @@ const extractTextViaVisionAPI = async (
   return result.choices[0].message.content
 }
 
+const searchTerms = [
+  'co2',
+  'GHG',
+  'turnover',
+  'revenue',
+  'income',
+  'employees',
+  'FTE',
+  'fiscal year',
+  'summary',
+]
 const nlmExtractTables = new DiscordWorker(
   'nlmExtractTables',
   async (job: JobData) => {
@@ -78,50 +89,59 @@ const nlmExtractTables = new DiscordWorker(
         pdf,
         json,
         outputDir,
-        'co2'
-      ) /* TODO: is co2 search keyword enough to catch all relevant tables? */
-      const markdownText = jsonToMarkdown(json)
+        searchTerms
+      )
 
-      if (results.length === 0) {
-        job.editMessage(
-          `❌ Hittade inga relevanta tabeller i PDF:en. Går vidare med markdown...`
-        )
-        return { markdown: markdownText }
-      } else {
-        job.sendMessage(`🤖 Hittade ${results.length} relevanta tabeller: 
-${results.map((r) => ' -  Sida ' + r.page_idx + ': ' + r.name).join('\n')}`)
-        /* We will extract the tables using Vision API using the last 3 extracted tables as context. The reason is because sometimes the tables 
-           will continue on the next page using column names or row names from previous page. */
-        const tables = await results.reduce(
-          async (accPromise, { page_idx, filename, name }) => {
-            const acc = await accPromise
-            const context = acc.map(
-              ({ page_idx, name, markdown }) =>
-                `\n#### ${name} (Extracted table with more precision from PAGE ${page_idx})\n\n${markdown}`
-            )
-            const markdown = await extractTextViaVisionAPI(
-              { filename, name },
-              context.slice(-3).join('\n') // last 3 tables.
-            )
-            return [...acc, { ...{ page_idx, filename, name, markdown } }]
-          },
-          Promise.resolve([])
-        )
-        job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
+      const uniquePages = new Set(results.map((table) => table.page_idx))
+      const totalTables = results.length
 
-        // TODO: This is techniqually a duplicate since the markdownText already contains the tables
-        // Also worth trying to shorten this down due to "lost in the middle tendencies"
-        return {
-          markdown:
-            markdownText +
-            '\n\n This is some of the important tables from the markdown with more precision:' +
-            tables
-              .map(
-                ({ page_idx, name, markdown }) =>
-                  `\n#### ${name} (Extracted table with more precision from PAGE ${page_idx})\n\n${markdown}`
-              )
-              .join('\n'),
-        }
+      job.sendMessage(
+        `🤖 Hittade ${totalTables} relevanta tabeller på ${uniquePages.size} unika sidor.`
+      )
+
+      const groupedResults = results.reduce((acc, table) => {
+        acc[table.page_idx] = acc[table.page_idx] || []
+        acc[table.page_idx].push(table)
+        return acc
+      }, {} as Record<number, typeof results>)
+
+      const tables = await Promise.all(
+        Object.entries(groupedResults).map(async ([page_idx, tablesOnPage]) => {
+          const context = tablesOnPage.map(
+            (table) =>
+              `\n#### ${
+                table.name
+              } (Extracted table with more precision from PAGE ${page_idx})\n\n${
+                table.markdown || ''
+              }`
+          )
+          const filename = tablesOnPage[0].filename
+          const markdown = await extractTextViaVisionAPI(
+            { filename, name: `Tables from page ${page_idx}` },
+            context.slice(-3).join('\n')
+          )
+          return {
+            page_idx: Number(page_idx),
+            tablesOnPage,
+            markdown,
+          }
+        })
+      )
+
+      job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
+
+      return {
+        markdown:
+          jsonToMarkdown(json) +
+          '\n\n This is some of the important tables from the markdown with more precision:' +
+          tables
+            .map(
+              ({ page_idx, tablesOnPage, markdown }) =>
+                `\n#### Page ${page_idx} (Tables: ${tablesOnPage
+                  .map((t) => t.name)
+                  .join(', ')})\n\n${markdown}`
+            )
+            .join('\n'),
       }
     } catch (error) {
       job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
