@@ -30,14 +30,24 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
   await job.setThreadName(companyName)
 
   const description = await askPrompt(
-    `Give a short description of the company. Respond only with the company description text.
-** Description **
-Beskrivning av företaget. Tänk på att vara så informativ som möjligt. Den här texten ska visas på en sida
-för hållbarhetsredovisning så det är viktigt att den är informativ och beskriver företaget väl men inte tillåter
-texter som kan uppfattas som greenwashing eller marknadsföring. Många företag är okända för allmänheten så det
-är viktigt att beskrivningen är informativ och beskriver företaget väl.
-*** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
-The following is an extract from a PDF:`,
+    `** Beskrivning **
+Skriv en kort beskrivning av företaget. Beskrivningen ska visas på en sida för hållbarhetsredovisning och ska vara informativ samt beskriva företagets verksamhet på ett sakligt sätt. Följ dessa riktlinjer:
+
+1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
+2. Syfte: Endast företagets verksamhet ska beskrivas.
+3. Förbjudna termer: Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får inte innehålla bedömningar av företagets hållbarhetsarbete.
+4. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
+
+Exempel på stil: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
+För att säkerställa att svaret följer riktlinjerna, tänk på att:
+
+- Vara informativ och saklig.
+- Undvika marknadsförande eller värderande språk.
+- Tydligt beskriva företagets verksamhet.
+
+Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
+
+Följande är ett utdrag ur en PDF:`,
     markdown.substring(0, 5000)
   )
 
