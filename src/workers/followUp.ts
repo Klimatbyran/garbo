@@ -11,7 +11,6 @@ class JobData extends DiscordJob {
     documentId: string
     apiSubEndpoint: string
     type: JobType
-    json: string
     previousAnswer: string
   }
 }

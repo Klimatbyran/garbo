@@ -67,6 +67,11 @@ const nlmParsePDF = new DiscordWorker(
 
         const precheck = await flow.add({
           ...base,
+          data: {
+            ...base.data,
+            // Once the report has been parsed, we don't need the `json` repressentation of the report anymore.
+            json: undefined,
+          },
           name: 'precheck ' + name,
           queueName: 'precheck',
           children: [
