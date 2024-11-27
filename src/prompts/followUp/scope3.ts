@@ -68,18 +68,26 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 \`\`\`json
 {
   "scope3": [
-   {
+  {
     "year": 2021,
-    "scope3": [
-      { "category": 1, "total": 10 },
-      { "category": 2, "total": 20 },
-      { "category": 3, "total": 40 },
-      { "category": 14, "total": 40 }
-    ],
-    "statedTotalEmissions": { "total": 110 }
-   },
-   { "year": 2022, ... },
-   { "year": 2023, ... }
+    "scope3": {
+      "categories": [
+        { "category": 1, "total": 10 },
+        { "category": 2, "total": 20 },
+        { "category": 3, "total": 40 },
+        { "category": 14, "total": 40 }
+      ],
+      "statedTotalEmissions": { "total": 110 }
+    }
+  },
+  {
+    "year": 2022,
+    "scope3": null
+  },
+  {
+    "year": 2023,
+    "scope3": null
+  }
   ]
 }
 \`\`\`
