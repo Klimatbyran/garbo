@@ -170,6 +170,7 @@ export type Table = {
   name: string
   level: number
   content: string
+  markdown?: string
 }
 
 export type TableWithFilename = Table & { filename: string }
