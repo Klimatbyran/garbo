@@ -11,11 +11,11 @@ const collection = await client.getOrCreateCollection({
   embeddingFunction: embedder,
 })
 
-async function addReport(url: string, markdown: string, chunks: string[]) {
+async function addReport(url: string, chunks: string[]) {
   const ids = chunks.map((_, i) => url + '#' + i)
-  const metadatas = chunks.map((_, i) => ({
+  const metadatas = chunks.map((chunk, i) => ({
     source: url,
-    markdown,
+    markdown: chunk,
     type: 'company_sustainability_report', // this is our own type to be able to filter in the future if needed
     parsed: new Date().toISOString(),
     page: i,
