@@ -37,6 +37,25 @@ const askDiff = async (
   if (goals && !existingCompany.goals) return ''
   if (initiatives && !existingCompany.initiatives) return ''
   if (industry && !existingCompany.industry) return ''
+
+  const after = {
+    scope12,
+    scope3,
+    biogenic,
+    industry,
+    economy,
+    goals,
+    initiatives,
+  }
+
+  // only keep the fields from before that are in after
+  const before = Object.keys(after).reduce((before, key) => {
+    if (after[key]) {
+      before[key] = existingCompany[key]
+    }
+    return before
+  })
+
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
@@ -46,16 +65,8 @@ Focus only on the actual values that have changed.
 When handling years and ambigous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
 NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO CHANGES".`,
     JSON.stringify({
-      before: existingCompany,
-      after: {
-        scope12,
-        scope3,
-        biogenic,
-        industry,
-        economy,
-        goals,
-        initiatives,
-      },
+      before,
+      after,
     })
   )
 
