@@ -117,7 +117,7 @@ export async function extractTablesFromJson(
 
   const processedPages = new Set<number>()
 
-  const tablePromises = pages.map(
+  const tablePromises = pages.flatMap(
     ({ pageIndex, tables, pageWidth, pageHeight }) => {
       if (processedPages.has(pageIndex)) {
         return tables.map((table) =>
@@ -157,9 +157,7 @@ export async function extractTablesFromJson(
     }
   )
 
-  const tables = await Promise.all(tablePromises).then((results) =>
-    results.flat()
-  )
+  const tables = await Promise.all(tablePromises)
   const uniquePageCount = processedPages.size
 
   return { tables, uniquePageCount }
