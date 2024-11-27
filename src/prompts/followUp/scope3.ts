@@ -70,7 +70,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   "scope3": [
    {
     "year": 2021,
-    "categories": [
+    "scope3": [
       { "category": 1, "total": 10 },
       { "category": 2, "total": 20 },
       { "category": 3, "total": 40 },
