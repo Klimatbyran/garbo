@@ -104,27 +104,26 @@ const nlmExtractTables = new DiscordWorker(
         return acc
       }, {} as Record<number, typeof results>)
 
-      const tables = await Promise.all(
-        Object.entries(groupedResults).map(async ([page_idx, tablesOnPage]) => {
-          const context = tablesOnPage.map(
-            (table) =>
-              `\n#### ${
-                table.name
-              } (Extracted table with more precision from PAGE ${page_idx})\n\n${
-                table.markdown || ''
-              }`
-          )
+      const tables = await Object.entries(groupedResults).reduce(
+        async (resultsPromise, [page_idx, tablesOnPage]) => {
+          const results = await resultsPromise
+          const lastPageMarkdown = results.at(-1)?.markdown || ''
           const filename = tablesOnPage[0].filename
           const markdown = await extractTextViaVisionAPI(
             { filename, name: `Tables from page ${page_idx}` },
-            context.slice(-3).join('\n')
+            lastPageMarkdown.slice(0, 5000)
           )
-          return {
-            page_idx: Number(page_idx),
-            tablesOnPage,
-            markdown,
-          }
-        })
+          // TODO: Send to s3 bucket (images)
+          return [
+            ...results,
+            {
+              page_idx: Number(page_idx),
+              tablesOnPage, // TODO: Use when bounding box error has been corrected
+              markdown,
+            },
+          ]
+        },
+        Promise.resolve([] as any)
       )
 
       job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
@@ -135,10 +134,9 @@ const nlmExtractTables = new DiscordWorker(
           '\n\n This is some of the important tables from the markdown with more precision:' +
           tables
             .map(
-              ({ page_idx, tablesOnPage, markdown }) =>
-                `\n#### Page ${page_idx} (Tables: ${tablesOnPage
-                  .map((t) => t.name)
-                  .join(', ')})\n\n${markdown}`
+              ({ page_idx, markdown }) =>
+                `\n#### Page ${page_idx}: 
+                  ${markdown}`
             )
             .join('\n'),
       }
