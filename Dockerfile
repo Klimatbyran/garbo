@@ -1,21 +1,4 @@
-FROM node:alpine
-
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    freetype-dev \
-    harfbuzz \
-    python3 \
-    make \
-    g++ \
-    ca-certificates \
-    ttf-freefont \
-    pixman-dev \
-    cairo-dev \
-    pango-dev \
-    giflib-dev \
-    libjpeg-turbo-dev
+FROM ghcr.io/klimatbyran/garbo-base:main
 
 COPY package*.json /app/
 COPY prisma /app/

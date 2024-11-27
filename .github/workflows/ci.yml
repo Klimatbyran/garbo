@@ -16,6 +16,7 @@ on:
       - staging*
     paths-ignore:
       - 'k8s/**'
+      - 'Dockerfile.base'
 
 jobs:
   version:
