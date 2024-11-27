@@ -1,4 +1,3 @@
-import { format } from 'date-fns'
 /**
  * Translate the reporting period dates into another year. Can handle leap years.
  */
@@ -24,6 +23,11 @@ export function getPeriodDatesForYear(
   return [start, end]
 }
 
+/**
+ * Format a date according to the ISO standard, e.g. "2023-01-01"
+ */
+const isoDate = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' })
+
 export function getReportingPeriodDates(
   year: number,
   startMonth: number,
@@ -32,10 +36,9 @@ export function getReportingPeriodDates(
   const startYear = startMonth >= endMonth ? year - 1 : year
   const endYear = year
 
-  const start = format(new Date(startYear, startMonth - 1, 1), 'yyyy-MM-dd')
-  const end = format(
-    new Date(endYear, endMonth - 1, getLastDayInMonth(endYear, endMonth - 1)),
-    'yyyy-MM-dd'
+  const start = isoDate.format(new Date(startYear, startMonth - 1, 1))
+  const end = isoDate.format(
+    new Date(endYear, endMonth - 1, getLastDayInMonth(endYear, endMonth - 1))
   )
 
   return [start, end]
