@@ -1,11 +1,6 @@
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
-import {
-  calculateBoundingBoxForTable,
-  jsonToTables,
-  Table,
-  TableWithFilename,
-} from './jsonExtraction'
+import { jsonToTables, Table, TableWithFilename } from './jsonExtraction'
 import path from 'path'
 import nlmIngestorConfig from '../config/nlmIngestor'
 import {
@@ -24,9 +19,7 @@ async function extractRegionAsPng(png, outputPath, x, y, width, height) {
   // Ladda PDF-dokumentet
   // Använd `sharp` för att beskära och spara regionen
   console.log('Extracting region', x, y, width, height)
-  return await sharp(png)
-    .extract({ left: x, top: y, width: width, height: height })
-    .toFile(outputPath)
+  return await sharp(png).toFile(outputPath)
 }
 
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
@@ -84,12 +77,14 @@ type Page = {
   tables: any[]
 }
 
-export function findRelevantTablesGroupdOnPages(
+export function findRelevantTablesGroupedOnPages(
   json: ParsedDocument,
-  searchTerm: string
+  searchTerms: string[]
 ): Page[] {
-  const tables = jsonToTables(json).filter(
-    ({ content }) => content.toLowerCase().includes(searchTerm) || !searchTerm
+  const tables = jsonToTables(json).filter(({ content }) =>
+    searchTerms.some((term) =>
+      content.toLowerCase().includes(term.toLowerCase())
+    )
   )
   return tables.reduce((acc: Page[], table: Table) => {
     const [pageWidth, pageHeight] = json.return_dict.page_dim
@@ -113,43 +108,59 @@ export async function extractTablesFromJson(
   pdf: Buffer,
   json: ParsedDocument,
   outputDir: string,
-  searchTerm: string
-): Promise<TableWithFilename[]> {
+  searchTerms: string[]
+): Promise<{ tables: TableWithFilename[]; uniquePageCount: number }> {
   const pngs = await getPngsFromPdfPage(pdf)
-  const pages = findRelevantTablesGroupdOnPages(json, searchTerm)
+  const pages = Object.values(
+    findRelevantTablesGroupedOnPages(json, searchTerms)
+  )
 
-  const tablePromises = pages.flatMap(
-    ({ pageIndex, tables, pageWidth, pageHeight }) =>
-      tables.map((table) =>
-        pngs.getPage(pageIndex + 1).then((png) => {
-          /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
+  const processedPages = new Set<number>()
+
+  const tablePromises = pages.map(
+    ({ pageIndex, tables, pageWidth, pageHeight }) => {
+      if (processedPages.has(pageIndex)) {
+        return tables.map((table) =>
+          Promise.resolve({ ...table, filename: null })
+        )
+      }
+
+      processedPages.add(pageIndex)
+
+      const pageScreenshotPath = path.join(
+        outputDir,
+        `page-${pageIndex}-${crypto.randomUUID()}.png`
+      )
+      return pngs.getPage(pageIndex + 1).then((png) => {
+        /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
              När den är fixad kan denna användas istället för att beskära hela sidan. */
-          /* TODO: fixa boundingbox för tabeller
+        /* TODO: fixa boundingbox för tabeller
           const { x, y, width, height } = calculateBoundingBoxForTable(
             table,
             pageWidth,
             pageHeight
           )*/
-          const pngName = `table-${pageIndex}-${crypto.randomUUID()}.png`
-          const filename = path.join(outputDir, pngName)
+        const pageWidth2 = Math.floor(pageWidth * 2)
+        const pageHeight2 = Math.floor(pageHeight * 2)
 
-          const pageWidth2 = Math.floor(pageWidth * 2)
-          const pageHeight2 = Math.floor(pageHeight * 2)
-
-          console.log('extracting screenshot to outputPath', filename)
-          return extractRegionAsPng(
-            png,
-            filename,
-            0,
-            0,
-            pageWidth2,
-            pageHeight2
-          ).then(() => {
-            return { ...table, filename } as TableWithFilename
-          })
-        })
-      )
+        return extractRegionAsPng(
+          png,
+          pageScreenshotPath,
+          0,
+          0,
+          pageWidth2,
+          pageHeight2
+        ).then(() =>
+          tables.map((table) => ({ ...table, filename: pageScreenshotPath }))
+        )
+      })
+    }
   )
 
-  return Promise.all(tablePromises)
+  const tables = await Promise.all(tablePromises).then((results) =>
+    results.flat()
+  )
+  const uniquePageCount = processedPages.size
+
+  return { tables, uniquePageCount }
 }
