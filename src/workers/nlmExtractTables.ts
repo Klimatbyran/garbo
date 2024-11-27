@@ -85,40 +85,30 @@ const nlmExtractTables = new DiscordWorker(
       const pdf = await fetchPdf(url)
       const outputDir = path.resolve('/tmp')
       job.editMessage(`✅ PDF nedladdad!`)
-      const { tables: results, uniquePageCount } = await extractTablesFromJson(
+      const { pages } = await extractTablesFromJson(
         pdf,
         json,
         outputDir,
         searchTerms
       )
 
-      const totalTables = results.length
-
       job.sendMessage(
-        `🤖 Hittade ${totalTables} relevanta tabeller på ${uniquePageCount} unika sidor.`
+        `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
       )
 
-      const groupedResults = results.reduce((acc, table) => {
-        acc[table.page_idx] = acc[table.page_idx] || []
-        acc[table.page_idx].push(table)
-        return acc
-      }, {} as Record<number, typeof results>)
-
-      const tables = await Object.entries(groupedResults).reduce(
-        async (resultsPromise, [page_idx, tablesOnPage]) => {
+      const tables = await pages.reduce(
+        async (resultsPromise, { pageIndex, filename }) => {
           const results = await resultsPromise
           const lastPageMarkdown = results.at(-1)?.markdown || ''
-          const filename = tablesOnPage[0].filename
           const markdown = await extractTextViaVisionAPI(
-            { filename, name: `Tables from page ${page_idx}` },
+            { filename, name: `Tables from page ${pageIndex}` },
             lastPageMarkdown
           )
           // TODO: Send to s3 bucket (images)
           return [
             ...results,
             {
-              page_idx: Number(page_idx),
-              tablesOnPage, // TODO: Use when bounding box error has been corrected
+              page_idx: Number(pageIndex),
               markdown,
             },
           ]
