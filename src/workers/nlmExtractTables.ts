@@ -111,7 +111,7 @@ const nlmExtractTables = new DiscordWorker(
           const filename = tablesOnPage[0].filename
           const markdown = await extractTextViaVisionAPI(
             { filename, name: `Tables from page ${page_idx}` },
-            lastPageMarkdown.slice(0, 5000)
+            lastPageMarkdown
           )
           // TODO: Send to s3 bucket (images)
           return [
