@@ -62,13 +62,9 @@ Följande är ett utdrag ur en PDF:`,
     },
   }
 
-  job.sendMessage(
-    `🤖 Ställer frågor om basfakta...\n\n` +
-      JSON.stringify({ companyName, description })
-  )
+  job.log('Company description:\n' + description)
 
-  // TODO: temporary to iterate faster
-  return
+  job.sendMessage('🤖 Ställer frågor om basfakta...')
 
   try {
     const extractEmissions = await flow.add({
