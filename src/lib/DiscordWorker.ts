@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue, Processor } from 'bullmq'
 import { Message, TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
@@ -98,8 +98,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
-    // Enforce explicit return values to avoid accidentally stalled jobs which stay in "Active" without moving on.
-    callback: (job: T) => Promise<string | boolean | number | {}>,
+    callback: (job: T) => any,
     options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
