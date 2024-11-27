@@ -12,7 +12,7 @@ const indexMarkdown = new DiscordWorker(
 
     const chunks = markdown
       .split('\n###')
-      .map((p) => p.trim())
+      .map((p) => '\n###' + p.trim())
       .filter((p) => p.length > 0)
 
     await job.sendMessage(`🤖 Sparar i vektordatabas...`)
