@@ -54,7 +54,7 @@ const askDiff = async (
       before[key] = existingCompany[key]
     }
     return before
-  })
+  }, {})
 
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
