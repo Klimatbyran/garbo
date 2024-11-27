@@ -111,7 +111,7 @@ export async function extractTablesFromJson(
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[]
-): Promise<TableWithFilename[]> {
+): Promise<{ tables: TableWithFilename[]; uniquePageCount: number }> {
   const pngs = await getPngsFromPdfPage(pdf)
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
@@ -148,5 +148,10 @@ export async function extractTablesFromJson(
     }
   )
 
-  return Promise.all(tablePromises).then((results) => results.flat())
+  const tables = await Promise.all(tablePromises).then((results) =>
+    results.flat()
+  )
+  const uniquePageCount = processedPages.size
+
+  return { tables, uniquePageCount }
 }

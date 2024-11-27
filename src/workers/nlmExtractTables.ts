@@ -85,18 +85,17 @@ const nlmExtractTables = new DiscordWorker(
       const pdf = await fetchPdf(url)
       const outputDir = path.resolve('/tmp')
       job.editMessage(`✅ PDF nedladdad!`)
-      const results = await extractTablesFromJson(
+      const { tables: results, uniquePageCount } = await extractTablesFromJson(
         pdf,
         json,
         outputDir,
         searchTerms
       )
 
-      const uniquePages = new Set(results.map((table) => table.page_idx))
       const totalTables = results.length
 
       job.sendMessage(
-        `🤖 Hittade ${totalTables} relevanta tabeller på ${uniquePages.size} unika sidor.`
+        `🤖 Hittade ${totalTables} relevanta tabeller på ${uniquePageCount} unika sidor.`
       )
 
       const groupedResults = results.reduce((acc, table) => {
