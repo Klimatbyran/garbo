@@ -2,14 +2,14 @@ name: Build and Push Base Image
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
       - 'Dockerfile.base'
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  BASE_IMAGE_NAME: ${{ github.repository }}-base
+  BASE_IMAGE_NAME: ${{ github.repository }}/garbo-base
 
 jobs:
   build-and-push:
