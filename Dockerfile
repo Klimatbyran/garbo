@@ -1,4 +1,4 @@
-FROM ghcr.io/${GITHUB_REPOSITORY}-base:main
+FROM ghcr.io/klimatbyran/garbo-base:main
 
 COPY package*.json /app/
 COPY prisma /app/
