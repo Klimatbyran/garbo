@@ -51,7 +51,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   If data is missing or unclear, explicitly report it as \`null\`. Do not make assumptions or attempt to infer missing values.
 
 3. **Units**:
-  Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit, convert it. This is the only permitted calculation.
+  Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit (kton = 1000 tCO2, Mton = 1000000 tCO2), convert it. This is the only permitted calculation.
 
 4. **Financial Institutions**:
   If the company is a financial institution, look specifically for emissions data related to investments, portfolio, or financed emissions. These may be located in separate sections of the report.
