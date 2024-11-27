@@ -74,7 +74,7 @@ async function getRelevantMarkdown(
     queryTexts,
   })
 
-  const metadatas = result.metadatas[0]
+  const metadatas = result.metadatas.flat()
   const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
   const uniqueParagraphs = Array.from(new Set(paragraphs))
 
