@@ -63,7 +63,7 @@ The purpose is to let an editor approve the changes or suggest changes in Discor
 Be as breif as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
 Focus only on the actual values that have changed.
 When handling years and ambigous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
-NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO CHANGES".`,
+NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO_CHANGES".`,
     JSON.stringify({
       before,
       after,
@@ -115,7 +115,7 @@ const saveToAPI = new DiscordWorker<JobData>(
       : ''
 
     if (diff) {
-      if (diff === 'NO CHANGES') {
+      if (diff.includes('NO_CHANGES')) {
         await job.sendMessage({
           content: `# ${companyName}: \`${apiSubEndpoint}\`
           ${diff}`.slice(0, 2000),
