@@ -332,4 +332,10 @@ Example:
 \`\`\`
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'GICS industry codes',
+  'Sector and sub-industry',
+  'Sub-industry classification',
+]
+
+export default { prompt, schema, queryTexts }

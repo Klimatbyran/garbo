@@ -1,14 +1,16 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { readFileSync } from 'fs'
 import { UnrecoverableError } from 'bullmq'
+import path from 'path'
+
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
-import path from 'path'
 import { openai } from '../lib/openai'
-import { readFileSync } from 'fs'
+import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 
 class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    json: string
+    json: ParsedDocument
   }
 }
 
@@ -106,6 +108,9 @@ ${results.map((r) => ' -  Sida ' + r.page_idx + ': ' + r.name).join('\n')}`)
           Promise.resolve([])
         )
         job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
+
+        // TODO: This is techniqually a duplicate since the markdownText already contains the tables
+        // Also worth trying to shorten this down due to "lost in the middle tendencies"
         return {
           markdown:
             markdownText +

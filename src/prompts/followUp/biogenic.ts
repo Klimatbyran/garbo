@@ -30,4 +30,10 @@ Json example:
 }
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Biogenic emissions according to the GHG protocol (CO2e).',
+  'Total biogenic CO2e emissions by year.',
+  'Latest year with biogenic CO2e emissions data.',
+]
+
+export default { prompt, schema, queryTexts }
