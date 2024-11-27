@@ -21,52 +21,44 @@ export const schema = z.object({
   ),
 })
 
-export const prompt = `
-Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude the latest year. Include as many categories as you can find and their scope 3 emissions.
+export const prompt = `## Scope 3:
+Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`emissionsPerYear\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.
 
-Important! Always report according to the official GHG categories. If you can't find the corresponding category, do not report it.
+### Instructions:
 
-NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. If the company has reported individual categories but no totals, never try to calculate totals, just report it as is.
+1. **Reporting categories**:
+   Always report data according to the official GHG Protocol categories. If a reported category does not match the official list, include it under "16: other."
 
-Regarding transport: If you can't find the exact category, report it as category 4 or 9 depending on the context.
+2. **Missing or incomplete data**:
+   If data is missing or unclear, explicitly report it as \`null\`. Do not make assumptions or attempt to infer missing values.
 
-UNITS: All emissions should be reported in metric tons of CO2 equivalent. If the unit is different (as an example kton), convert it.
+3. **Units**:
+   Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit, convert it. This is the only permitted calculation.
 
-If the company is identified as a financial institution or investment company, look for emissions data from investments, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
+4. **Financial institutions**:
+   If the company is a financial institution, look specifically for emissions data related to investments, portfolio, or financed emissions. These may be located in separate sections of the report.
 
-1: purchasedGoods
-2: capitalGoods
-3: fuelAndEnergyRelatedActivities
-4: upstreamTransportationAndDistribution
-5: wasteGeneratedInOperations
-6: businessTravel
-7: employeeCommuting
-8: upstreamLeasedAssets
-9: downstreamTransportationAndDistribution
-10: processingOfSoldProducts
-11: useOfSoldProducts
-12: endOfLifeTreatmentOfSoldProducts
-13: downstreamLeasedAssets
-14: franchises
-15: investments
-16: other
+5. **Totals**:
+   Only report total emissions if explicitly stated. Do not calculate totals, even if all categories are individually reported.
 
-Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16: other category.
+6. **Transportation categories**:
+   If a transportation-related category is unclear, classify it as either \`4: upstreamTransportationAndDistribution\` or \`9: downstreamTransportationAndDistribution\` based on how it is described.
+
+7. **Output format**:
+   Keep the output strictly in JSON format, following this structure:
 
 \`\`\`json
 {
   "scope3": [
     {
       "year": 2021,
-      "scope3": {
-        "categories": [
-          { "category": 1, "total": 10},
-          { "category": 2, "total": 20},
-          { "category": 3, "total": 40},
-          { "category": 14, "total": 40}
-        ],
-        "statedTotalEmissions": { "total": 110 }
-      }
+      "categories": [
+        { "category": 1, "total": 10 },
+        { "category": 2, "total": 20 },
+        { "category": 3, "total": 40 },
+        { "category": 14, "total": 40 }
+      ],
+      "statedTotalEmissions": { "total": 110 }
     },
     { "year": 2022, ... },
     { "year": 2023, ... }
