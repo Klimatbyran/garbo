@@ -37,7 +37,7 @@ async function addReport(url: string, paragraphs: string[]) {
   await collection.add({
     ids,
     metadatas,
-    documents: chunks.map(({ chunk }) => chunk.slice(0, 2000)),
+    documents: chunks.map(({ chunk }) => chunk),
   })
 }
 
