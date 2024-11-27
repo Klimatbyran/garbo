@@ -30,13 +30,13 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
   await job.setThreadName(companyName)
 
   const description = await askPrompt(
-    `Du är en torr revisor som ska skriva en objektiv beskrivning av företaget.
+    `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet.
 
 ** Beskrivning **
-Skriv en kort beskrivning av företaget. Beskrivningen ska visas på en sida för hållbarhetsredovisning och ska vara informativ samt beskriva företagets verksamhet på ett sakligt sätt. Följ dessa riktlinjer:
+Följ dessa riktlinjer:
 
 1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
-2. Syfte: Endast företagets verksamhet ska beskrivas, med ett extra sakligt och neutralt språk.
+2. Syfte: Endast företagets verksamhet ska beskrivas. Använd ett extra sakligt och neutralt språk.
 3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare", "innovativt", "värdefull" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
 4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
 5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
@@ -62,7 +62,13 @@ Följande är ett utdrag ur en PDF:`,
     },
   }
 
-  job.sendMessage(`🤖 Ställer frågor om basfakta...`)
+  job.sendMessage(
+    `🤖 Ställer frågor om basfakta...\n\n` +
+      JSON.stringify({ companyName, description })
+  )
+
+  // TODO: temporary to iterate faster
+  return
 
   try {
     const extractEmissions = await flow.add({
