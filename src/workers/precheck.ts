@@ -34,15 +34,17 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
 Skriv en kort beskrivning av företaget. Beskrivningen ska visas på en sida för hållbarhetsredovisning och ska vara informativ samt beskriva företagets verksamhet på ett sakligt sätt. Följ dessa riktlinjer:
 
 1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
-2. Syfte: Endast företagets verksamhet ska beskrivas.
-3. Förbjudna termer: Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får inte innehålla bedömningar av företagets hållbarhetsarbete.
-4. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
+2. Syfte: Endast företagets verksamhet ska beskrivas, med ett extra sakligt och neutralt språk.
+3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
+4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
+5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
 
 Exempel på stil: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
+
 För att säkerställa att svaret följer riktlinjerna, tänk på att:
 
-- Vara informativ och saklig.
-- Undvika marknadsförande eller värderande språk.
+- Använd ett sakligt och neutralt språk.
+- Aldrig använda marknadsförande eller värderande språk.
 - Tydligt beskriva företagets verksamhet.
 
 Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
