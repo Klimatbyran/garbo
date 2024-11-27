@@ -25,7 +25,7 @@
     "@prisma/client": "^5.21.1",
     "@types/node": "^20.12.12",
     "bullmq": "^5.28.0",
-    "chromadb": "^1.9.2",
+    "chromadb": "^1.9.4",
     "compromise": "^14.13.0",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
