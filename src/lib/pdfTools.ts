@@ -8,8 +8,6 @@ import {
   ParsedDocumentSchema,
 } from './nlm-ingestor-schema'
 
-const MAX_LENGTH_TABLE_NAME = 50
-
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
     scale: 2,
@@ -129,8 +127,19 @@ export async function extractTablesFromJson(
 
       processedPages.add(pageIndex)
 
-      const pageScreenshotPath = path.join(outputDir, `page-${pageIndex}.png`)
+      const pageScreenshotPath = path.join(
+        outputDir,
+        `page-${pageIndex}-${crypto.randomUUID()}.png`
+      )
       return pngs.getPage(pageIndex + 1).then((png) => {
+        /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
+             När den är fixad kan denna användas istället för att beskära hela sidan. */
+        /* TODO: fixa boundingbox för tabeller
+          const { x, y, width, height } = calculateBoundingBoxForTable(
+            table,
+            pageWidth,
+            pageHeight
+          )*/
         const pageWidth2 = Math.floor(pageWidth * 2)
         const pageHeight2 = Math.floor(pageHeight * 2)
 
