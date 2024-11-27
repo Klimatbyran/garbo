@@ -41,8 +41,6 @@ Följ dessa riktlinjer:
 4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
 5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
 
-Exempel på stil: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
-
 För att säkerställa att svaret följer riktlinjerna, tänk på att:
 
 - Använd ett sakligt och neutralt språk.
@@ -50,6 +48,8 @@ För att säkerställa att svaret följer riktlinjerna, tänk på att:
 - Tydligt beskriva företagets verksamhet.
 
 Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
+
+Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
 
 Följande är ett utdrag ur en PDF:`,
     markdown.substring(0, 5000)
