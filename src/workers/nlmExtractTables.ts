@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { UnrecoverableError } from 'bullmq'
 import path from 'path'
+import { mkdir } from 'fs/promises'
 
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
@@ -83,7 +84,8 @@ const nlmExtractTables = new DiscordWorker(
 
     try {
       const pdf = await fetchPdf(url)
-      const outputDir = path.resolve('/tmp')
+      const outputDir = path.resolve('/tmp', 'garbo-screenshots')
+      await mkdir(outputDir, { recursive: true })
       job.editMessage(`✅ PDF nedladdad!`)
       const { pages } = await extractTablesFromJson(
         pdf,
