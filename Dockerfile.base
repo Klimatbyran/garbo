@@ -6,10 +6,20 @@ RUN apk add --no-cache \
     freetype \
     freetype-dev \
     harfbuzz \
+    python3 \
+    make \
+    g++ \
     ca-certificates \
     ttf-freefont \
+    pixman-dev \
+    cairo-dev \
+    pango-dev \
+    giflib-dev \
+    libjpeg-turbo-dev \
     ghostscript \
     graphicsmagick
+
+# TODO: Remove unused native dependencies: `cairo`, `pango`, `pixman`, `giflib` and maybe others?
 
 COPY package*.json /app/
 WORKDIR /app
