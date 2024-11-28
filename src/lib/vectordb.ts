@@ -11,6 +11,9 @@ const collection = await client.getOrCreateCollection({
   embeddingFunction: embedder,
 })
 
+// this is our own type to be able to filter in the future if needed
+const reportMetadataType = 'company_sustainability_report'
+
 async function addReport(url: string, paragraphs: string[]) {
   const chunkSize = 2000
   const overlapSize = 200
@@ -30,7 +33,7 @@ async function addReport(url: string, paragraphs: string[]) {
   const metadatas = chunks.map(({ paragraph }) => ({
     source: url,
     paragraph,
-    type: 'company_sustainability_report',
+    type: reportMetadataType,
     parsed: new Date().toISOString(),
   }))
 
@@ -81,8 +84,24 @@ async function getRelevantMarkdown(
   return uniqueParagraphs.join('\n\n')
 }
 
+/**
+ * Delete a specific report
+ */
+function deleteReport(url: string) {
+  return collection.delete({ where: { source: url } })
+}
+
+/**
+ * Clear all reports. Useful during development.
+ */
+function clearAllReports() {
+  return collection.delete({ where: { type: reportMetadataType } })
+}
+
 export const vectorDB = {
   addReport,
   hasReport,
+  deleteReport,
   getRelevantMarkdown,
+  clearAllReports,
 }

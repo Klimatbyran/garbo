@@ -1,6 +1,5 @@
-import express, { Request, Response } from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import { validateRequestParams } from './zod-middleware'
-import { NextFunction } from 'express'
 
 import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
