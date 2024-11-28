@@ -3,7 +3,7 @@ FROM ghcr.io/klimatbyran/garbo-base:main
 COPY package*.json /app/
 COPY prisma /app/
 WORKDIR /app
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 RUN npx prisma generate
 
 COPY . /app
