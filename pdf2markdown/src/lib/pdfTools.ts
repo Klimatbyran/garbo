@@ -6,7 +6,19 @@ import { writeFile } from 'fs/promises'
 
 const NLM_INGESTOR_URL = 'http://localhost:5001'
 
+async function checkNLMIngestorStatus() {
+  try {
+    const response = await fetch(`${NLM_INGESTOR_URL}/health`)
+    if (!response.ok) {
+      throw new Error(`NLM Ingestor health check failed: ${response.statusText}`)
+    }
+  } catch (error) {
+    throw new Error(`NLM Ingestor service not available: ${error.message}`)
+  }
+}
+
 export async function extractJsonFromPdf(buffer: Buffer): Promise<ParsedDocument> {
+  await checkNLMIngestorStatus()
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
   const url = `${NLM_INGESTOR_URL}/api/parseDocument?renderFormat=json`
@@ -22,9 +34,12 @@ export async function extractJsonFromPdf(buffer: Buffer): Promise<ParsedDocument
   }
 
   const body = await response.json()
+  console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
   try {
     return ParsedDocumentSchema.parse(body)
   } catch (error) {
+    console.error('Schema validation error:', error)
+    console.error('Expected schema:', ParsedDocumentSchema.toString())
     throw new Error(
       `Failed to parse PDF: nlm-ingestor response schema did not match expected format: ${error.message}`,
       { cause: error }
