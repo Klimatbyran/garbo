@@ -1,6 +1,6 @@
 import sharp from 'sharp'
 import { pdf } from 'pdf-to-img'
-import { jsonToTables, Table, TableWithFilename } from './jsonExtraction'
+import { jsonToTables, Table } from './jsonExtraction'
 import path from 'path'
 import nlmIngestorConfig from '../config/nlmIngestor'
 import {
