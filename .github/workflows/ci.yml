@@ -53,14 +53,17 @@ jobs:
       cancel-in-progress: false
 
     steps:
-      - name: 🔍 Wait for base image workflow
+      - name: 🔍 Check for base image workflow
+        id: check-workflow
+        continue-on-error: true
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.ref }}
-          check-name: base-image
+          check-name: 'build-and-push-base-image'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success,skipped
+          running-workflow-name: 'Build and Push Base Image'
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
 
