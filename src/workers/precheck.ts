@@ -30,14 +30,28 @@ const precheck = new DiscordWorker('precheck', async (job: JobData) => {
   await job.setThreadName(companyName)
 
   const description = await askPrompt(
-    `Give a short description of the company. Respond only with the company description text.
-** Description **
-Beskrivning av företaget. Tänk på att vara så informativ som möjligt. Den här texten ska visas på en sida
-för hållbarhetsredovisning så det är viktigt att den är informativ och beskriver företaget väl men inte tillåter
-texter som kan uppfattas som greenwashing eller marknadsföring. Många företag är okända för allmänheten så det
-är viktigt att beskrivningen är informativ och beskriver företaget väl.
-*** LANGUAGE: ONLY WRITE THE DESCRIPTION IN SWEDISH! If the original texts are written in English, translate to Swedish ***
-The following is an extract from a PDF:`,
+    `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet.
+
+** Beskrivning **
+Följ dessa riktlinjer:
+
+1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
+2. Syfte: Endast företagets verksamhet ska beskrivas. Använd ett extra sakligt och neutralt språk.
+3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare", "innovativt", "värdefull" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
+4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
+5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
+
+För att säkerställa att svaret följer riktlinjerna, tänk på att:
+
+- Använd ett sakligt och neutralt språk.
+- Aldrig använda marknadsförande eller värderande språk.
+- Tydligt beskriva företagets verksamhet.
+
+Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
+
+Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
+
+Följande är ett utdrag ur en PDF:`,
     markdown.substring(0, 5000)
   )
 
@@ -48,7 +62,9 @@ The following is an extract from a PDF:`,
     },
   }
 
-  job.sendMessage(`🤖 Ställer frågor om basfakta...`)
+  job.log('Company description:\n' + description)
+
+  job.sendMessage('🤖 Ställer frågor om basfakta...')
 
   try {
     const extractEmissions = await flow.add({
