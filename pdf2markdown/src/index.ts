@@ -66,57 +66,8 @@ app.post('/convert', express.raw({type: '*/*', limit: '50mb'}), async (req, res)
   try {
     const buffer = req.body
     const json = await extractJsonFromPdf(buffer)
-    const baseMarkdown = jsonToMarkdown(json)
-
-    const outputDir = path.resolve('/tmp', 'pdf2markdown-screenshots')
-    await mkdir(outputDir, { recursive: true })
-
-    const searchTerms = [
-      'co2',
-      'GHG',
-      'turnover',
-      'revenue', 
-      'income',
-      'employees',
-      'FTE',
-      'fiscal year',
-      'summary',
-    ]
-
-    const { pages } = await extractTablesFromJson(
-      buffer,
-      json,
-      outputDir,
-      searchTerms
-    )
-
-    const tables = await pages.reduce(async (resultsPromise, { pageIndex, filename }) => {
-      const results = await resultsPromise
-      const lastPageMarkdown = results.at(-1)?.markdown || ''
-      const markdown = await extractTextViaVisionAPI(
-        { filename, name: `Tables from page ${pageIndex}` },
-        lastPageMarkdown
-      )
-      return [
-        ...results,
-        {
-          page_idx: Number(pageIndex),
-          markdown,
-        },
-      ]
-    }, Promise.resolve([] as any))
-
-    const fullMarkdown = baseMarkdown + 
-      '\n\n This is some of the important tables from the markdown with more precision:' +
-      tables
-        .map(
-          ({ page_idx, markdown }) =>
-            `\n#### Page ${page_idx}: 
-              ${markdown}`
-        )
-        .join('\n')
-
-    res.type('text/plain').send(fullMarkdown)
+    const markdown = await jsonToMarkdown(json, buffer)
+    res.type('text/plain').send(markdown)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
