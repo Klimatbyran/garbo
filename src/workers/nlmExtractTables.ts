@@ -95,7 +95,7 @@ const nlmExtractTables = new DiscordWorker(
       )
 
       job.sendMessage(
-        `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
+        `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor`
       )
 
       const tables: { page_idx: number; markdown: string }[] =
