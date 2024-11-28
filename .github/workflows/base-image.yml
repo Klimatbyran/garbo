@@ -12,7 +12,7 @@ env:
   BASE_IMAGE_NAME: ${{ github.repository }}/garbo-base
 
 jobs:
-  build-and-push:
+  build-and-push-base-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
