@@ -44,12 +44,14 @@ export async function extractJsonFromPdf(
     response = await fetch(url, {
       method: 'POST',
       body: formData,
+      signal: AbortSignal.timeout(6 * 60 * 1000), // 6 minutes
     })
   } catch (err) {
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorConfig.url +
-        ')'
+        ') Error: ' +
+        err.message
     )
     response = { ok: false, statusText: err.message } as Response
   }
