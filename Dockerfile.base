@@ -17,7 +17,9 @@ RUN apk add --no-cache \
     giflib-dev \
     libjpeg-turbo-dev \
     ghostscript \
-    graphicsmagick
+    ghostscript-dev \
+    graphicsmagick \
+    graphicsmagick-dev
 
 # TODO: Remove unused native dependencies: `cairo`, `pango`, `pixman`, `giflib` and maybe others?
 
