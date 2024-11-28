@@ -54,10 +54,10 @@ jobs:
 
     steps:
       - name: 🔍 Wait for base image workflow
-        uses: lewagon/wait-on-check-action@v1.3.1
+        uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.ref }}
-          check-name: 'build-and-push'
+          check-name: base-image
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
           allowed-conclusions: success,skipped
