@@ -58,7 +58,6 @@ const nlmParsePDF = new DiscordWorker(
         const base = {
           data: {
             ...job.data,
-            json,
           },
         }
 
@@ -69,8 +68,6 @@ const nlmParsePDF = new DiscordWorker(
           ...base,
           data: {
             ...base.data,
-            // Once the report has been parsed, we don't need the `json` repressentation of the report anymore.
-            json: undefined,
           },
           name: 'precheck ' + name,
           queueName: 'precheck',
@@ -82,6 +79,10 @@ const nlmParsePDF = new DiscordWorker(
               children: [
                 {
                   ...base,
+                  data: {
+                    ...base.data,
+                    json,
+                  },
                   name: 'extractTables ' + name,
                   queueName: 'nlmExtractTables',
                 },
@@ -106,7 +107,7 @@ const nlmParsePDF = new DiscordWorker(
       return true
     } catch (error) {
       job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
-      throw new UnrecoverableError(`Download Failed: ${error.message}`)
+      throw new UnrecoverableError(error)
     }
   },
   { concurrency: 1, connection: redis }

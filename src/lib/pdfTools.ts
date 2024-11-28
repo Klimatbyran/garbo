@@ -7,6 +7,7 @@ import {
   type ParsedDocument,
   ParsedDocumentSchema,
 } from './nlm-ingestor-schema'
+import { writeFile } from 'fs/promises'
 
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
@@ -43,12 +44,14 @@ export async function extractJsonFromPdf(
     response = await fetch(url, {
       method: 'POST',
       body: formData,
+      signal: AbortSignal.timeout(6 * 60 * 1000), // 6 minutes
     })
   } catch (err) {
     console.error(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorConfig.url +
-        ')'
+        ') Error: ' +
+        err.message
     )
     response = { ok: false, statusText: err.message } as Response
   }
@@ -109,29 +112,19 @@ export async function extractTablesFromJson(
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[]
-): Promise<{ tables: TableWithFilename[]; uniquePageCount: number }> {
+): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
   const pngs = await getPngsFromPdfPage(pdf)
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
   )
-
-  const processedPages = new Set<number>()
-
-  const tablePromises = pages.map(
-    ({ pageIndex, tables, pageWidth, pageHeight }) => {
-      if (processedPages.has(pageIndex)) {
-        return tables.map((table) =>
-          Promise.resolve({ ...table, filename: null })
-        )
-      }
-
-      processedPages.add(pageIndex)
-
+  const reportId = crypto.randomUUID()
+  const filenames = await Promise.all(
+    pages.map(async ({ pageIndex }) => {
       const pageScreenshotPath = path.join(
         outputDir,
-        `page-${pageIndex}-${crypto.randomUUID()}.png`
+        `${reportId}-page-${pageIndex}.png`
       )
-      return pngs.getPage(pageIndex + 1).then((png) => {
+      return pngs.getPage(pageIndex + 1).then(async (png) => {
         /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
              När den är fixad kan denna användas istället för att beskära hela sidan. */
         /* TODO: fixa boundingbox för tabeller
@@ -140,27 +133,10 @@ export async function extractTablesFromJson(
             pageWidth,
             pageHeight
           )*/
-        const pageWidth2 = Math.floor(pageWidth * 2)
-        const pageHeight2 = Math.floor(pageHeight * 2)
-
-        return extractRegionAsPng(
-          png,
-          pageScreenshotPath,
-          0,
-          0,
-          pageWidth2,
-          pageHeight2
-        ).then(() =>
-          tables.map((table) => ({ ...table, filename: pageScreenshotPath }))
-        )
+        await writeFile(pageScreenshotPath, png)
+        return { pageIndex, filename: pageScreenshotPath }
       })
-    }
+    })
   )
-
-  const tables = await Promise.all(tablePromises).then((results) =>
-    results.flat()
-  )
-  const uniquePageCount = processedPages.size
-
-  return { tables, uniquePageCount }
+  return { pages: filenames }
 }

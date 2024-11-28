@@ -24,7 +24,7 @@ const guessWikidata = new DiscordWorker<JobData>(
       await job.sendMessage(`❌ Hittade inte Wikidata för: ${companyName}.`)
       // TODO: If no wikidata entry was found, provide a link to create a new wikidata entry.
       // TODO: allow providing the wikidata entry if it is known, to continue the job.
-      throw new UnrecoverableError(`No Wikidata entry for "${companyName}"`)
+      throw new Error(`No Wikidata entry for "${companyName}"`)
     }
 
     const response = await ask(
