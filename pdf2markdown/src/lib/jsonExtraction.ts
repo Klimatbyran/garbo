@@ -5,17 +5,16 @@ import { fromBuffer } from 'pdf2pic'
 import { openai } from './openai'
 import { mkdir, writeFile } from 'fs/promises'
 
-const base64Encode = (filename: string) => {
-  const data = readFileSync(path.resolve(filename)).toString('base64')
-  return 'data:image/png;base64,' + data
+const bufferToBase64 = (buffer: Buffer) => {
+  return 'data:image/png;base64,' + buffer.toString('base64')
 }
 
 export async function extractTextViaVisionAPI(
   {
-    filename,
+    buffer,
     name,
   }: {
-    filename: string
+    buffer: Buffer
     name: string
   },
   context: string
@@ -47,7 +46,7 @@ export async function extractTextViaVisionAPI(
         content: [
           {
             type: 'image_url',
-            image_url: { url: base64Encode(filename), detail: 'high' },
+            image_url: { url: bufferToBase64(buffer), detail: 'high' },
           },
         ],
       },
@@ -69,21 +68,12 @@ export function jsonToTables(json: ParsedDocument): Table[] {
 export async function jsonToMarkdown(json: ParsedDocument, pdf: Buffer): Promise<string> {
   const blocks = json.return_dict.blocks
   const [pageWidth, pageHeight] = json.return_dict.page_dim
-  const outputDir = path.resolve('/tmp', 'pdf2markdown-screenshots')
-  await mkdir(outputDir, { recursive: true })
-  
-  const reportId = crypto.randomUUID()
   let lastTableMarkdown = ''
 
   const markdownBlocks = await Promise.all(blocks.map(async (block: Block) => {
     if ('rows' in block) {
       // For tables, convert the page to image and use Vision API
       const pageNumber = block.page_idx + 1
-      const pageScreenshotPath = path.join(
-        outputDir,
-        `${reportId}-page-${pageNumber}.png`
-      )
-
       // Convert page to image
       const pdfConverter = fromBuffer(pdf, {
         density: 600,
@@ -98,11 +88,9 @@ export async function jsonToMarkdown(json: ParsedDocument, pdf: Buffer): Promise
         throw new Error(`Failed to convert page ${pageNumber} to image`)
       }
       
-      await writeFile(pageScreenshotPath, result.buffer)
-      
       // Extract table text using Vision API
       const markdown = await extractTextViaVisionAPI(
-        { filename: pageScreenshotPath, name: `Table from page ${pageNumber}` },
+        { buffer: result.buffer, name: `Table from page ${pageNumber}` },
         lastTableMarkdown
       )
       lastTableMarkdown = markdown
@@ -116,13 +104,6 @@ export async function jsonToMarkdown(json: ParsedDocument, pdf: Buffer): Promise
   }))
 
   const markdown = markdownBlocks.join('\n\n')
-  
-  // Cleanup temp files
-  try {
-    await rm(outputDir, { recursive: true, force: true })
-  } catch (error) {
-    console.error('Failed to cleanup temp files:', error)
-  }
   
   return markdown
 }
