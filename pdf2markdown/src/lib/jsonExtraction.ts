@@ -54,6 +54,9 @@ export async function extractTextViaVisionAPI(
     ],
     max_tokens: 4096,
   })
+  if (!result.choices[0]?.message?.content) {
+    throw new Error('Failed to get content from Vision API')
+  }
   return result.choices[0].message.content
 }
 
@@ -112,5 +115,14 @@ export async function jsonToMarkdown(json: ParsedDocument, pdf: Buffer): Promise
     }
   }))
 
-  return markdownBlocks.join('\n\n')
+  const markdown = markdownBlocks.join('\n\n')
+  
+  // Cleanup temp files
+  try {
+    await rm(outputDir, { recursive: true, force: true })
+  } catch (error) {
+    console.error('Failed to cleanup temp files:', error)
+  }
+  
+  return markdown
 }

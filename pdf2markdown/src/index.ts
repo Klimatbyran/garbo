@@ -62,14 +62,22 @@ const extractTextViaVisionAPI = async (
   return result.choices[0].message.content
 }
 
-app.post('/convert', express.raw({type: '*/*', limit: '50mb'}), async (req, res) => {
+app.post('/convert', express.raw({type: '*/*', limit: '50mb'}), async (req: express.Request, res: express.Response) => {
   try {
     const buffer = req.body
     const json = await extractJsonFromPdf(buffer)
     const markdown = await jsonToMarkdown(json, buffer)
     res.type('text/plain').send(markdown)
   } catch (error) {
+    console.error('Conversion error:', error)
     res.status(500).json({ error: error.message })
+    
+    // Cleanup temp files
+    try {
+      await rm('/tmp/pdf2markdown-screenshots', { recursive: true, force: true })
+    } catch (cleanupError) {
+      console.error('Failed to cleanup temp files:', cleanupError)
+    }
   }
 })
 
