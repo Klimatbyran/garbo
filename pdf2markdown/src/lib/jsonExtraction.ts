@@ -56,7 +56,7 @@ export async function extractTextViaVisionAPI(
 }
 
 export function jsonToTables(json: ParsedDocument): Table[] {
-  return json.return_dict.blocks.filter(
+  return json.return_dict.result.blocks.filter(
     (block): block is Table => 'rows' in block
   )
 }
@@ -65,7 +65,7 @@ export async function jsonToMarkdown(
   json: ParsedDocument,
   pdf: Buffer
 ): Promise<string> {
-  const blocks = json.return_dict.blocks
+  const blocks = json.return_dict.result.blocks
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   const markdownBlocks = await Promise.all(

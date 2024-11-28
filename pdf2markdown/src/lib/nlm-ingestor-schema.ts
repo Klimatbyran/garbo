@@ -40,8 +40,11 @@ export const BlockSchema = z.union([
 
 export const ParsedDocumentSchema = z.object({
   return_dict: z.object({
-    blocks: z.array(BlockSchema),
+    result: z.object({
+      blocks: z.array(BlockSchema),
+    }),
     page_dim: z.array(z.number()),
+    num_pages: z.number(),
   }),
 })
 
