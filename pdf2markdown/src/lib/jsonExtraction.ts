@@ -94,7 +94,6 @@ export async function jsonToMarkdown(
           { buffer: result.buffer },
           block.content
         )
-        lastTableMarkdown = markdown
         return markdown
       } else if ('level' in block) {
         const prefix = '#'.repeat(block.level)
