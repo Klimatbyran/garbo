@@ -15,7 +15,8 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx --env-file=.env.development scripts/import-spreadsheet-companies.ts",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest",
-    "prisma": "dotenv -e .env.development -- prisma"
+    "prisma": "dotenv -e .env.development -- prisma",
+    "reset": "node --import tsx --env-file .env.development scripts/dev-reset.ts"
   },
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
   "license": "MIT License",
