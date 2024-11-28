@@ -131,7 +131,7 @@ const nlmExtractTables = new DiscordWorker(
             .join('\n'),
       }
     } catch (error) {
-      job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
+      job.editMessage(`❌ Fel vid tolkning av PDF: ${error.message}`)
       throw new UnrecoverableError(`Download Failed: ${error.message}`)
     }
   }
