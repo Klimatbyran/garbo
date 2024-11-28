@@ -2,6 +2,9 @@ import { promisify } from 'util'
 import { prisma } from './prisma'
 import { exec } from 'child_process'
 
+/**
+ * Reset the Postgres DB. Should only be run in development.
+ */
 export async function resetDB() {
   const tablenames = await prisma.$queryRaw<
     Array<{ tablename: string }>

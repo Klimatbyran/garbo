@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs'
 import { UnrecoverableError } from 'bullmq'
 import path from 'path'
+import { mkdir } from 'fs/promises'
 
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
@@ -83,7 +84,8 @@ const nlmExtractTables = new DiscordWorker(
 
     try {
       const pdf = await fetchPdf(url)
-      const outputDir = path.resolve('/tmp')
+      const outputDir = path.resolve('/tmp', 'garbo-screenshots')
+      await mkdir(outputDir, { recursive: true })
       job.editMessage(`✅ PDF nedladdad!`)
       const { pages } = await extractTablesFromJson(
         pdf,
@@ -96,8 +98,8 @@ const nlmExtractTables = new DiscordWorker(
         `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
       )
 
-      const tables = await pages.reduce(
-        async (resultsPromise, { pageIndex, filename }) => {
+      const tables: { page_idx: number; markdown: string }[] =
+        await pages.reduce(async (resultsPromise, { pageIndex, filename }) => {
           const results = await resultsPromise
           const lastPageMarkdown = results.at(-1)?.markdown || ''
           const markdown = await extractTextViaVisionAPI(
@@ -112,9 +114,7 @@ const nlmExtractTables = new DiscordWorker(
               markdown,
             },
           ]
-        },
-        Promise.resolve([] as any)
-      )
+        }, Promise.resolve([] as any))
 
       job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
 
