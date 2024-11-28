@@ -12,9 +12,6 @@ import { writeFile } from 'fs/promises'
 async function getPngsFromPdfPage(stream: Buffer) {
   const pages = await pdf(stream, {
     scale: 2,
-    renderParams: {
-      background: '#ffffff',
-    },
   })
   return pages
 }
