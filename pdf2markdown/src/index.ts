@@ -1,31 +1,36 @@
 import express from 'express'
 import { extractJsonFromPdf } from './lib/pdfTools'
 import { jsonToMarkdown } from './lib/jsonExtraction'
-import { extractTablesFromJson } from './lib/pdfTools'
-import { mkdir, rm } from 'fs/promises'
-import path from 'path'
+import { rm } from 'fs/promises'
 
 const app = express()
 const port = 3000
 
-app.post('/convert', express.raw({type: '*/*', limit: '50mb'}), async (req: express.Request, res: express.Response) => {
-  try {
-    const buffer = req.body
-    const json = await extractJsonFromPdf(buffer)
-    const markdown = await jsonToMarkdown(json, buffer)
-    res.type('text/plain').send(markdown)
-  } catch (error) {
-    console.error('Conversion error:', error)
-    res.status(500).json({ error: error.message })
-    
-    // Cleanup temp files
+app.post(
+  '/convert',
+  express.raw({ type: '*/*', limit: '50mb' }),
+  async (req: express.Request, res: express.Response) => {
     try {
-      await rm('/tmp/pdf2markdown-screenshots', { recursive: true, force: true })
-    } catch (cleanupError) {
-      console.error('Failed to cleanup temp files:', cleanupError)
+      const buffer = req.body
+      const json = await extractJsonFromPdf(buffer)
+      const markdown = await jsonToMarkdown(json, buffer)
+      res.type('text/plain').send(markdown)
+    } catch (error) {
+      console.error('Conversion error:', error)
+      res.status(500).json({ error: error.message })
+
+      // Cleanup temp files
+      try {
+        await rm('/tmp/pdf2markdown-screenshots', {
+          recursive: true,
+          force: true,
+        })
+      } catch (cleanupError) {
+        console.error('Failed to cleanup temp files:', cleanupError)
+      }
     }
   }
-})
+)
 
 app.listen(port, () => {
   console.log(`PDF to Markdown service running on port ${port}`)
