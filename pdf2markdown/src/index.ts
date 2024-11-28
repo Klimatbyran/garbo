@@ -116,7 +116,7 @@ app.post('/convert', express.raw({type: '*/*', limit: '50mb'}), async (req, res)
         )
         .join('\n')
 
-    res.json({ markdown: fullMarkdown })
+    res.type('text/plain').send(fullMarkdown)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
