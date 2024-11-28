@@ -1,27 +1,13 @@
-import sharp from 'sharp'
-import { pdf } from 'pdf-to-img'
-import { jsonToTables, Table } from './jsonExtraction'
+import { fromBuffer } from 'pdf2pic'
 import path from 'path'
-import nlmIngestorConfig from '../config/nlmIngestor'
 import {
   type ParsedDocument,
   ParsedDocumentSchema,
 } from './nlm-ingestor-schema'
+
+import { jsonToTables, Table } from './jsonExtraction'
+import nlmIngestorConfig from '../config/nlmIngestor'
 import { writeFile } from 'fs/promises'
-
-async function getPngsFromPdfPage(stream: Buffer) {
-  const pages = await pdf(stream, {
-    scale: 2,
-  })
-  return pages
-}
-
-async function extractRegionAsPng(png, outputPath, x, y, width, height) {
-  // Ladda PDF-dokumentet
-  // Använd `sharp` för att beskära och spara regionen
-  console.log('Extracting region', x, y, width, height)
-  return await sharp(png).toFile(outputPath)
-}
 
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
   const pdfResponse = await fetch(url, { headers })
@@ -113,29 +99,48 @@ export async function extractTablesFromJson(
   outputDir: string,
   searchTerms: string[]
 ): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
-  const pngs = await getPngsFromPdfPage(pdf)
+  const pdfConverter = (height: number, width: number) => {
+    return fromBuffer(pdf, {
+      density: 600,
+      format: 'png',
+      width,
+      height,
+      preserveAspectRatio: true,
+    })
+  }
+
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
   )
   const reportId = crypto.randomUUID()
   const filenames = await Promise.all(
-    pages.map(async ({ pageIndex }) => {
+    pages.map(async ({ pageIndex, pageHeight, pageWidth }) => {
+      const pageNumber = pageIndex + 1
       const pageScreenshotPath = path.join(
         outputDir,
-        `${reportId}-page-${pageIndex}.png`
+        `${reportId}-page-${pageNumber}.png`
       )
-      return pngs.getPage(pageIndex + 1).then(async (png) => {
-        /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
+      const convert = pdfConverter(pageHeight * 2, pageWidth * 2)
+      const result = await convert(pageNumber, { responseType: 'buffer' })
+
+      if (!result.buffer) {
+        throw new Error(
+          `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
+            JSON.stringify(result, null, 2)
+        )
+      }
+
+      await writeFile(pageScreenshotPath, result.buffer)
+      return { pageIndex, filename: pageScreenshotPath }
+
+      /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
              När den är fixad kan denna användas istället för att beskära hela sidan. */
-        /* TODO: fixa boundingbox för tabeller
+      /* TODO: fixa boundingbox för tabeller
           const { x, y, width, height } = calculateBoundingBoxForTable(
             table,
             pageWidth,
             pageHeight
           )*/
-        await writeFile(pageScreenshotPath, png)
-        return { pageIndex, filename: pageScreenshotPath }
-      })
     })
   )
   return { pages: filenames }
