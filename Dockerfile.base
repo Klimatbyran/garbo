@@ -18,6 +18,5 @@ RUN apk add --no-cache \
     libjpeg-turbo-dev
 
 COPY package*.json /app/
-COPY prisma /app/
 WORKDIR /app
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
