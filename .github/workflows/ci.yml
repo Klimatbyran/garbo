@@ -56,7 +56,7 @@ jobs:
       - name: 🔍 Check for base image workflow
         id: check-workflow
         continue-on-error: true
-        uses: lewagon/wait-on-check-action@v1.3.1
+        uses: lewagon/wait-on-check-action@v1.3.4
         with:
           ref: ${{ github.ref }}
           check-name: 'build-and-push-base-image'
