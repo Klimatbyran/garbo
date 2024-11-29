@@ -65,6 +65,7 @@ export async function jsonToMarkdown(
   json: ParsedDocument,
   pdf: Buffer
 ): Promise<string> {
+  console.log('Processing document with blocks:', JSON.stringify(json.return_dict.result.blocks, null, 2))
   const blocks = json.return_dict.result.blocks
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
@@ -95,11 +96,13 @@ export async function jsonToMarkdown(
           block.content
         )
         return markdown
-      } else if ('level' in block) {
-        const prefix = '#'.repeat(block.level)
+      } else if ('level' in block && block.content) {
+        const prefix = '#'.repeat(block.level + 1)  // Add 1 to avoid level 0 headers
         return `${prefix} ${block.content}`
-      } else {
+      } else if (block.content) {
         return block.content
+      } else {
+        return '' // Return empty string instead of undefined content
       }
     })
   )
