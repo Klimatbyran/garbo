@@ -40,16 +40,25 @@ export async function extractJsonFromPdf(
   const body = await response.json()
   console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
   
-  // Add more detailed response inspection
-  console.log('Response structure analysis:')
+  // Enhanced debugging
+  console.log('\n=== Detailed Response Analysis ===')
+  console.log('1. Response structure:')
   console.log('- Has return_dict:', 'return_dict' in body)
   if (body.return_dict) {
     console.log('- Return dict keys:', Object.keys(body.return_dict))
     if (body.return_dict.result) {
       console.log('- Result keys:', Object.keys(body.return_dict.result))
       if (Array.isArray(body.return_dict.result.blocks)) {
-        console.log('- Number of blocks:', body.return_dict.result.blocks.length)
-        console.log('- First block sample:', JSON.stringify(body.return_dict.result.blocks[0], null, 2))
+        console.log('\n2. Blocks analysis:')
+        console.log('- Total blocks:', body.return_dict.result.blocks.length)
+        body.return_dict.result.blocks.forEach((block, index) => {
+          console.log(`\nBlock ${index}:`)
+          console.log('- Type:', 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'))
+          console.log('- Has content:', 'content' in block)
+          console.log('- Content type:', typeof block.content)
+          console.log('- Content preview:', block.content?.substring(0, 100))
+          console.log('- Properties:', Object.keys(block))
+        })
       }
     }
   }

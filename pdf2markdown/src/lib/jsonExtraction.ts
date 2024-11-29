@@ -75,7 +75,19 @@ export async function jsonToMarkdown(
       return 'No content found in document'
     }
 
-    console.log(`Processing ${blocks.length} blocks:`, JSON.stringify(blocks, null, 2))
+    console.log('\n=== Processing Blocks ===')
+    console.log(`Total blocks: ${blocks.length}`)
+    blocks.forEach((block, index) => {
+      console.log(`\nBlock ${index}:`)
+      console.log('- Type:', 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'))
+      console.log('- Content:', block.content)
+      if ('rows' in block) {
+        console.log('- Table rows:', block.rows?.length || 0)
+      }
+      if ('level' in block) {
+        console.log('- Header level:', block.level)
+      }
+    })
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   const markdownBlocks = await Promise.all(
@@ -128,7 +140,13 @@ export async function jsonToMarkdown(
 
     if (!markdown.trim()) {
       console.error('No content was extracted from blocks')
-      return 'No content could be extracted from document'
+      const blockSummary = blocks.map(block => ({
+        type: 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'),
+        hasContent: Boolean(block.content),
+        contentLength: block.content?.length || 0
+      }))
+      console.error('Block summary:', JSON.stringify(blockSummary, null, 2))
+      return 'No content could be extracted from document. Check server logs for details.'
     }
 
     return markdown
