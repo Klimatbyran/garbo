@@ -42,9 +42,24 @@ export async function extractJsonFromPdf(
   }
 
   const body = await response.json()
-  console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
+  
+  // Validate basic response structure
+  if (!body?.return_dict?.result?.blocks) {
+    console.error('Invalid response structure:', JSON.stringify(body, null, 2))
+    throw new Error('NLM Ingestor returned invalid response structure')
+  }
 
-  // Enhanced debugging
+  // Check for empty document
+  const hasContent = body.return_dict.result.blocks.some(block => 
+    block.content && block.content.trim().length > 0
+  )
+
+  if (!hasContent) {
+    console.error('Document contains only empty blocks')
+    console.error('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
+    throw new Error('Document appears to be empty or could not be parsed properly')
+  }
+
   console.log('\n=== Detailed Response Analysis ===')
   console.log('1. Response structure:')
   console.log('- Has return_dict:', 'return_dict' in body)

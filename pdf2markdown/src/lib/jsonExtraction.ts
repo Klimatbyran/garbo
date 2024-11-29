@@ -75,6 +75,28 @@ export async function jsonToMarkdown(
       return 'No content found in document'
     }
 
+    // Check if all blocks are empty
+    const hasNonEmptyBlock = blocks.some(block => {
+      if ('content' in block && block.content) {
+        return block.content.trim().length > 0
+      }
+      if ('rows' in block && block.rows) {
+        return block.rows.length > 0
+      }
+      return false
+    })
+
+    if (!hasNonEmptyBlock) {
+      console.error('All blocks are empty')
+      console.error('Block details:', blocks.map(block => ({
+        type: 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'),
+        hasContent: Boolean(block.content),
+        contentLength: block.content?.length || 0,
+        hasRows: 'rows' in block ? Boolean(block.rows?.length) : 'N/A'
+      })))
+      return 'Document contains only empty blocks. The PDF may be corrupted or protected.'
+    }
+
     console.log('\n=== Processing Blocks ===')
     console.log(`Total blocks: ${blocks.length}`)
     blocks.forEach((block, index) => {
