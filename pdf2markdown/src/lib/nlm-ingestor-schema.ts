@@ -8,26 +8,26 @@ export const CellSchema = z.object({
 })
 
 export const ParagraphSchema = z.object({
-  content: z.string(),
+  content: z.string().optional(),
   bbox: z.array(z.number()),
 })
 
 export const HeaderSchema = z.object({
-  content: z.string(),
+  content: z.string().optional(),
   bbox: z.array(z.number()),
   level: z.number(),
 })
 
 export const ListItemSchema = z.object({
-  content: z.string(),
+  content: z.string().optional(),
   bbox: z.array(z.number()),
   level: z.number(),
 })
 
 export const TableSchema = z.object({
-  content: z.string(),
+  content: z.string().optional(),
   bbox: z.array(z.number()),
-  rows: z.array(z.any()),
+  rows: z.array(z.any()).optional(),
   level: z.number(),
 })
 

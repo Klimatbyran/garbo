@@ -40,17 +40,24 @@ export async function extractJsonFromPdf(
   const body = await response.json()
   console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
   
-  // Add detailed schema validation debugging
+  // Add more detailed response inspection
+  console.log('Response structure analysis:')
+  console.log('- Has return_dict:', 'return_dict' in body)
+  if (body.return_dict) {
+    console.log('- Return dict keys:', Object.keys(body.return_dict))
+    if (body.return_dict.result) {
+      console.log('- Result keys:', Object.keys(body.return_dict.result))
+      if (Array.isArray(body.return_dict.result.blocks)) {
+        console.log('- Number of blocks:', body.return_dict.result.blocks.length)
+        console.log('- First block sample:', JSON.stringify(body.return_dict.result.blocks[0], null, 2))
+      }
+    }
+  }
+  
   const result = ParsedDocumentSchema.safeParse(body)
   if (!result.success) {
-    console.error('Schema validation failed. Response structure:', {
-      hasReturnDict: 'return_dict' in body,
-      returnDictKeys: body.return_dict ? Object.keys(body.return_dict) : [],
-      resultKeys: body.return_dict?.result ? Object.keys(body.return_dict.result) : [],
-      blocks: body.return_dict?.result?.blocks,
-    })
-    console.error('Validation errors:', result.error.errors)
-    throw new Error('Invalid response format from NLM Ingestor: ' + JSON.stringify(result.error.errors))
+    console.error('Schema validation failed:', result.error.format())
+    throw new Error('Invalid response format from NLM Ingestor')
   }
   
   return result.data
