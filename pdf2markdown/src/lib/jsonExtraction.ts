@@ -1,4 +1,4 @@
-import { Block, ParsedDocument, Table } from './nlm-ingestor-schema'
+import { Block, ParsedDocument, Table, ParsedDocumentSchema } from './nlm-ingestor-schema'
 import { fromBuffer } from 'pdf2pic'
 import { openai } from './openai'
 
