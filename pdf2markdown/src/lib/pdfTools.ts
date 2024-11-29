@@ -39,7 +39,15 @@ export async function extractJsonFromPdf(
 
   const body = await response.json()
   console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
-  return body
+  
+  // Validate response against schema
+  const result = ParsedDocumentSchema.safeParse(body)
+  if (!result.success) {
+    console.error('Schema validation failed:', result.error)
+    throw new Error('Invalid response format from NLM Ingestor')
+  }
+  
+  return result.data
 }
 
 type Page = {

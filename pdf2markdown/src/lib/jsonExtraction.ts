@@ -65,14 +65,17 @@ export async function jsonToMarkdown(
   json: ParsedDocument,
   pdf: Buffer
 ): Promise<string> {
-  console.log('Processing document with blocks:', JSON.stringify(json.return_dict.result.blocks, null, 2))
-  
-  if (!json.return_dict.result.blocks || json.return_dict.result.blocks.length === 0) {
-    console.error('No blocks found in document')
-    return 'No content found in document'
-  }
-  
-  const blocks = json.return_dict.result.blocks
+  try {
+    // Validate input
+    const result = ParsedDocumentSchema.parse(json)
+    const blocks = result.return_dict.result.blocks
+    
+    if (!blocks || blocks.length === 0) {
+      console.error('No blocks found in document')
+      return 'No content found in document'
+    }
+
+    console.log(`Processing ${blocks.length} blocks:`, JSON.stringify(blocks, null, 2))
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
   const markdownBlocks = await Promise.all(
@@ -119,9 +122,18 @@ export async function jsonToMarkdown(
     })
   )
 
-  const markdown = (await Promise.all(markdownBlocks))
-    .filter(block => block !== null && block !== '')
-    .join('\n\n')
+    const markdown = (await Promise.all(markdownBlocks))
+      .filter(block => block !== null && block !== '')
+      .join('\n\n')
 
-  return markdown
+    if (!markdown.trim()) {
+      console.error('No content was extracted from blocks')
+      return 'No content could be extracted from document'
+    }
+
+    return markdown
+  } catch (error) {
+    console.error('Error processing document:', error)
+    throw new Error(`Failed to process document: ${error.message}`)
+  }
 }
