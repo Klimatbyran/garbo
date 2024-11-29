@@ -1,7 +1,11 @@
 import { fromBuffer } from 'pdf2pic'
 import path from 'path'
-import { ParsedDocument, ParsedDocumentSchema } from './nlm-ingestor-schema'
-import { jsonToTables, Table } from './jsonExtraction'
+import {
+  ParsedDocument,
+  ParsedDocumentSchema,
+  Table,
+} from './nlm-ingestor-schema'
+import { jsonToTables } from './jsonExtraction'
 import { writeFile } from 'fs/promises'
 
 const NLM_INGESTOR_URL = 'http://localhost:5001'
@@ -39,7 +43,7 @@ export async function extractJsonFromPdf(
 
   const body = await response.json()
   console.log('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
-  
+
   // Enhanced debugging
   console.log('\n=== Detailed Response Analysis ===')
   console.log('1. Response structure:')
@@ -53,7 +57,14 @@ export async function extractJsonFromPdf(
         console.log('- Total blocks:', body.return_dict.result.blocks.length)
         body.return_dict.result.blocks.forEach((block, index) => {
           console.log(`\nBlock ${index}:`)
-          console.log('- Type:', 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'))
+          console.log(
+            '- Type:',
+            'rows' in block
+              ? 'Table'
+              : 'level' in block
+              ? 'Header'
+              : 'Paragraph'
+          )
           console.log('- Has content:', 'content' in block)
           console.log('- Content type:', typeof block.content)
           console.log('- Content preview:', block.content?.substring(0, 100))
@@ -62,13 +73,13 @@ export async function extractJsonFromPdf(
       }
     }
   }
-  
+
   const result = ParsedDocumentSchema.safeParse(body)
   if (!result.success) {
     console.error('Schema validation failed:', result.error.format())
     throw new Error('Invalid response format from NLM Ingestor')
   }
-  
+
   return result.data
 }
 
