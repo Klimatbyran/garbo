@@ -55,10 +55,56 @@ export async function extractTextViaVisionAPI(
   return result.choices[0].message.content
 }
 
+function parseTableBlock(block: Table): string {
+  if (!block.rows || block.rows.length === 0) {
+    return ''
+  }
+
+  // Convert table rows to markdown
+  const rows = block.rows.map(row => {
+    return row.map(cell => cell.content || '').join(' | ')
+  })
+
+  // Add header separator after first row
+  if (rows.length > 0) {
+    const headerSeparator = Array(rows[0].split('|').length).fill('---').join(' | ')
+    rows.splice(1, 0, headerSeparator)
+  }
+
+  return rows.join('\n')
+}
+
+function parseHeaderBlock(block: Header): string {
+  if (!block.content) return ''
+  const level = Math.max(1, Math.min(6, block.level + 1)) // Ensure level is between 1-6
+  return `${'#'.repeat(level)} ${block.content.trim()}`
+}
+
+function parseParagraphBlock(block: Paragraph): string {
+  return block.content ? block.content.trim() : ''
+}
+
+function parseListItemBlock(block: ListItem): string {
+  if (!block.content) return ''
+  const indent = '  '.repeat(Math.max(0, block.level - 1))
+  return `${indent}- ${block.content.trim()}`
+}
+
 export function jsonToTables(json: ParsedDocument): Table[] {
   return json.return_dict.result.blocks.filter(
     (block): block is Table => 'rows' in block
   )
+}
+
+function parseBlock(block: Block): string {
+  if ('rows' in block) {
+    return parseTableBlock(block)
+  } else if ('level' in block && 'content' in block) {
+    return parseHeaderBlock(block as Header)
+  } else if ('content' in block) {
+    return parseParagraphBlock(block as Paragraph)
+  }
+  return ''
 }
 
 export async function jsonToMarkdown(
@@ -114,10 +160,21 @@ export async function jsonToMarkdown(
 
   const markdownBlocks = await Promise.all(
     blocks.map(async (block: Block) => {
+      console.log(`Processing block of type: ${
+        'rows' in block ? 'Table' : 
+        'level' in block ? 'Header' : 
+        'Paragraph'
+      }`)
+
       if ('rows' in block) {
-        // For tables, convert the page to image and use Vision API
+        // For tables, try direct parsing first
+        const tableMarkdown = parseTableBlock(block)
+        if (tableMarkdown && tableMarkdown.trim()) {
+          return tableMarkdown
+        }
+
+        // If direct parsing yields no content, fall back to Vision API
         const pageNumber = block.page_idx + 1
-        // Convert page to image
         const pdfConverter = fromBuffer(pdf, {
           density: 600,
           format: 'png',
@@ -133,26 +190,20 @@ export async function jsonToMarkdown(
           throw new Error(`Failed to convert page ${pageNumber} to image`)
         }
 
-        // Extract table text using Vision API
-        const markdown = await extractTextViaVisionAPI(
+        return extractTextViaVisionAPI(
           { buffer: result.buffer },
-          block.content
+          block.content || ''
         )
-        return markdown
-      } else if ('level' in block) {
-        console.log('Processing header block:', block)
-        if (typeof block.content === 'string' && block.content.trim()) {
-          const level = Math.max(1, Math.min(6, block.level + 1)) // Ensure level is between 1-6
-          const prefix = '#'.repeat(level)
-          return `${prefix} ${block.content.trim()}`
-        }
-      } else if (block.content) {
-        console.log('Processing content block:', block)
-        return block.content.trim()
-      } else {
-        console.log('Skipping empty block:', block)
-        return null
       }
+
+      // For non-table blocks, use appropriate parser
+      const parsedContent = parseBlock(block)
+      if (parsedContent) {
+        return parsedContent
+      }
+
+      console.log('Skipping empty block:', block)
+      return null
     })
   )
 
