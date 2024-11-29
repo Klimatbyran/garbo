@@ -66,6 +66,12 @@ export async function jsonToMarkdown(
   pdf: Buffer
 ): Promise<string> {
   console.log('Processing document with blocks:', JSON.stringify(json.return_dict.result.blocks, null, 2))
+  
+  if (!json.return_dict.result.blocks || json.return_dict.result.blocks.length === 0) {
+    console.error('No blocks found in document')
+    return 'No content found in document'
+  }
+  
   const blocks = json.return_dict.result.blocks
   const [pageWidth, pageHeight] = json.return_dict.page_dim
 
@@ -96,18 +102,26 @@ export async function jsonToMarkdown(
           block.content
         )
         return markdown
-      } else if ('level' in block && block.content) {
-        const prefix = '#'.repeat(block.level + 1)  // Add 1 to avoid level 0 headers
-        return `${prefix} ${block.content}`
+      } else if ('level' in block) {
+        console.log('Processing header block:', block)
+        if (typeof block.content === 'string' && block.content.trim()) {
+          const level = Math.max(1, Math.min(6, block.level + 1)) // Ensure level is between 1-6
+          const prefix = '#'.repeat(level)
+          return `${prefix} ${block.content.trim()}`
+        }
       } else if (block.content) {
-        return block.content
+        console.log('Processing content block:', block)
+        return block.content.trim()
       } else {
-        return '' // Return empty string instead of undefined content
+        console.log('Skipping empty block:', block)
+        return null
       }
     })
   )
 
-  const markdown = markdownBlocks.join('\n\n')
+  const markdown = (await Promise.all(markdownBlocks))
+    .filter(block => block !== null && block !== '')
+    .join('\n\n')
 
   return markdown
 }
