@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.4.2 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:3.4.6 # {"$imagepolicy": "flux-system:garbo"}
           resources:
             requests:
               memory: '16Gi'
