@@ -15,7 +15,11 @@ spec:
     spec:
       containers:
         - image: ghcr.io/klimatbyran/garbo:3.4.6 # {"$imagepolicy": "flux-system:garbo"}
-          resources: {}
+          resources:
+            requests:
+              memory: '16Gi'
+            limits:
+              memory: '16Gi'
           command: ['npm', 'run', 'workers']
           name: worker
           ports:
