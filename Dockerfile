@@ -1,7 +1,9 @@
-FROM node:alpine
+FROM alpine:edge
 
 RUN apk update
 RUN apk add --no-cache \
+    nodejs=22.11.0-r0 \
+    npm=10.9.1-r0 \
     chromium \
     nss \
     freetype \
