@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     giflib-dev \
     libjpeg-turbo-dev \
     ghostscript \
-    graphicsmagick
+    graphicsmagick=1.3.45-r0
 
 COPY package*.json /app/
 COPY prisma /app/
