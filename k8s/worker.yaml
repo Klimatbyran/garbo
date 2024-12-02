@@ -14,7 +14,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.3.11 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo:3.4.2 # {"$imagepolicy": "flux-system:garbo"}
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker
