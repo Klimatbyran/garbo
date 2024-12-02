@@ -98,50 +98,54 @@ export async function extractTablesFromJson(
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[]
-): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
-  const pdfConverter = (height: number, width: number) => {
-    return fromBuffer(pdf, {
-      density: 600,
-      format: 'png',
-      width,
-      height,
-      preserveAspectRatio: true,
-    })
-  }
-
+): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
   )
+  if (!pages.length) return { pages: [] }
+
+  const width = pages[0].pageWidth * 2
+  const height = pages[0].pageHeight * 2
+
+  const pdfConverter = fromBuffer(pdf, {
+    density: 600,
+    width,
+    height,
+    format: 'png',
+    preserveAspectRatio: true,
+  })
+
   const reportId = crypto.randomUUID()
-  const filenames = await Promise.all(
-    pages.map(async ({ pageIndex, pageHeight, pageWidth }) => {
-      const pageNumber = pageIndex + 1
-      const pageScreenshotPath = path.join(
-        outputDir,
-        `${reportId}-page-${pageNumber}.png`
+  const filenames: { pageNumber: number; filename: string }[] = []
+
+  for (const { pageIndex } of pages) {
+    const pageNumber = pageIndex + 1
+    const pageScreenshotPath = path.join(
+      outputDir,
+      `${reportId}-page-${pageNumber}.png`
+    )
+    const result = await pdfConverter(pageNumber, { responseType: 'buffer' })
+
+    if (!result.buffer) {
+      throw new Error(
+        `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
+          JSON.stringify(result, null, 2)
       )
-      const convert = pdfConverter(pageHeight * 2, pageWidth * 2)
-      const result = await convert(pageNumber, { responseType: 'buffer' })
+    }
 
-      if (!result.buffer) {
-        throw new Error(
-          `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
-            JSON.stringify(result, null, 2)
-        )
-      }
+    await writeFile(pageScreenshotPath, result.buffer)
 
-      await writeFile(pageScreenshotPath, result.buffer)
-      return { pageIndex, filename: pageScreenshotPath }
+    filenames.push({ pageNumber, filename: pageScreenshotPath })
 
-      /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
+    /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
              När den är fixad kan denna användas istället för att beskära hela sidan. */
-      /* TODO: fixa boundingbox för tabeller
+    /* TODO: fixa boundingbox för tabeller
           const { x, y, width, height } = calculateBoundingBoxForTable(
             table,
             pageWidth,
             pageHeight
           )*/
-    })
-  )
+  }
+
   return { pages: filenames }
 }
