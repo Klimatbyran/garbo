@@ -24,9 +24,42 @@ export class JobData extends DiscordJob {
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 
+function formatAsReportingPeriods(
+  entries: { year: number }[],
+  fiscalYear: { startMonth: number; endMonth: number },
+  category: 'emissions' | 'economy'
+) {
+  return entries.map(({ year, ...data }) => {
+    const [startDate, endDate] = getReportingPeriodDates(
+      year,
+      fiscalYear.startMonth,
+      fiscalYear.endMonth
+    )
+    return {
+      startDate,
+      endDate,
+      [category]:
+        category === 'economy'
+          ? (data as { economy: any }).economy
+          : {
+              ...data,
+            },
+    }
+  })
+}
+
 const askDiff = async (
   existingCompany,
-  { scope12, scope3, biogenic, industry, economy, goals, initiatives }
+  {
+    scope12,
+    scope3,
+    biogenic,
+    industry,
+    economy,
+    goals,
+    initiatives,
+    fiscalYear,
+  }
 ) => {
   if (
     (scope12 || scope3 || biogenic) &&
@@ -38,7 +71,7 @@ const askDiff = async (
   if (initiatives && !existingCompany.initiatives) return ''
   if (industry && !existingCompany.industry) return ''
 
-  const after = {
+  const updated = {
     scope12,
     scope3,
     biogenic,
@@ -48,13 +81,93 @@ const askDiff = async (
     initiatives,
   }
 
-  // only keep the fields from before that are in after
-  const before = Object.keys(after).reduce((before, key) => {
-    if (after[key]) {
-      before[key] = existingCompany[key]
-    }
-    return before
-  }, {})
+  /**
+   * Normalise company data to allow comparing with the same structure
+   */
+  const getCompanyBeforeAfter = () =>
+    Object.keys(updated).reduce(
+      ([before, after], key) => {
+        // Only keep the updated fields
+        if (updated[key]) {
+          if (key === 'economy') {
+            after['reportingPeriods'] = formatAsReportingPeriods(
+              updated.economy,
+              fiscalYear,
+              'economy'
+            )
+            // only keep relevant properties for each reportingPeriod
+            before['reportingPeriods'] = (
+              existingCompany.reportingPeriods ?? []
+            ).map(({ startDate, endDate, economy }) => ({
+              startDate,
+              endDate,
+              economy,
+            }))
+          } else if (key === 'scope12') {
+            after['reportingPeriods'] = formatAsReportingPeriods(
+              updated.scope12,
+              fiscalYear,
+              'emissions'
+            )
+            // only keep relevant properties for each reportingPeriod
+            before['reportingPeriods'] = (
+              existingCompany.reportingPeriods ?? []
+            ).map(({ startDate, endDate, emissions }) => ({
+              startDate,
+              endDate,
+              emissions: emissions
+                ? {
+                    scope1: emissions.scope1,
+                    scope2: emissions.scope2,
+                  }
+                : null,
+            }))
+          } else if (key === 'scope3') {
+            after['reportingPeriods'] = formatAsReportingPeriods(
+              updated.scope3,
+              fiscalYear,
+              'emissions'
+            )
+            // only keep relevant properties for each reportingPeriod
+            before['reportingPeriods'] = (
+              existingCompany.reportingPeriods ?? []
+            ).map(({ startDate, endDate, emissions }) => ({
+              startDate,
+              endDate,
+              emissions: emissions
+                ? {
+                    scope3: emissions.scope3,
+                  }
+                : null,
+            }))
+          } else if (key === 'biogenic') {
+            after['reportingPeriods'] = formatAsReportingPeriods(
+              updated.biogenic,
+              fiscalYear,
+              'emissions'
+            )
+            // only keep relevant properties for each reportingPeriod
+            before['reportingPeriods'] = (
+              existingCompany.reportingPeriods ?? []
+            ).map(({ startDate, endDate, emissions }) => ({
+              startDate,
+              endDate,
+              emissions: emissions
+                ? {
+                    biogenic: emissions.biogenic,
+                  }
+                : null,
+            }))
+          } else {
+            before[key] = existingCompany[key]
+          }
+        }
+        return [before, after]
+      },
+      [{}, {}]
+    )
+
+  const [before, after] = getCompanyBeforeAfter()
 
   // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
@@ -111,6 +224,7 @@ const saveToAPI = new DiscordWorker<JobData>(
           goals,
           initiatives,
           economy,
+          fiscalYear,
         })
       : ''
 
