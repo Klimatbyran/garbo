@@ -28,7 +28,7 @@ export const schema = z.object({
 
 export const prompt = `
 *** Turnover ***
-- Extract turnover as a numerical value. - Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
+- Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
   Be as accurate as possible. Extract this data for all available years.
 - Convert units like "MSEK," "KSEK," "KEUR," etc., into the base numerical value in the local currency.  
   Example:  
