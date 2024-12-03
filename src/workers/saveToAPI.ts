@@ -87,14 +87,9 @@ const askDiff = async (
   const getCompanyBeforeAfter = () =>
     Object.keys(updated).reduce(
       ([before, after], key) => {
-        // Only keep the updated fields
-        if (updated[key]) {
+        // Only keep the updated data, and only if there are meaningful changes in array fields
+        if (Array.isArray(updated[key]) ? updated[key].length : updated[key]) {
           if (key === 'economy') {
-            after['reportingPeriods'] = formatAsReportingPeriods(
-              updated.economy,
-              fiscalYear,
-              'economy'
-            )
             // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
@@ -103,12 +98,12 @@ const askDiff = async (
               endDate,
               economy,
             }))
-          } else if (key === 'scope12') {
             after['reportingPeriods'] = formatAsReportingPeriods(
-              updated.scope12,
+              updated.economy,
               fiscalYear,
-              'emissions'
+              'economy'
             )
+          } else if (key === 'scope12') {
             // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
@@ -122,12 +117,12 @@ const askDiff = async (
                   }
                 : null,
             }))
-          } else if (key === 'scope3') {
             after['reportingPeriods'] = formatAsReportingPeriods(
-              updated.scope3,
+              updated.scope12,
               fiscalYear,
               'emissions'
             )
+          } else if (key === 'scope3') {
             // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
@@ -140,12 +135,12 @@ const askDiff = async (
                   }
                 : null,
             }))
-          } else if (key === 'biogenic') {
             after['reportingPeriods'] = formatAsReportingPeriods(
-              updated.biogenic,
+              updated.scope3,
               fiscalYear,
               'emissions'
             )
+          } else if (key === 'biogenic') {
             // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
@@ -158,8 +153,14 @@ const askDiff = async (
                   }
                 : null,
             }))
-          } else {
+            after['reportingPeriods'] = formatAsReportingPeriods(
+              updated.biogenic,
+              fiscalYear,
+              'emissions'
+            )
+          } else if (['initiatives', 'goals', 'industry'].includes(key)) {
             before[key] = existingCompany[key]
+            after[key] = updated[key]
           }
         }
         return [before, after]
