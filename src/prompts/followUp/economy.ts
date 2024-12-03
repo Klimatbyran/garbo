@@ -32,7 +32,7 @@ export const prompt = `
   Be as accurate as possible. Extract this data for all available years.
 - Convert units like "MSEK", "kSEK", "kEUR" etc. into the base numerical value in the local currency.
   Example:  
-  - 250 MSEK → 250,000,000 SEK  
+  - 250 MSEK → 250000000 SEK
   - 4.2 KEUR → 4,200 EUR
 - Specify the **currency** as a separate field (e.g., SEK, USD, EUR).
 *** Employees: ***
