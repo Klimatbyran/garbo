@@ -33,7 +33,7 @@ export const prompt = `
 - Convert units like "MSEK", "kSEK", "kEUR" etc. into the base numerical value in the local currency.
   Example:  
   - 250 MSEK → 250000000 SEK
-  - 4.2 KEUR → 4,200 EUR
+  - 4.2 KEUR → 4200 EUR
 - Specify the **currency** as a separate field (e.g., SEK, USD, EUR).
 *** Employees: ***
 - Extract the number of employees for all available years. The unit can be for example "FTE" (full-time equivalent) or average number of employees during the year.
