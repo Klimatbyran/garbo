@@ -1,3 +1,4 @@
+import { CHUNK_SIZE } from '../config'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
 
@@ -10,16 +11,16 @@ const indexMarkdown = new DiscordWorker(
     const childrenValues = await job.getChildrenEntries()
     const { markdown }: { markdown: string } = childrenValues
 
-    const paragraphs = markdown
-      .split('\n##')
-      .map((p) => p.trim())
-      .filter((p) => p.length > 0)
-
     await job.sendMessage(`🤖 Sparar i vektordatabas...`)
-    job.log('Indexing ' + paragraphs.length + ' paragraphs from url: ' + url)
+    job.log(
+      'Indexing ' +
+        Math.ceil(markdown.length / CHUNK_SIZE) +
+        ' chunks from url: ' +
+        url
+    )
 
     try {
-      await vectorDB.addReport(url, paragraphs)
+      await vectorDB.addReport(url, markdown)
       job.editMessage(`✅ Sparad i vektordatabasen`)
       job.log('Done!')
 
