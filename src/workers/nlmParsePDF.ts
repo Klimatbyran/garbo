@@ -58,6 +58,8 @@ const nlmParsePDF = new DiscordWorker(
         const base = {
           data: {
             ...job.data,
+            // Explicitly remove parsed json since we don't need it in later steps.
+            json: undefined,
           },
         }
 
@@ -66,9 +68,6 @@ const nlmParsePDF = new DiscordWorker(
 
         const precheck = await flow.add({
           ...base,
-          data: {
-            ...base.data,
-          },
           name: 'precheck ' + name,
           queueName: 'precheck',
           children: [
@@ -81,6 +80,7 @@ const nlmParsePDF = new DiscordWorker(
                   ...base,
                   data: {
                     ...base.data,
+                    // Pass json explicitly where we need it
                     json,
                   },
                   name: 'extractTables ' + name,
