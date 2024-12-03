@@ -265,6 +265,7 @@ const saveToAPI = new DiscordWorker<JobData>(
               economy,
               metadata,
             }
+
             return await apiFetch(`/companies/${wikidataId}/${year}/economy`, {
               body,
             })
