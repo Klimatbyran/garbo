@@ -44,30 +44,36 @@ const extractEmissions = new DiscordWorker<JobData>(
             type: JobType.IndustryGics,
           },
         },
-        {
-          ...base,
-          name: 'scope1+2 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope12,
-          },
-        },
-        {
-          ...base,
-          name: 'scope3 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope3,
-          },
-        },
-        {
-          ...base,
-          name: 'biogenic ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Biogenic,
-          },
-        },
+        scope12
+          ? {
+              name: 'saveScope12 ' + companyName,
+              queueName: 'saveScope12',
+              data: {
+                ...base.data,
+                scope12,
+              },
+            }
+          : null,
+        scope3
+          ? {
+              name: 'saveScope3 ' + companyName,
+              queueName: 'saveScope3',
+              data: {
+                ...base.data,
+                scope3,
+              },
+            }
+          : null,
+        biogenic
+          ? {
+              name: 'saveBiogenic ' + companyName,
+              queueName: 'saveBiogenic',
+              data: {
+                ...base.data,
+                biogenic,
+              },
+            }
+          : null,
         {
           ...base,
           name: 'economy ' + companyName,
