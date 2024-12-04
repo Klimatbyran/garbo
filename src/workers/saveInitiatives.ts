@@ -28,7 +28,7 @@ const saveInitiatives = new DiscordWorker<JobData>(
         method: 'POST',
       })
     }
-    
+
     return null
   },
   {

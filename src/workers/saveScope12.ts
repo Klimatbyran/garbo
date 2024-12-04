@@ -16,53 +16,56 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveScope12 = new DiscordWorker<JobData>(
-  'saveScope12',
-  async (job) => {
-    const { url, fiscalYear, wikidata, scope12 = [] } = job.data
-    const wikidataId = wikidata.node
-    const metadata = defaultMetadata(url)
+const saveScope12 = new DiscordWorker<JobData>('saveScope12', async (job) => {
+  const { url, fiscalYear, wikidata, scope12 = [] } = job.data
+  const wikidataId = wikidata.node
+  const metadata = defaultMetadata(url)
 
-    if (scope12?.length) {
-      const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(() => null)
-      const diff = await askDiff(existingCompany, { scope12, fiscalYear })
-      
-      if (diff && !diff.includes('NO_CHANGES')) {
-        const buttonRow = discord.createButtonRow(job.id!)
-        await job.sendMessage({
-          content: `# ${job.data.companyName}: scope 1+2 emissions\n${diff}`.slice(0, 2000),
-          components: [buttonRow],
-        })
-        return await job.moveToDelayed(Date.now() + ONE_DAY)
-      }
+  if (scope12?.length) {
+    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+      () => null
+    )
+    const diff = await askDiff(existingCompany, { scope12, fiscalYear })
 
-      job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
-      return Promise.all(
-        scope12.map(async ({ year, scope1, scope2 }) => {
-          const [startDate, endDate] = getReportingPeriodDates(
-            year,
-            fiscalYear.startMonth,
-            fiscalYear.endMonth
-          )
-          job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-          job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
-          const body = {
-            startDate,
-            endDate,
-            emissions: {
-              scope1,
-              scope2,
-            },
-            metadata,
-          }
-          return await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-            body,
-          })
-        })
-      )
+    if (diff && !diff.includes('NO_CHANGES')) {
+      const buttonRow = discord.createButtonRow(job.id!)
+      await job.sendMessage({
+        content:
+          `# ${job.data.companyName}: scope 1+2 emissions\n${diff}`.slice(
+            0,
+            2000
+          ),
+        components: [buttonRow],
+      })
+      return await job.moveToDelayed(Date.now() + ONE_DAY)
     }
-    return null
+
+    job.editMessage(`🤖 Sparar utsläppsdata scope 1+2...`)
+    return Promise.all(
+      scope12.map(async ({ year, scope1, scope2 }) => {
+        const [startDate, endDate] = getReportingPeriodDates(
+          year,
+          fiscalYear.startMonth,
+          fiscalYear.endMonth
+        )
+        job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
+        job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
+        const body = {
+          startDate,
+          endDate,
+          emissions: {
+            scope1,
+            scope2,
+          },
+          metadata,
+        }
+        return await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+          body,
+        })
+      })
+    )
   }
-)
+  return null
+})
 
 export default saveScope12

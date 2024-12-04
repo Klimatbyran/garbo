@@ -24,7 +24,6 @@ export class JobData extends DiscordJob {
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 
-
 const saveToAPI = new DiscordWorker<JobData>(
   'saveToAPI',
   async (job) => {
@@ -49,7 +48,6 @@ const saveToAPI = new DiscordWorker<JobData>(
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
-
 
     // Queue the appropriate specialized worker based on the data
     if (scope12?.length || scope3?.length || biogenic?.length) {

@@ -28,7 +28,7 @@ const saveGoals = new DiscordWorker<JobData>(
         method: 'POST',
       })
     }
-    
+
     return null
   },
   {

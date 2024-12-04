@@ -16,52 +16,54 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveBiogenic = new DiscordWorker<JobData>(
-  'saveBiogenic',
-  async (job) => {
-    const { url, fiscalYear, wikidata, biogenic = [] } = job.data
-    const wikidataId = wikidata.node
-    const metadata = defaultMetadata(url)
+const saveBiogenic = new DiscordWorker<JobData>('saveBiogenic', async (job) => {
+  const { url, fiscalYear, wikidata, biogenic = [] } = job.data
+  const wikidataId = wikidata.node
+  const metadata = defaultMetadata(url)
 
-    if (biogenic?.length) {
-      const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(() => null)
-      const diff = await askDiff(existingCompany, { biogenic, fiscalYear })
-      
-      if (diff && !diff.includes('NO_CHANGES')) {
-        const buttonRow = discord.createButtonRow(job.id!)
-        await job.sendMessage({
-          content: `# ${job.data.companyName}: biogenic emissions\n${diff}`.slice(0, 2000),
-          components: [buttonRow],
-        })
-        return await job.moveToDelayed(Date.now() + ONE_DAY)
-      }
+  if (biogenic?.length) {
+    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+      () => null
+    )
+    const diff = await askDiff(existingCompany, { biogenic, fiscalYear })
 
-      job.editMessage(`🤖 Sparar biogeniska utsläpp...`)
-      return Promise.all(
-        biogenic.map(async ({ year, biogenic }) => {
-          const [startDate, endDate] = getReportingPeriodDates(
-            year,
-            fiscalYear.startMonth,
-            fiscalYear.endMonth
-          )
-          job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
-          job.log(`Saving biogenic for ${year}`)
-          const body = {
-            startDate,
-            endDate,
-            emissions: {
-              biogenic,
-            },
-            metadata,
-          }
-          return await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-            body,
-          })
-        })
-      )
+    if (diff && !diff.includes('NO_CHANGES')) {
+      const buttonRow = discord.createButtonRow(job.id!)
+      await job.sendMessage({
+        content: `# ${job.data.companyName}: biogenic emissions\n${diff}`.slice(
+          0,
+          2000
+        ),
+        components: [buttonRow],
+      })
+      return await job.moveToDelayed(Date.now() + ONE_DAY)
     }
-    return null
+
+    job.editMessage(`🤖 Sparar biogeniska utsläpp...`)
+    return Promise.all(
+      biogenic.map(async ({ year, biogenic }) => {
+        const [startDate, endDate] = getReportingPeriodDates(
+          year,
+          fiscalYear.startMonth,
+          fiscalYear.endMonth
+        )
+        job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
+        job.log(`Saving biogenic for ${year}`)
+        const body = {
+          startDate,
+          endDate,
+          emissions: {
+            biogenic,
+          },
+          metadata,
+        }
+        return await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
+          body,
+        })
+      })
+    )
   }
-)
+  return null
+})
 
 export default saveBiogenic

@@ -13,7 +13,7 @@ const sendCompanyLink = new DiscordWorker<JobData>(
   async (job) => {
     const { companyName, wikidata } = job.data
     const wikidataId = wikidata.node
-    
+
     // Create URL-safe company name
     const urlSafeCompanyName = companyName
       .toLowerCase()
@@ -24,9 +24,9 @@ const sendCompanyLink = new DiscordWorker<JobData>(
       .replace(/^-|-$/g, '')
 
     const url = `http://beta.klimatkollen.se/companies/${wikidataId}-${urlSafeCompanyName}`
-    
+
     await job.sendMessage(`✅ Företaget har sparats! Se resultatet här: ${url}`)
-    
+
     return { url }
   },
   {

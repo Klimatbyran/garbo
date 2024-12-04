@@ -44,7 +44,7 @@ const saveEconomy = new DiscordWorker<JobData>(
         })
       )
     }
-    
+
     return null
   },
   {
