@@ -1,20 +1,15 @@
-import { Job, Worker } from 'bullmq'
-import { DiscordJob } from '../lib/DiscordWorker'
-import discord from '../discord'
+import { Job } from 'bullmq'
+import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
-export interface SaveToApiJob extends Job {
-  data: {
+export interface SaveToApiJob extends DiscordJob {
+  data: DiscordJob['data'] & {
     wikidataId: string
     approved?: boolean
-    url?: string
-    threadId?: string
-    channelId?: string
-    messageId?: string
     requiresApproval?: boolean
   }
 }
 
-export const saveToAPI = new Worker(
+export const saveToAPI = new DiscordWorker<SaveToApiJob>(
   'api-save',
   async (job: SaveToApiJob) => {
     try {
@@ -28,13 +23,11 @@ export const saveToAPI = new Worker(
       }
 
       // If approval is required and not yet approved, send approval request
-      if (messageId && channelId) {
-        const buttonRow = discord.createButtonRow(job.id)
-        await discord.sendMessageToChannel(channelId, {
-          content: `New changes need approval for ${wikidataId}`,
-          components: [buttonRow]
-        })
-      }
+      const buttonRow = job.createButtonRow()
+      await job.sendMessage({
+        content: `New changes need approval for ${wikidataId}`,
+        components: [buttonRow]
+      })
 
       return { awaitingApproval: true }
     } catch (error) {
