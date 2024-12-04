@@ -30,9 +30,6 @@ const saveInitiatives = new DiscordWorker<JobData>(
 
     return null
   },
-  {
-    connection: redis,
-  }
 )
 
 export default saveInitiatives
