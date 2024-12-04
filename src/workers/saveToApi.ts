@@ -14,7 +14,13 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
   'api-save',
   async (job: SaveToApiJob) => {
     try {
-      const { wikidataId, approved, requiresApproval = true, messageId, channelId } = job.data
+      const {
+        wikidataId,
+        approved,
+        requiresApproval = true,
+        messageId,
+        channelId,
+      } = job.data
 
       // If approval is not required or already approved, proceed with saving
       if (!requiresApproval || approved) {
@@ -24,10 +30,10 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       // If approval is required and not yet approved, send approval request
-      const buttonRow = discord.createButtonRow(job.id)
+      const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
         content: `New changes need approval for ${wikidataId}`,
-        components: [buttonRow]
+        components: [buttonRow],
       })
 
       return { awaitingApproval: true }
