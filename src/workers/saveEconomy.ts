@@ -1,7 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { apiFetch } from '../lib/api'
-import { defaultMetadata, formatAsReportingPeriods } from '../lib/saveUtils'
+import { defaultMetadata, askDiff } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
+import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -12,40 +12,45 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveEconomy = new DiscordWorker<JobData>(
-  'saveEconomy',
-  async (job) => {
-    const { url, fiscalYear, wikidata, economy = [] } = job.data
-    const wikidataId = wikidata.node
-    const metadata = defaultMetadata(url)
+const saveEconomy = new DiscordWorker<JobData>('saveEconomy', async (job) => {
+  const { url, fiscalYear, wikidata, companyName, economy = [] } = job.data
+  const wikidataId = wikidata.node
+  const metadata = defaultMetadata(url)
 
-    if (economy?.length) {
-      job.editMessage(`🤖 Sparar ekonomidata...`)
-      return Promise.all(
-        economy.map(async ({ year, economy }) => {
-          const [startDate, endDate] = getReportingPeriodDates(
-            year,
-            fiscalYear.startMonth,
-            fiscalYear.endMonth
-          )
-          job.log(`Saving economy for ${startDate}-${endDate}`)
-          job.sendMessage(`🤖 Sparar ekonomidata för ${year}...`)
-          const body = {
-            startDate,
-            endDate,
-            economy,
-            metadata,
-          }
+  if (economy?.length) {
+    const body = await Promise.all(
+      economy.map(async ({ year, economy }) => {
+        const [startDate, endDate] = getReportingPeriodDates(
+          year,
+          fiscalYear.startMonth,
+          fiscalYear.endMonth
+        )
+        return {
+          startDate,
+          endDate,
+          economy,
+          metadata,
+        }
+      })
+    )
 
-          return await apiFetch(`/companies/${wikidataId}/${year}/economy`, {
-            body,
-          })
-        })
-      )
-    }
+    const diff = await askDiff(null, { economy, fiscalYear })
+    const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-    return null
-  },
-)
+    await saveToAPI.queue.add(companyName, {
+      ...job.data,
+      data: {
+        body,
+        diff,
+        requiresApproval,
+        wikidataId,
+      },
+    })
+
+    return { body, diff, requiresApproval }
+  }
+
+  return null
+})
 
 export default saveEconomy

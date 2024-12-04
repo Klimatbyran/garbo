@@ -1,6 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { apiFetch } from '../lib/api'
-import { defaultMetadata } from '../lib/saveUtils'
+import { defaultMetadata, askDiff } from '../lib/saveUtils'
+import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -10,26 +10,34 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveInitiatives = new DiscordWorker<JobData>(
-  'saveInitiatives',
-  async (job) => {
-    const { url, wikidata, initiatives } = job.data
-    const wikidataId = wikidata.node
-    const metadata = defaultMetadata(url)
+const saveInitiatives = new DiscordWorker<JobData>('saveInitiatives', async (job) => {
+  const { url, wikidata, companyName, initiatives } = job.data
+  const wikidataId = wikidata.node
+  const metadata = defaultMetadata(url)
 
-    if (initiatives) {
-      job.editMessage(`🤖 Sparar initiativ...`)
-      return await apiFetch(`/companies/${wikidataId}/initiatives`, {
-        body: {
-          initiatives,
-          metadata,
-        },
-        method: 'POST',
-      })
+  if (initiatives) {
+    const body = {
+      initiatives,
+      metadata,
     }
 
-    return null
-  },
-)
+    const diff = await askDiff(null, { initiatives })
+    const requiresApproval = diff && !diff.includes('NO_CHANGES')
+
+    await saveToAPI.queue.add(companyName, {
+      ...job.data,
+      data: {
+        body,
+        diff,
+        requiresApproval,
+        wikidataId,
+      },
+    })
+
+    return { body, diff, requiresApproval }
+  }
+
+  return null
+})
 
 export default saveInitiatives
