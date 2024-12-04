@@ -26,9 +26,11 @@ async function addReport(url: string, markdown: string) {
   let prefix = ''
   const mergedParagraphs: string[] = []
 
+  // Combine standalone headers (titles without body) with the next paragraph that has a body.
   for (let i = 0; i < paragraphs.length; i++) {
     const current = paragraphs[i]
     const hasBody = current.split('\n').length > 1
+
     if (!hasBody) {
       prefix += (prefix ? '\n' : '') + current
     } else {
