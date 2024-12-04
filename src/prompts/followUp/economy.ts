@@ -27,6 +27,8 @@ export const schema = z.object({
 // NOTE: Maybe split this into two parts, one for turnover and another for employees, to allow re-running them separately
 
 export const prompt = `
+*** Golden Rule ***
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent if no data is provided.
 *** Turnover ***
 - Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
   Be as accurate as possible. Extract this data for all available years.
@@ -39,7 +41,9 @@ export const prompt = `
 - Extract the number of employees for all available years. The unit can be for example "FTE" (full-time equivalent) or average number of employees during the year.
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
-Example, follow the format below. Do not use markdown in the output:
+
+*** Example***
+This is only an example format; do not include this specific data in the output and do not use markdown in the output:
 {
   "economy": [
     {
