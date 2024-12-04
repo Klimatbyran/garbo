@@ -1,7 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { defaultMetadata, formatAsReportingPeriods } from '../lib/saveUtils'
-import redis from '../config/redis'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 
 export class JobData extends DiscordJob {
