@@ -1,10 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import discord from '../discord'
-import { apiFetch } from '../lib/api'
 import { defaultMetadata, askDiff } from '../lib/saveUtils'
-import discord from '../discord'
-
-const ONE_DAY = 1000 * 60 * 60 * 24
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 
 export class JobData extends DiscordJob {
@@ -22,47 +17,36 @@ const saveBiogenic = new DiscordWorker<JobData>('saveBiogenic', async (job) => {
   const metadata = defaultMetadata(url)
 
   if (biogenic?.length) {
-    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null
-    )
-    const diff = await askDiff(existingCompany, { biogenic, fiscalYear })
-
-    if (diff && !diff.includes('NO_CHANGES')) {
-      const buttonRow = discord.createButtonRow(job.id!)
-      await job.sendMessage({
-        content: `# ${job.data.companyName}: biogenic emissions\n${diff}`.slice(
-          0,
-          2000
-        ),
-        components: [buttonRow],
-      })
-      await job.moveToDelayed(Date.now() + ONE_DAY)
-      return { diff }
-    }
-
-    job.editMessage(`🤖 Sparar biogeniska utsläpp...`)
-    return Promise.all(
+    const data = await Promise.all(
       biogenic.map(async ({ year, biogenic }) => {
         const [startDate, endDate] = getReportingPeriodDates(
           year,
           fiscalYear.startMonth,
           fiscalYear.endMonth
         )
-        job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
-        job.log(`Saving biogenic for ${year}`)
-        const body = {
+        return {
           startDate,
           endDate,
           emissions: {
             biogenic,
           },
-          metadata,
+          metadata
         }
-        return await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-          body,
-        })
       })
     )
+
+    const diff = await askDiff(null, { biogenic, fiscalYear })
+    const requiresApproval = diff && !diff.includes('NO_CHANGES')
+
+    await job.queue.add('api-save', {
+      ...job.data,
+      data: data,
+      diff: diff,
+      requiresApproval,
+      wikidataId
+    })
+
+    return { data, diff }
   }
   return null
 })
