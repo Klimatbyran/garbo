@@ -30,9 +30,6 @@ const saveGoals = new DiscordWorker<JobData>(
 
     return null
   },
-  {
-    connection: redis,
-  }
 )
 
 export default saveGoals
