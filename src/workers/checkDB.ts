@@ -127,6 +127,15 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     })
   }
 
+  // Add final step to send company link
+  await flow.add({
+    ...base,
+    queueName: 'sendCompanyLink',
+    data: {
+      ...base.data,
+    }
+  })
+
   return JSON.stringify({ saved: true }, null, 2)
 })
 
