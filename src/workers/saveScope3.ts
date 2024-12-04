@@ -21,6 +21,18 @@ const saveScope3 = new DiscordWorker<JobData>(
     const metadata = defaultMetadata(url)
 
     if (scope3?.length) {
+      const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(() => null)
+      const diff = await askDiff(existingCompany, { scope3, fiscalYear })
+      
+      if (diff && !diff.includes('NO_CHANGES')) {
+        const buttonRow = discord.createButtonRow(job.id!)
+        await job.sendMessage({
+          content: `# ${job.data.companyName}: scope 3 emissions\n${diff}`.slice(0, 2000),
+          components: [buttonRow],
+        })
+        return await job.moveToDelayed(Date.now() + ONE_DAY)
+      }
+
       job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
       return Promise.all(
         scope3.map(async ({ year, scope3 }) => {

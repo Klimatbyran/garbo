@@ -21,6 +21,18 @@ const saveBiogenic = new DiscordWorker<JobData>(
     const metadata = defaultMetadata(url)
 
     if (biogenic?.length) {
+      const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(() => null)
+      const diff = await askDiff(existingCompany, { biogenic, fiscalYear })
+      
+      if (diff && !diff.includes('NO_CHANGES')) {
+        const buttonRow = discord.createButtonRow(job.id!)
+        await job.sendMessage({
+          content: `# ${job.data.companyName}: biogenic emissions\n${diff}`.slice(0, 2000),
+          components: [buttonRow],
+        })
+        return await job.moveToDelayed(Date.now() + ONE_DAY)
+      }
+
       job.editMessage(`🤖 Sparar biogeniska utsläpp...`)
       return Promise.all(
         biogenic.map(async ({ year, biogenic }) => {

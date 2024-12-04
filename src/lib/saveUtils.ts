@@ -25,7 +25,39 @@ export function formatAsReportingPeriods(
   })
 }
 
+import { askPrompt } from './openai'
+
 export const defaultMetadata = (url: string) => ({
   source: url,
   comment: 'Parsed by Garbo AI',
 })
+
+export const askDiff = async (existingCompany: any, { scope12, scope3, biogenic, fiscalYear }: any) => {
+  if (!existingCompany.reportingPeriods?.length) return ''
+
+  const before = {
+    reportingPeriods: existingCompany.reportingPeriods.map(({ startDate, endDate, emissions }) => ({
+      startDate,
+      endDate,
+      emissions,
+    }))
+  }
+
+  const after = {
+    reportingPeriods: [
+      ...(scope12 ? formatAsReportingPeriods(scope12, fiscalYear, 'emissions') : []),
+      ...(scope3 ? formatAsReportingPeriods(scope3, fiscalYear, 'emissions') : []),
+      ...(biogenic ? formatAsReportingPeriods(biogenic, fiscalYear, 'emissions') : [])
+    ]
+  }
+
+  return await askPrompt(
+    `What is changed between these two json values? Please respond in clear text with markdown formatting. 
+The purpose is to let an editor approve the changes or suggest changes in Discord.
+Be as brief as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
+Focus only on the actual values that have changed.
+When handling years and ambiguous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
+NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO_CHANGES".`,
+    JSON.stringify({ before, after })
+  )
+}
