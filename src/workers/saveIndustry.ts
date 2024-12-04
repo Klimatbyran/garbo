@@ -31,9 +31,6 @@ const saveIndustry = new DiscordWorker<JobData>(
 
     return null
   },
-  {
-    connection: redis,
-  }
 )
 
 export default saveIndustry
