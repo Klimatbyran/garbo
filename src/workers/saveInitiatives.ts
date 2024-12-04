@@ -1,7 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import { defaultMetadata } from '../lib/saveUtils'
-import redis from '../config/redis'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
