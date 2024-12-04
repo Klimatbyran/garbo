@@ -14,7 +14,7 @@ export interface SaveToApiJob extends Job {
   }
 }
 
-export const saveToApiWorker = new Worker(
+export const saveToAPI = new Worker(
   'api-save',
   async (job: SaveToApiJob) => {
     try {
@@ -50,4 +50,4 @@ export const saveToApiWorker = new Worker(
   }
 )
 
-export default saveToApiWorker
+export default saveToAPI
