@@ -1,5 +1,4 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import redis from '../config/redis'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
