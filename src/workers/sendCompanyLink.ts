@@ -23,7 +23,7 @@ const sendCompanyLink = new DiscordWorker<JobData>(
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '')
 
-    const url = `http://beta.klimatkollen.se/companies/${wikidataId}-${urlSafeCompanyName}`
+    const url = `http://beta.klimatkollen.se/companies/${urlSafeCompanyName}-${wikidataId}`
 
     await job.sendMessage(`✅ Företaget har sparats! Se resultatet här: ${url}`)
 
