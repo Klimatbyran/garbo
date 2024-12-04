@@ -16,8 +16,8 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveReportingPeriods = new DiscordWorker<JobData>(
-  'saveReportingPeriods',
+const diffReportingPeriods = new DiscordWorker<JobData>(
+  'diffReportingPeriods',
   async (job) => {
     const {
       url,
@@ -92,4 +92,4 @@ const saveReportingPeriods = new DiscordWorker<JobData>(
   }
 )
 
-export default saveReportingPeriods
+export default diffReportingPeriods

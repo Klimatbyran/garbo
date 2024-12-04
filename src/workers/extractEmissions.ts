@@ -46,8 +46,8 @@ const extractEmissions = new DiscordWorker<JobData>(
         },
         (scope12 || scope3 || biogenic || economy)
           ? {
-              name: 'saveReportingPeriods ' + companyName,
-              queueName: 'saveReportingPeriods',
+              name: 'diffReportingPeriods ' + companyName,
+              queueName: 'diffReportingPeriods',
               data: {
                 ...base.data,
                 scope12,

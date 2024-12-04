@@ -11,8 +11,8 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveInitiatives = new DiscordWorker<JobData>(
-  'saveInitiatives',
+const diffInitiatives = new DiscordWorker<JobData>(
+  'diffInitiatives',
   async (job) => {
     const { url, companyName, existingCompany, initiatives } = job.data
     const metadata = defaultMetadata(url)
@@ -38,4 +38,4 @@ const saveInitiatives = new DiscordWorker<JobData>(
   }
 )
 
-export default saveInitiatives
+export default diffInitiatives

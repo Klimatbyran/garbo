@@ -11,7 +11,7 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveIndustry = new DiscordWorker<JobData>('saveIndustry', async (job) => {
+const diffIndustry = new DiscordWorker<JobData>('diffIndustry', async (job) => {
   const { url, wikidata, companyName, existingCompany, industry } = job.data
   const wikidataId = wikidata.node
   const metadata = defaultMetadata(url)
@@ -37,4 +37,4 @@ const saveIndustry = new DiscordWorker<JobData>('saveIndustry', async (job) => {
   return { body, diff, requiresApproval }
 })
 
-export default saveIndustry
+export default diffIndustry
