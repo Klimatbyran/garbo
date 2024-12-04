@@ -99,6 +99,13 @@ const extractEmissions = new DiscordWorker<JobData>(
             type: JobType.Initiatives,
           },
         },
+        {
+          name: 'askDiff ' + companyName,
+          queueName: 'askDiff',
+          data: {
+            ...base.data,
+          },
+        },
       ],
       opts: {
         attempts: 3,
