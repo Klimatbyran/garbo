@@ -31,36 +31,7 @@ export const defaultMetadata = (url: string) => ({
   comment: 'Parsed by Garbo AI',
 })
 
-export const askDiff = async (
-  existingCompany: any,
-  { scope12, scope3, biogenic, fiscalYear }: any
-) => {
-  if (!existingCompany.reportingPeriods?.length) return ''
-
-  const before = {
-    reportingPeriods: existingCompany.reportingPeriods.map(
-      ({ startDate, endDate, emissions }) => ({
-        startDate,
-        endDate,
-        emissions,
-      })
-    ),
-  }
-
-  const after = {
-    reportingPeriods: [
-      ...(scope12
-        ? formatAsReportingPeriods(scope12, fiscalYear, 'emissions')
-        : []),
-      ...(scope3
-        ? formatAsReportingPeriods(scope3, fiscalYear, 'emissions')
-        : []),
-      ...(biogenic
-        ? formatAsReportingPeriods(biogenic, fiscalYear, 'emissions')
-        : []),
-    ],
-  }
-
+export const askDiff = async (before: any, after: any) => {
   return await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.

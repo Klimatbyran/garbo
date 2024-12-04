@@ -59,6 +59,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   const base = {
     name: companyName,
     data: {
+      existingCompany,
       companyName,
       url,
       fiscalYear,
