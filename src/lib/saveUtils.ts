@@ -1,5 +1,4 @@
 import { getReportingPeriodDates } from './reportingPeriodDates'
-import { apiFetch } from './api'
 
 export function formatAsReportingPeriods(
   entries: { year: number }[],
@@ -32,23 +31,34 @@ export const defaultMetadata = (url: string) => ({
   comment: 'Parsed by Garbo AI',
 })
 
-export const askDiff = async (existingCompany: any, { scope12, scope3, biogenic, fiscalYear }: any) => {
+export const askDiff = async (
+  existingCompany: any,
+  { scope12, scope3, biogenic, fiscalYear }: any
+) => {
   if (!existingCompany.reportingPeriods?.length) return ''
 
   const before = {
-    reportingPeriods: existingCompany.reportingPeriods.map(({ startDate, endDate, emissions }) => ({
-      startDate,
-      endDate,
-      emissions,
-    }))
+    reportingPeriods: existingCompany.reportingPeriods.map(
+      ({ startDate, endDate, emissions }) => ({
+        startDate,
+        endDate,
+        emissions,
+      })
+    ),
   }
 
   const after = {
     reportingPeriods: [
-      ...(scope12 ? formatAsReportingPeriods(scope12, fiscalYear, 'emissions') : []),
-      ...(scope3 ? formatAsReportingPeriods(scope3, fiscalYear, 'emissions') : []),
-      ...(biogenic ? formatAsReportingPeriods(biogenic, fiscalYear, 'emissions') : [])
-    ]
+      ...(scope12
+        ? formatAsReportingPeriods(scope12, fiscalYear, 'emissions')
+        : []),
+      ...(scope3
+        ? formatAsReportingPeriods(scope3, fiscalYear, 'emissions')
+        : []),
+      ...(biogenic
+        ? formatAsReportingPeriods(biogenic, fiscalYear, 'emissions')
+        : []),
+    ],
   }
 
   return await askPrompt(
