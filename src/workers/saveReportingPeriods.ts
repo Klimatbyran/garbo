@@ -20,66 +20,69 @@ const saveReportingPeriods = new DiscordWorker<JobData>('saveReportingPeriods', 
   const wikidataId = wikidata.node
   const metadata = defaultMetadata(url)
 
-  const body = await Promise.all([
-    ...scope12.map(async ({ year, scope1, scope2 }) => {
-      const [startDate, endDate] = getReportingPeriodDates(
-        year,
-        fiscalYear.startMonth,
-        fiscalYear.endMonth
-      )
-      return {
-        startDate,
-        endDate,
-        emissions: {
-          scope1,
-          scope2,
-        },
-        metadata,
-      }
-    }),
-    ...scope3.map(async ({ year, scope3 }) => {
-      const [startDate, endDate] = getReportingPeriodDates(
-        year,
-        fiscalYear.startMonth,
-        fiscalYear.endMonth
-      )
-      return {
-        startDate,
-        endDate,
-        emissions: {
-          scope3,
-        },
-        metadata,
-      }
-    }),
-    ...biogenic.map(async ({ year, biogenic }) => {
-      const [startDate, endDate] = getReportingPeriodDates(
-        year,
-        fiscalYear.startMonth,
-        fiscalYear.endMonth
-      )
-      return {
-        startDate,
-        endDate,
-        emissions: {
-          biogenic,
-        },
-        metadata,
-      }
-    }),
-    ...economy.map(async ({ year, economy }) => {
-      const [startDate, endDate] = getReportingPeriodDates(
-        year,
-        fiscalYear.startMonth,
-        fiscalYear.endMonth
-      )
-      return {
-        startDate,
-        endDate,
-        economy,
-        metadata,
-      }
-    })
+  // Get all unique years from all sources
+  const years = new Set([
+    ...scope12.map(d => d.year),
+    ...scope3.map(d => d.year),
+    ...biogenic.map(d => d.year),
+    ...economy.map(d => d.year)
+  ])
+
+  // Create base reporting periods
+  const reportingPeriods = Array.from(years).map(year => {
+    const [startDate, endDate] = getReportingPeriodDates(
+      year,
+      fiscalYear.startMonth,
+      fiscalYear.endMonth
+    )
+    return {
+      startDate,
+      endDate,
+      emissions: {},
+      economy: undefined,
+      metadata,
+    }
+  })
+
+  // Fill in data from each source
+  const body = reportingPeriods.map(period => {
+    const yearData = {
+      scope12: scope12.find(d => {
+        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
+        return s === period.startDate
+      }),
+      scope3: scope3.find(d => {
+        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
+        return s === period.startDate
+      }),
+      biogenic: biogenic.find(d => {
+        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
+        return s === period.startDate
+      }),
+      economy: economy.find(d => {
+        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
+        return s === period.startDate
+      })
+    }
+
+    return {
+      ...period,
+      emissions: {
+        ...(yearData.scope12 && {
+          scope1: yearData.scope12.scope1,
+          scope2: yearData.scope12.scope2
+        }),
+        ...(yearData.scope3 && {
+          scope3: yearData.scope3.scope3
+        }),
+        ...(yearData.biogenic && {
+          biogenic: yearData.biogenic.biogenic
+        })
+      },
+      ...(yearData.economy && {
+        economy: yearData.economy.economy
+      })
+    }
   ])
 
   const diff = await askDiff(null, { scope12, scope3, biogenic, economy, fiscalYear })
