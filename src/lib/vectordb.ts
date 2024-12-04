@@ -23,9 +23,27 @@ async function addReport(url: string, markdown: string) {
     .map((p) => p.trim())
     .filter((p) => p.length > 0)
 
+  let prefix = ''
+  const mergedParagraphs: string[] = []
+
+  for (let i = 0; i < paragraphs.length; i++) {
+    const current = paragraphs[i]
+    const hasBody = current.split('\n').length > 1
+    if (!hasBody) {
+      prefix += (prefix ? '\n' : '') + current
+    } else {
+      mergedParagraphs.push((prefix ? prefix + '\n' : '') + current)
+      prefix = ''
+    }
+  }
+
+  if (prefix) {
+    mergedParagraphs.push(prefix)
+  }
+
   const documentChunks: { chunk: string; paragraph: string }[] = []
 
-  paragraphs.forEach((paragraph) => {
+  mergedParagraphs.forEach((paragraph) => {
     for (let i = 0; i < paragraph.length; i += CHUNK_SIZE - overlapSize) {
       const chunk = paragraph.slice(i, i + CHUNK_SIZE).trim()
       if (chunk.length > 0) {

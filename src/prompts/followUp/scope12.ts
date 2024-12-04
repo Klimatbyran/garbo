@@ -43,7 +43,7 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 Example - feel free to add more fields and relevant data:
 {
   "scope12": [{
-    "year": 2021,
+    "year": 2023,
     "scope1": {
       "total": 12.3
     },
