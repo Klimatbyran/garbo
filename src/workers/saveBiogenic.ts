@@ -36,7 +36,8 @@ const saveBiogenic = new DiscordWorker<JobData>('saveBiogenic', async (job) => {
         ),
         components: [buttonRow],
       })
-      return await job.moveToDelayed(Date.now() + ONE_DAY)
+      await job.moveToDelayed(Date.now() + ONE_DAY)
+      return { diff }
     }
 
     job.editMessage(`🤖 Sparar biogeniska utsläpp...`)

@@ -36,7 +36,8 @@ const saveScope3 = new DiscordWorker<JobData>('saveScope3', async (job) => {
         ),
         components: [buttonRow],
       })
-      return await job.moveToDelayed(Date.now() + ONE_DAY)
+      await job.moveToDelayed(Date.now() + ONE_DAY)
+      return { diff }
     }
 
     job.editMessage(`🤖 Sparar utsläppsdata scope 3...`)
