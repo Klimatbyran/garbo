@@ -2,7 +2,8 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import discord from '../discord'
 
 export interface SaveToApiJob extends DiscordJob {
-  data: DiscordJob['data'] & {
+  data: DiscordJob['data']
+  body?: {
     wikidataId: string
     approved?: boolean
     requiresApproval?: boolean
@@ -14,7 +15,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
   'api-save',
   async (job: SaveToApiJob) => {
     try {
-      const { wikidataId, approved, requiresApproval = true } = job.data
+      const { wikidataId, approved, requiresApproval = true } = job.body || {}
 
       // If approval is not required or already approved, proceed with saving
       if (!requiresApproval || approved) {
@@ -27,7 +28,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
         content: `New changes need approval for ${wikidataId}\n\n${
-          job.data.diff || ''
+          job.body?.diff || ''
         }`,
         components: [buttonRow],
       })

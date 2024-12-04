@@ -40,10 +40,12 @@ const saveScope3 = new DiscordWorker<JobData>('saveScope3', async (job) => {
 
     await job.queue.add('api-save', {
       ...job.data,
-      data: data,
-      diff: diff,
-      requiresApproval,
-      wikidataId
+      body: {
+        data: data,
+        diff: diff,
+        requiresApproval,
+        wikidataId
+      }
     })
 
     return { data, diff }
