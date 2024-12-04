@@ -1,5 +1,6 @@
 import { Job } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import discord from '../discord'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -23,7 +24,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       // If approval is required and not yet approved, send approval request
-      const buttonRow = job.createButtonRow()
+      const buttonRow = discord.createButtonRow(job.id)
       await job.sendMessage({
         content: `New changes need approval for ${wikidataId}`,
         components: [buttonRow]

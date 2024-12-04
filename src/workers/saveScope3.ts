@@ -4,6 +4,7 @@ import { defaultMetadata, askDiff } from '../lib/saveUtils'
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 import redis from '../config/redis'
+import discord from '../discord'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 
 export class JobData extends DiscordJob {

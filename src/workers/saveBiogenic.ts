@@ -1,4 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import discord from '../discord'
 import { apiFetch } from '../lib/api'
 import { defaultMetadata, askDiff } from '../lib/saveUtils'
 import discord from '../discord'
