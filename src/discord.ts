@@ -15,9 +15,17 @@ import commands from './discord/commands'
 import config from './config/discord'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
-import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
+import { Queue } from 'bullmq'
+import { ApiSaveJob } from './workers/apiSaveWorker'
 
-const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
+const apiSaveQueue = new Queue('api-save', {
+  connection: {
+    host: process.env.REDIS_HOST || 'localhost',
+    port: parseInt(process.env.REDIS_PORT || '6379'),
+  },
+})
+
+const getJob = (jobId: string) => apiSaveQueue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -75,7 +83,7 @@ export class Discord {
           try {
             switch (action) {
               case 'approve': {
-                const job = (await getJob(jobId)) as SaveToApiJob
+                const job = (await getJob(jobId)) as ApiSaveJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
                 break

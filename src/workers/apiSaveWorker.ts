@@ -5,6 +5,10 @@ export interface ApiSaveJob extends Job {
   data: {
     wikidataId: string
     approved: boolean
+    url?: string
+    threadId?: string
+    channelId?: string
+    messageId?: string
   }
 }
 

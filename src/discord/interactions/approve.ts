@@ -15,7 +15,7 @@ export default {
     
     // Add to API save queue
     await apiSaveQueue.add('save-approved', {
-      wikidataId: job.data.wikidataId,
+      ...job.data,
       approved: true
     })
     
