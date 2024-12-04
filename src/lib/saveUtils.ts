@@ -31,6 +31,9 @@ export const defaultMetadata = (url: string) => ({
   comment: 'Parsed by Garbo AI',
 })
 
+const omit = (obj: any, keys: string[]) =>
+  Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key)))
+
 export const askDiff = async (before: any, after: any) => {
   if (!before || !after) return 'NO_CHANGES'
   return await askPrompt(
@@ -40,6 +43,9 @@ Be as brief as possible. Never be technical - meaning no comments about structur
 Focus only on the actual values that have changed.
 When handling years and ambiguous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
 NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO_CHANGES".`,
-    JSON.stringify({ before, after })
+    JSON.stringify({
+      before: omit(before, ['metadata']),
+      after: omit(after, ['metadata']),
+    })
   )
 }
