@@ -51,71 +51,83 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     await apiFetch(`/companies`, { body })
   }
 
-  const { scope12, scope3, biogenic, industry, economy, goals, initiatives } =
-    childrenValues
+  const { scope12, scope3, biogenic, industry, economy, goals, initiatives } = childrenValues
+  
   const base = {
-    companyName,
-    url,
-    fiscalYear,
-    wikidata,
-    threadId,
-    channelId,
+    name: companyName,
+    data: {
+      companyName,
+      url,
+      fiscalYear,
+      wikidata,
+      threadId,
+      channelId,
+    },
+    opts: {
+      attempts: 3,
+    }
   }
 
-  // TODO convert to flow
-  // Send to done, which is a simple worker to post a message to discord
-  // Include the link to the company webpage, and the link to the JSON data for the company
-  // Link to localhost or the production website
-  // We want to know when all steps have been completed to print a message to discord
+  await job.editMessage(`🤖 Sparar data...`)
 
   if (scope12 || scope3 || biogenic) {
-    await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
-    saveToAPI.queue.add(companyName + ' emissions', {
+    await flow.add({
       ...base,
-      apiSubEndpoint: 'emissions',
-      scope12,
-      scope3,
-      biogenic,
+      queueName: 'saveEmissions',
+      data: {
+        ...base.data,
+        scope12,
+        scope3,
+        biogenic
+      }
     })
   }
 
   if (industry) {
-    await job.editMessage(`🤖 Skapar jobb för att spara branschdata...`)
-    saveToAPI.queue.add(companyName + ' industry', {
+    await flow.add({
       ...base,
-      apiSubEndpoint: 'industry',
-      industry,
+      queueName: 'saveIndustry',
+      data: {
+        ...base.data,
+        industry
+      }
     })
   }
 
   if (economy) {
-    await job.editMessage(`🤖 Skapar jobb för att spara ekonomidata...`)
-    saveToAPI.queue.add(companyName + ' economy', {
+    await flow.add({
       ...base,
-      apiSubEndpoint: 'economy',
-      economy,
+      queueName: 'saveEconomy',
+      data: {
+        ...base.data,
+        economy
+      }
     })
   }
 
   if (goals) {
-    await job.editMessage(`🤖 Skapar jobb för att spara mål...`)
-    saveToAPI.queue.add(companyName + ' goals', {
+    await flow.add({
       ...base,
-      apiSubEndpoint: 'goals',
-      goals,
+      queueName: 'saveGoals',
+      data: {
+        ...base.data,
+        goals
+      }
     })
   }
 
   if (initiatives) {
-    await job.editMessage(`🤖 Skapar jobb för att spara initiativ...`)
-    saveToAPI.queue.add(companyName + ' initiatives', {
-      ...base,
-      apiSubEndpoint: 'initiatives',
-      initiatives,
+    await flow.add({
+      ...base, 
+      queueName: 'saveInitiatives',
+      data: {
+        ...base.data,
+        initiatives
+      }
     })
   }
 
-  return JSON.stringify(childrenValues, null, 2)
+  return JSON.stringify({ saved: true }, null, 2)
 })
 
 export default checkDB
