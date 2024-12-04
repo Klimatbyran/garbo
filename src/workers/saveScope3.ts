@@ -1,6 +1,9 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import { defaultMetadata } from '../lib/saveUtils'
+import { defaultMetadata, askDiff } from '../lib/saveUtils'
+import discord from '../discord'
+
+const ONE_DAY = 1000 * 60 * 60 * 24
 import redis from '../config/redis'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 
