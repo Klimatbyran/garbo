@@ -70,70 +70,56 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
 
   await job.editMessage(`🤖 Sparar data...`)
 
-  if (scope12 || scope3 || biogenic) {
-    await flow.add({
-      ...base,
-      queueName: 'saveEmissions',
-      data: {
-        ...base.data,
-        scope12,
-        scope3,
-        biogenic
-      }
-    })
-  }
-
-  if (industry) {
-    await flow.add({
-      ...base,
-      queueName: 'saveIndustry',
-      data: {
-        ...base.data,
-        industry
-      }
-    })
-  }
-
-  if (economy) {
-    await flow.add({
-      ...base,
-      queueName: 'saveEconomy',
-      data: {
-        ...base.data,
-        economy
-      }
-    })
-  }
-
-  if (goals) {
-    await flow.add({
-      ...base,
-      queueName: 'saveGoals',
-      data: {
-        ...base.data,
-        goals
-      }
-    })
-  }
-
-  if (initiatives) {
-    await flow.add({
-      ...base, 
-      queueName: 'saveInitiatives',
-      data: {
-        ...base.data,
-        initiatives
-      }
-    })
-  }
-
-  // Add final step to send company link
   await flow.add({
     ...base,
     queueName: 'sendCompanyLink',
     data: {
       ...base.data,
-    }
+    },
+    children: [
+      scope12 || scope3 || biogenic ? {
+        ...base,
+        queueName: 'saveEmissions',
+        data: {
+          ...base.data,
+          scope12,
+          scope3,
+          biogenic
+        }
+      } : null,
+      industry ? {
+        ...base,
+        queueName: 'saveIndustry',
+        data: {
+          ...base.data,
+          industry
+        }
+      } : null,
+      economy ? {
+        ...base,
+        queueName: 'saveEconomy',
+        data: {
+          ...base.data,
+          economy
+        }
+      } : null,
+      goals ? {
+        ...base,
+        queueName: 'saveGoals',
+        data: {
+          ...base.data,
+          goals
+        }
+      } : null,
+      initiatives ? {
+        ...base,
+        queueName: 'saveInitiatives',
+        data: {
+          ...base.data,
+          initiatives
+        }
+      } : null,
+    ].filter(Boolean)
   })
 
   return JSON.stringify({ saved: true }, null, 2)
