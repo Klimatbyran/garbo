@@ -1,14 +1,29 @@
 import { ButtonInteraction } from 'discord.js'
 import { DiscordJob } from '../../lib/DiscordWorker'
+import { Queue } from 'bullmq'
+
+const apiSaveQueue = new Queue('api-save', {
+  connection: {
+    host: process.env.REDIS_HOST || 'localhost',
+    port: parseInt(process.env.REDIS_PORT || '6379'),
+  },
+})
 
 export default {
   async execute(interaction: ButtonInteraction, job: DiscordJob) {
     await job.updateData({ ...job.data, approved: true })
-    await job.promote()
+    
+    // Add to API save queue
+    await apiSaveQueue.add('save-approved', {
+      wikidataId: job.data.wikidataId,
+      approved: true
+    })
+    
     job.log(`Approving company edit: ${job.data.wikidataId}`)
-    interaction.reply({
+    await interaction.reply({
       content: `Tack för din granskning, ${interaction?.user?.username}!`,
     })
-    //discord.lockThread(threadId)
+    
+    await job.promote()
   },
 }
