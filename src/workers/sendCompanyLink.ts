@@ -29,9 +29,6 @@ const sendCompanyLink = new DiscordWorker<JobData>(
 
     return { url }
   },
-  {
-    connection: redis,
-  }
 )
 
 export default sendCompanyLink
