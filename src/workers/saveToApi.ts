@@ -1,4 +1,3 @@
-import { Job } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import discord from '../discord'
 
@@ -15,13 +14,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
   'api-save',
   async (job: SaveToApiJob) => {
     try {
-      const {
-        wikidataId,
-        approved,
-        requiresApproval = true,
-        messageId,
-        channelId,
-      } = job.data
+      const { wikidataId, approved, requiresApproval = true } = job.data
 
       // If approval is not required or already approved, proceed with saving
       if (!requiresApproval || approved) {
@@ -33,7 +26,9 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       // If approval is required and not yet approved, send approval request
       const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
-        content: `New changes need approval for ${wikidataId}\n\n${job.data.diff || ''}`,
+        content: `New changes need approval for ${wikidataId}\n\n${
+          job.data.diff || ''
+        }`,
         components: [buttonRow],
       })
 

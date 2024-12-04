@@ -1,6 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, askDiff } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
+import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -12,7 +13,7 @@ export class JobData extends DiscordJob {
 }
 
 const saveScope12 = new DiscordWorker<JobData>('saveScope12', async (job) => {
-  const { url, fiscalYear, wikidata, scope12 = [] } = job.data
+  const { url, fiscalYear, wikidata, companyName, scope12 = [] } = job.data
   const wikidataId = wikidata.node
   const metadata = defaultMetadata(url)
 
@@ -20,7 +21,7 @@ const saveScope12 = new DiscordWorker<JobData>('saveScope12', async (job) => {
     const data = await Promise.all(
       scope12.map(async ({ year, scope1, scope2 }) => {
         const [startDate, endDate] = getReportingPeriodDates(
-          year, 
+          year,
           fiscalYear.startMonth,
           fiscalYear.endMonth
         )
@@ -31,7 +32,7 @@ const saveScope12 = new DiscordWorker<JobData>('saveScope12', async (job) => {
             scope1,
             scope2,
           },
-          metadata
+          metadata,
         }
       })
     )
@@ -39,12 +40,12 @@ const saveScope12 = new DiscordWorker<JobData>('saveScope12', async (job) => {
     const diff = await askDiff(null, { scope12, fiscalYear })
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-    await job.queue.add('api-save', {
+    await saveToAPI.queue.add(companyName, {
       ...job.data,
       data: data,
       diff: diff,
       requiresApproval,
-      wikidataId
+      wikidataId,
     })
 
     return { data, diff }
