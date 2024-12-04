@@ -44,6 +44,9 @@ const nlmParsePDF = new DiscordWorker(
         let json
         try {
           json = await extractJsonFromPdf(pdf)
+        } catch (err) {
+          job.editMessage(`❌ Fel vid tolkning av PDF: ${err.message}`)
+          throw new Error('Failed to parse PDF, retrying in one minute...')
         } finally {
           clearInterval(interval)
         }

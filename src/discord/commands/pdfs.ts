@@ -54,10 +54,20 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
-        nlmParsePDF.queue.add('download ' + url.slice(-20), {
-          url,
-          threadId: thread.id,
-        })
+        nlmParsePDF.queue.add(
+          'download ' + url.slice(-20),
+          {
+            url,
+            threadId: thread.id,
+          },
+          {
+            backoff: {
+              type: 'fixed',
+              delay: 60_000,
+            },
+            attempts: 10,
+          }
+        )
       })
     } catch (error) {
       console.error('Pdfs: error', error)
