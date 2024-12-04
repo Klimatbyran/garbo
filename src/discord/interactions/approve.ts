@@ -2,7 +2,7 @@ import { ButtonInteraction } from 'discord.js'
 import { DiscordJob } from '../../lib/DiscordWorker'
 import { Queue } from 'bullmq'
 
-const apiSaveQueue = new Queue('api-save', {
+const saveToApiQueue = new Queue('api-save', {
   connection: {
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT || '6379'),

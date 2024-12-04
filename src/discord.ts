@@ -16,7 +16,7 @@ import config from './config/discord'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
 import { Queue } from 'bullmq'
-import { ApiSaveJob } from './workers/apiSaveWorker'
+import { SaveToApiJob } from './workers/saveToApi'
 
 const apiSaveQueue = new Queue('api-save', {
   connection: {
@@ -83,7 +83,7 @@ export class Discord {
           try {
             switch (action) {
               case 'approve': {
-                const job = (await getJob(jobId)) as ApiSaveJob
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
                 break
