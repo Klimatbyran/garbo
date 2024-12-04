@@ -1,9 +1,9 @@
-import { askPrompt } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import discord from '../discord'
 import redis from '../config/redis'
+import { askPrompt } from '../lib/openai'
+import { formatAsReportingPeriods } from '../lib/saveUtils'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -23,30 +23,6 @@ export class JobData extends DiscordJob {
 }
 
 const ONE_DAY = 1000 * 60 * 60 * 24
-
-function formatAsReportingPeriods(
-  entries: { year: number }[],
-  fiscalYear: { startMonth: number; endMonth: number },
-  category: 'emissions' | 'economy'
-) {
-  return entries.map(({ year, ...data }) => {
-    const [startDate, endDate] = getReportingPeriodDates(
-      year,
-      fiscalYear.startMonth,
-      fiscalYear.endMonth
-    )
-    return {
-      startDate,
-      endDate,
-      [category]:
-        category === 'economy'
-          ? (data as { economy: any }).economy
-          : {
-              ...data,
-            },
-    }
-  })
-}
 
 const askDiff = async (
   existingCompany,
@@ -81,16 +57,11 @@ const askDiff = async (
     initiatives,
   }
 
-  /**
-   * Normalise company data to allow comparing with the same structure
-   */
   const getCompanyBeforeAfter = () =>
     Object.keys(updated).reduce(
       ([before, after], key) => {
-        // Only keep the updated data, and only if there are meaningful changes in array fields
         if (Array.isArray(updated[key]) ? updated[key].length : updated[key]) {
           if (key === 'economy') {
-            // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
             ).map(({ startDate, endDate, economy }) => ({
@@ -104,7 +75,6 @@ const askDiff = async (
               'economy'
             )
           } else if (key === 'scope12') {
-            // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
             ).map(({ startDate, endDate, emissions }) => ({
@@ -123,7 +93,6 @@ const askDiff = async (
               'emissions'
             )
           } else if (key === 'scope3') {
-            // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
             ).map(({ startDate, endDate, emissions }) => ({
@@ -141,7 +110,6 @@ const askDiff = async (
               'emissions'
             )
           } else if (key === 'biogenic') {
-            // only keep relevant properties for each reportingPeriod
             before['reportingPeriods'] = (
               existingCompany.reportingPeriods ?? []
             ).map(({ startDate, endDate, emissions }) => ({
@@ -170,7 +138,6 @@ const askDiff = async (
 
   const [before, after] = getCompanyBeforeAfter()
 
-  // IDEA: Use a diff helper to compare objects and generate markdown diff
   const diff = await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.
@@ -212,10 +179,6 @@ const saveToAPI = new DiscordWorker<JobData>(
       () => null
     )
 
-    const metadata = {
-      source: url,
-      comment: 'Parsed by Garbo AI',
-    }
     const diff = !approved
       ? await askDiff(existingCompany, {
           scope12,
@@ -247,149 +210,41 @@ const saveToAPI = new DiscordWorker<JobData>(
       })
 
       return await job.moveToDelayed(Date.now() + ONE_DAY)
-    } else {
-      if (scope12?.length || scope3?.length || biogenic?.length) {
-        job.editMessage(`🤖 Sparar utsläppsdata...`)
-        return Promise.all([
-          ...(await scope12.reduce(
-            async (lastPromise, { year, scope1, scope2 }) => {
-              const arr = await lastPromise
-              const [startDate, endDate] = getReportingPeriodDates(
-                year,
-                fiscalYear.startMonth,
-                fiscalYear.endMonth
-              )
-              job.log(`Saving scope1 and scope2 for ${startDate}-${endDate}`)
-              job.sendMessage(`🤖 Sparar utsläppsdata scope 1+2 för ${year}...`)
-              const body = {
-                startDate,
-                endDate,
-                emissions: {
-                  scope1,
-                  scope2,
-                },
-                metadata,
-              }
-              return [
-                ...arr,
-                await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-                  body,
-                }),
-              ]
-            },
-            Promise.resolve([])
-          )),
-          ...(await scope3.reduce(async (lastPromise, { year, scope3 }) => {
-            const arr = await lastPromise
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.sendMessage(`🤖 Sparar utsläppsdata scope 3 för ${year}...`)
-            job.log(`Saving scope3 for ${year}`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                scope3,
-              },
-              metadata,
-            }
-            return [
-              ...arr,
-              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-                body,
-              }),
-            ]
-          }, Promise.resolve([]))),
-          ...(await biogenic.reduce(async (lastPromise, { year, biogenic }) => {
-            const arr = await lastPromise
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.sendMessage(`🤖 Sparar utsläppsdata biogenic för ${year}...`)
-            job.log(`Saving biogenic for ${year}`)
-            const body = {
-              startDate,
-              endDate,
-              emissions: {
-                biogenic,
-              },
-              metadata,
-            }
-            return [
-              ...arr,
-              await apiFetch(`/companies/${wikidataId}/${year}/emissions`, {
-                body,
-              }),
-            ]
-          }, Promise.resolve([]))),
-        ])
-      }
-
-      if (industry) {
-        job.editMessage(`🤖 Sparar GICS industri...`)
-        return await apiFetch(`/companies/${wikidataId}/industry`, {
-          body: {
-            industry,
-            metadata,
-          },
-          method: 'PUT',
-        })
-      }
-
-      if (goals) {
-        job.editMessage(`🤖 Sparar mål...`)
-        return await apiFetch(`/companies/${wikidataId}/goals`, {
-          body: {
-            goals,
-            metadata,
-          },
-          method: 'POST',
-        })
-      }
-
-      if (initiatives) {
-        job.editMessage(`🤖 Sparar initiativ...`)
-        return await apiFetch(`/companies/${wikidataId}/initiatives`, {
-          body: {
-            initiatives,
-            metadata,
-          },
-          method: 'POST',
-        })
-      }
-
-      if (economy?.length) {
-        job.editMessage(`🤖 Sparar ekonomidata...`)
-        return Promise.all([
-          ...economy.map(async ({ year, economy }) => {
-            const [startDate, endDate] = getReportingPeriodDates(
-              year,
-              fiscalYear.startMonth,
-              fiscalYear.endMonth
-            )
-            job.log(`Saving economy for ${startDate}-${endDate}`)
-            job.sendMessage(`🤖 Sparar ekonomidata för ${year}...`)
-            const body = {
-              startDate,
-              endDate,
-              economy,
-              metadata,
-            }
-
-            return await apiFetch(`/companies/${wikidataId}/${year}/economy`, {
-              body,
-            })
-          }),
-        ])
-      }
-
-      throw new Error('No data to save')
     }
+
+    // Queue the appropriate specialized worker based on the data
+    if (scope12?.length || scope3?.length || biogenic?.length) {
+      return await job.queueChild('saveEmissions', {
+        scope12,
+        scope3,
+        biogenic,
+      })
+    }
+
+    if (industry) {
+      job.editMessage(`🤖 Sparar GICS industri...`)
+      return await apiFetch(`/companies/${wikidataId}/industry`, {
+        body: {
+          industry,
+          metadata: defaultMetadata(url),
+        },
+        method: 'PUT',
+      })
+    }
+
+    if (goals) {
+      return await job.queueChild('saveGoals', { goals })
+    }
+
+    if (initiatives) {
+      return await job.queueChild('saveInitiatives', { initiatives })
+    }
+
+    if (economy?.length) {
+      return await job.queueChild('saveEconomy', { economy })
+    }
+
+    throw new Error('No data to save')
   },
   {
     concurrency: 10,
