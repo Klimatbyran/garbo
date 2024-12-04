@@ -22,7 +22,7 @@ const diffInitiatives = new DiscordWorker<JobData>(
       metadata,
     }
 
-    const diff = await askDiff(existingCompany.initiatives, initiatives)
+    const diff = await askDiff(existingCompany?.initiatives, initiatives)
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
     await saveToAPI.queue.add(companyName, {

@@ -32,6 +32,7 @@ export const defaultMetadata = (url: string) => ({
 })
 
 export const askDiff = async (before: any, after: any) => {
+  if (!before || !after) return 'NO_CHANGES'
   return await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.

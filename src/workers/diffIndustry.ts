@@ -21,7 +21,7 @@ const diffIndustry = new DiscordWorker<JobData>('diffIndustry', async (job) => {
     metadata,
   }
 
-  const diff = await askDiff(existingCompany.industry, industry)
+  const diff = await askDiff(existingCompany?.industry, industry)
   const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
   await saveToAPI.queue.add(companyName, {

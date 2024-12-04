@@ -74,7 +74,7 @@ const diffReportingPeriods = new DiscordWorker<JobData>(
       }
     )
 
-    const diff = await askDiff(existingCompany.reportingPeriods, body)
+    const diff = await askDiff(existingCompany?.reportingPeriods, body)
     job.log('diff: ' + diff)
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
