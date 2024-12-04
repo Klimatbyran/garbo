@@ -46,9 +46,6 @@ const saveEconomy = new DiscordWorker<JobData>(
 
     return null
   },
-  {
-    connection: redis,
-  }
 )
 
 export default saveEconomy
