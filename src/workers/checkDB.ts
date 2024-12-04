@@ -1,6 +1,7 @@
+import { FlowProducer } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import saveToAPI from './saveToAPI'
+import redis from '../config/redis'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -12,6 +13,8 @@ export class JobData extends DiscordJob {
     approved?: boolean
   }
 }
+
+const flow = new FlowProducer({ connection: redis })
 
 const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
   const {
