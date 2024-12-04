@@ -81,15 +81,16 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
       ...base.data,
     },
     children: [
-      scope12 || scope3 || biogenic
+      scope12 || scope3 || biogenic || economy
         ? {
             ...base,
-            queueName: 'saveEmissions',
+            queueName: 'saveReportingPeriods',
             data: {
               ...base.data,
               scope12,
               scope3,
               biogenic,
+              economy,
             },
           }
         : null,
@@ -100,16 +101,6 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
             data: {
               ...base.data,
               industry,
-            },
-          }
-        : null,
-      economy
-        ? {
-            ...base,
-            queueName: 'saveEconomy',
-            data: {
-              ...base.data,
-              economy,
             },
           }
         : null,

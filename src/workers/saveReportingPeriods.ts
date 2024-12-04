@@ -6,6 +6,7 @@ import saveToAPI from './saveToAPI'
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
+    existingCompany: any
     wikidata: any
     fiscalYear: any
     scope12?: any[]
@@ -15,90 +16,80 @@ export class JobData extends DiscordJob {
   }
 }
 
-const saveReportingPeriods = new DiscordWorker<JobData>('saveReportingPeriods', async (job) => {
-  const { url, fiscalYear, wikidata, companyName, scope12 = [], scope3 = [], biogenic = [], economy = [] } = job.data
-  const wikidataId = wikidata.node
-  const metadata = defaultMetadata(url)
+const saveReportingPeriods = new DiscordWorker<JobData>(
+  'saveReportingPeriods',
+  async (job) => {
+    const {
+      url,
+      fiscalYear,
+      companyName,
+      wikidata,
+      existingCompany,
+      scope12 = [],
+      scope3 = [],
+      biogenic = [],
+      economy = [],
+    } = job.data
+    const metadata = defaultMetadata(url)
+    const wikidataId = wikidata.node
 
-  // Get all unique years from all sources
-  const years = new Set([
-    ...scope12.map(d => d.year),
-    ...scope3.map(d => d.year),
-    ...biogenic.map(d => d.year),
-    ...economy.map(d => d.year)
-  ])
+    // Get all unique years from all sources
+    const years = new Set([
+      ...scope12.map((d) => d.year),
+      ...scope3.map((d) => d.year),
+      ...biogenic.map((d) => d.year),
+      ...economy.map((d) => d.year),
+    ])
 
-  // Create base reporting periods
-  const reportingPeriods = Array.from(years).map(year => {
-    const [startDate, endDate] = getReportingPeriodDates(
-      year,
-      fiscalYear.startMonth,
-      fiscalYear.endMonth
+    // Create base reporting periods
+    const reportingPeriods = Array.from(years).map((year) => {
+      const [startDate, endDate] = getReportingPeriodDates(
+        year,
+        fiscalYear.startMonth,
+        fiscalYear.endMonth
+      )
+      return {
+        year,
+        startDate,
+        endDate,
+        metadata,
+      }
+    })
+
+    // Fill in data from each source
+    const body = reportingPeriods.map(
+      ({ year, startDate, endDate, metadata }) => {
+        return {
+          emissions: {
+            scope1: scope12.find((d) => d.year === year)?.scope1,
+            scope2: scope12.find((d) => d.year === year)?.scope2,
+            scope3: scope3.find((d) => d.year === year)?.scope3,
+            biogenic: biogenic.find((d) => d.year === year)?.biogenic,
+          },
+          economy: economy.find((d) => d.year === year)?.economy,
+          startDate,
+          endDate,
+          metadata,
+        }
+      }
     )
-    return {
-      startDate,
-      endDate,
-      emissions: {},
-      economy: undefined,
-      metadata,
-    }
-  })
 
-  // Fill in data from each source
-  const body = reportingPeriods.map(period => {
-    const yearData = {
-      scope12: scope12.find(d => {
-        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
-        return s === period.startDate
-      }),
-      scope3: scope3.find(d => {
-        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
-        return s === period.startDate
-      }),
-      biogenic: biogenic.find(d => {
-        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
-        return s === period.startDate
-      }),
-      economy: economy.find(d => {
-        const [s] = getReportingPeriodDates(d.year, fiscalYear.startMonth, fiscalYear.endMonth)
-        return s === period.startDate
-      })
-    }
+    const diff = await askDiff(existingCompany.reportingPeriods, body)
+    job.log('diff: ' + diff)
+    const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-    return {
-      ...period,
-      emissions: {
-        ...(yearData.scope12 && {
-          scope1: yearData.scope12.scope1,
-          scope2: yearData.scope12.scope2
-        }),
-        ...(yearData.scope3 && {
-          scope3: yearData.scope3.scope3
-        }),
-        ...(yearData.biogenic && {
-          biogenic: yearData.biogenic.biogenic
-        })
+    await saveToAPI.queue.add(companyName, {
+      data: {
+        ...job.data,
+        body,
+        diff,
+        requiresApproval,
+        wikidataId,
       },
-      ...(yearData.economy && {
-        economy: yearData.economy.economy
-      })
-    }
-  ])
+    })
 
-  const diff = await askDiff(null, { scope12, scope3, biogenic, economy, fiscalYear })
-  const requiresApproval = diff && !diff.includes('NO_CHANGES')
-
-  await saveToAPI.queue.add(companyName, {
-    data: {
-      ...job.data,
-      body,
-      diff,
-      requiresApproval,
-      wikidataId,
-    },
-  })
-
-  return { body, diff, requiresApproval }
-})
+    return { body, diff, requiresApproval }
+  }
+)
 
 export default saveReportingPeriods

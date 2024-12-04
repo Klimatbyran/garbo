@@ -4,40 +4,37 @@ import saveToAPI from './saveToAPI'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
+    existingCompany: any
     companyName: string
     wikidata: any
-    industry?: any
+    industry: any
   }
 }
 
 const saveIndustry = new DiscordWorker<JobData>('saveIndustry', async (job) => {
-  const { url, wikidata, companyName, industry } = job.data
+  const { url, wikidata, companyName, existingCompany, industry } = job.data
   const wikidataId = wikidata.node
   const metadata = defaultMetadata(url)
 
-  if (industry) {
-    const body = {
-      industry,
-      metadata,
-    }
-
-    const diff = await askDiff(null, { industry })
-    const requiresApproval = diff && !diff.includes('NO_CHANGES')
-
-    await saveToAPI.queue.add(companyName, {
-      ...job.data,
-      data: {
-        body,
-        diff,
-        requiresApproval,
-        wikidataId,
-      },
-    })
-
-    return { body, diff, requiresApproval }
+  const body = {
+    industry,
+    metadata,
   }
 
-  return null
+  const diff = await askDiff(existingCompany.industry, industry)
+  const requiresApproval = diff && !diff.includes('NO_CHANGES')
+
+  await saveToAPI.queue.add(companyName, {
+    data: {
+      ...job.data,
+      body,
+      diff,
+      requiresApproval,
+      wikidataId,
+    },
+  })
+
+  return { body, diff, requiresApproval }
 })
 
 export default saveIndustry
