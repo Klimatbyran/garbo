@@ -5,7 +5,7 @@ import redis from '../config/redis'
 
 export class JobData extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    companyName?: string
+    companyName: string
     description?: string
     wikidata: any
     fiscalYear: any
@@ -54,8 +54,9 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     await apiFetch(`/companies`, { body })
   }
 
-  const { scope12, scope3, biogenic, industry, economy, goals, initiatives } = childrenValues
-  
+  const { scope12, scope3, biogenic, industry, economy, goals, initiatives } =
+    childrenValues
+
   const base = {
     name: companyName,
     data: {
@@ -68,7 +69,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
     },
     opts: {
       attempts: 3,
-    }
+    },
   }
 
   await job.editMessage(`🤖 Sparar data...`)
@@ -80,49 +81,59 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
       ...base.data,
     },
     children: [
-      scope12 || scope3 || biogenic ? {
-        ...base,
-        queueName: 'saveEmissions',
-        data: {
-          ...base.data,
-          scope12,
-          scope3,
-          biogenic
-        }
-      } : null,
-      industry ? {
-        ...base,
-        queueName: 'saveIndustry',
-        data: {
-          ...base.data,
-          industry
-        }
-      } : null,
-      economy ? {
-        ...base,
-        queueName: 'saveEconomy',
-        data: {
-          ...base.data,
-          economy
-        }
-      } : null,
-      goals ? {
-        ...base,
-        queueName: 'saveGoals',
-        data: {
-          ...base.data,
-          goals
-        }
-      } : null,
-      initiatives ? {
-        ...base,
-        queueName: 'saveInitiatives',
-        data: {
-          ...base.data,
-          initiatives
-        }
-      } : null,
-    ].filter(Boolean)
+      scope12 || scope3 || biogenic
+        ? {
+            ...base,
+            queueName: 'saveEmissions',
+            data: {
+              ...base.data,
+              scope12,
+              scope3,
+              biogenic,
+            },
+          }
+        : null,
+      industry
+        ? {
+            ...base,
+            queueName: 'saveIndustry',
+            data: {
+              ...base.data,
+              industry,
+            },
+          }
+        : null,
+      economy
+        ? {
+            ...base,
+            queueName: 'saveEconomy',
+            data: {
+              ...base.data,
+              economy,
+            },
+          }
+        : null,
+      goals
+        ? {
+            ...base,
+            queueName: 'saveGoals',
+            data: {
+              ...base.data,
+              goals,
+            },
+          }
+        : null,
+      initiatives
+        ? {
+            ...base,
+            queueName: 'saveInitiatives',
+            data: {
+              ...base.data,
+              initiatives,
+            },
+          }
+        : null,
+    ].filter((e) => e !== null),
   })
 
   return JSON.stringify({ saved: true }, null, 2)
