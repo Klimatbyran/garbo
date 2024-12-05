@@ -213,7 +213,7 @@ const industrySchema = z.object({
   }),
 })
 
-router.put(
+router.post(
   '/:wikidataId/industry',
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
