@@ -7,7 +7,7 @@ export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     description?: string
-    wikidata: any
+    wikidata: { node: string }
     fiscalYear: any
     childrenValues?: any
     approved?: boolean

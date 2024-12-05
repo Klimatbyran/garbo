@@ -7,7 +7,7 @@ export class DiffReportingPeriodsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
-    wikidata: any
+    wikidata: { node: string }
     fiscalYear: any
     scope12?: any[]
     scope3?: any[]
@@ -23,7 +23,6 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       url,
       fiscalYear,
       companyName,
-      wikidata,
       existingCompany,
       scope12 = [],
       scope3 = [],
@@ -31,7 +30,6 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       economy = [],
     } = job.data
     const metadata = defaultMetadata(url)
-    const wikidataId = wikidata.node
 
     // Get all unique years from all sources
     const years = new Set([
@@ -98,14 +96,13 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       metadata,
     }
 
-    await saveToAPI.queue.add(companyName, {
+    await saveToAPI.queue.add(companyName + ' reporting-periods', {
       data: {
         ...job.data,
         body,
         diff,
         apiSubEndpoint: 'reporting-periods',
         requiresApproval,
-        wikidataId,
       },
     })
 

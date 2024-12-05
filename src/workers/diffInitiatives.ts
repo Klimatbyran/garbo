@@ -6,7 +6,7 @@ export class DiffInitiativesJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
-    wikidata: any
+    wikidata: { node: string }
     initiatives: any
   }
 }
@@ -25,12 +25,13 @@ const diffInitiatives = new DiscordWorker<DiffInitiativesJob>(
     const diff = await askDiff(existingCompany?.initiatives, initiatives)
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-    await saveToAPI.queue.add(companyName, {
+    await saveToAPI.queue.add(companyName + ' initiatives', {
       data: {
         ...job.data,
         body,
         diff,
         requiresApproval,
+        apiSubEndpoint: 'initiatives',
       },
     })
 

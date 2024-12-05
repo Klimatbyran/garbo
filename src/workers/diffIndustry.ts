@@ -6,7 +6,7 @@ export class DiffIndustryJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     existingCompany: any
     companyName: string
-    wikidata: any
+    wikidata: { node: string }
     industry: any
   }
 }
@@ -14,8 +14,7 @@ export class DiffIndustryJob extends DiscordJob {
 const diffIndustry = new DiscordWorker<DiffIndustryJob>(
   'diffIndustry',
   async (job) => {
-    const { url, wikidata, companyName, existingCompany, industry } = job.data
-    const wikidataId = wikidata.node
+    const { url, companyName, existingCompany, industry } = job.data
     const metadata = defaultMetadata(url)
 
     const body = {
@@ -26,13 +25,12 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
     const diff = await askDiff(existingCompany?.industry, industry)
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-    await saveToAPI.queue.add(companyName, {
+    await saveToAPI.queue.add(companyName + ' industry', {
       data: {
         ...job.data,
         body,
         diff,
         requiresApproval,
-        wikidataId,
         apiSubEndpoint: 'industry',
       },
     })

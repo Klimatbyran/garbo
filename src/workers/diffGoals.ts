@@ -6,14 +6,13 @@ export class DiffGoalsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
-    wikidata: any
+    wikidata: { node: string }
     goals: any
   }
 }
 
 const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
-  const { url, wikidata, companyName, existingCompany, goals } = job.data
-  const wikidataId = wikidata.node
+  const { url, companyName, existingCompany, goals } = job.data
   const metadata = defaultMetadata(url)
 
   const body = {
@@ -31,7 +30,6 @@ const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
       diff,
       apiSubEndpoint: 'goals',
       requiresApproval,
-      wikidataId,
     },
   })
 
