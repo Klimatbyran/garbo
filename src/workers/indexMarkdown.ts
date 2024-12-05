@@ -2,11 +2,11 @@ import { CHUNK_SIZE } from '../config'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
 
-class JobData extends DiscordJob {}
+class IndexMarkdownJob extends DiscordJob {}
 
 const indexMarkdown = new DiscordWorker(
   'indexMarkdown',
-  async (job: JobData) => {
+  async (job: IndexMarkdownJob) => {
     const { url } = job.data
     const childrenValues = await job.getChildrenEntries()
     const { markdown }: { markdown: string } = childrenValues

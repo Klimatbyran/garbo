@@ -3,7 +3,7 @@ import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
 
-class JobData extends DiscordJob {
+class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     type: JobType
@@ -12,7 +12,7 @@ class JobData extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const extractEmissions = new DiscordWorker<JobData>(
+const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
   'extractEmissions',
   async (job) => {
     const { companyName } = job.data
@@ -81,7 +81,6 @@ const extractEmissions = new DiscordWorker<JobData>(
           name: 'goals ' + companyName,
           data: {
             ...base.data,
-            apiSubEndpoint: 'goals',
             type: JobType.Goals,
           },
         },

@@ -5,15 +5,15 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata from '../prompts/wikidata'
 
-class JobData extends DiscordJob {
+class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
   }
 }
 
-const guessWikidata = new DiscordWorker<JobData>(
+const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   'guessWikidata',
-  async (job: JobData) => {
+  async (job: GuessWikidataJob) => {
     const { companyName } = job.data
     if (!companyName) throw new Error('No company name was provided')
 
