@@ -97,13 +97,11 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
     }
 
     await saveToAPI.queue.add(companyName + ' reporting-periods', {
-      data: {
-        ...job.data,
-        body,
-        diff,
-        apiSubEndpoint: 'reporting-periods',
-        requiresApproval,
-      },
+      ...job.data,
+      body,
+      diff,
+      apiSubEndpoint: 'reporting-periods',
+      requiresApproval,
     })
 
     return { body, diff, requiresApproval }

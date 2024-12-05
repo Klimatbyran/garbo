@@ -128,7 +128,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
     ].filter((e) => e !== null),
   })
 
-  return JSON.stringify({ saved: true }, null, 2)
+  return { saved: true }
 })
 
 export default checkDB

@@ -26,13 +26,11 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
     await saveToAPI.queue.add(companyName + ' industry', {
-      data: {
-        ...job.data,
-        body,
-        diff,
-        requiresApproval,
-        apiSubEndpoint: 'industry',
-      },
+      ...job.data,
+      body,
+      diff,
+      requiresApproval,
+      apiSubEndpoint: 'industry',
     })
 
     return { body, diff, requiresApproval }
