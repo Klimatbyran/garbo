@@ -65,6 +65,14 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     if (!wikidataId) {
       throw new Error(`Could not parse wikidataId from json: ${response}`)
     }
+
+    job.sendMessage(
+      `## Wikidata\nAccording to Garbo, the best match for ${companyName} was:\n\n\`\`\`json\n${JSON.stringify(
+        parsedJson,
+        null,
+        2
+      )}\`\`\``
+    )
     return JSON.stringify(parsedJson, null, 2)
   }
 )
