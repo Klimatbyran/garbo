@@ -44,19 +44,38 @@ const extractEmissions = new DiscordWorker<JobData>(
             type: JobType.IndustryGics,
           },
         },
-        (scope12 || scope3 || biogenic || economy)
-          ? {
-              name: 'diffReportingPeriods ' + companyName,
-              queueName: 'diffReportingPeriods',
-              data: {
-                ...base.data,
-                scope12,
-                scope3,
-                biogenic,
-                economy,
-              },
-            }
-          : null,
+        {
+          ...base,
+          name: 'scope1+2 ' + companyName,
+          data: {
+            ...base.data,
+            type: JobType.Scope12,
+          },
+        },
+        {
+          ...base,
+          name: 'scope3 ' + companyName,
+          data: {
+            ...base.data,
+            type: JobType.Scope3,
+          },
+        },
+        {
+          ...base,
+          name: 'biogenic ' + companyName,
+          data: {
+            ...base.data,
+            type: JobType.Biogenic,
+          },
+        },
+        {
+          ...base,
+          name: 'economy ' + companyName,
+          data: {
+            ...base.data,
+            type: JobType.Economy,
+          },
+        },
         {
           ...base,
           name: 'goals ' + companyName,
@@ -72,13 +91,6 @@ const extractEmissions = new DiscordWorker<JobData>(
           data: {
             ...base.data,
             type: JobType.Initiatives,
-          },
-        },
-        {
-          name: 'askDiff ' + companyName,
-          queueName: 'askDiff',
-          data: {
-            ...base.data,
           },
         },
       ],
