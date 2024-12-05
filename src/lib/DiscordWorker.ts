@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue, Processor } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import { Message, TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
@@ -8,7 +8,6 @@ export class DiscordJob extends Job {
     url: string
     threadId: string
     channelId: string
-    wikidataId?: string
     messageId?: string
   }
 
