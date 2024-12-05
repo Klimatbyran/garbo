@@ -261,50 +261,52 @@ router.post(
 
 const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
 
-export const emissionsSchema = z.object({
-  scope1: z
-    .object({
-      total: z.number(),
-    })
-    .optional(),
-  scope2: z
-    .object({
-      mb: z
-        .number({ description: 'Market-based scope 2 emissions' })
-        .optional(),
-      lb: z
-        .number({ description: 'Location-based scope 2 emissions' })
-        .optional(),
-      unknown: z
-        .number({ description: 'Unspecified Scope 2 emissions' })
-        .optional(),
-    })
-    .refine(
-      ({ mb, lb, unknown }) =>
-        mb !== undefined || lb !== undefined || unknown !== undefined,
-      {
-        message:
-          'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-      }
-    )
-    .optional(),
-  scope3: z
-    .object({
-      categories: z
-        .array(
-          z.object({
-            category: z.number().int().min(1).max(16),
-            total: z.number(),
-          })
-        )
-        .optional(),
-      statedTotalEmissions: statedTotalEmissionsSchema,
-    })
-    .optional(),
-  biogenic: z.object({ total: z.number() }).optional(),
-  statedTotalEmissions: statedTotalEmissionsSchema,
-  // TODO: add scope1And2
-})
+export const emissionsSchema = z
+  .object({
+    scope1: z
+      .object({
+        total: z.number(),
+      })
+      .optional(),
+    scope2: z
+      .object({
+        mb: z
+          .number({ description: 'Market-based scope 2 emissions' })
+          .optional(),
+        lb: z
+          .number({ description: 'Location-based scope 2 emissions' })
+          .optional(),
+        unknown: z
+          .number({ description: 'Unspecified Scope 2 emissions' })
+          .optional(),
+      })
+      .refine(
+        ({ mb, lb, unknown }) =>
+          mb !== undefined || lb !== undefined || unknown !== undefined,
+        {
+          message:
+            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        }
+      )
+      .optional(),
+    scope3: z
+      .object({
+        categories: z
+          .array(
+            z.object({
+              category: z.number().int().min(1).max(16),
+              total: z.number(),
+            })
+          )
+          .optional(),
+        statedTotalEmissions: statedTotalEmissionsSchema,
+      })
+      .optional(),
+    biogenic: z.object({ total: z.number() }).optional(),
+    statedTotalEmissions: statedTotalEmissionsSchema,
+    // TODO: add scope1And2
+  })
+  .optional()
 
 const economySchema = z
   .object({
@@ -352,7 +354,13 @@ router.post(
     try {
       await Promise.allSettled(
         reportingPeriods.map(
-          async ({ emissions, economy, startDate, endDate, reportURL }) => {
+          async ({
+            emissions = {},
+            economy = {},
+            startDate,
+            endDate,
+            reportURL,
+          }) => {
             const year = endDate.getFullYear().toString()
             const reportingPeriod = await upsertReportingPeriod(
               res.locals.company,
@@ -365,20 +373,42 @@ router.post(
               }
             )
 
-            const dbEmissions = await upsertEmissions({
-              emissionsId: reportingPeriod.emissionsId ?? 0,
-              companyId: res.locals.company.wikidataId,
-              year,
-            })
+            const [dbEmissions, dbEconomy] = await Promise.all([
+              upsertEmissions({
+                emissionsId: reportingPeriod.emissionsId ?? 0,
+                companyId: res.locals.company.wikidataId,
+                year,
+              }),
+              upsertEconomy({
+                economyId: reportingPeriod.economyId ?? 0,
+                companyId: res.locals.company.wikidataId,
+                year,
+              }),
+            ])
 
-            const dbEconomy = await upsertEconomy({
-              economyId: reportingPeriod.economyId ?? 0,
-              companyId: res.locals.company.wikidataId,
-              year,
-            })
+            const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
+              emissions
+            const { turnover, employees } = economy
 
-            // TODO: update emissions data
-            // TODO: update economy data
+            // Normalise currency
+            if (turnover) {
+              turnover.currency = turnover?.currency?.trim()?.toUpperCase()
+            }
+
+            await Promise.allSettled([
+              scope1 && upsertScope1(dbEmissions, scope1, metadata),
+              scope2 && upsertScope2(dbEmissions, scope2, metadata),
+              scope3 && upsertScope3(dbEmissions, scope3, metadata),
+              statedTotalEmissions &&
+                upsertStatedTotalEmissions(
+                  dbEmissions,
+                  statedTotalEmissions,
+                  metadata
+                ),
+              biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+              turnover && upsertTurnover(dbEconomy, turnover, metadata),
+              employees && upsertEmployees(dbEconomy, employees, metadata),
+            ])
           }
         )
       )
@@ -411,12 +441,11 @@ router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
-    const {
-      emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
-    } = postEmissionsBodySchema.parse(req.body)
+    const { emissions = {} } = postEmissionsBodySchema.parse(req.body)
+    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } = emissions
 
     const metadata = res.locals.metadata!
-    const emissions = res.locals.emissions!
+    const dbEmissions = res.locals.emissions!
 
     try {
       // Only update if the input contains relevant changes
@@ -424,12 +453,16 @@ router.post(
       // There seems to be a type error in zod which doesn't take into account optional objects.
 
       await Promise.allSettled([
-        scope1 && upsertScope1(emissions, scope1, metadata),
-        scope2 && upsertScope2(emissions, scope2, metadata),
-        scope3 && upsertScope3(emissions, scope3, metadata),
+        scope1 && upsertScope1(dbEmissions, scope1, metadata),
+        scope2 && upsertScope2(dbEmissions, scope2, metadata),
+        scope3 && upsertScope3(dbEmissions, scope3, metadata),
         statedTotalEmissions &&
-          upsertStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
-        biogenic && upsertBiogenic(emissions, biogenic, metadata),
+          upsertStatedTotalEmissions(
+            dbEmissions,
+            statedTotalEmissions,
+            metadata
+          ),
+        biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update emissions', {
