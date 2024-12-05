@@ -3,7 +3,7 @@ import { defaultMetadata, askDiff } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import saveToAPI from './saveToAPI'
 
-export class JobData extends DiscordJob {
+export class DiffReportingPeriodsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
@@ -16,7 +16,7 @@ export class JobData extends DiscordJob {
   }
 }
 
-const diffReportingPeriods = new DiscordWorker<JobData>(
+const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
   'diffReportingPeriods',
   async (job) => {
     const {

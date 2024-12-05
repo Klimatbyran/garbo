@@ -9,7 +9,7 @@ import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { openai } from '../lib/openai'
 import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 
-class JobData extends DiscordJob {
+class NLMExtractTablesJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     json: ParsedDocument
   }
@@ -79,7 +79,7 @@ const searchTerms = [
 ]
 const nlmExtractTables = new DiscordWorker(
   'nlmExtractTables',
-  async (job: JobData) => {
+  async (job: NLMExtractTablesJob) => {
     const { json, url } = job.data
 
     try {

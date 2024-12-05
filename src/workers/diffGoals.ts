@@ -2,7 +2,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, askDiff } from '../lib/saveUtils'
 import saveToAPI from './saveToAPI'
 
-export class JobData extends DiscordJob {
+export class DiffGoalsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
@@ -11,7 +11,7 @@ export class JobData extends DiscordJob {
   }
 }
 
-const diffGoals = new DiscordWorker<JobData>('diffGoals', async (job) => {
+const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
   const { url, wikidata, companyName, existingCompany, goals } = job.data
   const wikidataId = wikidata.node
   const metadata = defaultMetadata(url)

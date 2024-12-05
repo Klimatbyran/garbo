@@ -6,7 +6,7 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
 
-class JobData extends DiscordJob {
+class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
@@ -16,7 +16,7 @@ class JobData extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const precheck = new DiscordWorker('precheck', async (job: JobData) => {
+const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
   const { cachedMarkdown, type, ...baseData } = job.data
   const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 

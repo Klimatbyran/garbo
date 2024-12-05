@@ -1,13 +1,13 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 
-export class JobData extends DiscordJob {
+export class SendCompanyLinkJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     wikidata: any
   }
 }
 
-const sendCompanyLink = new DiscordWorker<JobData>(
+const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
   'sendCompanyLink',
   async (job) => {
     const { companyName, wikidata } = job.data
@@ -27,7 +27,7 @@ const sendCompanyLink = new DiscordWorker<JobData>(
     await job.sendMessage(`✅ Företaget har sparats! Se resultatet här: ${url}`)
 
     return { url }
-  },
+  }
 )
 
 export default sendCompanyLink

@@ -6,7 +6,7 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
 import { vectorDB } from '../lib/vectordb'
 
-class JobData extends DiscordJob {
+class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
     apiSubEndpoint: string
@@ -15,9 +15,9 @@ class JobData extends DiscordJob {
   }
 }
 
-const followUp = new DiscordWorker<JobData>(
+const followUp = new DiscordWorker<FollowUpJob>(
   'followUp',
-  async (job: JobData) => {
+  async (job: FollowUpJob) => {
     const { type, url, previousAnswer } = job.data
 
     const {

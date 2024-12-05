@@ -3,7 +3,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 
-export class JobData extends DiscordJob {
+export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     description?: string
@@ -16,7 +16,7 @@ export class JobData extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
+const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
   const {
     companyName,
     description,
