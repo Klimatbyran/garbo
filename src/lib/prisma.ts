@@ -552,7 +552,7 @@ export async function updateIndustry(
   })
 }
 
-export async function ensureReportingPeriodExists(
+export async function upsertReportingPeriod(
   company: Company,
   metadata: Parameters<typeof prisma.metadata.create>[0]['data'],
   {
@@ -585,6 +585,31 @@ export async function ensureReportingPeriodExists(
       metadata: {
         connect: {
           id: metadata.id,
+        },
+      },
+    },
+  })
+}
+
+export async function upsertEmissions({
+  emissionsId,
+  year,
+  companyId,
+}: {
+  emissionsId: number
+  year: string
+  companyId: string
+}) {
+  return prisma.emissions.upsert({
+    where: { id: emissionsId },
+    update: {},
+    create: {
+      reportingPeriod: {
+        connect: {
+          reportingPeriodId: {
+            year,
+            companyId,
+          },
         },
       },
     },

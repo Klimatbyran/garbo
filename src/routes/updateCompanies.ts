@@ -17,6 +17,8 @@ import {
   updateInitiative,
   createIndustry,
   updateIndustry,
+  upsertReportingPeriod,
+  upsertEmissions,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -33,8 +35,6 @@ import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
-const tCO2e = 'tCO2e'
-const unit = tCO2e
 
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
@@ -258,6 +258,136 @@ router.post(
   }
 )
 
+const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
+
+export const emissionsSchema = z.object({
+  scope1: z
+    .object({
+      total: z.number(),
+    })
+    .optional(),
+  scope2: z
+    .object({
+      mb: z
+        .number({ description: 'Market-based scope 2 emissions' })
+        .optional(),
+      lb: z
+        .number({ description: 'Location-based scope 2 emissions' })
+        .optional(),
+      unknown: z
+        .number({ description: 'Unspecified Scope 2 emissions' })
+        .optional(),
+    })
+    .refine(
+      ({ mb, lb, unknown }) =>
+        mb !== undefined || lb !== undefined || unknown !== undefined,
+      {
+        message:
+          'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+      }
+    )
+    .optional(),
+  scope3: z
+    .object({
+      categories: z
+        .array(
+          z.object({
+            category: z.number().int().min(1).max(16),
+            total: z.number(),
+          })
+        )
+        .optional(),
+      statedTotalEmissions: statedTotalEmissionsSchema,
+    })
+    .optional(),
+  biogenic: z.object({ total: z.number() }).optional(),
+  statedTotalEmissions: statedTotalEmissionsSchema,
+  // TODO: add scope1And2
+})
+
+const economySchema = z
+  .object({
+    turnover: z
+      .object({
+        value: z.number().optional(),
+        currency: z.string().optional(),
+      })
+      .optional(),
+    employees: z
+      .object({
+        value: z.number().optional(),
+        unit: z.string().optional(),
+      })
+      .optional(),
+  })
+  .optional()
+
+const postReportingPeriodsSchema = z.object({
+  reportingPeriods: z.array(
+    z
+      .object({
+        startDate: z.coerce.date(),
+        endDate: z.coerce.date(),
+        reportURL: z.string().optional(),
+        emissions: emissionsSchema,
+        economy: economySchema,
+      })
+      .refine(
+        ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
+        {
+          message: 'startDate must be earlier than endDate',
+        }
+      )
+  ),
+})
+
+router.post(
+  '/:wikidataId/reporting-periods',
+  processRequestBody(postReportingPeriodsSchema),
+  async (req, res) => {
+    const { reportingPeriods } = postReportingPeriodsSchema.parse(req.body)
+    const metadata = res.locals.metadata!
+
+    try {
+      await Promise.allSettled(
+        // TODO: Upsert each reporting period
+        reportingPeriods.map(
+          async ({ emissions, economy, startDate, endDate, reportURL }) => {
+            const year = endDate.getFullYear().toString()
+            const reportingPeriod = await upsertReportingPeriod(
+              res.locals.company,
+              metadata,
+              {
+                startDate,
+                endDate,
+                reportURL,
+                year,
+              }
+            )
+
+            const dbEmissions = await upsertEmissions({
+              emissionsId: reportingPeriod.emissionsId ?? 0,
+              companyId: res.locals.company.wikidataId,
+              year,
+            })
+
+            // TODO: upsert economy
+            // TODO: update emissions data
+            // TODO: update economy data
+          }
+        )
+      )
+    } catch (error) {
+      throw new GarboAPIError('Failed to update reporting periods', {
+        original: error,
+        statusCode: 500,
+      })
+    }
+
+    res.json({ ok: true })
+  }
+)
+
 router.use(
   '/:wikidataId/:year',
   validateReportingPeriod(),
@@ -267,53 +397,8 @@ router.use(
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
 
-const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
-
 const postEmissionsBodySchema = z.object({
-  emissions: z.object({
-    scope1: z
-      .object({
-        total: z.number(),
-      })
-      .optional(),
-    scope2: z
-      .object({
-        mb: z
-          .number({ description: 'Market-based scope 2 emissions' })
-          .optional(),
-        lb: z
-          .number({ description: 'Location-based scope 2 emissions' })
-          .optional(),
-        unknown: z
-          .number({ description: 'Unspecified Scope 2 emissions' })
-          .optional(),
-      })
-      .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
-        {
-          message:
-            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
-      )
-      .optional(),
-    scope3: z
-      .object({
-        categories: z
-          .array(
-            z.object({
-              category: z.number().int().min(1).max(16),
-              total: z.number(),
-            })
-          )
-          .optional(),
-        statedTotalEmissions: statedTotalEmissionsSchema,
-      })
-      .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
-    statedTotalEmissions: statedTotalEmissionsSchema,
-    // TODO: add scope1And2
-  }),
+  emissions: emissionsSchema,
 })
 
 // POST /Q12345/2022-2023/emissions
@@ -353,22 +438,7 @@ router.post(
 )
 
 const postEconomyBodySchema = z.object({
-  economy: z
-    .object({
-      turnover: z
-        .object({
-          value: z.number().optional(),
-          currency: z.string().optional(),
-        })
-        .optional(),
-      employees: z
-        .object({
-          value: z.number().optional(),
-          unit: z.string().optional(),
-        })
-        .optional(),
-    })
-    .optional(),
+  economy: economySchema,
 })
 
 router.post(

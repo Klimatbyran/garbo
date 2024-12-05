@@ -12,7 +12,7 @@ import { validateRequest, validateRequestBody } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 
-import { ensureReportingPeriodExists } from '../lib/prisma'
+import { upsertEmissions, upsertReportingPeriod } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import apiConfig from '../config/api'
 
@@ -164,11 +164,12 @@ export const reportingPeriod =
     if (req.method === 'POST' || req.method === 'PATCH') {
       // TODO: Only allow creating a reporting period when updating other data
       // TODO: Maybe throw 404 if the reporting period was not found and it is a GET request
-      const reportingPeriod = await ensureReportingPeriodExists(
-        company,
-        metadata,
-        { startDate, endDate, reportURL, year }
-      )
+      const reportingPeriod = await upsertReportingPeriod(company, metadata, {
+        startDate,
+        endDate,
+        reportURL,
+        year,
+      })
 
       res.locals.reportingPeriod = reportingPeriod
     }
@@ -182,19 +183,10 @@ export const ensureEmissionsExists =
     const reportingPeriod = res.locals.reportingPeriod
     const emissionsId = res.locals.reportingPeriod.emissionsId ?? 0
 
-    const emissions = await prisma.emissions.upsert({
-      where: { id: emissionsId ?? 0 },
-      update: {},
-      create: {
-        reportingPeriod: {
-          connect: {
-            reportingPeriodId: {
-              year: reportingPeriod.year,
-              companyId: reportingPeriod.companyId,
-            },
-          },
-        },
-      },
+    const emissions = await upsertEmissions({
+      emissionsId: reportingPeriod.emissionsId ?? 0,
+      companyId: res.locals.company.wikidataId,
+      year: reportingPeriod.year,
     })
 
     res.locals.emissions = emissions
