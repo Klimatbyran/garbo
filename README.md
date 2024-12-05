@@ -1,6 +1,6 @@
-## Klimatkollen Garbo AI
+# Klimatkollen Garbo AI
 
-This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self reported data from companies.
+This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
@@ -21,107 +21,146 @@ flowchart TB
 
     PDF[PDF]
     Cache{Is in cache?}
-    Download[Download PDF]
-    Index[Index Paragraphs]
-    Search[Search Vectors]
+    NLM[Parse PDF]
+    Tables[Extract Tables]
     Emissions[Extract Emissions]
-    Wikidata[Guess Wikidata]
 
-    API.Economy[POST /economy]
-    API.Industry[POST /industry]
-    API.Emissions[POST /emissions]
-    API.Goals[POST /goals]
-    API.Factors[POST /factors TODO]
-    API.Contacts[POST /contacts TODO]
-    API.Review[POST /validate TODO]
-
-    Industry[Extract Industry]
-    Goals[Extract Climate Goals]
+    Industry[Industry]
+    Goals[Climate Goals]
     Review[Discord Review]
 
+    Precheck --> GuessWikidata --> Emissions
+    Precheck --> FiscalYear --> Emissions
 
-    PDF --> Cache --(no)--> Download --> Index --> Search --> Wikidata --> Emissions
-    Cache --(yes)--> Search
+    PDF --> Cache --(no)--> NLM --> Tables --> Precheck
 
-    Emissions --> Industry --(.industry)--> API.Industry
-    Emissions --> Scope1+2 --(.scope1)--> API.Emissions
-    Emissions --> Scope3 --(.scope3)--> API.Emissions
-    Emissions --> Goals --(.goals)--> API.Goals
-    Emissions --> Initiatives --(.initiatives)--> API.Goals
-    Emissions --> Contacts --(.contacts)--> API.Contacts
-    Emissions --> Turnover --(.turnover)--> API.Economy
-    Emissions --> Factors --(.factors)--> API.Factors
+    Cache --(yes)--> Precheck
 
-    API.Economy --> Review
-    API.Industry --> Review
-    API.Emissions --> Review
-    API.Goals --> Review
-    API.Factors --> Review
-    API.Contacts --> Review
+    CheckDB{Exists in API?}
 
-    Review --> API.Review
+    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
+                                           CheckDB --(no)--> API.Industry
+    Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Scope3 --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Biogenic --> CheckDB --(yes)--> Review --> API.Emissions
+                                           CheckDB --(no)--> API.Emissions
+    Emissions --(followUp)--> Goals --> CheckDB --(yes)--> Review --> API.Goals
+                                           CheckDB --(no)--> API.Goals
+    Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Initiatives
+    Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
+                                           CheckDB --(no)--> API.Economy
 ```
 
-### Get Started
+## Get started
 
-Get an OPENAI_API_KEY, POSTGRES_PASSWORD from OpenAI and add it to a .env file in the root directory. Run redis and postgresql locally or add REDIS_HOST and REDIS_PORT into the .env file.
+Ensure you have Node.js version 22.0.0 or higher installed. You will also need Docker to run Redis, PostgreSQL, and ChromaDB containers.
 
-```bash
+### Setting up environment variables
+
+Make a copy of the file `.env.example` and name it `.env.development`. Fill it in using the instructions in the file.
+
+### Installing dependencies
+
+```sh
 npm i
-docker run -d -p 6379:6379 redis
-docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword postgres
-docker run -d -p 8000:8000 chromadb/chroma
-npm start & npm run workers
 ```
 
-## How to run the code
+> [!NOTE]
+> If you use a Linux-based operating system, you might need to install additional dependencies for the third-party package `canvas`. Follow the [instructions](https://www.npmjs.com/package/canvas).
 
-The code consists of two different starting points. The first one will serve the BullMQ queue UI and will also be responsible for listening to new events from Discord.
+### Starting the containers
+
+This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
+
+The simplest way to start the containers the first time is to run the following docker commands.
 
 ```bash
-npm start
+docker run -d -p 6379:6379 --name garbo_redis redis
+docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
+docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
 
-Now you can go to http://localhost:3000 and see the dashboard.
+Next time, you can start the containers back up using
 
-The second one is the workers responsible for doing the actual work. This part can be scaled horisontally and divide the work automatically through the queue.
-
-```bash
-npm run workers
+```sh
+docker start garbo_redis garbo_postgres garbo_chroma garbo_ingestor
 ```
 
-### Environment/Secrets
+You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives.
 
-Create a .env file in the root lib and add these tokens/secrets before running the application:
+### Seeding the database for development
 
-```bash
-OPENAI_API_KEY=
-OPENAI_ORG_ID=
-DISCORD_APPLICATION_ID=
-DISCORD_TOKEN=
-DISCORD_SERVER_ID=
+This applies migrations and seeding data needed for development.
 
-# these are optional, the code works fine without Llama cloud:
-LLAMA_CLOUD_API_KEY=
+```sh
+npm run prisma migrate dev
 ```
 
-## How to run with nodemon
+### Starting the Garbo project in development mode
 
-Either you run both workers and board in the same terminal with same command through `concurrently`
+The code consists of two different starting points. You can start both the BullMQ queue UI, the API and the workers concurrently using:
 
 ```bash
 npm run dev
 ```
 
-or you start them separately
+This command will start both the dev-board and dev-workers concurrently. Now you can go to <http://localhost:3000> and see the dashboard.
+
+If you want to run them separately, use the following commands:
+
+To serve the BullMQ queue UI and the API:
 
 ```bash
-npm run dev-workers
-# new terminal:
 npm run dev-board
 ```
 
+To start the workers responsible for doing the actual work, which can be scaled horizontally:
+
+```bash
+npm run dev-workers
+```
+
+### Restoring a DB backup locally
+
+These steps can be useful to test DB migrations, or develop with data that is similar to the that in the production environment.
+
+1. Optional: Create a local test DB.
+
+```sh
+docker run -d -p 5432:5432 --name garbo_test_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+```
+
+Alternatively, make sure your local postgres container is running.
+
+2. Download the DB dump file. Ask someone from Klimatkollen to get one.
+
+3. Restore the backup. This will initially connect to the default `postgres` database without making any modifications and then create any databases if they do not exist
+
+```sh
+docker exec -i container_name pg_restore -U postgres -C -v -d postgres < ~/Downloads/backup_garbo_XYZ.dump
+```
+
+4. Apply DB migrations with `npm run prisma migrate dev`.
+
+5. Restart the Garbo API and workers.
+
+### Testing
+
+To run the tests, use the following command:
+
+```bash
+npm test
+```
+
 ### How to run with Docker
+
+To run the application
 
 ```bash
 docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
@@ -130,18 +169,37 @@ docker run -d -p 3000:3000 ghcr.io/klimatbyran/garbo npm start
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
 docker run -d ghcr.io/klimatbyran/garbo npm run workers
+
+# first time you need to initialize the postgres database:
+npm run prisma db push # create tables
+npm run prisma db seed # seed the data with initial content
 ```
 
-### Next steps / Tasks
+### Operations / DevOps
 
-### Operations
+This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s is automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
 
-This application is run in Kubernetes and uses FluxCD as CD pipeline. To create secret in the k8s cluster - use this command to transfer your .env file as secret to the application
+```helm
+postgresql (bitnami)
+redis (bitnami)
+chromadb
+metabase
+```
+
+To create secret in the k8s cluster - use this command to transfer your .env file as secret to the cluster:
 
 ```bash
 kubectl create secret generic env --from-env-file=.env
 ```
 
+### Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
+
+### Contact
+
+For any questions or issues, please contact the maintainers at [hej@klimatkollen.se](mailto:hej@klimatkollen.se) and you will get an invite to our Discord.
+
 ### License
 
-MIT
+This project is licensed under the terms of the [MIT License](LICENSE) © Klimatbyrån Ideell Förening.

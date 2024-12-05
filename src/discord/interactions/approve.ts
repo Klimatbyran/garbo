@@ -1,24 +1,15 @@
-import { ButtonInteraction, EmbedBuilder, Interaction } from 'discord.js'
-import discord from '../../discord'
+import { ButtonInteraction } from 'discord.js'
+import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
-  async execute(interaction: ButtonInteraction, job) {
-    const { documentId, threadId } = job.data
-    job.log(`Approving documentId: ${documentId}`)
-    throw new Error('Not implemented yet: API: approve')
-    interaction.reply({
+  async execute(interaction: ButtonInteraction, job: DiscordJob) {
+    await job.updateData({ ...job.data, approved: true })
+    
+    job.log(`Approving company edit: ${job.data.wikidataId}`)
+    await interaction.reply({
       content: `Tack för din granskning, ${interaction?.user?.username}!`,
     })
-    /*interaction.update({
-      embeds: interaction.[
-        new EmbedBuilder()
-          .setTitle(`Godkänd (reportId: ${documentId})`)
-          .setDescription(
-            `Tack för din granskning, ${interaction?.user?.username}!`
-          ),
-      ],
-      components: [],
-    })*/
-    //discord.lockThread(threadId)
+    
+    await job.promote()
   },
 }

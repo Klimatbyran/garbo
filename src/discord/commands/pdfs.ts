@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import { downloadPDF } from '../../queues'
+import nlmParsePDF from '../../workers/nlmParsePDF'
 
 export default {
   data: new SlashCommandBuilder()
@@ -19,7 +19,6 @@ export default {
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    console.log('pdfs')
     try {
       await interaction.deferReply({ ephemeral: true })
       const urls = interaction.options
@@ -55,10 +54,20 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
-        downloadPDF.add('download ' + url.slice(-20), {
-          url,
-          threadId: thread.id,
-        })
+        nlmParsePDF.queue.add(
+          'download ' + url.slice(-20),
+          {
+            url,
+            threadId: thread.id,
+          },
+          {
+            backoff: {
+              type: 'fixed',
+              delay: 60_000,
+            },
+            attempts: 10,
+          }
+        )
       })
     } catch (error) {
       console.error('Pdfs: error', error)

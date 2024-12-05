@@ -1,68 +1,108 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  emissions: z.array(
+  scope3: z.array(
     z.object({
       year: z.number(),
-      scope3: z.object({
-        categories: z.record(z.number()),
-        totalEmissions: z.number(),
-        unit: z.string(),
-      }),
+      scope3: z
+        .object({
+          categories: z
+            .array(
+              z.object({
+                category: z.number().int(),
+                total: z.number(),
+              })
+            )
+            .optional(),
+          statedTotalEmissions: z.object({ total: z.number() }).optional(),
+        })
+        .optional(),
     })
   ),
 })
 
-export const prompt = `
-Extract scope 3 emissions according to the GHG protocol. Add it as field emissions per year. Include all years you can find and never exclude latest year. Include as many categories as you can find and their scope 3 emissions.
+export const prompt = `## Scope 3:
+Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`scope3\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.
 
-Important! Always report according to the offical GHG categories. If you can't find the corresponding category, report it as "other".
+### Instructions:
 
-NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. If the company has reported individual categories but no totals- never try to calculate totals, just report it as is.
+1. **Reporting Categories**:
+  Always report data according to the official GHG Protocol categories. If a reported category does not match the official list, include it under "16: Other."
 
-Regarding transport: If you can't find the exact category, report it as "4_upstreamTransportationAndDistribution" or "9_downstreamTransportationAndDistribution" depending on the context.
+  GHG Categories:
+   1: Purchased Goods
+   2: Capital Goods
+   3: Fuel And Energy Related Activities
+   4: Upstream Transportation And Distribution
+   5: Waste Generated In Operations
+   6: Business Travel
+   7: Employee Commuting
+   8: Upstream Leased Assets
+   9: Downstream Transportation And Distribution
+   10: Processing Of Sold Products
+   11: Use Of Sold Products
+   12: End Of Life Treatment Of Sold Products
+   13: Downstream Leased Assets
+   14: Franchises
+   15: Investments
+   16: Other
 
-If the company is idientified as a financial institution or investment company, look for emissions data from investements, the portfolio, or financed emissions. They are often found elsewhere in the report. Do not use markdown in the output.
+2. **Missing Or Incomplete Data**:
+  If data is missing or unclear, explicitly report it as \`null\`. Do not make assumptions or attempt to infer missing values.
 
-1_purchasedGoods
-2_capitalGoods
-3_fuelAndEnergyRelatedActivities
-4_upstreamTransportationAndDistribution
-5_wasteGeneratedInOperations
-6_businessTravel
-7_employeeCommuting
-8_upstreamLeasedAssets
-9_downstreamTransportationAndDistribution
-10_processingOfSoldProducts
-11_useOfSoldProducts
-12_endOfLifeTreatmentOfSoldProducts
-13_downstreamLeasedAssets
-14_franchises
-15_investments
-16_other
+3. **Units**:
+  Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit (kton = 1000 tCO2, Mton = 1000000 tCO2), convert it. This is the only permitted calculation.
 
+4. **Financial Institutions**:
+  If the company is a financial institution, look specifically for emissions data related to investments, portfolio, or financed emissions. These may be located in separate sections of the report.
 
+5. **Totals**:
+  Only report total emissions if explicitly stated. Do not calculate totals, even if all categories are individually reported.
 
-Example: Keep this format and add as many years as you can find. Keep the categories you find and if the company has invented new categories, please add them to the 16_other category.
+6. **Transportation Categories**:
+  If a transportation-related category is unclear, classify it as either \`4: Upstream Transportation And Distribution\` or \`9: Downstream Transportation And Distribution\` based on how it is described.
+
+7. **Output Format**:
+  Keep the output strictly in JSON format, following this structure:
+
+\`\`\`json
 {
-  "emissions": [
-    {
-      "year": 2021,
-      "scope3": {
-        "categories": {
-          "1_purchasedGoods": 10,
-          "2_capitalGoods": 20,
-          "3_fuelAndEnergyRelatedActivities": 40,
-          "14_franchises": 40
-        },
-        "totalEmissions": 100,
-        "unit": "tCO2e"
-      }
-    },
-    { "year": 2022, ... },
-    { "year": 2023, ... }
+  "scope3": [
+  {
+    "year": 2021,
+    "scope3": {
+      "categories": [
+        { "category": 1, "total": 10 },
+        { "category": 2, "total": 20 },
+        { "category": 3, "total": 40 },
+        { "category": 14, "total": 40 }
+      ],
+      "statedTotalEmissions": { "total": 110 }
+    }
+  },
+  {
+    "year": 2022,
+    "scope3": null
+  },
+  {
+    "year": 2023,
+    "scope3": null
+  }
   ]
 }
+\`\`\`
 `
 
-export default { prompt, schema }
+const queryTexts = [
+  'Scope 3 emissions by category',
+  'GHG protocol Scope 3 data',
+  'Emissions per year and category',
+  `purchasedGoods capitalGoods fuelAndEnergyRelatedActivities 
+  upstreamTransportationAndDistribution wasteGeneratedInOperations 
+  businessTravel employeeCommuting upstreamLeasedAssets 
+  downstreamTransportationAndDistribution processingOfSoldProducts 
+  useOfSoldProducts endOfLifeTreatmentOfSoldProducts downstreamLeasedAssets 
+  franchises investments other`,
+]
+
+export default { prompt, schema, queryTexts }

@@ -320,11 +320,22 @@ svetenskaper (3520)
     - Fastighetsutveckling (60201030)
     - Fastighetstjänster (60201040)
 
-Just reply with the information in json format. In Swedish, please. NEVER USE EXAMPLE DATA. Do not use markdown in the output.
+Just reply with the information in JSON format. In Swedish, please. NEVER USE EXAMPLE DATA. Do not use markdown in the output.
+
+Example:
+\`\`\`json
 {
   "industry": {
-    "subIndustryCode": "1234567",
+    "subIndustryCode": "12345678"
   }
-}`
+}
+\`\`\`
+`
 
-export default { prompt, schema }
+const queryTexts = [
+  'GICS industry codes',
+  'Sector and sub-industry',
+  'Sub-industry classification',
+]
+
+export default { prompt, schema, queryTexts }

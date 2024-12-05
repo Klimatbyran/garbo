@@ -1,12 +1,10 @@
-const BASE_URL = 'http://localhost:3000/api'
+import apiConfig from '../config/api'
 
-import { ENV } from './env'
+const GARBO_TOKEN = apiConfig.tokens.find((token) => token.startsWith('garbo'))
 
-const GARBO_TOKEN = ENV.API_TOKENS.find((token) => token.startsWith('garbo'))
-
-async function saveToAPI(
+export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: RequestInit = {}
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const headers = {
     'Content-Type': 'application/json',
@@ -24,19 +22,14 @@ async function saveToAPI(
     config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  const response = await fetch(`${BASE_URL}${endpoint}`, config)
+  const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
   if (response.ok) {
     return response.json()
   } else {
     const errorMessage = await response.text()
-    return Promise.reject(new Error('API error:' + errorMessage))
-  }
-}
+    const status = response.status
+    if (status === 404) return null
 
-export async function saveCompany(
-  wikidataId: string,
-  subEndpoint: string,
-  body: any
-) {
-  return saveToAPI(`/companies/${wikidataId}/${subEndpoint}`, { body })
+    throw new Error('API error:' + errorMessage)
+  }
 }

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nlm
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nlm
+  template:
+    metadata:
+      labels:
+        app: nlm
+    spec:
+      containers:
+        - image: ghcr.io/nlmatics/nlm-ingestor
+          resources:
+            limits:
+              cpu: 1100m
+              memory: 2Gi
+          name: nlm
+          ports:
+            - containerPort: 5001
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nlm
+spec:
+  ports:
+    - port: 5001
+      targetPort: 5001
+  selector:
+    app: nlm

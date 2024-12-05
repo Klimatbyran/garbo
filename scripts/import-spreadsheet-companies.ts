@@ -8,6 +8,7 @@ import { resetDB } from '../src/lib/dev-utils'
 import { getName, getWikidataId } from './import-garbo-companies'
 import garboCompanies from '../companies.json'
 import { getAllGicsCodesLookup, gicsCodes } from './add-gics'
+import { getPeriodDatesForYear } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
@@ -162,40 +163,6 @@ function getCompanyBaseFacts() {
     }, [])
 }
 
-/**
- * Translate the reporting period dates into another year. Can handle leap years.
- */
-function getPeriodDatesForYear(
-  endYear: number,
-  startDate: Date = new Date(`${endYear}-01-01`),
-  endDate: Date = new Date(`${endYear}-12-31`)
-) {
-  // Handle broken reporting periods
-  const diff = endDate.getFullYear() - startDate.getFullYear()
-
-  const start = new Date(
-    `${endYear - diff}-${(startDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-01`
-  )
-  const end = new Date(
-    `${endYear}-${(endDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-${getLastDayInMonth(endYear, endDate.getMonth())}`
-  )
-
-  return [start, end]
-}
-
-/**
- * NOTE: Month is 0-indexed like Date.getMonth()
- *
- * Credit: https://stackoverflow.com/a/5301829
- */
-function getLastDayInMonth(year: number, month: number) {
-  return 32 - new Date(year, month, 32).getDate()
-}
-
 function getReportingPeriods(
   wantedCompanies: {
     wikidataId: string
@@ -284,7 +251,7 @@ function getReportingPeriods(
           ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
         }
 
-        const scope3Categories = Array.from({ length: 15 }, (_, i) => i + 1)
+        const categories = Array.from({ length: 15 }, (_, i) => i + 1)
           .map((category) => ({
             category,
             total: wantedColumns[`Cat ${category}`],
@@ -300,7 +267,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
-          ...(scope3Categories.length ? { scope3Categories } : {}),
+          ...(categories.length ? { categories } : {}),
         }
 
         const emissions = {
@@ -727,7 +694,7 @@ async function main() {
   // NOTE: Useful for testing upload of only specific companies
   // .filter(
   //   (x) =>
-  //     x.reportingPeriods?.[0]?.emissions?.scope3?.scope3Categories &&
+  //     x.reportingPeriods?.[0]?.emissions?.scope3?.categories &&
   //     x.reportingPeriods?.[0]?.emissions?.scope3?.statedTotalEmissions
   // )
   // .filter((x) => x.reportingPeriods?.[0]?.emissions?.biogenic?.total)

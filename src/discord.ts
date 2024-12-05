@@ -13,11 +13,11 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import { discordReview } from './queues'
-import retry from './discord/interactions/retry'
 import approve from './discord/interactions/approve'
-import feedback from './discord/interactions/feedback'
 import reject from './discord/interactions/reject'
+import saveToAPI, { SaveToApiJob } from './workers/saveToAPI'
+
+const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -53,6 +53,13 @@ export class Discord {
           const command = commands.find(
             (command) => command.data.name === interaction.commandName
           )
+          if (!command) {
+            console.error(
+              `Discord error: Command "${interaction.commandName}" not found`
+            )
+            return
+          }
+
           try {
             await command.execute(interaction as ChatInputCommandInteraction)
           } catch (error) {
@@ -68,27 +75,21 @@ export class Discord {
           try {
             switch (action) {
               case 'approve': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
                 break
               }
-              case 'feedback': {
-                const job = await discordReview.getJob(jobId)
+              /*case 'feedback': {
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await feedback.execute(interaction, job)
                 break
-              }
+              }*/
               case 'reject': {
-                const job = await discordReview.getJob(jobId)
+                const job = (await getJob(jobId)) as SaveToApiJob
                 if (!job) await interaction.reply('Job not found')
                 else await reject.execute(interaction, job)
-                break
-              }
-              case 'retry': {
-                const job = await discordReview.getJob(jobId)
-                if (!job) await interaction.reply('Job not found')
-                else retry.execute(interaction, job)
                 break
               }
             }
@@ -114,19 +115,15 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`approve~${jobId}`)
         .setLabel('Approve')
-        .setStyle(ButtonStyle.Success),
-      new ButtonBuilder()
+        .setStyle(ButtonStyle.Success)
+      /*new ButtonBuilder()
         .setCustomId(`feedback~${jobId}`)
         .setLabel('Feedback')
         .setStyle(ButtonStyle.Primary),
       new ButtonBuilder()
         .setCustomId(`reject~${jobId}`)
         .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger),
-      new ButtonBuilder()
-        .setCustomId(`retry~${jobId}`)
-        .setLabel('🔁')
-        .setStyle(ButtonStyle.Secondary)
+        .setStyle(ButtonStyle.Danger),*/
     )
   }
 
@@ -143,8 +140,13 @@ export class Discord {
     )
   }
 
-  async sendMessage({ threadId }: { threadId: string }, msg: string) {
+  async sendMessage(
+    { threadId }: { threadId: string },
+    msg: string | { files?: any[]; content: string; components?: any[] }
+  ) {
     try {
+      if (!threadId) throw new Error('Thread ID is required')
+
       const thread = (await this.client.channels.fetch(
         threadId
       )) as ThreadChannel
@@ -152,7 +154,7 @@ export class Discord {
       return thread.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
-      return undefined
+      return null
     }
   }
 
@@ -173,14 +175,47 @@ export class Discord {
     })
   }
 
-  async sendMessageToChannel(channelId, message): Promise<Message> {
+  async editMessage(
+    data: { channelId: string; threadId: string; messageId: string },
+    editedMessage: string
+  ) {
+    const message = await this.findMessage(data)
+    return message?.edit(editedMessage)
+  }
+
+  async findMessage({
+    channelId,
+    threadId,
+    messageId,
+  }: {
+    channelId?: string
+    threadId?: string
+    messageId: string
+  }) {
+    const id = threadId || channelId
+    if (!id) {
+      console.error(`Discord error: Unable to find message - no id provided:`, {
+        channelId,
+        threadId,
+      })
+      return null
+    }
+    const channel = (await this.client.channels.fetch(id)) as TextChannel
+    const message = await channel.messages.fetch(messageId)
+    return message
+  }
+
+  async sendMessageToChannel(
+    channelId: string,
+    message: any
+  ): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)
   }
 
-  async lockThread(channelId) {
+  async lockThread(channelId: string) {
     const channel = await this.client.channels.fetch(channelId)
-    if (channel.isThread()) {
+    if (channel?.isThread()) {
       await channel.setLocked(true)
       //await channel.setArchived(true);
     } else {

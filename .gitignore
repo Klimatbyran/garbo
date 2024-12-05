@@ -1,14 +1,15 @@
 node_modules
 dist
-.env*
-!env.example
-
-prisma/generated
-
-*.xlsx
+.env
 .aider*
+.env*
+.DS_Store
+!env.example
+prisma/generated
+*.xlsx
 
 # Ignore local SQLite databases
 *.db
 *.db-journal
 *.pdf
+*.code-workspace

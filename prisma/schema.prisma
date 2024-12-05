@@ -84,9 +84,10 @@ model IndustryGics {
 
 /// A reporting period is a timespan for accounting emissions as well as financial data
 model ReportingPeriod {
-  id        Int      @id @default(autoincrement())
   startDate DateTime
   endDate   DateTime
+  /// The year needs to be the same year as the endDate.
+  year      String
   /// Save URLs to the sustainability- and potentially also the yearly report for this reporting period.
   /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
   /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
@@ -97,12 +98,13 @@ model ReportingPeriod {
   economyId   Int?   @unique
   metadataId  Int
 
-  initiatives Initiative[]
-  goals       Goal[]
-  metadata    Metadata     @relation(fields: [metadataId], references: [id])
-  economy     Economy?     @relation(fields: [economyId], references: [id])
-  emissions   Emissions?   @relation(fields: [emissionsId], references: [id])
-  company     Company      @relation(fields: [companyId], references: [wikidataId])
+  metadata  Metadata   @relation(fields: [metadataId], references: [id])
+  economy   Economy?   @relation(fields: [economyId], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id])
+  company   Company    @relation(fields: [companyId], references: [wikidataId])
+
+  /// Compound id based on meaningful data
+  @@id(name: "reportingPeriodId", [companyId, year])
 }
 
 /// Reported emissions for a specific reporting period
@@ -208,7 +210,7 @@ model Scope3 {
 
   // The scope 3 categories, both reported and estimated.
   // TODO: Add validation so there can only be one for each category, and max 16 entries.
-  scope3Categories     Scope3Category[]
+  categories           Scope3Category[]
   statedTotalEmissions StatedTotalEmissions?
   emissions            Emissions?
   metadata             Metadata              @relation(fields: [metadataId], references: [id])
@@ -288,37 +290,33 @@ model Employees {
 }
 
 model Goal {
-  id                Int     @id @default(autoincrement())
-  description       String
-  year              String?
-  target            Float?
+  id          Int     @id @default(autoincrement())
+  description String
+  year        String?
+  target      Float?
   // TODO: Maybe reference ReportingPeriod instead
   // However, baseYears for goals might be different than other reporting periods for the company.
   // Thus, we in some cases need to reference something else than the reporting periods
   // For now, let's store them as strings, but in the future maybe use another representation.
-  baseYear          String?
-  metadataId        Int
-  companyId         String
-  reportingPeriodId Int?
+  baseYear    String?
+  metadataId  Int
+  companyId   String
 
-  metadata        Metadata         @relation(fields: [metadataId], references: [id])
-  company         Company          @relation(fields: [companyId], references: [wikidataId])
-  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [wikidataId])
 }
 
 model Initiative {
-  id                Int     @id @default(autoincrement())
-  title             String
-  description       String?
-  year              String?
-  scope             String?
-  companyId         String
-  metadataId        Int
-  reportingPeriodId Int?
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  year        String?
+  scope       String?
+  companyId   String
+  metadataId  Int
 
-  company         Company          @relation(fields: [companyId], references: [wikidataId])
-  metadata        Metadata         @relation(fields: [metadataId], references: [id])
-  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id])
+  company  Company  @relation(fields: [companyId], references: [wikidataId])
+  metadata Metadata @relation(fields: [metadataId], references: [id])
 }
 
 /// Every datapoint has associated metadata about who changed it, when, and using what source
@@ -352,7 +350,7 @@ model Metadata {
   user                 User                   @relation("metadata_user_id", fields: [userId], references: [id])
   verifiedBy           User?                  @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
   industries           Industry[]
-  scope3Categories     Scope3Category[]
+  categories           Scope3Category[]
   turnover             Turnover[]
   employees            Employees[]
 }

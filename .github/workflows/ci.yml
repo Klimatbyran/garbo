@@ -16,6 +16,7 @@ on:
       - staging*
     paths-ignore:
       - 'k8s/**'
+      - 'Dockerfile.base'
 
 jobs:
   version:
@@ -23,7 +24,7 @@ jobs:
 
     steps:
       - name: 🛎️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🎫 Update patch version
         run: |
@@ -46,12 +47,29 @@ jobs:
     runs-on: ubuntu-latest
     needs: version
 
+    # Add concurrency check for base image
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: false
+
     steps:
+      # NOTE: Disabled until we have a stable base image
+      # - name: 🔍 Check for base image workflow
+      #   id: check-workflow
+      #   continue-on-error: true
+      #   uses: lewagon/wait-on-check-action@v1.3.4
+      #   with:
+      #     ref: ${{ github.ref }}
+      #     check-name: 'build-and-push-base-image'
+      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+      #     wait-interval: 10
+      #     allowed-conclusions: success,skipped
+      #     running-workflow-name: 'Build and Push Base Image'
       - name: 🛎️ Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - id: imagename
-        uses: ASzc/change-string-case-action@v2
+        uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.repository }}
 
@@ -71,14 +89,14 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@main
 
       - name: 🔐 Login to Docker Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔧 Build and push Docker Image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: |
