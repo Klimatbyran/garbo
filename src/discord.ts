@@ -16,7 +16,7 @@ import config from './config/discord'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
 import { Queue } from 'bullmq'
-import { SaveToApiJob } from './workers/saveToApi'
+import { SaveToApiJob } from './workers/saveToAPI'
 
 const apiSaveQueue = new Queue('api-save', {
   connection: {
