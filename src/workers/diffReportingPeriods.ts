@@ -64,9 +64,7 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
           biogenic: biogenic.find((d) => d.year === year)?.biogenic,
         }
 
-        const economyData = {
-          ...(economy.find((d) => d.year === year)?.economy ? economy : {}),
-        }
+        const economyData = economy.find((d) => d.year === year)?.economy ?? {}
 
         const reportingPeriod: any = period
 

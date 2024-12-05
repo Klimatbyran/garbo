@@ -350,6 +350,7 @@ router.post(
   async (req, res) => {
     const { reportingPeriods } = postReportingPeriodsSchema.parse(req.body)
     const metadata = res.locals.metadata!
+    const company = res.locals.company
 
     try {
       await Promise.allSettled(
@@ -363,7 +364,7 @@ router.post(
           }) => {
             const year = endDate.getFullYear().toString()
             const reportingPeriod = await upsertReportingPeriod(
-              res.locals.company,
+              company,
               metadata,
               {
                 startDate,
@@ -376,12 +377,12 @@ router.post(
             const [dbEmissions, dbEconomy] = await Promise.all([
               upsertEmissions({
                 emissionsId: reportingPeriod.emissionsId ?? 0,
-                companyId: res.locals.company.wikidataId,
+                companyId: company.wikidataId,
                 year,
               }),
               upsertEconomy({
                 economyId: reportingPeriod.economyId ?? 0,
-                companyId: res.locals.company.wikidataId,
+                companyId: company.wikidataId,
                 year,
               }),
             ])
@@ -391,8 +392,8 @@ router.post(
             const { turnover, employees } = economy
 
             // Normalise currency
-            if (turnover) {
-              turnover.currency = turnover?.currency?.trim()?.toUpperCase()
+            if (turnover?.currency) {
+              turnover.currency = turnover.currency.trim().toUpperCase()
             }
 
             await Promise.allSettled([
