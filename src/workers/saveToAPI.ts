@@ -37,7 +37,9 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       // If approval is required and not yet approved, send approval request
       const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
-        content: `New changes need approval for ${wikidataId}\n\n${diff || ''}`,
+        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${
+          diff || ''
+        }`,
         components: [buttonRow],
       })
 
