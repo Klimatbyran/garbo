@@ -7,6 +7,11 @@ export class SendCompanyLinkJob extends DiscordJob {
   }
 }
 
+const frontendBaseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4321'
+    : 'https://beta.klimatkollen.se'
+
 const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
   'sendCompanyLink',
   async (job) => {
@@ -22,7 +27,7 @@ const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '')
 
-    const url = `http://beta.klimatkollen.se/companies/${urlSafeCompanyName}-${wikidataId}`
+    const url = `${frontendBaseURL}/foretag/${urlSafeCompanyName}-${wikidataId}`
 
     await job.sendMessage(`✅ Företaget har sparats! Se resultatet här: ${url}`)
 
