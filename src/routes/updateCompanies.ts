@@ -17,6 +17,9 @@ import {
   updateInitiative,
   createIndustry,
   updateIndustry,
+  upsertReportingPeriod,
+  upsertEmissions,
+  upsertEconomy,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -33,8 +36,6 @@ import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
-const tCO2e = 'tCO2e'
-const unit = tCO2e
 
 router.use('/', fakeAuth(prisma))
 router.use('/', express.json())
@@ -213,7 +214,7 @@ const industrySchema = z.object({
   }),
 })
 
-router.put(
+router.post(
   '/:wikidataId/industry',
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
   async (req, res) => {
@@ -258,19 +259,10 @@ router.put(
   }
 )
 
-router.use(
-  '/:wikidataId/:year',
-  validateReportingPeriod(),
-  reportingPeriod(prisma)
-)
-
-router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
-router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
-
 const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
 
-const postEmissionsBodySchema = z.object({
-  emissions: z.object({
+export const emissionsSchema = z
+  .object({
     scope1: z
       .object({
         total: z.number(),
@@ -313,7 +305,136 @@ const postEmissionsBodySchema = z.object({
     biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     // TODO: add scope1And2
-  }),
+  })
+  .optional()
+
+const economySchema = z
+  .object({
+    turnover: z
+      .object({
+        value: z.number().optional(),
+        currency: z.string().optional(),
+      })
+      .optional(),
+    employees: z
+      .object({
+        value: z.number().optional(),
+        unit: z.string().optional(),
+      })
+      .optional(),
+  })
+  .optional()
+
+const postReportingPeriodsSchema = z.object({
+  reportingPeriods: z.array(
+    z
+      .object({
+        startDate: z.coerce.date(),
+        endDate: z.coerce.date(),
+        reportURL: z.string().optional(),
+        emissions: emissionsSchema,
+        economy: economySchema,
+      })
+      .refine(
+        ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
+        {
+          message: 'startDate must be earlier than endDate',
+        }
+      )
+  ),
+})
+
+router.post(
+  '/:wikidataId/reporting-periods',
+  processRequestBody(postReportingPeriodsSchema),
+  async (req, res) => {
+    const { reportingPeriods } = postReportingPeriodsSchema.parse(req.body)
+    const metadata = res.locals.metadata!
+    const company = res.locals.company
+
+    try {
+      await Promise.allSettled(
+        reportingPeriods.map(
+          async ({
+            emissions = {},
+            economy = {},
+            startDate,
+            endDate,
+            reportURL,
+          }) => {
+            const year = endDate.getFullYear().toString()
+            const reportingPeriod = await upsertReportingPeriod(
+              company,
+              metadata,
+              {
+                startDate,
+                endDate,
+                reportURL,
+                year,
+              }
+            )
+
+            const [dbEmissions, dbEconomy] = await Promise.all([
+              upsertEmissions({
+                emissionsId: reportingPeriod.emissionsId ?? 0,
+                companyId: company.wikidataId,
+                year,
+              }),
+              upsertEconomy({
+                economyId: reportingPeriod.economyId ?? 0,
+                companyId: company.wikidataId,
+                year,
+              }),
+            ])
+
+            const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
+              emissions
+            const { turnover, employees } = economy
+
+            // Normalise currency
+            if (turnover?.currency) {
+              turnover.currency = turnover.currency.trim().toUpperCase()
+            }
+
+            await Promise.allSettled([
+              scope1 && upsertScope1(dbEmissions, scope1, metadata),
+              scope2 && upsertScope2(dbEmissions, scope2, metadata),
+              scope3 && upsertScope3(dbEmissions, scope3, metadata),
+              statedTotalEmissions &&
+                upsertStatedTotalEmissions(
+                  dbEmissions,
+                  statedTotalEmissions,
+                  metadata
+                ),
+              biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+              turnover && upsertTurnover(dbEconomy, turnover, metadata),
+              employees && upsertEmployees(dbEconomy, employees, metadata),
+            ])
+          }
+        )
+      )
+    } catch (error) {
+      throw new GarboAPIError('Failed to update reporting periods', {
+        original: error,
+        statusCode: 500,
+      })
+    }
+
+    res.json({ ok: true })
+  }
+)
+
+router.use(
+  '/:wikidataId/:year',
+  validateReportingPeriod(),
+  reportingPeriod(prisma)
+)
+
+router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
+router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
+
+const postEmissionsBodySchema = z.object({
+  emissions: emissionsSchema,
 })
 
 // POST /Q12345/2022-2023/emissions
@@ -321,12 +442,11 @@ router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
-    const {
-      emissions: { scope1, scope2, scope3, statedTotalEmissions, biogenic },
-    } = postEmissionsBodySchema.parse(req.body)
+    const { emissions = {} } = postEmissionsBodySchema.parse(req.body)
+    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } = emissions
 
     const metadata = res.locals.metadata!
-    const emissions = res.locals.emissions!
+    const dbEmissions = res.locals.emissions!
 
     try {
       // Only update if the input contains relevant changes
@@ -334,12 +454,16 @@ router.post(
       // There seems to be a type error in zod which doesn't take into account optional objects.
 
       await Promise.allSettled([
-        scope1 && upsertScope1(emissions, scope1, metadata),
-        scope2 && upsertScope2(emissions, scope2, metadata),
-        scope3 && upsertScope3(emissions, scope3, metadata),
+        scope1 && upsertScope1(dbEmissions, scope1, metadata),
+        scope2 && upsertScope2(dbEmissions, scope2, metadata),
+        scope3 && upsertScope3(dbEmissions, scope3, metadata),
         statedTotalEmissions &&
-          upsertStatedTotalEmissions(emissions, statedTotalEmissions, metadata),
-        biogenic && upsertBiogenic(emissions, biogenic, metadata),
+          upsertStatedTotalEmissions(
+            dbEmissions,
+            statedTotalEmissions,
+            metadata
+          ),
+        biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update emissions', {
@@ -353,22 +477,7 @@ router.post(
 )
 
 const postEconomyBodySchema = z.object({
-  economy: z
-    .object({
-      turnover: z
-        .object({
-          value: z.number().optional(),
-          currency: z.string().optional(),
-        })
-        .optional(),
-      employees: z
-        .object({
-          value: z.number().optional(),
-          unit: z.string().optional(),
-        })
-        .optional(),
-    })
-    .optional(),
+  economy: economySchema,
 })
 
 router.post(

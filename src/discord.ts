@@ -15,7 +15,7 @@ import commands from './discord/commands'
 import config from './config/discord'
 import approve from './discord/interactions/approve'
 import reject from './discord/interactions/reject'
-import saveToAPI, { JobData as SaveToApiJob } from './workers/saveToAPI'
+import saveToAPI, { SaveToApiJob } from './workers/saveToAPI'
 
 const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
 
