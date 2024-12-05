@@ -101,7 +101,13 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       body,
       diff,
       apiSubEndpoint: 'reporting-periods',
-      requiresApproval,
+      requiresApproval: Boolean(existingCompany),
+
+      // Remove duplicated job data that should be part of the body from now on
+      scope12: undefined,
+      scope3: undefined,
+      biogenic: undefined,
+      economy: undefined,
     })
 
     return { body, diff, requiresApproval }

@@ -28,7 +28,10 @@ const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
     body,
     diff,
     apiSubEndpoint: 'goals',
-    requiresApproval,
+    requiresApproval: Boolean(existingCompany),
+
+    // Remove duplicated job data that should be part of the body from now on
+    goals: undefined,
   })
 
   return { body, diff, requiresApproval }

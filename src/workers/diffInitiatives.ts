@@ -29,8 +29,11 @@ const diffInitiatives = new DiscordWorker<DiffInitiativesJob>(
       ...job.data,
       body,
       diff,
-      requiresApproval,
       apiSubEndpoint: 'initiatives',
+      requiresApproval: Boolean(existingCompany),
+
+      // Remove duplicated job data that should be part of the body from now on
+      initiatives: undefined,
     })
 
     return { body, diff, requiresApproval }
