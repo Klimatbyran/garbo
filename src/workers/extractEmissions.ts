@@ -81,7 +81,6 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           name: 'goals ' + companyName,
           data: {
             ...base.data,
-            apiSubEndpoint: 'goals',
             type: JobType.Goals,
           },
         },

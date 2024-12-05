@@ -24,11 +24,12 @@ const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
   const diff = await askDiff(existingCompany?.goals, goals)
   const requiresApproval = diff && !diff.includes('NO_CHANGES')
 
-  await saveToAPI.queue.add(companyName, {
+  await saveToAPI.queue.add(companyName + ' goals', {
     data: {
       ...job.data,
       body,
       diff,
+      apiSubEndpoint: 'goals',
       requiresApproval,
       wikidataId,
     },

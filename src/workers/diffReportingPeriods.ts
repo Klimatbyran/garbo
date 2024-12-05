@@ -53,47 +53,57 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
         startDate,
         endDate,
         reportURL: url,
-        metadata,
       }
     })
 
     // Fill in data from each source, only keeping data that was changed.
-    const body = reportingPeriods.map(({ year, ...period }) => {
-      const emissions = {
-        scope1: scope12.find((d) => d.year === year)?.scope1,
-        scope2: scope12.find((d) => d.year === year)?.scope2,
-        scope3: scope3.find((d) => d.year === year)?.scope3,
-        biogenic: biogenic.find((d) => d.year === year)?.biogenic,
+    const updatedReportingPeriods = reportingPeriods.map(
+      ({ year, ...period }) => {
+        const emissions = {
+          scope1: scope12.find((d) => d.year === year)?.scope1,
+          scope2: scope12.find((d) => d.year === year)?.scope2,
+          scope3: scope3.find((d) => d.year === year)?.scope3,
+          biogenic: biogenic.find((d) => d.year === year)?.biogenic,
+        }
+
+        const economyData = {
+          ...(economy.find((d) => d.year === year)?.economy ? economy : {}),
+        }
+
+        const reportingPeriod: any = period
+
+        if (Object.values(emissions).some((value) => value !== undefined)) {
+          reportingPeriod.emissions = emissions
+        }
+
+        if (Object.values(economyData).some((value) => value !== undefined)) {
+          reportingPeriod.economy = economyData
+        }
+
+        return reportingPeriod
       }
-
-      const economyData = {
-        ...(economy.find((d) => d.year === year)?.economy ? economy : {}),
-      }
-
-      const reportingPeriod: any = period
-
-      if (Object.values(emissions).some((value) => value !== undefined)) {
-        reportingPeriod.emissions = emissions
-      }
-
-      if (Object.values(economyData).some((value) => value !== undefined)) {
-        reportingPeriod.economy = economyData
-      }
-
-      return reportingPeriod
-    })
+    )
 
     // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
     // This could improve accuracy of the diff
-    const diff = await askDiff(existingCompany?.reportingPeriods, body)
+    const diff = await askDiff(
+      existingCompany?.reportingPeriods,
+      updatedReportingPeriods
+    )
     job.log('diff: ' + diff)
     const requiresApproval = diff && !diff.includes('NO_CHANGES')
+
+    const body = {
+      reportingPeriods: updatedReportingPeriods,
+      metadata,
+    }
 
     await saveToAPI.queue.add(companyName, {
       data: {
         ...job.data,
         body,
         diff,
+        apiSubEndpoint: 'reporting-periods',
         requiresApproval,
         wikidataId,
       },

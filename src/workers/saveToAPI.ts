@@ -4,17 +4,17 @@ import { apiFetch } from '../lib/api'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
-    wikidataId: string
     approved?: boolean
-    requiresApproval?: boolean
-    diff?: string
-    body?: any
-    wikidata: any
+    requiresApproval: boolean
+    diff: string
+    body: any
+    wikidata: { node: string }
+    apiSubEndpoint: string
   }
 }
 
 export const saveToAPI = new DiscordWorker<SaveToApiJob>(
-  'api-save',
+  'saveToAPI',
   async (job: SaveToApiJob) => {
     try {
       const {
@@ -23,14 +23,14 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         requiresApproval = true,
         diff,
         body,
+        apiSubEndpoint,
       } = job.data
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
       if (!requiresApproval || approved) {
-        // TODO: Implement actual API save logic here
         console.log(`Saving approved data for ${wikidataId} to API`)
-        await apiFetch('/companies/' + wikidataId, { body })
+        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, { body })
         return { success: true }
       }
 

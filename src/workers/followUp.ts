@@ -9,7 +9,6 @@ import { vectorDB } from '../lib/vectordb'
 class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
-    apiSubEndpoint: string
     type: JobType
     previousAnswer: string
   }

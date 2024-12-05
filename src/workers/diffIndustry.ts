@@ -33,6 +33,7 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
         diff,
         requiresApproval,
         wikidataId,
+        apiSubEndpoint: 'industry',
       },
     })
 
