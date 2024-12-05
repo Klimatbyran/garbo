@@ -615,3 +615,28 @@ export async function upsertEmissions({
     },
   })
 }
+
+export async function upsertEconomy({
+  economyId,
+  companyId,
+  year,
+}: {
+  economyId: number
+  companyId: string
+  year: string
+}) {
+  return prisma.economy.upsert({
+    where: { id: economyId },
+    update: {},
+    create: {
+      reportingPeriod: {
+        connect: {
+          reportingPeriodId: {
+            year,
+            companyId,
+          },
+        },
+      },
+    },
+  })
+}

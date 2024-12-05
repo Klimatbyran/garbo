@@ -12,7 +12,11 @@ import { validateRequest, validateRequestBody } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 
-import { upsertEmissions, upsertReportingPeriod } from '../lib/prisma'
+import {
+  upsertEconomy,
+  upsertEmissions,
+  upsertReportingPeriod,
+} from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import apiConfig from '../config/api'
 
@@ -181,7 +185,6 @@ export const ensureEmissionsExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const emissionsId = res.locals.reportingPeriod.emissionsId ?? 0
 
     const emissions = await upsertEmissions({
       emissionsId: reportingPeriod.emissionsId ?? 0,
@@ -197,21 +200,11 @@ export const ensureEconomyExists =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
-    const economyId = res.locals.reportingPeriod.economyId ?? 0
 
-    const economy = await prisma.economy.upsert({
-      where: { id: economyId },
-      update: {},
-      create: {
-        reportingPeriod: {
-          connect: {
-            reportingPeriodId: {
-              year: reportingPeriod.year,
-              companyId: reportingPeriod.companyId,
-            },
-          },
-        },
-      },
+    const economy = await upsertEconomy({
+      economyId: reportingPeriod.economyId ?? 0,
+      companyId: reportingPeriod.companyId,
+      year: reportingPeriod.year,
     })
 
     res.locals.economy = economy

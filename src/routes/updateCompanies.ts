@@ -19,6 +19,7 @@ import {
   updateIndustry,
   upsertReportingPeriod,
   upsertEmissions,
+  upsertEconomy,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -350,7 +351,6 @@ router.post(
 
     try {
       await Promise.allSettled(
-        // TODO: Upsert each reporting period
         reportingPeriods.map(
           async ({ emissions, economy, startDate, endDate, reportURL }) => {
             const year = endDate.getFullYear().toString()
@@ -371,7 +371,12 @@ router.post(
               year,
             })
 
-            // TODO: upsert economy
+            const dbEconomy = await upsertEconomy({
+              economyId: reportingPeriod.economyId ?? 0,
+              companyId: res.locals.company.wikidataId,
+              year,
+            })
+
             // TODO: update emissions data
             // TODO: update economy data
           }
