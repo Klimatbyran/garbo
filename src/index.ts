@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
-import queue from './queue'
 
+import queue from './queue'
 import discord from './discord'
 import api from './api'
 import apiConfig from './config/api'
