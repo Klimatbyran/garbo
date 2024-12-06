@@ -52,9 +52,10 @@ def export_documents(
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    input_doc_paths = [
-        Path("garbo_pdfs/astra-zeneca-2023.pdf")
-    ]
+    input_doc_paths = map(lambda file: Path("garbo_pdfs").joinpath(file), [
+        # Path("garbo_pdfs/astra-zeneca-2023.pdf"),
+        "Vestum-arsredovisning-2023.pdf"
+    ])
 
     # buf = BytesIO(Path("./test/data/2206.01062.pdf").open("rb").read())
     # docs = [DocumentStream(name="my_doc.pdf", stream=buf)]
