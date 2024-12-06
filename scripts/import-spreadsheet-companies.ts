@@ -6,12 +6,12 @@ import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
 import { getName, getWikidataId } from './import-garbo-companies'
-import garboCompanies from '../companies.json'
+import garboCompanies from '../src/data/companies.json'
 import { getAllGicsCodesLookup, gicsCodes } from './add-gics'
 import { getPeriodDatesForYear } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
-await workbook.xlsx.readFile(resolve('src/data/Company_GHG_data.xlsx'))
+await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
 
 const skippedCompanyNames = new Set()
 
@@ -66,7 +66,7 @@ function getReportingPeriodDates() {
       (rowValues, row) => {
         if (!row) return rowValues
 
-        const wantedColumns = headers.reduce((acc, header, i) => {
+        const columns = headers.reduce((acc, header, i) => {
           const index = i + 1
           acc[header!.toString()] = row[index]?.result || row[index]
           return acc
@@ -76,7 +76,7 @@ function getReportingPeriodDates() {
           'Wiki id': wikidataId,
           'Start date': startDate,
           'End date': endDate,
-        } = wantedColumns as any
+        } = columns as any
 
         if (wikidataId) {
           rowValues.push({
@@ -93,7 +93,7 @@ function getReportingPeriodDates() {
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('o')!
+  const sheet = workbook.getWorksheet('Overview')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
@@ -105,59 +105,22 @@ function getCompanyBaseFacts() {
         wikidataId: string
         name: string
         internalComment?: string
-        industry?: {
-          subIndustryCode: string
-          industryCode: string
-        }
       }[]
     >((rowValues, row) => {
       if (!row) return rowValues
 
-      const wantedColumns = headers.reduce((acc, header, i) => {
+      const columns = headers.reduce((acc, header, i) => {
         const index = i + 1
         acc[header!.toString()] = row[index]?.result || row[index]
         return acc
       }, {})
 
-      // TODO: Include "Base year" column once it contains consistent data - this is needed for visualisations
-      const {
-        Batch,
-        'Wiki ID': wikidataId,
-        Company: name,
-        'General Comment': internalComment,
-        Code: gicsIndustryCode,
-      } = wantedColumns as any
+      const { 'Wiki ID': wikidataId, Company: name } = columns as any
 
-      // TODO: temporarily only include companies from the MVP batch
-      if (wikidataId && Batch?.trim()?.toUpperCase() !== 'MVP') {
-        const industryCode = Number.isFinite(gicsIndustryCode)
-          ? gicsIndustryCode.toString()
-          : undefined
-
-        const gics = industryCode
-          ? gicsCodes.filter((c) => c.industryCode === industryCode).at(0)
-          : undefined
-
-        // if (!gics) {
-        //   console.error(
-        //     `Unable to find subIndustryCode for ${name} with industryCode ${JSON.stringify(
-        //       gicsIndustryCode
-        //     )}`
-        //   )
-        // }
-
-        rowValues.push({
-          name,
-          wikidataId,
-          internalComment,
-          industry: gics
-            ? {
-                industryCode,
-                subIndustryCode: gics.subIndustryCode,
-              }
-            : undefined,
-        })
-      }
+      rowValues.push({
+        name,
+        wikidataId,
+      })
 
       return rowValues
     }, [])
@@ -688,9 +651,11 @@ async function importGarboData(companies: CompanyInput[]) {
 }
 
 async function main() {
-  // TODO: use this to import historical data:
-  // const companies = getCompanyData(range(2015, 2023).reverse())
-  const companies = getCompanyData([2023])
+  // TODO: GET /companies from API and see which companies that exist
+  const apiCompanies = await fetch('http://localhost:3000/api/companies').then(
+    (res) => res.json()
+  )
+  const companies = getCompanyData(range(2015, 2023).reverse())
   // NOTE: Useful for testing upload of only specific companies
   // .filter(
   //   (x) =>
@@ -701,6 +666,17 @@ async function main() {
   // .slice(0, 1)
 
   await resetDB()
+
+  // TODO: From the `Overview` sheet, get all companies `{ 'Wiki ID': string, 'Company': string }[]`
+  // TODO: get reportingPeriod startDate and endDate from the `Wiki` sheet.
+  // Create a complete array of companies and combine all data from the various sheets
+
+  // IDEA: Skip reporting period dates completely.
+
+  // TODO: Make sure we don't overwrite reportingPeriod `startDate` and `endDate when updating emissions and economy
+  // if a reporting period already exists, can we save data without overwriting the startDate and endDate of the reportingPeriod?
+  // TODO: What happens if we have saved reportingPeriod A with endDate 2022-03-31
+  // and then tries to save another reporting period with default endDate 2023-12-31?
 
   console.log('Creating companies based on Garbo data...')
   await importGarboData(companies)
