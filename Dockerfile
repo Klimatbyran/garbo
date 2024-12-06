@@ -1,9 +1,7 @@
-FROM alpine:latest
+FROM node:lts-alpine3.20
 
 RUN apk update
 RUN apk add --no-cache \
-    nodejs=22.11.0-r0 \
-    npm=10.9.1-r0 \
     chromium \
     nss \
     freetype \
@@ -20,7 +18,7 @@ RUN apk add --no-cache \
     giflib-dev \
     libjpeg-turbo-dev \
     ghostscript \
-    graphicsmagick=1.3.45-r0
+    graphicsmagick
 
 COPY package*.json /app/
 COPY prisma /app/

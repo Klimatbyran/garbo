@@ -92,7 +92,7 @@ Next time, you can start the containers back up using
 docker start garbo_redis garbo_postgres garbo_chroma garbo_ingestor
 ```
 
-You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives.
+You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
 ### Seeding the database for development
 
