@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM node:lts-alpine3.20
 
 RUN apk update
 RUN apk add --no-cache \
