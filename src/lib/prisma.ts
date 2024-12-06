@@ -13,7 +13,6 @@ import {
   Turnover,
   Goal,
   Initiative,
-  Industry,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 

@@ -1,4 +1,4 @@
-import { prisma, upsertReportingPeriod, upsertCompany } from '../src/lib/prisma'
+import { prisma, upsertReportingPeriod } from '../src/lib/prisma'
 import { resetDB } from '../src/lib/dev-utils'
 
 describe('reporting periods', () => {
