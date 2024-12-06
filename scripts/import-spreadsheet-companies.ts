@@ -7,8 +7,7 @@ import { isMainModule } from './utils'
 import { resetDB } from '../src/lib/dev-utils'
 import { getName, getWikidataId } from './import-garbo-companies'
 import garboCompanies from '../src/data/companies.json'
-import { getAllGicsCodesLookup, gicsCodes } from './add-gics'
-import { getPeriodDatesForYear } from '../src/lib/reportingPeriodDates'
+import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
@@ -54,44 +53,6 @@ const USERS = {
   },
 }
 
-function getReportingPeriodDates() {
-  const sheet = workbook.getWorksheet('Wiki')!
-  const headerRow = 1
-  const headers = getSheetHeaders({ sheet, row: headerRow })
-
-  return sheet
-    .getSheetValues()
-    .slice(headerRow + 1) // Skip header
-    .reduce<{ wikidataId: string; startDate: Date; endDate: Date }[]>(
-      (rowValues, row) => {
-        if (!row) return rowValues
-
-        const columns = headers.reduce((acc, header, i) => {
-          const index = i + 1
-          acc[header!.toString()] = row[index]?.result || row[index]
-          return acc
-        }, {})
-
-        const {
-          'Wiki id': wikidataId,
-          'Start date': startDate,
-          'End date': endDate,
-        } = columns as any
-
-        if (wikidataId) {
-          rowValues.push({
-            wikidataId,
-            startDate,
-            endDate,
-          })
-        }
-
-        return rowValues
-      },
-      []
-    )
-}
-
 function getCompanyBaseFacts() {
   const sheet = workbook.getWorksheet('Overview')!
   const headerRow = 2
@@ -130,8 +91,6 @@ function getReportingPeriods(
   wantedCompanies: {
     wikidataId: string
     name: string
-    startDate: Date
-    endDate: Date
   }[],
   years: number[]
 ): Record<string, ReportingPeriodInput[]> {
@@ -272,19 +231,15 @@ function getReportingPeriods(
             : {}),
         }
 
-        const { wikidataId: companyId, startDate, endDate } = company
+        const { wikidataId: companyId } = company
 
-        const [periodStart, periodEnd] = getPeriodDatesForYear(
-          year,
-          startDate,
-          endDate
-        )
+        const [periodStart, periodEnd] = getReportingPeriodDates(year, 1, 12)
 
         // TODO: Save the comment for each reporting period, and add it as part of the
         const reportingPeriod = {
           companyId,
-          startDate: periodStart,
-          endDate: periodEnd,
+          startDate: new Date(periodStart),
+          endDate: new Date(periodEnd),
           comment: comment?.trim(),
           reportURL,
           ...(Object.keys(emissions).length ? { emissions } : {}),
@@ -317,7 +272,6 @@ function range(start: number, end: number) {
 }
 
 function getCompanyData(years: number[]) {
-  const reportingPeriodDates = getReportingPeriodDates()
   const baseFacts = getCompanyBaseFacts()
 
   const rawCompanies: Record<
@@ -326,20 +280,8 @@ function getCompanyData(years: number[]) {
       wikidataId: string
       name: string
       description?: string
-      internalComment?: string
-      startDate: Date
-      endDate: Date
-      subIndustryCode?: string
-      industry?: { subIndustryCode: string; industryCode: string }
     }
   > = {}
-
-  for (const dates of reportingPeriodDates) {
-    rawCompanies[dates.wikidataId] = {
-      ...rawCompanies[dates.wikidataId],
-      ...dates,
-    }
-  }
 
   for (const facts of baseFacts) {
     if (
@@ -351,7 +293,6 @@ function getCompanyData(years: number[]) {
           rawCompanies[facts.wikidataId].name
         } in the "Overview" tab`
       )
-      // process.exit(1)
       continue
     }
 
@@ -375,8 +316,6 @@ function getCompanyData(years: number[]) {
       wikidataId,
       name: rawCompanies[wikidataId].name,
       description: rawCompanies[wikidataId].description,
-      internalComment: rawCompanies[wikidataId].internalComment,
-      industry: rawCompanies[wikidataId].industry,
       reportingPeriods,
     })
   }
@@ -390,14 +329,8 @@ export async function updateCompanies(companies: CompanyInput[]) {
   }
 
   for (const company of companies) {
-    const {
-      wikidataId,
-      name,
-      description,
-      reportingPeriods,
-      internalComment,
-      industry,
-    } = company
+    const { wikidataId, name, description, reportingPeriods, internalComment } =
+      company
 
     await postJSON(
       `http://localhost:3000/api/companies`,
