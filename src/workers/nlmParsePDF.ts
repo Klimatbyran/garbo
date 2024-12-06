@@ -5,6 +5,7 @@ import redis from '../config/redis'
 import precheck from './precheck'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { vectorDB } from '../lib/vectordb'
+import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 
 const headers = {
   'User-Agent':
@@ -41,7 +42,7 @@ const nlmParsePDF = new DiscordWorker(
             await job.editMessage('Nu borde det vara klart... 🤔')
           }
         }, 10000)
-        let json
+        let json: ParsedDocument
         try {
           json = await extractJsonFromPdf(pdf)
         } catch (err) {
@@ -59,6 +60,12 @@ const nlmParsePDF = new DiscordWorker(
           clearInterval(interval)
         }
         const markdown = jsonToMarkdown(json)
+
+        if (!json.return_dict.result.blocks.length || !markdown.trim()) {
+          await job.editMessage('❌ Fel vid tolkning av PDF: Inget innehåll')
+          throw new Error('No content in parsed PDF: ' + JSON.stringify(json))
+        }
+
         job.log('text found:\n' + markdown)
         job.updateData({
           ...job.data,
