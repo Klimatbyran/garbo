@@ -96,7 +96,7 @@ You may want a graphical user interface to make it easier to manage your local c
 
 ### Seeding the database for development
 
-This applies migrations and seeding data needed for development.
+This applies migrations and seeding data needed for development
 
 ```sh
 npm run prisma migrate dev
