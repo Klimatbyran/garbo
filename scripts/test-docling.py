@@ -5,7 +5,10 @@ from typing import Iterable
 from docling.datamodel.base_models import ConversionStatus
 from docling.datamodel.document import ConversionResult
 from docling.datamodel.settings import settings
-from docling.document_converter import DocumentConverter
+from docling.datamodel.base_models import InputFormat
+from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
+from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
 _log = logging.getLogger(__name__)
 
@@ -63,7 +66,19 @@ def main():
     # settings.debug.visualize_tables = True
     # settings.debug.visualize_cells = True
 
-    doc_converter = DocumentConverter()
+    # Docling Parse with Tesseract
+    pipeline_options = PdfPipelineOptions()
+    pipeline_options.do_ocr = True
+    pipeline_options.do_table_structure = True
+    pipeline_options.table_structure_options.do_cell_matching = True
+    pipeline_options.table_structure_options.mode = TableFormerMode.ACCURATE
+    pipeline_options.ocr_options = TesseractOcrOptions()
+
+    doc_converter = DocumentConverter(
+        format_options={
+            InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
+        }
+    )
 
     start_time = time.time()
 
