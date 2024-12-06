@@ -1,4 +1,3 @@
-import { UnrecoverableError } from 'bullmq'
 import { searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'

@@ -1,4 +1,4 @@
-import WBK, { EntityId } from 'wikibase-sdk'
+import WBK from 'wikibase-sdk'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
 const transformData = (data: any): any => {
