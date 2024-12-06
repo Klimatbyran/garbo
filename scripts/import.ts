@@ -1,9 +1,5 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { getAllGicsCodesLookup } from './add-gics'
-import { importGarboData } from './import-garbo-companies'
-// import { importSpreadsheetCompanies } from './import-spreadsheet-companies'
-import { isMainModule } from './utils'
-import { resetDB } from '../src/lib/dev-utils'
 
 export const prisma = new PrismaClient()
 
@@ -17,12 +13,6 @@ export type DataOrigin = keyof typeof DATA_ORIGIN
 export type CompanyInput = {
   wikidataId: string
   name: string
-  description?: string
-  internalComment?: string
-  industry?: {
-    subIndustryCode: string
-    industryCode: string
-  }
   reportingPeriods: ReportingPeriodInput[]
 }
 
@@ -97,16 +87,3 @@ export async function getSeededData() {
 }
 
 export type InitialDBState = Awaited<ReturnType<typeof getSeededData>>
-
-async function main() {
-  await resetDB()
-  const seededData = await getSeededData()
-
-  await importGarboData(seededData)
-  // TODO: Combine into one import for all data. First adding garbo data and then from the spreadsheet
-  // await importSpreadsheetCompanies()
-}
-
-if (isMainModule(import.meta.url)) {
-  await main()
-}
