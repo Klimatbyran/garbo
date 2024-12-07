@@ -14,7 +14,7 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMo
 from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream, _DocumentConversionInput
 from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
-_log = logging.getLogger(__name__)
+_log = logging.getLogger('parse_pdf')
 
 def export_documents(
     conv_results: Iterable[ConversionResult],
@@ -47,25 +47,11 @@ def export_documents(
 
     return success_count, partial_success_count, failure_count
 
-
-def main():
-    logging.basicConfig(level=logging.INFO)
-
-    arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
-    arg_parser.add_argument('docId', help="The document ID to parse")
-
-    parsed_args = arg_parser.parse_args(sys.argv[1:])
-
-    base_dir = Path('/tmp/pdf2markdown/') / parsed_args.docId
-    input_file = base_dir / 'input.pdf'
-
+def parse_document(input_file: Path, output_dir: Path):
     if not os.path.exists(input_file):
         raise Exception(f"Input PDF does not exist: {input_file}")
-    
-    _log.info(f"Parsing {input_file}")
 
-    # TODO: read input file from directory
-    # TODO: use the docId directory as base output_dir
+    _log.info(f"Parsing {input_file}")
 
     buf = BytesIO(input_file.open("rb").read())
     input_stream = DocumentStream(name=input_file.name, stream=buf)
@@ -90,7 +76,21 @@ def main():
     )
 
     conv_result = doc_converter.convert(input_stream, raises_on_error=False)
-    export_documents([conv_result], output_dir=Path("scratch"))
+    export_documents([conv_result], output_dir)
+
+
+
+def main():
+    logging.basicConfig(level=logging.INFO)
+
+    arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
+    arg_parser.add_argument('docId', help="The document ID to parse")
+    parsed_args = arg_parser.parse_args(sys.argv[1:])
+
+    base_dir = Path('/tmp/pdf2markdown/') / parsed_args.docId
+    input_file = base_dir / 'input.pdf'
+
+    parse_document(input_file, base_dir)
 
 if __name__ == "__main__":
     main()
