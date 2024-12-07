@@ -1,5 +1,4 @@
 import logging
-import time
 import json
 import sys
 import os
@@ -90,14 +89,8 @@ def main():
         }
     )
 
-    start_time = time.time()
-
     conv_result = doc_converter.convert(input_stream, raises_on_error=False)
     export_documents([conv_result], output_dir=Path("scratch"))
-
-    end_time = time.time() - start_time
-
-    _log.info(f"Document conversion complete in {end_time:.2f} seconds.")
 
 if __name__ == "__main__":
     main()
