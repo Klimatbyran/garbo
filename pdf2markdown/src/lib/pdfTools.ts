@@ -10,12 +10,9 @@ import {
 import { writeFile, readFile } from 'fs/promises'
 import { OUTPUT_DIR } from '../index'
 
-async function parseDocument(inputFilePath: string) {
+async function parseDocument(docId: string) {
   return new Promise<void>((success, reject) => {
-    const docParser = spawn('python', [
-      resolve('src/parse_pdf.py'),
-      inputFilePath,
-    ])
+    const docParser = spawn('python', [resolve('src/parse_pdf.py'), docId])
 
     docParser.stdout.on('data', (data) => {
       console.log(data.toString().trimEnd())
@@ -36,12 +33,11 @@ async function parseDocument(inputFilePath: string) {
 }
 
 // await parseDocument(resolve(OUTPUT_DIR, crypto.randomUUID(), 'input.pdf'))
-await parseDocument(
-  resolve(
-    import.meta.dirname,
-    '../../garbo_pdfs/Vestum-arsredovisning-2023.pdf',
-  ),
-)
+try {
+  await parseDocument(crypto.randomUUID())
+} catch (e) {
+  console.error('Parsing failed!')
+}
 process.exit(0)
 
 /*

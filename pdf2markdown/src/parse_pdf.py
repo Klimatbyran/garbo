@@ -46,11 +46,6 @@ def export_documents(
             _log.info(f"Document {conv_res.input.file} failed to convert.")
             failure_count += 1
 
-    _log.info(
-        f"Processed {success_count + partial_success_count + failure_count} docs, "
-        f"of which {failure_count} failed "
-        f"and {partial_success_count} were partially converted."
-    )
     return success_count, partial_success_count, failure_count
 
 
@@ -58,14 +53,16 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
-    arg_parser.add_argument('input', help="Path to the input file")
+    arg_parser.add_argument('docId', help="The document ID to parse")
 
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
-    if not os.path.exists(parsed_args.input):
-        raise BaseException("Input path does not exist!")
+    base_dir = Path('/tmp/pdf2markdown/') / parsed_args.docId
+    input_file = base_dir / 'input.pdf'
+
+    if not os.path.exists(input_file):
+        raise Exception(f"Input PDF does not exist: {input_file}")
     
-    input_file = Path(parsed_args.input)
     _log.info(f"Parsing {input_file}")
 
     # TODO: read input file from directory
