@@ -1,6 +1,7 @@
 import logging
 import time
 import json
+from io import BytesIO
 from pathlib import Path
 from typing import Iterable
 from docling.datamodel.base_models import ConversionStatus
@@ -8,9 +9,8 @@ from docling.datamodel.document import ConversionResult
 from docling.datamodel.settings import settings
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
-from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream, _DocumentConversionInput
 from docling.models.tesseract_ocr_model import TesseractOcrOptions
-from docling_core.types.doc import TableItem
 
 _log = logging.getLogger(__name__)
 
@@ -31,30 +31,6 @@ def export_documents(
 
             with (output_dir / f"{doc_filename}.json").open("w") as fp:
                 json.dump(conv_res.document.export_to_dict(), fp, ensure_ascii=False)
-            
-            page_images_dir = output_dir / doc_filename / f"pages"
-            page_images_dir.mkdir(parents=True, exist_ok=True)
-            
-            table_images_dir = output_dir / doc_filename / f"tables"
-            table_images_dir.mkdir(parents=True, exist_ok=True)
-
-            # Save page images
-            for page_no, page in conv_res.document.pages.items():
-                page_no = page.page_no
-                page_image_filename = page_images_dir / f"{doc_filename}-{page_no}.png"
-                with page_image_filename.open("wb") as fp:
-                    page.image.pil_image.save(fp, format="PNG")
-
-            # Save images of figures and tables
-            table_counter = 0
-            for element, _level in conv_res.document.iterate_items():
-                if isinstance(element, TableItem):
-                    table_counter += 1
-                    element_image_filename = (
-                        table_images_dir / f"{doc_filename}-table-{table_counter}.png"
-                    )
-                    with element_image_filename.open("wb") as fp:
-                        element.get_image(conv_res.document).save(fp, "PNG")
 
         elif conv_res.status == ConversionStatus.PARTIAL_SUCCESS:
             _log.info(
@@ -78,20 +54,8 @@ def export_documents(
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    input_doc_paths = map(lambda file: Path("../garbo_pdfs").joinpath(file), [
-        # Path("garbo_pdfs/astra-zeneca-2023.pdf"),
-        "Vestum-arsredovisning-2023.pdf"
-    ])
-
-    # buf = BytesIO(Path("./test/data/2206.01062.pdf").open("rb").read())
-    # docs = [DocumentStream(name="my_doc.pdf", stream=buf)]
-    # input = DocumentConversionInput.from_streams(docs)
-
-    # # Turn on inline debug visualizations:
-    # settings.debug.visualize_layout = True
-    # settings.debug.visualize_ocr = True
-    # settings.debug.visualize_tables = True
-    # settings.debug.visualize_cells = True
+    buf = BytesIO(Path("../garbo_pdfs/Vestum-arsredovisning-2023.pdf").open("rb").read())
+    doc_stream = DocumentStream(name="my_doc.pdf", stream=buf)
 
     # Docling Parse with Tesseract
     pipeline_options = PdfPipelineOptions()
@@ -104,10 +68,6 @@ def main():
     # with fast parsing:	 108 tables on 42 unique pages - 175 seconds => 3 min
     pipeline_options.table_structure_options.mode = TableFormerMode.FAST
     pipeline_options.ocr_options = TesseractOcrOptions()
-
-    pipeline_options.generate_table_images=True
-    pipeline_options.generate_page_images=True
-    pipeline_options.images_scale=1
     pipeline_options.ocr_options.lang = ["swe", "eng"]
 
     doc_converter = DocumentConverter(
@@ -118,12 +78,10 @@ def main():
 
     start_time = time.time()
 
-    conv_results = doc_converter.convert_all(
-        input_doc_paths,
-        raises_on_error=False,  # to let conversion run through all and examine results at the end
-    )
+    conv_result = doc_converter.convert(doc_stream, raises_on_error=False)
+
     success_count, partial_success_count, failure_count = export_documents(
-        conv_results, output_dir=Path("scratch")
+        [conv_result], output_dir=Path("scratch")
     )
 
     end_time = time.time() - start_time
