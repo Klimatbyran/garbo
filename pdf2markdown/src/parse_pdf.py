@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Iterable
 from docling.datamodel.base_models import ConversionStatus
 from docling.datamodel.document import ConversionResult
-from docling.datamodel.settings import settings
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
 from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream, _DocumentConversionInput
@@ -54,8 +53,9 @@ def export_documents(
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    buf = BytesIO(Path("../garbo_pdfs/Vestum-arsredovisning-2023.pdf").open("rb").read())
-    doc_stream = DocumentStream(name="my_doc.pdf", stream=buf)
+    input_file=Path("../garbo_pdfs/Vestum-arsredovisning-2023.pdf")
+    buf = BytesIO(input_file.open("rb").read())
+    input_streams = [DocumentStream(name=input_file.name, stream=buf)]
 
     # Docling Parse with Tesseract
     pipeline_options = PdfPipelineOptions()
@@ -78,20 +78,12 @@ def main():
 
     start_time = time.time()
 
-    conv_result = doc_converter.convert(doc_stream, raises_on_error=False)
-
-    success_count, partial_success_count, failure_count = export_documents(
-        [conv_result], output_dir=Path("scratch")
-    )
+    conv_result = doc_converter.convert(input_streams, raises_on_error=False)
+    export_documents([conv_result], output_dir=Path("scratch"))
 
     end_time = time.time() - start_time
 
     _log.info(f"Document conversion complete in {end_time:.2f} seconds.")
-
-    if failure_count > 0:
-        raise RuntimeError(
-            f"The example failed converting {failure_count} on {len(input_doc_paths)}."
-        )
 
 if __name__ == "__main__":
     main()
