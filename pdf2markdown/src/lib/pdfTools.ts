@@ -7,12 +7,16 @@ import {
   Table,
 } from './nlm-ingestor-schema'
 // import { jsonToTables } from './jsonExtraction'
-import { writeFile, readFile } from 'fs/promises'
+import { writeFile, readFile, mkdir } from 'fs/promises'
 import { OUTPUT_DIR } from '../index'
 
-async function parseDocument(docId: string) {
+async function parseDocument(docId: string, baseDir: string) {
   return new Promise<void>((success, reject) => {
-    const docParser = spawn('python', [resolve('src/parse_pdf.py'), docId])
+    const docParser = spawn('python', [
+      resolve(import.meta.dirname, '../parse_pdf.py'),
+      docId,
+      baseDir,
+    ])
 
     docParser.stdout.on('data', (data) => {
       console.log(data.toString().trimEnd())
@@ -32,12 +36,33 @@ async function parseDocument(docId: string) {
   })
 }
 
-// await parseDocument(resolve(OUTPUT_DIR, crypto.randomUUID(), 'input.pdf'))
+const docId = crypto.randomUUID()
+const outDir = resolve(OUTPUT_DIR, docId)
+await mkdir(outDir, { recursive: true })
+// TODO: save buffer to tmp PDF file which can be sent to the PDF parsing
+// const inputPDF = resolve(outDir, 'input.pdf')
+const inputPDF = resolve(
+  import.meta.dirname,
+  '../../garbo_pdfs/astra-zeneca-2023.pdf',
+)
+
 try {
-  await parseDocument(crypto.randomUUID())
+  await parseDocument(inputPDF, outDir)
 } catch (e) {
   console.error('Parsing failed!')
 }
+
+const parsedJSON = await readFile(resolve(outDir, 'parsed.json'), {
+  encoding: 'utf-8',
+}).then(JSON.parse)
+
+const parsedMarkdown = await readFile(resolve(outDir, 'parsed.md'), {
+  encoding: 'utf-8',
+})
+
+console.log('Tables found: ', parsedJSON.tables.length)
+console.log('Markdown length: ', parsedMarkdown.length)
+
 process.exit(0)
 
 /*

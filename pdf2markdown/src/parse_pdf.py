@@ -22,11 +22,16 @@ def export_document(
     output_dir.mkdir(parents=True, exist_ok=True)
 
     if conv_result.status == ConversionStatus.SUCCESS:
-        with (output_dir / "parsed.json").open("w", encoding="utf-8") as fp:
-            json.dump(conv_result.document.export_to_dict(), fp, ensure_ascii=False)
+        json_file = output_dir / "parsed.json"
+        markdown_file = output_dir / "parsed.md"
 
-        with (output_dir / "parsed.md").open("w", encoding="utf-8") as fp:
+        with json_file.open("w", encoding="utf-8") as fp:
+            json.dump(conv_result.document.export_to_dict(), fp, ensure_ascii=False)
+            _log.info(f"Saved document JSON to: {json_file}")
+
+        with markdown_file.open("w", encoding="utf-8") as fp:
             fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
+            _log.info(f"Saved document Markdown to: {markdown_file}")
 
     elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
         _log.info(
@@ -72,13 +77,11 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
-    arg_parser.add_argument('docId', help="The document ID to parse")
+    arg_parser.add_argument('inputPDF', help="Path to the input PDF document")
+    arg_parser.add_argument('outDir', help="Path to the output directory for results to the current document")
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
-    base_dir = Path('/tmp/pdf2markdown/') / parsed_args.docId
-    input_file = base_dir / 'input.pdf'
-
-    parse_document(input_file, base_dir)
+    parse_document(Path(parsed_args.inputPDF), Path(parsed_args.outDir))
 
 if __name__ == "__main__":
     main()
