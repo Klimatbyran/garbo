@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "3.3.11",
+  "version": "3.4.13",
   "description": "",
   "type": "module",
   "engines": {
@@ -29,7 +29,6 @@
     "chromadb": "^1.9.4",
     "compromise": "^14.13.0",
     "cors": "^2.8.5",
-    "date-fns": "^4.1.0",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.4",

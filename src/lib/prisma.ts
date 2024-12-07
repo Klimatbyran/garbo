@@ -13,7 +13,6 @@ import {
   Turnover,
   Goal,
   Initiative,
-  Industry,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -552,7 +551,7 @@ export async function updateIndustry(
   })
 }
 
-export async function ensureReportingPeriodExists(
+export async function upsertReportingPeriod(
   company: Company,
   metadata: Parameters<typeof prisma.metadata.create>[0]['data'],
   {
@@ -585,6 +584,56 @@ export async function ensureReportingPeriodExists(
       metadata: {
         connect: {
           id: metadata.id,
+        },
+      },
+    },
+  })
+}
+
+export async function upsertEmissions({
+  emissionsId,
+  year,
+  companyId,
+}: {
+  emissionsId: number
+  year: string
+  companyId: string
+}) {
+  return prisma.emissions.upsert({
+    where: { id: emissionsId },
+    update: {},
+    create: {
+      reportingPeriod: {
+        connect: {
+          reportingPeriodId: {
+            year,
+            companyId,
+          },
+        },
+      },
+    },
+  })
+}
+
+export async function upsertEconomy({
+  economyId,
+  companyId,
+  year,
+}: {
+  economyId: number
+  companyId: string
+  year: string
+}) {
+  return prisma.economy.upsert({
+    where: { id: economyId },
+    update: {},
+    create: {
+      reportingPeriod: {
+        connect: {
+          reportingPeriodId: {
+            year,
+            companyId,
+          },
         },
       },
     },

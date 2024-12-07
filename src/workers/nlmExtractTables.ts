@@ -9,7 +9,7 @@ import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { openai } from '../lib/openai'
 import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 
-class JobData extends DiscordJob {
+class NLMExtractTablesJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     json: ParsedDocument
   }
@@ -79,7 +79,7 @@ const searchTerms = [
 ]
 const nlmExtractTables = new DiscordWorker(
   'nlmExtractTables',
-  async (job: JobData) => {
+  async (job: NLMExtractTablesJob) => {
     const { json, url } = job.data
 
     try {
@@ -95,22 +95,22 @@ const nlmExtractTables = new DiscordWorker(
       )
 
       job.sendMessage(
-        `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor`
+        `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
       )
 
       const tables: { page_idx: number; markdown: string }[] =
-        await pages.reduce(async (resultsPromise, { pageIndex, filename }) => {
+        await pages.reduce(async (resultsPromise, { pageNumber, filename }) => {
           const results = await resultsPromise
           const lastPageMarkdown = results.at(-1)?.markdown || ''
           const markdown = await extractTextViaVisionAPI(
-            { filename, name: `Tables from page ${pageIndex}` },
+            { filename, name: `Tables from page ${pageNumber}` },
             lastPageMarkdown
           )
           // TODO: Send to s3 bucket (images)
           return [
             ...results,
             {
-              page_idx: Number(pageIndex),
+              page_idx: Number(pageNumber - 1),
               markdown,
             },
           ]

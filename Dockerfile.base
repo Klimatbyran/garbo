@@ -1,5 +1,6 @@
 FROM node:alpine
 
+RUN apk update
 RUN apk add --no-cache \
     chromium \
     nss \
@@ -17,7 +18,8 @@ RUN apk add --no-cache \
     giflib-dev \
     libjpeg-turbo-dev \
     ghostscript \
-    graphicsmagick
+    ghostscript-dev \
+    graphicsmagick=1.3.45-r0
 
 # TODO: Remove unused native dependencies: `cairo`, `pango`, `pixman`, `giflib` and maybe others?
 

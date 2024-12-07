@@ -1,19 +1,22 @@
+import { FlowProducer } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import saveToAPI from './saveToAPI'
+import redis from '../config/redis'
 
-export class JobData extends DiscordJob {
+export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    companyName?: string
+    companyName: string
     description?: string
-    wikidata: any
+    wikidata: { node: string }
     fiscalYear: any
     childrenValues?: any
     approved?: boolean
   }
 }
 
-const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
+const flow = new FlowProducer({ connection: redis })
+
+const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
   const {
     companyName,
     description,
@@ -53,69 +56,79 @@ const checkDB = new DiscordWorker('checkDB', async (job: JobData) => {
 
   const { scope12, scope3, biogenic, industry, economy, goals, initiatives } =
     childrenValues
+
   const base = {
-    companyName,
-    url,
-    fiscalYear,
-    wikidata,
-    threadId,
-    channelId,
+    name: companyName,
+    data: {
+      existingCompany,
+      companyName,
+      url,
+      fiscalYear,
+      wikidata,
+      threadId,
+      channelId,
+    },
+    opts: {
+      attempts: 3,
+    },
   }
 
-  // TODO convert to flow
-  // Send to done, which is a simple worker to post a message to discord
-  // Include the link to the company webpage, and the link to the JSON data for the company
-  // Link to localhost or the production website
-  // We want to know when all steps have been completed to print a message to discord
+  await job.editMessage(`🤖 Sparar data...`)
 
-  if (scope12 || scope3 || biogenic) {
-    await job.editMessage(`🤖 Skapar jobb för att spara utsläppsdata...`)
-    saveToAPI.queue.add(companyName + ' emissions', {
-      ...base,
-      apiSubEndpoint: 'emissions',
-      scope12,
-      scope3,
-      biogenic,
-    })
-  }
+  await flow.add({
+    ...base,
+    queueName: 'sendCompanyLink',
+    data: {
+      ...base.data,
+    },
+    children: [
+      scope12 || scope3 || biogenic || economy
+        ? {
+            ...base,
+            queueName: 'diffReportingPeriods',
+            data: {
+              ...base.data,
+              scope12,
+              scope3,
+              biogenic,
+              economy,
+            },
+          }
+        : null,
+      industry
+        ? {
+            ...base,
+            queueName: 'diffIndustry',
+            data: {
+              ...base.data,
+              industry,
+            },
+          }
+        : null,
+      goals
+        ? {
+            ...base,
+            queueName: 'diffGoals',
+            data: {
+              ...base.data,
+              goals,
+            },
+          }
+        : null,
+      initiatives
+        ? {
+            ...base,
+            queueName: 'diffInitiatives',
+            data: {
+              ...base.data,
+              initiatives,
+            },
+          }
+        : null,
+    ].filter((e) => e !== null),
+  })
 
-  if (industry) {
-    await job.editMessage(`🤖 Skapar jobb för att spara branschdata...`)
-    saveToAPI.queue.add(companyName + ' industry', {
-      ...base,
-      apiSubEndpoint: 'industry',
-      industry,
-    })
-  }
-
-  if (economy) {
-    await job.editMessage(`🤖 Skapar jobb för att spara ekonomidata...`)
-    saveToAPI.queue.add(companyName + ' economy', {
-      ...base,
-      apiSubEndpoint: 'economy',
-      economy,
-    })
-  }
-
-  if (goals) {
-    await job.editMessage(`🤖 Skapar jobb för att spara mål...`)
-    saveToAPI.queue.add(companyName + ' goals', {
-      ...base,
-      apiSubEndpoint: 'goals',
-      goals,
-    })
-  }
-
-  if (initiatives) {
-    await job.editMessage(`🤖 Skapar jobb för att spara initiativ...`)
-    saveToAPI.queue.add(companyName + ' initiatives', {
-      ...base,
-      apiSubEndpoint: 'initiatives',
-      initiatives,
-    })
-  }
-
-  return JSON.stringify(childrenValues, null, 2)
+  return { saved: true }
 })
 
 export default checkDB

@@ -27,41 +27,47 @@ export const schema = z.object({
 // NOTE: Maybe split this into two parts, one for turnover and another for employees, to allow re-running them separately
 
 export const prompt = `
+*** Golden Rule ***
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent if no data is provided.
 *** Turnover ***
-- Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. Be as accurate as possible. These values will be used to calculate the emissions intensity of the company so be sure to specify the value in SEK or EUR - not "mSEK" or "mEUR". Extract this data for all available years.
-*** Currencies: ***
-- turnover: SEK or EUR
-- if it makes sense, use MSEK or MEUR
-- if the currency is not specified, assume SEK
+- Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
+  Be as accurate as possible. Extract this data for all available years.
+- Convert units like "MSEK", "kSEK", "kEUR" etc. into the base numerical value in the local currency.
+  Example:  
+  - 250 MSEK → 250000000 SEK
+  - 4.2 KEUR → 4200 EUR
+- Specify the **currency** as a separate field (e.g., SEK, USD, EUR).
 *** Employees: ***
 - Extract the number of employees for all available years. The unit can be for example "FTE" (full-time equivalent) or average number of employees during the year.
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
-Example, follow the format below. Do not use markdown in the output:
+
+*** Example***
+This is only an example format; do not include this specific data in the output and do not use markdown in the output:
 {
   "economy": [
     {
-      "year": 2021,
-      "employees": {
-        "value": 10000,
-        "unit": "FTE"
-      },
+      "year": 2023,
       "turnover": {
-        "value": 12345,
-        "currency: "MSEK"
+        "value": 4212299000,
+        "currency": "SEK"
       },
+      "employees": {
+        "value": 3298,
+        "unit": "FTE"
+      }
     },
     {
       "year": 2022,
-      "employees": {
-        "value": 11000,
-        "unit": "FTE"
-      },
       "turnover": {
-        "value": 14345,
-        "currency: "MSEK"
+        "value": 3993948000,
+        "currency": "SEK"
       },
-    },
+      "employees": {
+        "value": 3045,
+        "unit": "FTE"
+      }
+    }
   ]
 }
 `

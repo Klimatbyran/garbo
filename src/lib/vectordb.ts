@@ -2,6 +2,7 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 
 import chromadb from '../config/chromadb'
 import openai from '../config/openai'
+import { CHUNK_SIZE } from '../config'
 
 const client = new ChromaClient(chromadb)
 const embedder = new OpenAIEmbeddingFunction(openai)
@@ -14,23 +15,47 @@ const collection = await client.getOrCreateCollection({
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
 
-async function addReport(url: string, paragraphs: string[]) {
-  const chunkSize = 2000
+async function addReport(url: string, markdown: string) {
   const overlapSize = 200
 
-  const chunks: { chunk: string; paragraph: string }[] = []
+  const paragraphs = markdown
+    .split('\n##')
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0)
 
-  paragraphs.forEach((paragraph) => {
-    for (let i = 0; i < paragraph.length; i += chunkSize - overlapSize) {
-      const chunk = paragraph.slice(i, i + chunkSize).trim()
+  let prefix = ''
+  const mergedParagraphs: string[] = []
+
+  // Combine standalone headers (titles without body) with the next paragraph that has a body.
+  for (let i = 0; i < paragraphs.length; i++) {
+    const current = paragraphs[i]
+    const hasBody = current.split('\n').length > 1
+
+    if (!hasBody) {
+      prefix += (prefix ? '\n' : '') + current
+    } else {
+      mergedParagraphs.push((prefix ? prefix + '\n' : '') + current)
+      prefix = ''
+    }
+  }
+
+  if (prefix) {
+    mergedParagraphs.push(prefix)
+  }
+
+  const documentChunks: { chunk: string; paragraph: string }[] = []
+
+  mergedParagraphs.forEach((paragraph) => {
+    for (let i = 0; i < paragraph.length; i += CHUNK_SIZE - overlapSize) {
+      const chunk = paragraph.slice(i, i + CHUNK_SIZE).trim()
       if (chunk.length > 0) {
-        chunks.push({ chunk, paragraph })
+        documentChunks.push({ chunk, paragraph })
       }
     }
   })
 
-  const ids = chunks.map((_, i) => `${url}#${i}`)
-  const metadatas = chunks.map(({ paragraph }) => ({
+  const ids = documentChunks.map((_, i) => `${url}#${i}`)
+  const metadatas = documentChunks.map(({ paragraph }) => ({
     source: url,
     paragraph,
     type: reportMetadataType,
@@ -40,7 +65,7 @@ async function addReport(url: string, paragraphs: string[]) {
   await collection.add({
     ids,
     metadatas,
-    documents: chunks.map(({ chunk }) => chunk),
+    documents: documentChunks.map(({ chunk }) => chunk),
   })
 }
 

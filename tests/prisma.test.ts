@@ -1,8 +1,4 @@
-import {
-  prisma,
-  ensureReportingPeriodExists,
-  upsertCompany,
-} from '../src/lib/prisma'
+import { prisma, upsertReportingPeriod } from '../src/lib/prisma'
 import { resetDB } from '../src/lib/dev-utils'
 
 describe('reporting periods', () => {
@@ -57,11 +53,10 @@ describe('reporting periods', () => {
     const startDate = new Date('2023-01-01')
     const endDate = new Date('2023-12-31')
 
-    const reportingPeriod = await ensureReportingPeriodExists(
-      company,
-      metadata,
-      { startDate, endDate }
-    )
+    const reportingPeriod = await upsertReportingPeriod(company, metadata, {
+      startDate,
+      endDate,
+    })
 
     expect(reportingPeriod.companyId).toBe(company.wikidataId)
   }, 10000) // Increase timeout to 10 seconds

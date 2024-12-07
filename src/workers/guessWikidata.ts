@@ -1,19 +1,18 @@
-import { UnrecoverableError } from 'bullmq'
 import { searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata from '../prompts/wikidata'
 
-class JobData extends DiscordJob {
+class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
   }
 }
 
-const guessWikidata = new DiscordWorker<JobData>(
+const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   'guessWikidata',
-  async (job: JobData) => {
+  async (job: GuessWikidataJob) => {
     const { companyName } = job.data
     if (!companyName) throw new Error('No company name was provided')
 
@@ -65,6 +64,14 @@ const guessWikidata = new DiscordWorker<JobData>(
     if (!wikidataId) {
       throw new Error(`Could not parse wikidataId from json: ${response}`)
     }
+
+    job.sendMessage(
+      `## Wikidata\nAccording to Garbo, the best match for ${companyName} was:\n\n\`\`\`json\n${JSON.stringify(
+        parsedJson,
+        null,
+        2
+      )}\`\`\``
+    )
     return JSON.stringify(parsedJson, null, 2)
   }
 )
