@@ -5,16 +5,14 @@ const envSchema = z.object({
   OPENAI_API_KEY: z.string(),
 })
 
-const env = envSchema.parse(process.env)
+const { success, data: env, error } = envSchema.safeParse(process.env)
+if (!success) {
+  console.error('Schema validation failed:', error.format())
+  throw new Error('Missing OPENAI env variable')
+}
 
-export default {
+const config = {
   apiKey: env.OPENAI_API_KEY,
 }
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error('Missing OPENAI_API_KEY environment variable')
-}
-
-export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+export const openai = new OpenAI(config)
