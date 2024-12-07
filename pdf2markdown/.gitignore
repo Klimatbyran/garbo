@@ -1,1 +1,10 @@
-scratch
+node_modules
+dist
+.env
+.env*
+!.env.example
+.aider*
+.DS_Store
+
+*.pdf
+*.code-workspace
