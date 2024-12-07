@@ -5,7 +5,6 @@ import os
 from argparse import ArgumentParser
 from io import BytesIO
 from pathlib import Path
-from typing import Iterable
 
 from docling.datamodel.base_models import ConversionStatus
 from docling.datamodel.document import ConversionResult
@@ -16,49 +15,35 @@ from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
 _log = logging.getLogger('parse_pdf')
 
-def export_documents(
-    conv_results: Iterable[ConversionResult],
+def export_document(
+    conv_result: ConversionResult,
     output_dir: Path,
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    success_count = 0
-    failure_count = 0
-    partial_success_count = 0
+    if conv_result.status == ConversionStatus.SUCCESS:
+        with (output_dir / "parsed.json").open("w", encoding="utf-8") as fp:
+            json.dump(conv_result.document.export_to_dict(), fp, ensure_ascii=False)
 
-    for conv_res in conv_results:
-        if conv_res.status == ConversionStatus.SUCCESS:
-            success_count += 1
-            doc_filename = conv_res.input.file.stem
+        with (output_dir / "parsed.md").open("w", encoding="utf-8") as fp:
+            fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
 
-            with (output_dir / f"{doc_filename}.json").open("w") as fp:
-                json.dump(conv_res.document.export_to_dict(), fp, ensure_ascii=False)
-
-        elif conv_res.status == ConversionStatus.PARTIAL_SUCCESS:
-            _log.info(
-                f"Document {conv_res.input.file} was partially converted with the following errors:"
-            )
-            for item in conv_res.errors:
-                _log.info(f"\t{item.error_message}")
-            partial_success_count += 1
-        else:
-            _log.info(f"Document {conv_res.input.file} failed to convert.")
-            failure_count += 1
-
-    return success_count, partial_success_count, failure_count
+    elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
+        _log.info(
+            f"Document {conv_result.input.file} was partially converted with the following errors:"
+        )
+        for item in conv_result.errors:
+            _log.info(f"\t{item.error_message}")
+    else:
+        _log.info(f"Document {conv_result.input.file} failed to convert.")
 
 def parse_document(input_file: Path, output_dir: Path):
     if not os.path.exists(input_file):
         raise Exception(f"Input PDF does not exist: {input_file}")
 
-    _log.info(f"Parsing {input_file}")
+    _log.info(f"Parsing {input_file} with Docling and Tesseract...")
 
-    buf = BytesIO(input_file.open("rb").read())
-    input_stream = DocumentStream(name=input_file.name, stream=buf)
-
-    # Docling Parse with Tesseract
     pipeline_options = PdfPipelineOptions()
-
     pipeline_options.do_ocr = True
     pipeline_options.do_table_structure = True
     pipeline_options.table_structure_options.do_cell_matching = True
@@ -75,8 +60,11 @@ def parse_document(input_file: Path, output_dir: Path):
         }
     )
 
+    buf = BytesIO(input_file.open("rb").read())
+    input_stream = DocumentStream(name=input_file.name, stream=buf)
+
     conv_result = doc_converter.convert(input_stream, raises_on_error=False)
-    export_documents([conv_result], output_dir)
+    export_document(conv_result, output_dir)
 
 
 
