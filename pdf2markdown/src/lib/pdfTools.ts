@@ -1,48 +1,68 @@
 import { fromBuffer } from 'pdf2pic'
-import path from 'path'
+import { resolve, join } from 'path'
+import { spawn } from 'child_process'
 import {
   ParsedDocument,
   ParsedDocumentSchema,
   Table,
 } from './nlm-ingestor-schema'
-import { jsonToTables } from './jsonExtraction'
-import { writeFile } from 'fs/promises'
+// import { jsonToTables } from './jsonExtraction'
+import { writeFile, readFile } from 'fs/promises'
+import { OUTPUT_DIR } from '../index'
 
-const NLM_INGESTOR_URL = 'http://localhost:5001'
+async function parseDocument(inputFilePath: string) {
+  return new Promise<void>((success, reject) => {
+    const docParser = spawn('python', [
+      resolve('src/parse_pdf.py'),
+      inputFilePath,
+    ])
 
-async function checkNLMIngestorStatus() {
-  try {
-    const response = await fetch(`${NLM_INGESTOR_URL}`)
-    if (!response.ok) {
-      throw new Error(
-        `NLM Ingestor health check failed: ${response.statusText}`
-      )
-    }
-  } catch (error) {
-    throw new Error(`NLM Ingestor service not available: ${error.message}`)
-  }
+    docParser.stdout.on('data', (data) => {
+      console.log(data.toString().trimEnd())
+    })
+
+    docParser.stderr.on('data', (data) => {
+      console.error(data.toString().trimEnd())
+    })
+
+    docParser.on('exit', (exitCode) => {
+      if (exitCode !== 0) {
+        reject()
+      } else {
+        success()
+      }
+    })
+  })
 }
 
-export async function extractJsonFromPdf(
-  buffer: Buffer
-): Promise<ParsedDocument> {
-  await checkNLMIngestorStatus()
-  const formData = new FormData()
-  formData.append('file', new Blob([buffer]), 'document.pdf')
-  const url = `${NLM_INGESTOR_URL}/api/parseDocument?renderFormat=json`
+// await parseDocument(resolve(OUTPUT_DIR, crypto.randomUUID(), 'input.pdf'))
+await parseDocument(
+  resolve(
+    import.meta.dirname,
+    '../../garbo_pdfs/Vestum-arsredovisning-2023.pdf',
+  ),
+)
+process.exit(0)
 
-  const response = await fetch(url, {
-    method: 'POST',
-    body: formData,
-    signal: AbortSignal.timeout(6 * 60 * 1000), // 6 minutes
+/*
+export async function extractJsonFromPdf(
+  buffer: Buffer,
+  docId: string,
+): Promise<ParsedDocument> {
+  // NOTE: Maybe there's a way to pass the input PDF without writing a file
+  const inputFile = resolve(OUTPUT_DIR, docId, 'input.pdf')
+  await writeFile(inputFile, buffer)
+
+  await parseDocument(inputFile).catch(() => {
+    // handle failure and return error
   })
 
-  if (!response.ok) {
-    throw new Error(`Failed to parse PDF: ${response.statusText}`)
-  }
+  // TODO: When process is done, try reading `parsed.json`
+  // Get the tables and use them
+  // TODO: Later, try reading `parsed.md` when we should combine it with the document
 
-  const body = await response.json()
-  
+  const body = 'TODO'
+
   // Validate basic response structure
   if (!body?.return_dict?.result?.blocks) {
     console.error('Invalid response structure:', JSON.stringify(body, null, 2))
@@ -50,43 +70,16 @@ export async function extractJsonFromPdf(
   }
 
   // Check for empty document
-  const hasContent = body.return_dict.result.blocks.some(block => 
-    block.content && block.content.trim().length > 0
+  const hasContent = body.return_dict.result.blocks.some(
+    (block) => block.content && block.content.trim().length > 0,
   )
 
   if (!hasContent) {
     console.error('Document contains only empty blocks')
     console.error('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
-    throw new Error('Document appears to be empty or could not be parsed properly')
-  }
-
-  console.log('\n=== Detailed Response Analysis ===')
-  console.log('1. Response structure:')
-  console.log('- Has return_dict:', 'return_dict' in body)
-  if (body.return_dict) {
-    console.log('- Return dict keys:', Object.keys(body.return_dict))
-    if (body.return_dict.result) {
-      console.log('- Result keys:', Object.keys(body.return_dict.result))
-      if (Array.isArray(body.return_dict.result.blocks)) {
-        console.log('\n2. Blocks analysis:')
-        console.log('- Total blocks:', body.return_dict.result.blocks.length)
-        body.return_dict.result.blocks.forEach((block, index) => {
-          console.log(`\nBlock ${index}:`)
-          console.log(
-            '- Type:',
-            'rows' in block
-              ? 'Table'
-              : 'level' in block
-              ? 'Header'
-              : 'Paragraph'
-          )
-          console.log('- Has content:', 'content' in block)
-          console.log('- Content type:', typeof block.content)
-          console.log('- Content preview:', block.content?.substring(0, 100))
-          console.log('- Properties:', Object.keys(block))
-        })
-      }
-    }
+    throw new Error(
+      'Document appears to be empty or could not be parsed properly',
+    )
   }
 
   const result = ParsedDocumentSchema.safeParse(body)
@@ -107,12 +100,12 @@ type Page = {
 
 export function findRelevantTablesGroupedOnPages(
   json: ParsedDocument,
-  searchTerms: string[]
+  searchTerms: string[],
 ): Page[] {
   const tables = jsonToTables(json).filter(({ content }) =>
     searchTerms.some((term) =>
-      content.toLowerCase().includes(term.toLowerCase())
-    )
+      content.toLowerCase().includes(term.toLowerCase()),
+    ),
   )
   return tables.reduce((acc: Page[], table: Table) => {
     const [pageWidth, pageHeight] = json.return_dict.page_dim
@@ -136,7 +129,7 @@ export async function extractTablesFromJson(
   pdf: Buffer,
   json: ParsedDocument,
   outputDir: string,
-  searchTerms: string[]
+  searchTerms: string[],
 ): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
   const pdfConverter = (height: number, width: number) => {
     return fromBuffer(pdf, {
@@ -149,15 +142,27 @@ export async function extractTablesFromJson(
   }
 
   const pages = Object.values(
-    findRelevantTablesGroupedOnPages(json, searchTerms)
+    findRelevantTablesGroupedOnPages(json, searchTerms),
   )
+  // TODO: generate reportId when starting the request
+  // create a directory for the reportId
+  // save the incoming PDF file to the tmp directory
+  // read the PDF file from python and process it
+  // write parsed report output to a json file in the reportId directory
+  // also write parsed report to a markdown file in the reportId directory
+  // save images in the reportId directory
+  // use vision API for tables
+  // return the Docling parsed markdown, and combine with the more detailed tables
+  // maybe: remove tmp files after processing completed successfully to save space
+  // Or maybe store a timestamp in the first part of the directory name - and then check if it has passed more than 12h since the report was parsed, then remove it when receiving the next incoming request
+  // trigger indexMarkdown after receiving the parsed report back in the garbo container.
   const reportId = crypto.randomUUID()
   const filenames = await Promise.all(
     pages.map(async ({ pageIndex, pageHeight, pageWidth }) => {
       const pageNumber = pageIndex + 1
-      const pageScreenshotPath = path.join(
+      const pageScreenshotPath = join(
         outputDir,
-        `${reportId}-page-${pageNumber}.png`
+        `${reportId}-page-${pageNumber}.png`,
       )
       const convert = pdfConverter(pageHeight * 2, pageWidth * 2)
       const result = await convert(pageNumber, { responseType: 'buffer' })
@@ -165,13 +170,15 @@ export async function extractTablesFromJson(
       if (!result.buffer) {
         throw new Error(
           `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
-            JSON.stringify(result, null, 2)
+            JSON.stringify(result, null, 2),
         )
       }
 
       await writeFile(pageScreenshotPath, result.buffer)
       return { pageIndex, filename: pageScreenshotPath }
-    })
+    }),
   )
   return { pages: filenames }
 }
+
+*/

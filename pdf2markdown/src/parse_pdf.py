@@ -1,9 +1,13 @@
 import logging
 import time
 import json
+import sys
+import os
+from argparse import ArgumentParser
 from io import BytesIO
 from pathlib import Path
 from typing import Iterable
+
 from docling.datamodel.base_models import ConversionStatus
 from docling.datamodel.document import ConversionResult
 from docling.datamodel.base_models import InputFormat
@@ -53,9 +57,22 @@ def export_documents(
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    input_file=Path("../garbo_pdfs/Vestum-arsredovisning-2023.pdf")
+    arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
+    arg_parser.add_argument('input', help="Path to the input file")
+
+    parsed_args = arg_parser.parse_args(sys.argv[1:])
+
+    if not os.path.exists(parsed_args.input):
+        raise BaseException("Input path does not exist!")
+    
+    input_file = Path(parsed_args.input)
+    _log.info(f"Parsing {input_file}")
+
+    # TODO: read input file from directory
+    # TODO: use the docId directory as base output_dir
+
     buf = BytesIO(input_file.open("rb").read())
-    input_streams = [DocumentStream(name=input_file.name, stream=buf)]
+    input_stream = DocumentStream(name=input_file.name, stream=buf)
 
     # Docling Parse with Tesseract
     pipeline_options = PdfPipelineOptions()
@@ -78,7 +95,7 @@ def main():
 
     start_time = time.time()
 
-    conv_result = doc_converter.convert(input_streams, raises_on_error=False)
+    conv_result = doc_converter.convert(input_stream, raises_on_error=False)
     export_documents([conv_result], output_dir=Path("scratch"))
 
     end_time = time.time() - start_time
