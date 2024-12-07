@@ -10,6 +10,7 @@ from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.models.tesseract_ocr_model import TesseractOcrOptions
+from docling_core.types.doc import TableItem
 
 _log = logging.getLogger(__name__)
 
@@ -30,6 +31,30 @@ def export_documents(
 
             with (output_dir / f"{doc_filename}.json").open("w") as fp:
                 json.dump(conv_res.document.export_to_dict(), fp, ensure_ascii=False)
+            
+            page_images_dir = output_dir / doc_filename / f"pages"
+            page_images_dir.mkdir(parents=True, exist_ok=True)
+            
+            table_images_dir = output_dir / doc_filename / f"tables"
+            table_images_dir.mkdir(parents=True, exist_ok=True)
+
+            # Save page images
+            for page_no, page in conv_res.document.pages.items():
+                page_no = page.page_no
+                page_image_filename = page_images_dir / f"{doc_filename}-{page_no}.png"
+                with page_image_filename.open("wb") as fp:
+                    page.image.pil_image.save(fp, format="PNG")
+
+            # Save images of figures and tables
+            table_counter = 0
+            for element, _level in conv_res.document.iterate_items():
+                if isinstance(element, TableItem):
+                    table_counter += 1
+                    element_image_filename = (
+                        table_images_dir / f"{doc_filename}-table-{table_counter}.png"
+                    )
+                    with element_image_filename.open("wb") as fp:
+                        element.get_image(conv_res.document).save(fp, "PNG")
 
         elif conv_res.status == ConversionStatus.PARTIAL_SUCCESS:
             _log.info(
@@ -70,6 +95,7 @@ def main():
 
     # Docling Parse with Tesseract
     pipeline_options = PdfPipelineOptions()
+
     pipeline_options.do_ocr = True
     pipeline_options.do_table_structure = True
     pipeline_options.table_structure_options.do_cell_matching = True
@@ -78,6 +104,11 @@ def main():
     # with fast parsing:	 108 tables on 42 unique pages - 175 seconds => 3 min
     pipeline_options.table_structure_options.mode = TableFormerMode.FAST
     pipeline_options.ocr_options = TesseractOcrOptions()
+
+    pipeline_options.generate_table_images=True
+    pipeline_options.generate_page_images=True
+    pipeline_options.images_scale=1
+    pipeline_options.ocr_options.lang = ["swe", "eng"]
 
     doc_converter = DocumentConverter(
         format_options={
