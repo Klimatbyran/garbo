@@ -1,39 +1,48 @@
 import { resolve } from 'path'
-import { glob, readFile } from 'fs/promises'
+import { readFile, writeFile } from 'fs/promises'
+import $RefParser from '@apidevtools/json-schema-ref-parser'
 
 import { DoclingDocumentSchema } from './lib/docling-schema'
-import assert from 'assert'
 
 const docId = '5ee1f2b6-a86a-4f26-86bc-2223c937528b'
 const outDir = resolve(`/tmp/pdf2markdown/${docId}`)
 
-const bufferToBase64 = (buffer: Buffer) => {
-  return 'data:image/png;base64,' + buffer.toString('base64')
-}
+async function loadDoclingJSON() {
+  const rawJSON = await readFile(resolve(outDir, 'parsed.json'), {
+    encoding: 'utf-8',
+  }).then(JSON.parse)
 
-const rawJSON = await readFile(resolve(outDir, 'parsed.json'), {
-  encoding: 'utf-8',
-}).then(JSON.parse)
-
-const json = DoclingDocumentSchema.parse(rawJSON)
-
-for await (const imagePath of glob(resolve(outDir, 'pages/*.png'))) {
-  const image = await readFile(imagePath).then(bufferToBase64)
-  const pageNumber = imagePath.match(/(\d+)\.png$/)?.[1]
-  if (pageNumber === undefined) {
-    throw new Error('Unable to match pageNumber for path: ' + imagePath)
+  let json = DoclingDocumentSchema.parse(rawJSON)
+  try {
+    await $RefParser.dereference(json, {
+      dereference: {
+        circular: 'ignore',
+      },
+    })
+  } catch (error) {
+    console.error(error)
   }
 
-  const page = json.pages[pageNumber]
-
-  if (!page?.image) {
-    throw new Error(`Page ${pageNumber} is missing image`)
-  }
-
-  assert(
-    image === json.pages[pageNumber].image?.uri,
-    'Base64 encoded PNG images should match',
+  // dump the dereferenced json file to a file for exploration
+  await writeFile(
+    resolve(outDir, 'document.json'),
+    JSON.stringify($RefParser.bundle(json)),
+    {
+      encoding: 'utf-8',
+    },
   )
+
+  // compare size - is it smaller when using the JSON schema format?
+
+  // TODO: Create another zod schema with the actual document data
+  // TODO: Rename the
+  // TODO: Parse the document another time with zod to get a more useful data structure
+  // In the future, we don't have to write the file in between.
+  // Then use the parsed json document to process images
 }
 
-console.log('All images match!')
+async function main() {
+  await loadDoclingJSON()
+}
+
+await main()

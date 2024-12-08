@@ -17,7 +17,8 @@
     "python-shell": "^5.0.0",
     "sharp": "^0.33.5",
     "tsx": "^4.19.2",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@apidevtools/json-schema-ref-parser": "^11.7.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
