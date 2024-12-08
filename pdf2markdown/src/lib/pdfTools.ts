@@ -11,12 +11,12 @@ import { writeFile, readFile, mkdir } from 'fs/promises'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
-async function parseDocument(docId: string, baseDir: string) {
-  return new Promise<void>((success, reject) => {
+async function parseDocument(inputPDF: string, outDir: string) {
+  return new Promise((success, reject) => {
     const docParser = spawn('python', [
       resolve(import.meta.dirname, '../parse_pdf.py'),
-      docId,
-      baseDir,
+      inputPDF,
+      outDir,
     ])
 
     docParser.stdout.on('data', (data) => {
@@ -27,11 +27,11 @@ async function parseDocument(docId: string, baseDir: string) {
       console.error(data.toString().trimEnd())
     })
 
-    docParser.on('exit', (exitCode) => {
-      if (exitCode !== 0) {
-        reject()
+    docParser.once('exit', async (code) => {
+      if (code === 0) {
+        success(undefined)
       } else {
-        success()
+        reject()
       }
     })
   })
@@ -51,7 +51,7 @@ export async function extractJsonFromPdf(
   try {
     await parseDocument(inputPDF, outDir)
   } catch (e) {
-    throw new Error('Conversion failed!')
+    throw new Error('Conversion failed! ' + e)
   }
 
   const json = await readFile(resolve(outDir, 'parsed.json'), {
@@ -62,7 +62,18 @@ export async function extractJsonFromPdf(
     encoding: 'utf-8',
   })
 
-  console.log('Tables found: ', json.tables.length)
+  const uniquePages = new Set(
+    json.tables.map((t) => t.prov.at(0)?.page_no).filter(Number.isFinite),
+  )
+
+  console.log(
+    'Found',
+    json.tables.length,
+    'tables on',
+    uniquePages.size,
+    'pages:',
+    uniquePages,
+  )
   console.log('Markdown length: ', markdown.length)
 
   return { json, markdown }

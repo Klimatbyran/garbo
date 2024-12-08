@@ -1,6 +1,7 @@
 import express, { Request, Response, raw } from 'express'
 
 import { extractJsonFromPdf } from './lib/pdfTools'
+import { getFileSize } from './lib/util'
 // import { jsonToMarkdown } from './lib/jsonExtraction'
 
 const app = express()
@@ -8,7 +9,7 @@ const port = 3000
 
 app.post(
   '/convert',
-  raw({ type: '*/*', limit: '50mb' }),
+  raw({ type: 'application/pdf', limit: '50mb' }),
   async (req: Request, res: Response) => {
     try {
       const buffer = Buffer.isBuffer(req.body) ? req.body : null
@@ -23,6 +24,11 @@ app.post(
         return
       }
 
+      console.log(
+        'pdf2markdown: Parsing PDF with size',
+        getFileSize(Buffer.byteLength(buffer)),
+      )
+
       const parsed = await extractJsonFromPdf(buffer)
       // TODO: implement table extraction
       // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
@@ -36,5 +42,5 @@ app.post(
 )
 
 app.listen(port, () => {
-  console.log(`PDF to Markdown service running on port ${port}`)
+  console.log('PDF to Markdown service running on port', port)
 })
