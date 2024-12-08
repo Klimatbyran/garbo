@@ -33,6 +33,13 @@ def export_document(
             fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
             _log.info(f"Saved document Markdown to: {markdown_file}")
 
+        # Save page images
+        for page_no, page in conv_result.document.pages.items():
+            page_no = page.page_no
+            page_image_filename = output_dir / f"pages/page-{page_no}.png"
+            with page_image_filename.open("wb") as fp:
+                page.image.pil_image.save(fp, format="PNG")
+
     elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
         _log.info(
             f"Document {conv_result.input.file} was partially converted with the following errors:"
