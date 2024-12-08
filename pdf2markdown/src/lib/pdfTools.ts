@@ -9,7 +9,7 @@ import { DoclingDocument, DoclingDocumentSchema } from './docling-schema'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
-export async function extractJsonFromPdf(
+export async function convertPDF(
   buffer: Buffer,
 ): Promise<{ json: DoclingDocument; markdown: string }> {
   const docId = crypto.randomUUID()

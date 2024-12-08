@@ -1,7 +1,7 @@
 import express, { Request, Response, raw } from 'express'
 import { performance } from 'perf_hooks'
 
-import { extractJsonFromPdf } from './lib/pdfTools'
+import { convertPDF } from './lib/pdfTools'
 import { getFileSize } from './lib/util'
 // import { jsonToMarkdown } from './lib/jsonExtraction'
 
@@ -32,7 +32,7 @@ app.post(
         getFileSize(Buffer.byteLength(buffer)),
       )
 
-      const parsed = await extractJsonFromPdf(buffer)
+      const parsed = await convertPDF(buffer)
       // TODO: implement table extraction
       // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
       // const markdown = await jsonToMarkdown(parsed.json, buffer)
