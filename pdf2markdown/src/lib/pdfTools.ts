@@ -94,8 +94,6 @@ export async function convertPDF(
 
 type Page = {
   pageNumber: number
-  width: number
-  height: number
   tables: Table[]
   image: Image
 }
@@ -119,11 +117,7 @@ export function findRelevantTablesGroupedOnPages(
   return Object.values(
     json.tables.reduce((acc: Record<number, Page>, table: Table, i) => {
       for (const n of table.prov.map((item) => item.page_no)) {
-        const {
-          page_no,
-          size: { width, height },
-          image,
-        } = json.pages[n]
+        const { page_no, image } = json.pages[n]
 
         if (!image) {
           throw new Error(
@@ -131,17 +125,13 @@ export function findRelevantTablesGroupedOnPages(
           )
         }
 
-        if (acc[page_no]) {
-          acc[page_no].tables.push(table)
-        } else {
-          acc[page_no] = {
-            pageNumber: page_no,
-            tables: [table],
-            width,
-            height,
-            image,
-          }
+        acc[page_no] ??= {
+          pageNumber: page_no,
+          tables: [],
+          image,
         }
+
+        acc[page_no].tables.push(table)
       }
 
       return acc
