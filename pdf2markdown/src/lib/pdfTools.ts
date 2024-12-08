@@ -21,9 +21,32 @@ export async function convertPDF(
   await writeFile(inputPDF, buffer, { encoding: 'utf-8' })
 
   try {
+    // TODO: Figure out how to get both the stdout and stderr from the child process
+
+    // await new Promise<void>((success, reject) => {
+    //   const shell = new PythonShell(
+    //     resolve(import.meta.dirname, '../parse_pdf.py'),
+    //     {
+    //       args: [inputPDF, outDir],
+    //       stdio: 'inherit',
+    //     },
+    //   )
+
+    //   shell.childProcess.stdout?.on?.('data', (chunk: any) => {
+    //     console.log(chunk.toString())
+    //   })
+
+    //   shell.once('pythonError', (err) => {
+    //     reject(err)
+    //   })
+
+    //   shell.once('close', () => {
+    //     success()
+    //   })
+    // })
     await PythonShell.run(resolve(import.meta.dirname, '../parse_pdf.py'), {
       args: [inputPDF, outDir],
-      stdio: 'inherit',
+      stdio: ['pipe', 'inherit', 'pipe', 'pipe'],
     })
   } catch (e) {
     throw new Error('Conversion failed! ' + e)
