@@ -1,18 +1,16 @@
-import { fromBuffer } from 'pdf2pic'
 import { resolve, join } from 'path'
 import { PythonShell } from 'python-shell'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 
-import { ParsedDocument, Table } from './nlm-ingestor-schema'
 import { jsonToTables } from './jsonExtraction'
-import { DoclingDocument, DoclingDocumentSchema } from './docling-schema'
+import { DoclingDocument, DoclingDocumentSchema, Table } from './docling-schema'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
 export async function convertPDF(
   buffer: Buffer,
+  docId: string,
 ): Promise<{ json: DoclingDocument; markdown: string }> {
-  const docId = crypto.randomUUID()
   const outDir = resolve(OUTPUT_DIR, docId)
   await mkdir(outDir, { recursive: true })
   const inputPDF = resolve(outDir, 'input.pdf')
@@ -93,18 +91,21 @@ type Page = {
   pageIndex: number
   pageWidth: number
   pageHeight: number
-  tables: any[]
+  tables: Table[]
 }
 
 export function findRelevantTablesGroupedOnPages(
-  json: ParsedDocument,
+  json: DoclingDocument,
   searchTerms: string[],
 ): Page[] {
-  const tables = jsonToTables(json).filter(({ content }) =>
+  // HACK: JSON.stringify() the page with the table, and then check if it includes any relevant search terms
+  // Actually, we need to evaluate each node and its value
+  const tables = json.tables.filter((table) => {
+    const tableContent = JSON.stringify(table)
     searchTerms.some((term) =>
       content.toLowerCase().includes(term.toLowerCase()),
-    ),
-  )
+    )
+  })
   return tables.reduce((acc: Page[], table: Table) => {
     const [pageWidth, pageHeight] = json.return_dict.page_dim
     const pageIndex = table.page_idx
@@ -124,55 +125,18 @@ export function findRelevantTablesGroupedOnPages(
 }
 
 export async function extractTablesFromJson(
-  pdf: Buffer,
-  json: ParsedDocument,
-  outputDir: string,
+  json: DoclingDocument,
+  outDir: string,
   searchTerms: string[],
 ): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
-  const pdfConverter = (height: number, width: number) => {
-    return fromBuffer(pdf, {
-      density: 600,
-      format: 'png',
-      width,
-      height,
-      preserveAspectRatio: true,
-    })
-  }
-
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms),
   )
-  // TODO: generate reportId when starting the request
-  // create a directory for the reportId
-  // save the incoming PDF file to the tmp directory
-  // read the PDF file from python and process it
-  // write parsed report output to a json file in the reportId directory
-  // also write parsed report to a markdown file in the reportId directory
-  // save images in the reportId directory
-  // use vision API for tables
-  // return the Docling parsed markdown, and combine with the more detailed tables
-  // maybe: remove tmp files after processing completed successfully to save space
-  // Or maybe store a timestamp in the first part of the directory name - and then check if it has passed more than 12h since the report was parsed, then remove it when receiving the next incoming request
-  // trigger indexMarkdown after receiving the parsed report back in the garbo container.
-  const reportId = crypto.randomUUID()
   const filenames = await Promise.all(
     pages.map(async ({ pageIndex, pageHeight, pageWidth }) => {
       const pageNumber = pageIndex + 1
-      const pageScreenshotPath = join(
-        outputDir,
-        `${reportId}-page-${pageNumber}.png`,
-      )
-      const convert = pdfConverter(pageHeight * 2, pageWidth * 2)
-      const result = await convert(pageNumber, { responseType: 'buffer' })
+      const pageScreenshotPath = join(outDir, `/pages/page-${pageNumber}.png`)
 
-      if (!result.buffer) {
-        throw new Error(
-          `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
-            JSON.stringify(result, null, 2),
-        )
-      }
-
-      await writeFile(pageScreenshotPath, result.buffer)
       return { pageIndex, filename: pageScreenshotPath }
     }),
   )

@@ -83,6 +83,7 @@ export const TableCellSchema = z.object({
   row_header: z.boolean(),
   row_section: z.boolean(),
 })
+export type Table = z.infer<typeof TableSchema>
 
 export const DataSchema = z.object({
   table_cells: z.array(TableCellSchema),

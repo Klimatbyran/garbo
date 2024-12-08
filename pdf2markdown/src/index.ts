@@ -32,10 +32,18 @@ app.post(
         getFileSize(Buffer.byteLength(buffer)),
       )
 
-      const parsed = await convertPDF(buffer)
+      const docId = crypto.randomUUID()
+      const parsed = await convertPDF(buffer, docId)
       // TODO: implement table extraction
       // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
       // const markdown = await jsonToMarkdown(parsed.json, buffer)
+
+      // use vision API for tables
+      // return the Docling parsed markdown, and combine with the more detailed tables
+      // maybe: remove tmp files after processing completed successfully to save space
+      // Or maybe store a timestamp in the first part of the directory name - and then check if it has passed more than 12h since the report was parsed, then remove it when receiving the next incoming request
+      // trigger indexMarkdown after receiving the parsed report back in the garbo container.
+
       res.type('text/markdown; charset=UTF-8').send(parsed.markdown)
 
       console.log(

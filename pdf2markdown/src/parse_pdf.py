@@ -35,6 +35,7 @@ def export_document(
         markdown_file = output_dir / "parsed.md"
 
         with json_file.open("w", encoding="utf-8") as fp:
+            # TODO: Remove the embedded image files from the JSON file
             json.dump(conv_result.document.export_to_dict(), fp, ensure_ascii=False)
             _log.info(f"Saved document JSON to: {json_file}")
 
