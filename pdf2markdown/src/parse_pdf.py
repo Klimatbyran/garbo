@@ -58,6 +58,15 @@ def export_document(
             f"Found {len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}"
         )
 
+        # IDEA: We could perhaps export the markdown for each table, and pass this as context for the Vision API along with the page screenshot
+        # Or, since we use the page image when parsing with the Vision API, we should likely convert the whole page text content to markdown.
+        # Because then the page would match the image content, which might yield better (or worse) results. Worth experimenting with.
+        # Export tables
+        # for table_ix, table in enumerate(conv_res.document.tables):
+        #     table_df: pd.DataFrame = table.export_to_dataframe()
+        #     print(f"## Table {table_ix}")
+        #     print(table_df.to_markdown())
+
         doc_export: DoclingDocument = conv_result.document.export_to_dict()
         updated_pages = {}
 
