@@ -5,6 +5,7 @@ import os
 from argparse import ArgumentParser
 from io import BytesIO
 from pathlib import Path
+from jsonref import replace_refs
 
 from docling.datamodel.document import ConversionResult, DoclingDocument
 from docling.datamodel.base_models import InputFormat, ConversionStatus
@@ -71,8 +72,19 @@ def export_document(
 
         doc_export["pages"] = updated_pages
 
+        # TODO: Figure out if we could remove refs from the exported document to make it easier to work with during later steps
+        # Ideally, we solve this on the Python side where we have much better context compared to with Node.js
+        # Also, if we can solve it with Python, we don't need to install additional dependencies, since `jsonref` is already a dependency of Docling
+        # replace_refs returns a copy of the document with refs replaced by JsonRef
+        # objects. It will resolve refences to other JSON schema files
+        doc = replace_refs(
+            doc_export,
+            merge_props=True,
+            base_uri=json_file.absolute().as_uri(),
+        )
+
         with json_file.open("w", encoding="utf-8") as fp:
-            json.dump(doc_export, fp, ensure_ascii=False)
+            json.dump(doc, fp, ensure_ascii=False)
             _log.info(
                 f"Saved document JSON (including Base64-encoded page images) to: {json_file}"
             )
