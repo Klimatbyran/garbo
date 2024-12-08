@@ -15,11 +15,20 @@ from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
 _log = logging.getLogger('parse_pdf')
 
+def flatten(matrix):
+    flat_list = []
+    for row in matrix:
+        flat_list.extend(row)
+    return flat_list
+
 def export_document(
     conv_result: ConversionResult,
     output_dir: Path,
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    page_images_dir = output_dir / "pages"
+    page_images_dir.mkdir(parents=True, exist_ok=True)
 
     if conv_result.status == ConversionStatus.SUCCESS:
         json_file = output_dir / "parsed.json"
@@ -33,12 +42,22 @@ def export_document(
             fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
             _log.info(f"Saved document Markdown to: {markdown_file}")
 
-        # Save page images
-        for page_no, page in conv_result.document.pages.items():
-            page_no = page.page_no
-            page_image_filename = output_dir / f"pages/page-{page_no}.png"
+        unique_pages_with_tables = set(
+            flatten([
+                [item.page_no for item in table.prov] for table in conv_result.document.tables
+            ])
+        )
+
+        _log.info(f"{len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}")
+
+        # Save images for pages with tables
+        for page_no in unique_pages_with_tables:
+            page = conv_result.document.pages[page_no]
+            page_image_filename = page_images_dir / f"page-{page_no}.png"
             with page_image_filename.open("wb") as fp:
                 page.image.pil_image.save(fp, format="PNG")
+        
+        _log.info(f"Saved page images to {page_images_dir}")
 
     elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
         _log.info(
@@ -65,6 +84,8 @@ def parse_document(input_file: Path, output_dir: Path):
     pipeline_options.table_structure_options.mode = TableFormerMode.FAST
     pipeline_options.ocr_options = TesseractOcrOptions()
     pipeline_options.ocr_options.lang = ["swe", "eng"]
+    pipeline_options.generate_page_images=True
+    pipeline_options.images_scale=2
 
     doc_converter = DocumentConverter(
         format_options={
