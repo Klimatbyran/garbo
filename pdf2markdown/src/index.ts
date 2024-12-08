@@ -1,9 +1,8 @@
 import express, { Request, Response, raw } from 'express'
 import { performance } from 'perf_hooks'
 
-import { convertPDF } from './lib/pdfTools'
+import { convertPDF, extractTablesWithVisionAPI } from './lib/pdfTools'
 import { getFileSize } from './lib/util'
-// import { jsonToMarkdown } from './lib/jsonExtraction'
 
 const app = express()
 const port = 3000
@@ -34,17 +33,12 @@ app.post(
 
       const docId = crypto.randomUUID()
       const parsed = await convertPDF(buffer, docId)
-      // TODO: implement table extraction
-      // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
-      // const markdown = await jsonToMarkdown(parsed.json, buffer)
 
-      // use vision API for tables
-      // return the Docling parsed markdown, and combine with the more detailed tables
+      const { markdown } = await extractTablesWithVisionAPI(parsed)
       // maybe: remove tmp files after processing completed successfully to save space
-      // Or maybe store a timestamp in the first part of the directory name - and then check if it has passed more than 12h since the report was parsed, then remove it when receiving the next incoming request
       // trigger indexMarkdown after receiving the parsed report back in the garbo container.
 
-      res.type('text/markdown; charset=UTF-8').send(parsed.markdown)
+      res.type('text/markdown; charset=UTF-8').send(markdown)
 
       console.log(
         'Finished conversion in',

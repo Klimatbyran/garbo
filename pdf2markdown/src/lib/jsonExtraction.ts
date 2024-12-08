@@ -7,21 +7,12 @@ import {
 import { fromBuffer } from 'pdf2pic'
 import { openai } from './openai'
 
-const bufferToBase64 = (buffer: Buffer) => {
-  return 'data:image/png;base64,' + buffer.toString('base64')
-}
-
 export async function extractTextViaVisionAPI(
-  {
-    buffer,
-  }: {
-    buffer: Buffer
-  },
+  { imageBase64 }: { imageBase64: string },
   context: string,
 ) {
   const result = await openai.chat.completions.create({
-    // TODO: Maybe use 'gpt-4o-mini' instead?
-    model: 'gpt-4-vision-preview',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
@@ -30,7 +21,7 @@ export async function extractTextViaVisionAPI(
       },
       {
         role: 'user',
-        content: `I have a PDF with couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot. I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, description, footnotes or disclaimers). Use Markdown format for the table(s), only reply with markdown. OK?`,
+        content: `I have a PDF with couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot? I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, description, footnotes or disclaimers). Use Markdown format for the table(s), only reply with markdown. OK?`,
       },
       {
         role: 'assistant',
@@ -40,6 +31,8 @@ export async function extractTextViaVisionAPI(
       {
         role: 'assistant',
         content:
+          // TODO: This prompt is tecnically incorrect, since we pass in a `context` which is the previous page that had tables
+          // What we probably want to do here is to send the raw markdown parsed from the same page as the tables and screenshot.
           'This is previous text extracted with a less accurate method:' +
           context,
       },
@@ -48,15 +41,18 @@ export async function extractTextViaVisionAPI(
         content: [
           {
             type: 'image_url',
-            image_url: { url: bufferToBase64(buffer), detail: 'high' },
+            image_url: { url: imageBase64, detail: 'high' },
           },
         ],
       },
     ],
+    // TODO: Why the max tokens here compared to the previous version of this function?
     max_tokens: 4096,
   })
   if (!result.choices[0]?.message?.content) {
-    throw new Error('Failed to get content from Vision API')
+    throw new Error(
+      'Failed to get content from Vision API: ' + JSON.stringify(result),
+    )
   }
   return result.choices[0].message.content
 }
@@ -215,6 +211,9 @@ export async function jsonToMarkdown(
             throw new Error(`Failed to convert page ${pageNumber} to image`)
           }
 
+          // NOTE: block.content here refers to the current section in the document
+          // TODO: Find a way to get the relevant markdown content from a given page when parsing the DoclingDocument JSON output
+          // Then, we should pass this table data to the Vision API.
           return extractTextViaVisionAPI(
             { buffer: result.buffer },
             block.content || '',

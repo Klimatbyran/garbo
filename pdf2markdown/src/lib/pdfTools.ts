@@ -2,8 +2,13 @@ import { resolve, join } from 'path'
 import { PythonShell } from 'python-shell'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 
-import { jsonToTables } from './jsonExtraction'
-import { DoclingDocument, DoclingDocumentSchema, Table } from './docling-schema'
+import {
+  DoclingDocument,
+  DoclingDocumentSchema,
+  Image,
+  Table,
+} from './docling-schema'
+import { extractTextViaVisionAPI } from './jsonExtraction'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
@@ -92,6 +97,7 @@ type Page = {
   width: number
   height: number
   tables: Table[]
+  image: Image
 }
 
 export function findRelevantTablesGroupedOnPages(
@@ -111,12 +117,19 @@ export function findRelevantTablesGroupedOnPages(
 
   // NOTE: Until content filtering is available, we need to process all tables
   return Object.values(
-    json.tables.reduce((acc: Record<number, Page>, table: Table) => {
+    json.tables.reduce((acc: Record<number, Page>, table: Table, i) => {
       for (const n of table.prov.map((item) => item.page_no)) {
         const {
           page_no,
           size: { width, height },
+          image,
         } = json.pages[n]
+
+        if (!image) {
+          throw new Error(
+            `Page ${page_no} don't have an image, but needs it for table ${i}`,
+          )
+        }
 
         if (acc[page_no]) {
           acc[page_no].tables.push(table)
@@ -126,6 +139,7 @@ export function findRelevantTablesGroupedOnPages(
             tables: [table],
             width,
             height,
+            image,
           }
         }
       }
@@ -135,20 +149,44 @@ export function findRelevantTablesGroupedOnPages(
   )
 }
 
-export async function extractTablesFromJson(
-  json: DoclingDocument,
-  outDir: string,
-  searchTerms: string[],
-): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
-  const pages = Object.values(
-    findRelevantTablesGroupedOnPages(json, searchTerms),
-  )
-  const filenames = await Promise.all(
-    pages.map(async ({ pageNumber }) => {
-      const pageScreenshotPath = join(outDir, `/pages/page-${pageNumber}.png`)
+export async function extractTablesWithVisionAPI(
+  { json, markdown }: { json: DoclingDocument; markdown: string },
+  searchTerms: string[] = [],
+): Promise<{ markdown: string }> {
+  const pages = findRelevantTablesGroupedOnPages(json, searchTerms)
 
-      return { pageNumber, filename: pageScreenshotPath }
-    }),
+  const tables: { page_idx: number; markdown: string }[] = await pages.reduce(
+    async (resultsPromise, { pageNumber, image }) => {
+      const results = await resultsPromise
+      const lastPageMarkdown = results.at(-1)?.markdown || ''
+      const markdown = await extractTextViaVisionAPI(
+        { imageBase64: image.uri },
+        lastPageMarkdown,
+      )
+      // TODO: Send to s3 bucket (images)
+      return [
+        ...results,
+        {
+          page_idx: Number(pageNumber - 1),
+          markdown,
+        },
+      ]
+    },
+    Promise.resolve([] as any),
   )
-  return { pages: filenames }
+
+  console.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
+
+  return {
+    markdown:
+      markdown +
+      '\n\nHere are some of the important tables from the markdown with more precision:' +
+      tables
+        .map(
+          ({ page_idx, markdown }) =>
+            `\n#### Page ${page_idx}: 
+                ${markdown}`,
+        )
+        .join('\n'),
+  }
 }

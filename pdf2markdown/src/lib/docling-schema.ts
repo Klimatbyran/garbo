@@ -71,6 +71,7 @@ export const ImageSchema = z.object({
   size: SizeSchema,
   uri: z.string(),
 })
+export type Image = z.infer<typeof ImageSchema>
 
 export const PageSchema = z.object({
   size: SizeSchema,
