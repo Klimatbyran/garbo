@@ -1,16 +1,17 @@
 import { fromBuffer } from 'pdf2pic'
 import { resolve, join } from 'path'
 import { PythonShell } from 'python-shell'
+import { writeFile, readFile, mkdir } from 'fs/promises'
+
 import { ParsedDocument, Table } from './nlm-ingestor-schema'
 import { jsonToTables } from './jsonExtraction'
-import { writeFile, readFile, mkdir } from 'fs/promises'
-import { DoclingDocumentSchema } from './docling-schema'
+import { DoclingDocument, DoclingDocumentSchema } from './docling-schema'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
 export async function extractJsonFromPdf(
   buffer: Buffer,
-): Promise<{ json: any; markdown: string }> {
+): Promise<{ json: DoclingDocument; markdown: string }> {
   const docId = crypto.randomUUID()
   const outDir = resolve(OUTPUT_DIR, docId)
   await mkdir(outDir, { recursive: true })
