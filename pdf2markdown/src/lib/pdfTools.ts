@@ -25,6 +25,7 @@ export async function extractJsonFromPdf(
   try {
     await PythonShell.run(resolve(import.meta.dirname, '../parse_pdf.py'), {
       args: [inputPDF, outDir],
+      stdio: 'inherit',
     })
   } catch (e) {
     throw new Error('Conversion failed! ' + e)
