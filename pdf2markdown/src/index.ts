@@ -1,4 +1,5 @@
 import express, { Request, Response, raw } from 'express'
+import { performance } from 'perf_hooks'
 
 import { extractJsonFromPdf } from './lib/pdfTools'
 import { getFileSize } from './lib/util'
@@ -12,6 +13,7 @@ app.post(
   raw({ type: 'application/pdf', limit: '50mb' }),
   async (req: Request, res: Response) => {
     try {
+      const start = performance.now()
       const buffer = Buffer.isBuffer(req.body) ? req.body : null
 
       if (!buffer) {
@@ -35,6 +37,14 @@ app.post(
       // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
       // const markdown = await jsonToMarkdown(parsed.json, buffer)
       res.type('text/markdown; charset=UTF-8').send(parsed.markdown)
+
+      console.log(
+        'Finished conversion in',
+        ((performance.now() - start) / 1000).toLocaleString('en-GB', {
+          maximumFractionDigits: 2,
+        }),
+        'sec.',
+      )
     } catch (error) {
       console.error('Conversion error:', error)
       res.status(500).json({ error: error.message })
