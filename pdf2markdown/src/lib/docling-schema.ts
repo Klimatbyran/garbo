@@ -65,9 +65,17 @@ export const BodySchema = z.object({
   parent: ParentSchema.optional(),
 })
 
+export const ImageSchema = z.object({
+  mimetype: z.enum(['image/png']),
+  dpi: z.number(),
+  size: SizeSchema,
+  uri: z.string(),
+})
+
 export const PageSchema = z.object({
   size: SizeSchema,
   page_no: z.number(),
+  image: ImageSchema.optional(),
 })
 
 export const TableCellSchema = z.object({
