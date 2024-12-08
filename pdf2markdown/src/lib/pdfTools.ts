@@ -1,13 +1,10 @@
 import { fromBuffer } from 'pdf2pic'
 import { resolve, join } from 'path'
 import { PythonShell } from 'python-shell'
-import {
-  ParsedDocument,
-  ParsedDocumentSchema,
-  Table,
-} from './nlm-ingestor-schema'
+import { ParsedDocument, Table } from './nlm-ingestor-schema'
 import { jsonToTables } from './jsonExtraction'
 import { writeFile, readFile, mkdir } from 'fs/promises'
+import { DoclingDocumentSchema } from './docling-schema'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
@@ -31,16 +28,28 @@ export async function extractJsonFromPdf(
     throw new Error('Conversion failed! ' + e)
   }
 
-  const json = await readFile(resolve(outDir, 'parsed.json'), {
-    encoding: 'utf-8',
-  }).then(JSON.parse)
+  const [rawJSON, markdown] = await Promise.all([
+    readFile(resolve(outDir, 'parsed.json'), {
+      encoding: 'utf-8',
+    }).then(JSON.parse),
+    readFile(resolve(outDir, 'parsed.md'), {
+      encoding: 'utf-8',
+    }),
+  ])
 
-  const markdown = await readFile(resolve(outDir, 'parsed.md'), {
-    encoding: 'utf-8',
-  })
+  const {
+    success,
+    data: json,
+    error,
+  } = DoclingDocumentSchema.safeParse(rawJSON)
+  if (!success) {
+    console.error('Schema validation failed:', error.format())
+    throw new Error('Invalid response format from Docling')
+  }
 
+  // Get unique page numbers, also for tables spanning multiple pages
   const uniquePages = new Set(
-    json.tables.map((t) => t.prov.at(0)?.page_no).filter(Number.isFinite),
+    json.tables.flatMap((t) => t.prov.map(({ page_no }) => page_no)),
   )
 
   console.log(
@@ -54,41 +63,6 @@ export async function extractJsonFromPdf(
   console.log('Markdown length: ', markdown.length)
 
   return { json, markdown }
-
-  // TODO: Actually handle tables and take screenshots
-
-  // TODO: When process is done, try reading `parsed.json`
-  // Get the tables and use them
-  // TODO: Later, try reading `parsed.md` when we should combine it with the document
-
-  const body = 'TODO'
-
-  // Validate basic response structure
-  if (!body?.return_dict?.result?.blocks) {
-    console.error('Invalid response structure:', JSON.stringify(body, null, 2))
-    throw new Error('NLM Ingestor returned invalid response structure')
-  }
-
-  // Check for empty document
-  const hasContent = body.return_dict.result.blocks.some(
-    (block) => block.content && block.content.trim().length > 0,
-  )
-
-  if (!hasContent) {
-    console.error('Document contains only empty blocks')
-    console.error('Raw NLM ingestor response:', JSON.stringify(body, null, 2))
-    throw new Error(
-      'Document appears to be empty or could not be parsed properly',
-    )
-  }
-
-  const result = ParsedDocumentSchema.safeParse(body)
-  if (!result.success) {
-    console.error('Schema validation failed:', result.error.format())
-    throw new Error('Invalid response format from NLM Ingestor')
-  }
-
-  return result.data
 }
 
 type Page = {
