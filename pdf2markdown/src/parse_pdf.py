@@ -86,7 +86,7 @@ def parse_document(input_file: Path, output_dir: Path):
     pipeline_options.ocr_options = TesseractOcrOptions()
     pipeline_options.ocr_options.lang = ["swe", "eng"]
     pipeline_options.generate_page_images=True
-    pipeline_options.images_scale=2
+    pipeline_options.images_scale=3
 
     doc_converter = DocumentConverter(
         format_options={
