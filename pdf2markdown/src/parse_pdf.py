@@ -6,11 +6,10 @@ from argparse import ArgumentParser
 from io import BytesIO
 from pathlib import Path
 
-from docling.datamodel.base_models import ConversionStatus
-from docling.datamodel.document import ConversionResult
-from docling.datamodel.base_models import InputFormat
+from docling.datamodel.document import ConversionResult, DoclingDocument
+from docling.datamodel.base_models import InputFormat, ConversionStatus
 from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
-from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream, _DocumentConversionInput
+from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream
 from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
 _log = logging.getLogger('parse_pdf')
@@ -21,23 +20,18 @@ def flatten(matrix):
         flat_list.extend(row)
     return flat_list
 
+def without_keys(d: dict, keys: set):
+    return {x: d[x] for x in d if x not in keys}
+
 def export_document(
     conv_result: ConversionResult,
     output_dir: Path,
 ):
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    page_images_dir = output_dir / "pages"
-    page_images_dir.mkdir(parents=True, exist_ok=True)
-
     if conv_result.status == ConversionStatus.SUCCESS:
-        json_file = output_dir / "parsed.json"
         markdown_file = output_dir / "parsed.md"
-
-        with json_file.open("w", encoding="utf-8") as fp:
-            # TODO: Remove the embedded image files from the JSON file
-            json.dump(conv_result.document.export_to_dict(), fp, ensure_ascii=False)
-            _log.info(f"Saved document JSON to: {json_file}")
+        json_file = output_dir / "parsed.json"
 
         with markdown_file.open("w", encoding="utf-8") as fp:
             fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
@@ -49,16 +43,21 @@ def export_document(
             ])
         )
 
-        _log.info(f"{len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}")
+        _log.info(f"Found {len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}")
 
-        # Save images for pages with tables
-        for page_no in unique_pages_with_tables:
-            page = conv_result.document.pages[page_no]
-            page_image_filename = page_images_dir / f"page-{page_no}.png"
-            with page_image_filename.open("wb") as fp:
-                page.image.pil_image.save(fp, format="PNG")
-        
-        _log.info(f"Saved page images to {page_images_dir}")
+        doc_export: DoclingDocument = conv_result.document.export_to_dict()
+        updated_pages = {}
+
+        # Page screenshots are already part of the `doc_export`
+        # However, we only want to keep page images where tables were found
+        for page_no, page in doc_export['pages'].items():
+            updated_pages[page_no] = page if int(page_no) in unique_pages_with_tables else without_keys(page, {'image'})
+
+        doc_export['pages'] = updated_pages
+
+        with json_file.open("w", encoding="utf-8") as fp:
+            json.dump(doc_export, fp, ensure_ascii=False)
+            _log.info(f"Saved document JSON (including Base64-encoded page images) to: {json_file}")
 
     elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
         _log.info(
