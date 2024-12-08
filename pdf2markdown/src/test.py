@@ -31,12 +31,7 @@ def main():
 
     # replace_refs returns a copy of the document with refs replaced by JsonRef
     # objects. It will resolve refences to other JSON schema files
-    doc_export = jsonref.replace_refs(
-        # json.loads(jsonref.dumps(doc)),
-        doc,
-        merge_props=True,
-        base_uri=updated_json_path.absolute().as_uri(),
-    )
+    doc_export = jsonref.replace_refs(doc, lazy_load=True, proxies=False)
     print(updated_json_path)
 
     with updated_json_path.open("w", encoding="utf-8") as fp:
