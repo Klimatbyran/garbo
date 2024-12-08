@@ -1,4 +1,9 @@
-import { Block, ParsedDocument, Table, ParsedDocumentSchema } from './nlm-ingestor-schema'
+import {
+  Block,
+  ParsedDocument,
+  Table,
+  ParsedDocumentSchema,
+} from './nlm-ingestor-schema'
 import { fromBuffer } from 'pdf2pic'
 import { openai } from './openai'
 
@@ -12,9 +17,10 @@ export async function extractTextViaVisionAPI(
   }: {
     buffer: Buffer
   },
-  context: string
+  context: string,
 ) {
   const result = await openai.chat.completions.create({
+    // TODO: Maybe use 'gpt-4o-mini' instead?
     model: 'gpt-4-vision-preview',
     messages: [
       {
@@ -61,13 +67,15 @@ function parseTableBlock(block: Table): string {
   }
 
   // Convert table rows to markdown
-  const rows = block.rows.map(row => {
-    return row.map(cell => cell.content || '').join(' | ')
+  const rows = block.rows.map((row) => {
+    return row.map((cell) => cell.content || '').join(' | ')
   })
 
   // Add header separator after first row
   if (rows.length > 0) {
-    const headerSeparator = Array(rows[0].split('|').length).fill('---').join(' | ')
+    const headerSeparator = Array(rows[0].split('|').length)
+      .fill('---')
+      .join(' | ')
     rows.splice(1, 0, headerSeparator)
   }
 
@@ -92,7 +100,7 @@ function parseListItemBlock(block: ListItem): string {
 
 export function jsonToTables(json: ParsedDocument): Table[] {
   return json.return_dict.result.blocks.filter(
-    (block): block is Table => 'rows' in block
+    (block): block is Table => 'rows' in block,
   )
 }
 
@@ -109,20 +117,20 @@ function parseBlock(block: Block): string {
 
 export async function jsonToMarkdown(
   json: ParsedDocument,
-  pdf: Buffer
+  pdf: Buffer,
 ): Promise<string> {
   try {
     // Validate input
     const result = ParsedDocumentSchema.parse(json)
     const blocks = result.return_dict.result.blocks
-    
+
     if (!blocks || blocks.length === 0) {
       console.error('No blocks found in document')
       return 'No content found in document'
     }
 
     // Check if all blocks are empty
-    const hasNonEmptyBlock = blocks.some(block => {
+    const hasNonEmptyBlock = blocks.some((block) => {
       if ('content' in block && block.content) {
         return block.content.trim().length > 0
       }
@@ -134,12 +142,20 @@ export async function jsonToMarkdown(
 
     if (!hasNonEmptyBlock) {
       console.error('All blocks are empty')
-      console.error('Block details:', blocks.map(block => ({
-        type: 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'),
-        hasContent: Boolean(block.content),
-        contentLength: block.content?.length || 0,
-        hasRows: 'rows' in block ? Boolean(block.rows?.length) : 'N/A'
-      })))
+      console.error(
+        'Block details:',
+        blocks.map((block) => ({
+          type:
+            'rows' in block
+              ? 'Table'
+              : 'level' in block
+                ? 'Header'
+                : 'Paragraph',
+          hasContent: Boolean(block.content),
+          contentLength: block.content?.length || 0,
+          hasRows: 'rows' in block ? Boolean(block.rows?.length) : 'N/A',
+        })),
+      )
       return 'Document contains only empty blocks. The PDF may be corrupted or protected.'
     }
 
@@ -147,7 +163,10 @@ export async function jsonToMarkdown(
     console.log(`Total blocks: ${blocks.length}`)
     blocks.forEach((block, index) => {
       console.log(`\nBlock ${index}:`)
-      console.log('- Type:', 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'))
+      console.log(
+        '- Type:',
+        'rows' in block ? 'Table' : 'level' in block ? 'Header' : 'Paragraph',
+      )
       console.log('- Content:', block.content)
       if ('rows' in block) {
         console.log('- Table rows:', block.rows?.length || 0)
@@ -156,67 +175,74 @@ export async function jsonToMarkdown(
         console.log('- Header level:', block.level)
       }
     })
-  const [pageWidth, pageHeight] = json.return_dict.page_dim
+    const [pageWidth, pageHeight] = json.return_dict.page_dim
 
-  const markdownBlocks = await Promise.all(
-    blocks.map(async (block: Block) => {
-      console.log(`Processing block of type: ${
-        'rows' in block ? 'Table' : 
-        'level' in block ? 'Header' : 
-        'Paragraph'
-      }`)
-
-      if ('rows' in block) {
-        // For tables, try direct parsing first
-        const tableMarkdown = parseTableBlock(block)
-        if (tableMarkdown && tableMarkdown.trim()) {
-          return tableMarkdown
-        }
-
-        // If direct parsing yields no content, fall back to Vision API
-        const pageNumber = block.page_idx + 1
-        const pdfConverter = fromBuffer(pdf, {
-          density: 600,
-          format: 'png',
-          width: pageWidth * 2,
-          height: pageHeight * 2,
-          preserveAspectRatio: true,
-        })
-
-        const result = await pdfConverter(pageNumber, {
-          responseType: 'buffer',
-        })
-        if (!result.buffer) {
-          throw new Error(`Failed to convert page ${pageNumber} to image`)
-        }
-
-        return extractTextViaVisionAPI(
-          { buffer: result.buffer },
-          block.content || ''
+    const markdownBlocks = await Promise.all(
+      blocks.map(async (block: Block) => {
+        console.log(
+          `Processing block of type: ${
+            'rows' in block
+              ? 'Table'
+              : 'level' in block
+                ? 'Header'
+                : 'Paragraph'
+          }`,
         )
-      }
 
-      // For non-table blocks, use appropriate parser
-      const parsedContent = parseBlock(block)
-      if (parsedContent) {
-        return parsedContent
-      }
+        if ('rows' in block) {
+          // For tables, try direct parsing first
+          const tableMarkdown = parseTableBlock(block)
+          if (tableMarkdown && tableMarkdown.trim()) {
+            return tableMarkdown
+          }
 
-      console.log('Skipping empty block:', block)
-      return null
-    })
-  )
+          // TODO: Use already extracted page image instead
+
+          // If direct parsing yields no content, fall back to Vision API
+          const pageNumber = block.page_idx + 1
+          const pdfConverter = fromBuffer(pdf, {
+            density: 600,
+            format: 'png',
+            width: pageWidth * 2,
+            height: pageHeight * 2,
+            preserveAspectRatio: true,
+          })
+
+          const result = await pdfConverter(pageNumber, {
+            responseType: 'buffer',
+          })
+          if (!result.buffer) {
+            throw new Error(`Failed to convert page ${pageNumber} to image`)
+          }
+
+          return extractTextViaVisionAPI(
+            { buffer: result.buffer },
+            block.content || '',
+          )
+        }
+
+        // For non-table blocks, use appropriate parser
+        const parsedContent = parseBlock(block)
+        if (parsedContent) {
+          return parsedContent
+        }
+
+        console.log('Skipping empty block:', block)
+        return null
+      }),
+    )
 
     const markdown = (await Promise.all(markdownBlocks))
-      .filter(block => block !== null && block !== '')
+      .filter((block) => block !== null && block !== '')
       .join('\n\n')
 
     if (!markdown.trim()) {
       console.error('No content was extracted from blocks')
-      const blockSummary = blocks.map(block => ({
-        type: 'rows' in block ? 'Table' : ('level' in block ? 'Header' : 'Paragraph'),
+      const blockSummary = blocks.map((block) => ({
+        type:
+          'rows' in block ? 'Table' : 'level' in block ? 'Header' : 'Paragraph',
         hasContent: Boolean(block.content),
-        contentLength: block.content?.length || 0
+        contentLength: block.content?.length || 0,
       }))
       console.error('Block summary:', JSON.stringify(blockSummary, null, 2))
       return 'No content could be extracted from document. Check server logs for details.'

@@ -88,9 +88,9 @@ export async function convertPDF(
 }
 
 type Page = {
-  pageIndex: number
-  pageWidth: number
-  pageHeight: number
+  pageNumber: number
+  width: number
+  height: number
   tables: Table[]
 }
 
@@ -100,44 +100,54 @@ export function findRelevantTablesGroupedOnPages(
 ): Page[] {
   // HACK: JSON.stringify() the page with the table, and then check if it includes any relevant search terms
   // Actually, we need to evaluate each node and its value
-  const tables = json.tables.filter((table) => {
-    const tableContent = JSON.stringify(table)
-    searchTerms.some((term) =>
-      content.toLowerCase().includes(term.toLowerCase()),
-    )
-  })
-  return tables.reduce((acc: Page[], table: Table) => {
-    const [pageWidth, pageHeight] = json.return_dict.page_dim
-    const pageIndex = table.page_idx
-    const page = acc.find((p) => p.pageIndex === pageIndex)
-    if (page) {
-      page.tables.push(table)
-    } else {
-      acc.push({
-        pageIndex,
-        tables: [table],
-        pageWidth,
-        pageHeight,
-      })
-    }
-    return acc
-  }, [])
+  // Example implementation for evaluating the strings and replacing nodes with referenced values: https://stackoverflow.com/a/42398875
+  // This needs to happen before the zod parsing though
+  // const tables = json.tables.filter((table) => {
+  //   const tableContent = JSON.stringify(table)
+  //   searchTerms.some((term) =>
+  //     content.toLowerCase().includes(term.toLowerCase()),
+  //   )
+  // })
+
+  // NOTE: Until content filtering is available, we need to process all tables
+  return Object.values(
+    json.tables.reduce((acc: Record<number, Page>, table: Table) => {
+      for (const n of table.prov.map((item) => item.page_no)) {
+        const {
+          page_no,
+          size: { width, height },
+        } = json.pages[n]
+
+        if (acc[page_no]) {
+          acc[page_no].tables.push(table)
+        } else {
+          acc[page_no] = {
+            pageNumber: page_no,
+            tables: [table],
+            width,
+            height,
+          }
+        }
+      }
+
+      return acc
+    }, {}),
+  )
 }
 
 export async function extractTablesFromJson(
   json: DoclingDocument,
   outDir: string,
   searchTerms: string[],
-): Promise<{ pages: { pageIndex: number; filename: string }[] }> {
+): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms),
   )
   const filenames = await Promise.all(
-    pages.map(async ({ pageIndex, pageHeight, pageWidth }) => {
-      const pageNumber = pageIndex + 1
+    pages.map(async ({ pageNumber }) => {
       const pageScreenshotPath = join(outDir, `/pages/page-${pageNumber}.png`)
 
-      return { pageIndex, filename: pageScreenshotPath }
+      return { pageNumber, filename: pageScreenshotPath }
     }),
   )
   return { pages: filenames }
