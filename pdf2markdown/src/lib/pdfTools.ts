@@ -6,9 +6,10 @@ import {
   ParsedDocumentSchema,
   Table,
 } from './nlm-ingestor-schema'
-// import { jsonToTables } from './jsonExtraction'
+import { jsonToTables } from './jsonExtraction'
 import { writeFile, readFile, mkdir } from 'fs/promises'
-import { OUTPUT_DIR } from '../index'
+
+const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
 
 async function parseDocument(docId: string, baseDir: string) {
   return new Promise<void>((success, reject) => {
@@ -36,47 +37,37 @@ async function parseDocument(docId: string, baseDir: string) {
   })
 }
 
-const docId = crypto.randomUUID()
-const outDir = resolve(OUTPUT_DIR, docId)
-await mkdir(outDir, { recursive: true })
-// TODO: save buffer to tmp PDF file which can be sent to the PDF parsing
-// const inputPDF = resolve(outDir, 'input.pdf')
-const inputPDF = resolve(
-  import.meta.dirname,
-  '../../garbo_pdfs/astra-zeneca-2023.pdf',
-)
-
-try {
-  await parseDocument(inputPDF, outDir)
-} catch (e) {
-  console.error('Parsing failed!')
-}
-
-const parsedJSON = await readFile(resolve(outDir, 'parsed.json'), {
-  encoding: 'utf-8',
-}).then(JSON.parse)
-
-const parsedMarkdown = await readFile(resolve(outDir, 'parsed.md'), {
-  encoding: 'utf-8',
-})
-
-console.log('Tables found: ', parsedJSON.tables.length)
-console.log('Markdown length: ', parsedMarkdown.length)
-
-process.exit(0)
-
-/*
 export async function extractJsonFromPdf(
   buffer: Buffer,
-  docId: string,
-): Promise<ParsedDocument> {
-  // NOTE: Maybe there's a way to pass the input PDF without writing a file
-  const inputFile = resolve(OUTPUT_DIR, docId, 'input.pdf')
-  await writeFile(inputFile, buffer)
+): Promise<{ json: any; markdown: string }> {
+  const docId = crypto.randomUUID()
+  const outDir = resolve(OUTPUT_DIR, docId)
+  await mkdir(outDir, { recursive: true })
+  const inputPDF = resolve(outDir, 'input.pdf')
 
-  await parseDocument(inputFile).catch(() => {
-    // handle failure and return error
+  // NOTE: Maybe there's a way to pass the input PDF without writing a file
+  await writeFile(inputPDF, buffer, { encoding: 'utf-8' })
+
+  try {
+    await parseDocument(inputPDF, outDir)
+  } catch (e) {
+    throw new Error('Conversion failed!')
+  }
+
+  const json = await readFile(resolve(outDir, 'parsed.json'), {
+    encoding: 'utf-8',
+  }).then(JSON.parse)
+
+  const markdown = await readFile(resolve(outDir, 'parsed.md'), {
+    encoding: 'utf-8',
   })
+
+  console.log('Tables found: ', json.tables.length)
+  console.log('Markdown length: ', markdown.length)
+
+  return { json, markdown }
+
+  // TODO: Actually handle tables and take screenshots
 
   // TODO: When process is done, try reading `parsed.json`
   // Get the tables and use them
@@ -201,5 +192,3 @@ export async function extractTablesFromJson(
   )
   return { pages: filenames }
 }
-
-*/

@@ -1,34 +1,40 @@
-import express from 'express'
-import { mkdir } from 'fs/promises'
-import { resolve } from 'path'
+import express, { Request, Response, raw } from 'express'
 
-// import { extractJsonFromPdf } from './lib/pdfTools'
-import { jsonToMarkdown } from './lib/jsonExtraction'
+import { extractJsonFromPdf } from './lib/pdfTools'
+// import { jsonToMarkdown } from './lib/jsonExtraction'
 
-export const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
+const app = express()
+const port = 3000
 
-// const app = express()
-// const port = 3000
+app.post(
+  '/convert',
+  raw({ type: '*/*', limit: '50mb' }),
+  async (req: Request, res: Response) => {
+    try {
+      const buffer = Buffer.isBuffer(req.body) ? req.body : null
 
-// app.post(
-//   '/convert',
-//   express.raw({ type: '*/*', limit: '50mb' }),
-//   async (req: express.Request, res: express.Response) => {
-//     try {
-//       const buffer = req.body
-//       const docId = crypto.randomUUID()
-//       await mkdir(resolve(`/tmp/${docId}`), { recursive: true })
+      if (!buffer) {
+        res.status(400).json({
+          error: 'Request body should be a PDF file in binary format.',
+        })
+        return
+      } else if (buffer.length === 0) {
+        res.status(400).json({ error: 'Empty request body.' })
+        return
+      }
 
-//       const json = await extractJsonFromPdf(buffer, docId)
-//       const markdown = await jsonToMarkdown(json, buffer)
-//       res.type('text/plain').send(markdown)
-//     } catch (error) {
-//       console.error('Conversion error:', error)
-//       res.status(500).json({ error: error.message })
-//     }
-//   },
-// )
+      const parsed = await extractJsonFromPdf(buffer)
+      // TODO: implement table extraction
+      // IDEA: Maybe let docling save the page screenshots, because then we could remove the dependency pdf2pic and several native libs
+      // const markdown = await jsonToMarkdown(parsed.json, buffer)
+      res.type('text/markdown; charset=UTF-8').send(parsed.markdown)
+    } catch (error) {
+      console.error('Conversion error:', error)
+      res.status(500).json({ error: error.message })
+    }
+  },
+)
 
-// app.listen(port, () => {
-//   console.log(`PDF to Markdown service running on port ${port}`)
-// })
+app.listen(port, () => {
+  console.log(`PDF to Markdown service running on port ${port}`)
+})
