@@ -9,10 +9,15 @@ from pathlib import Path
 from docling.datamodel.document import ConversionResult, DoclingDocument
 from docling.datamodel.base_models import InputFormat, ConversionStatus
 from docling.datamodel.pipeline_options import PdfPipelineOptions, TableFormerMode
-from docling.document_converter import DocumentConverter, PdfFormatOption, DocumentStream
+from docling.document_converter import (
+    DocumentConverter,
+    PdfFormatOption,
+    DocumentStream,
+)
 from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
-_log = logging.getLogger('parse_pdf')
+_log = logging.getLogger("parse_pdf")
+
 
 def flatten(matrix):
     flat_list = []
@@ -20,8 +25,10 @@ def flatten(matrix):
         flat_list.extend(row)
     return flat_list
 
+
 def without_keys(d: dict, keys: set):
     return {x: d[x] for x in d if x not in keys}
+
 
 def export_document(
     conv_result: ConversionResult,
@@ -34,30 +41,41 @@ def export_document(
         json_file = output_dir / "parsed.json"
 
         with markdown_file.open("w", encoding="utf-8") as fp:
-            fp.write(conv_result.document.export_to_markdown(image_placeholder=''))
+            fp.write(conv_result.document.export_to_markdown(image_placeholder=""))
             _log.info(f"Saved document Markdown to: {markdown_file}")
 
         unique_pages_with_tables = set(
-            flatten([
-                [item.page_no for item in table.prov] for table in conv_result.document.tables
-            ])
+            flatten(
+                [
+                    [item.page_no for item in table.prov]
+                    for table in conv_result.document.tables
+                ]
+            )
         )
 
-        _log.info(f"Found {len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}")
+        _log.info(
+            f"Found {len(unique_pages_with_tables)} unique pages with tables: {sorted(unique_pages_with_tables)}"
+        )
 
         doc_export: DoclingDocument = conv_result.document.export_to_dict()
         updated_pages = {}
 
         # Page screenshots are already part of the `doc_export`
         # However, we only want to keep page images where tables were found
-        for page_no, page in doc_export['pages'].items():
-            updated_pages[page_no] = page if int(page_no) in unique_pages_with_tables else without_keys(page, {'image'})
+        for page_no, page in doc_export["pages"].items():
+            updated_pages[page_no] = (
+                page
+                if int(page_no) in unique_pages_with_tables
+                else without_keys(page, {"image"})
+            )
 
-        doc_export['pages'] = updated_pages
+        doc_export["pages"] = updated_pages
 
         with json_file.open("w", encoding="utf-8") as fp:
             json.dump(doc_export, fp, ensure_ascii=False)
-            _log.info(f"Saved document JSON (including Base64-encoded page images) to: {json_file}")
+            _log.info(
+                f"Saved document JSON (including Base64-encoded page images) to: {json_file}"
+            )
 
     elif conv_result.status == ConversionStatus.PARTIAL_SUCCESS:
         _log.info(
@@ -67,6 +85,7 @@ def export_document(
             _log.info(f"\t{item.error_message}")
     else:
         _log.info(f"Document {conv_result.input.file} failed to convert.")
+
 
 def parse_document(input_file: Path, output_dir: Path):
     if not os.path.exists(input_file):
@@ -84,8 +103,8 @@ def parse_document(input_file: Path, output_dir: Path):
     pipeline_options.table_structure_options.mode = TableFormerMode.FAST
     pipeline_options.ocr_options = TesseractOcrOptions()
     pipeline_options.ocr_options.lang = ["swe", "eng"]
-    pipeline_options.generate_page_images=True
-    pipeline_options.images_scale=3
+    pipeline_options.generate_page_images = True
+    pipeline_options.images_scale = 3
 
     doc_converter = DocumentConverter(
         format_options={
@@ -100,16 +119,19 @@ def parse_document(input_file: Path, output_dir: Path):
     export_document(conv_result, output_dir)
 
 
-
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    arg_parser = ArgumentParser(prog="parse_pdf", description='Parse a PDF')
-    arg_parser.add_argument('inputPDF', help="Path to the input PDF document")
-    arg_parser.add_argument('outDir', help="Path to the output directory for results to the current document")
+    arg_parser = ArgumentParser(prog="parse_pdf", description="Parse a PDF")
+    arg_parser.add_argument("inputPDF", help="Path to the input PDF document")
+    arg_parser.add_argument(
+        "outDir",
+        help="Path to the output directory for results to the current document",
+    )
     parsed_args = arg_parser.parse_args(sys.argv[1:])
 
     parse_document(Path(parsed_args.inputPDF), Path(parsed_args.outDir))
+
 
 if __name__ == "__main__":
     main()
