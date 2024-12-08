@@ -1,6 +1,6 @@
 import { fromBuffer } from 'pdf2pic'
 import { resolve, join } from 'path'
-import { spawn } from 'child_process'
+import { PythonShell } from 'python-shell'
 import {
   ParsedDocument,
   ParsedDocumentSchema,
@@ -10,32 +10,6 @@ import { jsonToTables } from './jsonExtraction'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 
 const OUTPUT_DIR = resolve('/tmp/pdf2markdown')
-
-async function parseDocument(inputPDF: string, outDir: string) {
-  return new Promise((success, reject) => {
-    const docParser = spawn('python', [
-      resolve(import.meta.dirname, '../parse_pdf.py'),
-      inputPDF,
-      outDir,
-    ])
-
-    docParser.stdout.on('data', (data) => {
-      console.log(data.toString().trimEnd())
-    })
-
-    docParser.stderr.on('data', (data) => {
-      console.error(data.toString().trimEnd())
-    })
-
-    docParser.once('exit', async (code) => {
-      if (code === 0) {
-        success(undefined)
-      } else {
-        reject()
-      }
-    })
-  })
-}
 
 export async function extractJsonFromPdf(
   buffer: Buffer,
@@ -49,7 +23,9 @@ export async function extractJsonFromPdf(
   await writeFile(inputPDF, buffer, { encoding: 'utf-8' })
 
   try {
-    await parseDocument(inputPDF, outDir)
+    await PythonShell.run(resolve(import.meta.dirname, '../parse_pdf.py'), {
+      args: [inputPDF, outDir],
+    })
   } catch (e) {
     throw new Error('Conversion failed! ' + e)
   }
