@@ -16,7 +16,8 @@ app.post(
 
       if (!buffer) {
         res.status(400).json({
-          error: 'Request body should be a PDF file in binary format.',
+          error:
+            'Request body should be a PDF file in binary format. Also set header "Content-Type: application/pdf"',
         })
         return
       } else if (buffer.length === 0) {

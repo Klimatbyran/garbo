@@ -6,9 +6,6 @@ async function main() {
     resolve(import.meta.dirname, '../garbo_pdfs/astra-zeneca-2023.pdf'),
   )
 
-  //   const body = new FormData()
-  //   body.append('pdf', pdf.toString('binary'))
-
   let res: Response
   try {
     res = await fetch('http://localhost:3000/convert', {
