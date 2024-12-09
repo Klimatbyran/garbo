@@ -55,7 +55,7 @@ const recursiveOmit = <T extends Object>(
   return obj
 }
 
-export const askDiff = async (before: any, after: any) => {
+const askDiff = async (before: any, after: any) => {
   if (!before || !after) return 'NO_CHANGES'
   return await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
@@ -69,4 +69,19 @@ NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has chang
       after: recursiveOmit(structuredClone(after), new Set(['metadata'])),
     })
   )
+}
+
+export async function diffChanges<T>({
+  existingCompany,
+  before,
+  after,
+}: {
+  existingCompany: any
+  before: T
+  after: T
+}) {
+  const diff = await askDiff(before, after)
+  const hasChanges = diff && !diff.includes('NO_CHANGES')
+  const requiresApproval = Boolean(existingCompany) || hasChanges
+  return { diff: hasChanges ? diff : '', requiresApproval }
 }

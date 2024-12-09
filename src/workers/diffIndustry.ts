@@ -1,5 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, askDiff } from '../lib/saveUtils'
+import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import saveToAPI from './saveToAPI'
 
 export class DiffIndustryJob extends DiscordJob {
@@ -22,15 +22,20 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
       metadata,
     }
 
-    const diff = await askDiff(existingCompany?.industry, industry)
-    const requiresApproval = diff && !diff.includes('NO_CHANGES')
+    const { diff, requiresApproval } = await diffChanges({
+      existingCompany,
+      before: existingCompany?.industry,
+      after: industry,
+    })
+
+    job.log('Diff:' + diff)
 
     await saveToAPI.queue.add(companyName + ' industry', {
       ...job.data,
       body,
       diff,
+      requiresApproval,
       apiSubEndpoint: 'industry',
-      requiresApproval: Boolean(existingCompany),
 
       // Remove duplicated job data that should be part of the body from now on
       industry: undefined,
