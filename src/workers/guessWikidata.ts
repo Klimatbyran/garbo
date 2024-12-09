@@ -1,9 +1,9 @@
-import { searchCompany } from '../lib/wikidata'
+import { getWikidataEntities, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata from '../prompts/wikidata'
-import { SearchResult } from 'wikibase-sdk'
+import { EntityId, SearchResult } from 'wikibase-sdk'
 
 class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -45,7 +45,10 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       return results
     }
 
-    const results = await getWikidataSearchResults({ companyName })
+    const searchResults = await getWikidataSearchResults({ companyName })
+    const results = await getWikidataEntities(
+      searchResults.map((result) => result.id) as EntityId[]
+    )
 
     job.log('Results: ' + JSON.stringify(results, null, 2))
     if (results.length === 0) {

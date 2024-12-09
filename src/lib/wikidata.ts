@@ -114,11 +114,15 @@ export async function searchCompany({
 
   return response.search
 }
+
+export async function getWikidataEntities(ids: EntityId[]) {
   const url = wbk.getEntities({
-    ids: searchResults.search.map((result) => result.id),
+    ids,
     props: ['info', 'claims', 'descriptions', 'labels'],
   })
-  const { entities } = await fetch(url).then((res) => res.json())
+  const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
+    res.json()
+  )
 
   const companies = Object.values(entities).filter(
     (entity: any) => entity.claims.P5991
@@ -128,7 +132,5 @@ export async function searchCompany({
   // Otherwise fall back to returning the top results and hope for the best
   // IDEA: Maybe we could make a qualified guess here, for example by filtering the data for certain keywords
   // related to companies?
-  return (
-    companies.length ? companies : Object.values(entities)
-  ) as WikidataSearchResult[]
+  return companies.length ? companies : Object.values(entities)
 }
