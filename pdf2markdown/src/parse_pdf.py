@@ -86,14 +86,20 @@ def export_document(
         # Also, if we can solve it with Python, we don't need to install additional dependencies, since `jsonref` is already a dependency of Docling
         # replace_refs returns a copy of the document with refs replaced by JsonRef
         # objects. It will resolve refences to other JSON schema files
-        doc = replace_refs(
-            doc_export,
-            merge_props=True,
-            base_uri=json_file.absolute().as_uri(),
-        )
+        # doc = replace_refs(
+        #     doc_export,
+        #     merge_props=True,
+        #     base_uri=json_file.absolute().as_uri(),
+        # )
+
+        # IDEA: Maybe we could speed up the parsing if we only take page screenshots after we know the relevant pages.
+        # This would reduce both CPU and memory usage since we throw away the pages anyway.
+        # IDEA: Either we could take screenshots using some python library.
+        # Or, perhaps we could create a new document converter, but for the second time use new conversion options to also take screenshots of the selected pages
+        # And if we only do it for the selected pages, then we get only the data we need.
 
         with json_file.open("w", encoding="utf-8") as fp:
-            json.dump(doc, fp, ensure_ascii=False)
+            json.dump(doc_export, fp, ensure_ascii=False)
             _log.info(
                 f"Saved document JSON (including Base64-encoded page images) to: {json_file}"
             )
