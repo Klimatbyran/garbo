@@ -11,7 +11,16 @@ class GuessWikidataJob extends DiscordJob {
   }
 }
 
-const insignificantWords = new Set(['ab', 'the', 'and', 'inc', 'co', 'publ'])
+const insignificantWords = new Set([
+  'ab',
+  'the',
+  'and',
+  'inc',
+  'co',
+  'publ',
+  'aktiebolag',
+  'aktiebolaget',
+])
 
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   'guessWikidata',
@@ -36,9 +45,8 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
       if (retry === 0) {
         const simplifiedCompanyName = companyName
-          .toLowerCase()
           .split(/\s+/)
-          .filter((word) => !insignificantWords.has(word))
+          .filter((word) => !insignificantWords.has(word.toLowerCase()))
           .join(' ')
 
         return getWikidataSearchResults({
