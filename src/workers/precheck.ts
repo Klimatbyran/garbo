@@ -17,6 +17,8 @@ class PrecheckJob extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
+const companyNameSchema = z.object({ companyName: z.string().nullable() })
+
 const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
   const { cachedMarkdown, type, ...baseData } = job.data
   const { markdown = cachedMarkdown } = await job.getChildrenEntries()
@@ -41,13 +43,14 @@ const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
       ],
       {
         response_format: zodResponseFormat(
-          z.object({ companyName: z.string().nullable() }),
-          `retry-${retry}`
+          companyNameSchema,
+          `companyName-${retry}`
         ),
       }
     )
 
-    const { companyName } = JSON.parse(response)
+    const { companyName: rawName } = companyNameSchema.parse(response)
+    const companyName = rawName ? rawName.trim() : null
 
     return (
       companyName ||
@@ -60,7 +63,6 @@ const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
   if (!companyName) throw new Error('Could not find company name')
 
   job.log('Company name: ' + companyName)
-
   await job.setThreadName(companyName)
 
   const description = await askPrompt(
