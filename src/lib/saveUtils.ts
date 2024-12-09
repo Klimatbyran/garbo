@@ -85,3 +85,20 @@ export async function diffChanges<T>({
   const requiresApproval = Boolean(existingCompany) || hasChanges
   return { diff: hasChanges ? diff : '', requiresApproval }
 }
+
+export function getCompanyURL(name: string, wikidataId: string) {
+  const frontendBaseURL =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:4321'
+      : 'https://beta.klimatkollen.se'
+
+  const safeName = name
+    .toLowerCase()
+    .replace(/[åä]/g, 'a')
+    .replace(/[ö]/g, 'o')
+    .replace(/[^a-z0-9]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  return `${frontendBaseURL}/foretag/${safeName}-${wikidataId}`
+}
