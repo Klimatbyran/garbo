@@ -1,5 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, askDiff } from '../lib/saveUtils'
+import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import saveToAPI from './saveToAPI'
 
@@ -82,12 +82,13 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
 
     // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
     // This could improve accuracy of the diff
-    const diff = await askDiff(
-      existingCompany?.reportingPeriods,
-      updatedReportingPeriods
-    )
-    job.log('diff: ' + diff)
-    const requiresApproval = diff && !diff.includes('NO_CHANGES')
+    const { diff, requiresApproval } = await diffChanges({
+      existingCompany,
+      before: existingCompany?.reportingPeriods,
+      after: reportingPeriods,
+    })
+
+    job.log('Diff:' + diff)
 
     const body = {
       reportingPeriods: updatedReportingPeriods,
@@ -98,8 +99,8 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       ...job.data,
       body,
       diff,
+      requiresApproval,
       apiSubEndpoint: 'reporting-periods',
-      requiresApproval: Boolean(existingCompany),
 
       // Remove duplicated job data that should be part of the body from now on
       scope12: undefined,

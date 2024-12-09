@@ -124,13 +124,5 @@ export async function getWikidataEntities(ids: EntityId[]) {
     res.json()
   )
 
-  const companies = Object.values(entities).filter(
-    (entity: any) => entity.claims.P5991
-  )
-
-  // Prioritise companies which include "carbon footprint" (P5991)
-  // Otherwise fall back to returning the top results and hope for the best
-  // IDEA: Maybe we could make a qualified guess here, for example by filtering the data for certain keywords
-  // related to companies?
-  return companies.length ? companies : Object.values(entities)
+  return Object.values(entities)
 }

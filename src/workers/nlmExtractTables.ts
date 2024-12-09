@@ -76,6 +76,12 @@ const searchTerms = [
   'FTE',
   'fiscal year',
   'summary',
+  'utsläpp',
+  'anställda',
+  'inkomster',
+  'omsättning',
+  'växthusgas',
+  'koldioxid',
 ]
 const nlmExtractTables = new DiscordWorker(
   'nlmExtractTables',

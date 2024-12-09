@@ -21,7 +21,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         wikidata,
         approved,
         requiresApproval = true,
-        diff,
+        diff = '',
         body,
         apiSubEndpoint,
       } = job.data
@@ -37,9 +37,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       // If approval is required and not yet approved, send approval request
       const buttonRow = discord.createButtonRow(job.id!)
       await job.sendMessage({
-        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${
-          diff || ''
-        }`,
+        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
         components: [buttonRow],
       })
 
