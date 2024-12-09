@@ -28,16 +28,19 @@ const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
 
   job.log('Diff:' + diff)
 
-  await saveToAPI.queue.add(companyName + ' goals', {
-    ...job.data,
-    body,
-    diff,
-    requiresApproval,
-    apiSubEndpoint: 'goals',
+  // Only save if we detected any meaningful changes
+  if (diff) {
+    await saveToAPI.queue.add(companyName + ' goals', {
+      ...job.data,
+      body,
+      diff,
+      requiresApproval,
+      apiSubEndpoint: 'goals',
 
-    // Remove duplicated job data that should be part of the body from now on
-    goals: undefined,
-  })
+      // Remove duplicated job data that should be part of the body from now on
+      goals: undefined,
+    })
+  }
 
   return { body, diff, requiresApproval }
 })

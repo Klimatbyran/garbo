@@ -2,6 +2,7 @@ import { FlowProducer } from 'bullmq'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
+import { getCompanyURL } from '../lib/saveUtils'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -52,6 +53,13 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       metadata,
     }
     await apiFetch(`/companies`, { body })
+
+    await job.sendMessage(
+      `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
+        companyName,
+        wikidataId
+      )}`
+    )
   }
 
   const { scope12, scope3, biogenic, industry, economy, goals, initiatives } =

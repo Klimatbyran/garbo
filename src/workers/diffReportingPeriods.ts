@@ -80,6 +80,11 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
       }
     )
 
+    const body = {
+      reportingPeriods: updatedReportingPeriods,
+      metadata,
+    }
+
     // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
     // This could improve accuracy of the diff
     const { diff, requiresApproval } = await diffChanges({
@@ -90,24 +95,22 @@ const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
 
     job.log('Diff:' + diff)
 
-    const body = {
-      reportingPeriods: updatedReportingPeriods,
-      metadata,
+    // Only save if we detected any meaningful changes
+    if (diff) {
+      await saveToAPI.queue.add(companyName + ' reporting-periods', {
+        ...job.data,
+        body,
+        diff,
+        requiresApproval,
+        apiSubEndpoint: 'reporting-periods',
+
+        // Remove duplicated job data that should be part of the body from now on
+        scope12: undefined,
+        scope3: undefined,
+        biogenic: undefined,
+        economy: undefined,
+      })
     }
-
-    await saveToAPI.queue.add(companyName + ' reporting-periods', {
-      ...job.data,
-      body,
-      diff,
-      requiresApproval,
-      apiSubEndpoint: 'reporting-periods',
-
-      // Remove duplicated job data that should be part of the body from now on
-      scope12: undefined,
-      scope3: undefined,
-      biogenic: undefined,
-      economy: undefined,
-    })
 
     return { body, diff, requiresApproval }
   }
