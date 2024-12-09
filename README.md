@@ -128,7 +128,7 @@ npm run dev-workers
 
 ### Restoring a DB backup locally
 
-These steps can be useful to test DB migrations, or develop with data that is similar to the that in the production environment.
+These steps can be useful to test DB migrations, or develop with data that is similar to the that in the production environment
 
 1. Optional: Create a local test DB.
 

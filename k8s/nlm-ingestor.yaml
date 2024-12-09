@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nlm
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: nlm
@@ -16,7 +16,7 @@ spec:
         - image: ghcr.io/nlmatics/nlm-ingestor
           resources:
             limits:
-              cpu: 3000m
+              cpu: 2500m
               memory: 2Gi
           name: nlm
           ports:
