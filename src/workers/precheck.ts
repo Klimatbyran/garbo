@@ -17,7 +17,7 @@ class PrecheckJob extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const companyNameSchema = z.object({ companyName: z.string().nullable() })
+const companyNameSchema = z.string().nullable()
 
 const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
   const { cachedMarkdown, type, ...baseData } = job.data
@@ -43,13 +43,13 @@ const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
       ],
       {
         response_format: zodResponseFormat(
-          companyNameSchema,
+          z.object({ companyName: companyNameSchema }),
           `companyName-${retry}`
         ),
       }
     )
 
-    const { companyName: rawName } = companyNameSchema.parse(response)
+    const rawName = companyNameSchema.parse(response)
     const companyName = rawName ? rawName.trim() : null
 
     return (
