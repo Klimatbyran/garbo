@@ -31,6 +31,7 @@ app.post(
         getFileSize(Buffer.byteLength(buffer)),
       )
 
+      // NOTE: Move docId since we no longer need it out here
       const docId = crypto.randomUUID()
       const parsed = await convertPDF(buffer, docId)
 

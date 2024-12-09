@@ -48,6 +48,8 @@ export async function convertPDF(
     //   })
     // })
     await PythonShell.run(resolve(import.meta.dirname, '../parse_pdf.py'), {
+      // IDEA: Maybe pass searchTerms to only extract the page images for the tables we want
+      // The python PDF parser could return only the data needed to extract with the Vision API.
       args: [inputPDF, outDir],
       stdio: ['pipe', 'inherit', 'pipe', 'pipe'],
     })
