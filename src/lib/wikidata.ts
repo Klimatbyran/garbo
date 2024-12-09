@@ -1,4 +1,5 @@
-import WBK from 'wikibase-sdk'
+import WBK, { SearchResponse, EntityId } from 'wikibase-sdk'
+import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
 const transformData = (data: any): any => {
@@ -87,22 +88,13 @@ const wbk = WBK({
   sparqlEndpoint: 'https://query.wikidata.org/sparql',
 })
 
-type WikidataSearchResult = {
-  id: string
-  labels?: { language: string; value: string }
-  descriptions?: { language: string; value: string }
-  claims?: any
-}
-
 export async function searchCompany({
   companyName,
   language = 'sv',
-  retry = 3,
 }: {
   companyName: string
   language?: SearchEntitiesOptions['language']
-  retry?: number
-}): Promise<WikidataSearchResult[]> {
+}): Promise<SearchResponse['search']> {
   // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
   const searchEntitiesQuery = wbk.searchEntities({
     search: companyName,
@@ -112,17 +104,16 @@ export async function searchCompany({
     limit: 20,
   })
 
-  const searchResults = await fetch(searchEntitiesQuery).then((res) =>
+  const response = (await fetch(searchEntitiesQuery).then((res) =>
     res.json()
-  )
+  )) as SearchResponse
 
-  if (searchResults.search.length === 0 && retry > 0) {
-    return searchCompany({
-      companyName: companyName.split(' ').slice(0, -1).join(' '), // retry with Telia Group -> Telia
-      retry: retry - 1,
-    })
+  if (response.error) {
+    throw new Error('Wikidata search failed: ' + response.error)
   }
 
+  return response.search
+}
   const url = wbk.getEntities({
     ids: searchResults.search.map((result) => result.id),
     props: ['info', 'claims', 'descriptions', 'labels'],
