@@ -1,8 +1,9 @@
-import { searchCompany } from '../lib/wikidata'
+import { getWikidataEntities, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata from '../prompts/wikidata'
+import { EntityId, SearchResult } from 'wikibase-sdk'
 
 class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -10,14 +11,57 @@ class GuessWikidataJob extends DiscordJob {
   }
 }
 
+const insignificantWords = new Set(['ab', 'the', 'and', 'inc', 'co', 'publ'])
+
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   'guessWikidata',
   async (job: GuessWikidataJob) => {
     const { companyName } = job.data
     if (!companyName) throw new Error('No company name was provided')
 
-    job.log('Searching for company name: ' + companyName)
-    const results = await searchCompany({ companyName })
+    async function getWikidataSearchResults({
+      companyName,
+      retry = 0,
+    }: {
+      companyName: string
+      retry?: number
+    }): Promise<SearchResult[]> {
+      if (retry > 3) return []
+
+      job.log(`Searching for company name: ${companyName} (attempt ${retry})`)
+      const results = await searchCompany({ companyName })
+
+      job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
+      if (results.length) return results
+
+      if (retry === 0) {
+        const simplifiedCompanyName = companyName
+          .toLowerCase()
+          .split(/\s+/)
+          .filter((word) => !insignificantWords.has(word))
+          .join(' ')
+
+        return getWikidataSearchResults({
+          companyName: simplifiedCompanyName,
+          retry: retry + 1,
+        })
+      }
+
+      // Retry without unwanted keywords, e.g. Telia Group -> Telia
+      const name = companyName.split(' ').slice(0, -1).join(' ')
+      return name
+        ? getWikidataSearchResults({
+            companyName: name,
+            retry: retry + 1,
+          })
+        : []
+    }
+
+    const searchResults = await getWikidataSearchResults({ companyName })
+    const results = await getWikidataEntities(
+      searchResults.map((result) => result.id) as EntityId[]
+    )
+
     job.log('Results: ' + JSON.stringify(results, null, 2))
     if (results.length === 0) {
       await job.sendMessage(`❌ Hittade inte Wikidata för: ${companyName}.`)
