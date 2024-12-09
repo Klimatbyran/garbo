@@ -1,10 +1,11 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import { askPrompt } from '../lib/openai'
+import { askPrompt, askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
+import { z } from 'zod'
 
 class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -20,10 +21,43 @@ const precheck = new DiscordWorker('precheck', async (job: PrecheckJob) => {
   const { cachedMarkdown, type, ...baseData } = job.data
   const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
-  const companyName = await askPrompt(
-    'What is the name of the company? Respond only with the company name. We will search Wikidata for this name. The following is an extract from a PDF:',
-    markdown.substring(0, 5000)
-  )
+  async function extractCompanyName(
+    markdown: string,
+    retry = 3,
+    start = 0,
+    chunkSize = 5000
+  ): Promise<string | null> {
+    if (retry <= 0 || start >= markdown.length) return null
+    const chunk = markdown.substring(start, start + chunkSize)
+    const response = await askStream(
+      [
+        {
+          role: 'user',
+          content: `What is the name of the company? Respond only with the company name, leave null if you cannot find it. We will search Wikidata for this name. The following is an extract from a PDF:
+          
+          ${chunk}
+          `,
+        },
+      ],
+      {
+        response_format: zodResponseFormat(
+          z.object({ companyName: z.string().nullable() }),
+          `retry-${retry}`
+        ),
+      }
+    )
+
+    const { companyName } = JSON.parse(response)
+
+    return (
+      companyName ||
+      extractCompanyName(markdown, retry - 1, start + chunkSize, chunkSize)
+    )
+  }
+
+  const companyName = await extractCompanyName(markdown)
+
+  if (!companyName) throw new Error('Could not find company name')
 
   job.log('Company name: ' + companyName)
 
