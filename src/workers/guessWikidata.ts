@@ -11,6 +11,8 @@ class GuessWikidataJob extends DiscordJob {
   }
 }
 
+const insignificantWords = new Set(['ab', 'the', 'and', 'inc', 'co', 'publ'])
+
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   'guessWikidata',
   async (job: GuessWikidataJob) => {
@@ -30,19 +32,29 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       const results = await searchCompany({ companyName })
 
       job.log('Wikidata search results: ' + JSON.stringify(results, null, 2))
+      if (results.length) return results
 
-      if (results.length === 0) {
-        // Retry without unwanted keywords, e.g. Telia Group -> Telia
-        const name = companyName.split(' ').slice(0, -1).join(' ')
-        return name
-          ? getWikidataSearchResults({
-              companyName: name,
-              retry: retry + 1,
-            })
-          : []
+      if (retry === 0) {
+        const simplifiedCompanyName = companyName
+          .toLowerCase()
+          .split(/\s+/)
+          .filter((word) => !insignificantWords.has(word))
+          .join(' ')
+
+        return getWikidataSearchResults({
+          companyName: simplifiedCompanyName,
+          retry: retry + 1,
+        })
       }
 
-      return results
+      // Retry without unwanted keywords, e.g. Telia Group -> Telia
+      const name = companyName.split(' ').slice(0, -1).join(' ')
+      return name
+        ? getWikidataSearchResults({
+            companyName: name,
+            retry: retry + 1,
+          })
+        : []
     }
 
     const searchResults = await getWikidataSearchResults({ companyName })
