@@ -1,166 +1,34 @@
 import express from 'express'
-import { processRequest, processRequestBody } from '../zod-middleware'
+import { processRequestBody } from '../zod-middleware'
 import { upsertCompany } from '../../lib/prisma'
-import { fakeAuth, createMetadata, validateMetadata } from '../middlewares'
-import { prisma } from '../../lib/prisma'
-import { Company } from '@prisma/client'
-import { wikidataIdParamSchema } from '../../openapi/schemas'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { CompanyInputSchema } from '../../openapi/registry'
 
-// Import the new route handlers
-import updateGoals from './companies/company.goals'
-import updateInitiatives from './companies/company.initiatives'
-import updateIndustry from './companies/company.industry'
-import updateReportingPeriods from './companies/company.reporting-periods'
-
 const router = express.Router()
 
-router.use('/', fakeAuth(prisma))
-router.use('/', express.json())
 
-// TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
-router.use('/', validateMetadata(), createMetadata(prisma))
-
-import express from 'express'
-import { CompanyInputSchema } from '../../openapi/registry'
-import { Request, Response } from 'express'
-import { Company, Prisma } from '@prisma/client'
-import { processRequest, processRequestBody } from '../zod-middleware'
-import { prisma, upsertCompany } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
-import { wikidataIdParamSchema } from '../../openapi/schemas'
-import { fakeAuth, createMetadata, validateMetadata } from '../middlewares'
-
-// Import route handlers
-import updateGoals from './company.goals'
-import updateInitiatives from './company.initiatives'
-import updateIndustry from './company.industry'
-import updateReportingPeriods from './company.reportingPeriods'
-
-const router = express.Router()
-
-router.use('/', fakeAuth(prisma))
-router.use('/', express.json())
-router.use('/', validateMetadata(), createMetadata(prisma))
-
-const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
-
-async function handleCompanyUpsert(req: Request, res: Response) {
-  const { name, description, url, internalComment, wikidataId } = CompanyInputSchema.parse(req.body)
-
-  let company: Company
+/**
+ * POST handler for creating/updating companies
+ * @route POST /companies
+ */
+router.post('/', processRequestBody(CompanyInputSchema), async (req, res) => {
+  const { name, description, url, internalComment, wikidataId } = req.body
 
   try {
-    company = await upsertCompany({
+    const company = await upsertCompany({
       wikidataId,
       name,
       description,
       url,
       internalComment,
     })
+    res.json(company)
   } catch (error) {
     throw new GarboAPIError('Failed to upsert company', {
       original: error,
     })
   }
-
-  res.json(company)
-}
-
-// NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param
-// However, the middlewares didn't run in the expected order so the quick workaround was to just have two endpoints doing the same thing.
-// Feel free to debug and improve!
-/**
- * @swagger
- * /companies:
- *   post:
- *     summary: Create a new company
- *     description: Create a new company with basic information
- *     tags: [Companies]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CompanyInput'
- *     responses:
- *       200:
- *         description: Company created successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Company'
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.post('/', validateCompanyUpsert(), handleCompanyUpsert)
-
-/**
- * @swagger
- * /companies/{wikidataId}:
- *   post:
- *     summary: Update a company
- *     description: Update an existing company's information
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CompanyInput'
- *     responses:
- *       200:
- *         description: Company updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Company'
- *       404:
- *         description: Company not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
-
-// Company existence middleware
-router.use(
-  '/:wikidataId',
-  processRequest({
-    params: wikidataIdParamSchema,
-  }),
-  async (req, res, next) => {
-    const { wikidataId } = req.params
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
-    }
-    res.locals.company = company
-
-    next()
-  }
-)
-
-// Mount the route handlers
-router.use('/', updateGoals)
-router.use('/', updateInitiatives)
-router.use('/', updateIndustry)
-router.use('/', updateReportingPeriods)
+})
 
 export default router
  *   post:
