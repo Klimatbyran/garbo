@@ -160,6 +160,50 @@ router.use(
 
 import { GoalSchema } from '../openapi/schemas'
 
+/**
+ * @swagger
+ * /companies/{wikidataId}/goals:
+ *   post:
+ *     summary: Create company goals
+ *     description: Create new goals for a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               goals:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Goal'
+ *     responses:
+ *       200:
+ *         description: Goals created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       404:
+ *         description: Company not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post(
   '/:wikidataId/goals',
   processRequest({
@@ -181,6 +225,54 @@ router.post(
   }
 )
 
+/**
+ * @swagger
+ * /companies/{wikidataId}/goals/{id}:
+ *   patch:
+ *     summary: Update a company goal
+ *     description: Update an existing goal for a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Goal ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               goal:
+ *                 $ref: '#/components/schemas/Goal'
+ *     responses:
+ *       200:
+ *         description: Goal updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       404:
+ *         description: Goal not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.patch(
   '/:wikidataId/goals/:id',
   processRequest({
@@ -209,6 +301,50 @@ router.patch(
 
 import { InitiativeSchema } from '../openapi/schemas'
 
+/**
+ * @swagger
+ * /companies/{wikidataId}/initiatives:
+ *   post:
+ *     summary: Create company initiatives
+ *     description: Create new initiatives for a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               initiatives:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Initiative'
+ *     responses:
+ *       200:
+ *         description: Initiatives created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       404:
+ *         description: Company not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post(
   '/:wikidataId/initiatives',
   processRequest({
@@ -230,6 +366,54 @@ router.post(
   }
 )
 
+/**
+ * @swagger
+ * /companies/{wikidataId}/initiatives/{id}:
+ *   patch:
+ *     summary: Update a company initiative
+ *     description: Update an existing initiative for a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Initiative ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               initiative:
+ *                 $ref: '#/components/schemas/Initiative'
+ *     responses:
+ *       200:
+ *         description: Initiative updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       404:
+ *         description: Initiative not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.patch(
   '/:wikidataId/initiatives/:id',
   processRequest({
