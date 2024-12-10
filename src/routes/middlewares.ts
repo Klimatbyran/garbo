@@ -33,7 +33,7 @@ declare global {
   }
 }
 
-import { CACHE_MAX_AGE } from '../constants/api'
+import { CACHE_MAX_AGE } from '../config/api'
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -42,8 +42,7 @@ export const cache = () => {
   }
 }
 
-import { HTTP_METHODS } from '../constants/api'
-import apiConfig from '../config/api'
+import { HTTP_METHODS } from '../config/api'
 
 export const fakeAuth =
   (prisma: PrismaClient) =>
@@ -90,7 +89,7 @@ export const validateMetadata = () =>
     })
   )
 
-import { HTTP_METHODS } from '../constants/api'
+import { HTTP_METHODS } from '../config/api'
 
 const editMethods = new Set([
   HTTP_METHODS.POST,
