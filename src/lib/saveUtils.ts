@@ -1,3 +1,4 @@
+import apiConfig from '../config/api'
 import { getReportingPeriodDates } from './reportingPeriodDates'
 
 export function formatAsReportingPeriods(
@@ -56,7 +57,7 @@ const recursiveOmit = <T extends Object>(
 }
 
 const askDiff = async (before: any, after: any) => {
-  if (!before || !after) return 'NO_CHANGES'
+  if (!after) return 'NO_CHANGES'
   return await askPrompt(
     `What is changed between these two json values? Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.
@@ -84,4 +85,16 @@ export async function diffChanges<T>({
   const hasChanges = diff && !diff.includes('NO_CHANGES')
   const requiresApproval = Boolean(existingCompany) || hasChanges
   return { diff: hasChanges ? diff : '', requiresApproval }
+}
+
+export function getCompanyURL(name: string, wikidataId: string) {
+  const safeName = name
+    .toLowerCase()
+    .replace(/[åä]/g, 'a')
+    .replace(/[ö]/g, 'o')
+    .replace(/[^a-z0-9]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  return `${apiConfig.frontendURL}/foretag/${safeName}-${wikidataId}`
 }
