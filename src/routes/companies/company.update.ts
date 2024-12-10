@@ -6,7 +6,6 @@ import { CompanyInputSchema } from '../../openapi/registry'
 
 const router = express.Router()
 
-
 /**
  * POST handler for creating/updating companies
  * @route POST /companies
@@ -31,47 +30,6 @@ router.post('/', processRequestBody(CompanyInputSchema), async (req, res) => {
 })
 
 export default router
- *   post:
- *     summary: Create company goals
- *     description: Create new goals for a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               goals:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/Goal'
- *     responses:
- *       200:
- *         description: Goals created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Company not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
 router.post(
   '/:wikidataId/goals',
   processRequest({
