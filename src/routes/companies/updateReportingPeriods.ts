@@ -3,6 +3,12 @@ import { processRequestBody } from '../zod-middleware'
 import { z } from 'zod'
 import { EmissionsSchema, EconomySchema } from '../../openapi/schemas'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { Company, Metadata } from '@prisma/client'
+
+/**
+ * Express Router for handling reporting period operations
+ * Provides endpoints for creating and updating company reporting periods
+ */
 import {
   upsertBiogenic,
   upsertScope1,
@@ -18,6 +24,15 @@ import {
 
 const router = express.Router()
 
+/**
+ * Zod schema for validating reporting period POST requests
+ * @typedef {Object} ReportingPeriodInput
+ * @property {Date} startDate - Start date of the reporting period
+ * @property {Date} endDate - End date of the reporting period
+ * @property {string} [reportURL] - Optional URL to the report document
+ * @property {EmissionsSchema} emissions - Emissions data for the period
+ * @property {EconomySchema} economy - Economic data for the period
+ */
 const postReportingPeriodsSchema = z.object({
   reportingPeriods: z.array(
     z
@@ -37,6 +52,15 @@ const postReportingPeriodsSchema = z.object({
   ),
 })
 
+/**
+ * POST handler for creating/updating reporting periods
+ * @route POST /companies/:wikidataId/reporting-periods
+ * @param {express.Request} req - Express request object
+ * @param {express.Response} res - Express response object
+ * @param {Company} res.locals.company - Company from middleware
+ * @param {Metadata} res.locals.metadata - Metadata from middleware
+ * @throws {GarboAPIError} When reporting period operations fail
+ */
 router.post(
   '/:wikidataId/reporting-periods',
   processRequestBody(postReportingPeriodsSchema),
