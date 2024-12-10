@@ -3,7 +3,7 @@ import { validateRequestParams } from './zod-middleware'
 
 import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
-import { wikidataIdParamSchema } from './companySchemas'
+import { wikidataIdParamSchema } from '../openapi/schemas'
 import { prisma } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 

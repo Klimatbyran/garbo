@@ -32,7 +32,7 @@ import {
 } from './middlewares'
 import { prisma } from '../lib/prisma'
 import { Company, Prisma } from '@prisma/client'
-import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
+import { wikidataIdParamSchema, wikidataIdSchema } from '../openapi/schemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 
 const router = express.Router()
