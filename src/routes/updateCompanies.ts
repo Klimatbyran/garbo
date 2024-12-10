@@ -317,71 +317,10 @@ router.post(
   }
 )
 
-const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
+import { EmissionsSchema, EconomySchema } from '../openapi/schemas'
 
-export const emissionsSchema = z
-  .object({
-    scope1: z
-      .object({
-        total: z.number(),
-      })
-      .optional(),
-    scope2: z
-      .object({
-        mb: z
-          .number({ description: 'Market-based scope 2 emissions' })
-          .optional(),
-        lb: z
-          .number({ description: 'Location-based scope 2 emissions' })
-          .optional(),
-        unknown: z
-          .number({ description: 'Unspecified Scope 2 emissions' })
-          .optional(),
-      })
-      .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
-        {
-          message:
-            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
-      )
-      .optional(),
-    scope3: z
-      .object({
-        categories: z
-          .array(
-            z.object({
-              category: z.number().int().min(1).max(16),
-              total: z.number(),
-            })
-          )
-          .optional(),
-        statedTotalEmissions: statedTotalEmissionsSchema,
-      })
-      .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
-    statedTotalEmissions: statedTotalEmissionsSchema,
-    // TODO: add scope1And2
-  })
-  .optional()
-
-const economySchema = z
-  .object({
-    turnover: z
-      .object({
-        value: z.number().optional(),
-        currency: z.string().optional(),
-      })
-      .optional(),
-    employees: z
-      .object({
-        value: z.number().optional(),
-        unit: z.string().optional(),
-      })
-      .optional(),
-  })
-  .optional()
+export const emissionsSchema = EmissionsSchema
+export const economySchema = EconomySchema
 
 const postReportingPeriodsSchema = z.object({
   reportingPeriods: z.array(

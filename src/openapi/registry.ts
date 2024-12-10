@@ -1,34 +1,34 @@
-import { OpenAPIRegistry, extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
-import { z } from 'zod'
+import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
+import {
+  EmissionsSchema,
+  EconomySchema,
+  ErrorSchema as ErrorSchemaBase,
+  CompanyInputSchema as CompanyInputSchemaBase,
+  Scope1Schema,
+  Scope2Schema,
+  Scope3Schema,
+  BiogenicSchema,
+  StatedTotalEmissionsSchema,
+  TurnoverSchema,
+  EmployeesSchema
+} from './schemas'
 
-// Initialize OpenAPI registry
-extendZodWithOpenApi(z)
 export const registry = new OpenAPIRegistry()
 
-// Register common schemas
-export const ErrorSchema = registry.register(
-  'Error',
-  z.object({
-    error: z.string().openapi({ description: 'Error message' }),
-    details: z.object({}).nullable().openapi({ description: 'Additional error details' }),
-  })
-)
+// Register all schemas
+export const ErrorSchema = registry.register('Error', ErrorSchemaBase)
+export const CompanyInputSchema = registry.register('CompanyInput', CompanyInputSchemaBase)
+export const CompanySchema = registry.register('Company', CompanyInputSchemaBase.extend({}))
 
-// Register company schemas
-export const CompanyInputSchema = registry.register(
-  'CompanyInput',
-  z.object({
-    wikidataId: z.string().regex(/Q\d+/).openapi({ description: 'Wikidata ID of the company' }),
-    name: z.string().openapi({ description: 'Company name' }),
-    description: z.string().optional().openapi({ description: 'Company description' }),
-    url: z.string().url().optional().openapi({ description: 'Company website URL' }),
-    internalComment: z.string().optional().openapi({ description: 'Internal notes about the company' }),
-  })
-)
+// Register emissions schemas
+export const Scope1 = registry.register('Scope1', Scope1Schema)
+export const Scope2 = registry.register('Scope2', Scope2Schema)
+export const Scope3 = registry.register('Scope3', Scope3Schema)
+export const Biogenic = registry.register('Biogenic', BiogenicSchema)
+export const StatedTotalEmissions = registry.register('StatedTotalEmissions', StatedTotalEmissionsSchema)
+export const Emissions = registry.register('Emissions', EmissionsSchema)
 
-export const CompanySchema = registry.register(
-  'Company',
-  CompanyInputSchema.extend({
-    // Add additional fields that are returned by the API
-  })
-)
+// Register economy schemas
+export const Turnover = registry.register('Turnover', TurnoverSchema)
+export const Employees = registry.register('Employees', EmployeesSchema)
+export const Economy = registry.register('Economy', EconomySchema)
