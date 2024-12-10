@@ -29,4 +29,5 @@ router.post('/', processRequestBody(CompanyInputSchema), async (req, res) => {
   }
 })
 
+// Export the router
 export default router
