@@ -9,10 +9,10 @@ import { GarboAPIError } from '../lib/garbo-api-error'
 import { CompanyInputSchema } from '../openapi/registry'
 
 // Import the new route handlers
-import updateGoals from './companies/companies.goals'
-import updateInitiatives from './companies/companies.initiatives'
-import updateIndustry from './companies/companies.industry'
-import updateReportingPeriods from './companies/companies.reporting-periods'
+import updateGoals from './companies/company.goals'
+import updateInitiatives from './companies/company.initiatives'
+import updateIndustry from './companies/company.industry'
+import updateReportingPeriods from './companies/company.reporting-periods'
 
 const router = express.Router()
 
