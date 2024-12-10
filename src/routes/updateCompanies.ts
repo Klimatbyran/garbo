@@ -49,6 +49,7 @@ const upsertCompanyBodySchema = z.object({
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 })
 
 const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)

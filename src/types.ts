@@ -1,5 +1,5 @@
 export enum JobType {
-  IndustryGics = 'followUp/industry_gics',
+  IndustryGics = 'followUp/industryGics',
   Scope12 = 'followUp/scope12',
   Scope3 = 'followUp/scope3',
   Biogenic = 'followUp/biogenic',
@@ -7,6 +7,7 @@ export enum JobType {
   Goals = 'followUp/goals',
   Initiatives = 'followUp/initiatives',
   FiscalYear = 'followUp/fiscalYear',
+  CompanyTags = 'followUp/companyTags',
 
   Wikidata = 'wikidata',
   Precheck = 'precheck',

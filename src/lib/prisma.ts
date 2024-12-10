@@ -304,6 +304,7 @@ export async function upsertCompany({
   description?: string
   url?: string
   internalComment?: string
+  tags?: string[]
 }) {
   return prisma.company.upsert({
     where: {
