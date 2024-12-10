@@ -12,7 +12,8 @@ import {
   TurnoverSchema,
   EmployeesSchema,
   GoalSchema,
-  InitiativeSchema
+  InitiativeSchema,
+  IndustrySchema
 } from './schemas'
 
 export const registry = new OpenAPIRegistry()
