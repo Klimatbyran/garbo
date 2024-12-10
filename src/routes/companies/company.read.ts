@@ -34,7 +34,13 @@ function isNumber(n: unknown): n is number {
 
 import apiConfig from '../../config/api'
 
-router.use(enableCors(apiConfig.frontendURL))
+router.use(
+  enableCors([
+    apiConfig.frontendURL,
+    'http://localhost:3000',
+    'http://localhost:4321',
+  ])
+)
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 

@@ -10,8 +10,6 @@ export const swaggerOptions = {
         title: 'Klimatkollen API',
         version: '1.0.0',
         description: `
-# Klimatkollen API Documentation
-
 ![Klimatkollen Logo](https://beta.klimatkollen.se/klimatkollen_logo.svg)
 
 The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
@@ -68,8 +66,5 @@ curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" 
       ],
     }),
   },
-  apis: [
-    './src/routes/**/*.ts',
-    './src/routes/companies/*.ts'
-  ]
+  apis: ['./src/routes/**/*.ts', './src/routes/companies/*.ts'],
 }
