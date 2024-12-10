@@ -77,16 +77,7 @@ router.use(enableCors(apiConfig.frontendURL))
  *                             metadata:
  *                               $ref: '#/components/schemas/Metadata'
  *                       industry:
- *                         type: object
- *                         properties:
- *                           industryGics:
- *                             type: object
- *                             properties:
- *                               sectorCode:
- *                                 type: string
- *                               groupCode:
- *                                 type: string
- *                               industryCode:
+ *                         $ref: '#/components/schemas/IndustrySchema'
  *                                 type: string
  *                               subIndustryCode:
  *                                 type: string
