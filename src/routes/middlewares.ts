@@ -33,39 +33,47 @@ declare global {
   }
 }
 
+import { CACHE_MAX_AGE } from '../constants/api'
+
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
-    res.set('Cache-Control', 'public, max-age=3000')
+    res.set('Cache-Control', `public, max-age=${CACHE_MAX_AGE}`)
     next()
   }
 }
 
-const USERS = {
-  garbo: 'hej@klimatkollen.se',
-  alex: 'alex@klimatkollen.se',
-}
+import { AUTHORIZED_USERS, HTTP_METHODS } from '../constants/api'
 
 export const fakeAuth =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '')
-    if (token) {
-      if (apiConfig.tokens.includes(token)) {
-        const [username] = token.split(':')
-        const user = await prisma.user.findFirst({
-          where: { email: USERS[username] },
-        })
-        if (user) {
-          res.locals.user = user
-        }
+    try {
+      const token = req.header('Authorization')?.replace('Bearer ', '')
+      
+      if (!token || !apiConfig.tokens.includes(token)) {
+        throw GarboAPIError.unauthorized()
       }
-    }
 
-    if (!res.locals.user?.id) {
-      throw GarboAPIError.unauthorized()
-    }
+      const [username] = token.split(':')
+      const userEmail = AUTHORIZED_USERS[username]
+      
+      if (!userEmail) {
+        throw GarboAPIError.unauthorized()
+      }
 
-    next()
+      const user = await prisma.user.findFirst({
+        where: { email: userEmail },
+      })
+
+      if (!user?.id) {
+        throw GarboAPIError.unauthorized()
+      }
+
+      res.locals.user = user
+      next()
+    } catch (error) {
+      next(error)
+    }
   }
 
 export const validateMetadata = () =>
@@ -81,7 +89,13 @@ export const validateMetadata = () =>
     })
   )
 
-const editMethods = new Set(['POST', 'PATCH', 'PUT'])
+import { HTTP_METHODS } from '../constants/api'
+
+const editMethods = new Set([
+  HTTP_METHODS.POST,
+  HTTP_METHODS.PATCH,
+  HTTP_METHODS.PUT
+])
 export const createMetadata =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {

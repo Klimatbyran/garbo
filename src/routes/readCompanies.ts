@@ -32,10 +32,11 @@ function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-const origins =
-  process.env.NODE_ENV === 'development'
-    ? ['http://localhost:4321']
-    : ['https://beta.klimatkollen.se', 'https://klimatkollen.se']
+import { DEVELOPMENT_ORIGINS, PRODUCTION_ORIGINS } from '../constants/api'
+
+const origins = process.env.NODE_ENV === 'development' 
+  ? DEVELOPMENT_ORIGINS 
+  : PRODUCTION_ORIGINS
 
 router.use(enableCors(origins))
 
