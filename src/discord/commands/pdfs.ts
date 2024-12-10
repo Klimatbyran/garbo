@@ -57,7 +57,7 @@ export default {
         nlmParsePDF.queue.add(
           'download ' + url.slice(-20),
           {
-            url,
+            url: url.trim(),
             threadId: thread.id,
           },
           {

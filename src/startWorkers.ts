@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import discord from './discord'
 import { workers } from './workers'
 

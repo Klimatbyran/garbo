@@ -15,7 +15,9 @@ export class DiscordJob extends Job {
   sendMessage: (
     msg: string | { files?: any[]; content?: string; components?: any[] }
   ) => Promise<any>
-  editMessage: (msg: string) => Promise<any>
+  editMessage: (
+    msg: string | { files?: any[]; content?: string; components?: any[] }
+  ) => Promise<any>
   setThreadName: (name: string) => Promise<any>
   sendTyping: () => Promise<any>
   getChildrenEntries: () => Promise<any>
@@ -57,7 +59,7 @@ function addCustomMethods(job: DiscordJob) {
     return discord.sendTyping(job.data)
   }
 
-  job.editMessage = async (msg) => {
+  job.editMessage = async (msg: any) => {
     if (!message && job.data.messageId) {
       const { channelId, threadId, messageId } = job.data
       message = await discord.findMessage({

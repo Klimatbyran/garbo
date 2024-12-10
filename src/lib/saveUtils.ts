@@ -1,3 +1,4 @@
+import apiConfig from '../config/api'
 import { getReportingPeriodDates } from './reportingPeriodDates'
 
 export function formatAsReportingPeriods(
@@ -56,14 +57,21 @@ const recursiveOmit = <T extends Object>(
 }
 
 const askDiff = async (before: any, after: any) => {
-  if (!before || !after) return 'NO_CHANGES'
+  if (!after) return 'NO_CHANGES'
   return await askPrompt(
-    `What is changed between these two json values? Please respond in clear text with markdown formatting. 
-The purpose is to let an editor approve the changes or suggest changes in Discord.
-Be as brief as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
-Focus only on the actual values that have changed.
-When handling years and ambiguous dates, always use the last year in the period (e.g. startDate: 2020 - endDate: 2021 should be referred to as 2021).
-NEVER REPEAT UNCHANGED VALUES OR UNCHANGED YEARS! If nothing important has changed, just write "NO_CHANGES".`,
+    `What is changed between these two json values? If the before value is missing that means the company did not exist previously and everything is a change (No need to mention that just start with something like: "Here is fresh data for you to approve:" and describe the new additions..
+
+    Please respond clearly and concisely in text with markdown formatting:
+    - Use simple, reader-friendly language to explain the changes.
+    - When a report or data is added for a specific year, mention it as: "Added a report for [year]."
+    - Do not mention technical details like structure changes or metadata.
+    - Avoid repeating unchanged values or years.
+    - If nothing important has changed, simply write: "NO_CHANGES."
+    
+    When handling years or date ranges, always refer to the last year in the range (e.g., startDate: 2020 - endDate: 2021 should be referred to as 2021).
+    
+    Summarize the changes and avoid unnecessary repetition.`,
+
     JSON.stringify({
       before: recursiveOmit(structuredClone(before), new Set(['metadata'])),
       after: recursiveOmit(structuredClone(after), new Set(['metadata'])),
@@ -84,4 +92,16 @@ export async function diffChanges<T>({
   const hasChanges = diff && !diff.includes('NO_CHANGES')
   const requiresApproval = Boolean(existingCompany) || hasChanges
   return { diff: hasChanges ? diff : '', requiresApproval }
+}
+
+export function getCompanyURL(name: string, wikidataId: string) {
+  const safeName = name
+    .toLowerCase()
+    .replace(/[åä]/g, 'a')
+    .replace(/[ö]/g, 'o')
+    .replace(/[^a-z0-9]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  return `${apiConfig.frontendURL}/foretag/${safeName}-${wikidataId}`
 }

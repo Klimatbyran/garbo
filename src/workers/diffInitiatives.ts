@@ -30,16 +30,19 @@ const diffInitiatives = new DiscordWorker<DiffInitiativesJob>(
 
     job.log('Diff:' + diff)
 
-    await saveToAPI.queue.add(companyName + ' initiatives', {
-      ...job.data,
-      body,
-      diff,
-      requiresApproval,
-      apiSubEndpoint: 'initiatives',
+    // Only save if we detected any meaningful changes
+    if (diff) {
+      await saveToAPI.queue.add(companyName + ' initiatives', {
+        ...job.data,
+        body,
+        diff,
+        requiresApproval,
+        apiSubEndpoint: 'initiatives',
 
-      // Remove duplicated job data that should be part of the body from now on
-      initiatives: undefined,
-    })
+        // Remove duplicated job data that should be part of the body from now on
+        initiatives: undefined,
+      })
+    }
 
     return { body, diff, requiresApproval }
   }

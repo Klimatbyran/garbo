@@ -1,4 +1,4 @@
-import { CHUNK_SIZE } from '../config'
+import config from '../config/chromadb'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
 
@@ -14,7 +14,7 @@ const indexMarkdown = new DiscordWorker(
     await job.sendMessage(`🤖 Sparar i vektordatabas...`)
     job.log(
       'Indexing ' +
-        Math.ceil(markdown.length / CHUNK_SIZE) +
+        Math.ceil(markdown.length / config.chunkSize) +
         ' chunks from url: ' +
         url
     )
