@@ -22,9 +22,15 @@ router.use('/', express.json())
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
+import express from 'express'
 import { CompanyInputSchema } from '../../openapi/registry'
 import { Request, Response } from 'express'
 import { Company } from '@prisma/client'
+import { processRequestBody } from '../zod-middleware'
+import { upsertCompany } from '../../lib/prisma'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+
+const router = express.Router()
 
 const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
