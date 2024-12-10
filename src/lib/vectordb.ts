@@ -1,10 +1,9 @@
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 
-import chromadb from '../config/chromadb'
+import config from '../config/chromadb'
 import openai from '../config/openai'
-import { CHUNK_SIZE } from '../config'
 
-const client = new ChromaClient(chromadb)
+const client = new ChromaClient(config)
 const embedder = new OpenAIEmbeddingFunction(openai)
 
 const collection = await client.getOrCreateCollection({
@@ -46,8 +45,8 @@ async function addReport(url: string, markdown: string) {
   const documentChunks: { chunk: string; paragraph: string }[] = []
 
   mergedParagraphs.forEach((paragraph) => {
-    for (let i = 0; i < paragraph.length; i += CHUNK_SIZE - overlapSize) {
-      const chunk = paragraph.slice(i, i + CHUNK_SIZE).trim()
+    for (let i = 0; i < paragraph.length; i += config.chunkSize - overlapSize) {
+      const chunk = paragraph.slice(i, i + config.chunkSize).trim()
       if (chunk.length > 0) {
         documentChunks.push({ chunk, paragraph })
       }
