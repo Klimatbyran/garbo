@@ -1,9 +1,10 @@
 import { ButtonInteraction } from 'discord.js'
 import { DiscordJob } from '../../lib/DiscordWorker'
+import { Wikidata } from '../../prompts/wikidata'
 
-class ApproveJob extends DiscordJob {
+export class ApproveJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    wikidata: { node: string }
+    wikidata: Wikidata
   }
 }
 
