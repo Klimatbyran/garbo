@@ -79,7 +79,71 @@ async function handleCompanyUpsert(req: Request, res: Response) {
 // NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param
 // However, the middlewares didn't run in the expected order so the quick workaround was to just have two endpoints doing the same thing.
 // Feel free to debug and improve!
+/**
+ * @swagger
+ * /companies:
+ *   post:
+ *     summary: Create a new company
+ *     description: Create a new company with basic information
+ *     tags: [Companies]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CompanyInput'
+ *     responses:
+ *       200:
+ *         description: Company created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post('/', validateCompanyUpsert(), handleCompanyUpsert)
+
+/**
+ * @swagger
+ * /companies/{wikidataId}:
+ *   post:
+ *     summary: Update a company
+ *     description: Update an existing company's information
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CompanyInput'
+ *     responses:
+ *       200:
+ *         description: Company updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
+ *       404:
+ *         description: Company not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
 
 // NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.

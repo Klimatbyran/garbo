@@ -55,7 +55,10 @@
     "pino-pretty": "^13.0.0",
     "prisma": "^5.22.0",
     "supertest": "^7.0.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "@scalar/express-api-reference": "^0.2.0"
   },
   "overrides": {
     "uuid": "^9.0.1"

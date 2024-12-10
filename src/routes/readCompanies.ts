@@ -41,6 +41,29 @@ router.use(enableCors(origins))
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
+/**
+ * @swagger
+ * /companies:
+ *   get:
+ *     summary: Get all companies
+ *     description: Retrieve a list of all companies with their emissions and economic data
+ *     tags: [Companies]
+ *     responses:
+ *       200:
+ *         description: List of companies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Company'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/',
   cache(),
@@ -256,6 +279,40 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ * /companies/{wikidataId}:
+ *   get:
+ *     summary: Get a specific company
+ *     description: Retrieve detailed information about a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     responses:
+ *       200:
+ *         description: Company details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
+ *       404:
+ *         description: Company not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/:wikidataId',
   validateRequestParams(wikidataIdParamSchema),
