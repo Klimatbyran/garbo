@@ -1,8 +1,11 @@
 {
-  "name": "garbo",
+  "name": "garbo", 
   "version": "3.4.27",
   "description": "",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "engines": {
     "node": ">=22.0.0"
   },
