@@ -1,39 +1,18 @@
-import express, { Request, Response } from 'express'
-import { z } from 'zod'
+import express from 'express'
 import { processRequest, processRequestBody } from './zod-middleware'
-
-import {
-  upsertBiogenic,
-  upsertScope1,
-  upsertScope2,
-  upsertStatedTotalEmissions,
-  upsertCompany,
-  upsertScope3,
-  upsertTurnover,
-  upsertEmployees,
-  createGoals,
-  updateGoal,
-  createInitiatives,
-  updateInitiative,
-  createIndustry,
-  updateIndustry,
-  upsertReportingPeriod,
-  upsertEmissions,
-  upsertEconomy,
-} from '../lib/prisma'
-import {
-  createMetadata,
-  fakeAuth,
-  reportingPeriod,
-  ensureEmissionsExists,
-  validateReportingPeriod,
-  validateMetadata,
-  ensureEconomyExists,
-} from './middlewares'
+import { upsertCompany } from '../lib/prisma'
+import { fakeAuth, createMetadata, validateMetadata } from './middlewares'
 import { prisma } from '../lib/prisma'
-import { Company, Prisma } from '@prisma/client'
-import { wikidataIdParamSchema, wikidataIdSchema } from '../openapi/schemas'
+import { Company } from '@prisma/client'
+import { wikidataIdParamSchema } from '../openapi/schemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
+import { CompanyInputSchema } from '../openapi/registry'
+
+// Import the new route handlers
+import updateGoals from './companies/updateGoals'
+import updateInitiatives from './companies/updateInitiatives' 
+import updateIndustry from './companies/updateIndustry'
+import updateReportingPeriods from './companies/updateReportingPeriods'
 
 const router = express.Router()
 
@@ -48,8 +27,7 @@ import { CompanyInputSchema } from '../openapi/registry'
 const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  const { name, description, url, internalComment, wikidataId } =
-    upsertCompanyBodySchema.parse(req.body)
+  const { name, description, url, internalComment, wikidataId } = CompanyInputSchema.parse(req.body)
 
   let company: Company
 
@@ -140,7 +118,7 @@ router.post('/', validateCompanyUpsert(), handleCompanyUpsert)
  */
 router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
 
-// NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
+// Company existence middleware
 router.use(
   '/:wikidataId',
   processRequest({
@@ -158,11 +136,13 @@ router.use(
   }
 )
 
-import { GoalSchema } from '../openapi/schemas'
+// Mount the new route handlers
+router.use('/', updateGoals)
+router.use('/', updateInitiatives)
+router.use('/', updateIndustry)
+router.use('/', updateReportingPeriods)
 
-/**
- * @swagger
- * /companies/{wikidataId}/goals:
+export default router
  *   post:
  *     summary: Create company goals
  *     description: Create new goals for a specific company
