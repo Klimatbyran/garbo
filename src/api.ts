@@ -1,7 +1,7 @@
 import express from 'express'
 import pino from 'pino-http'
 import swaggerJsdoc from 'swagger-jsdoc'
-import { createScalarEndpoint } from '@scalar/express-api-reference'
+import { apiReference } from '@scalar/express-api-reference'
 import readCompanies from './routes/readCompanies'
 import updateCompanies from './routes/updateCompanies'
 import { errorHandler } from './routes/middlewares'
@@ -26,7 +26,11 @@ apiRouter.use('/companies', updateCompanies)
 
 // API Documentation
 apiRouter.get('/openapi.json', (req, res) => res.json(openApiSpec))
-apiRouter.use('/docs', createScalarEndpoint(openApiSpec))
+apiRouter.use('/docs', apiReference({
+  spec: {
+    url: '/api/openapi.json',
+  },
+}))
 
 // TODO: Why does this error handler not capture errors thrown in readCompanies?
 apiRouter.use(errorHandler)
