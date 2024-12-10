@@ -284,7 +284,7 @@ const industrySchema = z.object({
  *             type: object
  *             properties:
  *               industry:
- *                 $ref: '#/components/schemas/Industry'
+ *                 $ref: '#/components/schemas/IndustrySchema'
  *     responses:
  *       200:
  *         description: Industry updated successfully
