@@ -88,8 +88,6 @@ export const validateMetadata = () =>
     })
   )
 
-import { HTTP_METHODS } from '../config/api'
-
 const editMethods = new Set([
   apiConfig.httpMethods.post,
   apiConfig.httpMethods.patch,
