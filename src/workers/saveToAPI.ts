@@ -30,7 +30,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
-
       if (approved) {
         job.editMessage({
           content: `Thanks for approving ${apiSubEndpoint}`,
