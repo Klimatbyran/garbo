@@ -19,9 +19,12 @@ const envSchema = z.object({
 
 const env = envSchema.parse(process.env)
 
+const ONE_DAY = 1000 * 60 * 60 * 24
+
 export default {
   tokens: env.API_TOKENS,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,
+  jobDelay: ONE_DAY,
 }

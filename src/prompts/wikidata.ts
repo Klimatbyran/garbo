@@ -30,4 +30,6 @@ const schema = z.object({
   }),
 })
 
+export type Wikidata = z.infer<typeof schema>['wikidata']
+
 export default { prompt, schema }

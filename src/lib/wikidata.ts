@@ -1,4 +1,4 @@
-import WBK, { SearchResponse, EntityId } from 'wikibase-sdk'
+import WBK, { SearchResponse, EntityId, Entity } from 'wikibase-sdk'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
@@ -124,5 +124,8 @@ export async function getWikidataEntities(ids: EntityId[]) {
     res.json()
   )
 
-  return Object.values(entities)
+  return Object.values(entities) as (Entity & {
+    labels: { [lang: string]: { language: string; value: string } }
+    descriptions: { [lang: string]: { language: string; value: string } }
+  })[]
 }
