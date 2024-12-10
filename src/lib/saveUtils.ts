@@ -59,7 +59,8 @@ const recursiveOmit = <T extends Object>(
 const askDiff = async (before: any, after: any) => {
   if (!after) return 'NO_CHANGES'
   return await askPrompt(
-    `What is changed between these two json values? Please respond in clear text with markdown formatting. 
+    `What is changed between these two json values? If the before value is missing that means the company did not exist previously and everything is a change (No need to mention that just say somoething like: Here is fresh data for you to approve and then the changes. ).
+Please respond in clear text with markdown formatting. 
 The purpose is to let an editor approve the changes or suggest changes in Discord.
 Be as brief as possible. Never be technical - meaning no comments about structure changes, fields renames etc.
 Focus only on the actual values that have changed.
