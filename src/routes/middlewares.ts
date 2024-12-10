@@ -37,7 +37,7 @@ import apiConfig from '../config/api'
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
-    res.set('Cache-Control', `public, max-age=${apiConfig.CACHE_MAX_AGE}`)
+    res.set('Cache-Control', `public, max-age=${apiConfig.cacheMaxAge}`)
     next()
   }
 }
@@ -49,12 +49,12 @@ export const fakeAuth =
     try {
       const token = req.header('Authorization')?.replace('Bearer ', '')
       
-      if (!token || !apiConfig.tokens.includes(token)) {
+      if (!token || !apiConfig.tokens?.includes(token)) {
         throw GarboAPIError.unauthorized()
       }
 
       const [username] = token.split(':')
-      const userEmail = username === 'garbo' ? 'hej@klimatkollen.se' : 'alex@klimatkollen.se'
+      const userEmail = username === 'garbo' ? apiConfig.authorizedUsers.garbo : apiConfig.authorizedUsers.alex
       
       if (!userEmail) {
         throw GarboAPIError.unauthorized()
@@ -91,9 +91,9 @@ export const validateMetadata = () =>
 import { HTTP_METHODS } from '../config/api'
 
 const editMethods = new Set([
-  apiConfig.HTTP_METHODS.POST,
-  apiConfig.HTTP_METHODS.PATCH,
-  apiConfig.HTTP_METHODS.PUT
+  apiConfig.httpMethods.post,
+  apiConfig.httpMethods.patch,
+  apiConfig.httpMethods.put
 ])
 export const createMetadata =
   (prisma: PrismaClient) =>

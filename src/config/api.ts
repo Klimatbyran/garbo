@@ -23,22 +23,22 @@ const env = envSchema.parse(process.env)
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
 
 export default {
-  CACHE_MAX_AGE: env.CACHE_MAX_AGE,
+  cacheMaxAge: env.CACHE_MAX_AGE,
 
-  AUTHORIZED_USERS: {
+  authorizedUsers: {
     garbo: 'hej@klimatkollen.se',
     alex: 'alex@klimatkollen.se',
   } as const,
 
-  DEVELOPMENT_ORIGINS: ['http://localhost:4321'],
-  PRODUCTION_ORIGINS: ['https://beta.klimatkollen.se', 'https://klimatkollen.se'],
+  developmentOrigins: ['http://localhost:4321'],
+  productionOrigins: ['https://beta.klimatkollen.se', 'https://klimatkollen.se'],
 
-  HTTP_METHODS: {
-    GET: 'GET',
-    POST: 'POST',
-    PATCH: 'PATCH',
-    PUT: 'PUT',
-    DELETE: 'DELETE',
+  httpMethods: {
+    get: 'GET',
+    post: 'POST',
+    patch: 'PATCH',
+    put: 'PUT',
+    delete: 'DELETE',
   } as const,
   tokens: env.API_TOKENS,
   frontendURL: env.FRONTEND_URL,
