@@ -15,6 +15,7 @@ const envSchema = z.object({
     ),
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
+  CACHE_MAX_AGE: z.coerce.number().default(3000),
 })
 
 const env = envSchema.parse(process.env)
@@ -22,7 +23,7 @@ const env = envSchema.parse(process.env)
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
 
 export default {
-  CACHE_MAX_AGE: 3000,
+  CACHE_MAX_AGE: env.CACHE_MAX_AGE,
 
   AUTHORIZED_USERS: {
     garbo: 'hej@klimatkollen.se',
