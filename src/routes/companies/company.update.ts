@@ -25,12 +25,24 @@ router.use('/', validateMetadata(), createMetadata(prisma))
 import express from 'express'
 import { CompanyInputSchema } from '../../openapi/registry'
 import { Request, Response } from 'express'
-import { Company } from '@prisma/client'
-import { processRequestBody } from '../zod-middleware'
-import { upsertCompany } from '../../lib/prisma'
+import { Company, Prisma } from '@prisma/client'
+import { processRequest, processRequestBody } from '../zod-middleware'
+import { prisma, upsertCompany } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { fakeAuth, createMetadata, validateMetadata } from '../middlewares'
+
+// Import route handlers
+import updateGoals from './company.goals'
+import updateInitiatives from './company.initiatives'
+import updateIndustry from './company.industry'
+import updateReportingPeriods from './company.reportingPeriods'
 
 const router = express.Router()
+
+router.use('/', fakeAuth(prisma))
+router.use('/', express.json())
+router.use('/', validateMetadata(), createMetadata(prisma))
 
 const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
@@ -144,7 +156,7 @@ router.use(
   }
 )
 
-// Mount the new route handlers
+// Mount the route handlers
 router.use('/', updateGoals)
 router.use('/', updateInitiatives)
 router.use('/', updateIndustry)
