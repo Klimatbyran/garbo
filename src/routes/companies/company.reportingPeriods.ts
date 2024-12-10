@@ -53,13 +53,70 @@ const postReportingPeriodsSchema = z.object({
 })
 
 /**
- * POST handler for creating/updating reporting periods
- * @route POST /companies/:wikidataId/reporting-periods
- * @param {express.Request} req - Express request object
- * @param {express.Response} res - Express response object
- * @param {Company} res.locals.company - Company from middleware
- * @param {Metadata} res.locals.metadata - Metadata from middleware
- * @throws {GarboAPIError} When reporting period operations fail
+ * @swagger
+ * /companies/{wikidataId}/reporting-periods:
+ *   post:
+ *     summary: Create or update reporting periods
+ *     description: Creates or updates reporting periods for a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - reportingPeriods
+ *             properties:
+ *               reportingPeriods:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - startDate
+ *                     - endDate
+ *                   properties:
+ *                     startDate:
+ *                       type: string
+ *                       format: date
+ *                     endDate:
+ *                       type: string
+ *                       format: date
+ *                     reportURL:
+ *                       type: string
+ *                     emissions:
+ *                       $ref: '#/components/schemas/EmissionsSchema'
+ *                     economy:
+ *                       $ref: '#/components/schemas/EconomySchema'
+ *     responses:
+ *       200:
+ *         description: Reporting periods updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
  */
 router.post(
   '/:wikidataId/reporting-periods',
