@@ -262,6 +262,48 @@ const industrySchema = z.object({
   }),
 })
 
+/**
+ * @swagger
+ * /companies/{wikidataId}/industry:
+ *   post:
+ *     summary: Update company industry classification
+ *     description: Update or create industry classification for a company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               industry:
+ *                 $ref: '#/components/schemas/Industry'
+ *     responses:
+ *       200:
+ *         description: Industry updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 ok:
+ *                   type: boolean
+ *       404:
+ *         description: Company not found
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.post(
   '/:wikidataId/industry',
   processRequest({ body: industrySchema, params: wikidataIdParamSchema }),
