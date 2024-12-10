@@ -1,5 +1,5 @@
 {
-  "name": "garbo", 
+  "name": "garbo",
   "version": "3.4.27",
   "description": "",
   "type": "module",
@@ -24,6 +24,7 @@
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
   "license": "MIT License",
   "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.0",
     "@bull-board/api": "^6.5.3",
     "@bull-board/express": "^6.5.3",
     "@prisma/client": "^5.22.0",
