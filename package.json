@@ -17,7 +17,7 @@
     "dev-board": "node --import tsx --watch src/index.ts",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts"
   },
