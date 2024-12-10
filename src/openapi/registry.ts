@@ -1,14 +1,16 @@
-import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
+import { OpenAPIRegistry, extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { z } from 'zod'
 
+// Initialize OpenAPI registry
+extendZodWithOpenApi(z)
 export const registry = new OpenAPIRegistry()
 
 // Register common schemas
 export const ErrorSchema = registry.register(
   'Error',
   z.object({
-    error: z.string(),
-    details: z.object({}).nullable(),
+    error: z.string().openapi({ description: 'Error message' }),
+    details: z.object({}).nullable().openapi({ description: 'Additional error details' }),
   })
 )
 
@@ -16,11 +18,11 @@ export const ErrorSchema = registry.register(
 export const CompanyInputSchema = registry.register(
   'CompanyInput',
   z.object({
-    wikidataId: z.string().regex(/Q\d+/),
-    name: z.string(),
-    description: z.string().optional(),
-    url: z.string().url().optional(),
-    internalComment: z.string().optional(),
+    wikidataId: z.string().regex(/Q\d+/).openapi({ description: 'Wikidata ID of the company' }),
+    name: z.string().openapi({ description: 'Company name' }),
+    description: z.string().optional().openapi({ description: 'Company description' }),
+    url: z.string().url().optional().openapi({ description: 'Company website URL' }),
+    internalComment: z.string().optional().openapi({ description: 'Internal notes about the company' }),
   })
 )
 
