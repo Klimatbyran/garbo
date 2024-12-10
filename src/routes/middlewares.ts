@@ -33,39 +33,46 @@ declare global {
   }
 }
 
+import apiConfig from '../config/api'
+
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
-    res.set('Cache-Control', 'public, max-age=3000')
+    res.set('Cache-Control', `public, max-age=${apiConfig.cacheMaxAge}`)
     next()
   }
 }
 
-const USERS = {
-  garbo: 'hej@klimatkollen.se',
-  alex: 'alex@klimatkollen.se',
-}
 
 export const fakeAuth =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '')
-    if (token) {
-      if (apiConfig.tokens.includes(token)) {
-        const [username] = token.split(':')
-        const user = await prisma.user.findFirst({
-          where: { email: USERS[username] },
-        })
-        if (user) {
-          res.locals.user = user
-        }
+    try {
+      const token = req.header('Authorization')?.replace('Bearer ', '')
+      
+      if (!token || !apiConfig.tokens?.includes(token)) {
+        throw GarboAPIError.unauthorized()
       }
-    }
 
-    if (!res.locals.user?.id) {
-      throw GarboAPIError.unauthorized()
-    }
+      const [username] = token.split(':')
+      const userEmail = username === 'garbo' ? apiConfig.authorizedUsers.garbo : apiConfig.authorizedUsers.alex
+      
+      if (!userEmail) {
+        throw GarboAPIError.unauthorized()
+      }
 
-    next()
+      const user = await prisma.user.findFirst({
+        where: { email: userEmail },
+      })
+
+      if (!user?.id) {
+        throw GarboAPIError.unauthorized()
+      }
+
+      res.locals.user = user
+      next()
+    } catch (error) {
+      next(error)
+    }
   }
 
 export const validateMetadata = () =>
@@ -81,7 +88,11 @@ export const validateMetadata = () =>
     })
   )
 
-const editMethods = new Set(['POST', 'PATCH', 'PUT'])
+const editMethods = new Set([
+  apiConfig.httpMethods.post,
+  apiConfig.httpMethods.patch,
+  apiConfig.httpMethods.put
+])
 export const createMetadata =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
@@ -124,15 +135,7 @@ export const createMetadata =
     next()
   }
 
-const reportingPeriodBodySchema = z
-  .object({
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    reportURL: z.string().optional(),
-  })
-  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
-    message: 'startDate must be earlier than endDate',
-  })
+import { reportingPeriodBodySchema } from '../openapi/schemas'
 
 export const validateReportingPeriod = () =>
   validateRequest({

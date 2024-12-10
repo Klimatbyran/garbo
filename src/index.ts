@@ -13,11 +13,7 @@ app.use('/api', api)
 app.use('/admin/queues', queue)
 
 app.get('/', (req, res) => {
-  res.send(
-    `Hi I'm Garbo!
-    Queues: <br>
-    <a href="/admin/queues">/admin/queues</a>`
-  )
+  res.redirect('/api')
 })
 
 app.listen(port, () => {
