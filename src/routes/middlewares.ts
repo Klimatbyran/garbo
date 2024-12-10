@@ -124,15 +124,7 @@ export const createMetadata =
     next()
   }
 
-const reportingPeriodBodySchema = z
-  .object({
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    reportURL: z.string().optional(),
-  })
-  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
-    message: 'startDate must be earlier than endDate',
-  })
+import { reportingPeriodBodySchema } from '../openapi/schemas'
 
 export const validateReportingPeriod = () =>
   validateRequest({

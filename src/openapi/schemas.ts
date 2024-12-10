@@ -4,6 +4,20 @@ import { z } from 'zod'
 // Initialize OpenAPI extensions
 extendZodWithOpenApi(z)
 
+// Base validation schemas
+export const wikidataIdSchema = z.string().regex(/Q\d+/)
+export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
+
+export const reportingPeriodBodySchema = z
+  .object({
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    reportURL: z.string().optional(),
+  })
+  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
+    message: 'startDate must be earlier than endDate',
+  })
+
 // Metadata schema
 export const MetadataSchema = z.object({
   comment: z.string().nullable().openapi({ description: 'Comment about the data' }),

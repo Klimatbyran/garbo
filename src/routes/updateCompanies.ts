@@ -349,10 +349,7 @@ router.post(
   }
 )
 
-import { EmissionsSchema, EconomySchema } from '../openapi/schemas'
-
-export const emissionsSchema = EmissionsSchema
-export const economySchema = EconomySchema
+import { EmissionsSchema as emissionsSchema, EconomySchema as economySchema } from '../openapi/schemas'
 
 const postReportingPeriodsSchema = z.object({
   reportingPeriods: z.array(
