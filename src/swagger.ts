@@ -19,5 +19,8 @@ export const swaggerOptions = {
       ],
     }),
   },
-  apis: ['./src/routes/*.ts'], // Path to the API routes
+  apis: [
+    './src/routes/**/*.ts',
+    './src/routes/companies/*.ts'
+  ]
 }
