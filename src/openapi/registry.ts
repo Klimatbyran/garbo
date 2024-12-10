@@ -2,7 +2,7 @@ import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi'
 import {
   EmissionsSchema,
   EconomySchema,
-  ErrorSchema,
+  ErrorSchema as ErrorSchemaBase,
   CompanyInputSchema as CompanyInputSchemaBase,
   Scope1Schema,
   Scope2Schema,
