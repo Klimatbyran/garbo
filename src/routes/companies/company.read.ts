@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { validateRequestParams } from './zod-middleware'
+import { validateRequestParams } from '../zod-middleware'
 
-import { getGics } from '../lib/gics'
-import { cache, enableCors } from './middlewares'
-import { wikidataIdParamSchema } from '../openapi/schemas'
-import { prisma } from '../lib/prisma'
-import { GarboAPIError } from '../lib/garbo-api-error'
+import { getGics } from '../../lib/gics'
+import { cache, enableCors } from '../middlewares'
+import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { prisma } from '../../lib/prisma'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 const router = express.Router()
 
@@ -32,7 +32,7 @@ function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-import apiConfig from '../config/api'
+import apiConfig from '../../config/api'
 
 router.use(enableCors(apiConfig.frontendURL))
 

@@ -1,12 +1,12 @@
 import express from 'express'
-import { processRequest, processRequestBody } from './zod-middleware'
-import { upsertCompany } from '../lib/prisma'
-import { fakeAuth, createMetadata, validateMetadata } from './middlewares'
-import { prisma } from '../lib/prisma'
+import { processRequest, processRequestBody } from '../zod-middleware'
+import { upsertCompany } from '../../lib/prisma'
+import { fakeAuth, createMetadata, validateMetadata } from '../middlewares'
+import { prisma } from '../../lib/prisma'
 import { Company } from '@prisma/client'
-import { wikidataIdParamSchema } from '../openapi/schemas'
-import { GarboAPIError } from '../lib/garbo-api-error'
-import { CompanyInputSchema } from '../openapi/registry'
+import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+import { CompanyInputSchema } from '../../openapi/registry'
 
 // Import the new route handlers
 import updateGoals from './companies/company.goals'
@@ -22,7 +22,7 @@ router.use('/', express.json())
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
-import { CompanyInputSchema } from '../openapi/registry'
+import { CompanyInputSchema } from '../../openapi/registry'
 
 const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
@@ -279,7 +279,7 @@ router.patch(
   }
 )
 
-import { InitiativeSchema } from '../openapi/schemas'
+import { InitiativeSchema } from '../../openapi/schemas'
 
 /**
  * @swagger
@@ -513,7 +513,7 @@ router.post(
   }
 )
 
-import { EmissionsSchema as emissionsSchema, EconomySchema as economySchema } from '../openapi/schemas'
+import { EmissionsSchema as emissionsSchema, EconomySchema as economySchema } from '../../openapi/schemas'
 
 const postReportingPeriodsSchema = z.object({
   reportingPeriods: z.array(
