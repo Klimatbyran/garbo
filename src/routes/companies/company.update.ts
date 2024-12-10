@@ -23,6 +23,8 @@ router.use('/', express.json())
 router.use('/', validateMetadata(), createMetadata(prisma))
 
 import { CompanyInputSchema } from '../../openapi/registry'
+import { Request, Response } from 'express'
+import { Company } from '@prisma/client'
 
 const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
