@@ -1,10 +1,11 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { getCompanyURL } from '../lib/saveUtils'
+import { Wikidata } from '../prompts/wikidata'
 
 export class SendCompanyLinkJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    wikidata: any
+    wikidata: Wikidata
     existingCompany: any
   }
 }
