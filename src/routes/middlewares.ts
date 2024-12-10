@@ -42,7 +42,8 @@ export const cache = () => {
   }
 }
 
-import { AUTHORIZED_USERS, HTTP_METHODS } from '../constants/api'
+import { HTTP_METHODS } from '../constants/api'
+import apiConfig from '../config/api'
 
 export const fakeAuth =
   (prisma: PrismaClient) =>
@@ -55,7 +56,7 @@ export const fakeAuth =
       }
 
       const [username] = token.split(':')
-      const userEmail = AUTHORIZED_USERS[username]
+      const userEmail = username === 'garbo' ? 'hej@klimatkollen.se' : 'alex@klimatkollen.se'
       
       if (!userEmail) {
         throw GarboAPIError.unauthorized()

@@ -32,13 +32,9 @@ function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-import { DEVELOPMENT_ORIGINS, PRODUCTION_ORIGINS } from '../constants/api'
+import apiConfig from '../config/api'
 
-const origins = process.env.NODE_ENV === 'development' 
-  ? DEVELOPMENT_ORIGINS 
-  : PRODUCTION_ORIGINS
-
-router.use(enableCors(origins))
+router.use(enableCors(apiConfig.frontendURL))
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
