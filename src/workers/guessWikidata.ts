@@ -51,7 +51,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
         components: [],
       })
 
-      return JSON.stringify(approvedWikidata, null, 2)
+      return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
     }
 
     async function getWikidataSearchResults({
