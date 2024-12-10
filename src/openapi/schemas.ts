@@ -4,6 +4,15 @@ import { z } from 'zod'
 // Initialize OpenAPI extensions
 extendZodWithOpenApi(z)
 
+// Company schema
+export const CompanyInputSchema = z.object({
+  wikidataId: z.string().regex(/Q\d+/).openapi({ description: 'Wikidata ID of the company' }),
+  name: z.string().openapi({ description: 'Company name' }),
+  description: z.string().optional().openapi({ description: 'Company description' }),
+  url: z.string().url().optional().openapi({ description: 'Company website URL' }),
+  internalComment: z.string().optional().openapi({ description: 'Internal comment about the company' })
+})
+
 // Base schemas
 export const StatedTotalEmissionsSchema = z.object({
   total: z.number().openapi({ description: 'Total emissions value' })
