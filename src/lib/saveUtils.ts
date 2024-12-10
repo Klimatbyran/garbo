@@ -81,7 +81,6 @@ export async function diffChanges<T>({
   after: T
 }) {
   const diff = await askDiff(before, after)
-  console.log('before', before, 'after', after, 'diff', diff)
   const hasChanges = diff && !diff.includes('NO_CHANGES')
   const requiresApproval = Boolean(existingCompany) || hasChanges
   return { diff: hasChanges ? diff : '', requiresApproval }
