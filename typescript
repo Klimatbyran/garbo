@@ -1,0 +1,14 @@
+import 'dotenv/config'
+import { z } from 'zod'
+
+const envSchema = z.object({
+  VITE_API_URL: z.string().default('http://localhost:3000'),
+  VITE_DISCORD_INVITE_URL: z.string().optional(),
+})
+
+const env = envSchema.parse(process.env)
+
+export default {
+  apiUrl: env.VITE_API_URL,
+  discordInviteUrl: env.VITE_DISCORD_INVITE_URL,
+}
