@@ -49,6 +49,7 @@ const upsertCompanyBodySchema = z.object({
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
+  tags: z.array(z.string()).optional(),
 })
 
 const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
@@ -178,6 +179,42 @@ router.post(
 
       await createInitiatives(wikidataId, initiatives, metadata!)
     }
+    res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/tags',
+  processRequest({
+    body: z.object({
+      tags: z.array(z.string()),
+    }),
+    params: wikidataIdParamSchema,
+  }),
+  async (req, res) => {
+    const { tags } = req.body
+    const { wikidataId } = req.params
+    const metadata = res.locals.metadata
+
+    try {
+      await prisma.company.update({
+        where: { wikidataId },
+        data: { 
+          tags,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+      })
+    } catch (error) {
+      throw new GarboAPIError('Failed to update tags', {
+        original: error,
+        statusCode: 500,
+      })
+    }
+
     res.json({ ok: true })
   }
 )
