@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
 import { z } from 'zod'
