@@ -32,6 +32,10 @@ apiRouter.use(
     spec: {
       url: '/api/openapi.json',
     },
+    configuration: {
+      title: 'Klimatkollen API',
+      logo: 'https://beta.klimatkollen.se/klimatkollen_logo.svg',
+    },
   })
 )
 
