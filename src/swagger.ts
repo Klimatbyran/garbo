@@ -1,35 +1,23 @@
-import { Options } from 'swagger-jsdoc'
+import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi'
+import { registry } from './openapi/registry'
 
-export const swaggerOptions: Options = {
+const generator = new OpenApiGeneratorV3(registry.definitions)
+
+export const swaggerOptions = {
   definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Klimatkollen API',
-      version: '1.0.0',
-      description: 'API for managing company emissions and economic data',
-    },
-    servers: [
-      {
-        url: '/api',
-        description: 'API endpoint',
+    ...generator.generateDocument({
+      info: {
+        title: 'Klimatkollen API',
+        version: '1.0.0',
+        description: 'API for managing company emissions and economic data',
       },
-    ],
-    components: {
-      schemas: {
-        Error: {
-          type: 'object',
-          properties: {
-            error: {
-              type: 'string',
-            },
-            details: {
-              type: 'object',
-              nullable: true,
-            },
-          },
+      servers: [
+        {
+          url: '/api',
+          description: 'API endpoint',
         },
-      },
-    },
+      ],
+    }),
   },
   apis: ['./src/routes/*.ts'], // Path to the API routes
 }

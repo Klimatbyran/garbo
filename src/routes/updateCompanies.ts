@@ -43,15 +43,9 @@ router.use('/', express.json())
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
-const upsertCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-})
+import { CompanyInputSchema } from '../openapi/registry'
 
-const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
+const validateCompanyUpsert = () => processRequestBody(CompanyInputSchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
   const { name, description, url, internalComment, wikidataId } =
