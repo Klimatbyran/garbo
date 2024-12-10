@@ -27,7 +27,7 @@ apiRouter.use('/companies', updateCompanies)
 // API Documentation
 apiRouter.get('/openapi.json', (req, res) => res.json(openApiSpec))
 apiRouter.use(
-  '/docs',
+  '/',
   apiReference({
     spec: {
       url: '/api/openapi.json',
