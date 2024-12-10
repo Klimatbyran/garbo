@@ -46,7 +46,7 @@ router.use(enableCors(origins))
  * /companies:
  *   get:
  *     summary: Get all companies
- *     description: Retrieve a list of all companies with their emissions and economic data
+ *     description: Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives
  *     tags: [Companies]
  *     responses:
  *       200:
@@ -56,7 +56,101 @@ router.use(enableCors(origins))
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Company'
+ *                 allOf:
+ *                   - $ref: '#/components/schemas/Company'
+ *                   - type: object
+ *                     properties:
+ *                       reportingPeriods:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             startDate:
+ *                               type: string
+ *                               format: date-time
+ *                             endDate:
+ *                               type: string
+ *                               format: date-time
+ *                             reportURL:
+ *                               type: string
+ *                             emissions:
+ *                               $ref: '#/components/schemas/Emissions'
+ *                             economy:
+ *                               $ref: '#/components/schemas/Economy'
+ *                             metadata:
+ *                               $ref: '#/components/schemas/Metadata'
+ *                       industry:
+ *                         type: object
+ *                         properties:
+ *                           industryGics:
+ *                             type: object
+ *                             properties:
+ *                               sectorCode:
+ *                                 type: string
+ *                               groupCode:
+ *                                 type: string
+ *                               industryCode:
+ *                                 type: string
+ *                               subIndustryCode:
+ *                                 type: string
+ *                               sv:
+ *                                 type: object
+ *                                 properties:
+ *                                   sectorName:
+ *                                     type: string
+ *                                   groupName:
+ *                                     type: string
+ *                                   industryName:
+ *                                     type: string
+ *                                   subIndustryName:
+ *                                     type: string
+ *                                   subIndustryDescription:
+ *                                     type: string
+ *                               en:
+ *                                 type: object
+ *                                 properties:
+ *                                   sectorName:
+ *                                     type: string
+ *                                   groupName:
+ *                                     type: string
+ *                                   industryName:
+ *                                     type: string
+ *                                   subIndustryName:
+ *                                     type: string
+ *                                   subIndustryDescription:
+ *                                     type: string
+ *                           metadata:
+ *                             $ref: '#/components/schemas/Metadata'
+ *                       goals:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             description:
+ *                               type: string
+ *                             year:
+ *                               type: string
+ *                             baseYear:
+ *                               type: string
+ *                             target:
+ *                               type: number
+ *                             metadata:
+ *                               $ref: '#/components/schemas/Metadata'
+ *                       initiatives:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             title:
+ *                               type: string
+ *                             description:
+ *                               type: string
+ *                             year:
+ *                               type: string
+ *                             scope:
+ *                               type: string
+ *                             metadata:
+ *                               $ref: '#/components/schemas/Metadata'
  *       500:
  *         description: Server error
  *         content:
