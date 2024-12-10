@@ -4,6 +4,12 @@ import { z } from 'zod'
 // Initialize OpenAPI extensions
 extendZodWithOpenApi(z)
 
+// Error schema
+export const ErrorSchema = z.object({
+  error: z.string().openapi({ description: 'Error message' }),
+  details: z.any().nullable().openapi({ description: 'Additional error details' })
+})
+
 // Company schema
 export const CompanyInputSchema = z.object({
   wikidataId: z.string().regex(/Q\d+/).openapi({ description: 'Wikidata ID of the company' }),
