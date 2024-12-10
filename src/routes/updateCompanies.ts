@@ -158,18 +158,13 @@ router.use(
   }
 )
 
-const goalSchema = z.object({
-  description: z.string(),
-  year: z.string().optional(),
-  target: z.number().optional(),
-  baseYear: z.string().optional(),
-})
+import { GoalSchema } from '../openapi/schemas'
 
 router.post(
   '/:wikidataId/goals',
   processRequest({
     body: z.object({
-      goals: z.array(goalSchema),
+      goals: z.array(GoalSchema),
     }),
     params: wikidataIdParamSchema,
   }),
@@ -189,7 +184,7 @@ router.post(
 router.patch(
   '/:wikidataId/goals/:id',
   processRequest({
-    body: z.object({ goal: goalSchema }),
+    body: z.object({ goal: GoalSchema }),
     params: z.object({ id: z.coerce.number() }),
   }),
   async (req, res) => {
@@ -212,18 +207,13 @@ router.patch(
   }
 )
 
-const initiativeSchema = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  year: z.string().optional(),
-  scope: z.string().optional(),
-})
+import { InitiativeSchema } from '../openapi/schemas'
 
 router.post(
   '/:wikidataId/initiatives',
   processRequest({
     body: z.object({
-      initiatives: z.array(initiativeSchema),
+      initiatives: z.array(InitiativeSchema),
     }),
     params: wikidataIdParamSchema,
   }),
@@ -243,7 +233,7 @@ router.post(
 router.patch(
   '/:wikidataId/initiatives/:id',
   processRequest({
-    body: z.object({ initiative: initiativeSchema }),
+    body: z.object({ initiative: InitiativeSchema }),
     params: z.object({ id: z.coerce.number() }),
   }),
   async (req, res) => {

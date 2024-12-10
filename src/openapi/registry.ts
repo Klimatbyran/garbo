@@ -10,7 +10,9 @@ import {
   BiogenicSchema,
   StatedTotalEmissionsSchema,
   TurnoverSchema,
-  EmployeesSchema
+  EmployeesSchema,
+  GoalSchema,
+  InitiativeSchema
 } from './schemas'
 
 export const registry = new OpenAPIRegistry()
@@ -32,3 +34,5 @@ export const Emissions = registry.register('Emissions', EmissionsSchema)
 export const Turnover = registry.register('Turnover', TurnoverSchema)
 export const Employees = registry.register('Employees', EmployeesSchema)
 export const Economy = registry.register('Economy', EconomySchema)
+export const Goal = registry.register('Goal', GoalSchema)
+export const Initiative = registry.register('Initiative', InitiativeSchema)

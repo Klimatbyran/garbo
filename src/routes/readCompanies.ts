@@ -124,33 +124,11 @@ router.use(enableCors(origins))
  *                       goals:
  *                         type: array
  *                         items:
- *                           type: object
- *                           properties:
- *                             description:
- *                               type: string
- *                             year:
- *                               type: string
- *                             baseYear:
- *                               type: string
- *                             target:
- *                               type: number
- *                             metadata:
- *                               $ref: '#/components/schemas/Metadata'
+ *                           $ref: '#/components/schemas/Goal'
  *                       initiatives:
  *                         type: array
  *                         items:
- *                           type: object
- *                           properties:
- *                             title:
- *                               type: string
- *                             description:
- *                               type: string
- *                             year:
- *                               type: string
- *                             scope:
- *                               type: string
- *                             metadata:
- *                               $ref: '#/components/schemas/Metadata'
+ *                           $ref: '#/components/schemas/Initiative'
  *       500:
  *         description: Server error
  *         content:
