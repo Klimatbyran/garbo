@@ -1,3 +1,4 @@
+import apiConfig from '../config/api'
 import { getReportingPeriodDates } from './reportingPeriodDates'
 
 export function formatAsReportingPeriods(
@@ -87,11 +88,6 @@ export async function diffChanges<T>({
 }
 
 export function getCompanyURL(name: string, wikidataId: string) {
-  const frontendBaseURL =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:4321'
-      : 'https://beta.klimatkollen.se'
-
   const safeName = name
     .toLowerCase()
     .replace(/[åä]/g, 'a')
@@ -100,5 +96,5 @@ export function getCompanyURL(name: string, wikidataId: string) {
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '')
 
-  return `${frontendBaseURL}/foretag/${safeName}-${wikidataId}`
+  return `${apiConfig.frontendURL}/foretag/${safeName}-${wikidataId}`
 }
