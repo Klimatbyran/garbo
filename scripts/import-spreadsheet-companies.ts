@@ -277,12 +277,12 @@ function getReportingPeriods(
         reportingPeriodsByCompany[companyId] ??= []
         // Ignore reportingPeriods without any meaningful data
         if (!reportingPeriod.emissions && !reportingPeriod.economy) {
-          console.log(
-            'Skipping',
-            year,
-            `for "${name}" due to missing emissions and economy data`,
-            comment ? { comment: reportingPeriod.comment } : ''
-          )
+          // console.log(
+          //   'Skipping',
+          //   year,
+          //   `for "${name}" due to missing emissions and economy data`,
+          //   comment ? { comment: reportingPeriod.comment } : ''
+          // )
           return
         }
         reportingPeriodsByCompany[companyId].push(reportingPeriod)
@@ -350,7 +350,7 @@ function getCompanyData(years: number[]) {
   return companies
 }
 
-export async function updateCompanies(companies: CompanyInput[]) {
+export async function upsertCompanies(companies: CompanyInput[]) {
   for (const company of companies) {
     const { wikidataId, name, tags, internalComment, reportingPeriods } =
       company
@@ -448,45 +448,13 @@ async function postJSON(
 
 const API_BASE_URL = 'https://api.klimatkollen.se/api/companies'
 
-async function ensureCompaniesExist(companies: CompanyInput[]) {
-  const apiCompanies = await fetch(API_BASE_URL).then((res) => res.json())
-
-  return Promise.all(
-    companies.map((company) => {
-      if (
-        apiCompanies.some(({ wikidataId }) => wikidataId === company.wikidataId)
-      ) {
-        return
-      }
-
-      return postJSON(
-        `http://localhost:3000/api/companies`,
-        {
-          wikidataId: company.wikidataId,
-          name: company.name,
-          metadata: verifiedMetadata,
-        },
-        'alex'
-      ).then(async (res) => {
-        if (!res.ok) {
-          const body = await res.text()
-          console.error(res.status, res.statusText, company.wikidataId, body)
-        }
-      })
-    })
-  )
-}
-
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
 
-  // await resetDB()
+  await resetDB()
 
-  console.log('Ensure companies exist...')
-  await ensureCompaniesExist(companies)
-
-  console.log('Updating companies based on spreadsheet data...')
-  await updateCompanies(companies)
+  console.log('Upserting companies based on spreadsheet data...')
+  await upsertCompanies(companies)
 
   console.log(
     `\n\n✅ Imported`,
