@@ -307,6 +307,8 @@ function getCompanyData(years: number[]) {
     {
       wikidataId: string
       name: string
+      tags: string[]
+      internalComment?: string
     }
   > = {}
 
@@ -340,8 +342,7 @@ function getCompanyData(years: number[]) {
     reportingPeriodsByCompany
   )) {
     companies.push({
-      wikidataId,
-      name: rawCompanies[wikidataId].name,
+      ...rawCompanies[wikidataId],
       reportingPeriods,
     })
   }
