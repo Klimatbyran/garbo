@@ -453,7 +453,14 @@ router.post(
   processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
     const { emissions = {} } = postEmissionsBodySchema.parse(req.body)
-    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } = emissions
+    const {
+      scope1,
+      scope2,
+      scope3,
+      scope1And2,
+      statedTotalEmissions,
+      biogenic,
+    } = emissions
 
     const metadata = res.locals.metadata!
     const dbEmissions = res.locals.emissions!
@@ -467,6 +474,7 @@ router.post(
         scope1 && upsertScope1(dbEmissions, scope1, metadata),
         scope2 && upsertScope2(dbEmissions, scope2, metadata),
         scope3 && upsertScope3(dbEmissions, scope3, metadata),
+        scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
         statedTotalEmissions &&
           upsertStatedTotalEmissions(
             dbEmissions,
