@@ -277,6 +277,7 @@ router.get(
           wikidataId: true,
           name: true,
           description: true,
+          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
