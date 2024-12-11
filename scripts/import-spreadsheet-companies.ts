@@ -1,11 +1,10 @@
 import 'dotenv/config'
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
-import { z } from 'zod'
 
+import apiConfig from '../src/config/api'
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
-import { resetDB } from '../src/lib/dev-utils'
 import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
@@ -23,41 +22,34 @@ function getSheetHeaders({
   return Object.values(sheet.getRow(row).values!)
 }
 
-const envSchema = z.object({
-  /**
-   * API tokens, parsed from a string like garbo:lk3h2k1,alex:ax32bg4
-   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
-   */
-  API_TOKENS: z.string().transform((tokens) =>
-    tokens
-      .split(',')
-      .reduce<{ garbo: string; alex: string }>((tokens, token) => {
-        const [name] = token.split(':')
-        tokens[name] = token
-        return tokens
-      }, {} as any)
-  ),
-})
+const { baseURL, tokens } = apiConfig
 
-const ENV = envSchema.parse(process.env)
+const TOKENS = tokens.reduce<{ garbo: string; alex: string }>(
+  (tokens, token) => {
+    const [name] = token.split(':')
+    tokens[name] = token
+    return tokens
+  },
+  {} as any
+)
 
 const USERS = {
   garbo: {
     email: 'hej@klimatkollen.se',
-    token: ENV.API_TOKENS.garbo,
+    token: TOKENS.garbo,
   },
   alex: {
     email: 'alex@klimatkollen.se',
-    token: ENV.API_TOKENS.alex,
+    token: TOKENS.alex,
   },
 }
 
 const verifiedMetadata = {
-  comment: 'Import from spreadsheet with verified data',
+  comment: 'Import verified data from spreadsheet',
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('Overview')!
+  const sheet = workbook.getWorksheet('import')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
@@ -144,7 +136,7 @@ function getReportingPeriods(
           [`URL ${year}`]: reportURL,
           'Scope 1': scope1Total,
           'Scope 2 (LB)': scope2LB,
-          // TODO: Add scope1And2
+          'Scope 1+2': scope1And2Total,
           'Scope 2 (MB)': scope2MB,
           'Scope 3 (total)': scope3StatedTotal,
           Total: statedTotal,
@@ -192,6 +184,14 @@ function getReportingPeriods(
           ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
         }
 
+        const scope1And2 = {
+          ...(Number.isFinite(scope1And2Total)
+            ? {
+                total: scope1And2Total,
+              }
+            : {}),
+        }
+
         const categories = Array.from({ length: 15 }, (_, i) => i + 1)
           .map((category) => ({
             category,
@@ -229,6 +229,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
+          ...(Object.keys(scope1And2).length ? { scope1And2 } : {}),
         }
 
         const economy = {
@@ -268,12 +269,12 @@ function getReportingPeriods(
         reportingPeriodsByCompany[companyId] ??= []
         // Ignore reportingPeriods without any meaningful data
         if (!reportingPeriod.emissions && !reportingPeriod.economy) {
-          console.log(
-            'Skipping',
-            year,
-            `for "${name}" due to missing emissions and economy data`,
-            comment ? { comment: reportingPeriod.comment } : ''
-          )
+          // console.log(
+          //   'Skipping',
+          //   year,
+          //   `for "${name}" due to missing emissions and economy data`,
+          //   comment ? { comment: reportingPeriod.comment } : ''
+          // )
           return
         }
         reportingPeriodsByCompany[companyId].push(reportingPeriod)
@@ -298,6 +299,8 @@ function getCompanyData(years: number[]) {
     {
       wikidataId: string
       name: string
+      tags: string[]
+      internalComment?: string
     }
   > = {}
 
@@ -331,8 +334,7 @@ function getCompanyData(years: number[]) {
     reportingPeriodsByCompany
   )) {
     companies.push({
-      wikidataId,
-      name: rawCompanies[wikidataId].name,
+      ...rawCompanies[wikidataId],
       reportingPeriods,
     })
   }
@@ -340,15 +342,18 @@ function getCompanyData(years: number[]) {
   return companies
 }
 
-export async function updateCompanies(companies: CompanyInput[]) {
+export async function upsertCompanies(companies: CompanyInput[]) {
   for (const company of companies) {
-    const { wikidataId, name, reportingPeriods } = company
+    const { wikidataId, name, tags, internalComment, reportingPeriods } =
+      company
 
     await postJSON(
-      `http://localhost:3000/api/companies`,
+      `${baseURL}/companies`,
       {
         wikidataId,
         name,
+        tags,
+        internalComment,
         metadata: {
           ...verifiedMetadata,
         },
@@ -364,7 +369,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
     for (const reportingPeriod of reportingPeriods) {
       if (reportingPeriod.emissions) {
         const emissionsArgs = [
-          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
+          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
@@ -388,7 +393,7 @@ export async function updateCompanies(companies: CompanyInput[]) {
 
       if (reportingPeriod.economy) {
         const economyArgs = [
-          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
+          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
@@ -433,47 +438,11 @@ async function postJSON(
   }
 }
 
-const API_BASE_URL = 'https://api.klimatkollen.se/api/companies'
-
-async function ensureCompaniesExist(companies: CompanyInput[]) {
-  const apiCompanies = await fetch(API_BASE_URL).then((res) => res.json())
-
-  return Promise.all(
-    companies.map((company) => {
-      if (
-        apiCompanies.some(({ wikidataId }) => wikidataId === company.wikidataId)
-      ) {
-        return
-      }
-
-      return postJSON(
-        `http://localhost:3000/api/companies`,
-        {
-          wikidataId: company.wikidataId,
-          name: company.name,
-          metadata: verifiedMetadata,
-        },
-        'alex'
-      ).then(async (res) => {
-        if (!res.ok) {
-          const body = await res.text()
-          console.error(res.status, res.statusText, company.wikidataId, body)
-        }
-      })
-    })
-  )
-}
-
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
 
-  await resetDB()
-
-  console.log('Ensure companies exist...')
-  await ensureCompaniesExist(companies)
-
-  console.log('Updating companies based on spreadsheet data...')
-  await updateCompanies(companies)
+  console.log('Upserting companies based on spreadsheet data...')
+  await upsertCompanies(companies)
 
   console.log(
     `\n\n✅ Imported`,

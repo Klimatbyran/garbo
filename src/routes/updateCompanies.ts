@@ -20,6 +20,7 @@ import {
   upsertReportingPeriod,
   upsertEmissions,
   upsertEconomy,
+  upsertScope1And2,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -306,7 +307,7 @@ export const emissionsSchema = z
       .optional(),
     biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    // TODO: add scope1And2
+    scope1And2: z.object({ total: z.number() }).optional(),
   })
   .optional()
 
@@ -389,8 +390,14 @@ router.post(
               }),
             ])
 
-            const { scope1, scope2, scope3, statedTotalEmissions, biogenic } =
-              emissions
+            const {
+              scope1,
+              scope2,
+              scope3,
+              statedTotalEmissions,
+              biogenic,
+              scope1And2,
+            } = emissions
             const { turnover, employees } = economy
 
             // Normalise currency
@@ -409,6 +416,7 @@ router.post(
                   metadata
                 ),
               biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+              scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
               turnover && upsertTurnover(dbEconomy, turnover, metadata),
               employees && upsertEmployees(dbEconomy, employees, metadata),
             ])
@@ -445,7 +453,14 @@ router.post(
   processRequestBody(postEmissionsBodySchema),
   async (req, res) => {
     const { emissions = {} } = postEmissionsBodySchema.parse(req.body)
-    const { scope1, scope2, scope3, statedTotalEmissions, biogenic } = emissions
+    const {
+      scope1,
+      scope2,
+      scope3,
+      scope1And2,
+      statedTotalEmissions,
+      biogenic,
+    } = emissions
 
     const metadata = res.locals.metadata!
     const dbEmissions = res.locals.emissions!
@@ -459,6 +474,7 @@ router.post(
         scope1 && upsertScope1(dbEmissions, scope1, metadata),
         scope2 && upsertScope2(dbEmissions, scope2, metadata),
         scope3 && upsertScope3(dbEmissions, scope3, metadata),
+        scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
         statedTotalEmissions &&
           upsertStatedTotalEmissions(
             dbEmissions,

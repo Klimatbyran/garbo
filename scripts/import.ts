@@ -13,6 +13,8 @@ export type DataOrigin = keyof typeof DATA_ORIGIN
 export type CompanyInput = {
   wikidataId: string
   name: string
+  tags?: string[]
+  internalComment?: string
   reportingPeriods: ReportingPeriodInput[]
 }
 
@@ -36,6 +38,7 @@ export type EmissionsInput = {
   scope3?: Scope3Input
   statedTotalEmissions?: StatedTotalEmissionsInput
   biogenic?: BiogenicInput
+  scope1And2?: Scope1And2Input
 }
 
 export type Scope1Input = {
@@ -46,6 +49,10 @@ export type Scope2Input = {
   mb?: number
   lb?: number
   unknown?: number
+}
+
+export type Scope1And2Input = {
+  total?: number
 }
 
 export type Scope3Input = {
