@@ -1,14 +1,16 @@
 import { z } from 'zod'
 
 export const schema = z.object({
-  tags: z.array(z.enum([
-    'public',
-    'large_cap',
-    'mid_cap', 
-    'state_owned',
-    'municipality_owned',
-    'private'
-  ]))
+  tags: z.array(
+    z.enum([
+      'public',
+      'large-cap',
+      'mid-cap',
+      'state-owned',
+      'municipality-owned',
+      'private',
+    ])
+  ),
 })
 
 export const prompt = `
@@ -40,7 +42,7 @@ const queryTexts = [
   'Government ownership',
   'Municipal ownership',
   'Company type',
-  'Corporate structure'
+  'Corporate structure',
 ]
 
 export default { prompt, schema, queryTexts }
