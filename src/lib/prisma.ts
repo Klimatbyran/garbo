@@ -13,6 +13,7 @@ import {
   Turnover,
   Goal,
   Initiative,
+  Scope1And2,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -78,6 +79,43 @@ export async function upsertScope2(
     : prisma.scope2.create({
         data: {
           ...scope2,
+          unit: tCO2e,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+          emissions: {
+            connect: {
+              id: emissions.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+}
+
+export async function upsertScope1And2(
+  emissions: Emissions,
+  scope1And2: OptionalNullable<Omit<Scope1And2, 'id' | 'metadataId' | 'unit'>>,
+  metadata: Metadata
+) {
+  return emissions.scope1And2Id
+    ? prisma.scope1And2.update({
+        where: { id: emissions.scope1And2Id },
+        data: {
+          ...scope1And2,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : prisma.scope1And2.create({
+        data: {
+          ...scope1And2,
           unit: tCO2e,
           metadata: {
             connect: {

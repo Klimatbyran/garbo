@@ -193,7 +193,7 @@ function getReportingPeriods(
         }
 
         const scope1And2 = {
-          ...(Number.isFinite(scope1Total)
+          ...(Number.isFinite(scope1And2Total)
             ? {
                 total: scope1And2Total,
               }
