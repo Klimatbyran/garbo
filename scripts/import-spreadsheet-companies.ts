@@ -144,7 +144,7 @@ function getReportingPeriods(
           [`URL ${year}`]: reportURL,
           'Scope 1': scope1Total,
           'Scope 2 (LB)': scope2LB,
-          // TODO: Add scope1And2
+          'Scope 1+2': scope1And2Total,
           'Scope 2 (MB)': scope2MB,
           'Scope 3 (total)': scope3StatedTotal,
           Total: statedTotal,
@@ -192,6 +192,14 @@ function getReportingPeriods(
           ...(Number.isFinite(scope2LB) ? { lb: scope2LB } : {}),
         }
 
+        const scope1And2 = {
+          ...(Number.isFinite(scope1Total)
+            ? {
+                total: scope1And2Total,
+              }
+            : {}),
+        }
+
         const categories = Array.from({ length: 15 }, (_, i) => i + 1)
           .map((category) => ({
             category,
@@ -229,6 +237,7 @@ function getReportingPeriods(
                 },
               }
             : {}),
+          ...(Object.keys(scope1And2).length ? { scope1And2 } : {}),
         }
 
         const economy = {
