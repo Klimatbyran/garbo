@@ -55,7 +55,7 @@ const upsertCompanyBodySchema = z.object({
 const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
 
 async function handleCompanyUpsert(req: Request, res: Response) {
-  const { name, description, url, internalComment, wikidataId } =
+  const { name, description, url, internalComment, wikidataId, tags } =
     upsertCompanyBodySchema.parse(req.body)
 
   let company: Company
@@ -67,6 +67,7 @@ async function handleCompanyUpsert(req: Request, res: Response) {
       description,
       url,
       internalComment,
+      tags,
     })
   } catch (error) {
     throw new GarboAPIError('Failed to upsert company', {
