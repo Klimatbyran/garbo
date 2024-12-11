@@ -351,13 +351,16 @@ function getCompanyData(years: number[]) {
 
 export async function updateCompanies(companies: CompanyInput[]) {
   for (const company of companies) {
-    const { wikidataId, name, reportingPeriods } = company
+    const { wikidataId, name, tags, internalComment, reportingPeriods } =
+      company
 
     await postJSON(
       `http://localhost:3000/api/companies`,
       {
         wikidataId,
         name,
+        tags,
+        internalComment,
         metadata: {
           ...verifiedMetadata,
         },

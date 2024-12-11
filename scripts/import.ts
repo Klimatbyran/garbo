@@ -13,6 +13,8 @@ export type DataOrigin = keyof typeof DATA_ORIGIN
 export type CompanyInput = {
   wikidataId: string
   name: string
+  tags?: string[]
+  internalComment?: string
   reportingPeriods: ReportingPeriodInput[]
 }
 
