@@ -1,11 +1,10 @@
 import 'dotenv/config'
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
-import { z } from 'zod'
 
+import apiConfig from '../src/config/api'
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
-import { resetDB } from '../src/lib/dev-utils'
 import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
 
 const workbook = new ExcelJS.Workbook()
@@ -23,36 +22,27 @@ function getSheetHeaders({
   return Object.values(sheet.getRow(row).values!)
 }
 
-const envSchema = z.object({
-  /**
-   * API tokens, parsed from a string like garbo:lk3h2k1,alex:ax32bg4
-   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
-   */
-  API_TOKENS: z.string().transform((tokens) =>
-    tokens
-      .split(',')
-      .reduce<{ garbo: string; alex: string }>((tokens, token) => {
-        const [name] = token.split(':')
-        tokens[name] = token
-        return tokens
-      }, {} as any)
-  ),
-})
+const { baseURL, tokens } = apiConfig
 
-const ENV = envSchema.parse(process.env)
+const TOKENS = tokens.reduce<{ garbo: string; alex: string }>(
+  (tokens, token) => {
+    const [name] = token.split(':')
+    tokens[name] = token
+    return tokens
+  },
+  {} as any
+)
 
 const USERS = {
   garbo: {
     email: 'hej@klimatkollen.se',
-    token: ENV.API_TOKENS.garbo,
+    token: TOKENS.garbo,
   },
   alex: {
     email: 'alex@klimatkollen.se',
-    token: ENV.API_TOKENS.alex,
+    token: TOKENS.alex,
   },
 }
-
-const API_BASE_URL = 'https://api.klimatkollen.se/api'
 
 const verifiedMetadata = {
   comment: 'Import verified data from spreadsheet',
@@ -358,7 +348,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
       company
 
     await postJSON(
-      `${API_BASE_URL}/companies`,
+      `${baseURL}/companies`,
       {
         wikidataId,
         name,
@@ -379,7 +369,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
     for (const reportingPeriod of reportingPeriods) {
       if (reportingPeriod.emissions) {
         const emissionsArgs = [
-          `${API_BASE_URL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
+          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
@@ -403,7 +393,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
 
       if (reportingPeriod.economy) {
         const economyArgs = [
-          `${API_BASE_URL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
+          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
