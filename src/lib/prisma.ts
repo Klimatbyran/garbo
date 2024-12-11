@@ -332,7 +332,6 @@ export async function upsertStatedTotalEmissions(
 
 export async function upsertCompany({
   wikidataId,
-  name,
   ...data
 }: {
   wikidataId: string
@@ -347,16 +346,15 @@ export async function upsertCompany({
       wikidataId,
     },
     create: {
-      name,
-      wikidataId,
       ...data,
+      wikidataId,
     },
     // TODO: Should we allow updating the wikidataId?
     // Probably yes from a business perspective, but that also means we need to update all related records too.
     // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
     // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
     // However, no matter what, we could still use wikidataId in the API and in the URL structure.
-    update: { name, ...data },
+    update: { ...data },
   })
 }
 

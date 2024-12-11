@@ -57,7 +57,7 @@ const verifiedMetadata = {
 }
 
 function getCompanyBaseFacts() {
-  const sheet = workbook.getWorksheet('Overview')!
+  const sheet = workbook.getWorksheet('import')!
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
 
@@ -480,7 +480,7 @@ async function ensureCompaniesExist(companies: CompanyInput[]) {
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
 
-  await resetDB()
+  // await resetDB()
 
   console.log('Ensure companies exist...')
   await ensureCompaniesExist(companies)
