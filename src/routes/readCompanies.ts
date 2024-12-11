@@ -123,6 +123,13 @@ router.get(
                       metadata,
                     },
                   },
+                  scope1And2: {
+                    select: {
+                      total: true,
+                      unit: true,
+                      metadata,
+                    },
+                  },
                   statedTotalEmissions: {
                     select: {
                       total: true,
@@ -270,6 +277,7 @@ router.get(
           wikidataId: true,
           name: true,
           description: true,
+          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
@@ -335,6 +343,13 @@ router.get(
                     },
                   },
                   biogenicEmissions: {
+                    select: {
+                      total: true,
+                      unit: true,
+                      metadata,
+                    },
+                  },
+                  scope1And2: {
                     select: {
                       total: true,
                       unit: true,
