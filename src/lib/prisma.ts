@@ -142,76 +142,66 @@ export async function upsertScope3(
   },
   metadata: Metadata
 ) {
-  const existing = emissions.scope3Id
-    ? await prisma.scope3.findFirst({
-        where: { id: emissions.scope3Id },
-        include: { categories: { select: { id: true, category: true } } },
-      })
-    : null
+  const updatedScope3 = await prisma.scope3.upsert({
+    where: { id: emissions.scope3Id ?? 0 },
+    update: {},
+    create: {
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+      emissions: {
+        connect: {
+          id: emissions.id,
+        },
+      },
+    },
+    include: {
+      categories: {
+        select: {
+          id: true,
+          category: true,
+        },
+      },
+    },
+  })
 
-  const updatedScope3 = existing
-    ? existing
-    : await prisma.scope3.create({
-        data: {
+  // Upsert only the scope 3 categories from the request body
+  await Promise.all(
+    (scope3.categories ?? []).map((scope3Category) => {
+      const matching = updatedScope3.categories.find(
+        ({ category }) => scope3Category.category === category
+      )
+      return prisma.scope3Category.upsert({
+        where: {
+          id: matching?.id ?? 0,
+        },
+        update: {
+          ...scope3Category,
           metadata: {
             connect: {
               id: metadata.id,
             },
           },
-          emissions: {
+        },
+        create: {
+          ...scope3Category,
+          unit: tCO2e,
+          scope3: {
             connect: {
-              id: emissions.id,
-            },
-          },
-        },
-        include: {
-          categories: {
-            select: {
-              id: true,
-              category: true,
-            },
-          },
-        },
-      })
-
-  // Update existing scope 3 categories and create new ones
-  await Promise.all(
-    (scope3.categories ?? []).map((scope3Category) =>
-      updatedScope3.categories.find(
-        ({ category }) => scope3Category.category === category
-      )
-        ? prisma.scope3Category.update({
-            where: {
               id: updatedScope3.id,
             },
-            data: {
-              ...scope3Category,
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
-            select: { id: true },
-          })
-        : prisma.scope3Category.create({
-            data: {
-              ...scope3Category,
-              unit: tCO2e,
-              scope3: {
-                connect: {
-                  id: updatedScope3.id,
-                },
-              },
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
-            },
-            select: { id: true },
-          })
-    )
+          },
+        },
+        select: { id: true },
+      })
+    })
   )
 
   if (scope3.statedTotalEmissions) {
