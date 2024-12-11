@@ -52,8 +52,10 @@ const USERS = {
   },
 }
 
+const API_BASE_URL = 'https://api.klimatkollen.se/api'
+
 const verifiedMetadata = {
-  comment: 'Import from spreadsheet with verified data',
+  comment: 'Import verified data from spreadsheet',
 }
 
 function getCompanyBaseFacts() {
@@ -356,7 +358,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
       company
 
     await postJSON(
-      `http://localhost:3000/api/companies`,
+      `${API_BASE_URL}/companies`,
       {
         wikidataId,
         name,
@@ -377,7 +379,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
     for (const reportingPeriod of reportingPeriods) {
       if (reportingPeriod.emissions) {
         const emissionsArgs = [
-          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
+          `${API_BASE_URL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
@@ -401,7 +403,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
 
       if (reportingPeriod.economy) {
         const economyArgs = [
-          `http://localhost:3000/api/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
+          `${API_BASE_URL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
           {
             startDate: reportingPeriod.startDate,
             endDate: reportingPeriod.endDate,
@@ -446,12 +448,8 @@ async function postJSON(
   }
 }
 
-const API_BASE_URL = 'https://api.klimatkollen.se/api/companies'
-
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
-
-  await resetDB()
 
   console.log('Upserting companies based on spreadsheet data...')
   await upsertCompanies(companies)
