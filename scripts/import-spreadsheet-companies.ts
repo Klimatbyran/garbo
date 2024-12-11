@@ -69,8 +69,9 @@ function getCompanyBaseFacts() {
         wikidataId: string
         name: string
         internalComment?: string
+        tags?: string[]
       }[]
-    >((rowValues, row) => {
+    >((rowValues, row, i) => {
       if (!row) return rowValues
 
       const columns = headers.reduce((acc, header, i) => {
@@ -79,11 +80,25 @@ function getCompanyBaseFacts() {
         return acc
       }, {})
 
-      const { 'Wiki ID': wikidataId, Company: name } = columns as any
+      const {
+        'Wiki ID': wikidataId,
+        Company: name,
+        Batch,
+        'General Comment': internalComment,
+      } = columns as any
+
+      // Assuming the MVP batch is the first 150 companies in the list
+      const companySize = i < 150 ? 'large-cap' : 'mid-cap'
+      const tags = [
+        companySize,
+        ...(Batch.toLowerCase() === 'statlig' ? ['state-owned'] : []),
+      ]
 
       rowValues.push({
         name,
         wikidataId,
+        tags,
+        internalComment,
       })
 
       return rowValues
