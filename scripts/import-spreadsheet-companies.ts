@@ -6,6 +6,8 @@ import apiConfig from '../src/config/api'
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
+import { readFile, writeFile } from 'fs/promises'
+import { resetDB } from '../src/lib/dev-utils'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
@@ -344,14 +346,23 @@ function getCompanyData(years: number[]) {
 
 export async function upsertCompanies(companies: CompanyInput[]) {
   for (const company of companies) {
-    const { wikidataId, name, tags, internalComment, reportingPeriods } =
-      company
+    const {
+      wikidataId,
+      name,
+      tags,
+      internalComment,
+      reportingPeriods,
+      description,
+      goals,
+      initiatives,
+    } = company
 
     await postJSON(
       `${baseURL}/companies`,
       {
         wikidataId,
         name,
+        description,
         tags,
         internalComment,
         metadata: {
@@ -415,6 +426,48 @@ export async function upsertCompanies(companies: CompanyInput[]) {
         })
       }
     }
+
+    if (goals?.length) {
+      await postJSON(
+        `${baseURL}/companies/${wikidataId}/goals`,
+        {
+          goals,
+          metadata: {
+            ...goals[0].metadata,
+            verifiedBy: undefined,
+            dataOrigin: undefined,
+            user: undefined,
+          },
+        },
+        'garbo'
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
+
+    if (initiatives?.length) {
+      await postJSON(
+        `${baseURL}/companies/${wikidataId}/initiatives`,
+        {
+          initiatives,
+          metadata: {
+            ...initiatives[0].metadata,
+            verifiedBy: undefined,
+            dataOrigin: undefined,
+            user: undefined,
+          },
+        },
+        'garbo'
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
   }
 }
 
@@ -440,6 +493,77 @@ async function postJSON(
 
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
+
+  await resetDB()
+
+  const apiCompaniesFile = resolve(
+    'src/data/2024-12-12-0337-garbo-companies.json'
+  )
+
+  const existing = await readFile(apiCompaniesFile, { encoding: 'utf-8' }).then(
+    JSON.parse
+  )
+
+  // await writeFile(apiCompaniesFile, JSON.stringify(existing), {
+  //   encoding: 'utf-8',
+  // })
+
+  // process.exit(0)
+
+  const uniqueAPI = new Set<string>(existing.map((c) => c.wikidataId))
+  const uniqueSheets = new Set(companies.map((c) => c.wikidataId))
+
+  const existsInAPIButNotInSheets = uniqueAPI.difference(uniqueSheets)
+
+  console.log('exists in API but not in sheets')
+  console.dir(
+    Array.from(existsInAPIButNotInSheets).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+  console.log('exists in sheets but not in api')
+  console.dir(
+    Array.from(uniqueSheets.difference(uniqueAPI)).map(
+      (id) => companies.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+
+  // ## DÖLJ DESSA från API:et
+  const HIDDEN_FROM_API = new Set([
+    'Q22629259', // GARO
+    'Q37562781', // GARO
+    'Q489097', // Ernst & Young
+    'Q10432209', // Prisma Properties
+    'Q5168854', // Copperstone Resources AB
+    'Q115167497', // Specialfastigheter
+    'Q549624', // RISE AB
+    'Q34', // Swedish Logistic Property AB,
+
+    // OLD pages:
+
+    'Q8301325', // SJ
+    'Q112055015', // BONESUPPORT
+    'Q97858523', // Almi
+    'Q2438127', // Dynavox
+    'Q117352880', // BioInvent
+    'Q115167497', // Specialfastigheter
+  ])
+
+  console.log('HIDDEN FROM API')
+  console.dir(
+    Array.from(HIDDEN_FROM_API).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+
+  const REMAINING_UNIQUE_IN_API =
+    existsInAPIButNotInSheets.difference(HIDDEN_FROM_API)
+  console.log('REMAINING_UNIQUE_IN_API')
+  console.dir(
+    Array.from(REMAINING_UNIQUE_IN_API).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
 
   console.log('Upserting companies based on spreadsheet data...')
   await upsertCompanies(companies)
