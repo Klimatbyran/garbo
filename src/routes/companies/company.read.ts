@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { validateRequestParams } from './zod-middleware'
+import { validateRequestParams } from '../zod-middleware'
 
-import { getGics } from '../lib/gics'
-import { cache, enableCors } from './middlewares'
-import { wikidataIdParamSchema } from './companySchemas'
-import { prisma } from '../lib/prisma'
-import { GarboAPIError } from '../lib/garbo-api-error'
+import { getGics } from '../../lib/gics'
+import { cache, enableCors } from '../middlewares'
+import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { prisma } from '../../lib/prisma'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 const router = express.Router()
 
@@ -55,15 +55,75 @@ function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-const origins =
-  process.env.NODE_ENV === 'development'
-    ? ['http://localhost:4321']
-    : ['https://beta.klimatkollen.se', 'https://klimatkollen.se']
+import apiConfig from '../../config/api'
 
-router.use(enableCors(origins))
+router.use(
+  enableCors([
+    apiConfig.frontendURL,
+    'http://localhost:3000',
+    'http://localhost:4321',
+  ])
+)
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
+/**
+ * @swagger
+ * /companies:
+ *   get:
+ *     summary: Get all companies
+ *     description: Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives
+ *     tags: [Companies]
+ *     responses:
+ *       200:
+ *         description: List of companies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 allOf:
+ *                   - $ref: '#/components/schemas/Company'
+ *                   - type: object
+ *                     properties:
+ *                       reportingPeriods:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             startDate:
+ *                               type: string
+ *                               format: date-time
+ *                             endDate:
+ *                               type: string
+ *                               format: date-time
+ *                             reportURL:
+ *                               type: string
+ *                             emissions:
+ *                               $ref: '#/components/schemas/Emissions'
+ *                             economy:
+ *                               $ref: '#/components/schemas/Economy'
+ *                             metadata:
+ *                               $ref: '#/components/schemas/Metadata'
+ *                       industry:
+ *                         $ref: '#/components/schemas/IndustrySchema'
+ *                         metadata:
+ *                           $ref: '#/components/schemas/Metadata'
+ *                       goals:
+ *                         type: array
+ *                         items:
+ *                           $ref: '#/components/schemas/Goal'
+ *                       initiatives:
+ *                         type: array
+ *                         items:
+ *                           $ref: '#/components/schemas/Initiative'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/',
   cache(),
@@ -306,6 +366,40 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ * /companies/{wikidataId}:
+ *   get:
+ *     summary: Get a specific company
+ *     description: Retrieve detailed information about a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     responses:
+ *       200:
+ *         description: Company details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Company'
+ *       404:
+ *         description: Company not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/:wikidataId',
   validateRequestParams(wikidataIdParamSchema),
