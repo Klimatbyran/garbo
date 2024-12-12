@@ -528,11 +528,14 @@ async function main() {
         `from ${apiCompany.name} (${garboDataToAddFromWikidataId}) to ${c.name} (${c.wikidataId})`
       )
 
-      // get the relevant data
+      c.description = apiCompany.description
 
-      // TODO: add description to each company
-      // TODO: add initiatives to each company
-      // TODO: add goals to each company
+      // TODO: Important to keep the metadata for initiatives and goals by saving in own request
+      c.initiatives = apiCompany.initiatives
+      c.goals = apiCompany.goals
+
+      console.log(c.initiatives, apiCompany.initiatives)
+      console.log(c.goals, apiCompany.goals)
     }
   })
 
