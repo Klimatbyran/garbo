@@ -6,6 +6,7 @@ import apiConfig from '../src/config/api'
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
+import { readFile } from 'fs/promises'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
@@ -440,6 +441,31 @@ async function postJSON(
 
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
+
+  const existing = await readFile(
+    resolve('src/data/2024-12-11-2301-garbo-companies.json'),
+    { encoding: 'utf-8' }
+  ).then(JSON.parse)
+
+  const uniqueAPI = new Set<string>(existing.map((c) => c.wikidataId))
+  const uniqueSheets = new Set(companies.map((c) => c.wikidataId))
+
+  const existsInAPIButNotInSheets = uniqueAPI.difference(uniqueSheets)
+
+  console.log('exists in API but not in sheets')
+  console.dir(
+    Array.from(existsInAPIButNotInSheets).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+  console.log('exists in sheets but not in api')
+  console.dir(
+    Array.from(uniqueSheets.difference(uniqueAPI)).map(
+      (id) => companies.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+
+  process.exit(0)
 
   console.log('Upserting companies based on spreadsheet data...')
   await upsertCompanies(companies)
