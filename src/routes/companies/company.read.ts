@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { validateRequestParams } from '../zod-middleware'
-
+import { Prisma } from '@prisma/client'
 import { getGics } from '../../lib/gics'
 import { cache, enableCors } from '../middlewares'
 import { wikidataIdParamSchema } from '../../openapi/schemas'
@@ -643,12 +643,28 @@ router.get(
           .at(0)
       )
     } catch (error) {
-      next(
-        new GarboAPIError('Failed to load company', {
-          original: error,
-          statusCode: 500,
-        })
-      )
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        next(
+          new GarboAPIError('Invalid company data format', {
+            original: error,
+            statusCode: 422,
+          })
+        )
+      } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        next(
+          new GarboAPIError('Database error while loading company', {
+            original: error,
+            statusCode: 500,
+          })
+        )
+      } else {
+        next(
+          new GarboAPIError('Failed to load company', {
+            original: error,
+            statusCode: 500,
+          })
+        )
+      }
     }
   }
 )
