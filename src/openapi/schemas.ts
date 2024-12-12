@@ -72,7 +72,7 @@ export const Scope2Schema = z.object({
   lb: z.number().optional().openapi({ description: 'Location-based scope 2 emissions' }),
   unknown: z.number().optional().openapi({ description: 'Unspecified scope 2 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
-  metadata: MetadataSchema,
+  metadata: z.array(MetadataSchema),
   calculatedTotalEmissions: z.number().openapi({ description: 'Calculated total scope 2 emissions' })
 }).refine(
   ({ mb, lb, unknown }) => mb !== undefined || lb !== undefined || unknown !== undefined,
@@ -175,7 +175,7 @@ export const ReportingPeriodSchema = z.object({
   reportURL: z.string().optional().openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema,
   economy: EconomySchema,
-  metadata: MetadataSchema
+  metadata: z.array(MetadataSchema).nullable()
 })
 
 // Complete company schema
