@@ -402,7 +402,6 @@ router.get(
  */
 router.get(
   '/:wikidataId',
-  validateRequestParams(wikidataIdParamSchema),
   cache(),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
