@@ -91,7 +91,7 @@ export const Scope3CategorySchema = z.object({
 export const Scope3Schema = z.object({
   categories: z.array(Scope3CategorySchema).optional(),
   statedTotalEmissions: StatedTotalEmissionsSchema,
-  metadata: MetadataSchema,
+  metadata: z.array(MetadataSchema).nullable(),
   calculatedTotalEmissions: z.number().openapi({ description: 'Calculated total scope 3 emissions' })
 }).optional()
 

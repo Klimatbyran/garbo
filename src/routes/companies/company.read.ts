@@ -146,7 +146,24 @@ router.get(
                     select: {
                       value: true,
                       currency: true,
-                      metadata,
+                      metadata: {
+                        select: {
+                          comment: true,
+                          source: true,
+                          updatedAt: true,
+                          user: {
+                            select: {
+                              name: true,
+                            },
+                          },
+                          verifiedBy: {
+                            select: {
+                              name: true,
+                            },
+                          },
+                          dataOrigin: true,
+                        },
+                      },
                     },
                   },
                   employees: {
