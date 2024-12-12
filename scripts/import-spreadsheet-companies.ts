@@ -465,6 +465,78 @@ async function main() {
     )
   )
 
+  /**
+   * key: TO (wikidataId) -> value: FROM (wikidataId)
+   */
+  const garboDataToKeep = {
+    /** SJ */
+    Q52912: 'Q8301325',
+    /** BONESUPPORT */
+    Q16427839: 'Q112055015',
+    /** Almi */
+    Q10397672: 'Q97858523',
+    /** Dynavox */
+    Q5318875: 'Q2438127',
+    /** BioInvent */
+    Q30289762: 'Q117352880',
+    /** Specialfastigheter */
+    Q10674550: 'Q115167497',
+  }
+
+  // ## DÖLJ DESSA från API:et
+  const OLD_PAGES_TO_HIDE = new Set([
+    'Q22629259', // GARO
+    'Q37562781', // GARO
+    'Q489097', // Ernst & Young
+    'Q10432209', // Prisma Properties
+    'Q5168854', // Copperstone Resources AB
+    'Q115167497', // Specialfastigheter
+    'Q549624', // RISE AB
+    'Q34', // Swedish Logistic Property AB
+  ])
+
+  // DÖLJ även `Object.values(garboDataToKeep)` - skapa ett kombinerat set
+  const HIDDEN_FROM_API = OLD_PAGES_TO_HIDE.union(
+    new Set(Object.values(garboDataToKeep))
+  )
+
+  console.log('HIDDEN FROM API')
+  console.dir(
+    Array.from(HIDDEN_FROM_API).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+
+  const REMAINING_UNIQUE_IN_API =
+    existsInAPIButNotInSheets.difference(HIDDEN_FROM_API)
+  console.log('REMAINING_UNIQUE_IN_API')
+  console.dir(
+    Array.from(REMAINING_UNIQUE_IN_API).map(
+      (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
+    )
+  )
+
+  // TODO: Ensure only the wanted companies remain after hiding the ones we don't want.
+
+  // const withGarboData = companies.map()
+
+  // TODO: determine which wrong IDs we want to map to which correctIds
+  // TODO: create a lookup to get the right wikidataId
+  // get the relevant data
+
+  // TODO: add description to each company
+  // TODO: add initiatives to each company
+  // TODO: add goals to each company
+
+  // TODO: save description in upsertCompany()
+
+  // TODO: save goals for each company in updateCompanies()
+  // TODO: save initiatives for each company in updateCompanies()
+
+  // TODO: Verify locally.
+  // TODO: Run in prod.
+  // TODO: Make new backup of combined JSON data.
+
   process.exit(0)
 
   console.log('Upserting companies based on spreadsheet data...')
