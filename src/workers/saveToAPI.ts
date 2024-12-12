@@ -1,8 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import discord from '../discord'
+import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
-
-const ONE_DAY = 1000 * 60 * 60 * 24
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -30,7 +29,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
-
       if (approved) {
         job.editMessage({
           content: `Thanks for approving ${apiSubEndpoint}`,
@@ -45,14 +43,14 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       // If approval is required and not yet approved, send approval request
-      const buttonRow = discord.createButtonRow(job.id!)
+      const buttonRow = discord.createApproveButtonRow(job)
 
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
         components: [buttonRow],
       })
 
-      return await job.moveToDelayed(Date.now() + ONE_DAY)
+      return await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     } catch (error) {
       console.error('API Save error:', error)
       throw error

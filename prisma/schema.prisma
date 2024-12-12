@@ -27,8 +27,6 @@ model Company {
 
   // TODO: save country and city/region for each company
 
-  // IDEA: tags: make it possible to categorise the data - e.g. "MVP", "batch 1" to enable further comparisons
-
   industry         Industry?
   reportingPeriods ReportingPeriod[]
   goals            Goal[]
@@ -37,6 +35,9 @@ model Company {
 
   /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
   internalComment String?
+
+  /// Tags to help categorize and filter companies
+  tags String[]
 }
 
 // TODO: Handle broken reporting periods which start in one year and end the next year.

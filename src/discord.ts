@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import {
   Client,
   GatewayIntentBits,
@@ -13,11 +14,24 @@ import {
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
-import approve from './discord/interactions/approve'
-import reject from './discord/interactions/reject'
-import saveToAPI, { SaveToApiJob } from './workers/saveToAPI'
+import approve, { ApproveJob } from './discord/interactions/approve'
+import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
+import saveToAPI from './workers/saveToAPI'
+import guessWikidata from './workers/guessWikidata'
+import { DiscordJob } from './lib/DiscordWorker'
 
-const getJob = (jobId: string) => saveToAPI.queue.getJob(jobId)
+const queuesWithInteractions = {
+  saveToAPI: saveToAPI.queue,
+  guessWikidata: guessWikidata.queue,
+} as const
+
+// NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
+const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata'])
+
+const getJob = (
+  queueName: keyof typeof queuesWithInteractions,
+  jobId: string
+) => queuesWithInteractions[queueName].getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
@@ -71,31 +85,29 @@ export class Discord {
             return
           }
         } else if (interaction.isButton()) {
-          const [action, jobId] = interaction.customId.split('~')
+          const [action, rawQueueName, jobId] = interaction.customId.split('~')
+          const queueName = queueNameSchema.parse(rawQueueName)
+
           try {
             switch (action) {
               case 'approve': {
-                const job = (await getJob(jobId)) as SaveToApiJob
+                const job = (await getJob(queueName, jobId)) as ApproveJob
                 if (!job) await interaction.reply('Job not found')
                 else await approve.execute(interaction, job)
+
                 break
               }
-              /*case 'feedback': {
-                const job = (await getJob(jobId)) as SaveToApiJob
+              case 'editWikidata': {
+                const job = (await getJob(queueName, jobId)) as EditWikidataJob
                 if (!job) await interaction.reply('Job not found')
-                else await feedback.execute(interaction, job)
-                break
-              }*/
-              case 'reject': {
-                const job = (await getJob(jobId)) as SaveToApiJob
-                if (!job) await interaction.reply('Job not found')
-                else await reject.execute(interaction, job)
+                else await edit.execute(interaction, job)
                 break
               }
             }
           } catch (error) {
             console.error('Discord error:', error)
           }
+        } else if (interaction.isModalSubmit()) {
         }
       })
     } else {
@@ -110,33 +122,25 @@ export class Discord {
     return this
   }
 
-  public createButtonRow = (jobId: string) => {
+  public createApproveButtonRow = (job: DiscordJob) => {
     return new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId(`approve~${jobId}`)
+        .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
         .setStyle(ButtonStyle.Success)
-      /*new ButtonBuilder()
-        .setCustomId(`feedback~${jobId}`)
-        .setLabel('Feedback')
-        .setStyle(ButtonStyle.Primary),
-      new ButtonBuilder()
-        .setCustomId(`reject~${jobId}`)
-        .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger),*/
     )
   }
 
-  public createFeedbackButtonRow = (jobId: string) => {
+  public createEditWikidataButtonRow = (job: DiscordJob) => {
     return new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId(`approve-feedback~${jobId}`)
+        .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
-        .setCustomId(`reject-feedback~${jobId}`)
-        .setLabel('Reject')
-        .setStyle(ButtonStyle.Danger)
+        .setCustomId(`editWikidata~${job.queueName}~${job.id}`)
+        .setLabel('Edit')
+        .setStyle(ButtonStyle.Secondary)
     )
   }
 
@@ -151,7 +155,7 @@ export class Discord {
         threadId
       )) as ThreadChannel
       await thread?.sendTyping()
-      return thread.send(msg)
+      return thread?.send(msg)
     } catch (e) {
       console.error('Error sending message to thread', e)
       return null

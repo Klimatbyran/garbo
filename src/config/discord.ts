@@ -10,6 +10,8 @@ const envSchema = z.object({
 
 const env = envSchema.parse(process.env)
 
+const FIVE_MIN = 1000 * 60 * 5
+
 export default {
   token: env.DISCORD_TOKEN,
   clientId: env.DISCORD_APPLICATION_ID,
@@ -19,4 +21,5 @@ export default {
    */
   worker: process.argv[1].includes('startWorker'),
   channelId: env.DISCORD_CHANNEL_ID,
+  modalInteractionTimeout: FIVE_MIN,
 }

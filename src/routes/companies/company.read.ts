@@ -28,6 +28,29 @@ const metadata = {
   },
 }
 
+// ## DÖLJ DESSA från API:et
+const HIDDEN_FROM_API = new Set([
+  'Q22629259', // GARO
+  'Q37562781', // GARO
+  'Q489097', // Ernst & Young
+  'Q10432209', // Prisma Properties
+  'Q5168854', // Copperstone Resources AB
+  'Q115167497', // Specialfastigheter
+  'Q549624', // RISE AB
+  'Q34', // Swedish Logistic Property AB,
+
+  // OLD pages:
+
+  'Q8301325', // SJ
+  'Q112055015', // BONESUPPORT
+  'Q97858523', // Almi
+  'Q2438127', // Dynavox
+  'Q117352880', // BioInvent
+  'Q115167497', // Specialfastigheter
+])
+
+const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
+
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
@@ -111,6 +134,7 @@ router.get(
           wikidataId: true,
           name: true,
           description: true,
+          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
@@ -182,6 +206,13 @@ router.get(
                       metadata,
                     },
                   },
+                  scope1And2: {
+                    select: {
+                      total: true,
+                      unit: true,
+                      metadata,
+                    },
+                  },
                   statedTotalEmissions: {
                     select: {
                       total: true,
@@ -235,6 +266,11 @@ router.get(
             },
           },
         },
+        where: {
+          wikidataId: {
+            notIn: unwantedWikidataIds,
+          },
+        },
       })
       res.json(
         companies
@@ -259,13 +295,18 @@ router.get(
                     (reportingPeriod.emissions?.scope3 && {
                       ...reportingPeriod.emissions.scope3,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.reduce(
-                          (total, category) =>
-                            isNumber(category.total)
-                              ? category.total + total
-                              : total,
-                          0
-                        ),
+                        reportingPeriod.emissions.scope3.categories.some((c) =>
+                          Boolean(c.metadata.verifiedBy)
+                        )
+                          ? reportingPeriod.emissions.scope3.categories.reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
+                          : reportingPeriod.emissions.scope3
+                              .statedTotalEmissions?.total ?? 0,
                     }) ||
                     undefined,
                 },
@@ -295,9 +336,18 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    (reportingPeriod.emissions?.scope1?.total || 0) +
-                    (reportingPeriod.emissions?.scope2
-                      ?.calculatedTotalEmissions || 0) +
+                    // If either scope 1 and scope 2 have verification, then we use them for the total.
+                    // Otherwise, we use the combined scope1And2 if it exists
+                    (Boolean(
+                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                    ) ||
+                    Boolean(
+                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                    )
+                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                        (reportingPeriod.emissions?.scope2
+                          ?.calculatedTotalEmissions || 0)
+                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
                     (reportingPeriod.emissions?.scope3
                       ?.calculatedTotalEmissions || 0),
                 },
@@ -358,11 +408,19 @@ router.get(
     try {
       const { wikidataId } = req.params
       const company = await prisma.company.findFirst({
-        where: { wikidataId },
+        where: {
+          wikidataId,
+          AND: {
+            wikidataId: {
+              notIn: unwantedWikidataIds,
+            },
+          },
+        },
         select: {
           wikidataId: true,
           name: true,
           description: true,
+          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
@@ -428,6 +486,13 @@ router.get(
                     },
                   },
                   biogenicEmissions: {
+                    select: {
+                      total: true,
+                      unit: true,
+                      metadata,
+                    },
+                  },
+                  scope1And2: {
                     select: {
                       total: true,
                       unit: true,
@@ -516,13 +581,18 @@ router.get(
                     (reportingPeriod.emissions?.scope3 && {
                       ...reportingPeriod.emissions.scope3,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.reduce(
-                          (total, category) =>
-                            isNumber(category.total)
-                              ? category.total + total
-                              : total,
-                          0
-                        ),
+                        reportingPeriod.emissions.scope3.categories.some((c) =>
+                          Boolean(c.metadata.verifiedBy)
+                        )
+                          ? reportingPeriod.emissions.scope3.categories.reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
+                          : reportingPeriod.emissions.scope3
+                              .statedTotalEmissions?.total ?? 0,
                     }) ||
                     undefined,
                 },
@@ -552,9 +622,18 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    (reportingPeriod.emissions?.scope1?.total || 0) +
-                    (reportingPeriod.emissions?.scope2
-                      ?.calculatedTotalEmissions || 0) +
+                    // if either scope 1 and scope 2 have verification, then we use them for the total.
+                    // Otherwise, we use the combined scope1And2 if it exists
+                    (Boolean(
+                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                    ) ||
+                    Boolean(
+                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                    )
+                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                        (reportingPeriod.emissions?.scope2
+                          ?.calculatedTotalEmissions || 0)
+                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
                     (reportingPeriod.emissions?.scope3
                       ?.calculatedTotalEmissions || 0),
                 },

@@ -13,6 +13,7 @@ import {
   Turnover,
   Goal,
   Initiative,
+  Scope1And2,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 
@@ -94,27 +95,28 @@ export async function upsertScope2(
       })
 }
 
-export async function upsertScope3(
+export async function upsertScope1And2(
   emissions: Emissions,
-  scope3: {
-    categories?: { category: number; total: number }[]
-    statedTotalEmissions?: OptionalNullable<
-      Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
-    >
-  },
+  scope1And2: OptionalNullable<Omit<Scope1And2, 'id' | 'metadataId' | 'unit'>>,
   metadata: Metadata
 ) {
-  const existing = emissions.scope3Id
-    ? await prisma.scope3.findFirst({
-        where: { id: emissions.scope3Id },
-        include: { categories: { select: { id: true, category: true } } },
-      })
-    : null
-
-  const updatedScope3 = existing
-    ? existing
-    : await prisma.scope3.create({
+  return emissions.scope1And2Id
+    ? prisma.scope1And2.update({
+        where: { id: emissions.scope1And2Id },
         data: {
+          ...scope1And2,
+          metadata: {
+            connect: {
+              id: metadata.id,
+            },
+          },
+        },
+        select: { id: true },
+      })
+    : prisma.scope1And2.create({
+        data: {
+          ...scope1And2,
+          unit: tCO2e,
           metadata: {
             connect: {
               id: metadata.id,
@@ -126,54 +128,80 @@ export async function upsertScope3(
             },
           },
         },
-        include: {
-          categories: {
-            select: {
-              id: true,
-              category: true,
+        select: { id: true },
+      })
+}
+
+export async function upsertScope3(
+  emissions: Emissions,
+  scope3: {
+    categories?: { category: number; total: number }[]
+    statedTotalEmissions?: OptionalNullable<
+      Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
+    >
+  },
+  metadata: Metadata
+) {
+  const updatedScope3 = await prisma.scope3.upsert({
+    where: { id: emissions.scope3Id ?? 0 },
+    update: {},
+    create: {
+      metadata: {
+        connect: {
+          id: metadata.id,
+        },
+      },
+      emissions: {
+        connect: {
+          id: emissions.id,
+        },
+      },
+    },
+    include: {
+      categories: {
+        select: {
+          id: true,
+          category: true,
+        },
+      },
+    },
+  })
+
+  // Upsert only the scope 3 categories from the request body
+  await Promise.all(
+    (scope3.categories ?? []).map((scope3Category) => {
+      const matching = updatedScope3.categories.find(
+        ({ category }) => scope3Category.category === category
+      )
+      return prisma.scope3Category.upsert({
+        where: {
+          id: matching?.id ?? 0,
+        },
+        update: {
+          ...scope3Category,
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
           },
         },
-      })
-
-  // Update existing scope 3 categories and create new ones
-  await Promise.all(
-    (scope3.categories ?? []).map((scope3Category) =>
-      updatedScope3.categories.find(
-        ({ category }) => scope3Category.category === category
-      )
-        ? prisma.scope3Category.update({
-            where: {
+        create: {
+          ...scope3Category,
+          unit: tCO2e,
+          scope3: {
+            connect: {
               id: updatedScope3.id,
             },
-            data: {
-              ...scope3Category,
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
+          },
+          metadata: {
+            connect: {
+              id: metadata.id,
             },
-            select: { id: true },
-          })
-        : prisma.scope3Category.create({
-            data: {
-              ...scope3Category,
-              unit: tCO2e,
-              scope3: {
-                connect: {
-                  id: updatedScope3.id,
-                },
-              },
-              metadata: {
-                connect: {
-                  id: metadata.id,
-                },
-              },
-            },
-            select: { id: true },
-          })
-    )
+          },
+        },
+        select: { id: true },
+      })
+    })
   )
 
   if (scope3.statedTotalEmissions) {
@@ -294,34 +322,29 @@ export async function upsertStatedTotalEmissions(
 
 export async function upsertCompany({
   wikidataId,
-  name,
-  description,
-  url,
-  internalComment,
+  ...data
 }: {
   wikidataId: string
   name: string
   description?: string
   url?: string
   internalComment?: string
+  tags?: string[]
 }) {
   return prisma.company.upsert({
     where: {
       wikidataId,
     },
     create: {
-      name,
-      description,
+      ...data,
       wikidataId,
-      url,
-      internalComment,
     },
     // TODO: Should we allow updating the wikidataId?
     // Probably yes from a business perspective, but that also means we need to update all related records too.
     // Updating the primary key can be tricky, especially with backups using the old primary key no longer being compatible.
     // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
     // However, no matter what, we could still use wikidataId in the API and in the URL structure.
-    update: { name, description, url, internalComment },
+    update: { ...data },
   })
 }
 
