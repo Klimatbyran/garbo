@@ -6,7 +6,8 @@ import apiConfig from '../src/config/api'
 import { CompanyInput, ReportingPeriodInput } from './import'
 import { isMainModule } from './utils'
 import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
-import { readFile } from 'fs/promises'
+import { readFile, writeFile } from 'fs/promises'
+import { resetDB } from '../src/lib/dev-utils'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
@@ -493,10 +494,21 @@ async function postJSON(
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
 
-  const existing = await readFile(
-    resolve('src/data/2024-12-11-2301-garbo-companies.json'),
-    { encoding: 'utf-8' }
-  ).then(JSON.parse)
+  await resetDB()
+
+  const apiCompaniesFile = resolve(
+    'src/data/2024-12-11-2301-garbo-companies.json'
+  )
+
+  const existing = await readFile(apiCompaniesFile, { encoding: 'utf-8' }).then(
+    JSON.parse
+  )
+
+  // await writeFile(apiCompaniesFile, JSON.stringify(existing), {
+  //   encoding: 'utf-8',
+  // })
+
+  // process.exit(0)
 
   const uniqueAPI = new Set<string>(existing.map((c) => c.wikidataId))
   const uniqueSheets = new Set(companies.map((c) => c.wikidataId))
