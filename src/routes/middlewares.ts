@@ -234,7 +234,14 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  req.log.error(error)
+  // Log the full error for debugging
+  req.log.error({
+    error: error,
+    stack: error.stack,
+    body: req.body,
+    params: req.params,
+    query: req.query
+  })
 
   if (error instanceof ZodError) {
     const formattedErrors = error.errors.map(err => ({
@@ -259,8 +266,16 @@ export const errorHandler = (
     return
   }
 
+  // Include more details in development environment
+  const isDev = process.env.NODE_ENV === 'development'
+  
   res.status(500).json({ 
     error: 'Internal Server Error',
+    message: error.message,
+    details: isDev ? {
+      stack: error.stack,
+      name: error.name
+    } : undefined,
     help: 'Ett oväntat fel uppstod. Kontakta support om problemet kvarstår.'
   })
 }
