@@ -345,14 +345,23 @@ function getCompanyData(years: number[]) {
 
 export async function upsertCompanies(companies: CompanyInput[]) {
   for (const company of companies) {
-    const { wikidataId, name, tags, internalComment, reportingPeriods } =
-      company
+    const {
+      wikidataId,
+      name,
+      tags,
+      internalComment,
+      reportingPeriods,
+      description,
+      goals,
+      initiatives,
+    } = company
 
     await postJSON(
       `${baseURL}/companies`,
       {
         wikidataId,
         name,
+        description,
         tags,
         internalComment,
         metadata: {
@@ -415,6 +424,48 @@ export async function upsertCompanies(companies: CompanyInput[]) {
           }
         })
       }
+    }
+
+    if (goals?.length) {
+      await postJSON(
+        `${baseURL}/companies/${wikidataId}/goals`,
+        {
+          goals,
+          metadata: {
+            ...goals[0].metadata,
+            verifiedBy: undefined,
+            dataOrigin: undefined,
+            user: undefined,
+          },
+        },
+        'garbo'
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
+    }
+
+    if (initiatives?.length) {
+      await postJSON(
+        `${baseURL}/companies/${wikidataId}/initiatives`,
+        {
+          initiatives,
+          metadata: {
+            ...initiatives[0].metadata,
+            verifiedBy: undefined,
+            dataOrigin: undefined,
+            user: undefined,
+          },
+        },
+        'garbo'
+      ).then(async (res) => {
+        if (!res.ok) {
+          const body = await res.text()
+          console.error(res.status, res.statusText, wikidataId, body)
+        }
+      })
     }
   }
 }
@@ -533,24 +584,13 @@ async function main() {
       // TODO: Important to keep the metadata for initiatives and goals by saving in own request
       c.initiatives = apiCompany.initiatives
       c.goals = apiCompany.goals
-
-      console.log(c.initiatives, apiCompany.initiatives)
-      console.log(c.goals, apiCompany.goals)
     }
   })
 
-  // TODO: save description in upsertCompany()
-
-  // TODO: save goals for each company in updateCompanies()
-  // TODO: save initiatives for each company in updateCompanies()
-
-  // TODO: Verify locally.
   // TODO: Run in prod.
   // TODO: Make new backup of combined JSON data.
 
   // TODO: filter out the wrong data from the API (separate change)
-
-  process.exit(0)
 
   console.log('Upserting companies based on spreadsheet data...')
   await upsertCompanies(companies)
