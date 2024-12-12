@@ -49,8 +49,7 @@ const HIDDEN_FROM_API = new Set([
   'Q115167497', // Specialfastigheter
 ])
 
-// const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
-const unwantedWikidataIds = ['Q10397786', 'Q10400997', 'Q52825'] // TEST AAK, Addtech, ABB hidden
+const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
