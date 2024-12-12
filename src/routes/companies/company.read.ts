@@ -84,8 +84,8 @@ router.use(
  *                               $ref: '#/components/schemas/Metadata'
  *                       industry:
  *                         $ref: '#/components/schemas/IndustrySchema'
- *                           metadata:
- *                             $ref: '#/components/schemas/Metadata'
+ *                         metadata:
+ *                           $ref: '#/components/schemas/Metadata'
  *                       goals:
  *                         type: array
  *                         items:
