@@ -516,17 +516,25 @@ async function main() {
     )
   )
 
-  // TODO: Ensure only the wanted companies remain after hiding the ones we don't want.
+  console.log('## Copying garbo data...')
+  const withGarboData = companies.map((c) => {
+    const garboDataToAddFromWikidataId = garboDataToKeep[c.wikidataId]
 
-  // const withGarboData = companies.map()
+    if (garboDataToAddFromWikidataId) {
+      const apiCompany = existing.find(
+        (x) => x.wikidataId === garboDataToAddFromWikidataId
+      )
+      console.log(
+        `from ${apiCompany.name} (${garboDataToAddFromWikidataId}) to ${c.name} (${c.wikidataId})`
+      )
 
-  // TODO: determine which wrong IDs we want to map to which correctIds
-  // TODO: create a lookup to get the right wikidataId
-  // get the relevant data
+      // get the relevant data
 
-  // TODO: add description to each company
-  // TODO: add initiatives to each company
-  // TODO: add goals to each company
+      // TODO: add description to each company
+      // TODO: add initiatives to each company
+      // TODO: add goals to each company
+    }
+  })
 
   // TODO: save description in upsertCompany()
 
@@ -536,6 +544,8 @@ async function main() {
   // TODO: Verify locally.
   // TODO: Run in prod.
   // TODO: Make new backup of combined JSON data.
+
+  // TODO: filter out the wrong data from the API (separate change)
 
   process.exit(0)
 
