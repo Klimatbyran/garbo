@@ -28,6 +28,30 @@ const metadata = {
   },
 }
 
+// ## DÖLJ DESSA från API:et
+const HIDDEN_FROM_API = new Set([
+  'Q22629259', // GARO
+  'Q37562781', // GARO
+  'Q489097', // Ernst & Young
+  'Q10432209', // Prisma Properties
+  'Q5168854', // Copperstone Resources AB
+  'Q115167497', // Specialfastigheter
+  'Q549624', // RISE AB
+  'Q34', // Swedish Logistic Property AB,
+
+  // OLD pages:
+
+  'Q8301325', // SJ
+  'Q112055015', // BONESUPPORT
+  'Q97858523', // Almi
+  'Q2438127', // Dynavox
+  'Q117352880', // BioInvent
+  'Q115167497', // Specialfastigheter
+])
+
+// const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
+const unwantedWikidataIds = ['Q10397786', 'Q10400997', 'Q52825'] // TEST AAK, Addtech, ABB hidden
+
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
@@ -183,6 +207,11 @@ router.get(
             },
           },
         },
+        where: {
+          wikidataId: {
+            notIn: unwantedWikidataIds,
+          },
+        },
       })
       res.json(
         companies
@@ -272,7 +301,14 @@ router.get(
     try {
       const { wikidataId } = req.params
       const company = await prisma.company.findFirst({
-        where: { wikidataId },
+        where: {
+          wikidataId,
+          AND: {
+            wikidataId: {
+              notIn: unwantedWikidataIds,
+            },
+          },
+        },
         select: {
           wikidataId: true,
           name: true,

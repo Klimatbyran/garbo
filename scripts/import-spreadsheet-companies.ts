@@ -565,8 +565,6 @@ async function main() {
     )
   )
 
-  // TODO: filter out the wrong data from the API (separate change)
-
   console.log('Upserting companies based on spreadsheet data...')
   await upsertCompanies(companies)
 
