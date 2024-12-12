@@ -310,7 +310,7 @@ router.get(
                     }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata?.[0] ?? null,
               })
             ),
             // Add translations for GICS data
@@ -596,7 +596,7 @@ router.get(
                     }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata?.[0] ?? null,
               })
             ),
             // Add translations for GICS data
