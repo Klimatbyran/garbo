@@ -21,6 +21,7 @@ const envSchema = z.object({
 const env = envSchema.parse(process.env)
 
 export type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+const ONE_DAY = 1000 * 60 * 60 * 24
 
 export default {
   cacheMaxAge: env.CACHE_MAX_AGE,
@@ -31,7 +32,10 @@ export default {
   } as const,
 
   developmentOrigins: ['http://localhost:4321'],
-  productionOrigins: ['https://beta.klimatkollen.se', 'https://klimatkollen.se'],
+  productionOrigins: [
+    'https://beta.klimatkollen.se',
+    'https://klimatkollen.se',
+  ],
 
   httpMethods: {
     get: 'GET',
@@ -44,4 +48,5 @@ export default {
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,
+  jobDelay: ONE_DAY,
 }
