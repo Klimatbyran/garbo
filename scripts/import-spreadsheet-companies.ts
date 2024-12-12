@@ -497,7 +497,7 @@ async function main() {
   await resetDB()
 
   const apiCompaniesFile = resolve(
-    'src/data/2024-12-11-2301-garbo-companies.json'
+    'src/data/2024-12-12-0337-garbo-companies.json'
   )
 
   const existing = await readFile(apiCompaniesFile, { encoding: 'utf-8' }).then(
@@ -528,26 +528,8 @@ async function main() {
     )
   )
 
-  /**
-   * key: TO (wikidataId) -> value: FROM (wikidataId)
-   */
-  const garboDataToKeep = {
-    /** SJ */
-    Q52912: 'Q8301325',
-    /** BONESUPPORT */
-    Q16427839: 'Q112055015',
-    /** Almi */
-    Q10397672: 'Q97858523',
-    /** Dynavox */
-    Q5318875: 'Q2438127',
-    /** BioInvent */
-    Q30289762: 'Q117352880',
-    /** Specialfastigheter */
-    Q10674550: 'Q115167497',
-  }
-
   // ## DÖLJ DESSA från API:et
-  const OLD_PAGES_TO_HIDE = new Set([
+  const HIDDEN_FROM_API = new Set([
     'Q22629259', // GARO
     'Q37562781', // GARO
     'Q489097', // Ernst & Young
@@ -555,13 +537,17 @@ async function main() {
     'Q5168854', // Copperstone Resources AB
     'Q115167497', // Specialfastigheter
     'Q549624', // RISE AB
-    'Q34', // Swedish Logistic Property AB
-  ])
+    'Q34', // Swedish Logistic Property AB,
 
-  // DÖLJ även `Object.values(garboDataToKeep)` - skapa ett kombinerat set
-  const HIDDEN_FROM_API = OLD_PAGES_TO_HIDE.union(
-    new Set(Object.values(garboDataToKeep))
-  )
+    // OLD pages:
+
+    'Q8301325', // SJ
+    'Q112055015', // BONESUPPORT
+    'Q97858523', // Almi
+    'Q2438127', // Dynavox
+    'Q117352880', // BioInvent
+    'Q115167497', // Specialfastigheter
+  ])
 
   console.log('HIDDEN FROM API')
   console.dir(
@@ -579,35 +565,10 @@ async function main() {
     )
   )
 
-  console.log('## Copying garbo data...')
-  const withGarboData = companies.map((c) => {
-    const garboDataToAddFromWikidataId = garboDataToKeep[c.wikidataId]
-
-    if (garboDataToAddFromWikidataId) {
-      const apiCompany = existing.find(
-        (x) => x.wikidataId === garboDataToAddFromWikidataId
-      )
-      console.log(
-        `from ${apiCompany.name} (${garboDataToAddFromWikidataId}) to ${c.name} (${c.wikidataId})`
-      )
-
-      return {
-        ...c,
-        description: apiCompany.description,
-        initiatives: apiCompany.initiatives,
-        goals: apiCompany.goals,
-      }
-    }
-    return c
-  })
-
-  // TODO: Run in prod.
-  // TODO: Make new backup of combined JSON data.
-
   // TODO: filter out the wrong data from the API (separate change)
 
   console.log('Upserting companies based on spreadsheet data...')
-  await upsertCompanies(withGarboData)
+  await upsertCompanies(companies)
 
   console.log(
     `\n\n✅ Imported`,
