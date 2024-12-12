@@ -135,7 +135,7 @@ export async function upsertScope1And2(
 export async function upsertScope3(
   emissions: Emissions,
   scope3: {
-    categories?: { category: number; total: number }[]
+    categories?: { category: number; total: number | null }[]
     statedTotalEmissions?: OptionalNullable<
       Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
     >
@@ -167,12 +167,28 @@ export async function upsertScope3(
     },
   })
 
+  await prisma.scope3Category.deleteMany({
+    where: {
+      scope3Id: updatedScope3.id,
+      category: {
+        in: (scope3.categories ?? [])
+          .filter((c) => c.total === null)
+          .map((c) => c.category),
+      },
+    },
+  })
+
   // Upsert only the scope 3 categories from the request body
   await Promise.all(
     (scope3.categories ?? []).map((scope3Category) => {
       const matching = updatedScope3.categories.find(
         ({ category }) => scope3Category.category === category
       )
+
+      if (scope3Category.total === null) {
+        return null
+      }
+
       return prisma.scope3Category.upsert({
         where: {
           id: matching?.id ?? 0,
