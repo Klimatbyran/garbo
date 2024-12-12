@@ -106,9 +106,9 @@ router.use(
  *                             metadata:
  *                               $ref: '#/components/schemas/Metadata'
  *                       industry:
- *                       $ref: '#/components/schemas/IndustrySchema'
- *                           metadata:
- *                             $ref: '#/components/schemas/Metadata'
+ *                         $ref: '#/components/schemas/IndustrySchema'
+ *                         metadata:
+ *                           $ref: '#/components/schemas/Metadata'
  *                       goals:
  *                         type: array
  *                         items:
