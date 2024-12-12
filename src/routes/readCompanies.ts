@@ -235,13 +235,18 @@ router.get(
                     (reportingPeriod.emissions?.scope3 && {
                       ...reportingPeriod.emissions.scope3,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.reduce(
-                          (total, category) =>
-                            isNumber(category.total)
-                              ? category.total + total
-                              : total,
-                          0
-                        ),
+                        reportingPeriod.emissions.scope3.categories.some((c) =>
+                          Boolean(c.metadata.verifiedBy)
+                        )
+                          ? reportingPeriod.emissions.scope3.categories.reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
+                          : reportingPeriod.emissions.scope3
+                              .statedTotalEmissions?.total ?? 0,
                     }) ||
                     undefined,
                 },
@@ -271,9 +276,18 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    (reportingPeriod.emissions?.scope1?.total || 0) +
-                    (reportingPeriod.emissions?.scope2
-                      ?.calculatedTotalEmissions || 0) +
+                    // If either scope 1 and scope 2 have verification, then we use them for the total.
+                    // Otherwise, we use the combined scope1And2 if it exists
+                    (Boolean(
+                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                    ) ||
+                    Boolean(
+                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                    )
+                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                        (reportingPeriod.emissions?.scope2
+                          ?.calculatedTotalEmissions || 0)
+                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
                     (reportingPeriod.emissions?.scope3
                       ?.calculatedTotalEmissions || 0),
                 },
@@ -473,13 +487,18 @@ router.get(
                     (reportingPeriod.emissions?.scope3 && {
                       ...reportingPeriod.emissions.scope3,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.reduce(
-                          (total, category) =>
-                            isNumber(category.total)
-                              ? category.total + total
-                              : total,
-                          0
-                        ),
+                        reportingPeriod.emissions.scope3.categories.some((c) =>
+                          Boolean(c.metadata.verifiedBy)
+                        )
+                          ? reportingPeriod.emissions.scope3.categories.reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
+                          : reportingPeriod.emissions.scope3
+                              .statedTotalEmissions?.total ?? 0,
                     }) ||
                     undefined,
                 },
@@ -509,9 +528,18 @@ router.get(
                 emissions: {
                   ...reportingPeriod.emissions,
                   calculatedTotalEmissions:
-                    (reportingPeriod.emissions?.scope1?.total || 0) +
-                    (reportingPeriod.emissions?.scope2
-                      ?.calculatedTotalEmissions || 0) +
+                    // if either scope 1 and scope 2 have verification, then we use them for the total.
+                    // Otherwise, we use the combined scope1And2 if it exists
+                    (Boolean(
+                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                    ) ||
+                    Boolean(
+                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                    )
+                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                        (reportingPeriod.emissions?.scope2
+                          ?.calculatedTotalEmissions || 0)
+                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
                     (reportingPeriod.emissions?.scope3
                       ?.calculatedTotalEmissions || 0),
                 },
