@@ -86,7 +86,19 @@ export function processRequest<
 export function processRequestBody<Body = unknown>(
   schema: ZodSchema<Body>
 ): RequestHandler<unknown, unknown, Body, unknown> {
-  return processRequest({ body: schema })
+  return (req, res, next) => {
+    try {
+      // Check if body is wrapped in a 'data' field unnecessarily
+      const bodyToValidate = req.body.data && Object.keys(req.body).length === 1 
+        ? req.body.data 
+        : req.body
+
+      req.body = schema.parse(bodyToValidate)
+      return next()
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export function processRequestParams<Params = unknown>(
