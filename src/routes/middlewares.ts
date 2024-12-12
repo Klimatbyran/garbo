@@ -237,14 +237,30 @@ export const errorHandler = (
   req.log.error(error)
 
   if (error instanceof ZodError) {
-    // TODO: try to remove the extra JSON.parse here
-    res.status(422).json({ error: JSON.parse(error.message) })
+    const formattedErrors = error.errors.map(err => ({
+      field: err.path.join('.'),
+      message: err.message,
+      code: err.code
+    }));
+    
+    res.status(422).json({ 
+      error: 'Validation failed',
+      details: formattedErrors,
+      help: 'Kontrollera att alla fält har korrekta värden enligt API-specifikationen'
+    });
     return
   } else if (error instanceof GarboAPIError) {
     req.log.error(error.original)
-    res.status(error.statusCode).json({ error: error.message })
+    res.status(error.statusCode).json({ 
+      error: error.message,
+      details: error.original,
+      help: 'Kontakta support om felet kvarstår'
+    })
     return
   }
 
-  res.status(500).json({ error: 'Internal Server Error' })
+  res.status(500).json({ 
+    error: 'Internal Server Error',
+    help: 'Ett oväntat fel uppstod. Kontakta support om problemet kvarstår.'
+  })
 }
