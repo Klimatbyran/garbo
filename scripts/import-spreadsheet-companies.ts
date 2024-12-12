@@ -579,12 +579,14 @@ async function main() {
         `from ${apiCompany.name} (${garboDataToAddFromWikidataId}) to ${c.name} (${c.wikidataId})`
       )
 
-      c.description = apiCompany.description
-
-      // TODO: Important to keep the metadata for initiatives and goals by saving in own request
-      c.initiatives = apiCompany.initiatives
-      c.goals = apiCompany.goals
+      return {
+        ...c,
+        description: apiCompany.description,
+        initiatives: apiCompany.initiatives,
+        goals: apiCompany.goals,
+      }
     }
+    return c
   })
 
   // TODO: Run in prod.
@@ -593,7 +595,7 @@ async function main() {
   // TODO: filter out the wrong data from the API (separate change)
 
   console.log('Upserting companies based on spreadsheet data...')
-  await upsertCompanies(companies)
+  await upsertCompanies(withGarboData)
 
   console.log(
     `\n\n✅ Imported`,
