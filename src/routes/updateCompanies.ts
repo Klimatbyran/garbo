@@ -270,7 +270,9 @@ export const emissionsSchema = z
       .object({
         total: z.number(),
       })
-      .optional(),
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the scope'),
     scope2: z
       .object({
         mb: z
@@ -291,7 +293,9 @@ export const emissionsSchema = z
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
         }
       )
-      .optional(),
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the scope'),
     scope3: z
       .object({
         categories: z
@@ -307,7 +311,11 @@ export const emissionsSchema = z
       .optional(),
     biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    scope1And2: z.object({ total: z.number() }).optional(),
+    scope1And2: z
+      .object({ total: z.number() })
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the scope'),
   })
   .optional()
 

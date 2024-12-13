@@ -23,9 +23,18 @@ const tCO2e = 'tCO2e'
 
 export async function upsertScope1(
   emissions: Emissions,
-  scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>>,
+  scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>> | null,
   metadata: Metadata
 ) {
+  if (scope1 === null) {
+    if (emissions.scope1Id) {
+      await prisma.scope1.delete({
+        where: { id: emissions.scope1Id },
+      })
+    }
+    return null
+  }
+
   return emissions.scope1Id
     ? prisma.scope1.update({
         where: { id: emissions.scope1Id },
@@ -60,9 +69,18 @@ export async function upsertScope1(
 
 export async function upsertScope2(
   emissions: Emissions,
-  scope2: OptionalNullable<Omit<Scope2, 'id' | 'metadataId' | 'unit'>>,
+  scope2: OptionalNullable<Omit<Scope2, 'id' | 'metadataId' | 'unit'>> | null,
   metadata: Metadata
 ) {
+  if (scope2 === null) {
+    if (emissions.scope2Id) {
+      await prisma.scope2.delete({
+        where: { id: emissions.scope2Id },
+      })
+    }
+    return null
+  }
+
   return emissions.scope2Id
     ? prisma.scope2.update({
         where: { id: emissions.scope2Id },
@@ -100,6 +118,15 @@ export async function upsertScope1And2(
   scope1And2: OptionalNullable<Omit<Scope1And2, 'id' | 'metadataId' | 'unit'>>,
   metadata: Metadata
 ) {
+  if (scope1And2 === null) {
+    if (emissions.scope1And2Id) {
+      await prisma.scope1And2.delete({
+        where: { id: emissions.scope1And2Id },
+      })
+    }
+    return null
+  }
+
   return emissions.scope1And2Id
     ? prisma.scope1And2.update({
         where: { id: emissions.scope1And2Id },
