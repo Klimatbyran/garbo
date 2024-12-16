@@ -313,7 +313,11 @@ export const emissionsSchema = z
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
       .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
+    biogenic: z
+      .object({ total: z.number() })
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the biogenic'),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
       .object({ total: z.number() })
