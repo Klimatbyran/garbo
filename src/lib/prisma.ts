@@ -315,7 +315,7 @@ export async function upsertStatedTotalEmissions(
 
   if (statedTotalEmissions === null) {
     if (statedTotalEmissionsId) {
-      await prisma.statedTotalEmissions.deleteMany({
+      await prisma.statedTotalEmissions.delete({
         where: {
           id: statedTotalEmissionsId,
         },
