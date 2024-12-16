@@ -34,7 +34,7 @@ if (START_BOARD) {
 }
 
 app.listen(port, async () => {
-  console.log(`API running on http://localhost:${port}/api/companies`)
+  console.log(`API running at http://localhost:${port}/api/companies`)
 
   if (START_BOARD) {
     const discord = (await import('./discord')).default
