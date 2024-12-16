@@ -69,7 +69,11 @@ export async function upsertScope1(
 
 export async function upsertScope2(
   emissions: Emissions,
-  scope2: OptionalNullable<Omit<Scope2, 'id' | 'metadataId' | 'unit'>> | null,
+  scope2: {
+    lb?: number | null
+    mb?: number | null
+    unknown?: number | null
+  } | null,
   metadata: Metadata
 ) {
   if (scope2 === null) {
