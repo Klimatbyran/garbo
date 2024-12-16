@@ -437,6 +437,7 @@ router.get(
           },
           goals: {
             select: {
+              id: true,
               description: true,
               year: true,
               baseYear: true,
@@ -449,6 +450,7 @@ router.get(
           },
           initiatives: {
             select: {
+              id: true,
               title: true,
               description: true,
               year: true,
