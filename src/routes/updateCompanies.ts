@@ -329,13 +329,19 @@ export const emissionsSchema = z
       .object({
         mb: z
           .number({ description: 'Market-based scope 2 emissions' })
-          .optional(),
+          .optional()
+          .nullable()
+          .describe('Sending null means deleting mb scope 2 emissions'),
         lb: z
           .number({ description: 'Location-based scope 2 emissions' })
-          .optional(),
+          .optional()
+          .nullable()
+          .describe('Sending null means deleting lb scope 2 emissions'),
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
-          .optional(),
+          .optional()
+          .nullable()
+          .describe('Sending null means deleting unknown scope 2 emissions'),
       })
       .refine(
         ({ mb, lb, unknown }) =>
