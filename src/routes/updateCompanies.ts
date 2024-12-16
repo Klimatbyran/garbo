@@ -433,7 +433,8 @@ router.post(
                   statedTotalEmissions,
                   metadata
                 ),
-              biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+              biogenic !== undefined &&
+                upsertBiogenic(dbEmissions, biogenic, metadata),
               scope1And2 !== undefined &&
                 upsertScope1And2(dbEmissions, scope1And2, metadata),
               turnover !== undefined &&
@@ -503,7 +504,8 @@ router.post(
             statedTotalEmissions,
             metadata
           ),
-        biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+        biogenic !== undefined &&
+          upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update emissions', {

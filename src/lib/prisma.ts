@@ -264,9 +264,18 @@ export async function upsertBiogenic(
   emissions: Emissions,
   biogenic: OptionalNullable<
     Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit'>
-  >,
+  > | null,
   metadata: Metadata
 ) {
+  if (biogenic === null) {
+    if (emissions.biogenicEmissionsId) {
+      await prisma.biogenicEmissions.delete({
+        where: { id: emissions.biogenicEmissionsId },
+      })
+    }
+    return null
+  }
+
   return emissions.biogenicEmissionsId
     ? prisma.biogenicEmissions.update({
         where: {
