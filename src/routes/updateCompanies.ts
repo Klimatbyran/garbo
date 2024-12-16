@@ -21,6 +21,8 @@ import {
   upsertEmissions,
   upsertEconomy,
   upsertScope1And2,
+  deleteInitiative,
+  deleteGoal,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -157,6 +159,29 @@ router.patch(
   }
 )
 
+router.delete(
+  '/:wikidataId/goals/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await deleteGoal(id).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Goal not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
+    })
+    res.json({ ok: true })
+  }
+)
+
 const initiativeSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
@@ -196,6 +221,29 @@ router.patch(
     const { id } = req.params
     const metadata = res.locals.metadata
     await updateInitiative(id, initiative, metadata!).catch((error) => {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Initiative not found', {
+          statusCode: 404,
+          original: error,
+        })
+      }
+      throw error
+    })
+    res.json({ ok: true })
+  }
+)
+
+router.delete(
+  '/:wikidataId/initiatives/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await deleteInitiative(id).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -313,7 +361,11 @@ export const emissionsSchema = z
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
       .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
+    biogenic: z
+      .object({ total: z.number() })
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the biogenic'),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
       .object({ total: z.number() })
@@ -330,13 +382,17 @@ const economySchema = z
         value: z.number().optional(),
         currency: z.string().optional(),
       })
-      .optional(),
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the turnover'),
     employees: z
       .object({
         value: z.number().optional(),
         unit: z.string().optional(),
       })
-      .optional(),
+      .optional()
+      .nullable()
+      .describe('Sending null means deleting the employees data'),
   })
   .optional()
 
@@ -423,16 +479,20 @@ router.post(
               scope2 !== undefined &&
                 upsertScope2(dbEmissions, scope2, metadata),
               scope3 && upsertScope3(dbEmissions, scope3, metadata),
-              statedTotalEmissions &&
+              statedTotalEmissions !== undefined &&
                 upsertStatedTotalEmissions(
                   dbEmissions,
                   statedTotalEmissions,
                   metadata
                 ),
-              biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
-              scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
-              turnover && upsertTurnover(dbEconomy, turnover, metadata),
-              employees && upsertEmployees(dbEconomy, employees, metadata),
+              biogenic !== undefined &&
+                upsertBiogenic(dbEmissions, biogenic, metadata),
+              scope1And2 !== undefined &&
+                upsertScope1And2(dbEmissions, scope1And2, metadata),
+              turnover !== undefined &&
+                upsertTurnover(dbEconomy, turnover, metadata),
+              employees !== undefined &&
+                upsertEmployees(dbEconomy, employees, metadata),
             ])
           }
         )
@@ -496,7 +556,8 @@ router.post(
             statedTotalEmissions,
             metadata
           ),
-        biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
+        biogenic !== undefined &&
+          upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update emissions', {
@@ -531,8 +592,9 @@ router.post(
     try {
       // Only update if the input contains relevant changes
       await Promise.allSettled([
-        turnover && upsertTurnover(economy, turnover, metadata),
-        employees && upsertEmployees(economy, employees, metadata),
+        turnover !== undefined && upsertTurnover(economy, turnover, metadata),
+        employees !== undefined &&
+          upsertEmployees(economy, employees, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update economy', {

@@ -70,15 +70,17 @@ export const fakeAuth =
 
 export const validateMetadata = () =>
   validateRequestBody(
-    z.object({
-      metadata: z
-        .object({
-          comment: z.string().optional(),
-          source: z.string().optional(),
-          dataOrigin: z.string().optional(),
-        })
-        .optional(),
-    })
+    z
+      .object({
+        metadata: z
+          .object({
+            comment: z.string().optional(),
+            source: z.string().optional(),
+            dataOrigin: z.string().optional(),
+          })
+          .optional(),
+      })
+      .optional()
   )
 
 const editMethods = new Set(['POST', 'PATCH', 'PUT'])
