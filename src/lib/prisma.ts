@@ -485,78 +485,74 @@ export async function updateInitiative(
 
 export async function upsertTurnover(
   economy: Economy,
-  turnover: OptionalNullable<Omit<Turnover, 'id' | 'metadataId' | 'unit'>>,
+  turnover: OptionalNullable<
+    Omit<Turnover, 'id' | 'metadataId' | 'unit'>
+  > | null,
   metadata: Metadata
 ) {
-  return economy.turnoverId
-    ? prisma.turnover.update({
-        where: {
-          id: economy.turnoverId,
-        },
-        data: {
-          ...turnover,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-        },
-        select: { id: true },
+  if (turnover === null) {
+    if (economy.turnoverId) {
+      await prisma.turnover.delete({
+        where: { id: economy.turnoverId },
       })
-    : prisma.turnover.create({
-        data: {
-          ...turnover,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-          economy: {
-            connect: {
-              id: economy.id,
-            },
-          },
-        },
-        select: { id: true },
-      })
+    }
+    return null
+  }
+
+  return prisma.turnover.upsert({
+    where: { id: economy.turnoverId ?? 0 },
+    create: {
+      ...turnover,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+      economy: {
+        connect: { id: economy.id },
+      },
+    },
+    update: {
+      ...turnover,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function upsertEmployees(
   economy: Economy,
-  employees: OptionalNullable<Omit<Employees, 'id' | 'metadataId'>>,
+  employees: OptionalNullable<Omit<Employees, 'id' | 'metadataId'>> | null,
   metadata: Metadata
 ) {
-  return economy.employeesId
-    ? prisma.employees.update({
-        where: {
-          id: economy.employeesId,
-        },
-        data: {
-          ...employees,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-        },
-        select: { id: true },
+  if (employees === null) {
+    if (economy.employeesId) {
+      await prisma.employees.delete({
+        where: { id: economy.employeesId },
       })
-    : prisma.employees.create({
-        data: {
-          ...employees,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
-          economy: {
-            connect: {
-              id: economy.id,
-            },
-          },
-        },
-        select: { id: true },
-      })
+    }
+    return null
+  }
+
+  return prisma.employees.upsert({
+    where: { id: economy.employeesId ?? 0 },
+    create: {
+      ...employees,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+      economy: {
+        connect: { id: economy.id },
+      },
+    },
+    update: {
+      ...employees,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function createIndustry(
