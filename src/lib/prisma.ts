@@ -432,6 +432,10 @@ export async function updateGoal(
   })
 }
 
+export async function deleteGoal(id: Goal['id']) {
+  return prisma.goal.delete({ where: { id } })
+}
+
 export async function createInitiatives(
   wikidataId: Company['wikidataId'],
   initiatives: OptionalNullable<
@@ -481,6 +485,10 @@ export async function updateInitiative(
     },
     select: { id: true },
   })
+}
+
+export async function deleteInitiative(id: Initiative['id']) {
+  return prisma.initiative.delete({ where: { id } })
 }
 
 export async function upsertTurnover(
