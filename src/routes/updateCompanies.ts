@@ -427,14 +427,15 @@ router.post(
               scope2 !== undefined &&
                 upsertScope2(dbEmissions, scope2, metadata),
               scope3 && upsertScope3(dbEmissions, scope3, metadata),
-              statedTotalEmissions &&
+              statedTotalEmissions !== undefined &&
                 upsertStatedTotalEmissions(
                   dbEmissions,
                   statedTotalEmissions,
                   metadata
                 ),
               biogenic && upsertBiogenic(dbEmissions, biogenic, metadata),
-              scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
+              scope1And2 !== undefined &&
+                upsertScope1And2(dbEmissions, scope1And2, metadata),
               turnover !== undefined &&
                 upsertTurnover(dbEconomy, turnover, metadata),
               employees !== undefined &&
