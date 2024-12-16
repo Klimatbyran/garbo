@@ -167,7 +167,7 @@ export async function upsertScope3(
     categories?: { category: number; total: number | null }[]
     statedTotalEmissions?: OptionalNullable<
       Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
-    >
+    > | null
   },
   metadata: Metadata
 ) {
@@ -187,6 +187,7 @@ export async function upsertScope3(
       },
     },
     include: {
+      statedTotalEmissions: { select: { id: true } },
       categories: {
         select: {
           id: true,
@@ -249,25 +250,13 @@ export async function upsertScope3(
     })
   )
 
-  if (scope3.statedTotalEmissions) {
-    const statedTotalEmissions = await upsertStatedTotalEmissions(
+  if (scope3.statedTotalEmissions !== undefined) {
+    await upsertStatedTotalEmissions(
       emissions,
       scope3.statedTotalEmissions,
       metadata,
       updatedScope3
     )
-
-    await prisma.scope3.update({
-      where: { id: updatedScope3.id },
-      data: {
-        statedTotalEmissions: {
-          connect: {
-            id: statedTotalEmissions.id,
-          },
-        },
-      },
-      select: { id: true },
-    })
   }
 }
 
@@ -316,53 +305,52 @@ export async function upsertStatedTotalEmissions(
   emissions: Emissions,
   statedTotalEmissions: OptionalNullable<
     Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
-  >,
+  > | null,
   metadata: Metadata,
-  scope3?: Scope3
+  scope3?: Scope3 & { statedTotalEmissions: { id: number } | null }
 ) {
   const statedTotalEmissionsId = scope3
-    ? scope3.statedTotalEmissionsId
+    ? scope3.statedTotalEmissionsId || scope3?.statedTotalEmissions?.id
     : emissions.statedTotalEmissionsId
 
-  return statedTotalEmissionsId
-    ? prisma.statedTotalEmissions.update({
-        where: { id: statedTotalEmissionsId },
-        data: {
-          ...statedTotalEmissions,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
-          },
+  if (statedTotalEmissions === null) {
+    if (statedTotalEmissionsId) {
+      await prisma.statedTotalEmissions.delete({
+        where: {
+          id: statedTotalEmissionsId,
         },
-        select: { id: true },
       })
-    : prisma.statedTotalEmissions.create({
-        data: {
-          ...statedTotalEmissions,
-          unit: tCO2e,
-          emissions: scope3
-            ? undefined
-            : {
-                connect: {
-                  id: emissions.id,
-                },
-              },
-          scope3: scope3
-            ? {
-                connect: {
-                  id: scope3.id,
-                },
-              }
-            : undefined,
-          metadata: {
-            connect: {
-              id: metadata.id,
-            },
+    }
+    return null
+  }
+
+  return prisma.statedTotalEmissions.upsert({
+    where: { id: statedTotalEmissionsId ?? 0 },
+    create: {
+      ...statedTotalEmissions,
+      unit: tCO2e,
+      emissions: scope3
+        ? undefined
+        : {
+            connect: { id: emissions.id },
           },
-        },
-        select: { id: true },
-      })
+      scope3: scope3
+        ? {
+            connect: { id: scope3.id },
+          }
+        : undefined,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+    },
+    update: {
+      ...statedTotalEmissions,
+      metadata: {
+        connect: { id: metadata.id },
+      },
+    },
+    select: { id: true },
+  })
 }
 
 export async function upsertCompany({
