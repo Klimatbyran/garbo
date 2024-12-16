@@ -262,7 +262,11 @@ router.post(
   }
 )
 
-const statedTotalEmissionsSchema = z.object({ total: z.number() }).optional()
+const statedTotalEmissionsSchema = z
+  .object({ total: z.number() })
+  .optional()
+  .nullable()
+  .describe('Sending null means deleting the statedTotalEmissions')
 
 export const emissionsSchema = z
   .object({
@@ -414,8 +418,10 @@ router.post(
             }
 
             await Promise.allSettled([
-              scope1 && upsertScope1(dbEmissions, scope1, metadata),
-              scope2 && upsertScope2(dbEmissions, scope2, metadata),
+              scope1 !== undefined &&
+                upsertScope1(dbEmissions, scope1, metadata),
+              scope2 !== undefined &&
+                upsertScope2(dbEmissions, scope2, metadata),
               scope3 && upsertScope3(dbEmissions, scope3, metadata),
               statedTotalEmissions &&
                 upsertStatedTotalEmissions(
@@ -484,7 +490,7 @@ router.post(
         scope3 && upsertScope3(dbEmissions, scope3, metadata),
         scope1And2 !== undefined &&
           upsertScope1And2(dbEmissions, scope1And2, metadata),
-        statedTotalEmissions &&
+        statedTotalEmissions !== undefined &&
           upsertStatedTotalEmissions(
             dbEmissions,
             statedTotalEmissions,
