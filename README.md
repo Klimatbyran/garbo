@@ -126,7 +126,7 @@ docker exec -i garbo_postgres dropdb -f -U postgres --if-exists garbo
 Then, replace `~/Downloads/backup_garbo_XYZ.dump` with the path to your DB backup file and restore the database backup with the following command:
 
 ```sh
-docker exec -i garbo_postgres pg_restore -c -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
+docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
 ```
 
 ### Starting the Garbo project in development mode
@@ -197,7 +197,7 @@ docker exec -i garbo_test_postgres dropdb -f -U postgres --if-exists garbo
 4. Restore the backup. This will initially connect to the default `postgres` database without making any modifications and then create any databases if they do not exist
 
 ```sh
-docker exec -i garbo_test_postgres pg_restore -c -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
+docker exec -i garbo_test_postgres pg_restore -C -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
 ```
 
 5. Test the DB migrations with `npm run prisma migrate dev`.
