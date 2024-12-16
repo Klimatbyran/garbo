@@ -479,10 +479,11 @@ router.post(
       // There seems to be a type error in zod which doesn't take into account optional objects.
 
       await Promise.allSettled([
-        scope1 && upsertScope1(dbEmissions, scope1, metadata),
-        scope2 && upsertScope2(dbEmissions, scope2, metadata),
+        scope1 !== undefined && upsertScope1(dbEmissions, scope1, metadata),
+        scope2 !== undefined && upsertScope2(dbEmissions, scope2, metadata),
         scope3 && upsertScope3(dbEmissions, scope3, metadata),
-        scope1And2 && upsertScope1And2(dbEmissions, scope1And2, metadata),
+        scope1And2 !== undefined &&
+          upsertScope1And2(dbEmissions, scope1And2, metadata),
         statedTotalEmissions &&
           upsertStatedTotalEmissions(
             dbEmissions,
