@@ -270,16 +270,6 @@ router.get(
                 metadata: reportingPeriod.metadata[0],
               })
             ),
-            // Add translations for GICS data
-            industry: company.industry
-              ? {
-                  ...company.industry,
-                  industryGics: {
-                    ...company.industry.industryGics,
-                    ...getGics(company.industry.industryGics.subIndustryCode),
-                  },
-                }
-              : undefined,
           }))
           // Calculate total emissions for each reporting period
           // This allows comparing against the statedTotalEmissions provided by the company report
