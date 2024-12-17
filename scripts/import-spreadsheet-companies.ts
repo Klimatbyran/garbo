@@ -35,7 +35,7 @@ const TOKENS = tokens.reduce<{ garbo: string; alex: string }>(
   {} as any
 )
 
-const USERS = {
+export const USERS = {
   garbo: {
     email: 'hej@klimatkollen.se',
     token: TOKENS.garbo,

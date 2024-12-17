@@ -3,7 +3,7 @@ import 'dotenv/config'
 import ExcelJS from 'exceljs'
 import { resolve } from 'path'
 import apiConfig from '../src/config/api'
-import { postJSON, range } from './import-spreadsheet-companies'
+import { postJSON, range, USERS } from './import-spreadsheet-companies'
 
 const workbook = new ExcelJS.Workbook()
 await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
@@ -19,6 +19,7 @@ function getSheetHeaders({
 }
 
 const { baseURL } = apiConfig
+console.log(baseURL)
 
 const HIDDEN_FROM_API = new Set([
   'Q22629259',
@@ -66,13 +67,16 @@ async function updateReportURLs(years: number[]) {
 
     sheet
       .getSheetValues()
-      .slice(3)
+      .slice(3) // Skip header
       .forEach((row) => {
         if (!row) return
+
         const columns = headers.reduce((acc, header, i) => {
-          acc[header!.toString()] = row[i + 1]?.result || row[i + 1]?.hyperlink
+          const index = i + 1
+          acc[header!.toString()] =
+            row[index]?.result || row[index]?.hyperlink || row[index]
           return acc
-        }, {} as any)
+        }, {})
 
         const company = baseCompanies.find(
           (c) =>
@@ -81,14 +85,27 @@ async function updateReportURLs(years: number[]) {
         )
 
         if (company && columns[`URL ${year}`]) {
-          postJSON(
-            `${baseURL}/companies/${company.wikidataId}/report-url`,
-            {
-              year: year.toString(),
-              reportURL: columns[`URL ${year}`],
-            },
-            'alex'
-          )
+          const body = JSON.stringify({
+            year: year.toString(),
+            reportURL: columns[`URL ${year}`],
+          })
+
+          try {
+            return fetch(
+              `${baseURL}/companies/${company.wikidataId}/report-url`,
+              {
+                body,
+                method: 'PATCH',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${USERS['garbo'].token}`,
+                },
+              }
+            )
+          } catch (error) {
+            console.error('Failed to fetch:', error)
+            throw error
+          }
         }
       })
   }

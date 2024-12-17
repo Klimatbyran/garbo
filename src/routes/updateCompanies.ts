@@ -211,7 +211,7 @@ router.post(
   }
 )
 
-router.patch(
+router.post(
   '/:wikidataId/initiatives/:id',
   processRequest({
     body: z.object({ initiative: initiativeSchema }),
@@ -527,6 +527,7 @@ router.patch(
     }),
   }),
   async (req, res) => {
+    console.log('LFG')
     const { reportURL, year } = req.body
     const company = res.locals.company!
 
