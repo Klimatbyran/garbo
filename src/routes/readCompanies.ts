@@ -24,7 +24,16 @@ const metadata = {
         name: true,
       },
     },
-    dataOrigin: true,
+  },
+}
+
+const minimalMetadata = {
+  select: {
+    verifiedBy: {
+      select: {
+        name: true,
+      },
+    },
   },
 }
 
