@@ -23,6 +23,7 @@ import {
   upsertScope1And2,
   deleteInitiative,
   deleteGoal,
+  updateReportingPeriodReportURL,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -511,6 +512,45 @@ router.post(
     }
 
     res.json({ ok: true })
+  }
+)
+
+router.patch(
+  '/:wikidataId/report-url',
+  processRequest({
+    params: z.object({
+      wikidataId: z.string(),
+    }),
+    body: z.object({
+      year: z.string(),
+      reportURL: z.string().url(),
+    }),
+  }),
+  async (req, res) => {
+    const { reportURL, year } = req.body
+    const company = res.locals.company!
+
+    console.log(company.wikidataId, year)
+
+    try {
+      const updatedPeriod = await updateReportingPeriodReportURL(
+        company,
+        year,
+        reportURL
+      )
+
+      res.json({
+        ok: true,
+        message: updatedPeriod
+          ? 'Sucessfully updated reportUrl'
+          : ' No reporting period found',
+      })
+    } catch (error) {
+      throw new GarboAPIError('Failed to update reportUrl', {
+        original: error,
+        statusCode: 500,
+      })
+    }
   }
 )
 
