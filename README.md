@@ -58,7 +58,7 @@ flowchart TB
 
 ## Get started
 
-Ensure you have Node.js version 22.0.0 or higher installed. You will also need Docker to run Redis, PostgreSQL, and ChromaDB containers.
+Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.
 
 ### Setting up environment variables
 
@@ -178,7 +178,7 @@ Well done! You've now set up the `garbo` backend and are ready to start developm
 
 These steps can be useful to test DB migrations with data similar to the production environment.
 
-1. Recommended: Create a local test DB. This allows you to more easily
+1. Recommended: Create a local test DB. This allows you to keep your regular development DB intact.
 
 ```sh
 docker run -d -p 5432:5432 --name garbo_test_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
