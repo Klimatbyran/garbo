@@ -289,7 +289,7 @@ function getReportingPeriods(
 /**
  * Get an array of numbers from start to end, with inclusive boundaries.
  */
-function range(start: number, end: number) {
+export function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
@@ -471,7 +471,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
   }
 }
 
-async function postJSON(
+export async function postJSON(
   url: string,
   body: any,
   user: keyof typeof USERS = 'garbo'
