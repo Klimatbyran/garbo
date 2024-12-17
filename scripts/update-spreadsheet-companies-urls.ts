@@ -19,7 +19,6 @@ function getSheetHeaders({
 }
 
 const { baseURL } = apiConfig
-console.log(baseURL)
 
 const HIDDEN_FROM_API = new Set([
   'Q22629259',
