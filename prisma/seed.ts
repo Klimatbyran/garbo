@@ -12,7 +12,7 @@ async function seedUsers() {
       },
       {
         email: 'alex@klimatkollen.se',
-        name: 'Alexandra Palmquist',
+        name: 'Alex (Klimatkollen)',
       },
     ],
   })
