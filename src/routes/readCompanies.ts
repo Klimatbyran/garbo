@@ -28,6 +28,10 @@ const metadata = {
   },
 }
 
+function removeEmptyValues(obj: Record<any, any>) {
+  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
+}
+
 // ## DÖLJ DESSA från API:et
 const HIDDEN_FROM_API = new Set([
   'Q22629259', // GARO
@@ -275,24 +279,30 @@ router.get(
             reportingPeriods: company.reportingPeriods.map(
               (reportingPeriod) => ({
                 ...reportingPeriod,
-                emissions: {
-                  ...reportingPeriod.emissions,
-                  calculatedTotalEmissions:
-                    // If either scope 1 and scope 2 have verification, then we use them for the total.
-                    // Otherwise, we use the combined scope1And2 if it exists
-                    (Boolean(
-                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
-                    ) ||
-                    Boolean(
-                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
-                    )
-                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                        (reportingPeriod.emissions?.scope2
-                          ?.calculatedTotalEmissions || 0)
-                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                    (reportingPeriod.emissions?.scope3
-                      ?.calculatedTotalEmissions || 0),
-                },
+                emissions: Object.keys(
+                  removeEmptyValues(reportingPeriod.emissions)
+                ).length
+                  ? {
+                      ...removeEmptyValues(reportingPeriod.emissions),
+                      calculatedTotalEmissions:
+                        // If either scope 1 and scope 2 have verification, then we use them for the total.
+                        // Otherwise, we use the combined scope1And2 if it exists
+                        (Boolean(
+                          reportingPeriod.emissions?.scope1?.metadata
+                            ?.verifiedBy
+                        ) ||
+                        Boolean(
+                          reportingPeriod.emissions?.scope2?.metadata
+                            ?.verifiedBy
+                        )
+                          ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                            (reportingPeriod.emissions?.scope2
+                              ?.calculatedTotalEmissions || 0)
+                          : reportingPeriod.emissions?.scope1And2?.total || 0) +
+                        (reportingPeriod.emissions?.scope3
+                          ?.calculatedTotalEmissions || 0),
+                    }
+                  : null,
               })
             ),
           }))
@@ -529,24 +539,30 @@ router.get(
             reportingPeriods: company.reportingPeriods.map(
               (reportingPeriod) => ({
                 ...reportingPeriod,
-                emissions: {
-                  ...reportingPeriod.emissions,
-                  calculatedTotalEmissions:
-                    // if either scope 1 and scope 2 have verification, then we use them for the total.
-                    // Otherwise, we use the combined scope1And2 if it exists
-                    (Boolean(
-                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
-                    ) ||
-                    Boolean(
-                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
-                    )
-                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                        (reportingPeriod.emissions?.scope2
-                          ?.calculatedTotalEmissions || 0)
-                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                    (reportingPeriod.emissions?.scope3
-                      ?.calculatedTotalEmissions || 0),
-                },
+                emissions: Object.keys(
+                  removeEmptyValues(reportingPeriod.emissions)
+                ).length
+                  ? {
+                      ...removeEmptyValues(reportingPeriod.emissions),
+                      calculatedTotalEmissions:
+                        // if either scope 1 and scope 2 have verification, then we use them for the total.
+                        // Otherwise, we use the combined scope1And2 if it exists
+                        (Boolean(
+                          reportingPeriod.emissions?.scope1?.metadata
+                            ?.verifiedBy
+                        ) ||
+                        Boolean(
+                          reportingPeriod.emissions?.scope2?.metadata
+                            ?.verifiedBy
+                        )
+                          ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                            (reportingPeriod.emissions?.scope2
+                              ?.calculatedTotalEmissions || 0)
+                          : reportingPeriod.emissions?.scope1And2?.total || 0) +
+                        (reportingPeriod.emissions?.scope3
+                          ?.calculatedTotalEmissions || 0),
+                    }
+                  : null,
               })
             ),
           }))
