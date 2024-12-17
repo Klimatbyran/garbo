@@ -98,14 +98,14 @@ router.get(
                     select: {
                       value: true,
                       currency: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   employees: {
                     select: {
                       value: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                 },
@@ -116,7 +116,7 @@ router.get(
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope2: {
@@ -125,7 +125,7 @@ router.get(
                       mb: true,
                       unknown: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope3: {
@@ -134,7 +134,7 @@ router.get(
                         select: {
                           total: true,
                           unit: true,
-                          metadata,
+                          metadata: minimalMetadata,
                         },
                       },
                       categories: {
@@ -142,27 +142,27 @@ router.get(
                           category: true,
                           total: true,
                           unit: true,
-                          metadata,
+                          metadata: minimalMetadata,
                         },
                         orderBy: {
                           category: 'asc',
                         },
                       },
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   biogenicEmissions: {
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope1And2: {
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   statedTotalEmissions: {
@@ -174,7 +174,7 @@ router.get(
                   },
                 },
               },
-              metadata,
+              metadata: minimalMetadata,
             },
             orderBy: {
               startDate: 'desc',
