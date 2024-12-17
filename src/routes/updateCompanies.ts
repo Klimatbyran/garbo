@@ -527,11 +527,8 @@ router.patch(
     }),
   }),
   async (req, res) => {
-    console.log('LFG')
     const { reportURL, year } = req.body
     const company = res.locals.company!
-
-    console.log(company.wikidataId, year)
 
     try {
       const updatedPeriod = await updateReportingPeriodReportURL(
