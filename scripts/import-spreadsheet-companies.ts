@@ -471,7 +471,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
   }
 }
 
-export async function postJSON(
+async function postJSON(
   url: string,
   body: any,
   user: keyof typeof USERS = 'garbo'

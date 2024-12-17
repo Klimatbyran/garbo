@@ -211,7 +211,7 @@ router.post(
   }
 )
 
-router.post(
+router.patch(
   '/:wikidataId/initiatives/:id',
   processRequest({
     body: z.object({ initiative: initiativeSchema }),
