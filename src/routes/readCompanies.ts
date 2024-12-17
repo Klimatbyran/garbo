@@ -232,8 +232,8 @@ router.get(
                     (reportingPeriod.emissions?.scope2 && {
                       ...reportingPeriod.emissions.scope2,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope2.mb ||
-                        reportingPeriod.emissions.scope2.lb ||
+                        reportingPeriod.emissions.scope2.mb ??
+                        reportingPeriod.emissions.scope2.lb ??
                         reportingPeriod.emissions.scope2.unknown,
                     }) ||
                     undefined,
@@ -495,8 +495,8 @@ router.get(
                     (reportingPeriod.emissions?.scope2 && {
                       ...reportingPeriod.emissions.scope2,
                       calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope2.mb ||
-                        reportingPeriod.emissions.scope2.lb ||
+                        reportingPeriod.emissions.scope2.mb ??
+                        reportingPeriod.emissions.scope2.lb ??
                         reportingPeriod.emissions.scope2.unknown,
                     }) ||
                     undefined,
