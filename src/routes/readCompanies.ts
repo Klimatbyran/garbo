@@ -24,7 +24,16 @@ const metadata = {
         name: true,
       },
     },
-    dataOrigin: true,
+  },
+}
+
+const minimalMetadata = {
+  select: {
+    verifiedBy: {
+      select: {
+        name: true,
+      },
+    },
   },
 }
 
@@ -78,7 +87,6 @@ router.get(
           wikidataId: true,
           name: true,
           description: true,
-          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
@@ -90,14 +98,14 @@ router.get(
                     select: {
                       value: true,
                       currency: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   employees: {
                     select: {
                       value: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                 },
@@ -108,7 +116,7 @@ router.get(
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope2: {
@@ -117,7 +125,7 @@ router.get(
                       mb: true,
                       unknown: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope3: {
@@ -126,7 +134,7 @@ router.get(
                         select: {
                           total: true,
                           unit: true,
-                          metadata,
+                          metadata: minimalMetadata,
                         },
                       },
                       categories: {
@@ -134,27 +142,27 @@ router.get(
                           category: true,
                           total: true,
                           unit: true,
-                          metadata,
+                          metadata: minimalMetadata,
                         },
                         orderBy: {
                           category: 'asc',
                         },
                       },
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   biogenicEmissions: {
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   scope1And2: {
                     select: {
                       total: true,
                       unit: true,
-                      metadata,
+                      metadata: minimalMetadata,
                     },
                   },
                   statedTotalEmissions: {
@@ -166,7 +174,7 @@ router.get(
                   },
                 },
               },
-              metadata,
+              metadata: minimalMetadata,
             },
             orderBy: {
               startDate: 'desc',
@@ -182,33 +190,7 @@ router.get(
                   subIndustryCode: true,
                 },
               },
-              metadata,
-            },
-          },
-          goals: {
-            select: {
-              id: true,
-              description: true,
-              year: true,
-              baseYear: true,
-              target: true,
-              metadata,
-            },
-            orderBy: {
-              year: 'desc',
-            },
-          },
-          initiatives: {
-            select: {
-              id: true,
-              title: true,
-              description: true,
-              year: true,
-              scope: true,
-              metadata,
-            },
-            orderBy: {
-              year: 'desc',
+              metadata: minimalMetadata,
             },
           },
         },
@@ -262,16 +244,6 @@ router.get(
                 metadata: reportingPeriod.metadata[0],
               })
             ),
-            // Add translations for GICS data
-            industry: company.industry
-              ? {
-                  ...company.industry,
-                  industryGics: {
-                    ...company.industry.industryGics,
-                    ...getGics(company.industry.industryGics.subIndustryCode),
-                  },
-                }
-              : undefined,
           }))
           // Calculate total emissions for each reporting period
           // This allows comparing against the statedTotalEmissions provided by the company report
@@ -341,7 +313,6 @@ router.get(
           wikidataId: true,
           name: true,
           description: true,
-          tags: true,
           reportingPeriods: {
             select: {
               startDate: true,
