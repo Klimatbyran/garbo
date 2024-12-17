@@ -663,6 +663,37 @@ export async function upsertReportingPeriod(
   })
 }
 
+export async function updateReportingPeriodReportURL(
+  company: Company,
+  year: string,
+  reportURL: string
+) {
+  const reportingPeriod = await prisma.reportingPeriod.findUnique({
+    where: {
+      reportingPeriodId: {
+        companyId: company.wikidataId,
+        year,
+      },
+    },
+  })
+
+  if (!reportingPeriod) {
+    return false
+  }
+
+  return prisma.reportingPeriod.update({
+    where: {
+      reportingPeriodId: {
+        companyId: company.wikidataId,
+        year,
+      },
+    },
+    data: {
+      reportURL,
+    },
+  })
+}
+
 export async function upsertEmissions({
   emissionsId,
   year,
