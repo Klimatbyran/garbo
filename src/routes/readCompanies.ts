@@ -238,22 +238,25 @@ router.get(
                     }) ||
                     undefined,
                   scope3:
-                    (reportingPeriod.emissions?.scope3 && {
-                      ...reportingPeriod.emissions.scope3,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.some((c) =>
-                          Boolean(c.metadata.verifiedBy)
-                        )
-                          ? reportingPeriod.emissions.scope3.categories.reduce(
-                              (total, category) =>
-                                isNumber(category.total)
-                                  ? category.total + total
-                                  : total,
-                              0
-                            )
-                          : reportingPeriod.emissions.scope3
-                              .statedTotalEmissions?.total ?? 0,
-                    }) ||
+                    (reportingPeriod.emissions?.scope3 &&
+                      Object.keys(
+                        removeEmptyValues(reportingPeriod.emissions?.scope3)
+                      ).length && {
+                        ...removeEmptyValues(reportingPeriod.emissions.scope3),
+                        calculatedTotalEmissions:
+                          reportingPeriod.emissions.scope3.categories.some(
+                            (c) => Boolean(c.metadata.verifiedBy)
+                          )
+                            ? reportingPeriod.emissions.scope3.categories.reduce(
+                                (total, category) =>
+                                  isNumber(category.total)
+                                    ? category.total + total
+                                    : total,
+                                0
+                              )
+                            : reportingPeriod.emissions.scope3
+                                .statedTotalEmissions?.total ?? 0,
+                      }) ||
                     undefined,
                 },
                 metadata: reportingPeriod.metadata[0],
@@ -498,22 +501,25 @@ router.get(
                     }) ||
                     undefined,
                   scope3:
-                    (reportingPeriod.emissions?.scope3 && {
-                      ...reportingPeriod.emissions.scope3,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.some((c) =>
-                          Boolean(c.metadata.verifiedBy)
-                        )
-                          ? reportingPeriod.emissions.scope3.categories.reduce(
-                              (total, category) =>
-                                isNumber(category.total)
-                                  ? category.total + total
-                                  : total,
-                              0
-                            )
-                          : reportingPeriod.emissions.scope3
-                              .statedTotalEmissions?.total ?? 0,
-                    }) ||
+                    (reportingPeriod.emissions?.scope3 &&
+                      Object.keys(
+                        removeEmptyValues(reportingPeriod.emissions?.scope3)
+                      ).length && {
+                        ...removeEmptyValues(reportingPeriod.emissions.scope3),
+                        calculatedTotalEmissions:
+                          reportingPeriod.emissions.scope3.categories.some(
+                            (c) => Boolean(c.metadata.verifiedBy)
+                          )
+                            ? reportingPeriod.emissions.scope3.categories.reduce(
+                                (total, category) =>
+                                  isNumber(category.total)
+                                    ? category.total + total
+                                    : total,
+                                0
+                              )
+                            : reportingPeriod.emissions.scope3
+                                .statedTotalEmissions?.total ?? 0,
+                      }) ||
                     undefined,
                 },
                 metadata: reportingPeriod.metadata[0],
