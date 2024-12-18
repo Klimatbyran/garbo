@@ -1,0 +1,108 @@
+{
+  "wikidataId": "Q3924567",
+  "name": "Svenska spel",
+  "description": "Svenska Spel är ett statligt ägt spelbolag i Sverige som erbjuder en mängd olika spelprodukter, inklusive sportspel, nummerspel, lotter och casinospel. Bolaget har en stark närvaro både online och på landbaserade casinon. Svenska Spel strävar efter att erbjuda spel på ett tryggt och säkert sätt och har ett långsiktigt mål att vara klimatneutrala senast 2030.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://om.svenskaspel.se/wp-content/uploads/2024/03/svenska-spels-ars-och-hallbarhetsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 8029000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 1417,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 308,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2571,
+          "mb": 218,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 218
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 15888,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 13322,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 792,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 84,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 35,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 662,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 179,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 13,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 791,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 15888
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 16414,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2530",
+      "industryCode": "253010",
+      "subIndustryCode": "25301010"
+    }
+  }
+}

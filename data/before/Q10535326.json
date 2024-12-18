@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q10535326",
+  "name": "Indutrade",
+  "description": "Indutrade är ett svenskt industriföretag som specialiserar sig på att utveckla och sälja högteknologiska industrikomponenter, system och tjänster. Företaget har en diversifierad portfölj med verksamheter inom flera olika branscher, inklusive industriell utrustning, infrastruktur, livsvetenskap, processindustri och teknologiska systemlösningar. Indutrade är känt för sin decentraliserade affärsmodell och sitt fokus på långsiktig tillväxt genom förvärv och organisk utveckling.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.indutrade.com/contentassets/01748e414d174273911c3ba75aeed4c5/indutrades-annual-report-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 31845000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 9262,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 11102,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6636,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6636
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 34842,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 4099,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 27032,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3711,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 34842
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 52579,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q5362569",
+  "name": "Thule Group",
+  "description": "Thule Group är ett globalt företag som tillverkar och säljer produkter för att transportera och skydda det du bryr dig om mest. Företaget erbjuder ett brett sortiment av produkter inklusive takräcken, cykelhållare, barnvagnar, ryggsäckar och resväskor. Thule Group har en stark fokus på hållbarhet och innovation, och strävar efter att minska sin miljöpåverkan genom att utveckla produkter med lägre koldioxidavtryck och förbättra energieffektiviteten i sina produktionsprocesser.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.thulegroup.com/sites/thulegroup/files/pr/20240405-1b0268b5-627a-42f2-94e5-b26d485a5ed5-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 9132000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2557,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 3173,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 215,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 215
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 173319,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2520",
+      "industryCode": "252020",
+      "subIndustryCode": "25202010"
+    }
+  }
+}

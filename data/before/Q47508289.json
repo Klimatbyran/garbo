@@ -1,0 +1,107 @@
+{
+  "wikidataId": "Q47508289",
+  "name": "IKEA",
+  "description": "IKEA är ett globalt möbel- och heminredningsföretag som grundades i Sverige. Företaget är känt för sina prisvärda och funktionella produkter som säljs i platta paket för enkel transport och montering. IKEA har ett starkt fokus på hållbarhet och arbetar kontinuerligt med att minska sin klimatpåverkan genom hela värdekedjan, från råmaterialutvinning till produktens slutliv. Företaget driver också restauranger och matmarknader i sina butiker, vilket bidrar till en omfattande kundupplevelse.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.ikea.com/global/en/images/IKEA_CLIMATE_Report_FY_23_20240125_a5a1535f4e.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 61467,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 283571,
+          "mb": 17621,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 17621
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 23329090,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 13987358,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 286463,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 31325,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 1006777,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 34069,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 52848,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 397390,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 1811155,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 3819585,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 1480157,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 421964,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 23329090
+        },
+        "biogenicEmissions": {
+          "total": 370009,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 23723800,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2550",
+      "industryCode": "255040",
+      "subIndustryCode": "25504060"
+    }
+  }
+}

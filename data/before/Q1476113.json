@@ -1,0 +1,83 @@
+{
+  "wikidataId": "Q1476113",
+  "name": "Systembolaget",
+  "description": "Systembolaget har enligt alkohollagen monopol på detaljhandelsförsäljning av alkoholhaltiga drycker i Sverige. Företaget har ett socialpolitiskt syfte att begränsa alkoholens tillgänglighet och därmed minska alkoholrelaterade skador. Systembolaget erbjuder ett brett sortiment av drycker och har butiker över hela Sverige. Förutom försäljning av alkoholhaltiga drycker erbjuder företaget även presentartiklar och tjänster som dryckesauktioner.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.omsystembolaget.se/globalassets/pdf/ansvarsredovisning/ansvarsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 38174000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 5626,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 159,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1925,
+          "mb": 2602,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2602
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 177870,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 11369,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 85,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 667,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 509,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 165240,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 177870
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 180631,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "30",
+      "groupCode": "3020",
+      "industryCode": "302010",
+      "subIndustryCode": "30201020"
+    }
+  }
+}

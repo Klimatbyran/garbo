@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q10686298",
+  "name": "Svevia",
+  "description": "Svevia är ett svenskt företag som specialiserar sig på byggnation, drift och underhåll av vägar och annan infrastruktur. Företaget erbjuder även tjänster inom sanering av förorenade platser och områden. Svevia arbetar med att minska sin klimatpåverkan och strävar efter att ha en klimatneutral värdekedja till år 2045.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.svevia.se/download/18.26475eba18f775e6dd0334a2/1716282290824/Svevia_ars_och_hallbarhetsredovisning_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 11194000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2393,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 22741,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 800,
+          "mb": 3315,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3315
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 31078,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201030",
+      "subIndustryCode": "20103010"
+    }
+  }
+}

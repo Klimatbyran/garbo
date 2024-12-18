@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q109787297",
+  "name": "Mips",
+  "description": "Mips är ett företag som specialiserar sig på utveckling och tillverkning av hjälmsäkerhetssystem. Företaget är känt för sin patenterade teknologi som minskar rotationsrörelser vid sneda islag, vilket minskar risken för hjärnskador. Mips har en stark forsknings- och utvecklingsavdelning och investerar kontinuerligt i nya innovationer och förbättringar av sina produkter. Företaget har sitt huvudkontor i Stockholm och har även verksamhet i Kina.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mipscorp.com/files/uploads/2024/03/mips-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 357000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 101,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 85,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 28,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 28
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4434,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

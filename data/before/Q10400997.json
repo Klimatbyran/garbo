@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q10400997",
+  "name": "Addtech",
+  "description": "Addtech är en teknikhandelskoncern som erbjuder högteknologiska produkter och lösningar till industrikunder inom olika sektorer såsom energi, infrastruktur och automation.",
+  "reportingPeriods": [
+    {
+      "startDate": "2022-04-01T00:00:00.000Z",
+      "endDate": "2023-03-31T00:00:00.000Z",
+      "reportURL": "https://www.addtech.se/fileadmin/user_upload/Arsredovisningar/Addtech-Arsredovisning-22-23.pdf",
+      "economy": {
+        "turnover": {
+          "value": 18714000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 3781,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 2446,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 3887,
+          "mb": 4273,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 4273
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 34103,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 83,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 30353,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3667,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 34103
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 40436,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201050",
+      "subIndustryCode": "20105010"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "wikidataId": "Q662664",
+  "name": "Arion Bank",
+  "description": "Arion Bank är en ledande bank på Island som erbjuder ett brett utbud av finansiella tjänster till både privatpersoner och företag. Banken fokuserar på att tillhandahålla högkvalitativa tjänster och har ett starkt engagemang för hållbarhet och miljöansvar.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://arsskyrsla.arionbanki.is/library/Files/Sjalfbaerniskyrslur/2023/Umhverfis%c3%be%c3%a6ttir-EN.pdf",
+      "economy": {
+        "turnover": {
+          "value": 25700000000,
+          "currency": "ISK"
+        },
+        "employees": {
+          "value": 813,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 31.6,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 13,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 13
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 301576.6,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 17,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 280,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 269,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 5.5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 1.7,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 301000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 301576.6
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 301621.1,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4010",
+      "industryCode": "401010",
+      "subIndustryCode": "40101010"
+    }
+  }
+}

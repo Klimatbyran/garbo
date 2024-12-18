@@ -1,0 +1,116 @@
+{
+  "wikidataId": "Q1142582",
+  "name": "Södra Skogsägarna",
+  "description": "Södra är en ekonomisk förening som ägs av skogsägare i södra Sverige. Företaget är verksamt inom skogsbruk, trävaror, massa och energi. Södra bedriver hållbar skogsbruk och producerar produkter som trävaror, pappersmassa och biobränslen. Företaget har en stark fokus på innovation och hållbarhet, och arbetar aktivt för att minska sin klimatpåverkan genom olika initiativ och projekt.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sodra.com/_download/sp/ars-_och_hallbarhetsredovisning_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 28896000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 3402,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 92000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1000,
+          "mb": 2700,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2700
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2245000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 251000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 70000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 22000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 344000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 200,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1200,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 11000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 1500000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 38000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 7500,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 400,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 2245000
+        },
+        "biogenicEmissions": {
+          "total": 6502000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2339700,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "15",
+      "groupCode": "1510",
+      "industryCode": "151050",
+      "subIndustryCode": "15105010"
+    }
+  }
+}

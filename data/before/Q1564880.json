@@ -1,0 +1,103 @@
+{
+  "wikidataId": "Q1564880",
+  "name": "HMS Networks",
+  "description": "HMS Networks är ett svenskt företag som specialiserar sig på industriell kommunikation och Industrial Internet of Things (IIoT). Företaget utvecklar och tillverkar produkter som möjliggör kommunikation mellan olika industriella system och enheter. HMS Networks erbjuder lösningar för att koppla samman maskiner och system i fabriker och andra industriella miljöer, vilket bidrar till ökad effektivitet och produktivitet.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://hmsnetworks.blob.core.windows.net/nlw/docs/default-source/products/hms-networks-annual-report-2022.pdf?sfvrsn=6d37b1bb_2",
+      "economy": {
+        "turnover": {
+          "value": 3025000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 821,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 295,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 400,
+          "mb": 312,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 312
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 82378,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 22263,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 1,
+              "total": 23325,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 197,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 107,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1663,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 553,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 558,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 50000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 85,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 82378
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 82985,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4520",
+      "industryCode": "452030",
+      "subIndustryCode": "45203010"
+    }
+  }
+}

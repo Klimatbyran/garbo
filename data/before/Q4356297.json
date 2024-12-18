@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q4356297",
+  "name": "Peab",
+  "description": "Peab är ett av Nordens ledande bygg- och anläggningsföretag med verksamhet i Sverige, Norge, Finland och Danmark. Företaget erbjuder tjänster inom bygg, anläggning, industri och projektutveckling. Peab arbetar med att skapa hållbara lösningar och har ett starkt fokus på miljömässig hållbarhet i sina projekt.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://peab.se/globalassets/cision/documents/swedish/peab_-_ars-_och_hallbarhetsredovisning_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 61600000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 13808,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 173000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6000,
+          "mb": 15000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 15000
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1138000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201030",
+      "subIndustryCode": "20103010"
+    }
+  }
+}

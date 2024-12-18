@@ -1,0 +1,88 @@
+{
+  "wikidataId": "Q10526893",
+  "name": "Hufvudstaden",
+  "description": "Hufvudstaden är ett svenskt fastighetsbolag som äger, förvaltar och utvecklar fastigheter i centrala Stockholm och Göteborg. Företaget fokuserar på kommersiella fastigheter, inklusive kontor och butiker, och strävar efter att erbjuda attraktiva och hållbara lokaler för sina hyresgäster. Hufvudstaden arbetar aktivt med miljöcertifieringar och hållbarhetsinitiativ för att minska sin klimatpåverkan och förbättra energieffektiviteten i sina fastigheter.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://hufvudstaden.se/contentassets/c0590cba1eea4ba2b462650410bb3371/hufvudstadens-ars--och-hallbarhetsredovisning-2023",
+      "economy": {
+        "turnover": {
+          "value": 2962000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 454,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 106,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 3080,
+          "mb": 853,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 853
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4617,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 220,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 400,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 910,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 83,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 4617
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 5577,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601040",
+      "subIndustryCode": "60104010"
+    }
+  }
+}

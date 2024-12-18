@@ -1,0 +1,54 @@
+{
+  "wikidataId": "Q11977084",
+  "name": "Industrivärden",
+  "description": "Industrivärden är ett svenskt investmentbolag som grundades 1944. Bolaget investerar i nordiska börsnoterade företag och har som mål att skapa långsiktigt värde för sina aktieägare genom aktivt ägande. Industrivärden har en diversifierad portfölj med innehav i flera stora industriföretag och verkar för att förbättra bolagsstyrning samt social och miljömässig utveckling i sina innehavsbolag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.industrivarden.se/globalassets/hallbarhetsrapporter/svenska/hallbarhetsrapport_2023.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 14,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 8,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 8
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 16,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 16,
+              "total": 16,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 16
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 38,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203010"
+    }
+  }
+}

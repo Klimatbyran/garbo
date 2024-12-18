@@ -1,0 +1,46 @@
+{
+  "wikidataId": "Q505922",
+  "name": "Electrolux",
+  "description": "Electrolux är en ledande tillverkare av hushållsapparater och professionell utrustning. Företaget strävar efter att tillverka produkter som kombinerar effektivitet med hållbarhet, samtidigt som de minskar miljöpåverkan genom att fasa ut fossila bränslen och öka användningen av förnybar energi.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.electroluxgroup.com/wp-content/uploads/sites/2/2024/03/sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": {
+          "value": 43959,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 61000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 8000,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 8000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 69000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2520",
+      "industryCode": "252010",
+      "subIndustryCode": "25201040"
+    }
+  }
+}

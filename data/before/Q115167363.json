@@ -1,0 +1,88 @@
+{
+  "wikidataId": "Q115167363",
+  "name": "NCAB Group",
+  "description": "NCAB Group är en global leverantör av tryckta kretskort (PCB) med verksamhet i flera länder. Företaget erbjuder ett brett utbud av PCB-lösningar och tjänster, inklusive design, produktion och logistik. NCAB Group fokuserar på att leverera högkvalitativa produkter och tjänster till sina kunder inom olika industrier, såsom telekommunikation, medicinteknik och fordonsindustrin.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://investors.ncabgroup.com/en/wp-content/uploads/sites/2/2024/04/ncab-annual-and-sustainability-report-2023-240410.pdf",
+      "economy": {
+        "turnover": {
+          "value": 4088000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 603,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 244,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 373,
+          "mb": 319,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 319
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 115751,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 100,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 95604,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 18128,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 335,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1491,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 93,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 115751
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 116314,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4520",
+      "industryCode": "452030",
+      "subIndustryCode": "45203020"
+    }
+  }
+}

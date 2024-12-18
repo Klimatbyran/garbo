@@ -1,0 +1,52 @@
+{
+  "wikidataId": "Q187854",
+  "name": "SAS",
+  "description": "SAS, eller Scandinavian Airlines, är ett ledande flygbolag i Skandinavien som erbjuder passagerar- och godstransporttjänster. Företaget är känt för sitt fokus på hållbarhet och har implementerat flera initiativ för att minska sin miljöpåverkan. SAS tekniska underhållsverksamhet är också en viktig del av företagets verksamhet.",
+  "reportingPeriods": [
+    {
+      "startDate": "2022-11-01T00:00:00.000Z",
+      "endDate": "2023-10-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/290/3923241/2586471.pdf",
+      "economy": {
+        "turnover": {
+          "value": 42043000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 7959,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 3093000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5100,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5100
+        },
+        "biogenicEmissions": {
+          "total": 17780,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3098100,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2030",
+      "industryCode": "203020",
+      "subIndustryCode": "20302010"
+    }
+  }
+}

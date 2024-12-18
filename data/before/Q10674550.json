@@ -1,0 +1,153 @@
+{
+  "wikidataId": "Q10674550",
+  "name": "Specialfastigheter Sverige Aktiebolag (Publ)",
+  "description": "Specialfastigheter Sverige AB äger, utvecklar och förvaltar säkerhetsfastigheter i Sverige. Företaget fokuserar på kunder med särskilda säkerhetskrav och bedriver verksamheten på affärsmässig grund för att generera marknadsmässig avkastning genom hyressättning som beaktar verksamhetens risk.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.specialfastigheter.se/download/18.217077ed18df2ab7477ca6e/1710323162813/Specialfastigheter_Arsredovisning2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 3035000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 258,
+          "unit": "total"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 141,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 9094,
+          "mb": 2439,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2439
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 141,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 16,
+              "total": 141,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 141
+        },
+        "biogenicEmissions": {
+          "total": 15,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.specialfastigheter.se/download/18.217077ed18df2ab7477ca6e/1710323162813/Specialfastigheter_Arsredovisning2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 2430000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 207,
+          "unit": "total"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 218,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 10363,
+          "mb": 2179,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2179
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 218,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 16,
+              "total": 218,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 218
+        },
+        "biogenicEmissions": {
+          "total": 35,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.specialfastigheter.se/download/18.217077ed18df2ab7477ca6e/1710323162813/Specialfastigheter_Arsredovisning2023.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": null
+      },
+      "emissions": {
+        "scope1": {
+          "total": 206,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 9094,
+          "mb": 2414,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2414
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 126,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 16,
+              "total": 126,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 126
+        },
+        "biogenicEmissions": {
+          "total": 45,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601010",
+      "subIndustryCode": "60101010"
+    }
+  }
+}

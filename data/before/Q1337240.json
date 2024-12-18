@@ -1,0 +1,49 @@
+{
+  "wikidataId": "Q1337240",
+  "name": "Getinge",
+  "description": "Getinge är ett globalt medicinteknikföretag som erbjuder produkter och lösningar för operationssalar, intensivvårdsenheter, sterilcentraler och vårdavdelningar. Företaget fokuserar på att förbättra kliniska resultat och optimera arbetsflöden inom sjukvården. Getinge har en stark närvaro på den internationella marknaden och arbetar kontinuerligt med att utveckla innovativa lösningar för att möta de växande behoven inom hälso- och sjukvården.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.getinge.com/dam/corporate/documents/investors/annual-reports/english/getinge-annual-report-2023-en-global.pdf",
+      "economy": {
+        "turnover": {
+          "value": 31827000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 11226,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 3895,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 614,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 614
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4509,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3510",
+      "industryCode": "351010",
+      "subIndustryCode": "35101010"
+    }
+  }
+}

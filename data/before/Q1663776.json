@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q1663776",
+  "name": "ICA Gruppen",
+  "description": "ICA Gruppen är ett ledande detaljhandelsföretag med verksamheter inom dagligvaror, apotek, bank och försäkring. ICA Gruppen har en tydlig hållbarhetsinriktning och arbetar aktivt för att minska sin miljöpåverkan genom att bland annat reducera sina koldioxidutsläpp.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://report.icagruppen.se/media/g2ep3qxq/ica-gruppen-a-rsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 103493000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 8473,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 9577,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2879,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2879
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 80431,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 63106,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4497,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 12828,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 80431
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 92887,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "30",
+      "groupCode": "3010",
+      "industryCode": "301010",
+      "subIndustryCode": "30101040"
+    }
+  }
+}

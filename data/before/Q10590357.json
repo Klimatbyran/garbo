@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q10590357",
+  "name": "Munters Group",
+  "description": "Munters är en global ledare inom energieffektiva och hållbara klimatlösningar. Företaget erbjuder lösningar som möjliggör energieffektiva produktionsprocesser med minskade koldioxidutsläpp för sina kunder. Munters verksamhet är indelad i tre affärsområden: AirTech, Data Center Technologies och FoodTech. AirTech fokuserar på energieffektiv luftbehandling för industriella och kommersiella applikationer. Data Center Technologies levererar avancerade klimatsystem för datacenteroperatörer världen över. FoodTech erbjuder innovativa och energieffektiva klimatsystem för djurhållning och växthus samt mjukvara för att optimera hela livsmedelsproduktionskedjan.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.munters.com/globalassets/ir/annual-reports/new-folder/new-folder/munters-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 13930000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4981,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 7198,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 13743,
+          "mb": 5782,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5782
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 6492948,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

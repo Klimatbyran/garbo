@@ -1,0 +1,86 @@
+{
+  "wikidataId": "Q1537811",
+  "name": "Skanska",
+  "description": "Skanska är ett av världens ledande bygg- och projektutvecklingsföretag. Företaget är verksamt inom byggverksamhet, bostadsutveckling, kommersiell fastighetsutveckling och förvaltningsfastigheter. Skanska strävar efter att skapa hållbara lösningar och har ett starkt fokus på miljömässig och social hållbarhet i sina projekt.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/95/3941596/2651322.pdf",
+      "economy": {
+        "turnover": {
+          "value": 167168000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 27256,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 146000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 35000,
+          "mb": 16000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 16000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1014000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 709000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 41000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 15000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 246000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1014000
+        },
+        "biogenicEmissions": {
+          "total": 49000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1176000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201030",
+      "subIndustryCode": "20103010"
+    }
+  }
+}

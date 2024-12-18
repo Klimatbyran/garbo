@@ -1,0 +1,96 @@
+{
+  "wikidataId": "Q10443590",
+  "name": "Castellum",
+  "description": "Castellum är ett av de största fastighetsbolagen i Sverige med fokus på kommersiella fastigheter. Företaget äger, förvaltar och utvecklar kontors-, logistik-, handels- och offentliga byggnader samt lätt industri. Castellum strävar efter att vara ledande inom hållbarhet och har som mål att nå nettonoll koldioxidutsläpp till 2030.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/03f8b3d5-e9d7-4de4-a363-27c6ba9b8d35/castellum-arsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 9806000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 547,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 292,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 29675,
+          "mb": 10260,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10260
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 75697,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 54265,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 4101,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 236,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 540,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 269,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 16280,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 75697
+        },
+        "biogenicEmissions": {
+          "total": 164,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 86250,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601040",
+      "subIndustryCode": "60104010"
+    }
+  }
+}

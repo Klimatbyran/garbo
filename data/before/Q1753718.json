@@ -1,0 +1,52 @@
+{
+  "wikidataId": "Q1753718",
+  "name": "Sandvik",
+  "description": "Sandvik är ett globalt högteknologiskt företag verksamt inom verktyg och verktygssystem för metallbearbetning, maskiner och verktyg för gruv- och anläggningsindustrin samt avancerade material, inklusive rostfritt stål.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/208/3943609/2664675.pdf",
+      "economy": {
+        "turnover": {
+          "value": 126503000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 40877,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 78000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 181000,
+          "mb": 63000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 63000
+        },
+        "biogenicEmissions": {
+          "total": 9000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 141000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "15",
+      "groupCode": "1510",
+      "industryCode": "151040",
+      "subIndustryCode": "15104020"
+    }
+  }
+}

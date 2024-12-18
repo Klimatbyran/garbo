@@ -1,0 +1,52 @@
+{
+  "wikidataId": "Q30938280",
+  "name": "Essity",
+  "description": "Essity är ett globalt hygien- och hälsobolag med huvudkontor i Stockholm, Sverige. Företaget är verksamt inom områdena hygien och hälsa och erbjuder produkter och lösningar som förbättrar människors välbefinnande. Essity är noterat på Nasdaq Stockholm och har en stark närvaro på den globala marknaden.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://masdpstatic.azureedge.net/essity/Essity_AR_ENG_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 147147000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 8544,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1240000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1005000,
+          "mb": 1236000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1236000
+        },
+        "biogenicEmissions": {
+          "total": 475000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2245000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3510",
+      "industryCode": "351020",
+      "subIndustryCode": "35102010"
+    }
+  }
+}

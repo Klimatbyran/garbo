@@ -1,0 +1,93 @@
+{
+  "wikidataId": "Q1423707",
+  "name": "Tietoevry",
+  "description": "Tietoevry är ett ledande nordiskt digitalt tjänste- och mjukvaruföretag som erbjuder helhetslösningar inom IT och digital transformation. Företaget har en stark närvaro i Norden och Europa och betjänar kunder inom olika sektorer, inklusive finans, hälsa, offentlig sektor och energi. Tietoevry strävar efter att skapa digitala fördelar för företag och samhälle genom att kombinera djup teknisk expertis med branschspecifik kunskap.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://ar2023.tietoevry.com/siteassets/tietoevry_sustainability_report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 2851400000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 23283,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 195,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7877,
+          "mb": 1406,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1406
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 205417,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 189227,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3131,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 97,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4639,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 4380,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 59,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 3884,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 205417
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 207018,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4510",
+      "industryCode": "451020",
+      "subIndustryCode": "45102010"
+    }
+  }
+}

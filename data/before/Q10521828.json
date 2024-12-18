@@ -1,0 +1,98 @@
+{
+  "wikidataId": "Q10521828",
+  "name": "Hemnet Group",
+  "description": "Hemnet är en svensk internetbaserad marknadsplats för bostäder.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.hemnetgroup.se/files/PDF/Annual-reports/2023/Hemnet_AB_AnnualReport_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1004700000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 154,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 0.31,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 0.31
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1884.818,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1802.301,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 17.803,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1.235,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 0.073,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 0.018,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 14.642,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 47.873,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 0.873,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1884.818
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1885.128,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "50",
+      "groupCode": "5020",
+      "industryCode": "502030",
+      "subIndustryCode": "50203010"
+    }
+  }
+}

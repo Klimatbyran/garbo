@@ -1,0 +1,93 @@
+{
+  "wikidataId": "Q10403939",
+  "name": "Akademiska hus",
+  "description": "Akademiska Hus är ett statligt ägt fastighetsbolag i Sverige som ansvarar för att erbjuda och förvalta lokaler för universitet och högskolor. Företaget spelar en viktig roll i att tillhandahålla hållbara och moderna utbildnings- och forskningsmiljöer.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.akademiskahus.se/siteassets/dokument/finansiella-dokument/arsredovisningar/arsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 7626000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 559,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 852,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 29564,
+          "mb": 6385,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6385
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 24699,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 8030,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 8942,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 5635,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 1274,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 542,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 88,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 188,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 24699
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 31936,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601025",
+      "subIndustryCode": "60102510"
+    }
+  }
+}

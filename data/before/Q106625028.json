@@ -1,0 +1,78 @@
+{
+  "wikidataId": "Q106625028",
+  "name": "NP3 Fastigheter",
+  "description": "NP3 Fastigheter är ett svenskt företag som äger, förvaltar och utvecklar kommersiella fastigheter i norra Sverige. Företaget fokuserar främst på industrifastigheter, handel- och kontorsfastigheter.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/f979d883-1e3e-400a-8fd9-61b9fded7fed/arsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1797000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 55,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 135,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5099,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5099
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6380,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 69,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4413,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1888,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 10,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 6380
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 11614,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601025",
+      "subIndustryCode": "60102510"
+    }
+  }
+}

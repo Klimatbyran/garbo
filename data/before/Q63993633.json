@@ -1,0 +1,53 @@
+{
+  "wikidataId": "Q63993633",
+  "name": "Kindred Group",
+  "description": "Kindred Group är en ledande online-speloperatör som erbjuder tjänster för vadslagning, casino, poker och andra spelprodukter. Företaget är verksamt internationellt och har sitt huvudkontor på Malta.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.kindredgroup.com/globalassets/documents/investor-relations-related-documents/financial-reports/2023/asr/kindred-group-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1210500000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2453,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 84.1,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 467,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 467
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 5038.9,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2530",
+      "industryCode": "253010",
+      "subIndustryCode": "25301010"
+    }
+  }
+}

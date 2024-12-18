@@ -1,0 +1,302 @@
+{
+  "wikidataId": "Q3270281",
+  "name": "Swedish Space Corporation",
+  "description": "Swedish Space Corporation (SSC) bedriver verksamhet inom rymdsektorn med fokus på att äga, driva och utveckla Esrange Space Center i norra Sverige. Företaget erbjuder globala rymdtjänster, inklusive stöd för satelliter och kunduppdrag, samt lansering av sondraketer och stratosfäriska ballonger.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": {
+        "turnover": {
+          "value": 1463939000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 677,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 336,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2153,
+          "mb": 1607,
+          "unknown": 1607,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1607
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 36045,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 19809,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 11820,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 735,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 31,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 39,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1133,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 438,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 16,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 80,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 36045
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": {
+        "turnover": {
+          "value": 1263217000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 695,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 379,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2153,
+          "mb": 1771,
+          "unknown": 1778,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1771
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 35711,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 21924,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 9593,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 701,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 28,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 606,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 405,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 177,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 123,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 35711
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": {
+        "turnover": {
+          "value": 1130000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 650,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {}
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": {
+        "turnover": {
+          "value": 1001000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 530,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {}
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": {
+        "turnover": {
+          "value": 1013000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 488,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 384,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2153,
+          "mb": 1656,
+          "unknown": 1656,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1656
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 33337,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 13900,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 15100,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 364,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 20,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1453,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 327,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 128,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 33337
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201010",
+      "subIndustryCode": "20101010"
+    }
+  }
+}

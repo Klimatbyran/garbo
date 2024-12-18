@@ -1,0 +1,98 @@
+{
+  "wikidataId": "Q10429580",
+  "name": "Bilia",
+  "description": "Bilia är en av de största bilkedjorna i Norden och erbjuder försäljning av nya och begagnade bilar, service och reparationer, samt tillbehör och reservdelar. Företaget har verksamhet i Sverige, Norge, Belgien, Luxemburg och Tyskland.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/79405e0e-77bf-477e-af17-3d83fdd1b911/bilia-arsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 38514000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 5185,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 5865,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 4176,
+          "mb": 3150,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3150
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 833976,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 320430,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 2571,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 6834,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3173,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 275,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 5788,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 485673,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 9233,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 833976
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 842990,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2510",
+      "industryCode": "251020",
+      "subIndustryCode": "25102010"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "wikidataId": "Q862303",
+  "name": "Telia Company",
+  "description": "Telia Company är en ledande teleoperatör och leverantör av digitala tjänster i Norden och Baltikum. Bolaget erbjuder mobil-, bredbands- och TV-tjänster till både privatpersoner och företag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.teliacompany.com/assets/u5c1v3pt22v8/sdSKIw4u0YrvJ6N6vxNQ7/be433e3cafff2977019af4ee67908e72/telia-company-ars-och-hallbarhetsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 88785000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 18963,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 5438,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 90626,
+          "mb": 3189,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3189
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 8627,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "50",
+      "groupCode": "5010",
+      "industryCode": "501020",
+      "subIndustryCode": "50102010"
+    }
+  }
+}

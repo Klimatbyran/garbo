@@ -1,0 +1,78 @@
+{
+  "wikidataId": "Q899356",
+  "name": "Husqvarna",
+  "description": "Husqvarna Group är en ledande global tillverkare av utomhusprodukter som robotgräsklippare, trädgårdstraktorer, motorsågar och trimmers. Företaget erbjuder även lösningar för bevattning och handhållna produkter för byggnads- och stenindustrin. Husqvarna Group har en stark närvaro i Europa och Nordamerika och är känt för sina innovativa och hållbara produkter.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://husqvarna-v2.prod-mid-euw3.investis.com/sites/husqvarna/files/2024-03/Husqvarna_Annual_and_Sustainability_Report_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 53261000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 13755,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 16039,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 15200,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 15200
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 3771770,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 134309,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 32652,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3503,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 3601306,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 3771770
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3803009,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

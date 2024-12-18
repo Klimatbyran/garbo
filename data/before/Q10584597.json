@@ -1,0 +1,98 @@
+{
+  "wikidataId": "Q10584597",
+  "name": "Mycronic",
+  "description": "Mycronic är ett svenskt företag som specialiserar sig på avancerade produktionsutrustningar för elektronikindustrin. Företaget erbjuder lösningar för ytmontering, mönsterkortstillverkning och lasermaskritning. Mycronic har sitt huvudkontor i Sverige och är känt för sin innovativa teknik och starka fokus på forskning och utveckling.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/13cdbaea-e787-4cb7-99cf-bb350135e30b/annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 5706000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2045,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 489,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2799,
+          "mb": 2846,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2846
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 185633,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 14606,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1030,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 5938,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 0.02,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5437,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 7627,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 150994,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 2,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 185633
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 188968,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4520",
+      "industryCode": "452030",
+      "subIndustryCode": "45203010"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "wikidataId": "Q1640495",
+  "name": "Sampo",
+  "description": "Sampo Group är ett nordiskt finansiellt tjänsteföretag som erbjuder ett brett utbud av försäkringstjänster och investeringstjänster genom sina dotterbolag. Företaget är verksamt främst i Finland, Sverige, Norge och Danmark.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sampo.com/globalassets/year2023/group/sampo2023_sustainability_report.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": {
+          "value": 13450,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1059.8,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3585.3,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3585.3
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 18766.3,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1652.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2246.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1296,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 52.3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 231.6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6306.4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 6842.4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 138.6,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 18766.3
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 23411.3,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "10",
+      "groupCode": "1010",
+      "industryCode": "101010",
+      "subIndustryCode": "10101020"
+    }
+  }
+}

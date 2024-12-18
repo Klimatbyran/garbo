@@ -1,0 +1,63 @@
+{
+  "wikidataId": "Q3429427",
+  "name": "AFRY",
+  "description": "AFRY är ett internationellt företag som erbjuder ingenjörs-, design- och rådgivningstjänster inom områden som energi, industri, infrastruktur och digitala lösningar. Företaget arbetar för att skapa hållbara lösningar för framtiden genom att kombinera djup teknisk expertis med innovativt tänkande. AFRY har en stark närvaro i Europa och expanderar globalt med målet att bidra till en mer hållbar värld.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://afry.com/sites/default/files/2024-03/%C3%85rs-%20och%20h%C3%A5llbarhetsredovisning%202023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 27000000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 18984,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 440,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2275,
+          "mb": 3114,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3114
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 10999,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 10999,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 10999
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 14553,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2020",
+      "industryCode": "202020",
+      "subIndustryCode": "20202020"
+    }
+  }
+}

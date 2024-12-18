@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q18541785",
+  "name": "Medicover",
+  "description": "Medicover är ett företag baserat i Sverige som erbjuder diagnostik och vårdtjänster med fokus på marknader främst i Central- och Östeuropa samt Indien.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://vp260.alertir.com/afw/files/press/medicover/202403263088-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1746400000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 45316,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 5762,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 69027,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 69027
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 360036,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 294185,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 9944,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 22360,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 360036
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 434825,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3510",
+      "industryCode": "351020",
+      "subIndustryCode": "35102010"
+    }
+  }
+}

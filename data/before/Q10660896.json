@@ -1,0 +1,95 @@
+{
+  "wikidataId": "Q10660896",
+  "name": "Samhall",
+  "description": "Samhall är ett svenskt företag som erbjuder arbete för personer med funktionsnedsättningar och nedsatt arbetsförmåga. Företaget har som uppdrag att skapa meningsfull sysselsättning och bidra till en mer inkluderande arbetsmarknad. Samhall erbjuder en rad olika tjänster och samarbetar med både offentliga och privata aktörer för att skapa arbetsmöjligheter för sina anställda.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://samhall.se/wp-content/uploads/2024/03/Samhall_Arsredovisning_2023.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": {
+          "value": 23818,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1281,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1534,
+          "mb": 2975,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2975
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 88831,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 47870,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2952,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1104,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 333,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 25,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 809,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 20080,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 15659,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 88831
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 93087,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2020",
+      "industryCode": "202010",
+      "subIndustryCode": "20201070"
+    }
+  }
+}

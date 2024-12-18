@@ -1,0 +1,70 @@
+{
+  "wikidataId": "Q111843935",
+  "name": "Better Collective",
+  "description": "Better Collective är ett globalt företag som specialiserar sig på digitala plattformar för sportbetting och spel. Företaget erbjuder en rad tjänster och produkter som hjälper spelare att fatta informerade beslut genom att tillhandahålla insikter, analyser och jämförelser. Better Collective har vuxit genom både organisk tillväxt och förvärv av andra företag, vilket har lett till en bred närvaro på flera marknader världen över.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/28882872-33ec-4750-9726-fc91ed1fad94/sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": {
+          "value": 1252,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 71.4,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 247.4,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 247.4
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2596.1,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 8.3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 1,
+              "total": 3560000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 566.8,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 2596.1
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2914.9,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2530",
+      "industryCode": "253010",
+      "subIndustryCode": "25301010"
+    }
+  }
+}

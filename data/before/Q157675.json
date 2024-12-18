@@ -1,0 +1,83 @@
+{
+  "wikidataId": "Q157675",
+  "name": "Vattenfall",
+  "description": "Vattenfall AB är ett svenskt företag som främst producerar el och värme.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://group.vattenfall.com/globalassets/corporate/who-we-are/sustainability/vattenfall-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 290168000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 20995,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 7920000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 70000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 70000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 15000000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1200000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 4600000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 100000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 11000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 9000000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 15000000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 23000000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "55",
+      "groupCode": "5510",
+      "industryCode": "551010",
+      "subIndustryCode": "55101010"
+    }
+  }
+}

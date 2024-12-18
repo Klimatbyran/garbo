@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q126367344",
+  "name": "Truecaller",
+  "description": "Truecaller är ett svenskt företag som erbjuder en app för att identifiera och blockera oönskade samtal.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/20429/3969154/2764375.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1729000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 422,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2518,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2518
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1594,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 1359,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 130,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 105,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1594
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4113,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4510",
+      "industryCode": "451030",
+      "subIndustryCode": "45103010"
+    }
+  }
+}

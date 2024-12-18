@@ -1,0 +1,84 @@
+{
+  "wikidataId": "Q1467848",
+  "name": "Holmen",
+  "description": "Holmen är ett svenskt skogsindustriföretag grundat 1875.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "http://investors.holmen.com/afw/files/press/holmen/202403061245-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 22795000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 3546,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 54000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 12000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 12000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 609000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 196000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 11600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 40000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 54000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 199000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 609000
+        },
+        "biogenicEmissions": {
+          "total": 1676000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 675000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": null
+}

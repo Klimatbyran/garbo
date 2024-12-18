@@ -1,0 +1,68 @@
+{
+  "wikidataId": "Q1275733",
+  "name": "EQT",
+  "description": "EQT är en global investeringsorganisation med en stark hållbarhetsprofil. Företaget erbjuder kapitalförvaltningstjänster och investerar i olika sektorer genom sina fonder. EQT:s intäkter kommer huvudsakligen från förvaltningsavgifter, carried interest och investeringsinkomster. Företaget har en integrerad hållbarhetsstrategi och arbetar aktivt för att skapa långsiktigt värde för sina investerare och samhället.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://cdn.sanity.io/files/30p7so6x/eqt-web-prod/1d1605be62ef28d3fee3100c57a597db09e126e1.pdf?dl=wkr0006.pdf",
+      "economy": {
+        "turnover": {
+          "value": 2084000000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 1727,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 36,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1194,
+          "mb": 397,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 397
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 5925771,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 23907,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 5901864,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 5925771
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 24340,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203010"
+    }
+  }
+}

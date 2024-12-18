@@ -1,0 +1,88 @@
+{
+  "wikidataId": "Q378944",
+  "name": "MTG",
+  "description": "MTG (Modern Times Group) är ett internationellt underhållningsföretag med fokus på esport och gaming. Företaget driver flera spelstudior och erbjuder en rad olika tjänster inom digital underhållning. MTG har sitt huvudkontor i Stockholm och har även kontor i Tyskland.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/56/3956401/2710900.pdf",
+      "economy": {
+        "turnover": {
+          "value": 5829000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 1042,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 343.5,
+          "mb": 231.7,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 231.7
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1966.1,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 492.2,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 208.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 9.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 752.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 349.2,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 152.9,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1966.1
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2197.8,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "50",
+      "groupCode": "5020",
+      "industryCode": "502020",
+      "subIndustryCode": "50202020"
+    }
+  }
+}

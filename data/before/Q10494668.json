@@ -1,0 +1,101 @@
+{
+  "wikidataId": "Q10494668",
+  "name": "Fenix Outdoor Int.",
+  "description": "Fenix Outdoor är ett internationellt företag som specialiserar sig på friluftsutrustning och kläder. Företaget äger flera välkända varumärken som Fjällräven, Hanwag, Primus och Royal Robbins. Fenix Outdoor har en stark fokus på hållbarhet och miljöskydd, vilket återspeglas i deras omfattande CSR-rapporter och initiativ för att minska klimatpåverkan. Företaget arbetar aktivt med att förbättra sina leverantörskedjor och minska utsläppen genom olika miljöprogram och samarbeten.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.fenixoutdoor.com/wp-content/uploads/2024/03/CSR_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 0.175,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2972,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1139,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 11147,
+          "mb": 714,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 714
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 96122,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 53475,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 741,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 4116,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 89,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 2597,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 1476,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 129,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 33499,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 96122
+        },
+        "biogenicEmissions": {
+          "total": 63,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 97974,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2520",
+      "industryCode": "252030",
+      "subIndustryCode": "25203010"
+    }
+  }
+}

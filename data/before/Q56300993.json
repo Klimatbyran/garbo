@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q56300993",
+  "name": "Troax Group",
+  "description": "Troax utvecklar och tillverkar säkerhetslösningar för industriella miljöer och lagerhantering, med fokus på skydd för människor, maskiner och material.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.troaxgroup.org/media/2023/TROAX_Sustanability_Report_2023_en_240403a_web-A.pdf",
+      "economy": {
+        "turnover": {
+          "value": 264300000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 1141,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1591,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3278,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3278
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 94409,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 92069,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 1695,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 645,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 94409
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4869,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201020",
+      "subIndustryCode": "20102010"
+    }
+  }
+}

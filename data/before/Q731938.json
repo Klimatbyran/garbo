@@ -1,0 +1,118 @@
+{
+  "wikidataId": "Q731938",
+  "name": "AstraZeneca",
+  "description": "AstraZeneca är ett globalt, vetenskapsdrivet bioläkemedelsföretag som fokuserar på forskning, utveckling och kommersialisering av receptbelagda läkemedel, främst för behandling av sjukdomar inom områdena onkologi, kardiovaskulära, njur- och metabola sjukdomar samt andningsvägar och immunologi. Företaget har en stark närvaro i över 100 länder och dess innovativa läkemedel används av miljontals patienter världen över.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.astrazeneca.se/content/dam/az-se/dokument/hallbarhet/Sustainability-Report-2023.pdf",
+      "economy": {
+        "turnover": null,
+        "employees": {
+          "value": 89900,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 180898,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 183332,
+          "mb": 19940,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 19940
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6736878,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 4622257,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 81938,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 52634,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 241422,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 19043,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 155443,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 50827,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 30101,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 135689,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 1330844,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 14579,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 2101,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 6736878
+        },
+        "biogenicEmissions": {
+          "total": 59750,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 6937716,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3520",
+      "industryCode": "352020",
+      "subIndustryCode": "35202010"
+    }
+  }
+}

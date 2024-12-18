@@ -1,0 +1,49 @@
+{
+  "wikidataId": "Q10535401",
+  "name": "Infranord",
+  "description": "Infranord är ett svenskt företag som specialiserar sig på byggnation och underhåll av järnvägsinfrastruktur i Sverige och Norge. Företaget erbjuder tjänster inom drift och mätteknik samt hantering av infrastrukturprojekt.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.infranord.se/media/5zpoa0yg/infranord_a-r23.pdf",
+      "economy": {
+        "turnover": {
+          "value": 5200000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 1544,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 7100,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 790,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 790
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 7890,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201030",
+      "subIndustryCode": "20103010"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "wikidataId": "Q3366005",
+  "name": "Nordnet",
+  "description": "Nordnet är en digital bank för investeringar och sparande, som erbjuder tjänster inom sparande och lån. De är verksamma i Sverige, Norge, Danmark och Finland, och riktar sig främst till privatpersoner och mindre företag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/116/3946197/2671469.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1617200000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 745,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 58,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 58
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 645,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 236,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 66,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 85,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 189,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 69,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 645
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 703,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203030"
+    }
+  }
+}

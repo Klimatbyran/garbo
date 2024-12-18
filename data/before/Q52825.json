@@ -1,0 +1,121 @@
+{
+  "wikidataId": "Q52825",
+  "name": "ABB",
+  "description": "ABB är ett ledande globalt teknikföretag som driver omvandlingen av samhällen och industrier för att uppnå en mer produktiv och hållbar framtid. Genom att koppla samman programvara med sin portfölj av elektrifiering, automation, robotik och rörelse, tänjer ABB gränserna för teknik för att driva prestanda till nya nivåer. ABB har en historia av innovation som sträcker sig över mer än 130 år och är verksamt i över 100 länder.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://library.e.abb.com/public/4790c4296c5146e6ab4420c7d58f8088/ABB%20Sustainability%20Report%202023.pdf?x-sign=J8XORiFwReXhGJscjFPNbWWlXyHIp0NR9tblxaUjv5E3HVcIhN1s51ECDCZZrStU",
+      "economy": {
+        "turnover": {
+          "value": 32235000000,
+          "currency": "USD"
+        },
+        "employees": {
+          "value": 110442,
+          "unit": null
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 128000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 285000,
+          "mb": 23000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 23000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 436346000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 16485000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 94000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 65000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 699000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 15000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 154000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 175000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 62000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 418318000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 264000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 11000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 436346000
+        },
+        "biogenicEmissions": {
+          "total": 860,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 436497000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201040",
+      "subIndustryCode": "20104020"
+    }
+  }
+}
