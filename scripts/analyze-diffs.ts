@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { diffJson } from 'diff'
+import { fileURLToPath } from 'url'
 
 type DiffCategory = {
   unitChanges: string[]
