@@ -1,11 +1,7 @@
 {
   "wikidataId": "Q1341066",
   "name": "Enea",
-  "reviewComments": [
-    "Ambiguous turnover",
-    "Revenue, not net sales",
-    "Garbo OK"
-  ],
+  "reviewComments": ["Ambiguous turnover", "Garbo OK"],
   "description": "Enea utvecklar och levererar lösningar för att förbättra säkerhet, prestanda och intelligens i kommunikation. Företaget erbjuder brandväggar, trafikklassificeringsprodukter och skydd för mobil- och Wi-Fi-nätverk. Kunderna inkluderar över 100 leverantörer av kommunikationstjänster globalt.",
   "reportingPeriods": [
     {
