@@ -35,7 +35,7 @@ const TOKENS = tokens.reduce<{ garbo: string; alex: string }>(
   {} as any
 )
 
-const USERS = {
+export const USERS = {
   garbo: {
     email: 'hej@klimatkollen.se',
     token: TOKENS.garbo,
@@ -289,7 +289,7 @@ function getReportingPeriods(
 /**
  * Get an array of numbers from start to end, with inclusive boundaries.
  */
-function range(start: number, end: number) {
+export function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 

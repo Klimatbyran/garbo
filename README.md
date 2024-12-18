@@ -58,7 +58,7 @@ flowchart TB
 
 ## Get started
 
-Ensure you have Node.js version 22.0.0 or higher installed. You will also need Docker to run Redis, PostgreSQL, and ChromaDB containers.
+Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.
 
 ### Setting up environment variables
 
@@ -80,8 +80,10 @@ This project expects some containers running in the background to work properly.
 The simplest way to start the containers the first time is to run the following docker commands.
 
 ```bash
-docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+
+# These are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.
+docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
 docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
@@ -89,48 +91,94 @@ docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 Next time, you can start the containers back up using
 
 ```sh
-docker start garbo_redis garbo_postgres garbo_chroma garbo_ingestor
+docker start garbo_postgres garbo_redis garbo_chroma garbo_ingestor
+```
+
+Or if you only plan to develop the frontend and/or the API, this is enough:
+
+```sh
+docker start garbo_postgres
 ```
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
 ### Seeding the database for development
 
-This applies migrations and seeding data needed for development
+This applies migrations and seeding data needed for development.
 
 ```sh
 npm run prisma migrate dev
 ```
 
-### Starting the Garbo project in development mode
+### Optional: Restoring a database backup with test data
 
-The code consists of two different starting points. You can start both the BullMQ queue UI, the API and the workers concurrently using:
+> [!NOTE]
+> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database.
 
-```bash
-npm run dev
+First, ask one of the Klimatkollen team members and they will send you a database backup.
+
+Not required the first time: Delete the database to make sure it doesn't exist:
+
+```sh
+docker exec -i garbo_postgres dropdb -f -U postgres --if-exists garbo
 ```
 
-This command will start both the dev-board and dev-workers concurrently. Now you can go to <http://localhost:3000> and see the dashboard.
+Then, replace `~/Downloads/backup_garbo_XYZ.dump` with the path to your DB backup file and restore the database backup with the following command:
 
-If you want to run them separately, use the following commands:
+```sh
+docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
+```
 
-To serve the BullMQ queue UI and the API:
+### Starting the Garbo project in development mode
+
+The code can be started in three main ways, depending on what you plan to develop/test/run locally.
+
+#### 1) To serve only the API:
+
+> [!NOTE]
+> If you plan to develop the frontend and/or the API, this is the best way to get started:
+
+```bash
+npm run dev-api
+```
+
+#### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
+
+If you plan to develop the AI pipeline, this is the recommended way to start the code.
+
+First, run the following command to start the API and the queue system, including an admin dashboard to view progress, logs and more.
 
 ```bash
 npm run dev-board
 ```
 
-To start the workers responsible for doing the actual work, which can be scaled horizontally:
+Now you can go to <http://localhost:3000> and see the dashboard.
+
+Then, open another terminal and start the AI pipeline and its workers, which are responsible for processing each report. These can be scaled horizontally.
 
 ```bash
 npm run dev-workers
 ```
 
-### Restoring a DB backup locally
+#### 3) Starting everything concurrently
 
-These steps can be useful to test DB migrations, or develop with data that is similar to the that in the production environment
+Get everything up and running with one command (with all output in one terminal).
 
-1. Optional: Create a local test DB.
+```bash
+npm run dev
+```
+
+### Setup completed 🎉
+
+Well done! You've now set up the `garbo` backend and are ready to start development :)
+
+---
+
+### Testing DB migrations
+
+These steps can be useful to test DB migrations with data similar to the production environment.
+
+1. Recommended: Create a local test DB. This allows you to keep your regular development DB intact.
 
 ```sh
 docker run -d -p 5432:5432 --name garbo_test_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
@@ -138,17 +186,23 @@ docker run -d -p 5432:5432 --name garbo_test_postgres -e POSTGRES_PASSWORD=mysec
 
 Alternatively, make sure your local postgres container is running.
 
-2. Download the DB dump file. Ask someone from Klimatkollen to get one.
+2. Ask one of the Klimatkollen team members and they will send you a database backup.
 
-3. Restore the backup. This will initially connect to the default `postgres` database without making any modifications and then create any databases if they do not exist
+3. Delete the database if it exists:
 
 ```sh
-docker exec -i container_name pg_restore -U postgres -C -v -d postgres < ~/Downloads/backup_garbo_XYZ.dump
+docker exec -i garbo_test_postgres dropdb -f -U postgres --if-exists garbo
 ```
 
-4. Apply DB migrations with `npm run prisma migrate dev`.
+4. Restore the backup. This will initially connect to the default `postgres` database without making any modifications and then create any databases if they do not exist
 
-5. Restart the Garbo API and workers.
+```sh
+docker exec -i garbo_test_postgres pg_restore -C -v -d postgres -U postgres < ~/Downloads/backup_garbo_XYZ.dump
+```
+
+5. Test the DB migrations with `npm run prisma migrate dev`.
+
+6. Restart the Garbo API and workers and verify the migration was successful.
 
 ### Testing
 
@@ -177,7 +231,7 @@ npm run prisma db seed # seed the data with initial content
 
 ### Operations / DevOps
 
-This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s is automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
+This application is deployed in production with Kubernetes and uses FluxCD as CD pipeline. The yaml files in the k8s directory are automatically synced to the cluster. If you want to run a fork of the application yourself - just add these helm charts as dependencies:
 
 ```helm
 postgresql (bitnami)

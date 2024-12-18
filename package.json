@@ -15,9 +15,11 @@
     "workers": "node --import tsx src/startWorkers.ts",
     "dev-workers": "node --import tsx --watch src/startWorkers.ts",
     "dev-board": "node --import tsx --watch src/index.ts",
+    "dev-api": "node --import tsx --watch src/index.ts --api-only",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "update-report-url": "node --import=tsx scripts/update-spreadsheet-companies-urls.ts",
+    "test": "jest",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts"
   },
