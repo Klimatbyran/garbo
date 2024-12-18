@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106625326",
-  "name": "Brinova",
+  "name": "Brinova Fastigheter",
   "description": "Brinova är ett fastighetsbolag som fokuserar på förvaltning och utveckling av bostäder och samhällsfastigheter. Företaget arbetar med att underhålla fastigheter, bygga nya bostadsområden och samarbeta med kommuner för att utveckla trygga boendemiljöer.",
   "reportingPeriods": [
     {
@@ -9,11 +9,11 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 4212299000,
+          "value": 67600000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 3298,
+          "value": 52,
           "unit": "FTE"
         }
       },

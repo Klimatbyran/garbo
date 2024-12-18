@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q18370893",
-  "name": "SOS Alarm Sverige AB",
+  "name": "SOS Alarm",
   "description": "SOS Alarm hanterar larm och samordnar hjälpresurser vid olyckor, kriser och störningar i Sverige. Företaget ansvarar för nödnumret 112 och har en central roll i samhällets krisberedskap. Det erbjuder även tjänster inom trygghet och säkerhet i samverkan med olika aktörer.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1572389000,
+          "value": 13366000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 1265,
-          "unit": "average number of employees"
+          "value": 273,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -50,7 +50,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 5409,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -100,7 +103,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3571,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -150,7 +156,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3245,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -200,7 +209,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3893,
+          "unit": "tCO2e"
+        }
       }
     },
     {

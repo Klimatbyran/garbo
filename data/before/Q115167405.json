@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q115167405",
-  "name": "KABE Group AB",
+  "name": "KABE Group",
   "description": "KABE Group tillverkar och säljer husvagnar, husbilar, pick-up campers och campingtillbehör på den europeiska marknaden. Produkterna marknadsförs under varumärken som KABE, Adria, Coachman, Affinity, KAMA Fritid och S Karosser.",
   "reportingPeriods": [
     {
@@ -23,18 +23,27 @@
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 4084000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 1066,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
-          "total": 1234,
+          "total": 1016,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 3456,
-          "mb": 2345,
+          "mb": 1111,
           "unknown": 4567,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 2345
+          "calculatedTotalEmissions": 1111
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -46,7 +55,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 2127,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -56,19 +68,22 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 1123,
+          "total": 1207,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 3345,
-          "mb": 2234,
+          "mb": 796,
           "unknown": 4456,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 2234
+          "calculatedTotalEmissions": 796
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 2003,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

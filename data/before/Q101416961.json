@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q101416961",
-  "name": "Fasadgruppen Group AB",
+  "name": "Fasadgruppen",
   "description": "Fasadgruppen är en koncern som samlar entreprenörer inom energirenoveringar och tjänster för fastigheters yttre skal i Norden. Företaget erbjuder lösningar för fasad, fönster, balkong och tak, och betjänar fastighetsbolag, kommuner, regioner, statliga verksamheter, bostadsrättsföreningar, konsulter och byggföretag.",
   "reportingPeriods": [
     {
@@ -9,17 +9,17 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 5109700000,
+          "value": 5110000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 2001,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 3345,
+          "total": 3435,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -31,7 +31,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 51602,
+            "total": 52162,
             "unit": "tCO2e"
           },
           "categories": [
@@ -41,11 +41,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 51602
+          "calculatedTotalEmissions": 52162
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 55952,
+          "unit": "tCO2e"
+        }
       }
     },
     {

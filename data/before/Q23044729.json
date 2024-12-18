@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q23044729",
-  "name": "Profoto Holding AB",
+  "name": "Profoto Holding",
   "description": "Profoto utvecklar, marknadsför och säljer produkter och mjukvarulösningar för professionella fotografer och studios. Företaget erbjuder ljussättningslösningar som inkluderar blixtar, ljusformare och automatiserade system, med försäljning i 54 länder via återförsäljare och direkt online.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 139,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

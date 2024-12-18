@@ -9,21 +9,21 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 13269000000,
+          "value": 13300000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 1486,
+          "value": 1300,
           "unit": "FTE"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 7600,
+          "total": 3245,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 6801,
+          "lb": 5860,
           "mb": 3570,
           "unknown": 4000,
           "unit": "tCO2e",
@@ -31,15 +31,18 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 355000,
+            "total": 355402,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 355000
+          "calculatedTotalEmissions": 355402
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 362217,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -58,27 +61,30 @@
       },
       "emissions": {
         "scope1": {
-          "total": 8600,
+          "total": 3569,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 6801,
-          "mb": 3570,
+          "lb": 6809,
+          "mb": 5052,
           "unknown": 4900,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 3570
+          "calculatedTotalEmissions": 5052
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 477000,
+            "total": 477171,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 477000
+          "calculatedTotalEmissions": 477171
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 485792,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -88,27 +94,30 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 9900,
+          "total": 3086,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 6801,
-          "mb": 3570,
+          "lb": 7372,
+          "mb": 6801,
           "unknown": 6300,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 3570
+          "calculatedTotalEmissions": 6801
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 732000,
+            "total": 731520,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 732000
+          "calculatedTotalEmissions": 731520
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 741407,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -118,27 +127,30 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 10000,
+          "total": 3209,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 729019,
-          "mb": 711930,
+          "lb": 7154,
+          "mb": 6830,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 711930
+          "calculatedTotalEmissions": 6830
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 712000,
+            "total": 711930,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 712000
+          "calculatedTotalEmissions": 711930
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 721969,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -148,27 +160,30 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 11100,
+          "total": 4114,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 6801,
-          "mb": 3570,
+          "lb": 6555,
+          "mb": 6961,
           "unknown": 7500,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 3570
+          "calculatedTotalEmissions": 6961
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 729000,
+            "total": 729019,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 729000
+          "calculatedTotalEmissions": 729019
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 740094,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -178,27 +193,30 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 13300,
+          "total": 4996,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 6801,
-          "mb": 3570,
+          "lb": 7337,
+          "mb": 8275,
           "unknown": 9700,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 3570
+          "calculatedTotalEmissions": 8275
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 791000,
+            "total": 791239,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 791000
+          "calculatedTotalEmissions": 791239
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 804510,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106594863",
-  "name": "AB Traction",
+  "name": "Traction",
   "description": "Traction är ett börsnoterat investmentbolag som investerar i noterade små och medelstora företag samt räntebärande tillgångar. Bolaget fokuserar på långsiktigt ägande och samarbete med andra delägare och företagsledningar, utan att begränsa sig till specifika branscher.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 3,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

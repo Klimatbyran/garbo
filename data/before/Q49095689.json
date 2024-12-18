@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q49095689",
-  "name": "MedCap AB",
+  "name": "MedCap",
   "description": "MedCap AB är en börsnoterad koncern som investerar i och utvecklar bolag inom tre affärsområden: Hjälpmedel, Medicinteknik och Specialistläkemedel. Verksamheten fokuserar på att förvärva och utveckla nischbolag inom Life Science i norra Europa.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 476,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

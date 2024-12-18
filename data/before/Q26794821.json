@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q26794821",
-  "name": "Arctic Paper SA",
+  "name": "Arctic Paper",
   "description": "Arctic Paper SA är verksamt inom produktion och distribution av pappersprodukter. Företaget tillhandahåller olika typer av papper för tryck och förpackning, med fokus på att möta kundernas behov genom en effektiv leveranskedja och ansvarsfulla affärsmetoder.",
   "reportingPeriods": [
     {
@@ -19,7 +19,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 8979,
+          "total": 129085,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -31,7 +31,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 51677,
+            "total": 70353.622,
             "unit": "tCO2e"
           },
           "categories": [
@@ -46,11 +46,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 51677
+          "calculatedTotalEmissions": 70353.622
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 218290.622,
+          "unit": "tCO2e"
+        }
       }
     },
     {

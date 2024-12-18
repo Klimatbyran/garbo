@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106282881",
-  "name": "Stillfront Group AB",
+  "name": "Stillfront Group",
   "description": "Stillfront är ett globalt spelbolag som utvecklar digitala spel för en mångsidig publik. Företaget har en bred spelportfölj och når över 50 miljoner användare varje månad. Stillfronts huvudkontor ligger i Stockholm och bolagets aktier är noterade på Nasdaq Stockholm.",
   "reportingPeriods": [
     {
@@ -19,7 +19,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 79,
+          "total": 78,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -37,7 +37,7 @@
           "categories": [
             {
               "category": 1,
-              "total": 1736,
+              "total": 1744,
               "unit": "tCO2e"
             },
             {
@@ -66,6 +66,11 @@
               "unit": "tCO2e"
             },
             {
+              "category": 9,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
               "category": 11,
               "total": 49365,
               "unit": "tCO2e"
@@ -75,7 +80,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 53064,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -106,7 +114,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 52587,
+            "total": 56827,
             "unit": "tCO2e"
           },
           "categories": [
@@ -146,11 +154,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 52587
+          "calculatedTotalEmissions": 56827
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 57394,
+          "unit": "tCO2e"
+        }
       }
     },
     {

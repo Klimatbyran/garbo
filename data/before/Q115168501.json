@@ -7,10 +7,16 @@
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 87100000,
+          "currency": "USD"
+        },
+        "employees": null
+      },
       "emissions": {
         "scope1": {
-          "total": 1200,
+          "total": 106578,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -40,8 +46,14 @@
           "calculatedTotalEmissions": 2938000
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 106582,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 3044582,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -51,7 +63,7 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 1100,
+          "total": 117048,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -70,8 +82,14 @@
           "calculatedTotalEmissions": 3100
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 117165,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 117165,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -81,7 +99,7 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 1000,
+          "total": 126920,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -100,8 +118,14 @@
           "calculatedTotalEmissions": 3000
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 126920,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 126920,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

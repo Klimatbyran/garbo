@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 566000000,
+          "value": 565700000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 40,
-          "unit": "FTE"
+          "value": 46,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -37,7 +37,12 @@
           "categories": [
             {
               "category": 1,
-              "total": 3186,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4338,
               "unit": "tCO2e"
             },
             {
@@ -47,12 +52,17 @@
             },
             {
               "category": 7,
-              "total": 4,
+              "total": 5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 780,
               "unit": "tCO2e"
             },
             {
               "category": 16,
-              "total": 333,
+              "total": 371,
               "unit": "tCO2e"
             },
             {
@@ -62,7 +72,7 @@
             },
             {
               "category": 16,
-              "total": 371,
+              "total": 333,
               "unit": "tCO2e"
             },
             {
@@ -75,7 +85,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 5997,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -150,7 +163,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 13176,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -202,7 +218,7 @@
             },
             {
               "category": 16,
-              "total": 333,
+              "total": 356,
               "unit": "tCO2e"
             },
             {
@@ -212,7 +228,7 @@
             },
             {
               "category": 16,
-              "total": 356,
+              "total": 333,
               "unit": "tCO2e"
             }
           ],
@@ -220,7 +236,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 15091,
+          "unit": "tCO2e"
+        }
       }
     },
     {

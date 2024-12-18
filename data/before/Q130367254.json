@@ -13,8 +13,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 6562,
-          "unit": "total"
+          "value": 6268,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -41,13 +41,23 @@
               "unit": "tCO2e"
             },
             {
+              "category": 3,
+              "total": 591,
+              "unit": "tCO2e"
+            },
+            {
               "category": 4,
-              "total": 18105,
+              "total": 1770,
               "unit": "tCO2e"
             },
             {
               "category": 6,
-              "total": 1079,
+              "total": 1712,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 18105,
               "unit": "tCO2e"
             },
             {
@@ -63,7 +73,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 559738,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -126,7 +139,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 477902,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -186,7 +202,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 40145,
+          "unit": "tCO2e"
+        }
       }
     },
     {

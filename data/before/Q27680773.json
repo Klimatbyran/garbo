@@ -9,11 +9,11 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 76248000,
+          "value": 76748000,
           "currency": "EUR"
         },
         "employees": {
-          "value": 255,
+          "value": 231,
           "unit": "FTE"
         }
       },

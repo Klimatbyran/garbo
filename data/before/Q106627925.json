@@ -7,7 +7,16 @@
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 8968000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 7846,
+          "unit": "medelantal"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 25348,
@@ -29,8 +38,14 @@
           "calculatedTotalEmissions": 0
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 25348,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 25348,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

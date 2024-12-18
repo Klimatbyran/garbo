@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106629013",
-  "name": "Calliditas Therapeutics AB",
+  "name": "Calliditas Therapeutics",
   "description": "Calliditas Therapeutics är ett biopharmaföretag som forskar, utvecklar och kommersialiserar nya terapier för sällsynta sjukdomar. Företagets huvudprodukt, Nefecon, är godkänd för behandling av IgA-nefropati i flera regioner. Calliditas har även en pipeline med NOX-hämmare för inflammatoriska och fibrotiska sjukdomar.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1206888000,
+          "value": 1200000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 181,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

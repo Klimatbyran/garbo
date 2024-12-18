@@ -1,13 +1,22 @@
 {
   "wikidataId": "Q106625885",
-  "name": "Genova Property Group AB",
+  "name": "Genova Property Group",
   "description": "Genova är ett fastighetsbolag som fokuserar på fastighetsförvaltning och projektutveckling. Företaget hanterar en portfölj av förvaltningsfastigheter med fokus på uthyrning och utveckling av bostäder och kommersiella fastigheter, främst i Stockholms- och Uppsalaregionen.",
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 503000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 54,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 81.9,
@@ -54,7 +63,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 2488.2,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -108,7 +120,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1239,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -153,11 +168,14 @@
           "calculatedTotalEmissions": 347.6
         },
         "biogenicEmissions": {
-          "total": 9,
+          "total": 0.9,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1417.2,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

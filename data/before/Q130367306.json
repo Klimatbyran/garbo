@@ -9,12 +9,12 @@
       "reportURL": "https://www.viscaria.com/sv/wp-content/uploads/sites/4/2024/05/copperstone-resources-arsredovisning-2023-240517.pdf",
       "economy": {
         "turnover": {
-          "value": 0,
+          "value": 261000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 34,
-          "unit": "average number of employees"
+          "value": 31,
+          "unit": "EOY"
         }
       },
       "emissions": {

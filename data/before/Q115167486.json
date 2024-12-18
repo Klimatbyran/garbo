@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 31,
-          "unit": "FTE"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -90,7 +90,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 508967,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -180,7 +183,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 529405,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -264,7 +270,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 538870,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -348,7 +357,43 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 465220,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 13,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 50,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 50
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 545957,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 545957
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 546020,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

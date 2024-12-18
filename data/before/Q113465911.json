@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q113465911",
-  "name": "Arise AB",
+  "name": "Arise",
   "description": "Arise utvecklar och förvaltar förnybar elproduktion med fokus på vindkraft, solkraft och batterilagring. Företaget är verksamt i Sverige, Storbritannien, Finland, Norge och Ukraina, och arbetar med att hantera påverkan och risker i värdekedjan.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 5000000,
+          "value": 503000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 67,
-          "unit": "FTE"
+          "unit": "medelantal"
         }
       },
       "emissions": {
@@ -55,7 +55,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 74299,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -86,7 +89,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 74917,
+            "total": 1941,
             "unit": "tCO2e"
           },
           "categories": [
@@ -106,11 +109,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 74917
+          "calculatedTotalEmissions": 1941
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1965,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

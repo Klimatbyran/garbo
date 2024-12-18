@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q130366912",
-  "name": "Byggmästare Anders J Ahlström Holding AB",
+  "name": "Byggmästare Anders J Ahlström Holding",
   "description": "Byggmästare Anders J Ahlström Holding AB investerar i och utvecklar företagsgrupper, främst små och medelstora bolag i Sverige och Norden, både noterade och onoterade. Företaget kan vara majoritets- eller minoritetsägare och fokuserar på långsiktigt värdeskapande för aktieägare.",
   "reportingPeriods": [
     {
@@ -9,11 +9,11 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 985641000,
+          "value": 5831000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 0,
+          "value": 325,
           "unit": "FTE"
         }
       },

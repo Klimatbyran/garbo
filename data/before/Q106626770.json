@@ -1,13 +1,22 @@
 {
   "wikidataId": "Q106626770",
-  "name": "ITAB Shop Concept AB",
+  "name": "ITAB Shop Concept",
   "description": "ITAB Shop Concept AB utvecklar, tillverkar, säljer och installerar lösningar och tjänster för butiksinredning, teknik och belysning inom detaljhandeln. Företaget verkar i 24 länder med cirka 2 500 anställda och 15 produktionsanläggningar i Europa och Kina.",
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 6139000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2533,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 5935,

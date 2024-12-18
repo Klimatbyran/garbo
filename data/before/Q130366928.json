@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q130366928",
-  "name": "Ependion AB",
+  "name": "Ependion",
   "description": "Ependion AB är en global teknikgrupp som levererar digitala lösningar för säker kontroll, visualisering och datakommunikation för industriella applikationer i miljöer där tillförlitlighet och hög kvalitet är avgörande faktorer.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 869,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -39,7 +39,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 772,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -78,7 +81,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 679,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -108,7 +114,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 584,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

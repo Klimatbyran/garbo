@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q115167139",
-  "name": "Cibus Nordic Real Estate AB",
+  "name": "Cibus Nordic Real Estate",
   "description": "Cibus Nordic Real Estate AB (publ) förvärvar, förvaltar och utvecklar högkvalitativa fastigheter i Norden med livsmedelskedjor som hyresgäster. Företaget äger 451 fastigheter i Finland, Sverige, Danmark och Norge, med en total uthyrningsbar yta på 975,857 m².",
   "reportingPeriods": [
     {
@@ -9,8 +9,8 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 7700000000,
-          "currency": "SEK"
+          "value": 114729000,
+          "currency": "EUR"
         },
         "employees": {
           "value": 11,
@@ -19,11 +19,11 @@
       },
       "emissions": {
         "scope1": {
-          "total": 3000,
+          "total": 888,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 5720,
+          "lb": 4683,
           "mb": 83,
           "unknown": 7340,
           "unit": "tCO2e",
@@ -31,41 +31,44 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 18847,
+            "total": 25912,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 1,
-              "total": 2807,
+              "total": 3014,
               "unit": "tCO2e"
             },
             {
               "category": 2,
-              "total": 723,
+              "total": 805,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 3638,
+              "total": 2406,
               "unit": "tCO2e"
             },
             {
               "category": 6,
-              "total": 17,
+              "total": 15,
               "unit": "tCO2e"
             },
             {
               "category": 13,
-              "total": 11662,
+              "total": 19672,
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 18847
+          "calculatedTotalEmissions": 25912
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 26882,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -84,11 +87,11 @@
       },
       "emissions": {
         "scope1": {
-          "total": 888,
+          "total": 936,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 5717,
+          "lb": 4962,
           "mb": 2021,
           "unknown": 7340,
           "unit": "tCO2e",
@@ -130,7 +133,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 30793,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -140,19 +146,19 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 885,
+          "total": 7,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 4283,
-          "mb": 0,
+          "lb": 8556,
+          "mb": 2807,
           "unknown": 1116,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 2807
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 25912,
+            "total": 18847,
             "unit": "tCO2e"
           },
           "categories": [
@@ -182,11 +188,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 25912
+          "calculatedTotalEmissions": 18847
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 24570,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

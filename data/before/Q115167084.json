@@ -9,25 +9,25 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 884200000,
+          "value": 898000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 210,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 12.5,
+          "total": 9.3,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 50,
-          "mb": 9.3,
+          "mb": 36,
           "unknown": 50,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 9.3
+          "calculatedTotalEmissions": 36
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -39,7 +39,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 45.3,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -58,15 +61,15 @@
       },
       "emissions": {
         "scope1": {
-          "total": 12.5,
+          "total": 27.5,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 50,
-          "mb": 9.3,
+          "mb": 36,
           "unknown": 50,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 9.3
+          "calculatedTotalEmissions": 36
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -78,7 +81,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 63.5,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -97,7 +103,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 27.5,
+          "total": 12.5,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -117,7 +123,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 50.5,
+          "unit": "tCO2e"
+        }
       }
     },
     {

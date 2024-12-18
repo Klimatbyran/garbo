@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 79,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

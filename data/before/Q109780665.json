@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q109780665",
-  "name": "Lime Technologies AB (publ)",
+  "name": "Lime Technologies",
   "description": "Lime Technologies AB (publ) utvecklar och levererar kundrelationshanteringssystem (CRM) för företag och organisationer. Företaget erbjuder lösningar för att förbättra kundinteraktioner och effektivisera affärsprocesser genom sina mjukvaruprodukter och tjänster.",
   "reportingPeriods": [
     {
@@ -19,38 +19,41 @@
       },
       "emissions": {
         "scope1": {
-          "total": 21.56,
+          "total": 21560,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 35.2719,
-          "mb": 35.2719,
+          "mb": 42158,
           "unknown": 35.2719,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 35.2719
+          "calculatedTotalEmissions": 42158
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 108.6672,
+            "total": 130393,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 1,
-              "total": 95.6422,
+              "total": 96031,
               "unit": "tCO2e"
             },
             {
               "category": 6,
-              "total": 13.025,
+              "total": 34362,
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 108.6672
+          "calculatedTotalEmissions": 130393
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 194111,
+          "unit": "tCO2e"
+        }
       }
     },
     {

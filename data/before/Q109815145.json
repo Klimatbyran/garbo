@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q109815145",
-  "name": "Green Landscaping Group AB",
+  "name": "Green Landscaping Group",
   "description": "Green Landscaping Group är verksamt inom grönområdesskötsel och finplanering. Företaget förvärvar lokala företag och integrerar dem i en multinationell koncern, samtidigt som de behåller sin småföretagaranda. Koncernen erbjuder tjänster i flera europeiska länder.",
   "reportingPeriods": [
     {
@@ -13,8 +13,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 1343,
-          "unit": "FTE"
+          "value": 2712,
+          "unit": "Average"
         }
       },
       "emissions": {

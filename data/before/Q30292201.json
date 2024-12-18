@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q30292201",
-  "name": "PowerCell",
+  "name": "PowerCell Sweden",
   "description": "PowerCell utvecklar och producerar bränslecellsstackar och bränslecellssystem för applikationer inom flyg, marin, kraftgenerering, terrängfordon och vägfordon. Produkterna drivs av vätgas och genererar elektricitet och värme med vatten som enda utsläpp.",
   "reportingPeriods": [
     {
@@ -77,7 +77,7 @@
             },
             {
               "category": 12,
-              "total": 2793.6,
+              "total": 5.8,
               "unit": "tCO2e"
             }
           ],
@@ -85,7 +85,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 50060.8,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -145,7 +148,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 433.3,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -205,7 +211,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 193.3,
+          "unit": "tCO2e"
+        }
       }
     },
     {

@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q131412873",
-  "name": "Nivika Fastighets AB",
+  "name": "Nivika",
   "description": "Nivika är ett fastighetsbolag som hanterar och utvecklar fastigheter. Företaget fokuserar på att mäta och rapportera sina utsläpp av växthusgaser enligt GHG-protokollet, med särskild uppmärksamhet på direkta och indirekta utsläpp från verksamhetens olika delar.",
   "reportingPeriods": [
     {
@@ -9,19 +9,64 @@
       "reportURL": "https://mb.cision.com/Main/20845/3888172/2479235.pdf",
       "economy": {
         "turnover": {
-          "value": 611900000,
+          "value": 611913000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 0,
+          "value": 62,
           "unit": "FTE"
         }
       },
       "emissions": {
-        "scope1": null,
+        "scope1": {
+          "total": 26,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1547,
+          "mb": 638,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 638
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 10608,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 6139,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 430,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 18,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 4021,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 10608
+        },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 664,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 11272,
+          "unit": "tCO2e"
+        }
       }
     },
     {

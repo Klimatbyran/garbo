@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q115167261",
-  "name": "COOR SERVICE MANAGEMENT HOLDING AB",
+  "name": "Coor Service Management Holding",
   "description": "Coor Service Management Holding AB erbjuder tjänster inom områden som städning, fastighetsservice, arbetsplatstjänster samt mat och dryck. Företaget har cirka 13,000 anställda och verkar främst i Norden och Belgien. Coor fokuserar på att förbättra arbetsmiljöer för sina kunder.",
   "reportingPeriods": [
     {
@@ -13,8 +13,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 10648,
-          "unit": "FTE"
+          "value": 10659,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -23,15 +23,15 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 138,
-          "mb": 241,
+          "lb": 220,
+          "mb": 323,
           "unknown": 323,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 241
+          "calculatedTotalEmissions": 323
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 159324,
+            "total": 155953,
             "unit": "tCO2e"
           },
           "categories": [
@@ -67,7 +67,7 @@
             },
             {
               "category": 11,
-              "total": 0,
+              "total": 5713,
               "unit": "tCO2e"
             },
             {
@@ -76,14 +76,17 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 159324
+          "calculatedTotalEmissions": 155953
         },
         "biogenicEmissions": {
           "total": 606,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 159324,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -106,15 +109,15 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 150,
-          "mb": 264,
+          "lb": 219,
+          "mb": 333,
           "unknown": 333,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 264
+          "calculatedTotalEmissions": 333
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 117218,
+            "total": 113516,
             "unit": "tCO2e"
           },
           "categories": [
@@ -159,14 +162,17 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 117218
+          "calculatedTotalEmissions": 113516
         },
         "biogenicEmissions": {
           "total": 194,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 117218,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -189,15 +195,15 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 128,
-          "mb": 318,
+          "lb": 255,
+          "mb": 445,
           "unknown": 445,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 318
+          "calculatedTotalEmissions": 445
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 93241,
+            "total": 89553,
             "unit": "tCO2e"
           },
           "categories": [
@@ -242,14 +248,17 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 93241
+          "calculatedTotalEmissions": 89553
         },
         "biogenicEmissions": {
           "total": 278,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 93241,
+          "unit": "tCO2e"
+        }
       }
     },
     {

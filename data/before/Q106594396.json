@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106594396",
-  "name": "FASTIGHETS AB TRIANON (PUBL)",
+  "name": "Trianon",
   "description": "Fastighets AB Trianon är ett publikt bolag baserat i Malmö som äger, förvaltar och utvecklar fastigheter. Företaget fokuserar på bostäder och kommersiella fastigheter, med verksamhet som inkluderar uthyrning, nyproduktion och fastighetsförvaltning.",
   "reportingPeriods": [
     {
@@ -9,25 +9,25 @@
       "reportURL": "https://mb.cision.com/Main/15948/3950051/2688912.pdf",
       "economy": {
         "turnover": {
-          "value": 732800000,
+          "value": 733000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 100,
-          "unit": "average number of employees"
+          "value": 90,
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 36.2,
+          "total": 35.9,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 3955.9,
-          "mb": 0,
+          "mb": 3955.9,
           "unknown": 3955.9,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 3955.9
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -48,7 +48,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3998,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -67,15 +70,15 @@
       },
       "emissions": {
         "scope1": {
-          "total": 36.2,
+          "total": 35.7,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 3960.2,
-          "mb": 0,
+          "mb": 3960.2,
           "unknown": 3960.2,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 3960.2
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -96,7 +99,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 4001.6,
+          "unit": "tCO2e"
+        }
       }
     },
     {

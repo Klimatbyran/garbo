@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q131426217",
-  "name": "Swedish Logistic Property AB",
+  "name": "Swedish Logistic Property",
   "description": "Swedish Logistic Property AB förvärvar, förädlar och förvaltar logistikfastigheter. Företaget fokuserar på att skapa värdetillväxt genom förädling av fastigheter i strategiska logistikpunkter i Sverige.",
   "reportingPeriods": [
     {
@@ -13,7 +13,7 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 15,
+          "value": 14,
           "unit": "average number of employees"
         }
       },
@@ -23,11 +23,11 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 388,
-          "mb": 131,
+          "lb": 519,
+          "mb": 388,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 131
+          "calculatedTotalEmissions": 388
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -65,7 +65,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 8316,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -88,11 +91,11 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 344,
-          "mb": 119,
+          "lb": 463,
+          "mb": 344,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 119
+          "calculatedTotalEmissions": 344
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -130,7 +133,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 7081,
+          "unit": "tCO2e"
+        }
       }
     },
     {

@@ -9,12 +9,12 @@
       "reportURL": "https://storage.mfn.se/proxy?url=https://storage.mfn.se/457ce946-6d13-4c24-8638-941e27b63a96/ar2223.pdf",
       "economy": {
         "turnover": {
-          "value": 558000000,
+          "value": 110000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 5,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

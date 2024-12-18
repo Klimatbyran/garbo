@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q106618377",
-  "name": "K-Fast Holding AB",
+  "name": "K-Fast Holding",
   "description": "K-Fastigheter är ett fastighetsbolag som äger och förvaltar hyreslägenheter. Företaget är verksamt inom projektutveckling, prefab, byggnation och förvaltning, med fokus på långsiktigt ägande av bostäder. K-Prefab, ett dotterbolag, hanterar prefabverksamheten.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 12514000000,
+          "value": 1094800000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 0,
-          "unit": "FTE"
+          "value": 659,
+          "unit": "Average"
         }
       },
       "emissions": {

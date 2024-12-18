@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q115167277",
-  "name": "Stendörren Fastigheter AB",
+  "name": "Stendörren Fastigheter",
   "description": "Stendörren Fastigheter AB är ett fastighetsbolag noterat på Nasdaq Stockholm Mid Cap. Företaget fokuserar på att förvärva, utveckla och förvalta fastigheter och byggrätter inom logistik, lager och lätt industri i nordiska tillväxtregioner, främst i Storstockholm och Mälardalen.",
   "reportingPeriods": [
     {
@@ -9,7 +9,7 @@
       "reportURL": "https://www.stendorren.se/sv/wp-content/uploads/sites/4/2023/06/wkr0006-239.pdf",
       "economy": {
         "turnover": {
-          "value": 853980000,
+          "value": 843000000,
           "currency": "SEK"
         },
         "employees": {
@@ -31,26 +31,44 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 4783,
+            "total": 4522,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 2,
-              "total": 702,
+              "total": 3335,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 4081,
+              "total": 487.11,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 0,
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 4783
+          "calculatedTotalEmissions": 4522
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 5821,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -81,7 +99,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 10169,
+            "total": 9895,
             "unit": "tCO2e"
           },
           "categories": [
@@ -96,11 +114,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 10169
+          "calculatedTotalEmissions": 9895
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 11227,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -131,7 +152,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 543,
+            "total": 227,
             "unit": "tCO2e"
           },
           "categories": [
@@ -141,11 +162,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 543
+          "calculatedTotalEmissions": 227
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1706,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -184,7 +208,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1519,
+          "unit": "tCO2e"
+        }
       }
     },
     {

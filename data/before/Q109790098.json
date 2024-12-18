@@ -9,12 +9,12 @@
       "reportURL": "https://mb.cision.com/Main/1732/3946439/2671937.pdf",
       "economy": {
         "turnover": {
-          "value": 6108000000,
+          "value": 6188000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 2229,
-          "unit": "FTE"
+          "value": 2377,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -49,8 +49,14 @@
           "calculatedTotalEmissions": 764
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 2902,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 3666,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -99,8 +105,14 @@
           "calculatedTotalEmissions": 804
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 2897,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 3701,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -143,8 +155,14 @@
           "calculatedTotalEmissions": 1020
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 4958,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 5978,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -187,8 +205,14 @@
           "calculatedTotalEmissions": 8907
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 5205,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 14112,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -231,8 +255,14 @@
           "calculatedTotalEmissions": 8186
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 5833,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 14019,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

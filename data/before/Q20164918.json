@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q20164918",
-  "name": "Platzer",
+  "name": "Platzer Fastigheter",
   "description": "Platzer är ett fastighetsbolag som äger och utvecklar kommersiella fastigheter i Göteborg. Företaget fokuserar på uthyrning, förvaltning, stadsutveckling samt förvärv och försäljning av fastigheter. Beståndet inkluderar kontor, industri och logistik.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": "https://vp282.alertir.com/afw/files/press/platzer/202402223572-1.pdf",
       "economy": {
         "turnover": {
-          "value": 1453000000,
+          "value": 527000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 85,
-          "unit": "total employees"
+          "value": 83,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -54,8 +54,14 @@
           "calculatedTotalEmissions": 8470
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 279,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8749,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -109,8 +115,14 @@
           "calculatedTotalEmissions": 5469
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 335,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 5804,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -164,8 +176,14 @@
           "calculatedTotalEmissions": 242
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 451,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 693,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

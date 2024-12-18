@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q28449044",
-  "name": "RaySearch Laboratories AB",
+  "name": "RaySearch Laboratories",
   "description": "RaySearch Laboratories AB är ett medicinteknikföretag som utvecklar mjukvarulösningar för förbättrad cancerbehandling. Företaget marknadsför RayStation, ett behandlingsplaneringssystem, och RayCare, ett onkologiinformationssystem, till kliniker globalt. RaySearch grundades 2000 och är noterat på Nasdaq Stockholm.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": "https://mb.cision.com/Main/1102/3968505/2761920.pdf",
       "economy": {
         "turnover": {
-          "value": 1022159000,
+          "value": 1022200000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 376,
-          "unit": "average number of employees"
+          "value": 200,
+          "unit": "EOY"
         }
       },
       "emissions": {
@@ -55,7 +55,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 601.03,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -110,7 +113,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 331.5,
+          "unit": "tCO2e"
+        }
       }
     },
     {

@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 0,
+          "value": 371000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 15,
-          "unit": "average number of employees"
+          "value": 30,
+          "unit": "Average"
         }
       },
       "emissions": {

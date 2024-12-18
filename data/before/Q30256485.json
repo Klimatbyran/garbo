@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q30256485",
-  "name": "FM Mattsson Group",
+  "name": "FM Mattsson",
   "description": "FM Mattsson Group utvecklar, tillverkar och levererar lösningar för badrum och kök under varumärkena Mora Armatur, FM Mattsson, Damixa, Hotbath, Aqualla och Adamsez. Företaget har en stark närvaro i Norden och expanderar i Europa, med 41% av försäljningen utanför Norden 2023.",
   "reportingPeriods": [
     {
@@ -14,20 +14,20 @@
         },
         "employees": {
           "value": 568,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 104,
+          "total": 548,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 4,
-          "mb": 767,
+          "mb": 881,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 767
+          "calculatedTotalEmissions": 881
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -45,7 +45,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1429,
+          "unit": "tCO2e"
+        }
       }
     },
     {

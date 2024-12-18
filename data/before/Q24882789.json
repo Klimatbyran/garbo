@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q24882789",
-  "name": "BICO Group AB (publ)",
+  "name": "BICO Group",
   "description": "BICO Group AB erbjuder lösningar inom life science och laboratorieautomation som effektiviserar utvecklingen av nya behandlingar. Företaget kombinerar konventionella teknologier med biologi för att skapa användarvänliga lösningar, med fokus på bioprinting, bioautomation och biovetenskap.",
   "reportingPeriods": [
     {
@@ -9,12 +9,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 2249900000,
+          "value": 2577000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 955,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -60,7 +60,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 4339.15,
+          "unit": "tCO2e"
+        }
       }
     },
     {

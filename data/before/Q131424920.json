@@ -9,37 +9,40 @@
       "reportURL": "https://prismaproperties.se/wordpress/wp-content/uploads/2024/06/Prismas-hallbarhetsarbete-3.pdf",
       "economy": {
         "turnover": {
-          "value": 0,
+          "value": 345000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 0,
+          "value": 8,
           "unit": "FTE"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 0,
+          "total": 27,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 0,
-          "mb": 0,
+          "mb": 543,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 543
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 0,
+            "total": 7741,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 7741
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 8312,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

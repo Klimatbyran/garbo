@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q114221082",
-  "name": "MilDef Group AB",
+  "name": "MilDef Group",
   "description": "MilDef utvecklar och levererar robusta IT-lösningar för krävande miljöer. Företaget fokuserar på att skydda kritisk information genom att erbjuda hårdvara och mjukvara som är anpassad för extrema förhållanden.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 309,
-          "unit": "FTE"
+          "unit": "EOY"
         }
       },
       "emissions": {

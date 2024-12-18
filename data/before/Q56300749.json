@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q56300749",
-  "name": "HANZA AB",
+  "name": "HANZA",
   "description": "HANZA är ett globalt företag inom tillverkningsindustrin som kombinerar produktutveckling och rådgivning med egna fabriker i regionala kluster. Företaget erbjuder ett brett utbud av tillverkningsteknologier och fokuserar på att effektivisera leveranskedjor för sina kunder.",
   "reportingPeriods": [
     {
@@ -13,8 +13,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 1999,
-          "unit": "FTE"
+          "value": 2001,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -45,7 +45,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 10987,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -69,10 +72,10 @@
         },
         "scope2": {
           "lb": 15150,
-          "mb": 0,
+          "mb": 15150,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 15150
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -90,7 +93,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 15343,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -114,10 +120,10 @@
         },
         "scope2": {
           "lb": 16139,
-          "mb": 0,
+          "mb": 16139,
           "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 0
+          "calculatedTotalEmissions": 16139
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -135,7 +141,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 16261,
+          "unit": "tCO2e"
+        }
       }
     },
     {

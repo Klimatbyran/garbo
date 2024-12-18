@@ -1,6 +1,6 @@
 {
   "wikidataId": "Q131394677",
-  "name": "Vestum AB",
+  "name": "Vestum",
   "description": "Vestum är en koncern bestående av över 60 specialistbolag med cirka 1 800 anställda. Företaget tillhandahåller tjänster och produkter inom infrastruktur, med fokus på segmenten Water, Services och Infrastructure, i Skandinavien och Storbritannien.",
   "reportingPeriods": [
     {
@@ -14,7 +14,7 @@
         },
         "employees": {
           "value": 1787,
-          "unit": "FTE"
+          "unit": "EOY"
         }
       },
       "emissions": {
@@ -65,7 +65,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 86893,
+          "unit": "tCO2e"
+        }
       }
     },
     {
