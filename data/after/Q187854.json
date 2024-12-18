@@ -1,0 +1,183 @@
+{
+  "wikidataId": "Q187854",
+  "name": "SAS",
+  "description": "SAS, eller Scandinavian Airlines, är ett ledande flygbolag i Skandinavien som erbjuder passagerar- och godstransporttjänster. Företaget är känt för sitt fokus på hållbarhet och har implementerat flera initiativ för att minska sin miljöpåverkan. SAS tekniska underhållsverksamhet är också en viktig del av företagets verksamhet.",
+  "reportingPeriods": [
+    {
+      "startDate": "2022-11-01T00:00:00.000Z",
+      "endDate": "2023-10-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/290/3923241/2586471.pdf",
+      "economy": {
+        "turnover": {
+          "value": 42043000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 7959,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 3073300,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5100,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5100
+        },
+        "biogenicEmissions": {
+          "total": 19100,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3078400,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sasgroup.net/files/Main/290/3701837/sas-ars--och-hallbarhetsredovisning-2021-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 2436300,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5600,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5600
+        },
+        "biogenicEmissions": {
+          "total": 9700,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2441900,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sasgroup.net/files/Main/290/3493247/sas-ars--och-hallbarhetsredovisning-2020-2021.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1196700,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5700,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5700
+        },
+        "biogenicEmissions": {
+          "total": 3300,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1202400,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sasgroup.net/files/Main/290/3277521/release.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1802000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 8600,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 8600
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1810600,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sasgroup.net/files/documents/Corporate_governace/annual-reports/sas-sas-ars-och-hallbarhetsredovisning-20182019-200130.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 4210000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 9800,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 9800
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4219800,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sasgroup.net/files/en/wp-content/uploads/sites/2/2019/01/sas-sas-arsredovisning-20172018-190129.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 4313000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 10000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 4323000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2030",
+      "industryCode": "203020",
+      "subIndustryCode": "20302010"
+    }
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "wikidataId": "Q1785637",
+  "name": "Apoteket",
+  "description": "Apoteket är en svensk detaljhandelskedja som säljer läkemedel och hälsorelaterade produkter. Företaget strävar efter att erbjuda kvalitativa läkemedel och rådgivning med en omfattande närvaro över hela Sverige.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.apoteket.se/globalassets/om-apoteket/ekonomiska-rapporter/apoteket-ab-ars--och-hallbarhetsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 23270000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2885,
+          "unit": "medelantal"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 95,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 824,
+          "mb": 826,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 826
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 426793,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 418963,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 1667,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 245,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 2305,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 442,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 405,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 1934,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 823,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 426793
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 427714,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.apoteket.se/globalassets/om-apoteket/ekonomiska-rapporter/apoteket-ars-och-hallbarhetsredovisning-2022.ny.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 46,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1499,
+          "mb": 2360,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2360
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 393071,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 380450,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2804,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 689,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 2746,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 488,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 329,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 1960,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 3605,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 393071
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 395477,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.apoteket.se/globalassets/om-apoteket/pdfer/apoteket-2021-final-ny-032464.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 166,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1323,
+          "mb": 2126,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2126
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 482237,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 464624,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 3219,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 482237
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 484529,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 62,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1339,
+          "mb": 2164,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2164
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 361825,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 436406,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3914,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 652,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 3242,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 441,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 318,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 1960,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 4892,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 361825
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 364051,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 315,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2654,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2654
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 3440,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 3440
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "30",
+      "groupCode": "3010",
+      "industryCode": "301010",
+      "subIndustryCode": "30101010"
+    }
+  }
+}

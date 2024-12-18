@@ -1,0 +1,343 @@
+{
+  "wikidataId": "Q109773651",
+  "name": "Lindab International",
+  "description": "Lindab är ett företag som specialiserar sig på lösningar för bygg- och ventilationsindustrin. Företaget erbjuder produkter och systemlösningar som förbättrar energieffektiviteten och inomhusklimatet i byggnader. Lindab är känt för sina innovativa och hållbara lösningar som bidrar till att minska miljöpåverkan.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lindabgroup.com/globalassets/media/group/documents/sustainability/hallbarhetsrapport_2023.pdf?epslanguage=sv",
+      "economy": {
+        "turnover": {
+          "value": 13114000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4909,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 11966,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6690,
+          "mb": 9952,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 9952
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1137193,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 649799,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 1577,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 18255,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 16444,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 2138,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1221,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 4232,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 2474,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 25577,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 404221,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 11255,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1137193
+        },
+        "biogenicEmissions": {
+          "total": 1119,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 21918,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 1159111,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lindabgroup.com/globalassets/media/group/documents/sustainability/hallbarhetsrapport_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 12366000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4801,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 12988,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7506,
+          "mb": 11400,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 11400
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1217767,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 753824,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2152,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 19259,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 16904,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 2125,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1318,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 4719,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 2520,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 41159,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 361418,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 12369,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1217767
+        },
+        "biogenicEmissions": {
+          "total": 1224,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 24388,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 1242155,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lindabgroup.com/globalassets/media/group/documents/sustainability/hallbarhetsrapport_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 9648000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4534,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 13033,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7286,
+          "mb": 10339,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10339
+        },
+        "biogenicEmissions": {
+          "total": 1386,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 23372,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 23372,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lindabgroup.com/globalassets/media/group/documents/sustainability/hallbarhetsrapport_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 8220000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4546,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 8208,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6532,
+          "mb": 8915,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 8915
+        },
+        "biogenicEmissions": {
+          "total": 343,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 17123,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 17123,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lindabgroup.com/globalassets/media/group/documents/sustainability/hallbarhetsrapport_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 8512000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4486,
+          "unit": "average number of employees"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 14371,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7381,
+          "mb": 10047,
+          "unknown": 0,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10047
+        },
+        "biogenicEmissions": {
+          "total": 835,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 24418,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 24418,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

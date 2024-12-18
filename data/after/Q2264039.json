@@ -1,0 +1,197 @@
+{
+  "wikidataId": "Q2264039",
+  "name": "Sectra",
+  "description": "Sectra är ett svenskt företag som specialiserar sig på medicinsk IT och cybersäkerhetslösningar. Företaget erbjuder produkter och tjänster inom bildhantering för sjukvården samt säker kommunikation för myndigheter och försvarsorganisationer. Sectra är känt för sina innovativa lösningar som förbättrar effektiviteten och säkerheten inom sina verksamhetsområden.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://sectraprodstorage01.blob.core.windows.net/investor-uploads/sites/2/2023/07/sectra-ar2223-eng-interaktiv.pdf",
+      "economy": {
+        "turnover": {
+          "value": 2351000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 1015,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 377,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 179,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 179
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 152,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 5,
+              "total": 4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 83,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 64,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 152
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 708,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://sectraprodstorage01.blob.core.windows.net/investor-uploads/sites/2/2023/07/sectra-ar2223-eng-interaktiv.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 255,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 179,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 179
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 135,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 5,
+              "total": 1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 79,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 54,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 135
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 569,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://sectraprodstorage01.blob.core.windows.net/investor-uploads/sites/2/2022/07/sectra-ar-21-22-eng-20220706-final.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 43,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 163,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 163
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 206,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://sectraprodstorage01.blob.core.windows.net/investor-uploads/sites/2/2020/07/20200630-sectra-har-19-20-eng-web.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 23,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 122,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 122
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 145,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 13,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 122,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 122
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 135,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3510",
+      "industryCode": "351030",
+      "subIndustryCode": "35103010"
+    }
+  }
+}

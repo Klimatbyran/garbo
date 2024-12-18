@@ -1,0 +1,216 @@
+{
+  "wikidataId": "Q3377840",
+  "name": "Sweco",
+  "description": "Sweco är ett svenskt teknikkonsultföretag som erbjuder tjänster inom teknik, miljö och arkitektur till både privata och offentliga sektorer. Företaget är engagerat i många projekt som omfattar stadsutveckling, infrastruktur och energi.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.swecogroup.com/wp-content/uploads/sites/2/2024/03/2701489.pdf",
+      "economy": {
+        "turnover": {
+          "value": 28523000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 20157,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 8707,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 5393,
+          "mb": 6426,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6426
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 51317,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 26821,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3971,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3109,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 774,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 8008,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 8634,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 51317
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 66449,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://via.tt.se/data/attachments/00582/13aafd33-29c7-4207-ac62-cb30b3684743.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 9143,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6437,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6437
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 49112,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 26130,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3593,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3349,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 718,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6627,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 8694,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 49112
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 64692,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 11615,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 10109,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10109
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 43661,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 25162,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3773,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3516,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 806,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3470,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 6933,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 43661
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 65386,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2020",
+      "industryCode": "202020",
+      "subIndustryCode": "20202020"
+    }
+  }
+}

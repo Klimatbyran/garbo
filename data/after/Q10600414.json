@@ -1,0 +1,224 @@
+{
+  "wikidataId": "Q10600414",
+  "name": "Nibe Industrier",
+  "description": "NIBE är en internationell koncern med bolag och verksamhet i flertalet länder över hela världen. Företaget utvecklar, tillverkar och säljer energieffektiva lösningar inom tre affärsområden: Climate Solutions, Stoves och Element.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.nibe.com/download/18.73ecfa7d18e33e4c98d29a5/1712924240073/NIBE%20Industrier%202023%20report_sv.pdf",
+      "economy": {
+        "turnover": {
+          "value": 46649000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 22462,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 32358,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 57991,
+          "mb": 1803,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1803
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 42020907,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 359001,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 41349641,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 312265,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 42020907
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 34161,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 42055068,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.nibe.com/download/18.54368f7f186f220725e3b61/1681385387512/GB-NIAB-AR-W-230413.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 31449,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 55759,
+          "mb": 1975,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1975
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 47069152,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 322737,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 46514592,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 231823,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 47069152
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 47102576,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 34798,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 57964,
+          "mb": 2121,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2121
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 41723607,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 338000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 41200000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 185607,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 41723607
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 41760526,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 26402,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 51828,
+          "mb": 1910,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1910
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 28312,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 26623,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 50181,
+          "mb": 931,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 931
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 27554,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

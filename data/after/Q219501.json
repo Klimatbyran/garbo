@@ -1,0 +1,227 @@
+{
+  "wikidataId": "Q219501",
+  "name": "Saab",
+  "description": "Saab är ett globalt försvars- och säkerhetsföretag som erbjuder världsledande produkter, tjänster och lösningar för militärt försvar och civil säkerhet. Företaget är känt för sina avancerade teknologier inom flyg, mark- och sjöförsvar samt cybersäkerhet.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.saab.com/globalassets/corporate/investor-relations/pdf/saab-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 51609000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 20479,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 13505,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 16597,
+          "mb": 8428,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 8428
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 645894,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 433998,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 191500,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 20406,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 645894
+        },
+        "biogenicEmissions": {
+          "total": 1058,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 667827,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.saab.com/globalassets/corporate/investor-relations/pdf/saab_asr2022_en.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 11559,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 15940,
+          "mb": 10702,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10702
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 656692,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 386187,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 251600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 18905,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 656692
+        },
+        "biogenicEmissions": {
+          "total": 1094,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 678953,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 11446,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 18372,
+          "mb": 12574,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 12574
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 159064,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 11,
+              "total": 147500,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 11564,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 159064
+        },
+        "biogenicEmissions": {
+          "total": 338,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 183084,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 14064,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 17324,
+          "mb": 15379,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 15379
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 616721,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 364989,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 237600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 14132,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 616721
+        },
+        "biogenicEmissions": {
+          "total": 436,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 646164,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201010",
+      "subIndustryCode": "20101010"
+    }
+  }
+}

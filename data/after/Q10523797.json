@@ -1,0 +1,205 @@
+{
+  "wikidataId": "Q10523797",
+  "name": "Hexpol",
+  "description": "HEXPOL är en global leverantör av polymera material och komponenter med fokus på gummi- och plastlösningar. Företaget erbjuder produkter och tjänster till en rad olika industrier, inklusive fordons-, bygg-, medicin- och konsumentvaruindustrin. HEXPOL är känt för sin expertis inom utveckling och produktion av högpresterande material som används i krävande applikationer.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://vp300.alertir.com/afw/files/press/hexpol/202403262143-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 22046000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 5050,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 16300,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 101450,
+          "mb": 74060,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 74060
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 123400,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 123400
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 90400,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 213760,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/1100/3744707/1958683.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 15900,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 117800,
+          "mb": 88970,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 88970
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 108900,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 104870,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 117300,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 117300,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 122500,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 122500,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 145800,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 145800,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 125600,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 125600,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2017-01-01T00:00:00.000Z",
+      "endDate": "2017-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 140700,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2016-01-01T00:00:00.000Z",
+      "endDate": "2016-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 142900,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2015-01-01T00:00:00.000Z",
+      "endDate": "2015-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 117400,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "15",
+      "groupCode": "1510",
+      "industryCode": "151010",
+      "subIndustryCode": "15101050"
+    }
+  }
+}

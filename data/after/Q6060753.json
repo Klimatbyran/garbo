@@ -1,0 +1,138 @@
+{
+  "wikidataId": "Q6060753",
+  "name": "Latour",
+  "description": "Latour är ett svenskt investmentbolag som investerar i både noterade och onoterade bolag. Bolaget har en diversifierad portfölj med investeringar inom olika branscher, inklusive industri, fastigheter och teknik. Latour är känt för sin långsiktiga investeringsstrategi och sitt fokus på hållbarhet och innovation.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://vp302.alertir.com/afw/files/press/latour/202403219568-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 25550000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 8448,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 11575,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 7454,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7454
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 58477.22,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 431,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 96,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 8,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 59604,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 58477.22
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19029,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 77506.22,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.latour.se/sites/latour-corp/files/H%C3%A5llbarhet/Sustainability%20report%202023.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 11781,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 7291,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7291
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 59978,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 316,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 49,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 59604,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 59978
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19072,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 79050,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203020"
+    }
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "wikidataId": "Q188326",
+  "name": "H&M",
+  "description": "H&M är en global mode- och detaljhandelskedja som erbjuder kläder, accessoarer och hemprodukter. Företaget grundades 1947 och har vuxit till att bli en av världens största modeåterförsäljare med närvaro i över 70 länder. H&M är känt för sina prisvärda och trendiga produkter samt sitt engagemang för hållbarhet och socialt ansvar.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://hmgroup.com/wp-content/uploads/2024/03/Climate-Transition-Plan.pdf",
+      "economy": {
+        "turnover": {
+          "value": 236035000000,
+          "currency": "SEK"
+        },
+        "employees": null
+      },
+      "emissions": {
+        "scope1": {
+          "total": 16354,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 16354,
+          "mb": 38451,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 38451
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8532000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 6172000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 448000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 1659000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 89000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 166000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 8532000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 54805,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8586805,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://hmgroup.com/wp-content/uploads/2023/03/HM-Group-Sustainability-Disclosure-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 17796,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 46803,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 46803
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 9349000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 6746000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 483000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 1851000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 92000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 177000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 9349000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 64599,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 9413599,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 20294,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 35339,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 35339
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 9957000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 7148000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 544000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 2021000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 97000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 147000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 9957000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 55633,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 10012633,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 19442,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 60670,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 60670
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 9755000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 11,
+              "total": 2010000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 9755000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 9835112,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 23024,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 48733,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 48733
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 11337000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 7885000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 684000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 2499000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 97000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 172000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 11337000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 71757,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 11409757,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2520",
+      "industryCode": "252030",
+      "subIndustryCode": "25203010"
+    }
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "wikidataId": "Q10719187",
+  "name": "Wallenstam",
+  "description": "Wallenstam är ett svenskt fastighetsbolag som utvecklar, bygger och förvaltar fastigheter i attraktiva områden. Företaget fokuserar på hållbarhet och har valt att frivilligt rapportera hur stor andel av dess tillgångar som definieras som hållbara enligt EU:s taxonomi, trots att de har färre än 500 anställda och därmed inte omfattas av regleringen. Wallenstam har en stark finansiell ställning med en soliditet på 46 procent och en hög efterfrågan på sina produkter, särskilt bostäder i attraktiva områden.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.wallenstam.se/globalassets/dokument/wallenstam/hallbarhetsredovisning/sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 3343000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 263,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 444,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3888,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3888
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 11560,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 10923,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 573,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 15,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 49,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 11560
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 4332,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 15892,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.wallenstam.se/globalassets/dokument/wallenstam/hallbarhetsredovisning/hallbarhetsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1264,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3829,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3829
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 12085,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 11564,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 418,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 27,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 76,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 12085
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 5093,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 17178,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 377,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 3870,
+          "mb": 3870,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3870
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 7762,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 7100,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 558,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 29,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 74,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 7762
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 4247,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 12009,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 605,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3139,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3139
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8439,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 8370,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 42,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 8439
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 3744,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 12183,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 932,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 4694,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 4694
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 29118,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 29118,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 29118
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 5626,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 34744,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 132,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5098,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5098
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 5230,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 5230,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601040",
+      "subIndustryCode": "60104010"
+    }
+  }
+}

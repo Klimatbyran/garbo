@@ -1,0 +1,165 @@
+{
+  "wikidataId": "Q10590357",
+  "name": "Munters Group",
+  "description": "Munters är en global ledare inom energieffektiva och hållbara klimatlösningar. Företaget erbjuder lösningar som möjliggör energieffektiva produktionsprocesser med minskade koldioxidutsläpp för sina kunder. Munters verksamhet är indelad i tre affärsområden: AirTech, Data Center Technologies och FoodTech. AirTech fokuserar på energieffektiv luftbehandling för industriella och kommersiella applikationer. Data Center Technologies levererar avancerade klimatsystem för datacenteroperatörer världen över. FoodTech erbjuder innovativa och energieffektiva klimatsystem för djurhållning och växthus samt mjukvara för att optimera hela livsmedelsproduktionskedjan.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.munters.com/globalassets/ir/annual-reports/new-folder/new-folder/munters-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 13930000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4981,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 7198,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 13743,
+          "mb": 5782,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5782
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6479968,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 6479968
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 12980,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6492948,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.munters.com/globalassets/story-page-import-images/munters-h%C3%A5llbarhets--och-%C3%A5rsredovisning-20222",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 7795,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 13325,
+          "mb": 7187,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7187
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4523199,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4523199
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 14982,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 4538181,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.munters.com/globalassets/story-page-import-images/munters_%C3%A5rs--och-h%C3%A5llbarhetsrapport-20213",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 7705,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 15550,
+          "mb": 14045,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 14045
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 301895,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 301895
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 21751,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 323645,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://www.munters.com/globalassets/digizuite/24616-en-munters-arsredovisning-sv-2020pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 7070,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 15126,
+          "mb": 15332,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 15332
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1886,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 1886
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 24288,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

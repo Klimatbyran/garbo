@@ -1,0 +1,164 @@
+{
+  "wikidataId": "Q10535326",
+  "name": "Indutrade",
+  "description": "Indutrade är ett svenskt industriföretag som specialiserar sig på att utveckla och sälja högteknologiska industrikomponenter, system och tjänster. Företaget har en diversifierad portfölj med verksamheter inom flera olika branscher, inklusive industriell utrustning, infrastruktur, livsvetenskap, processindustri och teknologiska systemlösningar. Indutrade är känt för sin decentraliserade affärsmodell och sitt fokus på långsiktig tillväxt genom förvärv och organisk utveckling.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.indutrade.com/contentassets/01748e414d174273911c3ba75aeed4c5/indutrades-annual-report-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 31845000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 9262,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 11102,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6636,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6636
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 34842,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 4099,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 27032,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3711,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 34842
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 17737,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 52579,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.indutrade.com/globalassets/press-kit/annual-reports-eng/indutrades-annual-report-and-sustainability-report-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 10265,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 9594,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 9594
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1685,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 1685,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1685
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19860,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 19860,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 9074,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 10691,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10691
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19766,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 19766,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19924,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 19924,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

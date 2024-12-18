@@ -1,0 +1,300 @@
+{
+  "wikidataId": "Q126366671",
+  "name": "Lundbergs Fastigheter",
+  "description": "Lundbergs Fastigheter är ett svenskt fastighetsbolag som äger, förvaltar och utvecklar fastigheter i Sverige. Företaget fokuserar på att erbjuda attraktiva bostäder och kommersiella lokaler med hög kvalitet och hållbarhet. Lundbergs Fastigheter arbetar aktivt med att minska sin miljöpåverkan genom energieffektiviseringar och hållbara byggnadsmetoder.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://cms.lundbergsfastigheter.se/wp-content/uploads/2024/03/Arsredovisning_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1808000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 174,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 30,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6114,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6114
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 15787,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2493,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4155,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 621,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 11,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 77,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 7.03,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 103,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 8318,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 15787
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 21931,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://cms.lundbergsfastigheter.se/wp-content/uploads/2024/03/Arsredovisning-2022-low.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 51,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5791,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5791
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 16318,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2269,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 5065,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 792,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 8,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 141,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 119,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 7923,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 16318
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 22160,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://cms.lundbergsfastigheter.se/wp-content/uploads/2022/03/Arsredovisning_2021_web-1.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 41,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6363,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6363
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 22567,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 3431,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4250,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 801,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 14,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 114,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 8905,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 22567
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 28971,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 28,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 5306,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5306
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 33150,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2093,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3197,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 668,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 7,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 125,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 9599,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 33150
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 38484,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6010",
+      "industryCode": "601040",
+      "subIndustryCode": "60104010"
+    }
+  }
+}

@@ -1,0 +1,300 @@
+{
+  "wikidataId": "Q22077794",
+  "name": "Sinch",
+  "description": "Sinch är ett svenskt företag som tillhandahåller molnbaserade kommunikationslösningar, inklusive röst-, meddelande- och videotjänster för företag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://investors.sinch.com/static-files/d0badccf-6fa7-4eac-a3c8-2887257d5817",
+      "economy": {
+        "turnover": {
+          "value": 28745000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4231,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 540,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7688,
+          "mb": 7462,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7462
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 134124,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 125343,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2150,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5893,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 739,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 134124
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 8001,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 142126,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://investors.sinch.com/static-files/82195a2b-2fb3-4098-93eb-5a4dbff9b381",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 284,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7580,
+          "mb": 7388,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7388
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 155310,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 144555,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4192,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5763,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 799,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 155310
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 7672,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 162982,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1207,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7155,
+          "mb": 7005,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7005
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 123642,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 118924,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 3267,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1195,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 256,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 123642
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 131854,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 427,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7537,
+          "mb": 7385,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7385
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 63242,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 57355,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 4078,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1711,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 98,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 63242
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 71054,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 340,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7138,
+          "mb": 6989,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6989
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 42541,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 34794,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 1353,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6203,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 191,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 42541
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 49870,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "45",
+      "groupCode": "4510",
+      "industryCode": "451020",
+      "subIndustryCode": "45102030"
+    }
+  }
+}

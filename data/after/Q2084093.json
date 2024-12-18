@@ -1,0 +1,155 @@
+{
+  "wikidataId": "Q2084093",
+  "name": "Systemair",
+  "description": "Systemair är en tillverkare av ventilationsutrustning.",
+  "reportingPeriods": [
+    {
+      "startDate": "2022-05-01T00:00:00.000Z",
+      "endDate": "2023-04-30T00:00:00.000Z",
+      "reportURL": "https://group.systemair.com/files/Main/22134/3814814/01s_sysair_ar22-23sve.pdf",
+      "economy": {
+        "turnover": {
+          "value": 12057900000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 6587,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 8181,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 8385,
+          "mb": 9620,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 9620
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1401706,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 470375,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 20952,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3969,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 17250,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 1553,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4331,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 6077,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 858706,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 18493,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1401706
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 17801,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 1419507,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://group.systemair.com/files/Public/22134/3730807/systemair_ar21-22_sve_index.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 8882,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 8651,
+          "mb": 9994,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 9994
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 18877,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 18877,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 8594,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 8513,
+          "mb": 10677,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 10677
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 19271,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 19271,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": null
+}

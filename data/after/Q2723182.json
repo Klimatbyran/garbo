@@ -1,0 +1,189 @@
+{
+  "wikidataId": "Q2723182",
+  "name": "Betsson",
+  "description": "Betsson är ett företag som bedriver spelverksamhet över internet via dotterbolag. Företaget har sitt huvudkontor i Stockholm och är noterat på Nasdaq Stockholm Large Cap. Betsson har kontor i flera länder, inklusive Sverige, Malta och Gibraltar. Företaget erbjuder en mängd olika spelprodukter och tjänster, inklusive kasinospel, sportspel och poker.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.betssonab.com/sites/default/files/pr/202404035951-1.pdf",
+      "economy": {
+        "turnover": {
+          "value": 948200000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 2103,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 224,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 848,
+          "mb": 1027,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1027
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6083,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 6083
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 7334,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://vp273.alertir.com/afw/files/press/betsson/202304055440-1.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 261,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1261,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1261
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 7173,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 7173
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 8695,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://vp273.alertir.com/afw/files/press/betsson/202204078205-1.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 72,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1665,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1665
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8185,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 8185
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 9922,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 66,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 816,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 816
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8312,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 8312
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 9194,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 39,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1836,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1836
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8071,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 8071
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 9946,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2530",
+      "industryCode": "253010",
+      "subIndustryCode": "25301010"
+    }
+  }
+}

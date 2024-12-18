@@ -1,0 +1,269 @@
+{
+  "wikidataId": "Q1805602",
+  "name": "Lantmännen",
+  "description": "Lantmännen är ett lantbrukskooperativ och en av Nordens största koncerner inom lantbruk, maskin, bioenergi och livsmedel. Företaget ägs av 19 000 svenska lantbrukare och har verksamhet i hela värdekedjan från jord till bord. Lantmännen arbetar för att skapa lönsamhet för sina medlemmar och bidra till en hållbar utveckling inom jordbruk och livsmedelsproduktion.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lantmannen.se/siteassets/documents/01-om-lantmannen/press-och-nyheter/publikationer/arsredovisningar/ars-och-hallbarhetsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 65212000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 10339,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 59600,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 19500,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 19500
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 166500,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 27600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 134000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 4900,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 166500
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 245000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.lantmannen.se/siteassets/documents/01-om-lantmannen/press-och-nyheter/publikationer/arsredovisningar/ars--och-hallbarhetsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 61100,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 33200,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 33200
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 160400,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 27600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 128000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 4800,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 160400
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 255000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 66300,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 36200,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 36200
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 147600,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 30100,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 113000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 4500,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 147600
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 250000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 62600,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 34600,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 34600
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 126800,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 27600,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 96000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3200,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 126800
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 223000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 69400,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 47000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 47000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 134100,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 3,
+              "total": 28400,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 99000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 6700,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 134100
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 251000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "30",
+      "groupCode": "3020",
+      "industryCode": "302020",
+      "subIndustryCode": "30202030"
+    }
+  }
+}

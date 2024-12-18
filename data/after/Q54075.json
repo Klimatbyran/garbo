@@ -1,0 +1,286 @@
+{
+  "wikidataId": "Q54075",
+  "name": "SSAB",
+  "description": "SSAB är ett nordiskt och USA-baserat stålföretag som utvecklar höghållfasta stål och tillhandahåller hållbara lösningar för att förbättra kundernas prestanda och minska deras miljöpåverkan. Företaget är en ledande producent av avancerade höghållfasta stål (AHSS) och seghärdade stål (Q&T), standardstål samt rörprodukter. SSAB har produktionsanläggningar i Sverige, Finland och USA.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Public/980/3947344/99d2b4a9f24f12eb.pdf",
+      "economy": {
+        "turnover": {
+          "value": 119489000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 14565,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 9915000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1157000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1157000
+        },
+        "scope3": {
+          "categories": [],
+          "calculatedTotalEmissions": 0
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 11072000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/980/3740172/1939984.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 9844000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1179000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1179000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 11352000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 6741000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 116000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 496000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 2255000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 189000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 11000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 41000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 1499000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 11352000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 22375000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 10641000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1029000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1029000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 11670000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 9471000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1339000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1339000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 10810000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 10154000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1427000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1427000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 11581000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 10332000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1487000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1487000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 11169000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 6182000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 74000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 501000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 2629000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 44000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 9000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 12000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 29000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 1691000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 11169000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 22987000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "15",
+      "groupCode": "1510",
+      "industryCode": "151040",
+      "subIndustryCode": "15104050"
+    }
+  }
+}

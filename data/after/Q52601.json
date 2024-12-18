@@ -1,0 +1,271 @@
+{
+  "wikidataId": "Q52601",
+  "name": "SCA",
+  "description": "Svenska Cellulosa Aktiebolaget SCA är ett svenskt massa- och pappersföretag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sca.com/siteassets/media/press-releases-and-reports/documents/2024/20240229-sca-publicerar-arsredovisning-for-2023-sv-0-4762608.pdf",
+      "economy": {
+        "turnover": {
+          "value": 18081000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 3413,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 258000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 33000,
+          "mb": 60000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 60000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 521000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 152000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 48000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 319000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 521000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 843000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sca.com/siteassets/media/press-releases-and-reports/documents/2023/20230307-sca-publicerar-ars-och-hallbarhetsredovisning-for-2022-sv-0-4483680.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 261000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 46000,
+          "mb": 59000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 59000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 433000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 158000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 47000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 223000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 4000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 433000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 753000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sca.com/siteassets/investors/reports-and-presentations/annual-reports/2021/arsredovisning-2021.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 240000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 40000,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 40000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 440000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 140000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 48000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 249000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 440000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 720000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 250000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 50000,
+          "mb": null,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 50000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 560000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 560000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 860000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 278000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 58000,
+          "mb": 111000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 111000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 571000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 141000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 59000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 363000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 571000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 960000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": null
+}

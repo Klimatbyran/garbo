@@ -1,0 +1,126 @@
+{
+  "wikidataId": "Q1703203",
+  "name": "Trelleborg",
+  "description": "Trelleborg är ett globalt industriföretag som specialiserar sig på polymerteknologi och tillverkar produkter som tätningar, dämpningslösningar och skyddssystem. Företaget har en stark närvaro inom flera sektorer inklusive flyg, jordbruk, transport och offshore. Trelleborg strävar efter att erbjuda hållbara lösningar som minskar miljöpåverkan och förbättrar prestanda för sina kunder.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.trelleborg.com/-/media/group/about-us/agm/2024/en/annual-report-2023.pdf?rev=b343ae6427ce4be09607ce191b77493d",
+      "economy": {
+        "turnover": {
+          "value": 34286000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 15646,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 37235,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 54070,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 54070
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 91305,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.trelleborg.com/-/media/group/investors/cr-reports/sustainability-report-2022.pdf?rev=-1",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 41058,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 68419,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 68419
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2500000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 2500000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2609477,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 38976,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 83134,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 83134
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 35467,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 106479,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 106479
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201060",
+      "subIndustryCode": "20106020"
+    }
+  }
+}

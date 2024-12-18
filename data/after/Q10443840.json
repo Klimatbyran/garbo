@@ -1,0 +1,315 @@
+{
+  "wikidataId": "Q10443840",
+  "name": "Catena",
+  "description": "Catena är ett svenskt fastighetsbolag som specialiserar sig på logistikfastigheter. Företaget äger, förvaltar och utvecklar fastigheter som är strategiskt belägna nära större transportleder och knutpunkter. Catena strävar efter att skapa hållbara och effektiva logistiklösningar för sina kunder, vilket inkluderar både nybyggnation och förvaltning av befintliga fastigheter. Företaget arbetar aktivt med hållbarhetsfrågor och har som mål att minska sin miljöpåverkan genom energieffektiva byggnader och hållbara investeringar.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.catena.se/media/1efafb3o/hallbarhetsrapport-2023-sv-catena.pdf",
+      "economy": {
+        "turnover": {
+          "value": 1808000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 65,
+          "unit": "Head count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 559,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 3053,
+          "mb": 198,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 198
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 23422,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 9738,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 20,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 24,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 13640,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 23422
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 607,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 27034,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.catena.se/media/0qjbrlbq/aarsredovisning-2022-catena-swe.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 518,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2297,
+          "mb": 145,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 145
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 39916,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 25256,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 14,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 57,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 14589,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 39916
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 42731,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.catena.se/media/drajzqra/catena-arsredovisning-2021-sv.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 399,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2233,
+          "mb": 1381,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1381
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 19596,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 12292,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 39,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 7253,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 19596
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 22223,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://www.catena.se/media/hwabsdew/catenas-aarsredovisning-med-haallbarhetsrapport-2020.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 416,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1917,
+          "mb": 1201,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1201
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6559,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 6559
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 2333,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8892,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1054,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2118,
+          "mb": 1199,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1199
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6874,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 6874
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 3172,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 10046,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1617,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 2058,
+          "mb": 1163,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1163
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 20350,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 2,
+              "total": 13661,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 46,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 42,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 6601,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 20350
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 24025,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6020",
+      "industryCode": "602010",
+      "subIndustryCode": "60201020"
+    }
+  }
+}

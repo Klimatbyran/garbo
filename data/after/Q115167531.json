@@ -1,0 +1,189 @@
+{
+  "wikidataId": "Q115167531",
+  "name": "Storskogen Group",
+  "description": "Storskogen är ett svenskt företag.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.storskogen.com/files/Main/20705/3956347/storskogen-annual-and-sustainability-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 36006000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 12077,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 36100,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 7738,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7738
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2247255,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1369681,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 20657,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 9893,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 141034,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 96904,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 2485,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 11366,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 9,
+              "total": 174223,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 22224,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 398170,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 371,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 247,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 2247255
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 43838,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 2291093,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.storskogen.com/files/Main/20705/3744721/storskogen-ars--och-hallbarhetsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 41680,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 11018,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 11018
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 52698,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 30106,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 7448,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7448
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 37554,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 13868,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2655,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2655
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 16523,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": null
+}

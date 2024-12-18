@@ -1,0 +1,200 @@
+{
+  "wikidataId": "Q4998333",
+  "name": "Bure Equity",
+  "description": "Bure Equity är ett svenskt investmentbolag som investerar i både noterade och onoterade företag. Bolaget fokuserar på att skapa långsiktigt värde genom aktivt ägande och stöd till ledningsteam i deras strategiska utveckling. Bure Equity erbjuder en struktur och gemensamma principer för riskhantering och regelefterlevnad, vilket ger en säker plattform för att utveckla nischade och aktiva fondstrategier.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/b63abbba-9e45-4417-8c42-53e61ff5b517/annual-report-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 4814000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 10,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 0.15,
+          "mb": 0.9,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 0.9
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2089,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 63,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 2026,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 63,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 2089
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2089.9,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/aca501c8-f3f3-456f-8f61-03227a1b9a9e/bure-arsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 0.2,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 0.2
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2164,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 35,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 2129,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 2164
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2164,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/a/bure-equity/f21263f7-6742-45a8-97c6-482fda9e60f5/bure-20equity-20ab-20annual-20report-202021-20small-20-1.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 0.4,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 0.4
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 6170,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 6,
+              "total": 17,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 6153,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 6170
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 6170.4,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://storage.mfn.se/0945fbd7-ac20-4d16-87ec-3935daea2bd4/bure-annual-report-2020.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1,
+          "mb": 0,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 0
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 3279,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 15,
+              "total": 3271,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 3279
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3280,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203010"
+    }
+  }
+}

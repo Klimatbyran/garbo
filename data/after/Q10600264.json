@@ -1,0 +1,73 @@
+{
+  "wikidataId": "Q10600264",
+  "name": "New Wave Group",
+  "description": "New Wave Group är ett företag som arbetar systematiskt med hållbarhet och kontinuerlig förbättring inom sin industrisektor. Företaget fokuserar på flera hållbarhetsmål och har genomfört en omfattande kartläggning av sina utsläpp enligt GHG-protokollet.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.nwg.se/globalassets/reports/arsredovisningar/en/2023/nwg__sustainability_2023_april_2_en_hq.pdf",
+      "economy": {
+        "turnover": {
+          "value": 9512900000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2450,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 2849,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 4096,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 4096
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 352433,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 323859,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 17968,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 10606,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 352433
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 359378,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "25",
+      "groupCode": "2520",
+      "industryCode": "252030",
+      "subIndustryCode": "25203010"
+    }
+  }
+}

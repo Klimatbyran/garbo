@@ -1,0 +1,445 @@
+{
+  "wikidataId": "Q1663776",
+  "name": "ICA Gruppen",
+  "description": "ICA Gruppen är ett ledande detaljhandelsföretag med verksamheter inom dagligvaror, apotek, bank och försäkring. ICA Gruppen har en tydlig hållbarhetsinriktning och arbetar aktivt för att minska sin miljöpåverkan genom att bland annat reducera sina koldioxidutsläpp.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://report.icagruppen.se/media/g2ep3qxq/ica-gruppen-a-rsredovisning-2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 103493000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 8473,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 9577,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2879,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2879
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 80431,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 63106,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4497,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 12828,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 80431
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 92887,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://report.icagruppen.se/media/blajxy2j/icagruppen-arsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 13924,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2293,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2293
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 76358,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 58380,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 2367,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 15611,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 76358
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 92575,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2022/02.-arsredovisning-2021/icagruppen-arsredovisning-2021.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 14428,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2919,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2919
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 61444,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 41640,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 605,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 19199,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 61444
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 78791,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2021/0273.-arsredovisning-2020/ica-gruppen_arsredovisning-2020.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 17649,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2907,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2907
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 71565,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 45627,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 796,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 25143,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 71565
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 92121,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": "https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2020/02.-arsredovisning-2019/icagruppen-arsredovisning-2019.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 26224,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 27341,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 27341
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 74447,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 42537,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 2022,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 14,
+              "total": 29888,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 74447
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 128512,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": "https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2020/02.-arsredovisning-2019/icagruppen-arsredovisning-2019.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 38670,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 35567,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 35567
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 72607,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 34509,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4919,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 72607
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 146844,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2017-01-01T00:00:00.000Z",
+      "endDate": "2017-12-31T00:00:00.000Z",
+      "reportURL": "https://www.icagruppen.se/globalassets/3.-investerare/5.-rapporter/arkiv---finansiellt/svenska/arkiv/2018/0252.-arsredovisning-2017/ica_gruppen_arsredovisning_2017.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 46401,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 38670,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 38670
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 98121,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 35190,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5279,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 98121
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 183191,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2016-01-01T00:00:00.000Z",
+      "endDate": "2016-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 58477,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 70259,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 70259
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 125851,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 57185,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5064,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 125851
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 254587,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2015-01-01T00:00:00.000Z",
+      "endDate": "2015-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 80448,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 69286,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 69286
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 143987,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 4,
+              "total": 63869,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4465,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 143987
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 293721,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "30",
+      "groupCode": "3010",
+      "industryCode": "301010",
+      "subIndustryCode": "30101040"
+    }
+  }
+}

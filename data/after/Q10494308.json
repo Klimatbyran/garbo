@@ -1,0 +1,182 @@
+{
+  "wikidataId": "Q10494308",
+  "name": "Fastpartner",
+  "description": "Fastpartner är ett svenskt fastighetsföretag med fokus på att äga, förvalta och utveckla kommersiella fastigheter. Företagets portfölj inkluderar kontor, logistik, industri- och samhällsfastigheter.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/878/3953792/2701384.pdf",
+      "economy": {
+        "turnover": {
+          "value": 2241000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 84,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 301,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 8860,
+          "mb": 846,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 846
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 13507,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 13507
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 1147,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 14654,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://fastpartner.se/media/arsredovisning_2022_v2.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 203,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6200,
+          "mb": 769,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 769
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 14915,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 14915
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 15886,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://fastpartner.se/media/arsredovisning_2021-1.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 249,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1139,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1139
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 44141,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 44141
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 45529,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 126,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3473,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3473
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 3599,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 3599,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 169,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 6419,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6419
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 6588,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6588,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "60",
+      "groupCode": "6020",
+      "industryCode": "602010",
+      "subIndustryCode": "60201030"
+    }
+  }
+}

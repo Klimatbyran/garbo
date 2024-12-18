@@ -1,0 +1,348 @@
+{
+  "wikidataId": "Q1640495",
+  "name": "Sampo",
+  "description": "Sampo Group är ett nordiskt finansiellt tjänsteföretag som erbjuder ett brett utbud av försäkringstjänster och investeringstjänster genom sina dotterbolag. Företaget är verksamt främst i Finland, Sverige, Norge och Danmark.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sampo.com/globalassets/year2023/group/sampo2023_sustainability_report.pdf",
+      "economy": {
+        "turnover": {
+          "value": 8870000000,
+          "currency": "EUR"
+        },
+        "employees": {
+          "value": 13450,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1059.8,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 3585.3,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 3585.3
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 318965,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1652.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 2246.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1296,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 52.3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 231.6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 6306.4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 6842.4,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 138.6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 300199,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 318965
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 323610,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sampo.com/globalassets/year2022/group/sampo2022_sustainability_report.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1297.9,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 4663.5,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 4663.5
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 486480,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2102.3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 248.5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1483,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 281,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5945.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 5521.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 0.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 470899,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 486480
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 492411,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://www.sampo.com/globalassets/year2021/group/sampo2021_sustainability_report.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1867.9,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2458.5,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2458.5
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 607585,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2348,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1131.5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 80.2,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 2743.2,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 11.9,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 601270,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 607585
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 611911,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1515,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2886.6,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2886.6
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 831614,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 2025.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 1293.3,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 23.6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 3561,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 0,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 824711,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 831614
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 836016,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1534.1,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 2929,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 2929
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 11950.1,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 11950.1
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 16413.2,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "10",
+      "groupCode": "1010",
+      "industryCode": "101010",
+      "subIndustryCode": "10101020"
+    }
+  }
+}

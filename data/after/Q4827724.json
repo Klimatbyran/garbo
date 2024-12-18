@@ -1,0 +1,236 @@
+{
+  "wikidataId": "Q4827724",
+  "name": "Avanza Bank",
+  "description": "Avanza är en svensk bank som erbjuder finansiella tjänster såsom aktiehandel, fonder, pensioner och sparande. Företaget är känt för sina låga avgifter och användarvänliga plattformar. Avanza strävar efter att göra det enkelt och kostnadseffektivt för privatpersoner att investera och spara pengar.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://investors.avanza.se/files/mfn/1e72c222-f835-4d13-b161-d697334bdeab/avanza-bank-holding-ab-arsredovisning-och-hallbarhetsrapport-2023-pdf-a4-utskriftsformat.pdf",
+      "economy": {
+        "turnover": {
+          "value": 4713000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 654,
+          "unit": "Head count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 31,
+          "mb": 27,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 27
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 463,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 98,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 229,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 7,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 2,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 27,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 15,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 73,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 8,
+              "total": 12,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 463
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 490,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://investors.avanza.se/files/mfn/ec2c7ea8-32e0-437d-844d-f6fbadce8674/avanza-bank-holding-ab-arsredovisning-och-hallbarhetsrapport-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 24,
+          "mb": 20,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 20
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 276,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 115,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 31,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 10,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 6,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 38,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 70,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 276
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 296,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 0,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 32,
+          "mb": 27,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 27
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 566,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 358,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 70,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 7,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 47,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 12,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 67,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 566
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 593,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "40",
+      "groupCode": "4020",
+      "industryCode": "402030",
+      "subIndustryCode": "40203020"
+    }
+  }
+}

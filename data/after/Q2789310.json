@@ -1,0 +1,318 @@
+{
+  "wikidataId": "Q2789310",
+  "name": "OKQ8 Scandinavia",
+  "description": "OKQ8 är ett ledande drivmedels- och energibolag i Skandinavien. Företaget erbjuder ett brett utbud av produkter och tjänster inom drivmedel, energi, och hållbar mobilitet. OKQ8 arbetar aktivt med hållbarhetsfrågor och strävar efter att minska sin miljöpåverkan genom att använda förnybar energi och implementera energieffektiva lösningar.",
+  "reportingPeriods": [
+    {
+      "startDate": "2022-03-01T00:00:00.000Z",
+      "endDate": "2023-02-28T00:00:00.000Z",
+      "reportURL": "https://www.okq8.se/~/media/miljo_csr/dokument/hallbarhetsrapporter/hr202223/okq8--hallbarhetsredovisning-2022-23-pdf-svensk.pdf",
+      "economy": {
+        "turnover": {
+          "value": 58600000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4136,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 899,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 5525,
+          "mb": 970,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 970
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8473738,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1846795,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 4583,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 3968,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 1728,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 159,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 6600092,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 16413,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 8473738
+        },
+        "biogenicEmissions": {
+          "total": 1116773,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 1869,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8475607,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 850,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6034,
+          "mb": 915,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 915
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8670250,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1895118,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 2153,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 6808,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 1998,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 145,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 6748024,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 16003,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 8670250
+        },
+        "biogenicEmissions": {
+          "total": 1259768,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 1765,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8672015,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1222,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 6382,
+          "mb": 1243,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1243
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 9230040,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1951087,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 3852,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 10754,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 2049,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 51,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 7240732,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 21516,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 9230040
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 2465,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 9232505,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1250,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 7740,
+          "mb": 7740,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 7740
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 8756960,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 1879549,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 2912,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 14498,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 2056,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 31,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 6842655,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 13,
+              "total": 15259,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 8756960
+        },
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 8990,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 8765950,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "10",
+      "groupCode": "1010",
+      "industryCode": "101020",
+      "subIndustryCode": "10102030"
+    }
+  }
+}

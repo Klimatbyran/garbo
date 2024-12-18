@@ -1,0 +1,403 @@
+{
+  "wikidataId": "Q1537811",
+  "name": "Skanska",
+  "description": "Skanska är ett av världens ledande bygg- och projektutvecklingsföretag. Företaget är verksamt inom byggverksamhet, bostadsutveckling, kommersiell fastighetsutveckling och förvaltningsfastigheter. Skanska strävar efter att skapa hållbara lösningar och har ett starkt fokus på miljömässig och social hållbarhet i sina projekt.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://mb.cision.com/Main/95/3941596/2651322.pdf",
+      "economy": {
+        "turnover": {
+          "value": 167168000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 27256,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 146000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 35000,
+          "mb": 16000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 16000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1014000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 709000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 41000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 15000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 246000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1014000
+        },
+        "biogenicEmissions": {
+          "total": 49000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1176000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://group.skanska.com/4936b9/siteassets/investors/reports-publications/annual-reports/2022/ars-och-hallbarhetsredovisning-2022.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 164000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 34000,
+          "mb": 18000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 18000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1652000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 864000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 42000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 3000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 9000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 734000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1652000
+        },
+        "biogenicEmissions": {
+          "total": 33000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1834000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://group.skanska.com/49b28a/siteassets/investors/reports-publications/annual-reports/2021/ars-och-hallbarhetsredovisning-2021.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 194000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 35000,
+          "mb": 22000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 22000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1706000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 950000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 45000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 12000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 5000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 695000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1706000
+        },
+        "biogenicEmissions": {
+          "total": 22000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 1922000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://group.skanska.com/4a195e/siteassets/investors/reports-publications/annual-reports/2020/ars-och-hallbarhetsredovisning-2020.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 193000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 38000,
+          "mb": 72000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 72000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1945000,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 987000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 45000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 20000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 4000,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 890000,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 1945000
+        },
+        "biogenicEmissions": {
+          "total": 17000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 2210000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": "https://group.skanska.com/4a1960/siteassets/investors/reports-publications/annual-reports/2019/ars-och-hallbarhetsredovisning-2019.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 213000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 43000,
+          "mb": 78000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 78000
+        },
+        "biogenicEmissions": {
+          "total": 20000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 291000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 275000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 37000,
+          "mb": 57000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 57000
+        },
+        "biogenicEmissions": {
+          "total": 7000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 332000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2017-01-01T00:00:00.000Z",
+      "endDate": "2017-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 275537,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 55464,
+          "mb": 71389,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 71389
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 346926,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2016-01-01T00:00:00.000Z",
+      "endDate": "2016-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 312800,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 52704,
+          "mb": 73300,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 73300
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 386100,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2015-01-01T00:00:00.000Z",
+      "endDate": "2015-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 322000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 43000,
+          "mb": 80000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 80000
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 402000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2010",
+      "industryCode": "201030",
+      "subIndustryCode": "20103010"
+    }
+  }
+}

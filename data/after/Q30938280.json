@@ -1,0 +1,303 @@
+{
+  "wikidataId": "Q30938280",
+  "name": "Essity",
+  "description": "Essity är ett globalt hygien- och hälsobolag med huvudkontor i Stockholm, Sverige. Företaget är verksamt inom områdena hygien och hälsa och erbjuder produkter och lösningar som förbättrar människors välbefinnande. Essity är noterat på Nasdaq Stockholm och har en stark närvaro på den globala marknaden.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://masdpstatic.azureedge.net/essity/Essity_AR_ENG_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 147147000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 8544,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 1240000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1005000,
+          "mb": 1236000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1236000
+        },
+        "biogenicEmissions": {
+          "total": 475000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 2245000,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 2245000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://masdpstatic.azureedge.net/essity/Essity_Annual%20and%20Sustainability%20Report%202022_0302.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1361000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1069000,
+          "mb": 1442000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1442000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4220000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4220000
+        },
+        "biogenicEmissions": {
+          "total": 500000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 2400000,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 7023000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": "https://masdpstatic.azureedge.net/essity/8fe54e3f-ec63-442f-91b4-600d6449b2c2%2FEssity_Annual%20and%20Sustainability%20Report%202021_220302.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1368000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1022000,
+          "mb": 1393000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1393000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4213000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4213000
+        },
+        "biogenicEmissions": {
+          "total": 514000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 2400000,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6974000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": "https://masdpstatic.azureedge.net/essity/901d106a-2b90-4967-986c-f8c52a7ab7f6/Essity-Annual-and-Sustainability-Report-2020.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1402000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1020000,
+          "mb": 1327000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1327000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4247000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4247000
+        },
+        "biogenicEmissions": {
+          "total": 493000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 2400000,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6976000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2019-01-01T00:00:00.000Z",
+      "endDate": "2019-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1493000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1183000,
+          "mb": 1549000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1549000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 3410000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 3410000
+        },
+        "biogenicEmissions": {
+          "total": 512000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 2700000,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6452000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2018-01-01T00:00:00.000Z",
+      "endDate": "2018-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1544000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1408000,
+          "mb": 1838000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1838000
+        },
+        "biogenicEmissions": {
+          "total": 497000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3382000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2017-01-01T00:00:00.000Z",
+      "endDate": "2017-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1561000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1487000,
+          "mb": 1899000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1899000
+        },
+        "biogenicEmissions": {
+          "total": 477000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 3460000,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2016-01-01T00:00:00.000Z",
+      "endDate": "2016-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 1534000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 1514000,
+          "mb": 1602000,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1602000
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4707000,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4707000
+        },
+        "biogenicEmissions": {
+          "total": 527000,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 6241000,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "35",
+      "groupCode": "3510",
+      "industryCode": "351020",
+      "subIndustryCode": "35102010"
+    }
+  }
+}

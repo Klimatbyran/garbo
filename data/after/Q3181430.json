@@ -1,0 +1,292 @@
+{
+  "wikidataId": "Q3181430",
+  "name": "PostNord",
+  "description": "PostNord är en ledande leverantör av kommunikations- och logistiklösningar i Norden. Företaget erbjuder ett brett utbud av tjänster inom brev- och paketleveranser, tredjepartslogistik och e-handel. PostNord ägs gemensamt av den svenska och danska staten och har en stark närvaro i både Sverige och Danmark.",
+  "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://www.postnord.com/siteassets/documents/investor-relations/finansiell-rapportering/ars--och-hallbarhetsredovisningar/postnord_2023_annualreport_se.pdf",
+      "economy": {
+        "turnover": {
+          "value": 39301000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 24604,
+          "unit": "Head Count"
+        }
+      },
+      "emissions": {
+        "scope1": {
+          "total": 32072,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 15612,
+          "mb": 5608,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 5608
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 447101,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 11216,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 130375,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 23370,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 267830,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1400,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 12911,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 447101
+        },
+        "biogenicEmissions": {
+          "total": 146709,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 484781,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2022-01-01T00:00:00.000Z",
+      "endDate": "2022-12-31T00:00:00.000Z",
+      "reportURL": "https://group.postnord.com/globalassets/group/documents/investor-relations/financial-reporting/annual-and-sustainability-reports/postnord_2022_annualreport_en.pdf",
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 44216,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 17778,
+          "mb": 6435,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6435
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 627916,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 13756,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 256696,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 26039,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 316393,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1314,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 13717,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 627916
+        },
+        "biogenicEmissions": {
+          "total": 144296,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 678567,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2021-01-01T00:00:00.000Z",
+      "endDate": "2021-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 62487,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 24325,
+          "mb": 16606,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 16606
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 579875,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 14046,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 112260,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 30500,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 407817,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 896,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 14355,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 579875
+        },
+        "biogenicEmissions": {
+          "total": 138401,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 658967,
+          "unit": "tCO2e"
+        }
+      }
+    },
+    {
+      "startDate": "2020-01-01T00:00:00.000Z",
+      "endDate": "2020-12-31T00:00:00.000Z",
+      "reportURL": null,
+      "economy": null,
+      "emissions": {
+        "scope1": {
+          "total": 77792,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": 18801,
+          "mb": 6619,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 6619
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 564793,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 14290,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 175655,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 32151,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 327078,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 1308,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 14312,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 564793
+        },
+        "biogenicEmissions": {
+          "total": 85980,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 649205,
+          "unit": "tCO2e"
+        }
+      }
+    }
+  ],
+  "industry": {
+    "industryGics": {
+      "sectorCode": "20",
+      "groupCode": "2030",
+      "industryCode": "203040",
+      "subIndustryCode": "20304030"
+    }
+  }
+}
