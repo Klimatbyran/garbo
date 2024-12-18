@@ -1,6 +1,10 @@
 {
   "wikidataId": "Q18287037",
   "name": "Ambea",
+  "reviewComments": [
+    "Garbo NOT OK",
+    "Stated total emissions for scope 3 (issue #512, issue #513)"
+  ],
   "description": "Ambea är ett omsorgsföretag som erbjuder tjänster inom äldreomsorg, omsorg för personer med funktionsnedsättning och psykosocialt stöd. Företaget arbetar främst med kommuner i Skandinavien och driver verksamheter i egen regi, inklusive boenden och hemtjänst.",
   "reportingPeriods": [
     {
@@ -14,7 +18,7 @@
         },
         "employees": {
           "value": 14663,
-          "unit": "FTE"
+          "unit": "medelantal"
         }
       },
       "emissions": {
@@ -31,7 +35,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 24999,
+            "total": 20033,
             "unit": "tCO2e"
           },
           "categories": [
@@ -66,11 +70,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 24999
+          "calculatedTotalEmissions": 20033
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 24999,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -88,10 +95,20 @@
         }
       },
       "emissions": {
-        "scope1": null,
+        "scope1": {
+          "total": 3393,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1267,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1267
+        },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 29602,
+            "total": 24942,
             "unit": "tCO2e"
           },
           "categories": [
@@ -126,11 +143,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 29602
+          "calculatedTotalEmissions": 24942
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 29602,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -172,19 +192,19 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 408,
+          "total": 3694,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 3226,
-          "mb": 1044,
+          "mb": 5932,
           "unknown": 1271,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1044
+          "calculatedTotalEmissions": 5932
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 24492,
+            "total": 23906,
             "unit": "tCO2e"
           },
           "categories": [
@@ -219,11 +239,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 24492
+          "calculatedTotalEmissions": 23906
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 33532,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

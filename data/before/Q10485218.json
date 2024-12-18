@@ -1,24 +1,34 @@
 {
   "wikidataId": "Q10485218",
-  "name": "Eolus Vind AB",
+  "name": "Eolus Vind",
+  "reviewComments": ["Economy missing", "PDF not readable?", "Garbo NOT OK"],
   "description": "Eolus Vind AB utvecklar och förvaltar projekt inom förnybar energi, inklusive land- och havsbaserad vindkraft samt solkraft. Företaget arbetar med energilagringslösningar och har verksamhet i flera länder, däribland Sverige, Finland, Polen och USA.",
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 2301000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 134,
+          "unit": null
+        }
+      },
       "emissions": {
         "scope1": {
-          "total": 1600,
+          "total": 41.2,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1200,
-          "mb": 1200,
+          "mb": 35.9,
           "unknown": 1200,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1200
+          "calculatedTotalEmissions": 35.9
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -46,7 +56,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 251,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -56,19 +69,30 @@
       "economy": null,
       "emissions": {
         "scope1": {
-          "total": 1800,
+          "total": 19,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1400,
-          "mb": 1400,
+          "mb": 10.4,
           "unknown": 1400,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1400
+          "calculatedTotalEmissions": 10.4
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 97,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 97
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 126.4,
+          "unit": "tCO2e"
+        }
       }
     },
     {

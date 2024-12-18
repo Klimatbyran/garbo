@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q3270281",
-  "name": "Swedish Space Corporation",
+  "name": "Svenska Rymdaktiebolaget",
+  "reviewComments": [
+    "Ambiguous turnover",
+    "Wrong statedTotalEmissions for scope 3, should be for total scope 1, 2 and 3",
+    "Garbo NOT OK"
+  ],
   "description": "Swedish Space Corporation (SSC) bedriver verksamhet inom rymdsektorn med fokus på att äga, driva och utveckla Esrange Space Center i norra Sverige. Företaget erbjuder globala rymdtjänster, inklusive stöd för satelliter och kunduppdrag, samt lansering av sondraketer och stratosfäriska ballonger.",
   "reportingPeriods": [
     {
@@ -9,12 +14,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1463939000,
+          "value": 1463000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 677,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -31,7 +36,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 36045,
+            "total": 34101,
             "unit": "tCO2e"
           },
           "categories": [
@@ -81,11 +86,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 36045
+          "calculatedTotalEmissions": 34101
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 36044,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -116,7 +124,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 35711,
+            "total": 33561,
             "unit": "tCO2e"
           },
           "categories": [
@@ -166,11 +174,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 35711
+          "calculatedTotalEmissions": 33561
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 35711,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -187,7 +198,74 @@
           "unit": "average number of employees"
         }
       },
-      "emissions": {}
+      "emissions": {
+        "scope1": {
+          "total": 326,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 1840,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1840
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 38131,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 18200,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 18300,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 671,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 20,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 462,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 323,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 42,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 109,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 38131
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": {
+          "total": 40297,
+          "unit": "tCO2e"
+        }
+      }
     },
     {
       "startDate": "2020-01-01T00:00:00.000Z",
@@ -203,7 +281,27 @@
           "unit": "average number of employees"
         }
       },
-      "emissions": {}
+      "emissions": {
+        "scope1": null,
+        "scope2": {
+          "lb": 1755,
+          "mb": 1657,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 1657
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 1894,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 1894
+        },
+        "biogenicEmissions": null,
+        "scope1And2": null,
+        "statedTotalEmissions": null
+      }
     },
     {
       "startDate": "2019-01-01T00:00:00.000Z",
@@ -233,7 +331,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 33337,
+            "total": 31297,
             "unit": "tCO2e"
           },
           "categories": [
@@ -283,11 +381,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 33337
+          "calculatedTotalEmissions": 31297
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 33337,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

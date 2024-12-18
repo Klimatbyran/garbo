@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q10501780",
-  "name": "G5 Entertainment AB",
+  "name": "G5 Entertainment",
+  "reviewComments": ["Garbo OK", "Turnover ambiguous", "Alex NOT OK"],
   "description": "G5 Entertainment AB utvecklar och publicerar free-to-play-spel för smartphones, surfplattor och datorer. Företaget är baserat i Stockholm och har utvecklingskontor i flera länder. Deras spel riktar sig främst till kvinnliga spelare över 35 år och distribueras via olika digitala plattformar.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": "https://corporate.g5.com/sites/default/files/reports_files/2024-04/wkr0006.pdf",
       "economy": {
         "turnover": {
-          "value": 1319921000,
+          "value": 1320000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 872,
-          "unit": "FTE"
+          "unit": "EOY"
         }
       },
       "emissions": {

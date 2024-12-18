@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q3177392",
   "name": "Jernhusen",
+  "reviewComments": ["Ambiguous turnover", "Garbo OK"],
   "description": "Jernhusen är ett statligt ägt fastighetsbolag som specialiserar sig på fastigheter nära den svenska järnvägen. Företaget äger, förvaltar och utvecklar fastigheter kopplade till kollektivt resande och godstransporter, inklusive stationer, depåer och kombiterminaler.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1800000000,
+          "value": 1827000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 185,
-          "unit": "employees"
+          "unit": "EOY"
         }
       },
       "emissions": {
@@ -31,7 +32,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 23807,
+            "total": 21448,
             "unit": "tCO2e"
           },
           "categories": [
@@ -71,11 +72,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 23807
+          "calculatedTotalEmissions": 21448
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 24814,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -106,7 +110,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 22279,
+            "total": 19997,
             "unit": "tCO2e"
           },
           "categories": [
@@ -146,11 +150,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 22279
+          "calculatedTotalEmissions": 19997
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 23710,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -185,7 +192,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 0,
+          "total": 32,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -197,7 +204,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 16986,
+            "total": 14779,
             "unit": "tCO2e"
           },
           "categories": [
@@ -237,11 +244,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 16986
+          "calculatedTotalEmissions": 14779
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 19174,
+          "unit": "tCO2e"
+        }
       }
     },
     {

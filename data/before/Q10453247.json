@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q10453247",
-  "name": "Cint",
+  "name": "Cint Group",
+  "reviewComments": ["Ambiguous employee unit", "Garbo OK"],
   "description": "Cint är ett företag som tillhandahåller digitala lösningar för insamling och analys av marknadsundersökningsdata. Företaget erbjuder en plattform för att koppla samman företag med paneler av respondenter för att genomföra undersökningar och samla in data.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 266538000,
+          "value": 266500000,
           "currency": "EUR"
         },
         "employees": {
-          "value": 892,
-          "unit": "FTE"
+          "value": 1018,
+          "unit": "Heltidsanställda"
         }
       },
       "emissions": {
@@ -54,8 +55,14 @@
           "calculatedTotalEmissions": 5207
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 92,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 5299,
+          "unit": "tCO2e"
+        }
       }
     },
     {

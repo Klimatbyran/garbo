@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q10711820",
   "name": "VBG Group",
+  "reviewComments": ["Ambiguous turnover", "Garbo OK"],
   "description": "VBG Group är en global industrikoncern som äger och styr framgångsrika industriföretag. Koncernen är indelad i tre divisioner: Truck & Trailer Equipment, Mobile Thermal Solutions och Ringfeder Power Transmission, med fokus på långsiktigt ägande och strategisk styrning.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": "https://storage.mfn.se/a/vbg-group/5345f79f-3ffa-41aa-89e2-462d70620b12/vbg-group-arsredovisning-2023.pdf",
       "economy": {
         "turnover": {
-          "value": 5739756000,
+          "value": 5740000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 2065,
-          "unit": "FTE"
+          "value": 1864,
+          "unit": "Average"
         }
       },
       "emissions": {

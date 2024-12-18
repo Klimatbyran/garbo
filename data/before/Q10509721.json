@@ -2,12 +2,22 @@
   "wikidataId": "Q10509721",
   "name": "Gränges",
   "description": "Gränges är ett företag som specialiserar sig på valsning och återvinning av aluminium. Företaget tillhandahåller aluminiumlösningar för olika applikationer, inklusive klimatkontroll i fordon och byggnader, elektrifiering, batterikomponenter och återvinningsbara förpackningar.",
+  "reviewComments": ["Garbo OK", "Economy missing fixed", "Wrong 000 fixed"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 22518000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2718,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 222100,
@@ -28,17 +38,17 @@
           "categories": [
             {
               "category": 1,
-              "total": 3560,
+              "total": 3560000,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 50,
+              "total": 50000,
               "unit": "tCO2e"
             },
             {
               "category": 4,
-              "total": 60,
+              "total": 60000,
               "unit": "tCO2e"
             },
             {
@@ -54,7 +64,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3980000,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -108,7 +121,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 4350000,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -162,7 +178,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 4640000,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

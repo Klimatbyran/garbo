@@ -2,6 +2,11 @@
   "wikidataId": "Q4914620",
   "name": "BioGaia",
   "description": "BioGaia är ett svenskt företag som utvecklar, tillverkar, marknadsför och säljer probiotiska produkter för mag-, mun- och immunhälsa. Produkterna distribueras både via partners och egen distribution i över 100 länder. Företaget är verksamt i EMEA, Americas och APAC.",
+  "reviewComments": [
+    "Category 1 should be summarized from two custom reported categories",
+    "Category 4 should be summarized from two custom reported categories (outgoing transport and transport of goods)",
+    "Garbo NOT OK"
+  ],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,12 +14,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1296500000,
+          "value": 1297000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 213,
-          "unit": "headcount"
+          "unit": "totalt antal"
         }
       },
       "emissions": {
@@ -31,13 +36,13 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 7270,
+            "total": 7161,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 1,
-              "total": 745,
+              "total": 1594,
               "unit": "tCO2e"
             },
             {
@@ -47,12 +52,12 @@
             },
             {
               "category": 4,
-              "total": 91,
+              "total": 4320,
               "unit": "tCO2e"
             },
             {
               "category": 6,
-              "total": 947,
+              "total": 970,
               "unit": "tCO2e"
             },
             {
@@ -76,11 +81,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 7270
+          "calculatedTotalEmissions": 7161
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 7270,
+          "unit": "tCO2e"
+        }
       }
     },
     {

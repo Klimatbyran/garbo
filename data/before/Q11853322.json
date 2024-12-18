@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q11853322",
   "name": "Attendo",
+  "reivewComments": ["Estimated co2 emissions should be used", "Garbo NOT OK"],
   "description": "Attendo är ett företag som erbjuder omsorgstjänster för individer med olika behov. Verksamheten omfattar äldreomsorg, funktionsomsorg samt individ- och familjeomsorg i flera nordiska länder. Företaget arbetar med att stödja och stärka människor i deras vardag.",
   "reportingPeriods": [
     {
@@ -31,7 +32,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 43000,
+            "total": 85000,
             "unit": "tCO2e"
           },
           "categories": [
@@ -41,11 +42,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 43000
+          "calculatedTotalEmissions": 85000
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 137000,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -76,7 +80,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 46000,
+            "total": 131100,
             "unit": "tCO2e"
           },
           "categories": [
@@ -86,11 +90,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 46000
+          "calculatedTotalEmissions": 131100
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 168950,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

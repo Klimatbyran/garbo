@@ -2,12 +2,22 @@
   "wikidataId": "Q10536452",
   "name": "Inwido",
   "description": "Inwido är en koncern som utvecklar och säljer fönster och dörrlösningar. Företaget består av 34 affärsenheter och har verksamhet i tolv länder, inklusive Sverige, Danmark och Finland. Inwido fokuserar på kundanpassade produkter och har en decentraliserad struktur.",
+  "reviewComments": ["Garbo OK", "Economy missing, fixed"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 8970000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 4708,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 135,

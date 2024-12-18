@@ -2,6 +2,7 @@
   "wikidataId": "Q4836728",
   "name": "BTS Group",
   "description": "BTS är ett globalt konsultföretag med huvudkontor i Stockholm. Företaget specialiserar sig på strategiutförande, ledarskapsutveckling, försäljning och marknadsföring, bedömning, innovation, affärskunnande, förändring och transformation samt digitala tjänster.",
+  "reviewComments": ["Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -14,7 +15,7 @@
         },
         "employees": {
           "value": 1152,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -45,7 +46,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 8749,
+          "unit": "tCO2e"
+        }
       }
     },
     {

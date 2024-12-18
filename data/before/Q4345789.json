@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q4345789",
   "name": "Fagerhult Group",
+  "reviewComments": [
+    "Garbo has interpreted Upstream total as category 1",
+    "Total footprint has been interpreted as total for scope 3",
+    "Garbo NOT OK"
+  ],
   "description": "Fagerhult Group tillverkar och säljer belysningslösningar. Företaget fokuserar på produktutveckling och kunskapsdelning för att minska växthusgasutsläpp under produkternas livscykel. Verksamheten omfattar både direkt och indirekt energianvändning samt materialhantering.",
   "reportingPeriods": [
     {
@@ -9,12 +14,12 @@
       "reportURL": "https://www.fagerhultgroup.com/files/mfn/447e3bb8-a1d1-443d-859d-fcd79fcd6c09/fagerhult-group-annual-and-sustainability-report-2023.pdf",
       "economy": {
         "turnover": {
-          "value": 8560000000,
+          "value": 8560400000,
           "currency": "SEK"
         },
         "employees": {
           "value": 4080,
-          "unit": "FTE"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -31,13 +36,13 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 1166952,
+            "total": 1155443,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 1,
-              "total": 145040,
+              "total": 115490,
               "unit": "tCO2e"
             },
             {
@@ -86,11 +91,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 1166952
+          "calculatedTotalEmissions": 1155443
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1166952,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -121,7 +129,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 1521501,
+            "total": 1508720,
             "unit": "tCO2e"
           },
           "categories": [
@@ -176,11 +184,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 1521501
+          "calculatedTotalEmissions": 1508720
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1521501,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -211,7 +222,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 1526489,
+            "total": 1507588,
             "unit": "tCO2e"
           },
           "categories": [
@@ -266,11 +277,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 1526489
+          "calculatedTotalEmissions": 1507588
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1526489,
+          "unit": "tCO2e"
+        }
       }
     },
     {

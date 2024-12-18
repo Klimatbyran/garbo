@@ -1,6 +1,12 @@
 {
   "wikidataId": "Q4573584",
   "name": "SkiStar",
+  "reviewComments": [
+    "Ambiguous turnover",
+    "Missing category 6",
+    "Missing biogenic",
+    "Garbo NOT OK"
+  ],
   "description": "SkiStar bedriver verksamhet inom drift av fjällanläggningar, fastighetsutveckling och exploatering samt hotellverksamhet. Företaget erbjuder alpinskidåkning vintertid och aktiviteter som vandring och cykling sommartid, med fokus på att skapa fjällupplevelser för sina gäster.",
   "reportingPeriods": [
     {
@@ -9,16 +15,26 @@
       "reportURL": "https://cdn.prod.website-files.com/65461f0524928b020fd9b939/65f1c834c4561f6a8d7b1f78_!!!20231115-GNW1000899305-sv-1_compressed.pdf",
       "economy": {
         "turnover": {
-          "value": 4281000000,
+          "value": 4304000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 1554,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
-        "scope1": null,
+        "scope1": {
+          "total": 852,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "lb": null,
+          "mb": 49,
+          "unknown": null,
+          "unit": "tCO2e",
+          "calculatedTotalEmissions": 49
+        },
         "scope3": {
           "statedTotalEmissions": {
             "total": 149566,
@@ -51,6 +67,11 @@
               "unit": "tCO2e"
             },
             {
+              "category": 6,
+              "total": 17,
+              "unit": "tCO2e"
+            },
+            {
               "category": 7,
               "total": 266,
               "unit": "tCO2e"
@@ -78,9 +99,18 @@
           ],
           "calculatedTotalEmissions": 149566
         },
-        "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "biogenicEmissions": {
+          "total": 6216,
+          "unit": "tCO2e"
+        },
+        "scope1And2": {
+          "total": 901,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 150466,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -99,15 +129,15 @@
       },
       "emissions": {
         "scope1": {
-          "total": 901,
+          "total": 871,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 131,
-          "mb": 49,
+          "mb": 131,
           "unknown": 52,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 49
+          "calculatedTotalEmissions": 131
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -169,11 +199,14 @@
           "calculatedTotalEmissions": 126272
         },
         "biogenicEmissions": {
-          "total": 6216,
+          "total": 5287,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 127274,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -192,22 +225,33 @@
       },
       "emissions": {
         "scope1": {
-          "total": 1000,
+          "total": 2021,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 52,
-          "mb": 131,
+          "mb": 32,
           "unknown": 29,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 131
+          "calculatedTotalEmissions": 32
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 2222,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 2222
         },
         "biogenicEmissions": {
           "total": 5587,
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 4274,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -220,19 +264,30 @@
       },
       "emissions": {
         "scope1": {
-          "total": 2052,
+          "total": 2489,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 29,
-          "mb": 52,
+          "mb": 9,
           "unknown": 20,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 52
+          "calculatedTotalEmissions": 9
+        },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 4159,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 4159
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 6657,
+          "unit": "tCO2e"
+        }
       }
     },
     {

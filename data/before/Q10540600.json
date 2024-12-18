@@ -2,6 +2,7 @@
   "wikidataId": "Q10540600",
   "name": "John Mattson",
   "description": "John Mattson är ett bostadsbolag verksamt i Stockholmsregionen. Företaget äger cirka 4 300 hyreslägenheter och kommersiella lokaler i fem kommuner. Fastighetsbeståndet omfattar cirka 350 000 kvadratmeter med ett värde på cirka 14 miljarder kronor.",
+  "reviewComments": ["Garbo NOT OK", "Scope 1 is reported only with details"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -14,24 +15,24 @@
         },
         "employees": {
           "value": 46,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 20,
+          "total": 61.1,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1694,
-          "mb": 1694,
+          "mb": 1756,
           "unknown": 1694,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1694
+          "calculatedTotalEmissions": 1756
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 6335,
+            "total": 4517.9,
             "unit": "tCO2e"
           },
           "categories": [
@@ -42,7 +43,7 @@
             },
             {
               "category": 2,
-              "total": 0,
+              "total": 4470,
               "unit": "tCO2e"
             },
             {
@@ -52,7 +53,7 @@
             },
             {
               "category": 4,
-              "total": 454,
+              "total": 0.2,
               "unit": "tCO2e"
             },
             {
@@ -81,11 +82,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 6335
+          "calculatedTotalEmissions": 4517.9
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 6335,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -152,7 +156,7 @@
             },
             {
               "category": 16,
-              "total": 0.2,
+              "total": 64,
               "unit": "tCO2e"
             },
             {
@@ -162,7 +166,7 @@
             },
             {
               "category": 16,
-              "total": 64,
+              "total": 0.2,
               "unit": "tCO2e"
             }
           ],
@@ -228,17 +232,17 @@
             },
             {
               "category": 16,
-              "total": 51,
-              "unit": "tCO2e"
-            },
-            {
-              "category": 16,
               "total": 0.3,
               "unit": "tCO2e"
             },
             {
               "category": 16,
               "total": 0.1,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 16,
+              "total": 51,
               "unit": "tCO2e"
             }
           ],

@@ -1,13 +1,23 @@
 {
   "wikidataId": "Q1141671",
-  "name": "Dustin Group AB",
+  "name": "Dustin Group",
+  "reviewComments": ["Garbo can not add scope categories", "Garbo OK"],
   "description": "Dustin Group AB är ett svenskt företag som erbjuder IT-lösningar och tjänster. Företaget säljer produkter online och genom relationsförsäljning, riktat mot små och medelstora företag, stora företag samt offentlig sektor. Dustin har sitt huvudkontor i Nacka Strand, Stockholm.",
   "reportingPeriods": [
     {
       "startDate": "2022-09-01T00:00:00.000Z",
       "endDate": "2023-08-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 23577000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2343,
+          "unit": "Headcount"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 501,
@@ -28,7 +38,7 @@
           "categories": [
             {
               "category": 1,
-              "total": 1039900,
+              "total": 1039990,
               "unit": "tCO2e"
             },
             {
@@ -43,7 +53,7 @@
             },
             {
               "category": 8,
-              "total": 1338,
+              "total": 1345,
               "unit": "tCO2e"
             },
             {
@@ -61,7 +71,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1311642,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -122,7 +135,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1433679,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -137,14 +153,14 @@
         },
         "scope2": {
           "lb": 200100,
-          "mb": 132,
+          "mb": 136,
           "unknown": 400300,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 132
+          "calculatedTotalEmissions": 136
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 969100,
+            "total": 969160,
             "unit": "tCO2e"
           },
           "categories": [
@@ -179,11 +195,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 969100
+          "calculatedTotalEmissions": 969160
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 969443,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

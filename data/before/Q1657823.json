@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q1657823",
-  "name": "Nobia AB",
+  "name": "Nobia",
+  "reviewComments": [
+    "Garbo OK",
+    "Alex NOT OK",
+    "Wrongly used last years data for employees"
+  ],
   "description": "Nobia designar, tillverkar och säljer kök genom flera lokala varumärken i Norden och Storbritannien. Verksamheten omfattar hela värdekedjan från design till installation, med fokus på funktionella och estetiskt tilltalande kökslösningar.",
   "reportingPeriods": [
     {
@@ -13,8 +18,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 5571,
-          "unit": "average number of employees during the year"
+          "value": 6244,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -53,7 +58,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 429105,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -106,7 +114,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 494475,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -159,7 +170,10 @@
           "unit": "tCO2e"
         },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 356294,
+          "unit": "tCO2e"
+        }
       }
     },
     {

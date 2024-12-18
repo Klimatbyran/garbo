@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q11888870",
-  "name": "Proact",
+  "name": "Proact IT Group",
+  "reviewComments": [
+    "Garbo NOT OK",
+    "unknown scope 2 reported",
+    "scope 1 for 2022 wrong"
+  ],
   "description": "Proact är ett företag som specialiserar sig på data- och informationshantering med fokus på molntjänster och datacenterlösningar. Företaget betjänar stora och medelstora företag samt myndigheter, med verksamhet i över 30 kontor i 12 länder i Europa och USA.",
   "reportingPeriods": [
     {
@@ -9,17 +14,17 @@
       "reportURL": "https://mb.cision.com/Main/299/3961638/2731732.pdf",
       "economy": {
         "turnover": {
-          "value": 4847315000,
+          "value": 4847000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 1154,
+          "value": 1171,
           "unit": "average number of employees"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 310,
+          "total": 0,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -80,7 +85,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 5911,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -99,7 +107,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 320,
+          "total": 0,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -150,7 +158,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 6168,
+          "unit": "tCO2e"
+        }
       }
     },
     {

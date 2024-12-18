@@ -2,6 +2,7 @@
   "wikidataId": "Q10492869",
   "name": "Ework Group",
   "description": "Ework Group är ett företag som specialiserar sig på kompetens- och talangförsörjning i norra Europa. De erbjuder tjänster inom planering, rekrytering, administration och utveckling av både temporär och permanent personal, med fokus på IT, digitalisering, R&D och verksamhetsutveckling.",
+  "reviewComments": ["Import NOT OK", "Ambiguous CO2 reporting", "Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,25 +10,25 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 17247433000,
+          "value": 17247000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 335,
-          "unit": "FTE"
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 47,
+          "total": 0,
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 67,
-          "mb": 67,
-          "unknown": 67,
+          "lb": 0,
+          "mb": 0,
+          "unknown": 0,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 67
+          "calculatedTotalEmissions": 0
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -49,8 +50,14 @@
           "calculatedTotalEmissions": 0
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 47,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 47,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -67,7 +74,18 @@
           "unit": "FTE"
         }
       },
-      "emissions": {}
+      "emissions": {
+        "scope1": null,
+        "biogenicEmissions": null,
+        "scope1And2": {
+          "total": 67,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 67,
+          "unit": "tCO2e"
+        }
+      }
     },
     {
       "startDate": "2021-01-01T00:00:00.000Z",

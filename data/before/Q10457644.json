@@ -2,6 +2,7 @@
   "wikidataId": "Q10457644",
   "name": "Concentric",
   "description": "Concentric designar, utvecklar, tillverkar och säljer lösningar för hydraulik och motorapplikationer. Företaget erbjuder produkter som smörj-, kyl- och bränslepumpar samt elektrohydrauliska styrpumpar till OEMs och distributörer inom bygg, industri, jordbruk och transport.",
+  "reviewComments": ["Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -14,7 +15,7 @@
         },
         "employees": {
           "value": 1282,
-          "unit": "average"
+          "unit": "Average"
         }
       },
       "emissions": {

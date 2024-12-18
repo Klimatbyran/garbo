@@ -2,6 +2,7 @@
   "wikidataId": "Q10443838",
   "name": "Catella",
   "description": "Catella är ett företag med huvudkontor i Stockholm som erbjuder rådgivning, fastighetsfonder och förvaltningsmandat samt genomför egna investeringsprojekt. Verksamheten är indelad i tre affärsområden: Corporate Finance, Investment Management och Principal Investments, med fokus på fastigheter.",
+  "reviewComments": ["Nettoomsättning eller total omsättning?", "Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,12 +10,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 1600000000,
+          "value": 2300000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 512,
-          "unit": "FTE"
+          "unit": "Heltidsanställda"
         }
       },
       "emissions": {
@@ -45,7 +46,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 597.3,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -90,7 +94,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 492.8,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -126,7 +133,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 128.6,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

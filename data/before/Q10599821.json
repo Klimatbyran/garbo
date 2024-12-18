@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q10599821",
-  "name": "Net Insight AB",
+  "name": "Net Insight",
+  "reviewComments": ["Garbo OK", "Ambiguous turnover"],
   "description": "Net Insight erbjuder lösningar för realtidsöverföring av mediainnehåll och 5G-synkronisering. Företaget betjänar tjänsteleverantörer, sändningsbolag och produktionsföretag globalt, med en produktportfölj som stöder branschstandarder och protokoll för integration i befintliga nätverk.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": "https://storage.mfn.se/a/net-insight/466fdd29-b3f9-49c3-9a3d-1f30c7db193c/net-insight-annual-report-2023.pdf",
       "economy": {
         "turnover": {
-          "value": 559400000,
+          "value": 559000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 146,
-          "unit": "average number of employees"
+          "value": 191,
+          "unit": "Average"
         }
       },
       "emissions": {

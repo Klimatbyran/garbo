@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q6060751",
-  "name": "Investment AB Öresund",
+  "name": "Öresund",
+  "reviewComments": [
+    "Utdelning från investerade bolag är den enda omsättningen som redovisas",
+    "Garbo OK",
+    "Alex NOT OK"
+  ],
   "description": "Investment AB Öresund är ett investmentbolag som bedriver förvaltningsverksamhet. Bolaget investerar opportunistiskt i nordiska företag där det kan agera som en aktiv och långsiktig ägare för att ge aktieägarna en god långsiktig avkastning.",
   "reportingPeriods": [
     {
@@ -9,12 +14,12 @@
       "reportURL": "https://mb.cision.com/Main/1772/3950562/2690010.pdf",
       "economy": {
         "turnover": {
-          "value": 150451000,
+          "value": 255571000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 6,
-          "unit": "FTE"
+          "value": 5,
+          "unit": "Average"
         }
       },
       "emissions": {

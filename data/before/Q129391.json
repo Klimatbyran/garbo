@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q129391",
-  "name": "Scandic",
+  "reviewComments": ["Stated Scope 3 missing"],
+  "name": "Scandic Hotels Group",
   "description": "Scandic är ett nordiskt hotellföretag som erbjuder boende för både fritids- och affärsresenärer. Företaget driver 267 hotell med 55,642 rum på 130 destinationer i Sverige, Norge, Finland, Danmark, Tyskland och Polen. Scandic är noterat på Nasdaq Stockholm.",
   "reportingPeriods": [
     {
@@ -14,7 +15,7 @@
         },
         "employees": {
           "value": 18784,
-          "unit": "employees"
+          "unit": "Headcount"
         }
       },
       "emissions": {
@@ -45,7 +46,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 34992,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -90,7 +94,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 28107.5,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -135,7 +142,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 28174.5,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -164,9 +174,20 @@
           "unit": "tCO2e",
           "calculatedTotalEmissions": 23536.7
         },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 143.7,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 143.7
+        },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 25471.8,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -195,9 +216,20 @@
           "unit": "tCO2e",
           "calculatedTotalEmissions": 34955.1
         },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 666.61,
+            "unit": "tCO2e"
+          },
+          "categories": [],
+          "calculatedTotalEmissions": 666.61
+        },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 37823.01,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

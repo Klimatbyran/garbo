@@ -1,8 +1,25 @@
 {
   "wikidataId": "Q3356220",
-  "name": "Clas Ohlson AB",
+  "name": "Clas Ohlson",
   "description": "Clas Ohlson är ett detaljhandelsföretag grundat 1918 i Insjön, Dalarna. Företaget erbjuder praktiska lösningar för hemmet och har verksamhet i Sverige, Norge och Finland. Med cirka 4 900 anställda och en omsättning på cirka 9 miljarder kronor, säljer de både i butik och online.",
+  "reviewComments": ["Garbo OK"],
   "reportingPeriods": [
+    {
+      "startDate": "2023-01-01T00:00:00.000Z",
+      "endDate": "2023-12-31T00:00:00.000Z",
+      "reportURL": "https://about.clasohlson.com/globalassets/investor/reports-and-presentations/reports-presentations-swe/20222023/clas_ohlson_arsredovisning_2022_2023.pdf",
+      "economy": {
+        "turnover": {
+          "value": 9024300000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 3128,
+          "unit": "FTE"
+        }
+      },
+      "emissions": {}
+    },
     {
       "startDate": "2021-05-01T00:00:00.000Z",
       "endDate": "2022-04-30T00:00:00.000Z",
@@ -19,7 +36,7 @@
       },
       "emissions": {
         "scope1": {
-          "total": 36,
+          "total": 46,
           "unit": "tCO2e"
         },
         "scope2": {
@@ -45,7 +62,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 10484,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -64,19 +84,19 @@
       },
       "emissions": {
         "scope1": {
-          "total": 46,
+          "total": 41,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1218.2,
-          "mb": 1231,
+          "mb": 1121,
           "unknown": 1231,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1231
+          "calculatedTotalEmissions": 1121
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 12489,
+            "total": 10182,
             "unit": "tCO2e"
           },
           "categories": [
@@ -86,11 +106,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 12489
+          "calculatedTotalEmissions": 10182
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 11344,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -121,7 +144,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 12629,
+            "total": 10730,
             "unit": "tCO2e"
           },
           "categories": [
@@ -131,11 +154,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 12629
+          "calculatedTotalEmissions": 10730
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 12279,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -159,10 +185,10 @@
         },
         "scope2": {
           "lb": 1500,
-          "mb": 1500,
+          "mb": 1520,
           "unknown": 1500,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 1500
+          "calculatedTotalEmissions": 1520
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -180,7 +206,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 17207,
+          "unit": "tCO2e"
+        }
       }
     },
     {

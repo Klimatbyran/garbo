@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q17102820",
-  "name": "Hoist Finance AB (publ)",
+  "name": "Hoist Finance",
+  "reviewComments": ["Scope 1 should be 329 - fixed", "Garbo OK"],
   "description": "Hoist Finance AB (publ) är ett kreditmarknadsbolag som regleras av Finansinspektionen. Företaget fokuserar på förvärv och hantering av kreditportföljer, samt erbjuder kreditförvaltningstjänster. Hoist Finance är aktiv på den europeiska marknaden och arbetar med kapitalförvaltning och finansiering.",
   "reportingPeriods": [
     {
@@ -13,21 +14,21 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 1280,
-          "unit": "FTE"
+          "value": 1301,
+          "unit": "Average"
         }
       },
       "emissions": {
         "scope1": {
-          "total": 1200,
+          "total": 329,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1562,
-          "mb": 800,
+          "mb": 366,
           "unknown": 366,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 800
+          "calculatedTotalEmissions": 366
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -45,7 +46,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1586,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -64,15 +68,15 @@
       },
       "emissions": {
         "scope1": {
-          "total": 1500,
+          "total": 266,
           "unit": "tCO2e"
         },
         "scope2": {
           "lb": 1608,
-          "mb": 600,
+          "mb": 305,
           "unknown": 305,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 600
+          "calculatedTotalEmissions": 305
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -90,7 +94,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1431,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -112,7 +119,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 890,
+            "total": 629,
             "unit": "tCO2e"
           },
           "categories": [
@@ -122,11 +129,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 890
+          "calculatedTotalEmissions": 629
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1336,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

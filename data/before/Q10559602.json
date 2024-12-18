@@ -2,6 +2,7 @@
   "wikidataId": "Q10559602",
   "name": "Lernia",
   "description": "Lernia är ett statligt ägt företag som erbjuder tjänster inom bemanning, rekrytering, omställning, matchning och vuxenutbildning. Företaget arbetar med att utveckla och matcha människors kompetens med arbetsmarknadens behov och finns på cirka 100 orter i Sverige.",
+  "reviewComments": ["Garbo OK", "Ambiguous turnover"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,12 +10,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 3504000000,
+          "value": 3482000000,
           "currency": "SEK"
         },
         "employees": {
           "value": 5314,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {

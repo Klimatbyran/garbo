@@ -1,6 +1,12 @@
 {
   "wikidataId": "Q10684798",
-  "name": "AB Svensk Exportkredit",
+  "name": "Svensk Exportkredit",
+  "reviewComments": [
+    "Facit wrong on headcount?",
+    "Alex NOT OK",
+    "483 on all scope 3 categories not ok",
+    "Garbo NOT OK"
+  ],
   "description": "AB Svensk Exportkredit (SEK) erbjuder finansiering till svenska exportföretag, deras underleverantörer och internationella kunder. Företaget stödjer även omställningsprojekt både i Sverige och globalt, med utlåning tillgänglig i cirka 60 länder och över 20 valutor.",
   "reportingPeriods": [
     {
@@ -9,12 +15,12 @@
       "reportURL": "https://www.sek.se/app/uploads/2024/02/Ars-och-hallbarhetsredovisning-2023.pdf",
       "economy": {
         "turnover": {
-          "value": 80000000000,
+          "value": 3005000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 283,
-          "unit": "total"
+          "value": 258,
+          "unit": "Headcount"
         }
       },
       "emissions": {
@@ -31,38 +37,38 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 483,
+            "total": 15748482,
             "unit": "tCO2e"
           },
           "categories": [
             {
               "category": 1,
-              "total": 483,
+              "total": 138.4,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 483,
+              "total": 1.5,
               "unit": "tCO2e"
             },
             {
               "category": 4,
-              "total": 483,
+              "total": 0.5,
               "unit": "tCO2e"
             },
             {
               "category": 5,
-              "total": 483,
+              "total": 1.2,
               "unit": "tCO2e"
             },
             {
               "category": 6,
-              "total": 483,
+              "total": 326,
               "unit": "tCO2e"
             },
             {
               "category": 7,
-              "total": 483,
+              "total": 14.7,
               "unit": "tCO2e"
             },
             {
@@ -71,11 +77,17 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 483
+          "calculatedTotalEmissions": 15748482
         },
-        "biogenicEmissions": null,
+        "biogenicEmissions": {
+          "total": 99.4,
+          "unit": "tCO2e"
+        },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 15748491,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -112,22 +124,22 @@
           "categories": [
             {
               "category": 1,
-              "total": 318,
+              "total": 63,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 318,
+              "total": 0.9,
               "unit": "tCO2e"
             },
             {
               "category": 4,
-              "total": 318,
+              "total": 0.0008,
               "unit": "tCO2e"
             },
             {
               "category": 5,
-              "total": 318,
+              "total": 1.1,
               "unit": "tCO2e"
             },
             {
@@ -137,15 +149,21 @@
             },
             {
               "category": 7,
-              "total": 318,
+              "total": 23.7,
               "unit": "tCO2e"
             }
           ],
           "calculatedTotalEmissions": 318
         },
-        "biogenicEmissions": null,
+        "biogenicEmissions": {
+          "total": 80.4,
+          "unit": "tCO2e"
+        },
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 325,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -182,17 +200,17 @@
           "categories": [
             {
               "category": 1,
-              "total": 114,
+              "total": 56.6,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 114,
+              "total": 6.9,
               "unit": "tCO2e"
             },
             {
               "category": 4,
-              "total": 114,
+              "total": 0.5,
               "unit": "tCO2e"
             },
             {
@@ -207,7 +225,7 @@
             },
             {
               "category": 7,
-              "total": 114,
+              "total": 22.6,
               "unit": "tCO2e"
             }
           ],
@@ -215,7 +233,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 129,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -252,17 +273,17 @@
           "categories": [
             {
               "category": 1,
-              "total": 156,
+              "total": 56.4,
               "unit": "tCO2e"
             },
             {
               "category": 3,
-              "total": 156,
+              "total": 10.9,
               "unit": "tCO2e"
             },
             {
               "category": 4,
-              "total": 156,
+              "total": 0.3,
               "unit": "tCO2e"
             },
             {
@@ -277,7 +298,7 @@
             },
             {
               "category": 7,
-              "total": 156,
+              "total": 22.6,
               "unit": "tCO2e"
             }
           ],
@@ -285,7 +306,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 165,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -355,7 +379,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 381,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

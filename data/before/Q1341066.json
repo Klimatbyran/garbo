@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q1341066",
   "name": "Enea",
+  "reviewComments": [
+    "Ambiguous turnover",
+    "Revenue, not net sales",
+    "Garbo OK"
+  ],
   "description": "Enea utvecklar och levererar lösningar för att förbättra säkerhet, prestanda och intelligens i kommunikation. Företaget erbjuder brandväggar, trafikklassificeringsprodukter och skydd för mobil- och Wi-Fi-nätverk. Kunderna inkluderar över 100 leverantörer av kommunikationstjänster globalt.",
   "reportingPeriods": [
     {
@@ -9,12 +14,12 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 912700000,
+          "value": 934500000,
           "currency": "SEK"
         },
         "employees": {
           "value": 488,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -50,7 +55,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 976,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -100,7 +108,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1058,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -150,7 +161,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 799,
+          "unit": "tCO2e"
+        }
       }
     },
     {

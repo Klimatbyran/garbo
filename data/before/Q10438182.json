@@ -2,6 +2,7 @@
   "wikidataId": "Q10438182",
   "name": "Byggmax Group",
   "description": "Byggmax Group erbjuder produkter för gör-det-själv-projekt till privatkonsumenter. Företaget driver 209 butiker och en onlineplattform i Sverige, Norge, Finland och Danmark. Sortimentet inkluderar trävaror, trädgårdsprodukter, verktyg, färg, golv och förvaringslösningar.",
+  "reviewComments": ["Units 000 wrong already fixed", "Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,7 +10,7 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 6113000000,
+          "value": 6152000000,
           "currency": "SEK"
         },
         "employees": {
@@ -31,7 +32,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 159,
+            "total": 159000,
             "unit": "tCO2e"
           },
           "categories": [
@@ -41,11 +42,14 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 159
+          "calculatedTotalEmissions": 159000
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 161000,
+          "unit": "tCO2e"
+        }
       }
     },
     {

@@ -1,13 +1,23 @@
 {
   "wikidataId": "Q1059840",
-  "name": "IAR Systems Group AB",
+  "name": "I.A.R Systems Group",
+  "reviewComments": ["Turnover missing", "Employees missing", "Garbo NOT OK"],
   "description": "IAR Systems Group AB erbjuder mjukvarulösningar för utveckling och säkerhet av inbyggda system. Företaget stödjer mjukvaruutvecklare globalt med verktyg för att skapa pålitlig kod, främst inom branscher som konsumentelektronik, medicinteknik och fordonsindustri. Huvudkontoret ligger i Uppsala.",
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 458100000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 202,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 0,

@@ -2,6 +2,7 @@
   "wikidataId": "Q4356015",
   "name": "Rejlers",
   "description": "Rejlers är ett teknikkonsultföretag med verksamhet i Sverige, Finland, Norge och Förenade Arabemiraten. Företaget erbjuder expertis inom teknik för att stödja energisystem, industriomvandling och infrastrukturprojekt. Rejlers grundades 1942 och har cirka 3 300 anställda.",
+  "reviewComments": ["Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -14,7 +15,7 @@
         },
         "employees": {
           "value": 3254,
-          "unit": "FTE"
+          "unit": "Headcount"
         }
       },
       "emissions": {
@@ -45,7 +46,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3223,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -90,7 +94,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 2294,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -135,7 +142,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1968,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -180,7 +190,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 1897,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -225,7 +238,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 2180,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

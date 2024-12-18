@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q267558",
-  "name": "OEM",
+  "name": "OEM International",
+  "reviewComments": [
+    "Stated Scope 3 missing",
+    "Alex rounding error",
+    "Garbo OK"
+  ],
   "description": "OEM är en teknikhandelskoncern som erbjuder ett brett sortiment av produkter och system till kunder inom olika branscher. Företaget fungerar som en förlängd arm för leverantörer och fokuserar på att skapa värde genom teknisk kompetens och lokal närvaro.",
   "reportingPeriods": [
     {
@@ -9,12 +14,12 @@
       "reportURL": "https://www.oem.se/-/media/oem-international/publications/annual-reports/pdf/oem-arsredovisning-2023-sv.pdf",
       "economy": {
         "turnover": {
-          "value": 5144800000,
+          "value": 5145000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 1054,
-          "unit": "average number of employees"
+          "value": 1045,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -45,7 +50,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 6596,
+          "unit": "tCO2e"
+        }
       }
     },
     {

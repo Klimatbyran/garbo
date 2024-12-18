@@ -2,6 +2,7 @@
   "wikidataId": "Q3385738",
   "name": "Alimak Group",
   "description": "Alimak Group utvecklar och tillhandahåller lösningar för vertikal transport, inklusive hissar och plattformar, för bygg- och industrisektorer. Företaget fokuserar på säkerhet och effektivitet i arbete på höjd och erbjuder produkter och tjänster för att lyfta människor och material.",
+  "reviewComments": ["Garbo OK"],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,8 +10,8 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 7097,
-          "currency": "MSEK"
+          "value": 7097000000,
+          "currency": "SEK"
         },
         "employees": {
           "value": 500,

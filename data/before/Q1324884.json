@@ -1,6 +1,11 @@
 {
   "wikidataId": "Q1324884",
   "name": "Elanders",
+  "reviewComments": [
+    "Ambiguous empolees",
+    "Wrong Location Based",
+    "Garbo NOT OK"
+  ],
   "description": "Elanders är ett globalt logistikföretag som erbjuder integrerade lösningar inom supply chain management. Verksamheten bedrivs genom affärsområdena Supply Chain Solutions och Print & Packaging Solutions, med kunder inom segment som Automotive, Electronics, Fashion, Health Care och Industrial.",
   "reportingPeriods": [
     {
@@ -13,8 +18,8 @@
           "currency": "SEK"
         },
         "employees": {
-          "value": 7474,
-          "unit": "FTE"
+          "value": 7203,
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -23,15 +28,15 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 10793,
-          "mb": 44877,
+          "lb": 20721,
+          "mb": 10793,
           "unknown": 8575,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 44877
+          "calculatedTotalEmissions": 10793
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 195289,
+            "total": 195288,
             "unit": "tCO2e"
           },
           "categories": [
@@ -42,7 +47,7 @@
             },
             {
               "category": 2,
-              "total": 35156,
+              "total": 3395,
               "unit": "tCO2e"
             },
             {
@@ -51,16 +56,24 @@
               "unit": "tCO2e"
             },
             {
+              "category": 6,
+              "total": 9680,
+              "unit": "tCO2e"
+            },
+            {
               "category": 16,
-              "total": 195288,
+              "total": 15094,
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 195289
+          "calculatedTotalEmissions": 195288
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 231981,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -83,11 +96,11 @@
           "unit": "tCO2e"
         },
         "scope2": {
-          "lb": 11358,
-          "mb": 11639,
+          "lb": 21339,
+          "mb": 11358,
           "unknown": 9250,
           "unit": "tCO2e",
-          "calculatedTotalEmissions": 11639
+          "calculatedTotalEmissions": 11358
         },
         "scope3": {
           "statedTotalEmissions": {
@@ -120,7 +133,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 257466,
+          "unit": "tCO2e"
+        }
       }
     },
     {

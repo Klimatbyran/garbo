@@ -2,6 +2,11 @@
   "wikidataId": "Q10546722",
   "name": "Knowit",
   "description": "Knowit är ett nordiskt konsultbolag som stödjer företag och organisationer i digital transformation. Bolaget erbjuder tjänster inom tech, design, kommunikation och strategi genom affärsområdena Solutions, Experience, Connectivity och Insight. Knowit grundades 1990 och är noterat på Nasdaq Nordic Stockholm.",
+  "reviewComments": [
+    "Garbo OK",
+    "Medelantal anställda har Garbo valt rätt siffra",
+    "Alex NOT OK"
+  ],
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
@@ -9,11 +14,11 @@
       "reportURL": null,
       "economy": {
         "turnover": {
-          "value": 7097441000,
+          "value": 7097400000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 4115,
+          "value": 4265,
           "unit": "average number of employees"
         }
       },
@@ -31,7 +36,7 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 6568,
+            "total": 5398,
             "unit": "tCO2e"
           },
           "categories": [
@@ -76,11 +81,17 @@
               "unit": "tCO2e"
             }
           ],
-          "calculatedTotalEmissions": 6568
+          "calculatedTotalEmissions": 5398
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 910,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6568,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -111,15 +122,21 @@
         },
         "scope3": {
           "statedTotalEmissions": {
-            "total": 6700,
+            "total": 5355,
             "unit": "tCO2e"
           },
           "categories": [],
-          "calculatedTotalEmissions": 6700
+          "calculatedTotalEmissions": 5355
         },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 1138,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 6700,
+          "unit": "tCO2e"
+        }
       }
     },
     {

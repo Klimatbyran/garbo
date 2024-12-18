@@ -1,6 +1,7 @@
 {
   "wikidataId": "Q10638710",
-  "name": "Pricer AB",
+  "name": "Pricer",
+  "reviewComments": ["Garbo OK", "Ambiguous turnover"],
   "description": "Pricer är ett företag som erbjuder lösningar för automatisering och kommunikation i fysiska butiker. Företaget använder elektroniska hyllkantsetiketter och digital skyltning för att förbättra butiksverksamhet och kundupplevelse. Pricer grundades 1991 och är noterat på Nasdaq Stockholm.",
   "reportingPeriods": [
     {
@@ -9,12 +10,12 @@
       "reportURL": "https://www.pricer.com/hubfs/Pricer-Annual-Report-2023-SV.pdf",
       "economy": {
         "turnover": {
-          "value": 2681153000,
+          "value": 2681000000,
           "currency": "SEK"
         },
         "employees": {
-          "value": 221,
-          "unit": "number"
+          "value": 206,
+          "unit": "Average"
         }
       },
       "emissions": {

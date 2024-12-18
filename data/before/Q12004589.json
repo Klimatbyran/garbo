@@ -1,6 +1,10 @@
 {
   "wikidataId": "Q12004589",
-  "name": "Synsam AB",
+  "name": "Synsam",
+  "reviewComments": [
+    "Garbo NOT OK",
+    "2023 Scope 3 should be null (Garbo issue #531)"
+  ],
   "description": "Synsam är ett företag verksamt inom optik, ögonmode och ögonhälsa med över 500 butiker i Norden. Företaget erbjuder produkter och tjänster som glasögon, solglasögon och kontaktlinser, samt abonnemangstjänster som Synsam Lifestyle.",
   "reportingPeriods": [
     {
@@ -14,7 +18,7 @@
         },
         "employees": {
           "value": 3413,
-          "unit": "average number of employees"
+          "unit": "Average"
         }
       },
       "emissions": {
@@ -45,7 +49,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3803.7,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -76,7 +83,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 3790.1,
+          "unit": "tCO2e"
+        }
       }
     },
     {

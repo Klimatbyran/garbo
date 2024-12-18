@@ -1,13 +1,23 @@
 {
   "wikidataId": "Q10477559",
-  "name": "Duni Group",
+  "name": "Duni",
+  "reviewComments": ["Garbo NOT OK", "Economy missing", "Scope 3 missing"],
   "description": "Duni Group erbjuder lösningar inom två affärsområden: Dining Solutions och Food Packaging Solutions. Företaget tillhandahåller produkter för sociala måltidsupplevelser, inklusive engångsartiklar och förpackningar för restauranger, kaféer, take-away och hemleverans.",
   "reportingPeriods": [
     {
       "startDate": "2023-01-01T00:00:00.000Z",
       "endDate": "2023-12-31T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 1577000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 2373,
+          "unit": "Average"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 16364,
@@ -20,9 +30,79 @@
           "unit": "tCO2e",
           "calculatedTotalEmissions": 746
         },
+        "scope3": {
+          "statedTotalEmissions": {
+            "total": 146052,
+            "unit": "tCO2e"
+          },
+          "categories": [
+            {
+              "category": 1,
+              "total": 104566,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 2,
+              "total": 1042,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 3,
+              "total": 5234,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 4,
+              "total": 18136,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 5,
+              "total": 713,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 6,
+              "total": 337,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 7,
+              "total": 2332,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 10,
+              "total": 423,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 11,
+              "total": 10595,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 12,
+              "total": 2670,
+              "unit": "tCO2e"
+            },
+            {
+              "category": 15,
+              "total": 4,
+              "unit": "tCO2e"
+            }
+          ],
+          "calculatedTotalEmissions": 146052
+        },
         "biogenicEmissions": null,
-        "scope1And2": null,
-        "statedTotalEmissions": null
+        "scope1And2": {
+          "total": 17109,
+          "unit": "tCO2e"
+        },
+        "statedTotalEmissions": {
+          "total": 163162,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -98,7 +178,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 171477,
+          "unit": "tCO2e"
+        }
       }
     },
     {
@@ -184,7 +267,10 @@
         },
         "biogenicEmissions": null,
         "scope1And2": null,
-        "statedTotalEmissions": null
+        "statedTotalEmissions": {
+          "total": 176921,
+          "unit": "tCO2e"
+        }
       }
     }
   ],

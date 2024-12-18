@@ -1,13 +1,26 @@
 {
   "wikidataId": "Q10398203",
   "name": "AcadeMedia",
+  "reviewComments": [
+    "Economy is already fixed, a retry worked fine",
+    "Garbo OK"
+  ],
   "description": "AcadeMedia utvecklar och driver utbildningsverksamheter inom förskola, grundskola, gymnasium och vuxenutbildning i Sverige, Norge, Tyskland och Nederländerna. Företaget arbetar med en decentraliserad affärsmodell där varje enhet har ett helhetsansvar för sin verksamhet.",
   "reportingPeriods": [
     {
       "startDate": "2022-07-01T00:00:00.000Z",
       "endDate": "2023-06-30T00:00:00.000Z",
       "reportURL": null,
-      "economy": null,
+      "economy": {
+        "turnover": {
+          "value": 15539000000,
+          "currency": "SEK"
+        },
+        "employees": {
+          "value": 14459,
+          "unit": "Årsanställda"
+        }
+      },
       "emissions": {
         "scope1": {
           "total": 0,
