@@ -34,7 +34,7 @@ import {
   validateMetadata,
   ensureEconomyExists,
 } from './middlewares'
-import { prisma } from '../lib/prisma'
+import { prisma } from '..'
 import { Company, Prisma } from '@prisma/client'
 import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
@@ -454,12 +454,12 @@ router.post(
 
             const [dbEmissions, dbEconomy] = await Promise.all([
               upsertEmissions({
-                emissionsId: reportingPeriod.emissionsId ?? 0,
+                emissionsId: reportingPeriod.emissions?.id ?? 0,
                 companyId: company.wikidataId,
                 year,
               }),
               upsertEconomy({
-                economyId: reportingPeriod.economyId ?? 0,
+                economyId: reportingPeriod.economy?.id ?? 0,
                 companyId: company.wikidataId,
                 year,
               }),

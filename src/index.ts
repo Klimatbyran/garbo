@@ -3,6 +3,9 @@ import { parseArgs } from 'node:util'
 
 import api from './api'
 import apiConfig from './config/api'
+import { PrismaClient } from '@prisma/client'
+
+export const prisma = new PrismaClient()
 
 const { values } = parseArgs({
   options: {
@@ -42,3 +45,42 @@ app.listen(port, async () => {
     discord.login()
   }
 })
+
+async function findAndDeleteOrphanedMetadata() {
+  const orphanedMetadata = await prisma.metadata.findMany({
+    where: {
+      AND: [
+        { goalId: null },
+        { initiativeId: null },
+        { scope1Id: null },
+        { scope2Id: null },
+        { scope3Id: null },
+        { scope1And2Id: null },
+        { reportingPeriodId: null },
+        { baseYearId: null },
+        { biogenicEmissionsId: null },
+        { statedTotalEmissionsId: null },
+        { industryId: null },
+        { categoryId: null },
+        { turnoverId: null },
+        { employeesId: null },
+      ],
+    },
+  })
+
+  console.log(`Found ${orphanedMetadata.length} orphaned metadata records.`)
+
+  if (orphanedMetadata.length > 0) {
+    const deleted = await prisma.metadata.deleteMany({
+      where: {
+        id: { in: orphanedMetadata.map((m) => m.id) },
+      },
+    })
+
+    console.log(`Deleted ${deleted.count} orphaned metadata records.`)
+  }
+}
+
+setInterval(() => {
+  findAndDeleteOrphanedMetadata()
+}, 1000 * 60 * 60 * 24)
