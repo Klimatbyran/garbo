@@ -19,6 +19,7 @@ import {
 } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import apiConfig from '../config/api'
+import { DefaultEconomyArgs, ExtendedEmissions } from './types'
 
 declare global {
   namespace Express {
@@ -27,8 +28,8 @@ declare global {
       company: Company
       reportingPeriod: ReportingPeriod
       metadata?: Metadata
-      emissions?: Emissions
-      economy?: Economy
+      emissions?: ExtendedEmissions
+      economy?: DefaultEconomyArgs
     }
   }
 }

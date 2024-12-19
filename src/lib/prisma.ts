@@ -15,26 +15,34 @@ import {
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
 import { prisma } from '..'
+import {
+  DefaultEconomyArgs,
+  economyArgs,
+  emissionsArgs,
+  ExtendedEmissions,
+} from '../routes/types'
 
 const tCO2e = 'tCO2e'
 
 export async function upsertScope1(
-  emissions: Emissions,
-  scope1: OptionalNullable<Omit<Scope1, 'id' | 'metadataId' | 'unit'>> | null,
+  emissions: ExtendedEmissions,
+  scope1: Omit<Scope1, 'id' | 'metadataId' | 'unit' | 'emissionsId'> | null,
   metadata: Metadata
 ) {
+  const existingScope1Id = emissions.scope1?.id
+
   if (scope1 === null) {
-    if (emissions.scope1Id) {
+    if (existingScope1Id) {
       await prisma.scope1.delete({
-        where: { id: emissions.scope1Id },
+        where: { id: existingScope1Id },
       })
     }
     return null
   }
 
-  return emissions.scope1Id
+  return existingScope1Id
     ? prisma.scope1.update({
-        where: { id: emissions.scope1Id },
+        where: { id: existingScope1Id },
         data: {
           ...scope1,
           metadata: {
@@ -65,7 +73,7 @@ export async function upsertScope1(
 }
 
 export async function upsertScope2(
-  emissions: Emissions,
+  emissions: ExtendedEmissions,
   scope2: {
     lb?: number | null
     mb?: number | null
@@ -73,18 +81,20 @@ export async function upsertScope2(
   } | null,
   metadata: Metadata
 ) {
+  const existingScope2Id = emissions.scope2?.id
+
   if (scope2 === null) {
-    if (emissions.scope2Id) {
+    if (existingScope2Id) {
       await prisma.scope2.delete({
-        where: { id: emissions.scope2Id },
+        where: { id: existingScope2Id },
       })
     }
     return null
   }
 
-  return emissions.scope2Id
+  return existingScope2Id
     ? prisma.scope2.update({
-        where: { id: emissions.scope2Id },
+        where: { id: existingScope2Id },
         data: {
           ...scope2,
           metadata: {
@@ -115,24 +125,27 @@ export async function upsertScope2(
 }
 
 export async function upsertScope1And2(
-  emissions: Emissions,
-  scope1And2: OptionalNullable<
-    Omit<Scope1And2, 'id' | 'metadataId' | 'unit'>
+  emissions: ExtendedEmissions,
+  scope1And2: Omit<
+    Scope1And2,
+    'id' | 'metadataId' | 'unit' | 'emissionsId'
   > | null,
   metadata: Metadata
 ) {
+  const existingScope1And2Id = emissions.scope1And2?.id
+
   if (scope1And2 === null) {
-    if (emissions.scope1And2Id) {
+    if (existingScope1And2Id) {
       await prisma.scope1And2.delete({
-        where: { id: emissions.scope1And2Id },
+        where: { id: existingScope1And2Id },
       })
     }
     return null
   }
 
-  return emissions.scope1And2Id
+  return existingScope1And2Id
     ? prisma.scope1And2.update({
-        where: { id: emissions.scope1And2Id },
+        where: { id: existingScope1And2Id },
         data: {
           ...scope1And2,
           metadata: {
@@ -163,7 +176,7 @@ export async function upsertScope1And2(
 }
 
 export async function upsertScope3(
-  emissions: Emissions,
+  emissions: ExtendedEmissions,
   scope3: {
     categories?: { category: number; total: number | null }[]
     statedTotalEmissions?: OptionalNullable<
@@ -172,8 +185,10 @@ export async function upsertScope3(
   },
   metadata: Metadata
 ) {
+  const existingScope3Id = emissions.scope3?.id
+
   const updatedScope3 = await prisma.scope3.upsert({
-    where: { id: emissions.scope3Id ?? 0 },
+    where: { id: existingScope3Id ?? 0 },
     update: {},
     create: {
       metadata: {
@@ -262,25 +277,27 @@ export async function upsertScope3(
 }
 
 export async function upsertBiogenic(
-  emissions: Emissions,
+  emissions: ExtendedEmissions,
   biogenic: OptionalNullable<
-    Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit'>
+    Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit' | 'emissionsId'>
   > | null,
   metadata: Metadata
 ) {
+  const existingBiogenicEmissionsId = emissions.biogenicEmissions?.id
+
   if (biogenic === null) {
-    if (emissions.biogenicEmissionsId) {
+    if (existingBiogenicEmissionsId) {
       await prisma.biogenicEmissions.delete({
-        where: { id: emissions.biogenicEmissionsId },
+        where: { id: existingBiogenicEmissionsId },
       })
     }
     return null
   }
 
-  return emissions.biogenicEmissionsId
+  return existingBiogenicEmissionsId
     ? prisma.biogenicEmissions.update({
         where: {
-          id: emissions.biogenicEmissionsId,
+          id: existingBiogenicEmissionsId,
         },
         data: {
           ...biogenic,
@@ -312,16 +329,19 @@ export async function upsertBiogenic(
 }
 
 export async function upsertStatedTotalEmissions(
-  emissions: Emissions,
+  emissions: ExtendedEmissions,
   statedTotalEmissions: OptionalNullable<
-    Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
+    Omit<
+      StatedTotalEmissions,
+      'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
+    >
   > | null,
   metadata: Metadata,
   scope3?: Scope3 & { statedTotalEmissions: { id: number } | null }
 ) {
   const statedTotalEmissionsId = scope3
     ? scope3.statedTotalEmissionsId || scope3?.statedTotalEmissions?.id
-    : emissions.statedTotalEmissionsId
+    : emissions.statedTotalEmissions?.id
 
   if (statedTotalEmissions === null) {
     if (statedTotalEmissionsId) {
@@ -504,7 +524,7 @@ export async function deleteInitiative(id: Initiative['id']) {
 export async function upsertTurnover(
   economy: Economy,
   turnover: OptionalNullable<
-    Omit<Turnover, 'id' | 'metadataId' | 'unit'>
+    Omit<Turnover, 'id' | 'metadataId' | 'unit' | 'economyId'>
   > | null,
   metadata: Metadata
 ) {
@@ -539,21 +559,25 @@ export async function upsertTurnover(
 }
 
 export async function upsertEmployees(
-  economy: Economy,
-  employees: OptionalNullable<Omit<Employees, 'id' | 'metadataId'>> | null,
+  economy: DefaultEconomyArgs,
+  employees: OptionalNullable<
+    Omit<Employees, 'id' | 'metadataId' | 'economyId'>
+  > | null,
   metadata: Metadata
 ) {
+  const existingEmployeesId = economy.employees?.id
+
   if (employees === null) {
-    if (economy.employeesId) {
+    if (existingEmployeesId) {
       await prisma.employees.delete({
-        where: { id: economy.employeesId },
+        where: { id: existingEmployeesId },
       })
     }
     return null
   }
 
   return prisma.employees.upsert({
-    where: { id: economy.employeesId ?? 0 },
+    where: { id: existingEmployeesId ?? 0 },
     create: {
       ...employees,
       metadata: {
@@ -633,10 +657,9 @@ export async function upsertReportingPeriod(
 ) {
   return prisma.reportingPeriod.upsert({
     where: {
-      reportingPeriodId: {
-        companyId: company.wikidataId,
-        year,
-      },
+      id: 329329, // MAJOR REMINDER TO FIX
+      companyId: company.wikidataId,
+      year,
       // NOTE: Maybe only check it's the same year of the endDate, instead of requiring the exact date to be provided in the request body.
       // We might want to allow just sending a GET request to for example /2023/emissions.
     },
@@ -657,6 +680,25 @@ export async function upsertReportingPeriod(
         },
       },
     },
+    include: {
+      emissions: {
+        include: {
+          biogenicEmissions: { select: { id: true } },
+          scope1: { select: { id: true } },
+          scope1And2: { select: { id: true } },
+          scope2: { select: { id: true } },
+          scope3: { select: { id: true } },
+          statedTotalEmissions: { select: { id: true } },
+        },
+      },
+      economy: {
+        include: {
+          employees: { select: { id: true } },
+          turnover: { select: { id: true } },
+        },
+      },
+      company: { select: { wikidataId: true } },
+    },
   })
 }
 
@@ -665,12 +707,10 @@ export async function updateReportingPeriodReportURL(
   year: string,
   reportURL: string
 ) {
-  const reportingPeriod = await prisma.reportingPeriod.findUnique({
+  const reportingPeriod = await prisma.reportingPeriod.findFirst({
     where: {
-      reportingPeriodId: {
-        companyId: company.wikidataId,
-        year,
-      },
+      companyId: company.wikidataId,
+      year,
     },
   })
 
@@ -680,10 +720,7 @@ export async function updateReportingPeriodReportURL(
 
   return prisma.reportingPeriod.update({
     where: {
-      reportingPeriodId: {
-        companyId: company.wikidataId,
-        year,
-      },
+      id: reportingPeriod.id,
     },
     data: {
       reportURL,
@@ -706,13 +743,15 @@ export async function upsertEmissions({
     create: {
       reportingPeriod: {
         connect: {
-          reportingPeriodId: {
-            year,
-            companyId,
-          },
+          id: 1234,
+          // reportingPeriodId: {
+          //   year,
+          //   companyId,
+          // },
         },
       },
     },
+    ...emissionsArgs,
   })
 }
 
@@ -731,12 +770,10 @@ export async function upsertEconomy({
     create: {
       reportingPeriod: {
         connect: {
-          reportingPeriodId: {
-            year,
-            companyId,
-          },
+          id: 1234,
         },
       },
     },
+    ...economyArgs,
   })
 }
