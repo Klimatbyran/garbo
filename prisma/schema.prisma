@@ -55,8 +55,8 @@ model BaseYear {
   scope     Int // 1-3
   companyId String
 
-  metadata Metadata?
-  company  Company   @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 }
 
 /// Connecting a company to a specific industry and metadata
@@ -66,8 +66,8 @@ model Industry {
   gicsSubIndustryCode String
   companyWikidataId   String @unique
 
-  company  Company   @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
-  metadata Metadata?
+  company  Company    @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
 
   // industryGics is an interesting candidate for the cascade option, I bet these codes are rarely changed... But in that case
   // lets be sure to make a migration to the new code without cascading all current industries
@@ -98,7 +98,7 @@ model ReportingPeriod {
 
   companyId String
 
-  metadata  Metadata?
+  metadata  Metadata[]
   economy   Economy?
   emissions Emissions?
   company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
@@ -133,7 +133,7 @@ model StatedTotalEmissions {
   emissionsId Int?   @unique
 
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
-  metadata  Metadata?
+  metadata  Metadata[]
   scope3    Scope3?    @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
 }
 
@@ -145,7 +145,7 @@ model Scope1And2 {
 
   unit      String
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
-  metadata  Metadata?
+  metadata  Metadata[]
 }
 
 /// Biogenic emissions are reported separately from scope 1-3
@@ -156,7 +156,7 @@ model BiogenicEmissions {
   emissionsId Int?   @unique
 
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
-  metadata  Metadata?
+  metadata  Metadata[]
 }
 
 model Scope1 {
@@ -166,7 +166,7 @@ model Scope1 {
   emissionsId Int?   @unique
 
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
-  metadata  Metadata?
+  metadata  Metadata[]
 }
 
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
@@ -180,7 +180,7 @@ model Scope2 {
   emissionsId Int?   @unique
 
   emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
-  metadata  Metadata?
+  metadata  Metadata[]
 }
 
 model Scope3 {
@@ -197,7 +197,7 @@ model Scope3 {
   statedTotalEmissions StatedTotalEmissions?
   emissions            Emissions?            @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
   categories           Scope3Category[]
-  metadata             Metadata?
+  metadata             Metadata[]
 }
 
 /// Details about scope 3 categories. Here's a list of valid categories and their names:
@@ -235,8 +235,8 @@ model Scope3Category {
   scope3Id Int
   unit     String
 
-  scope3   Scope3    @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
-  metadata Metadata?
+  scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Economy {
@@ -256,8 +256,8 @@ model Turnover {
   currency  String?
   economyId Int     @unique
 
-  economy  Economy   @relation(fields: [economyId], references: [id], onDelete: Cascade)
-  metadata Metadata?
+  economy  Economy    @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Employees {
@@ -268,8 +268,8 @@ model Employees {
   unit      String?
   economyId Int?    @unique
 
-  economy  Economy?  @relation(fields: [economyId], references: [id], onDelete: Cascade)
-  metadata Metadata?
+  economy  Economy?   @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Goal {
@@ -285,8 +285,8 @@ model Goal {
   companyId   String
 
   /// Marked as optional because the foreign key resides in the Metadata model, making the relationship managed from that side. (Eventhough every goal needs to have metadata)
-  metadata Metadata?
-  company  Company   @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 }
 
 model Initiative {
@@ -297,8 +297,8 @@ model Initiative {
   scope       String?
   companyId   String
 
-  company  Company   @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
-  metadata Metadata?
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 /// Every datapoint has associated metadata about who changed it, when, and using what source
