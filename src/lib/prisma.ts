@@ -1,8 +1,6 @@
 import {
-  PrismaClient,
   Metadata,
   Scope1,
-  Scope2,
   Company,
   Emissions,
   BiogenicEmissions,
@@ -16,8 +14,7 @@ import {
   Scope1And2,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
-
-export const prisma = new PrismaClient()
+import { prisma } from '..'
 
 const tCO2e = 'tCO2e'
 
