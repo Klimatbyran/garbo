@@ -1,31 +1,6 @@
 import express, { Request, Response } from 'express'
 import { z } from 'zod'
 import { processRequest, processRequestBody } from './zod-middleware'
-
-import {
-  upsertBiogenic,
-  upsertScope1,
-  upsertScope2,
-  upsertStatedTotalEmissions,
-  upsertCompany,
-  upsertScope3,
-  upsertTurnover,
-  upsertEmployees,
-  createGoals,
-  updateGoal,
-  createInitiatives,
-  updateInitiative,
-  createIndustry,
-  updateIndustry,
-  upsertReportingPeriod,
-  upsertEmissions,
-  upsertEconomy,
-  upsertScope1And2,
-  deleteInitiative,
-  deleteGoal,
-  updateReportingPeriodReportURL,
-  prisma,
-} from '../lib/prisma'
 import {
   createMetadata,
   fakeAuth,
@@ -35,9 +10,16 @@ import {
   validateMetadata,
   ensureEconomyExists,
 } from './middlewares'
-import { Company, Prisma } from '@prisma/client'
 import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
+import { companyService } from './services/companyService'
+import { goalService } from './services/goalService'
+import { initiativeService } from './services/initiativeService'
+import { industryService } from './services/industryService'
+import { reportingPeriodService } from './services/reportingPeriodService'
+import { emissionsService } from './services/emissionsService'
+import { prisma } from '..'
+import { Company, Prisma } from '@prisma/client'
 
 const router = express.Router()
 
@@ -65,7 +47,7 @@ async function handleCompanyUpsert(req: Request, res: Response) {
   let company: Company
 
   try {
-    company = await upsertCompany({
+    company = await companyService.upsertCompany({
       wikidataId,
       name,
       description,
@@ -128,7 +110,7 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await createGoals(wikidataId, goals, metadata!)
+      await goalService.createGoals(wikidataId, goals, metadata!)
     }
     res.json({ ok: true })
   }
@@ -144,7 +126,7 @@ router.patch(
     const { goal } = req.body
     const { id } = req.params
     const metadata = res.locals.metadata
-    await updateGoal(id, goal, metadata!).catch((error) => {
+    await goalService.updateGoal(id, goal, metadata!).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -167,7 +149,7 @@ router.delete(
   }),
   async (req, res) => {
     const { id } = req.params
-    await deleteGoal(id).catch((error) => {
+    await goalService.deleteGoal(id).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -205,7 +187,11 @@ router.post(
       const { wikidataId } = req.params
       const metadata = res.locals.metadata
 
-      await createInitiatives(wikidataId, initiatives, metadata!)
+      await initiativeService.createInitiatives(
+        wikidataId,
+        initiatives,
+        metadata!
+      )
     }
     res.json({ ok: true })
   }
@@ -221,18 +207,20 @@ router.patch(
     const { initiative } = req.body
     const { id } = req.params
     const metadata = res.locals.metadata
-    await updateInitiative(id, initiative, metadata!).catch((error) => {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Initiative not found', {
-          statusCode: 404,
-          original: error,
-        })
-      }
-      throw error
-    })
+    await initiativeService
+      .updateInitiative(id, initiative, metadata!)
+      .catch((error) => {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === 'P2025'
+        ) {
+          throw new GarboAPIError('Initiative not found', {
+            statusCode: 404,
+            original: error,
+          })
+        }
+        throw error
+      })
     res.json({ ok: true })
   }
 )
@@ -244,7 +232,7 @@ router.delete(
   }),
   async (req, res) => {
     const { id } = req.params
-    await deleteInitiative(id).catch((error) => {
+    await initiativeService.deleteInitiative(id).catch((error) => {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2025'
@@ -287,24 +275,24 @@ router.post(
 
     if (current) {
       console.log('updating industry', subIndustryCode)
-      await updateIndustry(wikidataId, { subIndustryCode }, metadata!).catch(
-        (error) => {
+      await industryService
+        .updateIndustry(wikidataId, { subIndustryCode }, metadata!)
+        .catch((error) => {
           throw new GarboAPIError('Failed to update industry', {
             original: error,
             statusCode: 500,
           })
-        }
-      )
+        })
     } else {
       console.log('creating industry', subIndustryCode)
-      await createIndustry(wikidataId, { subIndustryCode }, metadata!).catch(
-        (error) => {
+      await industryService
+        .createIndustry(wikidataId, { subIndustryCode }, metadata!)
+        .catch((error) => {
           throw new GarboAPIError('Failed to create industry', {
             original: error,
             statusCode: 500,
           })
-        }
-      )
+        })
     }
 
     res.json({ ok: true })
@@ -441,23 +429,24 @@ router.post(
             reportURL,
           }) => {
             const year = endDate.getFullYear().toString()
-            const reportingPeriod = await upsertReportingPeriod(
-              company,
-              metadata,
-              {
-                startDate,
-                endDate,
-                reportURL,
-                year,
-              }
-            )
+            const reportingPeriod =
+              await reportingPeriodService.upsertReportingPeriod(
+                company,
+                metadata,
+                {
+                  startDate,
+                  endDate,
+                  reportURL,
+                  year,
+                }
+              )
 
             const [dbEmissions, dbEconomy] = await Promise.all([
-              upsertEmissions({
+              emissionsService.upsertEmissions({
                 emissionsId: reportingPeriod.emissions?.id ?? 0,
                 reportingPeriodId: reportingPeriod.id,
               }),
-              upsertEconomy({
+              companyService.upsertEconomy({
                 economyId: reportingPeriod.economy?.id ?? 0,
                 reportingPeriodId: reportingPeriod.id,
               }),
@@ -480,24 +469,37 @@ router.post(
 
             await Promise.allSettled([
               scope1 !== undefined &&
-                upsertScope1(dbEmissions, scope1, metadata),
+                emissionsService.upsertScope1(dbEmissions, scope1, metadata),
               scope2 !== undefined &&
-                upsertScope2(dbEmissions, scope2, metadata),
-              scope3 && upsertScope3(dbEmissions, scope3, metadata),
+                emissionsService.upsertScope2(dbEmissions, scope2, metadata),
+              scope3 &&
+                emissionsService.upsertScope3(dbEmissions, scope3, metadata),
               statedTotalEmissions !== undefined &&
-                upsertStatedTotalEmissions(
+                emissionsService.upsertStatedTotalEmissions(
                   dbEmissions,
                   statedTotalEmissions,
                   metadata
                 ),
               biogenic !== undefined &&
-                upsertBiogenic(dbEmissions, biogenic, metadata),
+                emissionsService.upsertBiogenic(
+                  dbEmissions,
+                  biogenic,
+                  metadata
+                ),
               scope1And2 !== undefined &&
-                upsertScope1And2(dbEmissions, scope1And2, metadata),
+                emissionsService.upsertScope1And2(
+                  dbEmissions,
+                  scope1And2,
+                  metadata
+                ),
               turnover !== undefined &&
-                upsertTurnover(dbEconomy, turnover, metadata),
+                companyService.upsertTurnover(dbEconomy, turnover, metadata),
               employees !== undefined &&
-                upsertEmployees(dbEconomy, employees, metadata),
+                companyService.upsertEmployees({
+                  economy: dbEconomy,
+                  employees,
+                  metadata,
+                }),
             ])
           }
         )
@@ -529,11 +531,12 @@ router.patch(
     const company = res.locals.company!
 
     try {
-      const updatedPeriod = await updateReportingPeriodReportURL(
-        company,
-        year,
-        reportURL
-      )
+      const updatedPeriod =
+        await reportingPeriodService.updateReportingPeriodReportURL(
+          company,
+          year,
+          reportURL
+        )
 
       res.json({
         ok: true,
@@ -587,19 +590,21 @@ router.post(
       // There seems to be a type error in zod which doesn't take into account optional objects.
 
       await Promise.allSettled([
-        scope1 !== undefined && upsertScope1(dbEmissions, scope1, metadata),
-        scope2 !== undefined && upsertScope2(dbEmissions, scope2, metadata),
-        scope3 && upsertScope3(dbEmissions, scope3, metadata),
+        scope1 !== undefined &&
+          emissionsService.upsertScope1(dbEmissions, scope1, metadata),
+        scope2 !== undefined &&
+          emissionsService.upsertScope2(dbEmissions, scope2, metadata),
+        scope3 && emissionsService.upsertScope3(dbEmissions, scope3, metadata),
         scope1And2 !== undefined &&
-          upsertScope1And2(dbEmissions, scope1And2, metadata),
+          emissionsService.upsertScope1And2(dbEmissions, scope1And2, metadata),
         statedTotalEmissions !== undefined &&
-          upsertStatedTotalEmissions(
+          emissionsService.upsertStatedTotalEmissions(
             dbEmissions,
             statedTotalEmissions,
             metadata
           ),
         biogenic !== undefined &&
-          upsertBiogenic(dbEmissions, biogenic, metadata),
+          emissionsService.upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update emissions', {
@@ -634,9 +639,10 @@ router.post(
     try {
       // Only update if the input contains relevant changes
       await Promise.allSettled([
-        turnover !== undefined && upsertTurnover(economy, turnover, metadata),
+        turnover !== undefined &&
+          companyService.upsertTurnover(economy, turnover, metadata),
         employees !== undefined &&
-          upsertEmployees(economy, employees, metadata),
+          companyService.upsertEmployees({ economy, employees, metadata }),
       ])
     } catch (error) {
       throw new GarboAPIError('Failed to update economy', {

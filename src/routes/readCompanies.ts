@@ -5,7 +5,7 @@ import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
 import { wikidataIdParamSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
-import { prisma } from '../lib/prisma'
+import { prisma } from '..'
 
 const router = express.Router()
 

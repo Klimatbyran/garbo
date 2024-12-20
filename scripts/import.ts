@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { getAllGicsCodesLookup } from './add-gics'
 
-export const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 
 export const DATA_ORIGIN = {
   garbo: 'garbo',

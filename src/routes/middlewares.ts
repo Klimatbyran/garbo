@@ -3,12 +3,6 @@ import { Company, Metadata, PrismaClient, User } from '@prisma/client'
 import { validateRequest, validateRequestBody } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
-
-import {
-  upsertEconomy,
-  upsertEmissions,
-  upsertReportingPeriod,
-} from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import apiConfig from '../config/api'
 import {
@@ -16,6 +10,9 @@ import {
   DefaultEmissions,
   DefaultReportingPeriod,
 } from './types'
+import { reportingPeriodService } from './services/reportingPeriodService'
+import { emissionsService } from './services/emissionsService'
+import { companyService } from './services/companyService'
 
 declare global {
   namespace Express {
@@ -167,12 +164,13 @@ export const reportingPeriod =
     if (req.method === 'POST' || req.method === 'PATCH') {
       // TODO: Only allow creating a reporting period when updating other data
       // TODO: Maybe throw 404 if the reporting period was not found and it is a GET request
-      const reportingPeriod = await upsertReportingPeriod(company, metadata, {
-        startDate,
-        endDate,
-        reportURL,
-        year,
-      })
+      const reportingPeriod =
+        await reportingPeriodService.upsertReportingPeriod(company, metadata, {
+          startDate,
+          endDate,
+          reportURL,
+          year,
+        })
 
       res.locals.reportingPeriod = reportingPeriod
     }
@@ -185,10 +183,9 @@ export const ensureEmissionsExists =
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
 
-    const emissions = await upsertEmissions({
+    const emissions = await emissionsService.upsertEmissions({
       emissionsId: reportingPeriod.emissions?.id ?? 0,
-      companyId: res.locals.company.wikidataId,
-      year: reportingPeriod.year,
+      reportingPeriodId: reportingPeriod.id,
     })
 
     res.locals.emissions = emissions
@@ -200,7 +197,7 @@ export const ensureEconomyExists =
   async (req: Request, res: Response, next: NextFunction) => {
     const reportingPeriod = res.locals.reportingPeriod
 
-    const economy = await upsertEconomy({
+    const economy = await companyService.upsertEconomy({
       economyId: reportingPeriod.economy?.id ?? 0,
       reportingPeriodId: reportingPeriod.id,
     })
