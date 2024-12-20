@@ -24,6 +24,7 @@ import {
   deleteInitiative,
   deleteGoal,
   updateReportingPeriodReportURL,
+  prisma,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -34,7 +35,6 @@ import {
   validateMetadata,
   ensureEconomyExists,
 } from './middlewares'
-import { prisma } from '..'
 import { Company, Prisma } from '@prisma/client'
 import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'

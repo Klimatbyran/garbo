@@ -3,9 +3,7 @@ import { parseArgs } from 'node:util'
 
 import api from './api'
 import apiConfig from './config/api'
-import { PrismaClient } from '@prisma/client'
-
-export const prisma = new PrismaClient()
+import { prisma } from './lib/prisma'
 
 const { values } = parseArgs({
   options: {

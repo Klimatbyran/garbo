@@ -14,7 +14,6 @@ import {
   Scope1And2,
 } from '@prisma/client'
 import { OptionalNullable } from './type-utils'
-import { prisma } from '..'
 import {
   DefaultEconomyArgs,
   DefaultEmissions,
@@ -22,6 +21,9 @@ import {
   emissionsArgs,
   reportingPeriodArgs,
 } from '../routes/types'
+import { PrismaClient } from '@prisma/client'
+
+export const prisma = new PrismaClient()
 
 const tCO2e = 'tCO2e'
 
