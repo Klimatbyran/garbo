@@ -1,13 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import {
-  Company,
-  Economy,
-  Emissions,
-  Metadata,
-  PrismaClient,
-  ReportingPeriod,
-  User,
-} from '@prisma/client'
+import { Company, Metadata, PrismaClient, User } from '@prisma/client'
 import { validateRequest, validateRequestBody } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
@@ -19,16 +11,20 @@ import {
 } from '../lib/prisma'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import apiConfig from '../config/api'
-import { DefaultEconomyArgs, ExtendedEmissions } from './types'
+import {
+  DefaultEconomyArgs,
+  DefaultEmissions,
+  DefaultReportingPeriod,
+} from './types'
 
 declare global {
   namespace Express {
     interface Locals {
       user: User
       company: Company
-      reportingPeriod: ReportingPeriod
+      reportingPeriod: DefaultReportingPeriod
       metadata?: Metadata
-      emissions?: ExtendedEmissions
+      emissions?: DefaultEmissions
       economy?: DefaultEconomyArgs
     }
   }
@@ -190,7 +186,7 @@ export const ensureEmissionsExists =
     const reportingPeriod = res.locals.reportingPeriod
 
     const emissions = await upsertEmissions({
-      emissionsId: reportingPeriod.emissionsId ?? 0,
+      emissionsId: reportingPeriod.emissions?.id ?? 0,
       companyId: res.locals.company.wikidataId,
       year: reportingPeriod.year,
     })
@@ -205,9 +201,8 @@ export const ensureEconomyExists =
     const reportingPeriod = res.locals.reportingPeriod
 
     const economy = await upsertEconomy({
-      economyId: reportingPeriod.economyId ?? 0,
-      companyId: reportingPeriod.companyId,
-      year: reportingPeriod.year,
+      economyId: reportingPeriod.economy?.id ?? 0,
+      reportingPeriodId: reportingPeriod.id,
     })
 
     res.locals.economy = economy

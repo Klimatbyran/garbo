@@ -17,15 +17,16 @@ import { OptionalNullable } from './type-utils'
 import { prisma } from '..'
 import {
   DefaultEconomyArgs,
+  DefaultEmissions,
   economyArgs,
   emissionsArgs,
-  ExtendedEmissions,
+  reportingPeriodArgs,
 } from '../routes/types'
 
 const tCO2e = 'tCO2e'
 
 export async function upsertScope1(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   scope1: Omit<Scope1, 'id' | 'metadataId' | 'unit' | 'emissionsId'> | null,
   metadata: Metadata
 ) {
@@ -73,7 +74,7 @@ export async function upsertScope1(
 }
 
 export async function upsertScope2(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   scope2: {
     lb?: number | null
     mb?: number | null
@@ -125,7 +126,7 @@ export async function upsertScope2(
 }
 
 export async function upsertScope1And2(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   scope1And2: Omit<
     Scope1And2,
     'id' | 'metadataId' | 'unit' | 'emissionsId'
@@ -176,7 +177,7 @@ export async function upsertScope1And2(
 }
 
 export async function upsertScope3(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   scope3: {
     categories?: { category: number; total: number | null }[]
     statedTotalEmissions?: OptionalNullable<
@@ -277,7 +278,7 @@ export async function upsertScope3(
 }
 
 export async function upsertBiogenic(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   biogenic: OptionalNullable<
     Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit' | 'emissionsId'>
   > | null,
@@ -329,7 +330,7 @@ export async function upsertBiogenic(
 }
 
 export async function upsertStatedTotalEmissions(
-  emissions: ExtendedEmissions,
+  emissions: DefaultEmissions,
   statedTotalEmissions: OptionalNullable<
     Omit<
       StatedTotalEmissions,
@@ -680,25 +681,7 @@ export async function upsertReportingPeriod(
         },
       },
     },
-    include: {
-      emissions: {
-        include: {
-          biogenicEmissions: { select: { id: true } },
-          scope1: { select: { id: true } },
-          scope1And2: { select: { id: true } },
-          scope2: { select: { id: true } },
-          scope3: { select: { id: true } },
-          statedTotalEmissions: { select: { id: true } },
-        },
-      },
-      economy: {
-        include: {
-          employees: { select: { id: true } },
-          turnover: { select: { id: true } },
-        },
-      },
-      company: { select: { wikidataId: true } },
-    },
+    ...reportingPeriodArgs,
   })
 }
 
@@ -757,12 +740,10 @@ export async function upsertEmissions({
 
 export async function upsertEconomy({
   economyId,
-  companyId,
-  year,
+  reportingPeriodId,
 }: {
   economyId: number
-  companyId: string
-  year: string
+  reportingPeriodId: number
 }) {
   return prisma.economy.upsert({
     where: { id: economyId },
@@ -770,7 +751,7 @@ export async function upsertEconomy({
     create: {
       reportingPeriod: {
         connect: {
-          id: 1234,
+          id: reportingPeriodId,
         },
       },
     },

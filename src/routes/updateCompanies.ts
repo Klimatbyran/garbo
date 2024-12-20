@@ -460,8 +460,7 @@ router.post(
               }),
               upsertEconomy({
                 economyId: reportingPeriod.economy?.id ?? 0,
-                companyId: company.wikidataId,
-                year,
+                reportingPeriodId: reportingPeriod.id,
               }),
             ])
 
