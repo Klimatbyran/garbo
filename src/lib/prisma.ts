@@ -656,15 +656,23 @@ export async function upsertReportingPeriod(
     endDate,
     reportURL,
     year,
-  }: { startDate: Date; endDate: Date; reportURL?: string; year: string }
+  }: {
+    startDate: Date
+    endDate: Date
+    reportURL?: string
+    year: string
+  }
 ) {
-  return prisma.reportingPeriod.upsert({
+  const reportingPeriod = await prisma.reportingPeriod.findFirst({
     where: {
-      id: 329329, // MAJOR REMINDER TO FIX
       companyId: company.wikidataId,
       year,
-      // NOTE: Maybe only check it's the same year of the endDate, instead of requiring the exact date to be provided in the request body.
-      // We might want to allow just sending a GET request to for example /2023/emissions.
+    },
+  })
+
+  return prisma.reportingPeriod.upsert({
+    where: {
+      id: reportingPeriod?.id ?? 0,
     },
     update: {},
     create: {
@@ -715,12 +723,10 @@ export async function updateReportingPeriodReportURL(
 
 export async function upsertEmissions({
   emissionsId,
-  year,
-  companyId,
+  reportingPeriodId,
 }: {
   emissionsId: number
-  year: string
-  companyId: string
+  reportingPeriodId: number
 }) {
   return prisma.emissions.upsert({
     where: { id: emissionsId },
@@ -728,11 +734,7 @@ export async function upsertEmissions({
     create: {
       reportingPeriod: {
         connect: {
-          id: 1234,
-          // reportingPeriodId: {
-          //   year,
-          //   companyId,
-          // },
+          id: reportingPeriodId,
         },
       },
     },

@@ -455,8 +455,7 @@ router.post(
             const [dbEmissions, dbEconomy] = await Promise.all([
               upsertEmissions({
                 emissionsId: reportingPeriod.emissions?.id ?? 0,
-                companyId: company.wikidataId,
-                year,
+                reportingPeriodId: reportingPeriod.id,
               }),
               upsertEconomy({
                 economyId: reportingPeriod.economy?.id ?? 0,
