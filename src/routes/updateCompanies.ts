@@ -24,6 +24,7 @@ import {
   deleteInitiative,
   deleteGoal,
   updateReportingPeriodReportURL,
+  prisma,
 } from '../lib/prisma'
 import {
   createMetadata,
@@ -34,7 +35,6 @@ import {
   validateMetadata,
   ensureEconomyExists,
 } from './middlewares'
-import { prisma } from '../lib/prisma'
 import { Company, Prisma } from '@prisma/client'
 import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
@@ -454,14 +454,12 @@ router.post(
 
             const [dbEmissions, dbEconomy] = await Promise.all([
               upsertEmissions({
-                emissionsId: reportingPeriod.emissionsId ?? 0,
-                companyId: company.wikidataId,
-                year,
+                emissionsId: reportingPeriod.emissions?.id ?? 0,
+                reportingPeriodId: reportingPeriod.id,
               }),
               upsertEconomy({
-                economyId: reportingPeriod.economyId ?? 0,
-                companyId: company.wikidataId,
-                year,
+                economyId: reportingPeriod.economy?.id ?? 0,
+                reportingPeriodId: reportingPeriod.id,
               }),
             ])
 
