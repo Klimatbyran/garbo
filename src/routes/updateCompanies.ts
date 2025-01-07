@@ -13,7 +13,6 @@ import {
   ensureCompany,
   fetchCompanyByWikidataId,
 } from './middlewares'
-import { wikidataIdParamSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import { companyService } from './services/companyService'
 import { goalService } from './services/goalService'
@@ -31,6 +30,7 @@ import {
   postEconomyBodySchema,
   postEmissionsBodySchema,
   postReportingPeriodsSchema,
+  wikidataIdParamSchema,
 } from './schemas'
 
 const router = express.Router()

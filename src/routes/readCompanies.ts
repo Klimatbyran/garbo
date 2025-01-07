@@ -3,9 +3,9 @@ import { validateRequestParams } from './zod-middleware'
 
 import { getGics } from '../lib/gics'
 import { cache, enableCors } from './middlewares'
-import { wikidataIdParamSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import { prisma } from '..'
+import { wikidataIdParamSchema } from './schemas'
 
 const router = express.Router()
 
