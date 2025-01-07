@@ -1,16 +1,19 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import { z } from 'zod'
 import { processRequest, processRequestBody } from './zod-middleware'
 import {
   createMetadata,
   fakeAuth,
-  reportingPeriod,
+  ensureReportingPeriod,
   ensureEmissionsExists,
-  validateReportingPeriod,
+  validateReportingPeriodRequest,
   validateMetadata,
   ensureEconomyExists,
+  validateCompanyRequest,
+  ensureCompany,
+  fetchCompanyByWikidataId,
 } from './middlewares'
-import { wikidataIdParamSchema, wikidataIdSchema } from './companySchemas'
+import { wikidataIdParamSchema } from './companySchemas'
 import { GarboAPIError } from '../lib/garbo-api-error'
 import { companyService } from './services/companyService'
 import { goalService } from './services/goalService'
@@ -18,7 +21,7 @@ import { initiativeService } from './services/initiativeService'
 import { industryService } from './services/industryService'
 import { reportingPeriodService } from './services/reportingPeriodService'
 import { emissionsService } from './services/emissionsService'
-import { Company, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
 import { prisma } from '../lib/prisma'
 
 const router = express.Router()
@@ -29,46 +32,11 @@ router.use('/', express.json())
 // TODO: maybe begin transaction here, and cancel in the POST handler if there was no meaningful change
 router.use('/', validateMetadata(), createMetadata(prisma))
 
-const upsertCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-})
-
-const validateCompanyUpsert = () => processRequestBody(upsertCompanyBodySchema)
-
-async function handleCompanyUpsert(req: Request, res: Response) {
-  const { name, description, url, internalComment, wikidataId, tags } =
-    upsertCompanyBodySchema.parse(req.body)
-
-  let company: Company
-
-  try {
-    company = await companyService.upsertCompany({
-      wikidataId,
-      name,
-      description,
-      url,
-      internalComment,
-      tags,
-    })
-  } catch (error) {
-    throw new GarboAPIError('Failed to upsert company', {
-      original: error,
-    })
-  }
-
-  res.json(company)
-}
-
 // NOTE: Ideally we could have the same handler for both create and update operations, and provide the wikidataId as an URL param
 // However, the middlewares didn't run in the expected order so the quick workaround was to just have two endpoints doing the same thing.
 // Feel free to debug and improve!
-router.post('/', validateCompanyUpsert(), handleCompanyUpsert)
-router.post('/:wikidataId', validateCompanyUpsert(), handleCompanyUpsert)
+router.post('/', validateCompanyRequest(), ensureCompany)
+router.post('/:wikidataId', validateCompanyRequest(), ensureCompany)
 
 // NOTE: Important to register this middleware after handling the POST requests for a specific wikidataId to still allow creating new companies.
 router.use(
@@ -76,16 +44,7 @@ router.use(
   processRequest({
     params: wikidataIdParamSchema,
   }),
-  async (req, res, next) => {
-    const { wikidataId } = req.params
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
-    }
-    res.locals.company = company
-
-    next()
-  }
+  fetchCompanyByWikidataId(prisma)
 )
 
 const goalSchema = z.object({
@@ -555,8 +514,8 @@ router.patch(
 
 router.use(
   '/:wikidataId/:year',
-  validateReportingPeriod(),
-  reportingPeriod(prisma)
+  validateReportingPeriodRequest(),
+  ensureReportingPeriod(prisma)
 )
 
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))

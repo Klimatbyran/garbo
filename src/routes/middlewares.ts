@@ -1,6 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 import { Company, Metadata, PrismaClient, User } from '@prisma/client'
-import { validateRequest, validateRequestBody } from './zod-middleware'
+import {
+  processRequestBody,
+  validateRequest,
+  validateRequestBody,
+} from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 import { GarboAPIError } from '../lib/garbo-api-error'
@@ -13,6 +17,7 @@ import {
 import { reportingPeriodService } from './services/reportingPeriodService'
 import { emissionsService } from './services/emissionsService'
 import { companyService } from './services/companyService'
+import { wikidataIdSchema } from './companySchemas'
 
 declare global {
   namespace Express {
@@ -130,7 +135,7 @@ const reportingPeriodBodySchema = z
     message: 'startDate must be earlier than endDate',
   })
 
-export const validateReportingPeriod = () =>
+export const validateReportingPeriodRequest = () =>
   validateRequest({
     params: z.object({
       year: z.string().regex(/\d{4}(?:-\d{4})?/),
@@ -138,7 +143,7 @@ export const validateReportingPeriod = () =>
     body: reportingPeriodBodySchema,
   })
 
-export const reportingPeriod =
+export const ensureReportingPeriod =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
     const { year } = req.params
@@ -174,6 +179,52 @@ export const reportingPeriod =
 
       res.locals.reportingPeriod = reportingPeriod
     }
+
+    next()
+  }
+
+const upsertCompanyBodySchema = z.object({
+  wikidataId: wikidataIdSchema,
+  name: z.string(),
+  description: z.string().optional(),
+  url: z.string().url().optional(),
+  internalComment: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+})
+
+export const validateCompanyRequest = () =>
+  processRequestBody(upsertCompanyBodySchema)
+
+export async function ensureCompany(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { name, description, url, internalComment, wikidataId, tags } =
+    upsertCompanyBodySchema.parse(req.body)
+
+  const company = await companyService.upsertCompany({
+    wikidataId,
+    name,
+    description,
+    url,
+    internalComment,
+    tags,
+  })
+  res.locals.company = company
+
+  next()
+}
+
+export const fetchCompanyByWikidataId =
+  (prisma: PrismaClient) =>
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { wikidataId } = req.params
+    const company = await prisma.company.findFirst({ where: { wikidataId } })
+    if (!company) {
+      throw new GarboAPIError('Company not found', { statusCode: 404 })
+    }
+    res.locals.company = company
 
     next()
   }
