@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { validateRequestParams } from './zod-middleware'
+import { validateRequestParams } from '../middlewares/zod-middleware'
 
-import { getGics } from '../lib/gics'
-import { cache, enableCors } from './middlewares'
-import { GarboAPIError } from '../lib/garbo-api-error'
-import { prisma } from '..'
-import { wikidataIdParamSchema } from './schemas'
+import { getGics } from '../../lib/gics'
+import { cache, enableCors } from '../middlewares/middlewares'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+import { wikidataIdParamSchema } from '../schemas'
+import { prisma } from '../..'
 
 const router = express.Router()
 

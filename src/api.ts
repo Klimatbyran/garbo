@@ -1,8 +1,8 @@
 import express from 'express'
 import pino from 'pino-http'
-import readCompanies from './routes/readCompanies'
-import updateCompanies from './routes/updateCompanies'
-import { errorHandler } from './routes/middlewares'
+import readCompanies from './api/routes/readCompanies'
+import updateCompanies from './api/routes/updateCompanies'
+import { errorHandler } from './api/middlewares/middlewares'
 
 const apiRouter = express.Router()
 const pinoConfig = process.stdin.isTTY && {

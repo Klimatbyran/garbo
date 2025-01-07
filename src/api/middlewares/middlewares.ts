@@ -7,21 +7,21 @@ import {
 } from './zod-middleware'
 import { z, ZodError } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
-import { GarboAPIError } from '../lib/garbo-api-error'
-import apiConfig from '../config/api'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+import apiConfig from '../../config/api'
 import {
   DefaultEconomyArgs,
   DefaultEmissions,
   DefaultReportingPeriod,
-} from './types'
-import { reportingPeriodService } from './services/reportingPeriodService'
-import { emissionsService } from './services/emissionsService'
-import { companyService } from './services/companyService'
+} from '../types'
+import { reportingPeriodService } from '../services/reportingPeriodService'
+import { emissionsService } from '../services/emissionsService'
+import { companyService } from '../services/companyService'
 import {
   metadataRequestBody,
   reportingPeriodBodySchema,
   upsertCompanyBodySchema,
-} from './schemas'
+} from '../schemas'
 
 declare global {
   namespace Express {

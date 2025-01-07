@@ -1,6 +1,9 @@
 import express from 'express'
 import { z } from 'zod'
-import { processRequest, processRequestBody } from './zod-middleware'
+import {
+  processRequest,
+  processRequestBody,
+} from '../middlewares/zod-middleware'
 import {
   createMetadata,
   fakeAuth,
@@ -12,16 +15,16 @@ import {
   validateCompanyRequest,
   ensureCompany,
   fetchCompanyByWikidataId,
-} from './middlewares'
-import { GarboAPIError } from '../lib/garbo-api-error'
-import { companyService } from './services/companyService'
-import { goalService } from './services/goalService'
-import { initiativeService } from './services/initiativeService'
-import { industryService } from './services/industryService'
-import { reportingPeriodService } from './services/reportingPeriodService'
-import { emissionsService } from './services/emissionsService'
+} from '../middlewares/middlewares'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+import { companyService } from '../services/companyService'
+import { goalService } from '../services/goalService'
+import { initiativeService } from '../services/initiativeService'
+import { industryService } from '../services/industryService'
+import { reportingPeriodService } from '../services/reportingPeriodService'
+import { emissionsService } from '../services/emissionsService'
 import { Prisma } from '@prisma/client'
-import { prisma } from '../lib/prisma'
+import { prisma } from '../../lib/prisma'
 import {
   goalSchema,
   goalsSchema,
@@ -31,7 +34,7 @@ import {
   postEmissionsBodySchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
-} from './schemas'
+} from '../schemas'
 
 const router = express.Router()
 
