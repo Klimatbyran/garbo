@@ -2,6 +2,7 @@ import { Economy, Employees, Metadata, Turnover } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyArgs, economyArgs } from '../types'
 import { prisma } from '../..'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class CompanyService {
   async upsertCompany({
@@ -30,6 +31,16 @@ class CompanyService {
       // However, no matter what, we could still use wikidataId in the API and in the URL structure.
       update: { ...data },
     })
+  }
+
+  async deleteCompany(wikidataId: string) {
+    const company = await prisma.company.findFirst({
+      where: { wikidataId },
+    })
+    if (!company) {
+      throw new GarboAPIError('Company not found', { statusCode: 404 })
+    }
+    await prisma.company.delete({ where: { wikidataId } })
   }
 
   async upsertEconomy({

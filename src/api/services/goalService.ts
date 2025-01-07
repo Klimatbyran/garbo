@@ -1,7 +1,8 @@
-import { Company, Goal, Metadata } from '@prisma/client'
+import { Company, Goal, Metadata, Prisma } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { prisma } from '../..'
 import { DefaultGoal } from '../types'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class GoalService {
   async createGoals(
@@ -48,7 +49,17 @@ class GoalService {
   }
 
   async deleteGoal(id: Goal['id']) {
-    return prisma.goal.delete({ where: { id } })
+    try {
+      return await prisma.goal.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Goal not found', { statusCode: 404 })
+      }
+      throw error
+    }
   }
 }
 export const goalService = new GoalService()

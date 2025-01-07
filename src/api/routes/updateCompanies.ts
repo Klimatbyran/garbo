@@ -104,29 +104,6 @@ router.patch(
   }
 )
 
-router.delete(
-  '/:wikidataId/goals/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await goalService.deleteGoal(id).catch((error) => {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Goal not found', {
-          statusCode: 404,
-          original: error,
-        })
-      }
-      throw error
-    })
-    res.json({ ok: true })
-  }
-)
-
 router.post(
   '/:wikidataId/initiatives',
   processRequest({
@@ -176,29 +153,6 @@ router.patch(
         }
         throw error
       })
-    res.json({ ok: true })
-  }
-)
-
-router.delete(
-  '/:wikidataId/initiatives/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await initiativeService.deleteInitiative(id).catch((error) => {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Initiative not found', {
-          statusCode: 404,
-          original: error,
-        })
-      }
-      throw error
-    })
     res.json({ ok: true })
   }
 )

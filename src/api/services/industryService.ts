@@ -1,5 +1,6 @@
 import { Company, Metadata } from '@prisma/client'
 import { prisma } from '../..'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class IndustryService {
   async createIndustry(
@@ -47,6 +48,20 @@ class IndustryService {
         },
       },
       select: { id: true },
+    })
+  }
+
+  async deleteIndustry(wikidataId: string) {
+    const industry = await prisma.industry.findFirst({
+      where: { companyWikidataId: wikidataId },
+    })
+
+    if (!industry) {
+      throw new GarboAPIError('Industry not found', { statusCode: 404 })
+    }
+
+    return prisma.industry.delete({
+      where: { companyWikidataId: wikidataId },
     })
   }
 }
