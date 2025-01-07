@@ -40,6 +40,19 @@
 
 */
 
+-- IDEA: 1) rename tables
+-- IDEA: maybe copy tables and only rename and migrate one instance of the tables, move all data, and then remove the old tables
+
+-- SELECT id, metadataId FROM "BiogenicEmissions"
+
+
+-- UPDATE t3
+-- JOIN t2 
+--   ON t3.? = t2.? 
+-- SET t3.[t2id] = t2.id 
+-- WHERE ... ;
+
+
 -- DropForeignKey
 ALTER TABLE "BaseYear" DROP CONSTRAINT "BaseYear_companyId_fkey";
 
