@@ -40,17 +40,76 @@
 
 */
 
--- IDEA: 1) rename tables
--- IDEA: maybe copy tables and only rename and migrate one instance of the tables, move all data, and then remove the old tables
+/*
 
--- SELECT id, metadataId FROM "BiogenicEmissions"
+## Migration idea:
+
+It seems like we can use a strategy similar to the expand and contract pattern, as described here: https://www.prisma.io/dataguide/types/relational/migration-strategies#expand-and-contract-pattern
+Although, we don't need to make any API changes since we will likely be able to apply the migration all at once when we have a working script
+
+It also seems like we can disable the foreign key checks in Postgres during the migration: https://stackoverflow.com/a/49584660
 
 
--- UPDATE t3
--- JOIN t2 
---   ON t3.? = t2.? 
--- SET t3.[t2id] = t2.id 
--- WHERE ... ;
+Basically, we need to `SELECT id, metadataId FROM "BiogenicEmissions"` and use that metadataId
+to find the relevant Metadata, and set the `Metadata.biogenicEmissionsId` to the `BiogenicEmissions.id` that we just selected.
+
+And of course, apply the same steps for every modified table.
+
+*/
+
+-- IDEA: Maybe this could disable the foreign key constraints, allowing us to have a weird table state while applying the migration?
+SET session_replication_role = 'replica';
+
+-- NOTE: Repeat the following steps for ALL affected tables to change the direction of the metadata relationship
+
+-- 1) CREATE TABLE TMP
+CREATE TABLE "tmp_BiogenicEmissions_Metadata" (
+    "id" SERIAL NOT NULL,
+    "biogenicEmissionsId" INTEGER NOT NULL,
+    "metadataId" INTEGER NOT NULL
+);
+
+-- 2) INSERT INTO TMP SELECT FROM OLD
+
+INSERT INTO "tmp_BiogenicEmissions_Metadata" (biogenicEmissionsId, metadataId) SELECT id, metadataId from "BiogenicEmissions";
+
+-- 3) ALTER TABLE NEW - (See below for generated migration steps)
+-- 4) ALTER TABLE OLD - (See below for generated migration steps)
+
+-- 5) UPDATE NEW WHERE SELECT FROM TMP
+
+UPDATE "Metadata"
+SET biogenicEmissionsId = TMP.biogenicEmissionsId
+FROM (
+    SELECT biogenicEmissionsId, metadataId
+    FROM "tmp_BiogenicEmissions_Metadata") AS TMP
+WHERE
+    TMP.metadataId = Metadata.id;
+
+-- 6) DROP TABLE TMP
+DROP TABLE "tmp_BiogenicEmissions_Metadata";
+
+
+-- IDEA: Finally, after all migrations have been completed, re-enable the foreign key constraints
+SET session_replication_role = 'origin';
+
+
+
+/*
+This might be a more concise alternative:
+
+UPDATE t3
+JOIN t2 
+  ON t3.? = t2.? 
+SET t3.[t2id] = t2.id 
+WHERE ... ;
+
+*/
+
+
+
+
+---
 
 
 -- DropForeignKey
