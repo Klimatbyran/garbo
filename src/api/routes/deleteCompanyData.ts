@@ -8,6 +8,7 @@ import { industryService } from '../services/industryService'
 import { initiativeService } from '../services/initiativeService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import { prisma } from '../../lib/prisma'
+import { emissionsService } from '../services/emissionsService'
 
 const router = express.Router()
 
@@ -20,7 +21,7 @@ router.delete('/:wikidataId', async (req, res) => {
 })
 
 router.delete(
-  '/:wikidataId/goals/:id',
+  '/goals/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -38,7 +39,7 @@ router.delete('/:wikidataId/industry', async (req, res) => {
 })
 
 router.delete(
-  '/:wikidataId/initiatives/:id',
+  '/initiatives/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -50,13 +51,97 @@ router.delete(
 )
 
 router.delete(
-  '/:wikidataId/reportingPeriod/:id',
+  '/reportingPeriod/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
   async (req, res) => {
     const { id } = req.params
     await reportingPeriodService.deleteReportingPeriod(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/statedTotalEmissions/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteStatedTotalEmissions(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/biogenicEmissions/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteBiogenicEmissions(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/scope1/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteScope1(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/scope1And2/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteScope1And2(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/scope2/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteScope2(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/scope3/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteScope3(id)
+    res.status(204).send()
+  }
+)
+
+router.delete(
+  '/scope3Category/:id',
+  processRequest({
+    params: z.object({ id: z.coerce.number() }),
+  }),
+  async (req, res) => {
+    const { id } = req.params
+    await emissionsService.deleteScope3Category(id)
     res.status(204).send()
   }
 )

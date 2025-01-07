@@ -1,14 +1,17 @@
 import {
   BiogenicEmissions,
   Metadata,
+  Prisma,
   Scope1,
   Scope1And2,
   Scope3,
+  Scope3Category,
   StatedTotalEmissions,
 } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions, emissionsArgs } from '../types'
 import { prisma } from '../..'
+import { GarboAPIError } from '../../lib/garbo-api-error'
 
 const TONNES_CO2_UNIT = 'tCO2e'
 
@@ -82,6 +85,22 @@ class EmissionsService {
         })
   }
 
+  async deleteScope1(id: Scope1['id']) {
+    try {
+      return await prisma.scope1.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Scope1 not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
+  }
+
   async upsertScope2(
     emissions: DefaultEmissions,
     scope2: {
@@ -134,6 +153,22 @@ class EmissionsService {
         })
   }
 
+  async deleteScope2(id: number) {
+    try {
+      return await prisma.scope2.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Scope2 not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
+  }
+
   async upsertScope1And2(
     emissions: DefaultEmissions,
     scope1And2: Omit<
@@ -183,6 +218,22 @@ class EmissionsService {
           },
           select: { id: true },
         })
+  }
+
+  async deleteScope1And2(id: Scope1And2['id']) {
+    try {
+      return await prisma.scope1And2.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Scope1And2 not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
   }
 
   async upsertScope3(
@@ -286,6 +337,38 @@ class EmissionsService {
     }
   }
 
+  async deleteScope3(id: Scope3['id']) {
+    try {
+      return await prisma.scope3.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Scope3 not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
+  }
+
+  async deleteScope3Category(id: Scope3Category['id']) {
+    try {
+      return await prisma.scope3Category.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('Scope3Category not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
+  }
+
   async upsertBiogenic(
     emissions: DefaultEmissions,
     biogenic: OptionalNullable<
@@ -336,6 +419,22 @@ class EmissionsService {
           },
           select: { id: true },
         })
+  }
+
+  async deleteBiogenicEmissions(id: BiogenicEmissions['id']) {
+    try {
+      return await prisma.biogenicEmissions.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('BiogenicEmissions not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
   }
 
   async upsertStatedTotalEmissions(
@@ -391,6 +490,22 @@ class EmissionsService {
       },
       select: { id: true },
     })
+  }
+
+  async deleteStatedTotalEmissions(id: StatedTotalEmissions['id']) {
+    try {
+      return await prisma.statedTotalEmissions.delete({ where: { id } })
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new GarboAPIError('StatedTotalEmissions not found', {
+          statusCode: 404,
+        })
+      }
+      throw error
+    }
   }
 }
 
