@@ -1,9 +1,6 @@
 /*
   Warnings:
 
-  `metadataId` on the `BiogenicEmissions` --> get the BiogenicEmissions.id and BiogenicEmissions.metadataId
-  Using the BiogenicEmissions.metadataId --> find the Metadata and set Metadata.biogenicEmissionsId to BiogenicEmissions.id
-
   - You are about to drop the column `metadataId` on the `BaseYear` table. All the data in the column will be lost.
   - You are about to drop the column `metadataId` on the `BiogenicEmissions` table. All the data in the column will be lost.
   - You are about to drop the column `employeesId` on the `Economy` table. All the data in the column will be lost.
@@ -32,20 +29,6 @@
   - A unique constraint covering the columns `[reportingPeriodId]` on the table `Economy` will be added. If there are existing duplicate values, this will fail.
   - A unique constraint covering the columns `[reportingPeriodId]` on the table `Emissions` will be added. If there are existing duplicate values, this will fail.
   - A unique constraint covering the columns `[economyId]` on the table `Employees` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[goalId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[initiativeId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[scope1Id]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[scope2Id]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[scope3Id]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[scope1And2Id]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[reportingPeriodId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[baseYearId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[biogenicEmissionsId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[statedTotalEmissionsId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[industryId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[categoryId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[turnoverId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[employeesId]` on the table `Metadata` will be added. If there are existing duplicate values, this will fail.
   - A unique constraint covering the columns `[companyId,year]` on the table `ReportingPeriod` will be added. If there are existing duplicate values, this will fail.
   - A unique constraint covering the columns `[emissionsId]` on the table `Scope1` will be added. If there are existing duplicate values, this will fail.
   - A unique constraint covering the columns `[emissionsId]` on the table `Scope1And2` will be added. If there are existing duplicate values, this will fail.
@@ -56,6 +39,7 @@
   - Added the required column `economyId` to the `Turnover` table without a default value. This is not possible if the table is not empty.
 
 */
+
 -- DropForeignKey
 ALTER TABLE "BaseYear" DROP CONSTRAINT "BaseYear_companyId_fkey";
 
@@ -276,48 +260,6 @@ CREATE UNIQUE INDEX "Emissions_reportingPeriodId_key" ON "Emissions"("reportingP
 CREATE UNIQUE INDEX "Employees_economyId_key" ON "Employees"("economyId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Metadata_goalId_key" ON "Metadata"("goalId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_initiativeId_key" ON "Metadata"("initiativeId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_scope1Id_key" ON "Metadata"("scope1Id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_scope2Id_key" ON "Metadata"("scope2Id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_scope3Id_key" ON "Metadata"("scope3Id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_scope1And2Id_key" ON "Metadata"("scope1And2Id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_reportingPeriodId_key" ON "Metadata"("reportingPeriodId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_baseYearId_key" ON "Metadata"("baseYearId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_biogenicEmissionsId_key" ON "Metadata"("biogenicEmissionsId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_statedTotalEmissionsId_key" ON "Metadata"("statedTotalEmissionsId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_industryId_key" ON "Metadata"("industryId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_categoryId_key" ON "Metadata"("categoryId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_turnoverId_key" ON "Metadata"("turnoverId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Metadata_employeesId_key" ON "Metadata"("employeesId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "ReportingPeriod_companyId_year_key" ON "ReportingPeriod"("companyId", "year");
 
 -- CreateIndex
@@ -390,43 +332,43 @@ ALTER TABLE "Goal" ADD CONSTRAINT "Goal_companyId_fkey" FOREIGN KEY ("companyId"
 ALTER TABLE "Initiative" ADD CONSTRAINT "Initiative_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "Company"("wikidataId") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_goalId_fkey" FOREIGN KEY ("goalId") REFERENCES "Goal"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_goalId_fkey" FOREIGN KEY ("goalId") REFERENCES "Goal"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_initiativeId_fkey" FOREIGN KEY ("initiativeId") REFERENCES "Initiative"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_initiativeId_fkey" FOREIGN KEY ("initiativeId") REFERENCES "Initiative"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope1Id_fkey" FOREIGN KEY ("scope1Id") REFERENCES "Scope1"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope1Id_fkey" FOREIGN KEY ("scope1Id") REFERENCES "Scope1"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope2Id_fkey" FOREIGN KEY ("scope2Id") REFERENCES "Scope2"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope2Id_fkey" FOREIGN KEY ("scope2Id") REFERENCES "Scope2"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope3Id_fkey" FOREIGN KEY ("scope3Id") REFERENCES "Scope3"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope3Id_fkey" FOREIGN KEY ("scope3Id") REFERENCES "Scope3"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope1And2Id_fkey" FOREIGN KEY ("scope1And2Id") REFERENCES "Scope1And2"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_scope1And2Id_fkey" FOREIGN KEY ("scope1And2Id") REFERENCES "Scope1And2"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_reportingPeriodId_fkey" FOREIGN KEY ("reportingPeriodId") REFERENCES "ReportingPeriod"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_reportingPeriodId_fkey" FOREIGN KEY ("reportingPeriodId") REFERENCES "ReportingPeriod"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_baseYearId_fkey" FOREIGN KEY ("baseYearId") REFERENCES "BaseYear"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_baseYearId_fkey" FOREIGN KEY ("baseYearId") REFERENCES "BaseYear"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_biogenicEmissionsId_fkey" FOREIGN KEY ("biogenicEmissionsId") REFERENCES "BiogenicEmissions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_biogenicEmissionsId_fkey" FOREIGN KEY ("biogenicEmissionsId") REFERENCES "BiogenicEmissions"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_statedTotalEmissionsId_fkey" FOREIGN KEY ("statedTotalEmissionsId") REFERENCES "StatedTotalEmissions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_statedTotalEmissionsId_fkey" FOREIGN KEY ("statedTotalEmissionsId") REFERENCES "StatedTotalEmissions"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_industryId_fkey" FOREIGN KEY ("industryId") REFERENCES "Industry"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_industryId_fkey" FOREIGN KEY ("industryId") REFERENCES "Industry"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Scope3Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Scope3Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_turnoverId_fkey" FOREIGN KEY ("turnoverId") REFERENCES "Turnover"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_turnoverId_fkey" FOREIGN KEY ("turnoverId") REFERENCES "Turnover"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_employeesId_fkey" FOREIGN KEY ("employeesId") REFERENCES "Employees"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Metadata" ADD CONSTRAINT "Metadata_employeesId_fkey" FOREIGN KEY ("employeesId") REFERENCES "Employees"("id") ON DELETE SET NULL ON UPDATE CASCADE;

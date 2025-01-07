@@ -317,7 +317,7 @@ model Metadata {
   verifiedByUserId Int?
 
   /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
-  /// Value is a string enum with valaues like `garbo`, `manual`, `estimated:exiobase`
+  /// Value is a string enum with values like `garbo`, `manual`, `estimated:exiobase`
   dataOrigin String?
 
   goalId                 Int?
