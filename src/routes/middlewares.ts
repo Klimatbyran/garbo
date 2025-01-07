@@ -17,7 +17,11 @@ import {
 import { reportingPeriodService } from './services/reportingPeriodService'
 import { emissionsService } from './services/emissionsService'
 import { companyService } from './services/companyService'
-import { wikidataIdSchema } from './companySchemas'
+import {
+  metadataRequestBody,
+  reportingPeriodBodySchema,
+  upsertCompanyBodySchema,
+} from './schemas'
 
 declare global {
   namespace Express {
@@ -67,20 +71,7 @@ export const fakeAuth =
     next()
   }
 
-export const validateMetadata = () =>
-  validateRequestBody(
-    z
-      .object({
-        metadata: z
-          .object({
-            comment: z.string().optional(),
-            source: z.string().optional(),
-            dataOrigin: z.string().optional(),
-          })
-          .optional(),
-      })
-      .optional()
-  )
+export const validateMetadata = () => validateRequestBody(metadataRequestBody)
 
 const editMethods = new Set(['POST', 'PATCH', 'PUT'])
 export const createMetadata =
@@ -124,16 +115,6 @@ export const createMetadata =
     res.locals.metadata = createdMetadata
     next()
   }
-
-const reportingPeriodBodySchema = z
-  .object({
-    startDate: z.coerce.date(),
-    endDate: z.coerce.date(),
-    reportURL: z.string().optional(),
-  })
-  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
-    message: 'startDate must be earlier than endDate',
-  })
 
 export const validateReportingPeriodRequest = () =>
   validateRequest({
@@ -182,15 +163,6 @@ export const ensureReportingPeriod =
 
     next()
   }
-
-const upsertCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-})
 
 export const validateCompanyRequest = () =>
   processRequestBody(upsertCompanyBodySchema)

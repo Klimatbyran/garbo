@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
+import { goalSchema } from './schemas'
 
 export const emissionsArgs = {
   include: {
@@ -48,12 +49,5 @@ export const reportingPeriodArgs = {
 export type DefaultReportingPeriod = Prisma.ReportingPeriodGetPayload<
   typeof reportingPeriodArgs
 >
-
-const goalSchema = z.object({
-  description: z.string(),
-  year: z.string().optional(),
-  target: z.number().optional(),
-  baseYear: z.string().optional(),
-})
 
 export type DefaultGoal = z.infer<typeof goalSchema>
