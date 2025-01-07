@@ -1,13 +1,12 @@
 import { Company, Goal, Metadata } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { prisma } from '../..'
+import { DefaultGoal } from '../types'
 
 class GoalService {
   async createGoals(
     wikidataId: Company['wikidataId'],
-    goals: OptionalNullable<
-      Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
-    >[],
+    goals: DefaultGoal[],
     metadata: Metadata
   ) {
     return prisma.$transaction(
@@ -33,13 +32,7 @@ class GoalService {
     )
   }
 
-  async updateGoal(
-    id: Goal['id'],
-    goal: OptionalNullable<
-      Omit<Goal, 'metadataId' | 'reportingPeriodId' | 'companyId' | 'id'>
-    >,
-    metadata: Metadata
-  ) {
+  async updateGoal(id: Goal['id'], goal: DefaultGoal, metadata: Metadata) {
     return prisma.goal.update({
       where: { id },
       data: {

@@ -220,12 +220,7 @@ const getCorsOptionsBasedOnOrigin =
 export const enableCors = (allowedOrigins: string[]) =>
   cors(getCorsOptionsBasedOnOrigin(allowedOrigins))
 
-export const errorHandler = (
-  error: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler = (error: Error, req: Request, res: Response) => {
   req.log.error(error)
 
   if (error instanceof ZodError) {

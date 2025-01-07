@@ -18,8 +18,8 @@ import { initiativeService } from './services/initiativeService'
 import { industryService } from './services/industryService'
 import { reportingPeriodService } from './services/reportingPeriodService'
 import { emissionsService } from './services/emissionsService'
-import { prisma } from '..'
 import { Company, Prisma } from '@prisma/client'
+import { prisma } from '../lib/prisma'
 
 const router = express.Router()
 
