@@ -64,22 +64,17 @@ class CompanyService {
     })
   }
 
-  async upsertTurnover(
-    economy: Economy,
-    turnover: OptionalNullable<
-      Omit<Turnover, 'id' | 'metadataId' | 'unit' | 'economyId'>
-    > | null,
+  async upsertTurnover({
+    economy,
+    metadata,
+    turnover,
+  }: {
+    economy: Economy
     metadata: Metadata
-  ) {
-    if (turnover === null) {
-      if (economy.turnoverId) {
-        await prisma.turnover.delete({
-          where: { id: economy.turnoverId },
-        })
-      }
-      return null
-    }
-
+    turnover: Partial<
+      Omit<Turnover, 'id' | 'metadataId' | 'unit' | 'economyId'>
+    >
+  }) {
     return prisma.turnover.upsert({
       where: { id: economy.turnoverId ?? 0 },
       create: {
@@ -109,19 +104,10 @@ class CompanyService {
     economy: DefaultEconomyArgs
     employees: OptionalNullable<
       Omit<Employees, 'id' | 'metadataId' | 'economyId'>
-    > | null
+    >
     metadata: Metadata
   }) {
     const existingEmployeesId = economy.employees?.id
-
-    if (employees === null) {
-      if (existingEmployeesId) {
-        await prisma.employees.delete({
-          where: { id: existingEmployeesId },
-        })
-      }
-      return null
-    }
 
     return prisma.employees.upsert({
       where: { id: existingEmployeesId ?? 0 },

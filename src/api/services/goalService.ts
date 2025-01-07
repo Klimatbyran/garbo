@@ -1,5 +1,4 @@
 import { Company, Goal, Metadata, Prisma } from '@prisma/client'
-import { OptionalNullable } from '../../lib/type-utils'
 import { prisma } from '../..'
 import { DefaultGoal } from '../types'
 import { GarboAPIError } from '../../lib/garbo-api-error'

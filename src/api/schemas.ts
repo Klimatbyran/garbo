@@ -62,8 +62,6 @@ export const industrySchema = z.object({
 export const statedTotalEmissionsSchema = z
   .object({ total: z.number() })
   .optional()
-  .nullable()
-  .describe('Sending null means deleting the statedTotalEmissions')
 
 export const emissionsSchema = z
   .object({
@@ -71,26 +69,18 @@ export const emissionsSchema = z
       .object({
         total: z.number(),
       })
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the scope'),
+      .optional(),
     scope2: z
       .object({
         mb: z
           .number({ description: 'Market-based scope 2 emissions' })
-          .optional()
-          .nullable()
-          .describe('Sending null means deleting mb scope 2 emissions'),
+          .optional(),
         lb: z
           .number({ description: 'Location-based scope 2 emissions' })
-          .optional()
-          .nullable()
-          .describe('Sending null means deleting lb scope 2 emissions'),
+          .optional(),
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
-          .optional()
-          .nullable()
-          .describe('Sending null means deleting unknown scope 2 emissions'),
+          .optional(),
       })
       .refine(
         ({ mb, lb, unknown }) =>
@@ -100,33 +90,23 @@ export const emissionsSchema = z
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
         }
       )
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the scope'),
+      .optional(),
     scope3: z
       .object({
         categories: z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
-              total: z.number().nullable(),
+              total: z.number(),
             })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
       .optional(),
-    biogenic: z
-      .object({ total: z.number() })
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the biogenic'),
+    biogenic: z.object({ total: z.number() }).optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    scope1And2: z
-      .object({ total: z.number() })
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the scope'),
+    scope1And2: z.object({ total: z.number() }).optional(),
   })
   .optional()
 
@@ -137,17 +117,13 @@ export const economySchema = z
         value: z.number().optional(),
         currency: z.string().optional(),
       })
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the turnover'),
+      .optional(),
     employees: z
       .object({
         value: z.number().optional(),
         unit: z.string().optional(),
       })
-      .optional()
-      .nullable()
-      .describe('Sending null means deleting the employees data'),
+      .optional(),
   })
   .optional()
 

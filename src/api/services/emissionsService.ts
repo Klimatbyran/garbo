@@ -39,19 +39,10 @@ class EmissionsService {
 
   async upsertScope1(
     emissions: DefaultEmissions,
-    scope1: Omit<Scope1, 'id' | 'metadataId' | 'unit' | 'emissionsId'> | null,
+    scope1: Omit<Scope1, 'id' | 'metadataId' | 'unit' | 'emissionsId'>,
     metadata: Metadata
   ) {
     const existingScope1Id = emissions.scope1?.id
-
-    if (scope1 === null) {
-      if (existingScope1Id) {
-        await prisma.scope1.delete({
-          where: { id: existingScope1Id },
-        })
-      }
-      return null
-    }
 
     return existingScope1Id
       ? prisma.scope1.update({
@@ -104,22 +95,13 @@ class EmissionsService {
   async upsertScope2(
     emissions: DefaultEmissions,
     scope2: {
-      lb?: number | null
-      mb?: number | null
-      unknown?: number | null
-    } | null,
+      lb?: number
+      mb?: number
+      unknown?: number
+    },
     metadata: Metadata
   ) {
     const existingScope2Id = emissions.scope2?.id
-
-    if (scope2 === null) {
-      if (existingScope2Id) {
-        await prisma.scope2.delete({
-          where: { id: existingScope2Id },
-        })
-      }
-      return null
-    }
 
     return existingScope2Id
       ? prisma.scope2.update({
@@ -171,22 +153,10 @@ class EmissionsService {
 
   async upsertScope1And2(
     emissions: DefaultEmissions,
-    scope1And2: Omit<
-      Scope1And2,
-      'id' | 'metadataId' | 'unit' | 'emissionsId'
-    > | null,
+    scope1And2: Omit<Scope1And2, 'id' | 'metadataId' | 'unit' | 'emissionsId'>,
     metadata: Metadata
   ) {
     const existingScope1And2Id = emissions.scope1And2?.id
-
-    if (scope1And2 === null) {
-      if (existingScope1And2Id) {
-        await prisma.scope1And2.delete({
-          where: { id: existingScope1And2Id },
-        })
-      }
-      return null
-    }
 
     return existingScope1And2Id
       ? prisma.scope1And2.update({
@@ -239,10 +209,11 @@ class EmissionsService {
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      categories?: { category: number; total: number | null }[]
-      statedTotalEmissions?: OptionalNullable<
-        Omit<StatedTotalEmissions, 'id' | 'metadataId' | 'unit' | 'scope3Id'>
-      > | null
+      categories?: { category: number; total: number }[]
+      statedTotalEmissions?: Omit<
+        StatedTotalEmissions,
+        'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
+      >
     },
     metadata: Metadata
   ) {
@@ -270,17 +241,6 @@ class EmissionsService {
             id: true,
             category: true,
           },
-        },
-      },
-    })
-
-    await prisma.scope3Category.deleteMany({
-      where: {
-        scope3Id: updatedScope3.id,
-        category: {
-          in: (scope3.categories ?? [])
-            .filter((c) => c.total === null)
-            .map((c) => c.category),
         },
       },
     })
@@ -327,11 +287,11 @@ class EmissionsService {
       })
     )
 
-    if (scope3.statedTotalEmissions !== undefined) {
+    if (scope3.statedTotalEmissions) {
       await this.upsertStatedTotalEmissions(
         emissions,
-        scope3.statedTotalEmissions,
         metadata,
+        scope3.statedTotalEmissions,
         updatedScope3
       )
     }
@@ -373,19 +333,10 @@ class EmissionsService {
     emissions: DefaultEmissions,
     biogenic: OptionalNullable<
       Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit' | 'emissionsId'>
-    > | null,
+    >,
     metadata: Metadata
   ) {
     const existingBiogenicEmissionsId = emissions.biogenicEmissions?.id
-
-    if (biogenic === null) {
-      if (existingBiogenicEmissionsId) {
-        await prisma.biogenicEmissions.delete({
-          where: { id: existingBiogenicEmissionsId },
-        })
-      }
-      return null
-    }
 
     return existingBiogenicEmissionsId
       ? prisma.biogenicEmissions.update({
@@ -439,29 +390,16 @@ class EmissionsService {
 
   async upsertStatedTotalEmissions(
     emissions: DefaultEmissions,
-    statedTotalEmissions: OptionalNullable<
-      Omit<
-        StatedTotalEmissions,
-        'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
-      >
-    > | null,
     metadata: Metadata,
+    statedTotalEmissions?: Omit<
+      StatedTotalEmissions,
+      'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
+    >,
     scope3?: Scope3 & { statedTotalEmissions: { id: number } | null }
   ) {
     const statedTotalEmissionsId = scope3
       ? scope3.statedTotalEmissionsId || scope3?.statedTotalEmissions?.id
       : emissions.statedTotalEmissions?.id
-
-    if (statedTotalEmissions === null) {
-      if (statedTotalEmissionsId) {
-        await prisma.statedTotalEmissions.delete({
-          where: {
-            id: statedTotalEmissionsId,
-          },
-        })
-      }
-      return null
-    }
 
     return prisma.statedTotalEmissions.upsert({
       where: { id: statedTotalEmissionsId ?? 0 },

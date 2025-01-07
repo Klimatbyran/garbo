@@ -1,6 +1,9 @@
 /*
   Warnings:
 
+  `metadataId` on the `BiogenicEmissions` --> get the BiogenicEmissions.id and BiogenicEmissions.metadataId
+  Using the BiogenicEmissions.metadataId --> find the Metadata and set Metadata.biogenicEmissionsId to BiogenicEmissions.id
+
   - You are about to drop the column `metadataId` on the `BaseYear` table. All the data in the column will be lost.
   - You are about to drop the column `metadataId` on the `BiogenicEmissions` table. All the data in the column will be lost.
   - You are about to drop the column `employeesId` on the `Economy` table. All the data in the column will be lost.

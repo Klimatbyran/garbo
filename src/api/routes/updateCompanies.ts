@@ -260,33 +260,37 @@ router.post(
             }
 
             await Promise.allSettled([
-              scope1 !== undefined &&
+              scope1 &&
                 emissionsService.upsertScope1(dbEmissions, scope1, metadata),
-              scope2 !== undefined &&
+              scope2 &&
                 emissionsService.upsertScope2(dbEmissions, scope2, metadata),
               scope3 &&
                 emissionsService.upsertScope3(dbEmissions, scope3, metadata),
               statedTotalEmissions !== undefined &&
                 emissionsService.upsertStatedTotalEmissions(
                   dbEmissions,
-                  statedTotalEmissions,
-                  metadata
+                  metadata,
+                  statedTotalEmissions
                 ),
-              biogenic !== undefined &&
+              biogenic &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
                   biogenic,
                   metadata
                 ),
-              scope1And2 !== undefined &&
+              scope1And2 &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
                   scope1And2,
                   metadata
                 ),
-              turnover !== undefined &&
-                companyService.upsertTurnover(dbEconomy, turnover, metadata),
-              employees !== undefined &&
+              turnover &&
+                companyService.upsertTurnover({
+                  economy: dbEconomy,
+                  metadata,
+                  turnover,
+                }),
+              employees &&
                 companyService.upsertEmployees({
                   economy: dbEconomy,
                   employees,
@@ -354,7 +358,6 @@ router.use(
 router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
 
-// POST /Q12345/2022-2023/emissions
 router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsBodySchema),
@@ -374,24 +377,19 @@ router.post(
 
     try {
       // Only update if the input contains relevant changes
-      // NOTE: The types for partial inputs like scope1 and scope2 say the objects always exist. However, this is not true.
-      // There seems to be a type error in zod which doesn't take into account optional objects.
-
       await Promise.allSettled([
-        scope1 !== undefined &&
-          emissionsService.upsertScope1(dbEmissions, scope1, metadata),
-        scope2 !== undefined &&
-          emissionsService.upsertScope2(dbEmissions, scope2, metadata),
+        scope1 && emissionsService.upsertScope1(dbEmissions, scope1, metadata),
+        scope2 && emissionsService.upsertScope2(dbEmissions, scope2, metadata),
         scope3 && emissionsService.upsertScope3(dbEmissions, scope3, metadata),
-        scope1And2 !== undefined &&
+        scope1And2 &&
           emissionsService.upsertScope1And2(dbEmissions, scope1And2, metadata),
-        statedTotalEmissions !== undefined &&
+        statedTotalEmissions &&
           emissionsService.upsertStatedTotalEmissions(
             dbEmissions,
-            statedTotalEmissions,
-            metadata
+            metadata,
+            statedTotalEmissions
           ),
-        biogenic !== undefined &&
+        biogenic &&
           emissionsService.upsertBiogenic(dbEmissions, biogenic, metadata),
       ])
     } catch (error) {
@@ -423,9 +421,9 @@ router.post(
     try {
       // Only update if the input contains relevant changes
       await Promise.allSettled([
-        turnover !== undefined &&
-          companyService.upsertTurnover(economy, turnover, metadata),
-        employees !== undefined &&
+        turnover &&
+          companyService.upsertTurnover({ economy, metadata, turnover }),
+        employees &&
           companyService.upsertEmployees({ economy, employees, metadata }),
       ])
     } catch (error) {

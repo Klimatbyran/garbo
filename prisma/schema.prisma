@@ -151,6 +151,7 @@ model Scope1And2 {
 /// Biogenic emissions are reported separately from scope 1-3
 model BiogenicEmissions {
   id          Int    @id @default(autoincrement())
+  /// Sometimes companies break it down into scope 1-3 - however these should always be stored as a total number according to the GHG protocol.
   total       Float?
   unit        String
   emissionsId Int?   @unique
@@ -316,23 +317,23 @@ model Metadata {
   verifiedByUserId Int?
 
   /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
-  /// Value is a string enum with vlaues like `garbo`, `manual`, `estimated:exiobase`
+  /// Value is a string enum with valaues like `garbo`, `manual`, `estimated:exiobase`
   dataOrigin String?
 
-  goalId                 Int? @unique
-  initiativeId           Int? @unique
-  scope1Id               Int? @unique
-  scope2Id               Int? @unique
-  scope3Id               Int? @unique
-  scope1And2Id           Int? @unique
-  reportingPeriodId      Int? @unique
-  baseYearId             Int? @unique
-  biogenicEmissionsId    Int? @unique
-  statedTotalEmissionsId Int? @unique
-  industryId             Int? @unique
-  categoryId             Int? @unique
-  turnoverId             Int? @unique
-  employeesId            Int? @unique
+  goalId                 Int?
+  initiativeId           Int?
+  scope1Id               Int?
+  scope2Id               Int?
+  scope3Id               Int?
+  scope1And2Id           Int?
+  reportingPeriodId      Int?
+  baseYearId             Int?
+  biogenicEmissionsId    Int?
+  statedTotalEmissionsId Int?
+  industryId             Int?
+  categoryId             Int?
+  turnoverId             Int?
+  employeesId            Int?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])

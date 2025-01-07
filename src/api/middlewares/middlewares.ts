@@ -119,6 +119,9 @@ export const createMetadata =
 export const validateReportingPeriodRequest = () =>
   validateRequest({
     params: z.object({
+      /**
+       * This allows reporting periods like 2022-2023
+       */
       year: z.string().regex(/\d{4}(?:-\d{4})?/),
     }),
     body: reportingPeriodBodySchema,
