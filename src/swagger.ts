@@ -64,6 +64,21 @@ curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" 
           description: 'API endpoint',
         },
       ],
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            description: 'Enter your JWT token',
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
     }),
   },
   apis: ['./src/routes/**/*.ts', './src/routes/companies/*.ts'],
