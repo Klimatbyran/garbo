@@ -174,6 +174,12 @@ Well done! You've now set up the `garbo` backend and are ready to start developm
 
 ---
 
+### How to make a backup of the local postgres DB
+
+```sh
+docker exec -i garbo_postgres pg_dump -U postgres -Fc -d garbo > ~/Downloads/backup_garbo_XYZ.dump
+```
+
 ### Testing DB migrations
 
 These steps can be useful to test DB migrations with data similar to the production environment.
