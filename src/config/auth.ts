@@ -6,7 +6,7 @@ export default {
   github: {
     clientID: process.env.GITHUB_CLIENT_ID!,
     clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    callbackURL: 'http://localhost:3000/api/auth/github/callback',
+    callbackURL: process.env.GITHUB_CALLBACK_URL || 'http://localhost:3000/api/auth/github/callback',
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'your-secret-key',
