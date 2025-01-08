@@ -5,8 +5,12 @@ import { createGoals, updateGoal } from '../../lib/prisma'
 import { wikidataIdParamSchema, GoalSchema } from '../../openapi/schemas'
 import { Prisma } from '@prisma/client'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { checkOrgMembership, authenticateJWT } from '../../lib/auth'
 
 const router = express.Router()
+
+// Apply authentication middleware to all routes
+router.use(authenticateJWT)
 
 /**
  * @swagger

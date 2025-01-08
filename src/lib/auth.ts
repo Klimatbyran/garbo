@@ -72,13 +72,19 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
 export const checkOrgMembership = async (req: Request, res: Response, next: NextFunction) => {
   const user = res.locals.user
   
+  if (!user) {
+    throw new GarboAPIError('User not authenticated', { statusCode: 401 })
+  }
+
   try {
-    const response = await axios.get(`https://api.github.com/orgs/${authConfig.github.organization}/members/${user.username}`, {
-      headers: {
-        'Authorization': `token ${user.accessToken}`,
-        'Accept': 'application/vnd.github.v3+json'
+    const response = await axios.get(
+      `https://api.github.com/orgs/${authConfig.github.organization}/members/${user.githubId}`,
+      {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json'
+        }
       }
-    })
+    )
     
     if (response.status === 204) {
       next()
