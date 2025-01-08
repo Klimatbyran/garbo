@@ -38,7 +38,7 @@ declare global {
 
 export const cache = () => {
   return (req: Request, res: Response, next: NextFunction) => {
-    res.set('Cache-Control', 'public, max-age=3000')
+    res.set('Cache-Control', `public, max-age=${apiConfig.cacheMaxAge}`)
     next()
   }
 }
@@ -51,24 +51,36 @@ const USERS = {
 export const fakeAuth =
   (prisma: PrismaClient) =>
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '')
-    if (token) {
-      if (apiConfig.tokens.includes(token)) {
-        const [username] = token.split(':')
-        const user = await prisma.user.findFirst({
-          where: { email: USERS[username] },
-        })
-        if (user) {
-          res.locals.user = user
-        }
+    try {
+      const token = req.header('Authorization')?.replace('Bearer ', '')
+
+      if (!token || !apiConfig.tokens?.includes(token)) {
+        throw GarboAPIError.unauthorized()
       }
-    }
 
-    if (!res.locals.user?.id) {
-      throw GarboAPIError.unauthorized()
-    }
+      const [username] = token.split(':')
+      const userEmail =
+        username === 'garbo'
+          ? apiConfig.authorizedUsers.garbo
+          : apiConfig.authorizedUsers.alex
 
-    next()
+      if (!userEmail) {
+        throw GarboAPIError.unauthorized()
+      }
+
+      const user = await prisma.user.findFirst({
+        where: { email: userEmail },
+      })
+
+      if (!user?.id) {
+        throw GarboAPIError.unauthorized()
+      }
+
+      res.locals.user = user
+      next()
+    } catch (error) {
+      next(error)
+    }
   }
 
 export const validateMetadata = () => validateRequestBody(metadataRequestBody)
@@ -249,14 +261,30 @@ export const errorHandler = (error: Error, req: Request, res: Response) => {
   req.log.error(error)
 
   if (error instanceof ZodError) {
-    // TODO: try to remove the extra JSON.parse here
-    res.status(422).json({ error: JSON.parse(error.message) })
+    const formattedErrors = error.errors.map((err) => ({
+      field: err.path.join('.'),
+      message: err.message,
+      code: err.code,
+    }))
+
+    res.status(422).json({
+      error: 'Validation failed',
+      details: formattedErrors,
+      help: 'Kontrollera att alla fält har korrekta värden enligt API-specifikationen',
+    })
     return
   } else if (error instanceof GarboAPIError) {
     req.log.error(error.original)
-    res.status(error.statusCode).json({ error: error.message })
+    res.status(error.statusCode).json({
+      error: error.message,
+      details: error.original,
+      help: 'Kontakta support om felet kvarstår',
+    })
     return
   }
 
-  res.status(500).json({ error: 'Internal Server Error' })
+  res.status(500).json({
+    error: 'Internal Server Error',
+    help: 'Ett oväntat fel uppstod. Kontakta support om problemet kvarstår.',
+  })
 }

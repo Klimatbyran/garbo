@@ -41,7 +41,11 @@ export const goalSchema = z.object({
   baseYear: z.string().optional(),
 })
 
-export const goalsSchema = z.object({
+export const postGoalSchema = z.object({
+  goal: goalSchema,
+})
+
+export const postGoalsSchema = z.object({
   goals: z.array(goalSchema),
 })
 
@@ -52,11 +56,16 @@ export const initiativeSchema = z.object({
   scope: z.string().optional(),
 })
 
-export const industrySchema = z.object({
-  industry: z.object({
-    subIndustryCode: z.string(),
-  }),
+export const postInitiativeSchema = z.object({ initiative: initiativeSchema })
+export const postInitiativesSchema = z.object({
+  initiatives: z.array(initiativeSchema),
 })
+
+export const industrySchema = z.object({
+  subIndustryCode: z.string(),
+})
+
+export const postIndustrySchema = z.object({ industry: industrySchema })
 
 export const statedTotalEmissionsSchema = z
   .object({ total: z.number() })
@@ -126,29 +135,26 @@ export const economySchema = z
   })
   .optional()
 
-export const postEconomyBodySchema = z.object({
+export const postEconomySchema = z.object({
   economy: economySchema,
 })
 
-export const postEmissionsBodySchema = z.object({
+export const postEmissionsSchema = z.object({
   emissions: emissionsSchema,
 })
 
+export const reportingPeriodSchema = z
+  .object({
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+    reportURL: z.string().optional(),
+    emissions: emissionsSchema,
+    economy: economySchema,
+  })
+  .refine(({ startDate, endDate }) => startDate.getTime() < endDate.getTime(), {
+    message: 'startDate must be earlier than endDate',
+  })
+
 export const postReportingPeriodsSchema = z.object({
-  reportingPeriods: z.array(
-    z
-      .object({
-        startDate: z.coerce.date(),
-        endDate: z.coerce.date(),
-        reportURL: z.string().optional(),
-        emissions: emissionsSchema,
-        economy: economySchema,
-      })
-      .refine(
-        ({ startDate, endDate }) => startDate.getTime() < endDate.getTime(),
-        {
-          message: 'startDate must be earlier than endDate',
-        }
-      )
-  ),
+  reportingPeriods: z.array(reportingPeriodSchema),
 })

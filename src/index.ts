@@ -24,6 +24,10 @@ const app = express()
 app.get('/favicon.ico', express.static('public/favicon.png'))
 app.use('/api', api)
 
+app.get('/', (req, res) => {
+  res.redirect('/api')
+})
+
 if (START_BOARD) {
   const queue = (await import('./queue')).default
   app.use('/admin/queues', queue)

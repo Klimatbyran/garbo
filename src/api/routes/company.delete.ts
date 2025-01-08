@@ -1,5 +1,4 @@
 import express from 'express'
-import { fakeAuth } from '../middlewares/middlewares'
 import { companyService } from '../services/companyService'
 import { processRequest } from '../middlewares/zod-middleware'
 import { z } from 'zod'
@@ -7,12 +6,9 @@ import { goalService } from '../services/goalService'
 import { industryService } from '../services/industryService'
 import { initiativeService } from '../services/initiativeService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
-import { prisma } from '../../lib/prisma'
 import { emissionsService } from '../services/emissionsService'
 
 const router = express.Router()
-
-router.use('/', fakeAuth(prisma))
 
 router.delete('/:wikidataId', async (req, res) => {
   const { wikidataId } = req.params
@@ -51,7 +47,7 @@ router.delete(
 )
 
 router.delete(
-  '/reportingPeriod/:id',
+  '/reporting-period/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -63,7 +59,7 @@ router.delete(
 )
 
 router.delete(
-  '/statedTotalEmissions/:id',
+  '/stated-total-emissions/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -75,7 +71,7 @@ router.delete(
 )
 
 router.delete(
-  '/biogenicEmissions/:id',
+  '/biogenic-emissions/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -99,7 +95,7 @@ router.delete(
 )
 
 router.delete(
-  '/scope1And2/:id',
+  '/scope1and2/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),
@@ -135,7 +131,7 @@ router.delete(
 )
 
 router.delete(
-  '/scope3Category/:id',
+  '/scope3-category/:id',
   processRequest({
     params: z.object({ id: z.coerce.number() }),
   }),

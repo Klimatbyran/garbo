@@ -15,6 +15,7 @@ const envSchema = z.object({
     ),
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
+  CACHE_MAX_AGE: z.coerce.number().default(3000),
 })
 
 const env = envSchema.parse(process.env)
@@ -22,6 +23,19 @@ const env = envSchema.parse(process.env)
 const ONE_DAY = 1000 * 60 * 60 * 24
 
 export default {
+  cacheMaxAge: env.CACHE_MAX_AGE,
+
+  authorizedUsers: {
+    garbo: 'hej@klimatkollen.se',
+    alex: 'alex@klimatkollen.se',
+  } as const,
+
+  developmentOrigins: ['http://localhost:4321'],
+  productionOrigins: [
+    'https://beta.klimatkollen.se',
+    'https://klimatkollen.se',
+  ],
+
   tokens: env.API_TOKENS,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
