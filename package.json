@@ -58,6 +58,7 @@
     "@scalar/express-api-reference": "^0.2.75",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.17.10",
     "@types/node": "^22.8.4",
     "concurrently": "^9.1.0",
     "deepl-node": "^1.15.0",
