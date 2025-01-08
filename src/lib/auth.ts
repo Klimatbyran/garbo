@@ -17,11 +17,13 @@ passport.use(
           update: {
             name: profile.displayName,
             githubId: profile.id,
+            githubToken: accessToken
           },
           create: {
             email: profile.emails![0].value,
             name: profile.displayName,
             githubId: profile.id,
+            githubToken: accessToken
           },
         })
         return done(null, user)
@@ -46,7 +48,12 @@ passport.deserializeUser(async (id: number, done) => {
 })
 
 export const generateToken = (user: any) => {
-  return jwt.sign({ id: user.id, email: user.email }, authConfig.jwt.secret, {
+  return jwt.sign({ 
+    id: user.id, 
+    email: user.email,
+    githubId: user.githubId,
+    githubToken: user.githubToken 
+  }, authConfig.jwt.secret, {
     expiresIn: authConfig.jwt.expiresIn,
   })
 }
@@ -81,7 +88,8 @@ export const checkOrgMembership = async (req: Request, res: Response, next: Next
       `https://api.github.com/orgs/${authConfig.github.organization}/members/${user.githubId}`,
       {
         headers: {
-          'Accept': 'application/vnd.github.v3+json'
+          'Accept': 'application/vnd.github.v3+json',
+          'Authorization': `Bearer ${user.githubToken}`
         }
       }
     )
