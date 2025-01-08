@@ -60,6 +60,7 @@
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.17.10",
     "@types/node": "^22.8.4",
+    "@types/passport": "^1.0.17",
     "concurrently": "^9.1.0",
     "deepl-node": "^1.15.0",
     "exceljs": "^4.4.0",

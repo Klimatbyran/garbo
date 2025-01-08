@@ -6,6 +6,7 @@ import authConfig from '../config/auth'
 import { Request, Response, NextFunction } from 'express'
 import { GarboAPIError } from './garbo-api-error'
 import axios from 'axios'
+import { User } from '@prisma/client'
 
 passport.use(
   new GitHubStrategy(
@@ -17,13 +18,13 @@ passport.use(
           update: {
             name: profile.displayName,
             githubId: profile.id,
-            githubToken: accessToken
+            githubToken: accessToken,
           },
           create: {
             email: profile.emails![0].value,
             name: profile.displayName,
             githubId: profile.id,
-            githubToken: accessToken
+            githubToken: accessToken,
           },
         })
         return done(null, user)
@@ -48,17 +49,25 @@ passport.deserializeUser(async (id: number, done) => {
 })
 
 export const generateToken = (user: any) => {
-  return jwt.sign({ 
-    id: user.id, 
-    email: user.email,
-    githubId: user.githubId,
-    githubToken: user.githubToken 
-  }, authConfig.jwt.secret, {
-    expiresIn: authConfig.jwt.expiresIn,
-  })
+  return jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      githubId: user.githubId,
+      githubToken: user.githubToken,
+    },
+    authConfig.jwt.secret,
+    {
+      expiresIn: authConfig.jwt.expiresIn,
+    }
+  )
 }
 
-export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateJWT = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers.authorization
 
   if (!authHeader) {
@@ -76,9 +85,13 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
   }
 }
 
-export const checkOrgMembership = async (req: Request, res: Response, next: NextFunction) => {
-  const user = res.locals.user
-  
+export const checkOrgMembership = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = res.locals.user as User
+
   if (!user) {
     throw new GarboAPIError('User not authenticated', { statusCode: 401 })
   }
@@ -88,24 +101,30 @@ export const checkOrgMembership = async (req: Request, res: Response, next: Next
       `https://api.github.com/orgs/${authConfig.github.organization}/members/${user.githubId}`,
       {
         headers: {
-          'Accept': 'application/vnd.github.v3+json',
-          'Authorization': `Bearer ${user.githubToken}`
-        }
+          Accept: 'application/vnd.github.v3+json',
+          Authorization: `Bearer ${user.githubToken}`,
+        },
       }
     )
-    
+
     if (response.status === 204) {
       next()
     } else {
-      throw new GarboAPIError('User is not a member of the required organization', { statusCode: 403 })
+      throw new GarboAPIError(
+        'User is not a member of the required organization',
+        { statusCode: 403 }
+      )
     }
   } catch (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 404) {
-      throw new GarboAPIError('User is not a member of the required organization', { statusCode: 403 })
+    if (error.response?.status === 404) {
+      throw new GarboAPIError(
+        'User is not a member of the required organization',
+        { statusCode: 403 }
+      )
     }
-    throw new GarboAPIError('Failed to verify organization membership', { 
+    throw new GarboAPIError('Failed to verify organization membership', {
       statusCode: 500,
-      original: error 
+      original: error,
     })
   }
 }
