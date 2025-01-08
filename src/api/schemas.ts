@@ -19,7 +19,6 @@ export const metadataRequestBody = z
       .object({
         comment: z.string().optional(),
         source: z.string().optional(),
-        dataOrigin: z.string().optional(),
       })
       .optional(),
   })

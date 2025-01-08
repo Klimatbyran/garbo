@@ -89,13 +89,12 @@ export const createMetadata =
       const verifiedByUserEmail =
         res.locals.user.email === USERS.alex ? USERS.alex : null
 
-      const { comment, source, dataOrigin } = req.body.metadata ?? {}
+      const { comment, source } = req.body.metadata ?? {}
 
       createdMetadata = await prisma.metadata.create({
         data: {
           comment,
           source,
-          dataOrigin,
           user: {
             connect: {
               id: res.locals.user.id,

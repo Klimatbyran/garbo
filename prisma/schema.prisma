@@ -75,11 +75,20 @@ model Industry {
 }
 
 /// A table containing the standardised GICS codes for categorizing companies into various industries.
+/// The default "" helps with our migration, but we can safely remove it after one migration
 model IndustryGics {
-  sectorCode      String
-  groupCode       String
-  industryCode    String
-  subIndustryCode String @id
+  subIndustryCode        String @id
+  subIndustryName        String
+  subIndustryDescription String
+
+  sectorCode String
+  sectorName String
+
+  groupCode String
+  groupName String
+
+  industryCode String
+  industryName String
 
   industries Industry[]
 }
@@ -315,10 +324,6 @@ model Metadata {
   /// Should only be set after human verification, and null if it has not been verified.
   /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
   verifiedByUserId Int?
-
-  /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
-  /// Value is a string enum with values like `garbo`, `manual`, `estimated:exiobase`
-  dataOrigin String?
 
   goalId                 Int?
   initiativeId           Int?

@@ -1181,17 +1181,6 @@ function prepareCodes() {
 
 export const gicsCodes = prepareCodes()
 
-function getIndustryGicsCodesWithoutStrings(codes: IndustryGics[]) {
-  return codes.map(
-    ({ subIndustryCode, groupCode, industryCode, sectorCode }) => ({
-      sectorCode,
-      groupCode,
-      industryCode,
-      subIndustryCode,
-    })
-  )
-}
-
 function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
   const translations = {}
   for (const {
@@ -1214,8 +1203,7 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
 }
 
 export async function seedGicsCodes() {
-  const codes = getIndustryGicsCodesWithoutStrings(prepareCodes())
-  await prisma.industryGics.createMany({ data: codes })
+  await prisma.industryGics.createMany({ data: gicsCodes })
 }
 
 export async function getAllGicsCodesLookup() {

@@ -10,6 +10,10 @@ import { prisma } from '../..'
 const router = express.Router()
 
 const metadata = {
+  orderBy: {
+    updatedAt: 'desc' as const,
+  },
+  take: 1,
   select: {
     comment: true,
     source: true,
@@ -28,6 +32,10 @@ const metadata = {
 }
 
 const minimalMetadata = {
+  orderBy: {
+    updatedAt: 'desc' as const,
+  },
+  take: 1,
   select: {
     verifiedBy: {
       select: {
@@ -74,6 +82,27 @@ const origins =
     : ['https://beta.klimatkollen.se', 'https://klimatkollen.se']
 
 router.use(enableCors(origins))
+
+function transformMetadata(data: any): any {
+  if (Array.isArray(data)) {
+    return data.map((item) => transformMetadata(item))
+  } else if (data && typeof data === 'object') {
+    return Object.entries(data).reduce((acc, [key, value]) => {
+      if (key === 'metadata' && Array.isArray(value)) {
+        acc[key] = value[0] || null
+      } else if (value instanceof Date) {
+        // Leave Date fields untouched
+        acc[key] = value
+      } else if (typeof value === 'object' && value !== null) {
+        acc[key] = transformMetadata(value)
+      } else {
+        acc[key] = value
+      }
+      return acc
+    }, {} as Record<string, any>)
+  }
+  return data
+}
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
@@ -200,8 +229,13 @@ router.get(
           },
         },
       })
+
+      const transformedCompanies = Array.isArray(companies)
+        ? companies.map((company) => transformMetadata(company))
+        : transformMetadata(companies)
+
       res.json(
-        companies
+        transformedCompanies
           // Calculate total emissions for each scope type
           .map((company) => ({
             ...company,
@@ -241,7 +275,7 @@ router.get(
                       }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata,
               })
             ),
           }))
@@ -452,8 +486,9 @@ router.get(
         return next(new GarboAPIError('Company not found', { statusCode: 404 }))
       }
 
+      const transformedCompany = transformMetadata(company)
       res.json(
-        [company]
+        [transformedCompany]
           // Calculate total emissions for each scope type
           .map((company) => ({
             ...company,
@@ -493,7 +528,7 @@ router.get(
                       }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata,
               })
             ),
             // Add translations for GICS data
