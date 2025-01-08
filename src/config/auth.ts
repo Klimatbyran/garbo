@@ -1,13 +1,13 @@
-import { config } from 'dotenv'
-
-config()
+import 'dotenv/config'
 
 export default {
   github: {
     clientID: process.env.GITHUB_CLIENT_ID!,
     clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-    callbackURL: process.env.GITHUB_CALLBACK_URL || 'http://localhost:3000/api/auth/github/callback',
-    organization: process.env.GITHUB_ORG_NAME || 'your-org-name',
+    callbackURL:
+      process.env.GITHUB_CALLBACK_URL ||
+      'http://localhost:3000/api/auth/github/callback',
+    organization: process.env.GITHUB_ORG_NAME || 'Klimatbyran',
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'your-secret-key',
@@ -15,5 +15,5 @@ export default {
   },
   session: {
     secret: process.env.SESSION_SECRET || 'session-secret',
-  }
+  },
 }
