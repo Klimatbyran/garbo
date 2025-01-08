@@ -5,14 +5,17 @@ import { authenticateJWT } from '../lib/auth'
 
 const router = express.Router()
 
-router.get('/github', (req, res, next) => {
+router.get('/github', (req, res) => {
   // Store the original URL to redirect back after authentication
   req.session.returnTo = req.query.returnTo || req.headers.referer || '/'
   
-  // Directly initiate GitHub OAuth flow
-  passport.authenticate('github', {
-    scope: ['user:email', 'read:org']
-  })(req, res, next)
+  // Redirect to GitHub OAuth
+  const authURL = `https://github.com/login/oauth/authorize?` + 
+    `client_id=${authConfig.github.clientID}&` +
+    `redirect_uri=${encodeURIComponent(authConfig.github.callbackURL)}&` +
+    `scope=user:email%20read:org`
+    
+  res.redirect(authURL)
 })
 
 router.get(
