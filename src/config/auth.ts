@@ -1,0 +1,18 @@
+import { config } from 'dotenv'
+
+config()
+
+export default {
+  github: {
+    clientID: process.env.GITHUB_CLIENT_ID!,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    callbackURL: 'http://localhost:3000/api/auth/github/callback',
+  },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'your-secret-key',
+    expiresIn: '24h',
+  },
+  session: {
+    secret: process.env.SESSION_SECRET || 'session-secret',
+  }
+}
