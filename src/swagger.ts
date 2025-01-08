@@ -39,6 +39,14 @@ All endpoints require authentication using a Bearer token. Include your API key 
 * [API Terms of Service](https://klimatkollen.se/terms)
 * [Contact Support](mailto:support@klimatkollen.se)
 
+## Authentication
+All endpoints require authentication using a JWT Bearer token. To get a token:
+1. Login via GitHub OAuth at `/api/auth/github`
+2. Use the returned JWT token in the Authorization header:
+\`\`\`
+Authorization: Bearer YOUR_JWT_TOKEN
+\`\`\`
+
 ## Examples
 
 ### Fetch Company Data
