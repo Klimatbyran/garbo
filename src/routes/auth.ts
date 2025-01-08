@@ -5,9 +5,6 @@ import { authenticateJWT } from '../lib/auth'
 
 const router = express.Router()
 
-// Apply authentication to all routes EXCEPT auth endpoints
-router.use(/^(?!\/github).+$/, authenticateJWT)
-
 router.get('/github', 
   (req, res, next) => {
     // Store the original URL to redirect back after authentication
