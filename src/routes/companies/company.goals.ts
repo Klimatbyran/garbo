@@ -54,6 +54,7 @@ const router = express.Router()
  */
 router.post(
   '/:wikidataId/goals',
+  checkOrgMembership,
   processRequest({
     body: z.object({
       goals: z.array(GoalSchema),
@@ -123,6 +124,7 @@ router.post(
  */
 router.patch(
   '/:wikidataId/goals/:id',
+  checkOrgMembership,
   processRequest({
     body: z.object({ goal: GoalSchema }),
     params: z.object({ id: z.coerce.number() }),

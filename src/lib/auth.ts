@@ -5,6 +5,7 @@ import { prisma } from './prisma'
 import authConfig from '../config/auth'
 import { Request, Response, NextFunction } from 'express'
 import { GarboAPIError } from './garbo-api-error'
+import axios from 'axios'
 
 passport.use(
   new GitHubStrategy(
@@ -65,5 +66,32 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
     next()
   } catch (error) {
     throw new GarboAPIError('Invalid token', { statusCode: 401 })
+  }
+}
+
+export const checkOrgMembership = async (req: Request, res: Response, next: NextFunction) => {
+  const user = res.locals.user
+  
+  try {
+    const response = await axios.get(`https://api.github.com/orgs/${authConfig.github.organization}/members/${user.username}`, {
+      headers: {
+        'Authorization': `token ${user.accessToken}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    })
+    
+    if (response.status === 204) {
+      next()
+    } else {
+      throw new GarboAPIError('User is not a member of the required organization', { statusCode: 403 })
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      throw new GarboAPIError('User is not a member of the required organization', { statusCode: 403 })
+    }
+    throw new GarboAPIError('Failed to verify organization membership', { 
+      statusCode: 500,
+      original: error 
+    })
   }
 }
