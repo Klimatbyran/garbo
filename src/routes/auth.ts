@@ -5,16 +5,15 @@ import { authenticateJWT } from '../lib/auth'
 
 const router = express.Router()
 
-router.get('/github', 
-  (req, res, next) => {
-    // Store the original URL to redirect back after authentication
-    req.session.returnTo = req.query.returnTo || req.headers.referer || '/'
-    next()
-  },
-  passport.authenticate('github', { 
-    scope: ['user:email', 'read:org']  // Add read:org scope for org membership check
-  })
-)
+router.get('/github', (req, res, next) => {
+  // Store the original URL to redirect back after authentication
+  req.session.returnTo = req.query.returnTo || req.headers.referer || '/'
+  
+  // Directly initiate GitHub OAuth flow
+  passport.authenticate('github', {
+    scope: ['user:email', 'read:org']
+  })(req, res, next)
+})
 
 router.get(
   '/github/callback',

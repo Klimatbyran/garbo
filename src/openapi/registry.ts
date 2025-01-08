@@ -31,9 +31,16 @@ registry.registerPath({
   tags: ['Authentication'],
   responses: {
     302: {
-      description: 'Redirects to GitHub OAuth page'
+      description: 'Redirects to GitHub OAuth page',
+      headers: {
+        Location: {
+          description: 'GitHub OAuth authorization URL',
+          schema: { type: 'string' }
+        }
+      }
     }
-  }
+  },
+  security: [] // Explicitly mark as not requiring authentication
 })
 
 registry.registerPath({
