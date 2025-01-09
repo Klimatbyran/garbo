@@ -4,6 +4,9 @@ import { getGics } from '../../lib/gics'
 import { cache, enableCors } from '../middlewares/middlewares'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
+import apiConfig from '../../config/api'
+
+import { Prisma } from '@prisma/client'
 
 const router = express.Router()
 
@@ -73,9 +76,6 @@ const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
-
-import apiConfig from '../../config/api'
-import { Prisma } from '@prisma/client'
 
 router.use(enableCors(apiConfig.corsAllowOrigins as unknown as string[]))
 
