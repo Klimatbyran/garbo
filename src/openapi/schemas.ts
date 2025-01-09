@@ -246,7 +246,7 @@ export const ReportingPeriodSchema = z.object({
   metadata: z.array(MetadataSchema).nullable(),
 })
 
-// TODO: When updating the schemas, consider using the detailed company response as a foundation
+// TODO: When updating the schemas, consider using the detailed company response as a foundation.
 // and then omitting the data that should not be included. That would simplify the maintenance of these schemas.
 
 const CompanyBase = CompanyInputSchema.extend({
