@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { Company, Metadata, PrismaClient, User } from '@prisma/client'
 import {
   processRequestBody,
-  processRequest,
+  validateRequest,
   validateRequestBody,
 } from './zod-middleware'
 import { z } from 'zod'
