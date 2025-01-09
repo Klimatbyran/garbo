@@ -5,7 +5,7 @@ import {
   validateRequest,
   validateRequestBody,
 } from './zod-middleware'
-import { z, ZodError } from 'zod'
+import { z } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import apiConfig from '../../config/api'
@@ -41,11 +41,6 @@ export const cache = () => {
     res.set('Cache-Control', `public, max-age=${apiConfig.cacheMaxAge}`)
     next()
   }
-}
-
-const USERS = {
-  garbo: 'hej@klimatkollen.se',
-  alex: 'alex@klimatkollen.se',
 }
 
 export const fakeAuth =
@@ -99,7 +94,9 @@ export const createMetadata =
       // TODO: Find a better way to determine if changes by the current user should count as verified or not
       // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
       const verifiedByUserEmail =
-        res.locals.user.email === USERS.alex ? USERS.alex : null
+        res.locals.user.email === apiConfig.authorizedUsers.alex
+          ? apiConfig.authorizedUsers.alex
+          : null
 
       const { comment, source } = req.body.metadata ?? {}
 

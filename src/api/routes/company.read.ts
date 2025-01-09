@@ -47,7 +47,7 @@ function removeEmptyValues(obj: Record<any, any>) {
   return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
 }
 
-// ## DÖLJ DESSA från API:et
+// TODO: Remove this once the delete routes are published to production and we have migrated to the new DB schema
 const HIDDEN_FROM_API = new Set([
   'Q22629259', // GARO
   'Q37562781', // GARO
@@ -77,13 +77,7 @@ function isNumber(n: unknown): n is number {
 import apiConfig from '../../config/api'
 import { Prisma } from '@prisma/client'
 
-router.use(
-  enableCors([
-    apiConfig.frontendURL,
-    'http://localhost:3000',
-    'http://localhost:4321',
-  ])
-)
+router.use(enableCors(apiConfig.corsAllowOrigins as unknown as string[]))
 
 function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
