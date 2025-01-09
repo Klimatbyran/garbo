@@ -32,13 +32,8 @@ const pinoConfig = process.stdin.isTTY && {
 apiRouter.use(pino(pinoConfig || undefined))
 
 // API Routes
-// Generate OpenAPI spec
-const openApiSpec = swaggerJsdoc(swaggerOptions)
 
 apiRouter.use('/companies', express.json())
-
-// API Routes
-
 apiRouter.use('/companies', readCompanies)
 
 apiRouter.use('/companies', fakeAuth(prisma))
@@ -59,7 +54,8 @@ apiRouter.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 apiRouter.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
 apiRouter.use('/companies', updateCompanies)
 
-// API Documentation
+// Generate and publish OpenAPI documentation
+const openApiSpec = swaggerJsdoc(swaggerOptions)
 apiRouter.get('/openapi.json', (_req, res) => {
   res.json(openApiSpec)
 })
