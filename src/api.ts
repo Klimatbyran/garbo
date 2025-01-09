@@ -11,12 +11,12 @@ import {
   ensureEconomyExists,
   ensureEmissionsExists,
   ensureReportingPeriod,
-  errorHandler,
   fakeAuth,
   fetchCompanyByWikidataId,
   validateMetadata,
   validateReportingPeriodRequest,
 } from './api/middlewares/middlewares'
+import { errorHandler } from './api/middlewares/errorhandler'
 import { swaggerOptions } from './swagger'
 import { prisma } from './lib/prisma'
 import { processRequestParams } from './api/middlewares/zod-middleware'
@@ -72,7 +72,6 @@ apiRouter.use(
   })
 )
 
-// TODO: Why does this error handler not capture errors thrown in readCompanies?
 apiRouter.use(errorHandler)
 
 export default apiRouter

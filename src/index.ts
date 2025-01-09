@@ -42,10 +42,13 @@ if (START_BOARD) {
 
 app.listen(port, async () => {
   console.log(`API running at http://localhost:${port}/api/companies`)
+  console.log(`OpenAPI docs running at http://localhost:${port}/api/docs`)
 
   if (START_BOARD) {
     const discord = (await import('./discord')).default
-    console.log(`For the UI, open http://localhost:${port}/admin/queues`)
+    console.log(
+      `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
+    )
     discord.login()
   }
 })
