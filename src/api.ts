@@ -4,8 +4,15 @@ import swaggerJsdoc from 'swagger-jsdoc'
 import { apiReference } from '@scalar/express-api-reference'
 
 import readCompanies from './api/routes/company.read'
-import updateCompanies from './api/routes/company.update'
+import updateCompanyRouter from './api/routes/company.update'
 import deleteCompanyData from './api/routes/company.delete'
+import companyEmissionsRoutes from './api/routes/company.emissions'
+import companyEconomyRouter from './api/routes/company.economy'
+import companyGoalsRouter from './api/routes/company.goals'
+import companyInitiativesRouter from './api/routes/company.initiatives'
+import companyIndustryRouter from './api/routes/company.industry'
+import companyReportingPeriodsRouter from './api/routes/company.reportingPeriods'
+
 import {
   createMetadata,
   ensureEconomyExists,
@@ -52,7 +59,13 @@ apiRouter.use(
 )
 apiRouter.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 apiRouter.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
-apiRouter.use('/companies', updateCompanies)
+apiRouter.use('/companies', updateCompanyRouter)
+apiRouter.use('/companies', companyEmissionsRoutes)
+apiRouter.use('/companies', companyEconomyRouter)
+apiRouter.use('/companies', companyInitiativesRouter)
+apiRouter.use('/companies', companyIndustryRouter)
+apiRouter.use('/companies', companyReportingPeriodsRouter)
+apiRouter.use('/companies', companyGoalsRouter)
 
 // Generate and publish OpenAPI documentation
 const openApiSpec = swaggerJsdoc(swaggerOptions)

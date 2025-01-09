@@ -45,7 +45,6 @@ const router = express.Router()
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-
 router.post(
   '/:wikidataId/:year/emissions',
   processRequestBody(postEmissionsSchema),
@@ -90,3 +89,5 @@ router.post(
     res.json({ ok: true })
   }
 )
+
+export default router

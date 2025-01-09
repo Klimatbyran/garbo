@@ -42,5 +42,4 @@ const router = express.Router()
 router.post('/', validateCompanyRequest(), ensureCompany)
 router.post('/:wikidataId', validateCompanyRequest(), ensureCompany)
 
-// Export the router
 export default router

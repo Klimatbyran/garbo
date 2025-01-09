@@ -45,7 +45,6 @@ const router = express.Router()
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-
 router.post(
   '/:wikidataId/:year/economy',
   processRequestBody(postEconomySchema),
@@ -79,3 +78,5 @@ router.post(
     res.json({ ok: true })
   }
 )
+
+export default router
