@@ -41,16 +41,20 @@ if (START_BOARD) {
 }
 
 app.listen(port, async () => {
-  console.log(`API running at http://localhost:${port}/api/companies`)
-  console.log(`OpenAPI docs running at http://localhost:${port}/api`)
+  const logMessages = [
+    `API running at http://localhost:${port}/api/companies`,
+    `OpenAPI docs running at http://localhost:${port}/api`,
+  ]
 
   if (START_BOARD) {
     const discord = (await import('./discord')).default
-    console.log(
+    await discord.login()
+    logMessages.push(
       `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
     )
-    discord.login()
   }
+
+  console.log(logMessages.join('\n'))
 })
 
 async function findAndDeleteOrphanedMetadata() {

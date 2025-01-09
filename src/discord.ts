@@ -117,8 +117,8 @@ export class Discord {
     }
   }
 
-  login(token = this.token) {
-    this.client.login(token)
+  async login(token = this.token) {
+    await this.client.login(token)
     return this
   }
 
