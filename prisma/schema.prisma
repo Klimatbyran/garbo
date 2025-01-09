@@ -66,11 +66,8 @@ model Industry {
   gicsSubIndustryCode String
   companyWikidataId   String @unique
 
-  company  Company    @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
-  metadata Metadata[]
-
-  // industryGics is an interesting candidate for the cascade option, I bet these codes are rarely changed... But in that case
-  // lets be sure to make a migration to the new code without cascading all current industries
+  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  metadata     Metadata[]
   industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
 }
 
