@@ -14,7 +14,7 @@
     "migrate": "npx prisma migrate deploy",
     "workers": "node --import tsx src/startWorkers.ts",
     "dev-workers": "node --import tsx --watch src/startWorkers.ts",
-    "dev-board": "node --import tsx --watch src/index.ts",
+    "dev-board": "node -r dotenv/config --import tsx --watch src/index.ts",
     "dev-api": "node --import tsx --watch src/index.ts --api-only",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",

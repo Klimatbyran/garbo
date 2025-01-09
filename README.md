@@ -10,7 +10,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #rapporter-att-granska by using the command /pdf <url> and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf <url> and Garbo will be answering with a parsed JSON
 
 ## Data Flow
 
@@ -142,6 +142,8 @@ The code can be started in three main ways, depending on what you plan to develo
 npm run dev-api
 ```
 
+This starts the API, and makes it possible to view the OpenAPI documentation at <http://localhost:3000/api>.
+
 #### 2) To start the AI pipeline, BullMQ admin dashboard and the API:
 
 If you plan to develop the AI pipeline, this is the recommended way to start the code.
@@ -152,7 +154,9 @@ First, run the following command to start the API and the queue system, includin
 npm run dev-board
 ```
 
-Now you can go to <http://localhost:3000> and see the dashboard.
+In addition to the accessing the local API, you can now view the BullMQ dashboard at <http://localhost:3000/admin/queues>.
+
+The BullMQ dashboard is useful to develop and debug how garbo is extracting data from reports. A common workflow is to run a report through the garbo pipeline and then follow the progress in the BullMQ dashboard to view logs, errors and restart jobs. When updating code or prompts in the workers that make up what we call the garbo pipeline, it's possible to restart a job partway through the pipeline, to make it both easier and faster to iterate on changes.
 
 Then, open another terminal and start the AI pipeline and its workers, which are responsible for processing each report. These can be scaled horizontally.
 
@@ -173,6 +177,12 @@ npm run dev
 Well done! You've now set up the `garbo` backend and are ready to start development :)
 
 ---
+
+### How to make a backup of the local postgres DB
+
+```sh
+docker exec -i garbo_postgres pg_dump -U postgres -Fc -d garbo > ~/Downloads/backup_garbo_XYZ.dump
+```
 
 ### Testing DB migrations
 
