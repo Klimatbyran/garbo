@@ -334,7 +334,6 @@ router.get(
           }))
       )
     } catch (error) {
-      console.error('Failed to load companies', error)
       next(
         new GarboAPIError('Failed to load companies', {
           original: error,
@@ -647,7 +646,6 @@ router.get(
           })
         )
       } else {
-        console.error('Failed to load company', error)
         next(
           new GarboAPIError('Failed to load company', {
             original: error,
