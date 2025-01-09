@@ -49,15 +49,14 @@ model Company {
 // TODO: Improve structure of base years to handle the case where we have the same value for all scopes.
 // The simple solution is to always store three BaseYears, even if they have the same value. This adds more data, to be processed and transferred, but will be simpler to understand and work with.
 model BaseYear {
-  id         Int    @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   // IDEA: maybe the year here should be in relation to a specific reporting period, since we need to account for special cases where reporting periods are not just one year
-  year       Int
-  scope      Int // 1-3
-  companyId  String
-  metadataId Int
+  year      Int
+  scope     Int // 1-3
+  companyId String
 
-  metadata Metadata @relation(fields: [metadataId], references: [id])
-  company  Company  @relation(fields: [companyId], references: [wikidataId])
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 }
 
 /// Connecting a company to a specific industry and metadata
@@ -65,26 +64,35 @@ model BaseYear {
 model Industry {
   id                  Int    @id @default(autoincrement())
   gicsSubIndustryCode String
-  metadataId          Int
   companyWikidataId   String @unique
 
-  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId])
-  metadata     Metadata     @relation(fields: [metadataId], references: [id])
+  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  metadata     Metadata[]
   industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
 }
 
 /// A table containing the standardised GICS codes for categorizing companies into various industries.
+/// These are added by the DB seeding script.
 model IndustryGics {
-  sectorCode      String
-  groupCode       String
-  industryCode    String
-  subIndustryCode String @id
+  subIndustryCode        String @id
+  subIndustryName        String
+  subIndustryDescription String
+
+  sectorCode String
+  sectorName String
+
+  groupCode String
+  groupName String
+
+  industryCode String
+  industryName String
 
   industries Industry[]
 }
 
 /// A reporting period is a timespan for accounting emissions as well as financial data
 model ReportingPeriod {
+  id        Int      @id @default(autoincrement())
   startDate DateTime
   endDate   DateTime
   /// The year needs to be the same year as the endDate.
@@ -94,39 +102,28 @@ model ReportingPeriod {
   /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
   reportURL String?
 
-  companyId   String
-  emissionsId Int?   @unique
-  economyId   Int?   @unique
-  metadataId  Int
+  companyId String
 
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
-  economy   Economy?   @relation(fields: [economyId], references: [id])
-  emissions Emissions? @relation(fields: [emissionsId], references: [id])
-  company   Company    @relation(fields: [companyId], references: [wikidataId])
+  metadata  Metadata[]
+  economy   Economy?
+  emissions Emissions?
+  company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 
-  /// Compound id based on meaningful data
-  @@id(name: "reportingPeriodId", [companyId, year])
+  @@unique([companyId, year])
 }
 
 /// Reported emissions for a specific reporting period
 model Emissions {
-  id                     Int  @id @default(autoincrement())
-  // NOTE: If we remove the @unique requirement here, we could perhaps add more scope1 values for the same ReportingPeriod, but only show one at a time
-  // This might help us if we want to keep one scope1 extracted by garbo, one estimated by exiobase and one manually entered. However, this would get complicated.
-  scope1Id               Int? @unique
-  scope2Id               Int? @unique
-  scope3Id               Int? @unique
-  biogenicEmissionsId    Int? @unique
-  scope1And2Id           Int? @unique
-  statedTotalEmissionsId Int? @unique
+  id                Int  @id @default(autoincrement())
+  reportingPeriodId Int? @unique
 
-  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
-  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
-  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])
-  reportingPeriod      ReportingPeriod?
-  scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
-  scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
-  scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
+  scope1               Scope1?
+  scope2               Scope2?
+  scope3               Scope3?
+  scope1And2           Scope1And2?
+  statedTotalEmissions StatedTotalEmissions?
+  biogenicEmissions    BiogenicEmissions?
+  reportingPeriod      ReportingPeriod?      @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
 }
 
 /// This is used when companies only report a total number for either overall- or scope 3 emissions.
@@ -135,86 +132,82 @@ model Emissions {
 /// specifically for the stated totals from the report. For example if the company changes an incorrect statedTotal that does not match the actual calculated total.
 /// Not sure if this is worth it, in this structure though. Might be too complicated.
 model StatedTotalEmissions {
-  id         Int    @id @default(autoincrement())
-  total      Float?
-  metadataId Int
-  scope3Id   Int?   @unique
+  id          Int    @id @default(autoincrement())
+  total       Float?
+  scope3Id    Int?   @unique
+  unit        String
+  emissionsId Int?   @unique
 
-  unit      String
-  emissions Emissions?
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
-  scope3    Scope3?    @relation(fields: [scope3Id], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+  scope3    Scope3?    @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
 }
 
 /// This is used when companies have bad reporting where they have combined scope 1+2 as one value
 model Scope1And2 {
-  id         Int    @id @default(autoincrement())
-  total      Float?
-  metadataId Int
+  id          Int    @id @default(autoincrement())
+  total       Float?
+  emissionsId Int?   @unique
 
   unit      String
-  emissions Emissions?
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
 }
 
 /// Biogenic emissions are reported separately from scope 1-3
-/// If we want to save a more detailed breakdown (when companies reported this), we can use the metadata comment to save this context
 model BiogenicEmissions {
-  id         Int    @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   /// Sometimes companies break it down into scope 1-3 - however these should always be stored as a total number according to the GHG protocol.
-  total      Float?
-  metadataId Int
+  total       Float?
+  unit        String
+  emissionsId Int?   @unique
 
-  unit      String
-  emissions Emissions?
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
 }
 
 model Scope1 {
-  id         Int    @id @default(autoincrement())
-  total      Float?
-  metadataId Int
+  id          Int    @id @default(autoincrement())
+  total       Float?
+  unit        String
+  emissionsId Int?   @unique
 
-  unit      String
-  emissions Emissions?
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
 }
 
 /// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
 /// We generally prefer using market-based emissions, but if that doesn't exist we could use location-based ones, and finally unknown.
 model Scope2 {
-  id         Int    @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   /// Market-based emissions
-  mb         Float?
+  mb          Float?
   /// Location-based emissions
-  lb         Float?
+  lb          Float?
   /// Unknown scope 2 emissions could be either market-based or location-based
-  unknown    Float?
-  metadataId Int
+  unknown     Float?
+  unit        String
+  emissionsId Int?   @unique
 
-  unit      String
-  emissions Emissions?
-  metadata  Metadata   @relation(fields: [metadataId], references: [id])
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
 }
 
-// TODO: We need to separate scope3 into separate categories, because we need metadata for each scope 3 category value.
-
-/// Scope 3 emissions according to the GHG protocol.
 model Scope3 {
   id Int @id @default(autoincrement())
 
   /// Sometimes, companies only report a total value for scope 3 emissions without disclosing the scope 3 categories.
   /// Other times, they might report both, but their stated total scope 3 emissions might be different than the actual sum of their scope 3 categories.
   /// To get around this, we separate statedTotalEmissions from the actual mathematical total that we summarize during runtime.
+  emissionsId            Int? @unique
   statedTotalEmissionsId Int? @unique
-  metadataId             Int
 
   // The scope 3 categories, both reported and estimated.
   // TODO: Add validation so there can only be one for each category, and max 16 entries.
-  categories           Scope3Category[]
   statedTotalEmissions StatedTotalEmissions?
-  emissions            Emissions?
-  metadata             Metadata              @relation(fields: [metadataId], references: [id])
+  emissions            Emissions?            @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  categories           Scope3Category[]
+  metadata             Metadata[]
 }
 
 /// Details about scope 3 categories. Here's a list of valid categories and their names:
@@ -248,46 +241,45 @@ model Scope3Category {
   // knowing the composition of cat 6. business travel, and how it changes across different years.
   // This would also make easier to detect discrepancies between stated emissions and the actual calculated total value
   // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
-  total      Float?
-  scope3Id   Int
-  metadataId Int
-
+  total    Float?
+  scope3Id Int
   unit     String
-  scope3   Scope3   @relation(fields: [scope3Id], references: [id])
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+
+  scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Economy {
-  id          Int  @id @default(autoincrement())
-  turnoverId  Int? @unique
-  employeesId Int? @unique
+  id                Int  @id @default(autoincrement())
+  reportingPeriodId Int? @unique
 
-  turnover        Turnover?        @relation(fields: [turnoverId], references: [id])
-  employees       Employees?       @relation(fields: [employeesId], references: [id])
-  reportingPeriod ReportingPeriod?
+  turnover        Turnover?
+  employees       Employees?
+  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+  turnoverId      Int?
 }
 
 model Turnover {
-  id         Int     @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   // IDEA: Should we store turnover with another datatype to prevent rounding errors? Money doesn't seem to be a good fit for storing as floats.
-  value      Float?
-  currency   String?
-  metadataId Int
+  value     Float?
+  currency  String?
+  economyId Int     @unique
 
-  economy  Economy?
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+  economy  Economy    @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Employees {
-  id         Int     @id @default(autoincrement())
-  /// Number of employees (using various methods)
-  value      Float?
+  id        Int     @id @default(autoincrement())
+  /// Number of employees
+  value     Float?
   /// How the number of employees were calculated, e.g. Full-time equivalents (FTE) or similar.
-  unit       String?
-  metadataId Int
+  unit      String?
+  economyId Int?    @unique
 
-  economy  Economy?
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+  economy  Economy?   @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 model Goal {
@@ -300,11 +292,10 @@ model Goal {
   // Thus, we in some cases need to reference something else than the reporting periods
   // For now, let's store them as strings, but in the future maybe use another representation.
   baseYear    String?
-  metadataId  Int
   companyId   String
 
-  metadata Metadata @relation(fields: [metadataId], references: [id])
-  company  Company  @relation(fields: [companyId], references: [wikidataId])
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 }
 
 model Initiative {
@@ -314,10 +305,9 @@ model Initiative {
   year        String?
   scope       String?
   companyId   String
-  metadataId  Int
 
-  company  Company  @relation(fields: [companyId], references: [wikidataId])
-  metadata Metadata @relation(fields: [metadataId], references: [id])
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
 }
 
 /// Every datapoint has associated metadata about who changed it, when, and using what source
@@ -334,26 +324,37 @@ model Metadata {
   /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
   verifiedByUserId Int?
 
-  /// Where the data originated from, e.g. manual entry, AI extraction or estimated with a tool like Exiobase.
-  /// Value is a string enum with vlaues like `garbo`, `manual`, `estimated:exiobase`
-  dataOrigin String?
+  goalId                 Int?
+  initiativeId           Int?
+  scope1Id               Int?
+  scope2Id               Int?
+  scope3Id               Int?
+  scope1And2Id           Int?
+  reportingPeriodId      Int?
+  baseYearId             Int?
+  biogenicEmissionsId    Int?
+  statedTotalEmissionsId Int?
+  industryId             Int?
+  categoryId             Int?
+  turnoverId             Int?
+  employeesId            Int?
 
-  goal                 Goal[]
-  initiative           Initiative[]
-  scope1               Scope1[]
-  scope2               Scope2[]
-  scope3               Scope3[]
-  reportingPeriod      ReportingPeriod[]
-  baseYear             BaseYear[]
-  biogenicEmissions    BiogenicEmissions[]
-  scope1And2           Scope1And2[]
-  statedTotalEmissions StatedTotalEmissions[]
-  user                 User                   @relation("metadata_user_id", fields: [userId], references: [id])
-  verifiedBy           User?                  @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
-  industries           Industry[]
-  categories           Scope3Category[]
-  turnover             Turnover[]
-  employees            Employees[]
+  goal                 Goal?                 @relation(fields: [goalId], references: [id])
+  initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
+  scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
+  scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
+  scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
+  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
+  reportingPeriod      ReportingPeriod?      @relation(fields: [reportingPeriodId], references: [id])
+  baseYear             BaseYear?             @relation(fields: [baseYearId], references: [id])
+  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])
+  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
+  user                 User                  @relation("metadata_user_id", fields: [userId], references: [id])
+  verifiedBy           User?                 @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
+  industry             Industry?             @relation(fields: [industryId], references: [id])
+  category             Scope3Category?       @relation(fields: [categoryId], references: [id])
+  turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
+  employees            Employees?            @relation(fields: [employeesId], references: [id])
 }
 
 model User {
