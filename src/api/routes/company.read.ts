@@ -278,7 +278,7 @@ router.get(
                         ...removeEmptyValues(reportingPeriod.emissions.scope3),
                         calculatedTotalEmissions:
                           reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata.verifiedBy)
+                            (c) => Boolean(c.metadata?.verifiedBy)
                           )
                             ? reportingPeriod.emissions.scope3.categories.reduce(
                                 (total, category) =>
@@ -334,6 +334,7 @@ router.get(
           }))
       )
     } catch (error) {
+      console.error('Failed to load companies', error)
       next(
         new GarboAPIError('Failed to load companies', {
           original: error,
@@ -564,7 +565,7 @@ router.get(
                         ...removeEmptyValues(reportingPeriod.emissions.scope3),
                         calculatedTotalEmissions:
                           reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata.verifiedBy)
+                            (c) => Boolean(c.metadata?.verifiedBy)
                           )
                             ? reportingPeriod.emissions.scope3.categories.reduce(
                                 (total, category) =>
@@ -646,6 +647,7 @@ router.get(
           })
         )
       } else {
+        console.error('Failed to load company', error)
         next(
           new GarboAPIError('Failed to load company', {
             original: error,
