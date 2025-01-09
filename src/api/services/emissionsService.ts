@@ -10,7 +10,7 @@ import {
 } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions, emissionsArgs } from '../types'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 const TONNES_CO2_UNIT = 'tCO2e'

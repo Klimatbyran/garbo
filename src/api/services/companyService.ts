@@ -1,7 +1,7 @@
 import { Economy, Employees, Metadata, Turnover } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyArgs, economyArgs } from '../types'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class CompanyService {

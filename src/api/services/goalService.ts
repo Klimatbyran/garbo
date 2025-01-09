@@ -1,5 +1,5 @@
 import { Company, Goal, Metadata, Prisma } from '@prisma/client'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { DefaultGoal } from '../types'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 

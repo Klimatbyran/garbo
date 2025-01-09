@@ -1,6 +1,6 @@
 import { Company, Initiative, Metadata, Prisma } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class InitiativeService {

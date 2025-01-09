@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { Company, Metadata, PrismaClient, User } from '@prisma/client'
 import {
   processRequestBody,
-  validateRequest,
+  processRequest,
   validateRequestBody,
 } from './zod-middleware'
 import { z } from 'zod'
@@ -151,7 +151,7 @@ export const ensureReportingPeriod =
     const endYear = parseInt(year.split('-').at(-1)!)
     if (endYear !== endDate.getFullYear()) {
       throw new GarboAPIError(
-        `The URL param year must be the same year as the endDate (${endYear})`
+        `The endYear from the URL param (${endYear}) must be the same year as the endDate (${endDate.getFullYear()})`
       )
     }
 
@@ -223,6 +223,7 @@ export const ensureEmissionsExists =
     })
 
     res.locals.emissions = emissions
+
     next()
   }
 

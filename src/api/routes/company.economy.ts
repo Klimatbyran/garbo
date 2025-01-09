@@ -3,8 +3,12 @@ import { GarboAPIError } from '../../lib/garbo-api-error'
 import { postEconomySchema } from '../schemas'
 import { processRequestBody } from '../middlewares/zod-middleware'
 import { companyService } from '../services/companyService'
+import { ensureEconomyExists } from '../middlewares/middlewares'
+import { prisma } from '../../lib/prisma'
 
 const router = express.Router()
+
+router.use('/:wikidataId/:year/economy', ensureEconomyExists(prisma))
 
 /**
  * @swagger

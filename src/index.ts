@@ -1,11 +1,11 @@
 import express from 'express'
 import { parseArgs } from 'node:util'
+import { PrismaClient } from '@prisma/client'
 
 import api from './api'
 import apiConfig from './config/api'
-import { PrismaClient } from '@prisma/client'
 
-export const prisma = new PrismaClient()
+const prisma = new PrismaClient()
 
 const { values } = parseArgs({
   options: {

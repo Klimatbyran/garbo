@@ -1,5 +1,5 @@
 import { Company, Metadata } from '@prisma/client'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class IndustryService {

@@ -56,6 +56,7 @@ router.post(
   }),
   async (req, res) => {
     const { initiatives } = req.body
+    console.log('initiatives', initiatives)
 
     if (initiatives?.length) {
       const { wikidataId } = req.params

@@ -74,7 +74,6 @@ export function processRequest<
     if (query) {
       req.query = query.parse(req.query)
     }
-
     if (body) {
       req.body = body.parse(req.body)
     }

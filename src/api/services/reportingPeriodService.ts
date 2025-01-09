@@ -1,6 +1,6 @@
 import { Company, Prisma, ReportingPeriod } from '@prisma/client'
 import { reportingPeriodArgs } from '../types'
-import { prisma } from '../..'
+import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class ReportingPeriodService {

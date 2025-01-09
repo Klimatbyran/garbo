@@ -3,8 +3,12 @@ import { GarboAPIError } from '../../lib/garbo-api-error'
 import { postEmissionsSchema } from '../schemas'
 import { processRequestBody } from '../middlewares/zod-middleware'
 import { emissionsService } from '../services/emissionsService'
+import { ensureEmissionsExists } from '../middlewares/middlewares'
+import { prisma } from '../../lib/prisma'
 
 const router = express.Router()
+
+router.use('/:wikidataId/:year/emissions', ensureEmissionsExists(prisma))
 
 /**
  * @swagger
