@@ -66,5 +66,5 @@ curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" 
       ],
     }),
   },
-  apis: ['./src/routes/**/*.ts', './src/routes/companies/*.ts'],
+  apis: ['./src/api/routes/**/*.ts'],
 }
