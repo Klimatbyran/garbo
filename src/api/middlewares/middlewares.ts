@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { Company, Metadata, PrismaClient, User } from '@prisma/client'
+import { Metadata, PrismaClient, User } from '@prisma/client'
 import cors, { CorsOptionsDelegate } from 'cors'
 
 import { GarboAPIError } from '../../lib/garbo-api-error'
