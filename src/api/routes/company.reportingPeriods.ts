@@ -27,14 +27,7 @@ const router = express.Router()
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - reportingPeriods
- *             properties:
- *               reportingPeriods:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/ReportingPeriod'
+ *             $ref: '#/components/schemas/ReportingPeriod'
  *     responses:
  *       200:
  *         description: Reporting periods updated successfully
