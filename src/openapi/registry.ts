@@ -6,7 +6,6 @@ import {
   CompanyDetails,
 } from './schemas'
 import {
-  goalSchema,
   postGoalsSchema,
   postEmissionsSchema,
   postIndustrySchema,
@@ -14,6 +13,7 @@ import {
   postInitiativesSchema,
   postEconomySchema,
   postReportingPeriodsSchema,
+  postGoalSchema,
 } from '../api/schemas'
 
 export const registry = new OpenAPIRegistry()
@@ -30,7 +30,7 @@ export const CompanySchema = registry.register('CompanyDetails', CompanyDetails)
 export const CompanyListSchema = registry.register('CompanyList', CompanyList)
 
 registry.register('Economy', postEconomySchema)
-registry.register('Goal', goalSchema)
+registry.register('Goal', postGoalSchema)
 registry.register('Goals', postGoalsSchema)
 registry.register('Industry', postIndustrySchema)
 registry.register('Initiative', postInitiativeSchema)
