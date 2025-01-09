@@ -75,7 +75,7 @@ model Industry {
 }
 
 /// A table containing the standardised GICS codes for categorizing companies into various industries.
-/// The default "" helps with our migration, but we can safely remove it after one migration
+/// These are added by the DB seeding script.
 model IndustryGics {
   subIndustryCode        String @id
   subIndustryName        String
@@ -183,8 +183,11 @@ model Scope1 {
 /// We generally prefer using market-based emissions, but if that doesn't exist we could use location-based ones, and finally unknown.
 model Scope2 {
   id          Int    @id @default(autoincrement())
+  /// Market-based emissions
   mb          Float?
+  /// Location-based emissions
   lb          Float?
+  /// Unknown scope 2 emissions could be either market-based or location-based
   unknown     Float?
   unit        String
   emissionsId Int?   @unique
@@ -294,7 +297,6 @@ model Goal {
   baseYear    String?
   companyId   String
 
-  /// Marked as optional because the foreign key resides in the Metadata model, making the relationship managed from that side. (Eventhough every goal needs to have metadata)
   metadata Metadata[]
   company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
 }
