@@ -16,11 +16,7 @@ declare global {
   namespace Express {
     interface Locals {
       user: User
-      company: Company
-      reportingPeriod: DefaultReportingPeriod
       metadata?: Metadata
-      emissions?: DefaultEmissions
-      economy?: DefaultEconomyArgs
     }
   }
 }
