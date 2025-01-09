@@ -5,10 +5,9 @@ const prisma = new PrismaClient()
 
 async function migrateData() {
   const data = JSON.parse(
-    fs.readFileSync(
-      '/Users/hugobjork/Desktop/Klimatkollen/garbo/scripts/2025-01-08-prod-companies.json',
-      { encoding: 'utf-8' }
-    )
+    fs.readFileSync('scripts/2025-01-08-prod-companies.json', {
+      encoding: 'utf-8',
+    })
   )
 
   const userIds = {

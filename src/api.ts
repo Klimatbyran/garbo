@@ -1,7 +1,10 @@
 import express from 'express'
 import pino from 'pino-http'
+import swaggerJsdoc from 'swagger-jsdoc'
+import { apiReference } from '@scalar/express-api-reference'
+
 import readCompanies from './api/routes/company.read'
-import updateCompanies from './api/routes/updateCompanies'
+import updateCompanies from './api/routes/company.update'
 import deleteCompanyData from './api/routes/company.delete'
 import {
   createMetadata,
@@ -14,8 +17,6 @@ import {
   validateMetadata,
   validateReportingPeriodRequest,
 } from './api/middlewares/middlewares'
-import swaggerJsdoc from 'swagger-jsdoc'
-import { apiReference } from '@scalar/express-api-reference'
 import { swaggerOptions } from './swagger'
 import { prisma } from './lib/prisma'
 import { processRequestParams } from './api/middlewares/zod-middleware'
