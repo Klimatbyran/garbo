@@ -5,6 +5,16 @@ import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class CompanyService {
+  async getCompany(wikidataId: string) {
+    const company = await prisma.company.findFirst({
+      where: { wikidataId },
+    })
+    if (!company) {
+      throw new GarboAPIError('Company not found', { statusCode: 404 })
+    }
+    return company
+  }
+
   async upsertCompany({
     wikidataId,
     ...data
@@ -34,12 +44,7 @@ class CompanyService {
   }
 
   async deleteCompany(wikidataId: string) {
-    const company = await prisma.company.findFirst({
-      where: { wikidataId },
-    })
-    if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
-    }
+    const _company = await this.getCompany(wikidataId)
     await prisma.company.delete({ where: { wikidataId } })
   }
 

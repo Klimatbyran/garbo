@@ -1,12 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Company, Metadata, PrismaClient, User } from '@prisma/client'
-import {
-  processRequestBody,
-  validateRequest,
-  validateRequestBody,
-} from './zod-middleware'
-import { z } from 'zod'
 import cors, { CorsOptionsDelegate } from 'cors'
+
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import apiConfig from '../../config/api'
 import {
@@ -14,14 +9,8 @@ import {
   DefaultEmissions,
   DefaultReportingPeriod,
 } from '../types'
-import { reportingPeriodService } from '../services/reportingPeriodService'
-import { emissionsService } from '../services/emissionsService'
-import { companyService } from '../services/companyService'
-import {
-  metadataRequestBody,
-  reportingPeriodBodySchema,
-  upsertCompanyBodySchema,
-} from '../schemas'
+import { metadataRequestBody } from '../schemas'
+import { validateRequestBody } from './zod-middleware'
 
 declare global {
   namespace Express {
@@ -121,123 +110,6 @@ export const createMetadata =
     }
 
     res.locals.metadata = createdMetadata
-    next()
-  }
-
-export const validateReportingPeriodRequest = () =>
-  validateRequest({
-    params: z.object({
-      /**
-       * This allows reporting periods like 2022-2023
-       */
-      year: z.string().regex(/\d{4}(?:-\d{4})?/),
-    }),
-    body: reportingPeriodBodySchema,
-  })
-
-export const ensureReportingPeriod =
-  (prisma: PrismaClient) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { year } = req.params
-
-    // NOTE: Since we have to use validateRequest() for middlewares,
-    // we have to parse the request body twice.
-    // We should find a cleaner and more declarative pattern for this.
-    // Look if we can solve this in a good way for express. Otherwise see how fastify handles schema validation.
-    const { startDate, endDate, reportURL } = reportingPeriodBodySchema.parse(
-      req.body
-    )
-
-    const endYear = parseInt(year.split('-').at(-1)!)
-    if (endYear !== endDate.getFullYear()) {
-      throw new GarboAPIError(
-        `The endYear from the URL param (${endYear}) must be the same year as the endDate (${endDate.getFullYear()})`
-      )
-    }
-
-    const metadata = res.locals.metadata!
-    const company = res.locals.company
-
-    if (req.method === 'POST' || req.method === 'PATCH') {
-      // TODO: Only allow creating a reporting period when updating other data
-      // TODO: Maybe throw 404 if the reporting period was not found and it is a GET request
-      const reportingPeriod =
-        await reportingPeriodService.upsertReportingPeriod(company, metadata, {
-          startDate,
-          endDate,
-          reportURL,
-          year,
-        })
-
-      res.locals.reportingPeriod = reportingPeriod
-    }
-
-    next()
-  }
-
-export const validateCompanyRequest = () =>
-  processRequestBody(upsertCompanyBodySchema)
-
-export async function ensureCompany(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const { name, description, url, internalComment, wikidataId, tags } =
-    upsertCompanyBodySchema.parse(req.body)
-
-  const company = await companyService.upsertCompany({
-    wikidataId,
-    name,
-    description,
-    url,
-    internalComment,
-    tags,
-  })
-  res.locals.company = company
-
-  next()
-}
-
-export const fetchCompanyByWikidataId =
-  (prisma: PrismaClient) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { wikidataId } = req.params
-    const company = await prisma.company.findFirst({ where: { wikidataId } })
-    if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
-    }
-    res.locals.company = company
-
-    next()
-  }
-
-export const ensureEmissionsExists =
-  (prisma: PrismaClient) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    const reportingPeriod = res.locals.reportingPeriod
-
-    const emissions = await emissionsService.upsertEmissions({
-      emissionsId: reportingPeriod.emissions?.id ?? 0,
-      reportingPeriodId: reportingPeriod.id,
-    })
-
-    res.locals.emissions = emissions
-
-    next()
-  }
-
-export const ensureEconomyExists =
-  (prisma: PrismaClient) =>
-  async (req: Request, res: Response, next: NextFunction) => {
-    const reportingPeriod = res.locals.reportingPeriod
-
-    const economy = await companyService.upsertEconomy({
-      economyId: reportingPeriod.economy?.id ?? 0,
-      reportingPeriodId: reportingPeriod.id,
-    })
-
-    res.locals.economy = economy
     next()
   }
 

@@ -6,8 +6,6 @@ import { apiReference } from '@scalar/express-api-reference'
 import readCompaniesRouter from './api/routes/company.read'
 import updateCompanyRouter from './api/routes/company.update'
 import deleteCompanyData from './api/routes/company.delete'
-import companyEmissionsRouter from './api/routes/company.emissions'
-import companyEconomyRouter from './api/routes/company.economy'
 import companyGoalsRouter from './api/routes/company.goals'
 import companyInitiativesRouter from './api/routes/company.initiatives'
 import companyIndustryRouter from './api/routes/company.industry'
@@ -15,11 +13,8 @@ import companyReportingPeriodsRouter from './api/routes/company.reportingPeriods
 
 import {
   createMetadata,
-  ensureReportingPeriod,
   fakeAuth,
-  fetchCompanyByWikidataId,
   validateMetadata,
-  validateReportingPeriodRequest,
 } from './api/middlewares/middlewares'
 import { errorHandler } from './api/middlewares/errorhandler'
 import { swaggerOptions } from './swagger'
@@ -47,8 +42,7 @@ apiRouter.use('/companies', deleteCompanyData)
 apiRouter.use('/companies', validateMetadata(), createMetadata(prisma))
 apiRouter.use(
   '/companies/:wikidataId',
-  processRequestParams(wikidataIdParamSchema),
-  fetchCompanyByWikidataId(prisma)
+  processRequestParams(wikidataIdParamSchema)
 )
 
 apiRouter.use('/companies', updateCompanyRouter)
@@ -57,13 +51,6 @@ apiRouter.use('/companies', companyGoalsRouter)
 apiRouter.use('/companies', companyInitiativesRouter)
 
 apiRouter.use('/companies', companyReportingPeriodsRouter)
-apiRouter.use(
-  '/companies/:wikidataId/:year',
-  validateReportingPeriodRequest(),
-  ensureReportingPeriod(prisma)
-)
-apiRouter.use('/companies', companyEmissionsRouter)
-apiRouter.use('/companies', companyEconomyRouter)
 
 // Generate and publish OpenAPI documentation
 const openApiSpec = swaggerJsdoc(swaggerOptions)

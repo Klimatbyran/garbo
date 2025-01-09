@@ -3,8 +3,8 @@ import { GarboAPIError } from '../../lib/garbo-api-error'
 import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
-import { processRequestBody } from '../middlewares/zod-middleware'
-import { postReportingPeriodsSchema } from '../schemas'
+import { processRequest } from '../middlewares/zod-middleware'
+import { postReportingPeriodsSchema, wikidataIdParamSchema } from '../schemas'
 
 const router = express.Router()
 
@@ -53,11 +53,15 @@ const router = express.Router()
  */
 router.post(
   '/:wikidataId/reporting-periods',
-  processRequestBody(postReportingPeriodsSchema),
+  processRequest({
+    body: postReportingPeriodsSchema,
+    params: wikidataIdParamSchema,
+  }),
   async (req, res) => {
     const { reportingPeriods } = postReportingPeriodsSchema.parse(req.body)
+    const { wikidataId } = req.params
     const metadata = res.locals.metadata!
-    const company = res.locals.company
+    const company = await companyService.getCompany(wikidataId)
 
     try {
       await Promise.allSettled(

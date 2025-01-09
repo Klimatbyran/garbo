@@ -1,8 +1,8 @@
-import express from 'express'
-import {
-  ensureCompany,
-  validateCompanyRequest,
-} from '../middlewares/middlewares'
+import express, { Request, Response } from 'express'
+
+import { processRequestBody } from '../middlewares/zod-middleware'
+import { companyService } from '../services/companyService'
+import { upsertCompanyBodySchema } from '../schemas'
 
 const router = express.Router()
 
@@ -39,7 +39,23 @@ const router = express.Router()
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/', validateCompanyRequest(), ensureCompany)
-router.post('/:wikidataId', validateCompanyRequest(), ensureCompany)
+router.post(
+  '/',
+  processRequestBody(upsertCompanyBodySchema),
+  async (req: Request, res: Response) => {
+    const { name, wikidataId, description, internalComment, tags, url } =
+      req.body
+    await companyService.upsertCompany({
+      name,
+      wikidataId,
+      description,
+      internalComment,
+      tags,
+      url,
+    })
+
+    res.json({ ok: true })
+  }
+)
 
 export default router
