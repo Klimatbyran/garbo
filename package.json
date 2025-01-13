@@ -19,7 +19,6 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "update-report-url": "node --import=tsx scripts/update-spreadsheet-companies-urls.ts",
-    "clean-migrate": "node --import tsx scripts/migrateDataToNewSchema.ts",
     "test": "jest",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts"
