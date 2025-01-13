@@ -32,14 +32,14 @@ CREATE TABLE "Industry2" (
 -- CreateTable
 CREATE TABLE "IndustryGics2" (
     "subIndustryCode" TEXT NOT NULL,
-    "subIndustryName" TEXT NOT NULL DEFAULT '',
-    "subIndustryDescription" TEXT NOT NULL DEFAULT '',
+    "subIndustryName" TEXT NOT NULL,
+    "subIndustryDescription" TEXT NOT NULL,
     "sectorCode" TEXT NOT NULL,
-    "sectorName" TEXT NOT NULL DEFAULT '',
+    "sectorName" TEXT NOT NULL,
     "groupCode" TEXT NOT NULL,
-    "groupName" TEXT NOT NULL DEFAULT '',
+    "groupName" TEXT NOT NULL,
     "industryCode" TEXT NOT NULL,
-    "industryName" TEXT NOT NULL DEFAULT '',
+    "industryName" TEXT NOT NULL,
 
     CONSTRAINT "IndustryGics2_pkey" PRIMARY KEY ("subIndustryCode")
 );

@@ -433,17 +433,17 @@ model Industry2 {
 /// These are added by the DB seeding script.
 model IndustryGics2 {
   subIndustryCode        String @id
-  subIndustryName        String @default("")
-  subIndustryDescription String @default("")
+  subIndustryName        String
+  subIndustryDescription String
 
   sectorCode String
-  sectorName String @default("")
+  sectorName String
 
   groupCode String
-  groupName String @default("")
+  groupName String
 
   industryCode String
-  industryName String @default("")
+  industryName String
 
   industries Industry2[]
 }
