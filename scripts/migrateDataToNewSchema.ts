@@ -13,8 +13,8 @@ async function migrateData() {
   )
 
   const [garbo, alex] = await Promise.all([
-    prisma.user2.findFirstOrThrow({ where: { email: 'hej@klimatkollen.se' } }),
-    prisma.user2.findFirstOrThrow({ where: { email: 'alex@klimatkollen.se' } }),
+    prisma.user.findFirstOrThrow({ where: { email: 'hej@klimatkollen.se' } }),
+    prisma.user.findFirstOrThrow({ where: { email: 'alex@klimatkollen.se' } }),
   ])
 
   const userIds = {
@@ -40,12 +40,12 @@ async function migrateData() {
     const { reportingPeriods, industry, goals, initiatives, ...companyData } =
       company
 
-    const createdCompany = await prisma.company2.create({
+    const createdCompany = await prisma.company.create({
       data: { ...companyData },
     })
 
     if (industry) {
-      await prisma.industry2.create({
+      await prisma.industry.create({
         data: {
           gicsSubIndustryCode: industry.industryGics.subIndustryCode,
           companyWikidataId: createdCompany.wikidataId,
@@ -55,7 +55,7 @@ async function migrateData() {
     }
 
     for (const period of reportingPeriods) {
-      const createdPeriod = await prisma.reportingPeriod2.create({
+      const createdPeriod = await prisma.reportingPeriod.create({
         data: {
           startDate: new Date(period.startDate),
           endDate: new Date(period.endDate),
@@ -66,7 +66,7 @@ async function migrateData() {
       })
 
       if (period.economy) {
-        await prisma.economy2.create({
+        await prisma.economy.create({
           data: {
             reportingPeriodId: createdPeriod.id,
             turnover: period.economy.turnover
@@ -94,7 +94,7 @@ async function migrateData() {
       }
 
       if (period.emissions) {
-        await prisma.emissions2.create({
+        await prisma.emissions.create({
           data: {
             reportingPeriodId: createdPeriod.id,
             scope1: period.emissions.scope1
@@ -199,7 +199,7 @@ async function migrateData() {
     }
 
     for (const goal of goals) {
-      await prisma.goal2.create({
+      await prisma.goal.create({
         data: {
           ...goal,
           companyId: createdCompany.wikidataId,
@@ -209,7 +209,7 @@ async function migrateData() {
     }
 
     for (const initiative of initiatives) {
-      await prisma.initiative2.create({
+      await prisma.initiative.create({
         data: {
           ...initiative,
           companyId: createdCompany.wikidataId,
