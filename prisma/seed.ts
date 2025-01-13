@@ -1,21 +1,29 @@
+import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import { seedGicsCodes } from '../scripts/add-gics'
 
 const prisma = new PrismaClient()
 
 async function seedUsers() {
-  return prisma.user2.createMany({
-    data: [
-      {
-        email: 'hej@klimatkollen.se',
-        name: 'Garbo (Klimatkollen)',
-      },
-      {
-        email: 'alex@klimatkollen.se',
-        name: 'Alex (Klimatkollen)',
-      },
-    ],
-  })
+  const users = [
+    {
+      email: 'hej@klimatkollen.se',
+      name: 'Garbo (Klimatkollen)',
+    },
+    {
+      email: 'alex@klimatkollen.se',
+      name: 'Alex (Klimatkollen)',
+    },
+  ]
+
+  for (const user of users) {
+    await prisma.user2.upsert({
+      where: { email: user.email },
+      create: user,
+      update: user,
+      select: { id: true },
+    })
+  }
 }
 
 async function main() {
