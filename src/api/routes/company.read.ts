@@ -1,15 +1,20 @@
 import express, { Request, Response, NextFunction } from 'express'
 
 import { getGics } from '../../lib/gics'
-import { validateRequestParams } from '../middlewares/zod-middleware'
 import { cache, enableCors } from '../middlewares/middlewares'
-import { wikidataIdParamSchema } from '../schemas'
-import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { prisma } from '../../lib/prisma'
+import apiConfig from '../../config/api'
+
+import { Prisma } from '@prisma/client'
 
 const router = express.Router()
 
 const metadata = {
+  orderBy: {
+    updatedAt: 'desc' as const,
+  },
+  take: 1,
   select: {
     comment: true,
     source: true,
@@ -28,6 +33,10 @@ const metadata = {
 }
 
 const minimalMetadata = {
+  orderBy: {
+    updatedAt: 'desc' as const,
+  },
+  take: 1,
   select: {
     verifiedBy: {
       select: {
@@ -41,42 +50,56 @@ function removeEmptyValues(obj: Record<any, any>) {
   return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
 }
 
-// ## DÖLJ DESSA från API:et
-const HIDDEN_FROM_API = new Set([
-  'Q22629259', // GARO
-  'Q37562781', // GARO
-  'Q489097', // Ernst & Young
-  'Q10432209', // Prisma Properties
-  'Q5168854', // Copperstone Resources AB
-  'Q115167497', // Specialfastigheter
-  'Q549624', // RISE AB
-  'Q34', // Swedish Logistic Property AB,
-
-  // OLD pages:
-
-  'Q8301325', // SJ
-  'Q112055015', // BONESUPPORT
-  'Q97858523', // Almi
-  'Q2438127', // Dynavox
-  'Q117352880', // BioInvent
-  'Q115167497', // Specialfastigheter
-])
-
-const unwantedWikidataIds = Array.from(HIDDEN_FROM_API)
-
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
 
-const origins =
-  process.env.NODE_ENV === 'development'
-    ? ['http://localhost:4321']
-    : ['https://beta.klimatkollen.se', 'https://klimatkollen.se']
+router.use(enableCors(apiConfig.corsAllowOrigins as unknown as string[]))
 
-router.use(enableCors(origins))
+function transformMetadata(data: any): any {
+  if (Array.isArray(data)) {
+    return data.map((item) => transformMetadata(item))
+  } else if (data && typeof data === 'object') {
+    return Object.entries(data).reduce((acc, [key, value]) => {
+      if (key === 'metadata' && Array.isArray(value)) {
+        acc[key] = value[0] || null
+      } else if (value instanceof Date) {
+        // Leave Date fields untouched
+        acc[key] = value
+      } else if (typeof value === 'object' && value !== null) {
+        acc[key] = transformMetadata(value)
+      } else {
+        acc[key] = value
+      }
+      return acc
+    }, {} as Record<string, any>)
+  }
+  return data
+}
 
 // TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
 
+/**
+ * @swagger
+ * /companies:
+ *   get:
+ *     summary: Get all companies
+ *     description: Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives
+ *     tags: [Companies]
+ *     responses:
+ *       200:
+ *         description: List of companies
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CompanyList'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/',
   cache(),
@@ -194,14 +217,14 @@ router.get(
             },
           },
         },
-        where: {
-          wikidataId: {
-            notIn: unwantedWikidataIds,
-          },
-        },
       })
+
+      const transformedCompanies = Array.isArray(companies)
+        ? companies.map((company) => transformMetadata(company))
+        : transformMetadata(companies)
+
       res.json(
-        companies
+        transformedCompanies
           // Calculate total emissions for each scope type
           .map((company) => ({
             ...company,
@@ -227,7 +250,7 @@ router.get(
                         ...removeEmptyValues(reportingPeriod.emissions.scope3),
                         calculatedTotalEmissions:
                           reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata.verifiedBy)
+                            (c) => Boolean(c.metadata?.verifiedBy)
                           )
                             ? reportingPeriod.emissions.scope3.categories.reduce(
                                 (total, category) =>
@@ -241,7 +264,7 @@ router.get(
                       }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata,
               })
             ),
           }))
@@ -293,9 +316,42 @@ router.get(
   }
 )
 
+/**
+ * @swagger
+ * /companies/{wikidataId}:
+ *   get:
+ *     summary: Get a specific company
+ *     description: Retrieve detailed information about a specific company
+ *     tags: [Companies]
+ *     parameters:
+ *       - in: path
+ *         name: wikidataId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Wikidata ID of the company
+ *     responses:
+ *       200:
+ *         description: Company details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CompanyDetails'
+ *       404:
+ *         description: Company not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 router.get(
   '/:wikidataId',
-  validateRequestParams(wikidataIdParamSchema),
   cache(),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -303,11 +359,6 @@ router.get(
       const company = await prisma.company.findFirst({
         where: {
           wikidataId,
-          AND: {
-            wikidataId: {
-              notIn: unwantedWikidataIds,
-            },
-          },
         },
         select: {
           wikidataId: true,
@@ -452,8 +503,9 @@ router.get(
         return next(new GarboAPIError('Company not found', { statusCode: 404 }))
       }
 
+      const transformedCompany = transformMetadata(company)
       res.json(
-        [company]
+        [transformedCompany]
           // Calculate total emissions for each scope type
           .map((company) => ({
             ...company,
@@ -479,7 +531,7 @@ router.get(
                         ...removeEmptyValues(reportingPeriod.emissions.scope3),
                         calculatedTotalEmissions:
                           reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata.verifiedBy)
+                            (c) => Boolean(c.metadata?.verifiedBy)
                           )
                             ? reportingPeriod.emissions.scope3.categories.reduce(
                                 (total, category) =>
@@ -493,7 +545,7 @@ router.get(
                       }) ||
                     undefined,
                 },
-                metadata: reportingPeriod.metadata[0],
+                metadata: reportingPeriod.metadata,
               })
             ),
             // Add translations for GICS data
@@ -546,23 +598,29 @@ router.get(
           .at(0)
       )
     } catch (error) {
-      next(
-        new GarboAPIError('Failed to load company', {
-          original: error,
-          statusCode: 500,
-        })
-      )
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        next(
+          new GarboAPIError('Invalid company data format', {
+            original: error,
+            statusCode: 422,
+          })
+        )
+      } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        next(
+          new GarboAPIError('Database error while loading company', {
+            original: error,
+            statusCode: 500,
+          })
+        )
+      } else {
+        next(
+          new GarboAPIError('Failed to load company', {
+            original: error,
+            statusCode: 500,
+          })
+        )
+      }
     }
-  }
-)
-
-// Error handler middleware
-router.use(
-  (err: GarboAPIError, req: Request, res: Response, next: NextFunction) => {
-    res.status(err.statusCode || 500).json({
-      error: err.message,
-      details: err.original || null,
-    })
   }
 )
 
