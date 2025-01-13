@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import fs from 'fs'
 
+import { resetDB } from '../src/lib/dev-utils'
+
 const prisma = new PrismaClient()
 
 async function migrateData() {
@@ -10,9 +12,14 @@ async function migrateData() {
     })
   )
 
+  const [garbo, alex] = await Promise.all([
+    prisma.user.findFirstOrThrow({ where: { email: 'hej@klimatkollen.se' } }),
+    prisma.user.findFirstOrThrow({ where: { email: 'alex@klimatkollen.se' } }),
+  ])
+
   const userIds = {
-    'Garbo (Klimatkollen)': 1,
-    'Alex (Klimatkollen)': 2,
+    'Garbo (Klimatkollen)': garbo.id,
+    'Alex (Klimatkollen)': alex.id,
   }
 
   const getMetadata = ({
@@ -212,6 +219,8 @@ async function migrateData() {
     }
   }
 }
+
+await resetDB()
 
 migrateData()
   .catch((error) => console.error(error))

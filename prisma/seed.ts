@@ -18,12 +18,8 @@ async function seedUsers() {
   })
 }
 
-async function common() {
-  return Promise.all([seedGicsCodes(), seedUsers()])
-}
-
 async function main() {
-  common()
+  await Promise.all([seedGicsCodes(), seedUsers()])
 }
 
 main()
