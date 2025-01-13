@@ -1203,6 +1203,8 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
 }
 
 export async function seedGicsCodes() {
+  const count = await prisma.industryGics2.count()
+  if (count > 0) return
   await prisma.industryGics2.createMany({ data: gicsCodes })
 }
 
