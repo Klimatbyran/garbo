@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client'
+import { exec } from 'child_process'
 import fs from 'fs'
+import { promisify } from 'util'
 
 const prisma = new PrismaClient()
 
@@ -10,9 +12,14 @@ async function migrateData() {
     })
   )
 
+  const [garbo, alex] = await Promise.all([
+    prisma.user2.findFirstOrThrow({ where: { email: 'hej@klimatkollen.se' } }),
+    prisma.user2.findFirstOrThrow({ where: { email: 'alex@klimatkollen.se' } }),
+  ])
+
   const userIds = {
-    'Garbo (Klimatkollen)': 1,
-    'Alex (Klimatkollen)': 2,
+    'Garbo (Klimatkollen)': garbo.id,
+    'Alex (Klimatkollen)': alex.id,
   }
 
   const getMetadata = ({
@@ -33,12 +40,12 @@ async function migrateData() {
     const { reportingPeriods, industry, goals, initiatives, ...companyData } =
       company
 
-    const createdCompany = await prisma.company.create({
+    const createdCompany = await prisma.company2.create({
       data: { ...companyData },
     })
 
     if (industry) {
-      await prisma.industry.create({
+      await prisma.industry2.create({
         data: {
           gicsSubIndustryCode: industry.industryGics.subIndustryCode,
           companyWikidataId: createdCompany.wikidataId,
@@ -48,7 +55,7 @@ async function migrateData() {
     }
 
     for (const period of reportingPeriods) {
-      const createdPeriod = await prisma.reportingPeriod.create({
+      const createdPeriod = await prisma.reportingPeriod2.create({
         data: {
           startDate: new Date(period.startDate),
           endDate: new Date(period.endDate),
@@ -59,7 +66,7 @@ async function migrateData() {
       })
 
       if (period.economy) {
-        await prisma.economy.create({
+        await prisma.economy2.create({
           data: {
             reportingPeriodId: createdPeriod.id,
             turnover: period.economy.turnover
@@ -87,7 +94,7 @@ async function migrateData() {
       }
 
       if (period.emissions) {
-        await prisma.emissions.create({
+        await prisma.emissions2.create({
           data: {
             reportingPeriodId: createdPeriod.id,
             scope1: period.emissions.scope1
@@ -192,7 +199,7 @@ async function migrateData() {
     }
 
     for (const goal of goals) {
-      await prisma.goal.create({
+      await prisma.goal2.create({
         data: {
           ...goal,
           companyId: createdCompany.wikidataId,
@@ -202,7 +209,7 @@ async function migrateData() {
     }
 
     for (const initiative of initiatives) {
-      await prisma.initiative.create({
+      await prisma.initiative2.create({
         data: {
           ...initiative,
           companyId: createdCompany.wikidataId,
@@ -213,7 +220,14 @@ async function migrateData() {
   }
 }
 
+await promisify(exec)(`npx prisma db seed`, {
+  env: process.env,
+})
+
 migrateData()
+  .then(() => {
+    console.log('Successfully imported all companies!')
+  })
   .catch((error) => console.error(error))
   .finally(async () => {
     await prisma.$disconnect()
