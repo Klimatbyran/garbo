@@ -17,7 +17,7 @@ async function seedUsers() {
   ]
 
   for (const user of users) {
-    await prisma.user2.upsert({
+    await prisma.user.upsert({
       where: { email: user.email },
       create: user,
       update: user,
