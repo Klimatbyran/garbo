@@ -225,6 +225,9 @@ await promisify(exec)(`npx prisma db seed`, {
 })
 
 migrateData()
+  .then(() => {
+    console.log('Successfully imported all companies!')
+  })
   .catch((error) => console.error(error))
   .finally(async () => {
     await prisma.$disconnect()
