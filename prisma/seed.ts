@@ -4,7 +4,7 @@ import { seedGicsCodes } from '../scripts/add-gics'
 const prisma = new PrismaClient()
 
 async function seedUsers() {
-  return prisma.user.createMany({
+  return prisma.user2.createMany({
     data: [
       {
         email: 'hej@klimatkollen.se',
@@ -18,12 +18,8 @@ async function seedUsers() {
   })
 }
 
-async function common() {
-  return Promise.all([seedGicsCodes(), seedUsers()])
-}
-
 async function main() {
-  common()
+  await Promise.all([seedGicsCodes(), seedUsers()])
 }
 
 main()

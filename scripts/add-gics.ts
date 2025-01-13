@@ -1203,7 +1203,7 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
 }
 
 export async function seedGicsCodes() {
-  await prisma.industryGics.createMany({ data: gicsCodes })
+  await prisma.industryGics2.createMany({ data: gicsCodes })
 }
 
 export async function getAllGicsCodesLookup() {

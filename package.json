@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "3.5.16",
+  "version": "3.6.0",
   "description": "",
   "type": "module",
   "exports": {
@@ -19,6 +19,7 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "update-report-url": "node --import=tsx scripts/update-spreadsheet-companies-urls.ts",
+    "clean-migrate": "node --import tsx --env-file .env scripts/migrateDataToNewSchema.ts",
     "test": "jest",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts"
