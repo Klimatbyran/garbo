@@ -18,6 +18,9 @@ const openAPITags = {
     description:
       'Yearly periodised data primarily related to emissions and economy',
   },
+  Emissions: {
+    description: 'Emissions for a specific reporting period',
+  },
   Goals: {
     description: 'Company goals',
   },

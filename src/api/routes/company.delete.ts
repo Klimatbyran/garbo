@@ -143,7 +143,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete stated total emissions',
         description: 'Deletes stated total emissions by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -165,9 +165,9 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     '/biogenic-emissions/:id',
     {
       schema: {
-        summary: 'Delete a biogenic emission',
-        description: 'Deletes a biogenic emission by id',
-        tags: getTags('ReportingPeriods'),
+        summary: 'Delete biogenic emissions',
+        description: 'Deletes biogenic emissions by id',
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -191,7 +191,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete Scope1',
         description: 'Deletes the Scope1 emissions by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -215,7 +215,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete scope1and2',
         description: 'Deletes a scope1and2 by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -239,7 +239,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete scope2',
         description: 'Deletes a scope2 by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -263,7 +263,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete scope3',
         description: 'Deletes a scope3 by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
@@ -287,7 +287,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Delete a scope3 category',
         description: 'Deletes a scope3 category by id',
-        tags: getTags('ReportingPeriods'),
+        tags: getTags('Emissions'),
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
