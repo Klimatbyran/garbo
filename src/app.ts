@@ -67,18 +67,6 @@ async function publicContext(app: FastifyInstance) {
     reply.redirect(openAPIConfig.prefix)
   )
 
-  app.get(
-    '/health-check',
-    {
-      schema: {
-        response: {
-          200: z.object({ ok: z.boolean() }),
-        },
-      },
-    },
-    async () => ({ ok: true })
-  )
-
   app.register(companyReadRoutes, { prefix: 'api/companies' })
 }
 
