@@ -13,7 +13,7 @@ import {
   garboEntitySchema,
   emptyBodySchema,
 } from '../schemas'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {

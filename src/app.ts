@@ -9,7 +9,6 @@ import fastifySwagger from '@fastify/swagger'
 import scalarPlugin from '@scalar/fastify-api-reference'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import { z } from 'zod'
 
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'

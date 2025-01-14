@@ -6,7 +6,7 @@ import {
   getErrorResponseSchemas,
   okResponseSchema,
 } from '../schemas'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../types'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {

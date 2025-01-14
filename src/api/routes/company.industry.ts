@@ -5,7 +5,7 @@ import { GarboAPIError } from '../../lib/garbo-api-error'
 import { industryService } from '../services/industryService'
 import { postIndustrySchema } from '../schemas'
 import { metadataService } from '../services/metadataService'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 import {
   wikidataIdParamSchema,
   okResponseSchema,

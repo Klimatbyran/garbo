@@ -2,7 +2,7 @@ import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
 
 import { GarboAPIError } from '../../lib/garbo-api-error'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 import { metadataService } from '../services/metadataService'
 import {
   wikidataIdParamSchema,

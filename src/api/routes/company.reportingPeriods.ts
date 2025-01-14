@@ -10,7 +10,7 @@ import {
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
 } from '../schemas'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
 import { metadataService } from '../services/metadataService'
 

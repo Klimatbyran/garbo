@@ -18,7 +18,7 @@ import {
   WikidataIdParams,
 } from '../types'
 import { metadataService } from '../services/metadataService'
-import { getTags } from '../../openapi/utils'
+import { getTags } from '../../config/openapi'
 
 export async function companyGoalsRoutes(app: FastifyInstance) {
   app.post(

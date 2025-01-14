@@ -5,10 +5,13 @@ import { getGics } from '../../lib/gics'
 // import { cache, enableCors } from '../middlewares/middlewares'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
-
-import { CompanyDetails, CompanyList } from '../../openapi/schemas'
-import { getTags } from '../../openapi/utils'
-import { getErrorResponseSchemas, wikidataIdParamSchema } from '../schemas'
+import { getTags } from '../../config/openapi'
+import {
+  getErrorResponseSchemas,
+  wikidataIdParamSchema,
+  CompanyList,
+  CompanyDetails,
+} from '../schemas'
 import { WikidataIdParams } from '../types'
 
 const metadata = {
