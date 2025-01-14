@@ -1,147 +1,112 @@
-import express from 'express'
-import { z } from 'zod'
-import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
+
 import { GarboAPIError } from '../../lib/garbo-api-error'
-import { processRequest } from '../middlewares/zod-middleware'
-import { postInitiativeSchema, postInitiativesSchema } from '../schemas'
+import { getTags } from '../../openapi/utils'
+import { metadataService } from '../services/metadataService'
+import {
+  wikidataIdParamSchema,
+  okResponseSchema,
+  getErrorResponseSchemas,
+  postInitiativeSchema,
+  postInitiativesSchema,
+  garboEntitySchema,
+} from '../schemas'
 import { initiativeService } from '../services/initiativeService'
+import {
+  WikidataIdParams,
+  PostInitiativeBody,
+  PostInitiativesBody,
+  GarboEntityId,
+} from '../types'
 
-const router = express.Router()
+export async function companyInitiativesRoutes(app: FastifyInstance) {
+  app.post(
+    '/:wikidataId/initiatives',
+    {
+      schema: {
+        summary: 'Create company initiatives',
+        description: 'Create new initiatives for a company',
+        tags: getTags('Initiatives'),
+        params: wikidataIdParamSchema,
+        body: postInitiativesSchema,
+        response: {
+          200: okResponseSchema,
+          ...getErrorResponseSchemas(404),
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: WikidataIdParams
+        Body: PostInitiativesBody
+      }>,
+      reply
+    ) => {
+      const { initiatives, metadata } = request.body
 
-/**
- * @swagger
- * /companies/{wikidataId}/initiatives:
- *   post:
- *     summary: Create company initiatives
- *     description: Create new initiatives for a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Initiatives'
- *     responses:
- *       200:
- *         description: Initiatives created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Company not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.post(
-  '/:wikidataId/initiatives',
-  processRequest({
-    body: postInitiativesSchema,
-    params: wikidataIdParamSchema,
-  }),
-  async (req, res) => {
-    const { initiatives } = req.body
+      if (initiatives?.length) {
+        const { wikidataId } = request.params
 
-    if (initiatives?.length) {
-      const { wikidataId } = req.params
-      const metadata = res.locals.metadata
+        const createdMetadata = await metadataService.createMetadata({
+          metadata,
+          user: request.user,
+        })
 
-      await initiativeService.createInitiatives(
-        wikidataId,
-        initiatives,
-        metadata!
-      )
+        await initiativeService.createInitiatives(
+          wikidataId,
+          initiatives,
+          createdMetadata
+        )
+      }
+      reply.send({ ok: true })
     }
-    res.json({ ok: true })
-  }
-)
+  )
 
-/**
- * @swagger
- * /companies/{wikidataId}/initiatives/{id}:
- *   patch:
- *     summary: Update a company initiative
- *     description: Update an existing initiative for a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: Initiative ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Initiative'
- *     responses:
- *       200:
- *         description: Initiative updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Initiative not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.patch(
-  '/:wikidataId/initiatives/:id',
-  processRequest({
-    body: postInitiativeSchema,
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { initiative } = req.body
-    const { id } = req.params
-    const metadata = res.locals.metadata
-    await initiativeService
-      .updateInitiative(id, initiative, metadata!)
-      .catch((error) => {
-        if (
-          error instanceof Prisma.PrismaClientKnownRequestError &&
-          error.code === 'P2025'
-        ) {
-          throw new GarboAPIError('Initiative not found', {
-            statusCode: 404,
-            original: error,
-          })
-        }
-        throw error
+  app.patch(
+    '/:wikidataId/initiatives/:id',
+    {
+      schema: {
+        summary: 'Update a company initiative',
+        description: 'Update an existing initiative for a company',
+        tags: getTags('Initiatives'),
+        params: garboEntitySchema,
+        body: postInitiativeSchema,
+        response: {
+          200: okResponseSchema,
+          ...getErrorResponseSchemas(404),
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: GarboEntityId
+        Body: PostInitiativeBody
+      }>,
+      reply
+    ) => {
+      const { id } = request.params
+      const { initiative, metadata } = request.body
+      const createdMetadata = await metadataService.createMetadata({
+        metadata,
+        user: request.user,
       })
-    res.json({ ok: true })
-  }
-)
+      await initiativeService
+        .updateInitiative(id, initiative, createdMetadata)
+        .catch((error) => {
+          if (
+            error instanceof Prisma.PrismaClientKnownRequestError &&
+            error.code === 'P2025'
+          ) {
+            throw new GarboAPIError('Initiative not found', {
+              statusCode: 404,
+              original: error,
+            })
+          }
+          throw error
+        })
 
-export default router
+      reply.send({ ok: true })
+    }
+  )
+}

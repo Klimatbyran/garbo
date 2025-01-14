@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
 
@@ -10,6 +9,7 @@ import {
   postGoalSchema,
   postGoalsSchema,
   okResponseSchema,
+  garboEntitySchema,
 } from '../schemas'
 import {
   PostGoalsBody,
@@ -66,7 +66,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         summary: 'Update company goal',
         description: 'Update a goal for a company',
         tags: getTags('Goals'),
-        params: z.object({ id: z.coerce.number() }),
+        params: garboEntitySchema,
         body: postGoalSchema,
         response: {
           200: okResponseSchema,

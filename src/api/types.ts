@@ -57,5 +57,7 @@ export type PostGoalBody = z.infer<typeof schemas.postGoalSchema>
 export type PostGoalsBody = z.infer<typeof schemas.postGoalsSchema>
 
 export type PostIndustryBody = z.infer<typeof schemas.postIndustrySchema>
+export type PostInitiativeBody = z.infer<typeof schemas.postInitiativeSchema>
+export type PostInitiativesBody = z.infer<typeof schemas.postInitiativesSchema>
 
 export type GarboEntityId = z.infer<typeof schemas.garboEntitySchema>

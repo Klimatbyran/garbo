@@ -78,10 +78,15 @@ export const initiativeSchema = z.object({
   scope: z.string().optional(),
 })
 
-export const postInitiativeSchema = z.object({ initiative: initiativeSchema })
-export const postInitiativesSchema = z.object({
-  initiatives: z.array(initiativeSchema),
-})
+export const postInitiativeSchema = z
+  .object({ initiative: initiativeSchema })
+  .merge(createMetadataSchema)
+
+export const postInitiativesSchema = z
+  .object({
+    initiatives: z.array(initiativeSchema),
+  })
+  .merge(createMetadataSchema)
 
 export const industrySchema = z.object({
   subIndustryCode: z.string(),
