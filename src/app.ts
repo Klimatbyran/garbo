@@ -20,6 +20,7 @@ import { companyInitiativesRoutes } from './api/routes/company.initiatives'
 import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
+import { errorHandler } from './api/plugins/errorhandler'
 
 async function startApp() {
   const app = Fastify({
@@ -28,6 +29,8 @@ async function startApp() {
 
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
+
+  app.setErrorHandler(errorHandler)
 
   app.register(fastifySwagger, {
     prefix: openAPIConfig.prefix,
