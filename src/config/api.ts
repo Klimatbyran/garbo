@@ -18,7 +18,7 @@ const envSchema = z.object({
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
-  NODE_ENV: z.enum(['development', 'production']).default('production'),
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
 })
 
 const env = envSchema.parse(process.env)

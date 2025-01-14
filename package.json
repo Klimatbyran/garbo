@@ -20,7 +20,9 @@
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "update-report-url": "node --import=tsx scripts/update-spreadsheet-companies-urls.ts",
     "clean-migrate": "node --import tsx scripts/migrateDataToNewSchema.ts",
-    "test": "echo 'No test command specified'",
+    "test": "source scripts/setup-tests.sh && DEBUG=testcontainers* vitest",
+    "test2": "source scripts/setup-tests.sh && vitest",
+    "test3": "DEBUG=testcontainers* DOCKER_HOST=unix://${XDG_RUNTIME_DIR}/podman/podman.sock vitest",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts"
   },
@@ -53,13 +55,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@testcontainers/postgresql": "^10.16.0",
     "@types/node": "^22.10.6",
     "concurrently": "^9.1.2",
     "deepl-node": "^1.15.0",
     "exceljs": "^4.4.0",
     "pino-pretty": "^13.0.0",
     "prisma": "^5.22.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
   },
   "overrides": {
     "uuid": "^9.0.1"
