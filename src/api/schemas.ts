@@ -184,9 +184,11 @@ export const reportingPeriodSchema = z
     message: 'startDate must be earlier than endDate',
   })
 
-export const postReportingPeriodsSchema = z.object({
-  reportingPeriods: z.array(reportingPeriodSchema),
-})
+export const postReportingPeriodsSchema = z
+  .object({
+    reportingPeriods: z.array(reportingPeriodSchema),
+  })
+  .merge(createMetadataSchema)
 
 export const errorMessageSchema = z.object({ message: z.string() })
 
