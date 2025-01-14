@@ -2,7 +2,6 @@ import { FastifyInstance, FastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
 
 import { getGics } from '../../lib/gics'
-// import { cache, enableCors } from '../middlewares/middlewares'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
@@ -13,6 +12,7 @@ import {
   CompanyDetails,
 } from '../schemas'
 import { WikidataIdParams } from '../types'
+import { cachePlugin } from '../plugins/cache'
 
 const metadata = {
   orderBy: {
@@ -57,9 +57,6 @@ function removeEmptyValues(obj: Record<any, any>) {
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
-
-// TODO: re-enable cors using @fastify/cors
-// router.use(enableCors(apiConfig.corsAllowOrigins as unknown as string[]))
 
 function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
@@ -161,6 +158,8 @@ function addCalculatedTotalEmissions(companies: any[]) {
 }
 
 export async function companyReadRoutes(app: FastifyInstance) {
+  app.register(cachePlugin)
+
   app.get(
     '/',
     {
