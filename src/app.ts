@@ -55,7 +55,9 @@ async function startApp() {
     routePrefix: `/${openAPIConfig.prefix}`,
     logLevel: 'silent',
     configuration: {
-      title: openAPIConfig.title,
+      metaData: {
+        title: openAPIConfig.title,
+      },
     },
   })
 
