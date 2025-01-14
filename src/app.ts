@@ -28,7 +28,7 @@ async function startApp() {
   // app.register(sessionPlugin)
 
   app.register(fastifySwagger, {
-    prefix: openAPIConfig.openAPIPrefix,
+    prefix: openAPIConfig.prefix,
     openapi: {
       openapi: '3.1.1',
       info: {
@@ -37,13 +37,13 @@ async function startApp() {
         version: JSON.parse(readFileSync(resolve('package.json'), 'utf-8'))
           .version,
       },
-      tags: Object.values(openAPIConfig.openAPITags),
+      tags: Object.values(openAPIConfig.tags),
     },
     transform: jsonSchemaTransform,
   })
 
   app.register(scalarPlugin, {
-    routePrefix: `/${openAPIConfig.openAPIPrefix}`,
+    routePrefix: `/${openAPIConfig.prefix}`,
     logLevel: 'silent',
     configuration: {
       title: 'Klimatkollen API Reference',
@@ -60,6 +60,8 @@ async function startApp() {
  * This context wraps all logic that should be public.
  */
 async function publicContext(app: FastifyInstance) {
+  app.get('/', (request, reply) => reply.redirect(openAPIConfig.prefix))
+
   app.get(
     '/health-check',
     {
@@ -72,7 +74,7 @@ async function publicContext(app: FastifyInstance) {
     async () => ({ ok: true })
   )
 
-  app.register(companyReadRoutes)
+  app.register(companyReadRoutes, { prefix: 'api/companies' })
 }
 
 /**

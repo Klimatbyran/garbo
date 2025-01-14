@@ -12,7 +12,7 @@ async function main() {
     })
 
     app.log.info(
-      `OpenAPI docs served at http://localhost:${apiConfig.port}/${openAPIConfig.openAPIPrefix}`
+      `OpenAPI docs served at http://localhost:${apiConfig.port}/${openAPIConfig.prefix}`
     )
   } catch (e) {
     app.log.error(e)
