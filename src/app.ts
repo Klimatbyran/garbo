@@ -13,6 +13,7 @@ import { z } from 'zod'
 
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
+import { companyReadRoutes } from './api/routes/company.read'
 
 // import { sessionPlugin, authenticationRequiredPlugin } from './lib/auth'
 
@@ -70,6 +71,8 @@ async function publicContext(app: FastifyInstance) {
     },
     async () => ({ ok: true })
   )
+
+  app.register(companyReadRoutes)
 }
 
 /**

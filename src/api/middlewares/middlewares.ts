@@ -4,11 +4,6 @@ import cors, { CorsOptionsDelegate } from 'cors'
 
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import apiConfig from '../../config/api'
-import {
-  DefaultEconomyArgs,
-  DefaultEmissions,
-  DefaultReportingPeriod,
-} from '../types'
 import { metadataRequestBody } from '../schemas'
 import { validateRequestBody } from './zod-middleware'
 

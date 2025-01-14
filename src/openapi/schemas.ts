@@ -25,7 +25,7 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  updatedAt: z
+  updatedAt: z.coerce
     .string()
     .datetime()
     .openapi({ description: 'Last update timestamp' }),
@@ -255,14 +255,14 @@ const CompanyBase = CompanyInputSchema.extend({
   // TODO: This schema should not include industry translation strings
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
-  goals: z.array(GoalSchema).nullable(),
-  initiatives: z.array(InitiativeSchema).nullable(),
 })
 
 // Complete company schema
 export const CompanyList = z.array(CompanyBase)
 
 export const CompanyDetails = CompanyBase.extend({
+  goals: z.array(GoalSchema).nullable(),
+  initiatives: z.array(InitiativeSchema).nullable(),
   // TODO: This schema should use the full details for metadata
   // TODO: add reportingPeriods[number].emissions.calculatedTotalEmissions
   // TODO: add reportingPeriods[number].emissions.scope2.calculatedTotalEmissions
