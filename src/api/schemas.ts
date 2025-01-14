@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
+export type WikidataIdParams = z.infer<typeof wikidataIdParamSchema>
 
 /**
  * This allows reporting periods like 2022-2023
