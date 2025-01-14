@@ -20,6 +20,7 @@ import { companyIndustryRoutes } from './api/routes/company.industry'
 import { companyInitiativesRoutes } from './api/routes/company.initiatives'
 import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/company.update'
+import { companyDeleteRoutes } from './api/routes/company.delete'
 
 async function startApp() {
   const app = Fastify({
@@ -92,6 +93,8 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
+
+  app.register(companyDeleteRoutes, { prefix: 'api/companies' })
 }
 
 export default startApp

@@ -207,3 +207,4 @@ export function getErrorResponseSchemas(...statusCodes: number[]) {
 }
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
+export const emptyBodySchema = z.undefined()
