@@ -87,7 +87,9 @@ export const industrySchema = z.object({
   subIndustryCode: z.string(),
 })
 
-export const postIndustrySchema = z.object({ industry: industrySchema })
+export const postIndustrySchema = z
+  .object({ industry: industrySchema })
+  .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
   .object({ total: z.number() })

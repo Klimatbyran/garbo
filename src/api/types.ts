@@ -56,4 +56,6 @@ export type DefaultReportingPeriod = Prisma.ReportingPeriodGetPayload<
 export type PostGoalBody = z.infer<typeof schemas.postGoalSchema>
 export type PostGoalsBody = z.infer<typeof schemas.postGoalsSchema>
 
+export type PostIndustryBody = z.infer<typeof schemas.postIndustrySchema>
+
 export type GarboEntityId = z.infer<typeof schemas.garboEntitySchema>

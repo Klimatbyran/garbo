@@ -11,8 +11,14 @@ const openAPITags = {
   Companies: {
     description: 'Companies and related resources',
   },
+  Industry: {
+    description: 'Company industry',
+  },
   Goals: {
     description: 'Company goals',
+  },
+  Industry: {
+    description: 'Company industry',
   },
 } as const
 

@@ -16,6 +16,7 @@ import openAPIConfig from './config/openapi'
 import { companyReadRoutes } from './api/routes/company.read'
 import { companyGoalsRoutes } from './api/routes/company.goals'
 import authPlugin from './api/plugins/auth'
+import { companyIndustryRoutes } from './api/routes/company.industry'
 
 async function startApp() {
   const app = Fastify({
@@ -84,6 +85,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(authPlugin)
 
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
+  app.register(companyIndustryRoutes, { prefix: 'api/companies' })
 }
 
 export default startApp
