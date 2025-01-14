@@ -7,6 +7,8 @@ import {
   jsonSchemaTransform,
 } from 'fastify-type-provider-zod'
 import fastifySwagger from '@fastify/swagger'
+import fastifyStatic from '@fastify/static'
+
 import scalarPlugin from '@scalar/fastify-api-reference'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
@@ -74,6 +76,14 @@ async function publicContext(app: FastifyInstance) {
   app.get('/', { schema: { hide: true } }, (request, reply) =>
     reply.redirect(openAPIConfig.prefix)
   )
+
+  app.register(fastifyStatic, {
+    root: resolve('public'),
+  })
+
+  app.get('/favicon.ico', async (request, reply) => {
+    return reply.sendFile('favicon.ico')
+  })
 
   app.register(companyReadRoutes, { prefix: 'api/companies' })
 }
