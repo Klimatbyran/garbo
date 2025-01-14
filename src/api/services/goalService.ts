@@ -1,12 +1,12 @@
 import { Company, Goal, Metadata, Prisma } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-import { DefaultGoal } from '../types'
+import { PostGoalBody, PostGoalsBody } from '../types'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class GoalService {
   async createGoals(
     wikidataId: Company['wikidataId'],
-    goals: DefaultGoal[],
+    goals: PostGoalsBody['goals'],
     metadata: Metadata
   ) {
     return prisma.$transaction(
@@ -32,7 +32,7 @@ class GoalService {
     )
   }
 
-  async updateGoal(id: Goal['id'], goal: DefaultGoal, metadata: Metadata) {
+  async updateGoal(id: Goal['id'], goal: PostGoalBody, metadata: Metadata) {
     return prisma.goal.update({
       where: { id },
       data: {

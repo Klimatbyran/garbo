@@ -11,6 +11,9 @@ const openAPITags = {
   Companies: {
     description: 'Companies and related resources',
   },
+  Goals: {
+    description: 'Company goals',
+  },
 } as const
 
 type TagName = keyof typeof openAPITags

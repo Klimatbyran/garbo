@@ -14,8 +14,8 @@ import { z } from 'zod'
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { companyReadRoutes } from './api/routes/company.read'
-
-// import { sessionPlugin, authenticationRequiredPlugin } from './lib/auth'
+import { companyGoalsRoutes } from './api/routes/company.goals'
+import authPlugin from './api/plugins/auth'
 
 async function startApp() {
   const app = Fastify({
@@ -24,8 +24,6 @@ async function startApp() {
 
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
-
-  // app.register(sessionPlugin)
 
   app.register(fastifySwagger, {
     prefix: openAPIConfig.prefix,
@@ -60,7 +58,9 @@ async function startApp() {
  * This context wraps all logic that should be public.
  */
 async function publicContext(app: FastifyInstance) {
-  app.get('/', (request, reply) => reply.redirect(openAPIConfig.prefix))
+  app.get('/', { schema: { hide: true } }, (request, reply) =>
+    reply.redirect(openAPIConfig.prefix)
+  )
 
   app.get(
     '/health-check',
@@ -81,8 +81,9 @@ async function publicContext(app: FastifyInstance) {
  * This context wraps all logic that requires authentication.
  */
 async function authenticatedContext(app: FastifyInstance) {
-  // app.register(authenticationRequiredPlugin)
-  // TODO: POST and delete routes
+  app.register(authPlugin)
+
+  app.register(companyGoalsRoutes, { prefix: 'api/companies' })
 }
 
 export default startApp

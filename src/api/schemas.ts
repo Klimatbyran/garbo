@@ -3,7 +3,8 @@ import { z } from 'zod'
 export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
-export type WikidataIdParams = z.infer<typeof wikidataIdParamSchema>
+
+export const garboEntitySchema = z.object({ id: z.coerce.number() })
 
 /**
  * This allows reporting periods like 2022-2023
@@ -11,6 +12,15 @@ export type WikidataIdParams = z.infer<typeof wikidataIdParamSchema>
 export const yearSchema = z.string().regex(/\d{4}(?:-\d{4})?/)
 
 export const yearParamSchema = z.object({ year: yearSchema })
+
+const createMetadataSchema = z.object({
+  metadata: z
+    .object({
+      source: z.string().optional(),
+      comment: z.string().optional(),
+    })
+    .optional(),
+})
 
 export const upsertCompanyBodySchema = z.object({
   wikidataId: wikidataIdSchema,
@@ -49,13 +59,17 @@ export const goalSchema = z.object({
   baseYear: z.string().optional(),
 })
 
-export const postGoalSchema = z.object({
-  goal: goalSchema,
-})
+export const postGoalSchema = z
+  .object({
+    goal: goalSchema,
+  })
+  .merge(createMetadataSchema)
 
-export const postGoalsSchema = z.object({
-  goals: z.array(goalSchema),
-})
+export const postGoalsSchema = z
+  .object({
+    goals: z.array(goalSchema),
+  })
+  .merge(createMetadataSchema)
 
 export const initiativeSchema = z.object({
   title: z.string(),
@@ -166,3 +180,17 @@ export const reportingPeriodSchema = z
 export const postReportingPeriodsSchema = z.object({
   reportingPeriods: z.array(reportingPeriodSchema),
 })
+
+export const errorMessageSchema = z.object({ message: z.string() })
+
+/**
+ * Get common error responses for a list of HTTP status codes.
+ */
+export function getErrorResponseSchemas(...statusCodes: number[]) {
+  return statusCodes.reduce((acc, status) => {
+    acc[status] = errorMessageSchema
+    return acc
+  }, {} as Record<number, z.ZodType>)
+}
+
+export const okResponseSchema = z.object({ ok: z.boolean() })

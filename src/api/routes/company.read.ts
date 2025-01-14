@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { z } from 'zod'
 import { Prisma } from '@prisma/client'
 
 import { getGics } from '../../lib/gics'
@@ -9,7 +8,8 @@ import { prisma } from '../../lib/prisma'
 
 import { CompanyDetails, CompanyList } from '../../openapi/schemas'
 import { getTags } from '../../openapi/utils'
-import { WikidataIdParams, wikidataIdParamSchema } from '../schemas'
+import { getErrorResponseSchemas, wikidataIdParamSchema } from '../schemas'
+import { WikidataIdParams } from '../types'
 
 const metadata = {
   orderBy: {
@@ -77,18 +77,6 @@ function transformMetadata(data: any): any {
     }, {} as Record<string, any>)
   }
   return data
-}
-
-export const errorMessageSchema = z.object({ message: z.string() })
-
-/**
- * Get common error responses for a list of HTTP status codes.
- */
-export function getErrorResponseSchemas(...statusCodes: number[]) {
-  return statusCodes.reduce((acc, status) => {
-    acc[status] = errorMessageSchema
-    return acc
-  }, {} as Record<number, z.ZodType>)
 }
 
 function addCalculatedTotalEmissions(companies: any[]) {
