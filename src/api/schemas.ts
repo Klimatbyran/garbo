@@ -31,6 +31,10 @@ export const upsertCompanyBodySchema = z.object({
   tags: z.array(z.string()).optional(),
 })
 
+export const postCompanyBodySchema = z.object({
+  company: upsertCompanyBodySchema,
+})
+
 export const metadataRequestBody = z
   .object({
     metadata: z

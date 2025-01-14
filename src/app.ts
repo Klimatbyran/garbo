@@ -17,6 +17,9 @@ import { companyReadRoutes } from './api/routes/company.read'
 import { companyGoalsRoutes } from './api/routes/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/company.industry'
+import { companyInitiativesRoutes } from './api/routes/company.initiatives'
+import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
+import { companyUpdateRoutes } from './api/routes/company.update'
 
 async function startApp() {
   const app = Fastify({
@@ -84,8 +87,11 @@ async function publicContext(app: FastifyInstance) {
 async function authenticatedContext(app: FastifyInstance) {
   app.register(authPlugin)
 
-  app.register(companyGoalsRoutes, { prefix: 'api/companies' })
+  app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
+  app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })
+  app.register(companyGoalsRoutes, { prefix: 'api/companies' })
+  app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 }
 
 export default startApp
