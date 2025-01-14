@@ -81,9 +81,13 @@ async function publicContext(app: FastifyInstance) {
     root: resolve('public'),
   })
 
-  app.get('/favicon.ico', async (request, reply) => {
-    return reply.sendFile('favicon.ico')
-  })
+  app.get(
+    '/favicon.ico',
+    { schema: { hide: true } },
+    async (request, reply) => {
+      return reply.sendFile('favicon.ico')
+    }
+  )
 
   app.register(companyReadRoutes, { prefix: 'api/companies' })
 }
