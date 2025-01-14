@@ -35,8 +35,8 @@ async function startApp() {
     openapi: {
       openapi: '3.1.1',
       info: {
-        title: 'Klimatkollen API Reference',
-        description: 'OpenAPI docs',
+        title: openAPIConfig.title,
+        description: openAPIConfig.description,
         version: JSON.parse(readFileSync(resolve('package.json'), 'utf-8'))
           .version,
       },
@@ -49,7 +49,7 @@ async function startApp() {
     routePrefix: `/${openAPIConfig.prefix}`,
     logLevel: 'silent',
     configuration: {
-      title: 'Klimatkollen API Reference',
+      title: openAPIConfig.title,
     },
   })
 

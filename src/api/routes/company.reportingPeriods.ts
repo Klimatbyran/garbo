@@ -21,7 +21,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Create or update reporting periods',
         description:
-          'Create or update reporting periods for a specific company',
+          'Create or update reporting periods for a specific company. This is used to update emissions and economy data.',
         tags: getTags('ReportingPeriods'),
         params: wikidataIdParamSchema,
         body: postReportingPeriodsSchema,
