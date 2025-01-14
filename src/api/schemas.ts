@@ -38,17 +38,6 @@ export const postCompanyBodySchema = z.object({
   company: upsertCompanyBodySchema,
 })
 
-export const metadataRequestBody = z
-  .object({
-    metadata: z
-      .object({
-        comment: z.string().optional(),
-        source: z.string().optional(),
-      })
-      .optional(),
-  })
-  .optional()
-
 export const reportingPeriodBodySchema = z
   .object({
     startDate: z.coerce.date(),

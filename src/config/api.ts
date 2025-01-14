@@ -57,6 +57,8 @@ export default {
   port: env.PORT,
   jobDelay: ONE_DAY,
 
+  bullBoardBasePath: '/admin/queues',
+
   logger: (env.NODE_ENV === 'development' && process.stdout.isTTY
     ? {
         level: 'trace',

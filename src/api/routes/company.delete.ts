@@ -1,7 +1,6 @@
 import { AuthenticatedFastifyRequest, FastifyInstance } from 'fastify'
 
 import { companyService } from '../services/companyService'
-import { processRequest } from '../middlewares/zod-middleware'
 import { goalService } from '../services/goalService'
 import { industryService } from '../services/industryService'
 import { initiativeService } from '../services/initiativeService'
