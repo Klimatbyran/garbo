@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { Metadata, User } from '@prisma/client'
-import cors, { CorsOptionsDelegate } from 'cors'
 
 import apiConfig from '../../config/api'
 
@@ -19,17 +18,3 @@ export const cache = () => {
     next()
   }
 }
-
-const getCorsOptionsBasedOnOrigin =
-  (allowedOrigins: string[]): CorsOptionsDelegate =>
-  (req: Request, callback) => {
-    const origin = req.header('Origin')
-    const corsOptions =
-      origin && allowedOrigins.includes(origin)
-        ? { origin: true }
-        : { origin: false }
-    callback(null, corsOptions)
-  }
-
-export const enableCors = (allowedOrigins: string[]) =>
-  cors(getCorsOptionsBasedOnOrigin(allowedOrigins))

@@ -1,4 +1,5 @@
 import Fastify, { type FastifyInstance } from 'fastify'
+import cors from '@fastify/cors'
 import {
   serializerCompiler,
   validatorCompiler,
@@ -31,6 +32,9 @@ async function startApp() {
   app.setSerializerCompiler(serializerCompiler)
 
   app.setErrorHandler(errorHandler)
+  app.register(cors, {
+    origin: apiConfig.corsAllowOrigins as unknown as string[],
+  })
 
   app.register(fastifySwagger, {
     prefix: openAPIConfig.prefix,
