@@ -171,13 +171,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
         response: {
           200: CompanyList,
-          ...getErrorResponseSchemas(500),
+          // ...getErrorResponseSchemas(500),
         },
       },
     },
     async (request, reply) => {
       try {
         const companies = await prisma.company.findMany({
+          take: 1,
           select: {
             wikidataId: true,
             name: true,
@@ -269,7 +270,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
                     },
                   },
                 },
-                metadata: minimalMetadata,
               },
               orderBy: {
                 startDate: 'desc',
@@ -291,9 +291,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
           },
         })
 
-        const transformedCompanies = companies.map(transformMetadata)
+        const transformedCompanies = addCalculatedTotalEmissions(
+          companies.map(transformMetadata)
+        )
 
-        reply.send(addCalculatedTotalEmissions(transformedCompanies))
+        // console.dir(transformedCompanies.at(0), { colors: true, depth: 8 })
+        // process.exit(0)
+
+        reply.send(transformedCompanies)
       } catch (error) {
         throw new GarboAPIError('Failed to load companies', {
           original: error,

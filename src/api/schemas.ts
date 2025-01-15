@@ -1,5 +1,6 @@
-import { z } from 'zod'
+import { z, ZodObject, ZodType, ZodTypeAny } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
+import { ZodRawShape } from 'zod'
 
 extendZodWithOpenApi(z)
 
@@ -201,7 +202,6 @@ export function getErrorResponseSchemas(...statusCodes: number[]) {
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const emptyBodySchema = z.undefined()
 
-// Metadata schema
 export const MetadataSchema = z.object({
   comment: z
     .string()
@@ -226,7 +226,8 @@ export const MetadataSchema = z.object({
     .nullable(),
 })
 
-// Error schema
+export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
+
 export const ErrorSchema = z.object({
   error: z.string().openapi({ description: 'Error message' }),
   details: z
@@ -235,25 +236,15 @@ export const ErrorSchema = z.object({
     .openapi({ description: 'Additional error details' }),
 })
 
-// Company schema
-export const CompanyInputSchema = z.object({
-  wikidataId: z
-    .string()
-    .regex(/Q\d+/)
-    .openapi({ description: 'Wikidata ID of the company' }),
-  name: z.string().openapi({ description: 'Company name' }),
+const CompanyBaseSchema = z.object({
+  wikidataId: wikidataIdSchema,
+  name: z.string(),
   description: z
     .string()
     .nullable()
     .openapi({ description: 'Company description' }),
-  url: z
-    .string()
-    .url()
-    .nullable()
-    .openapi({ description: 'Company website URL' }),
 })
 
-// Base schemas
 export const StatedTotalEmissionsSchema = z.object({
   total: z.number().openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
@@ -266,34 +257,36 @@ export const BiogenicSchema = z.object({
   metadata: MetadataSchema,
 })
 
-// Scope-specific schemas
 export const Scope1Schema = z.object({
   total: z.number().openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
-export const Scope2Schema = z
-  .object({
-    mb: z
-      .number()
-      .nullable()
-      .openapi({ description: 'Market-based scope 2 emissions' }),
-    lb: z
-      .number()
-      .nullable()
-      .openapi({ description: 'Location-based scope 2 emissions' }),
-    unknown: z
-      .number()
-      .nullable()
-      .openapi({ description: 'Unspecified scope 2 emissions' }),
-    unit: z.string().openapi({ description: 'Unit of measurement' }),
-    metadata: MetadataSchema,
-    calculatedTotalEmissions: z
-      .number()
-      .openapi({ description: 'Calculated total scope 2 emissions' }),
-  })
-  .refine(
+export const Scope2BaseSchema = z.object({
+  mb: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Market-based scope 2 emissions' }),
+  lb: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Location-based scope 2 emissions' }),
+  unknown: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Unspecified scope 2 emissions' }),
+  unit: z.string().openapi({ description: 'Unit of measurement' }),
+  metadata: MetadataSchema,
+  calculatedTotalEmissions: z
+    .number()
+    .openapi({ description: 'Calculated total scope 2 emissions' }),
+})
+
+const withScope2Refinement = <T extends z.ZodRawShape>(
+  schema: z.ZodObject<T>
+) =>
+  schema.refine(
     ({ mb, lb, unknown }) =>
       mb !== undefined || lb !== undefined || unknown !== undefined,
     {
@@ -301,6 +294,8 @@ export const Scope2Schema = z
         'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
     }
   )
+
+export const Scope2Schema = withScope2Refinement(Scope2BaseSchema)
 
 export const Scope3CategorySchema = z.object({
   category: z
@@ -317,15 +312,14 @@ export const Scope3CategorySchema = z.object({
 })
 
 export const Scope3Schema = z.object({
-  categories: z.array(Scope3CategorySchema).nullable(),
+  categories: z.array(Scope3CategorySchema),
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
-  metadata: MetadataSchema,
   calculatedTotalEmissions: z
     .number()
     .openapi({ description: 'Calculated total scope 3 emissions' }),
+  metadata: MetadataSchema,
 })
 
-// Combined emissions schema
 export const EmissionsSchema = z.object({
   scope1: Scope1Schema.nullable(),
   scope2: Scope2Schema.nullable(),
@@ -337,30 +331,23 @@ export const EmissionsSchema = z.object({
     .openapi({ description: 'Total calculated emissions across all scopes' }),
 })
 
-// Economy schemas
 export const TurnoverSchema = z.object({
   value: z.number().nullable().openapi({ description: 'Turnover value' }),
   currency: z.string().nullable().openapi({ description: 'Currency code' }),
   metadata: MetadataSchema,
 })
 
-export const EmployeesSchema = z
-  .object({
-    value: z
-      .number()
-      .nullable()
-      .openapi({ description: 'Number of employees' }),
-    unit: z.string().nullable().openapi({ description: 'Unit of measurement' }),
-    metadata: MetadataSchema,
-  })
-  .nullable()
+export const EmployeesSchema = z.object({
+  value: z.number().nullable().openapi({ description: 'Number of employees' }),
+  unit: z.string().nullable().openapi({ description: 'Unit of measurement' }),
+  metadata: MetadataSchema,
+})
 
 export const EconomySchema = z.object({
   turnover: TurnoverSchema.nullable(),
   employees: EmployeesSchema.nullable(),
 })
 
-// Industry schemas
 export const IndustryGicsSchema = z.object({
   sectorCode: z.string().openapi({ description: 'GICS sector code' }),
   groupCode: z.string().openapi({ description: 'GICS group code' }),
@@ -384,12 +371,21 @@ export const IndustryGicsSchema = z.object({
   }),
 })
 
+export const MinimalIndustryGicsSchema = IndustryGicsSchema.omit({
+  sv: true,
+  en: true,
+})
+
 export const IndustrySchema = z.object({
   industryGics: IndustryGicsSchema,
   metadata: MetadataSchema,
 })
 
-// Goals schema
+export const MinimalIndustrySchema = z.object({
+  industryGics: MinimalIndustryGicsSchema,
+  metadata: MinimalMetadataSchema,
+})
+
 export const GoalSchema = z.object({
   description: z.string().openapi({ description: 'Goal description' }),
   year: z.string().nullable().openapi({ description: 'Target year' }),
@@ -398,7 +394,6 @@ export const GoalSchema = z.object({
   metadata: MetadataSchema,
 })
 
-// Initiatives schema
 export const InitiativeSchema = z.object({
   title: z.string().openapi({ description: 'Initiative title' }),
   description: z
@@ -410,44 +405,96 @@ export const InitiativeSchema = z.object({
   metadata: MetadataSchema,
 })
 
-// Reporting period schema
 export const ReportingPeriodSchema = z.object({
   startDate: z
-    .string()
-    .datetime()
+    .date()
     .openapi({ description: 'Start date of reporting period' }),
-  endDate: z
-    .string()
-    .datetime()
-    .openapi({ description: 'End date of reporting period' }),
+  endDate: z.date().openapi({ description: 'End date of reporting period' }),
   reportURL: z
     .string()
     .nullable()
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
-  metadata: z.array(MetadataSchema).nullable(),
+  metadata: MetadataSchema,
 })
 
-// TODO: When updating the schemas, consider using the detailed company response as a foundation.
-// and then omitting the data that should not be included. That would simplify the maintenance of these schemas.
+const MinimalTurnoverSchema = TurnoverSchema.omit({ metadata: true }).extend({
+  metadata: MinimalMetadataSchema,
+})
 
-const CompanyBase = CompanyInputSchema.extend({
-  // TODO: This schema should only use minimal metadata
-  // TODO: This schema should not include industry translation strings
-  // TODO: This schema should not include industry translation strings
+const MinimalEmployeeSchema = EmployeesSchema.omit({ metadata: true }).extend({
+  metadata: MinimalMetadataSchema,
+})
+
+const MinimalEconomySchema = EconomySchema.omit({
+  employees: true,
+  turnover: true,
+}).extend({ employees: MinimalEmployeeSchema, turnover: MinimalTurnoverSchema })
+
+const MinimalScope1Schema = Scope1Schema.omit({
+  metadata: true,
+}).extend({ metadata: MinimalMetadataSchema })
+
+const MinimalScope2Schema = withScope2Refinement(
+  Scope2BaseSchema.omit({
+    metadata: true,
+  }).extend({ metadata: MinimalMetadataSchema })
+)
+
+const MinimalStatedTotalEmissionsSchema = StatedTotalEmissionsSchema.omit({
+  metadata: true,
+}).extend({ metadata: MinimalMetadataSchema })
+
+const MinimalScope3CategorySchema = Scope3CategorySchema.omit({
+  metadata: true,
+}).extend({ metadata: MinimalMetadataSchema })
+
+const MinimalScope3Schema = Scope3Schema.omit({
+  metadata: true,
+  categories: true,
+  statedTotalEmissions: true,
+}).extend({
+  metadata: MinimalMetadataSchema,
+  statedTotalEmissions: MinimalStatedTotalEmissionsSchema,
+  categories: z.array(MinimalScope3CategorySchema),
+})
+
+const MinimalEmissionsSchema = EmissionsSchema.omit({
+  biogenicEmissions: true,
+  scope1: true,
+  scope2: true,
+  scope3: true,
+  statedTotalEmissions: true,
+}).extend({
+  scope1: MinimalScope1Schema,
+  scope2: MinimalScope2Schema,
+  scope3: MinimalScope3Schema,
+  statedTotalEmissions: MinimalStatedTotalEmissionsSchema,
+})
+
+const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+  emissions: true,
+  metadata: true,
+  economy: true,
+}).extend({
+  emissions: MinimalEmissionsSchema.nullable(),
+  economy: MinimalEconomySchema.nullable(),
+})
+
+const MinimalCompanyBase = CompanyBaseSchema.extend({
+  reportingPeriods: z.array(MinimalReportingPeriodSchema),
+  industry: MinimalIndustrySchema.nullable(),
+})
+
+const CompanyBase = CompanyBaseSchema.extend({
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
 })
 
-// Complete company schema
-export const CompanyList = z.array(CompanyBase)
+export const CompanyList = z.array(MinimalCompanyBase)
 
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
-  // TODO: This schema should use the full details for metadata
-  // TODO: add reportingPeriods[number].emissions.calculatedTotalEmissions
-  // TODO: add reportingPeriods[number].emissions.scope2.calculatedTotalEmissions
-  // TODO: add reportingPeriods[number].emissions.scope3.calculatedTotalEmissions
 })
