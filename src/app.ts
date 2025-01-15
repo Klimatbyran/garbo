@@ -56,6 +56,12 @@ async function startApp() {
           },
         },
       },
+      servers: [
+        {
+          url: '/api',
+          description: 'API endpoint',
+        },
+      ],
       tags: Object.values(openAPIConfig.tags),
     },
     transform: jsonSchemaTransform,
