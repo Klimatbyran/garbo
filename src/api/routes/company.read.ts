@@ -131,10 +131,9 @@ function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
           ...reportingPeriod,
-          emissions: Object.keys(removeEmptyValues(reportingPeriod.emissions))
-            .length
+          emissions: reportingPeriod.emissions.length
             ? {
-                ...removeEmptyValues(reportingPeriod.emissions),
+                ...reportingPeriod.emissions,
                 calculatedTotalEmissions:
                   // If either scope 1 and scope 2 have verification, then we use them for the total.
                   // Otherwise, we use the combined scope1And2 if it exists
@@ -178,7 +177,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
     async (request, reply) => {
       try {
         const companies = await prisma.company.findMany({
-          take: 1,
           select: {
             wikidataId: true,
             name: true,
@@ -295,9 +293,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
           companies.map(transformMetadata)
         )
 
-        // console.dir(transformedCompanies.at(0), { colors: true, depth: 8 })
-        // process.exit(0)
-
         reply.send(transformedCompanies)
       } catch (error) {
         throw new GarboAPIError('Failed to load companies', {
@@ -319,7 +314,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           200: CompanyDetails,
-          ...getErrorResponseSchemas(404, 500),
+          // ...getErrorResponseSchemas(404, 500),
         },
       },
     },
@@ -398,13 +393,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
                         metadata,
                       },
                     },
-                    biogenicEmissions: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
+                    biogenicEmissions: true,
                     scope1And2: {
                       select: {
                         total: true,
@@ -472,25 +461,25 @@ export async function companyReadRoutes(app: FastifyInstance) {
         if (!company) {
           throw new GarboAPIError('Company not found', { statusCode: 404 })
         }
+        const [transformedCompany] = addCalculatedTotalEmissions([
+          transformMetadata(company),
+        ])
 
-        const transformedCompany = transformMetadata(company)
-        reply.send(
-          addCalculatedTotalEmissions([transformedCompany])
-            .map((company) => ({
-              ...company,
-              // Add translations for GICS data
-              industry: company.industry
-                ? {
-                    ...company.industry,
-                    industryGics: {
-                      ...company.industry.industryGics,
-                      ...getGics(company.industry.industryGics.subIndustryCode),
-                    },
-                  }
-                : undefined,
-            }))
-            .at(0)
-        )
+        reply.send({
+          ...transformedCompany,
+          // Add translations for GICS data
+          industry: transformedCompany.industry
+            ? {
+                ...transformedCompany.industry,
+                industryGics: {
+                  ...transformedCompany.industry.industryGics,
+                  ...getGics(
+                    transformedCompany.industry.industryGics.subIndustryCode
+                  ),
+                },
+              }
+            : null,
+        })
       } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError) {
           throw new GarboAPIError('Database error while loading company', {

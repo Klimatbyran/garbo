@@ -1,6 +1,5 @@
-import { z, ZodObject, ZodType, ZodTypeAny } from 'zod'
+import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
-import { ZodRawShape } from 'zod'
 
 extendZodWithOpenApi(z)
 
@@ -208,10 +207,7 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  updatedAt: z.coerce
-    .string()
-    .datetime()
-    .openapi({ description: 'Last update timestamp' }),
+  updatedAt: z.date().openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
       .string()
@@ -324,6 +320,8 @@ export const EmissionsSchema = z.object({
   scope1: Scope1Schema.nullable(),
   scope2: Scope2Schema.nullable(),
   scope3: Scope3Schema.nullable(),
+  // TODO: Add scope1And2 to match actual response
+  // TODO: Add minimal scope1And2 schema for list view
   biogenicEmissions: BiogenicSchema.nullable(),
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
   calculatedTotalEmissions: z
@@ -416,7 +414,6 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
-  metadata: MetadataSchema,
 })
 
 const MinimalTurnoverSchema = TurnoverSchema.omit({ metadata: true }).extend({
@@ -430,7 +427,10 @@ const MinimalEmployeeSchema = EmployeesSchema.omit({ metadata: true }).extend({
 const MinimalEconomySchema = EconomySchema.omit({
   employees: true,
   turnover: true,
-}).extend({ employees: MinimalEmployeeSchema, turnover: MinimalTurnoverSchema })
+}).extend({
+  employees: MinimalEmployeeSchema.nullable(),
+  turnover: MinimalTurnoverSchema.nullable(),
+})
 
 const MinimalScope1Schema = Scope1Schema.omit({
   metadata: true,
@@ -475,7 +475,6 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
 
 const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   emissions: true,
-  metadata: true,
   economy: true,
 }).extend({
   emissions: MinimalEmissionsSchema.nullable(),
