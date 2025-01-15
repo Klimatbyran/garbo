@@ -245,13 +245,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
                         metadata: minimalMetadata,
                       },
                     },
-                    biogenicEmissions: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
                     scope1And2: {
                       select: {
                         total: true,
@@ -393,7 +386,13 @@ export async function companyReadRoutes(app: FastifyInstance) {
                         metadata,
                       },
                     },
-                    biogenicEmissions: true,
+                    biogenicEmissions: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
                     scope1And2: {
                       select: {
                         total: true,

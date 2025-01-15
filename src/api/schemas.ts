@@ -316,12 +316,17 @@ export const Scope3Schema = z.object({
   metadata: MetadataSchema,
 })
 
+export const Scope1And2Schema = z.object({
+  total: z.number(),
+  unit: z.string(),
+  metadata: MetadataSchema,
+})
+
 export const EmissionsSchema = z.object({
   scope1: Scope1Schema.nullable(),
   scope2: Scope2Schema.nullable(),
   scope3: Scope3Schema.nullable(),
-  // TODO: Add scope1And2 to match actual response
-  // TODO: Add minimal scope1And2 schema for list view
+  scope1And2: Scope1And2Schema.nullable(),
   biogenicEmissions: BiogenicSchema.nullable(),
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
   calculatedTotalEmissions: z
@@ -460,17 +465,23 @@ const MinimalScope3Schema = Scope3Schema.omit({
   categories: z.array(MinimalScope3CategorySchema),
 })
 
+const MinimalScope1And2Schema = Scope1And2Schema.omit({
+  metadata: true,
+}).extend({ metadata: MinimalMetadataSchema })
+
 const MinimalEmissionsSchema = EmissionsSchema.omit({
-  biogenicEmissions: true,
   scope1: true,
   scope2: true,
   scope3: true,
+  scope1And2: true,
+  biogenicEmissions: true,
   statedTotalEmissions: true,
 }).extend({
-  scope1: MinimalScope1Schema,
-  scope2: MinimalScope2Schema,
-  scope3: MinimalScope3Schema,
-  statedTotalEmissions: MinimalStatedTotalEmissionsSchema,
+  scope1: MinimalScope1Schema.nullable(),
+  scope2: MinimalScope2Schema.nullable(),
+  scope3: MinimalScope3Schema.nullable(),
+  scope1And2: MinimalScope1And2Schema.nullable(),
+  statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
 })
 
 const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
