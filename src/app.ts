@@ -48,6 +48,14 @@ async function startApp() {
         version: JSON.parse(readFileSync(resolve('package.json'), 'utf-8'))
           .version,
       },
+      components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+          },
+        },
+      },
       tags: Object.values(openAPIConfig.tags),
     },
     transform: jsonSchemaTransform,
