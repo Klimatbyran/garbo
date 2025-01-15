@@ -8,9 +8,8 @@ import { reportingPeriodService } from '../services/reportingPeriodService'
 import { emissionsService } from '../services/emissionsService'
 import {
   wikidataIdParamSchema,
-  getErrorResponseSchemas,
-  garboEntitySchema,
   emptyBodySchema,
+  garboEntitySchema,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
@@ -26,7 +25,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -50,7 +48,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -74,7 +71,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -98,7 +94,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -122,7 +117,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -146,7 +140,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -170,7 +163,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -194,7 +186,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -218,7 +209,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -242,7 +232,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -266,7 +255,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
@@ -290,7 +278,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntitySchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorResponseSchemas(500),
         },
       },
     },
