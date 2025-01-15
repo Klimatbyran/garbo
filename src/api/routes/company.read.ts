@@ -13,6 +13,7 @@ import {
 } from '../schemas'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
+import { z } from 'zod'
 
 const metadata = {
   orderBy: {
@@ -62,11 +63,10 @@ function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {
-    return Object.entries(data).reduce((acc, [key, value]) => {
+    const transformed = Object.entries(data).reduce((acc, [key, value]) => {
       if (key === 'metadata' && Array.isArray(value)) {
         acc[key] = value[0] || null
       } else if (value instanceof Date) {
-        // Leave Date fields untouched
         acc[key] = value
       } else if (typeof value === 'object' && value !== null) {
         acc[key] = transformMetadata(value)
@@ -75,6 +75,8 @@ function transformMetadata(data: any): any {
       }
       return acc
     }, {} as Record<string, any>)
+
+    return transformed
   }
   return data
 }
@@ -131,7 +133,7 @@ function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
           ...reportingPeriod,
-          emissions: reportingPeriod.emissions.length
+          emissions: reportingPeriod.emissions
             ? {
                 ...reportingPeriod.emissions,
                 calculatedTotalEmissions:
@@ -306,14 +308,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: CompanyDetails,
-          // ...getErrorResponseSchemas(404, 500),
+          200: z.union([CompanyDetails, z.null()]),
         },
       },
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       try {
         const { wikidataId } = request.params
+
         const company = await prisma.company.findFirst({
           where: {
             wikidataId,
@@ -458,10 +460,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
         })
 
         if (!company) {
-          throw new GarboAPIError('Company not found', { statusCode: 404 })
+          reply.send(null)
+          return
         }
+
+        const companyWithTransformedMetadata = transformMetadata(company)
+
         const [transformedCompany] = addCalculatedTotalEmissions([
-          transformMetadata(company),
+          companyWithTransformedMetadata,
         ])
 
         reply.send({

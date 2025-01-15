@@ -41,10 +41,6 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       const { wikidataId } = request.params
       const { reportingPeriods, metadata } = request.body
       const user = request.user
-      const createdMetadata = await metadataService.createMetadata({
-        metadata,
-        user,
-      })
 
       const company = await companyService.getCompany(wikidataId)
 
@@ -59,6 +55,10 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               reportURL,
             }) => {
               const year = endDate.getFullYear().toString()
+              const createdMetadata = await metadataService.createMetadata({
+                metadata,
+                user,
+              })
               const reportingPeriod =
                 await reportingPeriodService.upsertReportingPeriod(
                   company,
@@ -111,10 +111,11 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                     createdMetadata
                   ),
                 scope3 &&
-                  emissionsService.upsertScope3(
-                    dbEmissions,
-                    scope3,
-                    createdMetadata
+                  emissionsService.upsertScope3(dbEmissions, scope3, () =>
+                    metadataService.createMetadata({
+                      metadata,
+                      user,
+                    })
                   ),
                 statedTotalEmissions !== undefined &&
                   emissionsService.upsertStatedTotalEmissions(

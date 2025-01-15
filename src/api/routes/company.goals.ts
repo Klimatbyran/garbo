@@ -48,12 +48,13 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       if (goals?.length) {
         const { wikidataId } = request.params
         const user = request.user
-        const createdMetadata = await metadataService.createMetadata({
-          metadata,
-          user,
-        })
 
-        await goalService.createGoals(wikidataId, goals, createdMetadata!)
+        await goalService.createGoals(wikidataId, goals, () =>
+          metadataService.createMetadata({
+            metadata,
+            user,
+          })
+        )
       }
       reply.send({ ok: true })
     }

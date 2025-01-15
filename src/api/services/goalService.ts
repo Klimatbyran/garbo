@@ -7,11 +7,12 @@ class GoalService {
   async createGoals(
     wikidataId: Company['wikidataId'],
     goals: PostGoalsBody['goals'],
-    metadata: Metadata
+    createMetadata: () => Promise<Metadata>
   ) {
-    return prisma.$transaction(
-      goals.map((goal) =>
-        prisma.goal.create({
+    return Promise.all(
+      goals.map(async (goal) => {
+        const metadata = await createMetadata()
+        return prisma.goal.create({
           data: {
             ...goal,
             description: goal.description,
@@ -28,7 +29,7 @@ class GoalService {
           },
           select: { id: true },
         })
-      )
+      })
     )
   }
 

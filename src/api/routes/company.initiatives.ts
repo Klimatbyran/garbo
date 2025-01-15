@@ -48,15 +48,11 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       if (initiatives?.length) {
         const { wikidataId } = request.params
 
-        const createdMetadata = await metadataService.createMetadata({
-          metadata,
-          user: request.user,
-        })
-
-        await initiativeService.createInitiatives(
-          wikidataId,
-          initiatives,
-          createdMetadata
+        await initiativeService.createInitiatives(wikidataId, initiatives, () =>
+          metadataService.createMetadata({
+            metadata,
+            user: request.user,
+          })
         )
       }
       reply.send({ ok: true })

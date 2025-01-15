@@ -33,6 +33,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
 
   job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
   const wikidataId = wikidata.node
+
   const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
     () => null
   )
@@ -47,11 +48,14 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
     )
     const body = {
-      name: companyName,
-      description,
-      wikidataId,
-      metadata,
+      company: {
+        name: companyName,
+        description,
+        wikidataId,
+        metadata,
+      },
     }
+
     await apiFetch(`/companies`, { body })
 
     await job.sendMessage(
