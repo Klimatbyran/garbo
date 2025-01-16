@@ -47,7 +47,7 @@ function confirm(message: string): Promise<boolean> {
 async function resetRedis() {
   const commands = [
     'docker exec garbo_redis redis-cli flushall',
-    'podman exec -it garbo_redis bash -c "redis-cli flushall"',
+    'podman exec garbo_redis redis-cli flushall',
   ]
   for (const cmd of commands) {
     try {
