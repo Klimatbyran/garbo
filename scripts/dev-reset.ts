@@ -67,6 +67,8 @@ async function resetAll() {
   await Promise.all([vectorDB.clearAllReports(), resetDB(), resetRedis()])
 }
 
+const logError = (msg: string) => console.error('\x1b[31m%s\x1b[0m', msg)
+
 async function main() {
   const { values } = parseArgs({
     options: {
@@ -89,19 +91,32 @@ async function main() {
     },
   })
 
+  if (Object.values(values).every((val) => val === false)) {
+    const args = Object.keys(values)
+      .map((arg) => '--' + arg)
+      .join(' | ')
+
+    logError(
+      `\nAt least one argument of [${args}] is required.\nMake sure to run the script like this: "npm run reset -- --redis"`
+    )
+    process.exit(1)
+  }
+
   if (values.chroma) {
-    await resetIfConfirmed('chroma', () => vectorDB.clearAllReports())
+    await resetIfConfirmed('chroma', vectorDB.clearAllReports)
   }
 
   if (values.postgres) {
-    await resetIfConfirmed('postgres', () => resetDB())
+    await resetIfConfirmed('postgres', resetDB)
   }
 
   if (values.redis) {
-    await resetIfConfirmed('redis', async () => resetRedis())
+    await resetIfConfirmed('redis', resetRedis)
   }
 
-  if (values.all) return resetIfConfirmed('all', resetAll)
+  if (values.all) {
+    await resetIfConfirmed('all', resetAll)
+  }
 }
 
 if (isMainModule(import.meta.url)) {
