@@ -182,20 +182,6 @@ export const postReportingPeriodsSchema = z
   })
   .merge(createMetadataSchema)
 
-export const errorMessageSchema = z.object({ message: z.string() })
-
-// TODO: improve the error responses for 500, 401, 400
-
-/**
- * Get common error responses for a list of HTTP status codes.
- */
-export function getErrorResponseSchemas(...statusCodes: number[]) {
-  return statusCodes.reduce((acc, status) => {
-    acc[status] = errorMessageSchema
-    return acc
-  }, {} as Record<number, z.ZodType>)
-}
-
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const emptyBodySchema = z.undefined()
 

@@ -7,7 +7,6 @@ import { metadataService } from '../services/metadataService'
 import {
   wikidataIdParamSchema,
   okResponseSchema,
-  getErrorResponseSchemas,
   postInitiativeSchema,
   postInitiativesSchema,
   garboEntitySchema,
@@ -32,7 +31,6 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativesSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorResponseSchemas(404),
         },
       },
     },
@@ -70,7 +68,6 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorResponseSchemas(404),
         },
       },
     },

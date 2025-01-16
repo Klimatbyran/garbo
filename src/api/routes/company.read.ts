@@ -5,12 +5,7 @@ import { getGics } from '../../lib/gics'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
-import {
-  getErrorResponseSchemas,
-  wikidataIdParamSchema,
-  CompanyList,
-  CompanyDetails,
-} from '../schemas'
+import { wikidataIdParamSchema, CompanyList, CompanyDetails } from '../schemas'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
 import { z } from 'zod'
@@ -167,7 +162,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
         response: {
           200: CompanyList,
-          // ...getErrorResponseSchemas(500),
         },
       },
     },

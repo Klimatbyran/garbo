@@ -6,11 +6,7 @@ import { industryService } from '../services/industryService'
 import { postIndustrySchema } from '../schemas'
 import { metadataService } from '../services/metadataService'
 import { getTags } from '../../config/openapi'
-import {
-  wikidataIdParamSchema,
-  okResponseSchema,
-  getErrorResponseSchemas,
-} from '../schemas'
+import { wikidataIdParamSchema, okResponseSchema } from '../schemas'
 import { WikidataIdParams, PostIndustryBody } from '../types'
 
 export async function companyIndustryRoutes(app: FastifyInstance) {
@@ -26,7 +22,6 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         body: postIndustrySchema,
         response: {
           200: okResponseSchema,
-          ...getErrorResponseSchemas(404, 500),
         },
       },
     },

@@ -5,7 +5,6 @@ import { GarboAPIError } from '../../lib/garbo-api-error'
 import { goalService } from '../services/goalService'
 import {
   wikidataIdParamSchema,
-  getErrorResponseSchemas,
   postGoalSchema,
   postGoalsSchema,
   okResponseSchema,
@@ -32,7 +31,6 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalsSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorResponseSchemas(404),
         },
       },
     },
@@ -71,7 +69,6 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorResponseSchemas(404),
         },
       },
     },
