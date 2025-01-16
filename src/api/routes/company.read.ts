@@ -51,10 +51,6 @@ const minimalMetadata = {
   },
 }
 
-function removeEmptyValues(obj: Record<any, any>) {
-  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
-}
-
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
@@ -89,39 +85,38 @@ function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
           ...reportingPeriod,
-          emissions: {
-            ...reportingPeriod.emissions,
-            scope2:
-              (reportingPeriod.emissions?.scope2 && {
-                ...reportingPeriod.emissions.scope2,
-                calculatedTotalEmissions:
-                  reportingPeriod.emissions.scope2.mb ??
-                  reportingPeriod.emissions.scope2.lb ??
-                  reportingPeriod.emissions.scope2.unknown,
-              }) ||
-              undefined,
-            scope3:
-              (reportingPeriod.emissions?.scope3 &&
-                Object.keys(
-                  removeEmptyValues(reportingPeriod.emissions?.scope3)
-                ).length && {
-                  ...removeEmptyValues(reportingPeriod.emissions.scope3),
-                  calculatedTotalEmissions:
-                    reportingPeriod.emissions.scope3.categories.some((c) =>
-                      Boolean(c.metadata?.verifiedBy)
-                    )
-                      ? reportingPeriod.emissions.scope3.categories.reduce(
-                          (total, category) =>
-                            isNumber(category.total)
-                              ? category.total + total
-                              : total,
-                          0
-                        )
-                      : reportingPeriod.emissions.scope3.statedTotalEmissions
-                          ?.total ?? 0,
-                }) ||
-              undefined,
-          },
+          emissions: reportingPeriod.emissions
+            ? {
+                ...reportingPeriod.emissions,
+                scope2:
+                  (reportingPeriod.emissions?.scope2 && {
+                    ...reportingPeriod.emissions.scope2,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope2.mb ??
+                      reportingPeriod.emissions.scope2.lb ??
+                      reportingPeriod.emissions.scope2.unknown,
+                  }) ||
+                  null,
+                scope3:
+                  (reportingPeriod.emissions?.scope3 && {
+                    ...reportingPeriod.emissions.scope3,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope3.categories.some((c) =>
+                        Boolean(c.metadata?.verifiedBy)
+                      )
+                        ? reportingPeriod.emissions.scope3.categories.reduce(
+                            (total, category) =>
+                              isNumber(category.total)
+                                ? category.total + total
+                                : total,
+                            0
+                          )
+                        : reportingPeriod.emissions.scope3.statedTotalEmissions
+                            ?.total ?? 0,
+                  }) ||
+                  null,
+              }
+            : null,
           metadata: reportingPeriod.metadata,
         })),
       }))
@@ -392,7 +387,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
                       select: {
                         total: true,
                         unit: true,
-                        metadata: minimalMetadata,
+                        metadata,
                       },
                     },
                     scope1And2: {
@@ -464,10 +459,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
           return
         }
 
-        const companyWithTransformedMetadata = transformMetadata(company)
-
         const [transformedCompany] = addCalculatedTotalEmissions([
-          companyWithTransformedMetadata,
+          transformMetadata(company),
         ])
 
         reply.send({

@@ -97,7 +97,7 @@ async function publicContext(app: FastifyInstance) {
 
   app.get(
     '/favicon.ico',
-    { schema: { hide: true } },
+    { schema: { hide: true }, logLevel: 'silent' },
     async (request, reply) => {
       return reply.sendFile('favicon.ico')
     }

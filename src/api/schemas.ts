@@ -188,6 +188,8 @@ export const postReportingPeriodsSchema = z
 
 export const errorMessageSchema = z.object({ message: z.string() })
 
+// TODO: improve the error responses for 500, 401, 400
+
 /**
  * Get common error responses for a list of HTTP status codes.
  */
@@ -461,7 +463,7 @@ const MinimalScope3Schema = Scope3Schema.omit({
   statedTotalEmissions: true,
 }).extend({
   metadata: MinimalMetadataSchema,
-  statedTotalEmissions: MinimalStatedTotalEmissionsSchema,
+  statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
   categories: z.array(MinimalScope3CategorySchema),
 })
 
