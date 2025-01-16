@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { FastifyServerOptions } from 'fastify'
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -34,6 +35,11 @@ const productionOrigins = [
   'https://api.klimatkollen.se',
 ] as const
 
+const baseLoggerOptions: FastifyServerOptions['logger'] = {
+  // TODO: Redact all sensitive data
+  redact: ['req.headers.authorization'],
+}
+
 export default {
   cacheMaxAge: env.CACHE_MAX_AGE,
 
@@ -50,4 +56,17 @@ export default {
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
+
+  bullBoardBasePath: '/admin/queues',
+
+  logger: (env.NODE_ENV === 'development' && process.stdout.isTTY
+    ? {
+        level: 'trace',
+        transport: { target: 'pino-pretty' },
+        ...baseLoggerOptions,
+      }
+    : {
+        level: 'info',
+        ...baseLoggerOptions,
+      }) as FastifyServerOptions['logger'],
 }

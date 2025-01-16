@@ -1,9 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-import { exec } from 'child_process'
 import fs from 'fs'
-import { promisify } from 'util'
 
 const prisma = new PrismaClient()
+
+async function emptyDB() {
+  await prisma.$transaction([
+    prisma.company.deleteMany(),
+    prisma.metadata.deleteMany(),
+  ])
+}
 
 async function migrateData() {
   const data = JSON.parse(
@@ -22,19 +27,21 @@ async function migrateData() {
     'Alex (Klimatkollen)': alex.id,
   }
 
-  const getMetadata = ({
-    source,
-    comment,
-    user,
-    verifiedBy,
-    updatedAt,
-  }: any) => ({
-    comment,
-    source,
-    userId: userIds[user.name],
-    verifiedByUserId: verifiedBy ? userIds[verifiedBy.name] : null,
-    updatedAt: new Date(updatedAt),
-  })
+  const createMetadata = (metadata: any) => {
+    if (!metadata) return undefined
+    const { source, comment, user, verifiedBy, updatedAt } = metadata
+    return {
+      create: [
+        {
+          comment,
+          source,
+          userId: userIds[user.name],
+          verifiedByUserId: verifiedBy ? userIds[verifiedBy.name] : null,
+          updatedAt: new Date(updatedAt),
+        },
+      ],
+    }
+  }
 
   for (const company of data) {
     const { reportingPeriods, industry, goals, initiatives, ...companyData } =
@@ -49,7 +56,7 @@ async function migrateData() {
         data: {
           gicsSubIndustryCode: industry.industryGics.subIndustryCode,
           companyWikidataId: createdCompany.wikidataId,
-          metadata: { create: [getMetadata(industry.metadata)] },
+          metadata: createMetadata(industry.metadata),
         },
       })
     }
@@ -62,6 +69,7 @@ async function migrateData() {
           year: period.endDate.slice(0, 4),
           companyId: createdCompany.wikidataId,
           reportURL: period.reportURL,
+          metadata: createMetadata(period.metadata),
         },
       })
 
@@ -73,9 +81,7 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.economy.turnover,
-                    metadata: {
-                      create: [getMetadata(period.economy.turnover.metadata)],
-                    },
+                    metadata: createMetadata(period.economy.turnover.metadata),
                   },
                 }
               : undefined,
@@ -83,9 +89,7 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.economy.employees,
-                    metadata: {
-                      create: [getMetadata(period.economy.employees.metadata)],
-                    },
+                    metadata: createMetadata(period.economy.employees.metadata),
                   },
                 }
               : undefined,
@@ -101,9 +105,7 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.emissions.scope1,
-                    metadata: {
-                      create: [getMetadata(period.emissions.scope1.metadata)],
-                    },
+                    metadata: createMetadata(period.emissions.scope1.metadata),
                   },
                 }
               : undefined,
@@ -112,9 +114,7 @@ async function migrateData() {
                   create: {
                     ...period.emissions.scope2,
                     calculatedTotalEmissions: undefined,
-                    metadata: {
-                      create: [getMetadata(period.emissions.scope2.metadata)],
-                    },
+                    metadata: createMetadata(period.emissions.scope2.metadata),
                   },
                 }
               : undefined,
@@ -126,14 +126,10 @@ async function migrateData() {
                       ? {
                           create: {
                             ...period.emissions.scope3.statedTotalEmissions,
-                            metadata: {
-                              create: [
-                                getMetadata(
-                                  period.emissions.scope3.statedTotalEmissions
-                                    .metadata
-                                ),
-                              ],
-                            },
+                            metadata: createMetadata(
+                              period.emissions.scope3.statedTotalEmissions
+                                .metadata
+                            ),
                           },
                         }
                       : undefined,
@@ -141,15 +137,11 @@ async function migrateData() {
                       create: period.emissions.scope3.categories.map(
                         (category) => ({
                           ...category,
-                          metadata: {
-                            create: [getMetadata(category.metadata)],
-                          },
+                          metadata: createMetadata(category.metadata),
                         })
                       ),
                     },
-                    metadata: {
-                      create: [getMetadata(period.emissions.scope3.metadata)],
-                    },
+                    metadata: createMetadata(period.emissions.scope3.metadata),
                   },
                 }
               : undefined,
@@ -157,13 +149,9 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.emissions.biogenicEmissions,
-                    metadata: {
-                      create: [
-                        getMetadata(
-                          period.emissions.biogenicEmissions.metadata
-                        ),
-                      ],
-                    },
+                    metadata: createMetadata(
+                      period.emissions.biogenicEmissions.metadata
+                    ),
                   },
                 }
               : undefined,
@@ -171,11 +159,9 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.emissions.scope1And2,
-                    metadata: {
-                      create: [
-                        getMetadata(period.emissions.scope1And2.metadata),
-                      ],
-                    },
+                    metadata: createMetadata(
+                      period.emissions.scope1And2.metadata
+                    ),
                   },
                 }
               : undefined,
@@ -183,13 +169,9 @@ async function migrateData() {
               ? {
                   create: {
                     ...period.emissions.statedTotalEmissions,
-                    metadata: {
-                      create: [
-                        getMetadata(
-                          period.emissions.statedTotalEmissions.metadata
-                        ),
-                      ],
-                    },
+                    metadata: createMetadata(
+                      period.emissions.statedTotalEmissions.metadata
+                    ),
                   },
                 }
               : undefined,
@@ -203,7 +185,7 @@ async function migrateData() {
         data: {
           ...goal,
           companyId: createdCompany.wikidataId,
-          metadata: { create: [getMetadata(goal.metadata)] },
+          metadata: createMetadata(goal.metadata),
         },
       })
     }
@@ -213,18 +195,15 @@ async function migrateData() {
         data: {
           ...initiative,
           companyId: createdCompany.wikidataId,
-          metadata: { create: [getMetadata(initiative.metadata)] },
+          metadata: createMetadata(initiative.metadata),
         },
       })
     }
   }
 }
 
-await promisify(exec)(`npx prisma db seed`, {
-  env: process.env,
-})
-
-migrateData()
+emptyDB()
+  .then(migrateData)
   .then(() => {
     console.log('Successfully imported all companies!')
   })

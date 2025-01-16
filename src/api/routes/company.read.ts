@@ -1,14 +1,14 @@
-import express, { Request, Response, NextFunction } from 'express'
-
-import { getGics } from '../../lib/gics'
-import { cache, enableCors } from '../middlewares/middlewares'
-import { GarboAPIError } from '../../lib/garbo-api-error'
-import { prisma } from '../../lib/prisma'
-import apiConfig from '../../config/api'
-
+import { FastifyInstance, FastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
 
-const router = express.Router()
+import { getGics } from '../../lib/gics'
+import { GarboAPIError } from '../../lib/garbo-api-error'
+import { prisma } from '../../lib/prisma'
+import { getTags } from '../../config/openapi'
+import { wikidataIdParamSchema, CompanyList, CompanyDetails } from '../schemas'
+import { WikidataIdParams } from '../types'
+import { cachePlugin } from '../plugins/cache'
+import { z } from 'zod'
 
 const metadata = {
   orderBy: {
@@ -46,25 +46,18 @@ const minimalMetadata = {
   },
 }
 
-function removeEmptyValues(obj: Record<any, any>) {
-  return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null))
-}
-
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
 }
-
-router.use(enableCors(apiConfig.corsAllowOrigins as unknown as string[]))
 
 function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {
-    return Object.entries(data).reduce((acc, [key, value]) => {
+    const transformed = Object.entries(data).reduce((acc, [key, value]) => {
       if (key === 'metadata' && Array.isArray(value)) {
         acc[key] = value[0] || null
       } else if (value instanceof Date) {
-        // Leave Date fields untouched
         acc[key] = value
       } else if (typeof value === 'object' && value !== null) {
         acc[key] = transformMetadata(value)
@@ -73,555 +66,425 @@ function transformMetadata(data: any): any {
       }
       return acc
     }, {} as Record<string, any>)
+
+    return transformed
   }
   return data
 }
 
-// TODO: Find a way to re-use the same logic to process companies both for GET /companies and GET /companies/:wikidataId
-
-/**
- * @swagger
- * /companies:
- *   get:
- *     summary: Get all companies
- *     description: Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives
- *     tags: [Companies]
- *     responses:
- *       200:
- *         description: List of companies
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CompanyList'
- *       500:
- *         description: Server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get(
-  '/',
-  cache(),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const companies = await prisma.company.findMany({
-        select: {
-          wikidataId: true,
-          name: true,
-          description: true,
-          reportingPeriods: {
-            select: {
-              startDate: true,
-              endDate: true,
-              reportURL: true,
-              economy: {
-                select: {
-                  turnover: {
-                    select: {
-                      value: true,
-                      currency: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  employees: {
-                    select: {
-                      value: true,
-                      unit: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                },
-              },
-              emissions: {
-                select: {
-                  scope1: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  scope2: {
-                    select: {
-                      lb: true,
-                      mb: true,
-                      unknown: true,
-                      unit: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  scope3: {
-                    select: {
-                      statedTotalEmissions: {
-                        select: {
-                          total: true,
-                          unit: true,
-                          metadata: minimalMetadata,
-                        },
-                      },
-                      categories: {
-                        select: {
-                          category: true,
-                          total: true,
-                          unit: true,
-                          metadata: minimalMetadata,
-                        },
-                        orderBy: {
-                          category: 'asc',
-                        },
-                      },
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  biogenicEmissions: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  scope1And2: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata: minimalMetadata,
-                    },
-                  },
-                  statedTotalEmissions: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                },
-              },
-              metadata: minimalMetadata,
-            },
-            orderBy: {
-              startDate: 'desc',
-            },
-          },
-          industry: {
-            select: {
-              industryGics: {
-                select: {
-                  sectorCode: true,
-                  groupCode: true,
-                  industryCode: true,
-                  subIndustryCode: true,
-                },
-              },
-              metadata: minimalMetadata,
-            },
-          },
-        },
-      })
-
-      const transformedCompanies = Array.isArray(companies)
-        ? companies.map((company) => transformMetadata(company))
-        : transformMetadata(companies)
-
-      res.json(
-        transformedCompanies
-          // Calculate total emissions for each scope type
-          .map((company) => ({
-            ...company,
-            reportingPeriods: company.reportingPeriods.map(
-              (reportingPeriod) => ({
-                ...reportingPeriod,
-                emissions: {
-                  ...reportingPeriod.emissions,
-                  scope2:
-                    (reportingPeriod.emissions?.scope2 && {
-                      ...reportingPeriod.emissions.scope2,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope2.mb ??
-                        reportingPeriod.emissions.scope2.lb ??
-                        reportingPeriod.emissions.scope2.unknown,
-                    }) ||
-                    undefined,
-                  scope3:
-                    (reportingPeriod.emissions?.scope3 &&
-                      Object.keys(
-                        removeEmptyValues(reportingPeriod.emissions?.scope3)
-                      ).length && {
-                        ...removeEmptyValues(reportingPeriod.emissions.scope3),
-                        calculatedTotalEmissions:
-                          reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata?.verifiedBy)
+function addCalculatedTotalEmissions(companies: any[]) {
+  return (
+    companies
+      // Calculate total emissions for each scope type
+      .map((company) => ({
+        ...company,
+        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+          ...reportingPeriod,
+          emissions: reportingPeriod.emissions
+            ? {
+                ...reportingPeriod.emissions,
+                scope2:
+                  (reportingPeriod.emissions?.scope2 && {
+                    ...reportingPeriod.emissions.scope2,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope2.mb ??
+                      reportingPeriod.emissions.scope2.lb ??
+                      reportingPeriod.emissions.scope2.unknown,
+                  }) ||
+                  null,
+                scope3:
+                  (reportingPeriod.emissions?.scope3 && {
+                    ...reportingPeriod.emissions.scope3,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope3.categories.some((c) =>
+                        Boolean(c.metadata?.verifiedBy)
+                      )
+                        ? reportingPeriod.emissions.scope3.categories.reduce(
+                            (total, category) =>
+                              isNumber(category.total)
+                                ? category.total + total
+                                : total,
+                            0
                           )
-                            ? reportingPeriod.emissions.scope3.categories.reduce(
-                                (total, category) =>
-                                  isNumber(category.total)
-                                    ? category.total + total
-                                    : total,
-                                0
-                              )
-                            : reportingPeriod.emissions.scope3
-                                .statedTotalEmissions?.total ?? 0,
-                      }) ||
-                    undefined,
+                        : reportingPeriod.emissions.scope3.statedTotalEmissions
+                            ?.total ?? 0,
+                  }) ||
+                  null,
+              }
+            : null,
+          metadata: reportingPeriod.metadata,
+        })),
+      }))
+      // Calculate total emissions for each reporting period
+      // This allows comparing against the statedTotalEmissions provided by the company report
+      // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
+      // we should highlight this in the UI.
+      .map((company) => ({
+        ...company,
+        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+          ...reportingPeriod,
+          emissions: reportingPeriod.emissions
+            ? {
+                ...reportingPeriod.emissions,
+                calculatedTotalEmissions:
+                  // If either scope 1 and scope 2 have verification, then we use them for the total.
+                  // Otherwise, we use the combined scope1And2 if it exists
+                  (Boolean(
+                    reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                  ) ||
+                  Boolean(
+                    reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                  )
+                    ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                      (reportingPeriod.emissions?.scope2
+                        ?.calculatedTotalEmissions || 0)
+                    : reportingPeriod.emissions?.scope1And2?.total || 0) +
+                  (reportingPeriod.emissions?.scope3
+                    ?.calculatedTotalEmissions || 0),
+              }
+            : null,
+        })),
+      }))
+  )
+}
+
+export async function companyReadRoutes(app: FastifyInstance) {
+  app.register(cachePlugin)
+
+  app.get(
+    '/',
+    {
+      schema: {
+        summary: 'Get all companies',
+        description:
+          'Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Companies'),
+
+        response: {
+          200: CompanyList,
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const companies = await prisma.company.findMany({
+          select: {
+            wikidataId: true,
+            name: true,
+            description: true,
+            reportingPeriods: {
+              select: {
+                startDate: true,
+                endDate: true,
+                reportURL: true,
+                economy: {
+                  select: {
+                    turnover: {
+                      select: {
+                        value: true,
+                        currency: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
+                    employees: {
+                      select: {
+                        value: true,
+                        unit: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
+                  },
                 },
-                metadata: reportingPeriod.metadata,
-              })
-            ),
-          }))
-          // Calculate total emissions for each reporting period
-          // This allows comparing against the statedTotalEmissions provided by the company report
-          // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
-          // we should highlight this in the UI.
-          .map((company) => ({
-            ...company,
-            reportingPeriods: company.reportingPeriods.map(
-              (reportingPeriod) => ({
-                ...reportingPeriod,
-                emissions: Object.keys(
-                  removeEmptyValues(reportingPeriod.emissions)
-                ).length
-                  ? {
-                      ...removeEmptyValues(reportingPeriod.emissions),
-                      calculatedTotalEmissions:
-                        // If either scope 1 and scope 2 have verification, then we use them for the total.
-                        // Otherwise, we use the combined scope1And2 if it exists
-                        (Boolean(
-                          reportingPeriod.emissions?.scope1?.metadata
-                            ?.verifiedBy
-                        ) ||
-                        Boolean(
-                          reportingPeriod.emissions?.scope2?.metadata
-                            ?.verifiedBy
-                        )
-                          ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                            (reportingPeriod.emissions?.scope2
-                              ?.calculatedTotalEmissions || 0)
-                          : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                        (reportingPeriod.emissions?.scope3
-                          ?.calculatedTotalEmissions || 0),
-                    }
-                  : null,
-              })
-            ),
-          }))
-      )
-    } catch (error) {
-      next(
-        new GarboAPIError('Failed to load companies', {
+                emissions: {
+                  select: {
+                    scope1: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
+                    scope2: {
+                      select: {
+                        lb: true,
+                        mb: true,
+                        unknown: true,
+                        unit: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
+                    scope3: {
+                      select: {
+                        statedTotalEmissions: {
+                          select: {
+                            total: true,
+                            unit: true,
+                            metadata: minimalMetadata,
+                          },
+                        },
+                        categories: {
+                          select: {
+                            category: true,
+                            total: true,
+                            unit: true,
+                            metadata: minimalMetadata,
+                          },
+                          orderBy: {
+                            category: 'asc',
+                          },
+                        },
+                        metadata: minimalMetadata,
+                      },
+                    },
+                    scope1And2: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata: minimalMetadata,
+                      },
+                    },
+                    statedTotalEmissions: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                  },
+                },
+              },
+              orderBy: {
+                startDate: 'desc',
+              },
+            },
+            industry: {
+              select: {
+                industryGics: {
+                  select: {
+                    sectorCode: true,
+                    groupCode: true,
+                    industryCode: true,
+                    subIndustryCode: true,
+                  },
+                },
+                metadata: minimalMetadata,
+              },
+            },
+          },
+        })
+
+        const transformedCompanies = addCalculatedTotalEmissions(
+          companies.map(transformMetadata)
+        )
+
+        reply.send(transformedCompanies)
+      } catch (error) {
+        throw new GarboAPIError('Failed to load companies', {
           original: error,
           statusCode: 500,
         })
-      )
-    }
-  }
-)
-
-/**
- * @swagger
- * /companies/{wikidataId}:
- *   get:
- *     summary: Get a specific company
- *     description: Retrieve detailed information about a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     responses:
- *       200:
- *         description: Company details
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CompanyDetails'
- *       404:
- *         description: Company not found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.get(
-  '/:wikidataId',
-  cache(),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { wikidataId } = req.params
-      const company = await prisma.company.findFirst({
-        where: {
-          wikidataId,
-        },
-        select: {
-          wikidataId: true,
-          name: true,
-          description: true,
-          reportingPeriods: {
-            select: {
-              startDate: true,
-              endDate: true,
-              reportURL: true,
-              economy: {
-                select: {
-                  turnover: {
-                    select: {
-                      value: true,
-                      currency: true,
-                      metadata,
-                    },
-                  },
-                  employees: {
-                    select: {
-                      value: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                },
-              },
-              emissions: {
-                select: {
-                  scope1: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                  scope2: {
-                    select: {
-                      lb: true,
-                      mb: true,
-                      unknown: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                  scope3: {
-                    select: {
-                      statedTotalEmissions: {
-                        select: {
-                          total: true,
-                          unit: true,
-                          metadata,
-                        },
-                      },
-                      categories: {
-                        select: {
-                          category: true,
-                          total: true,
-                          unit: true,
-                          metadata,
-                        },
-                        orderBy: {
-                          category: 'asc',
-                        },
-                      },
-                      metadata,
-                    },
-                  },
-                  biogenicEmissions: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                  scope1And2: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                  statedTotalEmissions: {
-                    select: {
-                      total: true,
-                      unit: true,
-                      metadata,
-                    },
-                  },
-                },
-              },
-              metadata,
-            },
-            orderBy: {
-              startDate: 'desc',
-            },
-          },
-          industry: {
-            select: {
-              industryGics: {
-                select: {
-                  sectorCode: true,
-                  groupCode: true,
-                  industryCode: true,
-                  subIndustryCode: true,
-                },
-              },
-              metadata,
-            },
-          },
-          goals: {
-            select: {
-              id: true,
-              description: true,
-              year: true,
-              baseYear: true,
-              target: true,
-              metadata,
-            },
-            orderBy: {
-              year: 'desc',
-            },
-          },
-          initiatives: {
-            select: {
-              id: true,
-              title: true,
-              description: true,
-              year: true,
-              scope: true,
-              metadata,
-            },
-            orderBy: {
-              year: 'desc',
-            },
-          },
-        },
-      })
-
-      if (!company) {
-        return next(new GarboAPIError('Company not found', { statusCode: 404 }))
       }
+    }
+  )
 
-      const transformedCompany = transformMetadata(company)
-      res.json(
-        [transformedCompany]
-          // Calculate total emissions for each scope type
-          .map((company) => ({
-            ...company,
-            reportingPeriods: company.reportingPeriods.map(
-              (reportingPeriod) => ({
-                ...reportingPeriod,
+  app.get(
+    '/:wikidataId',
+    {
+      schema: {
+        summary: 'Get detailed company',
+        description:
+          'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Companies'),
+        params: wikidataIdParamSchema,
+        response: {
+          200: z.union([CompanyDetails, z.null()]),
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
+      try {
+        const { wikidataId } = request.params
+
+        const company = await prisma.company.findFirst({
+          where: {
+            wikidataId,
+          },
+          select: {
+            wikidataId: true,
+            name: true,
+            description: true,
+            reportingPeriods: {
+              select: {
+                startDate: true,
+                endDate: true,
+                reportURL: true,
+                economy: {
+                  select: {
+                    turnover: {
+                      select: {
+                        value: true,
+                        currency: true,
+                        metadata,
+                      },
+                    },
+                    employees: {
+                      select: {
+                        value: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                  },
+                },
                 emissions: {
-                  ...reportingPeriod.emissions,
-                  scope2:
-                    (reportingPeriod.emissions?.scope2 && {
-                      ...reportingPeriod.emissions.scope2,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope2.mb ??
-                        reportingPeriod.emissions.scope2.lb ??
-                        reportingPeriod.emissions.scope2.unknown,
-                    }) ||
-                    undefined,
-                  scope3:
-                    (reportingPeriod.emissions?.scope3 &&
-                      Object.keys(
-                        removeEmptyValues(reportingPeriod.emissions?.scope3)
-                      ).length && {
-                        ...removeEmptyValues(reportingPeriod.emissions.scope3),
-                        calculatedTotalEmissions:
-                          reportingPeriod.emissions.scope3.categories.some(
-                            (c) => Boolean(c.metadata?.verifiedBy)
-                          )
-                            ? reportingPeriod.emissions.scope3.categories.reduce(
-                                (total, category) =>
-                                  isNumber(category.total)
-                                    ? category.total + total
-                                    : total,
-                                0
-                              )
-                            : reportingPeriod.emissions.scope3
-                                .statedTotalEmissions?.total ?? 0,
-                      }) ||
-                    undefined,
-                },
-                metadata: reportingPeriod.metadata,
-              })
-            ),
-            // Add translations for GICS data
-            industry: company.industry
-              ? {
-                  ...company.industry,
-                  industryGics: {
-                    ...company.industry.industryGics,
-                    ...getGics(company.industry.industryGics.subIndustryCode),
+                  select: {
+                    scope1: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                    scope2: {
+                      select: {
+                        lb: true,
+                        mb: true,
+                        unknown: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                    scope3: {
+                      select: {
+                        statedTotalEmissions: {
+                          select: {
+                            total: true,
+                            unit: true,
+                            metadata,
+                          },
+                        },
+                        categories: {
+                          select: {
+                            category: true,
+                            total: true,
+                            unit: true,
+                            metadata,
+                          },
+                          orderBy: {
+                            category: 'asc',
+                          },
+                        },
+                        metadata,
+                      },
+                    },
+                    biogenicEmissions: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                    scope1And2: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
+                    statedTotalEmissions: {
+                      select: {
+                        total: true,
+                        unit: true,
+                        metadata,
+                      },
+                    },
                   },
-                }
-              : undefined,
-          }))
-          // Calculate total emissions for each reporting period
-          // This allows comparing against the statedTotalEmissions provided by the company report
-          // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
-          // we should highlight this in the UI.
-          .map((company) => ({
-            ...company,
-            reportingPeriods: company.reportingPeriods.map(
-              (reportingPeriod) => ({
-                ...reportingPeriod,
-                emissions: Object.keys(
-                  removeEmptyValues(reportingPeriod.emissions)
-                ).length
-                  ? {
-                      ...removeEmptyValues(reportingPeriod.emissions),
-                      calculatedTotalEmissions:
-                        // if either scope 1 and scope 2 have verification, then we use them for the total.
-                        // Otherwise, we use the combined scope1And2 if it exists
-                        (Boolean(
-                          reportingPeriod.emissions?.scope1?.metadata
-                            ?.verifiedBy
-                        ) ||
-                        Boolean(
-                          reportingPeriod.emissions?.scope2?.metadata
-                            ?.verifiedBy
-                        )
-                          ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                            (reportingPeriod.emissions?.scope2
-                              ?.calculatedTotalEmissions || 0)
-                          : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                        (reportingPeriod.emissions?.scope3
-                          ?.calculatedTotalEmissions || 0),
-                    }
-                  : null,
-              })
-            ),
-          }))
-          .at(0)
-      )
-    } catch (error) {
-      if (error instanceof Prisma.PrismaClientValidationError) {
-        next(
-          new GarboAPIError('Invalid company data format', {
-            original: error,
-            statusCode: 422,
-          })
-        )
-      } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        next(
-          new GarboAPIError('Database error while loading company', {
+                },
+                metadata,
+              },
+              orderBy: {
+                startDate: 'desc',
+              },
+            },
+            industry: {
+              select: {
+                industryGics: {
+                  select: {
+                    sectorCode: true,
+                    groupCode: true,
+                    industryCode: true,
+                    subIndustryCode: true,
+                  },
+                },
+                metadata,
+              },
+            },
+            goals: {
+              select: {
+                id: true,
+                description: true,
+                year: true,
+                baseYear: true,
+                target: true,
+                metadata,
+              },
+              orderBy: {
+                year: 'desc',
+              },
+            },
+            initiatives: {
+              select: {
+                id: true,
+                title: true,
+                description: true,
+                year: true,
+                scope: true,
+                metadata,
+              },
+              orderBy: {
+                year: 'desc',
+              },
+            },
+          },
+        })
+
+        if (!company) {
+          reply.send(null)
+          return
+        }
+
+        const [transformedCompany] = addCalculatedTotalEmissions([
+          transformMetadata(company),
+        ])
+
+        reply.send({
+          ...transformedCompany,
+          // Add translations for GICS data
+          industry: transformedCompany.industry
+            ? {
+                ...transformedCompany.industry,
+                industryGics: {
+                  ...transformedCompany.industry.industryGics,
+                  ...getGics(
+                    transformedCompany.industry.industryGics.subIndustryCode
+                  ),
+                },
+              }
+            : null,
+        })
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          throw new GarboAPIError('Database error while loading company', {
             original: error,
             statusCode: 500,
           })
-        )
-      } else {
-        next(
-          new GarboAPIError('Failed to load company', {
+        } else {
+          throw new GarboAPIError('Failed to load company', {
             original: error,
             statusCode: 500,
           })
-        )
+        }
       }
     }
-  }
-)
-
-export default router
+  )
+}

@@ -1203,9 +1203,9 @@ function getGicsTranslationFile(codes: IndustryGicsWithTranslations[]) {
 }
 
 export async function seedGicsCodes() {
-  const count = await prisma.industryGics2.count()
+  const count = await prisma.industryGics.count()
   if (count > 0) return
-  await prisma.industryGics2.createMany({ data: gicsCodes })
+  await prisma.industryGics.createMany({ data: gicsCodes })
 }
 
 export async function getAllGicsCodesLookup() {
