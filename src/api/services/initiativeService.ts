@@ -9,11 +9,12 @@ class InitiativeService {
     initiatives: OptionalNullable<
       Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
     >[],
-    metadata: Metadata
+    createMetadata: () => Promise<Metadata>
   ) {
-    return prisma.$transaction(
-      initiatives.map((initiative) =>
-        prisma.initiative.create({
+    return await Promise.all(
+      initiatives.map(async (initiative) => {
+        const metadata = await createMetadata()
+        return prisma.initiative.create({
           data: {
             ...initiative,
             title: initiative.title,
@@ -30,7 +31,7 @@ class InitiativeService {
           },
           select: { id: true },
         })
-      )
+      })
     )
   }
 

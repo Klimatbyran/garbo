@@ -1,6 +1,9 @@
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
-import { goalSchema } from './schemas'
+
+import * as schemas from './schemas'
+
+export type WikidataIdParams = z.infer<typeof schemas.wikidataIdParamSchema>
 
 export const emissionsArgs = {
   include: {
@@ -50,4 +53,15 @@ export type DefaultReportingPeriod = Prisma.ReportingPeriodGetPayload<
   typeof reportingPeriodArgs
 >
 
-export type DefaultGoal = z.infer<typeof goalSchema>
+export type PostGoalBody = z.infer<typeof schemas.postGoalSchema>
+export type PostGoalsBody = z.infer<typeof schemas.postGoalsSchema>
+
+export type PostIndustryBody = z.infer<typeof schemas.postIndustrySchema>
+export type PostInitiativeBody = z.infer<typeof schemas.postInitiativeSchema>
+export type PostInitiativesBody = z.infer<typeof schemas.postInitiativesSchema>
+export type PostReportingPeriodsBody = z.infer<
+  typeof schemas.postReportingPeriodsSchema
+>
+export type PostCompanyBody = z.infer<typeof schemas.postCompanyBodySchema>
+
+export type GarboEntityId = z.infer<typeof schemas.garboEntitySchema>

@@ -1,11 +1,9 @@
-import express from 'express'
 import { parseArgs } from 'node:util'
 import { PrismaClient } from '@prisma/client'
 
-import api from './api'
+import startApp from './app'
 import apiConfig from './config/api'
-
-const prisma = new PrismaClient()
+import openAPIConfig from './config/openapi'
 
 const { values } = parseArgs({
   options: {
@@ -17,45 +15,53 @@ const { values } = parseArgs({
 })
 
 const START_BOARD = !values['api-only']
-
 const port = apiConfig.port
-const app = express()
 
-app.get('/favicon.ico', express.static('public/favicon.png'))
-app.use('/api', api)
+const prisma = new PrismaClient()
+const app = await startApp()
 
-app.get('/', (req, res) => {
-  res.redirect('/api')
-})
+async function main() {
+  try {
+    if (START_BOARD) {
+      const bullBoard = (await import('./bull-board')).default
+      app.register(bullBoard, {
+        logLevel: 'silent',
+        prefix: apiConfig.bullBoardBasePath,
+        basePath: apiConfig.bullBoardBasePath,
+      })
+    }
 
-if (START_BOARD) {
-  const queue = (await import('./queue')).default
-  app.use('/admin/queues', queue)
-  app.get('/', (req, res) => {
-    res.send(
-      `Hi I'm Garbo!
-      Queues: <br>
-      <a href="/admin/queues">/admin/queues</a>`
+    await app.ready()
+
+    app.listen(
+      {
+        host: '0.0.0.0',
+        port: apiConfig.port,
+      },
+      async () => {
+        const logMessages = [
+          `API running at http://localhost:${port}/api/companies`,
+          `OpenAPI docs served at http://localhost:${port}/${openAPIConfig.prefix}`,
+        ]
+
+        if (START_BOARD) {
+          const discord = (await import('./discord')).default
+          await discord.login()
+          logMessages.push(
+            `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
+          )
+        }
+
+        logMessages.forEach((msg) => app.log.info(msg))
+      }
     )
-  })
+  } catch (e) {
+    app.log.error(e)
+    process.exit(1)
+  }
 }
 
-app.listen(port, async () => {
-  const logMessages = [
-    `API running at http://localhost:${port}/api/companies`,
-    `OpenAPI docs running at http://localhost:${port}/api`,
-  ]
-
-  if (START_BOARD) {
-    const discord = (await import('./discord')).default
-    await discord.login()
-    logMessages.push(
-      `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
-    )
-  }
-
-  console.log(logMessages.join('\n'))
-})
+await main()
 
 async function findAndDeleteOrphanedMetadata() {
   const orphanedMetadata = await prisma.metadata.findMany({
@@ -79,7 +85,7 @@ async function findAndDeleteOrphanedMetadata() {
     },
   })
 
-  console.log(`Found ${orphanedMetadata.length} orphaned metadata records.`)
+  app.log.info(`Found ${orphanedMetadata.length} orphaned metadata records.`)
 
   if (orphanedMetadata.length > 0) {
     const deleted = await prisma.metadata.deleteMany({
@@ -88,7 +94,7 @@ async function findAndDeleteOrphanedMetadata() {
       },
     })
 
-    console.log(`Deleted ${deleted.count} orphaned metadata records.`)
+    app.log.info(`Deleted ${deleted.count} orphaned metadata records.`)
   }
 }
 

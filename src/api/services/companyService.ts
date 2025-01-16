@@ -1,4 +1,5 @@
 import { Economy, Employees, Metadata, Turnover } from '@prisma/client'
+
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyArgs, economyArgs } from '../types'
 import { prisma } from '../../lib/prisma'

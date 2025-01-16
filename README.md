@@ -104,7 +104,7 @@ You may want a graphical user interface to make it easier to manage your local c
 
 ### Seeding the database for development
 
-This applies migrations and seeding data needed for development.
+This applies migrations and seeding data needed for development. It also generates the prisma JS client and types, which are necessary to let prisma connect to the database.
 
 ```sh
 npm run prisma migrate dev
