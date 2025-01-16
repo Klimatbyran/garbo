@@ -48,12 +48,10 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
     )
     const body = {
-      company: {
-        name: companyName,
-        description,
-        wikidataId,
-        metadata,
-      },
+      name: companyName,
+      description,
+      wikidataId,
+      metadata,
     }
 
     await apiFetch(`/companies`, { body })

@@ -25,17 +25,13 @@ const createMetadataSchema = z.object({
     .optional(),
 })
 
-export const upsertCompanyBodySchema = z.object({
+export const postCompanyBodySchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
   description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
   tags: z.array(z.string()).optional(),
-})
-
-export const postCompanyBodySchema = z.object({
-  company: upsertCompanyBodySchema,
 })
 
 export const reportingPeriodBodySchema = z

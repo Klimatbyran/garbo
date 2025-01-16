@@ -32,9 +32,8 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const {
-        company: { name, wikidataId, description, internalComment, tags, url },
-      } = request.body
+      const { name, wikidataId, description, internalComment, tags, url } =
+        request.body
 
       await companyService.upsertCompany({
         name,
