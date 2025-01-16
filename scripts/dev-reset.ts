@@ -15,7 +15,7 @@ const exec = promisify(execSync)
 // npm run reset -- --chroma
 
 async function resetIfConfirmed(
-  service: 'chroma' | 'postgres' | 'redis',
+  service: 'chroma' | 'postgres' | 'redis' | 'all',
   callback: () => Promise<void>
 ) {
   const shouldRun = await confirm(
@@ -44,6 +44,29 @@ function confirm(message: string): Promise<boolean> {
   )
 }
 
+async function resetRedis() {
+  const commands = [
+    'docker exec garbo_redis redis-cli flushall',
+    'podman exec garbo_redis redis-cli flushall',
+  ]
+  for (const cmd of commands) {
+    try {
+      const { stdout } = await exec(cmd)
+      console.log(stdout)
+      return
+    } catch (err) {
+      // Ignore the error and try the next command
+    }
+  }
+  console.error(
+    'Failed to reset Redis. Ensure either Docker or Podman is installed and running.'
+  )
+}
+
+async function resetAll() {
+  await Promise.all([vectorDB.clearAllReports(), resetDB(), resetRedis()])
+}
+
 async function main() {
   const { values } = parseArgs({
     options: {
@@ -59,6 +82,10 @@ async function main() {
         type: 'boolean',
         default: false,
       },
+      all: {
+        type: 'boolean',
+        default: false,
+      },
     },
   })
 
@@ -71,14 +98,10 @@ async function main() {
   }
 
   if (values.redis) {
-    await resetIfConfirmed('redis', async () => {
-      const { stderr, stdout } = await exec(
-        'podman exec -it garbo_redis bash -c "redis-cli flushall"'
-      )
-      if (stderr) console.error(stderr)
-      console.log(stdout)
-    })
+    await resetIfConfirmed('redis', async () => resetRedis())
   }
+
+  if (values.all) return resetIfConfirmed('all', resetAll)
 }
 
 if (isMainModule(import.meta.url)) {
