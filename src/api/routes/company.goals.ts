@@ -1,141 +1,107 @@
-import express from 'express'
-import { z } from 'zod'
-import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { Prisma } from '@prisma/client'
+
 import { GarboAPIError } from '../../lib/garbo-api-error'
-import { postGoalSchema, postGoalsSchema } from '../schemas'
 import { goalService } from '../services/goalService'
-import { processRequest } from '../middlewares/zod-middleware'
+import {
+  wikidataIdParamSchema,
+  postGoalSchema,
+  postGoalsSchema,
+  okResponseSchema,
+  garboEntitySchema,
+} from '../schemas'
+import {
+  PostGoalsBody,
+  PostGoalBody,
+  GarboEntityId,
+  WikidataIdParams,
+} from '../types'
+import { metadataService } from '../services/metadataService'
+import { getTags } from '../../config/openapi'
 
-const router = express.Router()
+export async function companyGoalsRoutes(app: FastifyInstance) {
+  app.post(
+    '/:wikidataId/goals',
+    {
+      schema: {
+        summary: 'Create company goals',
+        description: 'Create new goals for a company',
+        tags: getTags('Goals'),
+        params: wikidataIdParamSchema,
+        body: postGoalsSchema,
+        response: {
+          200: okResponseSchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: WikidataIdParams
+        Body: PostGoalsBody
+      }>,
+      reply
+    ) => {
+      const { goals, metadata } = request.body
 
-/**
- * @swagger
- * /companies/{wikidataId}/goals:
- *   post:
- *     summary: Create company goals
- *     description: Create new goals for a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *              $ref: '#/components/schemas/Goals'
- *     responses:
- *       200:
- *         description: Goals created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Company not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.post(
-  '/:wikidataId/goals',
-  processRequest({
-    body: postGoalsSchema,
-    params: wikidataIdParamSchema,
-  }),
-  async (req, res) => {
-    const { goals } = req.body
+      if (goals?.length) {
+        const { wikidataId } = request.params
+        const user = request.user
 
-    if (goals?.length) {
-      const { wikidataId } = req.params
-      const metadata = res.locals.metadata
-
-      await goalService.createGoals(wikidataId, goals, metadata!)
-    }
-    res.json({ ok: true })
-  }
-)
-
-/**
- * @swagger
- * /companies/{wikidataId}/goals/{id}:
- *   patch:
- *     summary: Update a company goal
- *     description: Update an existing goal for a specific company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *         description: Goal ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *               $ref: '#/components/schemas/Goal'
- *     responses:
- *       200:
- *         description: Goal updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Goal not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.patch(
-  '/:wikidataId/goals/:id',
-  processRequest({
-    body: postGoalSchema,
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { goal } = req.body
-    const { id } = req.params
-    const metadata = res.locals.metadata
-    await goalService.updateGoal(id, goal, metadata!).catch((error) => {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Goal not found', {
-          statusCode: 404,
-          original: error,
-        })
+        await goalService.createGoals(wikidataId, goals, () =>
+          metadataService.createMetadata({
+            metadata,
+            user,
+          })
+        )
       }
-      throw error
-    })
-    res.json({ ok: true })
-  }
-)
+      reply.send({ ok: true })
+    }
+  )
 
-export default router
+  app.patch(
+    '/:wikidataId/goals/:id',
+    {
+      schema: {
+        summary: 'Update company goal',
+        description: 'Update a goal for a company',
+        tags: getTags('Goals'),
+        params: garboEntitySchema,
+        body: postGoalSchema,
+        response: {
+          200: okResponseSchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: GarboEntityId
+        Body: PostGoalBody
+      }>,
+      reply
+    ) => {
+      const { id } = request.params
+      const { goal } = request.body
+
+      const createdMetadata = await metadataService.createMetadata({
+        metadata: request.body.metadata,
+        user: request.user,
+      })
+
+      await goalService
+        .updateGoal(id, { goal }, createdMetadata)
+        .catch((error) => {
+          if (
+            error instanceof Prisma.PrismaClientKnownRequestError &&
+            error.code === 'P2025'
+          ) {
+            throw new GarboAPIError('Goal not found', {
+              statusCode: 404,
+              original: error,
+            })
+          }
+          throw error
+        })
+      reply.send({ ok: true })
+    }
+  )
+}

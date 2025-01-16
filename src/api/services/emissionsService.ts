@@ -215,9 +215,11 @@ class EmissionsService {
         'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
       >
     },
-    metadata: Metadata
+    createMetadata: () => Promise<Metadata>
   ) {
     const existingScope3Id = emissions.scope3?.id
+
+    const metadata = await createMetadata()
 
     const updatedScope3 = await prisma.scope3.upsert({
       where: { id: existingScope3Id ?? 0 },
@@ -247,7 +249,8 @@ class EmissionsService {
 
     // Upsert only the scope 3 categories from the request body
     await Promise.all(
-      (scope3.categories ?? []).map((scope3Category) => {
+      (scope3.categories ?? []).map(async (scope3Category) => {
+        const metadataForScope3Category = await createMetadata()
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )
@@ -264,7 +267,7 @@ class EmissionsService {
             ...scope3Category,
             metadata: {
               connect: {
-                id: metadata.id,
+                id: metadataForScope3Category.id,
               },
             },
           },
@@ -278,7 +281,7 @@ class EmissionsService {
             },
             metadata: {
               connect: {
-                id: metadata.id,
+                id: metadataForScope3Category.id,
               },
             },
           },
@@ -339,7 +342,7 @@ class EmissionsService {
     const existingBiogenicEmissionsId = emissions.biogenicEmissions?.id
 
     return existingBiogenicEmissionsId
-      ? prisma.biogenicEmissions.update({
+      ? await prisma.biogenicEmissions.update({
           where: {
             id: existingBiogenicEmissionsId,
           },
@@ -353,7 +356,7 @@ class EmissionsService {
           },
           select: { id: true },
         })
-      : prisma.biogenicEmissions.create({
+      : await prisma.biogenicEmissions.create({
           data: {
             ...biogenic,
             unit: TONNES_CO2_UNIT,

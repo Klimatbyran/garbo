@@ -1,15 +1,59 @@
-import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi'
-import { registry } from './openapi/registry'
+import 'dotenv/config'
+import { z } from 'zod'
 
-const generator = new OpenApiGeneratorV3(registry.definitions)
+const envSchema = z.object({
+  OPENAPI_PREFIX: z.string().default('api'),
+})
 
-export const swaggerOptions = {
-  definition: {
-    ...generator.generateDocument({
-      info: {
-        title: 'Klimatkollen API',
-        version: '1.0.0',
-        description: `
+const env = envSchema.parse(process.env)
+
+const openAPITagDefinitions = {
+  Companies: {
+    description: 'Companies and related resources',
+  },
+  Industry: {
+    description: 'Company industry',
+  },
+  ReportingPeriods: {
+    description:
+      'Yearly periodised data primarily related to emissions and economy',
+  },
+  Emissions: {
+    description: 'Emissions for a specific reporting period',
+  },
+  Goals: {
+    description: 'Company goals',
+  },
+  Initiatives: {
+    description: 'Company initiatives',
+  },
+} as const
+
+type TagName = keyof typeof openAPITagDefinitions
+type Tag = (typeof openAPITagDefinitions)[TagName] & { name: TagName }
+
+const openAPITags = Object.entries(openAPITagDefinitions).reduce(
+  (tags, [name, tag]) => {
+    const tagName = name as unknown as TagName
+    tags[tagName] = { name: tagName, ...tag }
+    return tags
+  },
+  {} as Record<TagName, Tag>
+)
+
+/**
+ * Format valid OpenAPI tags as an array.
+ */
+export function getTags(...tags: (keyof typeof openAPITags)[]) {
+  return tags
+}
+
+export default {
+  prefix: env.OPENAPI_PREFIX,
+  tags: openAPITags,
+
+  title: 'Klimatkollen API Reference',
+  description: `
 ![Klimatkollen Logo](https://beta.klimatkollen.se/klimatkollen_logo.svg)
 
 The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
@@ -57,14 +101,4 @@ curl -X POST "https://api.klimatkollen.se/api/companies/Q123/reporting-periods" 
      -d '{"reportingPeriods": [...]}'
 \`\`\`
 `,
-      },
-      servers: [
-        {
-          url: '/api',
-          description: 'API endpoint',
-        },
-      ],
-    }),
-  },
-  apis: ['./src/api/routes/**/*.ts'],
 }

@@ -1,104 +1,73 @@
-import express from 'express'
-import { wikidataIdParamSchema } from '../../openapi/schemas'
+import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
+
 import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { industryService } from '../services/industryService'
-import { processRequest } from '../middlewares/zod-middleware'
 import { postIndustrySchema } from '../schemas'
+import { metadataService } from '../services/metadataService'
+import { getTags } from '../../config/openapi'
+import { wikidataIdParamSchema, okResponseSchema } from '../schemas'
+import { WikidataIdParams, PostIndustryBody } from '../types'
 
-const router = express.Router()
+export async function companyIndustryRoutes(app: FastifyInstance) {
+  app.post(
+    '/:wikidataId/industry',
+    {
+      schema: {
+        summary: 'Update company industry',
+        description:
+          'Update or create industry classification for a company based on the GICS standard',
+        tags: getTags('Industry'),
+        params: wikidataIdParamSchema,
+        body: postIndustrySchema,
+        response: {
+          200: okResponseSchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: WikidataIdParams
+        Body: PostIndustryBody
+      }>,
+      reply
+    ) => {
+      const {
+        industry: { subIndustryCode },
+        metadata,
+      } = request.body
+      const { wikidataId } = request.params
 
-/**
- * @swagger
- * /companies/{wikidataId}/industry:
- *   post:
- *     summary: Update company industry classification
- *     description: Update or create industry classification for a company
- *     tags: [Companies]
- *     parameters:
- *       - in: path
- *         name: wikidataId
- *         required: true
- *         schema:
- *           type: string
- *         description: Wikidata ID of the company
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *               $ref: '#/components/schemas/Industry'
- *     responses:
- *       200:
- *         description: Industry updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 ok:
- *                   type: boolean
- *       404:
- *         description: Company not found
- *       422:
- *         description: Validation error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *       500:
- *         description: Server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- */
-router.post(
-  '/:wikidataId/industry',
-  processRequest({
-    body: postIndustrySchema,
-    params: wikidataIdParamSchema,
-  }),
-  async (req, res) => {
-    const { industry } = req.body
-    // NOTE: This extra check is only necessary because we don't get correct TS types from the zod middleware processRequest().
-    // Ideally, we could update the generic types of the zod-middleware to return the exact inferred schema, instead of turning everything into optional fields.
-    const subIndustryCode = industry?.subIndustryCode
-    if (!subIndustryCode) {
-      throw new GarboAPIError('Unable to update industry')
-    }
+      const current = await prisma.industry.findFirst({
+        where: { companyWikidataId: wikidataId },
+      })
 
-    const { wikidataId } = req.params
-    const metadata = res.locals.metadata
+      const createdMetadata = await metadataService.createMetadata({
+        metadata,
+        user: request.user,
+      })
 
-    const current = await prisma.industry.findFirst({
-      where: { companyWikidataId: wikidataId },
-    })
-
-    if (current) {
-      console.log('updating industry', subIndustryCode)
-      await industryService
-        .updateIndustry(wikidataId, { subIndustryCode }, metadata!)
-        .catch((error) => {
-          throw new GarboAPIError('Failed to update industry', {
-            original: error,
-            statusCode: 500,
+      if (current) {
+        await industryService
+          .updateIndustry(wikidataId, { subIndustryCode }, createdMetadata)
+          .catch((error) => {
+            throw new GarboAPIError('Failed to update industry', {
+              original: error,
+              statusCode: 500,
+            })
           })
-        })
-    } else {
-      console.log('creating industry', subIndustryCode)
-      await industryService
-        .createIndustry(wikidataId, { subIndustryCode }, metadata!)
-        .catch((error) => {
-          throw new GarboAPIError('Failed to create industry', {
-            original: error,
-            statusCode: 500,
+      } else {
+        await industryService
+          .createIndustry(wikidataId, { subIndustryCode }, createdMetadata)
+          .catch((error) => {
+            throw new GarboAPIError('Failed to create industry', {
+              original: error,
+              statusCode: 500,
+            })
           })
-        })
+      }
+
+      reply.send({ ok: true })
     }
-
-    res.json({ ok: true })
-  }
-)
-
-export default router
+  )
+}

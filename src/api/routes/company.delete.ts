@@ -1,145 +1,293 @@
-import express from 'express'
+import { AuthenticatedFastifyRequest, FastifyInstance } from 'fastify'
+
 import { companyService } from '../services/companyService'
-import { processRequest } from '../middlewares/zod-middleware'
-import { z } from 'zod'
 import { goalService } from '../services/goalService'
 import { industryService } from '../services/industryService'
 import { initiativeService } from '../services/initiativeService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import { emissionsService } from '../services/emissionsService'
+import {
+  wikidataIdParamSchema,
+  emptyBodySchema,
+  garboEntitySchema,
+} from '../schemas'
+import { getTags } from '../../config/openapi'
+import { GarboEntityId, WikidataIdParams } from '../types'
 
-const router = express.Router()
+export async function companyDeleteRoutes(app: FastifyInstance) {
+  app.delete(
+    '/:wikidataId',
+    {
+      schema: {
+        summary: 'Delete company',
+        description: 'Deletes a company by Wikidata ID',
+        tags: getTags('Companies'),
+        params: wikidataIdParamSchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
+      reply
+    ) => {
+      const { wikidataId } = request.params
+      await companyService.deleteCompany(wikidataId)
+      reply.status(204).send()
+    }
+  )
 
-router.delete('/:wikidataId', async (req, res) => {
-  const { wikidataId } = req.params
-  await companyService.deleteCompany(wikidataId)
-  res.status(204).send()
-})
+  app.delete(
+    '/goals/:id',
+    {
+      schema: {
+        summary: 'Delete a goal',
+        description: 'Deletes a goal by id',
+        tags: getTags('Goals'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await goalService.deleteGoal(id)
+      reply.status(204).send()
+    }
+  )
 
-router.delete(
-  '/goals/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await goalService.deleteGoal(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/:wikidataId/industry',
+    {
+      schema: {
+        summary: 'Delete industry',
+        description: 'Delete a company industry',
+        tags: getTags('Industry'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
+      reply
+    ) => {
+      const { wikidataId } = request.params
+      await industryService.deleteIndustry(wikidataId)
+      reply.status(204).send()
+    }
+  )
 
-router.delete('/:wikidataId/industry', async (req, res) => {
-  const { wikidataId } = req.params
-  await industryService.deleteIndustry(wikidataId)
-  res.status(204).send()
-})
+  app.delete(
+    '/initiatives/:id',
+    {
+      schema: {
+        summary: 'Delete an initiative',
+        description: 'Deletes an initiative by id',
+        tags: getTags('Initiatives'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      req: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = req.params
+      await initiativeService.deleteInitiative(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/initiatives/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await initiativeService.deleteInitiative(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/reporting-period/:id',
+    {
+      schema: {
+        summary: 'Delete a reporting period',
+        description: 'Deletes a reporting period by id',
+        tags: getTags('ReportingPeriods'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await reportingPeriodService.deleteReportingPeriod(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/reporting-period/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await reportingPeriodService.deleteReportingPeriod(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/stated-total-emissions/:id',
+    {
+      schema: {
+        summary: 'Delete stated total emissions',
+        description: 'Deletes stated total emissions by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteStatedTotalEmissions(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/stated-total-emissions/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteStatedTotalEmissions(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/biogenic-emissions/:id',
+    {
+      schema: {
+        summary: 'Delete biogenic emissions',
+        description: 'Deletes biogenic emissions by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteBiogenicEmissions(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/biogenic-emissions/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteBiogenicEmissions(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/scope1/:id',
+    {
+      schema: {
+        summary: 'Delete Scope1',
+        description: 'Deletes the Scope1 emissions by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteScope1(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/scope1/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteScope1(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/scope1and2/:id',
+    {
+      schema: {
+        summary: 'Delete scope1and2',
+        description: 'Deletes a scope1and2 by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteScope1And2(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/scope1and2/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteScope1And2(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/scope2/:id',
+    {
+      schema: {
+        summary: 'Delete scope2',
+        description: 'Deletes a scope2 by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteScope2(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/scope2/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteScope2(id)
-    res.status(204).send()
-  }
-)
+  app.delete(
+    '/scope3/:id',
+    {
+      schema: {
+        summary: 'Delete scope3',
+        description: 'Deletes a scope3 by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteScope3(id)
+      reply.code(204).send()
+    }
+  )
 
-router.delete(
-  '/scope3/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteScope3(id)
-    res.status(204).send()
-  }
-)
-
-router.delete(
-  '/scope3-category/:id',
-  processRequest({
-    params: z.object({ id: z.coerce.number() }),
-  }),
-  async (req, res) => {
-    const { id } = req.params
-    await emissionsService.deleteScope3Category(id)
-    res.status(204).send()
-  }
-)
-
-export default router
+  app.delete(
+    '/scope3-category/:id',
+    {
+      schema: {
+        summary: 'Delete a scope3 category',
+        description: 'Deletes a scope3 category by id',
+        tags: getTags('Emissions'),
+        params: garboEntitySchema,
+        response: {
+          204: emptyBodySchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      await emissionsService.deleteScope3Category(id)
+      reply.code(204).send()
+    }
+  )
+}
