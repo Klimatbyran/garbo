@@ -435,7 +435,6 @@ export async function upsertCompanies(companies: CompanyInput[]) {
           metadata: {
             ...goals[0].metadata,
             verifiedBy: undefined,
-            dataOrigin: undefined,
             user: undefined,
           },
         },
@@ -456,7 +455,6 @@ export async function upsertCompanies(companies: CompanyInput[]) {
           metadata: {
             ...initiatives[0].metadata,
             verifiedBy: undefined,
-            dataOrigin: undefined,
             user: undefined,
           },
         },

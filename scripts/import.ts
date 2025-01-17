@@ -1,15 +1,3 @@
-import { PrismaClient } from '@prisma/client'
-import { getAllGicsCodesLookup } from './add-gics'
-
-const prisma = new PrismaClient()
-
-export const DATA_ORIGIN = {
-  garbo: 'garbo',
-  manual: 'manual',
-}
-
-export type DataOrigin = keyof typeof DATA_ORIGIN
-
 export type CompanyInput = {
   wikidataId: string
   name: string
@@ -93,14 +81,3 @@ export type EconomyInput = {
     unit?: string
   }
 }
-
-export async function getSeededData() {
-  const [[garbo, alex], gicsCodes] = await Promise.all([
-    prisma.user.findMany(),
-    getAllGicsCodesLookup(),
-  ])
-
-  return { users: { garbo, alex }, gicsCodes }
-}
-
-export type InitialDBState = Awaited<ReturnType<typeof getSeededData>>
