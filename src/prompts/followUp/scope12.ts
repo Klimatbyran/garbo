@@ -67,6 +67,7 @@ const queryTexts = [
   'Scope 1 and 2 emissions',
   'Market-based and location-based emissions',
   'GHG protocol Scope 1 and 2 data',
+  'carbon emissions CO2',
 ]
 
 export default { prompt, schema, queryTexts }
