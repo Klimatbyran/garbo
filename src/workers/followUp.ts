@@ -18,8 +18,6 @@ const followUp = new DiscordWorker<FollowUpJob>(
   'followUp',
   async (job: FollowUpJob) => {
     const { type, url, previousAnswer } = job.data
-    console.log('followup: job.data.type', job.data.type)
-
     const {
       default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))

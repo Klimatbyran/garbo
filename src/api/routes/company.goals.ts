@@ -43,8 +43,6 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
     ) => {
       const { goals, metadata } = request.body
 
-      console.log('company.goals', goals)
-
       if (goals?.length) {
         const { wikidataId } = request.params
         const user = request.user
