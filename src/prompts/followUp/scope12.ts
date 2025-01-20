@@ -8,17 +8,21 @@ const schema = z.object({
         .object({
           total: z.number(),
         })
+        .nullable()
         .optional(),
       scope2: z
         .object({
           mb: z
             .number({ description: 'Market-based scope 2 emissions' })
+            .nullable()
             .optional(),
           lb: z
             .number({ description: 'Location-based scope 2 emissions' })
+            .nullable()
             .optional(),
           unknown: z
             .number({ description: 'Unspecified Scope 2 emissions' })
+            .nullable()
             .optional(),
         })
         .refine(
@@ -29,6 +33,7 @@ const schema = z.object({
               'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
           }
         )
+        .nullable()
         .optional(),
     })
   ),
@@ -36,7 +41,7 @@ const schema = z.object({
 
 const prompt = `
 *** Golden Rule ***
-- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent if no data is provided.
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
 Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude the latest year.
 Include market-based and location-based in scope 2. 

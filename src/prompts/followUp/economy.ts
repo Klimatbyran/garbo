@@ -31,7 +31,7 @@ export const schema = z.object({
 
 export const prompt = `
 *** Golden Rule ***
-- Extract values only if explicitly available in the context. Do not infer or create data. If no value is found, explicitly set the field to null.
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 *** Turnover ***
 - Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
   Be as accurate as possible. Extract this data for all available years.

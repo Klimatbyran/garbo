@@ -61,11 +61,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
 
-      console.log(
-        'remove nullable',
-        removeNullValuesFromGarbo(body)?.reportingPeriods[0]
-      )
-
       if (!requiresApproval || approved) {
         console.log(`Saving approved data for ${wikidataId} to API`)
         await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
