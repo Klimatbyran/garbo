@@ -8,18 +8,20 @@ export const schema = z.object({
         .object({
           turnover: z
             .object({
-              value: z.number().optional(),
-              currency: z.string().optional(),
+              value: z.number().nullable().optional(),
+              currency: z.string().nullable().optional(),
             })
             .nullable()
             .optional(),
           employees: z
             .object({
-              value: z.number().optional(),
-              unit: z.string().optional(),
+              value: z.number().nullable().optional(),
+              unit: z.string().nullable().optional(),
             })
+            .nullable()
             .optional(),
         })
+        .nullable()
         .optional(),
     })
   ),
@@ -29,7 +31,7 @@ export const schema = z.object({
 
 export const prompt = `
 *** Golden Rule ***
-- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent if no data is provided.
+- Extract values only if explicitly available in the context. Do not infer or create data. If no value is found, explicitly set the field to null.
 *** Turnover ***
 - Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
   Be as accurate as possible. Extract this data for all available years.
@@ -43,16 +45,16 @@ export const prompt = `
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
 
-TODO: Remove line below later, ( jsut for this test) console.log
-Have turnover be null this one time no matter what
-
 *** Example***
 This is only an example format; do not include this specific data in the output and do not use markdown in the output:
 {
   "economy": [
     {
       "year": 2023,
-      "turnover": null,
+      "turnover": {
+        "value": 4212299000,
+        "currency": "SEK"
+      },
       "employees": {
         "value": 3298,
         "unit": "FTE"
@@ -60,7 +62,10 @@ This is only an example format; do not include this specific data in the output 
     },
     {
       "year": 2022,
-      "turnover": null,
+      "turnover": {
+        "value": 3993948000,
+        "currency": "SEK"
+      },
       "employees": {
         "value": 3045,
         "unit": "FTE"

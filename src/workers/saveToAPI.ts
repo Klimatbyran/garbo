@@ -36,15 +36,15 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         })
       }
 
-      function sanitizeData(data: any): any {
+      function removeNullValuesFromGarbo(data: any): any {
         if (Array.isArray(data)) {
           return data
-            .map((item) => sanitizeData(item))
+            .map((item) => removeNullValuesFromGarbo(item))
             .filter((item) => item !== null && item !== undefined)
         } else if (typeof data === 'object' && data !== null) {
           const sanitizedObject = Object.entries(data).reduce(
             (acc, [key, value]) => {
-              const sanitizedValue = sanitizeData(value)
+              const sanitizedValue = removeNullValuesFromGarbo(value)
               if (sanitizedValue !== null && sanitizedValue !== undefined) {
                 acc[key] = sanitizedValue
               }
@@ -61,15 +61,16 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
 
-      console.log('regular body: ', body)
       console.log(
-        'sanitized body: ',
-        sanitizeData(body)?.reportingPeriods[0]?.economy
+        'remove nullable',
+        removeNullValuesFromGarbo(body)?.reportingPeriods[0]
       )
 
       if (!requiresApproval || approved) {
         console.log(`Saving approved data for ${wikidataId} to API`)
-        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, { body })
+        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+          body: removeNullValuesFromGarbo(body),
+        })
         return { success: true }
       }
 
