@@ -11,6 +11,7 @@ export const schema = z.object({
               value: z.number().optional(),
               currency: z.string().optional(),
             })
+            .nullable()
             .optional(),
           employees: z
             .object({
@@ -42,16 +43,16 @@ export const prompt = `
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
 
+TODO: Remove line below later, ( jsut for this test) console.log
+Have turnover be null this one time no matter what
+
 *** Example***
 This is only an example format; do not include this specific data in the output and do not use markdown in the output:
 {
   "economy": [
     {
       "year": 2023,
-      "turnover": {
-        "value": 4212299000,
-        "currency": "SEK"
-      },
+      "turnover": null,
       "employees": {
         "value": 3298,
         "unit": "FTE"
@@ -59,10 +60,7 @@ This is only an example format; do not include this specific data in the output 
     },
     {
       "year": 2022,
-      "turnover": {
-        "value": 3993948000,
-        "currency": "SEK"
-      },
+      "turnover": null,
       "employees": {
         "value": 3045,
         "unit": "FTE"

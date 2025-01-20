@@ -36,6 +36,37 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         })
       }
 
+      function sanitizeData(data: any): any {
+        if (Array.isArray(data)) {
+          return data
+            .map((item) => sanitizeData(item))
+            .filter((item) => item !== null && item !== undefined)
+        } else if (typeof data === 'object' && data !== null) {
+          const sanitizedObject = Object.entries(data).reduce(
+            (acc, [key, value]) => {
+              const sanitizedValue = sanitizeData(value)
+              if (sanitizedValue !== null && sanitizedValue !== undefined) {
+                acc[key] = sanitizedValue
+              }
+              return acc
+            },
+            {} as Record<string, any>
+          )
+
+          return Object.keys(sanitizedObject).length > 0
+            ? sanitizedObject
+            : null
+        } else {
+          return data
+        }
+      }
+
+      console.log('regular body: ', body)
+      console.log(
+        'sanitized body: ',
+        sanitizeData(body)?.reportingPeriods[0]?.economy
+      )
+
       if (!requiresApproval || approved) {
         console.log(`Saving approved data for ${wikidataId} to API`)
         await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, { body })
