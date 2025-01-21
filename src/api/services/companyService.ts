@@ -53,8 +53,8 @@ class CompanyService {
     economyId,
     reportingPeriodId,
   }: {
-    economyId: number
-    reportingPeriodId: number
+    economyId: string
+    reportingPeriodId: string
   }) {
     return prisma.economy.upsert({
       where: { id: economyId },
@@ -82,7 +82,7 @@ class CompanyService {
     >
   }) {
     return prisma.turnover.upsert({
-      where: { id: economy.turnoverId ?? 0 },
+      where: { id: economy.turnoverId ?? '' },
       create: {
         ...turnover,
         metadata: {
@@ -116,7 +116,7 @@ class CompanyService {
     const existingEmployeesId = economy.employees?.id
 
     return prisma.employees.upsert({
-      where: { id: existingEmployeesId ?? 0 },
+      where: { id: existingEmployeesId ?? '' },
       create: {
         ...employees,
         metadata: {

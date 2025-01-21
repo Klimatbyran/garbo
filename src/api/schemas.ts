@@ -7,7 +7,7 @@ export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
-export const garboEntitySchema = z.object({ id: z.coerce.number() })
+export const garboEntitySchema = z.object({ id: z.string() })
 
 /**
  * This allows reporting periods like 2022-2023
