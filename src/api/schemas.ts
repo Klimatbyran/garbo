@@ -182,10 +182,13 @@ export const postReportingPeriodsSchema = z
   })
   .merge(createMetadataSchema)
 
+// Response Schemas Below
+
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
+  id: z.string(),
   comment: z
     .string()
     .nullable()
@@ -226,24 +229,28 @@ const CompanyBaseSchema = z.object({
 })
 
 export const StatedTotalEmissionsSchema = z.object({
+  id: z.string(),
   total: z.number().openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const BiogenicSchema = z.object({
+  id: z.string(),
   total: z.number().openapi({ description: 'Total biogenic emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope1Schema = z.object({
+  id: z.string(),
   total: z.number().openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope2BaseSchema = z.object({
+  id: z.string(),
   mb: z
     .number()
     .nullable()
@@ -278,6 +285,7 @@ const withScope2Refinement = <T extends z.ZodRawShape>(
 export const Scope2Schema = withScope2Refinement(Scope2BaseSchema)
 
 export const Scope3CategorySchema = z.object({
+  id: z.string(),
   category: z
     .number()
     .int()
@@ -292,6 +300,7 @@ export const Scope3CategorySchema = z.object({
 })
 
 export const Scope3Schema = z.object({
+  id: z.string(),
   categories: z.array(Scope3CategorySchema),
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
   calculatedTotalEmissions: z
@@ -301,12 +310,14 @@ export const Scope3Schema = z.object({
 })
 
 export const Scope1And2Schema = z.object({
+  id: z.string(),
   total: z.number(),
   unit: z.string(),
   metadata: MetadataSchema,
 })
 
 export const EmissionsSchema = z.object({
+  id: z.string(),
   scope1: Scope1Schema.nullable(),
   scope2: Scope2Schema.nullable(),
   scope3: Scope3Schema.nullable(),
@@ -319,18 +330,21 @@ export const EmissionsSchema = z.object({
 })
 
 export const TurnoverSchema = z.object({
+  id: z.string(),
   value: z.number().nullable().openapi({ description: 'Turnover value' }),
   currency: z.string().nullable().openapi({ description: 'Currency code' }),
   metadata: MetadataSchema,
 })
 
 export const EmployeesSchema = z.object({
+  id: z.string(),
   value: z.number().nullable().openapi({ description: 'Number of employees' }),
   unit: z.string().nullable().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const EconomySchema = z.object({
+  id: z.string(),
   turnover: TurnoverSchema.nullable(),
   employees: EmployeesSchema.nullable(),
 })
@@ -364,6 +378,7 @@ export const MinimalIndustryGicsSchema = IndustryGicsSchema.omit({
 })
 
 export const IndustrySchema = z.object({
+  id: z.string(),
   industryGics: IndustryGicsSchema,
   metadata: MetadataSchema,
 })
@@ -374,6 +389,7 @@ export const MinimalIndustrySchema = z.object({
 })
 
 export const GoalSchema = z.object({
+  id: z.string(),
   description: z.string().openapi({ description: 'Goal description' }),
   year: z.string().nullable().openapi({ description: 'Target year' }),
   baseYear: z.string().nullable().openapi({ description: 'Base year' }),
@@ -382,6 +398,7 @@ export const GoalSchema = z.object({
 })
 
 export const InitiativeSchema = z.object({
+  id: z.string(),
   title: z.string().openapi({ description: 'Initiative title' }),
   description: z
     .string()
@@ -393,6 +410,7 @@ export const InitiativeSchema = z.object({
 })
 
 export const ReportingPeriodSchema = z.object({
+  id: z.string(),
   startDate: z
     .date()
     .openapi({ description: 'Start date of reporting period' }),
@@ -405,15 +423,22 @@ export const ReportingPeriodSchema = z.object({
   economy: EconomySchema.nullable(),
 })
 
-const MinimalTurnoverSchema = TurnoverSchema.omit({ metadata: true }).extend({
+const MinimalTurnoverSchema = TurnoverSchema.omit({
+  id: true,
+  metadata: true,
+}).extend({
   metadata: MinimalMetadataSchema,
 })
 
-const MinimalEmployeeSchema = EmployeesSchema.omit({ metadata: true }).extend({
+const MinimalEmployeeSchema = EmployeesSchema.omit({
+  id: true,
+  metadata: true,
+}).extend({
   metadata: MinimalMetadataSchema,
 })
 
 const MinimalEconomySchema = EconomySchema.omit({
+  id: true,
   employees: true,
   turnover: true,
 }).extend({
@@ -422,24 +447,29 @@ const MinimalEconomySchema = EconomySchema.omit({
 })
 
 const MinimalScope1Schema = Scope1Schema.omit({
+  id: true,
   metadata: true,
 }).extend({ metadata: MinimalMetadataSchema })
 
 const MinimalScope2Schema = withScope2Refinement(
   Scope2BaseSchema.omit({
+    id: true,
     metadata: true,
   }).extend({ metadata: MinimalMetadataSchema })
 )
 
 const MinimalStatedTotalEmissionsSchema = StatedTotalEmissionsSchema.omit({
+  id: true,
   metadata: true,
 }).extend({ metadata: MinimalMetadataSchema })
 
 const MinimalScope3CategorySchema = Scope3CategorySchema.omit({
+  id: true,
   metadata: true,
 }).extend({ metadata: MinimalMetadataSchema })
 
 const MinimalScope3Schema = Scope3Schema.omit({
+  id: true,
   metadata: true,
   categories: true,
   statedTotalEmissions: true,
@@ -450,10 +480,12 @@ const MinimalScope3Schema = Scope3Schema.omit({
 })
 
 const MinimalScope1And2Schema = Scope1And2Schema.omit({
+  id: true,
   metadata: true,
 }).extend({ metadata: MinimalMetadataSchema })
 
 const MinimalEmissionsSchema = EmissionsSchema.omit({
+  id: true,
   scope1: true,
   scope2: true,
   scope3: true,
@@ -469,6 +501,7 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
 })
 
 const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+  id: true,
   emissions: true,
   economy: true,
 }).extend({

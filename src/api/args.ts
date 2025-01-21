@@ -32,6 +32,7 @@ const metadataArgs = {
   },
   take: 1,
   select: {
+    id: true,
     comment: true,
     source: true,
     updatedAt: true,
@@ -69,13 +70,16 @@ export const detailedCompanyArgs = {
     description: true,
     reportingPeriods: {
       select: {
+        id: true,
         startDate: true,
         endDate: true,
         reportURL: true,
         economy: {
           select: {
+            id: true,
             turnover: {
               select: {
+                id: true,
                 value: true,
                 currency: true,
                 metadata: metadataArgs,
@@ -83,6 +87,7 @@ export const detailedCompanyArgs = {
             },
             employees: {
               select: {
+                id: true,
                 value: true,
                 unit: true,
                 metadata: metadataArgs,
@@ -92,8 +97,10 @@ export const detailedCompanyArgs = {
         },
         emissions: {
           select: {
+            id: true,
             scope1: {
               select: {
+                id: true,
                 total: true,
                 unit: true,
                 metadata: metadataArgs,
@@ -101,6 +108,7 @@ export const detailedCompanyArgs = {
             },
             scope2: {
               select: {
+                id: true,
                 lb: true,
                 mb: true,
                 unknown: true,
@@ -110,8 +118,10 @@ export const detailedCompanyArgs = {
             },
             scope3: {
               select: {
+                id: true,
                 statedTotalEmissions: {
                   select: {
+                    id: true,
                     total: true,
                     unit: true,
                     metadata: metadataArgs,
@@ -119,6 +129,7 @@ export const detailedCompanyArgs = {
                 },
                 categories: {
                   select: {
+                    id: true,
                     category: true,
                     total: true,
                     unit: true,
@@ -133,6 +144,7 @@ export const detailedCompanyArgs = {
             },
             biogenicEmissions: {
               select: {
+                id: true,
                 total: true,
                 unit: true,
                 metadata: metadataArgs,
@@ -140,6 +152,7 @@ export const detailedCompanyArgs = {
             },
             scope1And2: {
               select: {
+                id: true,
                 total: true,
                 unit: true,
                 metadata: metadataArgs,
@@ -147,6 +160,7 @@ export const detailedCompanyArgs = {
             },
             statedTotalEmissions: {
               select: {
+                id: true,
                 total: true,
                 unit: true,
                 metadata: metadataArgs,
@@ -162,6 +176,7 @@ export const detailedCompanyArgs = {
     },
     industry: {
       select: {
+        id: true,
         industryGics: {
           select: {
             sectorCode: true,
