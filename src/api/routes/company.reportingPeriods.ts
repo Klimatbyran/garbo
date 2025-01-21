@@ -71,11 +71,11 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
 
               const [dbEmissions, dbEconomy] = await Promise.all([
                 emissionsService.upsertEmissions({
-                  emissionsId: reportingPeriod.emissions?.id ?? 0,
+                  emissionsId: reportingPeriod.emissions?.id ?? '',
                   reportingPeriodId: reportingPeriod.id,
                 }),
                 companyService.upsertEconomy({
-                  economyId: reportingPeriod.economy?.id ?? 0,
+                  economyId: reportingPeriod.economy?.id ?? '',
                   reportingPeriodId: reportingPeriod.id,
                 }),
               ])

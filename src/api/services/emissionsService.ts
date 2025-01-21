@@ -20,8 +20,8 @@ class EmissionsService {
     emissionsId,
     reportingPeriodId,
   }: {
-    emissionsId: number
-    reportingPeriodId: number
+    emissionsId: string
+    reportingPeriodId: string
   }) {
     return prisma.emissions.upsert({
       where: { id: emissionsId },
@@ -135,7 +135,7 @@ class EmissionsService {
         })
   }
 
-  async deleteScope2(id: number) {
+  async deleteScope2(id: string) {
     try {
       return await prisma.scope2.delete({ where: { id } })
     } catch (error) {
@@ -222,7 +222,7 @@ class EmissionsService {
     const metadata = await createMetadata()
 
     const updatedScope3 = await prisma.scope3.upsert({
-      where: { id: existingScope3Id ?? 0 },
+      where: { id: existingScope3Id ?? '' },
       update: {},
       create: {
         metadata: {
@@ -261,7 +261,7 @@ class EmissionsService {
 
         return prisma.scope3Category.upsert({
           where: {
-            id: matching?.id ?? 0,
+            id: matching?.id ?? '',
           },
           update: {
             ...scope3Category,
@@ -398,14 +398,14 @@ class EmissionsService {
       StatedTotalEmissions,
       'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
     >,
-    scope3?: Scope3 & { statedTotalEmissions: { id: number } | null }
+    scope3?: Scope3 & { statedTotalEmissions: { id: string } | null }
   ) {
     const statedTotalEmissionsId = scope3
       ? scope3.statedTotalEmissionsId || scope3?.statedTotalEmissions?.id
       : emissions.statedTotalEmissions?.id
 
     return prisma.statedTotalEmissions.upsert({
-      where: { id: statedTotalEmissionsId ?? 0 },
+      where: { id: statedTotalEmissionsId ?? '' },
       create: {
         ...statedTotalEmissions,
         unit: TONNES_CO2_UNIT,

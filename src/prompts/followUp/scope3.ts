@@ -108,6 +108,7 @@ const queryTexts = [
   downstreamTransportationAndDistribution processingOfSoldProducts 
   useOfSoldProducts endOfLifeTreatmentOfSoldProducts downstreamLeasedAssets 
   franchises investments other`,
+  'carbon emissions CO2',
 ]
 
 export default { prompt, schema, queryTexts }
