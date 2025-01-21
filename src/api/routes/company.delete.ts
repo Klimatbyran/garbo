@@ -13,6 +13,7 @@ import {
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
+import { z } from 'zod'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {
   app.delete(
@@ -23,6 +24,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a company by Wikidata ID',
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -46,6 +48,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a goal by id',
         tags: getTags('Goals'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -69,6 +72,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Delete a company industry',
         tags: getTags('Industry'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -92,6 +96,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes an initiative by id',
         tags: getTags('Initiatives'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -115,6 +120,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a reporting period by id',
         tags: getTags('ReportingPeriods'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -138,6 +144,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes stated total emissions by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -161,6 +168,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes biogenic emissions by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -184,6 +192,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes the Scope1 emissions by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -207,6 +216,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a scope1and2 by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -230,6 +240,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a scope2 by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -253,6 +264,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a scope3 by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
@@ -276,6 +288,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         description: 'Deletes a scope3 category by id',
         tags: getTags('Emissions'),
         params: garboEntitySchema,
+        body: z.object({}),
         response: {
           204: emptyBodySchema,
         },
