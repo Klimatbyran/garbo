@@ -9,7 +9,7 @@ import {
   okResponseSchema,
   postInitiativeSchema,
   postInitiativesSchema,
-  garboEntitySchema,
+  garboEntityIdSchema,
 } from '../schemas'
 import { initiativeService } from '../services/initiativeService'
 import {
@@ -64,7 +64,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         summary: 'Update a company initiative',
         description: 'Update an existing initiative for a company',
         tags: getTags('Initiatives'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
