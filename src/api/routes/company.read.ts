@@ -5,10 +5,14 @@ import { getGics } from '../../lib/gics'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
-import { wikidataIdParamSchema, CompanyList, CompanyDetails } from '../schemas'
+import {
+  wikidataIdParamSchema,
+  CompanyList,
+  CompanyDetails,
+  emptyBodySchema,
+} from '../schemas'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
-import { z } from 'zod'
 
 const metadata = {
   orderBy: {
@@ -297,7 +301,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: z.union([CompanyDetails, z.null()]),
+          200: CompanyDetails,
+          404: emptyBodySchema,
         },
       },
     },
@@ -449,8 +454,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         })
 
         if (!company) {
-          reply.send(null)
-          return
+          return reply.status(404).send()
         }
 
         const [transformedCompany] = addCalculatedTotalEmissions([
