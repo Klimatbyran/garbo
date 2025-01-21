@@ -28,7 +28,7 @@ class ReportingPeriodService {
 
     return prisma.reportingPeriod.upsert({
       where: {
-        id: reportingPeriod?.id ?? 0,
+        id: reportingPeriod?.id ?? '',
       },
       update: {},
       create: {

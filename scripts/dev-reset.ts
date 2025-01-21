@@ -15,7 +15,7 @@ const exec = promisify(execSync)
 // npm run reset -- --chroma
 
 async function resetIfConfirmed(
-  service: 'chroma' | 'postgres' | 'redis',
+  service: 'chroma' | 'postgres' | 'redis' | 'all',
   callback: () => Promise<void>
 ) {
   const shouldRun = await confirm(
@@ -44,6 +44,31 @@ function confirm(message: string): Promise<boolean> {
   )
 }
 
+async function resetRedis() {
+  const commands = [
+    'docker exec garbo_redis redis-cli flushall',
+    'podman exec garbo_redis redis-cli flushall',
+  ]
+  for (const cmd of commands) {
+    try {
+      const { stdout } = await exec(cmd)
+      console.log(stdout)
+      return
+    } catch (err) {
+      // Ignore the error and try the next command
+    }
+  }
+  console.error(
+    'Failed to reset Redis. Ensure either Docker or Podman is installed and running.'
+  )
+}
+
+async function resetAll() {
+  await Promise.all([vectorDB.clearAllReports(), resetDB(), resetRedis()])
+}
+
+const logError = (msg: string) => console.error('\x1b[31m%s\x1b[0m', msg)
+
 async function main() {
   const { values } = parseArgs({
     options: {
@@ -59,25 +84,38 @@ async function main() {
         type: 'boolean',
         default: false,
       },
+      all: {
+        type: 'boolean',
+        default: false,
+      },
     },
   })
 
+  if (Object.values(values).every((val) => val === false)) {
+    const args = Object.keys(values)
+      .map((arg) => '--' + arg)
+      .join(' | ')
+
+    logError(
+      `\nAt least one argument of [${args}] is required.\nMake sure to run the script like this: "npm run reset -- --redis"`
+    )
+    process.exit(1)
+  }
+
   if (values.chroma) {
-    await resetIfConfirmed('chroma', () => vectorDB.clearAllReports())
+    await resetIfConfirmed('chroma', vectorDB.clearAllReports)
   }
 
   if (values.postgres) {
-    await resetIfConfirmed('postgres', () => resetDB())
+    await resetIfConfirmed('postgres', resetDB)
   }
 
   if (values.redis) {
-    await resetIfConfirmed('redis', async () => {
-      const { stderr, stdout } = await exec(
-        'podman exec -it garbo_redis bash -c "redis-cli flushall"'
-      )
-      if (stderr) console.error(stderr)
-      console.log(stdout)
-    })
+    await resetIfConfirmed('redis', resetRedis)
+  }
+
+  if (values.all) {
+    await resetIfConfirmed('all', resetAll)
   }
 }
 
