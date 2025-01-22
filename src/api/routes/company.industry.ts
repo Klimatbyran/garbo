@@ -1,7 +1,6 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { industryService } from '../services/industryService'
 import { postIndustrySchema } from '../schemas'
 import { metadataService } from '../services/metadataService'
@@ -48,23 +47,17 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       })
 
       if (current) {
-        await industryService
-          .updateIndustry(wikidataId, { subIndustryCode }, createdMetadata)
-          .catch((error) => {
-            throw new GarboAPIError('Failed to update industry', {
-              original: error,
-              statusCode: 500,
-            })
-          })
+        await industryService.updateIndustry(
+          wikidataId,
+          { subIndustryCode },
+          createdMetadata
+        )
       } else {
-        await industryService
-          .createIndustry(wikidataId, { subIndustryCode }, createdMetadata)
-          .catch((error) => {
-            throw new GarboAPIError('Failed to create industry', {
-              original: error,
-              statusCode: 500,
-            })
-          })
+        await industryService.createIndustry(
+          wikidataId,
+          { subIndustryCode },
+          createdMetadata
+        )
       }
 
       reply.send({ ok: true })

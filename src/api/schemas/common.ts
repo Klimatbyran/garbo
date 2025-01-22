@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
+
+extendZodWithOpenApi(z)
 
 export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
@@ -12,3 +15,9 @@ export const garboEntityIdSchema = z.object({ id: z.string() })
 export const yearSchema = z.string().regex(/\d{4}(?:-\d{4})?/)
 
 export const yearParamSchema = z.object({ year: yearSchema })
+
+export const errorSchema = z.object({
+  code: z.string().openapi('Error code'),
+  message: z.string().optional().openapi('Error message'),
+  details: z.string().optional(),
+})

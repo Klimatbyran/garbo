@@ -1,10 +1,10 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import {
+  errorSchema,
   okResponseSchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
@@ -26,6 +26,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         body: postReportingPeriodsSchema,
         response: {
           200: okResponseSchema,
+          404: errorSchema,
         },
       },
     },
@@ -42,119 +43,112 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
 
       const company = await companyService.getCompany(wikidataId)
 
-      try {
-        await Promise.allSettled(
-          reportingPeriods.map(
-            async ({
-              emissions = {},
-              economy = {},
-              startDate,
-              endDate,
-              reportURL,
-            }) => {
-              const year = endDate.getFullYear().toString()
-              const createdMetadata = await metadataService.createMetadata({
-                metadata,
-                user,
-              })
-              const reportingPeriod =
-                await reportingPeriodService.upsertReportingPeriod(
-                  company,
-                  createdMetadata,
-                  {
-                    startDate,
-                    endDate,
-                    reportURL,
-                    year,
-                  }
-                )
+      await Promise.allSettled(
+        reportingPeriods.map(
+          async ({
+            emissions = {},
+            economy = {},
+            startDate,
+            endDate,
+            reportURL,
+          }) => {
+            const year = endDate.getFullYear().toString()
+            const createdMetadata = await metadataService.createMetadata({
+              metadata,
+              user,
+            })
+            const reportingPeriod =
+              await reportingPeriodService.upsertReportingPeriod(
+                company,
+                createdMetadata,
+                {
+                  startDate,
+                  endDate,
+                  reportURL,
+                  year,
+                }
+              )
 
-              const [dbEmissions, dbEconomy] = await Promise.all([
-                emissionsService.upsertEmissions({
-                  emissionsId: reportingPeriod.emissions?.id ?? '',
-                  reportingPeriodId: reportingPeriod.id,
-                }),
-                companyService.upsertEconomy({
-                  economyId: reportingPeriod.economy?.id ?? '',
-                  reportingPeriodId: reportingPeriod.id,
-                }),
-              ])
+            const [dbEmissions, dbEconomy] = await Promise.all([
+              emissionsService.upsertEmissions({
+                emissionsId: reportingPeriod.emissions?.id ?? '',
+                reportingPeriodId: reportingPeriod.id,
+              }),
+              companyService.upsertEconomy({
+                economyId: reportingPeriod.economy?.id ?? '',
+                reportingPeriodId: reportingPeriod.id,
+              }),
+            ])
 
-              const {
-                scope1,
-                scope2,
-                scope3,
-                statedTotalEmissions,
-                biogenic,
-                scope1And2,
-              } = emissions
-              const { turnover, employees } = economy
+            const {
+              scope1,
+              scope2,
+              scope3,
+              statedTotalEmissions,
+              biogenic,
+              scope1And2,
+            } = emissions
+            const { turnover, employees } = economy
 
-              // Normalise currency
-              if (turnover?.currency) {
-                turnover.currency = turnover.currency.trim().toUpperCase()
-              }
-
-              await Promise.allSettled([
-                scope1 &&
-                  emissionsService.upsertScope1(
-                    dbEmissions,
-                    scope1,
-                    createdMetadata
-                  ),
-                scope2 &&
-                  emissionsService.upsertScope2(
-                    dbEmissions,
-                    scope2,
-                    createdMetadata
-                  ),
-                scope3 &&
-                  emissionsService.upsertScope3(dbEmissions, scope3, () =>
-                    metadataService.createMetadata({
-                      metadata,
-                      user,
-                    })
-                  ),
-                statedTotalEmissions !== undefined &&
-                  emissionsService.upsertStatedTotalEmissions(
-                    dbEmissions,
-                    createdMetadata,
-                    statedTotalEmissions
-                  ),
-                biogenic &&
-                  emissionsService.upsertBiogenic(
-                    dbEmissions,
-                    biogenic,
-                    createdMetadata
-                  ),
-                scope1And2 &&
-                  emissionsService.upsertScope1And2(
-                    dbEmissions,
-                    scope1And2,
-                    createdMetadata
-                  ),
-                turnover &&
-                  companyService.upsertTurnover({
-                    economy: dbEconomy,
-                    metadata: createdMetadata,
-                    turnover,
-                  }),
-                employees &&
-                  companyService.upsertEmployees({
-                    economy: dbEconomy,
-                    employees,
-                    metadata: createdMetadata,
-                  }),
-              ])
+            // Normalise currency
+            if (turnover?.currency) {
+              turnover.currency = turnover.currency.trim().toUpperCase()
             }
-          )
+
+            await Promise.allSettled([
+              scope1 &&
+                emissionsService.upsertScope1(
+                  dbEmissions,
+                  scope1,
+                  createdMetadata
+                ),
+              scope2 &&
+                emissionsService.upsertScope2(
+                  dbEmissions,
+                  scope2,
+                  createdMetadata
+                ),
+              scope3 &&
+                emissionsService.upsertScope3(dbEmissions, scope3, () =>
+                  metadataService.createMetadata({
+                    metadata,
+                    user,
+                  })
+                ),
+              statedTotalEmissions !== undefined &&
+                emissionsService.upsertStatedTotalEmissions(
+                  dbEmissions,
+                  createdMetadata,
+                  statedTotalEmissions
+                ),
+              biogenic &&
+                emissionsService.upsertBiogenic(
+                  dbEmissions,
+                  biogenic,
+                  createdMetadata
+                ),
+              scope1And2 &&
+                emissionsService.upsertScope1And2(
+                  dbEmissions,
+                  scope1And2,
+                  createdMetadata
+                ),
+              turnover &&
+                companyService.upsertTurnover({
+                  economy: dbEconomy,
+                  metadata: createdMetadata,
+                  turnover,
+                }),
+              employees &&
+                companyService.upsertEmployees({
+                  economy: dbEconomy,
+                  employees,
+                  metadata: createdMetadata,
+                }),
+            ])
+          }
         )
-      } catch (error) {
-        throw new GarboAPIError('Failed to update reporting periods', {
-          original: error,
-          statusCode: 500,
-        })
-      }
+      )
 
       reply.send({ ok: true })
     }

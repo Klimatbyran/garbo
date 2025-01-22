@@ -1,6 +1,5 @@
 import { Company, Prisma, ReportingPeriod } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { reportingPeriodArgs } from '../args'
 
 class ReportingPeriodService {
@@ -78,19 +77,7 @@ class ReportingPeriodService {
   }
 
   async deleteReportingPeriod(id: ReportingPeriod['id']) {
-    try {
-      return await prisma.reportingPeriod.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('ReportingPeriod not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.reportingPeriod.delete({ where: { id } })
   }
 }
 
