@@ -5,15 +5,13 @@ import { getGics } from '../../lib/gics'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
-import {
-  wikidataIdParamSchema,
-  CompanyList,
-  CompanyDetails,
-  emptyBodySchema,
-} from '../schemas'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
 import { companyListArgs, detailedCompanyArgs } from '../args'
+import { CompanyList } from '../schemas'
+import { wikidataIdParamSchema } from '../schemas'
+import { CompanyDetails } from '../schemas'
+import { emptyBodySchema } from '../schemas'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
