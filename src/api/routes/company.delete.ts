@@ -10,6 +10,7 @@ import {
   wikidataIdParamSchema,
   emptyBodySchema,
   garboEntityIdSchema,
+  getErrorSchemas,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
@@ -20,11 +21,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete company',
-        description: 'Deletes a company by Wikidata ID',
+        description: 'Delete a company by Wikidata ID',
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -43,11 +45,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete a goal',
-        description: 'Deletes a goal by id',
+        description: 'Delete a goal by id',
         tags: getTags('Goals'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -71,6 +74,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -89,11 +93,11 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete an initiative',
-        description: 'Deletes an initiative by id',
+        description: 'Delete an initiative by id',
         tags: getTags('Initiatives'),
         params: garboEntityIdSchema,
         response: {
-          204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -112,11 +116,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete a reporting period',
-        description: 'Deletes a reporting period by id',
+        description: 'Delete a reporting period by id',
         tags: getTags('ReportingPeriods'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -135,11 +140,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete stated total emissions',
-        description: 'Deletes stated total emissions by id',
+        description: 'Delete stated total emissions by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -158,11 +164,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete biogenic emissions',
-        description: 'Deletes biogenic emissions by id',
+        description: 'Delete biogenic emissions by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -181,11 +188,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete Scope1',
-        description: 'Deletes the Scope1 emissions by id',
+        description: 'Delete the Scope1 emissions by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -204,11 +212,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete scope1and2',
-        description: 'Deletes a scope1and2 by id',
+        description: 'Delete a scope1and2 by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -227,11 +236,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete scope2',
-        description: 'Deletes a scope2 by id',
+        description: 'Delete a scope2 by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -250,11 +260,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete scope3',
-        description: 'Deletes a scope3 by id',
+        description: 'Delete a scope3 by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -273,11 +284,12 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete a scope3 category',
-        description: 'Deletes a scope3 category by id',
+        description: 'Delete a scope3 category by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },

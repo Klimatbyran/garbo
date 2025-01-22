@@ -31,14 +31,6 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
-export const ErrorSchema = z.object({
-  error: z.string().openapi({ description: 'Error message' }),
-  details: z
-    .any()
-    .nullable()
-    .openapi({ description: 'Additional error details' }),
-})
-
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),

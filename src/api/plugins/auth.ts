@@ -3,7 +3,6 @@ import fp from 'fastify-plugin'
 import { User } from '@prisma/client'
 
 import apiConfig from '../../config/api'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 
 declare module 'fastify' {
@@ -17,14 +16,18 @@ declare module 'fastify' {
   }
 }
 
+const unauthorizedError = {
+  message: 'Unauthorized',
+}
+
 async function authPlugin(app: FastifyInstance) {
   app.decorateRequest('user')
-  app.addHook('onRequest', async (request) => {
+  app.addHook('onRequest', async (request, reply) => {
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
       if (!token || !apiConfig.tokens?.includes(token)) {
-        throw GarboAPIError.unauthorized()
+        return reply.status(401).send(unauthorizedError)
       }
 
       const [username] = token.split(':')
@@ -38,12 +41,12 @@ async function authPlugin(app: FastifyInstance) {
       })
 
       if (!user?.id) {
-        throw GarboAPIError.unauthorized()
+        return reply.status(401).send(unauthorizedError)
       }
 
       request.user = user
     } catch (error) {
-      throw GarboAPIError.unauthorized()
+      return reply.status(401).send(unauthorizedError)
     }
   })
 }
