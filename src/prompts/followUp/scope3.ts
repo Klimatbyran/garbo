@@ -13,9 +13,14 @@ export const schema = z.object({
                 total: z.number(),
               })
             )
+            .nullable()
             .optional(),
-          statedTotalEmissions: z.object({ total: z.number() }).optional(),
+          statedTotalEmissions: z
+            .object({ total: z.number() })
+            .nullable()
+            .optional(),
         })
+        .nullable()
         .optional(),
     })
   ),
@@ -48,7 +53,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
    16: Other
 
 2. **Missing Or Incomplete Data**:
-  If data is missing or unclear, explicitly report it as \`null\`. Do not make assumptions or attempt to infer missing values.
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
 3. **Units**:
   Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit (kton = 1000 tCO2, Mton = 1000000 tCO2), convert it. This is the only permitted calculation.
