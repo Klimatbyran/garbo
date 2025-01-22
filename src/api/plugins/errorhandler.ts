@@ -16,7 +16,7 @@ export function errorHandler(
     reply.status(400).send({
       code: 'VALIDATION_ERROR',
       message: fastifyError.message,
-      details: apiConfig.DEV ? fastifyError : undefined,
+      details: apiConfig.DEV ? fastifyError : fastifyError.validation,
     })
   } else if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
