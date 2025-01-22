@@ -170,10 +170,10 @@ export async function companyReadRoutes(app: FastifyInstance) {
         const { wikidataId } = request.params
 
         const company = await prisma.company.findFirst({
+          ...detailedCompanyArgs,
           where: {
             wikidataId,
           },
-          ...detailedCompanyArgs,
         })
 
         if (!company) {
