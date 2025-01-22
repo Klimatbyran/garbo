@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest, FastifyError } from 'fastify'
 import { Prisma } from '@prisma/client'
 
 import apiConfig from '../../config/api'
@@ -10,7 +10,15 @@ export function errorHandler(
 ) {
   request.log.error(error)
 
-  if (
+  if ((error as FastifyError)?.validation) {
+    const fastifyError = error as FastifyError
+
+    reply.status(400).send({
+      code: 'VALIDATION_ERROR',
+      message: fastifyError.message,
+      details: apiConfig.DEV ? fastifyError : undefined,
+    })
+  } else if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
     error.code === 'P2025'
   ) {
