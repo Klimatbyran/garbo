@@ -1,9 +1,10 @@
 import { Economy, Employees, Metadata, Turnover } from '@prisma/client'
 
 import { OptionalNullable } from '../../lib/type-utils'
-import { DefaultEconomyArgs, economyArgs } from '../types'
+import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { economyArgs } from '../args'
 
 class CompanyService {
   async getCompany(wikidataId: string) {
@@ -107,7 +108,7 @@ class CompanyService {
     employees,
     metadata,
   }: {
-    economy: DefaultEconomyArgs
+    economy: DefaultEconomyType
     employees: OptionalNullable<
       Omit<Employees, 'id' | 'metadataId' | 'economyId'>
     >

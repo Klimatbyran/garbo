@@ -8,7 +8,7 @@ import {
   postGoalSchema,
   postGoalsSchema,
   okResponseSchema,
-  garboEntitySchema,
+  garboEntityIdSchema,
 } from '../schemas'
 import {
   PostGoalsBody,
@@ -65,7 +65,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         summary: 'Update company goal',
         description: 'Update a goal for a company',
         tags: getTags('Goals'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
