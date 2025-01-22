@@ -5,46 +5,13 @@ import { getGics } from '../../lib/gics'
 import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
-import { wikidataIdParamSchema, CompanyList, CompanyDetails } from '../schemas'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
-import { z } from 'zod'
-
-const metadata = {
-  orderBy: {
-    updatedAt: 'desc' as const,
-  },
-  take: 1,
-  select: {
-    comment: true,
-    source: true,
-    updatedAt: true,
-    user: {
-      select: {
-        name: true,
-      },
-    },
-    verifiedBy: {
-      select: {
-        name: true,
-      },
-    },
-  },
-}
-
-const minimalMetadata = {
-  orderBy: {
-    updatedAt: 'desc' as const,
-  },
-  take: 1,
-  select: {
-    verifiedBy: {
-      select: {
-        name: true,
-      },
-    },
-  },
-}
+import { companyListArgs, detailedCompanyArgs } from '../args'
+import { CompanyList } from '../schemas'
+import { wikidataIdParamSchema } from '../schemas'
+import { CompanyDetails } from '../schemas'
+import { emptyBodySchema } from '../schemas'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
@@ -167,111 +134,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
     async (request, reply) => {
       try {
-        const companies = await prisma.company.findMany({
-          select: {
-            wikidataId: true,
-            name: true,
-            description: true,
-            reportingPeriods: {
-              select: {
-                startDate: true,
-                endDate: true,
-                reportURL: true,
-                economy: {
-                  select: {
-                    turnover: {
-                      select: {
-                        value: true,
-                        currency: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
-                    employees: {
-                      select: {
-                        value: true,
-                        unit: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
-                  },
-                },
-                emissions: {
-                  select: {
-                    scope1: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
-                    scope2: {
-                      select: {
-                        lb: true,
-                        mb: true,
-                        unknown: true,
-                        unit: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
-                    scope3: {
-                      select: {
-                        statedTotalEmissions: {
-                          select: {
-                            total: true,
-                            unit: true,
-                            metadata: minimalMetadata,
-                          },
-                        },
-                        categories: {
-                          select: {
-                            category: true,
-                            total: true,
-                            unit: true,
-                            metadata: minimalMetadata,
-                          },
-                          orderBy: {
-                            category: 'asc',
-                          },
-                        },
-                        metadata: minimalMetadata,
-                      },
-                    },
-                    scope1And2: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata: minimalMetadata,
-                      },
-                    },
-                    statedTotalEmissions: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                  },
-                },
-              },
-              orderBy: {
-                startDate: 'desc',
-              },
-            },
-            industry: {
-              select: {
-                industryGics: {
-                  select: {
-                    sectorCode: true,
-                    groupCode: true,
-                    industryCode: true,
-                    subIndustryCode: true,
-                  },
-                },
-                metadata: minimalMetadata,
-              },
-            },
-          },
-        })
+        const companies = await prisma.company.findMany(companyListArgs)
 
         const transformedCompanies = addCalculatedTotalEmissions(
           companies.map(transformMetadata)
@@ -297,7 +160,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: z.union([CompanyDetails, z.null()]),
+          200: CompanyDetails,
+          404: emptyBodySchema,
         },
       },
     },
@@ -306,151 +170,14 @@ export async function companyReadRoutes(app: FastifyInstance) {
         const { wikidataId } = request.params
 
         const company = await prisma.company.findFirst({
+          ...detailedCompanyArgs,
           where: {
             wikidataId,
-          },
-          select: {
-            wikidataId: true,
-            name: true,
-            description: true,
-            reportingPeriods: {
-              select: {
-                startDate: true,
-                endDate: true,
-                reportURL: true,
-                economy: {
-                  select: {
-                    turnover: {
-                      select: {
-                        value: true,
-                        currency: true,
-                        metadata,
-                      },
-                    },
-                    employees: {
-                      select: {
-                        value: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                  },
-                },
-                emissions: {
-                  select: {
-                    scope1: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                    scope2: {
-                      select: {
-                        lb: true,
-                        mb: true,
-                        unknown: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                    scope3: {
-                      select: {
-                        statedTotalEmissions: {
-                          select: {
-                            total: true,
-                            unit: true,
-                            metadata,
-                          },
-                        },
-                        categories: {
-                          select: {
-                            category: true,
-                            total: true,
-                            unit: true,
-                            metadata,
-                          },
-                          orderBy: {
-                            category: 'asc',
-                          },
-                        },
-                        metadata,
-                      },
-                    },
-                    biogenicEmissions: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                    scope1And2: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                    statedTotalEmissions: {
-                      select: {
-                        total: true,
-                        unit: true,
-                        metadata,
-                      },
-                    },
-                  },
-                },
-                metadata,
-              },
-              orderBy: {
-                startDate: 'desc',
-              },
-            },
-            industry: {
-              select: {
-                industryGics: {
-                  select: {
-                    sectorCode: true,
-                    groupCode: true,
-                    industryCode: true,
-                    subIndustryCode: true,
-                  },
-                },
-                metadata,
-              },
-            },
-            goals: {
-              select: {
-                id: true,
-                description: true,
-                year: true,
-                baseYear: true,
-                target: true,
-                metadata,
-              },
-              orderBy: {
-                year: 'desc',
-              },
-            },
-            initiatives: {
-              select: {
-                id: true,
-                title: true,
-                description: true,
-                year: true,
-                scope: true,
-                metadata,
-              },
-              orderBy: {
-                year: 'desc',
-              },
-            },
           },
         })
 
         if (!company) {
-          reply.send(null)
-          return
+          return reply.status(404).send()
         }
 
         const [transformedCompany] = addCalculatedTotalEmissions([

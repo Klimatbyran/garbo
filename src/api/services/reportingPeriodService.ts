@@ -1,7 +1,7 @@
 import { Company, Prisma, ReportingPeriod } from '@prisma/client'
-import { reportingPeriodArgs } from '../types'
 import { prisma } from '../../lib/prisma'
 import { GarboAPIError } from '../../lib/garbo-api-error'
+import { reportingPeriodArgs } from '../args'
 
 class ReportingPeriodService {
   async upsertReportingPeriod(

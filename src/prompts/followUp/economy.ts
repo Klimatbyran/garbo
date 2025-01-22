@@ -8,17 +8,20 @@ export const schema = z.object({
         .object({
           turnover: z
             .object({
-              value: z.number().optional(),
-              currency: z.string().optional(),
+              value: z.number().nullable().optional(),
+              currency: z.string().nullable().optional(),
             })
+            .nullable()
             .optional(),
           employees: z
             .object({
-              value: z.number().optional(),
-              unit: z.string().optional(),
+              value: z.number().nullable().optional(),
+              unit: z.string().nullable().optional(),
             })
+            .nullable()
             .optional(),
         })
+        .nullable()
         .optional(),
     })
   ),
@@ -28,7 +31,7 @@ export const schema = z.object({
 
 export const prompt = `
 *** Golden Rule ***
-- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent if no data is provided.
+- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 *** Turnover ***
 - Extract turnover as a numerical value. Use the turnover field to specify the turnover (intäkter, omsättning) of the company. If the currency is not specified, assume SEK. 
   Be as accurate as possible. Extract this data for all available years.

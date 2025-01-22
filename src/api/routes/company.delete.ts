@@ -9,7 +9,7 @@ import { emissionsService } from '../services/emissionsService'
 import {
   wikidataIdParamSchema,
   emptyBodySchema,
-  garboEntitySchema,
+  garboEntityIdSchema,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
@@ -45,7 +45,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete a goal',
         description: 'Deletes a goal by id',
         tags: getTags('Goals'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -68,7 +68,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete industry',
         description: 'Delete a company industry',
         tags: getTags('Industry'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -91,7 +91,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete an initiative',
         description: 'Deletes an initiative by id',
         tags: getTags('Initiatives'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -114,7 +114,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete a reporting period',
         description: 'Deletes a reporting period by id',
         tags: getTags('ReportingPeriods'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -137,7 +137,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete stated total emissions',
         description: 'Deletes stated total emissions by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -160,7 +160,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete biogenic emissions',
         description: 'Deletes biogenic emissions by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -183,7 +183,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete Scope1',
         description: 'Deletes the Scope1 emissions by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -206,7 +206,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete scope1and2',
         description: 'Deletes a scope1and2 by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -229,7 +229,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete scope2',
         description: 'Deletes a scope2 by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -252,7 +252,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete scope3',
         description: 'Deletes a scope3 by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
@@ -275,7 +275,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         summary: 'Delete a scope3 category',
         description: 'Deletes a scope3 category by id',
         tags: getTags('Emissions'),
-        params: garboEntitySchema,
+        params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
         },
