@@ -4,7 +4,7 @@ import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import {
-  errorSchema,
+  getErrorSchemas,
   okResponseSchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
@@ -26,7 +26,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         body: postReportingPeriodsSchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },

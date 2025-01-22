@@ -4,7 +4,7 @@ import { companyService } from '../services/companyService'
 import {
   postCompanyBodySchema,
   okResponseSchema,
-  errorSchema,
+  getErrorSchemas,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../types'
@@ -21,7 +21,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         body: postCompanyBodySchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },

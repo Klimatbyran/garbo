@@ -1,4 +1,4 @@
-import { Company, Prisma, ReportingPeriod } from '@prisma/client'
+import { Company, ReportingPeriod } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { reportingPeriodArgs } from '../args'
 
@@ -47,32 +47,6 @@ class ReportingPeriodService {
         },
       },
       ...reportingPeriodArgs,
-    })
-  }
-
-  async updateReportingPeriodReportURL(
-    company: Company,
-    year: string,
-    reportURL: string
-  ) {
-    const reportingPeriod = await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: company.wikidataId,
-        year,
-      },
-    })
-
-    if (!reportingPeriod) {
-      return false
-    }
-
-    return prisma.reportingPeriod.update({
-      where: {
-        id: reportingPeriod.id,
-      },
-      data: {
-        reportURL,
-      },
     })
   }
 

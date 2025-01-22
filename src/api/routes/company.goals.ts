@@ -7,7 +7,7 @@ import {
   postGoalsSchema,
   okResponseSchema,
   garboEntityIdSchema,
-  errorSchema,
+  getErrorSchemas,
 } from '../schemas'
 import {
   PostGoalsBody,
@@ -30,7 +30,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalsSchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -69,7 +69,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },

@@ -8,7 +8,7 @@ import {
   postInitiativeSchema,
   postInitiativesSchema,
   garboEntityIdSchema,
-  errorSchema,
+  getErrorSchemas,
 } from '../schemas'
 import { initiativeService } from '../services/initiativeService'
 import {
@@ -30,7 +30,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativesSchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -68,7 +68,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
-          404: errorSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },

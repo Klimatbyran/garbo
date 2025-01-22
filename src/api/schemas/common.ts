@@ -19,5 +19,14 @@ export const yearParamSchema = z.object({ year: yearSchema })
 export const errorSchema = z.object({
   code: z.string().openapi('Error code'),
   message: z.string().optional().openapi('Error message'),
-  details: z.string().optional(),
+  details: z.any().optional(),
 })
+
+const errorCodes = [400, 404] as const
+
+export function getErrorSchemas(...codes: (typeof errorCodes)[number][]) {
+  return codes.reduce((acc, code) => {
+    acc[code] = errorSchema
+    return acc
+  }, {})
+}

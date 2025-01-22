@@ -2,7 +2,7 @@ import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
 import { prisma } from '../../lib/prisma'
 import { industryService } from '../services/industryService'
-import { postIndustrySchema } from '../schemas'
+import { getErrorSchemas, postIndustrySchema } from '../schemas'
 import { metadataService } from '../services/metadataService'
 import { getTags } from '../../config/openapi'
 import { wikidataIdParamSchema, okResponseSchema } from '../schemas'
@@ -21,6 +21,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         body: postIndustrySchema,
         response: {
           200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -37,7 +38,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       } = request.body
       const { wikidataId } = request.params
 
-      const current = await prisma.industry.findFirst({
+      const current = await prisma.industry.findFirstOrThrow({
         where: { companyWikidataId: wikidataId },
       })
 

@@ -10,7 +10,7 @@ import {
   CompanyList,
   wikidataIdParamSchema,
   CompanyDetails,
-  emptyBodySchema,
+  getErrorSchemas,
 } from '../schemas'
 
 function isNumber(n: unknown): n is number {
@@ -154,7 +154,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           200: CompanyDetails,
-          404: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
