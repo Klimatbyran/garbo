@@ -31,7 +31,7 @@ class MunicipalityService {
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, municipality) => {
-      acc.set(municipality.kommun.toLocaleLowerCase('sv-SE'), municipality)
+      acc.set(municipality.name.toLocaleLowerCase('sv-SE'), municipality)
       return acc
     }, new Map())
 
@@ -42,7 +42,7 @@ class MunicipalityService {
     return this.allMunicipalities
   }
 
-  getMunicipality(name: Municipality['kommun']): Municipality | null {
+  getMunicipality(name: Municipality['name']): Municipality | null {
     return (
       this.municipalitiesByName.get(name.toLocaleLowerCase('sv-SE')) ?? null
     )

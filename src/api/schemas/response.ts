@@ -342,8 +342,8 @@ const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
 
 // IDEA: See if it's possible to improve the schema for the yearly data
 export const MunicipalitySchema = z.object({
-  kommun: z.string(),
-  län: z.string(),
+  name: z.string(),
+  region: z.string(),
   emissions: z.record(z.string(), z.number()),
   budget: z.number(),
   emissionBudget: z.record(z.string(), z.number()),
