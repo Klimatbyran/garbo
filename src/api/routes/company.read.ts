@@ -133,6 +133,23 @@ export async function companyReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      const clientEtag = request.headers['if-none-match']
+
+      const latestMetadata = await prisma.metadata.findFirst({
+        select: { updatedAt: true },
+        orderBy: { updatedAt: 'desc' },
+      })
+      const latestEtag = latestMetadata
+        ? `"${latestMetadata.updatedAt.toISOString()}"`
+        : null
+
+      if (clientEtag === latestEtag) {
+        reply.code(304).send()
+        return
+      }
+
+      reply.header('ETag', latestEtag)
+
       const companies = await prisma.company.findMany(companyListArgs)
 
       const transformedCompanies = addCalculatedTotalEmissions(
