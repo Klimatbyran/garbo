@@ -47,6 +47,13 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
           ...getErrorSchemas(400, 404),
         },
       },
+      // IDEA: Maybe add custom swagger transform to document the endpoint?
+      config: {
+        swaggerTransform({ schema, url, route, ...documentObject }) {
+          console.dir(schema, { colors: true, depth: 6 })
+          return { schema, url }
+        },
+      },
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
@@ -56,6 +63,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       const municipality = municipalityService.getMunicipality(name)
 
       if (!municipality) {
+        // NOTE: Maybe keep common errors in one place to re-use the same strings
         return reply.status(404).send({
           code: 'NOT_FOUND',
           message: 'The requested resource could not be found.',

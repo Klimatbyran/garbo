@@ -9,6 +9,9 @@ export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
 export const garboEntityIdSchema = z.object({ id: z.string() })
 
+// TODO: The variable and the param should be renamed to reportingPeriodYearSchema
+// But only if we add the YearSchema as part of the data
+
 /**
  * This allows reporting periods like 2022-2023
  */
