@@ -1,17 +1,20 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { Prisma } from '@prisma/client'
 
 import { getGics } from '../../lib/gics'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
 import { companyListArgs, detailedCompanyArgs } from '../args'
-import { CompanyList } from '../schemas'
-import { wikidataIdParamSchema } from '../schemas'
-import { CompanyDetails } from '../schemas'
-import { emptyBodySchema } from '../schemas'
+import {
+  CompanyList,
+  wikidataIdParamSchema,
+  CompanyDetails,
+  getErrorSchemas,
+} from '../schemas'
+import { eTagCache } from '../..'
+
+export const ETAG_CACHE_KEY = 'companies:etag'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
@@ -133,20 +136,36 @@ export async function companyReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      try {
-        const companies = await prisma.company.findMany(companyListArgs)
+      const clientEtag = request.headers['if-none-match']
+      const cacheKey = 'companies:etag'
 
-        const transformedCompanies = addCalculatedTotalEmissions(
-          companies.map(transformMetadata)
-        )
+      let currentEtag = await eTagCache.get(cacheKey)
 
-        reply.send(transformedCompanies)
-      } catch (error) {
-        throw new GarboAPIError('Failed to load companies', {
-          original: error,
-          statusCode: 500,
+      if (!currentEtag) {
+        const latestMetadata = await prisma.metadata.findFirst({
+          select: { updatedAt: true },
+          orderBy: { updatedAt: 'desc' },
         })
+
+        const metadataUpdatedAt = latestMetadata?.updatedAt.toISOString() || ''
+        const currentTimestamp = new Date().toISOString()
+        currentEtag = `${metadataUpdatedAt}-${currentTimestamp}`
+        eTagCache.set(cacheKey, currentEtag)
       }
+
+      if (clientEtag === currentEtag) {
+        return reply.code(304).send()
+      }
+
+      reply.header('ETag', `${currentEtag}`)
+
+      const companies = await prisma.company.findMany(companyListArgs)
+
+      const transformedCompanies = addCalculatedTotalEmissions(
+        companies.map(transformMetadata)
+      )
+
+      reply.send(transformedCompanies)
     }
   )
 
@@ -161,57 +180,39 @@ export async function companyReadRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           200: CompanyDetails,
-          404: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
-      try {
-        const { wikidataId } = request.params
+      const { wikidataId } = request.params
 
-        const company = await prisma.company.findFirst({
-          ...detailedCompanyArgs,
-          where: {
-            wikidataId,
-          },
-        })
+      const company = await prisma.company.findFirstOrThrow({
+        ...detailedCompanyArgs,
+        where: {
+          wikidataId,
+        },
+      })
 
-        if (!company) {
-          return reply.status(404).send()
-        }
+      const [transformedCompany] = addCalculatedTotalEmissions([
+        transformMetadata(company),
+      ])
 
-        const [transformedCompany] = addCalculatedTotalEmissions([
-          transformMetadata(company),
-        ])
-
-        reply.send({
-          ...transformedCompany,
-          // Add translations for GICS data
-          industry: transformedCompany.industry
-            ? {
-                ...transformedCompany.industry,
-                industryGics: {
-                  ...transformedCompany.industry.industryGics,
-                  ...getGics(
-                    transformedCompany.industry.industryGics.subIndustryCode
-                  ),
-                },
-              }
-            : null,
-        })
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new GarboAPIError('Database error while loading company', {
-            original: error,
-            statusCode: 500,
-          })
-        } else {
-          throw new GarboAPIError('Failed to load company', {
-            original: error,
-            statusCode: 500,
-          })
-        }
-      }
+      reply.send({
+        ...transformedCompany,
+        // Add translations for GICS data
+        industry: transformedCompany.industry
+          ? {
+              ...transformedCompany.industry,
+              industryGics: {
+                ...transformedCompany.industry.industryGics,
+                ...getGics(
+                  transformedCompany.industry.industryGics.subIndustryCode
+                ),
+              },
+            }
+          : null,
+      })
     }
   )
 }

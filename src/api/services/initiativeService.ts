@@ -1,7 +1,6 @@
-import { Company, Initiative, Metadata, Prisma } from '@prisma/client'
+import { Company, Initiative, Metadata } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 
 class InitiativeService {
   async createInitiatives(
@@ -57,17 +56,7 @@ class InitiativeService {
   }
 
   async deleteInitiative(id: Initiative['id']) {
-    try {
-      return await prisma.initiative.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Initiative not found', { statusCode: 404 })
-      }
-      throw error
-    }
+    return await prisma.initiative.delete({ where: { id } })
   }
 }
 

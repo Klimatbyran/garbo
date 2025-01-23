@@ -1,7 +1,5 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
-import { Prisma } from '@prisma/client'
 
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { getTags } from '../../config/openapi'
 import { metadataService } from '../services/metadataService'
 import {
@@ -10,6 +8,7 @@ import {
   postInitiativeSchema,
   postInitiativesSchema,
   garboEntityIdSchema,
+  getErrorSchemas,
 } from '../schemas'
 import { initiativeService } from '../services/initiativeService'
 import {
@@ -31,6 +30,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativesSchema,
         response: {
           200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -68,6 +68,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -84,20 +85,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         metadata,
         user: request.user,
       })
-      await initiativeService
-        .updateInitiative(id, initiative, createdMetadata)
-        .catch((error) => {
-          if (
-            error instanceof Prisma.PrismaClientKnownRequestError &&
-            error.code === 'P2025'
-          ) {
-            throw new GarboAPIError('Initiative not found', {
-              statusCode: 404,
-              original: error,
-            })
-          }
-          throw error
-        })
+      await initiativeService.updateInitiative(id, initiative, createdMetadata)
 
       reply.send({ ok: true })
     }

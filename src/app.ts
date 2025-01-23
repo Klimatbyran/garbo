@@ -24,18 +24,19 @@ import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPer
 import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
+import { municipalityReadRoutes } from './api/routes/municipality.read'
 
 async function startApp() {
   const app = Fastify({
     logger: apiConfig.logger,
   }).withTypeProvider<ZodTypeProvider>()
-
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 
   app.setErrorHandler(errorHandler)
   app.register(cors, {
     origin: apiConfig.corsAllowOrigins as unknown as string[],
+    exposedHeaders: ['etag'],
   })
 
   app.register(fastifySwagger, {
@@ -104,6 +105,7 @@ async function publicContext(app: FastifyInstance) {
   )
 
   app.register(companyReadRoutes, { prefix: 'api/companies' })
+  app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
 }
 
 /**

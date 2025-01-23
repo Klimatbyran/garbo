@@ -31,14 +31,6 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
-export const ErrorSchema = z.object({
-  error: z.string().openapi({ description: 'Error message' }),
-  details: z
-    .any()
-    .nullable()
-    .openapi({ description: 'Additional error details' }),
-})
-
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
@@ -345,3 +337,34 @@ export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
+
+const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
+
+// IDEA: See if it's possible to improve the schema for the yearly data
+export const MunicipalitySchema = z.object({
+  name: z.string(),
+  region: z.string(),
+  emissions: z.record(z.string(), z.number()),
+  budget: z.number(),
+  emissionBudget: z.record(z.string(), z.number()),
+  approximatedHistoricalEmission: z.record(z.string(), z.number()),
+  totalApproximatedHistoricalEmission: z.number(),
+  trend: z.record(z.string(), z.number()),
+  trendEmission: z.number(),
+  historicalEmissionChangePercent: z.number(),
+  neededEmissionChangePercent: z.number(),
+  hitNetZero: z.string(),
+  budgetRunsOut: z.string(),
+  electricCarChangePercent: z.number(),
+  electricCarChangeYearly: z.record(z.string(), z.number()),
+  climatePlanLink: z.string(),
+  climatePlanYear: z.union([ClimatePlanYearEnumSchema, z.number()]),
+  climatePlanComment: z.string(),
+  bicycleMetrePerCapita: z.number(),
+  totalConsumptionEmission: z.number(),
+  electricVehiclePerChargePoints: z.number(),
+  procurementScore: z.string(),
+  procurementLink: z.string(),
+})
+
+export const MunicipalitiesSchema = z.array(MunicipalitySchema)
