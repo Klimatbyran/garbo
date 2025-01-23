@@ -12,7 +12,6 @@ import {
   CompanyDetails,
   getErrorSchemas,
 } from '../schemas'
-import redis from '../../config/redis'
 import { eTagCache } from '../..'
 
 export const ETAG_CACHE_KEY = 'companies:etag'
