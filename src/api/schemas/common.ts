@@ -24,9 +24,11 @@ export const errorSchema = z.object({
 
 const errorCodes = [400, 404] as const
 
-export function getErrorSchemas(...codes: (typeof errorCodes)[number][]) {
+type ErrorCode = (typeof errorCodes)[number]
+
+export function getErrorSchemas(...codes: ErrorCode[]) {
   return codes.reduce((acc, code) => {
     acc[code] = errorSchema
     return acc
-  }, {})
+  }, {} as Record<ErrorCode, typeof errorSchema>)
 }
