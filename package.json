@@ -29,6 +29,7 @@
     "@bull-board/api": "^6.6.1",
     "@bull-board/fastify": "^6.6.1",
     "@fastify/cors": "^10.0.2",
+    "@fastify/etag": "^6.0.3",
     "@fastify/static": "^8.0.4",
     "@fastify/swagger": "^9.4.1",
     "@prisma/client": "^5.22.0",
