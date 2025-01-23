@@ -12,6 +12,9 @@ import {
   CompanyDetails,
   getErrorSchemas,
 } from '../schemas'
+import { eTagCache } from '../..'
+
+export const ETAG_CACHE_KEY = 'companies:etag'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
@@ -133,6 +136,29 @@ export async function companyReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      const clientEtag = request.headers['if-none-match']
+      const cacheKey = 'companies:etag'
+
+      let currentEtag = await eTagCache.get(cacheKey)
+
+      if (!currentEtag) {
+        const latestMetadata = await prisma.metadata.findFirst({
+          select: { updatedAt: true },
+          orderBy: { updatedAt: 'desc' },
+        })
+
+        const metadataUpdatedAt = latestMetadata?.updatedAt.toISOString() || ''
+        const currentTimestamp = new Date().toISOString()
+        currentEtag = `${metadataUpdatedAt}-${currentTimestamp}`
+        eTagCache.set(cacheKey, currentEtag)
+      }
+
+      if (clientEtag === currentEtag) {
+        return reply.code(304).send()
+      }
+
+      reply.header('ETag', `${currentEtag}`)
+
       const companies = await prisma.company.findMany(companyListArgs)
 
       const transformedCompanies = addCalculatedTotalEmissions(

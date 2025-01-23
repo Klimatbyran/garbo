@@ -30,13 +30,13 @@ async function startApp() {
   const app = Fastify({
     logger: apiConfig.logger,
   }).withTypeProvider<ZodTypeProvider>()
-
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 
   app.setErrorHandler(errorHandler)
   app.register(cors, {
     origin: apiConfig.corsAllowOrigins as unknown as string[],
+    exposedHeaders: ['etag'],
   })
 
   app.register(fastifySwagger, {
