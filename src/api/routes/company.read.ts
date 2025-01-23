@@ -119,7 +119,7 @@ function addCalculatedTotalEmissions(companies: any[]) {
 }
 
 export async function companyReadRoutes(app: FastifyInstance) {
-  // app.register(cachePlugin)
+  app.register(cachePlugin)
 
   app.get(
     '/',
@@ -153,7 +153,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
         eTagCache.set(cacheKey, currentEtag)
       }
 
-      console.dir(clientEtag, currentEtag)
       if (clientEtag === currentEtag) {
         return reply.code(304).send()
       }
