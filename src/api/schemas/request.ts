@@ -166,3 +166,9 @@ export const postReportingPeriodsSchema = z
     reportingPeriods: z.array(reportingPeriodSchema),
   })
   .merge(createMetadataSchema)
+
+export const MunicipalityNameSchema = z.string()
+
+export const MunicipalityNameParamSchema = z.object({
+  name: MunicipalityNameSchema,
+})

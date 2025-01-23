@@ -27,6 +27,9 @@ const openAPITagDefinitions = {
   Initiatives: {
     description: 'Company initiatives',
   },
+  Municipalities: {
+    description: 'Climate data related to Swedish municipalities',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

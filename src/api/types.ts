@@ -26,3 +26,9 @@ export type PostReportingPeriodsBody = z.infer<
 export type PostCompanyBody = z.infer<typeof schemas.postCompanyBodySchema>
 
 export type GarboEntityId = z.infer<typeof schemas.garboEntityIdSchema>
+
+export type Municipality = z.infer<typeof schemas.MunicipalitySchema>
+
+export type MunicipalityNameParams = z.infer<
+  typeof schemas.MunicipalityNameParamSchema
+>

@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { FastifyServerOptions } from 'fastify'
+import { resolve } from 'path'
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -58,6 +59,11 @@ const apiConfig = {
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
+
+  municipalityDataPath: resolve(
+    import.meta.dirname,
+    '../data/climate-data.json'
+  ),
 
   bullBoardBasePath: '/admin/queues',
 
