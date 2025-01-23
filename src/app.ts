@@ -1,5 +1,4 @@
 import Fastify, { type FastifyInstance } from 'fastify'
-import fastifyEtag from '@fastify/etag'
 import cors from '@fastify/cors'
 import {
   serializerCompiler,
@@ -30,7 +29,6 @@ async function startApp() {
   const app = Fastify({
     logger: apiConfig.logger,
   }).withTypeProvider<ZodTypeProvider>()
-  app.register(fastifyEtag)
   app.setValidatorCompiler(validatorCompiler)
   app.setSerializerCompiler(serializerCompiler)
 
