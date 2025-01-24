@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: stage-garbo
+namespace: garbo-stage
 
 resources:
   - ../../base
@@ -11,6 +11,5 @@ patches:
 
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: "3.6.7"
-    annotations:
-      $imagepolicy: flux-system:garbo-stage
+    newName: ghcr.io/klimatbyran/garbo
+    newTag: '3.6.7' # {"$imagepolicy": "flux-system:garbo"}

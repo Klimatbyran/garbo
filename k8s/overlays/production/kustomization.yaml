@@ -11,6 +11,5 @@ patches:
 
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: "3.6.0"
-    annotations:
-      $imagepolicy: flux-system:garbo
+    newName: ghcr.io/klimatbyran/garbo
+    newTag: '3.6.7' # {"$imagepolicy": "flux-system:garbo"}
