@@ -11,4 +11,4 @@ patches:
 
 images:
   - name: ghcr.io/klimatbyran/garbo
-    policy: garbo-stage
+    newTag: 3.6.7
