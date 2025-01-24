@@ -40,7 +40,7 @@ const extractTextViaVisionAPI = async (
       },
       {
         role: 'user',
-        content: `I have a PDF with couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot. I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, description, footnotes or disclaimers). Use Markdown format for the table(s), only reply with markdown. OK?`,
+        content: `I have a PDF with couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot. I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, description, footnotes or disclaimers). For missing values or skipped cells, always use a placeholder like "n.a.". Use Markdown format for the table(s), only reply with markdown. OK?`,
       },
       {
         role: 'assistant',

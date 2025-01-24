@@ -38,7 +38,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       } = request.body
       const { wikidataId } = request.params
 
-      const current = await prisma.industry.findFirstOrThrow({
+      const current = await prisma.industry.findFirst({
         where: { companyWikidataId: wikidataId },
       })
 
