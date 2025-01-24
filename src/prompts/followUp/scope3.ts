@@ -37,24 +37,24 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   GHG Categories:
   
   Upstream: 
-  1.	Purchased Goods and Services: Emissions from the production and transportation of goods and services purchased by the company, such as raw materials and office supplies.
-	2.	Capital Goods: Emissions from the production and transportation of long-term assets purchased by the company, such as machinery, vehicles, or buildings.
-	3.	Fuel- and Energy-Related Activities (not included in Scope 1 or 2): Emissions from the extraction, production, and transportation of fuels and electricity purchased by the company, not directly consumed.
-	4.	Upstream Transportation and Distribution: Emissions from the transport and distribution of goods before they reach the company, including supplier deliveries.
-	5.	Waste Generated in Operations: Emissions from the treatment and disposal of waste generated during business operations, such as landfilling, recycling, or incineration.
-	6.	Business Travel: Emissions from employee travel in vehicles not owned by the company, such as flights or rental cars.
-	7.	Employee Commuting: Emissions from employees traveling between home and work, regardless of transport mode.
-	8.	Upstream Leased Assets: Emissions from the operation of leased assets used by the company but owned by another entity, such as leased office spaces.
+  1. Purchased Goods and Services: Emissions from the production of goods and services purchased by the company, such as raw materials and office supplies.
+  2. Capital Goods: Emissions from the production and transportation of long-term assets purchased by the company, such as machinery, vehicles, or buildings.
+  3.Fuel- and Energy-Related Activities (not included in Scope 1 or 2): Emissions from the extraction, production, and transportation of fuels and electricity purchased by the company, not directly consumed.
+  4.Upstream Transportation and Distribution: Emissions from transport and distribution services purchased by the company, either for transport of goods purchased by the company, or supplier deliveries that the company has operational control over.
+  5.Waste Generated in Operations: Emissions from the treatment and disposal of waste generated during business operations, such as landfilling, recycling, or incineration.
+  6.Business Travel: Emissions from employee travel in vehicles not owned by the company, such as flights or rental cars.
+  7.Employee Commuting: Emissions from employees traveling between home and work, regardless of transport mode. This also includes emissions from working from home.
+  8.Upstream Leased Assets: Emissions from the operation of leased assets used by the company but owned by another entity, such as leased vehicles.
   
   Downstream:
-	9.	Downstream Transportation and Distribution: Emissions from the transport and distribution of sold goods after they leave the company, including delivery to end-users.
-	10.	Processing of Sold Products: Emissions that occur when customers further process the sold products, such as refining crude oil sold by the company.
-	11.	Use of Sold Products: Emissions from the use of the company’s sold products, especially those that emit greenhouse gases during use, like fuels.
-	12.	End-of-Life Treatment of Sold Products: Emissions from the disposal or recycling of the company’s sold products after they’ve been used.
-	13.	Downstream Leased Assets: Emissions from the operation of assets leased to others, such as buildings or equipment owned by the company but operated by tenants.
-	14.	Franchises: Emissions from franchise operations operating under the company’s brand, such as emissions from franchised restaurants or retail stores.
-	15.	Investments: Emissions related to the company’s investments, such as those from financed projects or portfolio companies.
-	16.	Other: Any other relevant emissions sources not covered by the categories above, such as outsourced activities or unique business processes.
+  9. Downstream Transportation and Distribution: Emissions from the transport and distribution of sold goods after they leave the company, including delivery to end-users. Note that if the company pays for the service, it falls under category 4 (upstream).
+  10. Processing of Sold Products: Emissions that occur when customers further process the sold products, such as refining crude oil sold by the company or turning raw paper into newspaper.
+  11. Use of Sold Products: Emissions from the use of the company’s sold products, especially those that emit greenhouse gases during use, like fuels or vehicles that use fuels. Another example is energy-consuming products such as machinery.
+  12. End-of-Life Treatment of Sold Products: Emissions from the disposal or recycling of the company’s sold products after they’ve been used.
+  13. Downstream Leased Assets: Emissions from the operation of assets leased to others, such as buildings or equipment owned by the company but operated by tenants.
+  14. Franchises: Emissions from franchise operations operating under the company’s brand, such as emissions from franchised restaurants or retail stores.
+  15. Investments: Emissions related to the company’s investments, such as those from financed projects or portfolio companies.
+  16. Other: Any other relevant emissions sources not covered by the categories above, such as outsourced activities or unique business processes. Note that this is not in line with the GHG protocol, but used in this process to include emissions not accurately categorised by the company.
 
 2. **Missing Or Incomplete Data**:
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
