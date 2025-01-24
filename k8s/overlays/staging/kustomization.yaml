@@ -8,3 +8,7 @@ resources:
 
 patches:
   - path: ingress-patch.yaml
+
+images:
+  - name: ghcr.io/klimatbyran/garbo
+    newTag: # {"$imagepolicy": "flux-system:garbo-stage"}
