@@ -45,9 +45,9 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 	6.	Business Travel: Emissions from employee travel in vehicles not owned by the company, such as flights or rental cars.
 	7.	Employee Commuting: Emissions from employees traveling between home and work, regardless of transport mode.
 	8.	Upstream Leased Assets: Emissions from the operation of leased assets used by the company but owned by another entity, such as leased office spaces.
-	9.	Downstream Transportation and Distribution: Emissions from the transport and distribution of sold goods after they leave the company, including delivery to end-users.
-
+  
   Downstream:
+	9.	Downstream Transportation and Distribution: Emissions from the transport and distribution of sold goods after they leave the company, including delivery to end-users.
 	10.	Processing of Sold Products: Emissions that occur when customers further process the sold products, such as refining crude oil sold by the company.
 	11.	Use of Sold Products: Emissions from the use of the company’s sold products, especially those that emit greenhouse gases during use, like fuels.
 	12.	End-of-Life Treatment of Sold Products: Emissions from the disposal or recycling of the company’s sold products after they’ve been used.
