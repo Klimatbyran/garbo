@@ -5,7 +5,6 @@ namespace: garbo-stage
 
 resources:
   - ../../base
-  - ../../base/pre-deploy/db-migrate.yaml
 
 patches:
   - path: ingress-patch.yaml

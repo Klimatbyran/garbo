@@ -7,3 +7,4 @@ resources:
   - ingress.yaml
   - worker.yaml
   - nlm-ingestor.yaml
+  - pre-deploy/db-migrate.yaml
