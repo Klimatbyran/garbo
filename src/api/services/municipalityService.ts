@@ -38,14 +38,36 @@ class MunicipalityService {
     return this
   }
 
+  private transformYearlyData(data: Record<string, number>): Array<{year: string, value: number}> {
+    return Object.entries(data).map(([year, value]) => ({
+      year,
+      value
+    }))
+  }
+
   getMunicipalities(): Municipality[] {
-    return this.allMunicipalities
+    return this.allMunicipalities.map(municipality => ({
+      ...municipality,
+      emissions: this.transformYearlyData(municipality.emissions),
+      emissionBudget: this.transformYearlyData(municipality.emissionBudget),
+      approximatedHistoricalEmission: this.transformYearlyData(municipality.approximatedHistoricalEmission),
+      trend: this.transformYearlyData(municipality.trend),
+      electricCarChangeYearly: this.transformYearlyData(municipality.electricCarChangeYearly)
+    }))
   }
 
   getMunicipality(name: Municipality['name']): Municipality | null {
-    return (
-      this.municipalitiesByName.get(name.toLocaleLowerCase('sv-SE')) ?? null
-    )
+    const municipality = this.municipalitiesByName.get(name.toLocaleLowerCase('sv-SE'))
+    if (!municipality) return null
+
+    return {
+      ...municipality,
+      emissions: this.transformYearlyData(municipality.emissions),
+      emissionBudget: this.transformYearlyData(municipality.emissionBudget),
+      approximatedHistoricalEmission: this.transformYearlyData(municipality.approximatedHistoricalEmission),
+      trend: this.transformYearlyData(municipality.trend),
+      electricCarChangeYearly: this.transformYearlyData(municipality.electricCarChangeYearly)
+    }
   }
 }
 

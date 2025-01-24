@@ -341,22 +341,27 @@ export const CompanyDetails = CompanyBase.extend({
 const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
 
 // IDEA: See if it's possible to improve the schema for the yearly data
+const YearlyDataSchema = z.object({
+  year: z.string(),
+  value: z.number()
+})
+
 export const MunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
-  emissions: z.record(z.string(), z.number()),
+  emissions: z.array(YearlyDataSchema),
   budget: z.number(),
-  emissionBudget: z.record(z.string(), z.number()),
-  approximatedHistoricalEmission: z.record(z.string(), z.number()),
+  emissionBudget: z.array(YearlyDataSchema),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
   totalApproximatedHistoricalEmission: z.number(),
-  trend: z.record(z.string(), z.number()),
+  trend: z.array(YearlyDataSchema),
   trendEmission: z.number(),
   historicalEmissionChangePercent: z.number(),
   neededEmissionChangePercent: z.number(),
   hitNetZero: z.string(),
   budgetRunsOut: z.string(),
   electricCarChangePercent: z.number(),
-  electricCarChangeYearly: z.record(z.string(), z.number()),
+  electricCarChangeYearly: z.array(YearlyDataSchema),
   climatePlanLink: z.string(),
   climatePlanYear: z.union([ClimatePlanYearEnumSchema, z.number()]),
   climatePlanComment: z.string(),
