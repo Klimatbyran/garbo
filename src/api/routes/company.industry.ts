@@ -38,8 +38,6 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       } = request.body
       const { wikidataId } = request.params
 
-      console.log('subIndustryCode', subIndustryCode)
-
       const current = await prisma.industry.findFirst({
         where: { companyWikidataId: wikidataId },
       })
