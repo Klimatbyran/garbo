@@ -16,7 +16,7 @@ export const schema = z.object({
           employees: z
             .object({
               value: z.number().nullable().optional(),
-              unit: z.string().nullable().optional(),
+              unit: z.enum(['FTE', 'EOY', 'AVG']).nullable().optional(),
             })
             .nullable()
             .optional(),
@@ -45,7 +45,7 @@ export const prompt = `
 - Acceptable units include:
   - FTE (Full-Time Equivalent)
   - AVG (genomsnittligt antal anställda)
-  - EOY (Antal anstälda vid årets slut)
+  - EOY (Antal anställda vid årets slut)
 - If no unit is specified, extract the value as is and set the unit field to null.
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
