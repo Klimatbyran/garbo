@@ -10,6 +10,7 @@ import {
   MunicipalityNameParamSchema,
 } from '../schemas'
 import { municipalityService } from '../services/municipalityService'
+import { redisCache } from '../..'
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -20,7 +21,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements and much more.',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
         tags: getTags('Municipalities'),
 
         response: {
@@ -29,15 +30,24 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const eTag = 'municipalities:etag'
+      const cacheKey = 'municipalities:data'
       const clientEtag = request.headers['if-none-match']
 
-      if (clientEtag === eTag) {
-        return reply.code(304).send()
+      const eTag = 'static-etag-for-municipalities'
+
+      if (clientEtag === eTag) return reply.code(304).send()
+
+      let municipalities = await redisCache.get(cacheKey)
+
+      if (municipalities) {
+        municipalities = JSON.parse(municipalities)
+      } else {
+        municipalities = municipalityService.getMunicipalities()
+        await redisCache.set(cacheKey, JSON.stringify(municipalities))
       }
 
       reply.header('ETag', eTag)
-      reply.send(municipalityService.getMunicipalities())
+      reply.send(municipalities)
     }
   )
 
