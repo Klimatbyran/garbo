@@ -1,31 +1,29 @@
-export function createServerCache({ maxAge }: { maxAge: number }) {
-  const cache = new Map<string, { data: any; cachedAt: number }>()
+import { createClient } from 'redis'
+import redisConfig from './config/redis'
 
+const redis = createClient({ ...redisConfig })
+redis.connect()
+
+export function createServerCache({ maxAge }: { maxAge: number }) {
   return {
-    set(key: string, value: any) {
-      cache.set(key, { data: value, cachedAt: Date.now() })
+    async set(key: string, value: any) {
+      await redis.set(key, JSON.stringify(value), {
+        PX: maxAge,
+      })
     },
-    get(key: string) {
-      const cached = cache.get(key)
-      if (cached && Date.now() - cached.cachedAt < maxAge) {
-        return cached.data
-      }
-      cache.delete(key)
-      return null
+    async get(key: string) {
+      const cached = await redis.get(key)
+      return cached ? JSON.parse(cached) : null
     },
-    has(key: string) {
-      const cached = cache.get(key)
-      if (cached && Date.now() - cached.cachedAt < maxAge) {
-        return true
-      }
-      cache.delete(key)
-      return false
+    async has(key: string) {
+      return (await redis.exists(key)) === 1
     },
-    delete(key: string) {
-      cache.delete(key)
+    async delete(key: string) {
+      await redis.del(key)
     },
-    clear() {
-      cache.clear()
+    async clear() {
+      const keys = await redis.keys('*')
+      if (keys.length > 0) await redis.del(keys)
     },
   }
 }

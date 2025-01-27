@@ -138,6 +138,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const cacheKey = 'companies:etag'
 
       let currentEtag = await eTagCache.get(cacheKey)
+
       const latestMetadata = await prisma.metadata.findFirst({
         select: { updatedAt: true },
         orderBy: { updatedAt: 'desc' },
