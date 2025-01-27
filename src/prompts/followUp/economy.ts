@@ -41,7 +41,13 @@ export const prompt = `
   - 4.2 KEUR → 4200 EUR
 - Specify the **currency** as a separate field (e.g., SEK, USD, EUR).
 *** Employees: ***
-- Extract the number of employees for all available years. The unit can be for example "FTE" (full-time equivalent) or average number of employees during the year.
+- Extract the number of employees for all available years. 
+- Acceptable units include:
+  - FTE (Full-Time Equivalent)
+  - AVG (genomsnittligt antal anställda)
+  - EOY (End of Year)
+  - Headcount
+- If no unit is specified, extract the value as is and set the unit field to null.
 *** Dates: ***
 - if no year is specified, assume the current year ${new Date().getFullYear()}
 
@@ -68,7 +74,7 @@ This is only an example format; do not include this specific data in the output 
       },
       "employees": {
         "value": 3045,
-        "unit": "FTE"
+        "unit": "AVG"
       }
     }
   ]
