@@ -14,7 +14,9 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  updatedAt: z.date().openapi({ description: 'Last update timestamp' }),
+  updatedAt: z
+    .union([z.date(), z.string()])
+    .openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
       .string()
@@ -224,9 +226,11 @@ export const InitiativeSchema = z.object({
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
   startDate: z
-    .date()
+    .union([z.date(), z.string()])
     .openapi({ description: 'Start date of reporting period' }),
-  endDate: z.date().openapi({ description: 'End date of reporting period' }),
+  endDate: z
+    .union([z.date(), z.string()])
+    .openapi({ description: 'End date of reporting period' }),
   reportURL: z
     .string()
     .nullable()
