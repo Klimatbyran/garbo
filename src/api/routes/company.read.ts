@@ -136,7 +136,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
     async (request, reply) => {
       const clientEtag = request.headers['if-none-match']
       const cacheKey = 'companies:etag'
-      const dataCacheKey = 'companies:data'
 
       let currentEtag = await redisCache.get(cacheKey)
 
@@ -153,6 +152,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
       }
 
       if (clientEtag === currentEtag) return reply.code(304).send()
+
+      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
 
       let companies = await redisCache.get(dataCacheKey)
       if (companies) {
