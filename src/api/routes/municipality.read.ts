@@ -29,6 +29,14 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      const eTag = 'municipalities:etag'
+      const clientEtag = request.headers['if-none-match']
+
+      if (clientEtag === eTag) {
+        return reply.code(304).send()
+      }
+
+      reply.header('ETag', eTag)
       reply.send(municipalityService.getMunicipalities())
     }
   )
