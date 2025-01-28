@@ -2,12 +2,16 @@ import { z } from 'zod'
 
 const schema = z.object({
   biogenic: z.array(
-    z.object({
-      year: z.number(),
-      biogenic: z
-        .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
-        .optional(),
-    })
+    z
+      .object({
+        year: z.number(),
+        biogenic: z
+          .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+          .nullable()
+          .optional(),
+      })
+      .nullable()
+      .optional()
   ),
 })
 
@@ -31,7 +35,7 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF.
 
 
 
-If you can't find any information about biogenic emissions, report it as an empty array.
+If you can't find any information about biogenic emissions, report it as null.
 If you find biogenic emissions for some years but not for others, report the years you find and leave the others out.
 
 Json example:
