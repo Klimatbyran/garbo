@@ -256,7 +256,6 @@ model Economy {
   turnover        Turnover?
   employees       Employees?
   reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
-  turnoverId      String?
 }
 
 model Turnover {
