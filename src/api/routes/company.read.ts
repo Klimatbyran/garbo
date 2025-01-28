@@ -67,13 +67,19 @@ function addCalculatedTotalEmissions(companies: any[]) {
                       reportingPeriod.emissions.scope3.categories.some((c) =>
                         Boolean(c.metadata?.verifiedBy)
                       )
-                        ? reportingPeriod.emissions.scope3.categories.reduce(
-                            (total, category) =>
-                              isNumber(category.total)
-                                ? category.total + total
-                                : total,
-                            0
-                          )
+                        ? reportingPeriod.emissions.scope3.categories
+                            .filter(
+                              (category) =>
+                                category.category !== 16 ||
+                                Boolean(category.metadata?.verifiedBy)
+                            )
+                            .reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
                         : reportingPeriod.emissions.scope3.statedTotalEmissions
                             ?.total ?? 0,
                   }) ||
