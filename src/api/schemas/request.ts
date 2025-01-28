@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number() })
+  .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
   .optional()
 
 export const emissionsSchema = z
@@ -82,6 +82,7 @@ export const emissionsSchema = z
     scope1: z
       .object({
         total: z.number(),
+        unit: z.enum(['tCO2e', 'tCO2']),
       })
       .optional(),
     scope2: z
@@ -95,15 +96,8 @@ export const emissionsSchema = z
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .optional(),
+        unit: z.enum(['tCO2e', 'tCO2']),
       })
-      .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
-        {
-          message:
-            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
-      )
       .optional(),
     scope3: z
       .object({
@@ -112,15 +106,20 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number(),
+              unit: z.enum(['tCO2e', 'tCO2']),
             })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
       .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
+    biogenic: z
+      .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+      .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    scope1And2: z.object({ total: z.number() }).optional(),
+    scope1And2: z
+      .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+      .optional(),
   })
   .optional()
 
