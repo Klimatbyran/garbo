@@ -2,18 +2,21 @@ import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '../../api/schemas'
 
 const schema = z.object({
-  biogenic: z.array(
-    z
-      .object({
+  biogenic: z
+    .array(
+      z.object({
         year: z.number(),
         biogenic: z
-          .object({ total: z.number(), unit: emissionUnitSchemaGarbo })
+          .object({
+            total: z.number(),
+            unit: emissionUnitSchemaGarbo,
+          })
           .nullable()
           .optional(),
       })
-      .nullable()
-      .optional()
-  ),
+    )
+    .nullable()
+    .optional(),
 })
 
 const prompt = `BIOGENIC EMISSIONS
