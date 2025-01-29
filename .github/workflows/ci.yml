@@ -10,10 +10,6 @@ on:
   push:
     branches:
       - main
-      - feat/k8s
-    tags:
-      - production*
-      - staging*
     paths-ignore:
       - 'k8s/**'
       - 'Dockerfile.base'
@@ -28,19 +24,9 @@ jobs:
 
       - name: 🎫 Update patch version
         run: |
-          git fetch
-          git checkout main
-          git pull origin main
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          if [[ $GITHUB_REF == refs/tags/production* ]]; then
-            npm version major
-          elif [[ $GITHUB_REF == refs/tags/staging* ]]; then
-            npm version minor
-          else
-            npm version patch
-          fi
-          git fetch --all
+          npm version patch
           git push origin main
 
   ci:
@@ -76,13 +62,7 @@ jobs:
       - run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          if [[ $GITHUB_REF == refs/tags/production* ]]; then
-            npm version major
-          elif [[ $GITHUB_REF == refs/tags/staging* ]]; then
-            npm version minor
-          else
-            npm version patch
-          fi
+          npm version patch
 
       - name: 📝 Get Current Version
         id: package-version

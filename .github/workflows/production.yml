@@ -19,15 +19,13 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       
-      - name: Check if minor version
+      - name: Set minor version
         id: check
         run: |
           VERSION=${{ steps.version.outputs.VERSION }}
-          if [[ $VERSION =~ ^[0-9]+\.[0-9]+\.0$ ]]; then
-            echo "is_minor=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_minor=false" >> $GITHUB_OUTPUT
-          fi
+          MINOR_VERSION=$(echo $VERSION | awk -F. '{print $1"."$2".0"}')
+          echo "VERSION=$MINOR_VERSION" >> $GITHUB_OUTPUT
+          echo "is_minor=true" >> $GITHUB_OUTPUT
 
   deploy:
     needs: check-version
@@ -47,7 +45,7 @@ jobs:
       - name: 🔄 Update Kustomization
         run: |
           cd k8s/overlays/production
-          sed -i "s/newTag: '.*'/newTag: '${{ needs.check-version.outputs.version }}'/" kustomization.yaml
+          sed -i "s/newTag: '.*'/newTag: '${{ needs.check-version.outputs.VERSION }}'/" kustomization.yaml
           
       - name: 🔀 Create Pull Request
         uses: peter-evans/create-pull-request@v5
