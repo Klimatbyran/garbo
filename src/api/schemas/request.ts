@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { emissionUnitSchema, wikidataIdSchema } from './common'
+import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: emissionUnitSchema })
+  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
   .optional()
 
 export const emissionsSchema = z
@@ -82,7 +82,7 @@ export const emissionsSchema = z
     scope1: z
       .object({
         total: z.number(),
-        unit: emissionUnitSchema,
+        unit: emissionUnitSchemaWithDefault,
       })
       .optional(),
     scope2: z
@@ -96,8 +96,16 @@ export const emissionsSchema = z
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .optional(),
-        unit: emissionUnitSchema,
+        unit: emissionUnitSchemaWithDefault,
       })
+      .refine(
+        ({ mb, lb, unknown }) =>
+          mb !== undefined || lb !== undefined || unknown !== undefined,
+        {
+          message:
+            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        }
+      )
       .optional(),
     scope3: z
       .object({
@@ -106,7 +114,7 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number(),
-              unit: emissionUnitSchema,
+              unit: emissionUnitSchemaWithDefault,
             })
           )
           .optional(),
@@ -114,11 +122,11 @@ export const emissionsSchema = z
       })
       .optional(),
     biogenic: z
-      .object({ total: z.number(), unit: emissionUnitSchema })
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
-      .object({ total: z.number(), unit: emissionUnitSchema })
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
       .optional(),
   })
   .optional()

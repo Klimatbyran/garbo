@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { emissionUnitSchema } from '../../api/schemas'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
 
 const schema = z.object({
   biogenic: z.array(
@@ -7,7 +7,7 @@ const schema = z.object({
       .object({
         year: z.number(),
         biogenic: z
-          .object({ total: z.number(), unit: emissionUnitSchema })
+          .object({ total: z.number(), unit: emissionUnitSchemaGarbo })
           .nullable()
           .optional(),
       })

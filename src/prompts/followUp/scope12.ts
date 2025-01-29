@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { emissionUnitSchema } from '../../api/schemas'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
 
 const schema = z.object({
   scope12: z.array(
@@ -8,7 +8,7 @@ const schema = z.object({
       scope1: z
         .object({
           total: z.number(),
-          unit: emissionUnitSchema,
+          unit: emissionUnitSchemaGarbo,
         })
         .nullable()
         .optional(),
@@ -26,7 +26,7 @@ const schema = z.object({
             .number({ description: 'Unspecified Scope 2 emissions' })
             .nullable()
             .optional(),
-          unit: emissionUnitSchema,
+          unit: emissionUnitSchemaGarbo,
         })
         .refine(({ mb, lb, unknown }) => mb || lb || unknown, {
           message:

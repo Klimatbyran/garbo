@@ -12,8 +12,6 @@ import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
 import { emissionsArgs } from '../args'
 
-export const TONNES_CO2E_UNIT = 'tCO2e'
-
 class EmissionsService {
   async upsertEmissions({
     emissionsId,
@@ -318,7 +316,7 @@ class EmissionsService {
   async upsertStatedTotalEmissions(
     emissions: DefaultEmissions,
     metadata: Metadata,
-    statedTotalEmissions?: Omit<
+    statedTotalEmissions: Omit<
       StatedTotalEmissions,
       'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
     >,
@@ -332,7 +330,6 @@ class EmissionsService {
       where: { id: statedTotalEmissionsId ?? '' },
       create: {
         ...statedTotalEmissions,
-        unit: statedTotalEmissions?.unit || TONNES_CO2E_UNIT,
         emissions: scope3
           ? undefined
           : {
