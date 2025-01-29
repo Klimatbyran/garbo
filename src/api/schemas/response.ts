@@ -4,6 +4,13 @@ import { wikidataIdSchema } from './common'
 
 extendZodWithOpenApi(z)
 
+const dateStringSchema = z.union([
+  z.date(),
+  z.string().refine((val) => !isNaN(Date.parse(val)), {
+    message: 'Invalid date string',
+  }),
+])
+
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const emptyBodySchema = z.undefined()
 
@@ -14,7 +21,7 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  updatedAt: z.date().openapi({ description: 'Last update timestamp' }),
+  updatedAt: dateStringSchema.openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
       .string()
@@ -223,10 +230,12 @@ export const InitiativeSchema = z.object({
 
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
-  startDate: z
-    .date()
-    .openapi({ description: 'Start date of reporting period' }),
-  endDate: z.date().openapi({ description: 'End date of reporting period' }),
+  startDate: dateStringSchema.openapi({
+    description: 'Start date of reporting period',
+  }),
+  endDate: dateStringSchema.openapi({
+    description: 'End date of reporting period',
+  }),
   reportURL: z
     .string()
     .nullable()

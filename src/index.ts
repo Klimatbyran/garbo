@@ -6,7 +6,7 @@ import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { createServerCache } from './createCache'
 
-export const eTagCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
+export const redisCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
 const { values } = parseArgs({
   options: {

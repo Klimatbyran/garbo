@@ -46,6 +46,7 @@
     "pdf2pic": "^3.1.3",
     "pino-http": "^10.4.0",
     "prisma-zod-generator": "^0.8.13",
+    "redis": "^4.7.0",
     "sharp": "^0.33.5",
     "tsx": "^4.19.2",
     "wikibase-sdk": "^10.2.1",

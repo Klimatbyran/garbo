@@ -172,6 +172,25 @@ Get everything up and running with one command (with all output in one terminal)
 npm run dev
 ```
 
+#### 4) (Optional) Redis Insights
+
+a). **Start Redis Insight**  
+Run the following Docker command to start Redis Insight:
+
+docker run -d --name redisinsight -p 5540:5540 redislabs/redisinsight:latest
+
+---
+
+b). **Connect Redis Insight to Redis**
+
+- **Host**: `garbo_redis` (or the Redis container IP, e.g., `172.17.0.2`)
+- **Port**: `6379`
+- **Username**: Leave empty or use `default`.
+- **Password**: Leave empty.
+
+c). **Access Redis Insight**
+Go to [http://localhost:5540](http://localhost:5540) in your browser and add the Redis database using the above connection details.
+
 ### Setup completed 🎉
 
 Well done! You've now set up the `garbo` backend and are ready to start development :)

@@ -14,7 +14,7 @@ import {
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
-import { eTagCache } from '../..'
+import { redisCache } from '../..'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {
   app.delete(
@@ -36,7 +36,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { wikidataId } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await companyService.deleteCompany(wikidataId)
       reply.status(204).send()
     }
@@ -61,7 +61,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await goalService.deleteGoal(id)
       reply.status(204).send()
     }
@@ -86,7 +86,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { wikidataId } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await industryService.deleteIndustry(wikidataId)
       reply.status(204).send()
     }
@@ -110,7 +110,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = req.params
-      eTagCache.clear()
+      redisCache.clear()
       await initiativeService.deleteInitiative(id)
       reply.code(204).send()
     }
@@ -135,7 +135,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await reportingPeriodService.deleteReportingPeriod(id)
       reply.code(204).send()
     }
@@ -160,7 +160,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteStatedTotalEmissions(id)
       reply.code(204).send()
     }
@@ -185,7 +185,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteBiogenicEmissions(id)
       reply.code(204).send()
     }
@@ -210,7 +210,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteScope1(id)
       reply.code(204).send()
     }
@@ -235,7 +235,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteScope1And2(id)
       reply.code(204).send()
     }
@@ -260,7 +260,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteScope2(id)
       reply.code(204).send()
     }
@@ -285,7 +285,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteScope3(id)
       reply.code(204).send()
     }
@@ -310,7 +310,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { id } = request.params
-      eTagCache.clear()
+      redisCache.clear()
       await emissionsService.deleteScope3Category(id)
       reply.code(204).send()
     }
