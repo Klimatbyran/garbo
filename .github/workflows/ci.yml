@@ -10,79 +10,24 @@ on:
   push:
     branches:
       - main
-      - feat/k8s
-    tags:
-      - production*
-      - staging*
     paths-ignore:
       - 'k8s/**'
       - 'Dockerfile.base'
 
 jobs:
-  version:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🛎️ Checkout
-        uses: actions/checkout@v4
-
-      - name: 🎫 Update patch version
-        run: |
-          git fetch
-          git checkout main
-          git pull origin main
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          if [[ $GITHUB_REF == refs/tags/production* ]]; then
-            npm version major
-          elif [[ $GITHUB_REF == refs/tags/staging* ]]; then
-            npm version minor
-          else
-            npm version patch
-          fi
-          git fetch --all
-          git push origin main
-
   ci:
     runs-on: ubuntu-latest
-    needs: version
-
-    # Add concurrency check for base image
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false
 
     steps:
-      # NOTE: Disabled until we have a stable base image
-      # - name: 🔍 Check for base image workflow
-      #   id: check-workflow
-      #   continue-on-error: true
-      #   uses: lewagon/wait-on-check-action@v1.3.4
-      #   with:
-      #     ref: ${{ github.ref }}
-      #     check-name: 'build-and-push-base-image'
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     wait-interval: 10
-      #     allowed-conclusions: success,skipped
-      #     running-workflow-name: 'Build and Push Base Image'
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - id: imagename
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.repository }}
-
-      - run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          if [[ $GITHUB_REF == refs/tags/production* ]]; then
-            npm version major
-          elif [[ $GITHUB_REF == refs/tags/staging* ]]; then
-            npm version minor
-          else
-            npm version patch
-          fi
 
       - name: 📝 Get Current Version
         id: package-version
@@ -95,9 +40,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🏗️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
       - name: 🔧 Build and push Docker Image
         uses: docker/build-push-action@v6
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase  }}:${{ steps.package-version.outputs.current-version}}
+            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:${{ steps.package-version.outputs.current-version}}
+            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 🎫 Update patch version
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          npm version patch
+          git push origin main

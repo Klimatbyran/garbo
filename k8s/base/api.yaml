@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: garbo
-  namespace: garbo
 spec:
   replicas: 1
   selector:
@@ -14,7 +13,7 @@ spec:
         app: garbo
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.6.10 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo
           resources: {}
           name: garbo
           ports:

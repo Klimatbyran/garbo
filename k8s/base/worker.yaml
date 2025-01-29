@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
-  namespace: garbo
 spec:
   replicas: 5
   selector:
@@ -14,7 +13,7 @@ spec:
         app: worker
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.6.10 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo
           resources: {}
           command: ['npm', 'run', 'workers']
           name: worker

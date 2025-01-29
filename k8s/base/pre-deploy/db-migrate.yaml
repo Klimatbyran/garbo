@@ -2,14 +2,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: db-migration
-  namespace: garbo
 spec:
   template:
     spec:
       restartPolicy: Never
       containers:
         - name: migration
-          image: ghcr.io/klimatbyran/garbo:3.6.10 # {"$imagepolicy": "flux-system:garbo"}
+          image: ghcr.io/klimatbyran/garbo
           command: ['npm', 'run', 'migrate']
           env:
             - name: POSTGRES_PASSWORD
