@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { wikidataIdSchema } from './common'
+import { emissionUnitSchema, wikidataIdSchema } from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+  .object({ total: z.number(), unit: emissionUnitSchema })
   .optional()
 
 export const emissionsSchema = z
@@ -82,7 +82,7 @@ export const emissionsSchema = z
     scope1: z
       .object({
         total: z.number(),
-        unit: z.enum(['tCO2e', 'tCO2']),
+        unit: emissionUnitSchema,
       })
       .optional(),
     scope2: z
@@ -96,7 +96,7 @@ export const emissionsSchema = z
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .optional(),
-        unit: z.enum(['tCO2e', 'tCO2']),
+        unit: emissionUnitSchema,
       })
       .optional(),
     scope3: z
@@ -106,7 +106,7 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number(),
-              unit: z.enum(['tCO2e', 'tCO2']),
+              unit: emissionUnitSchema,
             })
           )
           .optional(),
@@ -114,11 +114,11 @@ export const emissionsSchema = z
       })
       .optional(),
     biogenic: z
-      .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+      .object({ total: z.number(), unit: emissionUnitSchema })
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
-      .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+      .object({ total: z.number(), unit: emissionUnitSchema })
       .optional(),
   })
   .optional()

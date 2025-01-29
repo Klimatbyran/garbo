@@ -32,3 +32,5 @@ export function getErrorSchemas(...codes: ErrorCode[]) {
     return acc
   }, {} as Record<ErrorCode, typeof errorSchema>)
 }
+
+export const emissionUnitSchema = z.enum(['tCO2e', 'tCO2']).default('tCO2e')

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { emissionUnitSchema } from '../../api/schemas'
 
 export const schema = z.object({
   scope3: z.array(
@@ -11,13 +12,13 @@ export const schema = z.object({
               z.object({
                 category: z.number().int(),
                 total: z.number(),
-                unit: z.enum(['tCO2e', 'tCO2']),
+                unit: emissionUnitSchema,
               })
             )
             .nullable()
             .optional(),
           statedTotalEmissions: z
-            .object({ total: z.number(), unit: z.enum(['tCO2e', 'tCO2']) })
+            .object({ total: z.number(), unit: emissionUnitSchema })
             .nullable()
             .optional(),
         })
