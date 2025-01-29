@@ -1,28 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: worker
-  namespace: garbo
+  name: garbo
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
-      app: worker
+      app: garbo
   template:
     metadata:
       labels:
-        app: worker
+        app: garbo
     spec:
       containers:
-        - image: ghcr.io/klimatbyran/garbo:3.6.7 # {"$imagepolicy": "flux-system:garbo"}
+        - image: ghcr.io/klimatbyran/garbo
           resources: {}
-          command: ['npm', 'run', 'workers']
-          name: worker
+          name: garbo
           ports:
             - containerPort: 3000
           env:
-            - name: WORKER
-              value: 'true'
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
@@ -38,13 +34,6 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
-            - name: API_TOKENS
-              valueFrom:
-                secretKeyRef:
-                  name: env
-                  key: API_TOKENS
-            - name: API_BASE_URL
-              value: http://garbo/api
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -55,11 +44,20 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
-            # - name: CHROMA_TOKEN
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: chromadb-auth
-            #       key: token
+            - name: API_TOKENS
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_TOKENS
+            - name: API_BASE_URL
+              value: http://garbo/api
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
             - name: CHROMA_HOST
               value: http://chromadb:8000
             - name: REDIS_HOST
@@ -69,11 +67,4 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgresql
-                  key: postgres-password
-            - name: NLM_INGESTOR_URL
-              value: http://nlm:5001
           imagePullPolicy: Always
