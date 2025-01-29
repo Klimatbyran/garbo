@@ -59,11 +59,6 @@ jobs:
         with:
           string: ${{ github.repository }}
 
-      - run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          npm version patch
-
       - name: 📝 Get Current Version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@main
