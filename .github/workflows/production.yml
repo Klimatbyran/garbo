@@ -1,9 +1,7 @@
-name: Production
+name: Production Release
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
 on:
@@ -11,17 +9,27 @@ on:
     types: [published]
 
 jobs:
-  production:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
 
     steps:
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📝 Get release version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: 🔐 Login to Docker Registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -30,4 +38,23 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:release-${{ github.event.release.tag_name }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.VERSION }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: 🔄 Update Kustomization
+        run: |
+          cd k8s/overlays/production
+          sed -i "s/newTag: '.*'/newTag: '${{ steps.version.outputs.VERSION }}'/" kustomization.yaml
+          
+      - name: 🔀 Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: update production image to ${{ steps.version.outputs.VERSION }}"
+          title: "chore: promote ${{ steps.version.outputs.VERSION }} to production"
+          body: |
+            Updates production deployment to use version ${{ steps.version.outputs.VERSION }}
+            
+            This PR was automatically created by the release workflow.
+          branch: "release/${{ steps.version.outputs.VERSION }}"
+          base: "main"
+          labels: "deployment,production"
