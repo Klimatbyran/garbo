@@ -8,7 +8,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: migration
-          image: ghcr.io/klimatbyran/garbo:3.6.7 # {"$imagepolicy": "flux-system:garbo"}
+          image: ghcr.io/klimatbyran/garbo:3.7.0
           command: ['npm', 'run', 'migrate']
           env:
             - name: POSTGRES_PASSWORD
