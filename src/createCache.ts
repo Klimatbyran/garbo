@@ -4,7 +4,11 @@ import redisConfig from './config/redis'
 // Note: This prefix is a good seperator from the bullMQ jobs
 export const API_REDIS_PREFIX = 'redis_api/'
 
-const redis = createClient({ ...redisConfig })
+const redisUrl = `redis://default:${redisConfig.password}@${redisConfig.host}:${redisConfig.port}`
+
+const redis = createClient({
+  url: redisUrl,
+})
 await redis.connect()
 
 export function createServerCache({ maxAge }: { maxAge: number }) {
