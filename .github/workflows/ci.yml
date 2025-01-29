@@ -21,6 +21,17 @@ jobs:
     steps:
       - name: 🛎️ Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Setup GitHub CLI
+        run: |
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
 
       - id: imagename
         uses: ASzc/change-string-case-action@v6
@@ -47,8 +58,25 @@ jobs:
             ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:latest
 
       - name: 🎫 Update patch version
+        id: version
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          npm version patch
+          NEW_VERSION=$(npm version patch)
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           git push origin main
+
+      - name: 📝 Create GitHub Release for Minor Version
+        if: endsWith(steps.version.outputs.new_version, '.0')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get changes since last release
+          LAST_TAG=$(git describe --tags --abbrev=0 --exclude ${NEW_VERSION})
+          CHANGELOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"* %s")
+          
+          # Create GitHub release
+          gh release create ${NEW_VERSION} \
+            --title "Release ${NEW_VERSION}" \
+            --notes "${CHANGELOG}" \
+            --generate-notes
