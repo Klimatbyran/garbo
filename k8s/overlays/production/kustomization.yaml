@@ -9,3 +9,12 @@ images:
   - name: ghcr.io/klimatbyran/garbo
     newName: ghcr.io/klimatbyran/garbo
     newTag: 'ghcr.io/klimatbyran/garbo:3.7.0' # {"$imagepolicy": "flux-system:garbo"}
+
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: production-namespace-transformer
+      namespace: garbo
+    unsetOnly: true
