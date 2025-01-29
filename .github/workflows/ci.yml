@@ -63,25 +63,8 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: 🎫 Update patch version
-        id: version
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          NEW_VERSION=$(npm version patch)
-          echo "new_version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+          npm version patch
           git push origin main
-
-      - name: 📝 Create GitHub Release for Minor Version
-        if: endsWith(steps.version.outputs.new_version, '.0')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get changes since last release
-          LAST_TAG=$(git describe --tags --abbrev=0 --exclude ${NEW_VERSION})
-          CHANGELOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"* %s")
-          
-          # Create GitHub release
-          gh release create ${NEW_VERSION} \
-            --title "Release ${NEW_VERSION}" \
-            --notes "${CHANGELOG}" \
-            --generate-notes
