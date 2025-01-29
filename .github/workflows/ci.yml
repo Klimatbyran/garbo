@@ -49,6 +49,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🏗️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
       - name: 🔧 Build and push Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -56,6 +59,8 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:${{ steps.package-version.outputs.current-version}}
             ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: 🎫 Update patch version
         id: version
