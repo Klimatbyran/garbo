@@ -5,7 +5,7 @@ import redisConfig from './config/redis'
 export const API_REDIS_PREFIX = 'redis_api/'
 
 const redis = createClient({ ...redisConfig })
-redis.connect()
+await redis.connect()
 
 export function createServerCache({ maxAge }: { maxAge: number }) {
   return {
