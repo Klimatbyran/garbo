@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
 
 export const schema = z.object({
   scope3: z.array(
@@ -11,12 +12,13 @@ export const schema = z.object({
               z.object({
                 category: z.number().int(),
                 total: z.number(),
+                unit: emissionUnitSchemaGarbo,
               })
             )
             .nullable()
             .optional(),
           statedTotalEmissions: z
-            .object({ total: z.number() })
+            .object({ total: z.number(), unit: emissionUnitSchemaGarbo })
             .nullable()
             .optional(),
         })
@@ -60,7 +62,15 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
 3. **Units**:
-  Report all emissions in metric tons of CO2 equivalent. If the data is provided in a different unit (kton = 1000 tCO2, Mton = 1000000 tCO2), convert it. This is the only permitted calculation.
+- Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit **tCO2e** (tons of CO2 equivalent) is preferred.
+- If a company explicitly reports emissions without the "e" suffix (e.g., **tCO2**), use **tCO2** as the unit. However, if no unit is specified or it is unclear, assume the unit is **tCO2e**.
+- All values must be converted to metric tons if they are provided in other units:
+  - Example: 
+    - 1000 CO2e → 1 tCO2e
+    - 1000 CO2 → 1 tCO2
+    - 1 kton CO2e → 1000 tCO2e
+    - 1 Mton CO2 → 1,000,000 tCO2
+- Use **tCO2** only if it is explicitly reported without the "e" suffix, otherwise default to **tCO2e**.
 
 4. **Financial Institutions**:
   If the company is a financial institution, look specifically for emissions data related to investments, portfolio, or financed emissions. These may be located in separate sections of the report.
@@ -81,12 +91,12 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
     "year": 2021,
     "scope3": {
       "categories": [
-        { "category": 1, "total": 10 },
-        { "category": 2, "total": 20 },
-        { "category": 3, "total": 40 },
-        { "category": 14, "total": 40 }
+        { "category": 1, "total": 10, "unit": "tCO2e" },
+        { "category": 2, "total": 20, "unit": "tCO2e" },
+        { "category": 3, "total": 40, "unit": "tCO2e" },
+        { "category": 14, "total": 40, "unit": "tCO2e" }
       ],
-      "statedTotalEmissions": { "total": 110 }
+      "statedTotalEmissions": { "total": 110, "unit": "tCO2e" }
     }
   },
   {
