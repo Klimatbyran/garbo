@@ -285,4 +285,4 @@ For any questions or issues, please contact the maintainers at [hej@klimatkollen
 
 ### License
 
-This project is licensed under the terms of the [MIT License](LICENSE) © Klimatbyrån Ideell Förening.
+This project is licensed under the terms of the [Apache 2.0](LICENSE) © Klimatbyrån Ideell Förening.
