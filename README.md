@@ -81,9 +81,9 @@ The simplest way to start the containers the first time is to run the following 
 
 ```bash
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d -p 6379:6379 --name garbo_redis redis
 
 # These are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.
-docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
 docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
@@ -97,7 +97,7 @@ docker start garbo_postgres garbo_redis garbo_chroma garbo_ingestor
 Or if you only plan to develop the frontend and/or the API, this is enough:
 
 ```sh
-docker start garbo_postgres
+docker start garbo_postgres garbo_redis
 ```
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
