@@ -12,9 +12,7 @@ import {
   CompanyDetails,
   getErrorSchemas,
 } from '../schemas'
-import { eTagCache } from '../..'
-
-export const ETAG_CACHE_KEY = 'companies:etag'
+import { redisCache } from '../..'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
@@ -69,13 +67,19 @@ function addCalculatedTotalEmissions(companies: any[]) {
                       reportingPeriod.emissions.scope3.categories.some((c) =>
                         Boolean(c.metadata?.verifiedBy)
                       )
-                        ? reportingPeriod.emissions.scope3.categories.reduce(
-                            (total, category) =>
-                              isNumber(category.total)
-                                ? category.total + total
-                                : total,
-                            0
-                          )
+                        ? reportingPeriod.emissions.scope3.categories
+                            .filter(
+                              (category) =>
+                                category.category !== 16 ||
+                                Boolean(category.metadata?.verifiedBy)
+                            )
+                            .reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
                         : reportingPeriod.emissions.scope3.statedTotalEmissions
                             ?.total ?? 0,
                   }) ||
@@ -139,27 +143,34 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const clientEtag = request.headers['if-none-match']
       const cacheKey = 'companies:etag'
 
-      let currentEtag = await eTagCache.get(cacheKey)
+      let currentEtag = await redisCache.get(cacheKey)
 
-      if (!currentEtag) {
-        const latestMetadata = await prisma.metadata.findFirst({
-          select: { updatedAt: true },
-          orderBy: { updatedAt: 'desc' },
-        })
+      const latestMetadata = await prisma.metadata.findFirst({
+        select: { updatedAt: true },
+        orderBy: { updatedAt: 'desc' },
+      })
+      const latestMetadataUpdatedAt =
+        latestMetadata?.updatedAt.toISOString() || ''
 
-        const metadataUpdatedAt = latestMetadata?.updatedAt.toISOString() || ''
-        const currentTimestamp = new Date().toISOString()
-        currentEtag = `${metadataUpdatedAt}-${currentTimestamp}`
-        eTagCache.set(cacheKey, currentEtag)
+      if (!currentEtag || !currentEtag.startsWith(latestMetadataUpdatedAt)) {
+        currentEtag = `${latestMetadataUpdatedAt}-${new Date().toISOString()}`
+        redisCache.set(cacheKey, currentEtag)
       }
 
-      if (clientEtag === currentEtag) {
-        return reply.code(304).send()
+      if (clientEtag === currentEtag) return reply.code(304).send()
+
+      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
+
+      let companies = await redisCache.get(dataCacheKey)
+
+      if (companies) {
+        companies = JSON.parse(companies)
+      } else {
+        companies = await prisma.company.findMany(companyListArgs)
+        await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
       reply.header('ETag', `${currentEtag}`)
-
-      const companies = await prisma.company.findMany(companyListArgs)
 
       const transformedCompanies = addCalculatedTotalEmissions(
         companies.map(transformMetadata)

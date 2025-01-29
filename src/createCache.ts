@@ -1,31 +1,34 @@
-export function createServerCache({ maxAge }: { maxAge: number }) {
-  const cache = new Map<string, { data: any; cachedAt: number }>()
+import { createClient } from 'redis'
+import redisConfig from './config/redis'
 
+// Note: This prefix is a good seperator from the bullMQ jobs
+export const API_REDIS_PREFIX = 'redis_api/'
+
+const redis = createClient({ ...redisConfig })
+redis.connect()
+
+export function createServerCache({ maxAge }: { maxAge: number }) {
   return {
-    set(key: string, value: any) {
-      cache.set(key, { data: value, cachedAt: Date.now() })
+    async set(key: string, value: any) {
+      const namespacedKey = `${API_REDIS_PREFIX}${key}`
+      await redis.set(namespacedKey, JSON.stringify(value), { PX: maxAge })
     },
-    get(key: string) {
-      const cached = cache.get(key)
-      if (cached && Date.now() - cached.cachedAt < maxAge) {
-        return cached.data
-      }
-      cache.delete(key)
-      return null
+    async get(key: string) {
+      const namespacedKey = `${API_REDIS_PREFIX}${key}`
+      const cached = await redis.get(namespacedKey)
+      return cached ? JSON.parse(cached) : null
     },
-    has(key: string) {
-      const cached = cache.get(key)
-      if (cached && Date.now() - cached.cachedAt < maxAge) {
-        return true
-      }
-      cache.delete(key)
-      return false
+    async has(key: string) {
+      const namespacedKey = `${API_REDIS_PREFIX}${key}`
+      return (await redis.exists(namespacedKey)) === 1
     },
-    delete(key: string) {
-      cache.delete(key)
+    async delete(key: string) {
+      const namespacedKey = `${API_REDIS_PREFIX}${key}`
+      await redis.del(namespacedKey)
     },
-    clear() {
-      cache.clear()
+    async clear() {
+      const keys = await redis.keys(`${API_REDIS_PREFIX}*`)
+      if (keys.length > 0) await redis.del(keys)
     },
   }
 }

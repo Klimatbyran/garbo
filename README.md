@@ -81,9 +81,9 @@ The simplest way to start the containers the first time is to run the following 
 
 ```bash
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker run -d -p 6379:6379 --name garbo_redis redis
 
 # These are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.
-docker run -d -p 6379:6379 --name garbo_redis redis
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
 docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
@@ -97,7 +97,7 @@ docker start garbo_postgres garbo_redis garbo_chroma garbo_ingestor
 Or if you only plan to develop the frontend and/or the API, this is enough:
 
 ```sh
-docker start garbo_postgres
+docker start garbo_postgres garbo_redis
 ```
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
@@ -171,6 +171,25 @@ Get everything up and running with one command (with all output in one terminal)
 ```bash
 npm run dev
 ```
+
+#### 4) (Optional) Redis Insights
+
+a). **Start Redis Insight**  
+Run the following Docker command to start Redis Insight:
+
+docker run -d --name redisinsight -p 5540:5540 redislabs/redisinsight:latest
+
+---
+
+b). **Connect Redis Insight to Redis**
+
+- **Host**: `garbo_redis` (or the Redis container IP, e.g., `172.17.0.2`)
+- **Port**: `6379`
+- **Username**: Leave empty or use `default`.
+- **Password**: Leave empty.
+
+c). **Access Redis Insight**
+Go to [http://localhost:5540](http://localhost:5540) in your browser and add the Redis database using the above connection details.
 
 ### Setup completed 🎉
 
@@ -266,4 +285,4 @@ For any questions or issues, please contact the maintainers at [hej@klimatkollen
 
 ### License
 
-This project is licensed under the terms of the [MIT License](LICENSE) © Klimatbyrån Ideell Förening.
+This project is licensed under the terms of the [Apache 2.0](LICENSE) © Klimatbyrån Ideell Förening.

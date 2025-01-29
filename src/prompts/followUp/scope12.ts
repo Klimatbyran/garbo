@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
 
 const schema = z.object({
   scope12: z.array(
@@ -7,6 +8,7 @@ const schema = z.object({
       scope1: z
         .object({
           total: z.number(),
+          unit: emissionUnitSchemaGarbo,
         })
         .nullable()
         .optional(),
@@ -24,15 +26,12 @@ const schema = z.object({
             .number({ description: 'Unspecified Scope 2 emissions' })
             .nullable()
             .optional(),
+          unit: emissionUnitSchemaGarbo,
         })
-        .refine(
-          ({ mb, lb, unknown }) =>
-            mb !== undefined || lb !== undefined || unknown !== undefined,
-          {
-            message:
-              'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-          }
-        )
+        .refine(({ mb, lb, unknown }) => mb || lb || unknown, {
+          message:
+            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        })
         .nullable()
         .optional(),
     })
@@ -46,9 +45,17 @@ const prompt = `
 Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude the latest year.
 Include market-based and location-based in scope 2. 
 
-Always use tonnes CO2e as the unit, so if emissions are presented in other units (for example, in kilotonnes), convert this to tonnes.
-- 1 kton → 1000 tCO2
-- 1 Mton → 1000000 tCO2
+**Units**:
+- Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit **tCO2e** (tons of CO2 equivalent) is preferred.
+- If a company explicitly reports emissions without the "e" suffix (e.g., **tCO2**), use **tCO2** as the unit. However, if no unit is specified or it is unclear, assume the unit is **tCO2e**.
+- All values must be converted to metric tons if they are provided in other units:
+  - Example: 
+    - 1000 CO2e → 1 tCO2e
+    - 1000 CO2 → 1 tCO2
+    - 1 kton CO2e → 1000 tCO2e
+    - 1 Mton CO2 → 1,000,000 tCO2
+- Use **tCO2** only if it is explicitly reported without the "e" suffix, otherwise default to **tCO2e**.
+
 
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. Do not use markdown in the output.
 
@@ -58,12 +65,14 @@ This is only an example format; do not include this specific data in the output 
   "scope12": [{
     "year": 2023,
     "scope1": {
-      "total": 12.3
+      "total": 12.3,
+      "unit": "tCO2e"
     },
     "scope2": {
       "mb": 23.4,
       "lb": 34.5,
       "unknown": null
+      "unit": "tCO2e"
     }
   }]
 `

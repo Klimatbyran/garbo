@@ -70,14 +70,14 @@ class CompanyService {
     metadata,
     turnover,
   }: {
-    economy: Economy
+    economy: DefaultEconomyType
     metadata: Metadata
     turnover: Partial<
       Omit<Turnover, 'id' | 'metadataId' | 'unit' | 'economyId'>
     >
   }) {
     return prisma.turnover.upsert({
-      where: { id: economy.turnoverId ?? '' },
+      where: { id: economy.turnover?.id ?? '' },
       create: {
         ...turnover,
         metadata: {

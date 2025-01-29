@@ -18,18 +18,23 @@ class ReportingPeriodService {
       year: string
     }
   ) {
-    const reportingPeriod = await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: company.wikidataId,
-        year,
-      },
-    })
-
     return prisma.reportingPeriod.upsert({
       where: {
-        id: reportingPeriod?.id ?? '',
+        companyId_year: {
+          companyId: company.wikidataId,
+          year,
+        },
       },
-      update: {},
+      update: {
+        startDate,
+        endDate,
+        reportURL,
+        metadata: {
+          connect: {
+            id: metadata.id,
+          },
+        },
+      },
       create: {
         startDate,
         endDate,

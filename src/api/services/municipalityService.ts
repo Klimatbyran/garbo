@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 
-import { MunicipalitiesSchema } from '../schemas'
+import { InputMunicipalitiesSchema } from '../schemas'
 import { Municipality } from '../types'
 import apiConfig from '../../config/api'
 
@@ -27,7 +27,7 @@ class MunicipalityService {
     )
 
     // Ensure the data matches the expected format
-    this._all = MunicipalitiesSchema.parse(rawMunicipalities)
+    this._all = InputMunicipalitiesSchema.parse(rawMunicipalities)
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, municipality) => {

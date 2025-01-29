@@ -4,6 +4,13 @@ import { wikidataIdSchema } from './common'
 
 extendZodWithOpenApi(z)
 
+const dateStringSchema = z.union([
+  z.date(),
+  z.string().refine((val) => !isNaN(Date.parse(val)), {
+    message: 'Invalid date string',
+  }),
+])
+
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const emptyBodySchema = z.undefined()
 
@@ -14,7 +21,7 @@ export const MetadataSchema = z.object({
     .nullable()
     .openapi({ description: 'Comment about the data' }),
   source: z.string().nullable().openapi({ description: 'Source of the data' }),
-  updatedAt: z.date().openapi({ description: 'Last update timestamp' }),
+  updatedAt: dateStringSchema.openapi({ description: 'Last update timestamp' }),
   user: z.object({
     name: z
       .string()
@@ -223,10 +230,12 @@ export const InitiativeSchema = z.object({
 
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
-  startDate: z
-    .date()
-    .openapi({ description: 'Start date of reporting period' }),
-  endDate: z.date().openapi({ description: 'End date of reporting period' }),
+  startDate: dateStringSchema.openapi({
+    description: 'Start date of reporting period',
+  }),
+  endDate: dateStringSchema.openapi({
+    description: 'End date of reporting period',
+  }),
   reportURL: z
     .string()
     .nullable()
@@ -340,23 +349,43 @@ export const CompanyDetails = CompanyBase.extend({
 
 const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
 
-// IDEA: See if it's possible to improve the schema for the yearly data
-export const MunicipalitySchema = z.object({
+function transformYearlyData(
+  yearlyData: Record<string, number>
+): { year: string; value: number }[] {
+  return Object.entries(yearlyData).map(([year, value]) => ({
+    year,
+    value,
+  }))
+}
+
+const YearlyDataSchema = z.object({
+  year: z.string(),
+  value: z.number(),
+})
+
+const InputYearlyDataSchema = z
+  .record(z.string(), z.number())
+  .transform(transformYearlyData)
+
+/**
+ * Matching the input file format for municipality data
+ */
+export const InputMunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
-  emissions: z.record(z.string(), z.number()),
+  emissions: InputYearlyDataSchema,
   budget: z.number(),
-  emissionBudget: z.record(z.string(), z.number()),
-  approximatedHistoricalEmission: z.record(z.string(), z.number()),
+  emissionBudget: InputYearlyDataSchema,
+  approximatedHistoricalEmission: InputYearlyDataSchema,
   totalApproximatedHistoricalEmission: z.number(),
-  trend: z.record(z.string(), z.number()),
+  trend: InputYearlyDataSchema,
   trendEmission: z.number(),
   historicalEmissionChangePercent: z.number(),
   neededEmissionChangePercent: z.number(),
   hitNetZero: z.string(),
   budgetRunsOut: z.string(),
   electricCarChangePercent: z.number(),
-  electricCarChangeYearly: z.record(z.string(), z.number()),
+  electricCarChangeYearly: InputYearlyDataSchema,
   climatePlanLink: z.string(),
   climatePlanYear: z.union([ClimatePlanYearEnumSchema, z.number()]),
   climatePlanComment: z.string(),
@@ -365,6 +394,22 @@ export const MunicipalitySchema = z.object({
   electricVehiclePerChargePoints: z.number(),
   procurementScore: z.string(),
   procurementLink: z.string(),
+})
+
+export const InputMunicipalitiesSchema = z.array(InputMunicipalitySchema)
+
+export const MunicipalitySchema = InputMunicipalitySchema.omit({
+  emissions: true,
+  emissionBudget: true,
+  approximatedHistoricalEmission: true,
+  trend: true,
+  electricCarChangeYearly: true,
+}).extend({
+  emissions: z.array(YearlyDataSchema),
+  emissionBudget: z.array(YearlyDataSchema),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  electricCarChangeYearly: z.array(YearlyDataSchema),
 })
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
