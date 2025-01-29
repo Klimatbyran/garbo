@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { FastifyServerOptions } from 'fastify'
+import { resolve } from 'path'
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -40,7 +41,9 @@ const baseLoggerOptions: FastifyServerOptions['logger'] = {
   redact: ['req.headers.authorization'],
 }
 
-export default {
+const DEV = env.NODE_ENV === 'development'
+
+const apiConfig = {
   cacheMaxAge: env.CACHE_MAX_AGE,
 
   authorizedUsers: {
@@ -48,18 +51,23 @@ export default {
     alex: 'alex@klimatkollen.se',
   } as const,
 
-  corsAllowOrigins:
-    env.NODE_ENV === 'development' ? developmentOrigins : productionOrigins,
+  corsAllowOrigins: DEV ? developmentOrigins : productionOrigins,
 
+  DEV,
   tokens: env.API_TOKENS,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
 
+  municipalityDataPath: resolve(
+    import.meta.dirname,
+    '../data/climate-data.json'
+  ),
+
   bullBoardBasePath: '/admin/queues',
 
-  logger: (env.NODE_ENV === 'development' && process.stdout.isTTY
+  logger: (DEV && process.stdout.isTTY
     ? {
         level: 'trace',
         transport: { target: 'pino-pretty' },
@@ -70,3 +78,5 @@ export default {
         ...baseLoggerOptions,
       }) as FastifyServerOptions['logger'],
 }
+
+export default apiConfig

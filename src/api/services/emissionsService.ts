@@ -1,7 +1,6 @@
 import {
   BiogenicEmissions,
   Metadata,
-  Prisma,
   Scope1,
   Scope1And2,
   Scope3,
@@ -11,10 +10,7 @@ import {
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { emissionsArgs } from '../args'
-
-const TONNES_CO2_UNIT = 'tCO2e'
 
 class EmissionsService {
   async upsertEmissions({
@@ -40,7 +36,7 @@ class EmissionsService {
 
   async upsertScope1(
     emissions: DefaultEmissions,
-    scope1: Omit<Scope1, 'id' | 'metadataId' | 'unit' | 'emissionsId'>,
+    scope1: Omit<Scope1, 'id' | 'metadataId' | 'emissionsId'>,
     metadata: Metadata
   ) {
     const existingScope1Id = emissions.scope1?.id
@@ -61,7 +57,6 @@ class EmissionsService {
       : prisma.scope1.create({
           data: {
             ...scope1,
-            unit: TONNES_CO2_UNIT,
             metadata: {
               connect: {
                 id: metadata.id,
@@ -78,19 +73,7 @@ class EmissionsService {
   }
 
   async deleteScope1(id: Scope1['id']) {
-    try {
-      return await prisma.scope1.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Scope1 not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.scope1.delete({ where: { id } })
   }
 
   async upsertScope2(
@@ -99,7 +82,9 @@ class EmissionsService {
       lb?: number
       mb?: number
       unknown?: number
+      unit: 'tCO2e' | 'tCO2'
     },
+
     metadata: Metadata
   ) {
     const existingScope2Id = emissions.scope2?.id
@@ -120,7 +105,6 @@ class EmissionsService {
       : prisma.scope2.create({
           data: {
             ...scope2,
-            unit: TONNES_CO2_UNIT,
             metadata: {
               connect: {
                 id: metadata.id,
@@ -137,24 +121,12 @@ class EmissionsService {
   }
 
   async deleteScope2(id: string) {
-    try {
-      return await prisma.scope2.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Scope2 not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.scope2.delete({ where: { id } })
   }
 
   async upsertScope1And2(
     emissions: DefaultEmissions,
-    scope1And2: Omit<Scope1And2, 'id' | 'metadataId' | 'unit' | 'emissionsId'>,
+    scope1And2: Omit<Scope1And2, 'id' | 'metadataId' | 'emissionsId'>,
     metadata: Metadata
   ) {
     const existingScope1And2Id = emissions.scope1And2?.id
@@ -175,7 +147,6 @@ class EmissionsService {
       : prisma.scope1And2.create({
           data: {
             ...scope1And2,
-            unit: TONNES_CO2_UNIT,
             metadata: {
               connect: {
                 id: metadata.id,
@@ -192,28 +163,16 @@ class EmissionsService {
   }
 
   async deleteScope1And2(id: Scope1And2['id']) {
-    try {
-      return await prisma.scope1And2.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Scope1And2 not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.scope1And2.delete({ where: { id } })
   }
 
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      categories?: { category: number; total: number }[]
+      categories?: { category: number; total: number; unit: string }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
-        'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
+        'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
       >
     },
     createMetadata: () => Promise<Metadata>
@@ -274,7 +233,6 @@ class EmissionsService {
           },
           create: {
             ...scope3Category,
-            unit: TONNES_CO2_UNIT,
             scope3: {
               connect: {
                 id: updatedScope3.id,
@@ -302,41 +260,17 @@ class EmissionsService {
   }
 
   async deleteScope3(id: Scope3['id']) {
-    try {
-      return await prisma.scope3.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Scope3 not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.scope3.delete({ where: { id } })
   }
 
   async deleteScope3Category(id: Scope3Category['id']) {
-    try {
-      return await prisma.scope3Category.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('Scope3Category not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.scope3Category.delete({ where: { id } })
   }
 
   async upsertBiogenic(
     emissions: DefaultEmissions,
     biogenic: OptionalNullable<
-      Omit<BiogenicEmissions, 'id' | 'metadataId' | 'unit' | 'emissionsId'>
+      Omit<BiogenicEmissions, 'id' | 'metadataId' | 'emissionsId'>
     >,
     metadata: Metadata
   ) {
@@ -360,7 +294,6 @@ class EmissionsService {
       : await prisma.biogenicEmissions.create({
           data: {
             ...biogenic,
-            unit: TONNES_CO2_UNIT,
             metadata: {
               connect: {
                 id: metadata.id,
@@ -377,27 +310,15 @@ class EmissionsService {
   }
 
   async deleteBiogenicEmissions(id: BiogenicEmissions['id']) {
-    try {
-      return await prisma.biogenicEmissions.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('BiogenicEmissions not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.biogenicEmissions.delete({ where: { id } })
   }
 
   async upsertStatedTotalEmissions(
     emissions: DefaultEmissions,
     metadata: Metadata,
-    statedTotalEmissions?: Omit<
+    statedTotalEmissions: Omit<
       StatedTotalEmissions,
-      'id' | 'metadataId' | 'unit' | 'scope3Id' | 'emissionsId'
+      'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
     >,
     scope3?: Scope3 & { statedTotalEmissions: { id: string } | null }
   ) {
@@ -409,7 +330,6 @@ class EmissionsService {
       where: { id: statedTotalEmissionsId ?? '' },
       create: {
         ...statedTotalEmissions,
-        unit: TONNES_CO2_UNIT,
         emissions: scope3
           ? undefined
           : {
@@ -435,19 +355,7 @@ class EmissionsService {
   }
 
   async deleteStatedTotalEmissions(id: StatedTotalEmissions['id']) {
-    try {
-      return await prisma.statedTotalEmissions.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('StatedTotalEmissions not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.statedTotalEmissions.delete({ where: { id } })
   }
 }
 

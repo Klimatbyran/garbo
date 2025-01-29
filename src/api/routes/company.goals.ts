@@ -1,7 +1,5 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
-import { Prisma } from '@prisma/client'
 
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { goalService } from '../services/goalService'
 import {
   wikidataIdParamSchema,
@@ -9,6 +7,7 @@ import {
   postGoalsSchema,
   okResponseSchema,
   garboEntityIdSchema,
+  getErrorSchemas,
 } from '../schemas'
 import {
   PostGoalsBody,
@@ -31,6 +30,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalsSchema,
         response: {
           200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -69,6 +69,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
@@ -87,20 +88,8 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         user: request.user,
       })
 
-      await goalService
-        .updateGoal(id, { goal }, createdMetadata)
-        .catch((error) => {
-          if (
-            error instanceof Prisma.PrismaClientKnownRequestError &&
-            error.code === 'P2025'
-          ) {
-            throw new GarboAPIError('Goal not found', {
-              statusCode: 404,
-              original: error,
-            })
-          }
-          throw error
-        })
+      await goalService.updateGoal(id, { goal }, createdMetadata)
+
       reply.send({ ok: true })
     }
   )

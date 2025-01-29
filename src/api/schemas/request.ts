@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { wikidataIdSchema } from './common'
+import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number() })
+  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
   .optional()
 
 export const emissionsSchema = z
@@ -82,6 +82,7 @@ export const emissionsSchema = z
     scope1: z
       .object({
         total: z.number(),
+        unit: emissionUnitSchemaWithDefault,
       })
       .optional(),
     scope2: z
@@ -95,6 +96,7 @@ export const emissionsSchema = z
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .optional(),
+        unit: emissionUnitSchemaWithDefault,
       })
       .refine(
         ({ mb, lb, unknown }) =>
@@ -112,15 +114,20 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number(),
+              unit: emissionUnitSchemaWithDefault,
             })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
       .optional(),
-    biogenic: z.object({ total: z.number() }).optional(),
+    biogenic: z
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
-    scope1And2: z.object({ total: z.number() }).optional(),
+    scope1And2: z
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .optional(),
   })
   .optional()
 
@@ -166,3 +173,9 @@ export const postReportingPeriodsSchema = z
     reportingPeriods: z.array(reportingPeriodSchema),
   })
   .merge(createMetadataSchema)
+
+export const MunicipalityNameSchema = z.string()
+
+export const MunicipalityNameParamSchema = z.object({
+  name: MunicipalityNameSchema,
+})

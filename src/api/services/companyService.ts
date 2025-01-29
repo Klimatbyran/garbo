@@ -3,18 +3,13 @@ import { Economy, Employees, Metadata, Turnover } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { economyArgs } from '../args'
 
 class CompanyService {
   async getCompany(wikidataId: string) {
-    const company = await prisma.company.findFirst({
+    return prisma.company.findFirstOrThrow({
       where: { wikidataId },
     })
-    if (!company) {
-      throw new GarboAPIError('Company not found', { statusCode: 404 })
-    }
-    return company
   }
 
   async upsertCompany({
@@ -46,8 +41,7 @@ class CompanyService {
   }
 
   async deleteCompany(wikidataId: string) {
-    const _company = await this.getCompany(wikidataId)
-    await prisma.company.delete({ where: { wikidataId } })
+    return prisma.company.delete({ where: { wikidataId } })
   }
 
   async upsertEconomy({
@@ -76,14 +70,14 @@ class CompanyService {
     metadata,
     turnover,
   }: {
-    economy: Economy
+    economy: DefaultEconomyType
     metadata: Metadata
     turnover: Partial<
       Omit<Turnover, 'id' | 'metadataId' | 'unit' | 'economyId'>
     >
   }) {
     return prisma.turnover.upsert({
-      where: { id: economy.turnoverId ?? '' },
+      where: { id: economy.turnover?.id ?? '' },
       create: {
         ...turnover,
         metadata: {

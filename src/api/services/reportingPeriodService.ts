@@ -1,6 +1,5 @@
-import { Company, Prisma, ReportingPeriod } from '@prisma/client'
+import { Company, ReportingPeriod } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { reportingPeriodArgs } from '../args'
 
 class ReportingPeriodService {
@@ -19,18 +18,23 @@ class ReportingPeriodService {
       year: string
     }
   ) {
-    const reportingPeriod = await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: company.wikidataId,
-        year,
-      },
-    })
-
     return prisma.reportingPeriod.upsert({
       where: {
-        id: reportingPeriod?.id ?? '',
+        companyId_year: {
+          companyId: company.wikidataId,
+          year,
+        },
       },
-      update: {},
+      update: {
+        startDate,
+        endDate,
+        reportURL,
+        metadata: {
+          connect: {
+            id: metadata.id,
+          },
+        },
+      },
       create: {
         startDate,
         endDate,
@@ -51,46 +55,8 @@ class ReportingPeriodService {
     })
   }
 
-  async updateReportingPeriodReportURL(
-    company: Company,
-    year: string,
-    reportURL: string
-  ) {
-    const reportingPeriod = await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: company.wikidataId,
-        year,
-      },
-    })
-
-    if (!reportingPeriod) {
-      return false
-    }
-
-    return prisma.reportingPeriod.update({
-      where: {
-        id: reportingPeriod.id,
-      },
-      data: {
-        reportURL,
-      },
-    })
-  }
-
   async deleteReportingPeriod(id: ReportingPeriod['id']) {
-    try {
-      return await prisma.reportingPeriod.delete({ where: { id } })
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new GarboAPIError('ReportingPeriod not found', {
-          statusCode: 404,
-        })
-      }
-      throw error
-    }
+    return await prisma.reportingPeriod.delete({ where: { id } })
   }
 }
 

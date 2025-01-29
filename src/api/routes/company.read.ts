@@ -1,17 +1,18 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { Prisma } from '@prisma/client'
 
 import { getGics } from '../../lib/gics'
-import { GarboAPIError } from '../../lib/garbo-api-error'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
 import { companyListArgs, detailedCompanyArgs } from '../args'
-import { CompanyList } from '../schemas'
-import { wikidataIdParamSchema } from '../schemas'
-import { CompanyDetails } from '../schemas'
-import { emptyBodySchema } from '../schemas'
+import {
+  CompanyList,
+  wikidataIdParamSchema,
+  CompanyDetails,
+  getErrorSchemas,
+} from '../schemas'
+import { redisCache } from '../..'
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)
@@ -66,13 +67,19 @@ function addCalculatedTotalEmissions(companies: any[]) {
                       reportingPeriod.emissions.scope3.categories.some((c) =>
                         Boolean(c.metadata?.verifiedBy)
                       )
-                        ? reportingPeriod.emissions.scope3.categories.reduce(
-                            (total, category) =>
-                              isNumber(category.total)
-                                ? category.total + total
-                                : total,
-                            0
-                          )
+                        ? reportingPeriod.emissions.scope3.categories
+                            .filter(
+                              (category) =>
+                                category.category !== 16 ||
+                                Boolean(category.metadata?.verifiedBy)
+                            )
+                            .reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
                         : reportingPeriod.emissions.scope3.statedTotalEmissions
                             ?.total ?? 0,
                   }) ||
@@ -133,20 +140,43 @@ export async function companyReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      try {
-        const companies = await prisma.company.findMany(companyListArgs)
+      const clientEtag = request.headers['if-none-match']
+      const cacheKey = 'companies:etag'
 
-        const transformedCompanies = addCalculatedTotalEmissions(
-          companies.map(transformMetadata)
-        )
+      let currentEtag = await redisCache.get(cacheKey)
 
-        reply.send(transformedCompanies)
-      } catch (error) {
-        throw new GarboAPIError('Failed to load companies', {
-          original: error,
-          statusCode: 500,
-        })
+      const latestMetadata = await prisma.metadata.findFirst({
+        select: { updatedAt: true },
+        orderBy: { updatedAt: 'desc' },
+      })
+      const latestMetadataUpdatedAt =
+        latestMetadata?.updatedAt.toISOString() || ''
+
+      if (!currentEtag || !currentEtag.startsWith(latestMetadataUpdatedAt)) {
+        currentEtag = `${latestMetadataUpdatedAt}-${new Date().toISOString()}`
+        redisCache.set(cacheKey, currentEtag)
       }
+
+      if (clientEtag === currentEtag) return reply.code(304).send()
+
+      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
+
+      let companies = await redisCache.get(dataCacheKey)
+
+      if (companies) {
+        companies = JSON.parse(companies)
+      } else {
+        companies = await prisma.company.findMany(companyListArgs)
+        await redisCache.set(dataCacheKey, JSON.stringify(companies))
+      }
+
+      reply.header('ETag', `${currentEtag}`)
+
+      const transformedCompanies = addCalculatedTotalEmissions(
+        companies.map(transformMetadata)
+      )
+
+      reply.send(transformedCompanies)
     }
   )
 
@@ -161,57 +191,39 @@ export async function companyReadRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           200: CompanyDetails,
-          404: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
         },
       },
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
-      try {
-        const { wikidataId } = request.params
+      const { wikidataId } = request.params
 
-        const company = await prisma.company.findFirst({
-          ...detailedCompanyArgs,
-          where: {
-            wikidataId,
-          },
-        })
+      const company = await prisma.company.findFirstOrThrow({
+        ...detailedCompanyArgs,
+        where: {
+          wikidataId,
+        },
+      })
 
-        if (!company) {
-          return reply.status(404).send()
-        }
+      const [transformedCompany] = addCalculatedTotalEmissions([
+        transformMetadata(company),
+      ])
 
-        const [transformedCompany] = addCalculatedTotalEmissions([
-          transformMetadata(company),
-        ])
-
-        reply.send({
-          ...transformedCompany,
-          // Add translations for GICS data
-          industry: transformedCompany.industry
-            ? {
-                ...transformedCompany.industry,
-                industryGics: {
-                  ...transformedCompany.industry.industryGics,
-                  ...getGics(
-                    transformedCompany.industry.industryGics.subIndustryCode
-                  ),
-                },
-              }
-            : null,
-        })
-      } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          throw new GarboAPIError('Database error while loading company', {
-            original: error,
-            statusCode: 500,
-          })
-        } else {
-          throw new GarboAPIError('Failed to load company', {
-            original: error,
-            statusCode: 500,
-          })
-        }
-      }
+      reply.send({
+        ...transformedCompany,
+        // Add translations for GICS data
+        industry: transformedCompany.industry
+          ? {
+              ...transformedCompany.industry,
+              industryGics: {
+                ...transformedCompany.industry.industryGics,
+                ...getGics(
+                  transformedCompany.industry.industryGics.subIndustryCode
+                ),
+              },
+            }
+          : null,
+      })
     }
   )
 }
