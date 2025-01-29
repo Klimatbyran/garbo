@@ -100,4 +100,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase  }}:${{ steps.package-version.outputs.current-version}}
+            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:${{ steps.package-version.outputs.current-version}}
+            ${{ env.REGISTRY }}/${{ steps.imagename.outputs.lowercase }}:latest
