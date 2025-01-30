@@ -12,8 +12,7 @@ patches:
         name: worker
       spec:
         replicas: 2
-
 images:
   - name: ghcr.io/klimatbyran/garbo
     newName: ghcr.io/klimatbyran/garbo
-    newTag: 3.7.0 # {"$imagepolicy": "flux-system:garbo-stage"}
+    newTag: ghcr.io/klimatbyran/garbo:3.7.0 # {"$imagepolicy": "flux-system:garbo-stage"}
