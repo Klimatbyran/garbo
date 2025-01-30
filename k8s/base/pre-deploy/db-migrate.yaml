@@ -1,23 +1,32 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: db-migration
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
-  ttlSecondsAfterFinished: 30 # Job tas bort efter 30 sekunder
-  backoffLimit: 3 # Antal försök innan jobbet ger upp
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-migration
   template:
     metadata:
+      labels:
+        app: db-migration
       annotations:
         kustomize.toolkit.fluxcd.io/substitute: disabled
     spec:
-      restartPolicy: Never
       containers:
         - name: migration
           image: ghcr.io/klimatbyran/garbo
           imagePullPolicy: Always
-          command: ['npm', 'run', 'migrate']
+          command: ['sh', '-c']
+          args:
+            - |
+              npm run migrate
+              while true; do
+                sleep 3600
+              done
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
