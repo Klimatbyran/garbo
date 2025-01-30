@@ -9,4 +9,4 @@ patches:
 images:
   - name: ghcr.io/klimatbyran/garbo
     newName: ghcr.io/klimatbyran/garbo
-    newTag: ghcr.io/klimatbyran/garbo:3.8.3 # {"$imagepolicy": "flux-system:garbo-stage"}
+    newTag: ghcr.io/klimatbyran/garbo:3.8.4-rc.2 # {"$imagepolicy": "flux-system:garbo-stage"}
