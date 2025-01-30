@@ -4,16 +4,19 @@ metadata:
   name: db-migration
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
-    fluxcd.io/rollout: timestamp
 spec:
   ttlSecondsAfterFinished: 30 # Job tas bort efter 30 sekunder
   backoffLimit: 3 # Antal försök innan jobbet ger upp
   template:
+    metadata:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     spec:
       restartPolicy: Never
       containers:
         - name: migration
           image: ghcr.io/klimatbyran/garbo
+          imagePullPolicy: Always
           command: ['npm', 'run', 'migrate']
           env:
             - name: POSTGRES_PASSWORD
