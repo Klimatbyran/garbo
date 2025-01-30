@@ -214,6 +214,9 @@ export const detailedCompanyArgs = {
         year: 'desc',
       },
     },
+    baseYear: {
+      select: { id: true, year: true, metadata: metadataArgs },
+    },
   },
 } satisfies Prisma.CompanyDefaultArgs
 
