@@ -1,8 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: db-migration
+  generateName: db-migration-
 spec:
+  ttlSecondsAfterFinished: 3600 # Job tas bort en timme efter att den slutförts
   template:
     spec:
       restartPolicy: Never
