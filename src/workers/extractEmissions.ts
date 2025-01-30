@@ -92,6 +92,14 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             type: JobType.Initiatives,
           },
         },
+        {
+          ...base,
+          name: 'baseYear ' + companyName,
+          data: {
+            ...base.data,
+            type: JobType.Initiatives,
+          },
+        },
       ],
       opts: {
         attempts: 3,
