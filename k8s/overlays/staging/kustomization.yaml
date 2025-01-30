@@ -5,15 +5,15 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: worker
+      spec:
+        replicas: 2
+
 images:
   - name: ghcr.io/klimatbyran/garbo
     newName: ghcr.io/klimatbyran/garbo
     newTag: ghcr.io/klimatbyran/garbo:3.7.0 # {"$imagepolicy": "flux-system:garbo-stage"}
-transformers:
-  - |-
-    apiVersion: builtin
-    kind: NamespaceTransformer
-    metadata:
-      name: production-namespace-transformer
-      namespace: garbo-stage
-    unsetOnly: true
