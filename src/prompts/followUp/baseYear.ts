@@ -13,6 +13,7 @@ Extract the **base year** explicitly stated in the context of the report. The ba
 1. Only include a base year if it is **explicitly stated** in the report.
 2. If no base year is explicitly mentioned, set the base year to \`null\`.
 3. Do not infer or estimate the base year from the data or context.
+4. If multiple base years are explicitly mentioned, select the **most recent** base year.
 
 **Output Format**:
 The base year should be extracted as a single numeric value or explicitly set to \`null\`.
