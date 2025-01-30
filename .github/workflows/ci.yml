@@ -12,8 +12,6 @@ on:
       - main
     paths-ignore:
       - 'k8s/**'
-      - 'Dockerfile.base'
-
 jobs:
   ci:
     runs-on: ubuntu-latest
