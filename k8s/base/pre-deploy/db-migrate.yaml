@@ -1,9 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: db-migration-
+  name: db-migration
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
+    fluxcd.io/rollout: timestamp
 spec:
   ttlSecondsAfterFinished: 300 # Job tas bort efter 5 minuter
   backoffLimit: 3 # Antal försök innan jobbet ger upp
