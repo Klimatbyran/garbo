@@ -2,8 +2,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: db-migration
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   template:
+    metadata:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     spec:
       restartPolicy: Never
       containers:
