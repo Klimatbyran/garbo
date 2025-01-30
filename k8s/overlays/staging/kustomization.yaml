@@ -8,4 +8,4 @@ patches:
   - path: worker-patch.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: '3.9.0' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
+    newTag: '3.10.0' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
