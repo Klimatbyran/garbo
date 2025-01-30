@@ -12,6 +12,7 @@ spec:
       labels:
         app: garbo
     spec:
+      terminationGracePeriodSeconds: 60
       initContainers:
         - name: db-migration
           image: ghcr.io/klimatbyran/garbo
