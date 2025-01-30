@@ -1,41 +1,32 @@
 import { Company, BaseYear, Metadata } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { PostBaseYearBody } from '../types'
+import { companyService } from './companyService'
 
 class BaseYearService {
-  async createBaseYear(
+  async upsertBaseYear(
     wikidataId: Company['wikidataId'],
     baseYear: PostBaseYearBody['baseYear'],
-    createMetadata: () => Promise<Metadata>
+    metadata: Metadata
   ) {
-    const metadata = await createMetadata()
-    return prisma.baseYear.create({
-      data: {
+    const existingBaseYearId = (await companyService.getCompany(wikidataId))
+      .baseYear?.id
+
+    return prisma.baseYear.upsert({
+      where: { id: existingBaseYearId ?? '' },
+      create: {
         year: baseYear,
+        metadata: {
+          connect: { id: metadata.id },
+        },
         company: {
           connect: {
             wikidataId,
           },
         },
-        metadata: {
-          connect: {
-            id: metadata.id,
-          },
-        },
       },
-      select: { id: true },
-    })
-  }
-
-  async updateBaseYear(
-    id: BaseYear['id'],
-    baseYear: PostBaseYearBody,
-    metadata: Metadata
-  ) {
-    return prisma.baseYear.update({
-      where: { id },
-      data: {
-        year: baseYear.baseYear,
+      update: {
+        year: baseYear,
         metadata: {
           connect: {
             id: metadata.id,

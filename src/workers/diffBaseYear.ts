@@ -17,8 +17,6 @@ const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
     const { url, companyName, existingCompany, baseYear } = job.data
     const metadata = defaultMetadata(url)
 
-    console.log('job data', job.data)
-
     const body = {
       baseYear,
       metadata,
@@ -27,17 +25,16 @@ const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
     const { diff, requiresApproval } = await diffChanges({
       existingCompany,
       before: existingCompany?.baseYear,
-      after: baseYear,
+      after: { baseYear },
     })
 
     if (diff) {
-      await saveToAPI.queue.add(companyName + ' baseYear', {
+      await saveToAPI.queue.add(companyName + ' base-year', {
         ...job.data,
         body,
         diff,
         requiresApproval,
-        apiSubEndpoint: 'baseYear',
-        baseYear: undefined,
+        apiSubEndpoint: 'base-year',
       })
     }
 

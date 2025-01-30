@@ -9,6 +9,7 @@ class CompanyService {
   async getCompany(wikidataId: string) {
     return prisma.company.findFirstOrThrow({
       where: { wikidataId },
+      include: { baseYear: true },
     })
   }
 
