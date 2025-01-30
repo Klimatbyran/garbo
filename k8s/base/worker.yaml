@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: worker
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   replicas: 5
   selector:

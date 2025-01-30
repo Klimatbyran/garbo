@@ -5,13 +5,8 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: worker
-      spec:
-        replicas: 2
+  - path: worker-patch.yaml
+
 images:
   - name: ghcr.io/klimatbyran/garbo
     newName: ghcr.io/klimatbyran/garbo
