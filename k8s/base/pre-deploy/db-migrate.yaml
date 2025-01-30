@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db-migration
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   replicas: 1
   selector:
@@ -13,8 +11,6 @@ spec:
     metadata:
       labels:
         app: db-migration
-      annotations:
-        kustomize.toolkit.fluxcd.io/substitute: disabled
     spec:
       containers:
         - name: migration
