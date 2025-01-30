@@ -6,6 +6,9 @@ metadata:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   template:
+    metadata:
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     spec:
       restartPolicy: Never
       containers:
