@@ -14,10 +14,17 @@ export default {
         .setDescription('URLs to PDF files. Separate with comma or new lines.')
         .setRequired(true)
     )
-    .setDescription(
-      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
-    ),
-
+    .addStringOption((option) =>
+      option
+        .setName('environment')
+        .setDescription('Target environment: staging or production')
+        .setRequired(true)
+        .addChoices(
+          { name: 'Staging', value: 'staging' },
+          { name: 'Production', value: 'production' }
+        )
+    )
+    .setDescription('Submit PDFs for processing and emission extraction.'),
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       await interaction.deferReply({ ephemeral: true })
@@ -44,6 +51,7 @@ export default {
       //   `Processing ${urls.length} PDFs...`
       // )
 
+      const environment = interaction.options.getString('environment', true)
       urls.forEach(async (url) => {
         const thread = await (
           interaction.channel as TextChannel
@@ -59,6 +67,7 @@ export default {
           {
             url: url.trim(),
             threadId: thread.id,
+            environment,
           },
           {
             backoff: {

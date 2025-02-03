@@ -26,6 +26,9 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         body,
         apiSubEndpoint,
       } = job.data
+
+      console.log('job.data: saveToAPI', job.data)
+
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
@@ -63,9 +66,13 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
 
       if (!requiresApproval || approved) {
         console.log(`Saving approved data for ${wikidataId} to API`)
-        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
-          body: removeNullValuesFromGarbo(body),
-        })
+        await apiFetch(
+          `/companies/${wikidataId}/${apiSubEndpoint}`,
+          job.data.environment,
+          {
+            body: removeNullValuesFromGarbo(body),
+          }
+        )
         return { success: true }
       }
 

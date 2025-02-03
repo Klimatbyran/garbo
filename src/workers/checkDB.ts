@@ -26,6 +26,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
     wikidata,
     threadId,
     channelId,
+    environment,
   } = job.data
 
   const childrenValues = await job.getChildrenEntries()
@@ -54,7 +55,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       metadata,
     }
 
-    await apiFetch(`/companies`, { body })
+    await apiFetch(`/companies`, job.data.environment, { body })
 
     await job.sendMessage(
       `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
@@ -77,6 +78,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       wikidata,
       threadId,
       channelId,
+      environment,
     },
     opts: {
       attempts: 3,
