@@ -29,13 +29,13 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 const developmentOrigins = [
   'http://localhost:4321',
   'http://localhost:3000',
+  'https://stage-api.klimatkollen.se',
+  'https://stage.klimatkollen.se',
 ] as const
 const productionOrigins = [
   'https://beta.klimatkollen.se',
   'https://klimatkollen.se',
   'https://api.klimatkollen.se',
-  'https://stage-api.klimatkollen.se',
-  'https://stage.klimatkollen.se',
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
