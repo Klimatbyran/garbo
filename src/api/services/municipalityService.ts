@@ -39,13 +39,7 @@ class MunicipalityService {
   }
 
   getMunicipalities(): Municipality[] {
-    return this.allMunicipalities.map(
-      (municipality) =>
-        ({
-          ...municipality,
-          electricCarChangePercent: municipality.electricCarChangePercent * 100,
-        } satisfies Municipality)
-    )
+    return this.allMunicipalities
   }
 
   getMunicipality(name: Municipality['name']): Municipality | null {
