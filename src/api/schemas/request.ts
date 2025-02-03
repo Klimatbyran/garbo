@@ -152,6 +152,16 @@ export const postEconomySchema = z.object({
   economy: economySchema,
 })
 
+export const baseYear = z.object({
+  baseYear: z.number().optional(),
+})
+
+export const postBaseYear = z
+  .object({
+    baseYear: z.number(),
+  })
+  .merge(createMetadataSchema)
+
 export const postEmissionsSchema = z.object({
   emissions: emissionsSchema,
 })

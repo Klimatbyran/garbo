@@ -58,6 +58,7 @@ const recursiveOmit = <T extends Object>(
 
 const askDiff = async (before: any, after: any) => {
   if (!after) return 'NO_CHANGES'
+
   return await askPrompt(
     `What is changed between these two json values? If the before value is missing that means the company did not exist previously and everything is a change (No need to mention that just start with something like: "Here is fresh data for you to approve:" and describe the new additions..
 

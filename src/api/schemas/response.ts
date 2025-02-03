@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { wikidataIdSchema } from './common'
+import baseYear from '../../prompts/followUp/baseYear'
 
 extendZodWithOpenApi(z)
 
@@ -196,6 +197,11 @@ export const MinimalIndustryGicsSchema = IndustryGicsSchema.omit({
   en: true,
 })
 
+export const BaseYearSchema = z.object({
+  id: z.string(),
+  year: z.number(),
+  metadata: MetadataSchema,
+})
 export const IndustrySchema = z.object({
   id: z.string(),
   industryGics: IndustryGicsSchema,
@@ -338,6 +344,7 @@ const MinimalCompanyBase = CompanyBaseSchema.extend({
 const CompanyBase = CompanyBaseSchema.extend({
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)

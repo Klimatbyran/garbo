@@ -8,6 +8,7 @@ export enum JobType {
   Initiatives = 'followUp/initiatives',
   FiscalYear = 'followUp/fiscalYear',
   CompanyTags = 'followUp/companyTags',
+  BaseYear = 'followUp/baseYear',
 
   Wikidata = 'wikidata',
   Precheck = 'precheck',

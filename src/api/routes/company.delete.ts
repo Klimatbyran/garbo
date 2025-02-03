@@ -15,6 +15,7 @@ import {
 import { getTags } from '../../config/openapi'
 import { GarboEntityId, WikidataIdParams } from '../types'
 import { redisCache } from '../..'
+import { baseYearService } from '../services/baseYearService'
 
 export async function companyDeleteRoutes(app: FastifyInstance) {
   app.delete(
@@ -312,6 +313,31 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       const { id } = request.params
       redisCache.clear()
       await emissionsService.deleteScope3Category(id)
+      reply.code(204).send()
+    }
+  )
+
+  app.delete(
+    '/base-year/:id',
+    {
+      schema: {
+        summary: 'Delete a scope3 category',
+        description: 'Delete a scope3 category by id',
+        tags: getTags('Emissions'),
+        params: garboEntityIdSchema,
+        response: {
+          204: emptyBodySchema,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
+      reply
+    ) => {
+      const { id } = request.params
+      redisCache.clear()
+      await baseYearService.deleteBaseYear(id)
       reply.code(204).send()
     }
   )

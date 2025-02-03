@@ -1,0 +1,54 @@
+import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
+
+import { baseYearService } from '../services/baseYearService'
+import {
+  wikidataIdParamSchema,
+  okResponseSchema,
+  getErrorSchemas,
+  postBaseYear,
+} from '../schemas'
+import { PostBaseYearBody, WikidataIdParams } from '../types'
+import { metadataService } from '../services/metadataService'
+import { getTags } from '../../config/openapi'
+
+export async function companyBaseYearRoutes(app: FastifyInstance) {
+  app.post(
+    '/:wikidataId/base-year',
+    {
+      schema: {
+        summary: 'Upsert company base year',
+        description: 'Upsert the base year for a company',
+        tags: getTags('BaseYear'),
+        params: wikidataIdParamSchema,
+        body: postBaseYear,
+        response: {
+          200: okResponseSchema,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Params: WikidataIdParams
+        Body: PostBaseYearBody
+      }>,
+      reply
+    ) => {
+      const { wikidataId } = request.params
+      const { baseYear, metadata } = request.body
+
+      const createdMetadata = await metadataService.createMetadata({
+        metadata,
+        user: request.user,
+      })
+
+      await baseYearService.upsertBaseYear(
+        wikidataId,
+        baseYear,
+        createdMetadata
+      )
+
+      reply.send({ ok: true })
+    }
+  )
+}
