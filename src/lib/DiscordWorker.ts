@@ -9,6 +9,7 @@ export class DiscordJob extends Job {
     threadId: string
     channelId: string
     messageId?: string
+    environment?: 'staging' | 'production'
   }
 
   message: any

@@ -4,6 +4,7 @@ const GARBO_TOKEN = apiConfig.tokens.find((token) => token.startsWith('garbo'))
 
 export async function apiFetch(
   endpoint: string,
+  environment = 'production',
   { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const headers = {
@@ -22,7 +23,11 @@ export async function apiFetch(
     config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
+  const baseUrl =
+    environment === 'staging'
+      ? 'https://stage-api.klimatkollen.se/api'
+      : apiConfig.baseURL
+  const response = await fetch(`${baseUrl}${endpoint}`, config)
   if (response.ok) {
     return response.json()
   } else {
