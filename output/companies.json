@@ -2180,9 +2180,7 @@
   {
     "wikidataId": "Q10403939",
     "name": "Akademiska hus",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -3256,9 +3254,7 @@
   {
     "wikidataId": "Q1785637",
     "name": "Apoteket",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -19316,9 +19312,7 @@
   {
     "wikidataId": "Q1028092",
     "name": "Green Cargo",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "S3 is not complete",
     "reportingPeriods": [
       {
@@ -24864,9 +24858,7 @@
   {
     "wikidataId": "Q10535401",
     "name": "Infranord",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "Assuming base year",
     "reportingPeriods": [
       {
@@ -29444,9 +29436,7 @@
   {
     "wikidataId": "Q52579",
     "name": "LKAB",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -37790,9 +37780,7 @@
   {
     "wikidataId": "Q3181430",
     "name": "PostNord",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -39274,9 +39262,7 @@
   {
     "wikidataId": "Q10660896",
     "name": "Samhall",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -40814,9 +40800,7 @@
   {
     "wikidataId": "Q62233",
     "name": "SBAB",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -43462,9 +43446,7 @@
   {
     "wikidataId": "Q52912",
     "name": "SJ",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "No emissions reported",
     "reportingPeriods": [
       {
@@ -46036,9 +46018,7 @@
   {
     "wikidataId": "Q1389894",
     "name": "Sveaskog",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "Should probably report biogenic emissions",
     "reportingPeriods": [
       {
@@ -46358,9 +46338,7 @@
   {
     "wikidataId": "Q3924567",
     "name": "Svenska spel",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -46774,9 +46752,7 @@
   {
     "wikidataId": "Q10686298",
     "name": "Svevia",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -47468,9 +47444,7 @@
   {
     "wikidataId": "Q1571428",
     "name": "Swedavia",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "Emissions not split by scope",
     "reportingPeriods": [
       {
@@ -48808,9 +48782,7 @@
   {
     "wikidataId": "Q1476113",
     "name": "Systembolaget",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -52194,9 +52166,7 @@
   {
     "wikidataId": "Q157675",
     "name": "Vattenfall",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -99744,9 +99714,7 @@
   {
     "wikidataId": "Q10397672",
     "name": "Almi",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -100066,9 +100034,7 @@
   {
     "wikidataId": "Q3177392",
     "name": "Jernhusen",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -100388,9 +100354,7 @@
   {
     "wikidataId": "Q10559602",
     "name": "Lernia",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -100710,9 +100674,7 @@
   {
     "wikidataId": "Q7315107",
     "name": "RISE",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -101054,9 +101016,7 @@
   {
     "wikidataId": "Q10684798",
     "name": "Svensk Exportkredit",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "Added financed emissions in 2023",
     "reportingPeriods": [
       {
@@ -101434,9 +101394,7 @@
   {
     "wikidataId": "Q18370893",
     "name": "SOS Alarm",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
@@ -101756,9 +101714,7 @@
   {
     "wikidataId": "Q10674550",
     "name": "Specialfastigheter",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "2018 is base year for S1+S2",
     "reportingPeriods": [
       {
@@ -102188,9 +102144,7 @@
   {
     "wikidataId": "Q3270281",
     "name": "Svenska Rymdaktiebolaget",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": "2020 data differs significantly from other years and is probably not comparable",
     "reportingPeriods": [
       {
@@ -102620,9 +102574,7 @@
   {
     "wikidataId": "Q7476318",
     "name": "Teracom",
-    "tags": [
-      "state-owned"
-    ],
+    "tags": ["state-owned"],
     "internalComment": null,
     "reportingPeriods": [
       {
