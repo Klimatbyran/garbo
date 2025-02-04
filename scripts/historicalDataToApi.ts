@@ -59,12 +59,13 @@ async function main() {
               }
             }
           }
+
           return {
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
-            reportURL: rp.reportURL,
-            emissions: rp.emissions,
-            economy: rp.economy,
+            reportURL: rp.reportURL ?? undefined,
+            emissions: rp.emissions ?? undefined,
+            economy: rp.economy ?? undefined,
           }
         })
       : []
