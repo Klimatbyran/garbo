@@ -19,6 +19,30 @@ function getSheetHeaders({
   return Object.values(sheet.getRow(row).values || []).map(String)
 }
 
+function removeNullProperties(data: any): any {
+  if (Array.isArray(data)) {
+    const arr = data
+      .map(removeNullProperties)
+      .filter((item) => item !== undefined && item !== null)
+    return arr.length ? arr : undefined
+  }
+  if (typeof data === 'object' && data !== null) {
+    const obj = Object.entries(data).reduce((acc, [key, value]) => {
+      if (key === 'startDate' || key === 'endDate') {
+        acc[key] = value
+      } else {
+        const cleaned = removeNullProperties(value)
+        if (cleaned !== undefined && cleaned !== null) {
+          acc[key] = cleaned
+        }
+      }
+      return acc
+    }, {} as Record<string, any>)
+    return Object.keys(obj).length ? obj : undefined
+  }
+  return data
+}
+
 function getCompanyBaseFacts(): {
   wikidataId: string
   name: string
@@ -26,9 +50,7 @@ function getCompanyBaseFacts(): {
   internalComment: string | null
 }[] {
   const sheet = workbook.getWorksheet('import')
-  if (!sheet) {
-    throw new Error('Worksheet "import" not found')
-  }
+  if (!sheet) throw new Error('Worksheet "import" not found')
   const headerRow = 2
   const headers = getSheetHeaders({ sheet, row: headerRow })
   const companies: {
@@ -64,6 +86,28 @@ function getReportingPeriods(
   years: number[]
 ): Record<string, any[]> {
   const reportingPeriodsByCompany: Record<string, any[]> = {}
+  function isEmpty(rp: any): boolean {
+    const e = rp.emissions
+    const hasEmissions =
+      e &&
+      ((e.scope1 && Number.isFinite(e.scope1.total)) ||
+        (e.scope2 &&
+          (Number.isFinite(e.scope2.mb) || Number.isFinite(e.scope2.lb))) ||
+        (e.scope1And2 && Number.isFinite(e.scope1And2.total)) ||
+        (e.scope3 && Number.isFinite(e.scope3.statedTotalEmissions?.total)) ||
+        (e.scope3 &&
+          e.scope3.categories &&
+          e.scope3.categories.some((c: any) => Number.isFinite(c.total))) ||
+        (e.statedTotalEmissions &&
+          Number.isFinite(e.statedTotalEmissions.total)) ||
+        (e.biogenic && Number.isFinite(e.biogenic.total)))
+    const econ = rp.economy
+    const hasEconomy =
+      econ &&
+      ((econ.turnover && Number.isFinite(econ.turnover.value)) ||
+        (econ.employees && Number.isFinite(econ.employees.value)))
+    return !(hasEmissions || hasEconomy)
+  }
   for (const year of years) {
     const sheet = workbook.getWorksheet(year.toString())
     if (!sheet) continue
@@ -126,10 +170,11 @@ function getReportingPeriods(
           },
         },
       }
-      reportingPeriodsByCompany[company.wikidataId] =
-        reportingPeriodsByCompany[company.wikidataId] || []
-      if (rp.emissions || rp.economy) {
-        reportingPeriodsByCompany[company.wikidataId].push(rp)
+      const sanitizedRp = removeNullProperties(rp)
+      if (!isEmpty(sanitizedRp)) {
+        reportingPeriodsByCompany[company.wikidataId] =
+          reportingPeriodsByCompany[company.wikidataId] || []
+        reportingPeriodsByCompany[company.wikidataId].push(sanitizedRp)
       }
     })
   }
@@ -146,7 +191,7 @@ async function main() {
   }))
   await writeFile(
     resolve('output/companies.json'),
-    JSON.stringify(output, null, 2)
+    JSON.stringify(removeNullProperties(output), null, 2)
   )
 }
 

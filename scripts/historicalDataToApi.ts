@@ -1,35 +1,9 @@
 import 'dotenv/config'
-import fetch from 'node-fetch'
 import { readFile } from 'fs/promises'
 import { resolve } from 'path'
 import apiConfig from '../src/config/api'
-
-const { baseURL, tokens } = apiConfig
-const USERS = {
-  garbo: {
-    email: 'hej@klimatkollen.se',
-    token: tokens[0],
-  },
-  alex: {
-    email: 'alex@klimatkollen.se',
-    token: tokens[1],
-  },
-}
-
-async function postJSON(url, body, user = 'alex') {
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${USERS[user].token}`,
-    },
-    body: JSON.stringify(body),
-  })
-  if (!res.ok) {
-    const text = await res.text()
-    console.error(res.status, res.statusText, url, text)
-  }
-}
+import { apiFetch } from '../src/lib/api'
+import { getReportingPeriodDates } from '../src/lib/reportingPeriodDates'
 
 async function main() {
   const data = JSON.parse(
@@ -46,9 +20,9 @@ async function main() {
       goals,
       initiatives,
     } = company
-    await postJSON(
-      `${baseURL}/companies`,
-      {
+    await apiFetch('/companies', {
+      method: 'POST',
+      body: {
         wikidataId,
         name,
         description,
@@ -56,65 +30,68 @@ async function main() {
         internalComment,
         metadata: { comment: 'Import verified data from spreadsheet' },
       },
-      'alex'
+    })
+    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+      () => null
     )
-    for (const rp of reportingPeriods) {
-      if (rp.emissions) {
-        await postJSON(
-          `${baseURL}/companies/${wikidataId}/${new Date(
-            rp.endDate
-          ).getFullYear()}/emissions`,
-          {
-            startDate: rp.startDate,
-            endDate: rp.endDate,
+    const adjustedReportingPeriods = reportingPeriods
+      ? reportingPeriods.map((rp: any) => {
+          const year = new Date(rp.endDate).getFullYear()
+          const computed = getReportingPeriodDates(year, 1, 12)
+          let startDate = new Date(rp.startDate)
+          if (isNaN(startDate.getTime())) {
+            startDate = new Date(computed[0])
+          }
+          let endDate = new Date(rp.endDate)
+          if (isNaN(endDate.getTime())) {
+            endDate = new Date(computed[1])
+          }
+          if (existingCompany && existingCompany.reportingPeriods) {
+            const existingRP = existingCompany.reportingPeriods.find(
+              (r: any) => new Date(r.endDate).getFullYear() === year
+            )
+            if (existingRP) {
+              const exStart = new Date(existingRP.startDate)
+              const exEnd = new Date(existingRP.endDate)
+              if (!isNaN(exStart.getTime()) && !isNaN(exEnd.getTime())) {
+                startDate = exStart
+                endDate = exEnd
+              }
+            }
+          }
+          return {
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
             reportURL: rp.reportURL,
             emissions: rp.emissions,
-            metadata: {
-              comment: 'Import verified data from spreadsheet',
-              source: rp.reportURL,
-            },
-          },
-          'alex'
-        )
-      }
-      if (rp.economy) {
-        await postJSON(
-          `${baseURL}/companies/${wikidataId}/${new Date(
-            rp.endDate
-          ).getFullYear()}/economy`,
-          {
-            startDate: rp.startDate,
-            endDate: rp.endDate,
-            reportURL: rp.reportURL,
             economy: rp.economy,
-            metadata: {
-              comment: 'Import verified data from spreadsheet',
-              source: rp.reportURL,
-            },
-          },
-          'alex'
-        )
-      }
-    }
+          }
+        })
+      : []
+    await apiFetch(`/companies/${wikidataId}/reporting-periods`, {
+      method: 'POST',
+      body: {
+        reportingPeriods: adjustedReportingPeriods,
+        metadata: { comment: 'Import verified data from spreadsheet' },
+      },
+    })
     if (goals && goals.length) {
-      await postJSON(
-        `${baseURL}/companies/${wikidataId}/goals`,
-        {
+      await apiFetch(`/companies/${wikidataId}/goals`, {
+        method: 'POST',
+        body: {
           goals,
           metadata: { comment: 'Import verified data from spreadsheet' },
         },
-        'garbo'
-      )
+      })
     }
     if (initiatives && initiatives.length) {
-      await postJSON(
-        `${baseURL}/companies/${wikidataId}/initiatives`,
-        {
+      await apiFetch(`/companies/${wikidataId}/initiatives`, {
+        method: 'POST',
+        body: {
           initiatives,
           metadata: { comment: 'Import verified data from spreadsheet' },
         },
-        'garbo'
-      )
+      })
     }
   }
 }
