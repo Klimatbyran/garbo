@@ -9,3 +9,4 @@ resources:
   - worker-autoscaler.yaml
   - nlm-ingestor.yaml
   - nlm-autoscaler.yaml
+  - gcp-configs.yaml
