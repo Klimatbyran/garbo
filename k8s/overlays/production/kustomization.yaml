@@ -5,6 +5,7 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
+  - path: managed-cert-patch.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
     newTag: '3.10.0' # {"$imagepolicy": "flux-system:garbo:tag"}

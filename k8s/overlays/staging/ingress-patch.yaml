@@ -3,10 +3,6 @@ kind: Ingress
 metadata:
   name: garbo
 spec:
-  tls:
-    - hosts:
-        - stage-api.klimatkollen.se
-      secretName: stage-api-klimatkollen-se-tls
   rules:
     - host: stage-api.klimatkollen.se
       http:

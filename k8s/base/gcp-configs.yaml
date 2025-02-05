@@ -21,3 +21,11 @@ spec:
     port: 3000
   securityPolicy:
     name: "garbo-security-policy"
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - api.klimatkollen.se
