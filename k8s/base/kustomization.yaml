@@ -7,3 +7,4 @@ resources:
   - ingress.yaml
   - worker.yaml
   - nlm-ingestor.yaml
+  - nlm-autoscaler.yaml
