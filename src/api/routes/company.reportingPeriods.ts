@@ -70,12 +70,12 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               )
 
             const [dbEmissions, dbEconomy] = await Promise.all([
-              reportingPeriod.emissions &&
+              emissions &&
                 emissionsService.upsertEmissions({
                   emissionsId: reportingPeriod.emissions?.id ?? '',
                   reportingPeriodId: reportingPeriod.id,
                 }),
-              reportingPeriod.economy &&
+              economy &&
                 companyService.upsertEconomy({
                   economyId: reportingPeriod.economy?.id ?? '',
                   reportingPeriodId: reportingPeriod.id,
@@ -92,7 +92,6 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             } = emissions
             const { turnover, employees } = economy
 
-            // Normalise currency
             if (turnover?.currency) {
               turnover.currency = turnover.currency.trim().toUpperCase()
             }
