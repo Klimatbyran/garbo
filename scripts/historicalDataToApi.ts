@@ -17,8 +17,6 @@ async function main() {
       internalComment,
       reportingPeriods,
       description,
-      goals,
-      initiatives,
     } = company
     await apiFetch('/companies', {
       method: 'POST',
@@ -76,24 +74,6 @@ async function main() {
         metadata: { comment: 'Import verified data from spreadsheet' },
       },
     })
-    if (goals && goals.length) {
-      await apiFetch(`/companies/${wikidataId}/goals`, {
-        method: 'POST',
-        body: {
-          goals,
-          metadata: { comment: 'Import verified data from spreadsheet' },
-        },
-      })
-    }
-    if (initiatives && initiatives.length) {
-      await apiFetch(`/companies/${wikidataId}/initiatives`, {
-        method: 'POST',
-        body: {
-          initiatives,
-          metadata: { comment: 'Import verified data from spreadsheet' },
-        },
-      })
-    }
   }
 }
 
