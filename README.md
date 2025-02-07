@@ -148,7 +148,7 @@ This starts the API, and makes it possible to view the OpenAPI documentation at 
 
 If you plan to develop the AI pipeline, this is the recommended way to start the code.
 
-First, run the following command to start the API and the queue system, including an admin dashboard to view progress, logs and more
+First, run the following command to start the API and the queue system, including an admin dashboard to view progress, logs and more.
 
 ```bash
 npm run dev-board
