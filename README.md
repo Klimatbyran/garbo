@@ -113,7 +113,7 @@ npm run prisma migrate dev
 ### Optional: Restoring a database backup with test data
 
 > [!NOTE]
-> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database.
+> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database
 
 First, ask one of the Klimatkollen team members and they will send you a database backup.
 
