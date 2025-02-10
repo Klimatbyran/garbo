@@ -6,7 +6,4 @@ resources:
   - service.yaml
   - ingress.yaml
   - worker.yaml
-  - worker-autoscaler.yaml
   - nlm-ingestor.yaml
-  - nlm-autoscaler.yaml
-  - gcp-configs.yaml

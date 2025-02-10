@@ -3,14 +3,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: garbo
-  annotations:
-    cloud.google.com/neg: '{"ingress": true}'
-    cloud.google.com/backend-config: '{"default": "garbo-backend-config"}'
 spec:
-  type: NodePort
   ports:
     - port: 80
       targetPort: 3000
-      protocol: TCP
   selector:
     app: garbo
