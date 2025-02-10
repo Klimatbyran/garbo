@@ -4,12 +4,12 @@ kind: Ingress
 metadata:
   name: garbo
   annotations:
-    kubernetes.io/ingress.class: 'gce'
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
-    kubernetes.io/ingress.global-static-ip-name: 'garbo-ip'
-    networking.gke.io/managed-certificates: 'managed-cert'
-    networking.gke.io/v1beta1.FrontendConfig: 'garbo-frontend-config'
 spec:
+  tls:
+    - hosts:
+        - api.klimatkollen.se
+      secretName: api-klimatkollen-se-tls
 
   rules:
     - host: api.klimatkollen.se
