@@ -4,7 +4,7 @@ This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that 
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
+We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata
 
 ![image](https://github.com/Klimatbyran/garbo/assets/395843/f3b4caa2-aa7d-4269-9436-3e725311052e)
 
@@ -113,7 +113,7 @@ npm run prisma migrate dev
 ### Optional: Restoring a database backup with test data
 
 > [!NOTE]
-> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database.
+> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database
 
 First, ask one of the Klimatkollen team members and they will send you a database backup.
 

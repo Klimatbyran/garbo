@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: worker
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: worker
@@ -14,7 +14,13 @@ spec:
     spec:
       containers:
         - image: ghcr.io/klimatbyran/garbo
-          resources: {}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
           command: ['npm', 'run', 'workers']
           name: worker
           ports:

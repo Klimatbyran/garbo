@@ -5,7 +5,6 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
-  - path: worker-patch.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: '3.10.1-rc.0' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
+    newTag: '3.10.1-rc.4' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
