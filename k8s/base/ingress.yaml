@@ -6,6 +6,11 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: 'letsencrypt-prod'
 spec:
+  tls:
+    - hosts:
+        - api.klimatkollen.se
+      secretName: api-klimatkollen-se-tls
+
   rules:
     - host: api.klimatkollen.se
       http:
