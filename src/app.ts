@@ -25,6 +25,7 @@ import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
+import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 
 async function startApp() {
   const app = Fastify({
@@ -118,6 +119,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
+  app.register(companyBaseYearRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })

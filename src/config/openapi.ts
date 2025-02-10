@@ -27,6 +27,9 @@ const openAPITagDefinitions = {
   Initiatives: {
     description: 'Company initiatives',
   },
+  BaseYear: {
+    description: 'First year of comparable data',
+  },
   Municipalities: {
     description: 'Climate data related to Swedish municipalities',
   },
