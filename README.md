@@ -10,7 +10,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf <url> and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON
 
 ## Data Flow
 
@@ -56,7 +56,7 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
-## Get started
+## Get started 🚀
 
 Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.
 
@@ -71,7 +71,7 @@ npm i
 ```
 
 > [!NOTE]
-> If you use a Linux-based operating system, you might need to install additional dependencies for the third-party package `canvas`. Follow the [instructions](https://www.npmjs.com/package/canvas).
+> If you use a Unix-based operating system, you might need to install additional dependencies for the third-party package `canvas` and `PDF2Image`. Follow the instructions at [canvas](https://www.npmjs.com/package/canvas) and [PDF2Image](https://github.com/yakovmeister/pdf2image/blob/HEAD/docs/gm-installation.md).
 
 ### Starting the containers
 
@@ -81,10 +81,19 @@ The simplest way to start the containers the first time is to run the following 
 
 ```bash
 docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
-docker run -d -p 6379:6379 --name garbo_redis redis
+```
 
-# These are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.
+```bash
+docker run -d -p 6379:6379 --name garbo_redis redis
+```
+
+*ChromaDB and Ingestor are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.*
+
+```bash
 docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
+```
+
+```bash
 docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
 ```
 
