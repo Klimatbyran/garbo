@@ -77,36 +77,12 @@ npm i
 
 This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
 
-The simplest way to start the containers the first time is to run the following docker commands.
+The simplest way to start the containers is to run the following docker commands.
 
 ```bash
-docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
+docker-compose up
 ```
 
-```bash
-docker run -d -p 6379:6379 --name garbo_redis redis
-```
-
-*ChromaDB and Ingestor are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.*
-
-```bash
-docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
-```
-
-```bash
-docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
-```
-
-Next time, you can start the containers back up using
-
-```sh
-docker start garbo_postgres garbo_redis garbo_chroma garbo_ingestor
-```
-
-Or if you only plan to develop the frontend and/or the API, this is enough:
-
-```sh
-docker start garbo_postgres garbo_redis
 ```
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
