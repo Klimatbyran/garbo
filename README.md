@@ -83,8 +83,6 @@ The simplest way to start the containers is to run the following docker commands
 docker-compose up
 ```
 
-````
-
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
 ### Seeding the database for development
