@@ -33,6 +33,9 @@ const openAPITagDefinitions = {
   Municipalities: {
     description: 'Climate data related to Swedish municipalities',
   },
+  Wikidata: {
+    description: 'Routes for pushing data from the database to the Wikidata API',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
