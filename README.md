@@ -38,6 +38,7 @@ flowchart TB
 
     CheckDB{Exists in API?}
 
+
     Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
                                            CheckDB --(no)--> API.Industry
     Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
@@ -54,6 +55,21 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
+
+
+    CheckWikidata{Exists in Wikidata?}
+    CheckWikipedia{Exists fact box in Wikipedia?}
+
+    API.Emissions --> CheckWikidata
+    CheckWikidata --(yes)--> UpdateWikidata
+    CheckWikidata --(no)--> ManualUpdate
+    CheckWikidata --(yes)--> CheckWikipedia
+
+    CheckWikipedia --(yes)--> UpdateWikipedia
+    CheckWikipedia --(no)--> ManualUpdate
+
+
+
 ```
 
 ## Get started 🚀
