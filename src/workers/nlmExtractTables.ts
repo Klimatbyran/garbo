@@ -111,7 +111,7 @@ const nlmExtractTables = new DiscordWorker(
           const markdown = await extractTextViaVisionAPI(
             { filename, name: `Tables from page ${pageNumber}` },
             lastPageMarkdown
-          )
+          ) ?? "";
           // TODO: Send to s3 bucket (images)
           return [
             ...results,
@@ -120,7 +120,7 @@ const nlmExtractTables = new DiscordWorker(
               markdown,
             },
           ]
-        }, Promise.resolve([] as any))
+        }, Promise.resolve([] as {page_idx: number, markdown: string}[]))
 
       job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
 

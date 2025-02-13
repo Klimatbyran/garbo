@@ -1,20 +1,22 @@
 import { assert } from 'console'
 import OpenAI from 'openai'
-import { ChatCompletionMessageParam } from 'openai/resources'
+import { ChatCompletionAssistantMessageParam, ChatCompletionChunk, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming, ChatCompletionMessageParam, ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, ResponseFormatJSONSchema } from 'openai/resources'
 import openaiConfig from '../config/openai'
+import { Stream } from 'openai/streaming'
+import { RequestOptions } from 'openai/core'
 
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
 })
 
-const ask = async (messages: ChatCompletionMessageParam[], options?: any) => {
+const ask = async (messages: ChatCompletionMessageParam[], options?: RequestOptions & {response_format?: ResponseFormatJSONSchema}) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
     temperature: 0.1,
     stream: false,
     ...options,
-  })
+  } as ChatCompletionCreateParamsNonStreaming)
 
   return response.choices[0].message.content ?? ''
 }
@@ -34,15 +36,13 @@ const askPrompt = async (prompt: string, context: string) => {
 }
 
 const askStream = async (
-  messages: ChatCompletionMessageParam[],
-  // TODO: Improve type for options to match OpenAI
-  // options?: OpenAI.RequestOptions & {
-  //   onParagraph?: (response: string, paragraph: string) => void
-  // }
-  options: any
+  messages: (ChatCompletionSystemMessageParam
+    | ChatCompletionUserMessageParam
+    | ChatCompletionAssistantMessageParam)[],
+  options: RequestOptions  & {onParagraph?: (response: string, paragraph: string) => void} & {response_format?: ResponseFormatJSONSchema}
 ) => {
-  const { onParagraph, ...openAIOptions } = options
-  const stream = await openai.chat.completions.create({
+  const { ...openAIOptions } = options
+  const stream:  Stream<ChatCompletionChunk> = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o-2024-08-06',
     temperature: 0.1,
@@ -52,7 +52,7 @@ const askStream = async (
       type: 'json_object',
     },
     ...openAIOptions,
-  })
+  }  as ChatCompletionCreateParamsStreaming);
 
   let response = ''
   let paragraph = ''

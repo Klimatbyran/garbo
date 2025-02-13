@@ -63,7 +63,7 @@ type Page = {
   pageIndex: number
   pageWidth: number
   pageHeight: number
-  tables: any[]
+  tables: Table[]
 }
 
 export function findRelevantTablesGroupedOnPages(

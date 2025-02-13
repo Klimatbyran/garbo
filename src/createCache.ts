@@ -13,7 +13,7 @@ await redis.connect()
 
 export function createServerCache({ maxAge }: { maxAge: number }) {
   return {
-    async set(key: string, value: any) {
+    async set(key: string, value: string) {
       const namespacedKey = `${API_REDIS_PREFIX}${key}`
       await redis.set(namespacedKey, JSON.stringify(value), { PX: maxAge })
     },
