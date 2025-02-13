@@ -38,6 +38,7 @@ flowchart TB
 
     CheckDB{Exists in API?}
 
+
     Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
                                            CheckDB --(no)--> API.Industry
     Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
@@ -54,6 +55,21 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
+
+
+    CheckWikidata{Exists in Wikidata?}
+    CheckWikipedia{Exists fact box in Wikipedia?}
+
+    API.Emissions --> CheckWikidata
+    CheckWikidata --(yes)--> UpdateWikidata
+    CheckWikidata --(no)--> ManualUpdate
+    CheckWikidata --(yes)--> CheckWikipedia
+
+    CheckWikipedia --(yes)--> UpdateWikipedia
+    CheckWikipedia --(no)--> ManualUpdate
+
+
+
 ```
 
 ## Get started 🚀
@@ -83,7 +99,7 @@ The simplest way to start the containers is to run the following docker commands
 docker-compose up
 ```
 
-```
+````
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
@@ -93,7 +109,7 @@ This applies migrations and seeding data needed for development. It also generat
 
 ```sh
 npm run prisma migrate dev
-```
+````
 
 ### Optional: Restoring a database backup with test data
 
