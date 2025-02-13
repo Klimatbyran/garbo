@@ -10,7 +10,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON.
 
 ## Data Flow
 
@@ -83,7 +83,7 @@ The simplest way to start the containers is to run the following docker commands
 docker-compose up
 ```
 
-```
+````
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
@@ -93,7 +93,7 @@ This applies migrations and seeding data needed for development. It also generat
 
 ```sh
 npm run prisma migrate dev
-```
+````
 
 ### Optional: Restoring a database backup with test data
 
