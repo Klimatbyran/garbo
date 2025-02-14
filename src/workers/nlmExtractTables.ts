@@ -23,10 +23,8 @@ const base64Encode = (filename: string) => {
 const extractTextViaVisionAPI = async (
   {
     filename,
-    name,
   }: {
     filename: string
-    name: string
   },
   context: string
 ) => {
@@ -109,9 +107,9 @@ const nlmExtractTables = new DiscordWorker(
           const results = await resultsPromise
           const lastPageMarkdown = results.at(-1)?.markdown || ''
           const markdown = await extractTextViaVisionAPI(
-            { filename, name: `Tables from page ${pageNumber}` },
+            { filename },
             lastPageMarkdown
-          )
+          ) ?? "";
           // TODO: Send to s3 bucket (images)
           return [
             ...results,
@@ -120,7 +118,7 @@ const nlmExtractTables = new DiscordWorker(
               markdown,
             },
           ]
-        }, Promise.resolve([] as any))
+        }, Promise.resolve([] as {page_idx: number, markdown: string}[]))
 
       job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
 

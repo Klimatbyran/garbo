@@ -11,6 +11,10 @@ import {
   Message,
   ThreadChannel,
   ChatInputCommandInteraction,
+  RESTPostAPIChatInputApplicationCommandsJSONBody,
+  BaseMessageOptions,
+  MessagePayload,
+  MessageCreateOptions,
 } from 'discord.js'
 import commands from './discord/commands'
 import config from './config/discord'
@@ -36,7 +40,7 @@ const getJob = (
 export class Discord {
   client: Client<boolean>
   rest: REST
-  commands: Array<any>
+  commands: Array<RESTPostAPIChatInputApplicationCommandsJSONBody>
   token: string
   channelId: string
 
@@ -107,8 +111,7 @@ export class Discord {
           } catch (error) {
             console.error('Discord error:', error)
           }
-        } else if (interaction.isModalSubmit()) {
-        }
+        } //else if (interaction.isModalSubmit()) {}
       })
     } else {
       this.client.on('ready', () => {
@@ -123,7 +126,7 @@ export class Discord {
   }
 
   public createApproveButtonRow = (job: DiscordJob) => {
-    return new ActionRowBuilder().addComponents(
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
@@ -132,7 +135,7 @@ export class Discord {
   }
 
   public createEditWikidataButtonRow = (job: DiscordJob) => {
-    return new ActionRowBuilder().addComponents(
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
@@ -146,7 +149,7 @@ export class Discord {
 
   async sendMessage(
     { threadId }: { threadId: string },
-    msg: string | { files?: any[]; content: string; components?: any[] }
+    msg: string | BaseMessageOptions
   ) {
     try {
       if (!threadId) throw new Error('Thread ID is required')
@@ -211,7 +214,7 @@ export class Discord {
 
   async sendMessageToChannel(
     channelId: string,
-    message: any
+    message: string | MessagePayload | MessageCreateOptions
   ): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)

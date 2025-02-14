@@ -7,7 +7,12 @@ export class DiffInitiativesJob extends DiscordJob {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
-    initiatives: any
+    initiatives: {
+      title: string,
+      description?: string,
+      year?: string,
+      scope?: string,
+    }
   }
 }
 

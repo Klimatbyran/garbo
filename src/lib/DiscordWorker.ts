@@ -1,5 +1,5 @@
 import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
-import { Message, TextChannel } from 'discord.js'
+import { BaseMessageOptions, Message, OmitPartialGroupDMChannel, TextChannel } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
 
@@ -11,15 +11,15 @@ export class DiscordJob extends Job {
     messageId?: string
   }
 
-  message: any
+  //message: any
   sendMessage: (
-    msg: string | { files?: any[]; content?: string; components?: any[] }
-  ) => Promise<any>
+    msg: string | BaseMessageOptions
+  ) => Promise<Message<true> | undefined>
   editMessage: (
-    msg: string | { files?: any[]; content?: string; components?: any[] }
-  ) => Promise<any>
-  setThreadName: (name: string) => Promise<any>
-  sendTyping: () => Promise<any>
+    msg: string | BaseMessageOptions
+  ) => Promise<OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined>
+  setThreadName: (name: string) => Promise<TextChannel>
+  sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
 }
 
@@ -48,7 +48,7 @@ function addCustomMethods(job: DiscordJob) {
       .then((values) => Object.fromEntries(values))
   }
 
-  job.sendMessage = async (msg: any) => {
+  job.sendMessage = async (msg: string) => {
     message = await discord.sendMessage(job.data, msg)
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })
@@ -59,7 +59,7 @@ function addCustomMethods(job: DiscordJob) {
     return discord.sendTyping(job.data)
   }
 
-  job.editMessage = async (msg: any) => {
+  job.editMessage = async (msg: string | BaseMessageOptions) => {
     if (!message && job.data.messageId) {
       const { channelId, threadId, messageId } = job.data
       message = await discord.findMessage({

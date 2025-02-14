@@ -1,7 +1,7 @@
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
-
+import { ChatCompletionAssistantMessageParam, ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam } from 'openai/resources'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
 import { vectorDB } from '../lib/vectordb'
@@ -37,24 +37,25 @@ const followUp = new DiscordWorker<FollowUpJob>(
           role: 'system',
           content:
             'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
-        },
+        } as ChatCompletionSystemMessageParam,
         {
           role: 'user',
           content: 'Results from PDF: \n' + markdown,
-        },
+        } as ChatCompletionUserMessageParam,
         {
           role: 'user',
           content: prompt,
-        },
+        } as ChatCompletionUserMessageParam,
         Array.isArray(job.stacktrace)
           ? [
-              { role: 'assistant', content: previousAnswer },
-              { role: 'user', content: job.stacktrace.join('') },
+              { role: 'assistant' , content: previousAnswer } as ChatCompletionAssistantMessageParam,
+              { role: 'user', content: job.stacktrace.join('') } as ChatCompletionUserMessageParam,
             ]
           : undefined,
       ]
         .flat()
-        .filter((m) => m?.content) as any[],
+        .filter((m) => m !== undefined)
+        .filter((m) => m?.content),
       {
         response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
       }

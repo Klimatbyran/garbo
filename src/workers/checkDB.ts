@@ -9,7 +9,10 @@ export class CheckDBJob extends DiscordJob {
     companyName: string
     description?: string
     wikidata: { node: string }
-    fiscalYear: any
+    fiscalYear: {
+        startMonth: number,
+        endMonth: number,
+    },
     childrenValues?: any
     approved?: boolean
   }

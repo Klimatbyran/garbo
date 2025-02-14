@@ -38,10 +38,10 @@ export const defaultMetadata = (url: string) => ({
  * Handles circular references.
  * Source: https://stackoverflow.com/a/72493889
  */
-const recursiveOmit = <T extends Object>(
+const recursiveOmit = <T extends object>(
   obj: T,
   keys: Set<string>,
-  visitedIn?: Set<any>
+  visitedIn?: Set<object>
 ): T => {
   if (obj == null || typeof obj !== 'object') return obj
   const visited = visitedIn ?? new Set()
@@ -56,7 +56,7 @@ const recursiveOmit = <T extends Object>(
   return obj
 }
 
-const askDiff = async (before: any, after: any) => {
+const askDiff = async (before: object, after: object) => {
   if (!after) return 'NO_CHANGES'
 
   return await askPrompt(
@@ -80,7 +80,7 @@ const askDiff = async (before: any, after: any) => {
   )
 }
 
-export async function diffChanges<T>({
+export async function diffChanges<T extends object>({
   existingCompany,
   before,
   after,
