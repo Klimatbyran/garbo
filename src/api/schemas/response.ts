@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { wikidataIdSchema } from './common'
-import baseYear from '../../prompts/followUp/baseYear'
 
 extendZodWithOpenApi(z)
 
