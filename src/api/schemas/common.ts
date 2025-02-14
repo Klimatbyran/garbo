@@ -22,8 +22,6 @@ export const errorSchema = z.object({
   details: z.any().optional(),
 })
 
-//const errorCodes = [400, 404] as const
-
 type ErrorCode = 400 | 404;
 
 export function getErrorSchemas(...codes: ErrorCode[]) {

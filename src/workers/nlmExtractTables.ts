@@ -23,7 +23,7 @@ const base64Encode = (filename: string) => {
 const extractTextViaVisionAPI = async (
   {
     filename,
-    name,
+    name: _name,
   }: {
     filename: string
     name: string
