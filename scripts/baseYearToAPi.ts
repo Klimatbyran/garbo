@@ -23,7 +23,7 @@ async function updateBaseYear(wikidataId: string, baseYear: number) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokens[0]}`,
+      Authorization: `Bearer ${tokens[1]}`,
     },
     body: JSON.stringify({
       baseYear,
