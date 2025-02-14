@@ -9,7 +9,7 @@ import {
 import { getTags } from '../../config/openapi'
 import { PostWikidataBody, WikidataIdParams } from '../types'
 
-export async function wikidataUploadRoutes(app: FastifyInstance) {
+export async function wikiUploadRoutes(app: FastifyInstance) {
   app.post(
     '/',
     {
@@ -33,8 +33,6 @@ export async function wikidataUploadRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { wikidataId } = request.body
-
-      //TODO:
 
       request.log.info("Wikidata Update")
       const company = await wikidataService.updateWikidata(wikidataId)
