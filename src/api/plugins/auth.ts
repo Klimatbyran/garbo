@@ -45,7 +45,7 @@ async function authPlugin(app: FastifyInstance) {
       }
 
       request.user = user
-    } catch (error) {
+    } catch {
       return reply.status(401).send(unauthorizedError)
     }
   })

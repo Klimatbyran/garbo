@@ -1,5 +1,5 @@
 import { DiscordWorker } from '../lib/DiscordWorker'
-import { FlowProducer, UnrecoverableError } from 'bullmq'
+import { FlowProducer } from 'bullmq'
 import { extractJsonFromPdf, fetchPdf } from '../lib/pdfTools'
 import redis from '../config/redis'
 import precheck from './precheck'

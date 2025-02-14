@@ -143,7 +143,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const clientEtag = request.headers['if-none-match']
       const cacheKey = 'companies:etag'
 
-      let currentEtag = await redisCache.get(cacheKey)
+      let currentEtag: string = await redisCache.get(cacheKey)
 
       const latestMetadata = await prisma.metadata.findFirst({
         select: { updatedAt: true },

@@ -1,8 +1,8 @@
 # Klimatkollen Garbo AI
 
-This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data
 
-Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
@@ -10,7 +10,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf <url> and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON.
 
 ## Data Flow
 
@@ -56,7 +56,7 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
-## Get started
+## Get started 🚀
 
 Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.
 
@@ -71,33 +71,16 @@ npm i
 ```
 
 > [!NOTE]
-> If you use a Linux-based operating system, you might need to install additional dependencies for the third-party package `canvas`. Follow the [instructions](https://www.npmjs.com/package/canvas).
+> If you use a Unix-based operating system, you might need to install additional dependencies for the third-party package `canvas` and `PDF2Image`. Follow the instructions at [canvas](https://www.npmjs.com/package/canvas) and [PDF2Image](https://github.com/yakovmeister/pdf2image/blob/HEAD/docs/gm-installation.md).
 
 ### Starting the containers
 
 This project expects some containers running in the background to work properly. We use Postgres as our primary database, Redis for managing the queue system, ChromaDB for embeddings and the NLM ingestor for parsing PDF:s.
 
-The simplest way to start the containers the first time is to run the following docker commands.
+The simplest way to start the containers is to run the following docker commands.
 
 ```bash
-docker run -d -p 5432:5432 --name garbo_postgres -e POSTGRES_PASSWORD=mysecretpassword postgres
-docker run -d -p 6379:6379 --name garbo_redis redis
-
-# These are only necessary to develop the AI pipeline. Feel free to skip them if you only plan to develop the frontend and/or the API.
-docker run -d -p 8000:8000 --name garbo_chroma chromadb/chroma
-docker run -d -p 5001:5001 --name garbo_ingestor ghcr.io/nlmatics/nlm-ingestor
-```
-
-Next time, you can start the containers back up using
-
-```sh
-docker start garbo_postgres garbo_redis garbo_chroma garbo_ingestor
-```
-
-Or if you only plan to develop the frontend and/or the API, this is enough:
-
-```sh
-docker start garbo_postgres garbo_redis
+docker-compose up
 ```
 
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
@@ -113,7 +96,7 @@ npm run prisma migrate dev
 ### Optional: Restoring a database backup with test data
 
 > [!NOTE]
-> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database.
+> This step is very helpful to get a good starting point for developing and testing the frontend and/or the API. However, you may also skip it if you want to start with a clean database
 
 First, ask one of the Klimatkollen team members and they will send you a database backup.
 

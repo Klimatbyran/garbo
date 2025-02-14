@@ -2,7 +2,7 @@ import WBK, { SearchResponse, EntityId, Entity } from 'wikibase-sdk'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
-const transformData = (data: any): any => {
+/*const transformData = (data: any): any => {
   return Object.entries(data)
     .map(([key, wikidata]: [string, any]) => {
       if (!wikidata || !wikidata.claims) return null
@@ -81,7 +81,7 @@ const transformData = (data: any): any => {
       }
     })
     .filter((item) => item !== null)
-}
+}*/
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
