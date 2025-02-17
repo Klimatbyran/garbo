@@ -58,7 +58,7 @@ flowchart TB
 
 ## Get started 🚀
 
-Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.
+Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers
 
 ### Setting up environment variables
 
