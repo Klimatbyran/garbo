@@ -178,3 +178,20 @@ export async function createOrEditCarbonFootprintClaim(entity: ItemId, startDate
       await wbEdit.claim.create(claimCreate);
   }
 }
+export async function getWikipediaTitle(id: EntityId): Promise<string> {
+  const url = wbk.getEntities({
+    ids: [id],
+    props: ['sitelinks'],
+  })
+  const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
+    res.json()
+  )
+  const entity = entities[id]
+  const title = entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
+
+  if (!title) {
+    throw new Error('No Wikipedia site link found')
+  }
+
+  return title
+}

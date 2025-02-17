@@ -11,8 +11,38 @@ import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
 import { emissionsArgs } from '../args'
+import { Emissions } from '@prisma/client'
 
 class EmissionsService {
+  async getLatestEmissionsByWikidataId(wikidataId: string): Promise<Emissions> {
+    return prisma.emissions.findFirst({
+      where: {
+        reportingPeriod: {
+          companyId: wikidataId,
+        }
+      },
+      include: {
+        scope1: true,
+        scope2: true,
+        scope3: {
+          include: {
+            categories: true,
+            statedTotalEmissions: true,
+          }
+        },
+        scope1And2: true,
+        statedTotalEmissions: true,
+        biogenicEmissions: true,
+        reportingPeriod: true,
+      },
+      orderBy: {
+        reportingPeriod: {
+          startDate: 'desc'
+        }
+      }
+    });
+  }
+
   async upsertEmissions({
     emissionsId,
     reportingPeriodId,
