@@ -62,7 +62,7 @@ Ensure you have Node.js version 22.0.0 or higher installed. You will also need [
 
 ### Setting up environment variables
 
-Make a copy of the file `.env.example` and name it `.env`. Fill it in using the instructions in the file.
+Make a copy of the file `.env.example` and name it `.env`. Fill it in using the instructions in the file
 
 ### Installing dependencies
 
