@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFileSync, statSync } from 'fs'
 import { UnrecoverableError } from 'bullmq'
 import path from 'path'
 import { mkdir } from 'fs/promises'
@@ -105,11 +105,14 @@ const nlmExtractTables = new DiscordWorker(
       const tables: { page_idx: number; markdown: string }[] =
         await pages.reduce(async (resultsPromise, { pageNumber, filename }) => {
           const results = await resultsPromise
+          if (statSync(filename).size === 0) {
+            console.warn(`⚠️ Skipping empty image: ${filename}`)
+            return results
+          }
           const lastPageMarkdown = results.at(-1)?.markdown || ''
-          const markdown = await extractTextViaVisionAPI(
-            { filename },
-            lastPageMarkdown
-          ) ?? "";
+          const markdown =
+            (await extractTextViaVisionAPI({ filename }, lastPageMarkdown)) ??
+            ''
           // TODO: Send to s3 bucket (images)
           return [
             ...results,
@@ -118,7 +121,7 @@ const nlmExtractTables = new DiscordWorker(
               markdown,
             },
           ]
-        }, Promise.resolve([] as {page_idx: number, markdown: string}[]))
+        }, Promise.resolve([] as { page_idx: number; markdown: string }[]))
 
       job.log('Extracted tables: ' + tables.map((t) => t.markdown).join(', '))
 
