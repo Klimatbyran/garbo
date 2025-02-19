@@ -41,7 +41,15 @@ Provide a detailed analysis including:
 6. Relevant factors that influenced the estimate
 
 Use industry-specific emission factors and benchmarks where appropriate.
-Be conservative in estimates and clearly state assumptions.`
+Be conservative in estimates and clearly state assumptions.
+
+When analyzing procurement data:
+1. Look for direct mentions of supplier emissions
+2. Consider industry-specific procurement patterns
+3. Use turnover as a proxy when detailed data is missing
+4. Account for geographical differences in supply chains
+5. Consider company size and operational scale
+6. Look for sustainability requirements on suppliers`
 
 const queryTexts = [
   'Purchased goods and services',
