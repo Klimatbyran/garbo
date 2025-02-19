@@ -71,6 +71,34 @@ Next steps:
 ${assessment.assessment.nextSteps.map(s => `- [${s.priority}] ${s.description}`).join('\n')}
 `)
 
+    // Trigger follow-up workers based on assessment results
+    if (assessment.assessment.nextSteps.some(step => step.type === 'REQUEST_SCOPE3')) {
+      const missingCategories = assessment.assessment.issues
+        .filter(issue => issue.type === 'SCOPE_MISSING')
+        .map(issue => issue.description)
+      
+      await job.queue.add('verifyScope3', {
+        ...job.data,
+        scope3Data: contextData.scope3,
+        missingCategories
+      })
+    }
+
+    if (assessment.assessment.nextSteps.some(step => step.type === 'VERIFY_CALCULATION')) {
+      const calculationIssues = assessment.assessment.issues
+        .filter(issue => issue.type === 'CALCULATION_ERROR')
+      
+      await job.queue.add('verifyCalculations', {
+        ...job.data,
+        suspectedErrors: calculationIssues,
+        emissionsData: {
+          scope12: contextData.scope12,
+          scope3: contextData.scope3,
+          biogenic: contextData.biogenic
+        }
+      })
+    }
+
     return assessment
   }
 )
