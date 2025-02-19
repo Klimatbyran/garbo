@@ -62,140 +62,51 @@ Next steps:
 3. Update the scope 3 data if new information is found
 `)
 
-    // Trigger category-specific analysis for missing categories
-    if (missingCategories.includes('1')) {
-      await job.queue.add('estimateCategory1', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        turnover: emissionsData.economy?.turnover
-      })
-    }
+    // Create flows for category estimations based on analysis
+    const flow = new FlowProducer({ connection: redis })
+    
+    // Analyze response to identify material categories
+    const materialCategories = missingCategories.filter(category => {
+      return response.toLowerCase().includes(`category ${category}`) && 
+             response.toLowerCase().includes('material');
+    });
 
-    if (missingCategories.includes('2')) {
-      await job.queue.add('estimateCategory2', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
+    if (materialCategories.length > 0) {
+      // Create category estimation jobs
+      const categoryJobs = materialCategories.map(category => ({
+        name: `estimateCategory${category}-${job.data.companyName}`,
+        queueName: `estimateCategory${category}`,
+        data: {
+          ...job.data,
+          scope12Data: emissionsData.scope12,
+          scope3Data: emissionsData.scope3,
+          economy: emissionsData.economy,
+          industry: job.data.industry
+        }
+      }));
 
-    if (missingCategories.includes('3')) {
-      await job.queue.add('estimateCategory3', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
+      const latestYear = Math.max(
+        ...(emissionsData.scope12?.map(d => d.year) || []),
+        ...(emissionsData.scope3?.map(d => d.year) || []),
+        new Date().getFullYear() - 1
+      );
 
-    if (missingCategories.includes('4')) {
-      await job.queue.add('estimateCategory4', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
+      // Create a flow with summarization as parent and category estimations as children
+      await flow.add({
+        name: `summarizeCategories-${job.data.companyName}`,
+        queueName: 'summarizeCategories',
+        data: {
+          ...job.data,
+          year: latestYear,
+          categories: materialCategories
+        },
+        children: categoryJobs
+      });
 
-    if (missingCategories.includes('5')) {
-      await job.queue.add('estimateCategory5', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('6')) {
-      await job.queue.add('estimateCategory6', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('7')) {
-      await job.queue.add('estimateCategory7', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('8')) {
-      await job.queue.add('estimateCategory8', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('9')) {
-      await job.queue.add('estimateCategory9', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('10')) {
-      await job.queue.add('estimateCategory10', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('11')) {
-      await job.queue.add('estimateCategory11', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('12')) {
-      await job.queue.add('estimateCategory12', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('13')) {
-      await job.queue.add('estimateCategory13', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('14')) {
-      await job.queue.add('estimateCategory14', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
-    }
-
-    if (missingCategories.includes('15')) {
-      await job.queue.add('estimateCategory15', {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      })
+      await job.sendMessage(`
+📊 Starting estimation for ${materialCategories.length} material Scope 3 categories:
+${materialCategories.map(c => `- Category ${c}`).join('\n')}
+`);
     }
 
     // Create flows for category estimations based on analysis
