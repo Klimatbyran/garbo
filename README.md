@@ -56,28 +56,30 @@ flowchart TB
     Cache --(yes)--> Precheck
 
     CheckDB --(yes)--> Review --> API.Save
-    Review --> Assessment
+    API.Save --> Assessment
     Assessment --> VerifyScope3
-    Assessment --> VerifyCalc --> AssessmentReview
+    Assessment --> VerifyCalc
+    
+    VerifyCalc --> CalcReview
+    
+    VerifyScope3 --> Cat1 --> CategorySummary
+    VerifyScope3 --> Cat2 --> CategorySummary  
+    VerifyScope3 --> Cat3 --> CategorySummary
+    VerifyScope3 --> Cat4 --> CategorySummary
+    VerifyScope3 --> Cat5 --> CategorySummary
+    VerifyScope3 --> Cat6 --> CategorySummary
+    VerifyScope3 --> Cat7 --> CategorySummary
+    VerifyScope3 --> Cat8 --> CategorySummary
+    VerifyScope3 --> Cat9 --> CategorySummary
+    VerifyScope3 --> Cat10 --> CategorySummary
+    VerifyScope3 --> Cat11 --> CategorySummary
+    VerifyScope3 --> Cat12 --> CategorySummary
+    VerifyScope3 --> Cat13 --> CategorySummary
+    VerifyScope3 --> Cat14 --> CategorySummary
+    VerifyScope3 --> Cat15 --> CategorySummary
 
-    VerifyScope3 --> Cat1 --> AssessmentReview
-    VerifyScope3 --> Cat2 --> AssessmentReview
-    VerifyScope3 --> Cat3 --> AssessmentReview
-    VerifyScope3 --> Cat4 --> AssessmentReview
-    VerifyScope3 --> Cat5 --> AssessmentReview
-    VerifyScope3 --> Cat6 --> AssessmentReview
-    VerifyScope3 --> Cat7 --> AssessmentReview
-    VerifyScope3 --> Cat8 --> AssessmentReview
-    VerifyScope3 --> Cat9 --> AssessmentReview
-    VerifyScope3 --> Cat10 --> AssessmentReview
-    VerifyScope3 --> Cat11 --> AssessmentReview
-    VerifyScope3 --> Cat12 --> AssessmentReview
-    VerifyScope3 --> Cat13 --> AssessmentReview
-    VerifyScope3 --> Cat14 --> AssessmentReview
-    VerifyScope3 --> Cat15 --> AssessmentReview
-
-
-    AssessmentReview --> API.Update
+    CalcReview --> API.Update
+    CategorySummary --> API.Update
 
 
     CheckDB{Exists in API?}
