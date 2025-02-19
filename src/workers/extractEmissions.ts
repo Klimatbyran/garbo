@@ -38,6 +38,12 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
       children: [
         {
           ...base,
+          name: 'emissionsAssessment ' + companyName,
+          queueName: 'emissionsAssessment',
+          data: base.data,
+        },
+        {
+          ...base,
           name: 'industryGics ' + companyName,
           data: {
             ...base.data,
