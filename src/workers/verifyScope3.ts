@@ -32,30 +32,23 @@ const verifyScope3 = new DiscordWorker<VerifyScope3Job>(
       5
     )
 
+    const {
+      default: { schema, prompt, queryTexts },
+    } = await import('../prompts/followUp/verifyScope3')
+
     const response = await askStream(
       [
         {
           role: 'system',
-          content:
-            'You are an expert in GHG Protocol Scope 3 reporting requirements.',
+          content: 'You are an expert in GHG Protocol Scope 3 reporting requirements.'
         },
         {
           role: 'user',
-          content: `Analyze the scope 3 reporting for ${companyName} (${industry}). 
-          
-Current scope 3 data:
-${JSON.stringify(scope3Data, null, 2)}
-
-Missing categories: ${missingCategories.join(', ')}
-
-Context from report:
-${markdown}
-
-Provide a detailed analysis of why these categories are missing and if they should be material for this type of company.`,
-        },
+          content: `Analyze the scope 3 reporting for ${companyName} (${industry}):\n${JSON.stringify({ scope3Data, missingCategories, markdown }, null, 2)}\n\n${prompt}`
+        }
       ],
       {
-        response_format: { type: 'json_schema' },
+        response_format: zodResponseFormat(schema, 'verify-scope3')
       }
     )
 
