@@ -18,27 +18,55 @@ Some of the following steps will be performed in parallel and most will be async
 
 ```mermaid
 flowchart TB
-
     PDF[PDF]
     Cache{Is in cache?}
     NLM[Parse PDF]
     Tables[Extract Tables]
     Emissions[Extract Emissions]
+    Assessment[Emissions Assessment]
+    VerifyScope3[Verify Scope 3]
+    VerifyCalc[Verify Calculations]
 
     Industry[Industry]
+    GICS[GICS Industry]
+    NACE[NACE Industry]
     Goals[Climate Goals]
     Review[Discord Review]
+
+    subgraph Scope3Categories[Scope 3 Category Estimation]
+        Cat1[Category 1]
+        Cat2[Category 2]
+        Cat3[Category 3]
+        Cat4[Category 4]
+        Cat5[Category 5]
+        Cat6[Category 6]
+        Cat7[Category 7]
+        Cat8[Category 8]
+        Cat9[Category 9]
+        Cat10[Category 10]
+        Cat11[Category 11]
+        Cat12[Category 12]
+        Cat13[Category 13]
+        Cat14[Category 14]
+        Cat15[Category 15]
+    end
 
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
 
     PDF --> Cache --(no)--> NLM --> Tables --> Precheck
-
     Cache --(yes)--> Precheck
+
+    Emissions --> Assessment
+    Assessment --> VerifyScope3
+    Assessment --> VerifyCalc
+    
+    VerifyScope3 --> Scope3Categories
 
     CheckDB{Exists in API?}
 
-    Emissions --(followUp)--> Industry --> CheckDB --(yes)--> Review --> API.Industry
+    Emissions --(followUp)--> GICS --> CheckDB --(yes)--> Review --> API.Industry
+    Emissions --(followUp)--> NACE --> CheckDB --(yes)--> Review --> API.Industry
                                            CheckDB --(no)--> API.Industry
     Emissions --(followUp)--> Scope1+2 --> CheckDB --(yes)--> Review --> API.Emissions
                                            CheckDB --(no)--> API.Emissions
@@ -51,7 +79,7 @@ flowchart TB
     Emissions --(followUp)--> Initiatives --> CheckDB --(yes)--> Review --> API.Initiatives
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Turnover --> CheckDB --(yes)--> Review --> API.Economy
-                                           CheckDB --(no)--> API.Initiatives
+                                           CheckDB --(no)--> API.Economy
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
 ```
