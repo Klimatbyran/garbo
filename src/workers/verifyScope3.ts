@@ -198,17 +198,34 @@ Next steps:
       })
     }
 
-    // After triggering all category estimations, add a job to summarize them
+    // Create a flow for category estimations and summarization
+    const flow = new FlowProducer({ connection: redis })
+    
     const latestYear = Math.max(
       ...(emissionsData.scope12?.map(d => d.year) || []),
       ...(emissionsData.scope3?.map(d => d.year) || []),
       new Date().getFullYear() - 1
     )
 
-    await job.queue.add('summarizeCategories', {
-      ...job.data,
-      year: latestYear,
-      categoryAnalyses: {} // This will be populated by the category workers
+    const categoryJobs = missingCategories.map(category => ({
+      name: `estimateCategory${category}`,
+      queueName: `estimateCategory${category}`,
+      data: {
+        ...job.data,
+        scope12Data: emissionsData.scope12,
+        scope3Data: emissionsData.scope3,
+        economy: emissionsData.economy
+      }
+    }))
+
+    await flow.add({
+      name: 'summarizeCategories',
+      queueName: 'summarizeCategories',
+      data: {
+        ...job.data,
+        year: latestYear
+      },
+      children: categoryJobs
     })
 
     return { analysis: response }

@@ -12,10 +12,12 @@ export class SummarizeCategoriesJob extends DiscordJob {
 const summarizeCategories = new DiscordWorker<SummarizeCategoriesJob>(
   'summarizeCategories',
   async (job) => {
-    const { companyName, categoryAnalyses, year } = job.data
-
+    const { companyName, year } = job.data
+    const childrenValues = await job.getChildrenEntries()
+    
     // Convert category analyses into scope3 data structure
-    const categories = Object.entries(categoryAnalyses).map(([category, analysis]) => ({
+    const categories = Object.entries(childrenValues).map(([queueName, analysis]) => ({
+      category: parseInt(queueName.replace('estimateCategory', '')),
       category: parseInt(category),
       total: analysis.analysis.estimatedEmissions.value,
       unit: analysis.analysis.estimatedEmissions.unit
