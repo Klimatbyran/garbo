@@ -14,7 +14,7 @@ Test the app in Discord channel #reports-to-check by using the command /pdf and 
 
 ## Data Flow
 
-Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
+Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again
 
 ```mermaid
 flowchart TB
