@@ -33,23 +33,21 @@ flowchart TB
     Goals[Climate Goals]
     Review[Discord Review]
 
-    subgraph Scope3Categories[Scope 3 Category Estimation]
-        Cat1[Category 1]
-        Cat2[Category 2]
-        Cat3[Category 3]
-        Cat4[Category 4]
-        Cat5[Category 5]
-        Cat6[Category 6]
-        Cat7[Category 7]
-        Cat8[Category 8]
-        Cat9[Category 9]
-        Cat10[Category 10]
-        Cat11[Category 11]
-        Cat12[Category 12]
-        Cat13[Category 13]
-        Cat14[Category 14]
-        Cat15[Category 15]
-    end
+    Cat1[Category 1]
+    Cat2[Category 2]
+    Cat3[Category 3]
+    Cat4[Category 4]
+    Cat5[Category 5]
+    Cat6[Category 6]
+    Cat7[Category 7]
+    Cat8[Category 8]
+    Cat9[Category 9]
+    Cat10[Category 10]
+    Cat11[Category 11]
+    Cat12[Category 12]
+    Cat13[Category 13]
+    Cat14[Category 14]
+    Cat15[Category 15]
 
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
@@ -58,11 +56,29 @@ flowchart TB
     Cache --(yes)--> Precheck
 
     CheckDB --(yes)--> Review --> API.Save
-    API.Save --> Assessment
+    Review --> Assessment
     Assessment --> VerifyScope3
-    Assessment --> VerifyCalc
-    
-    VerifyScope3 --> Scope3Categories --> API.Update
+    Assessment --> VerifyCalc --> AssessmentReview
+
+    VerifyScope3 --> Cat1 --> AssessmentReview
+    VerifyScope3 --> Cat2 --> AssessmentReview
+    VerifyScope3 --> Cat3 --> AssessmentReview
+    VerifyScope3 --> Cat4 --> AssessmentReview
+    VerifyScope3 --> Cat5 --> AssessmentReview
+    VerifyScope3 --> Cat6 --> AssessmentReview
+    VerifyScope3 --> Cat7 --> AssessmentReview
+    VerifyScope3 --> Cat8 --> AssessmentReview
+    VerifyScope3 --> Cat9 --> AssessmentReview
+    VerifyScope3 --> Cat10 --> AssessmentReview
+    VerifyScope3 --> Cat11 --> AssessmentReview
+    VerifyScope3 --> Cat12 --> AssessmentReview
+    VerifyScope3 --> Cat13 --> AssessmentReview
+    VerifyScope3 --> Cat14 --> AssessmentReview
+    VerifyScope3 --> Cat15 --> AssessmentReview
+
+
+    AssessmentReview --> API.Update
+
 
     CheckDB{Exists in API?}
 
