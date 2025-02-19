@@ -62,6 +62,16 @@ Next steps:
 3. Update the scope 3 data if new information is found
 `)
 
+    // Trigger category-specific analysis for missing categories
+    if (missingCategories.includes('1')) {
+      await job.queue.add('estimateCategory1', {
+        ...job.data,
+        scope12Data: emissionsData.scope12,
+        scope3Data: emissionsData.scope3,
+        turnover: emissionsData.economy?.turnover
+      })
+    }
+
     return { analysis: response }
   }
 )
