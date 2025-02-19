@@ -1,24 +1,8 @@
 import { z } from 'zod'
-import { emissionUnitSchemaGarbo } from '../../../api/schemas'
+import { emissionUnitSchemaGarbo } from '../../api/schemas'
+import { scope3CategoryAnalysisSchema } from '../../schemas/scope3CategoryAnalysis'
 
-export const schema = z.object({
-  analysis: z.object({
-    estimatedEmissions: z.object({
-      value: z.number(),
-      unit: emissionUnitSchemaGarbo,
-      confidence: z.number().min(0).max(1),
-    }),
-    reasoning: z.string(),
-    methodology: z.string(),
-    dataGaps: z.array(z.string()),
-    recommendations: z.array(z.string()),
-    relevantFactors: z.array(z.object({
-      name: z.string(),
-      value: z.string(),
-      impact: z.enum(['HIGH', 'MEDIUM', 'LOW'])
-    }))
-  })
-})
+export const schema = scope3CategoryAnalysisSchema
 
 export const prompt = `You are an expert in Scope 3 Category 3 (Fuel and Energy-Related Activities) emissions calculations.
 
@@ -51,7 +35,7 @@ const queryTexts = [
   'Upstream fuel emissions',
   'Energy generation emissions',
   'Category 3 scope 3',
-  'Energy-related scope 3'
+  'Energy-related scope 3',
 ]
 
 export default { prompt, schema, queryTexts }

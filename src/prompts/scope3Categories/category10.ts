@@ -1,25 +1,6 @@
-import { z } from 'zod'
-import { emissionUnitSchemaGarbo } from '../../../api/schemas'
+import { scope3CategoryAnalysisSchema } from '../../schemas/scope3CategoryAnalysis'
 
-export const schema = z.object({
-  analysis: z.object({
-    estimatedEmissions: z.object({
-      value: z.number(),
-      unit: emissionUnitSchemaGarbo,
-      confidence: z.number().min(0).max(1),
-    }),
-    reasoning: z.string(),
-    methodology: z.string(),
-    dataGaps: z.array(z.string()),
-    recommendations: z.array(z.string()),
-    relevantFactors: z.array(z.object({
-      name: z.string(),
-      value: z.string(),
-      impact: z.enum(['HIGH', 'MEDIUM', 'LOW'])
-    }))
-  })
-})
-
+export const schema = scope3CategoryAnalysisSchema
 export const prompt = `You are an expert in Scope 3 Category 10 (Processing of Sold Products) emissions calculations.
 
 Analyze the company's sold products that require further processing to estimate Category 10 emissions.
@@ -52,7 +33,7 @@ const queryTexts = [
   'Manufacturing emissions',
   'Value chain processing',
   'Category 10 scope 3',
-  'Product transformation'
+  'Product transformation',
 ]
 
 export default { prompt, schema, queryTexts }

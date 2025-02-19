@@ -1,24 +1,6 @@
-import { z } from 'zod'
-import { emissionUnitSchemaGarbo } from '../../../api/schemas'
+import { scope3CategoryAnalysisSchema } from '../../schemas/scope3CategoryAnalysis'
 
-export const schema = z.object({
-  analysis: z.object({
-    estimatedEmissions: z.object({
-      value: z.number(),
-      unit: emissionUnitSchemaGarbo,
-      confidence: z.number().min(0).max(1),
-    }),
-    reasoning: z.string(),
-    methodology: z.string(),
-    dataGaps: z.array(z.string()),
-    recommendations: z.array(z.string()),
-    relevantFactors: z.array(z.object({
-      name: z.string(),
-      value: z.string(),
-      impact: z.enum(['HIGH', 'MEDIUM', 'LOW'])
-    }))
-  })
-})
+export const schema = scope3CategoryAnalysisSchema
 
 export const prompt = `You are an expert in Scope 3 Category 6 (Business Travel) emissions calculations.
 
@@ -51,7 +33,7 @@ const queryTexts = [
   'Travel policy',
   'Corporate travel',
   'Category 6 scope 3',
-  'Travel carbon footprint'
+  'Travel carbon footprint',
 ]
 
 export default { prompt, schema, queryTexts }

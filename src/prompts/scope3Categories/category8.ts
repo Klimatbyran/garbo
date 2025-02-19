@@ -1,25 +1,6 @@
-import { z } from 'zod'
-import { emissionUnitSchemaGarbo } from '../../../api/schemas'
+import { scope3CategoryAnalysisSchema } from '../../schemas/scope3CategoryAnalysis'
 
-export const schema = z.object({
-  analysis: z.object({
-    estimatedEmissions: z.object({
-      value: z.number(),
-      unit: emissionUnitSchemaGarbo,
-      confidence: z.number().min(0).max(1),
-    }),
-    reasoning: z.string(),
-    methodology: z.string(),
-    dataGaps: z.array(z.string()),
-    recommendations: z.array(z.string()),
-    relevantFactors: z.array(z.object({
-      name: z.string(),
-      value: z.string(),
-      impact: z.enum(['HIGH', 'MEDIUM', 'LOW'])
-    }))
-  })
-})
-
+export const schema = scope3CategoryAnalysisSchema
 export const prompt = `You are an expert in Scope 3 Category 8 (Upstream Leased Assets) emissions calculations.
 
 Analyze the company's upstream leased assets to estimate Category 8 emissions.
@@ -52,7 +33,7 @@ const queryTexts = [
   'Leasing arrangements',
   'Equipment rental',
   'Category 8 scope 3',
-  'Lease agreements'
+  'Lease agreements',
 ]
 
 export default { prompt, schema, queryTexts }
