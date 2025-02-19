@@ -153,6 +153,15 @@ Next steps:
       })
     }
 
+    if (missingCategories.includes('11')) {
+      await job.queue.add('estimateCategory11', {
+        ...job.data,
+        scope12Data: emissionsData.scope12,
+        scope3Data: emissionsData.scope3,
+        economy: emissionsData.economy
+      })
+    }
+
     return { analysis: response }
   }
 )
