@@ -19,7 +19,8 @@ export const workers = fs
 // Add manual registration of new workers that might not be in the directory yet
 const additionalWorkers = [
   'verifyScope3',
-  'verifyCalculations'
+  'verifyCalculations',
+  'naceIndustry'
 ]
 
 additionalWorkers.forEach(name => {

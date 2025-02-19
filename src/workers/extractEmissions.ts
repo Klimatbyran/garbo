@@ -52,6 +52,12 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         },
         {
           ...base,
+          name: 'naceIndustry ' + companyName,
+          queueName: 'naceIndustry',
+          data: base.data,
+        },
+        {
+          ...base,
           name: 'scope1+2 ' + companyName,
           data: {
             ...base.data,
