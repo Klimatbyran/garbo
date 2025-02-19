@@ -66,6 +66,33 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
           body: removeNullValuesFromGarbo(body),
         })
+
+        // After successful save of emissions data, trigger assessment
+        if (apiSubEndpoint === 'reporting-periods') {
+          await job.queue.add('emissionsAssessment', {
+            ...job.data,
+            scope12: body.reportingPeriods?.[0]?.emissions?.scope1 && body.reportingPeriods?.[0]?.emissions?.scope2 
+              ? [{ 
+                  year: body.reportingPeriods[0].year,
+                  scope1: body.reportingPeriods[0].emissions.scope1,
+                  scope2: body.reportingPeriods[0].emissions.scope2
+                }]
+              : undefined,
+            scope3: body.reportingPeriods?.[0]?.emissions?.scope3
+              ? [{ 
+                  year: body.reportingPeriods[0].year,
+                  scope3: body.reportingPeriods[0].emissions.scope3
+                }]
+              : undefined,
+            biogenic: body.reportingPeriods?.[0]?.emissions?.biogenic
+              ? [{
+                  year: body.reportingPeriods[0].year,
+                  biogenic: body.reportingPeriods[0].emissions.biogenic
+                }]
+              : undefined
+          })
+        }
+
         return { success: true }
       }
 

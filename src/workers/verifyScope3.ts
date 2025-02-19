@@ -198,6 +198,19 @@ Next steps:
       })
     }
 
+    // After triggering all category estimations, add a job to summarize them
+    const latestYear = Math.max(
+      ...(emissionsData.scope12?.map(d => d.year) || []),
+      ...(emissionsData.scope3?.map(d => d.year) || []),
+      new Date().getFullYear() - 1
+    )
+
+    await job.queue.add('summarizeCategories', {
+      ...job.data,
+      year: latestYear,
+      categoryAnalyses: {} // This will be populated by the category workers
+    })
+
     return { analysis: response }
   }
 )
