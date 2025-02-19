@@ -57,11 +57,12 @@ flowchart TB
     PDF --> Cache --(no)--> NLM --> Tables --> Precheck
     Cache --(yes)--> Precheck
 
-    Emissions --> Assessment
+    CheckDB --(yes)--> Review --> API.Save
+    API.Save --> Assessment
     Assessment --> VerifyScope3
     Assessment --> VerifyCalc
     
-    VerifyScope3 --> Scope3Categories
+    VerifyScope3 --> Scope3Categories --> API.Update
 
     CheckDB{Exists in API?}
 
