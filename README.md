@@ -56,28 +56,37 @@ flowchart TB
     Cache --(yes)--> Precheck
 
     CheckDB --(yes)--> Review --> API.Save
-    Review --> Assessment
-    Assessment --> VerifyScope3
-    Assessment --> VerifyCalc --> AssessmentReview
+    
+    subgraph Assessment [Emissions Assessment]
+      API.Save --> Assessment
+      Assessment --> VerifyScope3
+      Assessment --> VerifyCalc
+      
+      VerifyCalc --> CalcReview[Calculation Review]
+      
+      subgraph CategoryEstimation [Category Estimation]
+        VerifyScope3 --> Cat1
+        VerifyScope3 --> Cat2
+        VerifyScope3 --> Cat3
+        VerifyScope3 --> Cat4
+        VerifyScope3 --> Cat5
+        VerifyScope3 --> Cat6
+        VerifyScope3 --> Cat7
+        VerifyScope3 --> Cat8
+        VerifyScope3 --> Cat9
+        VerifyScope3 --> Cat10
+        VerifyScope3 --> Cat11
+        VerifyScope3 --> Cat12
+        VerifyScope3 --> Cat13
+        VerifyScope3 --> Cat14
+        VerifyScope3 --> Cat15
+      end
+      
+      Cat1 & Cat2 & Cat3 & Cat4 & Cat5 & Cat6 & Cat7 & Cat8 & Cat9 & Cat10 & Cat11 & Cat12 & Cat13 & Cat14 & Cat15 --> CategorySummary[Category Summary]
+    end
 
-    VerifyScope3 --> Cat1 --> AssessmentReview
-    VerifyScope3 --> Cat2 --> AssessmentReview
-    VerifyScope3 --> Cat3 --> AssessmentReview
-    VerifyScope3 --> Cat4 --> AssessmentReview
-    VerifyScope3 --> Cat5 --> AssessmentReview
-    VerifyScope3 --> Cat6 --> AssessmentReview
-    VerifyScope3 --> Cat7 --> AssessmentReview
-    VerifyScope3 --> Cat8 --> AssessmentReview
-    VerifyScope3 --> Cat9 --> AssessmentReview
-    VerifyScope3 --> Cat10 --> AssessmentReview
-    VerifyScope3 --> Cat11 --> AssessmentReview
-    VerifyScope3 --> Cat12 --> AssessmentReview
-    VerifyScope3 --> Cat13 --> AssessmentReview
-    VerifyScope3 --> Cat14 --> AssessmentReview
-    VerifyScope3 --> Cat15 --> AssessmentReview
-
-
-    AssessmentReview --> API.Update
+    CalcReview --> API.Update[API Update Emissions]
+    CategorySummary --> API.Update
 
 
     CheckDB{Exists in API?}
