@@ -7,7 +7,12 @@ export class DiffGoalsJob extends DiscordJob {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
-    goals: any
+    goals: {
+      description: string,
+      year?: string,
+      target?: number,
+      baseYear?: string,
+    }
   }
 }
 

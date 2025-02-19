@@ -7,7 +7,7 @@ export class DiffBaseYearJob extends DiscordJob {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
-    baseYear: any
+    baseYear?: number
   }
 }
 

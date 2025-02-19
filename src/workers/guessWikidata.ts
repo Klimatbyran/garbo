@@ -7,6 +7,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
 import discord from '../discord'
 import apiConfig from '../config/api'
+import { ChatCompletionMessageParam } from 'openai/resources'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -139,10 +140,8 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
           Array.isArray(job.stacktrace)
             ? { role: 'user', content: job.stacktrace.join('\n') }
             : undefined,
-        ].filter((m) => m && m.content?.length > 0) as any[],
-        {
-          response_format: zodResponseFormat(wikidata.schema, 'wikidata'),
-        }
+        ].filter((m) => m && m.content?.length > 0) as ChatCompletionMessageParam[],
+        {response_format: zodResponseFormat(wikidata.schema, 'wikidata')}
       )
 
       job.log('Response: ' + response)

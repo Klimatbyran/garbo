@@ -107,12 +107,12 @@ const blockToMarkdown = (block: Block) => {
 }
 
 export const calculateBoundingBoxForTable = (
-  table: any,
+  table: Table,
   pageWidth: number,
   pageHeight: number
 ) => {
   const { bbox } = table
-  const [x1, y1, x2, y2] = bbox
+  const [x1, y1, x2] = bbox
   const padding = 15
   const rowHeight = 45
   const x = Math.round(x1 * 2) - padding
@@ -165,7 +165,7 @@ export const jsonToTables = (json: ParsedDocument) => {
 
 export type Table = {
   page_idx: number
-  rows: any[]
+  rows: object[]
   bbox: number[]
   name: string
   level: number

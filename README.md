@@ -1,8 +1,8 @@
 # Klimatkollen Garbo AI
 
-This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data
 
-Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously
+Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
@@ -99,8 +99,6 @@ The simplest way to start the containers is to run the following docker commands
 docker-compose up
 ```
 
-````
-
 You may want a graphical user interface to make it easier to manage your local containers. [Podman desktop](https://podman-desktop.io/) and [Rancher desktop](https://rancherdesktop.io/) are both good alternatives
 
 ### Seeding the database for development
@@ -109,7 +107,7 @@ This applies migrations and seeding data needed for development. It also generat
 
 ```sh
 npm run prisma migrate dev
-````
+```
 
 ### Optional: Restoring a database backup with test data
 
@@ -132,7 +130,7 @@ docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downl
 
 ### Starting the Garbo project in development mode
 
-The code can be started in three main ways, depending on what you plan to develop/test/run locally.
+The code can be started in three main ways, depending on what you plan to develop/test/run locally
 
 #### 1) To serve only the API:
 

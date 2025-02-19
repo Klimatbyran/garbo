@@ -39,9 +39,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
       let municipalities = await redisCache.get(cacheKey)
 
-      if (municipalities) {
-        municipalities = JSON.parse(municipalities)
-      } else {
+      if (!municipalities) {
         municipalities = municipalityService.getMunicipalities()
         await redisCache.set(cacheKey, JSON.stringify(municipalities))
       }
