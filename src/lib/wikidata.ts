@@ -17,10 +17,6 @@ const wikibaseEditConfig = {
 const {
   TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
   GHG_PROTOCOL,
-  SCOPE_1,
-  SCOPE_2_MARKET_BASED,
-  SCOPE_2_LOCATION_BASED,
-  SCOPE_3
 } = wikidataConfig.entities;
 
 const {
@@ -75,109 +71,79 @@ export async function getWikidataEntities(ids: EntityId[]) {
   })[]
 }
 
-export async function findCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, scope?: string, category?: string): Promise<{guid: string, referenceHash?: string}|undefined> {
+export async function getClaims(entity: ItemId) {
   const url = wbk.getEntities({
       ids: entity,
       languages: ["en"]
   })
+  console.log("this");
 
-  const { entities } = await fetch(url).then(res => res.json());
-
-  if(entities[entity].claims !== undefined && entities[entity].claims[CARBON_FOOTPRINT] !== undefined) {
-      const propertyClaims = entities[entity].claims[CARBON_FOOTPRINT];
-      for(const claim of propertyClaims) {
-          const qualifiers = claim.qualifiers;     
-          if(qualifiers[START_TIME] === undefined || qualifiers[START_TIME][0].datavalue.value.time !== startDate) {
-              continue;
-          }
-          if(qualifiers[END_TIME] === undefined || qualifiers[END_TIME][0].datavalue.value.time !== endDate) {
-              continue;
-          }
-          if( (scope === undefined && qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] !== undefined) ||
-              (scope !== undefined && (qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] === undefined || qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id !== scope))) {
-              continue;
-          }
-          if( (category === undefined && qualifiers[APPLIES_TO_PART] !== undefined) ||
-              (category !== undefined && (qualifiers[APPLIES_TO_PART] === undefined || qualifiers[APPLIES_TO_PART][0].datavalue.value.id !== category))) {
-              continue;
-          }
-          if(claim.references !== undefined && claim.references.length > 0) {
-            return {guid: claim.id, referenceHash: claim.references[0].hash};
-          } else {
-            return {guid: claim.id};
-          }
-
-          
-      }
-  } 
-
-  return undefined;
+  return fetch(url).then(res => res.json());
 }
 
-export async function createOrEditCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, value: string, referenceUrl: string, scope?: ItemId, category?: ItemId) {
-  if(scope === undefined && category !== undefined) {
-      throw new Error("Cannot have a category without a scope");
-  }  
+export async function updateClaim(guid: string, value: string) {
   const wbEdit = WBEdit(wikibaseEditConfig)
-  const claim = await findCarbonFootprintClaim(entity, startDate, endDate, scope, category);
-  if(claim !== undefined) {
-      const {guid, referenceHash} = claim;
-      const claimUpdate = {
-          guid,
-          newValue:  {
-              amount: value,
-              unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
-          },
-          references: [
-              {[REFERENCE_URL]: referenceUrl}
-          ]
-      }    
-      await wbEdit.claim.update(claimUpdate);
-      if(referenceHash !== undefined) {
-        wbEdit.reference.set({
-          guid,
-          hash: referenceHash,
-          snaks: {
-            [REFERENCE_URL]: referenceUrl
-          }
-        })
-      } else {
-        wbEdit.reference.set({
-          guid,
-          snaks: {
-            [REFERENCE_URL]: 'https://example.org/rise-and-fall-of-the-holy-sand-box'
-          }
-        })
+  const claimUpdate = {
+      guid,
+      newValue:  {
+          amount: value,
+          unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
       }
-  } else {
-      const claimCreate = {
-          id: entity,
-          property: CARBON_FOOTPRINT,
-          value: {
-              amount: value,
-              unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
-          },
-          qualifiers: {
-              [START_TIME]: startDate,
-              [END_TIME]: endDate,
-              [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
-          },
-          references: [
-              {[REFERENCE_URL]: referenceUrl}
-          ]
-      };
-
-      if(scope !== undefined) {
-          claimCreate.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = scope;
-      }
-
-      if(category !== undefined) {
-          claimCreate.qualifiers[APPLIES_TO_PART] = category;
-      }
-
-      await wbEdit.claim.create(claimCreate);
-  }
+  }    
+  await wbEdit.claim.update(claimUpdate);
 }
+
+export async function updateReference(guid: string, referenceUrl: string, referenceHash: string) {
+  const wbEdit = WBEdit(wikibaseEditConfig)
+  wbEdit.reference.set({
+    guid,
+    hash: referenceHash,
+    snaks: {
+      [REFERENCE_URL]: referenceUrl
+    }
+  })
+}
+
+export async function createReference(guid: string, referenceUrl: string) {
+  const wbEdit = WBEdit(wikibaseEditConfig)
+  wbEdit.reference.set({
+    guid,
+    snaks: {
+      [REFERENCE_URL]: referenceUrl
+    }
+  })
+}
+
+export async function createClaim(entity: ItemId, startDate: string, endDate: string, value: string, referenceUrl: string, scope?: ItemId, category?: ItemId) {
+  const wbEdit = WBEdit(wikibaseEditConfig);
+  const claimCreate = {
+    id: entity,
+    property: CARBON_FOOTPRINT,
+    value: {
+        amount: value,
+        unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
+    },
+    qualifiers: {
+        [START_TIME]: startDate,
+        [END_TIME]: endDate,
+        [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
+    },
+    references: [
+        {[REFERENCE_URL]: referenceUrl}
+    ]
+  };
+
+  if(scope !== undefined) {
+      claimCreate.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = scope;
+  }
+
+  if(category !== undefined) {
+      claimCreate.qualifiers[APPLIES_TO_PART] = category;
+  }
+
+  await wbEdit.claim.create(claimCreate);
+}
+
 export async function getWikipediaTitle(id: EntityId): Promise<string> {
   const url = wbk.getEntities({
     ids: [id],
@@ -194,107 +160,4 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   }
 
   return title
-}
-export async function findCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, scope?: string, category?: string): Promise<{guid: string, referenceHash?: string}|undefined> {
-  const url = wbk.getEntities({
-      ids: entity,
-      languages: ["en"]
-  })
-
-  const { entities } = await fetch(url).then(res => res.json());
-
-  if(entities[entity].claims !== undefined && entities[entity].claims[CARBON_FOOTPRINT] !== undefined) {
-      const propertyClaims = entities[entity].claims[CARBON_FOOTPRINT];
-      for(const claim of propertyClaims) {
-          const qualifiers = claim.qualifiers;     
-          if(qualifiers[START_TIME] === undefined || qualifiers[START_TIME][0].datavalue.value.time !== startDate) {
-              continue;
-          }
-          if(qualifiers[END_TIME] === undefined || qualifiers[END_TIME][0].datavalue.value.time !== endDate) {
-              continue;
-          }
-          if( (scope === undefined && qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] !== undefined) ||
-              (scope !== undefined && (qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] === undefined || qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id !== scope))) {
-              continue;
-          }
-          if( (category === undefined && qualifiers[APPLIES_TO_PART] !== undefined) ||
-              (category !== undefined && (qualifiers[APPLIES_TO_PART] === undefined || qualifiers[APPLIES_TO_PART][0].datavalue.value.id !== category))) {
-              continue;
-          }
-          if(claim.references !== undefined && claim.references.length > 0) {
-            return {guid: claim.id, referenceHash: claim.references[0].hash};
-          } else {
-            return {guid: claim.id};
-          }
-
-          
-      }
-  } 
-
-  return undefined;
-}
-
-export async function createOrEditCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, value: string, referenceUrl: string, scope?: ItemId, category?: ItemId) {
-  if(scope === undefined && category !== undefined) {
-      throw new Error("Cannot have a category without a scope");
-  }  
-  const wbEdit = WBEdit(wikibaseEditConfig)
-  const claim = await findCarbonFootprintClaim(entity, startDate, endDate, scope, category);
-  if(claim !== undefined) {
-      const {guid, referenceHash} = claim;
-      const claimUpdate = {
-          guid,
-          newValue:  {
-              amount: value,
-              unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
-          },
-          references: [
-              {[REFERENCE_URL]: referenceUrl}
-          ]
-      }    
-      await wbEdit.claim.update(claimUpdate);
-      if(referenceHash !== undefined) {
-        wbEdit.reference.set({
-          guid,
-          hash: referenceHash,
-          snaks: {
-            [REFERENCE_URL]: referenceUrl
-          }
-        })
-      } else {
-        wbEdit.reference.set({
-          guid,
-          snaks: {
-            [REFERENCE_URL]: 'https://example.org/rise-and-fall-of-the-holy-sand-box'
-          }
-        })
-      }
-  } else {
-      const claimCreate = {
-          id: entity,
-          property: CARBON_FOOTPRINT,
-          value: {
-              amount: value,
-              unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
-          },
-          qualifiers: {
-              [START_TIME]: startDate,
-              [END_TIME]: endDate,
-              [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
-          },
-          references: [
-              {[REFERENCE_URL]: referenceUrl}
-          ]
-      };
-
-      if(scope !== undefined) {
-          claimCreate.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = scope;
-      }
-
-      if(category !== undefined) {
-          claimCreate.qualifiers[APPLIES_TO_PART] = category;
-      }
-
-      await wbEdit.claim.create(claimCreate);
-  }
 }
