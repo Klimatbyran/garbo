@@ -30,7 +30,7 @@ Consider:
 3. Reported capital expenditure and its relationship to emissions
 4. Industry benchmarks for emissions from capital goods
 5. Typical emission factors for different types of capital equipment
-6. Asset depreciation periods and replacement cycles
+6. Asset replacement cycles
 7. Any partial Category 2 data that may be reported
 
 Provide a detailed analysis including:
