@@ -198,7 +198,7 @@ Next steps:
       })
     }
 
-    // Create a flow for category estimations and summarization
+    // Create flows for category estimations based on analysis
     const flow = new FlowProducer({ connection: redis })
     
     const latestYear = Math.max(
@@ -207,26 +207,44 @@ Next steps:
       new Date().getFullYear() - 1
     )
 
-    const categoryJobs = missingCategories.map(category => ({
-      name: `estimateCategory${category}`,
-      queueName: `estimateCategory${category}`,
-      data: {
-        ...job.data,
-        scope12Data: emissionsData.scope12,
-        scope3Data: emissionsData.scope3,
-        economy: emissionsData.economy
-      }
-    }))
+    // Create category estimation flows based on materiality analysis
+    const materialCategories = missingCategories.filter(category => {
+      // Check if this category was mentioned as material in the analysis
+      return response.toLowerCase().includes(`category ${category}`) && 
+             response.toLowerCase().includes('material');
+    });
 
-    await flow.add({
-      name: 'summarizeCategories',
-      queueName: 'summarizeCategories',
-      data: {
-        ...job.data,
-        year: latestYear
-      },
-      children: categoryJobs
-    })
+    if (materialCategories.length > 0) {
+      // Create a flow for each material category
+      const categoryFlows = materialCategories.map(category => ({
+        name: `estimateCategory${category}-${job.data.companyName}`,
+        queueName: `estimateCategory${category}`,
+        data: {
+          ...job.data,
+          scope12Data: emissionsData.scope12,
+          scope3Data: emissionsData.scope3,
+          economy: emissionsData.economy,
+          industry: job.data.industry
+        }
+      }));
+
+      // Create a summarization flow that depends on all category estimations
+      await flow.add({
+        name: `summarizeCategories-${job.data.companyName}`,
+        queueName: 'summarizeCategories',
+        data: {
+          ...job.data,
+          year: latestYear,
+          categories: materialCategories
+        },
+        children: categoryFlows
+      });
+
+      await job.sendMessage(`
+📊 Starting estimation for ${materialCategories.length} material Scope 3 categories:
+${materialCategories.map(c => `- Category ${c}`).join('\n')}
+`);
+    }
 
     return { analysis: response }
   }
