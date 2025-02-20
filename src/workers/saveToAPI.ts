@@ -66,6 +66,64 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
           body: removeNullValuesFromGarbo(body),
         })
+
+        // After successful save and approval of emissions data, trigger assessment
+        if (apiSubEndpoint === 'reporting-periods' && (approved || !requiresApproval)) {
+          const flow = new FlowProducer({ connection: redis })
+          
+          const reportingPeriod = body.reportingPeriods?.[0]
+          if (reportingPeriod?.emissions) {
+            const assessmentData = {
+              scope12: reportingPeriod.emissions.scope1 && reportingPeriod.emissions.scope2 
+                ? [{ 
+                    year: reportingPeriod.year,
+                    scope1: reportingPeriod.emissions.scope1,
+                    scope2: reportingPeriod.emissions.scope2
+                  }]
+                : undefined,
+              scope3: reportingPeriod.emissions.scope3
+                ? [{ 
+                    year: reportingPeriod.year,
+                    scope3: reportingPeriod.emissions.scope3
+                  }]
+                : undefined,
+              biogenic: reportingPeriod.emissions.biogenic
+                ? [{
+                    year: reportingPeriod.year,
+                    biogenic: reportingPeriod.emissions.biogenic
+                  }]
+                : undefined
+            }
+
+            await flow.add({
+              name: `emissionsAssessment-${job.data.companyName}`,
+              queueName: 'emissionsAssessment',
+              data: {
+                ...job.data,
+                ...assessmentData
+              },
+              children: [
+                {
+                  name: `verifyScope3-${job.data.companyName}`,
+                  queueName: 'verifyScope3',
+                  data: {
+                    ...job.data,
+                    ...assessmentData
+                  }
+                },
+                {
+                  name: `verifyCalculations-${job.data.companyName}`,
+                  queueName: 'verifyCalculations', 
+                  data: {
+                    ...job.data,
+                    ...assessmentData
+                  }
+                }
+              ]
+            })
+          }
+        }
+
         return { success: true }
       }
 
