@@ -3,7 +3,7 @@ import fp from 'fastify-plugin'
 import { User } from '@prisma/client'
 
 import apiConfig from '../../config/api'
-import { prisma } from '../../lib/prisma'
+import { authService } from '../services/authService'
 
 declare module 'fastify' {
   export interface FastifyRequest {
@@ -29,22 +29,13 @@ async function authPlugin(app: FastifyInstance) {
       if (!token || !apiConfig.tokens?.includes(token)) {
         return reply.status(401).send(unauthorizedError)
       }
+    
+      const {user, newToken} = authService.verifyUser(token);
 
-      const [username] = token.split(':')
-      const userEmail =
-        username === 'garbo'
-          ? apiConfig.authorizedUsers.garbo
-          : apiConfig.authorizedUsers.alex
-
-      const user = await prisma.user.findFirst({
-        where: { email: userEmail },
-      })
-
-      if (!user?.id) {
-        return reply.status(401).send(unauthorizedError)
+      if(newToken !== undefined) {
+        reply.headers["x-auth-token"] = newToken;
       }
-
-      request.user = user
+      request.user = user;
     } catch {
       return reply.status(401).send(unauthorizedError)
     }

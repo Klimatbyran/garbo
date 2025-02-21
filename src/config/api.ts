@@ -20,6 +20,12 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
   NODE_ENV: z.enum(['development', 'production']).default('production'),
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
+  GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
+  SESSION_SECRET: z.string().default("AlfAEoyioIt21iu6EUSOd8yKtwUS0nyl"),
+  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
+  JWT_EXPIRES_IN: z.string().default("3600")
 })
 
 const env = envSchema.parse(process.env)
@@ -61,6 +67,12 @@ const apiConfig = {
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
+  githubClientId: env.GITHUB_CLIENT_ID,
+  githubClientSecret: env.GITHUB_CLIENT_SECRET,
+  githubOrganization: env.GITHUB_ORGANIZATION,
+  sessionSecret: env.SESSION_SECRET,
+  jwtSecret: env.JWT_SECRET,
+  jwtExpiresIn: env.JWT_EXPIRES_IN,
 
   municipalityDataPath: resolve(
     import.meta.dirname,
