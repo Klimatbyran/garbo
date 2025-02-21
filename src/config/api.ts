@@ -23,9 +23,7 @@ const envSchema = z.object({
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
-  NODE_ENV: z
-  .enum(['development', 'staging', 'production'])
-  .default('production'),
+  NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
   GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
