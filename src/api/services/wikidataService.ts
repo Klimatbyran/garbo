@@ -24,13 +24,14 @@ class WikidataService {
     if(entities[entity].claims !== undefined && entities[entity].claims[CARBON_FOOTPRINT] !== undefined) {
         const propertyClaims = entities[entity].claims[CARBON_FOOTPRINT];
         for(const claim of propertyClaims) {
-            const qualifiers = claim.qualifiers;     
+            const qualifiers = claim.qualifiers;    
             if(qualifiers[START_TIME] === undefined || qualifiers[START_TIME][0].datavalue.value.time !== startDate) {
                 continue;
             }
             if(qualifiers[END_TIME] === undefined || qualifiers[END_TIME][0].datavalue.value.time !== endDate) {
                 continue;
             }
+            
             if( (scope === undefined && qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] !== undefined) ||
                 (scope !== undefined && (qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] === undefined || qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id !== scope))) {
                 continue;
@@ -52,12 +53,14 @@ class WikidataService {
     return undefined;
   }
 
-  async createOrEditCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, value: string, referenceUrl: string, scope?: ItemId, category?: ItemId) {
+
+
+  async createOrEditCarbonFootprintClaim(entity: ItemId, startDate: Date, endDate: Date, value: string, referenceUrl: string, scope?: ItemId, category?: ItemId) {
     if(scope === undefined && category !== undefined) {
         throw new Error("Cannot have a category without a scope");
     }  
-    const claim = await this.findCarbonFootprintClaim(entity, startDate, endDate, scope, category);
-    console.log(claim);
+    const claim = await this.findCarbonFootprintClaim(entity, this.transformToWikidataDateString(startDate), this.transformToWikidataDateString(endDate),
+    scope, category);
     if(claim !== undefined) {
         const {guid, referenceHash} = claim;
       	await updateClaim(guid, value);
@@ -67,8 +70,12 @@ class WikidataService {
           await createReference(guid, referenceUrl)
         }
     } else {
-        await createClaim(entity, startDate, endDate, value, referenceUrl, scope, category);
+        await createClaim(entity, startDate.toISOString(), endDate.toISOString(), value, referenceUrl, scope, category);
     }
+  }
+  
+  transformToWikidataDateString(date: Date) {
+    return "+" + date.toISOString().substring(0, 19) + "Z";
   }
 }
 

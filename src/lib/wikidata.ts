@@ -11,7 +11,11 @@ const wbk = WBK({
 
 const wikibaseEditConfig = {
   instance: wikidataConfig.wikidataURL,
-  anonymous: true
+  credentials: {
+    username: 'KlimatkollenGarboBot',
+    password: 'Cws7k0Nhj0VtH217OhUn110MtRWGywX0@nvebi3t9for7ti5bgnllh87i72cvukku'
+  },
+  userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
 }
 
 const {
@@ -76,7 +80,6 @@ export async function getClaims(entity: ItemId) {
       ids: entity,
       languages: ["en"]
   })
-  console.log("this");
 
   return fetch(url).then(res => res.json());
 }
