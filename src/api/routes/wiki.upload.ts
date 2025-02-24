@@ -37,7 +37,6 @@ export async function wikiUploadRoutes(app: FastifyInstance) {
 
       request.log.info("Wikidata Update")
       //TODO: remove consts as we dont use them
-      const company = await wikidataService.updateWikidata(wikidataId)
       const data = await wikipediaService.updateWikipedia(wikidataId)
 
       reply.send({ ok: true })
