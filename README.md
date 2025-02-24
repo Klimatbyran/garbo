@@ -114,7 +114,7 @@ docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downl
 
 ### Starting the Garbo project in development mode
 
-The code can be started in three main ways, depending on what you plan to develop/test/run locally
+The code can be started in three main ways, depending on what you plan to develop/test/run locally.
 
 #### 1) To serve only the API:
 
