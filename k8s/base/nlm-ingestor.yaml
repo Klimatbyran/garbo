@@ -16,11 +16,11 @@ spec:
         - image: ghcr.io/nlmatics/nlm-ingestor
           resources:
             limits:
+              cpu: 2000m
+              memory: 4Gi
+            requests:
               cpu: 1000m
               memory: 2Gi
-            requests:
-              cpu: 500m
-              memory: 1Gi
           name: nlm
           ports:
             - containerPort: 5001
