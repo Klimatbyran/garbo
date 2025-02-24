@@ -5,7 +5,7 @@ import { getWikipediaContent, updateWikipediaContent, generateWikipediaArticleTe
 import { emissionsService } from './emissionsService'
 import { reportingPeriodService } from './reportingPeriodService'
 
-const LANGUAGE = "en"
+const LANGUAGE = "sv"
 
 class WikipediaService {
   async updateWikipedia(wikidataId: string) {
