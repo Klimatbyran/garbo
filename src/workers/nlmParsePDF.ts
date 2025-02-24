@@ -128,7 +128,7 @@ const nlmParsePDF = new DiscordWorker(
       throw new Error(error)
     }
   },
-  { concurrency: 1, connection: redis, lockDuration: 3 * 60 * 1000 }
+  { concurrency: 1, connection: redis, lockDuration: 5 * 60 * 1000 }
 )
 
 export default nlmParsePDF
