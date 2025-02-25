@@ -15,7 +15,7 @@ const envSchema = z.object({
     .string()
     .default(
       nodeEnv === 'development'
-        ? 'http://localhost:4321'
+        ? 'http://localhost:5173'
         : nodeEnv === 'staging'
         ? 'https://stage.klimatkollen.se'
         : 'https://beta.klimatkollen.se'
@@ -33,7 +33,7 @@ const env = envSchema.parse(process.env)
 const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
-  'http://localhost:4321',
+  'http://localhost:5173',
   'http://localhost:3000',
 ] as const
 
