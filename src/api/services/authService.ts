@@ -29,8 +29,7 @@ class AuthService {
         }, {
             headers: {Accept: "application/json"}
         });
-
-        console.log(accessTokenRes);
+        
         const accessToken =  accessTokenRes.data.access_token;
 
         const userinfoRes = await axios.get<Userinfo>("https://api.github.com/user", {
