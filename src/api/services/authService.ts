@@ -24,7 +24,7 @@ class AuthService {
         const accessTokenRes = await axios.post<{access_token: string}>("https://github.com/login/oauth/access_token", {
             client_id: apiConfig.githubClientId,
             client_secret: apiConfig.githubClientSecret,
-            redirect_uri: "http://localhost:5173/auth/callback",
+            redirect_uri: apiConfig.githubRedirectUri,
             code
         }, {
             headers: {Accept: "application/json"}

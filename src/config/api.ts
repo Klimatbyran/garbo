@@ -27,6 +27,7 @@ const envSchema = z.object({
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
   GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
+  GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
   SESSION_SECRET: z.string().default("AlfAEoyioIt21iu6EUSOd8yKtwUS0nyl"),
   JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
   JWT_EXPIRES_IN: z.string().default("3600")
@@ -80,6 +81,7 @@ const apiConfig = {
   githubClientId: env.GITHUB_CLIENT_ID,
   githubClientSecret: env.GITHUB_CLIENT_SECRET,
   githubOrganization: env.GITHUB_ORGANIZATION,
+  githubRedirectUri: env.GITHUB_REDIRECT_URI,
   sessionSecret: env.SESSION_SECRET,
   jwtSecret: env.JWT_SECRET,
   jwtExpiresIn: env.JWT_EXPIRES_IN,
