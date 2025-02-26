@@ -10,7 +10,7 @@ const bot = new mw({
     protocol: "https",
     server: WIKI_API_URL,
     path: "/w",
-    debug: true,
+    debug: false, // Set to true for verbose logging
     username: process.env.WIKI_USERNAME,
     password: process.env.WIKI_PASSWORD,
     userAgent: 'GarboBot/1.0'

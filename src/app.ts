@@ -26,7 +26,7 @@ import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
-import { wikiUploadRoutes } from './api/routes/wiki.upload'
+import { wikiUpdateRoutes } from './api/routes/wiki.update'
 
 async function startApp() {
   const app = Fastify({
@@ -124,7 +124,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
 
-  app.register(wikiUploadRoutes, { prefix: 'api/wikidata' })
+  app.register(wikiUpdateRoutes, { prefix: 'api/wikidata' })
 }
 
 export default startApp

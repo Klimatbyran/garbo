@@ -11,6 +11,12 @@ const {
 } = wikidataConfig.properties;
 
 class WikidataService {
+  async updateWikidata(wikidataId: string) {
+    //TODO: implement, only update the fields that diff from the existing data in wikidata
+    console.log('WIP')
+    return
+  }
+
   async findCarbonFootprintClaim(entity: ItemId, startDate: string, endDate: string, scope?: string, category?: string): Promise<{guid: string, referenceHash?: string}|undefined> {
     
     const {entities} = await getClaims(entity);

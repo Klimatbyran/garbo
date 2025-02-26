@@ -12,6 +12,8 @@ import {
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
 import { metadataService } from '../services/metadataService'
+import { wikidataService } from '../services/wikidataService'
+import { wikipediaService } from '../services/wikipediaService'
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
   app.post(
@@ -149,6 +151,10 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
           }
         )
       )
+
+      //TODO: implement wikidata update, only update the fields that diff from the existing data in wikidata
+      await wikidataService.updateWikidata(wikidataId)
+      await wikipediaService.updateWikipedia(wikidataId)
 
       reply.send({ ok: true })
     }

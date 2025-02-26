@@ -1,6 +1,4 @@
 import { AuthenticatedFastifyRequest, FastifyInstance } from 'fastify'
-
-import { wikidataService } from '../services/wikidataService'
 import { wikipediaService } from '../services/wikipediaService'
 import {
   postWikidataBodySchema,
@@ -10,7 +8,7 @@ import {
 import { getTags } from '../../config/openapi'
 import { PostWikidataBody, WikidataIdParams } from '../types'
 
-export async function wikiUploadRoutes(app: FastifyInstance) {
+export async function wikiUpdateRoutes(app: FastifyInstance) {
   app.post(
     '/',
     {
@@ -34,11 +32,7 @@ export async function wikiUploadRoutes(app: FastifyInstance) {
       reply
     ) => {
       const { wikidataId } = request.body
-
-      request.log.info("Wikidata Update")
-      //TODO: remove consts as we dont use them
-      const data = await wikipediaService.updateWikipedia(wikidataId)
-
+      await wikipediaService.updateWikipedia(wikidataId)
       reply.send({ ok: true })
     }
   )

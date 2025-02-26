@@ -15,8 +15,15 @@ class WikipediaService {
       throw new Error('No Wikipedia site link found')
     }
 
-    const emissions: Emissions = await emissionsService.getLatestEmissionsByWikidataId(wikidataId)
-    const newText: string = generateWikipediaArticleText(emissions, LANGUAGE)
+    const emissions: Emissions = await emissionsService.getLatestEmissionsAndMetadataByWikidataId(wikidataId)
+    const verifiedEmissions: Emissions = {
+      ...emissions,
+      scope1: emissions.scope1?.metadata?.verifiedBy ? emissions.scope1 : null,
+      scope2: emissions.scope2?.metadata?.verifiedBy ? emissions.scope2 : null,
+      scope3: emissions.scope3?.metadata?.verifiedBy ? emissions.scope3 : null,
+      total: emissions.statedTotalEmissions?.metadata?.verifiedBy ? emissions.statedTotalEmissions : null,
+    }
+    const newText: string = generateWikipediaArticleText(verifiedEmissions, LANGUAGE)
     const currentContent: string = await getWikipediaContent(title) as string
 
     //TODO: update this when there is an infobox template for emissions data

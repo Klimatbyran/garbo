@@ -12,27 +12,49 @@ import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
 import { emissionsArgs } from '../args'
 import { Emissions } from '@prisma/client'
+import { companyService } from './companyService'
 
 class EmissionsService {
-  async getLatestEmissionsByWikidataId(wikidataId: string): Promise<Emissions> {
-    return prisma.emissions.findFirst({
+  async getLatestEmissionsAndMetadataByWikidataId(wikidataId: string): Promise<Emissions> {
+    const emissions = await prisma.emissions.findFirst({
       where: {
         reportingPeriod: {
           companyId: wikidataId,
         }
       },
       include: {
-        scope1: true,
-        scope2: true,
+        scope1: {
+          include: {
+            metadata: true,
+          }
+        },
+        scope2: {
+          include: {
+            metadata: true,
+          }
+        },
         scope3: {
           include: {
             categories: true,
             statedTotalEmissions: true,
+            metadata: true,
           }
         },
-        scope1And2: true,
-        statedTotalEmissions: true,
-        biogenicEmissions: true,
+        scope1And2: {
+          include: {
+            metadata: true,
+          }
+        },
+        statedTotalEmissions: {
+          include: {
+            metadata: true,
+          }
+        },
+        biogenicEmissions: {
+          include: {
+            metadata: true,
+          }
+        },
         reportingPeriod: true,
       },
       orderBy: {
@@ -41,6 +63,8 @@ class EmissionsService {
         }
       }
     });
+    const transformedEmissions = companyService.transformMetadata(emissions)
+    return transformedEmissions
   }
 
   async upsertEmissions({
