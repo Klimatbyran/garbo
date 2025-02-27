@@ -83,7 +83,6 @@ async function startApp() {
   })
 
   app.register(fastifyCookie);
-  app.register(fastifySession, {secret: apiConfig.sessionSecret});
 
   app.register(publicContext)
   app.register(authenticatedContext)
