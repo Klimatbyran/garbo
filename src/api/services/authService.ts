@@ -72,12 +72,20 @@ class AuthService {
         return this.createToken(user);
     }
 
+    private static readonly TOKEN_EXPIRY_BUFFER_MINUTES = 15;
+    private static readonly SECONDS_IN_A_MINUTE = 60;
+
     verifyUser(token: string) {
         const payload = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
-        if(Date.now() > payload.exp - 15 * 60) {
-            return {user: payload, newToken: this.createToken(payload)}
+        const currentTimeInSeconds = Date.now() / 1000;
+        const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
+
+        const shouldRenew = currentTimeInSeconds > payload.exp - renewalThreshold;
+
+        return {
+            user: payload, 
+            newToken: shouldRenew ? this.createToken(payload) : undefined
         }
-        return {user: payload, newToken: undefined}
     }
 
     createToken(payload: User) {

@@ -34,6 +34,6 @@ export type MunicipalityNameParams = z.infer<
   typeof schemas.MunicipalityNameParamSchema
 >
 
-export type authentificationBody = z.infer<
-  typeof schemas.authentificationBodyScheme
+export type authenticationBody = z.infer<
+  typeof schemas.authenticationBodySchema
 >

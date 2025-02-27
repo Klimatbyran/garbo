@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest } from "fastify"
 import { getTags } from "../../config/openapi";
-import { authentificationBodyScheme, AuthentificationResponseScheme, getErrorSchemas } from "../schemas";
-import { authentificationBody } from "../types";
+import { authenticationBodySchema, AuthentificationResponseScheme, getErrorSchemas } from "../schemas";
+import { authenticationBody } from "../types";
 import { authService } from "../services/authService";
 
 const unauthorizedError = {
@@ -21,11 +21,11 @@ export async function authentificationRoutes(app: FastifyInstance) {
             200: AuthentificationResponseScheme,
             ...getErrorSchemas(401)
           },
-          body: authentificationBodyScheme
+          body: authenticationBodySchema
         },
       },
       async (
-        request: FastifyRequest<{Body: authentificationBody}>,
+        request: FastifyRequest<{Body: authenticationBody}>,
         reply
       ) => {
         try {
