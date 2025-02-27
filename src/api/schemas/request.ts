@@ -190,6 +190,6 @@ export const MunicipalityNameParamSchema = z.object({
   name: MunicipalityNameSchema,
 })
 
-export const authentificationBodyScheme = z.object({
+export const authenticationBodySchema = z.object({
   code: z.string()
 })
