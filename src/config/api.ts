@@ -23,9 +23,13 @@ const envSchema = z.object({
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
-  NODE_ENV: z
-    .enum(['development', 'staging', 'production'])
-    .default('production'),
+  NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
+  GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
+  GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
+  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
+  JWT_EXPIRES_IN: z.string().default("3600")
 })
 
 const env = envSchema.parse(process.env)
@@ -73,6 +77,12 @@ const apiConfig = {
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
+  githubClientId: env.GITHUB_CLIENT_ID,
+  githubClientSecret: env.GITHUB_CLIENT_SECRET,
+  githubOrganization: env.GITHUB_ORGANIZATION,
+  githubRedirectUri: env.GITHUB_REDIRECT_URI,
+  jwtSecret: env.JWT_SECRET,
+  jwtExpiresIn: env.JWT_EXPIRES_IN,
 
   municipalityDataPath: resolve(
     import.meta.dirname,
