@@ -10,9 +10,9 @@ import {
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
-import { emissionsArgs } from '../args'
+import { emissionsArgs, metadataArgs } from '../args'
 import { Emissions } from '@prisma/client'
-import { companyService } from './companyService'
+import { companyService, transformMetadata } from './companyService'
 
 class EmissionsService {
   async getLatestEmissionsAndMetadataByWikidataId(wikidataId: string): Promise<Emissions> {
@@ -25,34 +25,42 @@ class EmissionsService {
       include: {
         scope1: {
           include: {
-            metadata: true,
+            metadata: metadataArgs,
           }
         },
         scope2: {
           include: {
-            metadata: true,
+            metadata: metadataArgs,
           }
         },
         scope3: {
           include: {
-            categories: true,
-            statedTotalEmissions: true,
-            metadata: true,
+            categories: {
+              include: {
+                metadata: metadataArgs,
+              }
+            },
+            statedTotalEmissions: {
+              include: {
+                metadata: metadataArgs,
+              }
+            },
+            metadata: metadataArgs,
           }
         },
         scope1And2: {
           include: {
-            metadata: true,
+            metadata: metadataArgs,
           }
         },
         statedTotalEmissions: {
           include: {
-            metadata: true,
+            metadata: metadataArgs,
           }
         },
         biogenicEmissions: {
           include: {
-            metadata: true,
+            metadata: metadataArgs,
           }
         },
         reportingPeriod: true,
@@ -63,7 +71,7 @@ class EmissionsService {
         }
       }
     });
-    const transformedEmissions = companyService.transformMetadata(emissions)
+    const transformedEmissions = transformMetadata(emissions)
     return transformedEmissions
   }
 
@@ -223,17 +231,18 @@ class EmissionsService {
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      categories?: { category: number; total: number; unit: string }[]
+      verified?: boolean
+      categories?: { category: number; total: number; unit: string; verified?: boolean }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
         'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
       >
     },
-    createMetadata: () => Promise<Metadata>
+    createMetadata: (verified: boolean) => Promise<Metadata>
   ) {
     const existingScope3Id = emissions.scope3?.id
 
-    const metadata = await createMetadata()
+    const metadata = await createMetadata(scope3.verified ?? false)
 
     const updatedScope3 = await prisma.scope3.upsert({
       where: { id: existingScope3Id ?? '' },
@@ -264,7 +273,7 @@ class EmissionsService {
     // Upsert only the scope 3 categories from the request body
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
-        const metadataForScope3Category = await createMetadata()
+        const metadataForScope3Category = await createMetadata(scope3Category.verified ?? false)
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )

@@ -22,8 +22,8 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = this.addCalculatedTotalEmissions([
-      this.transformMetadata(company),
+    const [transformedCompany] = addCalculatedTotalEmissions([
+      transformMetadata(company),
     ])
 
     return transformedCompany
@@ -155,112 +155,113 @@ class CompanyService {
     })
   }
 
-  transformMetadata(data: any): any {
-    if (Array.isArray(data)) {
-      return data.map((item) => this.transformMetadata(item))
-    } else if (data && typeof data === 'object') {
-      const transformed = Object.entries(data).reduce((acc, [key, value]) => {
-        if (key === 'metadata' && Array.isArray(value)) {
-          acc[key] = value[0] || null
-        } else if (value instanceof Date) {
-          acc[key] = value
-        } else if (typeof value === 'object' && value !== null) {
-          acc[key] = this.transformMetadata(value)
-        } else {
-          acc[key] = value
-        }
-        return acc
-      }, {} as Record<string, any>)
-
-      return transformed
-    }
-    return data
-  }
-
-  addCalculatedTotalEmissions(companies: any[]) {
-    return (
-      companies
-        // Calculate total emissions for each scope type
-        .map((company) => ({
-          ...company,
-          reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
-            ...reportingPeriod,
-            emissions: reportingPeriod.emissions
-              ? {
-                  ...reportingPeriod.emissions,
-                  scope2:
-                    (reportingPeriod.emissions?.scope2 && {
-                      ...reportingPeriod.emissions.scope2,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope2.mb ??
-                        reportingPeriod.emissions.scope2.lb ??
-                        reportingPeriod.emissions.scope2.unknown,
-                    }) ||
-                    null,
-                  scope3:
-                    (reportingPeriod.emissions?.scope3 && {
-                      ...reportingPeriod.emissions.scope3,
-                      calculatedTotalEmissions:
-                        reportingPeriod.emissions.scope3.categories.some((c) =>
-                          Boolean(c.metadata?.verifiedBy)
-                        )
-                          ? reportingPeriod.emissions.scope3.categories
-                              .filter(
-                                (category) =>
-                                  category.category !== 16 ||
-                                  Boolean(category.metadata?.verifiedBy)
-                              )
-                              .reduce(
-                                (total, category) =>
-                                  isNumber(category.total)
-                                    ? category.total + total
-                                    : total,
-                                0
-                              )
-                          : reportingPeriod.emissions.scope3.statedTotalEmissions
-                              ?.total ?? 0,
-                    }) ||
-                    null,
-                }
-              : null,
-            metadata: reportingPeriod.metadata,
-          })),
-        }))
-        // Calculate total emissions for each reporting period
-        // This allows comparing against the statedTotalEmissions provided by the company report
-        // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
-        // we should highlight this in the UI.
-        .map((company) => ({
-          ...company,
-          reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
-            ...reportingPeriod,
-            emissions: reportingPeriod.emissions
-              ? {
-                  ...reportingPeriod.emissions,
-                  calculatedTotalEmissions:
-                    // If either scope 1 and scope 2 have verification, then we use them for the total.
-                    // Otherwise, we use the combined scope1And2 if it exists
-                    (Boolean(
-                      reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
-                    ) ||
-                    Boolean(
-                      reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
-                    )
-                      ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                        (reportingPeriod.emissions?.scope2
-                          ?.calculatedTotalEmissions || 0)
-                      : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                    (reportingPeriod.emissions?.scope3
-                      ?.calculatedTotalEmissions || 0),
-                }
-              : null,
-          })),
-        }))
-    )
-  }
 }
 
 export const companyService = new CompanyService()
+
+export function transformMetadata(data: any): any {
+  if (Array.isArray(data)) {
+    return data.map((item) => transformMetadata(item))
+  } else if (data && typeof data === 'object') {
+    const transformed = Object.entries(data).reduce((acc, [key, value]) => {
+      if (key === 'metadata' && Array.isArray(value)) {
+        acc[key] = value[0] || null
+      } else if (value instanceof Date) {
+        acc[key] = value
+      } else if (typeof value === 'object' && value !== null) {
+        acc[key] = transformMetadata(value)
+      } else {
+        acc[key] = value
+      }
+      return acc
+    }, {} as Record<string, any>)
+
+    return transformed
+  }
+  return data
+}
+
+export function addCalculatedTotalEmissions(companies: any[]) {
+  return (
+    companies
+      // Calculate total emissions for each scope type
+      .map((company) => ({
+        ...company,
+        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+          ...reportingPeriod,
+          emissions: reportingPeriod.emissions
+            ? {
+                ...reportingPeriod.emissions,
+                scope2:
+                  (reportingPeriod.emissions?.scope2 && {
+                    ...reportingPeriod.emissions.scope2,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope2.mb ??
+                      reportingPeriod.emissions.scope2.lb ??
+                      reportingPeriod.emissions.scope2.unknown,
+                  }) ||
+                  null,
+                scope3:
+                  (reportingPeriod.emissions?.scope3 && {
+                    ...reportingPeriod.emissions.scope3,
+                    calculatedTotalEmissions:
+                      reportingPeriod.emissions.scope3.categories.some((c) =>
+                        Boolean(c.metadata?.verifiedBy)
+                      )
+                        ? reportingPeriod.emissions.scope3.categories
+                            .filter(
+                              (category) =>
+                                category.category !== 16 ||
+                                Boolean(category.metadata?.verifiedBy)
+                            )
+                            .reduce(
+                              (total, category) =>
+                                isNumber(category.total)
+                                  ? category.total + total
+                                  : total,
+                              0
+                            )
+                        : reportingPeriod.emissions.scope3.statedTotalEmissions
+                            ?.total ?? 0,
+                  }) ||
+                  null,
+              }
+            : null,
+          metadata: reportingPeriod.metadata,
+        })),
+      }))
+      // Calculate total emissions for each reporting period
+      // This allows comparing against the statedTotalEmissions provided by the company report
+      // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
+      // we should highlight this in the UI.
+      .map((company) => ({
+        ...company,
+        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+          ...reportingPeriod,
+          emissions: reportingPeriod.emissions
+            ? {
+                ...reportingPeriod.emissions,
+                calculatedTotalEmissions:
+                  // If either scope 1 and scope 2 have verification, then we use them for the total.
+                  // Otherwise, we use the combined scope1And2 if it exists
+                  (Boolean(
+                    reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
+                  ) ||
+                  Boolean(
+                    reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
+                  )
+                    ? (reportingPeriod.emissions?.scope1?.total || 0) +
+                      (reportingPeriod.emissions?.scope2
+                        ?.calculatedTotalEmissions || 0)
+                    : reportingPeriod.emissions?.scope1And2?.total || 0) +
+                  (reportingPeriod.emissions?.scope3
+                    ?.calculatedTotalEmissions || 0),
+              }
+            : null,
+        })),
+      }))
+  )
+}
 
 function isNumber(n: unknown): n is number {
   return Number.isFinite(n)

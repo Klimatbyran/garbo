@@ -1,5 +1,6 @@
 import mw from 'nodemw'
 import { Emissions } from '@prisma/client'
+import * as cheerio from 'cheerio'
 
 const WIKI_API_URL = "test.wikipedia.org"
 const EDIT_MSG_SUMMARY = "Bot: Update emissions data"
@@ -37,10 +38,31 @@ export async function updateWikipediaContent(title: string, content: { text: str
         })
     })
 
+    const existingText = await getWikipediaContent(title)
+
+    let contentToAdd: string = '\n\n<span id="klimatkollen-emissions-data">' + content.text + generateWikipediaReference(content.reportURL, title) + '</span>'
+
+    const $ = cheerio.load(existingText)
+    const textExists = $('span#klimatkollen-emissions-data').length > 0
+
+    if (textExists) {
+        const $ = cheerio.load(existingText)
+        $('span#klimatkollen-emissions-data').each((i, el) => {
+            $(el).html(content.text + generateWikipediaReference(content.reportURL, title))
+        })
+        contentToAdd = $('body').html() as string
+
+        bot.edit(title, contentToAdd, EDIT_MSG_SUMMARY, (err, data) => {
+            if (err) throw err
+        })
+        return
+    }
+
     const params = {
         action: 'edit',
         title: title,
-        appendtext: '\n\n' + content.text + generateWikipediaReference(content.reportURL, title),
+        appendtext: textExists ? null : contentToAdd,
+        text: textExists ? contentToAdd : null,
         summary: EDIT_MSG_SUMMARY,
         bot: true,
         token: csrfToken as string,

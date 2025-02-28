@@ -7,9 +7,11 @@ class MetadataService {
   async createMetadata({
     user,
     metadata,
+    verified = false,
   }: {
     user: User
     metadata?: Partial<Metadata>
+    verified?: boolean
   }) {
     // TODO: Find a better way to determine if changes by the current user should count as verified or not
     // IDEA: Maybe a column in the User table to determine if this is a trusted editor? And if so, all their changes are automatically "verified".
@@ -27,7 +29,7 @@ class MetadataService {
             id: user.id,
           },
         },
-        verifiedBy: verifiedByUserEmail
+        verifiedBy: verifiedByUserEmail && verified
           ? {
               connect: {
                 email: verifiedByUserEmail,
