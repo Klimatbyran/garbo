@@ -3,6 +3,7 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
+import { inspect } from 'node:util'
 
 const wbk = WBK({
   instance: wikidataConfig.wikidataURL,
@@ -147,6 +148,51 @@ export async function createClaim(entity: ItemId, startDate: string, endDate: st
   await wbEdit.claim.create(claimCreate);
 }
 
+export async function editClaim(entity: ItemId, claims: Claim[], removeClaim: RemoveClaim[]) {
+  const wbEdit = WBEdit(wikibaseEditConfig);
+  const claimBody = claims.map((claim) => {
+    const claimObject = {
+      value: {
+          amount: claim.value,
+          unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
+      },
+      qualifiers: {
+          [START_TIME]: claim.startDate,
+          [END_TIME]: claim.endDate,
+          [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
+      },
+      references: [
+        {[REFERENCE_URL]: claim.referenceUrl}
+      ]
+    }
+
+    if(claim.scope !== undefined) {
+      claimObject.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = claim.scope;
+    }
+
+    if(claim.category !== undefined) {
+      claimObject.qualifiers[APPLIES_TO_PART] = claim.category;
+    }
+
+    return claimObject;
+  }) 
+
+  const matchingQualifiers = [ START_TIME, END_TIME, DETERMINATION_METHOD_OR_STANDARD, OBJECT_OF_STATEMENT_HAS_ROLE ];
+  
+  const body = {
+    id: entity,
+    claims: {
+      [CARBON_FOOTPRINT]: [
+        ...claimBody,
+        ...removeClaim
+      ]
+    },
+    summary: "Added/Updated carbon footprint data"
+  }
+
+  await wbEdit.entity.edit(body);
+}
+
 export async function getWikipediaTitle(id: EntityId): Promise<string> {
   const url = wbk.getEntities({
     ids: [id],
@@ -163,4 +209,18 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   }
 
   return title
+}
+
+export interface Claim {
+  startDate: string,
+  endDate: string,
+  value: string,
+  referenceUrl: string,
+  scope?: ItemId,
+  category?: ItemId
+}
+
+export interface RemoveClaim {
+  id: string;
+  remove: boolean;
 }

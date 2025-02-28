@@ -42,7 +42,7 @@ interface WikidataEntities {
     INVESTMENTS: `Q${number}`,
 }
 
-const LiveWikidataProperties: WikidataProperties = {
+export const LiveWikidataProperties: WikidataProperties = {
     CARBON_FOOTPRINT: "P5991",
     START_TIME: "P580",
     END_TIME: "P582",
@@ -52,7 +52,7 @@ const LiveWikidataProperties: WikidataProperties = {
     APPLIES_TO_PART: "P518"
 } as const
 
-const TestWikidataProperties: WikidataProperties = {
+export const TestWikidataProperties: WikidataProperties = {
     CARBON_FOOTPRINT: "P98845",
     START_TIME: "P355",
     END_TIME: "P356",
@@ -62,7 +62,7 @@ const TestWikidataProperties: WikidataProperties = {
     APPLIES_TO_PART: "P822"
 } as const
 
-const LiveWikidataEntities : WikidataEntities = {
+export const LiveWikidataEntities : WikidataEntities = {
     TONNE_OF_CARBON_DIOXIDE_EQUIVALENT: "Q57084755",
     GHG_PROTOCOL: "Q56296245",
     SCOPE_1: "Q124883250",
@@ -87,7 +87,7 @@ const LiveWikidataEntities : WikidataEntities = {
     INVESTMENTS: "Q124883654",
 } as const
 
-const TestWikidataEntities : WikidataEntities = {
+export const TestWikidataEntities : WikidataEntities = {
     TONNE_OF_CARBON_DIOXIDE_EQUIVALENT: "Q238307",
     GHG_PROTOCOL: "Q238313",
     SCOPE_1: "Q238314",
@@ -97,19 +97,19 @@ const TestWikidataEntities : WikidataEntities = {
     SCOPE_3: "Q238317",
     PURCHASED_GOODS_AND_SERVICES: "Q238318", //we don't created every category in the sandbox, therefore for tests we just alternate between the first two
     CAPITAL_GOODS: "Q238319",
-    FUEL_AND_ENERGY_RELATED_ACTIVITIES: "Q238318",
-    UPSTREAM_TRANSPORTATION_AND_DISTRIBUTION: "Q238319",
-    WASTE_GENERATED_IN_OPERATIONS: "Q238318",
-    BUSINESS_TRAVEL: "Q238319",
-    EMPLOYEE_COMMUTING: "Q238318",
-    UPSTREAM_LEASED_ASSETS: "Q238319",
-    DOWNSTREAM_TRANSPORTATION_AND_DISTRIBUTION: "Q238318",
-    PROCESSING_OF_SOLID_PRODUCTS: "Q238319",
-    USE_OF_SOLD_PRODUCTS: "Q238318",
-    END_OF_LIFE_TREATMENT_OF_SOLD_PRODUCTS: "Q238319",
-    DOWNSTREAM_LEASED_ASSETS: "Q238318",
-    FRANCHISES: "Q238319",
-    INVESTMENTS: "Q238318",
+    FUEL_AND_ENERGY_RELATED_ACTIVITIES: "Q238618",
+    UPSTREAM_TRANSPORTATION_AND_DISTRIBUTION: "Q238619",
+    WASTE_GENERATED_IN_OPERATIONS: "Q238620",
+    BUSINESS_TRAVEL: "Q238621",
+    EMPLOYEE_COMMUTING: "Q238622",
+    UPSTREAM_LEASED_ASSETS: "Q238623",
+    DOWNSTREAM_TRANSPORTATION_AND_DISTRIBUTION: "Q238624",
+    PROCESSING_OF_SOLID_PRODUCTS: "Q238625",
+    USE_OF_SOLD_PRODUCTS: "Q238626",
+    END_OF_LIFE_TREATMENT_OF_SOLD_PRODUCTS: "Q238627",
+    DOWNSTREAM_LEASED_ASSETS: "Q238628",
+    FRANCHISES: "Q238629",
+    INVESTMENTS: "Q238630",
 } as const
 
 const translateIdToCategory = (entities: WikidataEntities, id: number) => {
@@ -117,7 +117,7 @@ const translateIdToCategory = (entities: WikidataEntities, id: number) => {
         //Last non category in the entities object has index 6
         return entities[Object.keys(entities)[id + 6]];
     }
-    return undefined;
+    return null;
 }
 
 const wikidataConfig = {
