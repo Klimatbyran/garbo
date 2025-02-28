@@ -26,14 +26,19 @@ async function authPlugin(app: FastifyInstance) {
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
-      if (!token || !apiConfig.tokens?.includes(token)) {
-        request.log.error('No token', {
-          token,
-          apiConfigTokens: apiConfig.tokens,
-        })
+      if (!token) {
+        request.log.error('No token provided')
         return reply.status(401).send(unauthorizedError)
       }
-
+      
+      // Check if it's a simple API token
+      if (apiConfig.tokens?.includes(token)) {
+        // For API tokens, we don't have user information
+        request.user = null
+        return
+      }
+      
+      // Otherwise, try to verify as JWT
       const { user, newToken } = authService.verifyUser(token)
 
       if (newToken !== undefined) {
