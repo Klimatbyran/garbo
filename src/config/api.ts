@@ -26,9 +26,9 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
-  GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
-  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
+  GITHUB_ORGANIZATION: z.string(),
+  GITHUB_REDIRECT_URI: z.string(),
+  JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.string().default("3600")
 })
 

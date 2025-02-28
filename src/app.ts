@@ -87,6 +87,8 @@ async function startApp() {
   app.register(publicContext)
   app.register(authenticatedContext)
 
+  console.log(apiConfig.jwtSecret)
+
   return app
 }
 
