@@ -30,6 +30,25 @@ export async function getWikipediaContent(title: string): Promise<string> {
     })
 }
 
+async function updateWikipediaSection(title: string, content: string, section: string, csrfToken: string) {
+    const params = {
+        action: 'edit',
+        title: title,
+        appendtext: content,
+        summary: EDIT_MSG_SUMMARY,
+        bot: true,
+        token: csrfToken as string,
+        section: section
+    }
+
+    bot.api.call(
+      params,
+      (err, data) => {
+        if (err) throw err
+      },
+      'POST'
+    )
+}
 export async function updateWikipediaContent(title: string, content: { text: string, reportURL: string }) {
     const csrfToken = await new Promise((resolve, reject) => {
         bot.getToken(title, 'edit', (err, data) => {
@@ -45,37 +64,19 @@ export async function updateWikipediaContent(title: string, content: { text: str
     const $ = cheerio.load(existingText)
     const textExists = $('span#klimatkollen-emissions-data').length > 0
 
-    if (textExists) {
-        const $ = cheerio.load(existingText)
-        $('span#klimatkollen-emissions-data').each((i, el) => {
-            $(el).html(content.text + generateWikipediaReference(content.reportURL, title))
-        })
-        contentToAdd = $('body').html() as string
-
-        bot.edit(title, contentToAdd, EDIT_MSG_SUMMARY, (err, data) => {
-            if (err) throw err
-        })
+    if (!textExists) {
+        await updateWikipediaSection(title, contentToAdd, '0', csrfToken as string)
         return
     }
 
-    const params = {
-        action: 'edit',
-        title: title,
-        appendtext: textExists ? null : contentToAdd,
-        text: textExists ? contentToAdd : null,
-        summary: EDIT_MSG_SUMMARY,
-        bot: true,
-        token: csrfToken as string,
-        section: '0'
-    }
+    $('span#klimatkollen-emissions-data').each((i, el) => {
+        $(el).html(content.text + generateWikipediaReference(content.reportURL, title))
+    })
+    contentToAdd = $('body').html() as string
 
-    bot.api.call(
-      params,
-      (err, data) => {
+    bot.edit(title, contentToAdd, EDIT_MSG_SUMMARY, (err, data) => {
         if (err) throw err
-      },
-      'POST'
-    )
+    })
 }
 
 export function generateWikipediaReference(url: string, title: string, date?: string, accessDate?: string): string {
