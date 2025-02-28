@@ -4,8 +4,8 @@ import { EntityId } from 'wikibase-sdk'
 import { updateWikipediaContent, generateWikipediaArticleText } from '../../lib/wikipedia'
 import { emissionsService } from './emissionsService'
 import { reportingPeriodService } from './reportingPeriodService'
+import { WIKI_LANGUAGE } from '../../config/wikipedia'
 
-const LANGUAGE = "sv"
 
 class WikipediaService {
   async updateWikipedia(wikidataId: string) {
@@ -23,7 +23,7 @@ class WikipediaService {
       scope3: emissions.scope3?.metadata?.verifiedBy !== null ? emissions.scope3 : null,
       total: emissions.statedTotalEmissions?.metadata?.verifiedBy !== null ? emissions.statedTotalEmissions : null,
     }
-    const newText: string = generateWikipediaArticleText(verifiedEmissions, LANGUAGE)
+    const newText: string = generateWikipediaArticleText(verifiedEmissions, WIKI_LANGUAGE)
 
     //TODO: update this when there is an infobox template for emissions data
     //const newInfoBox: string = generateWikipediaInfoBox(emissions, LANGUAGE)

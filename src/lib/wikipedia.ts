@@ -1,11 +1,7 @@
 import mw from 'nodemw'
 import { Emissions } from '@prisma/client'
 import * as cheerio from 'cheerio'
-
-const WIKI_API_URL = "test.wikipedia.org"
-const EDIT_MSG_SUMMARY = "Bot: Update emissions data"
-const REPORT_REFERENCE_NAME = "klimatkollen-emissions-report-reference"
-const KLIMATOLLEN_REFERENCE_NAME = "klimatkollen-emissions-reference"
+import { WIKI_API_URL, EDIT_MSG_SUMMARY, REPORT_REFERENCE_NAME, KLIMATOLLEN_REFERENCE_NAME } from '../config/wikipedia'
 
 const bot = new mw({
     protocol: "https",
