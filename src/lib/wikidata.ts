@@ -3,7 +3,6 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
-import { inspect } from 'node:util'
 
 const wbk = WBK({
   instance: wikidataConfig.wikidataURL,
@@ -13,8 +12,8 @@ const wbk = WBK({
 const wikibaseEditConfig = {
   instance: wikidataConfig.wikidataURL,
   credentials: {
-    username: 'KlimatkollenGarboBot',
-    password: 'Cws7k0Nhj0VtH217OhUn110MtRWGywX0@nvebi3t9for7ti5bgnllh87i72cvukku'
+    username: process.env.WIKIDATA_USERNAME,
+    password: process.env.WIKIDATA_PASSWORD
   },
   userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
 }

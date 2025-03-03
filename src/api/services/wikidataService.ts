@@ -1,8 +1,9 @@
 import { ItemId } from "wikibase-sdk";
 import { Claim, createClaim, createReference, editClaim, getClaims, RemoveClaim, updateClaim, updateReference } from "../../lib/wikidata";
 import wikidataConfig from "../../config/wikidata";
-import { inspect } from "node:util";
-import { exit } from "node:process";
+import { prisma } from '../../lib/prisma'
+import { emissionsService } from "./emissionsService";
+import { Emissions } from "@prisma/client";
 
 const {
   CARBON_FOOTPRINT,
@@ -13,9 +14,83 @@ const {
 } = wikidataConfig.properties;
 
 class WikidataService {
-  async updateWikidata(wikidataId: string) {
-    //TODO: implement, only update the fields that diff from the existing data in wikidata
-    console.log('WIP')
+  async updateWikidata(wikidataId: `Q${number}`) {
+    let claims: Claim[] = [];
+    const emissions: Emissions = await emissionsService.getLatestEmissionsAndMetadataByWikidataId(wikidataId)
+    const startDate = emissions.reportingPeriod.startDate
+    const endDate = emissions.reportingPeriod.endDate
+    const reportURL = emissions.reportingPeriodId.reportURL
+
+    if (!startDate || !endDate) return
+
+    if(
+      emissions.scope1?.metadata.verifiedBy &&
+      emissions.scope1?.total &&
+      emissions.scope1?.unit
+    ) {
+      claims.push({
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          value: emissions.scope1.total!.toString(),
+          referenceUrl: reportURL!,
+          scope: wikidataConfig.entities.SCOPE_1
+      })
+      console.log("Scope 1 Done")
+    }
+
+    if(
+      emissions.scope2?.metadata.verifiedBy &&
+      emissions.scope2?.total &&
+      emissions.scope2?.unit
+    ) {
+        if(emissions.scope2.mb) {
+            claims.push({
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                value: emissions.scope2.mb!.toString(),
+                referenceUrl: reportURL!,
+                scope: wikidataConfig.entities.SCOPE_2_MARKET_BASED
+            }) 
+            console.log("Scope 2 mb Done")
+        }
+
+        if(emissions.scope2.lb) {
+            claims.push({
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                value: emissions.scope2.lb!.toString(),
+                referenceUrl: reportURL!,
+                scope: wikidataConfig.entities.SCOPE_2_LOCATION_BASED
+            })
+            console.log("Scope 2 lb Done")
+        }
+
+        if(emissions.scope2.unknown) {
+            claims.push({
+                startDate: emissions!.scope2.reportingPeriod!.startDate.toISOString(),
+                endDate: emissions!.scope2.reportingPeriod!.endDate.toISOString(),
+                value: emissions.scope2.unknown!.toString(),
+                referenceUrl: emissions!.scope2.reportingPeriod!.reportURL!,
+                scope: wikidataConfig.entities.SCOPE_2
+            })
+            console.log("Scope 2 unknown Done")
+        }
+    }
+
+    for(const category of emissions.scope3.categories) {
+        if(category.metadata.verifiedBy && category && category.unit && category.total && category.category !== 16) {
+            claims.push({
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                value: emissions.statedTotalEmissions.total!.toString(),
+                referenceUrl: reportURL!,
+                scope: wikidataConfig.entities.SCOPE_3,
+                category: wikidataConfig.translateIdToCategory(category.category)
+            })
+            console.log("Scope 3 category Done")
+        }
+    }
+    await wikidataService.bulkCreateOrEditCarbonFootprintClaim(wikidataId, claims);
     return
   }
 
