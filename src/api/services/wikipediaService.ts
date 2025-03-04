@@ -20,7 +20,9 @@ class WikipediaService {
       ...emissions,
       scope1: emissions.scope1?.metadata?.verifiedBy !== null ? emissions.scope1 : null,
       scope2: emissions.scope2?.metadata?.verifiedBy !== null ? emissions.scope2 : null,
-      scope3: emissions.scope3?.metadata?.verifiedBy !== null ? emissions.scope3 : null,
+      scope3: {
+        statedTotalEmissions: emissions.scope3?.statedTotalEmissions.metadata?.verifiedBy !== null ? emissions.scope3.statedTotalEmissions : null,
+      },
       total: emissions.statedTotalEmissions?.metadata?.verifiedBy !== null ? emissions.statedTotalEmissions : null,
     }
     const newText: string = generateWikipediaArticleText(verifiedEmissions, WIKI_LANGUAGE)

@@ -113,6 +113,7 @@ export function generateWikipediaInfoBox(emissions: Emissions, language: string)
 }
 
 export function generateWikipediaArticleText(emissions: Emissions, language: string): string {
+    console.log(emissions)
     switch (language) {
         case "en":
             let enText = 'During the period'
@@ -133,9 +134,9 @@ export function generateWikipediaArticleText(emissions: Emissions, language: str
                     enText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} in location-based scope 2 emissions`
                 }
             }
-            if (emissions.scope3?.total && emissions.scope3?.unit) {
+            if (emissions.scope3?.statedTotalEmissions.total && emissions.scope3?.statedTotalEmissions.unit) {
                 if (emissions.scope1?.total || emissions.scope2?.mb) enText += ','
-                enText += ` ${emissions.scope3.total} ${emissions.scope3.unit} in scope 3 emissions`
+                enText += ` ${emissions.scope3.statedTotalEmissions.total} ${emissions.scope3.statedTotalEmissions.unit} in scope 3 emissions`
             }
             enText += '.'
             return enText
@@ -158,9 +159,9 @@ export function generateWikipediaArticleText(emissions: Emissions, language: str
                     svText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} i platsbaserade scope 2-utsläpp`
                 }
             }
-            if (emissions.scope3?.total && emissions.scope3?.unit) {
+            if (emissions.scope3?.statedTotalEmissions.total && emissions.scope3?.statedTotalEmissions.unit) {
                 if (emissions.scope1?.total || emissions.scope2?.mb) svText += ','
-                svText += ` ${emissions.scope3.total} ${emissions.scope3.unit} i scope 3-utsläpp`
+                svText += ` ${emissions.scope3.statedTotalEmissions.total} ${emissions.scope3.statedTotalEmissions.unit} i scope 3-utsläpp`
             }
             svText += '.'
             return svText
