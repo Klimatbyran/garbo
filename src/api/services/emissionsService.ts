@@ -13,6 +13,7 @@ import { prisma } from '../../lib/prisma'
 import { emissionsArgs, metadataArgs } from '../args'
 import { Emissions } from '@prisma/client'
 import { companyService, transformMetadata } from './companyService'
+import _ from 'lodash'
 
 class EmissionsService {
   async getLatestEmissionsAndMetadataByWikidataId(wikidataId: string): Promise<Emissions> {
@@ -231,7 +232,6 @@ class EmissionsService {
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      verified?: boolean
       categories?: { category: number; total: number; unit: string; verified?: boolean }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
@@ -274,6 +274,7 @@ class EmissionsService {
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
         const metadataForScope3Category = await createMetadata(scope3Category.verified ?? false)
+        scope3Category = _.omit(scope3Category, 'verified')
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )

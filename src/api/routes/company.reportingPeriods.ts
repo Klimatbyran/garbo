@@ -114,7 +114,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                 emissionsService.upsertScope2(
                   dbEmissions,
                   _.omit(scope2, 'verified'),
-                  createdMetadata
+                  scope2.verified ? verifiedMetadata : createdMetadata
                 ),
               scope3 &&
                 emissionsService.upsertScope3(dbEmissions, scope3, (verified: boolean) =>
@@ -160,7 +160,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       )
 
       //TODO: implement wikidata update, only update the fields that diff from the existing data in wikidata
-      await wikidataService.updateWikidata(wikidataId)
+      //await wikidataService.updateWikidata(wikidataId)
       //await wikipediaService.updateWikipedia(wikidataId)
 
       reply.send({ ok: true })
