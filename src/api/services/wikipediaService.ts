@@ -25,7 +25,7 @@ class WikipediaService {
       },
       total: emissions.statedTotalEmissions?.metadata?.verifiedBy !== null ? emissions.statedTotalEmissions : null,
     }
-    const newText: string = generateWikipediaArticleText(verifiedEmissions, WIKI_LANGUAGE)
+    const newText: string = generateWikipediaArticleText(verifiedEmissions, title, WIKI_LANGUAGE)
 
     //TODO: update this when there is an infobox template for emissions data
     //const newInfoBox: string = generateWikipediaInfoBox(emissions, LANGUAGE)
