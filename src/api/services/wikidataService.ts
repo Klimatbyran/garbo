@@ -25,8 +25,7 @@ class WikidataService {
 
     if(
       emissions.scope1?.metadata.verifiedBy &&
-      emissions.scope1?.total &&
-      emissions.scope1?.unit
+      emissions.scope1?.total
     ) {
       claims.push({
           startDate: startDate.toISOString(),
@@ -37,11 +36,7 @@ class WikidataService {
       })
     }
 
-    if(
-      emissions.scope2?.metadata.verifiedBy &&
-      emissions.scope2?.total &&
-      emissions.scope2?.unit
-    ) {
+    if(emissions.scope2?.metadata.verifiedBy) {
         if(emissions.scope2.mb) {
             claims.push({
                 startDate: startDate.toISOString(),
@@ -73,12 +68,26 @@ class WikidataService {
         }
     }
 
+    //TODO: we should include this right?
+    if(
+        emissions.scope3.statedTotalEmissions.verifiedBy &&
+        emissions.scope3.statedTotalEmissions.total
+    ) {
+        claims.push({
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          value: emissions.scope3.statedTotalEmissions.total.toString(),
+          referenceUrl: reportURL!,
+          scope: wikidataConfig.entities.SCOPE_3
+        })
+    }
+
     for(const category of emissions.scope3.categories) {
-        if(category.metadata.verifiedBy && category && category.unit && category.total && category.category !== 16) {
+        if(category.metadata.verifiedBy && category && category.total && category.category !== 16) {
             claims.push({
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
-                value: emissions.statedTotalEmissions.total!.toString(),
+                value: category.total.toString(),
                 referenceUrl: reportURL!,
                 scope: wikidataConfig.entities.SCOPE_3,
                 category: wikidataConfig.translateIdToCategory(category.category)
