@@ -127,16 +127,14 @@ export function generateWikipediaArticleText(emissions: Emissions, title: string
             }
             if (emissions.scope2?.mb && emissions.scope2?.unit) {
                 if (emissions.scope1?.total) enText += ','
-                if (emissions.scope2.mb) {
-                    enText += ` ${emissions.scope2.mb} ${emissions.scope2.unit} in market-based scope 2 emissions`
-                }
-                if (emissions.scope2.lb) {
-                    if (emissions.scope1?.total || emissions.scope2.mb) enText += ','
-                    enText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} in location-based scope 2 emissions`
-                }
+                enText += ` ${emissions.scope2.mb} ${emissions.scope2.unit} in scope 2`
+            }
+            if (!emissions.scope2?.mb && emissions.scope2?.unit && emissions.scope2?.lb) {
+                if (emissions.scope1?.total) enText += ','
+                enText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} in scope 2`
             }
             if (emissions.scope3?.statedTotalEmissions.total && emissions.scope3?.statedTotalEmissions.unit) {
-                if (emissions.scope1?.total || emissions.scope2?.mb) enText += ','
+                if (emissions.scope1?.total || emissions.scope2?.mb || emissions.scope2?.lb) enText += ', and'
                 enText += ` ${emissions.scope3.statedTotalEmissions.total} ${emissions.scope3.statedTotalEmissions.unit} in scope 3`
             }
             enText += '.'
@@ -154,16 +152,14 @@ export function generateWikipediaArticleText(emissions: Emissions, title: string
             }
             if (emissions.scope2?.mb && emissions.scope2?.unit) {
                 if (emissions.scope1?.total) svText += ','
-                if (emissions.scope2.mb) {
-                    svText += ` ${emissions.scope2.mb} ${emissions.scope2.unit} i marknadsbaserade scope 2-utsläpp`
-                }
-                if (emissions.scope2.lb) {
-                    if (emissions.scope1?.total || emissions.scope2.mb) svText += ','
-                    svText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} i platsbaserade scope 2-utsläpp`
-                }
+                svText += ` ${emissions.scope2.mb} ${emissions.scope2.unit} i scope 2`
+            }
+            if (!emissions.scope2?.mb && emissions.scope2?.unit && emissions.scope2?.lb) {
+                if (emissions.scope1?.total) svText += ','
+                svText += ` ${emissions.scope2.lb} ${emissions.scope2.unit} i scope 2`
             }
             if (emissions.scope3?.statedTotalEmissions.total && emissions.scope3?.statedTotalEmissions.unit) {
-                if (emissions.scope1?.total || emissions.scope2?.mb) svText += ','
+                if (emissions.scope1?.total || emissions.scope2?.mb || emissions.scope2?.lb) svText += ' och'
                 svText += ` ${emissions.scope3.statedTotalEmissions.total} ${emissions.scope3.statedTotalEmissions.unit} i scope 3`
             }
             svText += '.'
