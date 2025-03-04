@@ -12,6 +12,11 @@ const dateStringSchema = z.union([
 ])
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
+export const reportingPeriodUpdateResponseSchema = z.object({ 
+  ok: z.boolean(),
+  wikidataStatus: z.boolean(),
+  wikipediaStatus: z.boolean(),
+})
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({

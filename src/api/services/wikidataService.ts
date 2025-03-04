@@ -35,7 +35,6 @@ class WikidataService {
           referenceUrl: reportURL!,
           scope: wikidataConfig.entities.SCOPE_1
       })
-      console.log("Scope 1 Done")
     }
 
     if(
@@ -51,7 +50,6 @@ class WikidataService {
                 referenceUrl: reportURL!,
                 scope: wikidataConfig.entities.SCOPE_2_MARKET_BASED
             }) 
-            console.log("Scope 2 mb Done")
         }
 
         if(emissions.scope2.lb) {
@@ -62,7 +60,6 @@ class WikidataService {
                 referenceUrl: reportURL!,
                 scope: wikidataConfig.entities.SCOPE_2_LOCATION_BASED
             })
-            console.log("Scope 2 lb Done")
         }
 
         if(emissions.scope2.unknown) {
@@ -73,7 +70,6 @@ class WikidataService {
                 referenceUrl: emissions!.scope2.reportingPeriod!.reportURL!,
                 scope: wikidataConfig.entities.SCOPE_2
             })
-            console.log("Scope 2 unknown Done")
         }
     }
 
@@ -87,7 +83,6 @@ class WikidataService {
                 scope: wikidataConfig.entities.SCOPE_3,
                 category: wikidataConfig.translateIdToCategory(category.category)
             })
-            console.log("Scope 3 category Done")
         }
     }
     await wikidataService.bulkCreateOrEditCarbonFootprintClaim(wikidataId, claims);

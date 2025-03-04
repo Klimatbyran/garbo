@@ -4,7 +4,7 @@ import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import {
   getErrorSchemas,
-  okResponseSchema,
+  reportingPeriodUpdateResponseSchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
 } from '../schemas'
@@ -27,7 +27,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         body: postReportingPeriodsSchema,
         response: {
-          200: okResponseSchema,
+          200: reportingPeriodUpdateResponseSchema,
           ...getErrorSchemas(400, 404),
         },
       },
@@ -159,11 +159,23 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         )
       )
 
-      //TODO: implement wikidata update, only update the fields that diff from the existing data in wikidata
-      //await wikidataService.updateWikidata(wikidataId)
-      await wikipediaService.updateWikipedia(wikidataId)
+      let wikidataStatus, wikipediaStatus = true
 
-      reply.send({ ok: true })
+      try {
+        await wikidataService.updateWikidata(wikidataId)
+      } catch (error) {
+        wikidataStatus = false
+        console.warn("Wikidata update failed: " + error)
+      }
+
+      try {
+        await wikipediaService.updateWikipedia(wikidataId)
+      } catch (error) {
+        wikipediaStatus = false
+        console.warn("Wikipedia update failed: " + error)
+      }
+
+      reply.send({ ok: true, wikipediaStatus: wikipediaStatus, wikidataStatus: wikidataStatus })
     }
   )
 }
