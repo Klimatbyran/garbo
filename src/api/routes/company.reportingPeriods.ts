@@ -4,15 +4,13 @@ import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import {
   getErrorSchemas,
-  reportingPeriodUpdateResponseSchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
+  okResponseSchema,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
 import { metadataService } from '../services/metadataService'
-import { wikidataService } from '../services/wikidataService'
-import { wikipediaService } from '../services/wikipediaService'
 import _ from 'lodash'
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
@@ -27,7 +25,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         body: postReportingPeriodsSchema,
         response: {
-          200: reportingPeriodUpdateResponseSchema,
+          200: okResponseSchema,
           ...getErrorSchemas(400, 404),
         },
       },

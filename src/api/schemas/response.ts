@@ -12,9 +12,6 @@ const dateStringSchema = z.union([
 ])
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
-export const reportingPeriodUpdateResponseSchema = z.object({ 
-  ok: z.boolean()
-})
 export const redirectResponseSchema = z.object({ location: z.string() })
 export const emptyBodySchema = z.undefined()
 
