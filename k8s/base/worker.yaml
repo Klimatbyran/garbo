@@ -15,12 +15,6 @@ spec:
       containers:
         - image: ghcr.io/klimatbyran/garbo
           resources:
-<<<<<<< HEAD
-            limits:
-              cpu: 1
-              memory: 2Gi
-=======
->>>>>>> main
             requests:
               cpu: 500m
               memory: 1Gi
