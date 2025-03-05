@@ -159,20 +159,24 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         )
       )
 
-      let wikidataStatus, wikipediaStatus = true
+      let wikidataStatus = false
+      let wikipediaStatus = false
 
-      try {
-        await wikidataService.updateWikidata(wikidataId)
-      } catch (error) {
-        wikidataStatus = false
-        console.warn("Wikidata update failed: " + error)
-      }
-
-      try {
-        await wikipediaService.updateWikipedia(wikidataId)
-      } catch (error) {
-        wikipediaStatus = false
-        console.warn("Wikipedia update failed: " + error)
+      if (process.env.ENABLE_WIKI_UPDATE === 'true') {
+        console.log("here")
+        try {
+          await wikidataService.updateWikidata(wikidataId)
+          wikidataStatus = true
+        } catch (error) {
+          console.warn("Wikidata update failed: " + error)
+        }
+  
+        try {
+          await wikipediaService.updateWikipedia(wikidataId)
+          wikipediaStatus = true
+        } catch (error) {
+          console.warn("Wikipedia update failed: " + error)
+        }
       }
 
       reply.send({ ok: true, wikipediaStatus: wikipediaStatus, wikidataStatus: wikidataStatus })
