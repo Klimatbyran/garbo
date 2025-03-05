@@ -1,5 +1,0 @@
-export const WIKI_LANGUAGE = "sv"
-export const WIKI_API_URL = "test.wikipedia.org"
-export const EDIT_MSG_SUMMARY = "Bot: Update emissions data"
-export const REPORT_REFERENCE_NAME = "klimatkollen-emissions-report-reference"
-export const KLIMATOLLEN_REFERENCE_NAME = "klimatkollen-emissions-reference"
