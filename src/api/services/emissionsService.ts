@@ -16,66 +16,6 @@ import { companyService, transformMetadata } from './companyService'
 import _ from 'lodash'
 
 class EmissionsService {
-  async getLatestEmissionsAndMetadataByWikidataId(wikidataId: string): Promise<Emissions> {
-    const emissions = await prisma.emissions.findFirst({
-      where: {
-        reportingPeriod: {
-          companyId: wikidataId,
-        }
-      },
-      include: {
-        scope1: {
-          include: {
-            metadata: metadataArgs,
-          }
-        },
-        scope2: {
-          include: {
-            metadata: metadataArgs,
-          }
-        },
-        scope3: {
-          include: {
-            categories: {
-              include: {
-                metadata: metadataArgs,
-              }
-            },
-            statedTotalEmissions: {
-              include: {
-                metadata: metadataArgs,
-              }
-            },
-            metadata: metadataArgs,
-          }
-        },
-        scope1And2: {
-          include: {
-            metadata: metadataArgs,
-          }
-        },
-        statedTotalEmissions: {
-          include: {
-            metadata: metadataArgs,
-          }
-        },
-        biogenicEmissions: {
-          include: {
-            metadata: metadataArgs,
-          }
-        },
-        reportingPeriod: true,
-      },
-      orderBy: {
-        reportingPeriod: {
-          startDate: 'desc'
-        }
-      }
-    });
-    const transformedEmissions = transformMetadata(emissions)
-    return transformedEmissions
-  }
-
   async upsertEmissions({
     emissionsId,
     reportingPeriodId,

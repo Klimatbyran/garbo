@@ -10,6 +10,7 @@ export enum JobType {
   CompanyTags = 'followUp/companyTags',
   BaseYear = 'followUp/baseYear',
 
+  Wikidata = 'wikidata',
   Precheck = 'precheck',
   ExtractEmissions = 'extractEmissions',
 }

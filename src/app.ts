@@ -127,6 +127,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
   app.register(companyBaseYearRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
+
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
 }
 

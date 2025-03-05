@@ -55,14 +55,6 @@ class ReportingPeriodService {
     })
   }
 
-  async getLatestReportingPeriodByWikidataId(wikidataId: string) {
-    return await prisma.reportingPeriod.findFirst({
-      where: {
-        companyId: wikidataId,
-      },
-    })
-  }
-
   async deleteReportingPeriod(id: ReportingPeriod['id']) {
     return await prisma.reportingPeriod.delete({ where: { id } })
   }
