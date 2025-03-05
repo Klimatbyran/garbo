@@ -68,20 +68,6 @@ class WikidataService {
         }
     }
 
-    //TODO: we should include this right?
-    if(
-        emissions.scope3.statedTotalEmissions.verifiedBy &&
-        emissions.scope3.statedTotalEmissions.total
-    ) {
-        claims.push({
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString(),
-          value: emissions.scope3.statedTotalEmissions.total.toString(),
-          referenceUrl: reportURL!,
-          scope: wikidataConfig.entities.SCOPE_3
-        })
-    }
-
     for(const category of emissions.scope3.categories) {
         if(category.metadata.verifiedBy && category && category.total && category.category !== 16) {
             claims.push({
