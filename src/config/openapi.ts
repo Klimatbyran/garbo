@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
@@ -36,6 +37,9 @@ const openAPITagDefinitions = {
   Wikidata: {
     description: 'Routes for pushing data from the database to the Wikidata API',
   },
+  Auth: {
+    descriptions: 'Authentification'
+  }
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

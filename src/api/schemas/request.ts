@@ -198,3 +198,7 @@ export const MunicipalityNameParamSchema = z.object({
 export const postWikidataBodySchema = z.object({
   wikidataId: wikidataIdSchema,
 })
+
+export const authenticationBodySchema = z.object({
+  code: z.string()
+})

@@ -352,6 +352,8 @@ model User {
   id    String @id @default(cuid())
   email String @unique
   name  String
+  githubId   String? @unique
+  githubImageUrl String?
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API

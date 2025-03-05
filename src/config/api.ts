@@ -3,6 +3,8 @@ import { FastifyServerOptions } from 'fastify'
 import { resolve } from 'path'
 import { z } from 'zod'
 
+const nodeEnv = process.env.NODE_ENV
+
 const envSchema = z.object({
   /**
    * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
@@ -12,14 +14,22 @@ const envSchema = z.object({
   FRONTEND_URL: z
     .string()
     .default(
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:4321'
+      nodeEnv === 'development'
+        ? 'http://localhost:5173'
+        : nodeEnv === 'staging'
+        ? 'https://stage.klimatkollen.se'
         : 'https://beta.klimatkollen.se'
     ),
   API_BASE_URL: z.string().default('http://localhost:3000/api'),
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
-  NODE_ENV: z.enum(['development', 'production']).default('production'),
+  NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
+  GITHUB_CLIENT_ID: z.string(),
+  GITHUB_CLIENT_SECRET: z.string(),
+  GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
+  GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
+  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
+  JWT_EXPIRES_IN: z.string().default("3600")
 })
 
 const env = envSchema.parse(process.env)
@@ -27,11 +37,15 @@ const env = envSchema.parse(process.env)
 const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
-  'http://localhost:4321',
+  'http://localhost:5173',
   'http://localhost:3000',
+] as const
+
+const stageOrigins = [
   'https://stage-api.klimatkollen.se',
   'https://stage.klimatkollen.se',
 ] as const
+
 const productionOrigins = [
   'https://beta.klimatkollen.se',
   'https://klimatkollen.se',
@@ -43,8 +57,6 @@ const baseLoggerOptions: FastifyServerOptions['logger'] = {
   redact: ['req.headers.authorization'],
 }
 
-const DEV = env.NODE_ENV === 'development'
-
 const apiConfig = {
   cacheMaxAge: env.CACHE_MAX_AGE,
 
@@ -53,14 +65,24 @@ const apiConfig = {
     alex: 'alex@klimatkollen.se',
   } as const,
 
-  corsAllowOrigins: DEV ? developmentOrigins : productionOrigins,
+  corsAllowOrigins:
+    nodeEnv === 'staging'
+      ? stageOrigins
+      : nodeEnv === 'production'
+      ? productionOrigins
+      : developmentOrigins,
 
-  DEV,
   tokens: env.API_TOKENS,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,
   jobDelay: ONE_DAY,
+  githubClientId: env.GITHUB_CLIENT_ID,
+  githubClientSecret: env.GITHUB_CLIENT_SECRET,
+  githubOrganization: env.GITHUB_ORGANIZATION,
+  githubRedirectUri: env.GITHUB_REDIRECT_URI,
+  jwtSecret: env.JWT_SECRET,
+  jwtExpiresIn: env.JWT_EXPIRES_IN,
 
   municipalityDataPath: resolve(
     import.meta.dirname,
@@ -69,7 +91,7 @@ const apiConfig = {
 
   bullBoardBasePath: '/admin/queues',
 
-  logger: (DEV && process.stdout.isTTY
+  logger: (nodeEnv !== 'production' && process.stdout.isTTY
     ? {
         level: 'trace',
         transport: { target: 'pino-pretty' },

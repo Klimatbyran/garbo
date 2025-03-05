@@ -35,3 +35,6 @@ export type MunicipalityNameParams = z.infer<
 >
 
 export type PostWikidataBody = z.infer<typeof schemas.postWikidataBodySchema>
+export type authenticationBody = z.infer<
+  typeof schemas.authenticationBodySchema
+>

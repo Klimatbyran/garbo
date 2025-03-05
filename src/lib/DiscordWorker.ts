@@ -1,5 +1,10 @@
 import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
-import { BaseMessageOptions, Message, OmitPartialGroupDMChannel, TextChannel } from 'discord.js'
+import {
+  BaseMessageOptions,
+  Message,
+  OmitPartialGroupDMChannel,
+  TextChannel,
+} from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
 
@@ -17,7 +22,9 @@ export class DiscordJob extends Job {
   ) => Promise<Message<true> | undefined>
   editMessage: (
     msg: string | BaseMessageOptions
-  ) => Promise<OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined>
+  ) => Promise<
+    OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
+  >
   setThreadName: (name: string) => Promise<TextChannel>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
@@ -104,7 +111,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
-      concurrency: 10,
+      concurrency: 3,
       ...options,
     })
 

@@ -17,6 +17,7 @@ export const reportingPeriodUpdateResponseSchema = z.object({
   wikidataStatus: z.boolean(),
   wikipediaStatus: z.boolean(),
 })
+export const redirectResponseSchema = z.object({ location: z.string() })
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
@@ -425,3 +426,5 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 })
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
+
+export const AuthentificationResponseScheme = z.object({token: z.string()})
