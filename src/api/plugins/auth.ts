@@ -1,8 +1,6 @@
 import { FastifyInstance, RouteGenericInterface } from 'fastify'
 import fp from 'fastify-plugin'
 import { User } from '@prisma/client'
-
-import apiConfig from '../../config/api'
 import { authService } from '../services/authService'
 
 declare module 'fastify' {
@@ -10,8 +8,7 @@ declare module 'fastify' {
     user: User | null
   }
 
-  export interface AuthenticatedFastifyRequest<T extends RouteGenericInterface>
-    extends FastifyRequest<T> {
+  export interface AuthenticatedFastifyRequest<T extends RouteGenericInterface> extends FastifyRequest<T> {
     user: User
   }
 }
@@ -26,24 +23,21 @@ async function authPlugin(app: FastifyInstance) {
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
-      if (!token || !apiConfig.tokens?.includes(token)) {
-        request.log.error('No token', {
-          token,
-          apiConfigTokens: apiConfig.tokens,
-        })
+      if (!token) {
+        request.log.error('No token provided')
         return reply.status(401).send(unauthorizedError)
       }
 
-      const { user, newToken } = authService.verifyUser(token)
+      const { user, newToken } = authService.verifyToken(token)
 
       if (newToken !== undefined) {
         reply.headers['x-auth-token'] = newToken
       } else {
-        request.log.error('No user found')
+        request.log.error('Could not create new token for user', user)
       }
       request.user = user
     } catch (err) {
-      request.log.error(err)
+      request.log.error('Authentication failed:', err)
       return reply.status(401).send(unauthorizedError)
     }
   })

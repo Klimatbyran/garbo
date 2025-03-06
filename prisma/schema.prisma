@@ -354,6 +354,7 @@ model User {
   name  String
   githubId   String? @unique
   githubImageUrl String?
+  bot   Boolean @default(false)
 
   // TODO: connect with github ID
   // TODO: store github profile image - or get it via API
