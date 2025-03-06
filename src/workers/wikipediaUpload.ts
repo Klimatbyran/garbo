@@ -5,6 +5,7 @@ import { Emissions } from '@prisma/client'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
+    fiscalYear: any
     wikidata: { node: `Q${number}` }
     body?: any
   }
@@ -14,6 +15,7 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
   'wikipediaUpload',
   async (job) => {
     const {
+      fiscalYear,
       wikidata,
       body
 
@@ -24,7 +26,7 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     const reportingPeriod = body.reportingPeriods[0]
     const emissions: Emissions = reportingPeriod
     const title: string = await getWikipediaTitle(wikidata.node)
-    const text: string = generateWikipediaArticleText(emissions, title, 'sv')
+    const text: string = generateWikipediaArticleText(emissions, title, fiscalYear, 'sv')
     const reportURL: string = reportingPeriod.reportURL
     const content = {
       text,
