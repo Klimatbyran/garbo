@@ -1,6 +1,6 @@
 import apiConfig from '../config/api'
 
-const GARBO_TOKEN = await getApiToken(apiConfig.secret)
+let GARBO_TOKEN = await getApiToken(apiConfig.secret)
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -41,6 +41,10 @@ export async function apiFetch(
 
   const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
   if (response.ok) {
+    const newToken = response.headers.get('x-auth-token')
+    if (newToken) {
+      GARBO_TOKEN = newToken
+    }
     return response.json()
   } else {
     const errorMessage = await response.text()
