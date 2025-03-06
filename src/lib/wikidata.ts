@@ -1,98 +1,43 @@
-import WBK, { SearchResponse, EntityId, Entity } from 'wikibase-sdk'
+import WBK, { SearchResponse, EntityId, Entity, ItemId } from 'wikibase-sdk'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
-
-/*const transformData = (data: any): any => {
-  return Object.entries(data)
-    .map(([key, wikidata]: [string, any]) => {
-      if (!wikidata || !wikidata.claims) return null
-
-      const verifiedUrl = `https://www.wikidata.org/wiki/${wikidata.id}`
-
-      const emissionsData = (wikidata.claims.P5991 || []).map(
-        (emission: any) => {
-          const year = emission.qualifiers.P580[0].datavalue.value.time.slice(
-            1,
-            5
-          )
-          const scope1Emission = emission.qualifiers.P3831
-            ? parseFloat(emission.qualifiers.P3831[0].datavalue.value.amount)
-            : null
-          const scope2Emission = emission.qualifiers.P580
-            ? parseFloat(emission.qualifiers.P580[0].datavalue.value.amount)
-            : null
-          const scope3Emission = emission.qualifiers.P582
-            ? parseFloat(emission.qualifiers.P582[0].datavalue.value.amount)
-            : null
-
-          return {
-            year: year,
-            reference: emission.references[0].snaks.P854[0].datavalue.value,
-            scope1: {
-              emissions: scope1Emission,
-              verified: verifiedUrl,
-              unit: 'tCO2e',
-            },
-            scope2: {
-              emissions: scope2Emission,
-              verified: verifiedUrl,
-              unit: 'tCO2e',
-            },
-            scope3: {
-              emissions: scope3Emission,
-              verified: verifiedUrl,
-              unit: 'tCO2e',
-              categories: {
-                //TODO: add scope 3 categories
-                '1_purchasedGoods': null,
-                '2_capitalGoods': null,
-                '3_fuelAndEnergyRelatedActivities': null,
-                '4_upstreamTransportationAndDistribution': null,
-                '5_wasteGeneratedInOperations': null,
-                '6_businessTravel': null,
-                '7_employeeCommuting': null,
-                '8_upstreamLeasedAssets': null,
-                '9_downstreamTransportationAndDistribution': null,
-                '10_processingOfSoldProducts': null,
-                '11_useOfSoldProducts': null,
-                '12_endOfLifeTreatmentOfSoldProducts': null,
-                '13_downstreamLeasedAssets': null,
-                '14_franchises': null,
-                '15_investments': null,
-                '16_other': null,
-              },
-            },
-          }
-        }
-      )
-
-      return {
-        node: wikidata.id,
-        url: `https://www.wikidata.org/wiki/${wikidata.id}`,
-        logo: wikidata.claims.P18
-          ? `https://commons.wikimedia.org/wiki/File:${wikidata.claims.P18[0].mainsnak.datavalue.value}`
-          : null,
-        label: wikidata.labels ? wikidata.labels.en.value : key,
-        description:
-          wikidata.descriptions && wikidata.descriptions.en
-            ? wikidata.descriptions.en.value
-            : null,
-        emissions: emissionsData,
-      }
-    })
-    .filter((item) => item !== null)
-}*/
+import wikidataConfig from '../config/wikidata'
+import WBEdit from 'wikibase-edit'
 
 const wbk = WBK({
-  instance: 'https://www.wikidata.org',
+  instance: wikidataConfig.wikidataURL,
   sparqlEndpoint: 'https://query.wikidata.org/sparql',
 })
+
+const wikibaseEditConfig = {
+  instance: wikidataConfig.wikidataURL,
+  credentials: {
+    username: wikidataConfig.wikidataUsername,
+    password: wikidataConfig.wikidataPassword
+  },
+  userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
+}
+
+const {
+  TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
+  GHG_PROTOCOL,
+} = wikidataConfig.entities;
+
+const {
+  CARBON_FOOTPRINT,
+  START_TIME,
+  END_TIME,
+  DETERMINATION_METHOD_OR_STANDARD,
+  REFERENCE_URL,
+  OBJECT_OF_STATEMENT_HAS_ROLE,
+  APPLIES_TO_PART
+} = wikidataConfig.properties;
 
 export async function searchCompany({
   companyName,
   language = 'sv',
 }: {
-  companyName: string
+  companyName
   language?: SearchEntitiesOptions['language']
 }): Promise<SearchResponse['search']> {
   // TODO: try to search in multiple languages. Maybe we can find a page in English if it doesn't exist in Swedish?
@@ -125,7 +70,211 @@ export async function getWikidataEntities(ids: EntityId[]) {
   )
 
   return Object.values(entities) as (Entity & {
-    labels: { [lang: string]: { language: string; value: string } }
-    descriptions: { [lang: string]: { language: string; value: string } }
+    labels: { [lang]: { language; value } }
+    descriptions: { [lang]: { language; value } }
   })[]
+}
+
+export async function getClaims(entity: ItemId): Promise<Claim[]> {
+  const url = wbk.getEntities({
+      ids: entity,
+      languages: ["en"]
+  })
+
+  const res = await fetch(url);
+  const wikidataEntities = (await res.json()).entities;
+
+  if(wikidataEntities === undefined) {
+    return [];
+  }
+
+  const claims = wikidataEntities[entity].claims;
+
+  if(claims === undefined) {
+    return [];
+  }
+  
+  const carbonFootprintClaims = claims[CARBON_FOOTPRINT] ?? [];
+
+  return carbonFootprintClaims.map(claim => {
+    return {
+      startDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
+      endDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
+      value: claim.mainsnak.datavalue.value.amount,
+      category: claim.qualifiers[APPLIES_TO_PART] ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id : undefined,
+      scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id,
+      id: claim.id
+    } as Claim
+  })
+}
+
+export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: RemoveClaim[]) {
+  const wbEdit = WBEdit(wikibaseEditConfig);
+  const claimBody = claims.map((claim) => {
+    const claimObject = {
+      value: {
+          amount: claim.value,
+          unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
+      },
+      qualifiers: {
+          [START_TIME]: claim.startDate,
+          [END_TIME]: claim.endDate,
+          [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
+      },
+      references: [
+        {[REFERENCE_URL]: claim.referenceUrl}
+      ]
+    }
+
+    if(claim.scope !== undefined) {
+      claimObject.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = claim.scope;
+    }
+
+    if(claim.category !== undefined) {
+      claimObject.qualifiers[APPLIES_TO_PART] = claim.category;
+    }
+
+    return claimObject;
+  }) 
+  
+  const body = {
+    id: entity,
+    claims: {
+      [CARBON_FOOTPRINT]: [
+        ...claimBody,
+        ...removeClaim
+      ]
+    },
+    summary: "Added/Updated carbon footprint data"
+  }
+
+  await wbEdit.entity.edit(body);
+}
+
+
+/**
+ * Compares if two claims have the same scope and optionally category
+ * @param newClaim 
+ * @param exisitingClaim 
+ * @returns true if scope and category are equal
+ */
+function compareClaims(newClaim: Claim, exisitingClaim: Claim) { 
+  if( (newClaim.scope === undefined && exisitingClaim.scope !== undefined) ||
+      (newClaim.scope !== undefined && (exisitingClaim.scope === undefined || exisitingClaim.scope !== newClaim.scope))) {
+      return false;
+  }
+  if( (newClaim.category === undefined && exisitingClaim.category !== undefined) ||
+      (newClaim.category !== undefined && (exisitingClaim.category === undefined || exisitingClaim.category !== newClaim.category))) {
+      return false;
+  }
+  return true;
+}
+
+
+/**
+ * Compares two date strings
+ * @param date1 
+ * @param date2 
+ * @returns difference in milliseconds
+ */
+function compareDateStrings(date1?: string, date2?: string) {
+  const epoch = "1970-01-01T00:00:00Z";
+  return (new Date(date1 || epoch)).getTime() - (new Date(date2 || epoch).getTime())
+}
+
+
+/**
+ * Calculates the claims to add and which to remove in order to update the entity
+ * @param entity Entity for which the exisiting and adding Claims should be compared
+ * @param claims The claims to add
+ * @returns 
+ */
+async function diffCarbonFootprintClaims(entity: ItemId, claims: Claim[]) {
+  const existingClaims = await getClaims(entity);
+  const newClaims: Claim[] = [];
+  const rmClaims: RemoveClaim[] = [];
+
+  for(const claim of claims) {
+    let duplicate = false;
+    for(const existingClaim of existingClaims) {
+      /**
+       * Bit of explanaiton for the different cases
+       * The compareClaim function looks if there is already a claim with the same scope and optional category
+       * If that is the case we only want the most recent claim of that scope and category to be on wikidata
+       * Therefore, we look at the end date of the claim's reporting period to find the most recent one
+       * All older claims will not be added or are removed if there are on wikidata 
+       */
+      if(compareClaims(claim, existingClaim)) {
+        if(compareDateStrings(existingClaim.endDate, claim.endDate) < 0) {
+            if(existingClaim.id !== undefined) {
+              rmClaims.push({id: existingClaim.id, remove: true});  //Remove older claims;
+            } 
+            continue;
+        } else if(compareDateStrings(existingClaim.endDate, claim.endDate) > 0) {
+            duplicate = true; //If there is a more recent one do not add that claim
+        } else if(compareDateStrings(existingClaim.endDate, claim.endDate) === 0
+        && compareDateStrings(existingClaim.startDate, claim.startDate) === 0) {
+          if(("+" + claim.value) !== existingClaim.value) {
+            newClaims.push(claim); //Update value by removing old claim and adding new claim
+            if(existingClaim.id !== undefined) {
+              rmClaims.push({id: existingClaim.id, remove: true});
+            }             
+          }          
+          duplicate = true;
+        } else {
+          newClaims.push(claim); //if for some reason the start times differ we still opt for our claim
+          if(existingClaim.id !== undefined) {
+            rmClaims.push({id: existingClaim.id, remove: true});
+          } 
+          duplicate = true;
+        }          
+      }      
+    }
+    if(!duplicate) {
+      newClaims.push(claim); //only add claims that not exist already
+    }
+  }
+  return {newClaims, rmClaims};
+}
+
+export async function bulkCreateOrEditCarbonFootprintClaim(entity: ItemId, claims: Claim[]) {
+  const {newClaims, rmClaims} = await diffCarbonFootprintClaims(entity, claims);  
+  await editEntity(entity, newClaims, rmClaims);
+}
+
+export async function getWikipediaTitle(id: EntityId): Promise<string> {
+  const url = wbk.getEntities({
+    ids: [id],
+    props: ['sitelinks'],
+  })
+  const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
+    res.json()
+  )
+  const entity = entities[id]
+  const title = entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
+
+  if (!title) {
+    throw new Error('No Wikipedia site link found')
+  }
+
+  return title
+}
+
+function transformFromWikidataDateStringToDate(date: string) {
+  return date.substring(1);
+}
+
+export interface Claim {
+  id?: string;
+  startDate: string;
+  endDate: string;
+  value: string;
+  referenceUrl?: string;
+  scope?: ItemId;
+  category?: ItemId;
+}
+
+export interface RemoveClaim {
+  id: string;
+  remove: boolean;
 }
