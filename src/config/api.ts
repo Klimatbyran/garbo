@@ -10,7 +10,7 @@ const envSchema = z.object({
    * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
    * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
    */
-  API_TOKENS: z.string().transform((tokens) => tokens.split(',')),
+  API_SECRET: z.string(),
   FRONTEND_URL: z
     .string()
     .default(
@@ -72,7 +72,7 @@ const apiConfig = {
       ? productionOrigins
       : developmentOrigins,
 
-  tokens: env.API_TOKENS,
+  secret: env.API_SECRET,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,

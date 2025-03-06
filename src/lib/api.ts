@@ -1,6 +1,23 @@
 import apiConfig from '../config/api'
 
-const GARBO_TOKEN = apiConfig.tokens.find((token) => token.startsWith('garbo'))
+const GARBO_TOKEN = await getApiToken(apiConfig.secret)
+
+async function getApiToken(secret: string) {
+  const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      client_id: 'garbo',
+      client_secret: secret,
+    }),
+  })
+
+  const token = (await response.json()).token
+  console.log(token)
+  return token
+}
 
 export async function apiFetch(
   endpoint: string,
