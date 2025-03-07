@@ -2,9 +2,11 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import discord from '../discord'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
+import wikidataUpload from './wikidataUpload'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
+    companyName?: string
     approved?: boolean
     requiresApproval: boolean
     diff: string
@@ -19,6 +21,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
   async (job: SaveToApiJob) => {
     try {
       const {
+        companyName,
         wikidata,
         approved,
         requiresApproval = true,
@@ -62,10 +65,19 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       }
 
       if (!requiresApproval || approved) {
+        if(apiSubEndpoint === "reporting-periods") {
+          await wikidataUpload.queue.add("Wikidata Upload for " + companyName,
+            {
+              ...job.data
+            }
+          )
+        }
+        
         console.log(`Saving approved data for ${wikidataId} to API`)
         await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
           body: removeNullValuesFromGarbo(body),
-        })
+        })       
+
         return { success: true }
       }
 
