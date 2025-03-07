@@ -21,6 +21,11 @@ const wikibaseEditConfig = {
 const {
   TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
   GHG_PROTOCOL,
+  SCOPE_1,
+  SCOPE_2,
+  SCOPE_2_LOCATION_BASED,
+  SCOPE_2_MARKET_BASED,
+  SCOPE_3,
 } = wikidataConfig.entities;
 
 const {
@@ -262,6 +267,70 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
 
 function transformFromWikidataDateStringToDate(date: string) {
   return date.substring(1);
+}
+
+export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl): Claim[] {
+    const claims: Claim[] = [];
+
+    claims.push({
+        startDate,
+        endDate,
+        referenceUrl,
+        scope: SCOPE_1,
+        value: emissions.scope1.total,
+    });
+
+    claims.push({
+        scope: SCOPE_2_MARKET_BASED,
+        startDate,
+        endDate,
+        referenceUrl,
+        value: emissions.scope2.mb,
+    });
+    claims.push({
+        scope: SCOPE_2_LOCATION_BASED,
+        startDate,
+        endDate,
+        referenceUrl,
+        value: emissions.scope2.lb,
+    });
+    claims.push({
+        scope: SCOPE_2,
+        startDate,
+        endDate,
+        referenceUrl,
+        value: emissions.scope2.unknown,
+  });
+
+    emissions.scope3.categories.forEach(category => {
+        claims.push({
+            scope: SCOPE_3,
+            startDate,
+            endDate,
+            referenceUrl,
+            category: wikidataConfig.translateIdToCategory(category.category),
+            value: category.total,
+        });
+    });
+
+    return claims;
+}
+
+export function reduceToMostRecentClaims(claims: Claim[]): Claim[] {
+  const claimMap = new Map<string, Claim>();
+
+  for(const claim of claims) {
+    if(claimMap.has(claim.scope + "-" + (claim.category ?? ""))) {
+      const exisitingClaim = claimMap.get(claim.scope + "-" + (claim.category ?? ""));
+      if(exisitingClaim?.endDate === undefined || exisitingClaim.endDate < claim.endDate) {
+        claimMap.set(claim.scope + "-" + (claim.category ?? ""), claim);
+      }
+    } else {
+      claimMap.set(claim.scope + "-" + (claim.category ?? ""), claim);
+    }
+  }
+
+  return Array.from(claimMap.values());
 }
 
 export interface Claim {
