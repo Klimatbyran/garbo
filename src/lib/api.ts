@@ -14,9 +14,7 @@ async function getApiToken(secret: string) {
     }),
   })
 
-  const token = (await response.json()).token
-  console.log(token)
-  return token
+  return (await response.json()).token
 }
 
 export async function apiFetch(
