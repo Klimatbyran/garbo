@@ -32,8 +32,6 @@ async function authPlugin(app: FastifyInstance) {
 
       if (newToken !== undefined) {
         reply.headers['x-auth-token'] = newToken
-      } else {
-        request.log.error('Could not create new token for user', user)
       }
       request.user = user
     } catch (err) {
