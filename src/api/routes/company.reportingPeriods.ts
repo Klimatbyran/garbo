@@ -1,17 +1,17 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
-
 import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
 import {
   getErrorSchemas,
-  okResponseSchema,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
+  okResponseSchema,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
 import { metadataService } from '../services/metadataService'
+import _ from 'lodash'
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
   app.post(
@@ -56,6 +56,12 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             const createdMetadata = await metadataService.createMetadata({
               metadata,
               user,
+              verified: false,
+            })
+            const verifiedMetadata = await metadataService.createMetadata({
+              metadata,
+              user,
+              verified: true,
             })
             const reportingPeriod =
               await reportingPeriodService.upsertReportingPeriod(
@@ -99,51 +105,52 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               scope1 &&
                 emissionsService.upsertScope1(
                   dbEmissions,
-                  scope1,
-                  createdMetadata
+                  _.omit(scope1, 'verified'),
+                  scope1.verified ? verifiedMetadata : createdMetadata
                 ),
               scope2 &&
                 emissionsService.upsertScope2(
                   dbEmissions,
-                  scope2,
-                  createdMetadata
+                  _.omit(scope2, 'verified'),
+                  scope2.verified ? verifiedMetadata : createdMetadata
                 ),
               scope3 &&
-                emissionsService.upsertScope3(dbEmissions, scope3, () =>
+                emissionsService.upsertScope3(dbEmissions, scope3, (verified: boolean) =>
                   metadataService.createMetadata({
                     metadata,
                     user,
+                    verified,
                   })
                 ),
               statedTotalEmissions !== undefined &&
                 emissionsService.upsertStatedTotalEmissions(
                   dbEmissions,
-                  createdMetadata,
-                  statedTotalEmissions
+                  statedTotalEmissions.verified ? verifiedMetadata : createdMetadata,
+                  _.omit(statedTotalEmissions, 'verified'),
                 ),
               biogenic &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
-                  biogenic,
-                  createdMetadata
+                  _.omit(biogenic, 'verified'),
+                  biogenic.verified ? verifiedMetadata : createdMetadata
                 ),
               scope1And2 &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
-                  scope1And2,
-                  createdMetadata
+                  _.omit(scope1And2, 'verified'),
+                  scope1And2.verified ? verifiedMetadata : createdMetadata
                 ),
               turnover &&
                 companyService.upsertTurnover({
                   economy: dbEconomy,
-                  metadata: createdMetadata,
-                  turnover,
+                  metadata: turnover.verified ? verifiedMetadata : createdMetadata,
+                  turnover: _.omit(turnover, 'verified'),
                 }),
               employees &&
                 companyService.upsertEmployees({
                   economy: dbEconomy,
-                  employees,
-                  metadata: createdMetadata,
+                  employees: _.omit(employees, 'verified'),
+                  metadata: employees.verified ? verifiedMetadata : createdMetadata,
                 }),
             ])
           }
