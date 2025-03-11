@@ -422,4 +422,6 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
-export const AuthentificationResponseScheme = z.object({token: z.string()})
+export const AuthentificationResponseScheme = z.object({ token: z.string() })
+
+export const ChatMessageSchema = z.object({ message: z.string() })

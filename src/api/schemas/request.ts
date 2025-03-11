@@ -191,5 +191,10 @@ export const MunicipalityNameParamSchema = z.object({
 })
 
 export const authenticationBodySchema = z.object({
-  code: z.string()
+  code: z.string(),
+})
+
+export const postChatMessageSchema = z.object({
+  url: z.string(),
+  message: z.string(),
 })
