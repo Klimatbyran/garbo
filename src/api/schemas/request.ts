@@ -194,7 +194,7 @@ export const authenticationBodySchema = z.object({
   code: z.string(),
 })
 
-export const postChatMessageSchema = z.object({
-  url: z.string(),
+export const PostChatMessageSchema = z.object({
+  reportURL: z.string(),
   message: z.string(),
 })

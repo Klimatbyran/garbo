@@ -38,4 +38,4 @@ export type authenticationBody = z.infer<
   typeof schemas.authenticationBodySchema
 >
 
-export type PostChatMessageBody = z.infer<typeof schemas.postChatMessageSchema>
+export type PostChatMessageBody = z.infer<typeof schemas.PostChatMessageSchema>
