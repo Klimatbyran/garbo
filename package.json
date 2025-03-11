@@ -47,6 +47,7 @@
     "fastify-plugin": "^5.0.1",
     "fastify-type-provider-zod": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "openai": "^4.73.1",
     "pdf2pic": "^3.1.3",
     "pino-http": "^10.4.0",
