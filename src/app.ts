@@ -83,6 +83,16 @@ async function startApp() {
   })
 
   app.register(fastifyCookie);
+  app.register(fastifySession, {
+    cookieName: 'garbo_session',
+    secret: apiConfig.jwtSecret,
+    cookie: {
+      secure: apiConfig.nodeEnv !== 'development',
+      httpOnly: true,
+      sameSite: 'lax',
+      maxAge: parseInt(apiConfig.jwtExpiresIn) * 1000 // convert to milliseconds
+    }
+  });
 
   app.register(publicContext)
   app.register(authenticatedContext)

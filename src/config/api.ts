@@ -59,6 +59,7 @@ const baseLoggerOptions: FastifyServerOptions['logger'] = {
 
 const apiConfig = {
   cacheMaxAge: env.CACHE_MAX_AGE,
+  nodeEnv: env.NODE_ENV,
 
   authorizedUsers: {
     garbo: 'hej@klimatkollen.se',
