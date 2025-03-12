@@ -26,28 +26,35 @@ async function authPlugin(app: FastifyInstance) {
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
+      if (!token) {
+        request.log.error('No token provided');
+        return reply.status(401).send(unauthorizedError);
+      }
+      
       // First try JWT token verification
       try {
-        const { user, newToken } = authService.verifyUser(token)
+        const { user, newToken } = authService.verifyUser(token);
         
         if (newToken !== undefined) {
-          reply.headers['x-auth-token'] = newToken
+          reply.headers['x-auth-token'] = newToken;
         }
         
-        request.user = user
-        return
+        request.user = user;
+        return;
       } catch (jwtError) {
+        request.log.error('JWT verification failed', jwtError);
+        
         // If JWT verification fails, try API token
         if (!apiConfig.tokens?.includes(token)) {
           request.log.error('Invalid token', {
             token,
             apiConfigTokens: apiConfig.tokens,
-          })
-          return reply.status(401).send(unauthorizedError)
+          });
+          return reply.status(401).send(unauthorizedError);
         }
         
         // For API tokens, set a null user
-        request.user = null
+        request.user = null;
       }
     } catch (err) {
       request.log.error(err)

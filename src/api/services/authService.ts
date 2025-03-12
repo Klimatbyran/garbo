@@ -50,11 +50,13 @@ class AuthService {
                     headers: {
                         Authorization: "Bearer " + accessToken,
                         Accept: "application/vnd.github+json"
-                    }
+                    },
+                    validateStatus: status => true // Don't throw on any status code
                 });
                 
                 if (isMember.status !== 204) {
-                    throw new Error("User is not a member of the organization");
+                    console.error(`Organization membership check failed with status ${isMember.status}:`, isMember.data);
+                    throw new Error(`User is not a member of the organization (status: ${isMember.status})`);
                 }
             } catch (error) {
                 console.error("Organization membership check failed:", error);
@@ -89,15 +91,24 @@ class AuthService {
     private static readonly SECONDS_IN_A_MINUTE = 60;
 
     verifyUser(token: string) {
-        const payload = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
-        const currentTimeInSeconds = Date.now() / 1000;
-        const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
+        if (!token) {
+            throw new Error('No token provided');
+        }
+        
+        try {
+            const payload = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
+            const currentTimeInSeconds = Date.now() / 1000;
+            const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 
-        const shouldRenew = currentTimeInSeconds > payload.exp - renewalThreshold;
+            const shouldRenew = currentTimeInSeconds > payload.exp - renewalThreshold;
 
-        return {
-            user: payload, 
-            newToken: shouldRenew ? this.createToken(payload) : undefined
+            return {
+                user: payload, 
+                newToken: shouldRenew ? this.createToken(payload) : undefined
+            };
+        } catch (error) {
+            console.error('Token verification failed:', error);
+            throw error;
         }
     }
 
