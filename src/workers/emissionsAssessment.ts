@@ -73,12 +73,15 @@ ${assessment.assessment.nextSteps.map(s => `- [${s.priority}] ${s.description}`)
 `)
 
       // Trigger follow-up workers based on assessment results
+      const { Queue } = await import('bullmq')
+      const queue = new Queue('garbo', { connection: job.opts.connection })
+      
       if (assessment.assessment.nextSteps.some(step => step.type === 'REQUEST_SCOPE3')) {
         const missingCategories = assessment.assessment.issues
           .filter(issue => issue.type === 'SCOPE_MISSING')
           .map(issue => issue.description)
         
-        await job.queue.add('verifyScope3', {
+        await queue.add('verifyScope3', {
           ...job.data,
           scope3Data: contextData.scope3,
           missingCategories
@@ -89,7 +92,7 @@ ${assessment.assessment.nextSteps.map(s => `- [${s.priority}] ${s.description}`)
         const calculationIssues = assessment.assessment.issues
           .filter(issue => issue.type === 'CALCULATION_ERROR')
         
-        await job.queue.add('verifyCalculations', {
+        await queue.add('verifyCalculations', {
           ...job.data,
           suspectedErrors: calculationIssues,
           emissionsData: {
