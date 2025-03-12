@@ -1,9 +1,10 @@
 import { z } from 'zod'
 
+// Modified schema to be compatible with OpenAI's validation
 export const schema = z.object({
   assessment: z.object({
     isReasonable: z.boolean(),
-    confidence: z.number().min(0).max(1),
+    confidence: z.number(),  // Removed min/max constraints
     issues: z.array(z.object({
       type: z.enum(['MISSING_DATA', 'CALCULATION_ERROR', 'SCOPE_MISSING', 'UNIT_ERROR', 'OTHER']),
       description: z.string(),
@@ -32,7 +33,7 @@ Provide your assessment in this format:
 {
   "assessment": {
     "isReasonable": true/false,
-    "confidence": 0-1 (your confidence in this assessment),
+    "confidence": 0-1 (your confidence in this assessment, use a value between 0 and 1),
     "issues": [
       {
         "type": "MISSING_DATA"/"CALCULATION_ERROR"/"SCOPE_MISSING"/"UNIT_ERROR"/"OTHER",
