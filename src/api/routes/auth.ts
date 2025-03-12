@@ -3,6 +3,7 @@ import { getTags } from "../../config/openapi";
 import { authenticationBodySchema, authenticationResponseSchema, getErrorSchemas } from "../schemas";
 import { authenticationBody } from "../types";
 import { authService } from "../services/authService";
+import { z } from "zod";
 
 const unauthorizedError = {
     message: 'Unauthorized',
@@ -67,12 +68,9 @@ export async function authentificationRoutes(app: FastifyInstance) {
             200: authenticationResponseSchema,
             ...getErrorSchemas(401, 400)
           },
-          querystring: {
-            type: 'object',
-            properties: {
-              code: { type: 'string', description: 'GitHub authorization code' }
-            }
-          }
+          querystring: z.object({
+            code: z.string().openapi('GitHub authorization code')
+          })
         },
       },
       handleGithubAuth
