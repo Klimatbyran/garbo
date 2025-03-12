@@ -37,3 +37,7 @@ export type MunicipalityNameParams = z.infer<
 export type authenticationBody = z.infer<
   typeof schemas.authenticationBodySchema
 >
+
+export type GithubCodeQuery = {
+  code?: string;
+}
