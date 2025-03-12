@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest } from "fastify"
 import { getTags } from "../../config/openapi";
-import { authenticationBodySchema, AuthentificationResponseScheme, getErrorSchemas } from "../schemas";
+import { authenticationBodySchema, authenticationResponseSchema, getErrorSchemas } from "../schemas";
 import { authenticationBody } from "../types";
 import { authService } from "../services/authService";
 
@@ -18,7 +18,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
           description: 'Authenticates a user using a Github access code',
           tags: getTags('Auth'),
           response: {
-            200: AuthentificationResponseScheme,
+            200: authenticationResponseSchema,
             ...getErrorSchemas(401)
           },
           body: authenticationBodySchema
