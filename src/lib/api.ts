@@ -1,6 +1,6 @@
 import apiConfig from '../config/api'
 
-let GARBO_TOKEN = await getApiToken(apiConfig.secret)
+let GARBO_TOKEN: string | null = null
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -17,13 +17,22 @@ async function getApiToken(secret: string) {
   return (await response.json()).token
 }
 
+async function ensureToken() {
+  if (!GARBO_TOKEN) {
+    GARBO_TOKEN = await getApiToken(apiConfig.secret)
+  }
+  return GARBO_TOKEN
+}
+
 export async function apiFetch(
   endpoint: string,
   { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
+  const token = await ensureToken()
+
   const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${GARBO_TOKEN}`,
+    Authorization: `Bearer ${token}`,
   }
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
