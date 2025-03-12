@@ -38,7 +38,9 @@ const verifyCalculations = new DiscordWorker<VerifyCalculationsJob>(
           content: `Verify the emissions calculations for ${companyName}.
 
 Suspected errors:
-${suspectedErrors.map(err => `- ${err.type}: ${err.description}`).join('\n')}
+${suspectedErrors && suspectedErrors.length > 0 
+  ? suspectedErrors.map(err => `- ${err.type}: ${err.description}`).join('\n')
+  : 'No specific errors identified, but general verification requested.'}
 
 Current emissions data:
 ${JSON.stringify(emissionsData, null, 2)}
