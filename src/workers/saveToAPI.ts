@@ -3,6 +3,7 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import wikidataUpload from './wikidataUpload'
+import wikipediaUpload from './wikipediaUpload'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -67,6 +68,11 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       if (!requiresApproval || approved) {
         if(apiSubEndpoint === "reporting-periods") {
           await wikidataUpload.queue.add("Wikidata Upload for " + companyName,
+            {
+              ...job.data
+            }
+          )
+          await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
             {
               ...job.data
             }
