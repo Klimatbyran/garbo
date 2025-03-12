@@ -39,7 +39,7 @@ const estimateCategory1 = new DiscordWorker<EstimateCategory1Job>(
         {
           role: 'system',
           content:
-            'You are an expert in Scope 3 Category 1 emissions calculation and supply chain analysis.',
+            'You are an expert in Scope 3 Category 1 emissions calculation and supply chain analysis. Respond with a JSON object containing your analysis.',
         },
         {
           role: 'user',
@@ -51,7 +51,7 @@ const estimateCategory1 = new DiscordWorker<EstimateCategory1Job>(
         },
       ],
       {
-        response_format: zodResponseFormat(schema, 'scope3-category1'),
+        response_format: { type: 'json_object' },
       }
     )
 

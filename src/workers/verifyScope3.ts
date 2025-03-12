@@ -40,7 +40,7 @@ const verifyScope3 = new DiscordWorker<VerifyScope3Job>(
       [
         {
           role: 'system',
-          content: 'You are an expert in GHG Protocol Scope 3 reporting requirements.'
+          content: 'You are an expert in GHG Protocol Scope 3 reporting requirements. Respond with a JSON object containing your analysis.'
         },
         {
           role: 'user',
@@ -48,7 +48,7 @@ const verifyScope3 = new DiscordWorker<VerifyScope3Job>(
         }
       ],
       {
-        response_format: zodResponseFormat(schema, 'verify-scope3')
+        response_format: { type: 'json_object' }
       }
     )
 

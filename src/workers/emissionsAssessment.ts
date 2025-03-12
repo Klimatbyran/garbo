@@ -42,7 +42,7 @@ const emissionsAssessment = new DiscordWorker<EmissionsAssessmentJob>(
         [
           {
             role: 'system',
-            content: 'You are an expert in corporate emissions reporting and GHG Protocol standards.'
+            content: 'You are an expert in corporate emissions reporting and GHG Protocol standards. Respond with a JSON object containing your assessment.'
           },
           {
             role: 'user',
