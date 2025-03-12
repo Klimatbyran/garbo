@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: worker
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: worker
@@ -15,9 +15,6 @@ spec:
       containers:
         - image: ghcr.io/klimatbyran/garbo
           resources:
-            limits:
-              cpu: 1
-              memory: 2Gi
             requests:
               cpu: 500m
               memory: 1Gi
@@ -81,4 +78,44 @@ spec:
                   key: postgres-password
             - name: NLM_INGESTOR_URL
               value: http://nlm:5001
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_ID
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_SECRET
+            - name: GITHUB_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_REDIRECT_URI
           imagePullPolicy: Always
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80

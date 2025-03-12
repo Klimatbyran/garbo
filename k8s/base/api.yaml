@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: garbo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: garbo
@@ -87,4 +87,29 @@ spec:
                 secretKeyRef:
                   name: redis
                   key: redis-password
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_ID
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_CLIENT_SECRET
+            - name: GITHUB_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_REDIRECT_URI
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_SECRET
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_EXPIRES_IN
           imagePullPolicy: Always

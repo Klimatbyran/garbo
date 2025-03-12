@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
   .optional()
 
 export const emissionsSchema = z
@@ -83,6 +83,7 @@ export const emissionsSchema = z
       .object({
         total: z.number(),
         unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
       })
       .optional(),
     scope2: z
@@ -97,6 +98,7 @@ export const emissionsSchema = z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .optional(),
         unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
       })
       .refine(
         ({ mb, lb, unknown }) =>
@@ -115,6 +117,7 @@ export const emissionsSchema = z
               category: z.number().int().min(1).max(16),
               total: z.number(),
               unit: emissionUnitSchemaWithDefault,
+              verified: z.boolean().optional(),
             })
           )
           .optional(),
@@ -122,11 +125,11 @@ export const emissionsSchema = z
       })
       .optional(),
     biogenic: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault })
+      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
       .optional(),
   })
   .optional()
@@ -137,12 +140,14 @@ export const economySchema = z
       .object({
         value: z.number().optional(),
         currency: z.string().optional(),
+        verified: z.boolean().optional(),
       })
       .optional(),
     employees: z
       .object({
         value: z.number().optional(),
         unit: z.string().optional(),
+        verified: z.boolean().optional(),
       })
       .optional(),
   })
@@ -188,4 +193,17 @@ export const MunicipalityNameSchema = z.string()
 
 export const MunicipalityNameParamSchema = z.object({
   name: MunicipalityNameSchema,
+})
+
+export const userAuthenticationBodySchema = z.object({
+    code: z.string()
+})
+
+export const postWikidataBodySchema = z.object({
+  wikidataId: wikidataIdSchema,
+})
+
+export const serviceAuthenticationBodySchema = z.object({
+  client_id: z.string(),
+  client_secret: z.string()
 })

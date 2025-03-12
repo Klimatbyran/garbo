@@ -26,7 +26,7 @@ export const reportingPeriodArgs = {
   },
 } satisfies Prisma.ReportingPeriodDefaultArgs
 
-const metadataArgs = {
+export const metadataArgs = {
   orderBy: {
     updatedAt: 'desc' as const,
   },

@@ -10,7 +10,10 @@ import {
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
-import { emissionsArgs } from '../args'
+import { emissionsArgs, metadataArgs } from '../args'
+import { Emissions } from '@prisma/client'
+import { companyService, transformMetadata } from './companyService'
+import _ from 'lodash'
 
 class EmissionsService {
   async upsertEmissions({
@@ -169,17 +172,17 @@ class EmissionsService {
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      categories?: { category: number; total: number; unit: string }[]
+      categories?: { category: number; total: number; unit: string; verified?: boolean }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
         'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
       >
     },
-    createMetadata: () => Promise<Metadata>
+    createMetadata: (verified: boolean) => Promise<Metadata>
   ) {
     const existingScope3Id = emissions.scope3?.id
 
-    const metadata = await createMetadata()
+    const metadata = await createMetadata(scope3.statedTotalEmissions.verified ?? false)
 
     const updatedScope3 = await prisma.scope3.upsert({
       where: { id: existingScope3Id ?? '' },
@@ -210,7 +213,8 @@ class EmissionsService {
     // Upsert only the scope 3 categories from the request body
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
-        const metadataForScope3Category = await createMetadata()
+        const metadataForScope3Category = await createMetadata(scope3Category.verified ?? false)
+        scope3Category = _.omit(scope3Category, 'verified')
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )
@@ -253,7 +257,7 @@ class EmissionsService {
       await this.upsertStatedTotalEmissions(
         emissions,
         metadata,
-        scope3.statedTotalEmissions,
+        _.omit(scope3.statedTotalEmissions, 'verified'),
         updatedScope3
       )
     }
