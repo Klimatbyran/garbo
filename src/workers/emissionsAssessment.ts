@@ -73,18 +73,24 @@ ${assessment.assessment.nextSteps.map(s => `- [${s.priority}] ${s.description}`)
 `)
 
       // Trigger follow-up workers based on assessment results
-      const { Queue } = await import('bullmq')
-      const queue = new Queue('garbo', { connection: job.opts.connection })
+      const { FlowProducer } = await import('bullmq')
+      const flow = new FlowProducer({ connection: job.opts.connection })
+      
+      const children = []
       
       if (assessment.assessment.nextSteps.some(step => step.type === 'REQUEST_SCOPE3')) {
         const missingCategories = assessment.assessment.issues
           .filter(issue => issue.type === 'SCOPE_MISSING')
           .map(issue => issue.description)
         
-        await queue.add('verifyScope3', {
-          ...job.data,
-          scope3Data: contextData.scope3,
-          missingCategories
+        children.push({
+          name: `verifyScope3-${job.data.companyName}`,
+          queueName: 'verifyScope3',
+          data: {
+            ...job.data,
+            scope3Data: contextData.scope3,
+            missingCategories
+          }
         })
       }
 
@@ -92,14 +98,31 @@ ${assessment.assessment.nextSteps.map(s => `- [${s.priority}] ${s.description}`)
         const calculationIssues = assessment.assessment.issues
           .filter(issue => issue.type === 'CALCULATION_ERROR')
         
-        await queue.add('verifyCalculations', {
-          ...job.data,
-          suspectedErrors: calculationIssues,
-          emissionsData: {
-            scope12: contextData.scope12,
-            scope3: contextData.scope3,
-            biogenic: contextData.biogenic
+        children.push({
+          name: `verifyCalculations-${job.data.companyName}`,
+          queueName: 'verifyCalculations',
+          data: {
+            ...job.data,
+            suspectedErrors: calculationIssues,
+            emissionsData: {
+              scope12: contextData.scope12,
+              scope3: contextData.scope3,
+              biogenic: contextData.biogenic
+            }
           }
+        })
+      }
+      
+      // Only create a flow if there are children to process
+      if (children.length > 0) {
+        await flow.add({
+          name: `assessmentFollowUp-${job.data.companyName}`,
+          queueName: 'assessmentFollowUp',
+          data: {
+            companyName: job.data.companyName,
+            assessmentResult: assessment
+          },
+          children
         })
       }
 
