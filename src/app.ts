@@ -110,7 +110,7 @@ async function publicContext(app: FastifyInstance) {
     }
   )
 
-  app.register(authentificationRoutes, {prefix: 'api/auth'})
+  app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
 }

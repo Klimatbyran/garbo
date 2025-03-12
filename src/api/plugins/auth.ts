@@ -26,7 +26,7 @@ async function authPlugin(app: FastifyInstance) {
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
-      if (!token && !apiConfig.tokens?.includes(token)) {
+      if (!token || !apiConfig.tokens?.includes(token)) {
         request.log.error('No token', {
           token,
           apiConfigTokens: apiConfig.tokens,

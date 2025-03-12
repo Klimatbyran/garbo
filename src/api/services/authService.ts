@@ -20,37 +20,46 @@ interface User {
 
 class AuthService {
     async authUser(code: string) {
-    
-        const accessTokenRes = await axios.post<{access_token: string}>("https://github.com/login/oauth/access_token", {
-            client_id: apiConfig.githubClientId,
-            client_secret: apiConfig.githubClientSecret,
-            redirect_uri: apiConfig.githubRedirectUri,
-            code
-        }, {
-            headers: {Accept: "application/json"}
-        });
-        
-        const accessToken =  accessTokenRes.data.access_token;
-
-        const userinfoRes = await axios.get<Userinfo>("https://api.github.com/user", {
-            headers: {
-                Authorization: "Bearer " + accessToken,
-                Accept: "application/vnd.github+json"
+        try {
+            const accessTokenRes = await axios.post<{access_token: string}>("https://github.com/login/oauth/access_token", {
+                client_id: apiConfig.githubClientId,
+                client_secret: apiConfig.githubClientSecret,
+                redirect_uri: apiConfig.githubRedirectUri,
+                code
+            }, {
+                headers: {Accept: "application/json"}
+            });
+            
+            const accessToken = accessTokenRes.data.access_token;
+            if (!accessToken) {
+                throw new Error("Failed to obtain access token from GitHub");
             }
-        })
 
-        const userinfo = userinfoRes.data;
+            const userinfoRes = await axios.get<Userinfo>("https://api.github.com/user", {
+                headers: {
+                    Authorization: "Bearer " + accessToken,
+                    Accept: "application/vnd.github+json"
+                }
+            });
 
-        const isMemeber = await axios.get("https://api.github.com/orgs/" + apiConfig.githubOrganization + "/members/" + userinfo.login, {
-            headers: {
-                Authorization: "Bearer " + accessToken,
-                Accept: "application/vnd.github+json"
+            const userinfo = userinfoRes.data;
+
+            // Check if user is a member of the specified GitHub organization
+            try {
+                const isMember = await axios.get(`https://api.github.com/orgs/${apiConfig.githubOrganization}/members/${userinfo.login}`, {
+                    headers: {
+                        Authorization: "Bearer " + accessToken,
+                        Accept: "application/vnd.github+json"
+                    }
+                });
+                
+                if (isMember.status !== 204) {
+                    throw new Error("User is not a member of the organization");
+                }
+            } catch (error) {
+                console.error("Organization membership check failed:", error);
+                throw new Error("User is not a member of the organization");
             }
-        })
-
-        if(isMemeber.status !== 204) {
-            throw new Error("User is not member of the organization");
-        }
 
         const user = await prisma.user.upsert({
             where: {

@@ -31,6 +31,14 @@ export function getErrorSchemas(...codes: ErrorCode[]) {
   }, {} as Record<ErrorCode, typeof errorSchema>)
 }
 
+export const authenticationBodySchema = z.object({
+  code: z.string().openapi('GitHub authorization code'),
+})
+
+export const AuthentificationResponseScheme = z.object({
+  token: z.string().openapi('JWT authentication token'),
+})
+
 const validEmissionsUnits = z.enum(['tCO2e', 'tCO2'])
 
 export const emissionUnitSchemaGarbo = validEmissionsUnits.nullable()

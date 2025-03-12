@@ -32,8 +32,8 @@ export async function authentificationRoutes(app: FastifyInstance) {
             const token = await authService.authUser(request.body.code);
             reply.status(200).send({token});
         } catch(error) {
-            console.log(error);
-            return reply.status(401).send()
+            request.log.error(error);
+            return reply.status(401).send(unauthorizedError);
         }
       }
     )
