@@ -1,21 +1,25 @@
 import mw from 'nodemw'
 import { Emissions } from '@prisma/client'
 import * as cheerio from 'cheerio'
-import { WIKI_API_URL, EDIT_MSG_SUMMARY, REPORT_REFERENCE_NAME, KLIMATOLLEN_REFERENCE_NAME } from '../config/wikipedia'
+import wikipediaConfig from '../config/wikipedia'
 
 const bot = new mw({
     protocol: "https",
-    server: WIKI_API_URL,
+    server: wikipediaConfig.apiUrl,
     path: "/w",
     debug: false, // Set to true for verbose logging
-    username: process.env.WIKI_USERNAME,
-    password: process.env.WIKI_PASSWORD,
+    username: wikipediaConfig.wikiUsername,
+    password: wikipediaConfig.wikiPassword,
     userAgent: 'GarboBot/1.0'
 })
 
-bot.logIn((err) => {
-    if (err) throw err
-})
+
+const login = async () => {
+    bot.logIn((err, data) => {
+        if (err) throw err
+    })
+}
+
 
 export async function getWikipediaContent(title: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -31,7 +35,7 @@ async function updateWikipediaSection(title: string, content: string, section: s
         action: 'edit',
         title: title,
         appendtext: content,
-        summary: EDIT_MSG_SUMMARY,
+        summary: wikipediaConfig.editMsgSummary,
         bot: true,
         token: csrfToken as string,
         section: section
@@ -46,6 +50,7 @@ async function updateWikipediaSection(title: string, content: string, section: s
     )
 }
 export async function updateWikipediaContent(title: string, content: { text: string, reportURL: string }) {
+    await login()
     const csrfToken = await new Promise((resolve, reject) => {
         bot.getToken(title, 'edit', (err, data) => {
             if (err) reject(err)
@@ -70,7 +75,7 @@ export async function updateWikipediaContent(title: string, content: { text: str
     })
     contentToAdd = $('body').html() as string
 
-    bot.edit(title, contentToAdd, EDIT_MSG_SUMMARY, (err, data) => {
+    bot.edit(title, contentToAdd, wikipediaConfig.editMsgSummary, (err, data) => {
         if (err) throw err
     })
 }
@@ -90,8 +95,8 @@ export function generateWikipediaReference(url: string, title: string, date?: st
         accessDate ? `access-date=${accessDate}` : ''
     ].filter(Boolean).join(' |');
 
-    const klimatkollenReference = `<ref name="${KLIMATOLLEN_REFERENCE_NAME}">{{cite web |${klimatkollenRefParams}}}</ref>`
-    const reportReference = url ? `<ref name="${REPORT_REFERENCE_NAME}">{{cite web |${reportRefParams}}}</ref>` : ''
+    const klimatkollenReference = `<ref name="${wikipediaConfig.klimtkollenReferenceName}">{{cite web |${klimatkollenRefParams}}}</ref>`
+    const reportReference = url ? `<ref name="${wikipediaConfig.reportReferenceName}">{{cite web |${reportRefParams}}}</ref>` : ''
     return klimatkollenReference + reportReference
 }
 
