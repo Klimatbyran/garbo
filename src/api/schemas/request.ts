@@ -200,5 +200,10 @@ export const postWikidataBodySchema = z.object({
 })
 
 export const authenticationBodySchema = z.object({
-  code: z.string()
+  code: z.string(),
+})
+
+export const PostChatMessageSchema = z.object({
+  reportURL: z.string(),
+  message: z.string(),
 })

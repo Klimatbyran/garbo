@@ -8,8 +8,8 @@ import {
 } from 'fastify-type-provider-zod'
 import fastifySwagger from '@fastify/swagger'
 import fastifyStatic from '@fastify/static'
-import { fastifySession } from '@fastify/session';
-import { fastifyCookie } from '@fastify/cookie';
+import { fastifySession } from '@fastify/session'
+import { fastifyCookie } from '@fastify/cookie'
 
 import scalarPlugin from '@scalar/fastify-api-reference'
 import { readFileSync } from 'fs'
@@ -29,6 +29,7 @@ import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 import { authentificationRoutes } from './api/routes/auth'
+import { chatRoutes } from './api/routes/chat'
 
 async function startApp() {
   const app = Fastify({
@@ -82,7 +83,7 @@ async function startApp() {
     },
   })
 
-  app.register(fastifyCookie);
+  app.register(fastifyCookie)
 
   app.register(publicContext)
   app.register(authenticatedContext)
@@ -110,9 +111,10 @@ async function publicContext(app: FastifyInstance) {
     }
   )
 
-  app.register(authentificationRoutes, {prefix: 'api/auth'})
+  app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
+  app.register(chatRoutes, { prefix: 'api/chat' })
 }
 
 /**

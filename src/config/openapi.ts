@@ -35,8 +35,11 @@ const openAPITagDefinitions = {
     description: 'Climate data related to Swedish municipalities',
   },
   Auth: {
-    descriptions: 'Authentification'
-  }
+    descriptions: 'Authentification',
+  },
+  Chat: {
+    descriptions: 'Chat',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
