@@ -79,6 +79,10 @@ class AuthService {
         })   
         
         return this.createToken(user);
+        } catch (error) {
+            console.error("Authentication failed:", error);
+            throw error;
+        }
     }
 
     private static readonly TOKEN_EXPIRY_BUFFER_MINUTES = 15;

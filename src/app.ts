@@ -29,7 +29,6 @@ import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 import { authentificationRoutes } from './api/routes/auth'
-import { authentificationRoutes } from './api/routes/auth'
 
 async function startApp() {
   const app = Fastify({
