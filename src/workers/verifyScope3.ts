@@ -66,64 +66,14 @@ Next steps:
     // Create flows for category estimations based on analysis
     const flow = new FlowProducer({ connection: redis })
 
-    // Analyze response to identify material categories
-    const materialCategories = missingCategories.filter((category) => {
-      return (
-        response.toLowerCase().includes(`category ${category}`) &&
-        response.toLowerCase().includes('material')
-      )
-    })
-
-    if (materialCategories.length > 0) {
-      const latestYear = Math.max(
-        ...(emissionsData.scope12?.map((d) => d.year) || []),
-        ...(emissionsData.scope3?.map((d) => d.year) || []),
-        new Date().getFullYear() - 1
-      )
-
-      // Create followup jobs for each material category
-      const categoryJobs = materialCategories.map((category) => ({
-        name: `scope3Category${category}-${job.data.companyName}`,
-        queueName: 'followUp',
-        data: {
-          ...job.data,
-          type: `followUp/scope3Category`,
-          categoryNumber: category,
-          scope12Data: emissionsData.scope12,
-          scope3Data: emissionsData.scope3,
-          economy: emissionsData.economy,
-          industry: job.data.industry
-        }
-      }))
-
-      // Create a flow with summarization as parent and category estimations as children
-      await flow.add({
-        name: `summarizeCategories-${job.data.companyName}`,
-        queueName: 'summarizeCategories',
-        data: {
-          ...job.data,
-          year: latestYear,
-          categories: materialCategories
-        },
-        children: categoryJobs
-      })
-
-      await job.sendMessage(`
-📊 Starting estimation for ${materialCategories.length} material Scope 3 categories:
-${materialCategories.map(c => `- Category ${c}`).join('\n')}
-`)
-    }
-
-    // Create flows for category estimations based on analysis
-    const flow = new FlowProducer({ connection: redis })
-
+    // Get the latest year from emissions data
     const latestYear = Math.max(
-      ...(emissionsData.scope12?.map((d) => d.year) || []),
-      ...(emissionsData.scope3?.map((d) => d.year) || []),
+      ...(emissionsData?.scope12?.map((d) => d.year) || []),
+      ...(emissionsData?.scope3?.map((d) => d.year) || []),
       new Date().getFullYear() - 1
     )
 
-    // Create category estimation flows based on materiality analysis
+    // Analyze response to identify material categories
     const materialCategories = missingCategories.filter((category) => {
       // Check if this category was mentioned as material in the analysis
       return (
@@ -139,9 +89,9 @@ ${materialCategories.map(c => `- Category ${c}`).join('\n')}
         queueName: `estimateCategory${category}`,
         data: {
           ...job.data,
-          scope12Data: emissionsData.scope12,
-          scope3Data: emissionsData.scope3,
-          economy: emissionsData.economy,
+          scope12Data: emissionsData?.scope12,
+          scope3Data: emissionsData?.scope3,
+          economy: emissionsData?.economy,
           industry: job.data.industry,
         },
       }))
