@@ -6,7 +6,7 @@ export const scope3CategoryAnalysisSchema = z.object({
     estimatedEmissions: z.object({
       value: z.number(),
       unit: emissionUnitSchemaGarbo,
-      confidence: z.number(), // Removed min/max constraints
+      confidence: z.number(),
     }),
     reasoning: z.string(),
     methodology: z.string(),

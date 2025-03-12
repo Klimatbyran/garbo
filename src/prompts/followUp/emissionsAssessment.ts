@@ -4,7 +4,7 @@ import { z } from 'zod'
 export const schema = z.object({
   assessment: z.object({
     isReasonable: z.boolean(),
-    confidence: z.number(),  // Removed min/max constraints
+    confidence: z.number(),
     issues: z.array(z.object({
       type: z.enum(['MISSING_DATA', 'CALCULATION_ERROR', 'SCOPE_MISSING', 'UNIT_ERROR', 'OTHER']),
       description: z.string(),
