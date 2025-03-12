@@ -36,9 +36,11 @@ async function authPlugin(app: FastifyInstance) {
         const { user, newToken } = authService.verifyUser(token);
         
         if (newToken !== undefined) {
-          reply.headers['x-auth-token'] = newToken;
+          // Send the new token back in the response headers
+          reply.header('x-auth-token', newToken);
         }
         
+        // Set the user on the request object
         request.user = user;
         return;
       } catch (jwtError) {

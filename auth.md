@@ -173,3 +173,46 @@ const fetchData = async () => {
   }
 };
 ```
+
+## Getting the user profile
+
+Once authenticated, you can fetch the user's profile information:
+
+```jsx
+const fetchUserProfile = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/profile', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (response.ok) {
+      const userProfile = await response.json();
+      setUser(userProfile);
+      return userProfile;
+    } else {
+      // Handle unauthorized or other errors
+      if (response.status === 401) {
+        // Token might be expired, redirect to login
+        logout();
+      }
+    }
+  } catch (error) {
+    console.error('Failed to fetch user profile:', error);
+  }
+  return null;
+};
+```
+
+The profile endpoint returns the following information:
+
+```json
+{
+  "id": "user-id",
+  "name": "User Name",
+  "email": "user@example.com",
+  "githubId": "github-username",
+  "githubImageUrl": "https://avatars.githubusercontent.com/u/12345678"
+}
+```

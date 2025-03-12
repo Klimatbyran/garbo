@@ -124,4 +124,35 @@ export async function authentificationRoutes(app: FastifyInstance) {
       },
       handleGithubAuth
     );
+    
+    // User profile endpoint
+    app.get(
+      '/profile',
+      {
+        schema: {
+          summary: 'Get User Profile',
+          description: 'Returns the profile of the authenticated user',
+          tags: getTags('Auth'),
+          security: [{ BearerAuth: [] }],
+          response: {
+            200: z.object({
+              id: z.string(),
+              name: z.string().nullable(),
+              email: z.string().nullable(),
+              githubId: z.string().nullable(),
+              githubImageUrl: z.string().nullable()
+            }),
+            ...getErrorSchemas(401)
+          }
+        }
+      },
+      async (request, reply) => {
+        // The user is already set on the request by the auth plugin
+        if (!request.user) {
+          return reply.status(401).send(unauthorizedError);
+        }
+        
+        return reply.send(request.user);
+      }
+    );
   }
