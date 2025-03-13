@@ -2,8 +2,9 @@ import axios from "axios";
 import apiConfig from "../../config/api"
 import { prisma } from "../../lib/prisma";
 import jwt from "jsonwebtoken";
+import { serviceAuthenticationBody } from "../types";
 
-interface Userinfo {
+interface GithubUserinfo {
     login: string,
     avatar_url: string,
     name: string,
@@ -16,10 +17,11 @@ interface User {
     email: string,
     githubId: string | null,
     githubImageUrl: string | null
+    bot: boolean
 }
 
 class AuthService {
-    async authUser(code: string) {
+    async authorizeUser(code: string) {
     
         const accessTokenRes = await axios.post<{access_token: string}>("https://github.com/login/oauth/access_token", {
             client_id: apiConfig.githubClientId,
@@ -32,7 +34,7 @@ class AuthService {
         
         const accessToken =  accessTokenRes.data.access_token;
 
-        const userinfoRes = await axios.get<Userinfo>("https://api.github.com/user", {
+        const userinfoRes = await axios.get<GithubUserinfo>("https://api.github.com/user", {
             headers: {
                 Authorization: "Bearer " + accessToken,
                 Accept: "application/vnd.github+json"
@@ -41,14 +43,14 @@ class AuthService {
 
         const userinfo = userinfoRes.data;
 
-        const isMemeber = await axios.get("https://api.github.com/orgs/" + apiConfig.githubOrganization + "/members/" + userinfo.login, {
+        const isMember = await axios.get("https://api.github.com/orgs/" + apiConfig.githubOrganization + "/members/" + userinfo.login, {
             headers: {
                 Authorization: "Bearer " + accessToken,
                 Accept: "application/vnd.github+json"
             }
         })
 
-        if(isMemeber.status !== 204) {
+        if(isMember.status !== 204) {
             throw new Error("User is not member of the organization");
         }
 
@@ -71,20 +73,52 @@ class AuthService {
         
         return this.createToken(user);
     }
+    
+    async authorizeService(serviceAuth: serviceAuthenticationBody) {
+        if (serviceAuth.client_secret !== apiConfig.secret) {
+            throw new Error("Invalid secret");
+        }
+        
+        let user = await prisma.user.findFirst({
+            where: {
+                name: serviceAuth.client_id
+            }
+        })
+        
+        if(!user) {
+          user = await prisma.user.upsert({
+              where: {
+                  email: serviceAuth.client_id + "@klimatkollen.se"
+              },
+              update: {
+                  name: serviceAuth.client_id,
+                  email: serviceAuth.client_id + "@klimatkollen.se",
+                  bot: true
+              },
+              create: {
+                  name: serviceAuth.client_id,
+                  email: serviceAuth.client_id + "@klimatkollen.se",
+                  bot: true
+              }
+          })
+        }
+        
+        return this.createToken(user);
+    }
 
     private static readonly TOKEN_EXPIRY_BUFFER_MINUTES = 15;
     private static readonly SECONDS_IN_A_MINUTE = 60;
 
-    verifyUser(token: string) {
-        const payload = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
+    verifyToken(token: string) {
+        const user = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
         const currentTimeInSeconds = Date.now() / 1000;
         const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 
-        const shouldRenew = currentTimeInSeconds > payload.exp - renewalThreshold;
+        const shouldRenew = currentTimeInSeconds > user.exp - renewalThreshold;
 
         return {
-            user: payload, 
-            newToken: shouldRenew ? this.createToken(payload) : undefined
+            user, 
+            newToken: shouldRenew ? this.createToken(user) : undefined
         }
     }
 

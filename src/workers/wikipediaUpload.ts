@@ -2,6 +2,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { getWikipediaTitle } from '../lib/wikidata'
 import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wikipedia'
 import { Emissions } from '@prisma/client'
+import wikipediaConfig from '../config/wikipedia'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -15,18 +16,17 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
   'wikipediaUpload',
   async (job) => {
     const {
-      fiscalYear,
       wikidata,
       body
 
     } = job.data
     
-    console.log(job.data)
 
     const reportingPeriod = body.reportingPeriods[0]
-    const emissions: Emissions = reportingPeriod
+    const year: string = reportingPeriod.startDate.split('-')[0]
+    const emissions: Emissions = reportingPeriod.emissions
     const title: string = await getWikipediaTitle(wikidata.node)
-    const text: string = generateWikipediaArticleText(emissions, title, fiscalYear, 'sv')
+    const text: string = generateWikipediaArticleText(emissions, title, year, wikipediaConfig.language)
     const reportURL: string = reportingPeriod.reportURL
     const content = {
       text,
