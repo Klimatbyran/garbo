@@ -15,3 +15,23 @@ export const workers = fs
       return name
     },
   }))
+
+// Add manual registration of new workers that might not be in the directory yet
+const additionalWorkers = [
+  'verifyScope3',
+  'verifyCalculations',
+  'naceIndustry'
+]
+
+additionalWorkers.forEach(name => {
+  if (!workers.find(w => w.name === name)) {
+    workers.push({
+      name,
+      queue: new Queue(name, options),
+      run: async () => {
+        await import(`./workers/${name}`)
+        return name
+      }
+    })
+  }
+})

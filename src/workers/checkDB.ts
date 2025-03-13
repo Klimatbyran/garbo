@@ -96,7 +96,8 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
 
   await job.editMessage(`🤖 Sparar data...`)
 
-  await flow.add({
+  // Create two parallel flows - one for saving and one for assessment
+  const saveFlow = flow.add({
     ...base,
     queueName: 'sendCompanyLink',
     data: {
@@ -158,6 +159,43 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
         : null,
     ].filter((e) => e !== null),
   })
+
+  // Start assessment flow in parallel if we have emissions data
+  if (scope12 || scope3 || biogenic) {
+    const assessmentFlow = flow.add({
+      name: `emissionsAssessment-${companyName}`,
+      queueName: 'emissionsAssessment',
+      data: {
+        ...base.data,
+        scope12Data: scope12,
+        scope3Data: scope3,
+        biogenic,
+        industry
+      },
+      children: [
+        {
+          name: `verifyScope3-${companyName}`,
+          queueName: 'verifyScope3',
+          data: {
+            ...base.data,
+            scope12Data: scope12,
+            scope3Data: scope3,
+            economy
+          }
+        },
+        {
+          name: `verifyCalculations-${companyName}`,
+          queueName: 'verifyCalculations',
+          data: {
+            ...base.data,
+            scope12Data: scope12,
+            scope3Data: scope3,
+            biogenic
+          }
+        }
+      ]
+    })
+  }
 
   return { saved: true }
 })
