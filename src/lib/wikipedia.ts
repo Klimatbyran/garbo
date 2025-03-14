@@ -7,7 +7,7 @@ const bot = new mw({
     protocol: "https",
     server: wikipediaConfig.apiUrl,
     path: "/w",
-    debug: false, // Set to true for verbose logging
+    debug: true, // Set to true for verbose logging
     username: wikipediaConfig.wikiUsername,
     password: wikipediaConfig.wikiPassword,
     userAgent: 'GarboBot/1.0'
@@ -15,8 +15,11 @@ const bot = new mw({
 
 
 const login = async () => {
-    bot.logIn((err, data) => {
-        if (err) throw err
+    return new Promise((resolve, reject) => {
+        bot.logIn((err, data) => {
+            if (err) throw err
+            resolve(data)
+        })
     })
 }
 
@@ -62,7 +65,7 @@ export async function updateWikipediaContent(title: string, content: { text: str
 
     let contentToAdd: string = '\n\n<span id="klimatkollen-emissions-data">' + content.text + generateWikipediaReference(content.reportURL, title) + '</span>'
 
-    const $ = cheerio.load(existingText)
+    const $ = cheerio.load(existingText || "")
     const textExists = $('span#klimatkollen-emissions-data').length > 0
 
     if (!textExists) {
