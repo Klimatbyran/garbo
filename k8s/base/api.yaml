@@ -112,4 +112,19 @@ spec:
                 secretKeyRef:
                   name: env
                   key: JWT_EXPIRES_IN
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_SECRET
+            - name: WIKI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: WIKI_PASSWORD
+            - name: WIKI_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: WIKI_USERNAME
           imagePullPolicy: Always
