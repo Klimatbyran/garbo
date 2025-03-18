@@ -110,6 +110,15 @@ data:
     const secretPath = join(KEYS_DIR, 'gcs-pdf-credentials.yaml')
     await writeFile(secretPath, secretYaml)
     
+    // Also create a copy in the k8s/base directory for easier deployment
+    const k8sSecretPath = join(process.cwd(), 'k8s', 'base', 'gcs-pdf-credentials.yaml')
+    try {
+      await writeFile(k8sSecretPath, secretYaml)
+      console.log(`✅ Kubernetes secret YAML also created at ${k8sSecretPath}`)
+    } catch (error) {
+      console.warn(`⚠️ Could not create secret in k8s/base directory: ${error.message}`)
+    }
+    
     console.log(`✅ Kubernetes secret YAML created at ${secretPath}`)
     return secretPath
   } catch (error) {
@@ -175,9 +184,11 @@ async function main() {
     console.log(`kubectl apply -f ${secretPath}`)
     
     console.log('\nTo use in your application:')
-    console.log('1. Mount the secret as a volume in your pod')
-    console.log('2. Set the GCS_CREDENTIALS_PATH environment variable to the mounted path')
-    console.log('3. Set GCS_BUCKET_NAME and GCS_PROJECT_ID environment variables')
+    console.log('1. Mount the secret as a volume in your pod (already configured in k8s/base/api.yaml)')
+    console.log('2. Set the GCS_CREDENTIALS_PATH environment variable to the mounted path (already configured)')
+    console.log('3. Set GCS_BUCKET_NAME and GCS_PROJECT_ID environment variables (already configured)')
+    
+    console.log('\nThe Kubernetes deployment has been updated to include these settings.')
     
     console.log('\nSecurity note:')
     console.log('Keep the key file secure and do not commit it to version control.')
