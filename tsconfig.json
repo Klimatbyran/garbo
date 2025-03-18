@@ -6,9 +6,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "outDir": "./dist",
-    "rootDir": ".", // 
+    "rootDir": "./src",
     "skipLibCheck": true,
     "strictNullChecks": true
   },
-  "include": ["src", "scripts"] 
+  "include": ["src"] 
 }
