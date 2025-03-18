@@ -133,9 +133,14 @@ async function setupCustomDomain() {
     console.log(`   Visit: https://console.cloud.google.com/apis/credentials/domainverification`)
     console.log(`   Add domain: klimatkollen.se`)
     
-    // Step 2: Configure the bucket for website hosting
-    await execAsync(`gcloud storage buckets update gs://${BUCKET_NAME} --website-main-page-suffix=index.html --website-not-found-page=404.html`)
-    console.log(`\n✅ Bucket configured for website hosting`)
+    try {
+      // Step 2: Configure the bucket for website hosting
+      await execAsync(`gcloud storage buckets update gs://${BUCKET_NAME} --web-main-page-suffix=index.html --web-error-page=404.html`)
+      console.log(`\n✅ Bucket configured for website hosting`)
+    } catch (error) {
+      console.warn(`⚠️ Warning: Could not configure website hosting: ${error.message}`)
+      console.log(`   You may need to configure website hosting manually in the Google Cloud Console.`)
+    }
     
     // Step 3: Provide DNS configuration instructions
     console.log(`\n2. Add this CNAME record to your DNS settings:`)
