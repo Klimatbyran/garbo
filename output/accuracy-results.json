@@ -1,0 +1,2933 @@
+[
+  {
+    "name": "Hexpol",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Intrum",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lagercrantz Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Latour",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lundbergs Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lundin Mining Corp.",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Millicom Int. Cellular",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Mips",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "MTG",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "NCAB Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "OKQ8 Scandinavia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Ratos",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SBB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SKF",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Vitec Software Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hexagon",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "HMS Networks",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Pandox",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "PostNord",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Saab",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Samhall",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sectra",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Södra Skogsägarna",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SSAB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Svenska spel",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Systembolaget",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Tele2",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Tietoevry",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Trelleborg",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Truecaller",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "AstraZeneca",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Atrium Ljungberg",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "VBG Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Autoliv",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Betsson",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hufvudstaden",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Husqvarna",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "IKEA",
+    "accuracy": "0%",
+    "matchedFields": [],
+    "mismatchedFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Partial match"
+  },
+  {
+    "name": "Indutrade",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Kinnevik",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lantmännen",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Mycronic",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nibe Industrier",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nolato",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nyfosa",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Peab",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Avanza Bank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Balder",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Beijer Ref",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Billerud",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Elekta",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bure Equity",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Catena",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Essity",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fortnox",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Green Cargo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lifco",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lindab International",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "LKAB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SAS",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Skanska",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Volvo AB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Arla",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bilia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bravida Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Corem Property Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Electrolux Professional",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hemnet Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Holmen",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "ICA Gruppen",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Infranord",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Investor",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "H&M",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Handelsbanken",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "JM",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Kindred Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lundbergföretagen (koncern)",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Medicover",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "NCC",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nordea Bank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sagax",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SBAB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Swedbank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "ABB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Addlife",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Addtech",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Akademiska hus",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Alfa Laval",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Apoteket",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Atlas Copco",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Camurus",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Castellum",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nordnet",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "OX2",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sandvik",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SCA",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Stora Enso",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Storskogen Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sveaskog",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Svevia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Swedish Orphan Biovitrum",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Systemair",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Telia Company",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Vattenfall",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Axfood",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Coop i Sverige",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Diös Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Dometic Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Electrolux",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Ericsson",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Evolution",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fabege",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fastpartner",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "International Petroleum Corp.",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Loomis",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "NP3 Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sampo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Securitas",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sinch",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sweco",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Thule Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Troax Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Vitrolife",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Cint Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "AcadeMedia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Africa Oil Corp.",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Alimak Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Ambea",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "AQ Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Arctic Paper",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Arise",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Attendo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Beijer Alma",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bergman & Beving",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BHG Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Byggmästare Anders J Ahlström Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Byggmax Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Calliditas Therapeutics",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "John Mattson",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Catella",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "CellaVision",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Eolus Vind",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Gränges",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hansa Biopharma",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BioGaia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bonava",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Catena Media",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Cavotec SA",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Cibus Nordic Real Estate",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Clas Ohlson",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Cloetta",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Concentric",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Coor Service Management Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "CTEK",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "CTT Systems",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Duni",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Dustin Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Eastnine",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "XANO Industri",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lernia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "K-Fast Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Svenska Rymdaktiebolaget",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Brinova Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bufab",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Emilshus",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Enea",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Engcon",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Ework Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fasadgruppen",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Flerie",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "HANZA",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Heba",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hexatronic Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Humana",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "I.A.R Systems Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "INVISIO",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Inwido",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "ITAB Shop Concept",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Xvivo Perfusion",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Jernhusen",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "FM Mattsson",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Genova Property Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "KABE Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Karnov Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Knowit",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lime Technologies",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Logistea",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Mangold",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Rusta",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Scandi Standard",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sdiptech",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Sedana Medical",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SkiStar",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Stillfront Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Synsam",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Traction",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Folksam",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BTS Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Cinclus Pharma",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fagerhult Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "G5 Entertainment",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Green Landscaping Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "KlaraBo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Linc",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "MedCap",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "MEKO",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "MilDef Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Trianon",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "VEF",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Viaplay Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "VNV Global",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Volati",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nordic Paper Holding AB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Norion Bank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Note",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "OEM International",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Öresund",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "PowerCell Sweden",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Pricer",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Probi",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Profoto Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "RaySearch Laboratories",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Rejlers",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Rottneros",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Garo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Lucara Diamond Corp",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Momentum Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nivika",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Platzer Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Proact IT Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Scandic Hotels Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Stendörren Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Svolder",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Tethys Oil",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Vestum",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Swedavia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Traton",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Alligo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Norva24",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SOS Alarm",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Svensk Exportkredit",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Teracom",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Arion Bank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Industrivärden",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Orrön Energy",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Prisma Properties",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Swedish Logistic Property",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Viscaria",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "RISE",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Specialfastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "AAK",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Arjo",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Creades",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Instalco",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Wallenstam",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Wihlborgs Fastigheter",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BioInvent International",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Hoist Finance",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nederman",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Revolutionrace",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Addnode Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "AFRY",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Assa Abloy",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BioArctic",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Biotage",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Munters Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SEB",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Bactiguard Holding B",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "CoinShares International Limited",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Dynavox Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nobia",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Nordic Waterproofing Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "TF Bank",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Almi",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Alleima",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Better Collective",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Boliden",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Embracer Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Epiroc",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "EQT",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Fenix Outdoor Int.",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Getinge",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "New Wave Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "SJ",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BONESUPPORT",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Boozt",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Elanders",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Ependion",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Net Insight",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Volvo Cars",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "BICO Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Gaming Innovation Group",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  },
+  {
+    "name": "Resurs Holding",
+    "accuracy": "Not Found",
+    "missingFields": [
+      "emissions",
+      "economy",
+      "employees"
+    ],
+    "note": "Exists in production but not in staging"
+  }
+]
