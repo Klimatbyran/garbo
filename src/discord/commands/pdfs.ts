@@ -56,7 +56,7 @@ export default {
         const thread = await (
           interaction.channel as TextChannel
         ).threads.create({
-          name: url.split('/').pop() || url.slice(-20),
+          name: url.slice(-20),
           autoArchiveDuration: 1440,
           //startMessage: message.id,
         })
