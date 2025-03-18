@@ -93,6 +93,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GITHUB_REDIRECT_URI
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: FRONTEND_URL
             - name: API_SECRET
               valueFrom:
                 secretKeyRef:
