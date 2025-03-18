@@ -85,6 +85,8 @@ const nlmExtractTables = new DiscordWorker(
   'nlmExtractTables',
   async (job: NLMExtractTablesJob) => {
     const { json, url } = job.data
+    
+    job.sendMessage('🔍 Söker efter relevanta tabeller...')
 
     try {
       const pdf = await fetchPdf(url)

@@ -4,29 +4,40 @@ import {
   TextChannel,
 } from 'discord.js'
 import nlmParsePDF from '../../workers/nlmParsePDF'
+import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
   data: new SlashCommandBuilder()
     .setName('pdfs')
+    .setDescription(
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
+    )
     .addStringOption((option) =>
       option
         .setName('urls')
         .setDescription('URLs to PDF files. Separate with comma or new lines.')
         .setRequired(true)
     )
-    .setDescription(
-      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
+    .addBooleanOption((option) => 
+      option
+        .setName('require-approval')
+        .setDescription('Ask user to approve the extracted data.')
+        .setRequired(false)
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       await interaction.deferReply({ ephemeral: true })
+      
       const urls = interaction.options
         .getString('urls')
         ?.split(/\s*,\s*|\s+/)
         .map((url) => url.trim()) // Remove whitespace
         .filter(Boolean) // Remove empty strings
         .filter((url) => url.startsWith('http')) // Only allow URLs
+      
+      const requireUserApproval = interaction.options.getBoolean('require-approval') || true
+      
       if (!urls || !urls.length) {
         await interaction.followUp({
           content:
@@ -59,7 +70,8 @@ export default {
           {
             url: url.trim(),
             threadId: thread.id,
-          },
+            requireUserApproval,
+          } as DiscordJob['data'],
           {
             backoff: {
               type: 'fixed',

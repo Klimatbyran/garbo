@@ -28,6 +28,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         diff = '',
         body,
         apiSubEndpoint,
+        requireUserApproval,
       } = job.data
       const wikidataId = wikidata.node
 
@@ -63,8 +64,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           return data
         }
       }
+      
+      await job.sendMessage({
+        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
+      })
 
-      if (!requiresApproval || approved) {
+      if (!requireUserApproval || !requiresApproval || approved) { // TODO DET BLIR FEL HÄR DET SKA INTE KÖRA OM REQUIREUSERAPPROVAL ÄR TRUE
         if(apiSubEndpoint === "reporting-periods") {
           await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
             {
