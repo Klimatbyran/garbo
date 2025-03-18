@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { resolve } from 'path'
-import { readFile } from 'fs/promises'
+import { isMainModule } from './utils'
 
 const execAsync = promisify(exec)
 
@@ -96,7 +96,7 @@ async function main() {
 }
 
 // Run the script if it's called directly
-if (require.main === module) {
+if (isMainModule(import.meta.url)) {
   main()
 }
 
