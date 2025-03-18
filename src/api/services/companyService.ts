@@ -181,86 +181,123 @@ export function transformMetadata(data: any): any {
   return data
 }
 
+/**
+ * Calculates and adds total emissions for each company's reporting periods
+ * 
+ * This function:
+ * 1. Calculates total emissions for each scope type (scope1, scope2, scope3)
+ * 2. Calculates the total emissions across all scopes for each reporting period
+ * 
+ * @param companies Array of company data with reporting periods
+ * @returns Companies with calculated emission totals
+ */
 export function addCalculatedTotalEmissions(companies: any[]) {
-  return (
-    companies
-      // Calculate total emissions for each scope type
-      .map((company) => ({
-        ...company,
-        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
+  return companies.map(company => {
+    // Process each company
+    const updatedCompany = {
+      ...company,
+      reportingPeriods: company.reportingPeriods.map(reportingPeriod => {
+        // Skip processing if no emissions data
+        if (!reportingPeriod.emissions) {
+          return {
+            ...reportingPeriod,
+            emissions: null,
+            metadata: reportingPeriod.metadata
+          };
+        }
+
+        // Process scope2 emissions
+        const scope2WithTotal = reportingPeriod.emissions.scope2 
+          ? {
+              ...reportingPeriod.emissions.scope2,
+              calculatedTotalEmissions: calculateScope2Total(reportingPeriod.emissions.scope2)
+            }
+          : null;
+
+        // Process scope3 emissions
+        const scope3WithTotal = reportingPeriod.emissions.scope3
+          ? {
+              ...reportingPeriod.emissions.scope3,
+              calculatedTotalEmissions: calculateScope3Total(reportingPeriod.emissions.scope3)
+            }
+          : null;
+
+        // Calculate total emissions across all scopes
+        const totalEmissions = calculateTotalEmissions(
+          reportingPeriod.emissions.scope1,
+          scope2WithTotal,
+          scope3WithTotal,
+          reportingPeriod.emissions.scope1And2
+        );
+
+        return {
           ...reportingPeriod,
-          emissions: reportingPeriod.emissions
-            ? {
-                ...reportingPeriod.emissions,
-                scope2:
-                  (reportingPeriod.emissions?.scope2 && {
-                    ...reportingPeriod.emissions.scope2,
-                    calculatedTotalEmissions:
-                      reportingPeriod.emissions.scope2.mb ??
-                      reportingPeriod.emissions.scope2.lb ??
-                      reportingPeriod.emissions.scope2.unknown,
-                  }) ||
-                  null,
-                scope3:
-                  (reportingPeriod.emissions?.scope3 && {
-                    ...reportingPeriod.emissions.scope3,
-                    calculatedTotalEmissions:
-                      reportingPeriod.emissions.scope3.categories.some((c) =>
-                        Boolean(c.metadata?.verifiedBy)
-                      )
-                        ? reportingPeriod.emissions.scope3.categories
-                            .filter(
-                              (category) =>
-                                category.category !== 16 ||
-                                Boolean(category.metadata?.verifiedBy)
-                            )
-                            .reduce(
-                              (total, category) =>
-                                isNumber(category.total)
-                                  ? category.total + total
-                                  : total,
-                              0
-                            )
-                        : reportingPeriod.emissions.scope3.statedTotalEmissions
-                            ?.total ?? 0,
-                  }) ||
-                  null,
-              }
-            : null,
-          metadata: reportingPeriod.metadata,
-        })),
-      }))
-      // Calculate total emissions for each reporting period
-      // This allows comparing against the statedTotalEmissions provided by the company report
-      // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
-      // we should highlight this in the UI.
-      .map((company) => ({
-        ...company,
-        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
-          ...reportingPeriod,
-          emissions: reportingPeriod.emissions
-            ? {
-                ...reportingPeriod.emissions,
-                calculatedTotalEmissions:
-                  // If either scope 1 and scope 2 have verification, then we use them for the total.
-                  // Otherwise, we use the combined scope1And2 if it exists
-                  (Boolean(
-                    reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
-                  ) ||
-                  Boolean(
-                    reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
-                  )
-                    ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                      (reportingPeriod.emissions?.scope2
-                        ?.calculatedTotalEmissions || 0)
-                    : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                  (reportingPeriod.emissions?.scope3
-                    ?.calculatedTotalEmissions || 0),
-              }
-            : null,
-        })),
-      }))
-  )
+          emissions: {
+            ...reportingPeriod.emissions,
+            scope2: scope2WithTotal,
+            scope3: scope3WithTotal,
+            calculatedTotalEmissions: totalEmissions
+          },
+          metadata: reportingPeriod.metadata
+        };
+      })
+    };
+
+    return updatedCompany;
+  });
+}
+
+/**
+ * Calculates the total emissions for Scope 2
+ */
+function calculateScope2Total(scope2: any): number {
+  return scope2.mb ?? scope2.lb ?? scope2.unknown ?? 0;
+}
+
+/**
+ * Calculates the total emissions for Scope 3
+ */
+function calculateScope3Total(scope3: any): number {
+  // If any category has verification, sum up all categories (except unverified category 16)
+  if (scope3.categories.some(c => Boolean(c.metadata?.verifiedBy))) {
+    return scope3.categories
+      .filter(category => 
+        category.category !== 16 || Boolean(category.metadata?.verifiedBy)
+      )
+      .reduce((total, category) => 
+        isNumber(category.total) ? category.total + total : total, 
+        0
+      );
+  }
+  
+  // Otherwise use the stated total emissions
+  return scope3.statedTotalEmissions?.total ?? 0;
+}
+
+/**
+ * Calculates the total emissions across all scopes
+ */
+function calculateTotalEmissions(
+  scope1: any, 
+  scope2: any, 
+  scope3: any,
+  scope1And2: any
+): number {
+  let scope1And2Total = 0;
+  
+  // If either scope 1 or scope 2 has verification, use their individual totals
+  if (Boolean(scope1?.metadata?.verifiedBy) || Boolean(scope2?.metadata?.verifiedBy)) {
+    scope1And2Total = (scope1?.total || 0) + (scope2?.calculatedTotalEmissions || 0);
+  } 
+  // Otherwise use the combined scope1And2 if it exists
+  else {
+    scope1And2Total = scope1And2?.total || 0;
+  }
+  
+  // Add scope 3 emissions
+  const scope3Total = scope3?.calculatedTotalEmissions || 0;
+  
+  return scope1And2Total + scope3Total;
 }
 
 function isNumber(n: unknown): n is number {
