@@ -11,6 +11,7 @@ const BUCKET_NAME = 'klimatkollen-pdfs'
 const PROJECT_ID = 'tokyo-apparatus-412712' // Your project ID
 const BUCKET_LOCATION = 'europe-north1' // Stockholm region
 const TEST_PDF_PATH = resolve('test-files/sample.pdf')
+const CUSTOM_DOMAIN = 'cdn.klimatkollen.se'
 
 // Ensure the test PDF exists
 async function ensureTestPdfExists() {
@@ -111,6 +112,39 @@ async function listBucketFiles() {
 }
 
 /**
+ * Configure custom domain for the bucket
+ */
+async function setupCustomDomain() {
+  try {
+    console.log(`\nSetting up custom domain ${CUSTOM_DOMAIN} for bucket ${BUCKET_NAME}...`)
+    
+    // Step 1: Verify domain ownership
+    console.log(`\n1. You need to verify domain ownership with Google Cloud:`)
+    console.log(`   Visit: https://console.cloud.google.com/apis/credentials/domainverification`)
+    console.log(`   Add domain: klimatkollen.se`)
+    
+    // Step 2: Configure the bucket for website hosting
+    await execAsync(`gcloud storage buckets update gs://${BUCKET_NAME} --website-main-page-suffix=index.html --website-not-found-page=404.html`)
+    console.log(`\n✅ Bucket configured for website hosting`)
+    
+    // Step 3: Provide DNS configuration instructions
+    console.log(`\n2. Add this CNAME record to your DNS settings:`)
+    console.log(`   Name: cdn`)
+    console.log(`   Type: CNAME`)
+    console.log(`   Value: c.storage.googleapis.com`)
+    console.log(`   TTL: 3600 (or as recommended by your DNS provider)`)
+    
+    console.log(`\n3. After DNS propagation (can take up to 24-48 hours):`)
+    console.log(`   Your files will be accessible at: https://${CUSTOM_DOMAIN}/FILENAME`)
+    
+    return true
+  } catch (error) {
+    console.error('Error setting up custom domain:', error)
+    return false
+  }
+}
+
+/**
  * Main function
  */
 async function main() {
@@ -127,11 +161,22 @@ async function main() {
     await uploadTestFile()
     await listBucketFiles()
     
+    // Setup custom domain
+    const customDomainSetup = await setupCustomDomain()
+    
     console.log('\n🎉 Setup complete! Your bucket is ready for use as a CDN for PDFs.')
     console.log(`Bucket URL: https://storage.googleapis.com/${BUCKET_NAME}/`)
+    
+    if (customDomainSetup) {
+      console.log(`Custom domain: https://${CUSTOM_DOMAIN}/ (after DNS propagation)`)
+    }
+    
     console.log(`\nTo use this bucket in your application, you can:`)
     console.log(`1. Upload files: gcloud storage cp LOCAL_FILE gs://${BUCKET_NAME}/REMOTE_PATH`)
-    console.log(`2. Access files: https://storage.googleapis.com/${BUCKET_NAME}/REMOTE_PATH`)
+    console.log(`2. Access files via GCS: https://storage.googleapis.com/${BUCKET_NAME}/REMOTE_PATH`)
+    if (customDomainSetup) {
+      console.log(`   or via custom domain: https://${CUSTOM_DOMAIN}/REMOTE_PATH (after DNS setup)`)
+    }
   } catch (error) {
     console.error('Setup failed:', error)
     process.exit(1)
