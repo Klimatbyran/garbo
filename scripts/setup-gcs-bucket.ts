@@ -1,14 +1,50 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { resolve } from 'path'
-import { isMainModule } from './utils'
+import { isMainModule } from './utils.js'
+import { writeFile } from 'fs/promises'
 
 const execAsync = promisify(exec)
 
 // Configuration
 const BUCKET_NAME = 'klimatkollen-pdfs'
+const PROJECT_ID = 'tokyo-apparatus-412712' // Your project ID
 const BUCKET_LOCATION = 'europe-north1' // Stockholm region
 const TEST_PDF_PATH = resolve('test-files/sample.pdf')
+
+// Ensure the test PDF exists
+async function ensureTestPdfExists() {
+  try {
+    // Create a minimal valid PDF file if it doesn't exist
+    const minimalPdf = `%PDF-1.4
+1 0 obj
+<</Type/Catalog/Pages 2 0 R>>
+endobj
+2 0 obj
+<</Type/Pages/Kids[3 0 R]/Count 1>>
+endobj
+3 0 obj
+<</Type/Page/MediaBox[0 0 595 842]/Parent 2 0 R/Resources<<>>>>
+endobj
+xref
+0 4
+0000000000 65535 f 
+0000000009 00000 n 
+0000000052 00000 n 
+0000000101 00000 n 
+trailer
+<</Size 4/Root 1 0 R>>
+startxref
+178
+%%EOF`
+
+    await writeFile(TEST_PDF_PATH, minimalPdf)
+    console.log(`Created test PDF at ${TEST_PDF_PATH}`)
+  } catch (error) {
+    console.error('Error creating test PDF:', error)
+    throw error
+  }
+}
 
 /**
  * Creates a GCS bucket with public read access
@@ -83,12 +119,19 @@ async function main() {
     const { stdout: projectInfo } = await execAsync('gcloud config get-value project')
     console.log(`Using GCP project: ${projectInfo.trim()}`)
     
+    // Make sure we have a test PDF
+    await ensureTestPdfExists()
+    
+    // Create bucket and upload file
     await createPublicBucket()
     await uploadTestFile()
     await listBucketFiles()
     
     console.log('\n🎉 Setup complete! Your bucket is ready for use as a CDN for PDFs.')
     console.log(`Bucket URL: https://storage.googleapis.com/${BUCKET_NAME}/`)
+    console.log(`\nTo use this bucket in your application, you can:`)
+    console.log(`1. Upload files: gcloud storage cp LOCAL_FILE gs://${BUCKET_NAME}/REMOTE_PATH`)
+    console.log(`2. Access files: https://storage.googleapis.com/${BUCKET_NAME}/REMOTE_PATH`)
   } catch (error) {
     console.error('Setup failed:', error)
     process.exit(1)
