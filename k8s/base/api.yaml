@@ -32,12 +32,23 @@ spec:
                   key: postgres-password
             - name: DATABASE_URL
               value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
+      volumes:
+        - name: gcs-credentials
+          secret:
+            secretName: gcs-pdf-credentials
+            items:
+              - key: gcs-key.json
+                path: gcs-key.json
       containers:
         - image: ghcr.io/klimatbyran/garbo
           resources: {}
           name: garbo
           ports:
             - containerPort: 3000
+          volumeMounts:
+            - name: gcs-credentials
+              mountPath: /app/secrets/gcs
+              readOnly: true
           env:
             - name: DISCORD_APPLICATION_ID
               valueFrom:
@@ -132,4 +143,21 @@ spec:
                 secretKeyRef:
                   name: env
                   key: WIKI_USERNAME
+            # GCS PDF Storage Configuration
+            - name: GCS_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: gcs-pdf-credentials
+                  key: BUCKET_NAME
+            - name: GCS_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: gcs-pdf-credentials
+                  key: PROJECT_ID
+            - name: GCS_CREDENTIALS_PATH
+              value: /app/secrets/gcs/gcs-key.json
+            - name: GCS_PDF_BASE_URL
+              value: https://storage.googleapis.com/klimatkollen-pdfs/
+            - name: GCS_PDF_CDN_URL
+              value: https://cdn.klimatkollen.se/
           imagePullPolicy: Always
