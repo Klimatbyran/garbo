@@ -23,12 +23,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const {
         companyName,
         wikidata,
-        approved,
+        approved = false,
         requiresApproval = true,
         diff = '',
         body,
         apiSubEndpoint,
-        requireUserApproval,
+        skipUserApproval = false,
       } = job.data
       const wikidataId = wikidata.node
 
@@ -65,11 +65,22 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
       
+      job.log(`skipUserApproval: ${skipUserApproval}, requiresApproval: ${requiresApproval}, approved: ${approved}`)
+      
       await job.sendMessage({
-        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
+        content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
       })
-
-      if (!requireUserApproval || !requiresApproval || approved) { // TODO DET BLIR FEL HÄR DET SKA INTE KÖRA OM REQUIREUSERAPPROVAL ÄR TRUE
+      
+      if (skipUserApproval || !requiresApproval || approved) { 
+        const sanitizedBody = removeNullValuesFromGarbo(body)
+        
+        job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
+          ${JSON.stringify(sanitizedBody)}`)
+        
+        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+          body: sanitizedBody
+        })
+        
         if(apiSubEndpoint === "reporting-periods") {
           await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
             {
@@ -77,18 +88,16 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
             }
           )
         }
-        console.log(`Saving approved data for ${wikidataId} to API`)
-        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
-          body: removeNullValuesFromGarbo(body),
-        })
+        
         return { success: true }
       }
+      
+      job.log("The data needs approval before saving to API.")
 
       // If approval is required and not yet approved, send approval request
       const buttonRow = discord.createApproveButtonRow(job)
 
-      await job.sendMessage({
-        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
+      await job.editMessage({
         components: [buttonRow],
       })
 

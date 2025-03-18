@@ -93,6 +93,8 @@ const nlmExtractTables = new DiscordWorker(
       const outputDir = path.resolve('/tmp', 'garbo-screenshots')
       await mkdir(outputDir, { recursive: true })
       job.editMessage(`✅ PDF nedladdad!`)
+      
+      job.log('Extracting pages...')
       const { pages } = await extractTablesFromJson(
         pdf,
         json,
@@ -104,11 +106,13 @@ const nlmExtractTables = new DiscordWorker(
         `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
       )
 
+      job.log(`Extracted ${pages.length} pages. Extracting tables...`)
+      
       const tables: { page_idx: number; markdown: string }[] =
         await pages.reduce(async (resultsPromise, { pageNumber, filename }) => {
           const results = await resultsPromise
           if (statSync(filename).size === 0) {
-            console.warn(`⚠️ Skipping empty image: ${filename}`)
+            job.log(`⚠️ Skipping empty image: ${filename}`)
             return results
           }
           const lastPageMarkdown = results.at(-1)?.markdown || ''

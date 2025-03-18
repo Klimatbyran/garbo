@@ -88,6 +88,7 @@ const checkDB = new DiscordWorker('checkDB', async (job: CheckDBJob) => {
       wikidata,
       threadId,
       channelId,
+      skipUserApproval: job.data.skipUserApproval,
     },
     opts: {
       attempts: 3,

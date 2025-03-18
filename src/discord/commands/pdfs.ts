@@ -20,7 +20,7 @@ export default {
     )
     .addBooleanOption((option) => 
       option
-        .setName('require-approval')
+        .setName('skip-approval')
         .setDescription('Ask user to approve the extracted data.')
         .setRequired(false)
     ),
@@ -36,8 +36,8 @@ export default {
         .filter(Boolean) // Remove empty strings
         .filter((url) => url.startsWith('http')) // Only allow URLs
       
-      const requireUserApproval = interaction.options.getBoolean('require-approval') || true
-      
+      const skipUserApproval = interaction.options.getBoolean('skip-approval') || false
+
       if (!urls || !urls.length) {
         await interaction.followUp({
           content:
@@ -51,26 +51,24 @@ export default {
           content: `Your PDFs are being processed`,
         })
       }
-      // const message = await interaction.reply(
-      //   `Processing ${urls.length} PDFs...`
-      // )
 
       urls.forEach(async (url) => {
         const thread = await (
           interaction.channel as TextChannel
         ).threads.create({
-          name: url.slice(-20),
+          name: url.split('/').pop() || url.slice(-20),
           autoArchiveDuration: 1440,
           //startMessage: message.id,
         })
 
         thread.send(`PDF i kö: ${url}`)
+        thread.send(`Be användaren att verifiera data: ${skipUserApproval ? 'Nej' : 'Ja'}`)
         nlmParsePDF.queue.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),
             threadId: thread.id,
-            requireUserApproval,
+            skipUserApproval,
           } as DiscordJob['data'],
           {
             backoff: {

@@ -39,9 +39,11 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       approved = false,
       overrideWikidataId,
       wikidata: approvedWikidata,
-      requireUserApproval,
     } = job.data
     if (!companyName) throw new Error('No company name was provided')
+    job.log('Company name: ' + companyName)
+    job.log('Wikidata: ' + JSON.stringify(approvedWikidata, null, 2))
+    job.log('Approved: ' + approved)
 
     if (approved) {
       if (!approvedWikidata) {
@@ -189,13 +191,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
       components: [buttonRow],
     })
 
-    if (!requireUserApproval) {
-      await job.updateData({ ...job.data, approved: true })
-      await job.moveToDelayed(Date.now())
-      await job.promote()
-    } else {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-    }
+    await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
   }
 )
 
