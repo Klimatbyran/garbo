@@ -250,14 +250,14 @@ export function addCalculatedTotalEmissions(companies: any[]) {
 /**
  * Calculates the total emissions for Scope 2
  */
-function calculateScope2Total(scope2: any): number {
+export function calculateScope2Total(scope2: any): number {
   return scope2.mb ?? scope2.lb ?? scope2.unknown ?? 0;
 }
 
 /**
  * Calculates the total emissions for Scope 3
  */
-function calculateScope3Total(scope3: any): number {
+export function calculateScope3Total(scope3: any): number {
   // If any category has verification, sum up all categories (except unverified category 16)
   if (scope3.categories.some(c => Boolean(c.metadata?.verifiedBy))) {
     return scope3.categories
@@ -277,7 +277,7 @@ function calculateScope3Total(scope3: any): number {
 /**
  * Calculates the total emissions across all scopes
  */
-function calculateTotalEmissions(
+export function calculateTotalEmissions(
   scope1: any, 
   scope2: any, 
   scope3: any,
