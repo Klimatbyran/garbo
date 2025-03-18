@@ -20,8 +20,8 @@ export default {
     )
     .addBooleanOption((option) => 
       option
-        .setName('skip-approval')
-        .setDescription('Ask user to approve the extracted data.')
+        .setName('auto-approve')
+        .setDescription('Automatically approve the extracted data.')
         .setRequired(false)
     ),
 
@@ -36,7 +36,7 @@ export default {
         .filter(Boolean) // Remove empty strings
         .filter((url) => url.startsWith('http')) // Only allow URLs
       
-      const skipUserApproval = interaction.options.getBoolean('skip-approval') || false
+      const autoApprove = interaction.options.getBoolean('auto-approve') || false
 
       if (!urls || !urls.length) {
         await interaction.followUp({
@@ -62,13 +62,13 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
-        thread.send(`Be användaren att verifiera data: ${skipUserApproval ? 'Nej' : 'Ja'}`)
+        thread.send(`Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`)
         nlmParsePDF.queue.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),
             threadId: thread.id,
-            skipUserApproval,
+            autoApprove,
           } as DiscordJob['data'],
           {
             backoff: {

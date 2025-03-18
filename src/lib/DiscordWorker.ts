@@ -14,7 +14,7 @@ export class DiscordJob extends Job {
     threadId: string
     channelId: string
     messageId?: string
-    skipUserApproval: boolean
+    autoApprove: boolean
   }
 
   //message: any

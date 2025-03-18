@@ -28,7 +28,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         diff = '',
         body,
         apiSubEndpoint,
-        skipUserApproval = false,
+        autoApprove = false,
       } = job.data
       const wikidataId = wikidata.node
 
@@ -65,13 +65,13 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
       
-      job.log(`skipUserApproval: ${skipUserApproval}, requiresApproval: ${requiresApproval}, approved: ${approved}`)
+      job.log(`autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approved}`)
       
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
       })
       
-      if (skipUserApproval || !requiresApproval || approved) { 
+      if (autoApprove || !requiresApproval || approved) { 
         const sanitizedBody = removeNullValuesFromGarbo(body)
         
         job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
