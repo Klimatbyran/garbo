@@ -54,20 +54,30 @@ async function createPublicBucket() {
   try {
     console.log(`Creating bucket: ${BUCKET_NAME}...`)
     
-    // Create the bucket
-    await execAsync(`gcloud storage buckets create gs://${BUCKET_NAME} --location=${BUCKET_LOCATION}`)
-    
-    // Make bucket publicly readable
-    await execAsync(`gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} --member=allUsers --role=roles/storage.objectViewer`)
-    
-    console.log(`✅ Bucket ${BUCKET_NAME} created with public read access`)
-  } catch (error) {
-    console.error('Error creating bucket:', error)
-    if (error.stderr?.includes('already exists')) {
-      console.log('Bucket already exists, continuing...')
-    } else {
-      throw error
+    try {
+      // Create the bucket
+      await execAsync(`gcloud storage buckets create gs://${BUCKET_NAME} --location=${BUCKET_LOCATION}`)
+      console.log(`✅ Bucket ${BUCKET_NAME} created successfully`)
+    } catch (createError) {
+      // Check if the bucket already exists
+      if (createError.stderr?.includes('already exists') || 
+          createError.stderr?.includes('HTTPError 409') || 
+          createError.stderr?.includes('You already own it')) {
+        console.log(`✅ Bucket ${BUCKET_NAME} already exists, continuing...`)
+      } else {
+        // If it's a different error, rethrow it
+        throw createError
+      }
     }
+    
+    // Make bucket publicly readable (do this regardless of whether we just created it or not)
+    await execAsync(`gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} --member=allUsers --role=roles/storage.objectViewer`)
+    console.log(`✅ Bucket ${BUCKET_NAME} configured with public read access`)
+    
+    return true
+  } catch (error) {
+    console.error('Error configuring bucket:', error)
+    throw error
   }
 }
 
@@ -156,13 +166,39 @@ async function main() {
     // Make sure we have a test PDF
     await ensureTestPdfExists()
     
-    // Create bucket and upload file
-    await createPublicBucket()
-    await uploadTestFile()
-    await listBucketFiles()
+    // Create bucket
+    let bucketCreated = false
+    try {
+      bucketCreated = await createPublicBucket()
+    } catch (error) {
+      console.error('Error in bucket creation step, but continuing with other steps:', error.message)
+    }
+    
+    // Upload file if bucket exists
+    let fileUploaded = false
+    try {
+      await uploadTestFile()
+      fileUploaded = true
+    } catch (error) {
+      console.error('Error uploading test file:', error.message)
+    }
+    
+    // List files if previous steps succeeded
+    if (bucketCreated || fileUploaded) {
+      try {
+        await listBucketFiles()
+      } catch (error) {
+        console.error('Error listing files:', error.message)
+      }
+    }
     
     // Setup custom domain
-    const customDomainSetup = await setupCustomDomain()
+    let customDomainSetup = false
+    try {
+      customDomainSetup = await setupCustomDomain()
+    } catch (error) {
+      console.error('Error setting up custom domain:', error.message)
+    }
     
     console.log('\n🎉 Setup complete! Your bucket is ready for use as a CDN for PDFs.')
     console.log(`Bucket URL: https://storage.googleapis.com/${BUCKET_NAME}/`)
