@@ -14,6 +14,7 @@ export class DiscordJob extends Job {
     threadId: string
     channelId: string
     messageId?: string
+    autoApprove: boolean
   }
 
   //message: any
@@ -77,6 +78,14 @@ function addCustomMethods(job: DiscordJob) {
     }
     if (message && message.edit) {
       try {
+        if (typeof msg === 'string') {
+          msg = {
+            content: msg,
+          }
+        }
+        msg.content = [message.content, msg.content]
+            .filter(Boolean)  // removes falsy values (undefined, null, empty strings)
+            .join('\n\n');
         return message.edit(msg)
       } catch (err) {
         job.log(

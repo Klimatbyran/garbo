@@ -96,13 +96,5 @@ export async function diffChanges<T extends object>({
 }
 
 export function getCompanyURL(name: string, wikidataId: string) {
-  const safeName = name
-    .toLowerCase()
-    .replace(/[åä]/g, 'a')
-    .replace(/[ö]/g, 'o')
-    .replace(/[^a-z0-9]/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
-
-  return `${apiConfig.frontendURL}/foretag/${safeName}-${wikidataId}`
+  return `${apiConfig.frontendURL}/companies/${wikidataId}`
 }
