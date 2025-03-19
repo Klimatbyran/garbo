@@ -154,7 +154,6 @@ class CompanyService {
       select: { id: true },
     })
   }
-
 }
 
 export const companyService = new CompanyService()
@@ -232,33 +231,23 @@ export function addCalculatedTotalEmissions(companies: any[]) {
       }))
       // Calculate total emissions for each reporting period
       // This allows comparing against the statedTotalEmissions provided by the company report
-      // In cases where we find discrepancies between the statedTotalEmissions and the actual total emissions,
-      // we should highlight this in the UI.
       .map((company) => ({
         ...company,
-        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
-          ...reportingPeriod,
-          emissions: reportingPeriod.emissions
-            ? {
-                ...reportingPeriod.emissions,
-                calculatedTotalEmissions:
-                  // If either scope 1 and scope 2 have verification, then we use them for the total.
-                  // Otherwise, we use the combined scope1And2 if it exists
-                  (Boolean(
-                    reportingPeriod.emissions?.scope1?.metadata?.verifiedBy
-                  ) ||
-                  Boolean(
-                    reportingPeriod.emissions?.scope2?.metadata?.verifiedBy
-                  )
-                    ? (reportingPeriod.emissions?.scope1?.total || 0) +
-                      (reportingPeriod.emissions?.scope2
-                        ?.calculatedTotalEmissions || 0)
-                    : reportingPeriod.emissions?.scope1And2?.total || 0) +
-                  (reportingPeriod.emissions?.scope3
-                    ?.calculatedTotalEmissions || 0),
-              }
-            : null,
-        })),
+        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
+          const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
+          const calculatedTotalEmissions =
+            scope1?.total +
+            scope2?.calculatedTotalEmissions +
+            scope3?.calculatedTotalEmissions
+
+          return {
+            ...reportingPeriod,
+            emissions: reportingPeriod.emissions && {
+              ...reportingPeriod.emissions,
+              calculatedTotalEmissions: calculatedTotalEmissions || 0,
+            },
+          }
+        }),
       }))
   )
 }
