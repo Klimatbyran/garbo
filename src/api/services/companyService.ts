@@ -197,12 +197,12 @@ export function addCalculatedTotalEmissions(companies: any[]) {
             ...reportingPeriod,
             emissions: reportingPeriod.emissions && {
               ...reportingPeriod.emissions,
-              scope2: reportingPeriod.emissions.scope2 && {
-                ...reportingPeriod.emissions.scope2,
+              scope2: scope2 && {
+                ...scope2,
                 calculatedTotalEmissions: scope2Total || 0,
               },
-              scope3: reportingPeriod.emissions.scope3 && {
-                ...reportingPeriod.emissions.scope3,
+              scope3: scope3 && {
+                ...scope3,
                 calculatedTotalEmissions: scope3Total || 0,
               },
               calculatedTotalEmissions: calculatedTotalEmissions || 0,
