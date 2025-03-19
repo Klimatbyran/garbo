@@ -183,69 +183,31 @@ export function transformMetadata(data: any): any {
 export function addCalculatedTotalEmissions(companies: any[]) {
   return (
     companies
-      // Calculate total emissions for each scope type
-      .map((company) => ({
-        ...company,
-        reportingPeriods: company.reportingPeriods.map((reportingPeriod) => ({
-          ...reportingPeriod,
-          emissions: reportingPeriod.emissions
-            ? {
-                ...reportingPeriod.emissions,
-                scope2:
-                  (reportingPeriod.emissions?.scope2 && {
-                    ...reportingPeriod.emissions.scope2,
-                    calculatedTotalEmissions:
-                      reportingPeriod.emissions.scope2.mb ??
-                      reportingPeriod.emissions.scope2.lb ??
-                      reportingPeriod.emissions.scope2.unknown,
-                  }) ||
-                  null,
-                scope3:
-                  (reportingPeriod.emissions?.scope3 && {
-                    ...reportingPeriod.emissions.scope3,
-                    calculatedTotalEmissions:
-                      reportingPeriod.emissions.scope3.categories.some((c) =>
-                        Boolean(c.metadata?.verifiedBy)
-                      )
-                        ? reportingPeriod.emissions.scope3.categories
-                            .filter(
-                              (category) =>
-                                category.category !== 16 ||
-                                Boolean(category.metadata?.verifiedBy)
-                            )
-                            .reduce(
-                              (total, category) =>
-                                isNumber(category.total)
-                                  ? category.total + total
-                                  : total,
-                              0
-                            )
-                        : reportingPeriod.emissions.scope3.statedTotalEmissions
-                            ?.total ?? 0,
-                  }) ||
-                  null,
-              }
-            : null,
-          metadata: reportingPeriod.metadata,
-        })),
-      }))
       // Calculate total emissions for each reporting period
       // This allows comparing against the statedTotalEmissions provided by the company report
       .map((company) => ({
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const calculatedTotalEmissions =
-            scope1?.total +
-            scope2?.calculatedTotalEmissions +
-            scope3?.calculatedTotalEmissions
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
+          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || 0
+          const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
 
           return {
             ...reportingPeriod,
             emissions: reportingPeriod.emissions && {
               ...reportingPeriod.emissions,
+              scope2: reportingPeriod.emissions.scope2 && {
+                ...reportingPeriod.emissions.scope2,
+                calculatedTotalEmissions: scope2Total || 0,
+              },
+              scope3: reportingPeriod.emissions.scope3 && {
+                ...reportingPeriod.emissions.scope3,
+                calculatedTotalEmissions: scope3Total || 0,
+              },
               calculatedTotalEmissions: calculatedTotalEmissions || 0,
             },
+            metadata: reportingPeriod.metadata,
           }
         }),
       }))
