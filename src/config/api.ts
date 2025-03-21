@@ -10,7 +10,10 @@ const envSchema = z.object({
    * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
    * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
    */
-  API_SECRET: z.string(),
+  API_SECRET: z.string().default(nodeEnv !== "production"
+    ? "123" //Set to dummy value if in dev environment
+    : null
+  ),
   FRONTEND_URL: z
     .string()
     .default(
@@ -24,11 +27,20 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   CACHE_MAX_AGE: z.coerce.number().default(3000),
   NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
-  GITHUB_CLIENT_ID: z.string(),
-  GITHUB_CLIENT_SECRET: z.string(),
+  GITHUB_CLIENT_ID: z.string().default(nodeEnv !== "production"
+    ? "client-id" //Dummy value for dev env
+    : null
+  ),
+  GITHUB_CLIENT_SECRET: z.string().default(nodeEnv !== "production"
+    ? "client-secret" //Dummy value for dev env
+    : null
+  ),
   GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
   GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
-  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
+  JWT_SECRET: z.string().default(nodeEnv !== "production" 
+    ? "tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="
+    : null
+  ),
   JWT_EXPIRES_IN: z.string().default("3600")
 })
 
