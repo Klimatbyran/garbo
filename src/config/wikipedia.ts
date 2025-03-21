@@ -1,9 +1,19 @@
 import 'dotenv/config'
 import { z } from 'zod'
 
+const nodeEnv = process.env.NODE_ENV
+
 const envSchema = z.object({
-  WIKI_USERNAME: z.string(),
-  WIKI_PASSWORD: z.string(),
+  // These default to dummy values in the dev environment to avoid schema errors
+  // when working on unrelated features.
+  WIKI_USERNAME: z.string().default(nodeEnv !== "production"
+    ? "wiki-username"
+    : null
+  ),
+  WIKI_PASSWORD: z.string().default(nodeEnv !== "production"
+    ? "wiki-password"
+    : null
+  ),
 })
 
 const env = envSchema.parse(process.env)
