@@ -7,9 +7,11 @@ dist
 !env.example
 prisma/generated
 *.xlsx
-
 # Ignore local SQLite databases
 *.db
 *.db-journal
 *.pdf
 *.code-workspace
+
+# Ignore accuracy results
+output/accuracy-results.json
