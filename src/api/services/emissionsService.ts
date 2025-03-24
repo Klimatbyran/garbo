@@ -182,7 +182,7 @@ class EmissionsService {
   ) {
     const existingScope3Id = emissions.scope3?.id
 
-    const metadata = await createMetadata(scope3.statedTotalEmissions.verified ?? false)
+    const metadata = await createMetadata(scope3.statedTotalEmissions?.verified ?? false)
 
     const updatedScope3 = await prisma.scope3.upsert({
       where: { id: existingScope3Id ?? '' },

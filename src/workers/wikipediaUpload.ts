@@ -6,10 +6,19 @@ import wikipediaConfig from '../config/wikipedia'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    fiscalYear: any
     wikidata: { node: `Q${number}` }
-    body?: any
+    existingCompany: any
   }
+}
+
+const checkEmissionsExist = (emissions: Emissions): boolean => {
+  return (
+    emissions.scope1?.total ||
+    emissions.scope2?.mb ||
+    emissions.scope2?.lb ||
+    emissions.scope3?.statedTotalEmissions?.total ||
+    emissions.scope3?.categories?.length
+  )
 }
 
 const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
@@ -17,15 +26,26 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
   async (job) => {
     const {
       wikidata,
-      body
-
+      existingCompany
     } = job.data
-    
 
-    const reportingPeriod = body.reportingPeriods[0]
+    const reportingPeriod = existingCompany.reportingPeriods[0]
     const year: string = reportingPeriod.startDate.split('-')[0]
     const emissions: Emissions = reportingPeriod.emissions
     const title: string = await getWikipediaTitle(wikidata.node)
+
+    if (!checkEmissionsExist(emissions)) {
+      job.editMessage(`❌ Inga utsläpp hittade`)
+      console.error('No emissions found')
+      throw Error('No emissions found')
+    }
+
+    if (!title) {
+      job.editMessage(`❌ Ingen Wikipedia-sida hittad`)
+      console.error('No Wikipedia page found')
+      throw Error('No Wikipedia page found')
+    }
+
     const text: string = generateWikipediaArticleText(emissions, title, year, wikipediaConfig.language)
     const reportURL: string = reportingPeriod.reportURL
     const content = {
@@ -33,7 +53,12 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
       reportURL
     }
 
-    await updateWikipediaContent(title, content)
+    try {
+      await updateWikipediaContent(title, content)
+    } catch(e) {
+      job.editMessage(`❌ Fel vid uppdatering av Wikipedia: ${e.message}`)
+      throw e
+    }
 
     return { success: true }
   }
