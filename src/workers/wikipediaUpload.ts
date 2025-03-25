@@ -21,7 +21,6 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
 
     } = job.data
     
-
     const reportingPeriod = body.reportingPeriods[0]
     const year: string = reportingPeriod.startDate.split('-')[0]
     const emissions: Emissions = reportingPeriod.emissions
