@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import nlmParsePDF from '../../workers/nlmParsePDF'
+import { queues } from '../../queues';
 import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
@@ -63,7 +63,7 @@ export default {
 
         thread.send(`PDF i kö: ${url}`)
         thread.send(`Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`)
-        nlmParsePDF.queue.add(
+        queues.nlmParsePDF.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),

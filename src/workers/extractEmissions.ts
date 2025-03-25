@@ -2,6 +2,7 @@ import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
+import { QUEUE_NAMES } from '../queues'
 
 class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -13,7 +14,7 @@ class ExtractEmissionsJob extends DiscordJob {
 const flow = new FlowProducer({ connection: redis })
 
 const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
-  'extractEmissions',
+  QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
     const { companyName } = job.data
     job.sendMessage(`🤖 Hämtar utsläppsdata...`)

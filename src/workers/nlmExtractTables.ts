@@ -8,6 +8,7 @@ import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { openai } from '../lib/openai'
 import { ParsedDocument } from '../lib/nlm-ingestor-schema'
+import { QUEUE_NAMES } from '../queues'
 
 class NLMExtractTablesJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -82,7 +83,7 @@ const searchTerms = [
   'koldioxid',
 ]
 const nlmExtractTables = new DiscordWorker(
-  'nlmExtractTables',
+  QUEUE_NAMES.NLM_EXTRACT_TABLES,
   async (job: NLMExtractTablesJob) => {
     const { json, url } = job.data
     

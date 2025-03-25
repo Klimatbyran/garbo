@@ -5,6 +5,7 @@ import { ChatCompletionAssistantMessageParam, ChatCompletionSystemMessageParam, 
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
 import { vectorDB } from '../lib/vectordb'
+import { QUEUE_NAMES } from '../queues'
 
 class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -15,7 +16,7 @@ class FollowUpJob extends DiscordJob {
 }
 
 const followUp = new DiscordWorker<FollowUpJob>(
-  'followUp',
+  QUEUE_NAMES.FOLLOW_UP,
   async (job: FollowUpJob) => {
     const { type, url, previousAnswer } = job.data
     const {
