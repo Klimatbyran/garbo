@@ -110,13 +110,13 @@ const precheck = new DiscordWorker(
     try {
       const extractEmissions = await flow.add({
         name: 'precheck done ' + companyName,
-        queueName: 'extractEmissions', // this is where the result from the children will be sent
+        queueName: QUEUE_NAMES.EXTRACT_EMISSIONS,
         data: { ...base.data },
         children: [
           {
             ...base,
             name: 'guessWikidata ' + companyName,
-            queueName: 'guessWikidata',
+            queueName: QUEUE_NAMES.GUESS_WIKIDATA,
             data: {
               ...base.data,
               schema: zodResponseFormat(wikidata.schema, type),
@@ -124,7 +124,7 @@ const precheck = new DiscordWorker(
           },
           {
             ...base,
-            queueName: 'followUp',
+            queueName: QUEUE_NAMES.FOLLOW_UP,
             name: 'fiscalYear ' + companyName,
             data: {
               ...base.data,

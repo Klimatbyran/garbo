@@ -24,7 +24,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const base = {
       name: companyName,
       data: { ...job.data, ...childrenValues },
-      queueName: 'followUp',
+      queueName: QUEUE_NAMES.FOLLOW_UP,
       opts: {
         attempts: 3,
       },
@@ -32,7 +32,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
 
     await flow.add({
       name: companyName,
-      queueName: 'checkDB',
+      queueName: QUEUE_NAMES.CHECK_DB,
       data: {
         ...base.data,
       },

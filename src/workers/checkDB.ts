@@ -103,7 +103,7 @@ const checkDB = new DiscordWorker(
   
     await flow.add({
       ...base,
-      queueName: 'sendCompanyLink',
+      queueName: QUEUE_NAMES.SEND_COMPANY_LINK,
       data: {
         ...base.data,
       },
@@ -111,7 +111,7 @@ const checkDB = new DiscordWorker(
         scope12 || scope3 || biogenic || economy
           ? {
               ...base,
-              queueName: 'diffReportingPeriods',
+              queueName: QUEUE_NAMES.DIFF_REPORTING_PERIODS,
               data: {
                 ...base.data,
                 scope12,
@@ -124,7 +124,7 @@ const checkDB = new DiscordWorker(
         industry
           ? {
               ...base,
-              queueName: 'diffIndustry',
+              queueName: QUEUE_NAMES.DIFF_INDUSTRY,
               data: {
                 ...base.data,
                 industry,
@@ -134,7 +134,7 @@ const checkDB = new DiscordWorker(
         goals
           ? {
               ...base,
-              queueName: 'diffGoals',
+              queueName: QUEUE_NAMES.DIFF_GOALS,
               data: {
                 ...base.data,
                 goals,
@@ -144,7 +144,7 @@ const checkDB = new DiscordWorker(
         baseYear
           ? {
               ...base,
-              queueName: 'diffBaseYear',
+              queueName: QUEUE_NAMES.DIFF_BASE_YEAR,
               data: {
                 ...base.data,
                 baseYear,
@@ -154,7 +154,7 @@ const checkDB = new DiscordWorker(
         initiatives
           ? {
               ...base,
-              queueName: 'diffInitiatives',
+              queueName: QUEUE_NAMES.DIFF_INITIATIVES,
               data: {
                 ...base.data,
                 initiatives,

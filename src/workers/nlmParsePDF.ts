@@ -88,12 +88,12 @@ const nlmParsePDF = new DiscordWorker(
         const precheck = await flow.add({
           ...base,
           name: 'precheck ' + name,
-          queueName: 'precheck',
+          queueName: QUEUE_NAMES.PRECHECK,
           children: [
             {
               ...base,
               name: 'indexMarkdown ' + name,
-              queueName: 'indexMarkdown',
+              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
               children: [
                 {
                   ...base,
@@ -103,7 +103,7 @@ const nlmParsePDF = new DiscordWorker(
                     json,
                   },
                   name: 'extractTables ' + name,
-                  queueName: 'nlmExtractTables',
+                  queueName: QUEUE_NAMES.NLM_EXTRACT_TABLES,
                 },
               ],
             },
