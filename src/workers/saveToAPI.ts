@@ -3,6 +3,7 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import wikipediaUpload from './wikipediaUpload'
+import { QUEUE_NAMES } from '../queues'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -17,7 +18,7 @@ export interface SaveToApiJob extends DiscordJob {
 }
 
 export const saveToAPI = new DiscordWorker<SaveToApiJob>(
-  'saveToAPI',
+  QUEUE_NAMES.SAVE_TO_API,
   async (job: SaveToApiJob) => {
     try {
       const {

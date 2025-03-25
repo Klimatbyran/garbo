@@ -6,6 +6,7 @@ import precheck from './precheck'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { vectorDB } from '../lib/vectordb'
 import { ParsedDocument } from '../lib/nlm-ingestor-schema'
+import { QUEUE_NAMES } from '../queues'
 
 const headers = {
   'User-Agent':
@@ -15,7 +16,7 @@ const headers = {
 const flow = new FlowProducer({ connection: redis })
 
 const nlmParsePDF = new DiscordWorker(
-  'nlmParsePDF',
+  QUEUE_NAMES.NLM_PARSE_PDF,
   async (job) => {
     const { url } = job.data
 
@@ -87,12 +88,12 @@ const nlmParsePDF = new DiscordWorker(
         const precheck = await flow.add({
           ...base,
           name: 'precheck ' + name,
-          queueName: 'precheck',
+          queueName: QUEUE_NAMES.PRECHECK,
           children: [
             {
               ...base,
               name: 'indexMarkdown ' + name,
-              queueName: 'indexMarkdown',
+              queueName: QUEUE_NAMES.INDEX_MARKDOWN,
               children: [
                 {
                   ...base,
@@ -102,7 +103,7 @@ const nlmParsePDF = new DiscordWorker(
                     json,
                   },
                   name: 'extractTables ' + name,
-                  queueName: 'nlmExtractTables',
+                  queueName: QUEUE_NAMES.NLM_EXTRACT_TABLES,
                 },
               ],
             },

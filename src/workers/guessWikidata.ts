@@ -8,6 +8,7 @@ import wikidata, { Wikidata } from '../prompts/wikidata'
 import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
+import { QUEUE_NAMES } from '../queues'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -32,7 +33,7 @@ const insignificantWords = new Set([
 ])
 
 const guessWikidata = new DiscordWorker<GuessWikidataJob>(
-  'guessWikidata',
+  QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
     const {
       companyName,

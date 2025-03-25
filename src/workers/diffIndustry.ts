@@ -1,5 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
 
 export class DiffIndustryJob extends DiscordJob {
@@ -12,7 +13,7 @@ export class DiffIndustryJob extends DiscordJob {
 }
 
 const diffIndustry = new DiscordWorker<DiffIndustryJob>(
-  'diffIndustry',
+  QUEUE_NAMES.DIFF_INDUSTRY,
   async (job) => {
     const { url, companyName, existingCompany, industry } = job.data
     const metadata = defaultMetadata(url)
