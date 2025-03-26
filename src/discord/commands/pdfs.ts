@@ -4,29 +4,40 @@ import {
   TextChannel,
 } from 'discord.js'
 import nlmParsePDF from '../../workers/nlmParsePDF'
+import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
   data: new SlashCommandBuilder()
     .setName('pdfs')
+    .setDescription(
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
+    )
     .addStringOption((option) =>
       option
         .setName('urls')
         .setDescription('URLs to PDF files. Separate with comma or new lines.')
         .setRequired(true)
     )
-    .setDescription(
-      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
+    .addBooleanOption((option) => 
+      option
+        .setName('auto-approve')
+        .setDescription('Automatically approve the extracted data.')
+        .setRequired(false)
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       await interaction.deferReply({ ephemeral: true })
+      
       const urls = interaction.options
         .getString('urls')
         ?.split(/\s*,\s*|\s+/)
         .map((url) => url.trim()) // Remove whitespace
         .filter(Boolean) // Remove empty strings
         .filter((url) => url.startsWith('http')) // Only allow URLs
+      
+      const autoApprove = interaction.options.getBoolean('auto-approve') || false
+
       if (!urls || !urls.length) {
         await interaction.followUp({
           content:
@@ -40,9 +51,6 @@ export default {
           content: `Your PDFs are being processed`,
         })
       }
-      // const message = await interaction.reply(
-      //   `Processing ${urls.length} PDFs...`
-      // )
 
       urls.forEach(async (url) => {
         const thread = await (
@@ -54,12 +62,14 @@ export default {
         })
 
         thread.send(`PDF i kö: ${url}`)
+        thread.send(`Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`)
         nlmParsePDF.queue.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),
             threadId: thread.id,
-          },
+            autoApprove,
+          } as DiscordJob['data'],
           {
             backoff: {
               type: 'fixed',

@@ -3,6 +3,8 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import wikipediaUpload from './wikipediaUpload'
+import { FlowProducer } from 'bullmq'
+import redis from '../config/redis'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -23,11 +25,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const {
         companyName,
         wikidata,
-        approved,
+        approved = false,
         requiresApproval = true,
         diff = '',
         body,
         apiSubEndpoint,
+        autoApprove = false,
       } = job.data
       const wikidataId = wikidata.node
 
@@ -64,11 +67,29 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         }
       }
 
-      if (!requiresApproval || approved) {
-        if(apiSubEndpoint === "reporting-periods") {
-          await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
+      job.log(
+        `autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approved}`
+      )
+
+      await job.sendMessage({
+        content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
+      })
+
+      if (autoApprove || !requiresApproval || approved) {
+        const sanitizedBody = removeNullValuesFromGarbo(body)
+
+        job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
+          ${JSON.stringify(sanitizedBody)}`)
+
+        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+          body: sanitizedBody,
+        })
+
+        if (apiSubEndpoint === 'reporting-periods') {
+          await wikipediaUpload.queue.add(
+            'Wikipedia Upload for ' + companyName,
             {
-              ...job.data
+              ...job.data,
             }
           )
         }
@@ -78,31 +99,42 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         })
 
         // After successful save and approval of emissions data, trigger assessment
-        if (apiSubEndpoint === 'reporting-periods' && (approved || !requiresApproval)) {
+        if (
+          apiSubEndpoint === 'reporting-periods' &&
+          (approved || !requiresApproval)
+        ) {
           const flow = new FlowProducer({ connection: redis })
-          
+
           const reportingPeriod = body.reportingPeriods?.[0]
           if (reportingPeriod?.emissions) {
             const assessmentData = {
-              scope12: reportingPeriod.emissions.scope1 && reportingPeriod.emissions.scope2 
-                ? [{ 
-                    year: reportingPeriod.year,
-                    scope1: reportingPeriod.emissions.scope1,
-                    scope2: reportingPeriod.emissions.scope2
-                  }]
-                : undefined,
+              scope12:
+                reportingPeriod.emissions.scope1 &&
+                reportingPeriod.emissions.scope2
+                  ? [
+                      {
+                        year: reportingPeriod.year,
+                        scope1: reportingPeriod.emissions.scope1,
+                        scope2: reportingPeriod.emissions.scope2,
+                      },
+                    ]
+                  : undefined,
               scope3: reportingPeriod.emissions.scope3
-                ? [{ 
-                    year: reportingPeriod.year,
-                    scope3: reportingPeriod.emissions.scope3
-                  }]
+                ? [
+                    {
+                      year: reportingPeriod.year,
+                      scope3: reportingPeriod.emissions.scope3,
+                    },
+                  ]
                 : undefined,
               biogenic: reportingPeriod.emissions.biogenic
-                ? [{
-                    year: reportingPeriod.year,
-                    biogenic: reportingPeriod.emissions.biogenic
-                  }]
-                : undefined
+                ? [
+                    {
+                      year: reportingPeriod.year,
+                      biogenic: reportingPeriod.emissions.biogenic,
+                    },
+                  ]
+                : undefined,
             }
 
             await flow.add({
@@ -110,7 +142,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
               queueName: 'emissionsAssessment',
               data: {
                 ...job.data,
-                ...assessmentData
+                ...assessmentData,
               },
               children: [
                 {
@@ -118,18 +150,18 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
                   queueName: 'verifyScope3',
                   data: {
                     ...job.data,
-                    ...assessmentData
-                  }
+                    ...assessmentData,
+                  },
                 },
                 {
                   name: `verifyCalculations-${job.data.companyName}`,
-                  queueName: 'verifyCalculations', 
+                  queueName: 'verifyCalculations',
                   data: {
                     ...job.data,
-                    ...assessmentData
-                  }
-                }
-              ]
+                    ...assessmentData,
+                  },
+                },
+              ],
             })
           }
         }
@@ -137,11 +169,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         return { success: true }
       }
 
+      job.log('The data needs approval before saving to API.')
+
       // If approval is required and not yet approved, send approval request
       const buttonRow = discord.createApproveButtonRow(job)
 
-      await job.sendMessage({
-        content: `## ${apiSubEndpoint}\n\nNew changes need approval for ${wikidataId}\n\n${diff}`,
+      await job.editMessage({
         components: [buttonRow],
       })
 

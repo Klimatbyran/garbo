@@ -41,6 +41,9 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       wikidata: approvedWikidata,
     } = job.data
     if (!companyName) throw new Error('No company name was provided')
+    job.log('Company name: ' + companyName)
+    job.log('Wikidata: ' + JSON.stringify(approvedWikidata, null, 2))
+    job.log('Approved: ' + approved)
 
     if (approved) {
       if (!approvedWikidata) {
@@ -176,6 +179,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       )
     }
 
+    job.log('Updating job data')
     await job.updateData({ ...job.data, wikidata: wikidataForApproval })
     const buttonRow = discord.createEditWikidataButtonRow(job)
 
