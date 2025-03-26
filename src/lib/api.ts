@@ -19,7 +19,7 @@ async function getApiToken(secret: string) {
 }
 
 async function ensureToken() {
-  if (!GARBO_TOKEN && !isJwtExpired(GARBO_TOKEN!)) {
+  if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN)) {
     GARBO_TOKEN = await getApiToken(apiConfig.secret)
   }
   return GARBO_TOKEN
