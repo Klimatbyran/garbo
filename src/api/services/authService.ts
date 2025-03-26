@@ -61,13 +61,13 @@ class AuthService {
             update: {
                 name: userinfo.name ||userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email ?? undefined,
+                email: userinfo.email ?? null,
             },
             create: {
                 name: userinfo.name ||userinfo.login, //make a nullable to for this part. 
                 githubId: userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email || null,
+                email: userinfo.email ?? null,
             }
         })   
         
