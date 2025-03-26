@@ -13,8 +13,8 @@ interface GithubUserinfo {
 
 interface User {
     id: string,
-    name: string,
-    email: string,
+    name: string ,
+    email: string | null,
     githubId: string | null,
     githubImageUrl: string | null
     bot: boolean
@@ -59,15 +59,15 @@ class AuthService {
                 githubId: userinfo.login
             },
             update: {
-                name: userinfo.name,
+                name: userinfo.name ||userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email
+                email: userinfo.email ?? undefined,
             },
             create: {
-                name: userinfo.name,
+                name: userinfo.name ||userinfo.login, //make a nullable to for this part. 
                 githubId: userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email
+                email: userinfo.email || null,
             }
         })   
         
@@ -111,6 +111,9 @@ class AuthService {
 
     verifyToken(token: string) {
         const user = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
+        if (!user.email && !user.githubId) {
+            throw new Error("Invalid token: No email or GitHub ID present");
+        }
         const currentTimeInSeconds = Date.now() / 1000;
         const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 
