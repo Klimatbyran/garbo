@@ -59,12 +59,14 @@ class AuthService {
                 githubId: userinfo.login
             },
             update: {
-                name: userinfo.name ||userinfo.login,
+                name: userinfo.login,
+                displayName: userinfo.name ?? "",
                 githubImageUrl: userinfo.avatar_url,
                 email: userinfo.email ?? null,
             },
             create: {
-                name: userinfo.name ||userinfo.login, //make a nullable to for this part. 
+                name: userinfo.login,
+                displayName: userinfo.name ?? "",
                 githubId: userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
                 email: userinfo.email ?? null,
@@ -88,7 +90,7 @@ class AuthService {
         if(!user) {
           user = await prisma.user.upsert({
               where: {
-                  email: serviceAuth.client_id + "@klimatkollen.se"
+                  name: serviceAuth.client_id
               },
               update: {
                   name: serviceAuth.client_id,
