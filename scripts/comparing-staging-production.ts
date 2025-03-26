@@ -105,3 +105,5 @@ async function main() {
 
 // Execute the main function
 main();
+
+// node --import tsx  scripts/comparing-staging-production.ts generates the output file accuracy-results.json with the comparison results between staging and production data. The output file contains an array of objects, each representing a company and its comparison results. The accuracy field indicates the percentage of matched fields between staging and production data. The matchedFields and mismatchedFields arrays list the fields that match and do not match, respectively. The note field provides additional information about the comparison results. The output file is written to the output directory in the project folder.
