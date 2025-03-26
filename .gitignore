@@ -13,3 +13,6 @@ prisma/generated
 *.db-journal
 *.pdf
 *.code-workspace
+
+# ignore secrets
+*secret*

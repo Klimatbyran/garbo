@@ -1,7 +1,11 @@
 import { askStream } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
-import { ChatCompletionAssistantMessageParam, ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam } from 'openai/resources'
+import {
+  ChatCompletionAssistantMessageParam,
+  ChatCompletionSystemMessageParam,
+  ChatCompletionUserMessageParam,
+} from 'openai/resources'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { resolve } from 'path'
 import { vectorDB } from '../lib/vectordb'
@@ -22,7 +26,7 @@ const followUp = new DiscordWorker<FollowUpJob>(
       default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
+    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
 
     job.log(`Reflecting on: ${prompt}
     
@@ -48,8 +52,14 @@ const followUp = new DiscordWorker<FollowUpJob>(
         } as ChatCompletionUserMessageParam,
         Array.isArray(job.stacktrace)
           ? [
-              { role: 'assistant' , content: previousAnswer } as ChatCompletionAssistantMessageParam,
-              { role: 'user', content: job.stacktrace.join('') } as ChatCompletionUserMessageParam,
+              {
+                role: 'assistant',
+                content: previousAnswer,
+              } as ChatCompletionAssistantMessageParam,
+              {
+                role: 'user',
+                content: job.stacktrace.join(''),
+              } as ChatCompletionUserMessageParam,
             ]
           : undefined,
       ]
