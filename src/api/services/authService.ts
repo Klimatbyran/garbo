@@ -33,7 +33,6 @@ class AuthService {
         });
         
         const accessToken =  accessTokenRes.data.access_token;
-
         const userinfoRes = await axios.get<GithubUserinfo>("https://api.github.com/user", {
             headers: {
                 Authorization: "Bearer " + accessToken,
