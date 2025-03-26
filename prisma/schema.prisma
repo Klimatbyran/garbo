@@ -350,8 +350,7 @@ model Metadata {
 
 model User {
   id    String @id @default(cuid())
-  email String @unique
-  name  String
+  email String? @unique //make email nullable  name  String
   githubId   String? @unique
   githubImageUrl String?
   bot   Boolean @default(false)

@@ -4,7 +4,9 @@ import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 
 // Define URLs from environment variables
-const STAGING_API_URL = process.env.STAGING_API_URL;
+const STAGING_API_URL = "http://localhost:3000/api";
+
+
 const PRODUCTION_API_URL = process.env.PRODUCTION_API_URL;
 
 // Parse the API tokens assuming they are in the environment variables

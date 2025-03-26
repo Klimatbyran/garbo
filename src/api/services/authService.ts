@@ -14,7 +14,7 @@ interface GithubUserinfo {
 interface User {
     id: string,
     name: string,
-    email: string,
+    email: string | null,
     githubId: string | null,
     githubImageUrl: string | null
     bot: boolean
@@ -59,12 +59,12 @@ class AuthService {
                 githubId: userinfo.login
             },
             update: {
-                name: userinfo.name,
+                name: userinfo.name ||userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email
+                email: userinfo.email || null,
             },
             create: {
-                name: userinfo.name,
+                name: userinfo.name ||userinfo.login, //make a nullable to for this part. 
                 githubId: userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
                 email: userinfo.email
