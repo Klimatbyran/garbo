@@ -43,7 +43,7 @@ const extractTextViaVisionAPI = async (
       {
         role: 'assistant',
         content:
-          'Sure. Sounds good. Send the screenhot and I will extract the table(s) if there are any and return in markdown format as accurately as possible without any other comment.',
+          'Sure. Sounds good. Send the screenshot and I will extract the table(s) if there are any and return in markdown format as accurately as possible without any other comment.',
       },
       {
         role: 'user',
