@@ -13,8 +13,8 @@ interface GithubUserinfo {
 
 interface User {
     id: string,
-    name: string,
-    email: string,
+    name: string ,
+    email: string | null,
     githubId: string | null,
     githubImageUrl: string | null
     bot: boolean
@@ -59,15 +59,17 @@ class AuthService {
                 githubId: userinfo.login
             },
             update: {
-                name: userinfo.name,
+                name: userinfo.login,
+                displayName: userinfo.name ?? "",
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email
+                email: userinfo.email ?? null,
             },
             create: {
-                name: userinfo.name,
+                name: userinfo.login,
+                displayName: userinfo.name ?? "",
                 githubId: userinfo.login,
                 githubImageUrl: userinfo.avatar_url,
-                email: userinfo.email
+                email: userinfo.email ?? null,
             }
         })   
         
@@ -88,7 +90,7 @@ class AuthService {
         if(!user) {
           user = await prisma.user.upsert({
               where: {
-                  email: serviceAuth.client_id + "@klimatkollen.se"
+                  name: serviceAuth.client_id
               },
               update: {
                   name: serviceAuth.client_id,
@@ -111,6 +113,9 @@ class AuthService {
 
     verifyToken(token: string) {
         const user = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
+        if (!user.email && !user.githubId) {
+            throw new Error("Invalid token: No email or GitHub ID present");
+        }
         const currentTimeInSeconds = Date.now() / 1000;
         const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 

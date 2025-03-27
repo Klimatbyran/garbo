@@ -1,5 +1,6 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
 
 export class DiffGoalsJob extends DiscordJob {
@@ -16,9 +17,11 @@ export class DiffGoalsJob extends DiscordJob {
   }
 }
 
-const diffGoals = new DiscordWorker<DiffGoalsJob>('diffGoals', async (job) => {
-  const { url, companyName, existingCompany, goals } = job.data
-  const metadata = defaultMetadata(url)
+const diffGoals = new DiscordWorker<DiffGoalsJob>(
+  QUEUE_NAMES.DIFF_GOALS,
+  async (job) => {
+    const { url, companyName, existingCompany, goals } = job.data
+    const metadata = defaultMetadata(url)
 
   const body = {
     goals,

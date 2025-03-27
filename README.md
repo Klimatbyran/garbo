@@ -56,6 +56,8 @@ flowchart TB
                                            CheckDB --(no)--> API.Economy
 ```
 
+For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
+
 ## Get started 🚀
 
 Ensure you have Node.js version 22.0.0 or higher installed. You will also need [Docker](https://www.docker.com/) (or [Podman](https://podman-desktop.io/)) to run containers.

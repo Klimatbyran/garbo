@@ -1,11 +1,12 @@
 import config from '../config/chromadb'
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
+import { QUEUE_NAMES } from '../queues'
 
 class IndexMarkdownJob extends DiscordJob {}
 
 const indexMarkdown = new DiscordWorker(
-  'indexMarkdown',
+  QUEUE_NAMES.INDEX_MARKDOWN,
   async (job: IndexMarkdownJob) => {
     const { url } = job.data
     const childrenValues = await job.getChildrenEntries()

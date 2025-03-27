@@ -117,6 +117,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_SECRET
+            - name: FRONTEND_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: FRONTEND_URL
             - name: WIKI_PASSWORD
               valueFrom:
                 secretKeyRef:
