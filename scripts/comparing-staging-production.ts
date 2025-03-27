@@ -4,7 +4,7 @@ import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 
 // Define URLs from environment variables
-const STAGING_API_URL ="http://localhost:3000/api";
+const STAGING_API_URL ="https://stage-api.klimatkollen.se/api";
 
 const PRODUCTION_API_URL = "https://api.klimatkollen.se/api";
 
