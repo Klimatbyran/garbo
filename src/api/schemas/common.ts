@@ -7,6 +7,8 @@ export const wikidataIdSchema = z.string().regex(/Q\d+/)
 
 export const wikidataIdParamSchema = z.object({ wikidataId: wikidataIdSchema })
 
+export const companySearchQuerySchema = z.object({q: z.string()})
+
 export const garboEntityIdSchema = z.object({ id: z.string() })
 
 /**

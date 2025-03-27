@@ -14,6 +14,11 @@ class CompanyService {
     return transformedCompanies
   }
 
+  async getAllCompaniesBySearchTerm(searchTerm: string) {
+    const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
+    return companies
+  }
+
   async getCompanyWithMetadata(wikidataId: string) {
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,

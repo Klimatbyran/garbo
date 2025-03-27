@@ -17,18 +17,19 @@ async function getApiToken(secret: string) {
   return (await response.json()).token
 }
 
-async function ensureToken() {
+async function ensureToken(isProd: boolean) {
   if (!GARBO_TOKEN) {
-    GARBO_TOKEN = await getApiToken(apiConfig.secret)
+    GARBO_TOKEN = await getApiToken(isProd? apiConfig.prod_secret : apiConfig.secret)
   }
   return GARBO_TOKEN
 }
 
 export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {},  
+  prodApi: boolean = false,
 ) {
-  const token = await ensureToken()
+  const token = await ensureToken(prodApi)
 
   const headers = {
     'Content-Type': 'application/json',
@@ -46,12 +47,13 @@ export async function apiFetch(
     config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
+  const response = await fetch(`${prodApi? apiConfig.prod_base_url : apiConfig.baseURL}${endpoint}`, config)
   if (response.ok) {
     const newToken = response.headers.get('x-auth-token')
     if (newToken) {
       GARBO_TOKEN = newToken
     }
+    console.log(response);
     return response.json()
   } else {
     const errorMessage = await response.text()

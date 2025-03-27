@@ -1,6 +1,6 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
 
-import { getWikidataEntities, searchCompany } from '../lib/wikidata'
+import { getWikidataEntities, getWikidataEntity, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
@@ -9,6 +9,7 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
+import { apiFetch } from '../lib/api'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -58,6 +59,25 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
       return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
     }
+
+    const queryProductionData = await apiFetch(`/companies/search?q=${companyName}`, {}, false);
+
+    if(queryProductionData.length === 1) {
+      const [{ id, labels, descriptions }] = await getWikidataEntities([
+        queryProductionData.wikidataId,
+      ])
+
+      // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
+
+      const wikidata = {
+        node: id,
+        url: `https://wikidata.org/wiki/${id}`,
+        label: labels.sv.value ?? labels.sv.value,
+        description: descriptions.sv.value ?? descriptions.sv.value,
+      } satisfies Wikidata
+      return JSON.stringify({ wikidata }, null, 2)
+    }
+
 
     async function getWikidataSearchResults({
       companyName,

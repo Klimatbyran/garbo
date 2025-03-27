@@ -3,7 +3,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify'
 import { getGics } from '../../lib/gics'
 import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
-import { WikidataIdParams } from '../types'
+import { CompanySearchQuery, WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
 import { companyService } from '../services/companyService'
 import {
@@ -11,6 +11,7 @@ import {
   wikidataIdParamSchema,
   CompanyDetails,
   getErrorSchemas,
+  companySearchQuerySchema,
 } from '../schemas'
 import { redisCache } from '../..'
 
@@ -99,6 +100,29 @@ export async function companyReadRoutes(app: FastifyInstance) {
               },
             }
           : null,
+      })
+    }
+  )
+
+  app.get(
+    '/search',
+    {
+      schema: {
+        summary: 'Search for companies',
+        description:
+          'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
+        tags: getTags('Companies'),
+        querystring: companySearchQuerySchema,
+        response: {
+          200: CompanyList
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Querystring: CompanySearchQuery }>, reply) => {
+      const { q } = request.query
+      const company = await companyService.getAllCompaniesBySearchTerm(q)
+      reply.send({
+        ...company,
       })
     }
   )
