@@ -14,5 +14,10 @@ prisma/generated
 *.pdf
 *.code-workspace
 
+
+# ignore secrets
+*secret*
+
 # Ignore accuracy results
 output/accuracy-results.json
+
