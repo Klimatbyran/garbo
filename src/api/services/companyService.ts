@@ -16,7 +16,10 @@ class CompanyService {
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
-    return companies
+    const transformedCompanies = addCalculatedTotalEmissions(
+      companies.map(transformMetadata)
+    )
+    return transformedCompanies
   }
 
   async getCompanyWithMetadata(wikidataId: string) {

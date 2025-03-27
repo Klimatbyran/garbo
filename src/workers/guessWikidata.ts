@@ -64,16 +64,15 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
     if(queryProductionData.length === 1) {
       const [{ id, labels, descriptions }] = await getWikidataEntities([
-        queryProductionData.wikidataId,
+        queryProductionData[0].wikidataId,
       ])
-
       // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
 
       const wikidata = {
         node: id,
         url: `https://wikidata.org/wiki/${id}`,
-        label: labels.sv.value ?? labels.sv.value,
-        description: descriptions.sv.value ?? descriptions.sv.value,
+        label: labels.sv?.value ?? labels.en.value,
+        description: descriptions.sv?.value ?? descriptions.en.value,
       } satisfies Wikidata
       return JSON.stringify({ wikidata }, null, 2)
     }

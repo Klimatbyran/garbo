@@ -120,10 +120,9 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
     async (request: FastifyRequest<{ Querystring: CompanySearchQuery }>, reply) => {
       const { q } = request.query
-      const company = await companyService.getAllCompaniesBySearchTerm(q)
-      reply.send({
-        ...company,
-      })
+      const companies = await companyService.getAllCompaniesBySearchTerm(q)
+      console.log(companies);
+      reply.send(companies)
     }
   )
 }

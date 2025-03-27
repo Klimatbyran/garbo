@@ -35,6 +35,7 @@ const checkDB = new DiscordWorker(
     } = job.data
   
     const childrenValues = await job.getChildrenEntries()
+    console.log(childrenValues);
     await job.updateData({ ...job.data, childrenValues })
   
     job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)

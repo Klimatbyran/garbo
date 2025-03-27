@@ -53,7 +53,6 @@ export async function apiFetch(
     if (newToken) {
       GARBO_TOKEN = newToken
     }
-    console.log(response);
     return response.json()
   } else {
     const errorMessage = await response.text()
