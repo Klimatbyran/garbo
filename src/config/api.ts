@@ -11,7 +11,6 @@ const envSchema = z.object({
    * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
    */
   API_SECRET: z.string(),
-  API_TOKENS: z.string(),
   FRONTEND_URL: z
     .string()
     .default(
@@ -31,8 +30,6 @@ const envSchema = z.object({
   GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
   JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
   JWT_EXPIRES_IN: z.string().default("3600"),
-
-  API_PROD_SECRET: z.string(),
   PROD_BASE_URL: z.string().default("https://api.klimatkollen.se/api")
 })
 
@@ -77,8 +74,6 @@ const apiConfig = {
       : developmentOrigins,
 
   secret: env.API_SECRET,
-  api_tokens: env.API_TOKENS,
-  prod_secret: env.API_PROD_SECRET,
   prod_base_url: env.PROD_BASE_URL,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
