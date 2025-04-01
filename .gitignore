@@ -13,3 +13,11 @@ prisma/generated
 *.db-journal
 *.pdf
 *.code-workspace
+
+
+# ignore secrets
+*secret*
+
+# Ignore accuracy results
+output/accuracy-results.json
+

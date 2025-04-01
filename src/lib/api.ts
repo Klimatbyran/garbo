@@ -1,4 +1,5 @@
 import apiConfig from '../config/api'
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 let GARBO_TOKEN: {
   token: string | null,
@@ -27,11 +28,27 @@ async function ensureToken(isProd: boolean) {
   if(isProd) {
     return apiConfig.api_tokens.split(",")[0]; //temporary fix as long as prod is on the old auth system
   }
-  if (!GARBO_TOKEN.token || GARBO_TOKEN.prod !== isProd) {
+  if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN) || GARBO_TOKEN.prod !== isProd) {
     GARBO_TOKEN.token = await getApiToken(isProd? apiConfig.prod_secret : apiConfig.secret);
     GARBO_TOKEN.prod = isProd;
   }
   return GARBO_TOKEN.token
+}
+
+function isJwtExpired(token: string): boolean {
+  try {
+    const decoded = jwt.decode(token) as JwtPayload | null;
+
+    if (!decoded || typeof decoded !== 'object' || !decoded.exp) {
+      return true;
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    return currentTime >= decoded.exp;
+    
+  } catch {
+    return true;
+  }
 }
 
 export async function apiFetch(
