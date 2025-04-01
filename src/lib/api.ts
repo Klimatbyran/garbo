@@ -1,7 +1,7 @@
 import apiConfig from '../config/api'
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
-let GARBO_TOKEN: string | null = null
+let GARBO_TOKEN: string | null;
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -20,9 +20,9 @@ async function getApiToken(secret: string) {
 
 async function ensureToken() {
   if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN)) {
-    GARBO_TOKEN = await getApiToken(apiConfig.secret)
+    GARBO_TOKEN = await getApiToken(apiConfig.secret);
   }
-  return GARBO_TOKEN
+  return GARBO_TOKEN;
 }
 
 function isJwtExpired(token: string): boolean {

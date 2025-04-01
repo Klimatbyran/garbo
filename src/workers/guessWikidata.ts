@@ -59,6 +59,35 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
     }
 
+    /* NOTE: Can be activated once the corresponding endpoint is ready in prod
+
+    const queryProductionRes = await fetch(apiConfig.prod_base_url + '/companies/search?q=' + companyName , {method: 'GET', headers: {'Content-Type': 'application/json'}});    
+    const queryProductionData = await queryProductionRes.json();
+    if(queryProductionData.length === 1) {
+      const [{ id, labels, descriptions }] = await getWikidataEntities([
+        queryProductionData[0].wikidataId,
+      ])
+      // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
+
+      const wikidata = {
+        node: id,
+        url: `https://wikidata.org/wiki/${id}`,
+        label: labels.sv?.value ?? labels.en.value,
+        description: descriptions.sv?.value ?? descriptions.en.value,
+      } satisfies Wikidata
+
+      job.log("auto approve");
+
+      job.sendMessage({
+        content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
+        components: [],
+      })
+
+      return JSON.stringify({ wikidata }, null, 2)
+    }
+    */
+
+
     async function getWikidataSearchResults({
       companyName,
       retry = 0,
@@ -178,6 +207,26 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       throw new Error(
         `Could not parse wikidataId from json: ${wikidataForApproval}`
       )
+    }
+
+    try {
+      const checkIfWikidataExistInProductionRes = await fetch(apiConfig.prod_base_url + '/companies/' + wikidataForApproval.node, {method: 'GET', headers: {'Content-Type': 'application/json'}});    
+      if(checkIfWikidataExistInProductionRes.ok) {
+        const checkIfWikidataExistInProduction = await checkIfWikidataExistInProductionRes.json();
+        if(checkIfWikidataExistInProduction.wikidataId) {  
+          await job.updateData({ ...job.data, wikidata: wikidataForApproval, approved: true });      
+          job.sendMessage({
+            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            components: [],
+          })
+          return JSON.stringify({ wikidata: wikidataForApproval }, null, 2)
+        }
+      }
+    } catch(_error) {
+      job.sendMessage({
+        content: `😫 Could not find the company in the production database, we will have to as the human.`,
+        components: [],
+      })
     }
 
     job.log('Updating job data')
