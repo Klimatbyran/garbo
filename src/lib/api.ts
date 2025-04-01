@@ -43,8 +43,7 @@ function isJwtExpired(token: string): boolean {
 
 export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {},  
-  prodApi: boolean = false,
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const token = await ensureToken()
 
@@ -64,7 +63,7 @@ export async function apiFetch(
     config.body = typeof body !== 'string' ? JSON.stringify(body) : body
   }
 
-  const response = await fetch(`${prodApi? apiConfig.prod_base_url : apiConfig.baseURL}${endpoint}`, config)
+  const response = await fetch(`${apiConfig.baseURL}${endpoint}`, config)
   if (response.ok) {
     const newToken = response.headers.get('x-auth-token')
     if (newToken) {
