@@ -209,18 +209,24 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       )
     }
 
-    const checkIfWikidataExistInProduction = await fetch(apiConfig.prod_base_url + '/companies/' + wikidataForApproval.node, {method: 'GET', headers: {'Content-Type': 'application/json'}});    
-    if(checkIfWikidataExistInProduction.ok) {
-      const companyData = await checkIfWikidataExistInProduction.json();
-      if(companyData.wikidataId) {  
-        await job.updateData({ ...job.data, wikidata: wikidataForApproval, approved: true });      
-        job.sendMessage({
-          content: `🚀 Unternehmen in der Produktionsdatenbank gefunden wir genehmigen automatisch: ${companyName}`,
-          components: [],
-        })
-
-        return JSON.stringify({ wikidata: wikidataForApproval }, null, 2)
+    try {
+      const checkIfWikidataExistInProductionRes = await fetch(apiConfig.prod_base_url + '/companies/' + wikidataForApproval.node, {method: 'GET', headers: {'Content-Type': 'application/json'}});    
+      if(checkIfWikidataExistInProductionRes.ok) {
+        const checkIfWikidataExistInProduction = await checkIfWikidataExistInProductionRes.json();
+        if(checkIfWikidataExistInProduction.wikidataId) {  
+          await job.updateData({ ...job.data, wikidata: wikidataForApproval, approved: true });      
+          job.sendMessage({
+            content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
+            components: [],
+          })
+          return JSON.stringify({ wikidata: wikidataForApproval }, null, 2)
+        }
       }
+    } catch(_error) {
+      job.sendMessage({
+        content: `😫 Could not find the company in the production database, we will have to as the human.`,
+        components: [],
+      })
     }
 
     job.log('Updating job data')
