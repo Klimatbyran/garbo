@@ -7,12 +7,14 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
+import discord from '../discord'
 
 class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
     type: JobType
+    waitingForCompanyName?: boolean
   }
 }
 
@@ -25,9 +27,16 @@ const companyNameSchema = z.object({
 const precheck = new DiscordWorker(
   QUEUE_NAMES.PRECHECK, 
   async (job: PrecheckJob) => {
-    const { cachedMarkdown, type, ...baseData } = job.data
+    const { cachedMarkdown, type, waitingForCompanyName, companyName: existingCompanyName, ...baseData } = job.data
     const { markdown = cachedMarkdown } = await job.getChildrenEntries()
-  
+
+    // If we already have a company name provided by the user, use it directly
+    if (existingCompanyName && waitingForCompanyName) {
+      job.log('Using manually provided company name: ' + existingCompanyName)
+      await job.updateData({ ...job.data, waitingForCompanyName: false })
+      return processWithCompanyName(existingCompanyName)
+    }
+
     async function extractCompanyName(
       markdown: string,
       retry = 3,
@@ -53,96 +62,121 @@ const precheck = new DiscordWorker(
           ),
         }
       ).then(JSON.parse)
-  
+            
       const { companyName: rawName } = companyNameSchema.parse(response)
       const companyName = rawName ? rawName.trim() : null
-  
+      
       return (
         companyName ||
         extractCompanyName(markdown, retry - 1, start + chunkSize, chunkSize)
       )
     }
-  
+      
     const companyName = await extractCompanyName(markdown)
-  
-    if (!companyName) throw new Error('Could not find company name')
-  
-    job.log('Company name: ' + companyName)
-    await job.setThreadName(companyName)
-  
-    const description = await askPrompt(
-      `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet.
-  
-  ** Beskrivning **
-  Följ dessa riktlinjer:
-  
-  1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
-  2. Syfte: Endast företagets verksamhet ska beskrivas. Använd ett extra sakligt och neutralt språk.
-  3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare", "innovativt", "värdefull", "framgångsrik" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
-  4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
-  5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
-  
-  För att säkerställa att svaret följer riktlinjerna, tänk på att:
-  
-  - Använd ett sakligt och neutralt språk.
-  - Aldrig använda marknadsförande eller värderande språk.
-  - Tydligt beskriva företagets verksamhet.
-  
-  Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
-  
-  Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
-  
-  Följande är ett utdrag ur en PDF:`,
-      markdown.substring(0, 5000)
-    )
-  
-    const base = {
-      data: { ...baseData, companyName, description },
-      opts: {
-        attempts: 3,
-      },
+    
+    if (!companyName) {
+      // If we're already waiting for manual input, don't send another message
+      if (waitingForCompanyName) {
+        job.log('Still waiting for user to provide company name manually...')
+        await job.moveToDelayed(Date.now() + 30000) // Check again in 30 seconds
+        return
+      }
+
+      // Send message asking for manual input
+      job.log('Could not find company name, asking user for input')
+      const buttonRow = discord.createEditCompanyNameButtonRow(job)
+      
+      await job.sendMessage({
+        content: '❌ Kunde inte automatiskt hitta företagets namn i dokumentet. Vänligen ange företagsnamnet manuellt:',
+        components: [buttonRow],
+      })
+      
+      // Mark the job as waiting for company name
+      await job.updateData({ ...job.data, waitingForCompanyName: true })
+      await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
+      return
     }
-  
-    job.log('Company description:\n' + description)
-  
-    job.sendMessage('🤖 Ställer frågor om basfakta...')
-  
-    try {
-      const extractEmissions = await flow.add({
-        name: 'precheck done ' + companyName,
-        queueName: QUEUE_NAMES.EXTRACT_EMISSIONS,
-        data: { ...base.data },
-        children: [
-          {
-            ...base,
-            name: 'guessWikidata ' + companyName,
-            queueName: QUEUE_NAMES.GUESS_WIKIDATA,
-            data: {
-              ...base.data,
-              schema: zodResponseFormat(wikidata.schema, type),
-            },
-          },
-          {
-            ...base,
-            queueName: QUEUE_NAMES.FOLLOW_UP,
-            name: 'fiscalYear ' + companyName,
-            data: {
-              ...base.data,
-              type: JobType.FiscalYear,
-            },
-          },
-        ],
+    
+    return processWithCompanyName(companyName)
+
+    async function processWithCompanyName(companyName: string) {
+      job.log('Company name: ' + companyName)
+      await job.setThreadName(companyName)
+      
+      const description = await askPrompt(
+        `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet.
+    
+        ** Beskrivning **
+        Följ dessa riktlinjer:
+        
+        1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
+        2. Syfte: Endast företagets verksamhet ska beskrivas. Använd ett extra sakligt och neutralt språk.
+        3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare", "innovativt", "värdefull", "framgångsrik" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
+        4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
+        5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
+        
+        För att säkerställa att svaret följer riktlinjerna, tänk på att:
+        
+        - Använd ett sakligt och neutralt språk.
+        - Aldrig använda marknadsförande eller värderande språk.
+        - Tydligt beskriva företagets verksamhet.
+        
+        Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
+        
+        Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
+        
+        Följande är ett utdrag ur en PDF:`,
+        markdown.substring(0, 5000)
+      )
+      
+      const base = {
+        data: { ...baseData, companyName, description },
         opts: {
           attempts: 3,
         },
-      })
-      return extractEmissions.job?.id
-    } catch (error) {
-      job.log('Error: ' + error)
-      job.editMessage('❌ Error: ' + error)
-      throw error
+      }
+        
+      job.log('Company description:\n' + description)
+        
+      job.sendMessage('🤖 Ställer frågor om basfakta...')
+        
+      try {
+        const extractEmissions = await flow.add({
+          name: 'precheck done ' + companyName,
+          queueName: QUEUE_NAMES.EXTRACT_EMISSIONS,
+          data: { ...base.data },
+          children: [
+            {
+              ...base,
+              name: 'guessWikidata ' + companyName,
+              queueName: QUEUE_NAMES.GUESS_WIKIDATA,
+              data: {
+                ...base.data,
+                schema: zodResponseFormat(wikidata.schema, type),
+              },
+            },
+            {
+              ...base,
+              queueName: QUEUE_NAMES.FOLLOW_UP,
+              name: 'fiscalYear ' + companyName,
+              data: {
+                ...base.data,
+                type: JobType.FiscalYear,
+              },
+            },
+          ],
+          opts: {
+            attempts: 3,
+          },
+        })
+        return extractEmissions.job?.id
+      } catch (error) {
+        job.log('Error: ' + error)
+        job.editMessage('❌ Error: ' + error)
+        throw error
+      }
     }
   }
 )
-
+    
 export default precheck
