@@ -1,6 +1,12 @@
 import apiConfig from '../config/api'
 
-let GARBO_TOKEN: string | null = null
+let GARBO_TOKEN: {
+  token: string | null,
+  prod: boolean
+} = {
+  token: null,
+  prod: false
+};
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -18,10 +24,14 @@ async function getApiToken(secret: string) {
 }
 
 async function ensureToken(isProd: boolean) {
-  if (!GARBO_TOKEN) {
-    GARBO_TOKEN = await getApiToken(isProd? apiConfig.prod_secret : apiConfig.secret)
+  if(isProd) {
+    return apiConfig.api_tokens.split(",")[0]; //temporary fix as long as prod is on the old auth system
   }
-  return GARBO_TOKEN
+  if (!GARBO_TOKEN.token || GARBO_TOKEN.prod !== isProd) {
+    GARBO_TOKEN.token = await getApiToken(isProd? apiConfig.prod_secret : apiConfig.secret);
+    GARBO_TOKEN.prod = isProd;
+  }
+  return GARBO_TOKEN.token
 }
 
 export async function apiFetch(
@@ -51,7 +61,7 @@ export async function apiFetch(
   if (response.ok) {
     const newToken = response.headers.get('x-auth-token')
     if (newToken) {
-      GARBO_TOKEN = newToken
+      GARBO_TOKEN.token = newToken
     }
     return response.json()
   } else {

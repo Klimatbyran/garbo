@@ -1,6 +1,6 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
 
-import { getWikidataEntities, getWikidataEntity, searchCompany } from '../lib/wikidata'
+import { getWikidataEntities, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
@@ -10,6 +10,8 @@ import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { apiFetch } from '../lib/api'
+
+const TRY_AUTO_APPROVE_WIKIDATA = true;
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -60,21 +62,31 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
     }
 
-    const queryProductionData = await apiFetch(`/companies/search?q=${companyName}`, {}, false);
+    if(TRY_AUTO_APPROVE_WIKIDATA && false) { //disabled for now as endpoint is not ready in production
+      const queryProductionData = await apiFetch(`/companies/search?q=${companyName}`, undefined, false);
 
-    if(queryProductionData.length === 1) {
-      const [{ id, labels, descriptions }] = await getWikidataEntities([
-        queryProductionData[0].wikidataId,
-      ])
-      // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
+      if(queryProductionData.length === 1) {
+        const [{ id, labels, descriptions }] = await getWikidataEntities([
+          queryProductionData[0].wikidataId,
+        ])
+        // NOTE: Maybe do a proper safe parse and check more languages than `sv` and `en`
 
-      const wikidata = {
-        node: id,
-        url: `https://wikidata.org/wiki/${id}`,
-        label: labels.sv?.value ?? labels.en.value,
-        description: descriptions.sv?.value ?? descriptions.en.value,
-      } satisfies Wikidata
-      return JSON.stringify({ wikidata }, null, 2)
+        const wikidata = {
+          node: id,
+          url: `https://wikidata.org/wiki/${id}`,
+          label: labels.sv?.value ?? labels.en.value,
+          description: descriptions.sv?.value ?? descriptions.en.value,
+        } satisfies Wikidata
+
+        job.log("auto approve");
+
+        job.sendMessage({
+          content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
+          components: [],
+        })
+
+        return JSON.stringify({ wikidata }, null, 2)
+      }
     }
 
 
@@ -197,6 +209,18 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       throw new Error(
         `Could not parse wikidataId from json: ${wikidataForApproval}`
       )
+    }
+
+    if(TRY_AUTO_APPROVE_WIKIDATA) {
+      const checkIfWikidataExistInProduction = await apiFetch(`/companies/${wikidataForApproval.node}`, undefined, true);
+      if(checkIfWikidataExistInProduction != null && checkIfWikidataExistInProduction.wikidataId) {
+        job.sendMessage({
+          content: `Company found in the production database will automatically approve wikidata for: ${companyName}`,
+          components: [],
+        })
+
+        return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
+      }
     }
 
     job.log('Updating job data')
