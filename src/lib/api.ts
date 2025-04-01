@@ -1,13 +1,7 @@
 import apiConfig from '../config/api'
 import jwt, { JwtPayload } from 'jsonwebtoken';
 
-let GARBO_TOKEN: {
-  token: string | null,
-  prod: boolean
-} = {
-  token: null,
-  prod: false
-};
+let GARBO_TOKEN: string | null;
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -24,15 +18,11 @@ async function getApiToken(secret: string) {
   return (await response.json()).token
 }
 
-async function ensureToken(isProd: boolean) {
-  if(isProd) {
-    return apiConfig.api_tokens.split(",")[0]; //temporary fix as long as prod is on the old auth system
+async function ensureToken() {
+  if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN)) {
+    GARBO_TOKEN = await getApiToken(apiConfig.secret);
   }
-  if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN) || GARBO_TOKEN.prod !== isProd) {
-    GARBO_TOKEN.token = await getApiToken(isProd? apiConfig.prod_secret : apiConfig.secret);
-    GARBO_TOKEN.prod = isProd;
-  }
-  return GARBO_TOKEN.token
+  return GARBO_TOKEN;
 }
 
 function isJwtExpired(token: string): boolean {
@@ -56,7 +46,7 @@ export async function apiFetch(
   { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {},  
   prodApi: boolean = false,
 ) {
-  const token = await ensureToken(prodApi)
+  const token = await ensureToken()
 
   const headers = {
     'Content-Type': 'application/json',
@@ -78,7 +68,7 @@ export async function apiFetch(
   if (response.ok) {
     const newToken = response.headers.get('x-auth-token')
     if (newToken) {
-      GARBO_TOKEN.token = newToken
+      GARBO_TOKEN = newToken
     }
     return response.json()
   } else {
