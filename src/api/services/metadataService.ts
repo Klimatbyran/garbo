@@ -23,7 +23,7 @@ class MetadataService {
         verifiedBy: verified
           ? {
               connect: {
-                email: user.email,
+                id: user.id,
               },
             }
           : undefined,
