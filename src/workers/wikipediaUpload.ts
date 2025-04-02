@@ -3,6 +3,7 @@ import { getWikipediaTitle } from '../lib/wikidata'
 import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wikipedia'
 import { Emissions } from '@prisma/client'
 import wikipediaConfig from '../config/wikipedia'
+import { QUEUE_NAMES } from '../queues'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -22,7 +23,7 @@ const checkEmissionsExist = (emissions: Emissions): boolean => {
 }
 
 const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
-  'wikipediaUpload',
+  QUEUE_NAMES.WIKIPEDIA_UPLOAD,
   async (job) => {
     const {
       wikidata,

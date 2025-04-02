@@ -2,6 +2,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import saveToAPI from './saveToAPI'
+import { QUEUE_NAMES } from '../queues'
 
 export class DiffReportingPeriodsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -17,7 +18,7 @@ export class DiffReportingPeriodsJob extends DiscordJob {
 }
 
 const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
-  'diffReportingPeriods',
+QUEUE_NAMES.DIFF_REPORTING_PERIODS,
   async (job) => {
     const {
       url,

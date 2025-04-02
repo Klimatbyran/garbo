@@ -29,7 +29,8 @@ const envSchema = z.object({
   GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
   GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
   JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
-  JWT_EXPIRES_IN: z.string().default("3600")
+  JWT_EXPIRES_IN: z.string().default("3600"),
+  PROD_BASE_URL: z.string().default("https://api.klimatkollen.se/api")
 })
 
 const env = envSchema.parse(process.env)
@@ -73,6 +74,7 @@ const apiConfig = {
       : developmentOrigins,
 
   secret: env.API_SECRET,
+  prod_base_url: env.PROD_BASE_URL,
   frontendURL: env.FRONTEND_URL,
   baseURL: env.API_BASE_URL,
   port: env.PORT,

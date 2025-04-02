@@ -8,6 +8,7 @@ import { extractTablesFromJson, fetchPdf } from '../lib/pdfTools'
 import { jsonToMarkdown } from '../lib/jsonExtraction'
 import { openai } from '../lib/openai'
 import { ParsedDocument } from '../lib/nlm-ingestor-schema'
+import { QUEUE_NAMES } from '../queues'
 
 class NLMExtractTablesJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -38,17 +39,21 @@ const extractTextViaVisionAPI = async (
       },
       {
         role: 'user',
-        content: `I have a PDF with couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot. I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, description, footnotes or disclaimers). For missing values or skipped cells, always use a placeholder like "n.a.". Use Markdown format for the table(s), only reply with markdown. OK?`,
+        content: `I have a PDF where I think there might be a couple of tables related to a company's CO2 emissions. Can you extract the text from screenshot if there are any? I will send you the screenshot extract the header and table contents and ignore the surrounding text if they are not related to the tables/graphs (such as header, illustrations, description, footnotes or disclaimers). For missing values or skipped cells, use a placeholder like "n.a.". Use Markdown format for the table(s), only reply with markdown. If there are no tables, just answer with an empty response. OK?`,
       },
       {
         role: 'assistant',
         content:
-          'Sure. Sounds good. Send the screenhot and I will extract the table(s) and return in markdown format as accurately as possible without any other comment.',
+          'Sure. Sounds good. Send the screenshot and I will extract the table(s) if there are any and return in markdown format as accurately as possible without any other comment.',
       },
       {
-        role: 'assistant',
+        role: 'user',
         content:
           'This is previous table extracted from previous pages:' + context,
+      },
+      {
+        role: 'assistant',
+        content: 'Thanks, noted. Lets look at the screenshot.',
       },
       {
         role: 'user',
@@ -66,6 +71,8 @@ const extractTextViaVisionAPI = async (
 
 const searchTerms = [
   'co2',
+  'co2e',
+  'co2 eq',
   'GHG',
   'turnover',
   'revenue',
@@ -82,10 +89,10 @@ const searchTerms = [
   'koldioxid',
 ]
 const nlmExtractTables = new DiscordWorker(
-  'nlmExtractTables',
+  QUEUE_NAMES.NLM_EXTRACT_TABLES,
   async (job: NLMExtractTablesJob) => {
     const { json, url } = job.data
-    
+
     job.sendMessage('🔍 Söker efter relevanta tabeller...')
 
     try {
@@ -93,7 +100,7 @@ const nlmExtractTables = new DiscordWorker(
       const outputDir = path.resolve('/tmp', 'garbo-screenshots')
       await mkdir(outputDir, { recursive: true })
       job.editMessage(`✅ PDF nedladdad!`)
-      
+
       job.log('Extracting pages...')
       const { pages } = await extractTablesFromJson(
         pdf,
@@ -107,7 +114,7 @@ const nlmExtractTables = new DiscordWorker(
       )
 
       job.log(`Extracted ${pages.length} pages. Extracting tables...`)
-      
+
       const tables: { page_idx: number; markdown: string }[] =
         await pages.reduce(async (resultsPromise, { pageNumber, filename }) => {
           const results = await resultsPromise
