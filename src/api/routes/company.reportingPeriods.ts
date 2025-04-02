@@ -26,7 +26,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         body: postReportingPeriodsSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -40,10 +40,16 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       const { wikidataId } = request.params
       const { reportingPeriods, metadata } = request.body
       const user = request.user
+      let company;
 
-      const company = await companyService.getCompany(wikidataId)
+      try {
+        company = await companyService.getCompany(wikidataId)
+      } catch(error) {
+        console.error(`Error: ${error}`);
+        return reply.status(404).send({message: `There is no company with wikidataId ${wikidataId}`});
+      }     
 
-      await Promise.allSettled(
+      const results = await Promise.allSettled(
         reportingPeriods.map(
           async ({
             emissions = {},
@@ -157,7 +163,14 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         )
       )
 
-      reply.send({ ok: true })
+      for(const result of results) {
+        if(result.status === 'rejected') {
+          console.error('ERROR Creation or update of reporting periods failed', result.reason);
+          return reply.status(500).send({message: 'Creation or update of reporting periods failed.'});
+        }
+      }
+
+      return reply.send({ ok: true })
     }
   )
 }

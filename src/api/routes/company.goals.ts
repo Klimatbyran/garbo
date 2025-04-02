@@ -30,7 +30,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalsSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -41,20 +41,26 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { goals, metadata } = request.body
+      const { goals, metadata } = request.body;
 
       if (goals?.length) {
-        const { wikidataId } = request.params
-        const user = request.user
+        const { wikidataId } = request.params;
+        const user = request.user;
 
-        await goalService.createGoals(wikidataId, goals, () =>
-          metadataService.createMetadata({
-            metadata,
-            user,
-          })
-        )
+        try {
+          await goalService.createGoals(wikidataId, goals, () =>
+            metadataService.createMetadata({
+              metadata,
+              user,
+            })
+          );
+        } catch(error) {
+          console.error('ERROR Creation of goals failed:', error);
+          return reply.status(500).send({message: 'Creation of goals failed.'})
+        }
+        
       }
-      reply.send({ ok: true })
+      return reply.send({ ok: true });
     }
   )
 
@@ -69,7 +75,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         body: postGoalSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -80,17 +86,28 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { id } = request.params
-      const { goal } = request.body
+      const { id } = request.params;
+      const { goal } = request.body;
+      let createdMetadata;
 
-      const createdMetadata = await metadataService.createMetadata({
-        metadata: request.body.metadata,
-        user: request.user,
-      })
+      try {
+        createdMetadata = await metadataService.createMetadata({
+          metadata: request.body.metadata,
+          user: request.user,
+        });
+      } catch(error) {
+        console.error('ERROR Creation of metadata for update of goal failed:', error);
+        return reply.status(500).send({message: 'Update of goal failed'});
+      }
 
-      await goalService.updateGoal(id, { goal }, createdMetadata)
-
-      reply.send({ ok: true })
+      try {
+        await goalService.updateGoal(id, { goal }, createdMetadata)
+      } catch(error) {
+        console.error('ERROR Update of goal failed:', error);
+        return reply.status(500).send({message: 'Update of goal failed.'})
+      }
+      
+      return reply.send({ ok: true });
     }
   )
 }
