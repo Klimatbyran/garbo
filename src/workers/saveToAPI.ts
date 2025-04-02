@@ -65,34 +65,47 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           return data
         }
       }
-      
+
       job.log(`autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approved}`)
-      
+
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
       })
-      
+
       if (autoApprove || !requiresApproval || approved) { 
         const sanitizedBody = removeNullValuesFromGarbo(body)
-        
+
         job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
-        
-        await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
-          body: sanitizedBody
-        })
-        
-        if(apiSubEndpoint === "reporting-periods") {
-          await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
-            {
-              ...job.data
-            }
-          )
+
+        try {
+          await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+            body: sanitizedBody
+          })
+
+          if(apiSubEndpoint === "reporting-periods") {
+            await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
+              {
+                ...job.data
+              }
+            )
+          }
+
+          return { success: true }
+        } catch (apiError) {
+          const errorMessage = `Failed to save data to API: ${apiError.message || 'Unknown error'}`;
+          job.log(errorMessage);
+          console.error(errorMessage, apiError);
+
+          await job.sendMessage({
+            content: `❌ Error: Failed to save ${apiSubEndpoint} data for ${companyName}. Server returned an error: ${apiError.message || 'Unknown error'}`
+          });
+
+          // Instead of returning a success=false object, throw the error to mark the job as failed
+          throw apiError;
         }
-        
-        return { success: true }
       }
-      
+
       job.log("The data needs approval before saving to API.")
 
       // If approval is required and not yet approved, send approval request
@@ -105,6 +118,17 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       return await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     } catch (error) {
       console.error('API Save error:', error)
+      const errorMessage = `An error occurred during the save process: ${error.message || 'Unknown error'}`;
+      job.log(errorMessage);
+
+      try {
+        await job.sendMessage({
+          content: `❌ Error: Something went wrong while processing ${job.data.apiSubEndpoint} for ${job.data.companyName}: ${error.message || 'Unknown error'}`
+        });
+      } catch (msgError) {
+        console.error('Failed to send error message:', msgError);
+      }
+
       throw error
     }
   }
