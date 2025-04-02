@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import { queues } from '../../queues';
+import { queues } from '../../queues'
 import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
@@ -62,31 +62,11 @@ export default {
             autoArchiveDuration: 1440,
           })
 
-<<<<<<< Updated upstream
-        thread.send(`PDF i kö: ${url}`)
-        thread.send(`Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`)
-        queues.nlmParsePDF.add(
-          'download ' + url.slice(-20),
-          {
-            url: url.trim(),
-            threadId: thread.id,
-            autoApprove,
-          } as DiscordJob['data'],
-          {
-            backoff: {
-              type: 'fixed',
-              delay: 60_000,
-            },
-            attempts: 10,
-          }
-        )
-      })
-=======
           await thread.send(`PDF i kö: ${url}`)
           await thread.send(
             `Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`
           )
-          await nlmParsePDF.queue.add(
+          await queues.nlmParsePDF.queue.add(
             'download ' + url.slice(-20),
             {
               url: url.trim(),
@@ -116,7 +96,6 @@ export default {
       }
 
       await processAllUrls()
->>>>>>> Stashed changes
     } catch (error) {
       console.error('Pdfs: error', error)
       try {
