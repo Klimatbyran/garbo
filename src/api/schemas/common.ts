@@ -24,7 +24,7 @@ export const errorSchema = z.object({
   details: z.any().optional(),
 })
 
-type ErrorCode = 400 | 401 | 404;
+type ErrorCode = 400 | 401 | 404 | 500;
 
 export function getErrorSchemas(...codes: ErrorCode[]) {
   return codes.reduce((acc, code) => {
