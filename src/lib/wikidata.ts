@@ -12,8 +12,12 @@ const wbk = WBK({
 const wikibaseEditConfig = {
   instance: wikidataConfig.wikidataURL,
   credentials: {
-    username: wikidataConfig.wikidataUsername,
-    password: wikidataConfig.wikidataPassword
+    oauth: {
+      'consumer_key': wikidataConfig.wikidataConsumerKey,
+      'consumer_secret': wikidataConfig.wikidataConsumerSecret,
+      'token': wikidataConfig.wikidataToken,
+      'token_secret': wikidataConfig.wikidataTokenSecet
+    }
   },
   userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
 }
@@ -104,7 +108,7 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
   return carbonFootprintClaims.map(claim => {
     return {
       startDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
-      endDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
+      endDate: transformFromWikidataDateStringToDate(claim.qualifiers[END_TIME][0].datavalue.value.time),
       value: claim.mainsnak.datavalue.value.amount,
       category: claim.qualifiers[APPLIES_TO_PART] ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id : undefined,
       scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id,
@@ -294,37 +298,43 @@ function transformFromWikidataDateStringToDate(date: string) {
 export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl): Claim[] {
     const claims: Claim[] = [];
 
-    claims.push({
-        startDate,
-        endDate,
-        referenceUrl,
-        scope: SCOPE_1,
-        value: emissions.scope1.total,
-    });
-
-    claims.push({
-        scope: SCOPE_2_MARKET_BASED,
-        startDate,
-        endDate,
-        referenceUrl,
-        value: emissions.scope2.mb,
-    });
-    claims.push({
-        scope: SCOPE_2_LOCATION_BASED,
-        startDate,
-        endDate,
-        referenceUrl,
-        value: emissions.scope2.lb,
-    });
-    claims.push({
+    if(emissions.scope1?.total !== undefined) {
+      claims.push({
+          startDate,
+          endDate,
+          referenceUrl,
+          scope: SCOPE_1,
+          value: emissions.scope1.total,
+      });
+    }
+    if(emissions.scope2?.mb !== undefined) {
+      claims.push({
+          scope: SCOPE_2_MARKET_BASED,
+          startDate,
+          endDate,
+          referenceUrl,
+          value: emissions.scope2.mb,
+      });
+    }
+    if(emissions.scope2?.lb !== undefined) {
+      claims.push({
+          scope: SCOPE_2_LOCATION_BASED,
+          startDate,
+          endDate,
+          referenceUrl,
+          value: emissions.scope2.lb,
+      });
+    }
+    if(emissions.scope2?.unknown !== undefined) {
+      claims.push({
         scope: SCOPE_2,
         startDate,
         endDate,
         referenceUrl,
         value: emissions.scope2.unknown,
-  });
-
-    emissions.scope3.categories.forEach(category => {
+      });
+    }    
+    emissions.scope3?.categories?.forEach(category => {
         claims.push({
             scope: SCOPE_3,
             startDate,

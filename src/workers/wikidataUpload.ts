@@ -4,13 +4,7 @@ import { bulkCreateOrEditCarbonFootprintClaim, Claim, reduceToMostRecentClaims, 
 export class WikidataUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    existingCompany: any
     wikidata: { node: `Q${number}` }
-    fiscalYear: any
-    scope12?: any[]
-    scope3?: any[]
-    biogenic?: any[]
-    economy?: any[]
     body?: any
   }
 }
@@ -19,21 +13,10 @@ const wikidataUpload = new DiscordWorker<WikidataUploadJob>(
   'wikidataUpload',
   async (job) => {
     const {
-      url,
       wikidata,
-      fiscalYear,
-      companyName,
-      existingCompany,
-      scope12 = [],
-      scope3 = [],
-      biogenic = [],
-      economy = [],
       body
-
     } = job.data
     
-    console.log(job.data)
-
     const allClaims: Claim[] = [];
     body.reportingPeriods.forEach(reportingPeriod => {
         const startDate = (new Date(reportingPeriod.startDate)).toISOString();

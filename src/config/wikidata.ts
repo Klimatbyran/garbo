@@ -1,10 +1,12 @@
 import 'dotenv/config'
-import { number, z } from 'zod'
+import { z } from 'zod'
 
 const envSchema = z.object({
-    WIKIDATA_URL: z.string().default('https://www.wikidata.org'),
-    WIKIDATA_USERNAME: z.string().default('KlimatkollenGarboBot'),
-    WIKIDATA_PASSWORD: z.string().default('')
+    WIKIDATA_URL: z.string().default('https://test.wikidata.org'),
+    WIKIDATA_CONSUMER_KEY: z.string().default(''),
+    WIKIDATA_CONSUMER_SECRET: z.string().default(''),
+    WIKIDATA_TOKEN: z.string().default(''),
+    WIKIDATA_TOKEN_SECRET: z.string().default('')
 })
 
 const env = envSchema.parse(process.env)
@@ -127,8 +129,10 @@ const translateIdToCategory = (entities: WikidataEntities, id: number) => {
 
 const wikidataConfig = {
     wikidataURL: env.WIKIDATA_URL,
-    wikidataUsername: env.WIKIDATA_USERNAME,
-    wikidataPassword: env.WIKIDATA_PASSWORD,
+    wikidataConsumerKey: env.WIKIDATA_CONSUMER_KEY,
+    wikidataConsumerSecret: env.WIKIDATA_CONSUMER_SECRET,
+    wikidataToken: env.WIKIDATA_TOKEN,
+    wikidataTokenSecet: env.WIKIDATA_TOKEN_SECRET,
     entities: env.WIKIDATA_URL === "https://www.wikidata.org" ? LiveWikidataEntities : TestWikidataEntities,
     properties: env.WIKIDATA_URL === "https://www.wikidata.org" ? LiveWikidataProperties : TestWikidataProperties,
     translateIdToCategory: (id) => translateIdToCategory(env.WIKIDATA_URL === "https://www.wikidata.org" ? LiveWikidataEntities : TestWikidataEntities, id)
