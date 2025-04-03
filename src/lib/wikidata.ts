@@ -5,7 +5,7 @@ import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
 
 const wbk = WBK({
-  instance: wikidataConfig.wikidataURL,
+  instance: 'https://www.wikidata.org',
   sparqlEndpoint: 'https://query.wikidata.org/sparql',
 })
 

@@ -8,7 +8,7 @@ import { QUEUE_NAMES } from '../queues'
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     wikidata: { node: `Q${number}` }
-    existingCompany: any
+    body: any
   }
 }
 
@@ -27,10 +27,17 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
   async (job) => {
     const {
       wikidata,
-      existingCompany
+      body
     } = job.data
 
-    const reportingPeriod = existingCompany.reportingPeriods[0]
+    const reportingPeriod = findMostRecentReportingPeriod(body.reportingPeriods);
+    
+    if(!reportingPeriod) {
+      job.editMessage(`❌ Can't uplod to wikipedia no reporting period found`);
+      console.error('No reporting period found');
+      throw Error('No reporting period found');
+    }
+
     const year: string = reportingPeriod.startDate.split('-')[0]
     const emissions: Emissions = reportingPeriod.emissions
     const title: string = await getWikipediaTitle(wikidata.node)
@@ -47,8 +54,10 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
       throw Error('No Wikipedia page found')
     }
 
+    console.log(title)
+
     const text: string = generateWikipediaArticleText(emissions, title, year, wikipediaConfig.language)
-    const reportURL: string = reportingPeriod.reportURL
+    const reportURL: string = reportingPeriod.reportURL;
     const content = {
       text,
       reportURL
@@ -64,5 +73,19 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     return { success: true }
   }
 )
+
+function findMostRecentReportingPeriod(reportingPeriods = []) {
+  if (reportingPeriods.length === 0) {
+    return null;
+  }
+
+  reportingPeriods.sort((a, b) => {
+    const dateA = new Date(a.endDate);
+    const dateB = new Date(b.endDate);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  return reportingPeriods[0];
+}
 
 export default wikipediaUpload
