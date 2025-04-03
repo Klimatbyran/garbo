@@ -8,7 +8,7 @@ import * as schemas from '../src/api/schemas'
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
 type Company = z.infer<typeof schemas.MinimalCompanyBase>;
-const NUMBER_OF_CATEGORIES = 16;
+const NUMBER_OF_CATEGORIES = 17;
 const ONLY_CHECK_VERIFIED_DATA = true;
 const IGNORE_REPORTING_PERIODS_NOT_IN_STAGING = true;
 
@@ -16,6 +16,7 @@ interface Diff {
   productionValue?: number;
   stagingValue?: number;
   difference?: number;
+  perctDifference?: number;
 }
 
 interface ComparisonDiff {
@@ -43,10 +44,12 @@ interface ComparisonDiff {
     }
   },
   accuracy?: number;
+  numberBelow90Acc?: number;
+  numberBelow95Acc?:number;
 };
 
 // Define URLs from environment variables
-const STAGING_API_URL ="http://localhost:3000/api";
+const STAGING_API_URL ="https://stage-api.klimatkollen.se/api";
 
 const PRODUCTION_API_URL = "https://api.klimatkollen.se/api";
 
@@ -84,9 +87,6 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
     const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
     for(const reportingPeriod of productionCompany.reportingPeriods) {
       const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate) ?? undefined;
-      if(productionCompany.wikidataId === "Q47508289") {
-        console.log(stagingCompany);
-      }
       if(stagingReportingPeriod) {
         diffs.push(compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany));
       } else {
@@ -129,7 +129,7 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
       scope3: [],
       economy: {}
     },
-    accuracy: 0
+    accuracy: 0,
   }
 
   const diffs: Diff[] = [];
@@ -143,7 +143,7 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   d.diff.scope2.unknown = compareNumbers(productionReportingPeriod.emissions?.scope2?.unknown, stagingReportingPeriod.emissions?.scope2?.unknown, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope2.unknown);
 
-  for(let i = 0; i < NUMBER_OF_CATEGORIES; i++) {
+  for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
     const productionCategory = productionReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;
     const stagingCategory = stagingReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;   
     const diff = compareNumbers(productionCategory?.total, stagingCategory?.total, productionCategory?.metadata.verifiedBy != null); 
@@ -158,13 +158,20 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   diffs.push(d.diff.economy.employees);
   d.diff.economy.turnover = compareNumbers(productionReportingPeriod.economy?.turnover?.value, stagingReportingPeriod.economy?.turnover?.value, productionReportingPeriod.economy?.turnover?.metadata.verifiedBy != null);
   diffs.push(d.diff.economy.turnover);
-
   const numbersSum = diffs.reduce((acc: number, current: Diff) => {
-    return current.difference !== undefined ? acc + (calculateDiffPercentage(current.difference, current.productionValue) ?? 0) : acc;
+    return current.difference !== undefined ? acc + (current.perctDifference ?? 0) : acc;
   }, 0);
   const numbersCount = diffs.reduce((acc: number, current: Diff) => {
     return current.difference !== undefined ? acc + 1 : acc;
   }, 0);
+  const below90 = diffs.reduce((acc: number, current: Diff) => {
+    return current.perctDifference ? current.perctDifference < 0.9 ? acc + 1 : acc : acc;
+  }, 0);
+  const below95 = diffs.reduce((acc: number, current: Diff) => {
+    return current.perctDifference ? current.perctDifference < 0.95 ? acc + 1 : acc : acc;
+  }, 0);
+  d.numberBelow90Acc = diffs.length > 0 ? below90 / diffs.length: undefined;
+  d.numberBelow95Acc = diffs.length > 0 ? below95 / diffs.length: undefined;
   if(numbersCount > 0) {
     d.accuracy = parseFloat((numbersSum / numbersCount).toFixed(3));
   } else {
@@ -185,6 +192,7 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
   if(stagingNumber) {
     if(productionNumber) {
       diff.difference = stagingNumber - productionNumber;
+      diff.perctDifference = calculateDiffPercentage(diff.difference, productionNumber, stagingNumber);
       return diff;
     } else {
       diff.difference = undefined;
@@ -192,15 +200,16 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
     }
   } else {    
     diff.difference = productionNumber ? 0 : undefined;
+    diff.perctDifference = productionNumber ? 1 : undefined;
     return diff;
   }  
 }
 
-function calculateDiffPercentage(diff?: number, compareValue?: number) {
-  if(diff === undefined || compareValue === undefined) {
+function calculateDiffPercentage(diff?: number, compareValueProd?: number, compareValueStaging?: number) {
+  if(diff === undefined || compareValueProd === undefined) {
     return undefined;
   }
-  return Math.ceil((1 - (Math.abs(diff) / compareValue)) * 100) / 100;
+  return Math.ceil((1 - (Math.abs(diff) / Math.max(compareValueProd, compareValueStaging || 0))) * 100) / 100;
 }
 
 // Function to output results to a file
@@ -259,6 +268,11 @@ export function convertDiffsToCSV(data: ComparisonDiff[]): string {
     'Scope3_other',
   ];
 
+  const errorHeader = [
+    'Below_90',
+    'Below_95',
+  ]
+
   const valueSubheaders = [
     'production',
     'staging',
@@ -272,7 +286,7 @@ export function convertDiffsToCSV(data: ComparisonDiff[]): string {
       acc.push(current + " " + valueSubheader);
     }
     return acc;
-  },[]).join(',') + '\n';
+  },[]).join(',') + ',' + errorHeader.join(',') + '\n';
 
   // Add data rows
   data.forEach(item => {
@@ -298,10 +312,13 @@ export function convertDiffsToCSV(data: ComparisonDiff[]): string {
       convertDiffToCSV(item.diff.economy.turnover)
     ];
 
-    for(let i = 0; i < NUMBER_OF_CATEGORIES; i++) {
+    for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
       const category = item.diff.scope3.find(categoryI => categoryI.categoryId === i);
       row.push(convertDiffToCSV(category?.value));
     }
+
+    row.push(item.numberBelow90Acc?.toString() ?? '');
+    row.push(item.numberBelow95Acc?.toString() ?? '');
 
     csvContent += row.join(',') + '\n';
   });
@@ -313,7 +330,7 @@ function convertDiffToCSV(data?: Diff): string {
   if(!data) {
     return ['', '', '', ''].join(',');
   }
-  return [data.productionValue ?? '', data.stagingValue ?? '', data.difference ?? '', calculateDiffPercentage(data.difference, data.productionValue) ?? ''].join(',');
+  return [data.productionValue ?? '', data.stagingValue ?? '', data.difference ?? '', calculateDiffPercentage(data.difference, data.productionValue, data.stagingValue) ?? ''].join(',');
 }
 
 // Execute the main function
