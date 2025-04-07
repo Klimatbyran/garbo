@@ -7,7 +7,7 @@ import * as schemas from '../src/api/schemas'
 
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
-type Company = z.infer<typeof schemas.MinimalCompanyBase>;
+type CompanyResponse = z.infer<typeof schemas.MinimalCompanyBase>;
 const NUMBER_OF_CATEGORIES = 17;
 const ONLY_CHECK_VERIFIED_DATA = true;
 const IGNORE_REPORTING_PERIODS_NOT_IN_STAGING = true;
@@ -17,6 +17,12 @@ interface Diff {
   stagingValue?: number;
   difference?: number;
   perctDifference?: number;
+}
+
+interface Company {
+  wikidataId: string,
+  name: string;
+  diffs: ComparisonDiff[];
 }
 
 interface ComparisonDiff {
@@ -44,6 +50,8 @@ interface ComparisonDiff {
     }
   },
   accuracy?: number;
+  numberOfFields?: number;
+  numberIncorrect?: number;
   numberBelow90Acc?: number;
   numberBelow95Acc?:number;
 };
@@ -80,15 +88,27 @@ async function fetchCompanies(baseURL: string) {
 }
 
 // Function to compare data between staging and production
-function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList): ComparisonDiff[] {
-  const diffs: ComparisonDiff[] = [];
+function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList): Company[] {
+  const companies: Company[] = [];
 
   for(const productionCompany of productionCompanies) {
     const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
     for(const reportingPeriod of productionCompany.reportingPeriods) {
       const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate) ?? undefined;
       if(stagingReportingPeriod) {
-        diffs.push(compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany));
+        const diff = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
+        const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+        if(existingCompany) {
+          existingCompany.diffs.push(diff);
+        } else {
+          const company: Company = {
+            name: productionCompany.name,
+            wikidataId: productionCompany.wikidataId,
+            diffs: []
+          }
+          company.diffs.push(diff);
+          companies.push(company);
+        }
       } else {
         if(IGNORE_REPORTING_PERIODS_NOT_IN_STAGING) {
           continue;
@@ -106,17 +126,28 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
             economy: {}
           },
           accuracy: 0
-        }      
-        diffs.push(notFoundDiff);
+        }   
+        const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+        if(existingCompany) {
+          existingCompany.diffs.push(notFoundDiff);
+        } else {
+          const company: Company = {
+            name: productionCompany.name,
+            wikidataId: productionCompany.wikidataId,
+            diffs: []
+          }
+          company.diffs.push(notFoundDiff);
+          companies.push(company);
+        }
       }
     }
   }
 
-  return diffs; 
+  return companies; 
 }
 
 
-function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, stagingReportingPeriod: ReportingPeriod, productionCompany: Company) {
+function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, stagingReportingPeriod: ReportingPeriod, productionCompany: CompanyResponse) {
   const d: ComparisonDiff = {
     wikidataId: productionCompany.wikidataId,
     name: productionCompany.name,
@@ -164,6 +195,9 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   const numbersCount = diffs.reduce((acc: number, current: Diff) => {
     return current.difference !== undefined ? acc + 1 : acc;
   }, 0);
+  const numberIncorrect = diffs.reduce((acc: number, current: Diff) => {
+    return current.difference !== undefined ? current.difference !== 0 ? acc + 1 : acc: acc;
+  }, 0);
   const below90 = diffs.reduce((acc: number, current: Diff) => {
     return current.perctDifference ? current.perctDifference < 0.9 ? acc + 1 : acc : acc;
   }, 0);
@@ -172,6 +206,8 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   }, 0);
   d.numberBelow90Acc = diffs.length > 0 ? below90 / diffs.length: undefined;
   d.numberBelow95Acc = diffs.length > 0 ? below95 / diffs.length: undefined;
+  d.numberIncorrect = numberIncorrect;
+  d.numberOfFields = numbersCount;
   if(numbersCount > 0) {
     d.accuracy = parseFloat((numbersSum / numbersCount).toFixed(3));
   } else {
@@ -213,13 +249,17 @@ function calculateDiffPercentage(diff?: number, compareValueProd?: number, compa
 }
 
 // Function to output results to a file
-async function outputResults(results: ComparisonDiff[]) {
+async function outputResults(results: Company[]) {
   const outputPath = resolve('output', 'accuracy-results.csv');
   await writeFile(outputPath, convertDiffsToCSV(results), 'utf8');
   console.log(`✅ Accuracy results written to ${outputPath}.`);
 }
 
-
+async function outputCompanyResults(results: Company[]) {
+  const outputPath = resolve('output', 'accuracy-results-companies.csv');
+  await writeFile(outputPath, getCompanieStatistics(results), 'utf8');
+  console.log(`✅ Accuracy results written to ${outputPath}.`);
+}
 
 // Main function for fetching, comparison, and output
 async function main() {
@@ -228,12 +268,13 @@ async function main() {
     const productionData = await fetchCompanies(PRODUCTION_API_URL); 
     const diffs = compareCompanyLists(productionData, stagingData);
     outputResults(diffs);
+    outputCompanyResults(diffs);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 }
 
-export function convertDiffsToCSV(data: ComparisonDiff[]): string {
+export function convertDiffsToCSV(data: Company[]): string {
   // Define CSV headers
   const headers = [
     'wikidataId',
@@ -289,41 +330,97 @@ export function convertDiffsToCSV(data: ComparisonDiff[]): string {
   },[]).join(',') + ',' + errorHeader.join(',') + '\n';
 
   // Add data rows
-  data.forEach(item => {
-    const reportingPeriodStart = item.reportingPeriod.startDate 
-      ? item.reportingPeriod.startDate.toISOString().substring(0, 10)
-      : '';
-    
-    const reportingPeriodEnd = item.reportingPeriod.endDate
-      ? item.reportingPeriod.endDate.toISOString().substring(0, 10)
-      : '';
-
-    const row = [
-      item.wikidataId,
-      `"${item.name.replace(/"/g, '""')}"`, // Escape quotes in name
-      reportingPeriodStart,
-      reportingPeriodEnd,
-      item.accuracy?.toString() ?? '',
-      convertDiffToCSV(item.diff.scope1),
-      convertDiffToCSV(item.diff.scope2.lb),
-      convertDiffToCSV(item.diff.scope2.mb),
-      convertDiffToCSV(item.diff.scope2.unknown),
-      convertDiffToCSV(item.diff.economy.employees),
-      convertDiffToCSV(item.diff.economy.turnover)
-    ];
-
-    for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
-      const category = item.diff.scope3.find(categoryI => categoryI.categoryId === i);
-      row.push(convertDiffToCSV(category?.value));
-    }
-
-    row.push(item.numberBelow90Acc?.toString() ?? '');
-    row.push(item.numberBelow95Acc?.toString() ?? '');
-
-    csvContent += row.join(',') + '\n';
-  });
+  data.map((company) => {
+    company.diffs.forEach(item => {
+      const reportingPeriodStart = item.reportingPeriod.startDate 
+        ? item.reportingPeriod.startDate.toISOString().substring(0, 10)
+        : '';
+      
+      const reportingPeriodEnd = item.reportingPeriod.endDate
+        ? item.reportingPeriod.endDate.toISOString().substring(0, 10)
+        : '';
+  
+      const row = [
+        company.wikidataId,
+        `"${company.name.replace(/"/g, '""')}"`, // Escape quotes in name
+        reportingPeriodStart,
+        reportingPeriodEnd,
+        item.accuracy?.toString() ?? '',
+        convertDiffToCSV(item.diff.scope1),
+        convertDiffToCSV(item.diff.scope2.lb),
+        convertDiffToCSV(item.diff.scope2.mb),
+        convertDiffToCSV(item.diff.scope2.unknown),
+        convertDiffToCSV(item.diff.economy.employees),
+        convertDiffToCSV(item.diff.economy.turnover)
+      ];
+  
+      for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
+        const category = item.diff.scope3.find(categoryI => categoryI.categoryId === i);
+        row.push(convertDiffToCSV(category?.value));
+      }
+  
+      row.push(item.numberBelow90Acc?.toString() ?? '');
+      row.push(item.numberBelow95Acc?.toString() ?? '');
+  
+      csvContent += row.join(',') + '\n';
+    });
+  })  
 
   return csvContent;
+}
+
+function getCompanieStatistics(companies: Company[]): string {
+  const headers = [
+    "ID",
+    "Name",
+    "Reporting Periods",
+    "Number of Errors",
+    "Relative Number of Errors",
+    "Faulty Reportingperiods",
+    "Relative Number of Faulty Reportingperiods",
+    "Below 95%",
+    "Below 90%",
+    "Number of Fields",
+    "Faults Scope 1",
+    "Faults Scope 2",
+    "Faults Scope 3",
+    "Faults Last Reportingperiod",
+    "Overall Accuracy"
+  ];
+
+  const values: string[] = [];
+
+  for(const company of companies) {
+    const overallNumberOfErrors = company.diffs.reduce((acc, value) => acc += value.numberIncorrect || 0, 0);
+    const overallNumberOfFields = company.diffs.reduce((acc, value) => acc += value.numberOfFields || 0, 0);
+    const faultyReportingPeriods = company.diffs.reduce((acc, value) => value.numberIncorrect !== undefined && value.numberIncorrect > 0 ? acc + 1 : acc , 0);
+    const numberOfCompareableReportingPeriods = company.diffs.reduce((acc, value) => value.numberOfFields !== undefined && value.numberOfFields > 0 ? acc + 1 : acc , 0);
+    const overall95 = company.diffs.reduce((acc, value) => acc += value.numberBelow95Acc || 0 , 0) / company.diffs.length;
+    const overall90 = company.diffs.reduce((acc, value) => acc += value.numberBelow90Acc || 0 , 0) / company.diffs.length;
+    const overallAccuracy = company.diffs.reduce((acc, value) => acc += value.accuracy || 0 , 0) / company.diffs.length;
+    const overallFaultsScope1 = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined && Math.abs(value.diff.scope1.difference || 0) > 0 ? acc + 1 : acc , 0);
+    const overallFaultsScope2 = company.diffs.reduce((acc, value) => {
+      let errors = 0;
+      errors += value.diff.scope2.lb !== undefined && Math.abs(value.diff.scope2.lb.difference || 0) > 0 ? 1 : 0;
+      errors += value.diff.scope2.mb !== undefined && Math.abs(value.diff.scope2.mb.difference || 0) > 0 ? 1 : 0;
+      errors += value.diff.scope2.unknown !== undefined && Math.abs(value.diff.scope2.unknown.difference || 0) > 0 ? 1 : 0;
+      return acc + errors;    
+    }, 0);
+    const overallFaultsScope3 = company.diffs.reduce((acc, value) => {
+      let errors = 0;
+      for(const category of value.diff.scope3) {
+        errors += category.value?.difference !== undefined && Math.abs(category.value.difference || 0) > 0 ? 1 : 0;
+      }
+      return acc + errors;    
+    }, 0);
+    const mostRecentReportingPeriod = company.diffs.sort((a,b) => (new Date(b.reportingPeriod.endDate)).getTime() - (new Date(a.reportingPeriod.endDate)).getTime())[0]
+
+    values.push([company.wikidataId, company.name, numberOfCompareableReportingPeriods, overallNumberOfErrors, overallNumberOfErrors / overallNumberOfFields,
+      faultyReportingPeriods, faultyReportingPeriods / numberOfCompareableReportingPeriods, overall95, overall90, overallNumberOfFields,
+      overallFaultsScope1, overallFaultsScope2, overallFaultsScope3, mostRecentReportingPeriod.numberIncorrect, overallAccuracy].join(","));
+  }
+
+  return headers.join(",") + "\n" + values.join("\n");
 }
 
 function convertDiffToCSV(data?: Diff): string {
