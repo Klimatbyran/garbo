@@ -22,6 +22,18 @@ const nlmParsePDF = new DiscordWorker(
 
     job.log(`Downloading from url: ${url}`)
     try {
+
+      const lastSlashIndex = url.lastIndexOf('/') // Find the position of the last slash
+      const baseUrl = url.slice(0, lastSlashIndex + 1) // Extract everything up to (and including) the last slash
+      const fileName = url.slice(lastSlashIndex + 1) // Extract everything after the last slash
+      const encodedFileName = encodeURIComponent(fileName) // Encode only the file name
+      const updatedUrl = `${baseUrl}${encodedFileName}` // Combine the base URL with the encoded file name
+      
+      url = updatedUrl
+      job.updateData({ ...job.data, url }) // Update job data with the encoded URL
+
+      job.log(`Updated URL to: ${url}`)
+
       const pdf = await fetchPdf(url, { headers })
       job.editMessage(
         `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. Tar upp till 3 minuter ☕️ ...`
