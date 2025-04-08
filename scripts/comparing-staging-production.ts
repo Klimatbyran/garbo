@@ -8,7 +8,7 @@ import * as schemas from '../src/api/schemas'
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
 type CompanyResponse = z.infer<typeof schemas.MinimalCompanyBase>;
-const NUMBER_OF_CATEGORIES = 17;
+const NUMBER_OF_CATEGORIES = 16;
 const ONLY_CHECK_VERIFIED_DATA = true;
 const IGNORE_REPORTING_PERIODS_NOT_IN_STAGING = true;
 
@@ -174,7 +174,7 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   d.diff.scope2.unknown = compareNumbers(productionReportingPeriod.emissions?.scope2?.unknown, stagingReportingPeriod.emissions?.scope2?.unknown, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope2.unknown);
 
-  for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
+  for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
     const productionCategory = productionReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;
     const stagingCategory = stagingReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;   
     const diff = compareNumbers(productionCategory?.total, stagingCategory?.total, productionCategory?.metadata.verifiedBy != null); 
@@ -354,7 +354,7 @@ export function convertDiffsToCSV(data: Company[]): string {
         convertDiffToCSV(item.diff.economy.turnover)
       ];
   
-      for(let i = 1; i < NUMBER_OF_CATEGORIES; i++) {
+      for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
         const category = item.diff.scope3.find(categoryI => categoryI.categoryId === i);
         row.push(convertDiffToCSV(category?.value));
       }
@@ -384,6 +384,7 @@ function getCompanieStatistics(companies: Company[]): string {
     "Faults Scope 1",
     "Faults Scope 2",
     "Faults Scope 3",
+    "Faults Economy",
     "Faults Last Reportingperiod",
     "Overall Accuracy"
   ];
@@ -395,29 +396,32 @@ function getCompanieStatistics(companies: Company[]): string {
     const overallNumberOfFields = company.diffs.reduce((acc, value) => acc += value.numberOfFields || 0, 0);
     const faultyReportingPeriods = company.diffs.reduce((acc, value) => value.numberIncorrect !== undefined && value.numberIncorrect > 0 ? acc + 1 : acc , 0);
     const numberOfCompareableReportingPeriods = company.diffs.reduce((acc, value) => value.numberOfFields !== undefined && value.numberOfFields > 0 ? acc + 1 : acc , 0);
-    const overall95 = company.diffs.reduce((acc, value) => acc += value.numberBelow95Acc || 0 , 0) / company.diffs.length;
-    const overall90 = company.diffs.reduce((acc, value) => acc += value.numberBelow90Acc || 0 , 0) / company.diffs.length;
-    const overallAccuracy = company.diffs.reduce((acc, value) => acc += value.accuracy || 0 , 0) / company.diffs.length;
-    const overallFaultsScope1 = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined && Math.abs(value.diff.scope1.difference || 0) > 0 ? acc + 1 : acc , 0);
-    const overallFaultsScope2 = company.diffs.reduce((acc, value) => {
-      let errors = 0;
-      errors += value.diff.scope2.lb !== undefined && Math.abs(value.diff.scope2.lb.difference || 0) > 0 ? 1 : 0;
-      errors += value.diff.scope2.mb !== undefined && Math.abs(value.diff.scope2.mb.difference || 0) > 0 ? 1 : 0;
-      errors += value.diff.scope2.unknown !== undefined && Math.abs(value.diff.scope2.unknown.difference || 0) > 0 ? 1 : 0;
-      return acc + errors;    
+    const overall95 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow95Acc || 0 , 0) / company.diffs.length : 0;
+    const overall90 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow90Acc || 0 , 0) / company.diffs.length: 0;
+    const overallAccuracy = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.accuracy || 0 , 0) / company.diffs.length: 0;
+    const overallFaultsScope1 = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined && value.diff.scope1.difference !== 0 ? acc + 1 : acc , 0);
+    const overallFaultsScope2 = company.diffs.reduce((acc, value) =>  {
+      acc += value.diff.scope2.lb?.difference !== undefined && value.diff.scope2.lb.difference !== 0 ? 1 : 0;
+      acc += value.diff.scope2.mb?.difference !== undefined && value.diff.scope2.mb.difference !== 0 ? 1 : 0;
+      acc += value.diff.scope2.unknown?.difference !== undefined && value.diff.scope2.unknown.difference !== 0 ? 1 : 0;
+      return acc;    
     }, 0);
     const overallFaultsScope3 = company.diffs.reduce((acc, value) => {
-      let errors = 0;
       for(const category of value.diff.scope3) {
-        errors += category.value?.difference !== undefined && Math.abs(category.value.difference || 0) > 0 ? 1 : 0;
+        acc += category.value?.difference !== undefined && category.value.difference !== 0 ? 1 : 0;
       }
-      return acc + errors;    
+      return acc;
+    }, 0);
+    const overallFaultsEconomy = company.diffs.reduce((acc, value) => {
+      acc += value.diff.economy.employees?.difference !== undefined && value.diff.economy.employees.difference !== 0 ? 1 : 0;
+      acc += value.diff.economy.turnover?.difference !== undefined && value.diff.economy.turnover.difference !== 0 ? 1 : 0;
+      return acc;    
     }, 0);
     const mostRecentReportingPeriod = company.diffs.sort((a,b) => (new Date(b.reportingPeriod.endDate)).getTime() - (new Date(a.reportingPeriod.endDate)).getTime())[0]
 
-    values.push([company.wikidataId, company.name, numberOfCompareableReportingPeriods, overallNumberOfErrors, overallNumberOfErrors / overallNumberOfFields,
-      faultyReportingPeriods, faultyReportingPeriods / numberOfCompareableReportingPeriods, overall95, overall90, overallNumberOfFields,
-      overallFaultsScope1, overallFaultsScope2, overallFaultsScope3, mostRecentReportingPeriod.numberIncorrect, overallAccuracy].join(","));
+    values.push([company.wikidataId, company.name, numberOfCompareableReportingPeriods, overallNumberOfErrors, overallNumberOfFields ? overallNumberOfErrors / overallNumberOfFields : 0,
+      faultyReportingPeriods, numberOfCompareableReportingPeriods ? faultyReportingPeriods / numberOfCompareableReportingPeriods : 0, overall95, overall90, overallNumberOfFields,
+      overallFaultsScope1, overallFaultsScope2, overallFaultsScope3, overallFaultsEconomy, mostRecentReportingPeriod.numberIncorrect, overallAccuracy].join(","));
   }
 
   return headers.join(",") + "\n" + values.join("\n");
