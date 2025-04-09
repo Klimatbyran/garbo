@@ -9,16 +9,8 @@ import { jsonToTables, Table } from './jsonExtraction'
 import nlmIngestorConfig from '../config/nlmIngestor'
 import { writeFile } from 'fs/promises'
 
-export function encodeUrl(url: string): string {
-  const lastSlashIndex = url.lastIndexOf('/')
-  const baseUrl = url.slice(0, lastSlashIndex + 1)
-  const fileName = url.slice(lastSlashIndex + 1)
-  const encodedFileName = encodeURIComponent(fileName)
-  return `${baseUrl}${encodedFileName}`
-}
-
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
-  const pdfResponse = await fetch(encodeUrl(url), { headers }) 
+  const pdfResponse = await fetch(encodeURI(url), { headers });
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
