@@ -20,13 +20,12 @@ import commands from './discord/commands'
 import config from './config/discord'
 import approve, { ApproveJob } from './discord/interactions/approve'
 import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
-import saveToAPI from './workers/saveToAPI'
-import guessWikidata from './workers/guessWikidata'
+import { queues } from './queues'
 import { DiscordJob } from './lib/DiscordWorker'
 
 const queuesWithInteractions = {
-  saveToAPI: saveToAPI.queue,
-  guessWikidata: guessWikidata.queue,
+  saveToAPI: queues.saveToAPI,
+  guessWikidata: queues.guessWikidata,
 } as const
 
 // NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
@@ -35,7 +34,7 @@ const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata'])
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
   jobId: string
-) => queuesWithInteractions[queueName].getJob(jobId)
+) => queuesWithInteractions[queueName].queue.getJob(jobId)
 
 export class Discord {
   client: Client<boolean>
