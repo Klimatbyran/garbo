@@ -29,7 +29,12 @@ export async function companyExportRoutes(app: FastifyInstance) {
         Querystring: exportQuery
     }>, reply) => {
         
-        const {content, name} = await exportService.exportCompanies(request.query.type);        
+        let year: number | undefined = undefined;
+        
+        if(request.query.year) 
+          year = parseInt(request.query.year);
+
+        const {content, name} = await exportService.exportCompanies(request.query.type, year);        
         try {
           reply.header('Content-Type', 'application/octet-stream'); // Generic binary data
           reply.header('Content-Disposition', `attachment; filename="${name}"`);
