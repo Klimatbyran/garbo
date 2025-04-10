@@ -17,6 +17,8 @@ spec:
             requests:
               cpu: 500m
               memory: 1Gi
+            limits:
+              memory: 4Gi
           name: nlm
           ports:
             - containerPort: 5001
@@ -42,18 +44,17 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: nlm
-  minReplicas: 1
-  maxReplicas: 5
+  minReplicas: 2
+  maxReplicas: 15
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: 70
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
           averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300 # Wait 5 minutes before scaling down
+    scaleUp:
+      stabilizationWindowSeconds: 60 # Wait 1 minute before scaling up
