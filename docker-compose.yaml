@@ -22,3 +22,18 @@ services:
     container_name: garbo_ingestor
     ports:
       - "5001:5001"
+  docling:
+    image: quay.io/docling-project/docling-serve
+    container_name: garbo_docling
+    ports:
+      - "5002:5001"  # Mapped to a different host port to avoid conflict with NLM
+    environment:
+      - DOCLING_SERVE_ENABLE_UI=true
+    # The following settings are optional but can be useful
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
