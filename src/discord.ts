@@ -20,16 +20,18 @@ import commands from './discord/commands'
 import config from './config/discord'
 import approve, { ApproveJob } from './discord/interactions/approve'
 import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
+import editCompanyName, { EditCompanyNameJob } from './discord/interactions/inputCompanyName'
 import { queues } from './queues'
 import { DiscordJob } from './lib/DiscordWorker'
 
 const queuesWithInteractions = {
   saveToAPI: queues.saveToAPI,
   guessWikidata: queues.guessWikidata,
+  precheck: queues.precheck,
 } as const
 
 // NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
-const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata'])
+const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata', 'precheck'])
 
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
@@ -106,6 +108,12 @@ export class Discord {
                 else await edit.execute(interaction, job)
                 break
               }
+              case 'editCompanyName': {
+                const job = (await getJob(queueName, jobId)) as EditCompanyNameJob
+                if (!job) await interaction.reply('Job not found')
+                else await editCompanyName.execute(interaction, job)
+                break
+              }
             }
           } catch (error) {
             console.error('Discord error:', error)
@@ -143,6 +151,15 @@ export class Discord {
         .setCustomId(`editWikidata~${job.queueName}~${job.id}`)
         .setLabel('Edit')
         .setStyle(ButtonStyle.Secondary)
+    )
+  }
+  
+  public createEditCompanyNameButtonRow = (job: DiscordJob) => {
+    return new ActionRowBuilder<ButtonBuilder>().addComponents(
+      new ButtonBuilder()
+        .setCustomId(`editCompanyName~${job.queueName}~${job.id}`)
+        .setLabel('Enter Company Name')
+        .setStyle(ButtonStyle.Primary)
     )
   }
 
