@@ -1,13 +1,10 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
 import { getTags } from '../../config/openapi'
 import {
-  CompanyList,
   exportQuerySchema,
 } from '../schemas'
 import { exportService } from '../services/exportService'
 import { exportQuery } from '../types'
-import { createReadStream, readFile, readFileSync } from 'fs'
-import path from 'path'
 
 
 export async function companyExportRoutes(app: FastifyInstance) {
