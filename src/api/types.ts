@@ -41,3 +41,5 @@ export type userAuthenticationBody = z.infer<
 export type serviceAuthenticationBody = z.infer<
   typeof schemas.serviceAuthenticationBodySchema
 >
+
+export type exportQuery = z.infer<typeof schemas.exportQuerySchema>

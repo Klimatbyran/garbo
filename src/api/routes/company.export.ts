@@ -1,0 +1,46 @@
+import { FastifyInstance, FastifyRequest } from 'fastify'
+import { getTags } from '../../config/openapi'
+import {
+  CompanyList,
+  exportQuerySchema,
+} from '../schemas'
+import { exportService } from '../services/exportService'
+import { exportQuery } from '../types'
+import { createReadStream, readFile, readFileSync } from 'fs'
+import path from 'path'
+
+
+export async function companyExportRoutes(app: FastifyInstance) {
+
+  app.get(
+    '/',
+    {
+      schema: {
+        summary: 'Export companies',
+        description:
+          'Export the company data in form of various file formats',
+        tags: getTags('Companies'),
+        querystring: exportQuerySchema,
+        response: {
+        },
+      },
+    },
+    async (request: FastifyRequest<{
+        Querystring: exportQuery
+    }>, reply) => {
+        
+        const {content, name} = await exportService.exportCompanies(request.query.type);        
+        try {
+          reply.header('Content-Type', 'application/octet-stream'); // Generic binary data
+          reply.header('Content-Disposition', `attachment; filename="${name}"`);
+
+          // Send the file content
+          return reply.send(content);
+        } catch(err) {
+          console.log(err);
+        }
+        //return reply.sendFile('exports/' + exportFile);
+    
+    }
+  )
+}
