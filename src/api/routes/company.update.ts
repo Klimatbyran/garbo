@@ -21,7 +21,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         body: postCompanyBodySchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -35,16 +35,21 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
       const { name, wikidataId, description, internalComment, tags, url } =
         request.body
 
-      await companyService.upsertCompany({
-        name,
-        wikidataId,
-        description,
-        internalComment,
-        tags,
-        url,
-      })
+      try { 
+        await companyService.upsertCompany({
+          name,
+          wikidataId,
+          description,
+          internalComment,
+          tags,
+          url,
+        })
+      } catch(error) {
+        console.error('ERROR Creation or update of company failed:', error)
+        return reply.status(500).send({message: "Creation or update of company failed."});
+      }
 
-      reply.send({ ok: true })
+      return reply.send({ ok: true })
     }
   )
 }
