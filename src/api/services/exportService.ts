@@ -38,7 +38,7 @@ class ExportService {
   async exportMunicipalities(type: ExportType = 'json'): Promise<ExportResult> {
     const fileName = this.getFileName('municipality', type);
     const existingFile = await this.getValidExport(fileName);
-    if (existingFile) return existingFile;
+    //if (existingFile) return existingFile;
 
     const municipalities: Municipality[] = await municipalityService.getMunicipalities();
 
@@ -166,16 +166,21 @@ class ExportService {
   private generateCSV(data: CsvRow[]): string {
     if (data.length === 0) throw new Error('No data to export');
 
-    const headers = Object.keys(data[0]);
+    const headers = Array.from(
+        new Set(data.flatMap((row) => Object.keys(row)))
+    );
+
     const rows = data.map((row) =>
         headers.map((header) => {
             const value = row[header];
-            return typeof value === 'string' && value.includes(',') ? `"${value}"` : value || '';
+            return typeof value === 'string' && value.includes(',')
+                ? `"${value}"`
+                : value ?? '';
         }).join(',')
     );
 
     return [headers.join(','), ...rows].join('\n');
-  }
+}
 
   private getFileName(type: 'company' | 'municipality', ext: 'csv' | 'json', year?: number): string {
     return `${type}${year ? `-${year}` : ''}.${ext}`;
