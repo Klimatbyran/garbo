@@ -48,8 +48,8 @@
     "fastify-plugin": "^5.0.1",
     "fastify-type-provider-zod": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
-    "nodemw": "^0.24.0",
     "lodash": "^4.17.21",
+    "nodemw": "^0.24.0",
     "openai": "^4.73.1",
     "pdf2pic": "^3.1.3",
     "pino-http": "^10.4.0",
@@ -58,6 +58,7 @@
     "sharp": "^0.33.5",
     "tsx": "^4.19.2",
     "wikibase-sdk": "^10.2.1",
+    "xlsx": "^0.18.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
