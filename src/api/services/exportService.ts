@@ -2,11 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { prisma } from "../../lib/prisma"
 import { companyExportArgs } from "../args"
+import { municipalityService } from './municipalityService';
 
 const EXPORT_FOLDER_PATH = "../../../public/exports";
 
 type ExportResult = { content: string; name: string };
-type CsvCompanyRow = { [key: string]: string | number | null };
+type CsvRow = { [key: string]: string | number | null };
+type ExportType = 'json' | 'csv';
 
 class FileHelper {
     static ensureDirectoryExists(dir: string): void {
@@ -21,15 +23,26 @@ class FileHelper {
 }
 
 class ExportService {    
-  async exportCompanies(type: 'csv' | 'json' = 'json', year?: number): Promise<ExportResult> {
+  async exportCompanies(type: ExportType = 'json', year?: number): Promise<ExportResult> {
     const fileName = this.getFileName('company', type, year);
     const existingFile = await this.getValidExport(fileName);
     if (existingFile) return existingFile;
 
     const companies: Company[] = await prisma.company.findMany(companyExportArgs(year));
 
-    const transformed = this.transformCompaniesToRows(companies);
-    const content = type === 'json' ? JSON.stringify(transformed) : this.generateCSV(transformed);
+    const content = type === 'json' ? JSON.stringify(companies) : this.generateCSV(this.transformCompaniesToRows(companies));
+
+    return this.createExportFile(fileName, content);
+  }
+
+  async exportMunicipalities(type: ExportType = 'json'): Promise<ExportResult> {
+    const fileName = this.getFileName('municipality', type);
+    const existingFile = await this.getValidExport(fileName);
+    if (existingFile) return existingFile;
+
+    const municipalities: Municipality[] = await municipalityService.getMunicipalities();
+
+    const content = type === 'json' ? JSON.stringify(municipalities) : this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities));
 
     return this.createExportFile(fileName, content);
   }
@@ -51,13 +64,13 @@ class ExportService {
     return { name: fileName, content };
   }
 
-  private transformCompaniesToRows(companies: Company[]): CsvCompanyRow[] {
+  private transformCompaniesToRows(companies: Company[]): CsvRow[] {
     return companies.flatMap((company) =>
         company.reportingPeriods.map((period) => this.transformCompanyPeriodToRow(company, period))
     );
   }
 
-  private transformCompanyPeriodToRow(company: Company, period: ReportingPeriod): CsvCompanyRow {
+  private transformCompanyPeriodToRow(company: Company, period: ReportingPeriod): CsvRow {
     const { scope1, scope2, scope3Categories, statedTotalEmissions } = this.transformEmissions(period.emissions ?? {});
 
     return {
@@ -107,7 +120,50 @@ class ExportService {
     return { scope1, scope2, scope3Categories, statedTotalEmissions };
   }
 
-  private generateCSV(data: CsvCompanyRow[]): string {
+  private transformMunicipalitiesIntoRows(municipalities: Municipality[]): CsvRow[] {
+    const csvRows: CsvRow[] = [];
+
+    for(const municipality of municipalities) {
+      csvRows.push({
+        name: municipality.name,
+        region: municipality.region,
+        budget: municipality.budget,
+        totalApproximatedHistoricalEmission: municipality.totalApproximatedHistoricalEmission,
+        trendEmission: municipality.trendEmission,
+        historicalEmissionChangePercent: municipality.historicalEmissionChangePercent,
+        neededEmissionChangePercent: municipality.neededEmissionChangePercent ?? "",
+        hitNetZero: municipality.hitNetZero ?? "",
+        budgetRunsOut: municipality.budgetRunsOut ?? "",
+        electricCarChangePercent: municipality.electricCarChangePercent,
+        climatePlanLink: municipality.climatePlanLink ?? "",
+        climatePlanYear: municipality.climatePlanYear ?? "",
+        climatePlanComment: municipality.climatePlanComment ?? "",
+        bicycleMetrePerCapita: municipality.bicycleMetrePerCapita,
+        totalConsumptionEmission: municipality.totalConsumptionEmission,
+        electricVehiclePerChargePoints: municipality.electricVehiclePerChargePoints,
+        procurementScore: municipality.procurementScore,
+        procurementLink: municipality.procurementLink,
+        ...this.transformYearlyData(municipality.emissions, "emissions"),
+        ...this.transformYearlyData(municipality.emissionBudget ?? [], "emissionBudget"),
+        ...this.transformYearlyData(municipality.approximatedHistoricalEmission, "approximatedHistoricalEmission"),
+        ...this.transformYearlyData(municipality.trend, "trend"),
+        ...this.transformYearlyData(municipality.electricCarChangeYearly, "electricCarChangeYearly"),
+      });
+    }
+
+    return csvRows;
+  }
+
+  private transformYearlyData(yearlyData: YearlyData[], type: string) {
+    const subCsvRow: CsvRow = {};
+    for(const yearlyDatapoint of yearlyData) {
+      if(yearlyDatapoint)
+      subCsvRow[type + yearlyDatapoint.year] = yearlyDatapoint.value;
+    }
+    return subCsvRow;
+  }
+
+  private generateCSV(data: CsvRow[]): string {
     if (data.length === 0) throw new Error('No data to export');
 
     const headers = Object.keys(data[0]);
@@ -191,6 +247,34 @@ interface Company {
     industryGics: Industry
   } | null;
   reportingPeriods: ReportingPeriod[];
+}
+
+export type YearlyData = { year: string; value: number } | null;
+
+export interface Municipality {
+  name: string;
+  region: string;
+  emissions: YearlyData[]; // List of yearly emissions data
+  budget: number;
+  emissionBudget: YearlyData[] | null; // List of yearly emission budgets (nullable)
+  approximatedHistoricalEmission: YearlyData[]; // List of historical emission approximations
+  totalApproximatedHistoricalEmission: number; // Total historical emissions approximation
+  trend: YearlyData[]; // List of yearly emissions trend data
+  trendEmission: number; // Emissions trend value
+  historicalEmissionChangePercent: number; // Change in historical emissions percentage
+  neededEmissionChangePercent: number | null; // Needed emissions change percentage (nullable)
+  hitNetZero: string | null; // Year municipality is projected to hit net-zero (nullable)
+  budgetRunsOut: string | null; // Year emissions budget runs out (nullable)
+  electricCarChangePercent: number; // Percentage change in electric cars
+  electricCarChangeYearly: YearlyData[]; // List of yearly data for electric car changes
+  climatePlanLink: string | null; // Link to the climate plan (nullable)
+  climatePlanYear: number | null; // Climate plan year (nullable)
+  climatePlanComment: string | null; // Comment about the climate plan (nullable)
+  bicycleMetrePerCapita: number; // Bicycle infrastructure meters per capita
+  totalConsumptionEmission: number; // Total emissions from consumption
+  electricVehiclePerChargePoints: number; // Ratio of electric vehicles per charge points
+  procurementScore: string; // Procurement score
+  procurementLink: string; // Link to procurement-related information
 }
 
 const Scope3CategoryNames = [
