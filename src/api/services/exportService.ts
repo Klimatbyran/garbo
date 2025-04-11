@@ -3,10 +3,11 @@ import * as path from 'path';
 import { prisma } from "../../lib/prisma"
 import { companyExportArgs } from "../args"
 import { municipalityService } from './municipalityService';
+import { utils, WorkBook, WorkSheet, write } from 'xlsx';
 
 const EXPORT_FOLDER_PATH = "../../../public/exports";
 
-type ExportResult = { content: string; name: string };
+type ExportResult = { content: string | Buffer; name: string };
 type CsvRow = { [key: string]: string | number | null };
 type ExportType = 'json' | 'csv';
 
@@ -30,7 +31,9 @@ class ExportService {
 
     const companies: Company[] = await prisma.company.findMany(companyExportArgs(year));
 
-    const content = type === 'json' ? JSON.stringify(companies) : this.generateCSV(this.transformCompaniesToRows(companies));
+    const content = type === 'json' ? JSON.stringify(companies) : 
+      type === 'csv' ? this.generateCSV(this.transformCompaniesToRows(companies)) :
+      this.generateXLSX(this.generateCSV(this.transformCompaniesToRows(companies)));
 
     return this.createExportFile(fileName, content);
   }
@@ -38,11 +41,13 @@ class ExportService {
   async exportMunicipalities(type: ExportType = 'json'): Promise<ExportResult> {
     const fileName = this.getFileName('municipality', type);
     const existingFile = await this.getValidExport(fileName);
-    //if (existingFile) return existingFile;
+    if (existingFile) return existingFile;
 
     const municipalities: Municipality[] = await municipalityService.getMunicipalities();
 
-    const content = type === 'json' ? JSON.stringify(municipalities) : this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities));
+    const content = type === 'json' ? JSON.stringify(municipalities) :
+      type === 'csv' ? this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)) :
+      this.generateXLSX(this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)));
 
     return this.createExportFile(fileName, content);
   }
@@ -57,10 +62,11 @@ class ExportService {
     }
   }
 
-  private async createExportFile(fileName: string, content: string): Promise<ExportResult> {
+  private async createExportFile(fileName: string, content: string | Buffer): Promise<ExportResult> {
     FileHelper.ensureDirectoryExists(EXPORT_FOLDER_PATH);
     const filePath = path.join(EXPORT_FOLDER_PATH, fileName);
-    fs.writeFileSync(filePath, content, 'utf8');
+    const encoding = typeof content === "string" ? "utf8" : "binary";
+    fs.writeFileSync(filePath, content, encoding);
     return { name: fileName, content };
   }
 
@@ -162,6 +168,18 @@ class ExportService {
     }
     return subCsvRow;
   }
+
+  private generateXLSX(data: string): Buffer {
+    const worksheet: WorkSheet = utils.aoa_to_sheet(
+      data
+        .split("\n")
+        .map((line) => line.split(","))
+    );
+    const workbook: WorkBook = utils.book_new();
+    utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  
+    return write(workbook, { type: "buffer", bookType: "xlsx" });
+ } 
 
   private generateCSV(data: CsvRow[]): string {
     if (data.length === 0) throw new Error('No data to export');
