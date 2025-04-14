@@ -3,7 +3,6 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
-import { calculatedTotalEmissions } from './emissions'
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -113,7 +112,7 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
       endDate: transformFromWikidataDateStringToDate(claim.qualifiers[END_TIME][0].datavalue.value.time),
       value: claim.mainsnak.datavalue.value.amount,
       category: claim.qualifiers[APPLIES_TO_PART] ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id : undefined,
-      scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id,
+      scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] ? claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id : undefined,
       id: claim.id
     } as Claim
   })
@@ -151,9 +150,6 @@ export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: R
     return claimObject;
   }) 
 
-  if(entity === "Q54078")
-    entity = "Q239221"
-  
   const body = {
     id: entity,
     claims: {
@@ -206,8 +202,7 @@ function compareDateStrings(date1?: string, date2?: string) {
  * @param claims The claims to add
  * @returns 
  */
-async function diffCarbonFootprintClaims(entity: ItemId, claims: Claim[]) {
-  const existingClaims = await getClaims(entity);
+async function diffCarbonFootprintClaims(entity: ItemId, claims: Claim[], existingClaims: Claim[]) {
   const newClaims: Claim[] = [];
   const rmClaims: RemoveClaim[] = [];
 
@@ -254,8 +249,67 @@ async function diffCarbonFootprintClaims(entity: ItemId, claims: Claim[]) {
   return {newClaims, rmClaims};
 }
 
+export async function diffTotalCarbonFootprintClaims(newClaims: Claim[], existingClaims: Claim[], rmClaims: RemoveClaim[]) {
+  const claimsOfMostRecentReportingPeriod = [...newClaims, ...existingClaims].reduce((recentClaims: Claim[], current) => {
+    if(current.id === undefined || !rmClaims.find((claimI) => claimI.id === current.id)) {
+      if(recentClaims.length === 0 || current.endDate > recentClaims[0].endDate) {
+        recentClaims = [current];
+      } else if(current.endDate === recentClaims[0].endDate) {
+        recentClaims.push(current);
+      }
+    }    
+    return recentClaims;
+  }, []);
+
+  if(claimsOfMostRecentReportingPeriod.length > 0) {
+
+    const total = claimsOfMostRecentReportingPeriod.reduce((total: number, current) => {
+      if(current.scope !== undefined) {
+        if(current.scope === SCOPE_2_LOCATION_BASED && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED)
+        || current.scope === SCOPE_2 && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED || claimI.scope === SCOPE_2_LOCATION_BASED)) {
+          return total;
+        }
+        total += typeof current.value !== "number" && current.value.startsWith("+") ? parseInt(current.value.substring(1)) : parseInt(current.value);
+      }
+      return total;
+    }, 0);
+
+    let updateTotalClaim = true;
+
+    for(const existingClaim of existingClaims) {
+      if(existingClaim.scope === undefined && existingClaim.category === undefined) {
+        if(existingClaim.endDate < claimsOfMostRecentReportingPeriod[0].endDate && existingClaim.id) {
+          rmClaims.push({id: existingClaim.id, remove: true});
+        }
+        if(existingClaim.endDate === claimsOfMostRecentReportingPeriod[0].endDate) {
+          if(existingClaim.value !== ("+" +  total) && existingClaim.id) {
+            rmClaims.push({id: existingClaim.id, remove: true});
+          } else {
+            updateTotalClaim = false;
+          }
+        }
+      }
+    }
+
+    if(updateTotalClaim) {
+      newClaims.push({
+        startDate: claimsOfMostRecentReportingPeriod[0].startDate,
+        endDate: claimsOfMostRecentReportingPeriod[0].endDate,
+        value: total.toString(),
+        archiveUrl: claimsOfMostRecentReportingPeriod[0].archiveUrl,
+        referenceUrl: claimsOfMostRecentReportingPeriod[0].referenceUrl
+      });
+    }
+  }
+
+  return {newClaims, rmClaims};
+}
+
 export async function bulkCreateOrEditCarbonFootprintClaim(entity: ItemId, claims: Claim[]) {
-  const {newClaims, rmClaims} = await diffCarbonFootprintClaims(entity, claims);  
+  const existingClaims = await getClaims(entity);
+  let {newClaims, rmClaims} = await diffCarbonFootprintClaims(entity, claims, existingClaims);  
+  ({newClaims, rmClaims} = await diffTotalCarbonFootprintClaims(newClaims, existingClaims, rmClaims));  
+  console.log(newClaims);
   await editEntity(entity, newClaims, rmClaims);
 }
 
@@ -357,14 +411,6 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
             value: category.total,
         });
     });
-
-    claims.push({
-      startDate,
-      endDate,
-      referenceUrl,
-      archiveUrl,
-      value: calculatedTotalEmissions(emissions)
-    })
 
     return claims;
 }
