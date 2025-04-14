@@ -179,7 +179,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
 
 export async function companyPublicReportingPeriodsRoutes(app: FastifyInstance) {
   app.get(
-    'reporting',
+    '/years',
     {
       schema: {
         summary: 'Get list of reporting periods',
