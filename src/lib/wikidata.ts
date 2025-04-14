@@ -107,13 +107,16 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
   const carbonFootprintClaims = claims[CARBON_FOOTPRINT] ?? [];
 
   return carbonFootprintClaims.map(claim => {
+    const references = claim.references?.length > 0 ? claim.references[0].snaks : undefined;
     return {
       startDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
       endDate: transformFromWikidataDateStringToDate(claim.qualifiers[END_TIME][0].datavalue.value.time),
       value: claim.mainsnak.datavalue.value.amount,
       category: claim.qualifiers[APPLIES_TO_PART] ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id : undefined,
       scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] ? claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id : undefined,
-      id: claim.id
+      id: claim.id,
+      referenceUrl: references && references[REFERENCE_URL] ? references[REFERENCE_URL][0].datavalue.value : undefined,
+      archiveUrl: references && references[ARCHIVE_URL] ? references[ARCHIVE_URL][0].datavalue.value : undefined
     } as Claim
   })
 }
@@ -308,8 +311,7 @@ export async function diffTotalCarbonFootprintClaims(newClaims: Claim[], existin
 export async function bulkCreateOrEditCarbonFootprintClaim(entity: ItemId, claims: Claim[]) {
   const existingClaims = await getClaims(entity);
   let {newClaims, rmClaims} = await diffCarbonFootprintClaims(entity, claims, existingClaims);  
-  ({newClaims, rmClaims} = await diffTotalCarbonFootprintClaims(newClaims, existingClaims, rmClaims));  
-  console.log(newClaims);
+  ({newClaims, rmClaims} = await diffTotalCarbonFootprintClaims(newClaims, existingClaims, rmClaims));
   await editEntity(entity, newClaims, rmClaims);
 }
 
