@@ -5,7 +5,7 @@ import { companyExportArgs } from "../args"
 import { municipalityService } from './municipalityService';
 import { utils, WorkBook, WorkSheet, write } from 'xlsx';
 
-const EXPORT_FOLDER_PATH = "../../../public/exports";
+const EXPORT_FOLDER_PATH = "./public/exports";
 
 type ExportResult = { content: string | Buffer; name: string };
 type CsvRow = { [key: string]: string | number | null };
