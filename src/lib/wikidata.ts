@@ -3,6 +3,7 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
+import { calculatedTotalEmissions } from './emissions'
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -39,7 +40,8 @@ const {
   DETERMINATION_METHOD_OR_STANDARD,
   REFERENCE_URL,
   OBJECT_OF_STATEMENT_HAS_ROLE,
-  APPLIES_TO_PART
+  APPLIES_TO_PART,
+  ARCHIVE_URL
 } = wikidataConfig.properties;
 
 export async function searchCompany({
@@ -131,7 +133,10 @@ export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: R
           [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
       },
       references: [
-        {[REFERENCE_URL]: claim.referenceUrl}
+        {
+          [REFERENCE_URL]: claim.referenceUrl,
+          [ARCHIVE_URL]: claim.archiveUrl
+        }
       ]
     }
 
@@ -145,6 +150,9 @@ export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: R
 
     return claimObject;
   }) 
+
+  if(entity === "Q54078")
+    entity = "Q239221"
   
   const body = {
     id: entity,
@@ -295,7 +303,7 @@ function transformFromWikidataDateStringToDate(date: string) {
   return date.substring(1);
 }
 
-export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl): Claim[] {
+export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl?: string, archiveUrl?: string): Claim[] {
     const claims: Claim[] = [];
 
     if(emissions.scope1?.total !== undefined) {
@@ -303,6 +311,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           startDate,
           endDate,
           referenceUrl,
+          archiveUrl,
           scope: SCOPE_1,
           value: emissions.scope1.total,
       });
@@ -313,6 +322,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           startDate,
           endDate,
           referenceUrl,
+          archiveUrl,
           value: emissions.scope2.mb,
       });
     }
@@ -322,6 +332,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           startDate,
           endDate,
           referenceUrl,
+          archiveUrl,
           value: emissions.scope2.lb,
       });
     }
@@ -331,6 +342,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
         startDate,
         endDate,
         referenceUrl,
+        archiveUrl,
         value: emissions.scope2.unknown,
       });
     }    
@@ -340,10 +352,19 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
             startDate,
             endDate,
             referenceUrl,
+            archiveUrl,
             category: wikidataConfig.translateIdToCategory(category.category),
             value: category.total,
         });
     });
+
+    claims.push({
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      value: calculatedTotalEmissions(emissions)
+    })
 
     return claims;
 }
@@ -371,6 +392,7 @@ export interface Claim {
   endDate: string;
   value: string;
   referenceUrl?: string;
+  archiveUrl?: string;
   scope?: ItemId;
   category?: ItemId;
 }

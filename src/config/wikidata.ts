@@ -19,7 +19,8 @@ interface WikidataProperties {
     REFERENCE_URL: `P${number}`,
     OBJECT_OF_STATEMENT_HAS_ROLE: `P${number}`,
     APPLIES_TO_PART: `P${number}`,
-    STATED_IN: `P${number}`
+    STATED_IN: `P${number}`,
+    ARCHIVE_URL: `P${number}`
 }
 
 interface WikidataEntities {
@@ -55,7 +56,8 @@ export const LiveWikidataProperties: WikidataProperties = {
     REFERENCE_URL: "P854",
     OBJECT_OF_STATEMENT_HAS_ROLE: "P3831",
     APPLIES_TO_PART: "P518",
-    STATED_IN: "P248"
+    STATED_IN: "P248",
+    ARCHIVE_URL: "P1065"
 } as const
 
 export const TestWikidataProperties: WikidataProperties = {
@@ -66,7 +68,8 @@ export const TestWikidataProperties: WikidataProperties = {
     REFERENCE_URL: "P93",
     OBJECT_OF_STATEMENT_HAS_ROLE: "P98849",
     APPLIES_TO_PART: "P822",
-    STATED_IN: "P149"
+    STATED_IN: "P149",
+    ARCHIVE_URL: "P7712"
 } as const
 
 export const LiveWikidataEntities : WikidataEntities = {
