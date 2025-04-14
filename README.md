@@ -159,7 +159,7 @@ npm run dev
 
 #### 4) (Optional) Redis Insights
 
-a). **Start Redis Insight**  
+a). **Start Redis Insight**
 Run the following Docker command to start Redis Insight:
 
 docker run -d --name redisinsight -p 5540:5540 redislabs/redisinsight:latest
@@ -175,6 +175,16 @@ b). **Connect Redis Insight to Redis**
 
 c). **Access Redis Insight**
 Go to [http://localhost:5540](http://localhost:5540) in your browser and add the Redis database using the above connection details.
+
+### Flushing Redis Cache
+
+If you're experiencing issues with Redis or need to clear all data, you can flush the Redis cache using the following command:
+
+```sh
+redis-cli -h 127.0.0.1 -p 6379 -a [PASS] KEYS '*' | xargs redis-cli -h 127.0.0.1 -p 6379 -a [PASS] DEL
+```
+
+Make sure to replace `[PASS]` with your actual Redis password. If your Redis instance doesn't use a password, you can omit the `-a [PASS]` part.
 
 ### Setup completed 🎉
 
