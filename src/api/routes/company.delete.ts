@@ -28,7 +28,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: wikidataIdParamSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -36,10 +36,15 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
       reply
     ) => {
-      const { wikidataId } = request.params
-      redisCache.clear()
-      await companyService.deleteCompany(wikidataId)
-      reply.status(204).send()
+      const { wikidataId } = request.params;
+      redisCache.clear();
+      try {
+        await companyService.deleteCompany(wikidataId);
+      } catch(error) {
+        console.error('ERROR Deletion of company failed:', error);
+        return reply.status(500).send({message: 'Deletion of company failed.'});
+      }
+      return reply.status(204).send();
     }
   )
 
@@ -53,7 +58,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -61,10 +66,16 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await goalService.deleteGoal(id)
-      reply.status(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await goalService.deleteGoal(id)
+      } catch(error) {
+        console.error('ERROR Deletion of goal failed:', error);
+        return reply.status(500).send({message: 'Deletion of goal failed.'});
+      }
+      
+      return reply.status(204).send();
     }
   )
 
@@ -78,7 +89,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -86,10 +97,15 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
       reply
     ) => {
-      const { wikidataId } = request.params
-      redisCache.clear()
-      await industryService.deleteIndustry(wikidataId)
-      reply.status(204).send()
+      const { wikidataId } = request.params;
+      redisCache.clear();
+      try{
+        await industryService.deleteIndustry(wikidataId);
+      } catch(error) {
+        console.error('ERROR deletion of industry failed:', error);
+        return reply.status(500).send({message: 'Deletion of industry failed.'});
+      }
+      return reply.status(204).send();
     }
   )
 
@@ -102,7 +118,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         tags: getTags('Initiatives'),
         params: garboEntityIdSchema,
         response: {
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -110,10 +126,16 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       req: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = req.params
-      redisCache.clear()
-      await initiativeService.deleteInitiative(id)
-      reply.code(204).send()
+      const { id } = req.params;
+      redisCache.clear();
+      try {
+        await initiativeService.deleteInitiative(id);
+      } catch(error) {
+        console.error('ERROR Deletion of initiative failed:', error);
+        return reply.status(500).send({message: 'Deletion of initiative failed.'});
+      }
+      
+      return reply.code(204).send();
     }
   )
 
@@ -127,7 +149,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -135,10 +157,15 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await reportingPeriodService.deleteReportingPeriod(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await reportingPeriodService.deleteReportingPeriod(id);
+      } catch (error) {
+        console.error('ERROR Deletion of reporting period failed:', error);
+        return reply.status(500).send({ message: 'Deletion of reporting period failed.' });
+      }
+      return reply.code(204).send();
     }
   )
 
@@ -152,7 +179,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -160,10 +187,16 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteStatedTotalEmissions(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteStatedTotalEmissions(id);
+      } catch(error) {
+        console.error('ERROR Deletion of stated total emissions failed:', error);
+        return reply.code(500).send({message: "Deletion of stated total emissions failed."});
+      }
+      
+      return reply.code(204).send();
     }
   )
 
@@ -177,7 +210,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -185,10 +218,18 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteBiogenicEmissions(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      
+      try {
+        await emissionsService.deleteBiogenicEmissions(id);
+      } catch (error) {
+        console.error('ERROR Deletion of biogenic emissions failed:', error);
+        return reply.code(500).send({ message: "Deletion of biogenic emissions failed." });
+        return;
+      }
+
+      return reply.code(204).send();
     }
   )
 
@@ -202,7 +243,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -210,10 +251,16 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteScope1(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteScope1(id);
+      } catch (error) {
+        console.error('ERROR Deletion of Scope1 emissions failed:', error);
+        return reply.code(500).send({ message: "Deletion of Scope1 emissions failed." });
+      }
+
+      return reply.code(204).send();
     }
   )
 
@@ -227,7 +274,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -235,13 +282,19 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteScope1And2(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteScope1And2(id);
+      } catch (error) {
+        console.error('ERROR Deletion of Scope1and2 emissions failed:', error);
+        return reply.code(500).send({ message: "Deletion of Scope1and2 emissions failed." });
+        return;
+      }
+      return reply.code(204).send();
     }
   )
-
+  
   app.delete(
     '/scope2/:id',
     {
@@ -252,7 +305,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -260,13 +313,19 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteScope2(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteScope2(id);
+      } catch (error) {
+        console.error('ERROR Deletion of Scope2 emissions failed:', error);
+        return reply.code(500).send({ message: "Deletion of Scope2 emissions failed." });
+        return;
+      }
+      return reply.code(204).send();
     }
   )
-
+  
   app.delete(
     '/scope3/:id',
     {
@@ -277,7 +336,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -285,13 +344,19 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteScope3(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteScope3(id);
+      } catch (error) {
+        console.error('ERROR Deletion of Scope3 emissions failed:', error);
+        return reply.code(500).send({ message: "Deletion of Scope3 emissions failed." });
+        return;
+      }
+      return reply.code(204).send();
     }
   )
-
+  
   app.delete(
     '/scope3-category/:id',
     {
@@ -302,7 +367,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -310,24 +375,30 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await emissionsService.deleteScope3Category(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await emissionsService.deleteScope3Category(id);
+      } catch (error) {
+        console.error('ERROR Deletion of Scope3 category failed:', error);
+        return reply.code(500).send({ message: "Deletion of Scope3 category failed." });
+        return;
+      }
+      return reply.code(204).send();
     }
   )
-
+  
   app.delete(
     '/base-year/:id',
     {
       schema: {
-        summary: 'Delete a scope3 category',
-        description: 'Delete a scope3 category by id',
+        summary: 'Delete a base year',
+        description: 'Delete a base year by id',
         tags: getTags('Emissions'),
         params: garboEntityIdSchema,
         response: {
           204: emptyBodySchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -335,10 +406,16 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
       reply
     ) => {
-      const { id } = request.params
-      redisCache.clear()
-      await baseYearService.deleteBaseYear(id)
-      reply.code(204).send()
+      const { id } = request.params;
+      redisCache.clear();
+      try {
+        await baseYearService.deleteBaseYear(id);
+      } catch (error) {
+        console.error('ERROR Deletion of base year failed:', error);
+        return reply.code(500).send({ message: "Deletion of base year failed." });
+        return;
+      }
+      return reply.code(204).send();
     }
   )
 }
