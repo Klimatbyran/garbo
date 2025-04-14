@@ -1,4 +1,4 @@
-import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
+import { FastifyInstance, AuthenticatedFastifyRequest, FastifyRequest } from 'fastify'
 import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
@@ -7,11 +7,13 @@ import {
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
   okResponseSchema,
+  ReportingPeriodYearsSchema,
 } from '../schemas'
 import { getTags } from '../../config/openapi'
 import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
 import { metadataService } from '../services/metadataService'
 import _ from 'lodash'
+import { prisma } from '../../lib/prisma'
 
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
   app.post(
@@ -171,6 +173,44 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       }
 
       return reply.send({ ok: true })
+    }
+  )
+}
+
+export async function companyPublicReportingPeriodsRoutes(app: FastifyInstance) {
+  app.get(
+    'reporting',
+    {
+      schema: {
+        summary: 'Get list of reporting periods',
+        description:
+          'Retrieve a list of all existing reporting periods identified by it\'s end date year',
+        tags: getTags('ReportingPeriods'),
+        response: {
+          200: ReportingPeriodYearsSchema,
+        },
+      },
+    },
+    async (
+      _request: FastifyRequest,
+      reply
+    ) => {
+      const reportingPeriods = await prisma.reportingPeriod.findMany({
+        select: {
+          endDate: true,
+        },
+      });
+    
+      // Extract unique years from the endDate field in JavaScript
+      const distinctYears = Array.from(
+        new Set(
+          reportingPeriods.map((record) => record.endDate.getFullYear().toString())
+        )
+      );
+
+      distinctYears.sort();
+      
+      reply.send(distinctYears);
     }
   )
 }
