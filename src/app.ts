@@ -22,7 +22,7 @@ import { companyGoalsRoutes } from './api/routes/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/company.industry'
 import { companyInitiativesRoutes } from './api/routes/company.initiatives'
-import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
+import { companyPublicReportingPeriodsRoutes, companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
@@ -117,6 +117,7 @@ async function publicContext(app: FastifyInstance) {
   app.register(companyExportRoutes, { prefix: 'api/companies/export' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
   app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
+  app.register(companyPublicReportingPeriodsRoutes, { prefix: 'api/reporting-period' })
 }
 
 /**

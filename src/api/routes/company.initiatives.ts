@@ -30,7 +30,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativesSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -41,19 +41,24 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { initiatives, metadata } = request.body
+      const { initiatives, metadata } = request.body;
 
       if (initiatives?.length) {
-        const { wikidataId } = request.params
-
-        await initiativeService.createInitiatives(wikidataId, initiatives, () =>
-          metadataService.createMetadata({
-            metadata,
-            user: request.user,
-          })
-        )
+        const { wikidataId } = request.params;
+        
+        try {
+          await initiativeService.createInitiatives(wikidataId, initiatives, () =>
+            metadataService.createMetadata({
+              metadata,
+              user: request.user,
+            })
+          )
+        } catch(error) {
+          console.error('ERROR Creation of initiatives failed:', error);
+          return reply.status(500).send({message: "Initiatives could not be created."});
+        }
       }
-      reply.send({ ok: true })
+      return reply.send({ ok: true });
     }
   )
 
@@ -68,7 +73,7 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         body: postInitiativeSchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -79,15 +84,21 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
       }>,
       reply
     ) => {
-      const { id } = request.params
-      const { initiative, metadata } = request.body
+      const { id } = request.params;
+      const { initiative, metadata } = request.body;
       const createdMetadata = await metadataService.createMetadata({
         metadata,
         user: request.user,
-      })
-      await initiativeService.updateInitiative(id, initiative, createdMetadata)
+      });
 
-      reply.send({ ok: true })
+      try {
+        await initiativeService.updateInitiative(id, initiative, createdMetadata);
+      } catch(error) {
+        console.error('ERROR Update of initiative failed:', error);
+        return reply.status(500).send({message: 'Update of initiative failed.'});
+      }
+
+      return reply.send({ ok: true });
     }
   )
 }
