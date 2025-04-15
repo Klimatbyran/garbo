@@ -3,13 +3,13 @@ import * as path from 'path';
 import { prisma } from "../../lib/prisma"
 import { companyExportArgs } from "../args"
 import { municipalityService } from './municipalityService';
-import { utils, WorkBook, WorkSheet, write } from 'xlsx';
+import ExcelJS from 'exceljs';
 
 const EXPORT_FOLDER_PATH = "./public/exports";
 
 type ExportResult = { content: string | Buffer; name: string };
 type CsvRow = { [key: string]: string | number | null };
-type ExportType = 'json' | 'csv';
+type ExportType = 'json' | 'csv' | 'xlsx';
 
 class FileHelper {
     static ensureDirectoryExists(dir: string): void {
@@ -31,9 +31,11 @@ class ExportService {
 
     const companies: Company[] = await prisma.company.findMany(companyExportArgs(year));
 
+    console.log(type);
+
     const content = type === 'json' ? JSON.stringify(companies) : 
       type === 'csv' ? this.generateCSV(this.transformCompaniesToRows(companies)) :
-      this.generateXLSX(this.generateCSV(this.transformCompaniesToRows(companies)));
+      await this.generateXLSX(this.generateCSV(this.transformCompaniesToRows(companies)));
 
     return this.createExportFile(fileName, content);
   }
@@ -47,7 +49,7 @@ class ExportService {
 
     const content = type === 'json' ? JSON.stringify(municipalities) :
       type === 'csv' ? this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)) :
-      this.generateXLSX(this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)));
+      await this.generateXLSX(this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)));
 
     return this.createExportFile(fileName, content);
   }
@@ -169,16 +171,15 @@ class ExportService {
     return subCsvRow;
   }
 
-  private generateXLSX(data: string): Buffer {
-    const worksheet: WorkSheet = utils.aoa_to_sheet(
-      data
-        .split("\n")
-        .map((line) => line.split(","))
-    );
-    const workbook: WorkBook = utils.book_new();
-    utils.book_append_sheet(workbook, worksheet, "Sheet1");
-  
-    return write(workbook, { type: "buffer", bookType: "xlsx" });
+  private async generateXLSX(data: string): Promise<Buffer> {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Data');
+
+    data.split("\n").forEach((line) => worksheet.addRow(line.split(",")));
+    data.split("\n").forEach((line) => console.log(line.split(",")));
+    const buffer = await workbook.xlsx.writeBuffer();
+    
+    return Buffer.from(buffer);
  } 
 
   private generateCSV(data: CsvRow[]): string {
@@ -200,7 +201,7 @@ class ExportService {
     return [headers.join(','), ...rows].join('\n');
 }
 
-  private getFileName(type: 'company' | 'municipality', ext: 'csv' | 'json', year?: number): string {
+  private getFileName(type: 'company' | 'municipality', ext: 'csv' | 'json' | 'xlsx', year?: number): string {
     return `${type}${year ? `-${year}` : ''}.${ext}`;
   }
     

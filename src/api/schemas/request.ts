@@ -209,6 +209,6 @@ export const serviceAuthenticationBodySchema = z.object({
 })
 
 export const exportQuerySchema = z.object({
-  type: z.enum(['csv', 'json']).optional(),
+  type: z.enum(['csv', 'json', 'xlsx']).optional(),
   year: z.string().optional()
 })
