@@ -15,24 +15,31 @@ const headers = {
 
 const flow = new FlowProducer({ connection: redis })
 
-
-
 const nlmParsePDF = new DiscordWorker(
   QUEUE_NAMES.NLM_PARSE_PDF,
   async (job) => {
     const { url } = job.data
+    job.opts.attempts = 1
+    
+    const name = url.slice(-20)
+    const base = {
+      data: {
+        ...job.data,
+      },
+    }
 
     job.log(`Downloading from url: ${url}`)
-    
+
     try {
       const pdf = await fetchPdf(url, { headers })
-      
-      job.editMessage( `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. Tar upp till 3 minuter ☕️ ...` )
+
+      job.editMessage(
+        `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. Tar upp till 3 minuter ☕️ ...`
+      )
 
       const exists = await vectorDB.hasReport(url)
 
       if (!exists) {
-        
         const before = Date.now()
         const interval = setInterval(async () => {
           const elapsed = Date.now() - before
@@ -46,22 +53,46 @@ const nlmParsePDF = new DiscordWorker(
             await job.editMessage('Nu borde det vara klart... 🤔')
           }
         }, 10000)
-        
+
         let json: ParsedDocument
-        
+
         try {
+          
+          throw new Error('Simulated error')
+          
           json = await extractJsonFromPdf(pdf)
+          
         } catch (err) {
-          if (job.attemptsMade < (job.opts?.attempts || 10)) {
-            job.editMessage( `❌ Fel vid tolkning av PDF: ${err.message}. Försöker igen om en stund...` )
-          } else {
-            job.editMessage( `❌ Fel vid tolkning av PDF: ${err.message}. Ger upp...` )
-          }
-          throw new Error('Failed to parse PDF, retrying in one minute...')
+          
+            job.log('Failed to parse PDF: ' + err.message + ', switching parser to docling...')
+            job.editMessage(`❌ Fel vid tolkning av PDF: ${err.message}. Försöker med en annan parser...`)
+      
+            const precheck = await flow.add({
+              ...base,
+              name: 'precheck ' + name,
+              queueName: QUEUE_NAMES.PRECHECK,
+              children: [
+                {
+                  ...base,
+                  name: 'indexMarkdown ' + name,
+                  queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+                  children: [
+                    {
+                      ...base,
+                      name: 'doclingParsePDF ' + name,
+                      queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+                    },
+                  ],
+                },
+              ],
+            })
+            job.log('flow started: ' + precheck.job?.id)
+            throw new Error('Failed to parse PDF, switching parser to docling...')
+          
         } finally {
           clearInterval(interval)
         }
-        
+
         const markdown = jsonToMarkdown(json)
 
         if (!json.return_dict.result.blocks.length || !markdown.trim()) {
@@ -74,18 +105,9 @@ const nlmParsePDF = new DiscordWorker(
           ...job.data,
           json,
         })
-        
+
         await job.editMessage(`✅ PDF tolkad`)
 
-        const base = {
-          data: {
-            ...job.data,
-            // Explicitly remove parsed json since we don't need it in later steps.
-            json: undefined,
-          },
-        }
-
-        const name = url.slice(-20)
         await job.editMessage(`🤖 Tolkar tabeller...`)
 
         const precheck = await flow.add({

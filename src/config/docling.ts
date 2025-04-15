@@ -27,5 +27,5 @@ const { DOCLING_URL } = parsedEnv.data
 const normalizedDoclingUrl = DOCLING_URL.replace(/\/+$/, '')
 
 export default {
-  url: normalizedDoclingUrl,
+  baseUrl: normalizedDoclingUrl,
 }
