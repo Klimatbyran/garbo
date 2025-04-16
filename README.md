@@ -16,6 +16,7 @@ Test the app in Discord channel #reports-to-check by using the command /pdf and 
 
 Some of the following steps will be performed in parallel and most will be asynchronous. If a process is failed it's important to be able to restart it after a new code release so we can iterate on the prompts etc without having to restart the whole process again.
 
+```mermaid
 flowchart TB
 
     PDF[PDF]
@@ -56,6 +57,7 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
+```
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
 
