@@ -35,7 +35,7 @@ class ExportService {
 
     const content = type === 'json' ? JSON.stringify(companies) : 
       type === 'csv' ? this.generateCSV(this.transformCompaniesToRows(companies)) :
-      await this.generateXLSX(this.generateCSV(this.transformCompaniesToRows(companies)));
+      await this.generateXLSX(this.transformCompaniesToRows(companies));
 
     return this.createExportFile(fileName, content);
   }
@@ -49,7 +49,7 @@ class ExportService {
 
     const content = type === 'json' ? JSON.stringify(municipalities) :
       type === 'csv' ? this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)) :
-      await this.generateXLSX(this.generateCSV(this.transformMunicipalitiesIntoRows(municipalities)));
+      await this.generateXLSX(this.transformMunicipalitiesIntoRows(municipalities));
 
     return this.createExportFile(fileName, content);
   }
@@ -60,7 +60,7 @@ class ExportService {
 
     const SIX_MONTHS_MS = 182.5 * 24 * 60 * 60 * 1000;
     if (!FileHelper.isFileOutdated(filePath, SIX_MONTHS_MS)) {
-        return { name: fileName, content: fs.readFileSync(filePath, 'utf8') };
+        return { name: fileName, content: fs.readFileSync(filePath) };
     }
   }
 
@@ -171,12 +171,27 @@ class ExportService {
     return subCsvRow;
   }
 
-  private async generateXLSX(data: string): Promise<Buffer> {
+  private async generateXLSX(data: CsvRow[]): Promise<Buffer> {
+    if (data.length === 0) throw new Error('No data to export');
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Data');
 
-    data.split("\n").forEach((line) => worksheet.addRow(line.split(",")));
-    data.split("\n").forEach((line) => console.log(line.split(",")));
+    const headers = Array.from(
+      new Set(data.flatMap((row) => Object.keys(row)))
+    );
+    worksheet.addRow(headers);
+
+    const rows = data.map((row) =>
+        headers.map((header) => {
+            const value = row[header];
+            return value ?? '';
+        })
+    );
+
+    for(const row of rows) {
+      worksheet.addRow(row);
+    }
+
     const buffer = await workbook.xlsx.writeBuffer();
     
     return Buffer.from(buffer);
