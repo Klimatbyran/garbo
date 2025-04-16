@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 import { writeFile, readFile, mkdir } from 'fs/promises'
 import { resolve } from 'path'
 import { existsSync } from 'fs'
+import googleConfig from '../config/google'
 
 // Define the structure for search results
 interface GoogleSearchResult {
@@ -65,8 +66,8 @@ async function saveResults(results: string[]) {
 async function searchGoogleForPDFs(query: string): Promise<GoogleSearchResult[]> {
   // This uses the Google Custom Search API
   
-  const apiKey = process.env.GOOGLE_API_KEY
-  const searchEngineId = process.env.GOOGLE_SEARCH_ENGINE_ID
+  const apiKey = googleConfig.apiKey
+  const searchEngineId = googleConfig.searchEngineId
   
   if (!apiKey || !searchEngineId) {
     throw new Error('Google API key or Search Engine ID not configured')

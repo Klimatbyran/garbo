@@ -8,6 +8,7 @@ import openAPIConfig from './config/openapi'
 import { createServerCache } from './createCache'
 import redis from './config/redis'
 import { QUEUE_NAMES } from './queues'
+import googleConfig from './config/google'
 
 export const redisCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -26,35 +27,67 @@ const port = apiConfig.port
 const prisma = new PrismaClient()
 const app = await startApp()
 
+import googleConfig from './config/google'
+
 // Schedule daily Google search for new sustainability reports
 async function scheduleGoogleSearchJob() {
+  // Only schedule if Google API is configured
+  if (!googleConfig.isConfigured) {
+    app.log.warn('Google API not configured. Skipping PDF search job scheduling.')
+    return
+  }
+
   const queue = new Queue(QUEUE_NAMES.GOOGLE_SEARCH_PDFS, { connection: redis })
   
-  // Add recurring job to run daily at 2 AM
-  await queue.add(
-    'daily-sustainability-report-search',
-    { searchQuery: "hållbarhetsrapport 2024 filetype:pdf" },
-    { 
-      repeat: { 
-        pattern: '0 2 * * *' // Cron pattern: At 02:00 every day
-      }
-    }
-  )
+  // Check if job already exists
+  const repeatableJobs = await queue.getRepeatableJobs()
+  const jobExists = repeatableJobs.some(job => job.name === 'daily-sustainability-report-search')
   
-  // Also add a one-time job to run immediately for testing
-  if (process.env.RUN_SEARCH_TEST === 'true') {
+  if (!jobExists) {
+    // Add recurring job to run daily at 2 AM with a consistent job ID
     await queue.add(
-      'test-sustainability-report-search',
+      'daily-sustainability-report-search',
       { 
         searchQuery: "hållbarhetsrapport 2024 filetype:pdf",
-        threadId: process.env.TEST_THREAD_ID || '0',
-        channelId: process.env.TEST_CHANNEL_ID || '0'
+        jobId: 'daily-sustainability-report-search'
+      },
+      { 
+        jobId: 'daily-sustainability-report-search',
+        repeat: { 
+          pattern: '0 2 * * *' // Cron pattern: At 02:00 every day
+        }
       }
     )
-    app.log.info('✅ Added test Google search job')
+    
+    app.log.info('✅ Scheduled daily Google search for sustainability reports')
+  } else {
+    app.log.info('✅ Daily Google search job already scheduled')
   }
   
-  app.log.info('✅ Scheduled daily Google search for sustainability reports')
+  // Add a one-time test job if requested
+  if (process.env.RUN_SEARCH_TEST === 'true') {
+    // Check if test job is already in the queue
+    const jobs = await queue.getJobs(['waiting', 'active', 'delayed'])
+    const testJobExists = jobs.some(job => job.name === 'test-sustainability-report-search')
+    
+    if (!testJobExists) {
+      await queue.add(
+        'test-sustainability-report-search',
+        { 
+          searchQuery: "hållbarhetsrapport 2024 filetype:pdf",
+          threadId: process.env.TEST_THREAD_ID || '0',
+          channelId: process.env.TEST_CHANNEL_ID || '0',
+          jobId: 'test-sustainability-report-search'
+        },
+        {
+          jobId: 'test-sustainability-report-search'
+        }
+      )
+      app.log.info('✅ Added test Google search job')
+    } else {
+      app.log.info('✅ Test Google search job already in queue')
+    }
+  }
 }
 
 async function main() {
