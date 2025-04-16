@@ -340,7 +340,7 @@ function transformFromWikidataDateStringToDate(date: string) {
 export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl?: string, archiveUrl?: string): Claim[] {
     const claims: Claim[] = [];
 
-    if(emissions.scope1?.total !== undefined) {
+    if(emissions.scope1?.total) {
       claims.push({
           startDate,
           endDate,
@@ -350,7 +350,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           value: emissions.scope1.total,
       });
     }
-    if(emissions.scope2?.mb !== undefined) {
+    if(emissions.scope2?.mb) {
       claims.push({
           scope: SCOPE_2_MARKET_BASED,
           startDate,
@@ -360,7 +360,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           value: emissions.scope2.mb,
       });
     }
-    if(emissions.scope2?.lb !== undefined) {
+    if(emissions.scope2?.lb) {
       claims.push({
           scope: SCOPE_2_LOCATION_BASED,
           startDate,
@@ -370,7 +370,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           value: emissions.scope2.lb,
       });
     }
-    if(emissions.scope2?.unknown !== undefined) {
+    if(emissions.scope2?.unknown) {
       claims.push({
         scope: SCOPE_2,
         startDate,
@@ -379,7 +379,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
         archiveUrl,
         value: emissions.scope2.unknown,
       });
-    }    
+    }        
     emissions.scope3?.categories?.forEach(category => {
         claims.push({
             scope: SCOPE_3,
@@ -388,10 +388,9 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
             referenceUrl,
             archiveUrl,
             category: wikidataConfig.translateIdToCategory(category.category),
-            value: category.total,
+            value: category.total ?? 0,
         });
     });
-
     return claims;
 }
 
