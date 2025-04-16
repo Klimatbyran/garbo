@@ -1,10 +1,13 @@
 import { parseArgs } from 'node:util'
 import { PrismaClient } from '@prisma/client'
+import { Queue } from 'bullmq'
 
 import startApp from './app'
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { createServerCache } from './createCache'
+import redis from './config/redis'
+import { QUEUE_NAMES } from './queues'
 
 export const redisCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -23,6 +26,24 @@ const port = apiConfig.port
 const prisma = new PrismaClient()
 const app = await startApp()
 
+// Schedule daily Google search for new sustainability reports
+async function scheduleGoogleSearchJob() {
+  const queue = new Queue(QUEUE_NAMES.GOOGLE_SEARCH_PDFS, { connection: redis })
+  
+  // Add recurring job to run daily at 2 AM
+  await queue.add(
+    'daily-sustainability-report-search',
+    { searchQuery: "hållbarhetsrapport 2024 type:pdf" },
+    { 
+      repeat: { 
+        pattern: '0 2 * * *' // Cron pattern: At 02:00 every day
+      }
+    }
+  )
+  
+  app.log.info('✅ Scheduled daily Google search for sustainability reports')
+}
+
 async function main() {
   try {
     if (START_BOARD) {
@@ -35,6 +56,11 @@ async function main() {
     }
 
     await app.ready()
+    
+    // Schedule the Google search job
+    if (START_BOARD) {
+      await scheduleGoogleSearchJob()
+    }
 
     app.listen(
       {

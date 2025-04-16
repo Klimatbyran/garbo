@@ -1,5 +1,6 @@
 import discord from './discord'
 import { workers } from './workers'
+import googleSearchPDFs from './workers/googleSearchPDFs'
 
 console.log('Starting workers...')
 
