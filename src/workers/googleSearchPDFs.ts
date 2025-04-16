@@ -63,9 +63,7 @@ async function saveResults(results: string[]) {
 
 // Search Google for PDFs
 async function searchGoogleForPDFs(query: string): Promise<GoogleSearchResult[]> {
-  // This would typically use the Google Search API
-  // For demonstration, we're using a simplified approach
-  // In production, you would need to use the proper Google API with authentication
+  // This uses the Google Custom Search API
   
   const apiKey = process.env.GOOGLE_API_KEY
   const searchEngineId = process.env.GOOGLE_SEARCH_ENGINE_ID
@@ -74,7 +72,7 @@ async function searchGoogleForPDFs(query: string): Promise<GoogleSearchResult[]>
     throw new Error('Google API key or Search Engine ID not configured')
   }
   
-  const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query)}`
+  const url = `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${encodeURIComponent(query)}&fileType=pdf`
   
   const response = await fetch(url)
   if (!response.ok) {
@@ -104,7 +102,12 @@ const googleSearchPDFs = new DiscordWorker<GoogleSearchPDFsJob>(
       
       // Filter for PDF links
       const pdfLinks = searchResults
-        .filter(result => result.link.toLowerCase().endsWith('.pdf'))
+        .filter(result => {
+          // Check if the link ends with .pdf or has mime type application/pdf
+          return result.link.toLowerCase().endsWith('.pdf') || 
+                 result.mime === 'application/pdf' ||
+                 result.fileFormat === 'PDF/Adobe Acrobat'
+        })
         .map(result => result.link)
       
       // Find new PDFs
@@ -147,5 +150,24 @@ const googleSearchPDFs = new DiscordWorker<GoogleSearchPDFsJob>(
     }
   }
 )
+
+// Function to test the Google search functionality
+export async function testGoogleSearch(query = "hållbarhetsrapport 2024 type:pdf"): Promise<string[]> {
+  try {
+    const results = await searchGoogleForPDFs(query);
+    const pdfLinks = results
+      .filter(result => {
+        return result.link.toLowerCase().endsWith('.pdf') || 
+               result.mime === 'application/pdf' ||
+               result.fileFormat === 'PDF/Adobe Acrobat'
+      })
+      .map(result => result.link);
+    
+    return pdfLinks;
+  } catch (error) {
+    console.error('Error testing Google search:', error);
+    throw error;
+  }
+}
 
 export default googleSearchPDFs

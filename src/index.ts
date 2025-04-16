@@ -33,13 +33,26 @@ async function scheduleGoogleSearchJob() {
   // Add recurring job to run daily at 2 AM
   await queue.add(
     'daily-sustainability-report-search',
-    { searchQuery: "hållbarhetsrapport 2024 type:pdf" },
+    { searchQuery: "hållbarhetsrapport 2024 filetype:pdf" },
     { 
       repeat: { 
         pattern: '0 2 * * *' // Cron pattern: At 02:00 every day
       }
     }
   )
+  
+  // Also add a one-time job to run immediately for testing
+  if (process.env.RUN_SEARCH_TEST === 'true') {
+    await queue.add(
+      'test-sustainability-report-search',
+      { 
+        searchQuery: "hållbarhetsrapport 2024 filetype:pdf",
+        threadId: process.env.TEST_THREAD_ID || '0',
+        channelId: process.env.TEST_CHANNEL_ID || '0'
+      }
+    )
+    app.log.info('✅ Added test Google search job')
+  }
   
   app.log.info('✅ Scheduled daily Google search for sustainability reports')
 }
