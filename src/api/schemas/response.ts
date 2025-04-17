@@ -399,7 +399,7 @@ export const InputMunicipalitySchema = z.object({
   climatePlanComment: z.string().nullable(),
   bicycleMetrePerCapita: z.number(),
   totalConsumptionEmission: z.number(),
-  electricVehiclePerChargePoints: z.number(),
+  electricVehiclePerChargePoints: z.number().nullable(),
   procurementScore: z.string(),
   procurementLink: z.string(),
 })
@@ -424,4 +424,4 @@ export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
-export const ReportingPeriodYearsSchema = z.array(z.string());
+export const ReportingPeriodYearsSchema = z.array(z.string())
