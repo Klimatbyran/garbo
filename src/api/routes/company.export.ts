@@ -40,9 +40,7 @@ export async function companyExportRoutes(app: FastifyInstance) {
           return reply.send(content);
         } catch(err) {
           console.log(err);
-        }
-        //return reply.sendFile('exports/' + exportFile);
-    
+        }    
     }
   )
 }
