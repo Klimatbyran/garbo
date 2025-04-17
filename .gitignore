@@ -20,4 +20,5 @@ prisma/generated
 
 # Ignore accuracy results
 output/accuracy-results.json
+public/exports
 
