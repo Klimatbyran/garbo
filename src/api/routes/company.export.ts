@@ -10,7 +10,7 @@ import { exportQuery } from '../types'
 export async function companyExportRoutes(app: FastifyInstance) {
 
   app.get(
-    '/',
+    '/export',
     {
       schema: {
         summary: 'Export companies',
