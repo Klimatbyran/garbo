@@ -3,6 +3,7 @@ import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_respo
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 import wikidataConfig from '../config/wikidata'
 import WBEdit from 'wikibase-edit'
+import { Emissions } from './emissions'
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -271,7 +272,7 @@ export async function diffTotalCarbonFootprintClaims(newClaims: Claim[], existin
 
     const total = claimsOfMostRecentReportingPeriod.reduce((total: number, current) => {
       if(current.scope !== undefined) {
-        if((current.scope === SCOPE_3 && current.category === undefined)
+        if((current.scope === SCOPE_3 && current.category === undefined && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_3 && claimI.category !== undefined))
         ||  (current.scope === SCOPE_2_LOCATION_BASED && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED))
         || (current.scope === SCOPE_2 && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED || claimI.scope === SCOPE_2_LOCATION_BASED))) {
           return total;
@@ -363,7 +364,7 @@ function transformFromWikidataDateStringToDate(date: string) {
   return date.substring(1);
 }
 
-export function transformEmissionsToClaims(emissions, startDate, endDate, referenceUrl?: string, archiveUrl?: string): Claim[] {
+export function transformEmissionsToClaims(emissions: Emissions, startDate: string, endDate: string, referenceUrl?: string, archiveUrl?: string): Claim[] {
     const claims: Claim[] = [];
 
     if(emissions.scope1?.total) {
@@ -373,7 +374,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           referenceUrl,
           archiveUrl,
           scope: SCOPE_1,
-          value: emissions.scope1.total,
+          value: emissions.scope1.total.toString(),
       });
     }
     if(emissions.scope2?.mb) {
@@ -383,7 +384,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           endDate,
           referenceUrl,
           archiveUrl,
-          value: emissions.scope2.mb,
+          value: emissions.scope2.mb.toString(),
       });
     }
     if(emissions.scope2?.lb) {
@@ -393,7 +394,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
           endDate,
           referenceUrl,
           archiveUrl,
-          value: emissions.scope2.lb,
+          value: emissions.scope2.lb.toString(),
       });
     }
     if(emissions.scope2?.unknown) {
@@ -403,7 +404,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
         endDate,
         referenceUrl,
         archiveUrl,
-        value: emissions.scope2.unknown,
+        value: emissions.scope2.unknown.toString(),
       });
     }        
     emissions.scope3?.categories?.forEach(category => {
@@ -414,7 +415,7 @@ export function transformEmissionsToClaims(emissions, startDate, endDate, refere
             referenceUrl,
             archiveUrl,
             category: wikidataConfig.translateIdToCategory(category.category),
-            value: category.total ?? 0,
+            value: category.total.toString() ?? 0,
         });
     });
     return claims;
