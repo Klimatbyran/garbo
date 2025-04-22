@@ -122,6 +122,9 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
 }
 
 export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: RemoveClaim[]) {
+  if(claims.length === 0 && removeClaim.length === 0) {
+    return;
+  }
   const wbEdit = WBEdit(wikibaseEditConfig);
   const claimBody = claims.map((claim) => {
     const claimObject = {
@@ -268,8 +271,9 @@ export async function diffTotalCarbonFootprintClaims(newClaims: Claim[], existin
 
     const total = claimsOfMostRecentReportingPeriod.reduce((total: number, current) => {
       if(current.scope !== undefined) {
-        if(current.scope === SCOPE_2_LOCATION_BASED && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED)
-        || current.scope === SCOPE_2 && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED || claimI.scope === SCOPE_2_LOCATION_BASED)) {
+        if((current.scope === SCOPE_3 && current.category === undefined)
+        ||  (current.scope === SCOPE_2_LOCATION_BASED && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED))
+        || (current.scope === SCOPE_2 && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED || claimI.scope === SCOPE_2_LOCATION_BASED))) {
           return total;
         }
         total += typeof current.value !== "number" && current.value.startsWith("+") ? parseInt(current.value.substring(1)) : parseInt(current.value);
