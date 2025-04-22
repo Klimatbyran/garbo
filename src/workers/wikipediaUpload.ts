@@ -1,24 +1,26 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { getWikipediaTitle } from '../lib/wikidata'
 import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wikipedia'
-import { Emissions } from '@prisma/client'
 import wikipediaConfig from '../config/wikipedia'
 import { QUEUE_NAMES } from '../queues'
+import { ReportingPeriod, Emissions } from '../lib/emissions'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     wikidata: { node: `Q${number}` }
-    body: any
+    body: {
+      reportingPeriods: ReportingPeriod[]
+    }
   }
 }
 
 const checkEmissionsExist = (emissions: Emissions): boolean => {
   return (
-    emissions.scope1?.total ||
-    emissions.scope2?.mb ||
-    emissions.scope2?.lb ||
-    emissions.scope3?.statedTotalEmissions?.total ||
-    emissions.scope3?.categories?.length
+    emissions.scope1?.total !== undefined ||
+    emissions.scope2?.mb !== undefined ||
+    emissions.scope2?.lb !== undefined ||
+    emissions.scope3?.statedTotalEmissions?.total !== undefined ||
+    emissions.scope3?.categories?.length !== undefined
   )
 }
 
@@ -63,6 +65,8 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
       reportURL
     }
 
+    console.log(title);
+
     try {
       await updateWikipediaContent(title, content)
     } catch(e) {
@@ -74,7 +78,7 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
   }
 )
 
-function findMostRecentReportingPeriod(reportingPeriods = []) {
+function findMostRecentReportingPeriod(reportingPeriods: ReportingPeriod[] = []) {
   if (reportingPeriods.length === 0) {
     return null;
   }
