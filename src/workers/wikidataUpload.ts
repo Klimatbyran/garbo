@@ -1,4 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { ReportingPeriod } from '../lib/emissions';
 import { bulkCreateOrEditCarbonFootprintClaim, Claim, reduceToMostRecentClaims, transformEmissionsToClaims } from '../lib/wikidata'
 
 const KLIMATKOLLEN_ARCHIVE_PREFIX = "https://storage.googleapis.com/klimatkollen-pdfs/";
@@ -6,7 +7,9 @@ export class WikidataUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     wikidata: { node: `Q${number}` }
-    body?: any
+    body: {
+      reportingPeriods: ReportingPeriod[];
+    }
   }
 }
 
