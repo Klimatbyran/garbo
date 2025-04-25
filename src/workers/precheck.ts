@@ -7,6 +7,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { JobType } from '../types'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
+import { url } from 'inspector'
 
 class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -97,7 +98,7 @@ const precheck = new DiscordWorker(
     )
   
     const base = {
-      data: { ...baseData, companyName, description },
+      data: { url:baseData.url, companyName, description },
       opts: {
         attempts: 3,
       },
@@ -118,7 +119,9 @@ const precheck = new DiscordWorker(
             name: 'guessWikidata ' + companyName,
             queueName: QUEUE_NAMES.GUESS_WIKIDATA,
             data: {
-              ...base.data,
+              //only the needed fields for our guessWikidata job
+              url:baseData.url,
+              description: base.data.description,
               schema: zodResponseFormat(wikidata.schema, type),
             },
           },
@@ -127,7 +130,8 @@ const precheck = new DiscordWorker(
             queueName: QUEUE_NAMES.FOLLOW_UP,
             name: 'fiscalYear ' + companyName,
             data: {
-              ...base.data,
+              url:base.data.url,
+              description: base.data.description,
               type: JobType.FiscalYear,
             },
           },
