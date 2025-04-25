@@ -1,6 +1,6 @@
 import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { QUEUE_NAMES } from '../queues'
-import { paths, components } from '../lib/docling-api-types'
+import { paths } from '../lib/docling-api-types'
 import docling from '../config/docling'
 import redis from '../config/redis'
 
@@ -8,41 +8,51 @@ type ProcessUrlAsyncResponse = paths['/v1alpha/convert/source/async']['post']['r
 type TaskStatusResponse = paths['/v1alpha/status/poll/{task_id}']['get']['responses']['200']['content']['application/json']
 type TaskResultResponse = paths['/v1alpha/result/{task_id}']['get']['responses']['200']['content']['application/json']
 
+interface BergetDoclingRequest {
+  model: "docling-v1",
+  document: {
+    url: string,
+    type: "document"
+  },
+  async: boolean,
+  options: {
+    tableMode: "accurate" | "strict",
+    ocrMethod: "tesseract" | "easyocr" | "ocrmac" | "rapidocr" | "tesserocr",
+    doOcr: boolean,
+    doTableStructure: boolean,
+    inputFormat: ("pdf" | "html" | "docx" | "pptx")[],
+    outputFormat: "md" | "json",
+    includeImages: boolean
+  }
+}
+
 class DoclingParsePDFJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     url: string
-    doclingSettings?: components['schemas']['ConvertDocumentHttpSourcesRequest']
+    doclingSettings?: BergetDoclingRequest
     taskId?: string
   }
 }
 
-function createRequestPayload(url: string): components['schemas']['ConvertDocumentHttpSourcesRequest'] {
-  const requestPayload: components['schemas']['ConvertDocumentHttpSourcesRequest'] = {
+
+
+function createRequestPayload(url: string): BergetDoclingRequest {
+  const requestPayload: BergetDoclingRequest = {
+    model: "docling-v1",
     options: {
-      from_formats: ['pdf'],
-      to_formats: ['md'],
-      image_export_mode: 'placeholder',
-      do_ocr: true,
-      force_ocr: false,
-      ocr_engine: 'easyocr',
-      pdf_backend: 'dlparse_v4',
-      table_mode: 'fast',
-      abort_on_error: false,
-      return_as_file: false,
-      do_table_structure: true,
-      include_images: false,
-      images_scale: 2,
-      do_code_enrichment: false,
-      do_formula_enrichment: false,
-      do_picture_classification: false,
-      do_picture_description: false
+      inputFormat: ["pdf"],
+      outputFormat: "md",
+      includeImages: false,
+      doOcr: true,
+      ocrMethod: "easyocr",
+      tableMode: "accurate",
+      doTableStructure: true
     },
-    http_sources: [
-      {
+    async: false,
+    document: {
         url,
-        headers: {}
-      }
-    ]
+        type: "document"
+    }
   }
   
   return requestPayload
@@ -80,14 +90,16 @@ const doclingParsePDF = new DiscordWorker(
       job.log('Submitting async task to Docling API...')
       
       try {
-        const asyncRequestUrl = `${docling.baseUrl}/v1alpha/convert/source/async`
-        job.log(`Making request to: ${asyncRequestUrl}`)
+        const requestUrl = `${docling.baseUrl}/v1alpha/convert/source/async`
+        job.log(`Making request to: ${requestUrl}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
         
-        const response = await fetch(asyncRequestUrl, {
+        
+        const response = await fetch(requestUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'authorization': `Bearer ${docling.bergetAIToken}`
           },
           body: JSON.stringify(job.data.doclingSettings)
         })
@@ -104,7 +116,13 @@ const doclingParsePDF = new DiscordWorker(
             throw new Error(`Docling API responded with status: ${response.status}`)
           }
         }
+        const result = await response.json();
+        job.log(`Task completed`);
+        job.log(result.content);
         
+        return result.content;
+
+        /* We are not doing async for now
         const asyncResponse = await response.json() as ProcessUrlAsyncResponse
         const newTaskId = asyncResponse.task_id
         job.log(`Task submitted successfully with task ID: ${newTaskId}`)
@@ -116,7 +134,7 @@ const doclingParsePDF = new DiscordWorker(
         })
         
         // Now poll for the task status and get results
-        return await pollTaskAndGetResult(job, newTaskId)
+        return await pollTaskAndGetResult(job, newTaskId)*/
         
       } catch (networkError) {
         job.log(`Network error details: ${JSON.stringify({
