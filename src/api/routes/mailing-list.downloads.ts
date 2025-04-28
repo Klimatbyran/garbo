@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify'
 import { subscribeAndTagUser } from '../services/mailchimp'
 
-export async function downloadRequestRoute(app: FastifyInstance) {
-  app.post('/api/download-request', async (request, reply) => {
+export async function mailingListDownloadsRoute(app: FastifyInstance) {
+  app.post('/download-request', async (request, reply) => {
     const { email, reason } = request.body as { email: string; reason: string }
 
     if (!email || !reason) {
@@ -10,7 +10,7 @@ export async function downloadRequestRoute(app: FastifyInstance) {
     }
 
     try {
-      await subscribeAndTagUser(email, reason)
+      await subscribeAndTagUser(email, reason, 'free-database-download-request')
       return reply.send({ success: true })
     } catch (error) {
       console.error('Subscribe error:', error)

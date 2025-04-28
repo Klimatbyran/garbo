@@ -1,20 +1,20 @@
 import axios from 'axios'
 import crypto from 'node:crypto'
+import mailchimpConfig from '../../config/mailchimp'
 
-const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY!
-const MAILCHIMP_SERVER_PREFIX = 'us14' // Change if needed
-const MAILCHIMP_LIST_ID = '133270842a'
-const TAG_NAME = 'free-database-download-request'
+const baseURL = `https://${mailchimpConfig.serverPrefix}.api.mailchimp.com/3.0`
 
-const baseURL = `https://${MAILCHIMP_SERVER_PREFIX}.api.mailchimp.com/3.0`
-
-export async function subscribeAndTagUser(email: string, reason: string) {
+export async function subscribeAndTagUser(
+  email: string,
+  reason: string,
+  tag: string,
+) {
   const subscriberHash = createSubscriberHash(email)
 
   // 1. Try to upsert subscriber
   try {
     await axios.put(
-      `${baseURL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}`,
+      `${baseURL}/lists/${mailchimpConfig.listId}/members/${subscriberHash}`,
       {
         email_address: email,
         status_if_new: 'subscribed',
@@ -25,7 +25,7 @@ export async function subscribeAndTagUser(email: string, reason: string) {
       {
         auth: {
           username: 'anystring',
-          password: MAILCHIMP_API_KEY,
+          password: mailchimpConfig.apiKey,
         },
       }
     )
@@ -44,11 +44,11 @@ export async function subscribeAndTagUser(email: string, reason: string) {
   // 2. Apply the tag
   try {
     await axios.post(
-      `${baseURL}/lists/${MAILCHIMP_LIST_ID}/members/${subscriberHash}/tags`,
+      `${baseURL}/lists/${mailchimpConfig.listId}/members/${subscriberHash}/tags`,
       {
         tags: [
           {
-            name: TAG_NAME,
+            name: tag,
             status: 'active',
           },
         ],
@@ -56,7 +56,7 @@ export async function subscribeAndTagUser(email: string, reason: string) {
       {
         auth: {
           username: 'anystring',
-          password: MAILCHIMP_API_KEY,
+          password: mailchimpConfig.apiKey,
         },
       }
     )

@@ -34,7 +34,7 @@ import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 import { authentificationRoutes } from './api/routes/auth'
 import { companyExportRoutes } from './api/routes/company.export'
 import { municipalityExportRoutes } from './api/routes/municipality.export'
-import { downloadRequestRoute } from './api/routes/download.request'
+import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 
 async function startApp() {
   const app = Fastify({
@@ -124,7 +124,7 @@ async function publicContext(app: FastifyInstance) {
   app.register(companyPublicReportingPeriodsRoutes, {
     prefix: 'api/reporting-period',
   })
-  app.register(downloadRequestRoute, { prefix: '' })
+  app.register(mailingListDownloadsRoute, { prefix: 'api' })
 }
 
 /**
