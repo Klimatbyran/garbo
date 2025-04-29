@@ -48,7 +48,7 @@ function createRequestPayload(url: string): BergetDoclingRequest {
       tableMode: "accurate",
       doTableStructure: true
     },
-    async: false,
+    async: true,
     document: {
         url,
         type: "document"
@@ -86,16 +86,13 @@ const doclingParsePDF = new DiscordWorker(
       job.sendMessage('Starting PDF parsing with Docling (async mode)...')
       
       // Submit the async task
-      const startTime = Date.now()
       job.log('Submitting async task to Docling API...')
       
       try {
-        const requestUrl = `${docling.baseUrl}/v1alpha/convert/source/async`
-        job.log(`Making request to: ${requestUrl}`)
-        job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
+        job.log(`Making request to: ${docling.baseUrl}`)
+        job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)        
         
-        
-        const response = await fetch(requestUrl, {
+        const startRequest = fetch(docling.baseUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -103,24 +100,29 @@ const doclingParsePDF = new DiscordWorker(
           },
           body: JSON.stringify(job.data.doclingSettings)
         })
+
+        const startResponse = await startRequest;
         
-        job.log(`Response status: ${response.status} ${response.statusText}`)
+        job.log(`Response status: ${startResponse.status} ${startResponse.statusText}`)
         
-        if (!response.ok) {
+        if (!startResponse.ok) {
           try {
-            const errorBody = await response.text()
+            const errorBody = await startResponse.text()
             job.log(`Error response body: ${errorBody}`)
-            throw new Error(`Docling API responded with status: ${response.status}`)
+            throw new Error(`Docling API responded with status: ${startResponse.status}`)
           } catch (bodyError) {
             job.log(`Failed to read error response body: ${bodyError.message}`)
-            throw new Error(`Docling API responded with status: ${response.status}`)
+            throw new Error(`Docling API responded with status: ${startResponse.status}`)
           }
         }
-        const result = await response.json();
-        job.log(`Task completed`);
-        job.log(result.content);
+        const { resultUrl } = await startResponse.json();
+
+        job.updateData({
+          ...job.data,
+          jobUrl: resultUrl
+        })
         
-        return result.content;
+        return await pollTaskAndGetResult(job, resultUrl);
 
         /* We are not doing async for now
         const asyncResponse = await response.json() as ProcessUrlAsyncResponse
@@ -158,70 +160,37 @@ const doclingParsePDF = new DiscordWorker(
   { concurrency: 1, connection: redis, lockDuration: 30 * 60 * 1000 } // Increased lock duration for async processing
 )
 
-async function pollTaskAndGetResult(job: DoclingParsePDFJob, taskId: string): Promise<{ markdown: string }> {
+async function pollTaskAndGetResult(job: DoclingParsePDFJob, resultUrl: string): Promise<{ markdown: string }> {
   const startTime = Date.now()
-  let isComplete = false
-  let status = ''
+  let markdown: string | undefined = undefined;
   
-  job.editMessage(`Parsing PDF... (Task ID: ${taskId})`)
+  job.editMessage(`Parsing PDF... (Result Url: ${resultUrl})`)
   
   // Poll for the task status until it's complete
-  while (!isComplete) {
-    try {
-      const statusUrl = `${docling.baseUrl}/v1alpha/status/poll/${taskId}?wait=5`
-      job.log(`Polling task status: ${statusUrl}`)
-      
-      const statusResponse = await fetch(statusUrl)
-      
-      if (!statusResponse.ok) {
-        throw new Error(`Status check failed with status: ${statusResponse.status}`)
-      }
-      
-      const statusData = await statusResponse.json() as TaskStatusResponse
-      status = statusData.task_status
-      
-      job.log(`Current task status: ${status}, position: ${statusData.task_position || 'N/A'}`)
-      
-      // Update the message with current status and elapsed time
-      const elapsedTime = Math.floor((Date.now() - startTime) / 1000)
-      job.editMessage(`Parsing PDF... Status: ${status} (elapsed: ${elapsedTime}s)`)
-      
-      if (status === 'success' || status === 'partial_success') {
-        isComplete = true
-      } else if (status === 'failure' || status === 'skipped') {
-        throw new Error(`Task failed with status: ${status}`)
-      } else {
-        // Wait 5 seconds before polling again (in addition to the wait param in the URL)
-        await sleep(5000)
-      }
-    } catch (error) {
-      job.log(`Error checking task status: ${error.message}`)
-      await sleep(5000) // Wait before retrying on error
+  while (markdown === undefined) {
+    job.log(`Polling task status: ${resultUrl}`)
+    
+    const statusResponse = await fetch(resultUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${docling.bergetAIToken}`
+      },
+    })
+    
+    if (statusResponse.status === 200) {
+      const result = await statusResponse.json();
+      markdown = result.content; 
+    } else if(statusResponse.status === 202) {
+      const retryAfter = parseInt(statusResponse.headers.get('Retry-After') || "2");
+      await sleep(retryAfter * 1000);
+    } else {
+      throw new Error(`Status check failed with status: ${statusResponse.status}`)
     }
   }
-  
-  // Task is complete, fetch the result
-  job.log(`Task complete, fetching results...`)
-  
-  const resultUrl = `${docling.baseUrl}/v1alpha/result/${taskId}`
-  const resultResponse = await fetch(resultUrl)
-  
-  if (!resultResponse.ok) {
-    throw new Error(`Failed to fetch results: ${resultResponse.status}`)
-  }
-  
-  const resultData = await resultResponse.json() as TaskResultResponse
-  const markdown = resultData.document.md_content || ''
-  
-  if (!markdown) {
-    job.log('Warning: No markdown found in results')
-    throw new Error('No markdown found in results')
-  }
-  
+    
   const totalTime = Math.floor((Date.now() - startTime) / 1000)
   job.editMessage(`PDF parsed successfully in ${totalTime}s`)
   job.log(`Task completed in ${totalTime}s`)
-  job.log(markdown)
   
   return { markdown }
 }
