@@ -123,20 +123,6 @@ const doclingParsePDF = new DiscordWorker(
         })
         
         return await pollTaskAndGetResult(job, resultUrl);
-
-        /* We are not doing async for now
-        const asyncResponse = await response.json() as ProcessUrlAsyncResponse
-        const newTaskId = asyncResponse.task_id
-        job.log(`Task submitted successfully with task ID: ${newTaskId}`)
-        
-        // Update job data to include the task ID for polling
-        job.updateData({
-          ...job.data,
-          taskId: newTaskId
-        })
-        
-        // Now poll for the task status and get results
-        return await pollTaskAndGetResult(job, newTaskId)*/
         
       } catch (networkError) {
         job.log(`Network error details: ${JSON.stringify({
@@ -176,6 +162,8 @@ async function pollTaskAndGetResult(job: DoclingParsePDFJob, resultUrl: string):
         'authorization': `Bearer ${docling.bergetAIToken}`
       },
     })
+
+    job.log(`Polling status ${statusResponse.status}`)
     
     if (statusResponse.status === 200) {
       const result = await statusResponse.json();
