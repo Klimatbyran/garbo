@@ -80,7 +80,7 @@ class ExportService {
 
   private transformCompanyPeriodToRow(company: Company, period: ReportingPeriod): CsvRow {
     const { scope1, scope2, scope3Categories, statedTotalEmissions } = this.transformEmissions(period.emissions ?? {});
-
+    
     return {
         wikidataId: company.wikidataId,
         name: company.name,
@@ -118,7 +118,7 @@ class ExportService {
       [key: `scope3${string}Unit`]: number | null
     } = {};
 
-    for(let i = 1; i <= 16; i++) {
+    for(let i = 0; i < Scope3CategoryNames.length; i++) {
       scope3Categories["scope3" + Scope3CategoryNames[i] + "Total"] = emissions.scope3?.categories?.[i]?.total || null;
       scope3Categories["scope3" + Scope3CategoryNames[i] + "Unit"] = emissions.scope3?.categories?.[i]?.unit || null;
     }
