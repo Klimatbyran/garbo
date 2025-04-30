@@ -76,6 +76,8 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
     - 1000 CO2 → 1 tCO2
     - 1 kton CO2e → 1000 tCO2e
     - 1 Mton CO2 → 1,000,000 tCO2
+    - 1 tusen ton CO2e → 1000 tCO2e (this is a common error. Especially look for this incident in the reports.)
+
 - Use **tCO2** only if it is explicitly reported without the "e" suffix, otherwise default to **tCO2e**.
 
 5. **Financial Institutions**:
