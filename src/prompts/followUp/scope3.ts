@@ -70,15 +70,15 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 4. **Units**:
 - Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit **tCO2e** (tons of CO2 equivalent) is preferred.
 - If a company explicitly reports emissions without the "e" suffix (e.g., **tCO2**), use **tCO2** as the unit. However, if no unit is specified or it is unclear, assume the unit is **tCO2e**.
+- Check table descriptions, headers, and footnotes carefully for unit scaling terms like "tusen ton CO2e." If found, multiply all corresponding emission values in the table by 1000 to accurately convert them to metric tons **tCO2e.**
 - All values must be converted to metric tons if they are provided in other units:
   - Example:
     - 1000 CO2e → 1 tCO2e
     - 1000 CO2 → 1 tCO2
     - 1 kton CO2e → 1000 tCO2e
     - 1 Mton CO2 → 1,000,000 tCO2
-    - 1 tusen ton CO2e → 1000 tCO2e (this is a common error. Especially look for this incident in the reports.)
-
-- Use **tCO2** only if it is explicitly reported without the "e" suffix, otherwise default to **tCO2e**.
+    - A value of 100 described as "1 tusen ton CO2e" should be reported as 100,000 tCO2e after converting.
+    - Use **tCO2** only if it is explicitly reported without the "e" suffix, otherwise default to **tCO2e**.
 
 5. **Financial Institutions**:
   If the company is a financial institution, look specifically for emissions data related to investments, portfolio, or financed emissions. These may be located in separate sections of the report.
