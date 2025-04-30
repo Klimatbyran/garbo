@@ -57,13 +57,8 @@ const nlmParsePDF = new DiscordWorker(
         let json: ParsedDocument
 
         try {
-          
-          throw new Error('Simulated error')
-          
           json = await extractJsonFromPdf(pdf)
-          
-        } catch (err) {
-          
+        } catch (err) {          
             job.log('Failed to parse PDF: ' + err.message + ', switching parser to docling...')
             job.editMessage(`❌ Fel vid tolkning av PDF: ${err.message}. Försöker med en annan parser...`)
       
