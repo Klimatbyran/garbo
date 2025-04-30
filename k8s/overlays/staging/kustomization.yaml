@@ -5,6 +5,7 @@ resources:
   - ../../base
 patches:
   - path: ingress-patch.yaml
+  - path: docling-ui-ingress-patch.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
     newTag: '3.16.0' # {"$imagepolicy": "flux-system:garbo-stage:tag"}

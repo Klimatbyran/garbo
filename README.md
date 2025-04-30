@@ -22,6 +22,7 @@ flowchart TB
     PDF[PDF]
     Cache{Is in cache?}
     NLM[Parse PDF]
+    DocLing[DocLing Parse PDF]
     Tables[Extract Tables]
     Emissions[Extract Emissions]
 
@@ -32,7 +33,9 @@ flowchart TB
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
 
-    PDF --> Cache --(no)--> NLM --> Tables --> Precheck
+    PDF --> Cache --(no)--> NLM
+    NLM --success--> Tables --> Precheck
+    NLM --failure--> DocLing --> Precheck
 
     Cache --(yes)--> Precheck
 
