@@ -7,5 +7,3 @@ resources:
   - ingress.yaml
   - worker.yaml
   - nlm-ingestor.yaml
-  - docling.yaml
-  - docling-ui-ingress.yaml
