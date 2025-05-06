@@ -119,8 +119,8 @@ class ExportService {
     } = {};
 
     for(let i = 0; i < Scope3CategoryNames.length; i++) {
-      scope3Categories["scope3" + Scope3CategoryNames[i] + "Total"] = emissions.scope3?.categories?.[i]?.total || null;
-      scope3Categories["scope3" + Scope3CategoryNames[i] + "Unit"] = emissions.scope3?.categories?.[i]?.unit || null;
+      scope3Categories["scope3" + Scope3CategoryNames[i] + "Total"] = emissions.scope3?.categories?.find( cat => cat.category === i+1)?.total || null;
+      scope3Categories["scope3" + Scope3CategoryNames[i] + "Unit"] = emissions.scope3?.categories?.find( cat => cat.category === i+1)?.unit || null;
     }
     
     const statedTotalEmissions = emissions.statedTotalEmissions?.total || null;
