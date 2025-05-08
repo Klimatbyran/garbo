@@ -361,10 +361,6 @@ export async function upsertCompanies(companies: CompanyInput[]) {
       initiatives,
     } = company
 
-    if(wikidataId === "Q52825") {
-      console.log(JSON.stringify(reportingPeriods));
-    }
-
     await postJSON(
       `${apiConfig.baseURL}/companies`,
       {
