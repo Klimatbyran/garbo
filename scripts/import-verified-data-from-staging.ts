@@ -154,7 +154,7 @@ function filterObjectsWithVerifiedBy(
       }
 
       // Remove emissions.statedTotalEmissions if metadata.verifiedBy is null
-      if (emissions?.statedTotalEmissions && !emissions.statedTotalEmissions.metadata.verifiedBy) {
+      if (emissions?.statedTotalEmissions && emissions.statedTotalEmissions.metadata.verifiedBy) {
         if(!reportingPeriod.emissions) {
           reportingPeriod.emissions = {};
         }
@@ -181,18 +181,19 @@ function filterObjectsWithVerifiedBy(
     }
     if(economy) {
       // Remove employees if metadata.verifiedBy is null
-      if (economy?.employees && !economy.employees.metadata.verifiedBy) {
+      if (economy?.employees && economy.employees.metadata.verifiedBy && economy.employees.value !== null) {
         if(!reportingPeriod.economy) {
           reportingPeriod.economy = {};
         }
         reportingPeriod.economy.employees = economy.employees;
-        if(reportingPeriod.economy.employees.unit === null) 
-          reportingPeriod.economy.employees.verified = true;
+        if(reportingPeriod.economy.employees.unit === null)
           reportingPeriod.economy.employees.unit = 'FTE';
+
+        reportingPeriod.economy.employees.verified = true;
       }
 
       // Remove turnover if metadata.verifiedBy is null
-      if (economy?.turnover && !economy.turnover.metadata.verifiedBy) {
+      if (economy?.turnover && economy.turnover.metadata.verifiedBy) {
         if(!reportingPeriod.economy) {
           reportingPeriod.economy = {};
         }
