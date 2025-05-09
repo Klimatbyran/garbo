@@ -47,6 +47,7 @@ interface ReportingPeriod {
       categories: EmissionCategory[] | null
     }
     scope1And2: Scope | null
+    biogenic: Scope | null
     statedTotalEmissions: Scope | null
   }
   economy: {
@@ -101,6 +102,7 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.emissions = {};
         }
         reportingPeriod.emissions.scope1 = emissions.scope1;
+        reportingPeriod.emissions.scope1.verified = true;
       }
 
       // Remove scope2 if metadata.verifiedBy is null
@@ -118,6 +120,7 @@ function filterObjectsWithVerifiedBy(
         if(reportingPeriod.emissions.scope2.unknown === null) {
           reportingPeriod.emissions.scope2.unknown = 0;
         }
+        reportingPeriod.emissions.scope2.verified = true;
       }
 
       // Remove scope3.statedTotalEmissions if metadata.verifiedBy is null
@@ -129,6 +132,7 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.emissions.scope3 = {};
         }
         reportingPeriod.emissions.scope3.statedTotalEmissions = emissions.scope3.statedTotalEmissions;
+        reportingPeriod.emissions.scope3.statedTotalEmissions.verified = true;
       }
 
       // Remove scope1And2 if metadata.verifiedBy is null
@@ -137,6 +141,16 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.emissions = {};
         }
         reportingPeriod.emissions.scope1And2 = emissions.scope1And2;
+        reportingPeriod.emissions.scope1And2.verified = true;
+      }
+
+      // Remove biogenic if metadata.verifiedBy is null
+      if (emissions?.biogenic && emissions.biogenic.metadata.verifiedBy) {
+        if(!reportingPeriod.emissions) {
+          reportingPeriod.emissions = {};
+        }
+        reportingPeriod.emissions.biogenic = emissions.biogenic;
+        reportingPeriod.emissions.biogenic.verified = true;
       }
 
       // Remove emissions.statedTotalEmissions if metadata.verifiedBy is null
@@ -145,6 +159,7 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.emissions = {};
         }
         reportingPeriod.emissions.statedTotalEmissions = emissions.statedTotalEmissions;
+        reportingPeriod.emissions.statedTotalEmissions.verified = true;
       }
 
       // Remove categories inside scope3.categories where metadata.verifiedBy is null
@@ -153,13 +168,15 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.emissions = {};
         }
         if(!reportingPeriod.emissions.scope3) {
-          reportingPeriod.emissions.scope3 = {
-            categories: [],
-          };
+          reportingPeriod.emissions.scope3 = {};
         }
-        emissions.scope3.categories = emissions.scope3.categories.filter(
+        if(!reportingPeriod.emissions.scope3.categories) {
+          reportingPeriod.emissions.scope3.categories = [];
+        }
+        reportingPeriod.emissions.scope3.categories = emissions.scope3.categories.filter(
           category => category.metadata.verifiedBy
         );
+        reportingPeriod.emissions.scope3.categories.map(category => category.verified = true);
       }
     }
     if(economy) {
@@ -170,6 +187,7 @@ function filterObjectsWithVerifiedBy(
         }
         reportingPeriod.economy.employees = economy.employees;
         if(reportingPeriod.economy.employees.unit === null) 
+          reportingPeriod.economy.employees.verified = true;
           reportingPeriod.economy.employees.unit = 'FTE';
       }
 
@@ -179,6 +197,7 @@ function filterObjectsWithVerifiedBy(
           reportingPeriod.economy = {};
         }
         reportingPeriod.economy.turnover = economy.turnover;
+        reportingPeriod.economy.turnover.verified = true;
       }
     }
 
@@ -187,6 +206,7 @@ function filterObjectsWithVerifiedBy(
 }
 
 async function pushVerfiedData(companies: any[]) {
+  let processedCompanies = 0;
   const token = await getApiToken(apiConfig.secret);
   for (const company of companies) {
     company.wikidataId = translateCompanyId(company.wikidataId);
@@ -218,11 +238,16 @@ async function pushVerfiedData(companies: any[]) {
           console.error(
             `Failed to push verified data for company ${company.wikidataId}: ${retry.statusText}`
           )
+        } else {
+          processedCompanies++;
         }
-      }
-      
+      }      
+    } else {
+      processedCompanies++;
     }
   }
+
+  console.log(`Processed ${processedCompanies} companies`);
 }
 
 async function postReportingPeriodUpdate(wikidataId: string, token: string, filteredReportingPeriods: any[]) {
