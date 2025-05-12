@@ -15,7 +15,7 @@ spec:
         - image: ghcr.io/klimatbyran/garbo
           resources:
             requests:
-              cpu: 500m
+              cpu: 800m
               memory: 1Gi
           command: ['npm', 'run', 'workers']
           name: worker
@@ -77,6 +77,13 @@ spec:
                   key: postgres-password
             - name: NLM_INGESTOR_URL
               value: http://nlm:5001
+            - name: DOCLING_URL
+              value: https://api.berget.ai/v1/ocr
+            - name: BERGET_AI_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BERGET_AI_TOKEN
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -124,7 +131,7 @@ spec:
     kind: Deployment
     name: worker
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 15
   metrics:
     - type: Resource
       resource:
@@ -138,3 +145,8 @@ spec:
         target:
           type: Utilization
           averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      stabilizationWindowSeconds: 60

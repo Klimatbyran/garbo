@@ -8,8 +8,8 @@ import {
 } from 'fastify-type-provider-zod'
 import fastifySwagger from '@fastify/swagger'
 import fastifyStatic from '@fastify/static'
-import { fastifySession } from '@fastify/session';
-import { fastifyCookie } from '@fastify/cookie';
+import { fastifySession } from '@fastify/session'
+import { fastifyCookie } from '@fastify/cookie'
 
 import scalarPlugin from '@scalar/fastify-api-reference'
 import { readFileSync } from 'fs'
@@ -22,13 +22,19 @@ import { companyGoalsRoutes } from './api/routes/company.goals'
 import authPlugin from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/company.industry'
 import { companyInitiativesRoutes } from './api/routes/company.initiatives'
-import { companyReportingPeriodsRoutes } from './api/routes/company.reportingPeriods'
+import {
+  companyPublicReportingPeriodsRoutes,
+  companyReportingPeriodsRoutes,
+} from './api/routes/company.reportingPeriods'
 import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 import { authentificationRoutes } from './api/routes/auth'
+import { companyExportRoutes } from './api/routes/company.export'
+import { municipalityExportRoutes } from './api/routes/municipality.export'
+import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 
 async function startApp() {
   const app = Fastify({
@@ -82,7 +88,7 @@ async function startApp() {
     },
   })
 
-  app.register(fastifyCookie);
+  app.register(fastifyCookie)
 
   app.register(publicContext)
   app.register(authenticatedContext)
@@ -110,9 +116,15 @@ async function publicContext(app: FastifyInstance) {
     }
   )
 
-  app.register(authentificationRoutes, {prefix: 'api/auth'})
+  app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
+  app.register(companyExportRoutes, { prefix: 'api/companies' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
+  app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
+  app.register(companyPublicReportingPeriodsRoutes, {
+    prefix: 'api/reporting-period',
+  })
+  app.register(mailingListDownloadsRoute, { prefix: 'api' })
 }
 
 /**

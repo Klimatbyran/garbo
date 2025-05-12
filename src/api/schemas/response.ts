@@ -355,8 +355,6 @@ export const CompanyDetails = CompanyBase.extend({
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
-const ClimatePlanYearEnumSchema = z.enum(['Saknar plan'])
-
 function transformYearlyData(
   yearlyData: Record<string, number>
 ): { year: string; value: number }[] {
@@ -366,10 +364,12 @@ function transformYearlyData(
   }))
 }
 
-const YearlyDataSchema = z.object({
-  year: z.string(),
-  value: z.number(),
-})
+const YearlyDataSchema = z
+  .object({
+    year: z.string(),
+    value: z.number(),
+  })
+  .nullable()
 
 const InputYearlyDataSchema = z
   .record(z.string(), z.number())
@@ -383,23 +383,23 @@ export const InputMunicipalitySchema = z.object({
   region: z.string(),
   emissions: InputYearlyDataSchema,
   budget: z.number(),
-  emissionBudget: InputYearlyDataSchema,
+  emissionBudget: InputYearlyDataSchema.nullable(),
   approximatedHistoricalEmission: InputYearlyDataSchema,
   totalApproximatedHistoricalEmission: z.number(),
   trend: InputYearlyDataSchema,
   trendEmission: z.number(),
   historicalEmissionChangePercent: z.number(),
-  neededEmissionChangePercent: z.number(),
-  hitNetZero: z.string(),
-  budgetRunsOut: z.string(),
+  neededEmissionChangePercent: z.number().nullable(),
+  hitNetZero: z.string().nullable(),
+  budgetRunsOut: z.string().nullable(),
   electricCarChangePercent: z.number(),
   electricCarChangeYearly: InputYearlyDataSchema,
-  climatePlanLink: z.string(),
-  climatePlanYear: z.union([ClimatePlanYearEnumSchema, z.number()]),
-  climatePlanComment: z.string(),
+  climatePlanLink: z.string().nullable(),
+  climatePlanYear: z.number().nullable(),
+  climatePlanComment: z.string().nullable(),
   bicycleMetrePerCapita: z.number(),
   totalConsumptionEmission: z.number(),
-  electricVehiclePerChargePoints: z.number(),
+  electricVehiclePerChargePoints: z.number().nullable(),
   procurementScore: z.string(),
   procurementLink: z.string(),
 })
@@ -414,7 +414,7 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
   electricCarChangeYearly: true,
 }).extend({
   emissions: z.array(YearlyDataSchema),
-  emissionBudget: z.array(YearlyDataSchema),
+  emissionBudget: z.array(YearlyDataSchema).nullable(),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),
   trend: z.array(YearlyDataSchema),
   electricCarChangeYearly: z.array(YearlyDataSchema),
@@ -422,4 +422,6 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
-export const AuthentificationResponseScheme = z.object({token: z.string()})
+export const AuthentificationResponseScheme = z.object({ token: z.string() })
+
+export const ReportingPeriodYearsSchema = z.array(z.string())
