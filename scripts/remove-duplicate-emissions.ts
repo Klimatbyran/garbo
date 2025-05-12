@@ -542,7 +542,8 @@ async function removeDuplicatesFromScope3Category() {
       console.error("Error removing duplicates from StatedTotalEmissions by Emission:", error);
     } 
   }
-  
+
+export function removeDuplicates() {
   // Run the duplicate removal process
   removeDuplicatesFromScope3Category();
   removeDuplicatesFromScope1();
@@ -553,3 +554,8 @@ async function removeDuplicatesFromScope3Category() {
   removeDuplicatesFromEmployees();
   removeDuplicatesFromStatedTotalEmissionsByScope3();
   removeDuplicatesFromStatedTotalEmissionsByEmission();
+}
+
+removeDuplicates();
+  
+  

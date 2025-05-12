@@ -1,7 +1,10 @@
-import { inspect } from 'util'
 import apiConfig from '../src/config/api'
-type VerifiedBy = { name: string } | null
+import { removeDuplicates } from './remove-duplicate-emissions'
 
+//BASE URL OF THE ENV YOU WANT TO APPLY THE VERIFIED DATA FROM
+const PROD_BASE_URL = 'https://api.klimatkollen.se/api'
+
+type VerifiedBy = { name: string } | null
 interface Metadata {
   verifiedBy: VerifiedBy
 }
@@ -56,8 +59,6 @@ interface ReportingPeriod {
   }
 }
 
-const prod_base_url = 'https://api.klimatkollen.se/api'
-
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
     method: 'POST',
@@ -74,7 +75,7 @@ async function getApiToken(secret: string) {
 }
 
 async function getCompanies() {
-  const response = await fetch(`${prod_base_url}/companies`)
+  const response = await fetch(`${PROD_BASE_URL}/companies`)
 
   if (!response.ok) {
     throw new Error(`Failed to fetch companies: ${response.statusText}`)
@@ -268,7 +269,7 @@ async function postReportingPeriodUpdate(wikidataId: string, token: string, filt
 
 async function createMissingCompany(wikidataId: string, name: string) {
   const token = await getApiToken(apiConfig.secret);
-  const response = await fetch(
+  await fetch(
     `${apiConfig.baseURL}/companies`,
     {
       method: 'POST',
@@ -298,7 +299,8 @@ function translateCompanyId(wikidataId) {
 }
 
 async function main() {
-  const companies = await getCompanies()
+  removeDuplicates();
+  const companies = await getCompanies();
   console.log(companies.length);
   await pushVerfiedData(companies)
 }
