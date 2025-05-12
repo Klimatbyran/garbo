@@ -5,6 +5,11 @@ import { resolve } from 'path';
 import * as z from 'zod';
 import * as schemas from '../src/api/schemas'
 
+
+// DEFINE THE ENVIRONMENTS YOU WANT TO COMPARE HERE
+const STAGING_API_URL ="https://stage-api.klimatkollen.se/api";
+const PRODUCTION_API_URL = "https://api.klimatkollen.se/api";
+
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
 type CompanyResponse = z.infer<typeof schemas.MinimalCompanyBase>;
@@ -55,11 +60,6 @@ interface ComparisonDiff {
   numberBelow90Acc?: number;
   numberBelow95Acc?:number;
 };
-
-// Define URLs from environment variables
-const STAGING_API_URL ="https://stage-api.klimatkollen.se/api";
-
-const PRODUCTION_API_URL = "https://api.klimatkollen.se/api";
 
 // Parse the API tokens assuming they are in the environment variables
 const API_TOKENS = process.env.API_TOKENS;
