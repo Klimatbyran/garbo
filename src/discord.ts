@@ -164,7 +164,7 @@ export class Discord {
   }
 
   async sendMessage(
-    { threadId }: { threadId: string },
+    threadId: string,
     msg: string | BaseMessageOptions
   ) {
     try {
@@ -181,7 +181,7 @@ export class Discord {
     }
   }
 
-  async sendTyping({ threadId }: { threadId: string }) {
+  async sendTyping(threadId: string ) {
     const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
     return thread.sendTyping()
   }
