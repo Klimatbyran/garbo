@@ -6,31 +6,22 @@ import { z } from 'zod'
 const nodeEnv = process.env.NODE_ENV
 
 const envSchema = z.object({
-  /**
-   * Comma-separated list of API tokens. E.g. garbo:lk3h2k1,alex:ax32bg4
-   * NOTE: This is only relevant during import with alex data, and then we switch to proper auth tokens.
-   */
   API_SECRET: z.string(),
-  FRONTEND_URL: z
-    .string()
-    .default(
-      nodeEnv === 'development'
-        ? 'http://localhost:5173'
-        : nodeEnv === 'staging'
-        ? 'https://stage.klimatkollen.se'
-        : 'https://beta.klimatkollen.se'
-    ),
-  API_BASE_URL: z.string().default('http://localhost:3000/api'),
-  PORT: z.coerce.number().default(3000),
-  CACHE_MAX_AGE: z.coerce.number().default(3000),
-  NODE_ENV: z.enum(['development', 'staging', 'production']).default('production'),
+  FRONTEND_URL_DEV: z.string().url(),
+  FRONTEND_URL_STAGING: z.string().url(),
+  FRONTEND_URL_PROD: z.string().url(),
+  API_BASE_URL_DEV: z.string().url(),
+  API_BASE_URL_STAGING: z.string().url(),
+  API_BASE_URL_PROD: z.string().url(),
+  PORT: z.coerce.number(),
+  CACHE_MAX_AGE: z.coerce.number(),
+  NODE_ENV: z.enum(['development', 'staging', 'production']),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  GITHUB_ORGANIZATION: z.string().default("Klimatbyran"),
-  GITHUB_REDIRECT_URI: z.string().default("http://localhost:5137/auth/callback"),
-  JWT_SECRET: z.string().default("tmdMFIfrucXH1m4rRHWF53dWtmAcWngPMQ6O5mIeH1g="),
-  JWT_EXPIRES_IN: z.string().default("3600"),
-  PROD_BASE_URL: z.string().default("https://api.klimatkollen.se/api")
+  GITHUB_ORGANIZATION: z.string(),
+  GITHUB_REDIRECT_URI: z.string().url(),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
 })
 
 const env = envSchema.parse(process.env)
@@ -38,19 +29,18 @@ const env = envSchema.parse(process.env)
 const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
+  env.FRONTEND_URL_DEV,
+  env.API_BASE_URL_DEV.slice(0, -4),
 ] as const
 
 const stageOrigins = [
-  'https://stage-api.klimatkollen.se',
-  'https://stage.klimatkollen.se',
+  env.FRONTEND_URL_STAGING,
+  env.API_BASE_URL_STAGING.slice(0, -4)
 ] as const
 
 const productionOrigins = [
-  'https://beta.klimatkollen.se',
-  'https://klimatkollen.se',
-  'https://api.klimatkollen.se',
+  env.FRONTEND_URL_PROD,
+  env.API_BASE_URL_PROD.slice(0, -4)
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
@@ -73,10 +63,15 @@ const apiConfig = {
       ? productionOrigins
       : developmentOrigins,
 
+  nodeEnv: env.NODE_ENV,
   secret: env.API_SECRET,
-  prod_base_url: env.PROD_BASE_URL,
-  frontendURL: env.FRONTEND_URL,
-  baseURL: env.API_BASE_URL,
+  prodBaseURL: env.API_BASE_URL_PROD,
+  frontendURL: env.NODE_ENV === 'development' ? env.FRONTEND_URL_DEV : 
+                env.NODE_ENV === 'staging' ? env.FRONTEND_URL_STAGING :
+                env.FRONTEND_URL_PROD,
+  baseURL: env.NODE_ENV === 'development' ? env.API_BASE_URL_DEV :
+            env.NODE_ENV === 'staging' ? env.API_BASE_URL_STAGING : 
+            env.API_BASE_URL_PROD,
   port: env.PORT,
   jobDelay: ONE_DAY,
   githubClientId: env.GITHUB_CLIENT_ID,
