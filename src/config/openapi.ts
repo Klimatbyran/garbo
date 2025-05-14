@@ -3,7 +3,7 @@ import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  OPENAPI_PREFIX: z.string().default('api'),
+  OPENAPI_PREFIX: z.string(),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

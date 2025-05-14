@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  NLM_INGESTOR_URL: z.string().default('http://0.0.0.0:5001'),
+  NLM_INGESTOR_URL: z.string().url(),
 })
 
 export const parsedEnv = envSchema.safeParse(process.env)
