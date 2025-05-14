@@ -31,6 +31,7 @@ flowchart TB
     Review[Discord Review]
     ShowNotes[Generate Show Notes]
     HeyGenVideo[Generate HeyGen Video]
+    CompanyLink[Send Company Link]
 
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
@@ -59,10 +60,13 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
-    Emissions --(followUp)--> ShowNotes --> CheckDB --(yes)--> Review --> HeyGenVideo
-                                           CheckDB --(no)--> HeyGenVideo
     
-    ShowNotes --> HeyGenVideo --> Climate News Video
+    API.Industry --> CompanyLink
+    API.Emissions --> CompanyLink
+    API.Goals --> CompanyLink
+    API.Economy --> CompanyLink
+    
+    CompanyLink --> ShowNotes --> HeyGenVideo --> Climate News Video
 ```
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
