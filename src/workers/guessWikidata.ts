@@ -198,8 +198,8 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       wikidataForApproval = {
         node: id,
         url: `https://wikidata.org/wiki/${id}`,
-        label: labels.sv.value ?? labels.en.value,
-        description: descriptions.sv.value ?? descriptions.en.value,
+        label: labels.sv?.value ?? labels.en?.value,
+        description: descriptions.sv?.value ?? descriptions.en?.value,
       } satisfies Wikidata
     }
 
