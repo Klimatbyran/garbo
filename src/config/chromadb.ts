@@ -7,7 +7,20 @@ const envSchema = z.object({
   CHUNK_SIZE: z.number().default(2000),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of ChromaDB environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'CHROMA_TOKEN')) {
+    console.error('CHROMA_TOKEN must be a key in the format of a string.');
+  }
+
+  throw new Error('Invalid initialization of ChromaDB environment variables')
+}
+
+const env = parsedEnv.data
 
 export default {
   path: env.CHROMA_HOST,

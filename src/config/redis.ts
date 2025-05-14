@@ -7,7 +7,28 @@ const envSchema = z.object({
   REDIS_PASSWORD: z.string().optional(),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of Redis environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'REDIS_HOST')) {
+    console.error('REDIS_HOST must be a host in the form of a string.');
+  }
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'REDIS_PORT')) {
+    console.error('REDIS_PORT must be a port in the form of a number.');
+  }
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'REDIS_PASSWORD')) {
+    console.error('REDIS_PASSWORD must be an password in the form of a string.');
+  }
+
+  throw new Error('Invalid initialization of Redis environment variables')
+}
+
+const env = parsedEnv.data
 
 export default {
   host: env.REDIS_HOST,

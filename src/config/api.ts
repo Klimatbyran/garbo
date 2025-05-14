@@ -24,7 +24,28 @@ const envSchema = z.object({
   JWT_EXPIRES_IN: z.coerce.number(),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of API environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'API_SECRET')) {
+    console.error('API_SECRET must be a secret in the form of a string.');
+    console.error('When running locally, this variable can be set freely.');
+    console.error('In production, ensure this is correctly set in your Kubernetes config.');
+  }
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'JWT_SECRET')) {
+    console.error('JWT_SECRET must be a secret in the form of a string.');
+    console.error('When running locally, this variable can be set freely.');
+    console.error('In production, ensure this is correctly set in your Kubernetes config.');
+  }
+
+  throw new Error('Invalid initialization of API environment variables')
+}
+
+const env = parsedEnv.data
 
 const ONE_DAY = 1000 * 60 * 60 * 24
 

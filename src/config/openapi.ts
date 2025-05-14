@@ -6,7 +6,18 @@ const envSchema = z.object({
   OPENAPI_PREFIX: z.string().default('api'),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of OpenAPI environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some(err => err.path[0] === 'OPENAPI_PREFIX')) {
+    console.error('OPENAPI_PREFIX must be a prefix in the form of a string.');
+  }
+
+  throw new Error('Invalid initialization of OpenAPI environment variables')
+}
 
 const openAPITagDefinitions = {
   Companies: {
@@ -57,6 +68,8 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
 export function getTags(...tags: (keyof typeof openAPITags)[]) {
   return tags
 }
+
+const env = parsedEnv.data
 
 export default {
   prefix: env.OPENAPI_PREFIX,
