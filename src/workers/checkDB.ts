@@ -79,7 +79,6 @@ const checkDB = new DiscordWorker(
       baseYear,
       goals,
       initiatives,
-      showNotes,
     } = childrenValues
   
     const base = {
@@ -159,16 +158,6 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 initiatives,
-              },
-            }
-          : null,
-        showNotes
-          ? {
-              ...base,
-              queueName: QUEUE_NAMES.GENERATE_SHOW_NOTES,
-              data: {
-                ...base.data,
-                showNotes,
               },
             }
           : null,

@@ -101,14 +101,6 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             type: JobType.BaseYear,
           },
         },
-        {
-          ...base,
-          name: 'showNotes ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.ShowNotes,
-          },
-        },
       ],
       opts: {
         attempts: 3,
