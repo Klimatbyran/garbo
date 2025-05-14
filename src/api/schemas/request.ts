@@ -207,3 +207,8 @@ export const serviceAuthenticationBodySchema = z.object({
   client_id: z.string(),
   client_secret: z.string()
 })
+
+export const exportQuerySchema = z.object({
+  type: z.enum(['csv', 'json', 'xlsx']).optional(),
+  year: z.string().optional()
+})

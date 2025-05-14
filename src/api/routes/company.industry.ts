@@ -21,7 +21,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         body: postIndustrySchema,
         response: {
           200: okResponseSchema,
-          ...getErrorSchemas(400, 404),
+          ...getErrorSchemas(400, 404, 500),
         },
       },
     },
@@ -35,33 +35,23 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       const {
         industry: { subIndustryCode },
         metadata,
-      } = request.body
-      const { wikidataId } = request.params
-
-      const current = await prisma.industry.findFirst({
-        where: { companyWikidataId: wikidataId },
-      })
+      } = request.body;
+      const { wikidataId } = request.params;
 
       const createdMetadata = await metadataService.createMetadata({
         metadata,
         user: request.user,
-      })
+      });
 
-      if (current) {
-        await industryService.updateIndustry(
-          wikidataId,
-          { subIndustryCode },
-          createdMetadata
-        )
-      } else {
-        await industryService.createIndustry(
-          wikidataId,
-          { subIndustryCode },
-          createdMetadata
-        )
+      try {
+        await industryService.upsertIndustry(wikidataId, { subIndustryCode }, createdMetadata);
+      } catch(error) {
+        console.error('ERROR Creation or update of industry failed:', error);
+        return reply.status(500).send({message: 'Creation or update of industry failed.'});
       }
+      
 
-      reply.send({ ok: true })
+      return reply.send({ ok: true });
     }
   )
 }

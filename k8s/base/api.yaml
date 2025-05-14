@@ -102,6 +102,21 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GITHUB_REDIRECT_URI
+            - name: MAILCHIMP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: MAILCHIMP_API_KEY
+            - name: MAILCHIMP_SERVER_PREFIX
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: MAILCHIMP_SERVER_PREFIX
+            - name: MAILCHIMP_LIST_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: MAILCHIMP_LIST_ID
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:

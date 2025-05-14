@@ -10,7 +10,7 @@ import nlmIngestorConfig from '../config/nlmIngestor'
 import { writeFile } from 'fs/promises'
 
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
-  const pdfResponse = await fetch(url, { headers })
+  const pdfResponse = await fetch(encodeURI(url), { headers });
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }

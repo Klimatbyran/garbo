@@ -3,6 +3,7 @@ import { DiscordQueue } from './lib/DiscordQueue'
 // Queue names as constants
 export const QUEUE_NAMES = {
   NLM_PARSE_PDF: 'nlmParsePDF',
+  DOCLING_PARSE_PDF: 'doclingParsePDF',
   NLM_EXTRACT_TABLES: 'nlmExtractTables',
   INDEX_MARKDOWN: 'indexMarkdown',
   PRECHECK: 'precheck',
@@ -25,6 +26,7 @@ export const QUEUE_NAMES = {
 // Create queue clients (NOT workers)
 export const queues = {
   nlmParsePDF: new DiscordQueue(QUEUE_NAMES.NLM_PARSE_PDF),
+  doclingParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new DiscordQueue(QUEUE_NAMES.INDEX_MARKDOWN),
   nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
   precheck: new DiscordQueue(QUEUE_NAMES.PRECHECK),
