@@ -54,6 +54,13 @@ const generateShowNotes = new DiscordWorker<GenerateShowNotesJob>(
       
       job.editMessage(`✅ Climate news show notes generated for ${companyName}!`)
 
+      // Trigger HeyGen video generation
+      const { queue } = await import('../queues')
+      await queue.generateHeygenVideo.add(`Generate video for ${companyName}`, {
+        ...job.data,
+        showNotes: parsedResponse.showNotes
+      })
+
       return parsedResponse.showNotes
     } catch (error) {
       job.log(`Error generating show notes: ${error.message}`)
