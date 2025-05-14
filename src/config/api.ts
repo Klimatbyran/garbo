@@ -21,7 +21,7 @@ const envSchema = z.object({
   GITHUB_ORGANIZATION: z.string(),
   GITHUB_REDIRECT_URI: z.string().url(),
   JWT_SECRET: z.string(),
-  JWT_EXPIRES_IN: z.string(),
+  JWT_EXPIRES_IN: z.coerce.number(),
 })
 
 const env = envSchema.parse(process.env)
