@@ -12,22 +12,24 @@ Promise.all(workers.map((worker) => worker.run()))
   .then((results) => results.join('\n'))
   .then(console.log)
   .catch((error) => {
-    console.error('Error starting workers:', error);
-    process.exit(1);
-  });
+    console.error('Error starting workers:', error)
+    process.exit(1)
+  })
 
 // Schedule daily Google search for new sustainability reports
 async function scheduleGoogleSearchJob() {
   // Only schedule if Google API is configured
   if (!googleConfig.isConfigured) {
-    console.warn('Google API not configured. Skipping PDF search job scheduling.')
+    console.warn(
+      'Google API not configured. Skipping PDF search job scheduling.'
+    )
     return
   }
 
   const queue = new Queue(QUEUE_NAMES.GOOGLE_SEARCH_PDFS, { connection: redis })
 
   // Check if job already exists
-  const repeatableJobs = await queue.getRepeatableJobs()
+  const repeatableJobs = await queue.getJobs()
   const jobExists = repeatableJobs.some(
     (job) => job.name === 'daily-sustainability-report-search'
   )
@@ -81,28 +83,34 @@ async function scheduleGoogleSearchJob() {
   }
 }
 
-async function connectWithRetry<T>(fn: () => Promise<T>, maxRetries = 5, delay = 1000): Promise<T> {
+async function connectWithRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries = 5,
+  delay = 1000
+): Promise<T> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      return await fn();
+      return await fn()
     } catch (err) {
-      if (attempt === maxRetries) throw err;
-      const error = err as Error;
-      console.log(`Connection attempt ${attempt} failed: ${error.message}. Retrying in ${delay}ms...`);
-      await new Promise(resolve => setTimeout(resolve, delay));
-      delay *= 2; // Exponential backoff
+      if (attempt === maxRetries) throw err
+      const error = err as Error
+      console.log(
+        `Connection attempt ${attempt} failed: ${error.message}. Retrying in ${delay}ms...`
+      )
+      await new Promise((resolve) => setTimeout(resolve, delay))
+      delay *= 2 // Exponential backoff
     }
   }
-  throw new Error('Failed to connect after maximum retries');
+  throw new Error('Failed to connect after maximum retries')
 }
 
 try {
-  await connectWithRetry(() => discord.login());
-  console.log('Discord bot started');
-  
+  await connectWithRetry(() => discord.login())
+  console.log('Discord bot started')
+
   // Schedule the Google search job after Discord is connected
-  await scheduleGoogleSearchJob();
+  await scheduleGoogleSearchJob()
 } catch (error) {
-  console.error('Failed to start Discord bot:', error);
-  process.exit(1);
+  console.error('Failed to start Discord bot:', error)
+  process.exit(1)
 }
