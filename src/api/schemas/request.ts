@@ -101,8 +101,8 @@ export const emissionsSchema = z
         verified: z.boolean().optional(),
       })
       .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
+        ({ mb, lb, unknown, verified}) =>
+          mb !== undefined || lb !== undefined || unknown !== undefined || verified !== undefined,
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
