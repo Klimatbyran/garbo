@@ -4,7 +4,7 @@ import { z } from 'zod'
 const envSchema = z.object({
   CHROMA_HOST: z.string().url(),
   CHROMA_TOKEN: z.string().optional(),
-  CHUNK_SIZE: z.number(),
+  CHUNK_SIZE: z.coerce.number(),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
