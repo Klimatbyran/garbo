@@ -17,7 +17,7 @@ export const QUEUE_NAMES = {
   FOLLOW_UP_FISCAL_YEAR: 'followUpFiscalYear',
   FOLLOW_UP_COMPANY_TAGS: 'followUpCompanyTags',
   FOLLOW_UP_BASE_YEAR: 'followUpBaseYear',
-  FOLLOW_UP_INDUSTRY_GICS: 'followUpIndustryGICS',
+  FOLLOW_UP_INDUSTRY_GICS: 'followUpIndustryGics',
   EXTRACT_EMISSIONS: 'extractEmissions',
   CHECK_DB: 'checkDB',
   DIFF_BASE_YEAR: 'diffBaseYear',
