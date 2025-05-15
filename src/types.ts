@@ -1,4 +1,4 @@
-export enum JobType {
+export enum FollowUpType {
   IndustryGics = 'followUp/industryGics',
   Scope12 = 'followUp/scope12',
   Scope3 = 'followUp/scope3',
@@ -9,8 +9,4 @@ export enum JobType {
   FiscalYear = 'followUp/fiscalYear',
   CompanyTags = 'followUp/companyTags',
   BaseYear = 'followUp/baseYear',
-
-  Wikidata = 'wikidata',
-  Precheck = 'precheck',
-  ExtractEmissions = 'extractEmissions',
 }

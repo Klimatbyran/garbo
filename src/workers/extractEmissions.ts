@@ -1,13 +1,11 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types'
 import { QUEUE_NAMES } from '../queues'
 
 class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    type: JobType
   }
 }
 
@@ -24,7 +22,6 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const base = {
       name: companyName,
       data: { ...job.data, ...childrenValues },
-      queueName: QUEUE_NAMES.FOLLOW_UP,
       opts: {
         attempts: 3,
       },
@@ -40,66 +37,42 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         {
           ...base,
           name: 'industryGics ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.IndustryGics,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS,
         },
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope12,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_12,
         },
         {
           ...base,
           name: 'scope3 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope3,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_3,
         },
         {
           ...base,
           name: 'biogenic ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Biogenic,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_BIOGENIC,
         },
         {
           ...base,
           name: 'economy ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Economy,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_ECONOMY,
         },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Goals,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_GOALS,
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Initiatives,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_INITIATIVES,
         },
         {
           ...base,
           name: 'baseYear ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.BaseYear,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
         },
       ],
       opts: {
