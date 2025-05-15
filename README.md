@@ -29,6 +29,9 @@ flowchart TB
     Industry[Industry]
     Goals[Climate Goals]
     Review[Discord Review]
+    ShowNotes[Generate Show Notes]
+    HeyGenVideo[Generate HeyGen Video]
+    CompanyLink[Send Company Link]
 
     Precheck --> GuessWikidata --> Emissions
     Precheck --> FiscalYear --> Emissions
@@ -57,9 +60,26 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
+    
+    API.Industry --> CompanyLink
+    API.Emissions --> CompanyLink
+    API.Goals --> CompanyLink
+    API.Economy --> CompanyLink
+    
+    CompanyLink --> ShowNotes --> HeyGenVideo --> Climate News Video
 ```
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
+
+## Climate News Video Generation
+
+Garbo can automatically generate climate news videos based on company emissions reports:
+
+1. **Show Notes Generation**: After extracting emissions data, Garbo creates concise, engaging scripts for climate news reports that highlight key findings from the company's emissions data.
+
+2. **HeyGen Video Generation**: The show notes are then sent to the HeyGen API to generate a professional video featuring an AI avatar delivering the climate news report.
+
+This automated process transforms complex emissions data into accessible, shareable video content that can be used for social media, educational purposes, or stakeholder communications.
 
 ## Get started 🚀
 
