@@ -16,7 +16,7 @@ export function errorHandler(
     reply.status(400).send({
       code: 'VALIDATION_ERROR',
       message: fastifyError.message,
-      details: apiConfig.DEV ? fastifyError : fastifyError.validation,
+      details: apiConfig.nodeEnv === 'development' ? fastifyError : fastifyError.validation,
     })
   } else if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -25,13 +25,13 @@ export function errorHandler(
     reply.status(404).send({
       code: 'NOT_FOUND',
       message: 'The requested resource could not be found.',
-      details: apiConfig.DEV ? error : undefined,
+      details: apiConfig.nodeEnv === 'development' ? error : undefined,
     })
   } else {
     reply.status(500).send({
       code: 'INTERNAL_SERVER_ERROR',
-      message: apiConfig.DEV ? error.message : 'An unexpected error occurred.',
-      details: apiConfig.DEV ? error : undefined,
+      message: apiConfig.nodeEnv === 'development' ? error.message : 'An unexpected error occurred.',
+      details: apiConfig.nodeEnv === 'development' ? error : undefined,
     })
   }
 }
