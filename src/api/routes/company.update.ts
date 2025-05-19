@@ -36,7 +36,6 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
     ) => {
       const { name, wikidataId, description, internalComment, tags, url, lei } =
         request.body
-        console.log(request.body);
       
 
       try { 
