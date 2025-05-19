@@ -4,6 +4,7 @@ import apiConfig from '../config/api'
 import { apiFetch } from '../lib/api'
 import wikipediaUpload from './wikipediaUpload'
 import { QUEUE_NAMES } from '../queues'
+import { inspect } from 'util'
 
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
@@ -27,7 +28,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         approved = false,
         requiresApproval = true,
         diff = '',
-        body,
+        body ,
         apiSubEndpoint,
         autoApprove = false,
       } = job.data
@@ -79,10 +80,18 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           ${JSON.stringify(sanitizedBody)}`)
 
         try {
+
+
+          if (apiSubEndpoint == ''){
+            await apiFetch(`/companies/${wikidataId}`, {
+              body: sanitizedBody
+            })
+          } else{
           await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
             body: sanitizedBody
           })
-
+          }
+          
           if(apiSubEndpoint === "reporting-periods") {
             await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
               {
@@ -90,6 +99,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
               }
             )
           }
+          
 
           return { success: true }
         } catch (apiError) {

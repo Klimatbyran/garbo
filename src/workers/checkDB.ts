@@ -16,6 +16,7 @@ export class CheckDBJob extends DiscordJob {
     },
     childrenValues?: any
     approved?: boolean
+    lei?: string
   }
 }
 
@@ -32,6 +33,8 @@ const checkDB = new DiscordWorker(
       wikidata,
       threadId,
       channelId,
+      
+      
     } = job.data
   
     const childrenValues = await job.getChildrenEntries()
@@ -41,8 +44,9 @@ const checkDB = new DiscordWorker(
     const wikidataId = wikidata.node
   
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null
+      () => null 
     )
+    job.log(existingCompany);
   
     if (!existingCompany) {
       const metadata = {
@@ -57,19 +61,21 @@ const checkDB = new DiscordWorker(
         name: companyName,
         description,
         wikidataId,
+        lei: null, 
         metadata,
       }
   
-      await apiFetch(`/companies`, { body })
-  
+      await apiFetch(`/companies`, { body }); 
+
       await job.sendMessage(
-        `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
-          companyName,
-          wikidataId
-        )}`
-      )
+        `✅ Företaget '${companyName}' har skapats! Se resultatet här: ${getCompanyURL(companyName, wikidataId)}`
+      );
+    } else {
+      job.log(`✅ Företaget '${companyName}' hittades i databasen.`);
+      await job.sendMessage(`✅ Företaget '${companyName}' hittades i vår databas, med LEI '${existingCompany.lei} || null'`);
     }
-  
+
+    
     const {
       scope12,
       scope3,
@@ -79,6 +85,7 @@ const checkDB = new DiscordWorker(
       baseYear,
       goals,
       initiatives,
+      lei,
     } = childrenValues
   
     const base = {
@@ -98,7 +105,9 @@ const checkDB = new DiscordWorker(
         attempts: 3,
       },
     }
-  
+    
+    console.log(`LEI number in checkDB file${lei}`);
+
     await job.editMessage(`🤖 Sparar data...`)
   
     await flow.add({
@@ -161,6 +170,20 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
+
+        lei
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_LEI,
+              data: {
+                ...base.data,
+                lei,
+                
+               
+              },
+            }
+          : null,
+          
       ].filter((e) => e !== null),
     })
   

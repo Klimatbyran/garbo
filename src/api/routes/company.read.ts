@@ -104,6 +104,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
     }
   )
 
+  
+
   app.get(
     '/search',
     {

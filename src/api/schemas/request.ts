@@ -17,6 +17,7 @@ export const postCompanyBodySchema = z.object({
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
   tags: z.array(z.string()).optional(),
+  lei: z.string().optional(),
 })
 
 export const reportingPeriodBodySchema = z
