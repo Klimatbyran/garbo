@@ -47,8 +47,7 @@ const extractLEI = new DiscordWorker<LEIJob>(
     }
     
     job.log(`✅ Extracted LEI '${leiData.lei}' for '${companyName}' from Wikidata.`);
-    console.log(`Extracted LEI for this company: ${leiData.lei}`);
-    console.log(`Wikidata ID: ${leiData.wikidataId}`);
+    
     
     return { lei: leiData.lei, wikidataId: leiData.wikidataId };
     

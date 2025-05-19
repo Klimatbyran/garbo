@@ -39,7 +39,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
       
 
       try { 
-        const company = await companyService.upsertCompany({
+        await companyService.upsertCompany({
           name,
           wikidataId,
           description,
