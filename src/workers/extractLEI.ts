@@ -30,7 +30,6 @@ async function fetchLEIFromWikidata(companyName: string): Promise<{ lei?: string
     }
   }
 
-  console.log(`⚠️ No LEI found for '${companyName}' in Wikidata.`);
   
   return null;
 }
