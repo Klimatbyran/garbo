@@ -46,7 +46,6 @@ const extractLEI = new DiscordWorker<LEIJob>(
       throw new Error(`No LEI found for '${companyName}'.`);
     }
     
-    job.log(`✅ Extracted LEI '${leiData.lei}' for '${companyName}' from Wikidata.`);
     
     
     return { lei: leiData.lei, wikidataId: leiData.wikidataId };
