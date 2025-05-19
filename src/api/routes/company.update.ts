@@ -48,7 +48,6 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           url,
           lei,
         })
-        console.log(company);
       } catch(error) {
         console.error('ERROR Creation or update of company failed:', error)
         return reply.status(500).send({message: "Creation or update of company failed."});
