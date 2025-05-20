@@ -1,38 +1,17 @@
 
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker';
-import { getWikidataEntities, searchCompany } from '../lib/wikidata'; // Wikidata helpers
+import {  fetchLEIFromWikidata} from '../lib/wikidata'; 
 import { QUEUE_NAMES } from '../queues';
 
 export class LEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string;
-    wikidataId: string; // Wikidata entity ID.
+    wikidataId: string; 
     
   };
 }
 
-async function fetchLEIFromWikidata(companyName: string): Promise<{ lei?: string; wikidataId?: string } | null> {
-  console.log(`🔍 Searching for '${companyName}' in Wikidata...`);
 
-  const searchResults = await searchCompany({ companyName });
-  if (!searchResults.length) {
-    console.log(`⚠️ No Wikidata entry found for '${companyName}'.`);
-    return null;
-  }
-
-  const entities = await getWikidataEntities(searchResults.map((result) => result.id));
-  for (const entity of entities) {
-    const claims = entity.claims || {};
-    if (claims.P1278 && claims.P1278[0]?.mainsnak?.datavalue?.value) {
-      const lei = claims.P1278[0].mainsnak.datavalue.value;
-      console.log(`✅ Found LEI for '${companyName}': ${lei}`);
-      return { lei, wikidataId: entity.id };
-    }
-  }
-
-  
-  return null;
-}
 const extractLEI = new DiscordWorker<LEIJob>(
   QUEUE_NAMES.EXTRACT_LEI,
   async (job: LEIJob) => {
@@ -45,9 +24,7 @@ const extractLEI = new DiscordWorker<LEIJob>(
       job.log(`❌ Could not find a valid LEI for '${companyName}' in Wikidata.`);
       throw new Error(`No LEI found for '${companyName}'.`);
     }
-    
-    
-    
+    job.log(`✅ Found LEI for '${companyName}': ${leiData.lei}`);
     return { lei: leiData.lei, wikidataId: leiData.wikidataId };
     
   }
