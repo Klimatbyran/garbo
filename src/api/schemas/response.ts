@@ -422,6 +422,10 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
+export const MunicipalitySectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
