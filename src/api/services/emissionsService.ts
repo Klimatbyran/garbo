@@ -223,9 +223,6 @@ class EmissionsService {
         if (scope3Category.total === null) {
           scope3Category.total = matching?.total ?? 0;
         }
-        console.log(scope3Category);
-        console.log(matching.id)
-        console.log(metadataForScope3Category);
 
         return prisma.scope3Category.upsert({
           where: {
