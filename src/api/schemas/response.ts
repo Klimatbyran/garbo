@@ -114,6 +114,7 @@ export const Scope3CategorySchema = z.object({
     .openapi({ description: 'Scope 3 category number (1-16)' }),
   total: z
     .number()
+    .nullable()
     .openapi({ description: 'Total emissions for this category' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
