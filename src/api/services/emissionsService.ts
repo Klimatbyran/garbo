@@ -205,6 +205,7 @@ class EmissionsService {
           select: {
             id: true,
             category: true,
+            total: true,
           },
         },
       },
@@ -220,7 +221,7 @@ class EmissionsService {
         )
 
         if (scope3Category.total === null) {
-          return null
+          scope3Category.total = matching?.total ?? 0;
         }
 
         return prisma.scope3Category.upsert({

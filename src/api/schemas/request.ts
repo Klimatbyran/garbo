@@ -115,7 +115,7 @@ export const emissionsSchema = z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
-              total: z.number(),
+              total: z.number().optional(),
               unit: emissionUnitSchemaWithDefault,
               verified: z.boolean().optional(),
             })
