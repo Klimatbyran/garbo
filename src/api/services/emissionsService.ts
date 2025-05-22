@@ -230,10 +230,6 @@ class EmissionsService {
           ({ category }) => scope3Category.category === category
         )
 
-        if (scope3Category.total == null) {
-          scope3Category.total = matching?.total ?? 0;
-        }
-
         return prisma.scope3Category.upsert({
           where: {
             id: matching?.id ?? '',

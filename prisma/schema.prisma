@@ -233,7 +233,7 @@ model Scope3Category {
   // knowing the composition of cat 6. business travel, and how it changes across different years.
   // This would also make easier to detect discrepancies between stated emissions and the actual calculated total value
   // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
-  total    Float
+  total    Float?
   scope3Id String
   unit     String
 
