@@ -211,6 +211,16 @@ class EmissionsService {
       },
     })
 
+    const seenCategories = new Set<number>();
+    scope3.categories = scope3.categories?.filter(item => {
+      if (seenCategories.has(item.category)) {
+        return false;
+      }
+      seenCategories.add(item.category);
+      return true;
+    });
+
+
     // Upsert only the scope 3 categories from the request body
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
@@ -220,7 +230,7 @@ class EmissionsService {
           ({ category }) => scope3Category.category === category
         )
 
-        if (scope3Category.total === null) {
+        if (scope3Category.total == null) {
           scope3Category.total = matching?.total ?? 0;
         }
 
