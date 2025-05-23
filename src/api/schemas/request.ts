@@ -74,7 +74,7 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
+  .object({ total: z.number().optional(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
   .optional()
 
 export const emissionsSchema = z
