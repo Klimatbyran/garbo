@@ -1,6 +1,7 @@
 
+import { EntityId } from 'wikibase-sdk';
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker';
-import {  fetchLEIFromWikidata} from '../lib/wikidata'; 
+import { getLEINumberClaim } from '../lib/wikidata'; 
 import { QUEUE_NAMES } from '../queues';
 
 export class LEIJob extends DiscordJob {
@@ -15,17 +16,16 @@ export class LEIJob extends DiscordJob {
 const extractLEI = new DiscordWorker<LEIJob>(
   QUEUE_NAMES.EXTRACT_LEI,
   async (job: LEIJob) => {
-    const { companyName } = job.data;
+    const { wikidataId, companyName } = job.data;
 
-    
-    const leiData = await fetchLEIFromWikidata(companyName);
+    const lei = await getLEINumberClaim(wikidataId as EntityId);
 
-    if (!leiData?.lei) {
+    if (!lei) {
       job.log(`❌ Could not find a valid LEI for '${companyName}' in Wikidata.`);
-      throw new Error(`No LEI found for '${companyName}'.`);
+      //throw new Error(`No LEI found for '${companyName}'.`);
     }
-    job.log(`✅ Found LEI for '${companyName}': ${leiData.lei}`);
-    return { lei: leiData.lei, wikidataId: leiData.wikidataId };
+    job.log(`✅ Found LEI for '${companyName}': ${lei}`);
+    return { lei: lei, wikidataId: wikidataId };
     
   }
 );

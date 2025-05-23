@@ -107,7 +107,10 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'lei ' + companyName,
           queueName: QUEUE_NAMES.EXTRACT_LEI,
-          
+          data: {
+            ...base.data,
+            wikidataId: base.data.wikidata.node
+          }
         }
       ],
       opts: {
