@@ -42,9 +42,9 @@ const checkDB = new DiscordWorker(
   
     job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
     const wikidataId = wikidata.node
-  
+    
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null 
+      () => null
     )
     job.log(existingCompany);
   
@@ -65,7 +65,7 @@ const checkDB = new DiscordWorker(
         metadata,
       }
   
-      await apiFetch(`/companies`, { body }); 
+      await apiFetch(`/companies/${wikidataId}`, { body }); 
 
       await job.sendMessage(
         `✅ Företaget '${companyName}' har skapats! Se resultatet här: ${getCompanyURL(companyName, wikidataId)}`
@@ -106,7 +106,7 @@ const checkDB = new DiscordWorker(
       },
     }
     
-    console.log(`LEI number in checkDB file${lei}`);
+    console.log(`LEI number in checkDB file: ${lei}`);
 
     await job.editMessage(`🤖 Sparar data...`)
   

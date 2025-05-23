@@ -163,14 +163,14 @@ export async function getLEINumber(entity: `Q${number}`): Promise<string | undef
 
   const claims = wikidataEntities[entity].claims;
 
-  if(claims === undefined || claims["P1278"] === undefined) {
+  if(claims === undefined) {
+    return;
+  }
+
+  if(claims["P1278"] === undefined) {
     return;
   }
 
   return claims["P1278"][0].mainsnak.datavalue.value;
 }
-
-
-
-
 
