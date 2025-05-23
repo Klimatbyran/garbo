@@ -42,7 +42,7 @@ const checkDB = new DiscordWorker(
   
     job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
     const wikidataId = wikidata.node
-    
+
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
@@ -60,8 +60,7 @@ const checkDB = new DiscordWorker(
       const body = {
         name: companyName,
         description,
-        wikidataId,
-        lei: null, 
+        wikidataId, 
         metadata,
       }
   
