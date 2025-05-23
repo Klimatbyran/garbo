@@ -115,7 +115,7 @@ export async function searchCompany({
   return response.search
 }
 
-export async function getWikidataEntities(ids: EntityId[]) {
+export async function getWikidataEntities(ids: `Q${number}`[]) {
   const url = wbk.getEntities({
     ids,
     props: ['info', 'claims', 'descriptions', 'labels'],
@@ -148,28 +148,28 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   return title
 }
 
-export async function fetchLEIFromWikidata(companyName: string): Promise<{ lei?: string; wikidataId?: string } | null> {
-  console.log(`🔍 Searching for '${companyName}' in Wikidata...`);
+export async function getLEINumber(entity: `Q${number}`): Promise<string | undefined> {
+  const url = wbk.getEntities({
+      ids: entity,
+      languages: ["en"]
+  })
 
-  const searchResults = await searchCompany({ companyName });
-  if (!searchResults.length) {
-    console.log(`⚠️ No Wikidata entry found for '${companyName}'.`);
-    return null;
+  const res = await fetch(url);
+  const wikidataEntities = (await res.json()).entities;
+
+  if(wikidataEntities === undefined) {
+    return;
   }
 
-  const entities = await getWikidataEntities(searchResults.map((result) => result.id));
-  for (const entity of entities) {
-    const claims = entity.claims || {};
-    if (claims.P1278 && claims.P1278[0]?.mainsnak?.datavalue?.value) {
-      const lei = claims.P1278[0].mainsnak.datavalue.value;
-      console.log(`✅ Found LEI for '${companyName}': ${lei}`);
-      return { lei, wikidataId: entity.id };
-    }
+  const claims = wikidataEntities[entity].claims;
+
+  if(claims === undefined || claims["P1278"] === undefined) {
+    return;
   }
 
-  
-  return null;
+  return claims["P1278"][0].mainsnak.datavalue.value;
 }
+
 
 
 
