@@ -10,9 +10,7 @@ import {
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEmissions } from '../types'
 import { prisma } from '../../lib/prisma'
-import { emissionsArgs, metadataArgs } from '../args'
-import { Emissions } from '@prisma/client'
-import { companyService, transformMetadata } from './companyService'
+import { emissionsArgs } from '../args'
 import _ from 'lodash'
 
 class EmissionsService {
@@ -43,10 +41,6 @@ class EmissionsService {
     metadata: Metadata
   ) {
     const existingScope1Id = emissions.scope1?.id
-
-    if (scope1.total === null) {
-      scope1.total = null
-    }
 
     return existingScope1Id
       ? prisma.scope1.update({
@@ -95,10 +89,6 @@ class EmissionsService {
   ) {
     const existingScope2Id = emissions.scope2?.id
 
-    if (scope2.mb === null) scope2.mb = null
-    if (scope2.lb === null) scope2.lb = null
-    if (scope2.unknown === null) scope2.unknown = null
-
     return existingScope2Id
       ? prisma.scope2.update({
           where: { id: existingScope2Id },
@@ -140,10 +130,6 @@ class EmissionsService {
     metadata: Metadata
   ) {
     const existingScope1And2Id = emissions.scope1And2?.id
-
-    if (scope1And2.total === null) {
-      scope1And2.total = null
-    }
 
     return existingScope1And2Id
       ? prisma.scope1And2.update({
@@ -240,10 +226,6 @@ class EmissionsService {
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )
-
-        if (scope3Category.total === null) {
-          scope3Category.total = null
-        }
 
         return prisma.scope3Category.upsert({
           where: {
