@@ -81,7 +81,7 @@ export const emissionsSchema = z
   .object({
     scope1: z
       .object({
-        total: z.number(),
+        total: z.number().optional(),
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
