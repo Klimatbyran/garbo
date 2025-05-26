@@ -168,7 +168,7 @@ export async function getLEINumberClaim(id: EntityId): Promise<string | undefine
     return;
   }
 
-  if(claims["P1278"] === undefined) {
+  if(claims["P1278"] === undefined || claims["P1278"].length === 0) {
     return;
   }
 
