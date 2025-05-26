@@ -6,8 +6,6 @@ import { QUEUE_NAMES } from '../queues';
 import { getLEINumbers } from '../lib/gleif';
 import { ask } from '../lib/openai';
 import { leiPrompt, leiSchema } from '../prompts/lei';
-import { ChatCompletionMessageParam } from 'openai/resources';
-import { zodResponseFormat } from 'openai/helpers/zod';
 
 export class LEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
