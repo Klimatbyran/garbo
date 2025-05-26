@@ -44,6 +44,10 @@ class EmissionsService {
   ) {
     const existingScope1Id = emissions.scope1?.id
 
+    if (scope1.total === null) {
+      scope1.total = null
+    }
+
     return existingScope1Id
       ? prisma.scope1.update({
           where: { id: existingScope1Id },
@@ -82,15 +86,18 @@ class EmissionsService {
   async upsertScope2(
     emissions: DefaultEmissions,
     scope2: {
-      lb?: number
-      mb?: number
-      unknown?: number
+      lb?: number | null
+      mb?: number | null
+      unknown?: number | null
       unit: 'tCO2e' | 'tCO2'
     },
-
     metadata: Metadata
   ) {
     const existingScope2Id = emissions.scope2?.id
+
+    if (scope2.mb === null) scope2.mb = null
+    if (scope2.lb === null) scope2.lb = null
+    if (scope2.unknown === null) scope2.unknown = null
 
     return existingScope2Id
       ? prisma.scope2.update({
@@ -134,6 +141,10 @@ class EmissionsService {
   ) {
     const existingScope1And2Id = emissions.scope1And2?.id
 
+    if (scope1And2.total === null) {
+      scope1And2.total = null
+    }
+
     return existingScope1And2Id
       ? prisma.scope1And2.update({
           where: { id: existingScope1And2Id },
@@ -172,7 +183,12 @@ class EmissionsService {
   async upsertScope3(
     emissions: DefaultEmissions,
     scope3: {
-      categories?: { category: number; total: number; unit: string; verified?: boolean }[]
+      categories?: {
+        category: number
+        total: number | null
+        unit: string
+        verified?: boolean
+      }[]
       statedTotalEmissions?: Omit<
         StatedTotalEmissions,
         'id' | 'metadataId' | 'scope3Id' | 'emissionsId'
@@ -182,7 +198,11 @@ class EmissionsService {
   ) {
     const existingScope3Id = emissions.scope3?.id
 
-    const metadata = await createMetadata(scope3.statedTotalEmissions?.verified ?? false)
+    const metadata = await createMetadata(
+      'verified' in (scope3.statedTotalEmissions ?? {})
+        ? (scope3.statedTotalEmissions as any).verified
+        : false
+    )
 
     const updatedScope3 = await prisma.scope3.upsert({
       where: { id: existingScope3Id ?? '' },
@@ -211,17 +231,18 @@ class EmissionsService {
       },
     })
 
-    // Upsert only the scope 3 categories from the request body
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
-        const metadataForScope3Category = await createMetadata(scope3Category.verified ?? false)
+        const metadataForScope3Category = await createMetadata(
+          scope3Category.verified ?? false
+        )
         scope3Category = _.omit(scope3Category, 'verified')
         const matching = updatedScope3.categories.find(
           ({ category }) => scope3Category.category === category
         )
 
         if (scope3Category.total === null) {
-          scope3Category.total = matching?.total ?? 0;
+          scope3Category.total = null
         }
 
         return prisma.scope3Category.upsert({

@@ -50,21 +50,30 @@ const CompanyBaseSchema = z.object({
 
 export const StatedTotalEmissionsSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total emissions value' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const BiogenicSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total biogenic emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total biogenic emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope1Schema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total scope 1 emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
@@ -114,6 +123,7 @@ export const Scope3CategorySchema = z.object({
     .openapi({ description: 'Scope 3 category number (1-16)' }),
   total: z
     .number()
+    .nullable()
     .openapi({ description: 'Total emissions for this category' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
