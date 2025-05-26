@@ -167,7 +167,7 @@ export async function getLEINumber(entity: `Q${number}`): Promise<string | undef
     return;
   }
 
-  if(claims["P1278"] === undefined) {
+  if(claims["P1278"] === undefined || claims["P1278"].length === 0) {
     return;
   }
 
