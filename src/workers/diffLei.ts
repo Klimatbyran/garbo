@@ -15,7 +15,7 @@ export class DiffLeiJob extends DiscordJob {
 
 function compareLei(
   existingLei?: string,
-  lei: string | null | undefined
+  lei?: string
 ): {
   shouldUpdate: boolean; 
   reason: string; 
