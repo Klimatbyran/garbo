@@ -1,5 +1,8 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '../../api/schemas'
+import { FollowUpType } from "../../types";
 
 export const schema = z.object({
   scope3: z.array(
@@ -167,4 +170,13 @@ const queryTexts = [
   'Upstream and downstream emissions',
 ]
 
-export default { prompt, schema, queryTexts }
+const followUpScope3 = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_SCOPE_3,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.Scope3);
+        return answer;
+    }
+);
+
+export default followUpScope3;

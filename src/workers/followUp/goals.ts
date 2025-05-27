@@ -1,4 +1,7 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 // TODO: In the future, import the schemas from a shared place
 export const schema = z.object({
@@ -43,4 +46,13 @@ const queryTexts = [
   'Company sustainability goals',
 ]
 
-export default { prompt, schema, queryTexts }
+const goals = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_GOALS,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.Goals);
+        return answer;
+    }
+);
+
+export default goals;

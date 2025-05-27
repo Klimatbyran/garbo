@@ -1,4 +1,7 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 export const schema = z.object({
   tags: z.array(
@@ -45,4 +48,13 @@ const queryTexts = [
   'Corporate structure',
 ]
 
-export default { prompt, schema, queryTexts }
+const companyTags = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.CompanyTags);
+        return answer;
+    }
+);
+
+export default companyTags;
