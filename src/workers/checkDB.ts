@@ -34,7 +34,6 @@ const checkDB = new DiscordWorker(
       threadId,
       channelId,
       
-      
     } = job.data
   
     const childrenValues = await job.getChildrenEntries()
