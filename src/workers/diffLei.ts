@@ -75,7 +75,6 @@ const diffLei = new DiscordWorker<DiffLeiJob>(
     });
    
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`); 
-    console.log(`LEI number in diffLei file ${lei}`);
 
   }
 );
