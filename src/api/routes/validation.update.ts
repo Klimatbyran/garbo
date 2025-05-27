@@ -1,18 +1,23 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
 import { redisCache } from '../..'
-import { okResponseSchema, wikidataIdParamSchema } from '../schemas'
-import { ValidationClaims, WikidataIdParams } from '../types'
+import {
+  claimValidationSchema,
+  okResponseSchema,
+  wikidataIdParamSchema,
+} from '../schemas'
+import { ClaimValidation, ValidationClaims, WikidataIdParams } from '../types'
 import { validationClaimsCacheKey } from './validation.read'
 
 export async function validationsUpdateRoutes(app: FastifyInstance) {
   app.post(
-    '/claims/:wikidataId',
+    '/claim/:wikidataId',
     {
       schema: {
         summary: 'Claim a company',
         description: 'Claim stuff',
         tags: ['ReportValidations'],
         params: wikidataIdParamSchema,
+        body: claimValidationSchema,
         response: {
           200: okResponseSchema,
         },
@@ -21,23 +26,37 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
     async (
       request: FastifyRequest<{
         Params: WikidataIdParams
+        Body: ClaimValidation
       }>,
       reply
     ) => {
       const { wikidataId } = request.params
+      const { steal } = request.body
+
       try {
         const storedClaims: ValidationClaims =
           (await redisCache.get(validationClaimsCacheKey)) ?? {}
 
-        // TODO: Read from token
-        //  const user = request.user
-        storedClaims[wikidataId] = 'hallski'
-        await redisCache.set(
-          validationClaimsCacheKey,
-          JSON.stringify(storedClaims)
-        )
+        const user = request.user
+        if (user?.githubId) {
+          if (
+            storedClaims[wikidataId] &&
+            storedClaims[wikidataId] !== user.githubId &&
+            !steal
+          ) {
+            reply.status(401).send({ error: 'Not claim owner' })
+          } else {
+            storedClaims[wikidataId] = user.githubId
+            await redisCache.set(
+              validationClaimsCacheKey,
+              JSON.stringify(storedClaims)
+            )
 
-        return reply.send({ ok: true })
+            return reply.send({ ok: true })
+          }
+        } else {
+          reply.status(401).send({ error: 'Unauthorized' })
+        }
       } catch (error) {
         console.error('Get validation claims error:', error)
         return reply
@@ -48,7 +67,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
   )
 
   app.delete(
-    '/claims/:wikidataId',
+    '/claim/:wikidataId',
     {
       schema: {
         summary: 'Delete a claim',
@@ -71,16 +90,17 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
         const storedClaims: ValidationClaims =
           (await redisCache.get(validationClaimsCacheKey)) ?? {}
 
-        // TODO: Read from token
-        //  const user = request.user
-        if (storedClaims[wikidataId] === 'hallski') {
-          delete storedClaims[wikidataId]
-          await redisCache.set(
-            validationClaimsCacheKey,
-            JSON.stringify(storedClaims)
-          )
-        } else {
-          return reply.status(401).send({ error: 'Not the claim owner' })
+        const user = request.user
+        if (user?.githubId) {
+          if (storedClaims[wikidataId] === user?.githubId) {
+            delete storedClaims[wikidataId]
+            await redisCache.set(
+              validationClaimsCacheKey,
+              JSON.stringify(storedClaims)
+            )
+          } else {
+            return reply.status(401).send({ error: 'Not the claim owner' })
+          }
         }
 
         return reply.send({ ok: true })

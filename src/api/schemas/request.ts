@@ -230,3 +230,7 @@ export const exportQuerySchema = z.object({
   type: z.enum(['csv', 'json', 'xlsx']).optional(),
   year: z.string().optional(),
 })
+
+export const claimValidationSchema = z.object({
+  steal: z.boolean(),
+})

@@ -6,7 +6,7 @@ export const validationClaimsCacheKey = 'validation:claims'
 
 export async function validationsReadRoutes(app: FastifyInstance) {
   app.get(
-    '/claims',
+    '/claim',
     {
       schema: {
         summary: 'Get all validation claims',
@@ -21,8 +21,9 @@ export async function validationsReadRoutes(app: FastifyInstance) {
     },
     async (_request, reply) => {
       try {
-        const storedClaims: Record<string, string> =
-          (await redisCache.get(validationClaimsCacheKey)) ?? {}
+        const storedClaims: Record<string, string> = (await redisCache.get(
+          validationClaimsCacheKey
+        )) ?? { hello: 'bar' }
 
         return reply.send(storedClaims)
       } catch (error) {
