@@ -39,7 +39,7 @@ const checkDB = new DiscordWorker(
     const childrenValues = await job.getChildrenEntries()
     await job.updateData({ ...job.data, childrenValues })
   
-    job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
+    job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
 
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
@@ -54,7 +54,7 @@ const checkDB = new DiscordWorker(
       }
   
       job.sendMessage(
-        `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
+        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
       const body = {
         name: companyName,
@@ -66,14 +66,13 @@ const checkDB = new DiscordWorker(
       await apiFetch(`/companies/${wikidataId}`, { body }); 
 
       await job.sendMessage(
-        `✅ Företaget '${companyName}' har skapats! Se resultatet här: ${getCompanyURL(companyName, wikidataId)}`
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
       );
     } else {
-      job.log(`✅ Företaget '${companyName}' hittades i databasen.`);
-      await job.sendMessage(`✅ Företaget '${companyName}' hittades i vår databas, med LEI '${existingCompany.lei} || null'`);
+      job.log(`✅ The company '${companyName}' was found in the database.`);
+      await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
     }
 
-    
     const {
       scope12,
       scope3,
@@ -106,7 +105,7 @@ const checkDB = new DiscordWorker(
     
     console.log(`LEI number in checkDB file: ${lei}`);
 
-    await job.editMessage(`🤖 Sparar data...`)
+    await job.editMessage(`🤖 Saving data...`)
   
     await flow.add({
       ...base,
@@ -176,8 +175,7 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 lei,
-                
-               
+                   
               },
             }
           : null,
