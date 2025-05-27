@@ -3,7 +3,7 @@ import wikidata from '../prompts/wikidata';
 import { QUEUE_NAMES } from '../queues';
 import saveToAPI from './saveToAPI';
 
-export class DiffLeiJob extends DiscordJob {
+export class DiffLEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string;          
     lei: string | null | undefined; // Switching to lei
@@ -42,9 +42,9 @@ function compareLei(
   };
 }
 
-const diffLei = new DiscordWorker<DiffLeiJob>(
+const diffLEI = new DiscordWorker<DiffLEIJob>(
   QUEUE_NAMES.DIFF_LEI, 
-  async (job: DiffLeiJob) => {
+  async (job: DiffLEIJob) => {
     const { companyName, lei, existingCompany } = job.data;  
 
     const currentLei  = existingCompany?.lei; 
@@ -79,4 +79,4 @@ const diffLei = new DiscordWorker<DiffLeiJob>(
   }
 );
 
-export default diffLei;
+export default diffLEI;
