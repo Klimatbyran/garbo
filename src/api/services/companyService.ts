@@ -44,7 +44,6 @@ class CompanyService {
     })
   }
 
-
   async upsertCompany({
     wikidataId,
     ...data
