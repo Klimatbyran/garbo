@@ -127,6 +127,8 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
+  app.register(validationsReadRoutes, { prefix: 'api/validation' })
+  app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 }
 
 /**
