@@ -33,8 +33,9 @@ async function authPlugin(app: FastifyInstance) {
       if (newToken !== undefined) {
         reply.headers['x-auth-token'] = newToken
       }
-      request.user = user
+      request.user = user;
     } catch (err) {
+      console.log(err);
       request.log.error('Authentication failed:', err)
       return reply.status(401).send(unauthorizedError)
     }
