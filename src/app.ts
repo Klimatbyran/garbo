@@ -19,7 +19,7 @@ import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { companyReadRoutes } from './api/routes/company.read'
 import { companyGoalsRoutes } from './api/routes/company.goals'
-import authPlugin from './api/plugins/auth'
+import authPlugin, { enforceAuthentication } from './api/plugins/auth'
 import { companyIndustryRoutes } from './api/routes/company.industry'
 import { companyInitiativesRoutes } from './api/routes/company.initiatives'
 import {
@@ -88,8 +88,8 @@ async function startApp() {
     },
   })
 
-  app.register(fastifyCookie)
-
+  app.register(fastifyCookie);  
+  app.register(authPlugin);
   app.register(publicContext)
   app.register(authenticatedContext)
 
@@ -131,8 +131,7 @@ async function publicContext(app: FastifyInstance) {
  * This context wraps all logic that requires authentication.
  */
 async function authenticatedContext(app: FastifyInstance) {
-  app.register(authPlugin)
-
+  app.addHook('preHandler', enforceAuthentication);
   app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })

@@ -6,23 +6,24 @@ import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 
 class CompanyService {
-  async getAllCompaniesWithMetadata() {
+  async getAllCompaniesWithMetadata(authenticated: boolean = false) {
     const companies = await prisma.company.findMany(companyListArgs)
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map(transformMetadata)
+      companies.map(data => transformMetadata(data, !authenticated))
     )
     return transformedCompanies
   }
 
-  async getAllCompaniesBySearchTerm(searchTerm: string) {
+  async getAllCompaniesBySearchTerm(searchTerm: string, authenticated: boolean = false) {
     const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map(transformMetadata)
+      companies.map(data => transformMetadata(data, !authenticated))
     )
     return transformedCompanies
   }
 
-  async getCompanyWithMetadata(wikidataId: string) {
+  async getCompanyWithMetadata(wikidataId: string, authenticated: boolean = false) {
+    console.log(authenticated);
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,
       where: {
@@ -31,7 +32,7 @@ class CompanyService {
     })
 
     const [transformedCompany] = addCalculatedTotalEmissions([
-      transformMetadata(company),
+      transformMetadata(company, !authenticated),
     ])
 
     return transformedCompany
@@ -166,17 +167,21 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-export function transformMetadata(data: any): any {
+export function transformMetadata(data: any, onlyIncludeVerified = false): any {
   if (Array.isArray(data)) {
-    return data.map((item) => transformMetadata(item))
+    return data.map((item) => transformMetadata(item, onlyIncludeVerified))
   } else if (data && typeof data === 'object') {
     const transformed = Object.entries(data).reduce((acc, [key, value]) => {
       if (key === 'metadata' && Array.isArray(value)) {
-        acc[key] = value[0] || null
+        if(onlyIncludeVerified) {
+          acc[key] = { verified: value[0].verifiedBy !== null };
+        } else {          
+          acc[key] = {...value[0], verified: value[0].verifiedBy !== null };
+        }
       } else if (value instanceof Date) {
         acc[key] = value
       } else if (typeof value === 'object' && value !== null) {
-        acc[key] = transformMetadata(value)
+        acc[key] = transformMetadata(value, onlyIncludeVerified)
       } else {
         acc[key] = value
       }
@@ -199,7 +204,7 @@ export function addCalculatedTotalEmissions(companies: any[]) {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
           const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
           const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || 0
-          const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
+          const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + (scope3Total !== 0 ? scope3Total : (scope3.statedTotalEmissions.total ?? 0));
 
           return {
             ...reportingPeriod,

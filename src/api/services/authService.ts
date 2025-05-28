@@ -3,21 +3,13 @@ import apiConfig from "../../config/api"
 import { prisma } from "../../lib/prisma";
 import jwt from "jsonwebtoken";
 import { serviceAuthenticationBody } from "../types";
+import { User } from "@prisma/client";
 
 interface GithubUserinfo {
     login: string,
     avatar_url: string,
     name: string,
     email: string
-}
-
-interface User {
-    id: string,
-    name: string ,
-    email: string | null,
-    githubId: string | null,
-    githubImageUrl: string | null
-    bot: boolean
 }
 
 class AuthService {
@@ -112,14 +104,16 @@ class AuthService {
     private static readonly SECONDS_IN_A_MINUTE = 60;
 
     verifyToken(token: string) {
-        const user = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
-        if (!user.email && !user.githubId) {
+        const userPayload = jwt.verify(token, apiConfig.jwtSecret) as User & {exp: number};
+        if (!userPayload.email && !userPayload.githubId) {
             throw new Error("Invalid token: No email or GitHub ID present");
         }
         const currentTimeInSeconds = Date.now() / 1000;
         const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 
-        const shouldRenew = currentTimeInSeconds > user.exp - renewalThreshold;
+        const {exp, ...user} = userPayload;
+
+        const shouldRenew = currentTimeInSeconds > exp - renewalThreshold;
 
         return {
             user, 
