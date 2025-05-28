@@ -21,6 +21,8 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
 
     const childrenValues = await job.getChildrenEntries()
 
+
+    // updating the job data with the values we seek
     const base = {
       name: companyName,
       data: { ...job.data, ...childrenValues },
@@ -101,6 +103,15 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             type: JobType.BaseYear,
           },
         },
+        {
+          ...base,
+          name: 'lei ' + companyName,
+          queueName: QUEUE_NAMES.EXTRACT_LEI,
+          data: {
+            ...base.data,
+            wikidataId: base.data.wikidata.node
+          }
+        }
       ],
       opts: {
         attempts: 3,
