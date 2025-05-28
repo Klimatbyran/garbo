@@ -19,15 +19,12 @@ class FollowUpJob extends DiscordJob {
   }
 }
 
-const followUp = new DiscordWorker<FollowUpJob>(
-  QUEUE_NAMES.FOLLOW_UP,
-  async (job: FollowUpJob) => {
-    const { type, url, previousAnswer } = job.data
-    const {
+async function askAI(job, url: string, type: JobType, previousAnswer: string, nResults = 15) {
+  const {
       default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
+    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, nResults)
 
     job.log(`Reflecting on: ${prompt}
     
@@ -72,8 +69,25 @@ const followUp = new DiscordWorker<FollowUpJob>(
       }
     )
 
-    job.log('Response: ' + response)
-    return response
+    return response;
+}
+
+const followUp = new DiscordWorker<FollowUpJob>(
+  QUEUE_NAMES.FOLLOW_UP,
+  async (job: FollowUpJob) => {
+    const { type, url, previousAnswer } = job.data
+
+    try {
+      const response = await askAI(job, url, type, previousAnswer, 15);
+
+      job.log('Response: ' + response)
+      return response;
+    } catch (error) {
+      //If we have too many tokens in the prompt, try it with less
+      job.log('Error: ' + error)
+      const response = await askAI(job, url, type, previousAnswer, 10);
+      return response;
+    }   
   }
 )
 
