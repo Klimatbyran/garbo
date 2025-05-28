@@ -17,10 +17,12 @@ export class DiffDescriptionsJob extends DiscordJob {
 const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
   QUEUE_NAMES.DIFF_DESCRIPTIONS,
   async (job: DiffDescriptionsJob) => {
-    const { url, companyName, existingDescriptions, descriptions } = job.data
+    const { url, companyName, wikidataId, existingDescriptions, descriptions } = job.data
     const metadata = defaultMetadata(url)
 
     const body = {
+      name: companyName,
+      wikidataId,
       descriptions: descriptions,
       metadata
     }
@@ -53,7 +55,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
         ...job.data,
         body,
         diff,
-        apiSubEndpoint: 'descriptions',
+        apiSubEndpoint: '',
       })
     }
 
