@@ -439,3 +439,5 @@ export const MunicipalitySectorEmissionsSchema = z.object({
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
+
+export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
