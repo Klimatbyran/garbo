@@ -35,6 +35,8 @@ import { authentificationRoutes } from './api/routes/auth'
 import { companyExportRoutes } from './api/routes/company.export'
 import { municipalityExportRoutes } from './api/routes/municipality.export'
 import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
+import { validationsReadRoutes } from './api/routes/validation.read'
+import { validationsUpdateRoutes } from './api/routes/validation.update'
 
 async function startApp() {
   const app = Fastify({
@@ -141,6 +143,8 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
+  app.register(validationsReadRoutes, { prefix: 'api/validation' })
+  app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 }
 
 export default startApp

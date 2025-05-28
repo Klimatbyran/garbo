@@ -53,19 +53,29 @@ async function addReport(url: string, markdown: string) {
     }
   })
 
-  const ids = documentChunks.map((_, i) => `${url}#${i}`)
-  const metadatas = documentChunks.map(({ paragraph }) => ({
-    source: url,
-    paragraph,
-    type: reportMetadataType,
-    parsed: new Date().toISOString(),
-  }))
+  // Process in batches of 50 chunks to avoid token limit issues
+  const batchSize = 50
+  for (let i = 0; i < documentChunks.length; i += batchSize) {
+    const batchChunks = documentChunks.slice(i, i + batchSize)
+    const batchIds = batchChunks.map((_, j) => `${url}#${i + j}`)
+    const batchMetadatas = batchChunks.map(({ paragraph }) => ({
+      source: url,
+      paragraph,
+      type: reportMetadataType,
+      parsed: new Date().toISOString(),
+    }))
 
-  await collection.add({
-    ids,
-    metadatas,
-    documents: documentChunks.map(({ chunk }) => chunk),
-  })
+    await collection.add({
+      ids: batchIds,
+      metadatas: batchMetadatas,
+      documents: batchChunks.map(({ chunk }) => chunk),
+    })
+
+    // Optional: Add a small delay between batches to avoid rate limiting
+    if (i + batchSize < documentChunks.length) {
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
+  }
 }
 
 async function hasReport(url: string) {

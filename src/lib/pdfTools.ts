@@ -9,8 +9,16 @@ import { jsonToTables, Table } from './jsonExtraction'
 import nlmIngestorConfig from '../config/nlmIngestor'
 import { writeFile } from 'fs/promises'
 
+function encodeUriIfNeeded(uri: string): string {
+  const decodedUri = decodeURI(uri);
+  if (decodedUri === uri) {
+    return encodeURI(uri);
+  }
+  return uri;
+}
+
 export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
-  const pdfResponse = await fetch(encodeURI(url), { headers });
+  const pdfResponse = await fetch(encodeUriIfNeeded(url), { headers });
   if (!pdfResponse.ok) {
     throw new Error(`Failed to fetch PDF from URL: ${pdfResponse.statusText}`)
   }
