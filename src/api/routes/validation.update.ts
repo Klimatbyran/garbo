@@ -14,7 +14,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Claim a company',
-        description: 'Claim stuff',
+        description: 'Used to claim that a company report is being worked on',
         tags: ['ReportValidations'],
         params: wikidataIdParamSchema,
         body: claimValidationSchema,
@@ -71,7 +71,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
     {
       schema: {
         summary: 'Delete a claim',
-        description: 'Claim stuff',
+        description: 'Used to release a claim',
         tags: ['ReportValidations'],
         params: wikidataIdParamSchema,
         response: {
