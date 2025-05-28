@@ -42,10 +42,6 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Company description' }),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
@@ -53,6 +49,13 @@ export const StatedTotalEmissionsSchema = z.object({
   total: z.number().openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
+})
+
+export const DescriptionSchema = z.object({
+  id: z.string(),
+  companyId: z.string(),
+  language: z.string(),
+  text: z.string()
 })
 
 export const BiogenicSchema = z.object({
@@ -343,6 +346,7 @@ const MinimalCompanyBase = CompanyBaseSchema.extend({
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  descriptions: z.array(DescriptionSchema),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable(),

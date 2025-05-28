@@ -12,6 +12,9 @@ const openAPITagDefinitions = {
   Companies: {
     description: 'Companies and related resources',
   },
+  CompanyDescription: {
+    description: 'Description of a company',
+  },
   Industry: {
     description: 'Company industry',
   },

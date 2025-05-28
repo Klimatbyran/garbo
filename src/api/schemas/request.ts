@@ -10,10 +10,20 @@ const createMetadataSchema = z.object({
     .optional(),
 })
 
+export const descriptionSchema = z.object({
+  id: z.string().optional(),
+  language: z.enum(['SWE', 'ENG']),
+  text: z.string(),
+  companyId: z.string(),
+})
+
+export const postDescriptionsBodySchema = z.object({
+  descriptions: z.array(descriptionSchema),
+}).merge(createMetadataSchema)
+
 export const postCompanyBodySchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z.string().optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
   tags: z.array(z.string()).optional(),
