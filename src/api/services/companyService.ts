@@ -98,10 +98,12 @@ class CompanyService {
 
   async upsertDescription({
     description,
-    metadata
+    companyId,
+    metadataId
   }: {
-    description: Omit<Description, 'id'> & { id?: string | undefined },
-    metadata?: Metadata
+    description: Omit<Description, 'id' | 'companyId'> & { id?: string | undefined },
+    companyId: string,
+    metadataId?: string
   }) {
     return prisma.description.upsert({
       where: {id: description.id ?? ''},
@@ -109,17 +111,17 @@ class CompanyService {
         text: description.text,
         language: description.language,
         company: {
-          connect: {wikidataId: description.companyId}
+          connect: {wikidataId: companyId}
         },
         metadata: {
-          connect: {id: metadata?.id}
+          connect: {id: metadataId}
         }
       },
       update: {
         text: description.text,
         language: description.language,
         metadata: {
-          connect: {id: metadata?.id}
+          connect: {id: metadataId}
         }
       }
     })
