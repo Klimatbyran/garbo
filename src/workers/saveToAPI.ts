@@ -8,12 +8,36 @@ import { QUEUE_NAMES } from '../queues'
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
     companyName?: string
-    approved?: boolean
     requiresApproval: boolean
     diff: string
     body: any
     wikidata: { node: string }
     apiSubEndpoint: string
+  }
+}
+
+function removeNullValuesFromGarbo(data: any): any {
+  if (Array.isArray(data)) {
+    return data
+      .map((item) => removeNullValuesFromGarbo(item))
+      .filter((item) => item !== null && item !== undefined)
+  } else if (typeof data === 'object' && data !== null) {
+    const sanitizedObject = Object.entries(data).reduce(
+      (acc, [key, value]) => {
+        const sanitizedValue = removeNullValuesFromGarbo(value)
+        if (sanitizedValue !== null && sanitizedValue !== undefined) {
+          acc[key] = sanitizedValue
+        }
+        return acc
+      },
+      {} as Record<string, any>
+    )
+
+    return Object.keys(sanitizedObject).length > 0
+      ? sanitizedObject
+      : null
+  } else {
+    return data
   }
 }
 
@@ -24,55 +48,30 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const {
         companyName,
         wikidata,
-        approved = false,
         requiresApproval = true,
         diff = '',
         body,
         apiSubEndpoint,
         autoApprove = false,
+        approval
       } = job.data
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
-      if (approved) {
+      if (approval?.approved ?? false) {
         job.editMessage({
           content: `Thanks for approving ${apiSubEndpoint}`,
           components: [],
         })
-      }
+      }      
 
-      function removeNullValuesFromGarbo(data: any): any {
-        if (Array.isArray(data)) {
-          return data
-            .map((item) => removeNullValuesFromGarbo(item))
-            .filter((item) => item !== null && item !== undefined)
-        } else if (typeof data === 'object' && data !== null) {
-          const sanitizedObject = Object.entries(data).reduce(
-            (acc, [key, value]) => {
-              const sanitizedValue = removeNullValuesFromGarbo(value)
-              if (sanitizedValue !== null && sanitizedValue !== undefined) {
-                acc[key] = sanitizedValue
-              }
-              return acc
-            },
-            {} as Record<string, any>
-          )
-
-          return Object.keys(sanitizedObject).length > 0
-            ? sanitizedObject
-            : null
-        } else {
-          return data
-        }
-      }
-
-      job.log(`autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approved}`)
+      job.log(`autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approval?.approved ?? false}`)
 
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
       })
 
-      if (autoApprove || !requiresApproval || approved) { 
+      if (autoApprove || !requiresApproval || approval?.approved) { 
         const sanitizedBody = removeNullValuesFromGarbo(body)
 
         job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:

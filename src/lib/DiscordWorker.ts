@@ -7,6 +7,14 @@ import {
 } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
+import apiConfig from '../config/api';
+import { DiffDescription } from './diffUtils';
+
+interface Approval {
+  summary: string;
+  approved: boolean;
+  data: DiffDescription;
+};
 
 export class DiscordJob extends Job {
   declare data: {
@@ -15,6 +23,7 @@ export class DiscordJob extends Job {
     channelId: string
     messageId?: string
     autoApprove: boolean
+    approval?: Approval
   }
 
   //message: any
@@ -26,6 +35,7 @@ export class DiscordJob extends Job {
   ) => Promise<
     OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
   >
+  requestApproval: (summary: string, data: Approval['data']) => Promise<void>
   setThreadName: (name: string) => Promise<TextChannel>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
@@ -65,6 +75,11 @@ function addCustomMethods(job: DiscordJob) {
 
   job.sendTyping = async () => {
     return discord.sendTyping(job.data)
+  }
+
+  job.requestApproval = async (summary: string, data: Approval["data"]) => {
+    await job.updateData({ ...job.data, approval: { summary, data, approved: false }});
+    return await job.moveToDelayed(Date.now() + apiConfig.jobDelay);
   }
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {

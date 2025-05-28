@@ -3,6 +3,7 @@ import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import saveToAPI from './saveToAPI'
 import { QUEUE_NAMES } from '../queues'
+import { changesReportingPeriods, changesRequireApproval } from '../lib/diffUtils'
 
 export class DiffReportingPeriodsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -86,6 +87,11 @@ QUEUE_NAMES.DIFF_REPORTING_PERIODS,
       metadata,
     }
 
+    const changes = changesReportingPeriods(
+      updatedReportingPeriods,
+      existingCompany?.reportingPeriods
+    );
+
     // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
     // This could improve accuracy of the diff
     const { diff, requiresApproval } = await diffChanges({
@@ -97,14 +103,14 @@ QUEUE_NAMES.DIFF_REPORTING_PERIODS,
     job.log('Diff:' + diff)
 
     // Only save if we detected any meaningful changes
-    if (diff) {
+    if (changes.length > 0) {
       await saveToAPI.queue.add(companyName + ' reporting-periods', {
         ...job.data,
         body,
         diff,
-        requiresApproval,
+        requiresApproval: changesRequireApproval(changes),
         apiSubEndpoint: 'reporting-periods',
-
+        changes,
         // Remove duplicated job data that should be part of the body from now on
         scope12: undefined,
         scope3: undefined,

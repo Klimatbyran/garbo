@@ -1,3 +1,4 @@
+import { changesBaseYear, changesRequireApproval } from '../lib/diffUtils'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
@@ -23,18 +24,21 @@ const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
       metadata,
     }
 
+    const changes = changesBaseYear(baseYear, existingCompany?.baseYear);
+
     const { diff, requiresApproval } = await diffChanges({
       existingCompany,
       before: existingCompany?.baseYear,
       after: { baseYear },
     })
 
-    if (diff) {
+    if (changes.length > 0) {
       await saveToAPI.queue.add(companyName + ' base-year', {
         ...job.data,
         body,
         diff,
-        requiresApproval,
+        changes,
+        requiresApproval: changesRequireApproval(changes),
         apiSubEndpoint: 'base-year',
       })
     }

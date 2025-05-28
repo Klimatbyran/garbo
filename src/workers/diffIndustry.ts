@@ -1,3 +1,4 @@
+import { changesIndustry, changesRequireApproval } from '../lib/diffUtils'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
@@ -23,6 +24,8 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
       metadata,
     }
 
+    const changes = changesIndustry(industry, existingCompany?.industry);
+
     const { diff, requiresApproval } = await diffChanges({
       existingCompany,
       before: existingCompany?.industry,
@@ -37,7 +40,8 @@ const diffIndustry = new DiscordWorker<DiffIndustryJob>(
         ...job.data,
         body,
         diff,
-        requiresApproval,
+        changes,
+        requiresApproval: changesRequireApproval(changes),
         apiSubEndpoint: 'industry',
 
         // Remove duplicated job data that should be part of the body from now on
