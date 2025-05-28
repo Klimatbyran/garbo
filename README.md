@@ -60,13 +60,13 @@ flowchart TB
                                            CheckDB --(no)--> API.Initiatives
     Emissions --(followUp)--> Employees --> CheckDB --(yes)--> Review --> API.Economy
                                            CheckDB --(no)--> API.Economy
-    
+
     API.Industry --> CompanyLink
     API.Emissions --> CompanyLink
     API.Goals --> CompanyLink
     API.Economy --> CompanyLink
-    
-    CompanyLink --> ShowNotes --> HeyGenVideo --> Climate News Video
+
+    CompanyLink --> ShowNotes --> HeyGenVideo --> ClimateNewsVideo
 ```
 
 For a more in depth explaination of the pipeline and its steps continue [here](./doc/pipeline.md).
