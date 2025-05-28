@@ -18,7 +18,7 @@ model Company {
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
   wikidataId  String  @id
   name        String
-  description String?
+  descriptions Description[]
   /// Company website URL
   url         String?
   lei         String? 
@@ -330,6 +330,7 @@ model Metadata {
   categoryId             String?
   turnoverId             String?
   employeesId            String?
+  descriptionId          String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
@@ -347,6 +348,7 @@ model Metadata {
   category             Scope3Category?       @relation(fields: [categoryId], references: [id])
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
+  description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -362,4 +364,20 @@ model User {
   // TODO: store github profile image - or get it via API
   updated  Metadata[] @relation("metadata_user_id")
   verified Metadata[] @relation("metadata_verified_by")
+}
+
+enum Language {
+  SWE
+  ENG
+}
+
+model Description {
+  id          String @id() @default(cuid())
+  text        String
+  companyId   String
+  language  Language
+  //@@unique([companyId, language])
+
+  company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata  Metadata[]
 }

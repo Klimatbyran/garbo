@@ -67,7 +67,14 @@ export const detailedCompanyArgs = {
   select: {
     wikidataId: true,
     name: true,
-    description: true,
+    descriptions: {
+      select: {
+        id: true,
+        companyId: true,
+        language: true,
+        text: true
+      }
+    },
     lei: true,
     reportingPeriods: {
       select: {
@@ -225,7 +232,12 @@ export const companyListArgs = {
   select: {
     wikidataId: true,
     name: true,
-    description: true,
+    descriptions: {
+      select: {
+        language: true,
+        text: true
+      }
+    },
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
@@ -336,7 +348,12 @@ export const companyExportArgs = (year?) => {
     select: {
       wikidataId: true,
       name: true,
-      description: true,
+      descriptions: {
+        select: {
+          language: true,
+          text: true
+        }
+      },
       baseYear: {
         select: { id: true, year: true },
       },
