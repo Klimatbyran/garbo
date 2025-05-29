@@ -1,10 +1,13 @@
 import { parseArgs } from 'node:util'
 import { PrismaClient } from '@prisma/client'
+import { Queue } from 'bullmq'
 
 import startApp from './app'
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
 import { createServerCache } from './createCache'
+import redis from './config/redis'
+import { QUEUE_NAMES } from './queues'
 
 export const redisCache = createServerCache({ maxAge: 24 * 60 * 60 * 1000 })
 
@@ -22,6 +25,7 @@ const port = apiConfig.port
 
 const prisma = new PrismaClient()
 const app = await startApp()
+
 
 async function main() {
   try {
