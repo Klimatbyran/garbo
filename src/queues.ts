@@ -20,6 +20,8 @@ export const QUEUE_NAMES = {
   SAVE_TO_API: 'saveToAPI',
   SEND_COMPANY_LINK: 'sendCompanyLink',
   WIKIPEDIA_UPLOAD: 'wikipediaUpload',
+  GENERATE_SHOW_NOTES: 'generateShowNotes',
+  GENERATE_HEYGEN_VIDEO: 'generateHeygenVideo',
 }
 
 // Create queue clients (NOT workers)
@@ -42,4 +44,6 @@ export const queues = {
   saveToAPI: new DiscordQueue(QUEUE_NAMES.SAVE_TO_API),
   sendCompanyLink: new DiscordQueue(QUEUE_NAMES.SEND_COMPANY_LINK),
   wikipediaUpload: new DiscordQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
+  generateShowNotes: new DiscordQueue(QUEUE_NAMES.GENERATE_SHOW_NOTES),
+  generateHeygenVideo: new DiscordQueue(QUEUE_NAMES.GENERATE_HEYGEN_VIDEO),
 }
