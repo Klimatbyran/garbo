@@ -350,14 +350,14 @@ const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
 const MinimalCompanyBase = CompanyBaseSchema.extend({
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)
