@@ -198,8 +198,8 @@ export function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
-          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || 0
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown;
+          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || scope3?.statedTotalEmissions?.total || 0;
           const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
 
           return {
