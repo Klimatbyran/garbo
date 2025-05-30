@@ -8,13 +8,11 @@ import { QUEUE_NAMES } from '../queues'
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    description?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number,
       endMonth: number,
     },
-    childrenValues?: any
     approved?: boolean
   }
 }
@@ -26,7 +24,6 @@ const checkDB = new DiscordWorker(
   async (job: CheckDBJob) => {
     const {
       companyName,
-      description,
       url,
       fiscalYear,
       wikidata,
@@ -34,8 +31,17 @@ const checkDB = new DiscordWorker(
       channelId,
     } = job.data
   
-    const childrenValues = await job.getChildrenEntries()
-    await job.updateData({ ...job.data, childrenValues })
+    const {
+      scope12,
+      scope3,
+      biogenic,
+      industry,
+      economy,
+      baseYear,
+      goals,
+      initiatives,
+      descriptions,
+    } = await job.getChildrenEntries()
   
     job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
     const wikidataId = wikidata.node
@@ -55,12 +61,11 @@ const checkDB = new DiscordWorker(
       )
       const body = {
         name: companyName,
-        description,
         wikidataId,
         metadata,
       }
   
-      await apiFetch(`/companies`, { body })
+      await apiFetch(`/companies/${wikidataId}`, { body })
   
       await job.sendMessage(
         `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
@@ -70,23 +75,12 @@ const checkDB = new DiscordWorker(
       )
     }
   
-    const {
-      scope12,
-      scope3,
-      biogenic,
-      industry,
-      economy,
-      baseYear,
-      goals,
-      initiatives,
-    } = childrenValues
   
     const base = {
       name: companyName,
       data: {
         existingCompany,
         companyName,
-        description,
         url,
         fiscalYear,
         wikidata,
@@ -158,6 +152,19 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 initiatives,
+              },
+            }
+          : null,
+        descriptions
+          ? {
+              name: 'diffDescriptions' + companyName,
+              queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
+              data: {
+                ...job.data,
+                fiscalYear: undefined,
+                wikidataId: wikidataId,
+                existingDescriptions: existingCompany?.descriptions,
+                descriptions: descriptions,
               },
             }
           : null,
