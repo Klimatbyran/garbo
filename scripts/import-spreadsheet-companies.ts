@@ -10,7 +10,7 @@ import { readFile, writeFile } from 'fs/promises'
 import { resetDB } from '../src/lib/dev-utils'
 
 const workbook = new ExcelJS.Workbook()
-await workbook.xlsx.readFile(resolve('src/data/Company GHG data.xlsx'))
+await workbook.xlsx.readFile(resolve('data/Klimatkollen_ Company GHG data.xlsx'))
 
 const skippedCompanyNames = new Set()
 
@@ -24,30 +24,34 @@ function getSheetHeaders({
   return Object.values(sheet.getRow(row).values!)
 }
 
-const { baseURL, tokens } = apiConfig
-
-const TOKENS = tokens.reduce<{ garbo: string; alex: string }>(
-  (tokens, token) => {
-    const [name] = token.split(':')
-    tokens[name] = token
-    return tokens
-  },
-  {} as any
-)
-
 export const USERS = {
   garbo: {
     email: 'hej@klimatkollen.se',
-    token: TOKENS.garbo,
+    token: await getApiToken('garbo'),
   },
   alex: {
     email: 'alex@klimatkollen.se',
-    token: TOKENS.alex,
+    token: await getApiToken('alex'),
   },
 }
 
 const verifiedMetadata = {
   comment: 'Import verified data from spreadsheet',
+}
+
+async function getApiToken(user: string) {
+  const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      client_id: user,
+      client_secret: apiConfig.secret,
+    }),
+  })
+
+  return (await response.json()).token
 }
 
 function getCompanyBaseFacts() {
@@ -358,7 +362,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
     } = company
 
     await postJSON(
-      `${baseURL}/companies`,
+      `${apiConfig.baseURL}/companies`,
       {
         wikidataId,
         name,
@@ -376,60 +380,22 @@ export async function upsertCompanies(companies: CompanyInput[]) {
         console.error(res.status, res.statusText, wikidataId, body)
       }
     })
+    const reportingPeriodArgs = [
+      `${apiConfig.baseURL}/companies/${wikidataId}/reporting-periods`,
+      {reportingPeriods},
+      'alex',
+    ] as const
 
-    for (const reportingPeriod of reportingPeriods) {
-      if (reportingPeriod.emissions) {
-        const emissionsArgs = [
-          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/emissions`,
-          {
-            startDate: reportingPeriod.startDate,
-            endDate: reportingPeriod.endDate,
-            reportURL: reportingPeriod.reportURL,
-            emissions: reportingPeriod.emissions,
-            metadata: {
-              ...verifiedMetadata,
-              source: reportingPeriod.reportURL,
-            },
-          },
-          'alex',
-        ] as const
-
-        await postJSON(...emissionsArgs).then(async (res) => {
-          if (!res.ok) {
-            const body = await res.text()
-            console.error(res.status, res.statusText, wikidataId, body)
-          }
-        })
+    await postJSON(...reportingPeriodArgs).then(async (res) => {
+      if (!res.ok) {
+        const body = await res.text()
+        console.error(res.status, res.statusText, wikidataId, body)
       }
-
-      if (reportingPeriod.economy) {
-        const economyArgs = [
-          `${baseURL}/companies/${wikidataId}/${reportingPeriod.endDate.getFullYear()}/economy`,
-          {
-            startDate: reportingPeriod.startDate,
-            endDate: reportingPeriod.endDate,
-            reportURL: reportingPeriod.reportURL,
-            economy: reportingPeriod.economy,
-            metadata: {
-              ...verifiedMetadata,
-              source: reportingPeriod.reportURL,
-            },
-          },
-          'alex',
-        ] as const
-
-        await postJSON(...economyArgs).then(async (res) => {
-          if (!res.ok) {
-            const body = await res.text()
-            console.error(res.status, res.statusText, wikidataId, body)
-          }
-        })
-      }
-    }
+    })
 
     if (goals?.length) {
       await postJSON(
-        `${baseURL}/companies/${wikidataId}/goals`,
+        `${apiConfig.baseURL}/companies/${wikidataId}/goals`,
         {
           goals,
           metadata: {
@@ -449,7 +415,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
 
     if (initiatives?.length) {
       await postJSON(
-        `${baseURL}/companies/${wikidataId}/initiatives`,
+        `${apiConfig.baseURL}/companies/${wikidataId}/initiatives`,
         {
           initiatives,
           metadata: {
@@ -492,10 +458,10 @@ async function postJSON(
 async function main() {
   const companies = getCompanyData(range(2015, 2023).reverse())
 
-  await resetDB()
+  //await resetDB()
 
   const apiCompaniesFile = resolve(
-    'src/data/2024-12-12-0337-garbo-companies.json'
+    'data/companies.json'
   )
 
   const existing = await readFile(apiCompaniesFile, { encoding: 'utf-8' }).then(
@@ -520,11 +486,11 @@ async function main() {
     )
   )
   console.log('exists in sheets but not in api')
-  console.dir(
+  /*console.dir(
     Array.from(uniqueSheets.difference(uniqueAPI)).map(
       (id) => companies.find((c) => c.wikidataId === id).name + ' - ' + id
     )
-  )
+  )*/
 
   // ## DÖLJ DESSA från API:et
   const HIDDEN_FROM_API = new Set([
@@ -548,11 +514,11 @@ async function main() {
   ])
 
   console.log('HIDDEN FROM API')
-  console.dir(
+  /*console.dir(
     Array.from(HIDDEN_FROM_API).map(
       (id) => existing.find((c) => c.wikidataId === id).name + ' - ' + id
     )
-  )
+  )*/
 
   const REMAINING_UNIQUE_IN_API =
     existsInAPIButNotInSheets.difference(HIDDEN_FROM_API)

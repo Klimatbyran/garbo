@@ -48,7 +48,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         company = await companyService.getCompany(wikidataId)
       } catch(error) {
         console.error(`Error: ${error}`);
-        return reply.status(404).send({message: `There is no company with wikidataId ${wikidataId}`});
+        return reply.status(404).send({code: "404", message: `There is no company with wikidataId ${wikidataId}`});
       }     
 
       const results = await Promise.allSettled(
