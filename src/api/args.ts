@@ -227,7 +227,7 @@ export const companyListArgs = {
     name: true,
     description: true,
     baseYear: {
-      select: { id: true, year: true, metadata: minimalMetadataArgs },
+      select: { id: true, year: true, metadata: metadataArgs },
     },
     tags: true,
     reportingPeriods: {
@@ -338,7 +338,7 @@ export const companyExportArgs = (year?) => {
       name: true,
       description: true,
       baseYear: {
-        select: { id: true, year: true, metadata: minimalMetadataArgs },
+        select: { id: true, year: true },
       },
       tags: true,
       reportingPeriods: {
