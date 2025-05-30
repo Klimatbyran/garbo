@@ -1,6 +1,7 @@
-import { changesBaseYear, changesRequireApproval } from '../lib/diffUtils'
+import { ChangeDescription } from '../lib/diffUtils'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import wikidata from '../prompts/wikidata'
 import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
 
@@ -8,7 +9,6 @@ export class DiffBaseYearJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     existingCompany: any
-    wikidata: { node: string }
     baseYear?: number
   }
 }
@@ -16,7 +16,7 @@ export class DiffBaseYearJob extends DiscordJob {
 const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
   QUEUE_NAMES.DIFF_BASE_YEAR,
   async (job) => {
-    const { url, companyName, existingCompany, baseYear } = job.data
+    const { url, companyName, existingCompany, baseYear, autoApprove, ...data } = job.data
     const metadata = defaultMetadata(url)
 
     const body = {
@@ -24,21 +24,25 @@ const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
       metadata,
     }
 
-    const changes = changesBaseYear(baseYear, existingCompany?.baseYear);
-
     const { diff, requiresApproval } = await diffChanges({
       existingCompany,
       before: existingCompany?.baseYear,
       after: { baseYear },
     })
 
-    if (changes.length > 0) {
+    const change: ChangeDescription = {
+      type: 'baseYear',
+      oldValue: { baseYear: existingCompany.baseYear },
+      newValue: { baseYear: baseYear },
+    }
+
+    job.requestApproval('baseYear', change, autoApprove || !requiresApproval, metadata, 'Updates to the base year');
+
+    if (diff) {
       await saveToAPI.queue.add(companyName + ' base-year', {
-        ...job.data,
-        body,
+        ...data,
         diff,
-        changes,
-        requiresApproval: changesRequireApproval(changes),
+        requiresApproval,
         apiSubEndpoint: 'base-year',
       })
     }

@@ -8,7 +8,6 @@ import { QUEUE_NAMES } from '../queues'
 export interface SaveToApiJob extends DiscordJob {
   data: DiscordJob['data'] & {
     companyName?: string
-    requiresApproval: boolean
     diff: string
     body: any
     wikidata: { node: string }
@@ -48,31 +47,28 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const {
         companyName,
         wikidata,
-        requiresApproval = true,
         diff = '',
-        body,
         apiSubEndpoint,
-        autoApprove = false,
-        approval
       } = job.data
       const wikidataId = wikidata.node
 
       // If approval is not required or already approved, proceed with saving
-      if (approval?.approved ?? false) {
+      if (job.isDataApproved()) {
         job.editMessage({
           content: `Thanks for approving ${apiSubEndpoint}`,
           components: [],
         })
       }      
 
-      job.log(`autoApprove: ${autoApprove}, requiresApproval: ${requiresApproval}, approved: ${approval?.approved ?? false}`)
+      job.log(`approved: ${job.isDataApproved() ?? false}`)
 
       await job.sendMessage({
         content: `## ${apiSubEndpoint}\n\nNew changes for ${companyName}\n\n${diff}`,
       })
 
-      if (autoApprove || !requiresApproval || approval?.approved) { 
-        const sanitizedBody = removeNullValuesFromGarbo(body)
+      if (job.isDataApproved()) {
+        console.log(job.getApprovedBody());
+        const sanitizedBody = removeNullValuesFromGarbo(job.getApprovedBody())
 
         job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
