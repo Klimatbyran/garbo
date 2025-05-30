@@ -338,7 +338,7 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
   statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
 })
 
-const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   id: true,
   emissions: true,
   economy: true,
@@ -347,7 +347,7 @@ const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
-const MinimalCompanyBase = CompanyBaseSchema.extend({
+export const MinimalCompanyBase = CompanyBaseSchema.extend({
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
