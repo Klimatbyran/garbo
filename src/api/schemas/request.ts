@@ -16,10 +16,6 @@ export const descriptionSchema = z.object({
   text: z.string()
 })
 
-export const postDescriptionsBodySchema = z.object({
-  descriptions: z.array(descriptionSchema),
-}).merge(createMetadataSchema)
-
 export const postCompanyBodySchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),

@@ -1,5 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
 import {Description} from '../api/types'
