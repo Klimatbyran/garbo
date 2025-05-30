@@ -1,10 +1,8 @@
 import { askPrompt } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { Wikidata } from '../prompts/wikidata'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 import {Description} from '../api/types'
-import { z } from 'zod'
 
 
 class ExtractDescriptionsJob extends DiscordJob {
@@ -60,7 +58,7 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
       descriptionSWE
     )
 
-    const descriptions: Description[] = [{language: 'SWE', text: descriptionSWE, companyId}, {language: 'ENG', text: descriptionENG, companyId}]
+    const descriptions: Description[] = [{language: 'SWE', text: descriptionSWE}, {language: 'ENG', text: descriptionENG}]
 
     job.log(`For '${companyName}', created the following descriptions: ${descriptions}`);
 
