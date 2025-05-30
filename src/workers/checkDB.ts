@@ -16,6 +16,7 @@ export class CheckDBJob extends DiscordJob {
     },
     childrenValues?: any
     approved?: boolean
+    lei?: string
   }
 }
 
@@ -32,17 +33,19 @@ const checkDB = new DiscordWorker(
       wikidata,
       threadId,
       channelId,
+      
     } = job.data
   
     const childrenValues = await job.getChildrenEntries()
     await job.updateData({ ...job.data, childrenValues })
   
-    job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
+    job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
-  
+
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
+    job.log(existingCompany);
   
     if (!existingCompany) {
       const metadata = {
@@ -51,25 +54,25 @@ const checkDB = new DiscordWorker(
       }
   
       job.sendMessage(
-        `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
+        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
       const body = {
         name: companyName,
         description,
-        wikidataId,
+        wikidataId, 
         metadata,
       }
   
-      await apiFetch(`/companies`, { body })
-  
+      await apiFetch(`/companies/${wikidataId}`, { body }); 
+
       await job.sendMessage(
-        `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
-          companyName,
-          wikidataId
-        )}`
-      )
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
+      );
+    } else {
+      job.log(`✅ The company '${companyName}' was found in the database.`);
+      await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
     }
-  
+
     const {
       scope12,
       scope3,
@@ -79,6 +82,7 @@ const checkDB = new DiscordWorker(
       baseYear,
       goals,
       initiatives,
+      lei,
     } = childrenValues
   
     const base = {
@@ -98,8 +102,10 @@ const checkDB = new DiscordWorker(
         attempts: 3,
       },
     }
-  
-    await job.editMessage(`🤖 Sparar data...`)
+    
+    console.log(`LEI number in checkDB file: ${lei}`);
+
+    await job.editMessage(`🤖 Saving data...`)
   
     await flow.add({
       ...base,
@@ -161,6 +167,19 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
+
+        lei
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_LEI,
+              data: {
+                ...base.data,
+                lei,
+                   
+              },
+            }
+          : null,
+          
       ].filter((e) => e !== null),
     })
   

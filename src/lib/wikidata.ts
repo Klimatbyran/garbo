@@ -148,3 +148,30 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   return title
 }
 
+
+export async function getLEINumberClaim(id: EntityId): Promise<string | undefined> {
+  const url = wbk.getEntities({
+      ids: id,
+      languages: ["en"]
+  })
+
+  const res = await fetch(url);
+  const wikidataEntities = (await res.json()).entities;
+
+  if(wikidataEntities === undefined) {
+    return;
+  }
+
+  const claims = wikidataEntities[id].claims;
+
+  if(claims === undefined) {
+    return;
+  }
+
+  if(claims["P1278"] === undefined || claims["P1278"].length === 0) {
+    return;
+  }
+
+  return claims["P1278"][0].mainsnak.datavalue.value;
+}
+

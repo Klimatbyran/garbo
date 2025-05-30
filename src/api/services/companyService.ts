@@ -54,6 +54,7 @@ class CompanyService {
     url?: string
     internalComment?: string
     tags?: string[]
+    lei?: string
   }) {
     return prisma.company.upsert({
       where: {
