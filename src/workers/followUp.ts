@@ -24,7 +24,7 @@ async function askAI(job, url: string, type: JobType, previousAnswer: string, nR
       default: { schema, prompt, queryTexts },
     } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
 
-    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, nResults)
+    let markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, nResults);
 
     job.log(`Reflecting on: ${prompt}
     
@@ -33,12 +33,10 @@ async function askAI(job, url: string, type: JobType, previousAnswer: string, nR
     
     `)
 
-    const response = await askStream(
-      [
-        {
+    const messages = [
+      {
           role: 'system',
-          content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+        content: 'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
         } as ChatCompletionSystemMessageParam,
         {
           role: 'user',
@@ -63,7 +61,10 @@ async function askAI(job, url: string, type: JobType, previousAnswer: string, nR
       ]
         .flat()
         .filter((m) => m !== undefined)
-        .filter((m) => m?.content),
+      .filter((m) => m?.content)
+
+    const response = await askStream(
+      messages,
       {
         response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
       }
@@ -79,15 +80,26 @@ const followUp = new DiscordWorker<FollowUpJob>(
 
     try {
       const response = await askAI(job, url, type, previousAnswer, 15);
-
       job.log('Response: ' + response)
       return response;
     } catch (error) {
-      //If we have too many tokens in the prompt, try it with less
       job.log('Error: ' + error)
-      const response = await askAI(job, url, type, previousAnswer, 10);
+
+      // Try progressive reduction strategies
+      if (error.message?.includes('maximum context length')) {
+        job.log('Retrying with fewer results...')
+        try {
+          const response = await askAI(job, url, type, previousAnswer, 8);
       return response;
+        } catch (secondError) {
+          job.log('Second attempt failed, trying with minimal context...')
+          const response = await askAI(job, url, type, previousAnswer, 5);
+          return response;
     }   
+  }
+
+      throw error;
+    }
   }
 )
 
