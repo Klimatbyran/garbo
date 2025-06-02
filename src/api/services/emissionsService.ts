@@ -216,7 +216,14 @@ class EmissionsService {
         },
       },
     })
-
+    const seenCategories = new Set<number>();
+    scope3.categories = scope3.categories?.filter(item => {
+      if (seenCategories.has(item.category)) {
+        return false;
+      }
+      seenCategories.add(item.category);
+      return true;
+    });
     await Promise.all(
       (scope3.categories ?? []).map(async (scope3Category) => {
         const metadataForScope3Category = await createMetadata(
