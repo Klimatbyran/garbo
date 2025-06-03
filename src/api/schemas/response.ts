@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { wikidataIdSchema } from './common'
+import { descriptionSchema } from './request'
 
 extendZodWithOpenApi(z)
 
@@ -57,7 +58,6 @@ export const StatedTotalEmissionsSchema = z.object({
 
 export const DescriptionSchema = z.object({
   id: z.string(),
-  companyId: z.string(),
   language: z.string(),
   text: z.string()
 })
@@ -351,6 +351,7 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
 })
 
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
+  descriptions: z.array(descriptionSchema),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
@@ -358,6 +359,7 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional(),
   descriptions: z.array(DescriptionSchema),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),

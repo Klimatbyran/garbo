@@ -18,10 +18,11 @@ model Company {
   /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
   wikidataId  String  @id
   name        String
+  description String?
   descriptions Description[]
   /// Company website URL
   url         String?
-  lei         String? 
+  lei         String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
@@ -376,7 +377,7 @@ model Description {
   text        String
   companyId   String
   language  Language
-  //@@unique([companyId, language])
+  @@unique([companyId, language])
 
   company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
   metadata  Metadata[]
