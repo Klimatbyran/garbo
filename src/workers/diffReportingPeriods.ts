@@ -1,12 +1,11 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import { diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
-import saveToAPI from './saveToAPI'
 import { QUEUE_NAMES } from '../queues'
-import { ChangeDescription } from '../lib/diffUtils'
+import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
+import apiConfig from '../config/api'
 
-export class DiffReportingPeriodsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffReportingPeriodsJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
@@ -18,11 +17,12 @@ export class DiffReportingPeriodsJob extends DiscordJob {
   }
 }
 
-const diffReportingPeriods = new DiscordWorker<DiffReportingPeriodsJob>(
-QUEUE_NAMES.DIFF_REPORTING_PERIODS,
+const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
+  QUEUE_NAMES.DIFF_REPORTING_PERIODS,
   async (job) => {
     const {
       url,
+      wikidata,
       fiscalYear,
       companyName,
       existingCompany,
@@ -30,98 +30,86 @@ QUEUE_NAMES.DIFF_REPORTING_PERIODS,
       scope3 = [],
       biogenic = [],
       economy = [],
-      autoApprove,
     } = job.data
-    const metadata = defaultMetadata(url)
 
-    // Get all unique years from all sources
-    const years = new Set([
-      ...scope12.map((d) => d.year),
-      ...scope3.map((d) => d.year),
-      ...biogenic.map((d) => d.year),
-      ...economy.map((d) => d.year),
-    ])
+    console.log(job.isDataApproved());
 
-    // Create base reporting periods
-    const reportingPeriods = Array.from(years).map((year) => {
-      const [startDate, endDate] = getReportingPeriodDates(
-        year,
-        fiscalYear.startMonth,
-        fiscalYear.endMonth
-      )
-      return {
-        year,
-        startDate,
-        endDate,
-        reportURL: url,
-      }
-    })
-
-    // Fill in data from each source, only keeping data that was changed.
-    const updatedReportingPeriods = reportingPeriods.map(
-      ({ year, ...period }) => {
-        const emissions = {
-          scope1: scope12.find((d) => d.year === year)?.scope1,
-          scope2: scope12.find((d) => d.year === year)?.scope2,
-          scope3: scope3.find((d) => d.year === year)?.scope3,
-          biogenic: biogenic.find((d) => d.year === year)?.biogenic,
-        }
-
-        const economyData = economy.find((d) => d.year === year)?.economy ?? {}
-
-        const reportingPeriod: any = period
-
-        if (Object.values(emissions).some((value) => value !== undefined)) {
-          reportingPeriod.emissions = emissions
-        }
-
-        if (Object.values(economyData).some((value) => value !== undefined)) {
-          reportingPeriod.economy = economyData
-        }
-
-        return reportingPeriod
-      }
-    )
-
-    const body = {
-      reportingPeriods: updatedReportingPeriods,
-      metadata,
+    if (job.isDataApproved()) {
+      job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, job.getApprovedBody());
+      return;
     }
 
-    // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
-    // This could improve accuracy of the diff
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany,
-      before: existingCompany?.reportingPeriods,
-      after: reportingPeriods,
-    })
+    if (!job.hasApproval()) {
+      // Get all unique years from all sources
+      const years = new Set([
+        ...scope12.map((d) => d.year),
+        ...scope3.map((d) => d.year),
+        ...biogenic.map((d) => d.year),
+        ...economy.map((d) => d.year),
+      ])
 
-    const change: ChangeDescription = {
-      type: 'reportingPeriods',
-      oldValue: { reportingPeriods: existingCompany.initiatives },
-      newValue: { reportingPeriods: updatedReportingPeriods },
-    }
-    
-    job.requestApproval('reportingPeriods', change, autoApprove || !requiresApproval, metadata, `Updates to the company's reporting periods`);
-
-    job.log('Diff:' + diff)
-
-    // Only save if we detected any meaningful changes
-    if (diff) {
-      await saveToAPI.queue.add(companyName + ' reporting-periods', {
-        ...job.data,
-        body,
-        diff,
-        apiSubEndpoint: 'reporting-periods',
-        // Remove duplicated job data that should be part of the body from now on
-        scope12: undefined,
-        scope3: undefined,
-        biogenic: undefined,
-        economy: undefined,
+      // Create base reporting periods
+      const reportingPeriods = Array.from(years).map((year) => {
+        const [startDate, endDate] = getReportingPeriodDates(
+          year,
+          fiscalYear.startMonth,
+          fiscalYear.endMonth
+        )
+        return {
+          year,
+          startDate,
+          endDate,
+          reportURL: url,
+        }
       })
+
+      // Fill in data from each source, only keeping data that was changed.
+      const updatedReportingPeriods = reportingPeriods.map(
+        ({ year, ...period }) => {
+          const emissions = {
+            scope1: scope12.find((d) => d.year === year)?.scope1,
+            scope2: scope12.find((d) => d.year === year)?.scope2,
+            scope3: scope3.find((d) => d.year === year)?.scope3,
+            biogenic: biogenic.find((d) => d.year === year)?.biogenic,
+          }
+
+          const economyData =
+            economy.find((d) => d.year === year)?.economy ?? {}
+
+          const reportingPeriod: any = period
+
+          if (Object.values(emissions).some((value) => value !== undefined)) {
+            reportingPeriod.emissions = emissions
+          }
+
+          if (Object.values(economyData).some((value) => value !== undefined)) {
+            reportingPeriod.economy = economyData
+          }
+
+          return reportingPeriod
+        }
+      )
+
+      // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
+      // This could improve accuracy of the diff
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.reportingPeriods || [],
+        after: updatedReportingPeriods,
+      })
+
+      const change: ChangeDescription = {
+        type: 'reportingPeriods',
+        oldValue: { reportingPeriods: existingCompany.reportingPeriods },
+        newValue: { reportingPeriods: updatedReportingPeriods },
+      }
+
+      await job.handleDiff('reporting-periods', diff, change, typeof requiresApproval == 'boolean' ? requiresApproval : false);
     }
 
-    return { body, diff, requiresApproval }
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay);
+    }
   }
 )
 

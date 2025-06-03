@@ -8,7 +8,7 @@ import {
 import redis from '../config/redis'
 import discord from '../discord'
 import apiConfig from '../config/api';
-import { ChangeDescription } from './diffUtils';
+import { ChangeDescription } from './DiffWorker';
 
 interface Approval {
   summary?: string;
@@ -42,6 +42,7 @@ export class DiscordJob extends Job {
   >
   requestApproval: (type: string, data: Approval['data'], approved: boolean, metadata: Approval['metadata'], summary?: string) => Promise<void>
   isDataApproved: () => boolean
+  hasApproval: () => boolean
   getApprovedBody: () => any
   setThreadName: (name: string) => Promise<TextChannel>
   sendTyping: () => Promise<void>
@@ -85,11 +86,15 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.requestApproval = async (type: string, data: ChangeDescription, approved: boolean = false, metadata: Approval['metadata'], summary?: string) => {
-    await job.updateData({ ...job.data, approval: { summary, type, data, approved, metadata }});
+    await job.updateData({ ...job.data, approval: { summary, type, data, approved, metadata }});    
   }
 
   job.isDataApproved = () => {
-    return job.data.approval?.approved ?? true
+    return job.data.approval?.approved ?? false
+  }
+
+  job.hasApproval = () => {
+    return !!job.data.approval;
   }
 
   job.getApprovedBody = () => {

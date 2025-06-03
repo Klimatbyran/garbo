@@ -1,12 +1,11 @@
-import { ChangeDescription } from '../lib/diffUtils'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import apiConfig from '../config/api'
+import { ChangeDescription, DiffJob, DiffWorker } from '../lib/DiffWorker'
 import { defaultMetadata, diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import { Initiative } from '../types'
-import saveToAPI from './saveToAPI'
 
-export class DiffInitiativesJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffInitiativesJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     companyName: string
     existingCompany: any
     wikidata: { node: string }
@@ -14,46 +13,37 @@ export class DiffInitiativesJob extends DiscordJob {
   }
 }
 
-const diffInitiatives = new DiscordWorker<DiffInitiativesJob>(
+const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
   QUEUE_NAMES.DIFF_INITIATIVES,
   async (job) => {
-    const { url, companyName, existingCompany, initiatives, autoApprove } = job.data
-    const metadata = defaultMetadata(url)
+    const { url, companyName, existingCompany, initiatives, autoApprove, wikidata } = job.data
+    const metadata = defaultMetadata(url);
 
-    const body = {
-      initiatives,
-      metadata,
+    if (job.isDataApproved()) {
+      await job.enqueueSaveToAPI('initiatives', companyName, wikidata, job.getApprovedBody());
+      return;
     }
 
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany,
-      before: existingCompany?.initiatives,
-      after: initiatives,
-    })
+    if (!job.hasApproval()) {
 
-    const change: ChangeDescription = {
-        type: 'initiatives',
-        oldValue: { initiatives: existingCompany.initiatives },
-        newValue: { initiatives: initiatives },
-      }
-    
-    job.requestApproval('initiatives', change, autoApprove || !requiresApproval, metadata, `Updates to the company's initiatives`);
-    job.log('Diff:' + diff)
-
-    // Only save if we detected any meaningful changes
-    if (diff) {
-      await saveToAPI.queue.add(companyName + ' initiatives', {
-        ...job.data,
-        body,
-        diff,
-        apiSubEndpoint: 'initiatives',
-
-        // Remove duplicated job data that should be part of the body from now on
-        initiatives: undefined,
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.initiatives,
+        after: initiatives,
       })
-    }
 
-    return { body, diff, requiresApproval }
+      const change: ChangeDescription = {
+          type: 'initiatives',
+          oldValue: { initiatives: existingCompany.initiatives },
+          newValue: { initiatives: initiatives },
+      }
+
+      await job.handleDiff('initiatives', diff, change, typeof requiresApproval == 'boolean' ? requiresApproval : false);    
+    }
+    
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay);
+    }
   }
 )
 
