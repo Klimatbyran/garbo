@@ -240,6 +240,7 @@ export const companyListArgs = {
         text: true
       }
     },
+    lei: true,
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
