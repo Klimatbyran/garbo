@@ -226,6 +226,7 @@ export const companyListArgs = {
     wikidataId: true,
     name: true,
     description: true,
+    lei: true,
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
