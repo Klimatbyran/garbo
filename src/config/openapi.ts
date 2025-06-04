@@ -40,6 +40,9 @@ const openAPITagDefinitions = {
   ReportValidations: {
     description: 'Report validations',
   },
+  Newsletters: {
+    description: 'Newsletters',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
