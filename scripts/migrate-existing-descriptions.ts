@@ -2,12 +2,13 @@ import fetch from 'node-fetch'
 import apiConfig from '../src/config/api.ts'
 import { askPrompt } from '../src/lib/openai'
 
-const { baseURL, secret } = apiConfig
+// baseURL and prod_base_url may be interchanged based on where you want to get and post
+const { baseURL, prod_base_url, secret } = apiConfig
 
 async function updateDescriptions() {
     
     // Get a valid authentication token
-    const responseAuth = await fetch(`${baseURL}/auth/token`, {
+    const responseAuth = await fetch(`${prod_base_url}/auth/token`, {
         method: `POST`,
         headers: {
             'Content-Type': 'application/json'
@@ -26,7 +27,7 @@ async function updateDescriptions() {
 
     // Get the companies' descriptions
     console.log("Fetching companies' descriptions...")
-    const response = await fetch(`${baseURL}/companies`, {
+    const response = await fetch(`${prod_base_url}/companies`, {
         method: 'GET',
     })
 
@@ -67,7 +68,7 @@ async function updateDescriptions() {
                     descriptionSWE
                 )
                 try {
-                    const response = await fetch(`${baseURL}/companies/${elem.wikidataId}`, {
+                    const response = await fetch(`${prod_base_url}/companies/${elem.wikidataId}`, {
                         method: 'GET',
                     })
                     if(response.ok) {
