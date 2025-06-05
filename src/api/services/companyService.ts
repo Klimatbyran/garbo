@@ -256,11 +256,9 @@ export function addCompanyEmissionChange(companies: any[]) {
             adjustedPreviousTotal += preivousScope3?.statedTotalEmissions ?? 0;
           }
         }
-        console.log(adjustedCurrentTotal);
-        console.log(adjustedPreviousTotal);
         period.emissionsTrend = {
-          absolute: period.emissions.calculatedTotalEmissions > 0 ? ((period.emissions.calculatedTotalEmissions - previousPeriod.emissions.calculatedTotalEmissions) / period.emissions.calculatedTotalEmissions * 100) : 0,
-          adjusted: adjustedCurrentTotal > 0 ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedCurrentTotal * 100) : 0
+          absolute: period.emissions.calculatedTotalEmissions > 0 ? ((period.emissions.calculatedTotalEmissions - previousPeriod.emissions.calculatedTotalEmissions) / previousPeriod.emissions.calculatedTotalEmissions * 100) : 0,
+          adjusted: adjustedCurrentTotal > 0 ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100) : 0
         }
       } else {
         period.emissionsTrend = {
