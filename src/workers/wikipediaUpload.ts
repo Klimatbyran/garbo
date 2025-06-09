@@ -35,7 +35,7 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     const reportingPeriod = findMostRecentReportingPeriod(body.reportingPeriods);
     
     if(!reportingPeriod) {
-      job.editMessage(`❌ Can't uplod to wikipedia no reporting period found`);
+      job.editMessage(`❌ Can't upload to wikipedia no reporting period found`);
       console.error('No reporting period found');
       throw Error('No reporting period found');
     }
@@ -45,18 +45,16 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     const title: string = await getWikipediaTitle(wikidata.node)
 
     if (!checkEmissionsExist(emissions)) {
-      job.editMessage(`❌ Inga utsläpp hittade`)
+      job.editMessage(`❌ No emissions found`)
       console.error('No emissions found')
       throw Error('No emissions found')
     }
 
     if (!title) {
-      job.editMessage(`❌ Ingen Wikipedia-sida hittad`)
+      job.editMessage(`❌ No Wikipedia page found`)
       console.error('No Wikipedia page found')
       throw Error('No Wikipedia page found')
     }
-
-    console.log(title)
 
     const text: string = generateWikipediaArticleText(emissions, title, year, wikipediaConfig.language)
     const reportURL: string = reportingPeriod.reportURL;
@@ -65,12 +63,11 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
       reportURL
     }
 
-    console.log(title);
-
     try {
+      if(title)
       await updateWikipediaContent(title, content)
     } catch(e) {
-      job.editMessage(`❌ Fel vid uppdatering av Wikipedia: ${e.message}`)
+      job.editMessage(`❌ Error updating Wikipedia: ${e.message}`)
       throw e
     }
 
