@@ -35,7 +35,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
 
       const change: ChangeDescription = {
         type: 'baseYear',
-        oldValue: { baseYear: existingCompany.baseYear },
+        oldValue: { baseYear: existingCompany.baseYear.year },
         newValue: { baseYear: baseYear },
       }
 
