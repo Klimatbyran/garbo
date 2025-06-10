@@ -225,48 +225,87 @@ export function addCalculatedTotalEmissions(companies: any[]) {
 }
 
 export function addCompanyEmissionChange(companies: any[]) {
-  return( companies.map((company) => {
-    company.reportingPeriods.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
-    company.reportingPeriods.map((period: any, index: number) => {
-      if(index < company.reportingPeriods.length - 1) {
-        let adjustedCurrentTotal = 0;
-        let adjustedPreviousTotal = 0;
-        const previousPeriod = company.reportingPeriods[index + 1];
-        const { scope1: currentScope1, scope2: currentScope2, scope3: currentScope3 } = period.emissions || {};
-        const { scope1: preivousScope1, scope2: preivousScope2, scope3: preivousScope3 } = previousPeriod.emissions || {};
-        if(currentScope1 && preivousScope1) {
-          adjustedCurrentTotal += currentScope1?.total ?? 0;
-          adjustedPreviousTotal += preivousScope1?.total ?? 0;
-        }
-        if(currentScope2 && preivousScope2) {
-          adjustedCurrentTotal += currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0;
-          adjustedPreviousTotal += preivousScope2?.mb ?? preivousScope2?.lb ?? preivousScope2?.unknown ?? 0;
-        }
-        if(currentScope3 && preivousScope3) {
-          if(currentScope3?.categories && preivousScope3?.categories && currentScope3?.categories.length > 0 && preivousScope3?.categories.length > 0) {
-            currentScope3?.categories.forEach((currentCategory) => {
-              const previousCategory = preivousScope3?.categories.find((category) => category.category === currentCategory.category);
-              if(previousCategory) {
-                adjustedCurrentTotal += currentCategory?.total ?? 0;
-                adjustedPreviousTotal += previousCategory?.total ?? 0;
-              }
-            });
-          } else if(currentScope3.statedTotalEmissions && preivousScope3.statedTotalEmissions) {
-            adjustedCurrentTotal += currentScope3?.statedTotalEmissions ?? 0;
-            adjustedPreviousTotal += preivousScope3?.statedTotalEmissions ?? 0;
-          }
-        }
-        period.emissionsTrend = {
-          absolute: period.emissions.calculatedTotalEmissions > 0 ? ((period.emissions.calculatedTotalEmissions - previousPeriod.emissions.calculatedTotalEmissions) / previousPeriod.emissions.calculatedTotalEmissions * 100) : 0,
-          adjusted: adjustedCurrentTotal > 0 ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100) : 0
-        }
-      } else {
-        period.emissionsTrend = {
-          absolute: null,
-          adjusted: null
-        }
+  return companies.map(company => {
+    return {
+      ...company,
+      reportingPeriods: sortReportingPeriodsByEndDate(company.reportingPeriods).map(addEmissionTrendsToReportingPeriods)
+    };
+  });
+}
+
+function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
+  return reportingPeriods.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+}
+
+function addEmissionTrendsToReportingPeriods(periods: any[]) {
+  return periods.forEach((period: any, index: number) => {
+    if (index < periods.length - 1) {
+      const previousPeriod = periods[index + 1];
+      period.emissionsTrend = calculateEmissionTrend(period, previousPeriod);
+    } else {
+      period.emissionsTrend = {
+        absolute: null,
+        adjusted: null
+      };
+    }
+  });
+}
+
+function calculateEmissionTrend(currentPeriod: any, previousPeriod: any) {
+  const { adjustedCurrentTotal, adjustedPreviousTotal } = calculateEmissionTotals(currentPeriod, previousPeriod);
+
+  return {
+    absolute: currentPeriod.emissions.calculatedTotalEmissions > 0
+      ? ((currentPeriod.emissions.calculatedTotalEmissions - previousPeriod.emissions.calculatedTotalEmissions) / previousPeriod.emissions.calculatedTotalEmissions * 100)
+      : 0,
+    adjusted: adjustedCurrentTotal > 0
+      ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100)
+      : 0
+  };
+}
+
+function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
+  let adjustedCurrentTotal = 0;
+  let adjustedPreviousTotal = 0;
+
+  const { scope1: currentScope1, scope2: currentScope2, scope3: currentScope3 } = currentPeriod.emissions || {};
+  const { scope1: previousScope1, scope2: previousScope2, scope3: previousScope3 } = previousPeriod.emissions || {};
+
+  // Compare Scope 1 emissions
+  if (currentScope1 && previousScope1) {
+    adjustedCurrentTotal += currentScope1?.total ?? 0;
+    adjustedPreviousTotal += previousScope1?.total ?? 0;
+  }
+
+  // Compare Scope 2 emissions
+  if (currentScope2 && previousScope2) {
+    adjustedCurrentTotal += currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0;
+    adjustedPreviousTotal += previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0;
+  }
+
+  // Compare Scope 3 emissions
+  if (currentScope3 && previousScope3) {
+    calculateScope3EmissionsTotals(currentScope3, previousScope3, (current, previous) => {
+      adjustedCurrentTotal += current;
+      adjustedPreviousTotal += previous;
+    });
+  }
+
+  return { adjustedCurrentTotal, adjustedPreviousTotal };
+}
+
+function calculateScope3EmissionsTotals(currentScope3: any, previousScope3: any, addToTotals: (current: number, previous: number) => void) {
+  const hasCurrentCategories = currentScope3?.categories && currentScope3.categories.length > 0;
+  const hasPreviousCategories = previousScope3?.categories && previousScope3.categories.length > 0;
+
+  if (hasCurrentCategories && hasPreviousCategories) {
+    currentScope3.categories.forEach((currentCategory: any) => {
+      const previousCategory = previousScope3.categories.find((category: any) => category.category === currentCategory.category);
+      if (previousCategory) {
+        addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0);
       }
     });
-    return company;
-  }));
+  } else if (currentScope3.statedTotalEmissions && previousScope3.statedTotalEmissions) {
+    addToTotals(currentScope3?.statedTotalEmissions ?? 0, previousScope3?.statedTotalEmissions ?? 0);
+  }
 }
