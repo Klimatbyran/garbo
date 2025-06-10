@@ -37,6 +37,7 @@ import { municipalityExportRoutes } from './api/routes/municipality.export'
 import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
+import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 
 async function startApp() {
   const app = Fastify({
@@ -127,6 +128,7 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
+  app.register(emissionsAssessmentRoutes, { prefix: 'api' })
 }
 
 /**
