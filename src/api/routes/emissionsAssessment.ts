@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '../../lib/prisma'
-import type { ReportingPeriodData, CompanyWithEmissions } from '../../jobs/emissions/types'
-import { companyWithEmissionsInclude } from '../../jobs/emissions/types'
-import { assessmentResultSchema, errorResponseSchema } from '../../jobs/emissions/schema'
-import { assessEmissions } from '../../jobs/emissions/assess'
+import { prisma } from '@/lib/prisma'
+import type { ReportingPeriodData, CompanyWithEmissions } from '@/jobs/emissions/types'
+import { companyWithEmissionsInclude } from '@/jobs/emissions/types'
+import { assessmentResultSchema, errorResponseSchema } from '@/jobs/emissions/schema'
+import { assessEmissions } from '@/jobs/emissions/assess'
 
 const emissionsAssessmentSchema = z.object({
   wikidataId: z.string(),
@@ -53,7 +53,7 @@ type EmissionsAssessmentRequest = z.infer<typeof emissionsAssessmentSchema>
 
 export async function emissionsAssessmentRoutes(app: FastifyInstance) {
   app.post(
-    '/assess-emissions',
+    '/',
     {
       schema: {
         body: emissionsAssessmentSchema,

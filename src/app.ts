@@ -128,7 +128,7 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
-  app.register(emissionsAssessmentRoutes, { prefix: 'api' })
+
 }
 
 /**
@@ -147,6 +147,10 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
   app.register(validationsReadRoutes, { prefix: 'api/validation' })
   app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
+
+  app.register(emissionsAssessmentRoutes, { prefix: 'api/emissions-assessment' })
+
+
 }
 
 export default startApp
