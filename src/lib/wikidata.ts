@@ -14,11 +14,11 @@ const wikibaseEditConfig = {
   instance: wikidataConfig.wikidataURL,
   credentials: {
     oauth: {
-      'consumer_key': wikidataConfig.wikidataConsumerKey,
-      'consumer_secret': wikidataConfig.wikidataConsumerSecret,
-      'token': wikidataConfig.wikidataToken,
-      'token_secret': wikidataConfig.wikidataTokenSecet
-    }
+      consumer_key: wikidataConfig.wikidataConsumerKey,
+      consumer_secret: wikidataConfig.wikidataConsumerSecret,
+      token: wikidataConfig.wikidataToken,
+      token_secret: wikidataConfig.wikidataTokenSecet,
+    },
   },
   userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
 }
@@ -31,7 +31,7 @@ const {
   SCOPE_2_LOCATION_BASED,
   SCOPE_2_MARKET_BASED,
   SCOPE_3,
-} = wikidataConfig.entities;
+} = wikidataConfig.entities
 
 const {
   CARBON_FOOTPRINT,
@@ -41,8 +41,8 @@ const {
   REFERENCE_URL,
   OBJECT_OF_STATEMENT_HAS_ROLE,
   APPLIES_TO_PART,
-  ARCHIVE_URL
-} = wikidataConfig.properties;
+  ARCHIVE_URL,
+} = wikidataConfig.properties
 
 export async function searchCompany({
   companyName,
@@ -88,236 +88,335 @@ export async function getWikidataEntities(ids: `Q${number}`[]) {
 
 export async function getClaims(entity: ItemId): Promise<Claim[]> {
   const url = wbk.getEntities({
-      ids: entity,
-      languages: ["en"]
+    ids: entity,
+    languages: ['en'],
   })
 
-  const res = await fetch(url);
-  const wikidataEntities = (await res.json()).entities;
+  const res = await fetch(url)
 
-  if(wikidataEntities === undefined) {
-    return [];
+  if (!res.ok) {
+    console.log(`Error ${res.status} ${res.statusText}`)
+    throw new Error('Could not get entitys claims')
   }
 
-  const claims = wikidataEntities[entity].claims;
+  const wikidataEntities = (await res.json()).entities
 
-  if(claims === undefined) {
-    return [];
+  if (wikidataEntities === undefined) {
+    return []
   }
-  
-  const carbonFootprintClaims = claims[CARBON_FOOTPRINT] ?? [];
 
-  return carbonFootprintClaims.map(claim => {
-    const references = claim.references?.length > 0 ? claim.references[0].snaks : undefined;
+  const claims = wikidataEntities[entity].claims
+
+  if (claims === undefined) {
+    return []
+  }
+
+  const carbonFootprintClaims = claims[CARBON_FOOTPRINT] ?? []
+
+  return carbonFootprintClaims.map((claim) => {
+    const references =
+      claim.references?.length > 0 ? claim.references[0].snaks : undefined
     return {
-      startDate: transformFromWikidataDateStringToDate(claim.qualifiers[START_TIME][0].datavalue.value.time),
-      endDate: transformFromWikidataDateStringToDate(claim.qualifiers[END_TIME][0].datavalue.value.time),
+      startDate: claim.qualifiers[START_TIME]
+        ? transformFromWikidataDateStringToDate(
+            claim.qualifiers[START_TIME][0].datavalue.value.time
+          )
+        : '',
+      endDate: claim.qualifiers[END_TIME]
+        ? transformFromWikidataDateStringToDate(
+            claim.qualifiers[END_TIME][0].datavalue.value.time
+          )
+        : '',
       value: claim.mainsnak.datavalue.value.amount,
-      category: claim.qualifiers[APPLIES_TO_PART] ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id : undefined,
-      scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] ? claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id : undefined,
+      category: claim.qualifiers[APPLIES_TO_PART]
+        ? claim.qualifiers[APPLIES_TO_PART][0].datavalue.value.id
+        : undefined,
+      scope: claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE]
+        ? claim.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE][0].datavalue.value.id
+        : undefined,
       id: claim.id,
-      referenceUrl: references && references[REFERENCE_URL] ? references[REFERENCE_URL][0].datavalue.value : undefined,
-      archiveUrl: references && references[ARCHIVE_URL] ? references[ARCHIVE_URL][0].datavalue.value : undefined
+      referenceUrl:
+        references && references[REFERENCE_URL]
+          ? references[REFERENCE_URL][0].datavalue.value
+          : undefined,
+      archiveUrl:
+        references && references[ARCHIVE_URL]
+          ? references[ARCHIVE_URL][0].datavalue.value
+          : undefined,
     } as Claim
   })
 }
 
-export async function editEntity(entity: ItemId, claims: Claim[], removeClaim: RemoveClaim[]) {
-  if(claims.length === 0 && removeClaim.length === 0) {
-    return;
+export async function editEntity(
+  entity: ItemId,
+  claims: Claim[],
+  removeClaim: RemoveClaim[]
+) {
+  if (claims.length === 0 && removeClaim.length === 0) {
+    return
   }
-  const wbEdit = WBEdit(wikibaseEditConfig);
+  const wbEdit = WBEdit(wikibaseEditConfig)
   const claimBody = claims.map((claim) => {
     const claimObject = {
       value: {
-          amount: claim.value,
-          unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT
+        amount: claim.value,
+        unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
       },
       qualifiers: {
-          [START_TIME]: claim.startDate,
-          [END_TIME]: claim.endDate,
-          [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
+        [START_TIME]: claim.startDate,
+        [END_TIME]: claim.endDate,
+        [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
       },
       references: [
         {
           [REFERENCE_URL]: claim.referenceUrl,
-          [ARCHIVE_URL]: claim.archiveUrl
-        }
-      ]
+          [ARCHIVE_URL]: claim.archiveUrl,
+        },
+      ],
     }
 
-    if(claim.scope !== undefined) {
-      claimObject.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = claim.scope;
+    if (claim.scope !== undefined) {
+      claimObject.qualifiers[OBJECT_OF_STATEMENT_HAS_ROLE] = claim.scope
     }
 
-    if(claim.category !== undefined) {
-      claimObject.qualifiers[APPLIES_TO_PART] = claim.category;
+    if (claim.category !== undefined) {
+      claimObject.qualifiers[APPLIES_TO_PART] = claim.category
     }
 
-    return claimObject;
-  }) 
+    return claimObject
+  })
 
   const body = {
     id: entity,
     claims: {
-      [CARBON_FOOTPRINT]: [
-        ...claimBody,
-        ...removeClaim
-      ]
+      [CARBON_FOOTPRINT]: [...claimBody, ...removeClaim],
     },
-    summary: "Added/Updated carbon footprint data"
+    summary: 'Added/Updated carbon footprint data',
   }
 
-  await wbEdit.entity.edit(body);
+  await wbEdit.entity.edit(body)
 }
-
 
 /**
  * Compares if two claims have the same scope and optionally category
- * @param newClaim 
- * @param exisitingClaim 
+ * @param newClaim
+ * @param exisitingClaim
  * @returns true if scope and category are equal
  */
-function compareClaims(newClaim: Claim, exisitingClaim: Claim) { 
-  if( (newClaim.scope === undefined && exisitingClaim.scope !== undefined) ||
-      (newClaim.scope !== undefined && (exisitingClaim.scope === undefined || exisitingClaim.scope !== newClaim.scope))) {
-      return false;
+function compareClaims(newClaim: Claim, exisitingClaim: Claim) {
+  if (
+    (newClaim.scope === undefined && exisitingClaim.scope !== undefined) ||
+    (newClaim.scope !== undefined &&
+      (exisitingClaim.scope === undefined ||
+        exisitingClaim.scope !== newClaim.scope))
+  ) {
+    return false
   }
-  if( (newClaim.category === undefined && exisitingClaim.category !== undefined) ||
-      (newClaim.category !== undefined && (exisitingClaim.category === undefined || exisitingClaim.category !== newClaim.category))) {
-      return false;
+  if (
+    (newClaim.category === undefined &&
+      exisitingClaim.category !== undefined) ||
+    (newClaim.category !== undefined &&
+      (exisitingClaim.category === undefined ||
+        exisitingClaim.category !== newClaim.category))
+  ) {
+    return false
   }
-  return true;
+  return true
 }
-
 
 /**
  * Compares two date strings
- * @param date1 
- * @param date2 
+ * @param date1
+ * @param date2
  * @returns difference in milliseconds
  */
 function compareDateStrings(date1?: string, date2?: string) {
-  const epoch = "1970-01-01T00:00:00Z";
-  return (new Date(date1 || epoch)).getTime() - (new Date(date2 || epoch).getTime())
+  const epoch = '1970-01-01T00:00:00Z'
+  return new Date(date1 || epoch).getTime() - new Date(date2 || epoch).getTime()
 }
-
 
 /**
  * Calculates the claims to add and which to remove in order to update the entity
  * @param entity Entity for which the exisiting and adding Claims should be compared
  * @param claims The claims to add
- * @returns 
+ * @returns
  */
-async function diffCarbonFootprintClaims(entity: ItemId, claims: Claim[], existingClaims: Claim[]) {
-  const newClaims: Claim[] = [];
-  const rmClaims: RemoveClaim[] = [];
+async function diffCarbonFootprintClaims(
+  entity: ItemId,
+  claims: Claim[],
+  existingClaims: Claim[]
+) {
+  const newClaims: Claim[] = []
+  const rmClaims: RemoveClaim[] = []
 
-  for(const claim of claims) {
-    let duplicate = false;
-    for(const existingClaim of existingClaims) {
+  for (const claim of claims) {
+    let duplicate = false
+    for (const existingClaim of existingClaims) {
       /**
        * Bit of explanaiton for the different cases
        * The compareClaim function looks if there is already a claim with the same scope and optional category
        * If that is the case we only want the most recent claim of that scope and category to be on wikidata
        * Therefore, we look at the end date of the claim's reporting period to find the most recent one
-       * All older claims will not be added or are removed if there are on wikidata 
+       * All older claims will not be added or are removed if there are on wikidata
        */
-      if(compareClaims(claim, existingClaim)) {
-        if(compareDateStrings(existingClaim.endDate, claim.endDate) < 0) {
-            if(existingClaim.id !== undefined) {
-              rmClaims.push({id: existingClaim.id, remove: true});  //Remove older claims;
-            } 
-            continue;
-        } else if(compareDateStrings(existingClaim.endDate, claim.endDate) > 0) {
-            duplicate = true; //If there is a more recent one do not add that claim
-        } else if(compareDateStrings(existingClaim.endDate, claim.endDate) === 0
-        && compareDateStrings(existingClaim.startDate, claim.startDate) === 0) {
-          if(("+" + claim.value) !== existingClaim.value) {
-            newClaims.push(claim); //Update value by removing old claim and adding new claim
-            if(existingClaim.id !== undefined) {
-              rmClaims.push({id: existingClaim.id, remove: true});
-            }             
-          }          
-          duplicate = true;
+      if (compareClaims(claim, existingClaim)) {
+        if (compareDateStrings(existingClaim.endDate, claim.endDate) < 0) {
+          if (existingClaim.id !== undefined) {
+            //We dont want to remove any claims for now
+            //rmClaims.push({id: existingClaim.id, remove: true});  //Remove older claims;
+          }
+          continue
+        } else if (
+          compareDateStrings(existingClaim.endDate, claim.endDate) > 0
+        ) {
+          duplicate = true //If there is a more recent one do not add that claim
+        } else if (
+          compareDateStrings(existingClaim.endDate, claim.endDate) === 0 &&
+          compareDateStrings(existingClaim.startDate, claim.startDate) === 0
+        ) {
+          if ('+' + claim.value !== existingClaim.value) {
+            newClaims.push(claim) //Update value by removing old claim and adding new claim
+            if (existingClaim.id !== undefined) {
+              rmClaims.push({ id: existingClaim.id, remove: true })
+            }
+          }
+          duplicate = true
         } else {
-          newClaims.push(claim); //if for some reason the start times differ we still opt for our claim
-          if(existingClaim.id !== undefined) {
-            rmClaims.push({id: existingClaim.id, remove: true});
-          } 
-          duplicate = true;
-        }          
-      }      
+          newClaims.push(claim) //if for some reason the start times differ we still opt for our claim
+          if (existingClaim.id !== undefined) {
+            rmClaims.push({ id: existingClaim.id, remove: true })
+          }
+          duplicate = true
+        }
+      }
     }
-    if(!duplicate) {
-      newClaims.push(claim); //only add claims that not exist already
+    if (!duplicate) {
+      newClaims.push(claim) //only add claims that not exist already
     }
   }
-  return {newClaims, rmClaims};
+  return { newClaims, rmClaims }
 }
 
-export async function diffTotalCarbonFootprintClaims(newClaims: Claim[], existingClaims: Claim[], rmClaims: RemoveClaim[]) {
-  const claimsOfMostRecentReportingPeriod = [...newClaims, ...existingClaims].reduce((recentClaims: Claim[], current) => {
-    if(current.id === undefined || !rmClaims.find((claimI) => claimI.id === current.id)) {
-      if(recentClaims.length === 0 || current.endDate > recentClaims[0].endDate) {
-        recentClaims = [current];
-      } else if(current.endDate === recentClaims[0].endDate) {
-        recentClaims.push(current);
+export async function diffTotalCarbonFootprintClaims(
+  newClaims: Claim[],
+  existingClaims: Claim[],
+  rmClaims: RemoveClaim[]
+) {
+  const claimsOfMostRecentReportingPeriod = [
+    ...newClaims,
+    ...existingClaims,
+  ].reduce((recentClaims: Claim[], current) => {
+    if (
+      current.id === undefined ||
+      !rmClaims.find((claimI) => claimI.id === current.id)
+    ) {
+      if (
+        recentClaims.length === 0 ||
+        current.endDate > recentClaims[0].endDate
+      ) {
+        recentClaims = [current]
+      } else if (current.endDate === recentClaims[0].endDate) {
+        recentClaims.push(current)
       }
-    }    
-    return recentClaims;
-  }, []);
+    }
+    return recentClaims
+  }, [])
 
-  if(claimsOfMostRecentReportingPeriod.length > 0) {
-
-    const total = claimsOfMostRecentReportingPeriod.reduce((total: number, current) => {
-      if(current.scope !== undefined) {
-        if((current.scope === SCOPE_3 && current.category === undefined && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_3 && claimI.category !== undefined))
-        ||  (current.scope === SCOPE_2_LOCATION_BASED && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED))
-        || (current.scope === SCOPE_2 && claimsOfMostRecentReportingPeriod.find(claimI => claimI.scope === SCOPE_2_MARKET_BASED || claimI.scope === SCOPE_2_LOCATION_BASED))) {
-          return total;
+  if (claimsOfMostRecentReportingPeriod.length > 0) {
+    const total = claimsOfMostRecentReportingPeriod.reduce(
+      (total: number, current) => {
+        if (current.scope !== undefined) {
+          if (
+            (current.scope === SCOPE_3 &&
+              current.category === undefined &&
+              claimsOfMostRecentReportingPeriod.find(
+                (claimI) =>
+                  claimI.scope === SCOPE_3 && claimI.category !== undefined
+              )) ||
+            (current.scope === SCOPE_2_LOCATION_BASED &&
+              claimsOfMostRecentReportingPeriod.find(
+                (claimI) => claimI.scope === SCOPE_2_MARKET_BASED
+              )) ||
+            (current.scope === SCOPE_2 &&
+              claimsOfMostRecentReportingPeriod.find(
+                (claimI) =>
+                  claimI.scope === SCOPE_2_MARKET_BASED ||
+                  claimI.scope === SCOPE_2_LOCATION_BASED
+              ))
+          ) {
+            return total
+          }
+          total +=
+            typeof current.value !== 'number' && current.value.startsWith('+')
+              ? parseInt(current.value.substring(1))
+              : parseInt(current.value)
         }
-        total += typeof current.value !== "number" && current.value.startsWith("+") ? parseInt(current.value.substring(1)) : parseInt(current.value);
-      }
-      return total;
-    }, 0);
+        return total
+      },
+      0
+    )
 
-    let updateTotalClaim = true;
+    let updateTotalClaim = true
 
-    for(const existingClaim of existingClaims) {
-      if(existingClaim.scope === undefined && existingClaim.category === undefined) {
-        if(existingClaim.endDate < claimsOfMostRecentReportingPeriod[0].endDate && existingClaim.id) {
-          rmClaims.push({id: existingClaim.id, remove: true});
+    for (const existingClaim of existingClaims) {
+      if (
+        existingClaim.scope === undefined &&
+        existingClaim.category === undefined
+      ) {
+        if (
+          existingClaim.endDate <
+            claimsOfMostRecentReportingPeriod[0].endDate &&
+          existingClaim.id
+        ) {
+          //Don't remove total emission claim for previous years
+          //rmClaims.push({id: existingClaim.id, remove: true});
         }
-        if(existingClaim.endDate === claimsOfMostRecentReportingPeriod[0].endDate) {
-          if(existingClaim.value !== ("+" +  total) && existingClaim.id) {
-            rmClaims.push({id: existingClaim.id, remove: true});
+        if (
+          existingClaim.endDate === claimsOfMostRecentReportingPeriod[0].endDate
+        ) {
+          if (existingClaim.value !== '+' + total && existingClaim.id) {
+            rmClaims.push({ id: existingClaim.id, remove: true })
           } else {
-            updateTotalClaim = false;
+            updateTotalClaim = false
           }
         }
       }
     }
 
-    if(updateTotalClaim) {
+    if (updateTotalClaim) {
       newClaims.push({
         startDate: claimsOfMostRecentReportingPeriod[0].startDate,
         endDate: claimsOfMostRecentReportingPeriod[0].endDate,
         value: total.toString(),
         archiveUrl: claimsOfMostRecentReportingPeriod[0].archiveUrl,
-        referenceUrl: claimsOfMostRecentReportingPeriod[0].referenceUrl
-      });
+        referenceUrl: claimsOfMostRecentReportingPeriod[0].referenceUrl,
+      })
     }
   }
 
-  return {newClaims, rmClaims};
+  return { newClaims, rmClaims }
 }
 
-export async function bulkCreateOrEditCarbonFootprintClaim(entity: ItemId, claims: Claim[]) {
-  const existingClaims = await getClaims(entity);
-  let {newClaims, rmClaims} = await diffCarbonFootprintClaims(entity, claims, existingClaims);  
-  ({newClaims, rmClaims} = await diffTotalCarbonFootprintClaims(newClaims, existingClaims, rmClaims));
-  await editEntity(entity, newClaims, rmClaims);
+export async function bulkCreateOrEditCarbonFootprintClaim(
+  entity: ItemId,
+  claims: Claim[]
+) {
+  try {
+    const existingClaims = await getClaims(entity)
+    let { newClaims, rmClaims } = await diffCarbonFootprintClaims(
+      entity,
+      claims,
+      existingClaims
+    )
+    ;({ newClaims, rmClaims } = await diffTotalCarbonFootprintClaims(
+      newClaims,
+      existingClaims,
+      rmClaims
+    ))
+    if(newClaims.length > 0 || rmClaims.length > 0) {
+       await editEntity(entity, newClaims, rmClaims)
+    }   
+  } catch (error) {}
 }
 
 export async function getWikipediaTitle(id: EntityId): Promise<string> {
@@ -329,7 +428,8 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
     res.json()
   )
   const entity = entities[id]
-  const title = entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
+  const title =
+    entity?.sitelinks?.enwiki?.title ?? entity?.sitelinks?.svwiki?.title ?? null
 
   if (!title) {
     throw new Error('No Wikipedia site link found')
@@ -338,118 +438,135 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   return title
 }
 
-export async function getLEINumber(entity: EntityId): Promise<string | undefined> {
+export async function getLEINumber(
+  entity: EntityId
+): Promise<string | undefined> {
   const url = wbk.getEntities({
-      ids: entity,
-      languages: ["en"]
+    ids: entity,
+    languages: ['en'],
   })
 
-  const res = await fetch(url);
-  const wikidataEntities = (await res.json()).entities;
+  const res = await fetch(url)
+  const wikidataEntities = (await res.json()).entities
 
-  if(wikidataEntities === undefined) {
-    return;
+  if (wikidataEntities === undefined) {
+    return
   }
 
-  const claims = wikidataEntities[entity].claims;
+  const claims = wikidataEntities[entity].claims
 
-  if(claims === undefined || claims["P1278"] === undefined || claims["P1278"].length === 0) {
-    return;
+  if (
+    claims === undefined ||
+    claims['P1278'] === undefined ||
+    claims['P1278'].length === 0
+  ) {
+    return
   }
 
-  return claims["P1278"][0].mainsnak.datavalue.value;
+  return claims['P1278'][0].mainsnak.datavalue.value
 }
 
 function transformFromWikidataDateStringToDate(date: string) {
-  return date.substring(1);
+  return date.substring(1)
 }
 
-export function transformEmissionsToClaims(emissions: Emissions, startDate: string, endDate: string, referenceUrl?: string, archiveUrl?: string): Claim[] {
-    const claims: Claim[] = [];
+export function transformEmissionsToClaims(
+  emissions: Emissions,
+  startDate: string,
+  endDate: string,
+  referenceUrl?: string,
+  archiveUrl?: string
+): Claim[] {
+  const claims: Claim[] = []
 
-    if(emissions.scope1?.total) {
-      claims.push({
-          startDate,
-          endDate,
-          referenceUrl,
-          archiveUrl,
-          scope: SCOPE_1,
-          value: emissions.scope1.total.toString(),
-      });
-    }
-    if(emissions.scope2?.mb) {
-      claims.push({
-          scope: SCOPE_2_MARKET_BASED,
-          startDate,
-          endDate,
-          referenceUrl,
-          archiveUrl,
-          value: emissions.scope2.mb.toString(),
-      });
-    }
-    if(emissions.scope2?.lb) {
-      claims.push({
-          scope: SCOPE_2_LOCATION_BASED,
-          startDate,
-          endDate,
-          referenceUrl,
-          archiveUrl,
-          value: emissions.scope2.lb.toString(),
-      });
-    }
-    if(emissions.scope2?.unknown) {
-      claims.push({
-        scope: SCOPE_2,
-        startDate,
-        endDate,
-        referenceUrl,
-        archiveUrl,
-        value: emissions.scope2.unknown.toString(),
-      });
-    }        
-    emissions.scope3?.categories?.forEach(category => {
-        claims.push({
-            scope: SCOPE_3,
-            startDate,
-            endDate,
-            referenceUrl,
-            archiveUrl,
-            category: wikidataConfig.translateIdToCategory(category.category),
-            value: category.total.toString() ?? 0,
-        });
-    });
-    return claims;
+  if (emissions.scope1?.total) {
+    claims.push({
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      scope: SCOPE_1,
+      value: emissions.scope1.total.toString(),
+    })
+  }
+  if (emissions.scope2?.mb) {
+    claims.push({
+      scope: SCOPE_2_MARKET_BASED,
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      value: emissions.scope2.mb.toString(),
+    })
+  }
+  if (emissions.scope2?.lb) {
+    claims.push({
+      scope: SCOPE_2_LOCATION_BASED,
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      value: emissions.scope2.lb.toString(),
+    })
+  }
+  if (emissions.scope2?.unknown) {
+    claims.push({
+      scope: SCOPE_2,
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      value: emissions.scope2.unknown.toString(),
+    })
+  }
+  emissions.scope3?.categories?.forEach((category) => {
+    claims.push({
+      scope: SCOPE_3,
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      category: wikidataConfig.translateIdToCategory(category.category),
+      value: category.total?.toString() ?? '0',
+    })
+  })
+  return claims
 }
 
 export function reduceToMostRecentClaims(claims: Claim[]): Claim[] {
-  const claimMap = new Map<string, Claim>();
+  const claimMap = new Map<string, Claim>()
 
-  for(const claim of claims) {
-    if(claimMap.has(claim.scope + "-" + (claim.category ?? ""))) {
-      const exisitingClaim = claimMap.get(claim.scope + "-" + (claim.category ?? ""));
-      if(exisitingClaim?.endDate === undefined || exisitingClaim.endDate < claim.endDate) {
-        claimMap.set(claim.scope + "-" + (claim.category ?? ""), claim);
+  for (const claim of claims) {
+    if (claimMap.has(claim.scope + '-' + (claim.category ?? ''))) {
+      const exisitingClaim = claimMap.get(
+        claim.scope + '-' + (claim.category ?? '')
+      )
+      if (
+        exisitingClaim?.endDate === undefined ||
+        exisitingClaim.endDate < claim.endDate
+      ) {
+        claimMap.set(claim.scope + '-' + (claim.category ?? ''), claim)
       }
     } else {
-      claimMap.set(claim.scope + "-" + (claim.category ?? ""), claim);
+      claimMap.set(claim.scope + '-' + (claim.category ?? ''), claim)
     }
   }
 
-  return Array.from(claimMap.values());
+  return Array.from(claimMap.values())
 }
 
 export interface Claim {
-  id?: string;
-  startDate: string;
-  endDate: string;
-  value: string;
-  referenceUrl?: string;
-  archiveUrl?: string;
-  scope?: ItemId;
-  category?: ItemId;
+  id?: string
+  startDate: string
+  endDate: string
+  value: string
+  referenceUrl?: string
+  archiveUrl?: string
+  scope?: ItemId
+  category?: ItemId
 }
 
 export interface RemoveClaim {
-  id: string;
-  remove: boolean;
+  id: string
+  remove: boolean
 }
