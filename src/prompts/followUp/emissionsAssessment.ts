@@ -1,31 +1,6 @@
 import { z } from 'zod'
 
-// Modified schema to be compatible with OpenAI's validation
-export const schema = z.object({
-  assessment: z.object({
-    isReasonable: z.boolean(),
-    confidence: z.number(),
-    issues: z.array(z.object({
-      type: z.enum(['MISSING_DATA', 'CALCULATION_ERROR', 'SCOPE_MISSING', 'UNIT_ERROR', 'OTHER', 'UNREASONABLE_REDUCTION']),
-      description: z.string(),
-      severity: z.enum(['LOW', 'MEDIUM', 'HIGH']),
-      suggestedAction: z.string().optional(),
-      reportedNumber: z.number().optional(),
-      correctNumber: z.number().optional(),
-      yearComparison: z.object({
-        previousYear: z.string(),
-        currentYear: z.string(),
-        reduction: z.number()
-      }).optional()
-    })),
-    reasoning: z.string(),
-    nextSteps: z.array(z.object({
-      type: z.enum(['VERIFY_CALCULATION', 'REQUEST_SCOPE3', 'CLARIFY_UNITS', 'OTHER']),
-      description: z.string(),
-      priority: z.enum(['LOW', 'MEDIUM', 'HIGH'])
-    }))
-  })
-})
+import { assessmentResultSchema } from '../../jobs/emissions/schema'
 
 export const prompt = `
 You are an expert in corporate emissions reporting and GHG Protocol. Analyze the provided emissions data and assess its reasonability.
@@ -85,4 +60,4 @@ const queryTexts = [
   'Decarbonization strategy'
 ]
 
-export default { prompt, schema, queryTexts }
+export default { prompt, schema: assessmentResultSchema, queryTexts }
