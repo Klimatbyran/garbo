@@ -8,13 +8,15 @@ export class SendCompanyLinkJob extends DiscordJob {
     companyName: string
     wikidata: Wikidata
     existingCompany: any
+    diversityInclusion: any
   }
 }
 
 const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
   QUEUE_NAMES.SEND_COMPANY_LINK,
   async (job) => {
-    const { companyName, wikidata, existingCompany } = job.data
+    const { companyName, wikidata, existingCompany, diversityInclusion } =
+      job.data
     const wikidataId = wikidata.node
     const url = getCompanyURL(companyName, wikidataId)
 
@@ -24,6 +26,13 @@ const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
       )
     } else {
       await job.sendMessage(`✅ Se resultatet här: ${url}`)
+    }
+
+    if (diversityInclusion) {
+      const pretty = JSON.stringify(diversityInclusion, null, 2)
+      await job.sendMessage(
+        `🧑‍🤝‍🧑 **Diversity & Inclusion summary**:\n${pretty}`
+      )
     }
 
     return { url }
