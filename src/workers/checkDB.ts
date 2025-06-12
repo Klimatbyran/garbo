@@ -23,7 +23,7 @@ export class CheckDBJob extends DiscordJob {
 const flow = new FlowProducer({ connection: redis })
 
 const checkDB = new DiscordWorker(
-  QUEUE_NAMES.CHECK_DB, 
+  QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
     const {
       companyName,
@@ -33,36 +33,35 @@ const checkDB = new DiscordWorker(
       wikidata,
       threadId,
       channelId,
-      
     } = job.data
-  
+
     const childrenValues = await job.getChildrenEntries()
     await job.updateData({ ...job.data, childrenValues })
-  
+
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
     job.log(existingCompany);
-  
+
     if (!existingCompany) {
       const metadata = {
         source: url,
         comment: 'Created by Garbo AI',
       }
-  
+
       job.sendMessage(
         `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
       const body = {
         name: companyName,
         description,
-        wikidataId, 
+        wikidataId,
         metadata,
       }
-  
-      await apiFetch(`/companies/${wikidataId}`, { body }); 
+
+      await apiFetch(`/companies/${wikidataId}`, { body });
 
       await job.sendMessage(
         `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
@@ -82,8 +81,9 @@ const checkDB = new DiscordWorker(
       goals,
       initiatives,
       lei,
+      diversityInclusion,
     } = childrenValues
-  
+
     const base = {
       name: companyName,
       data: {
@@ -95,17 +95,18 @@ const checkDB = new DiscordWorker(
         wikidata,
         threadId,
         channelId,
+        diversityInclusion,
         autoApprove: job.data.autoApprove,
       },
       opts: {
         attempts: 3,
       },
     }
-    
+
     console.log(`LEI number in checkDB file: ${lei}`);
 
     await job.editMessage(`🤖 Saving data...`)
-  
+
     await flow.add({
       ...base,
       queueName: QUEUE_NAMES.SEND_COMPANY_LINK,
@@ -174,14 +175,14 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 lei,
-                   
+
               },
             }
           : null,
-          
+
       ].filter((e) => e !== null),
     })
-  
+
     return { saved: true }
   }
 )
