@@ -46,6 +46,7 @@ interface WikidataEntities {
     DOWNSTREAM_LEASED_ASSETS: `Q${number}`,
     FRANCHISES: `Q${number}`,
     INVESTMENTS: `Q${number}`,
+    OTHER: `Q${number}`,
 }
 
 export const LiveWikidataProperties: WikidataProperties = {
@@ -95,6 +96,7 @@ export const LiveWikidataEntities : WikidataEntities = {
     DOWNSTREAM_LEASED_ASSETS: "Q124883652",
     FRANCHISES: "Q124883653",
     INVESTMENTS: "Q124883654",
+    OTHER: "Q134885293"
 } as const
 
 export const TestWikidataEntities : WikidataEntities = {
@@ -120,10 +122,11 @@ export const TestWikidataEntities : WikidataEntities = {
     DOWNSTREAM_LEASED_ASSETS: "Q238628",
     FRANCHISES: "Q238629",
     INVESTMENTS: "Q238630",
+    OTHER: "Q240389",
 } as const
 
 const translateIdToCategory = (entities: WikidataEntities, id: number) => {
-    if(id > 0 && id < 16) {
+    if(id > 0 && id <= 16) {
         //Last non category in the entities object has index 6
         return entities[Object.keys(entities)[id + 6]];
     }

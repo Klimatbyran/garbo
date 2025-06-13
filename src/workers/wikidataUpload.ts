@@ -1,6 +1,7 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { ReportingPeriod } from '../lib/emissions';
-import { bulkCreateOrEditCarbonFootprintClaim, Claim, reduceToMostRecentClaims, transformEmissionsToClaims } from '../lib/wikidata'
+import { bulkCreateOrEditCarbonFootprintClaim, reduceToMostRecentClaims } from '../lib/wikidata/edit';
+import { Claim, transformEmissionsToClaims } from '../lib/wikidata/util';
 
 const KLIMATKOLLEN_ARCHIVE_PREFIX = "https://storage.googleapis.com/klimatkollen-pdfs/";
 export class WikidataUploadJob extends DiscordJob {

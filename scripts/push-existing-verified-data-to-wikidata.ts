@@ -1,14 +1,11 @@
-import { PrismaClient } from '@prisma/client'
-import wikidataConfig from '../src/config/wikidata'
+import {
+  Claim,
+  transformEmissionsToClaims,
+} from '../src/lib/wikidata/util'
 import {
   bulkCreateOrEditCarbonFootprintClaim,
-  Claim,
-  diffTotalCarbonFootprintClaims,
-  editEntity,
-  getClaims,
   reduceToMostRecentClaims,
-  transformEmissionsToClaims,
-} from '../src/lib/wikidata'
+} from '../src/lib/wikidata/edit'
 import { exit } from 'process'
 import { ReportingPeriod } from '../src/lib/emissions'
 
@@ -30,8 +27,6 @@ function removeMillisecondsFromISO(dateTime) {
 
 //Currently still in testing the filters filter out only data related to ABB as this company is present in the Sandbox
 async function pushWikidata() {
-  const entityDownloadId: `Q${number}` = 'Q731938'
-  const entityUploadId: `Q${number}` = 'Q238689'
   const envBaseURL: string = 'https://api.klimatkollen.se/api'
 
   const companyRes = await fetch(`${envBaseURL}/companies`)
@@ -59,11 +54,10 @@ async function pushWikidata() {
     }
     claims = reduceToMostRecentClaims(claims);
     if (claims.length > 0) {
-      bulkCreateOrEditCarbonFootprintClaim(
+      await bulkCreateOrEditCarbonFootprintClaim(
         company.wikidataId as `Q${number}`,
         claims
-      )
-      console.log(`Updated ${company.wikidataId}`);
+      );
     }
   }
 }
