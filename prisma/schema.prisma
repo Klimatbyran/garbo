@@ -367,9 +367,10 @@ model User {
   verified Metadata[] @relation("metadata_verified_by")
 }
 
+// Follows the ISO 639 language codes
 enum Language {
-  SWE
-  ENG
+  SV
+  EN
 }
 
 model Description {

@@ -58,7 +58,7 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
       descriptionSWE
     )
 
-    const descriptions: Description[] = [{language: 'SWE', text: descriptionSWE}, {language: 'ENG', text: descriptionENG}]
+    const descriptions: Description[] = [{language: 'SV', text: descriptionSWE}, {language: 'EN', text: descriptionENG}]
 
     job.log(`For '${companyName}', created the following descriptions: ${descriptions}`);
 

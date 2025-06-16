@@ -12,7 +12,7 @@ const createMetadataSchema = z.object({
 
 export const descriptionSchema = z.object({
   id: z.string().optional(),
-  language: z.enum(['SWE', 'ENG']),
+  language: z.enum(['SV', 'EN']),
   text: z.string()
 })
 

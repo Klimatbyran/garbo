@@ -38,7 +38,7 @@ async function updateDescriptions() {
         for(let i = 0; i < companies.length; i++) {
             const elem = companies[i]
             if(elem.description) {
-                const descriptionSWE = await askPrompt(
+                const descriptionSV = await askPrompt(
                     `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet, baserat på en redan existerande beskrivning.
   
                     ** Beskrivning **
@@ -63,9 +63,9 @@ async function updateDescriptions() {
                     Följande är den nuvarande beskrivningen:`,
                     elem.description
                 )
-                const descriptionENG = await askPrompt(
+                const descriptionEN = await askPrompt(
                     `Översätt följande text till engelska.`,
-                    descriptionSWE
+                    descriptionSV
                 )
                 try {
                     const response = await fetch(`${prod_base_url}/companies/${elem.wikidataId}`, {
@@ -81,12 +81,12 @@ async function updateDescriptions() {
                             body: JSON.stringify({
                                 descriptions: [
                                     {
-                                        language: 'SWE',
-                                        text: descriptionSWE
+                                        language: 'SV',
+                                        text: descriptionSV
                                     },
                                     {
-                                        language: 'ENG',
-                                        text: descriptionENG
+                                        language: 'EN',
+                                        text: descriptionEN
                                     }
                                 ],
                                 name: elem.name,
