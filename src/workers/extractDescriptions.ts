@@ -15,7 +15,7 @@ class ExtractDescriptionsJob extends DiscordJob {
 const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
   QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
   async (job: ExtractDescriptionsJob) => {
-    const { url, companyName, companyId} = job.data;
+    const { url, companyName } = job.data;
 
 
     // Helps in finding relevant chuncks to extract the corresponding paragraphs 
@@ -63,7 +63,6 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
     job.log(`For '${companyName}', created the following descriptions: ${descriptions}`);
 
     return {descriptions: descriptions}
-    
   }
 )
 

@@ -68,7 +68,7 @@ const checkDB = new DiscordWorker(
         metadata,
       }
   
-      await apiFetch(`/companies/${wikidataId}`, { body })
+      await apiFetch(`/companies/${wikidataId}`, { body });
   
       await job.sendMessage(
         `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
@@ -77,7 +77,6 @@ const checkDB = new DiscordWorker(
       job.log(`✅ The company '${companyName}' was found in the database.`);
       await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
     }
-  
   
     const base = {
       name: companyName,

@@ -46,7 +46,6 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
       })
     )
 
-
     job.log('Diff:' + diff)
 
     // Only save if we detected any meaningful changes
