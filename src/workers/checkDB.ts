@@ -94,8 +94,6 @@ const checkDB = new DiscordWorker(
         attempts: 3,
       },
     }
-    
-    console.log(`LEI number in checkDB file: ${lei}`);
 
     await job.editMessage(`🤖 Saving data...`)
   
