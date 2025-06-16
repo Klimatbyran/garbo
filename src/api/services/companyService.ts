@@ -1,5 +1,4 @@
-import { Employees, Metadata, Turnover } from '@prisma/client'
-
+import { Employees, Metadata, Turnover, Description } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
@@ -50,7 +49,6 @@ class CompanyService {
   }: {
     wikidataId: string
     name: string
-    description?: string
     url?: string
     internalComment?: string
     tags?: string[]
@@ -95,6 +93,37 @@ class CompanyService {
         },
       },
       ...economyArgs,
+    })
+  }
+
+  async upsertDescription({
+    description,
+    companyId,
+    metadataId
+  }: {
+    description: Omit<Description, 'id' | 'companyId'> & { id?: string | undefined },
+    companyId: string,
+    metadataId?: string
+  }) {
+    return prisma.description.upsert({
+      where: {id: description.id ?? ''},
+      create: {
+        text: description.text,
+        language: description.language,
+        company: {
+          connect: {wikidataId: companyId}
+        },
+        metadata: {
+          connect: {id: metadataId}
+        }
+      },
+      update: {
+        text: description.text,
+        language: description.language,
+        metadata: {
+          connect: {id: metadataId}
+        }
+      }
     })
   }
 

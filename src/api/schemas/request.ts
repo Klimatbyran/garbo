@@ -10,15 +10,21 @@ const createMetadataSchema = z.object({
     .optional(),
 })
 
+export const descriptionSchema = z.object({
+  id: z.string().optional(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string()
+})
+
 export const postCompanyBodySchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z.string().optional(),
+  descriptions: z.array(descriptionSchema).optional(),
   url: z.string().url().optional(),
   internalComment: z.string().optional(),
   tags: z.array(z.string()).optional(),
   lei: z.string().optional(),
-})
+}).merge(createMetadataSchema)
 
 export const reportingPeriodBodySchema = z
   .object({

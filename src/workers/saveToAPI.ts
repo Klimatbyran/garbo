@@ -80,18 +80,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
           ${JSON.stringify(sanitizedBody)}`)
 
         try {
-
-
-          if (apiSubEndpoint == ''){
-            await apiFetch(`/companies/${wikidataId}`, {
-              body: sanitizedBody
-            })
-          } else{
-          await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+          const endpoint = apiSubEndpoint === '' ? `/companies/${wikidataId}` : `/companies/${wikidataId}/${apiSubEndpoint}`
+          await apiFetch(endpoint, {
             body: sanitizedBody
           })
-          }
           
+
           if(apiSubEndpoint === "reporting-periods") {
             await wikipediaUpload.queue.add("Wikipedia Upload for " + companyName,
               {
