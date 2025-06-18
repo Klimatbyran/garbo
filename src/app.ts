@@ -38,6 +38,7 @@ import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
+import { industryGicsRoute } from './api/routes/industryGics.read'
 
 async function startApp() {
   const app = Fastify({
@@ -149,8 +150,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 
   app.register(emissionsAssessmentRoutes, { prefix: 'api/emissions-assessment' })
-
-
+  app.register(industryGicsRoute, { prefix: 'api' })
 }
 
 export default startApp
