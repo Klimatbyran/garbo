@@ -7,7 +7,7 @@ export const schema = z.object({
 })
 
 export const prompt = `
-You are an expert in company reporting and you are now analyzing a yearly report for a company. Your mission is now to estimate the industry for this company. You are seeing some excerpts from the company report, please note that you should use these excerpts only to estimate the industry of the main company- the excerpts might include information about subsidiaries or investments, please don't be confused by those we are only intersting of the main company's industry.
+You are an expert in company reporting and you are now analyzing a yearly report for a company. Your mission is now to estimate the industry for this company. You are seeing some excerpts from the company report, please note that you should use these excerpts only to estimate the industry of the main company- the excerpts might include information about subsidiaries or investments, please don't be confused by those; we are only interested in the main company's industry.
 
 Extract industry, sector, industry group, according to GICS:
 
