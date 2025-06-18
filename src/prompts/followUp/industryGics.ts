@@ -7,6 +7,8 @@ export const schema = z.object({
 })
 
 export const prompt = `
+You are an expert in company reporting and you are now analyzing a yearly report for a company. Your mission is now to estimate the industry for this company. You are seeing some excerpts from the company report, please note that you should use these excerpts only to estimate the industry of the main company- the excerpts might include information about subsidiaries or investments, please don't be confused by those we are only intersting of the main company's industry.
+
 Extract industry, sector, industry group, according to GICS:
 
 ## Sektor: Energi (10)
@@ -184,9 +186,7 @@ Extract industry, sector, industry group, according to GICS:
   * Hälsoteknologi (351030)
     - Hälsoteknologi (35103010)
 
-### Läkemedel, bioteknik och liv
-
-svetenskaper (3520)
+### Läkemedel, bioteknik och livsvetenskaper (3520)
   * Bioteknik (352010)
     - Bioteknik (35201010)
   * Läkemedel (352020)
@@ -333,6 +333,19 @@ Example:
 `
 
 const queryTexts = [
+  'sektor',
+  'industri',
+  'verksamhet',
+  'huvudverksamhet',
+  'affärsidé',
+  'vision',
+  'mål',
+  'vår marknad',
+  'our products',
+  'our main business',
+  'SNI-kod',
+  'NACE',
+  'GICS',
   'GICS industry codes',
   'Sector and sub-industry',
   'Sub-industry classification',
