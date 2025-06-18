@@ -236,6 +236,7 @@ export const companyListArgs = {
     description: true,
     descriptions: {
       select: {
+        id: true,
         language: true,
         text: true
       }
