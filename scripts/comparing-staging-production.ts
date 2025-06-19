@@ -4,6 +4,7 @@ import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import * as z from 'zod';
 import * as schemas from '../src/api/schemas'
+import ExcelJS from 'exceljs';
 
 
 // DEFINE THE ENVIRONMENTS YOU WANT TO COMPARE HERE
@@ -21,7 +22,7 @@ interface Diff {
   productionValue?: number;
   stagingValue?: number;
   difference?: number;
-  perctDifference?: number;
+  differencePerct?: number;
 }
 
 interface Company {
@@ -31,8 +32,6 @@ interface Company {
 }
 
 interface ComparisonDiff {
-  wikidataId: string;
-  name: string;
   reportingPeriod: {
     startDate: Date;
     endDate: Date;
@@ -54,11 +53,13 @@ interface ComparisonDiff {
       turnover?: Diff
     }
   },
-  accuracy?: number;
-  numberOfFields?: number;
-  numberIncorrect?: number;
-  numberBelow90Acc?: number;
-  numberBelow95Acc?:number;
+  eval: {
+    accuracy?: string;
+    numbUndefinedValues?: string;
+    numbNumericalDiffs?: number;
+    numbOutside5PerctDiffMargin?: number;
+    numbOutside20PerctDiffMargin?: number;
+  }
 };
 
 // Parse the API tokens assuming they are in the environment variables
@@ -114,8 +115,6 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
           continue;
         }
         const notFoundDiff: ComparisonDiff = {
-          wikidataId: productionCompany.wikidataId,
-          name: productionCompany.name,
           reportingPeriod: {
             startDate:  new Date(reportingPeriod.startDate),
             endDate: new Date(reportingPeriod.endDate)
@@ -125,7 +124,7 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
             scope3: [],
             economy: {}
           },
-          accuracy: 0
+          eval: {}
         }   
         const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
         if(existingCompany) {
@@ -149,8 +148,6 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
 
 function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, stagingReportingPeriod: ReportingPeriod, productionCompany: CompanyResponse) {
   const d: ComparisonDiff = {
-    wikidataId: productionCompany.wikidataId,
-    name: productionCompany.name,
     reportingPeriod: {
       startDate:  new Date(productionReportingPeriod.startDate),
       endDate: new Date(productionReportingPeriod.endDate)
@@ -160,18 +157,37 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
       scope3: [],
       economy: {}
     },
-    accuracy: 0,
+    eval: {}
   }
 
   const diffs: Diff[] = [];
 
-  d.diff.scope1 = compareNumbers(productionReportingPeriod.emissions?.scope1?.total, stagingReportingPeriod.emissions?.scope1?.total, productionReportingPeriod.emissions?.scope1?.metadata.verifiedBy != null);
+  d.diff.scope1 = compareNumbers(
+    productionReportingPeriod.emissions?.scope1?.total,
+    stagingReportingPeriod.emissions?.scope1?.total,
+    productionReportingPeriod.emissions?.scope1?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.scope1);
-  d.diff.scope2.lb = compareNumbers(productionReportingPeriod.emissions?.scope2?.lb, stagingReportingPeriod.emissions?.scope2?.lb, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
+
+  d.diff.scope2.lb = compareNumbers(
+    productionReportingPeriod.emissions?.scope2?.lb,
+    stagingReportingPeriod.emissions?.scope2?.lb,
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.scope2.lb);
-  d.diff.scope2.mb = compareNumbers(productionReportingPeriod.emissions?.scope2?.lb, stagingReportingPeriod.emissions?.scope2?.lb, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
+
+  d.diff.scope2.mb = compareNumbers(
+    productionReportingPeriod.emissions?.scope2?.mb,
+    stagingReportingPeriod.emissions?.scope2?.mb,
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.scope2.mb);
-  d.diff.scope2.unknown = compareNumbers(productionReportingPeriod.emissions?.scope2?.unknown, stagingReportingPeriod.emissions?.scope2?.unknown, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
+
+  d.diff.scope2.unknown = compareNumbers(
+    productionReportingPeriod.emissions?.scope2?.unknown,
+    stagingReportingPeriod.emissions?.scope2?.unknown,
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.scope2.unknown);
 
   for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
@@ -185,34 +201,45 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
     })
   }
 
-  d.diff.economy.employees = compareNumbers(productionReportingPeriod.economy?.employees?.value, stagingReportingPeriod.economy?.employees?.value, productionReportingPeriod.economy?.employees?.metadata.verifiedBy != null);
+  d.diff.economy.employees = compareNumbers(
+    productionReportingPeriod.economy?.employees?.value,
+    stagingReportingPeriod.economy?.employees?.value,
+    productionReportingPeriod.economy?.employees?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.economy.employees);
-  d.diff.economy.turnover = compareNumbers(productionReportingPeriod.economy?.turnover?.value, stagingReportingPeriod.economy?.turnover?.value, productionReportingPeriod.economy?.turnover?.metadata.verifiedBy != null);
+
+  d.diff.economy.turnover = compareNumbers(
+    productionReportingPeriod.economy?.turnover?.value,
+    stagingReportingPeriod.economy?.turnover?.value,
+    productionReportingPeriod.economy?.turnover?.metadata.verifiedBy != null
+  );
   diffs.push(d.diff.economy.turnover);
-  const numbersSum = diffs.reduce((acc: number, current: Diff) => {
-    return current.difference !== undefined ? acc + (current.perctDifference ?? 0) : acc;
+
+  // Emission-wise metrics
+
+  const numbCorrectFields = diffs.reduce((acc: number, current: Diff) => {
+    return current.productionValue === current.stagingValue ? acc+1 : acc; // this also captures if both are undefined
   }, 0);
-  const numbersCount = diffs.reduce((acc: number, current: Diff) => {
-    return current.difference !== undefined ? acc + 1 : acc;
+  // How many of the values in staging are correct (i.e. matching with prod)
+  d.eval.accuracy = diffs.length > 0 ? numbCorrectFields + '/' + diffs.length : undefined;
+  // How many of the values in staging are undefined
+  d.eval.numbUndefinedValues = diffs.reduce((acc: number, current: Diff) => {
+    return current.stagingValue === undefined ? acc + 1 : acc;
+  }, 0) + '/' + diffs.length;
+
+  // How many of the fields have a numerical difference between staging and prod
+    d.eval.numbNumericalDiffs = diffs.reduce((acc: number, current: Diff) => {
+    return (current.differencePerct !== undefined) ? acc + 1 : acc;
   }, 0);
-  const numberIncorrect = diffs.reduce((acc: number, current: Diff) => {
-    return current.difference !== undefined ? current.difference !== 0 ? acc + 1 : acc: acc;
+
+  d.eval.numbOutside5PerctDiffMargin = diffs.reduce((acc: number, current: Diff) => {
+    return (current.differencePerct !== undefined) && (current.differencePerct > 0.05) ? acc + 1 : acc;
   }, 0);
-  const below90 = diffs.reduce((acc: number, current: Diff) => {
-    return current.perctDifference ? current.perctDifference < 0.9 ? acc + 1 : acc : acc;
+
+  d.eval.numbOutside20PerctDiffMargin = diffs.reduce((acc: number, current: Diff) => {
+    return (current.differencePerct !== undefined) && (current.differencePerct > 0.2) ? acc + 1 : acc;
   }, 0);
-  const below95 = diffs.reduce((acc: number, current: Diff) => {
-    return current.perctDifference ? current.perctDifference < 0.95 ? acc + 1 : acc : acc;
-  }, 0);
-  d.numberBelow90Acc = diffs.length > 0 ? below90 / diffs.length: undefined;
-  d.numberBelow95Acc = diffs.length > 0 ? below95 / diffs.length: undefined;
-  d.numberIncorrect = numberIncorrect;
-  d.numberOfFields = numbersCount;
-  if(numbersCount > 0) {
-    d.accuracy = parseFloat((numbersSum / numbersCount).toFixed(3));
-  } else {
-    d.accuracy = undefined;
-  }
+
   return d;
 }
 
@@ -220,45 +247,86 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
   const diff: Diff = {
     productionValue: productionNumber ?? undefined,
     stagingValue: stagingNumber ?? undefined,
+    difference: undefined,
+    differencePerct: undefined
   };
   if(ONLY_CHECK_VERIFIED_DATA && !productionVerified) {
     diff.difference = undefined;
-    return diff;
+    diff.differencePerct = undefined;
   }
-  if(stagingNumber) {
-    if(productionNumber) {
-      diff.difference = stagingNumber - productionNumber;
-      diff.perctDifference = calculateDiffPercentage(diff.difference, productionNumber, stagingNumber);
-      return diff;
-    } else {
-      diff.difference = undefined;
-      return diff;
-    }
-  } else {    
-    diff.difference = productionNumber ? 0 : undefined;
-    diff.perctDifference = productionNumber ? 1 : undefined;
-    return diff;
-  }  
+  else if(stagingNumber && productionNumber) {
+    diff.difference = Math.abs(stagingNumber - productionNumber);
+    diff.differencePerct = Math.ceil((diff.difference / productionNumber) * 100) / 100;
+  }
+
+  return diff
 }
 
-function calculateDiffPercentage(diff?: number, compareValueProd?: number, compareValueStaging?: number) {
-  if(diff === undefined || compareValueProd === undefined) {
-    return undefined;
-  }
-  return Math.ceil((1 - (Math.abs(diff) / Math.max(compareValueProd, compareValueStaging || 0))) * 100) / 100;
-}
 
-// Function to output results to a file
-async function outputResults(results: Company[]) {
+async function outputEvalMetrics(companies: Company[]) {
   const outputPath = resolve('output', 'accuracy-results.csv');
-  await writeFile(outputPath, convertDiffsToCSV(results), 'utf8');
+  const outputXLSX = resolve('output', 'accuracy-results.xlsx');
+  const csvContent = convertCompanyEvalsToCSV(companies)
+  const xlsx = await generateXLSX(csvContent.split('\n'))
+  await writeFile(outputXLSX, xlsx, 'utf8');
+  await writeFile(outputPath, csvContent, 'utf8');
   console.log(`✅ Accuracy results written to ${outputPath}.`);
+  const sumAccuracy = companies.reduce((acc1: number, company: Company) => {
+    const sumCompanyAccuracy = company.diffs.reduce((acc2: number, diff: ComparisonDiff) => {
+      const elems = diff.eval.accuracy?.split('/')
+      return elems ? acc2 + (parseInt(elems[0]) / parseInt(elems[1])) : acc2
+    }, 0)
+    return acc1 + sumCompanyAccuracy
+  }, 0)
+  const totalAccuracies = companies.reduce((acc: number, company: Company) => {
+    return company.diffs.length > 0 ? acc+company.diffs.length : acc;
+  }, 0)
+  console.log(`This is the total accuracy of all reports: ${sumAccuracy/totalAccuracies}`)
 }
 
-async function outputCompanyResults(results: Company[]) {
-  const outputPath = resolve('output', 'accuracy-results-companies.csv');
-  await writeFile(outputPath, getCompanieStatistics(results), 'utf8');
-  console.log(`✅ Accuracy results written to ${outputPath}.`);
+function convertCompanyEvalsToCSV(companies: Company[]): string {
+  // Define CSV headers
+  const headers = [
+    'wikidataId',
+    'name',
+    'reportingPeriodStart',
+    'reportingPeriodEnd',
+    'accuracy',
+    'NumbUndefinedValues',
+    'NumbNumericalDiffs',
+    'NumbOutside5%DiffMargin',
+    'NumbOutside20%DiffMargin',
+  ];
+
+  const csvContent = headers.join(',')
+
+  const companyRows = companies.map(company => {
+    const companyReportPeriodsEval = company.diffs.map(diff => {
+      return Object.values({
+        wikidataId: company.wikidataId,
+        name: company.name,
+        reportingPeriodStart: diff.reportingPeriod.startDate.toISOString().substring(0, 10),
+        reportingPeriodEnd: diff.reportingPeriod.endDate.toISOString().substring(0, 10),
+        ...diff.eval
+      }).join(',')
+    })
+    return companyReportPeriodsEval.join('\n')
+  })
+  return csvContent + '\n' + companyRows.join('\n')
+}
+
+async function generateXLSX(data: string[]): Promise<Buffer> {
+  //console.log(data)
+  if (data.length === 0) throw new Error('No data to export');
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Data');
+  const rows = data.map((row) => row.split(','));
+  for(const row of rows) {
+    worksheet.addRow(row);
+  }
+  const buffer = await workbook.xlsx.writeBuffer();
+  
+  return Buffer.from(buffer);
 }
 
 // Main function for fetching, comparison, and output
@@ -266,196 +334,11 @@ async function main() {
   try {
     const stagingData = await fetchCompanies(STAGING_API_URL); 
     const productionData = await fetchCompanies(PRODUCTION_API_URL); 
-    const diffs = compareCompanyLists(productionData, stagingData);
-    outputResults(diffs);
-    outputCompanyResults(diffs);
+    const companies = compareCompanyLists(productionData, stagingData);
+    outputEvalMetrics(companies);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-}
-
-export function convertDiffsToCSV(data: Company[]): string {
-  // Define CSV headers
-  const headers = [
-    'wikidataId',
-    'name',
-    'reportingPeriodStart',
-    'reportingPeriodEnd',
-    'accuracy',    
-  ];
-
-  const valueHeaders = [
-    'Scope1',
-    'Scope2_lb',
-    'Scope2_mb',
-    'Scope2_unknown',
-    'EconomyEmployees',
-    'EconomyTurnover',
-    'Scope3_purchasedGoods',
-    'Scope3_capitalGoods',
-    'Scope3_fuelAndEnergyRelatedActivities',
-    'Scope3_upstreamTransportationAndDistribution',
-    'Scope3_wasteGeneratedInOperations',
-    'Scope3_businessTravel',
-    'Scope3_employeeCommuting',
-    'Scope3_upstreamLeasedAssets',
-    'Scope3_downstreamTransportationAndDistribution',
-    'Scope3_processingOfSoldProducts',
-    'Scope3_useOfSoldProducts',
-    'Scope3_endOfLifeTreatmentOfSoldProducts',
-    'Scope3_downstreamLeasedAssets',
-    'Scope3_franchises',
-    'Scope3_investments',
-    'Scope3_other',
-  ];
-
-  const errorHeader = [
-    'Below_90',
-    'Below_95',
-  ]
-
-  const valueSubheaders = [
-    'production',
-    'staging',
-    'difference',
-    'diff %'
-  ]
-
-  // Create CSV content with headers
-  let csvContent = headers.join(',') + ',' + valueHeaders.reduce((acc: string[], current) => {
-    for(const valueSubheader of valueSubheaders) {
-      acc.push(current + " " + valueSubheader);
-    }
-    return acc;
-  },[]).join(',') + ',' + errorHeader.join(',') + '\n';
-
-  // Add data rows
-  data.map((company) => {
-    company.diffs.forEach(item => {
-      const reportingPeriodStart = item.reportingPeriod.startDate 
-        ? item.reportingPeriod.startDate.toISOString().substring(0, 10)
-        : '';
-      
-      const reportingPeriodEnd = item.reportingPeriod.endDate
-        ? item.reportingPeriod.endDate.toISOString().substring(0, 10)
-        : '';
-  
-      const row = [
-        company.wikidataId,
-        `"${company.name.replace(/"/g, '""')}"`, // Escape quotes in name
-        reportingPeriodStart,
-        reportingPeriodEnd,
-        item.accuracy?.toString() ?? '',
-        convertDiffToCSV(item.diff.scope1),
-        convertDiffToCSV(item.diff.scope2.lb),
-        convertDiffToCSV(item.diff.scope2.mb),
-        convertDiffToCSV(item.diff.scope2.unknown),
-        convertDiffToCSV(item.diff.economy.employees),
-        convertDiffToCSV(item.diff.economy.turnover)
-      ];
-  
-      for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
-        const category = item.diff.scope3.find(categoryI => categoryI.categoryId === i);
-        row.push(convertDiffToCSV(category?.value));
-      }
-  
-      row.push(item.numberBelow90Acc?.toString() ?? '');
-      row.push(item.numberBelow95Acc?.toString() ?? '');
-  
-      csvContent += row.join(',') + '\n';
-    });
-  })  
-
-  return csvContent;
-}
-
-function getCompanieStatistics(companies: Company[]): string {
-  const headers = [
-    "ID",
-    "Name",
-    "Reporting Periods",
-    "Number of Errors",
-    "Relative Number of Errors",
-    "Faulty Reportingperiods",
-    "Relative Number of Faulty Reportingperiods",
-    "Below 95%",
-    "Below 90%",
-    "Number of Fields",
-    "Faults Scope 1",
-    "Faults Scope 2",
-    "Faults Scope 3",
-    "Faults Economy",
-    "Faults Last Reportingperiod",
-    "Fields Last Reportingperiod",
-    "Overall Accuracy",
-    "Fields Scope 1",
-    "Fields Scope 2",
-    "Fields Scope 3",
-    "Fields Econonmy"
-  ];
-
-  const values: string[] = [];
-
-  for(const company of companies) {
-    const overallNumberOfErrors = company.diffs.reduce((acc, value) => acc += value.numberIncorrect || 0, 0);
-    const overallNumberOfFields = company.diffs.reduce((acc, value) => acc += value.numberOfFields || 0, 0);
-    const faultyReportingPeriods = company.diffs.reduce((acc, value) => value.numberIncorrect !== undefined && value.numberIncorrect > 0 ? acc + 1 : acc , 0);
-    const numberOfCompareableReportingPeriods = company.diffs.reduce((acc, value) => value.numberOfFields !== undefined && value.numberOfFields > 0 ? acc + 1 : acc , 0);
-    const overall95 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow95Acc || 0 , 0) / company.diffs.length : 0;
-    const overall90 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow90Acc || 0 , 0) / company.diffs.length: 0;
-    const overallAccuracy = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.accuracy || 0 , 0) / company.diffs.length: 0;
-    const overallFaultsScope1 = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined && value.diff.scope1.difference !== 0 ? acc + 1 : acc , 0);
-    const overallScope1Fields = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined ? acc + 1 : acc , 0);
-    const overallFaultsScope2 = company.diffs.reduce((acc, value) =>  {
-      acc += value.diff.scope2.lb?.difference !== undefined && value.diff.scope2.lb.difference !== 0 ? 1 : 0;
-      acc += value.diff.scope2.mb?.difference !== undefined && value.diff.scope2.mb.difference !== 0 ? 1 : 0;
-      acc += value.diff.scope2.unknown?.difference !== undefined && value.diff.scope2.unknown.difference !== 0 ? 1 : 0;
-      return acc;    
-    }, 0);
-    const overallScope2Fields = company.diffs.reduce((acc, value) =>  {
-      acc += value.diff.scope2.lb?.difference !== undefined ? 1 : 0;
-      acc += value.diff.scope2.mb?.difference !== undefined ? 1 : 0;
-      acc += value.diff.scope2.unknown?.difference !== undefined ? 1 : 0;
-      return acc;    
-    }, 0);
-    const overallFaultsScope3 = company.diffs.reduce((acc, value) => {
-      for(const category of value.diff.scope3) {
-        acc += category.value?.difference !== undefined && category.value.difference !== 0 ? 1 : 0;
-      }
-      return acc;
-    }, 0);
-    const overallScope3Fields = company.diffs.reduce((acc, value) => {
-      for(const category of value.diff.scope3) {
-        acc += category.value?.difference !== undefined ? 1 : 0;
-      }
-      return acc;
-    }, 0);
-    const overallFaultsEconomy = company.diffs.reduce((acc, value) => {
-      acc += value.diff.economy.employees?.difference !== undefined && value.diff.economy.employees.difference !== 0 ? 1 : 0;
-      acc += value.diff.economy.turnover?.difference !== undefined && value.diff.economy.turnover.difference !== 0 ? 1 : 0;
-      return acc;    
-    }, 0);
-    const overallEconomyFields = company.diffs.reduce((acc, value) => {
-      acc += value.diff.economy.employees?.difference !== undefined ? 1 : 0;
-      acc += value.diff.economy.turnover?.difference !== undefined ? 1 : 0;
-      return acc;    
-    }, 0);
-    const mostRecentReportingPeriod = company.diffs.sort((a,b) => (new Date(b.reportingPeriod.endDate)).getTime() - (new Date(a.reportingPeriod.endDate)).getTime())[0]
-
-    values.push([company.wikidataId, company.name, numberOfCompareableReportingPeriods, overallNumberOfErrors, overallNumberOfFields ? overallNumberOfErrors / overallNumberOfFields : 0,
-      faultyReportingPeriods, numberOfCompareableReportingPeriods ? faultyReportingPeriods / numberOfCompareableReportingPeriods : 0, overall95, overall90, overallNumberOfFields,
-      overallFaultsScope1, overallFaultsScope2, overallFaultsScope3, overallFaultsEconomy, mostRecentReportingPeriod.numberIncorrect, mostRecentReportingPeriod.numberOfFields, overallAccuracy,
-      overallScope1Fields, overallScope2Fields, overallScope3Fields, overallEconomyFields].join(","));
-  }
-
-  return headers.join(",") + "\n" + values.join("\n");
-}
-
-function convertDiffToCSV(data?: Diff): string {
-  if(!data) {
-    return ['', '', '', ''].join(',');
-  }
-  return [data.productionValue ?? '', data.stagingValue ?? '', data.difference ?? '', calculateDiffPercentage(data.difference, data.productionValue, data.stagingValue) ?? ''].join(',');
 }
 
 // Execute the main function
