@@ -1,9 +1,9 @@
 
 import { EntityId } from 'wikibase-sdk';
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker';
-import { getLEINumber } from '../lib/wikidata'; 
+import { getLEINumberFromWikidata } from '../lib/wikidata'; 
 import { QUEUE_NAMES } from '../queues';
-import { getLEINumbers } from '../lib/gleif';
+import { getLEINumbersFromGLEIF } from '../lib/gleif';
 import { ask } from '../lib/openai';
 import { leiPrompt, leiSchema } from '../prompts/lei';
 import { zodResponseFormat } from 'openai/helpers/zod';
@@ -23,12 +23,12 @@ const extractLEI = new DiscordWorker<LEIJob>(
   async (job: LEIJob) => {
     const { wikidataId, companyName } = job.data;
 
-    const lei = await getLEINumber(wikidataId as EntityId); // Checks wikidata for LEI number
+    const lei = await getLEINumberFromWikidata(wikidataId as EntityId);
 
     if (!lei) {
       job.log(`❌ Could not find a valid LEI for '${companyName}' in Wikidata.`);
       
-      const searchResults = await getLEINumbers(companyName); // Checks GLEIF for LEI number
+      const searchResults = await getLEINumbersFromGLEIF(companyName);
 
       job.log('Results: ' + JSON.stringify(searchResults, null, 2));
       if (searchResults.length === 0) {

@@ -148,7 +148,7 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   return title
 }
 
-export async function getLEINumber(entity: EntityId): Promise<string | undefined> {
+export async function getLEINumberFromWikidata(entity: EntityId): Promise<string | undefined> {
   const url = wbk.getEntities({
       ids: entity,
       languages: ["en"]
