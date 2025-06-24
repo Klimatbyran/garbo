@@ -3,13 +3,9 @@ import fetch from 'node-fetch';
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import * as z from 'zod';
-import * as schemas from '../src/api/schemas'
-import ExcelJS from 'exceljs';
-
-
-// DEFINE THE ENVIRONMENTS YOU WANT TO COMPARE HERE
-const STAGING_API_URL ="https://stage-api.klimatkollen.se/api";
-const PRODUCTION_API_URL = "https://api.klimatkollen.se/api";
+import * as schemas from '../src/api/schemas';
+import { fetchCompanies } from './utils/fetchUtils';
+import { convertCompanyEvalsToCSV, generateXLSX } from './utils/outputFunctions';
 
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
@@ -25,7 +21,7 @@ interface Diff {
   differencePerct?: number;
 }
 
-interface Company {
+export interface Company {
   wikidataId: string,
   name: string;
   diffs: DiffReport[];
@@ -59,37 +55,12 @@ interface DiffReport {
     }
   },
   eval: {
-    accuracy?: {description?: string, value?: number};
-    accuracyNumericalFields?: {description?: string, value?: number};
+    accuracy?: {description?: string, value?: number, numbCorrectFieldsIncludeUndefined?: number, numbFields?: number};
+    accuracyNumericalFields?: {description?: string, value?: number, numbCorrectNumericalFields?: number, numbNumericalFields?: number};
     magnError?: number;
   }
 };
 
-// Parse the API tokens assuming they are in the environment variables
-const API_TOKENS = process.env.API_TOKENS;
-if (!API_TOKENS) {
-  throw new Error('API_TOKENS environment variable is not defined');
-}
-const tokens = API_TOKENS.split(',').reduce((acc, token) => {
-  const [name, value] = token.split(':');
-  acc[name] = value;
-  return acc;
-}, {} as Record<string, string>);
-
-// Function to fetch companies from a given API URL
-async function fetchCompanies(baseURL: string) {
-  const response = await fetch(`${baseURL}/companies`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${tokens['garbo']}`, // Use the appropriate token
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${baseURL}: ${response.statusText}`);
-  }
-  const data = await response.json();
-  return data;
-}
 
 // Function to compare data between staging and production
 function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList): Company[] {
@@ -241,8 +212,6 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
 
   d.eval = reportStatistics(diffs)
 
-  
-
   return d;
 }
 
@@ -266,20 +235,24 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
 }
 
 function reportStatistics(diffs: Diff[]) {
-  const numbCorrectFields = diffs.reduce((acc: number, current: Diff) => {
+  const numbCorrectFieldsIncludeUndefined = diffs.reduce((acc: number, current: Diff) => {
     return current.productionValue === current.stagingValue ? acc+1 : acc; // this also captures if both are undefined
   }, 0);
   // How many of the fields are correct?
   const accuracy = {
     description: 'Out of all fields, how many are correct?',
-    value: diffs.length > 0 ? numbCorrectFields / diffs.length : undefined
+    value: diffs.length > 0 ? numbCorrectFieldsIncludeUndefined / diffs.length : undefined,
+    numbCorrectFieldsIncludeUndefined,
+    numbFields: diffs.length
   }
   // Out of all fields that are supposed to have a numerical value, How many are correct? (excludes all instances where prod has an undefined value)
-  const dividend = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined || current.stagingValue !== undefined) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
+  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined || current.stagingValue !== undefined) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
   const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined || current.stagingValue !== undefined) ? acc + 1 : acc;}, 0);
   const accuracyNumericalFields = {
     description: 'Out of all fields that are supposed to have a numerical value, how many are correct?',
-    value: dividend/numbNumericalFields
+    value: numbCorrectNumericalFields/numbNumericalFields,
+    numbCorrectNumericalFields,
+    numbNumericalFields
   }
   // Out of all fields that are supposed to have a numerical value, how many are incorrect because of a magnitude error?
   const magErr = diffs.reduce((acc: number, current: Diff) => {
@@ -317,68 +290,46 @@ async function outputEvalMetrics(companies: Company[]) {
   await writeFile(outputXLSX, xlsx, 'utf8');
   await writeFile(outputPath, csvContent, 'utf8');
   console.log(`✅ Accuracy results written to ${outputPath}.`);
-  // const sumAccuracy = companies.reduce((acc1: number, company: Company) => {
-  //   const sumCompanyAccuracy = company.diffs.reduce((acc2: number, diff: DiffReport) => {
-  //     return elems ? acc2 + acc1 : acc2
-  //   }, 0)
-  //   return acc1 + sumCompanyAccuracy
-  // }, 0)
+
+  const sumCorrectFieldsIncludeUndefined = companies.reduce((acc1: number, company: Company) => {
+    const sumCompanyCorrectFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
+      return diff.eval.accuracy?.numbCorrectFieldsIncludeUndefined ? acc2 + diff.eval.accuracy?.numbCorrectFieldsIncludeUndefined : acc2
+    }, 0)
+    return acc1 + sumCompanyCorrectFields
+  }, 0)
+  const sumNumbFields = companies.reduce((acc1: number, company: Company) => {
+    const sumCompanyFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
+      return diff.eval.accuracy?.numbFields ? acc2 + diff.eval.accuracy?.numbFields : acc2
+    }, 0)
+    return acc1 + sumCompanyFields
+  }, 0)
+
+  const sumCorrectFields = companies.reduce((acc1: number, company: Company) => {
+    const sumCompanyCorrectFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
+      return diff.eval.accuracyNumericalFields?.numbCorrectNumericalFields ? acc2 + diff.eval.accuracyNumericalFields?.numbCorrectNumericalFields : acc2
+    }, 0)
+    return acc1 + sumCompanyCorrectFields
+  }, 0)
+  const sumFields = companies.reduce((acc1: number, company: Company) => {
+    const sumCompanyFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
+      return diff.eval.accuracyNumericalFields?.numbNumericalFields ? acc2 + diff.eval.accuracyNumericalFields?.numbNumericalFields : acc2
+    }, 0)
+    return acc1 + sumCompanyFields
+  }, 0)
+  console.log(`sumCorrectFieldsIncludingUndefined: ${sumCorrectFieldsIncludeUndefined}, sumFieldsIncludingUndefined: ${sumNumbFields}`)
+  console.log(`sumCorrectFields: ${sumCorrectFields}, sumFields: ${sumFields}`)
   // const totalAccuracies = companies.reduce((acc: number, company: Company) => {
   //   return company.diffs.length > 0 ? acc+company.diffs.length : acc;
   // }, 0)
   // console.log(`This is the total accuracy of all reports: ${sumAccuracy/totalAccuracies}`)
 }
 
-function convertCompanyEvalsToCSV(companies: Company[]): string {
-  // Define CSV headers
-  const headers = [
-    'wikidataId',
-    'name',
-    'reportingPeriodStart',
-    'reportingPeriodEnd',
-    'accuracy',
-    'accuracyNumericalFields',
-    'magnError'
-  ];
-
-  const csvContent = headers.join(',')
-
-  const companyRows = companies.map(company => {
-    const companyReportPeriodsEval = company.diffs.map(diff => {
-      return Object.values({
-        wikidataId: company.wikidataId,
-        name: company.name,
-        reportingPeriodStart: diff.reportingPeriod.startDate.toISOString().substring(0, 10),
-        reportingPeriodEnd: diff.reportingPeriod.endDate.toISOString().substring(0, 10),
-        accuracy: diff.eval.accuracy?.value,
-        accuracyNumericalFields: diff.eval.accuracyNumericalFields?.value,
-        magnError: diff.eval.magnError
-      }).join(',')
-    })
-    return companyReportPeriodsEval.join('\n')
-  })
-  return csvContent + '\n' + companyRows.join('\n')
-}
-
-async function generateXLSX(data: string[]): Promise<Buffer> {
-  //console.log(data)
-  if (data.length === 0) throw new Error('No data to export');
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('Data');
-  const rows = data.map((row) => row.split(','));
-  for(const row of rows) {
-    worksheet.addRow(row);
-  }
-  const buffer = await workbook.xlsx.writeBuffer();
-  
-  return Buffer.from(buffer);
-}
 
 // Main function for fetching, comparison, and output
 async function main() {
   try {
-    const stagingData = await fetchCompanies(STAGING_API_URL); 
-    const productionData = await fetchCompanies(PRODUCTION_API_URL); 
+    const stagingData = await fetchCompanies(process.env.API_BASE_URL_STAGING); 
+    const productionData = await fetchCompanies(process.env.API_BASE_URL_PROD); 
     const companies = compareCompanyLists(productionData, stagingData);
     outputEvalMetrics(companies);
   } catch (error) {
