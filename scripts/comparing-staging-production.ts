@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import fetch from 'node-fetch';
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import * as z from 'zod';
@@ -12,7 +11,6 @@ type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
 type CompanyResponse = z.infer<typeof schemas.MinimalCompanyBase>;
 const NUMBER_OF_CATEGORIES = 16;
 const ONLY_CHECK_VERIFIED_DATA = true;
-const IGNORE_REPORTING_PERIODS_NOT_IN_STAGING = true;
 
 interface Diff {
   productionValue?: number;
@@ -55,64 +53,49 @@ interface DiffReport {
     }
   },
   eval: {
-    accuracy?: {description?: string, value?: number, numbCorrectFieldsIncludeUndefined?: number, numbFields?: number};
-    accuracyNumericalFields?: {description?: string, value?: number, numbCorrectNumericalFields?: number, numbNumericalFields?: number};
+    accuracy?: {
+      description?: string,
+      value?: number,
+      numbCorrectFieldsIncludeUndefined?: number,
+      numbFields?: number};
+    accuracyNumericalFields?: {
+      description?: string,
+      value?: number,
+      numbCorrectNumericalFields?: number,
+      numbNumericalFields?: number};
     magnError?: number;
   }
 };
 
 
 // Function to compare data between staging and production
-function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList): Company[] {
+function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList, reportingYear?: string): Company[] {
   const companies: Company[] = [];
-
   for(const productionCompany of productionCompanies) {
     const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-    for(const reportingPeriod of productionCompany.reportingPeriods) {
-      const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate) ?? undefined;
-      if(stagingReportingPeriod) {
-        const diff = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
-        const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-        if(existingCompany) {
-          existingCompany.diffs.push(diff);
-        } else {
-          const company: Company = {
-            name: productionCompany.name,
-            wikidataId: productionCompany.wikidataId,
-            diffs: []
-          }
-          company.diffs.push(diff);
-          companies.push(company);
+    if (stagingCompany) {
+      companies.push({
+        name: productionCompany.name,
+        wikidataId: productionCompany.wikidataId,
+        diffs: []
+      })
+      if (reportingYear) {
+        const prodReportingPeriod = productionCompany?.reportingPeriods.find((period) => typeof period.startDate === 'string' ? period.startDate.includes(reportingYear) : period.startDate.toString().includes(reportingYear))
+        const stagingReportingPeriod = prodReportingPeriod ? stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === prodReportingPeriod.startDate && periodI.endDate === prodReportingPeriod.endDate) : undefined;
+        if(stagingReportingPeriod && prodReportingPeriod) {
+          const diff = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
+          const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+          existingCompany?.diffs.push(diff);
         }
-      } else {
-        if(IGNORE_REPORTING_PERIODS_NOT_IN_STAGING) {
-          continue;
-        }
-        const notFoundDiff: DiffReport = {
-          reportingPeriod: {
-            startDate:  new Date(reportingPeriod.startDate),
-            endDate: new Date(reportingPeriod.endDate)
-          },
-          diffs: {
-            emissions: {
-              scope2: {},
-              scope3: [],
-            },
-            economy: {}
-          },
-          eval: {}
-        }   
-        const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-        if(existingCompany) {
-          existingCompany.diffs.push(notFoundDiff);
-        } else {
-          const company: Company = {
-            name: productionCompany.name,
-            wikidataId: productionCompany.wikidataId,
-            diffs: []
+      }
+      else {
+        for(const reportingPeriod of productionCompany.reportingPeriods) {
+          const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate);
+          if(stagingReportingPeriod) {
+            const diff = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
+            const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+            existingCompany?.diffs.push(diff);
           }
-          company.diffs.push(notFoundDiff);
-          companies.push(company);
         }
       }
     }
@@ -208,8 +191,6 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   );
   diffs.push(d.diffs.economy.turnover);
 
-  // Emission-wise metrics
-
   d.eval = reportStatistics(diffs)
 
   return d;
@@ -246,8 +227,8 @@ function reportStatistics(diffs: Diff[]) {
     numbFields: diffs.length
   }
   // Out of all fields that are supposed to have a numerical value, How many are correct? (excludes all instances where prod has an undefined value)
-  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined || current.stagingValue !== undefined) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
-  const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined || current.stagingValue !== undefined) ? acc + 1 : acc;}, 0);
+  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return !(current.productionValue === undefined && current.stagingValue === undefined) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
+  const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return !(current.productionValue === undefined && current.stagingValue === undefined) ? acc + 1 : acc;}, 0);
   const accuracyNumericalFields = {
     description: 'Out of all fields that are supposed to have a numerical value, how many are correct?',
     value: numbCorrectNumericalFields/numbNumericalFields,
@@ -289,7 +270,10 @@ async function outputEvalMetrics(companies: Company[]) {
   const xlsx = await generateXLSX(csvContent.split('\n'))
   await writeFile(outputXLSX, xlsx, 'utf8');
   await writeFile(outputPath, csvContent, 'utf8');
-  console.log(`✅ Accuracy results written to ${outputPath}.`);
+  console.log(`✅ Statistics per report, written to ${outputPath}.`);
+}
+
+function outputTotalStatistics(companies: Company[]) {
 
   const sumCorrectFieldsIncludeUndefined = companies.reduce((acc1: number, company: Company) => {
     const sumCompanyCorrectFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
@@ -318,19 +302,16 @@ async function outputEvalMetrics(companies: Company[]) {
   }, 0)
   console.log(`sumCorrectFieldsIncludingUndefined: ${sumCorrectFieldsIncludeUndefined}, sumFieldsIncludingUndefined: ${sumNumbFields}`)
   console.log(`sumCorrectFields: ${sumCorrectFields}, sumFields: ${sumFields}`)
-  // const totalAccuracies = companies.reduce((acc: number, company: Company) => {
-  //   return company.diffs.length > 0 ? acc+company.diffs.length : acc;
-  // }, 0)
-  // console.log(`This is the total accuracy of all reports: ${sumAccuracy/totalAccuracies}`)
 }
-
 
 // Main function for fetching, comparison, and output
 async function main() {
   try {
+    const reportingYear = process.argv[2]
     const stagingData = await fetchCompanies(process.env.API_BASE_URL_STAGING); 
     const productionData = await fetchCompanies(process.env.API_BASE_URL_PROD); 
-    const companies = compareCompanyLists(productionData, stagingData);
+    const companies = compareCompanyLists(productionData, stagingData, reportingYear);
+    outputTotalStatistics(companies)
     outputEvalMetrics(companies);
   } catch (error) {
     console.error('Error fetching data:', error);
