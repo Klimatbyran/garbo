@@ -66,6 +66,7 @@ const API_TOKENS = process.env.API_TOKENS;
 if (!API_TOKENS) {
   throw new Error('API_TOKENS environment variable is not defined');
 }
+
 const tokens = API_TOKENS.split(',').reduce((acc, token) => {
   const [name, value] = token.split(':');
   acc[name] = value;
@@ -167,10 +168,13 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
 
   d.diff.scope1 = compareNumbers(productionReportingPeriod.emissions?.scope1?.total, stagingReportingPeriod.emissions?.scope1?.total, productionReportingPeriod.emissions?.scope1?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope1);
+
   d.diff.scope2.lb = compareNumbers(productionReportingPeriod.emissions?.scope2?.lb, stagingReportingPeriod.emissions?.scope2?.lb, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope2.lb);
-  d.diff.scope2.mb = compareNumbers(productionReportingPeriod.emissions?.scope2?.lb, stagingReportingPeriod.emissions?.scope2?.lb, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
+
+  d.diff.scope2.mb = compareNumbers(productionReportingPeriod.emissions?.scope2?.mb, stagingReportingPeriod.emissions?.scope2?.mb, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope2.mb);
+
   d.diff.scope2.unknown = compareNumbers(productionReportingPeriod.emissions?.scope2?.unknown, stagingReportingPeriod.emissions?.scope2?.unknown, productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null);
   diffs.push(d.diff.scope2.unknown);
 
@@ -187,23 +191,30 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
 
   d.diff.economy.employees = compareNumbers(productionReportingPeriod.economy?.employees?.value, stagingReportingPeriod.economy?.employees?.value, productionReportingPeriod.economy?.employees?.metadata.verifiedBy != null);
   diffs.push(d.diff.economy.employees);
+
   d.diff.economy.turnover = compareNumbers(productionReportingPeriod.economy?.turnover?.value, stagingReportingPeriod.economy?.turnover?.value, productionReportingPeriod.economy?.turnover?.metadata.verifiedBy != null);
   diffs.push(d.diff.economy.turnover);
+
   const numbersSum = diffs.reduce((acc: number, current: Diff) => {
     return current.difference !== undefined ? acc + (current.perctDifference ?? 0) : acc;
   }, 0);
+
   const numbersCount = diffs.reduce((acc: number, current: Diff) => {
     return current.difference !== undefined ? acc + 1 : acc;
   }, 0);
+
   const numberIncorrect = diffs.reduce((acc: number, current: Diff) => {
     return current.difference !== undefined ? current.difference !== 0 ? acc + 1 : acc: acc;
   }, 0);
+
   const below90 = diffs.reduce((acc: number, current: Diff) => {
     return current.perctDifference ? current.perctDifference < 0.9 ? acc + 1 : acc : acc;
   }, 0);
+
   const below95 = diffs.reduce((acc: number, current: Diff) => {
     return current.perctDifference ? current.perctDifference < 0.95 ? acc + 1 : acc : acc;
   }, 0);
+
   d.numberBelow90Acc = diffs.length > 0 ? below90 / diffs.length: undefined;
   d.numberBelow95Acc = diffs.length > 0 ? below95 / diffs.length: undefined;
   d.numberIncorrect = numberIncorrect;
@@ -400,10 +411,12 @@ function getCompanieStatistics(companies: Company[]): string {
     const overallNumberOfErrors = company.diffs.reduce((acc, value) => acc += value.numberIncorrect || 0, 0);
     const overallNumberOfFields = company.diffs.reduce((acc, value) => acc += value.numberOfFields || 0, 0);
     const faultyReportingPeriods = company.diffs.reduce((acc, value) => value.numberIncorrect !== undefined && value.numberIncorrect > 0 ? acc + 1 : acc , 0);
+
     const numberOfCompareableReportingPeriods = company.diffs.reduce((acc, value) => value.numberOfFields !== undefined && value.numberOfFields > 0 ? acc + 1 : acc , 0);
     const overall95 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow95Acc || 0 , 0) / company.diffs.length : 0;
     const overall90 = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.numberBelow90Acc || 0 , 0) / company.diffs.length: 0;
     const overallAccuracy = company.diffs.length ? company.diffs.reduce((acc, value) => acc += value.accuracy || 0 , 0) / company.diffs.length: 0;
+
     const overallFaultsScope1 = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined && value.diff.scope1.difference !== 0 ? acc + 1 : acc , 0);
     const overallScope1Fields = company.diffs.reduce((acc, value) => value.diff.scope1?.difference !== undefined ? acc + 1 : acc , 0);
     const overallFaultsScope2 = company.diffs.reduce((acc, value) =>  {
@@ -412,29 +425,34 @@ function getCompanieStatistics(companies: Company[]): string {
       acc += value.diff.scope2.unknown?.difference !== undefined && value.diff.scope2.unknown.difference !== 0 ? 1 : 0;
       return acc;    
     }, 0);
+
     const overallScope2Fields = company.diffs.reduce((acc, value) =>  {
       acc += value.diff.scope2.lb?.difference !== undefined ? 1 : 0;
       acc += value.diff.scope2.mb?.difference !== undefined ? 1 : 0;
       acc += value.diff.scope2.unknown?.difference !== undefined ? 1 : 0;
       return acc;    
     }, 0);
+
     const overallFaultsScope3 = company.diffs.reduce((acc, value) => {
       for(const category of value.diff.scope3) {
         acc += category.value?.difference !== undefined && category.value.difference !== 0 ? 1 : 0;
       }
       return acc;
     }, 0);
+
     const overallScope3Fields = company.diffs.reduce((acc, value) => {
       for(const category of value.diff.scope3) {
         acc += category.value?.difference !== undefined ? 1 : 0;
       }
       return acc;
     }, 0);
+
     const overallFaultsEconomy = company.diffs.reduce((acc, value) => {
       acc += value.diff.economy.employees?.difference !== undefined && value.diff.economy.employees.difference !== 0 ? 1 : 0;
       acc += value.diff.economy.turnover?.difference !== undefined && value.diff.economy.turnover.difference !== 0 ? 1 : 0;
       return acc;    
     }, 0);
+    
     const overallEconomyFields = company.diffs.reduce((acc, value) => {
       acc += value.diff.economy.employees?.difference !== undefined ? 1 : 0;
       acc += value.diff.economy.turnover?.difference !== undefined ? 1 : 0;
