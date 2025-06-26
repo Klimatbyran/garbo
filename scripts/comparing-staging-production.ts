@@ -23,7 +23,7 @@ export interface Diff {
 export interface Company {
   wikidataId: string,
   name: string;
-  diffs: DiffReport[];
+  diffReports: DiffReport[];
 }
 
 export interface DiffReport {
@@ -54,17 +54,36 @@ export interface DiffReport {
     }
   },
   eval: {
-    accuracy?: {
-      description?: string,
-      value?: number,
-      numbCorrectFieldsIncludeUndefined?: number,
-      numbFields?: number};
     accuracyNumericalFields?: {
       description?: string,
       value?: number,
       numbCorrectNumericalFields?: number,
-      numbNumericalFields?: number};
-    magnError?: number;
+      numbNumericalFields?: number
+    };
+    precision?: {
+      description?: string,
+      value?: number,
+      numbHasActualValueAndIsExtracted?: number,
+      numbExtractedValues?: number
+    };
+    recall?: {
+      description?: string,
+      value?: number,
+      numbHasActualValueAndIsExtracted?: number,
+      numbActualValues?: number
+    };
+    magnError?: {
+      description?: string,
+      value?: number,
+      magnErr?: number,
+      numbNumericalFields?: number
+    };
+    fieldSwapError?: {
+      description?: string,
+      value?: number,
+      fieldSwap?: number,
+      numbNumericalFields?: number
+    }
   }
 };
 
@@ -78,24 +97,24 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
       companies.push({
         name: productionCompany.name,
         wikidataId: productionCompany.wikidataId,
-        diffs: []
+        diffReports: []
       })
       if (reportingYear) {
         const prodReportingPeriod = productionCompany?.reportingPeriods.find((period) => typeof period.startDate === 'string' ? period.startDate.includes(reportingYear) : period.startDate.toString().includes(reportingYear))
         const stagingReportingPeriod = prodReportingPeriod ? stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === prodReportingPeriod.startDate && periodI.endDate === prodReportingPeriod.endDate) : undefined;
         if(stagingReportingPeriod && prodReportingPeriod) {
-          const diff = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
+          const diffReport = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
           const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-          existingCompany?.diffs.push(diff);
+          existingCompany?.diffReports.push(diffReport);
         }
       }
       else {
         for(const reportingPeriod of productionCompany.reportingPeriods) {
           const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate);
           if(stagingReportingPeriod) {
-            const diff = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
+            const diffReport = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
             const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-            existingCompany?.diffs.push(diff);
+            existingCompany?.diffReports.push(diffReport);
           }
         }
       }
@@ -107,7 +126,7 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
 
 
 function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, stagingReportingPeriod: ReportingPeriod, productionCompany: CompanyResponse) {
-  const d: DiffReport = {
+  const diffReport: DiffReport = {
     reportingPeriod: {
       startDate:  new Date(productionReportingPeriod.startDate),
       endDate: new Date(productionReportingPeriod.endDate)
@@ -124,76 +143,76 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
 
   const diffs: Diff[] = [];
 
-  d.diffs.emissions.scope1  = compareNumbers(
+  diffReport.diffs.emissions.scope1  = compareNumbers(
     productionReportingPeriod.emissions?.scope1?.total,
     stagingReportingPeriod.emissions?.scope1?.total,
     productionReportingPeriod.emissions?.scope1?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.scope1);
+  diffs.push(diffReport.diffs.emissions.scope1);
 
-  d.diffs.emissions.scope2.lb = compareNumbers(
+  diffReport.diffs.emissions.scope2.lb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.lb,
     stagingReportingPeriod.emissions?.scope2?.lb,
     productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.scope2.lb);
+  diffs.push(diffReport.diffs.emissions.scope2.lb);
 
-  d.diffs.emissions.scope2.mb = compareNumbers(
+  diffReport.diffs.emissions.scope2.mb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.mb,
     stagingReportingPeriod.emissions?.scope2?.mb,
     productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.scope2.mb);
+  diffs.push(diffReport.diffs.emissions.scope2.mb);
 
-  d.diffs.emissions.scope2.unknown  = compareNumbers(
+  diffReport.diffs.emissions.scope2.unknown  = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.unknown,
     stagingReportingPeriod.emissions?.scope2?.unknown,
     productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.scope2.unknown);
+  diffs.push(diffReport.diffs.emissions.scope2.unknown);
 
-  d.diffs.emissions.scope1And2 = compareNumbers(
+  diffReport.diffs.emissions.scope1And2 = compareNumbers(
     productionReportingPeriod.emissions?.scope1And2?.total,
     stagingReportingPeriod.emissions?.scope1And2?.total,
     productionReportingPeriod.emissions?.scope1And2?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.scope1And2);
+  diffs.push(diffReport.diffs.emissions.scope1And2);
 
-  d.diffs.emissions.statedTotalEmissions = compareNumbers(
+  diffReport.diffs.emissions.statedTotalEmissions = compareNumbers(
     productionReportingPeriod.emissions?.statedTotalEmissions?.total,
     stagingReportingPeriod.emissions?.statedTotalEmissions?.total,
     productionReportingPeriod.emissions?.statedTotalEmissions?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.emissions.statedTotalEmissions);
+  diffs.push(diffReport.diffs.emissions.statedTotalEmissions);
 
   for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
     const productionCategory = productionReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;
     const stagingCategory = stagingReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;   
     const diff = compareNumbers(productionCategory?.total, stagingCategory?.total, productionCategory?.metadata.verifiedBy != null); 
     diffs.push(diff)
-    d.diffs.emissions.scope3.push({
+    diffReport.diffs.emissions.scope3.push({
       categoryId: i,
       value: diff
     })
   }
 
-  d.diffs.economy.employees = compareNumbers(
+  diffReport.diffs.economy.employees = compareNumbers(
     productionReportingPeriod.economy?.employees?.value,
     stagingReportingPeriod.economy?.employees?.value,
     productionReportingPeriod.economy?.employees?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.economy.employees);
+  diffs.push(diffReport.diffs.economy.employees);
 
-  d.diffs.economy.turnover = compareNumbers(
+  diffReport.diffs.economy.turnover = compareNumbers(
     productionReportingPeriod.economy?.turnover?.value,
     stagingReportingPeriod.economy?.turnover?.value,
     productionReportingPeriod.economy?.turnover?.metadata.verifiedBy != null
   );
-  diffs.push(d.diffs.economy.turnover);
+  diffs.push(diffReport.diffs.economy.turnover);
 
-  d.eval = reportStatistics(diffs)
+  diffReport.eval = reportStatistics(diffs)
 
-  return d;
+  return diffReport;
 }
 
 function compareNumbers(productionNumber: number | undefined | null, stagingNumber: number | undefined | null, productionVerified?: boolean): Diff {
@@ -216,13 +235,16 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
 }
 
 async function outputEvalMetrics(companies: Company[]) {
-  const outputPath = resolve('output', 'accuracy-results.csv');
-  const outputXLSX = resolve('output', 'accuracy-results.xlsx');
+  const outputPathCSV = resolve('output', 'garbo-evaluation.csv');
+  const outputPathXLSX = resolve('output', 'garbo-evaluation.xlsx');
+  const outputPathJSON = resolve('output', 'garbo-evaluation.json');
   const csvContent = convertCompanyEvalsToCSV(companies)
   const xlsx = await generateXLSX(csvContent.split('\n'))
-  await writeFile(outputXLSX, xlsx, 'utf8');
-  await writeFile(outputPath, csvContent, 'utf8');
-  console.log(`✅ Statistics per report, written to ${outputPath}.`);
+  const jsonObject = JSON.stringify(companies)
+  await writeFile(outputPathXLSX, xlsx, 'utf8');
+  await writeFile(outputPathCSV, csvContent, 'utf8');
+  await writeFile(outputPathJSON, jsonObject, 'utf8');
+  console.log(`✅ Statistics per report, written to ${outputPathCSV}.`);
 }
 
 // Main function for fetching, comparison, and output
