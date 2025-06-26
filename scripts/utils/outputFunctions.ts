@@ -7,21 +7,45 @@ export function convertCompanyEvalsToCSV(companies: Company[]): string {
     'name',
     'reportingPeriodStart',
     'reportingPeriodEnd',
-    'accuracy',
-    'accuracyNumericalFields',
-    'magnError'
+    'accuracyWithoutUndefined-proportion',
+    'accuracyWithoutUndefined-numbCorrect',
+    'accuracyWithoutUndefined-numbFields',
+    'precision',
+    'precision-numbHasActualValueAndIsExtracted',
+    'precision-numbExtractedValues',
+    'recall',
+    'recall-numbHasActualValueAndIsExtracted',
+    'recall-numbActualValues',
+    'magnError-proportion',
+    'magnError-numbErrors',
+    'magnError-numbFields',
+    'fieldSwapError-proportion',
+    'fieldSwapError-numbError',
+    'fieldSwapError-numbFields'
   ]
   const csvContent = headers.join(',')
   const companyRows = companies.map(company => {
-      const companyReportPeriodsEval = company.diffs.map(diff => {
+      const companyReportPeriodsEval = company.diffReports.map(diff => {
           return Object.values({
               wikidataId: company.wikidataId,
               name: company.name,
               reportingPeriodStart: diff.reportingPeriod.startDate.toISOString().substring(0, 10),
               reportingPeriodEnd: diff.reportingPeriod.endDate.toISOString().substring(0, 10),
-              accuracy: diff.eval.accuracy?.value,
-              accuracyNumericalFields: diff.eval.accuracyNumericalFields?.value,
-              magnError: diff.eval.magnError
+              'accuracyWithoutUndefined-proportion': diff.eval.accuracyNumericalFields?.value,
+              'accuracyWithoutUndefined-numbCorrect': diff.eval.accuracyNumericalFields?.numbCorrectNumericalFields,
+              'accuracyWithoutUndefined-numbFields': diff.eval.accuracyNumericalFields?.numbNumericalFields,
+              'precision': diff.eval.precision?.value,
+              'precision-numbHasActualValueAndIsExtracted': diff.eval.precision?.numbHasActualValueAndIsExtracted,
+              'precision-numbExtractedValues': diff.eval.precision?.numbExtractedValues,
+              'recall': diff.eval.recall?.value,
+              'recall-numbHasActualValueAndIsExtracted': diff.eval.recall?.numbHasActualValueAndIsExtracted,
+              'recall-numbActualValues': diff.eval.recall?.numbActualValues,
+              'magnError-proportion': diff.eval.magnError?.value,
+              'magnError-numbErrors': diff.eval.magnError?.magnErr,
+              'magnError-numbFields': diff.eval.magnError?.numbNumericalFields,
+              'fieldSwapError-proportion': diff.eval.fieldSwapError?.value,
+              'fieldSwapError-numbError': diff.eval.fieldSwapError?.fieldSwap,
+              'fieldSwapError-numbFields': diff.eval.fieldSwapError?.numbNumericalFields
           }).join(',')
       })
       return companyReportPeriodsEval.join('\n')
