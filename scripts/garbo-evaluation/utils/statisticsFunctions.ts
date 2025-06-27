@@ -1,20 +1,12 @@
 import { Diff, DiffReport, Company, } from '../comparing-staging-production'
 
 export function reportStatistics(diffs: Diff[]) {
-//   const numbCorrectFieldsIncludeUndefined = diffs.reduce((acc: number, current: Diff) => {
-//     return current.productionValue === current.stagingValue ? acc+1 : acc; // this also captures if both are undefined
-//   }, 0);
-//   // How many of the fields are correct?
-//   const accuracy = {
-//     description: 'Out of all fields, how many are correct?',
-//     value: diffs.length > 0 ? numbCorrectFieldsIncludeUndefined / diffs.length : undefined,
-//     numbCorrectFieldsIncludeUndefined,
-//     numbFields: diffs.length
-//   }
+  const prodOrStagingHasNumericValue = (current: Diff) => {return current.productionValue !== undefined || current.stagingValue !== undefined}
+  const prodAndStagingHasNumericValue = (current: Diff) => {return current.productionValue !== undefined && current.stagingValue !== undefined}
 
   // Out of all fields that are supposed to have a numerical value, How many are correct? (excludes all instances where prod has an undefined value)
-  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return !(current.productionValue === undefined && current.stagingValue === undefined) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
-  const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return !(current.productionValue === undefined && current.stagingValue === undefined) ? acc + 1 : acc;}, 0);
+  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return prodOrStagingHasNumericValue(current) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
+  const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return prodOrStagingHasNumericValue(current) ? acc + 1 : acc;}, 0);
   const accuracyNumericalFields = {
     description: 'Out of all fields that are supposed to have a numerical value, how many are correct?',
     value: numbCorrectNumericalFields/numbNumericalFields,
@@ -22,7 +14,7 @@ export function reportStatistics(diffs: Diff[]) {
     numbNumericalFields
   }
 
-  const numbHasActualValueAndIsExtracted = diffs.reduce((acc: number, current: Diff) => { return (current.productionValue !== undefined && current.stagingValue !== undefined) ? acc + 1 : acc;}, 0);
+  const numbHasActualValueAndIsExtracted = diffs.reduce((acc: number, current: Diff) => { return prodAndStagingHasNumericValue(current) ? acc + 1 : acc;}, 0);
   const numbExtractedValues = diffs.reduce((acc: number, current: Diff) => { return current.stagingValue !== undefined ? acc + 1 : acc;}, 0);
   const numbActualValues = diffs.reduce((acc: number, current: Diff) => { return current.productionValue !== undefined ? acc + 1 : acc;}, 0);
 
@@ -83,19 +75,6 @@ export function reportStatistics(diffs: Diff[]) {
 }
 
 export function outputTotalStatistics(companies: Company[]) {
-    // const sumCorrectFieldsIncludeUndefined = companies.reduce((acc1: number, company: Company) => {
-    // const sumCompanyCorrectFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
-    //     return diff.eval.accuracy?.numbCorrectFieldsIncludeUndefined ? acc2 + diff.eval.accuracy?.numbCorrectFieldsIncludeUndefined : acc2
-    // }, 0)
-    // return acc1 + sumCompanyCorrectFields
-    // }, 0)
-    // const sumNumbFields = companies.reduce((acc1: number, company: Company) => {
-    // const sumCompanyFields = company.diffs.reduce((acc2: number, diff: DiffReport) => {
-    //     return diff.eval.accuracy?.numbFields ? acc2 + diff.eval.accuracy?.numbFields : acc2
-    // }, 0)
-    // return acc1 + sumCompanyFields
-    // }, 0)
-
     const sumCorrectFields = companies.reduce((acc1: number, company: Company) => {
     const sumCompanyCorrectFields = company.diffReports.reduce((acc2: number, diff: DiffReport) => {
         return diff.eval.accuracyNumericalFields?.numbCorrectNumericalFields ? acc2 + diff.eval.accuracyNumericalFields?.numbCorrectNumericalFields : acc2
@@ -121,7 +100,6 @@ export function outputTotalStatistics(companies: Company[]) {
     }, 0)
     return acc1 + sumCompanyFields
     }, 0)
-    //console.log(`Accuracy including undefined: ${sumCorrectFieldsIncludeUndefined} out of ${sumNumbFields}, ${sumCorrectFieldsIncludeUndefined/sumNumbFields}`)
     console.log(`Accuracy excluding undefined: ${sumCorrectFields} out of ${sumFields}, ${sumCorrectFields/sumFields}`)
     console.log(`Magnitude error: ${sumMagnErr} out of ${sumNumericFields}, ${sumMagnErr/sumNumericFields}`)
 }

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { writeFile } from 'fs/promises';
 import { resolve } from 'path';
 import * as z from 'zod';
-import * as schemas from '../src/api/schemas';
+import * as schemas from '../../src/api/schemas';
 import { fetchCompanies } from './utils/fetchUtils';
 import { convertCompanyEvalsToCSV, generateXLSX } from './utils/outputFunctions';
 import { reportStatistics, outputTotalStatistics } from './utils/statisticsFunctions';
