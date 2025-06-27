@@ -53,13 +53,13 @@ const nlmExtractTables = new DiscordWorker(
 async function process(job: NLMExtractTablesJob) {
   const { json, url } = job.data
 
-  job.sendMessage('🔍 Söker efter relevanta tabeller...')
+  job.sendMessage('🔍 Searching for relevant tables...')
 
   try {
     const pdf = await fetchPdf(url)
     const outputDir = path.resolve('/tmp', 'garbo-screenshots')
     await mkdir(outputDir, { recursive: true })
-    job.editMessage(`✅ PDF nedladdad!`)
+    job.editMessage(`✅ PDF downloaded!`)
 
     job.log('Extracting pages...')
     const { pages } = await extractTablesFromJson(
@@ -70,7 +70,7 @@ async function process(job: NLMExtractTablesJob) {
     )
 
     job.sendMessage(
-      `🤖 Hittade relevanta tabeller på ${pages.length} unika sidor.`
+      `🤖 Found relevant tables at ${pages.length} unique pages.`
     )
 
     job.log(`Extracted ${pages.length} pages. Extracting tables...`)
@@ -132,7 +132,7 @@ async function process(job: NLMExtractTablesJob) {
           .join('\n'),
     }
   } catch (error) {
-    job.editMessage(`❌ Fel vid tolkning av PDF: ${error.message}`)
+    job.editMessage(`❌ Error interpreting the PDF: ${error.message}`)
     throw new UnrecoverableError(`Download Failed: ${error.message}`)
   }
 }

@@ -145,13 +145,13 @@ export async function extractTablesFromJson(
 
     filenames.push({ pageNumber, filename: pageScreenshotPath })
 
-    /* Denna fungerar inte än pga boundingbox är fel pga en bugg i NLM ingestor BBOX (se issue här: https://github.com/nlmatics/nlm-ingestor/issues/66). 
-             När den är fixad kan denna användas istället för att beskära hela sidan. */
-    /* TODO: fixa boundingbox för tabeller
+    /* This doesn't work yet because the bounding box is incorrect due to a bug in the NLM ingestor BBOX (see issue here: https://github.com/nlmatics/nlm-ingestor/issues/66).  
+            Once it is fixed, this can be used instead to crop just the table rather than the entire page. */  
+    /* TODO: fix bounding box for tables  
           const { x, y, width, height } = calculateBoundingBoxForTable(
-            table,
-            pageWidth,
-            pageHeight
+              table,
+              pageWidth,
+              pageHeight
           )*/
   }
 

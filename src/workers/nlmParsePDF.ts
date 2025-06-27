@@ -34,7 +34,7 @@ const nlmParsePDF = new DiscordWorker(
       const pdf = await fetchPdf(url, { headers })
 
       job.editMessage(
-        `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. Tar upp till 3 minuter ☕️ ...`
+        `✅ PDF downloaded. Interpreting PDF via nlm-ingestor. This may take up to 3 minutes. ☕️ ...`
       )
 
       const exists = await vectorDB.hasReport(url)
@@ -46,11 +46,11 @@ const nlmParsePDF = new DiscordWorker(
           const remaining = Math.max(0, 180 - Math.floor(elapsed / 1000))
           if (remaining > 0) {
             await job.editMessage(
-              `✅ PDF nedladdad. Tolkar PDF via nlm-ingestor. C:a ${remaining}s kvar ☕️ ...`
+              `✅ PDF downloaded. Interpreting PDF via nlm-ingestor. Approximately ${remaining}s left ☕️ ...`
             )
             await job.sendTyping()
           } else {
-            await job.editMessage('Nu borde det vara klart... 🤔')
+            await job.editMessage('Now it should be done...... 🤔')
           }
         }, 10000)
 
@@ -60,7 +60,7 @@ const nlmParsePDF = new DiscordWorker(
           json = await extractJsonFromPdf(pdf)
         } catch (err) {          
             job.log('Failed to parse PDF: ' + err.message + ', switching parser to docling...')
-            job.editMessage(`❌ Fel vid tolkning av PDF: ${err.message}. Försöker med en annan parser...`)
+            job.editMessage(`❌ Failed to parse PDF: ${err.message}. switching parser to docling..`)
       
             const precheck = await flow.add({
               ...base,
@@ -123,9 +123,9 @@ const nlmParsePDF = new DiscordWorker(
           json,
         })
 
-        await job.editMessage(`✅ PDF tolkad`)
+        await job.editMessage(`✅ PDF interpreted`)
 
-        await job.editMessage(`🤖 Tolkar tabeller...`)
+        await job.editMessage(`🤖 Interpreting tables...`)
 
         const precheck = await flow.add({
           ...base,
@@ -153,7 +153,7 @@ const nlmParsePDF = new DiscordWorker(
         })
         job.log('flow started: ' + precheck.job?.id)
       } else {
-        job.editMessage(`✅ PDF redan tolkad och indexerad. Fortsätter...`)
+        job.editMessage(`✅ PDF already interpreted and indexed. Continuing...`)
 
         const markdown = await vectorDB.getRelevantMarkdown(url, [
           'GHG accounting, tCO2e (location-based method), ton CO2e, scope, scope 1, scope 2, scope 3, co2, emissions, emissions, 2021, 2023, 2022, gri protocol, CO2, ghg, greenhouse, gas, climate, change, global, warming, carbon, växthusgaser, utsläpp, basår, koldioxidutsläpp, koldioxid, klimatmål',
@@ -167,7 +167,7 @@ const nlmParsePDF = new DiscordWorker(
       }
       return true
     } catch (error) {
-      job.editMessage(`❌ Fel vid nedladdning av PDF: ${error.message}`)
+      job.editMessage(`❌ Error downloading PDF: ${error.message}`)
       throw new Error(error)
     }
   },
