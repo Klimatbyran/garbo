@@ -3,7 +3,7 @@ import { workers } from './workers'
 
 console.log('Starting workers...')
 
-Promise.all(workers.map((worker) => worker.run()))
+Promise.all(workers.map((worker) => {return worker.run()}))
   .then((results) => results.join('\n'))
   .then(console.log)
   .catch((error) => {
