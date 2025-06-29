@@ -42,10 +42,7 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Company description' }),
+  lei: z.string().optional().nullable(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
@@ -56,6 +53,12 @@ export const StatedTotalEmissionsSchema = z.object({
     .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
+})
+
+export const ResponseDescriptionSchema = z.object({
+  id: z.string(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string()
 })
 
 export const BiogenicSchema = z.object({
@@ -337,7 +340,7 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
   statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
 })
 
-const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   id: true,
   emissions: true,
   economy: true,
@@ -346,16 +349,21 @@ const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
-const MinimalCompanyBase = CompanyBaseSchema.extend({
+export const MinimalCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)
@@ -439,3 +447,5 @@ export const MunicipalitySectorEmissionsSchema = z.object({
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
+
+export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())

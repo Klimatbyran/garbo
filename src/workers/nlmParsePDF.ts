@@ -91,8 +91,30 @@ const nlmParsePDF = new DiscordWorker(
         const markdown = jsonToMarkdown(json)
 
         if (!json.return_dict.result.blocks.length || !markdown.trim()) {
-          await job.editMessage('❌ Fel vid tolkning av PDF: Inget innehåll')
-          throw new Error('No content in parsed PDF: ' + JSON.stringify(json))
+          await job.editMessage('❌ Error parsing PDF: No content, trying with another parser...');
+
+          const precheck = await flow.add({
+            ...base,
+            name: 'precheck ' + name,
+            queueName: QUEUE_NAMES.PRECHECK,
+            children: [
+              {
+                ...base,
+                name: 'indexMarkdown ' + name,
+                queueName: QUEUE_NAMES.INDEX_MARKDOWN,
+                children: [
+                  {
+                    ...base,
+                    name: 'doclingParsePDF ' + name,
+                    queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
+                  },
+                ],
+              },
+            ],
+          })
+          job.log('flow started: ' + precheck.job?.id)
+
+          throw new Error('Failed to parse PDF, switching parser to docling...');
         }
 
         job.log('text found:\n' + markdown)

@@ -8,14 +8,13 @@ import { QUEUE_NAMES } from '../queues'
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    description?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number,
       endMonth: number,
     },
-    childrenValues?: any
     approved?: boolean
+    lei?: string
   }
 }
 
@@ -26,49 +25,13 @@ const checkDB = new DiscordWorker(
   async (job: CheckDBJob) => {
     const {
       companyName,
-      description,
       url,
       fiscalYear,
       wikidata,
       threadId,
       channelId,
+      
     } = job.data
-  
-    const childrenValues = await job.getChildrenEntries()
-    await job.updateData({ ...job.data, childrenValues })
-  
-    job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
-    const wikidataId = wikidata.node
-  
-    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null
-    )
-  
-    if (!existingCompany) {
-      const metadata = {
-        source: url,
-        comment: 'Created by Garbo AI',
-      }
-  
-      job.sendMessage(
-        `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
-      )
-      const body = {
-        name: companyName,
-        description,
-        wikidataId,
-        metadata,
-      }
-  
-      await apiFetch(`/companies`, { body })
-  
-      await job.sendMessage(
-        `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
-          companyName,
-          wikidataId
-        )}`
-      )
-    }
   
     const {
       scope12,
@@ -79,14 +42,47 @@ const checkDB = new DiscordWorker(
       baseYear,
       goals,
       initiatives,
-    } = childrenValues
+      descriptions,
+      lei,
+    } = await job.getChildrenEntries()
+  
+    job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
+    const wikidataId = wikidata.node
+    const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
+      () => null
+    )
+    job.log(existingCompany);
+  
+    if (!existingCompany) {
+      const metadata = {
+        source: url,
+        comment: 'Created by Garbo AI',
+      }
+  
+      job.sendMessage(
+        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
+      )
+      const body = {
+        name: companyName,
+        wikidataId,
+        metadata,
+      }
+  
+      await apiFetch(`/companies/${wikidataId}`, { body });
+  
+      await job.sendMessage(
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
+      );
+    } else {
+      job.log(`✅ The company '${companyName}' was found in the database.`);
+      await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
+    }
   
     const base = {
       name: companyName,
       data: {
         existingCompany,
         companyName,
-        description,
         url,
         fiscalYear,
         wikidata,
@@ -98,8 +94,10 @@ const checkDB = new DiscordWorker(
         attempts: 3,
       },
     }
-  
-    await job.editMessage(`🤖 Sparar data...`)
+    
+    console.log(`LEI number in checkDB file: ${lei}`);
+
+    await job.editMessage(`🤖 Saving data...`)
   
     await flow.add({
       ...base,
@@ -158,6 +156,30 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 initiatives,
+              },
+            }
+          : null,
+        lei
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_LEI,
+              data: {
+                ...base.data,
+                lei,
+                   
+              },
+            }
+          : null,
+        descriptions
+          ? {
+              name: 'diffDescriptions' + companyName,
+              queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
+              data: {
+                ...job.data,
+                fiscalYear: undefined,
+                wikidataId: wikidataId,
+                existingDescriptions: existingCompany?.descriptions,
+                descriptions: descriptions,
               },
             }
           : null,

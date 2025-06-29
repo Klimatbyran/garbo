@@ -8,16 +8,26 @@ const createMetadataSchema = z.object({
       comment: z.string().optional(),
     })
     .optional(),
+  verified: z.boolean().optional(),
 })
 
-export const postCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+export const descriptionSchema = z.object({
+  id: z.string().optional(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string(),
 })
+
+export const postCompanyBodySchema = z
+  .object({
+    wikidataId: wikidataIdSchema,
+    name: z.string(),
+    descriptions: z.array(descriptionSchema).optional(),
+    url: z.string().url().optional(),
+    internalComment: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    lei: z.string().optional(),
+  })
+  .merge(createMetadataSchema)
 
 export const reportingPeriodBodySchema = z
   .object({
@@ -229,4 +239,8 @@ export const serviceAuthenticationBodySchema = z.object({
 export const exportQuerySchema = z.object({
   type: z.enum(['csv', 'json', 'xlsx']).optional(),
   year: z.string().optional(),
+})
+
+export const claimValidationSchema = z.object({
+  steal: z.boolean(),
 })

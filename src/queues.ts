@@ -18,6 +18,8 @@ export const QUEUE_NAMES = {
   FOLLOW_UP_COMPANY_TAGS: 'followUpCompanyTags',
   FOLLOW_UP_BASE_YEAR: 'followUpBaseYear',
   FOLLOW_UP_INDUSTRY_GICS: 'followUpIndustryGics',
+  FOLLOW_UP: 'followUp',
+  EXTRACT_DESCRIPTIONS: 'extractDescriptions',
   EXTRACT_EMISSIONS: 'extractEmissions',
   CHECK_DB: 'checkDB',
   DIFF_BASE_YEAR: 'diffBaseYear',
@@ -26,9 +28,12 @@ export const QUEUE_NAMES = {
   DIFF_INITIATIVES: 'diffInitiatives',
   DIFF_REPORTING_PERIODS: 'diffReportingPeriods',
   DIFF_TAGS: 'diffTags',
+  DIFF_DESCRIPTIONS: 'diffDescriptions',
   SAVE_TO_API: 'saveToAPI',
   SEND_COMPANY_LINK: 'sendCompanyLink',
   WIKIPEDIA_UPLOAD: 'wikipediaUpload',
+  EXTRACT_LEI: 'extractLEI',
+  DIFF_LEI: 'diffLEI',
 }
 
 // Create queue clients (NOT workers)
@@ -44,6 +49,7 @@ export const queues = {
   diffIndustry: new DiscordQueue(QUEUE_NAMES.DIFF_INDUSTRY),
   diffInitiatives: new DiscordQueue(QUEUE_NAMES.DIFF_INITIATIVES),
   diffReportingPeriods: new DiscordQueue(QUEUE_NAMES.DIFF_REPORTING_PERIODS),
+  diffDescriptions: new DiscordQueue(QUEUE_NAMES.DIFF_DESCRIPTIONS),
   diffTags: new DiscordQueue(QUEUE_NAMES.DIFF_TAGS),
   extractEmissions: new DiscordQueue(QUEUE_NAMES.EXTRACT_EMISSIONS),
   followUpScope12: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_SCOPE_12),
@@ -56,8 +62,13 @@ export const queues = {
   followUpBaseYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_BASE_YEAR),
   followUpEconomy: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_ECONOMY),
   followUpFiscalYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR),
+  followUp: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP),
+  extractDescriptions: new DiscordQueue(QUEUE_NAMES.EXTRACT_DESCRIPTIONS),
   guessWikidata: new DiscordQueue(QUEUE_NAMES.GUESS_WIKIDATA),
   saveToAPI: new DiscordQueue(QUEUE_NAMES.SAVE_TO_API),
   sendCompanyLink: new DiscordQueue(QUEUE_NAMES.SEND_COMPANY_LINK),
   wikipediaUpload: new DiscordQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
+  extractLEI: new DiscordQueue(QUEUE_NAMES.EXTRACT_LEI),
+  diffLEI: new DiscordQueue(QUEUE_NAMES.DIFF_LEI),
+
 }

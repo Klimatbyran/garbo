@@ -17,11 +17,14 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const { companyName } = job.data
     job.sendMessage(`🤖 Hämtar utsläppsdata...`)
 
-    const childrenValues = await job.getChildrenEntries()
+    const { wikidata, fiscalYear } = await job.getChildrenEntries()
 
+
+    // updating the job data with the values we seek
     const base = {
       name: companyName,
-      data: { ...job.data, ...childrenValues },
+      data: { ...job.data, wikidata, fiscalYear },
+      queueName: QUEUE_NAMES.FOLLOW_UP,
       opts: {
         attempts: 3,
       },
@@ -73,6 +76,25 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'baseYear ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
+        },
+        {
+          ...base,
+          name: 'lei ' + companyName,
+          queueName: QUEUE_NAMES.EXTRACT_LEI,
+          data: {
+            ...base.data,
+            wikidataId: base.data.wikidata.node
+          }
+        },
+        {
+          name: 'descriptions ' + companyName,
+          queueName: QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
+          data: {
+            ...job.data,
+            companyId: wikidata.node,
+            type: undefined,
+          },
+
         },
       ],
       opts: {
