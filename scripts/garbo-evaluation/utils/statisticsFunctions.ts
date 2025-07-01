@@ -18,10 +18,8 @@ export function reportStatistics(diffs: Diff[]) {
   const numbExtractedValues = diffs.reduce((acc: number, current: Diff) => { return current.stagingValue !== undefined ? acc + 1 : acc;}, 0);
   const numbActualValues = diffs.reduce((acc: number, current: Diff) => { return current.productionValue !== undefined ? acc + 1 : acc;}, 0);
 
-  // Out of all the extracted values that are actually a value, how many of them are correct and how many are not?
-
   // Out of all the extracted values by Garbo (staging), how many are actually a value and how many are made up by Garbo?
-  const precision = {
+  const precisionValueOrNot = {
     description: 'Out of all the extracted values by Garbo, how many are actually a value and how many are made up by Garbo?',
     value: numbHasActualValueAndIsExtracted/numbExtractedValues,
     numbHasActualValueAndIsExtracted,
@@ -29,7 +27,7 @@ export function reportStatistics(diffs: Diff[]) {
   }
 
   // Out of all the true values (prod), how many of them could Garbo extract a value for and how many could it not?
-  const recall = {
+  const recallValueOrNot = {
     description: 'Out of all the true values, how many of them could Garbo extract a value for and how many could it not?',
     value: numbHasActualValueAndIsExtracted/numbActualValues,
     numbHasActualValueAndIsExtracted,
@@ -67,8 +65,8 @@ export function reportStatistics(diffs: Diff[]) {
 
   return {
     accuracyNumericalFields,
-    precision,
-    recall,
+    precisionValueOrNot,
+    recallValueOrNot,
     magnError,
     fieldSwapError
   }

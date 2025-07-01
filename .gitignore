@@ -20,7 +20,7 @@ companies.json
 *secret*
 
 # Ignore accuracy results
-output/accuracy-results.json
-output/accuracy-results*.csv
+output/garbo-evaluation.json
+output/garbo-evaluation*.csv
 public/exports
 
