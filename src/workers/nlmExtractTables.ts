@@ -42,7 +42,7 @@ const searchTerms = [
   'växthusgaser',
   'klimatavtryck',
   'klimatpåverkan',
-  'klimatneutral'
+  'klimatneutral',
 ]
 
 const nlmExtractTables = new DiscordWorker(
@@ -85,32 +85,39 @@ async function process(job: NLMExtractTablesJob) {
     })
 
     // Process tables in parallel
-    const extractionPromises = validPages.map(async ({ pageNumber, filename }, index) => {
-      // Use the previous table as context if available
-      let contextMarkdown = ''
-      if (index > 0) {
-        // We need to wait for previous extractions, but only for providing context
-        // This doesn't block parallel execution of API calls
-        try {
-          const previousResults = await Promise.any(
-            extractionPromises.slice(0, index).map(p => p.catch(() => null))
-          )
-          if (previousResults) {
-            contextMarkdown = previousResults.markdown
+    const extractionPromises = validPages.map(
+      async ({ pageNumber, filename }, index) => {
+        // Use the previous table as context if available
+        let contextMarkdown = ''
+        if (index > 0) {
+          // We need to wait for previous extractions, but only for providing context
+          // This doesn't block parallel execution of API calls
+          try {
+            const previousResults = await Promise.any(
+              extractionPromises.slice(0, index).map((p) => p.catch(() => null))
+            )
+            if (previousResults) {
+              contextMarkdown = previousResults.markdown
+            }
+          } catch {
+            // Continue without context if we can't get previous results
           }
-        } catch {
-          // Continue without context if we can't get previous results
+        }
+
+        const markdown =
+          '## Page ' +
+          pageNumber +
+          '\n\n' +
+          '### Extracted Tables:\n\n' +
+          (await extractTextViaVisionAPI({ filename }, contextMarkdown))
+
+        return {
+          page_idx: Number(pageNumber - 1),
+          markdown,
         }
       }
+    )
 
-      const markdown = await extractTextViaVisionAPI({ filename }, contextMarkdown) ?? ''
-
-      return {
-        page_idx: Number(pageNumber - 1),
-        markdown,
-      }
-    })
-    
     // Wait for all extractions to complete
     const tables = await Promise.all(extractionPromises)
 
@@ -137,28 +144,56 @@ async function process(job: NLMExtractTablesJob) {
   }
 }
 
-const extractTextViaVisionAPI = async ( 
-  { filename, }: { filename: string }, 
-  context: string 
+const extractTextViaVisionAPI = async (
+  { filename }: { filename: string },
+  context: string
 ) => {
   const result = await openai.chat.completions.create({
-    model: 'gpt-4o-mini',
+    model: 'gpt-4o',
     messages: [
-      { role: 'system', content: 'You are a CSRD expert and will extract text from a PDF with extract from the tables.', },
-      { role: 'user', content: `I need you to extract tables related to CO2 emissions from this PDF screenshot. Please follow these exact instructions:
+      {
+        role: 'system',
+        content:
+          'You are a CSRD expert and will extract text from a PDF with extract from the tables.',
+      },
+      {
+        role: 'user',
+        content: `I need you to extract tables related to CO2 emissions from this PDF screenshot. Please follow these exact instructions:
 
-1. Extract only tables and their headers from the screenshot
-2. Completely ignore any unrelated text (headers, illustrations, descriptions, footnotes, disclaimers)
-3. For any missing or empty cells in tables, use "n.a." as a placeholder
+1. Extract tables and their headers from the screenshot
+2. Please include all relevant text (headers, illustrations, descriptions, footnotes, disclaimers)
+3. For any missing or empty cells in tables, use whitespace. If they have specifically n/a or not specified- use that instead. We want to preserve the actual information of the table as accurately as possible.
 4. Format all tables using proper Markdown syntax
-5. ONLY respond with the Markdown tables - no additional text or commentary
+5. ONLY respond with the Markdown tables - no additional text or commentary except relevant footnotes or disclaimers that are part of the table.
 6. If no tables are found in the image, respond with an empty string
+7. Make specific note of the year columns and ensure they are included in the table headers - if the year or unit or other relevant information is avaiable elsewhere in the context or previous tables, adjust the tables so it is clear what year each column or row is representing.
+8. If there are multiple tables, extract each one separately and return them as separate Markdown tables in the response.
 
-I'll send you the screenshot momentarily. Can you follow these instructions precisely?`, },
-      { role: 'assistant', content: 'Sure. Sounds good. Send the screenshot and I will extract the table(s) if there are any and return in markdown format as accurately as possible without any other comment.', },
-      { role: 'user', content: 'This is previous table extracted from previous pages:' + context, },
-      { role: 'assistant', content: 'Thanks, noted. Lets look at the screenshot.', },
-      { role: 'user', content: [ { type: 'image_url', image_url: { url: base64Encode(filename), detail: 'high' }, }, ], },
+I'll send you the screenshot momentarily. Can you follow these instructions precisely?`,
+      },
+      {
+        role: 'assistant',
+        content:
+          'Sure. Sounds good. Send the screenshot and I will extract the table(s) if there are any and return in markdown format as accurately as possible without any other comment.',
+      },
+      {
+        role: 'user',
+        content:
+          'This is previous table extracted from previous pages:' + context,
+      },
+      {
+        role: 'assistant',
+        content: 'Thanks, noted. Lets look at the screenshot.',
+      },
+      {
+        role: 'user',
+        content: [
+          {
+            type: 'image_url',
+            image_url: { url: base64Encode(filename), detail: 'high' },
+          },
+        ],
+      },
     ],
   })
   return result.choices[0].message.content
