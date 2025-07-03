@@ -10,12 +10,17 @@ export class ApproveJob extends DiscordJob {
 
 export default {
   async execute(interaction: ButtonInteraction, job: ApproveJob) {
-    await job.updateData({ ...job.data, approved: true })
-    job.log(`Approving company edit: ${job.data.wikidata.node}`)
+    let {approval, ...data} = job.data;
+    if(approval) {
+      approval.approved = true;
+      await job.updateData({ ...data, approval })
+      job.log(`Approving company edit: ${job.data.wikidata.node}`)
 
-    await interaction.reply({
-      content: `Tack för din granskning, ${interaction?.user?.username}!`,
-    })
+      await interaction.reply({
+        content: `Tack för din granskning, ${interaction?.user?.username}!`,
+      })
+    }
+    
 
     await job.promote()
   },

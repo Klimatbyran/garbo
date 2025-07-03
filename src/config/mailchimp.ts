@@ -2,9 +2,9 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  MAILCHIMP_API_KEY: z.string(),
-  MAILCHIMP_SERVER_PREFIX: z.string(),
-  MAILCHIMP_LIST_ID: z.string(),
+  MAILCHIMP_API_KEY: z.string().optional(),
+  MAILCHIMP_SERVER_PREFIX: z.string().optional(),
+  MAILCHIMP_LIST_ID: z.string().optional(),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)

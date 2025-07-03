@@ -107,6 +107,11 @@ const apiConfig = {
     '../data/climate-data.json'
   ),
 
+  municipalitySectorEmissionsPath: resolve(
+    import.meta.dirname,
+    '../data/municipality-sector-emissions.json'
+  ),
+
   bullBoardBasePath: '/admin/queues',
 
   logger: (nodeEnv !== 'production' && process.stdout.isTTY

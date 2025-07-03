@@ -8,16 +8,26 @@ const createMetadataSchema = z.object({
       comment: z.string().optional(),
     })
     .optional(),
+  verified: z.boolean().optional(),
 })
 
-export const postCompanyBodySchema = z.object({
-  wikidataId: wikidataIdSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  url: z.string().url().optional(),
-  internalComment: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+export const descriptionSchema = z.object({
+  id: z.string().optional(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string(),
 })
+
+export const postCompanyBodySchema = z
+  .object({
+    wikidataId: wikidataIdSchema,
+    name: z.string(),
+    descriptions: z.array(descriptionSchema).optional(),
+    url: z.string().url().optional(),
+    internalComment: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    lei: z.string().optional(),
+  })
+  .merge(createMetadataSchema)
 
 export const reportingPeriodBodySchema = z
   .object({
@@ -74,14 +84,18 @@ export const postIndustrySchema = z
   .merge(createMetadataSchema)
 
 export const statedTotalEmissionsSchema = z
-  .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
+  .object({
+    total: z.number().nullable().optional(),
+    unit: emissionUnitSchemaWithDefault,
+    verified: z.boolean().optional(),
+  })
   .optional()
 
 export const emissionsSchema = z
   .object({
     scope1: z
       .object({
-        total: z.number(),
+        total: z.number().nullable().optional(),
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
@@ -90,19 +104,25 @@ export const emissionsSchema = z
       .object({
         mb: z
           .number({ description: 'Market-based scope 2 emissions' })
+          .nullable()
           .optional(),
         lb: z
           .number({ description: 'Location-based scope 2 emissions' })
+          .nullable()
           .optional(),
         unknown: z
           .number({ description: 'Unspecified Scope 2 emissions' })
+          .nullable()
           .optional(),
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
       .refine(
-        ({ mb, lb, unknown }) =>
-          mb !== undefined || lb !== undefined || unknown !== undefined,
+        ({ mb, lb, unknown, verified }) =>
+          mb !== undefined ||
+          lb !== undefined ||
+          unknown !== undefined ||
+          verified !== undefined,
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
@@ -115,7 +135,7 @@ export const emissionsSchema = z
           .array(
             z.object({
               category: z.number().int().min(1).max(16),
-              total: z.number(),
+              total: z.number().nullable().optional(),
               unit: emissionUnitSchemaWithDefault,
               verified: z.boolean().optional(),
             })
@@ -125,11 +145,19 @@ export const emissionsSchema = z
       })
       .optional(),
     biogenic: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
+      .object({
+        total: z.number().nullable().optional(),
+        unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
+      })
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
-      .object({ total: z.number(), unit: emissionUnitSchemaWithDefault, verified: z.boolean().optional() })
+      .object({
+        total: z.number().nullable().optional(),
+        unit: emissionUnitSchemaWithDefault,
+        verified: z.boolean().optional(),
+      })
       .optional(),
   })
   .optional()
@@ -196,7 +224,7 @@ export const MunicipalityNameParamSchema = z.object({
 })
 
 export const userAuthenticationBodySchema = z.object({
-    code: z.string()
+  code: z.string(),
 })
 
 export const postWikidataBodySchema = z.object({
@@ -205,10 +233,14 @@ export const postWikidataBodySchema = z.object({
 
 export const serviceAuthenticationBodySchema = z.object({
   client_id: z.string(),
-  client_secret: z.string()
+  client_secret: z.string(),
 })
 
 export const exportQuerySchema = z.object({
   type: z.enum(['csv', 'json', 'xlsx']).optional(),
-  year: z.string().optional()
+  year: z.string().optional(),
+})
+
+export const claimValidationSchema = z.object({
+  steal: z.boolean(),
 })

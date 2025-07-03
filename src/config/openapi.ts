@@ -23,6 +23,9 @@ const openAPITagDefinitions = {
   Companies: {
     description: 'Companies and related resources',
   },
+  CompanyDescription: {
+    description: 'Description of a company',
+  },
   Industry: {
     description: 'Company industry',
   },
@@ -46,8 +49,11 @@ const openAPITagDefinitions = {
     description: 'Climate data related to Swedish municipalities',
   },
   Auth: {
-    descriptions: 'Authentification'
-  }
+    descriptions: 'Authentification',
+  },
+  ReportValidations: {
+    description: 'Report validations',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

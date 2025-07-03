@@ -1,4 +1,7 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 const schema = z.object({
   baseYear: z.number().nullable(),
@@ -39,4 +42,14 @@ const queryTexts = [
   'GHG protocol base year data',
 ]
 
-export default { prompt, schema, queryTexts }
+
+const baseYear = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.BaseYear);
+        return answer;
+    }
+);
+
+export default baseYear;
