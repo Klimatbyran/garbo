@@ -210,7 +210,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     }
 
     try {
-      const checkIfWikidataExistInProductionRes = await fetch(apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node, {method: 'GET', headers: {'Content-Type': 'application/json'}});    
+      const checkIfWikidataExistInProductionRes = await fetch(apiConfig.prod_base_url + '/companies/' + wikidataForApproval.node, {method: 'GET', headers: {'Content-Type': 'application/json'}});    
       if(checkIfWikidataExistInProductionRes.ok) {
         const checkIfWikidataExistInProduction = await checkIfWikidataExistInProductionRes.json();
         if(checkIfWikidataExistInProduction.wikidataId) {  
