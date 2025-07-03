@@ -261,6 +261,10 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
+  emissionsTrend: z.object({
+    absolute: z.number().nullable(),
+    adjusted: z.number().nullable(),
+  }).optional()
 })
 
 const MinimalTurnoverSchema = TurnoverSchema.omit({
