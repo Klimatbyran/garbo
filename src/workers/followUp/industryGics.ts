@@ -1,4 +1,7 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 export const schema = z.object({
   industry: z.object({
@@ -338,4 +341,13 @@ const queryTexts = [
   'Sub-industry classification',
 ]
 
-export default { prompt, schema, queryTexts }
+const industryGics = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.IndustryGics);
+        return answer;
+    }
+);
+
+export default industryGics;
