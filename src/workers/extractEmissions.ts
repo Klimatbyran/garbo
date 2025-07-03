@@ -24,7 +24,6 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const base = {
       name: companyName,
       data: { ...job.data, wikidata, fiscalYear },
-      queueName: QUEUE_NAMES.FOLLOW_UP,
       opts: {
         attempts: 3,
       },
