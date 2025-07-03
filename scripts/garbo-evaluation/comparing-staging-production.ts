@@ -235,9 +235,9 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
 }
 
 async function outputEvalMetrics(companies: Company[]) {
-  const outputPathCSV = resolve('output', 'garbo-evaluation.csv');
-  const outputPathXLSX = resolve('output', 'garbo-evaluation.xlsx');
-  const outputPathJSON = resolve('output', 'garbo-evaluation.json');
+  const outputPathCSV = resolve('output', 'accuracy', 'garbo-evaluation.csv');
+  const outputPathXLSX = resolve('output', 'accuracy', 'garbo-evaluation.xlsx');
+  const outputPathJSON = resolve('output', 'accuracy', 'garbo-evaluation.json');
   const csvContent = convertCompanyEvalsToCSV(companies)
   const xlsx = await generateXLSX(csvContent.split('\n'))
   const jsonObject = JSON.stringify(companies)

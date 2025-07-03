@@ -18,7 +18,7 @@
     "dev-api": "node --import tsx --watch src/index.ts --api-only",
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
-    "evaluate-accuracy": "node --import=tsx scripts/garbo-evaulation/comparing-staging-production.ts",
+    "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
     "test": "echo 'No test command specified'",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
