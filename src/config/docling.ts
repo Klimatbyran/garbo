@@ -10,7 +10,7 @@ const envSchema = z.object({
 const parsedEnv = envSchema.safeParse(process.env)
 
 if (!parsedEnv.success) {
-  console.error('❌ Invalid environment configuration:')
+  console.error('❌ Invalid Docling environment configuration:')
   console.error(parsedEnv.error.format())
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'DOCLING_URL')) {
@@ -20,11 +20,11 @@ if (!parsedEnv.success) {
   }
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'BERGET_AI_TOKEN')) {
-    console.error('BERGET_AI_TOKEN must be a API key.');
+    console.error('BERGET_AI_TOKEN must be an API key.');
     console.error('Please ask another member for the key if you did not receive it yet');
   }
 
-  throw new Error('Invalid environment configuration')
+  throw new Error('Invalid Docling environment configuration')
 }
 
 const { DOCLING_URL, BERGET_AI_TOKEN } = parsedEnv.data

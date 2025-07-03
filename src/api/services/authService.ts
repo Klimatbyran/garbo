@@ -121,7 +121,7 @@ class AuthService {
     }
 
     createToken(payload: User) {
-       return jwt.sign(payload, apiConfig.jwtSecret, {expiresIn: parseInt(apiConfig.jwtExpiresIn)});
+       return jwt.sign(payload, apiConfig.jwtSecret, {expiresIn: apiConfig.jwtExpiresIn});
     }
 }
 
