@@ -3,25 +3,20 @@ import { FastifyServerOptions } from 'fastify'
 import { resolve } from 'path'
 import { z } from 'zod'
 
-const nodeEnv = process.env.NODE_ENV
-
 const envSchema = z.object({
   API_SECRET: z.string(),
-  FRONTEND_URL_DEV: z.string().url(),
-  FRONTEND_URL_STAGING: z.string().url(),
-  FRONTEND_URL_PROD: z.string().url(),
-  API_BASE_URL_DEV: z.string().url(),
-  API_BASE_URL_STAGING: z.string().url(),
-  API_BASE_URL_PROD: z.string().url(),
-  PORT: z.coerce.number(),
+  FRONTEND_URL: z.string().url(),
+  API_BASE_URL: z.string().url(),
+  API_PORT: z.coerce.number(),
   CACHE_MAX_AGE: z.coerce.number(),
   NODE_ENV: z.enum(['development', 'staging', 'production']),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  GITHUB_ORGANIZATION: z.string(),
+  GITHUB_ORG: z.string(),
   GITHUB_REDIRECT_URI: z.string().url(),
   JWT_SECRET: z.string(),
   JWT_EXPIRES_IN: z.coerce.number(),
+  PROD_BASE_URL: z.string().default('https://api.klimatkollen.se/api'),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -50,18 +45,18 @@ const env = parsedEnv.data
 const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
-  env.FRONTEND_URL_DEV,
-  env.API_BASE_URL_DEV.slice(0, -4),
+  'http://localhost:5173',
+  'http://localhost:3000',
 ] as const
 
 const stageOrigins = [
-  env.FRONTEND_URL_STAGING,
-  env.API_BASE_URL_STAGING.slice(0, -4)
+  'https://stage-api.klimatkollen.se',
+  'https://stage.klimatkollen.se',
 ] as const
 
 const productionOrigins = [
-  env.FRONTEND_URL_PROD,
-  env.API_BASE_URL_PROD.slice(0, -4)
+  'https://klimatkollen.se',
+  'https://api.klimatkollen.se',
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
@@ -78,26 +73,22 @@ const apiConfig = {
   } as const,
 
   corsAllowOrigins:
-    nodeEnv === 'staging'
+    env.NODE_ENV === 'staging'
       ? stageOrigins
-      : nodeEnv === 'production'
+      : env.NODE_ENV === 'production'
       ? productionOrigins
       : developmentOrigins,
 
   nodeEnv: env.NODE_ENV,
   secret: env.API_SECRET,
-  prodBaseURL: env.API_BASE_URL_PROD,
-  frontendURL: env.NODE_ENV === 'development' ? env.FRONTEND_URL_DEV : 
-                env.NODE_ENV === 'staging' ? env.FRONTEND_URL_STAGING :
-                env.FRONTEND_URL_PROD,
-  baseURL: env.NODE_ENV === 'development' ? env.API_BASE_URL_DEV :
-            env.NODE_ENV === 'staging' ? env.API_BASE_URL_STAGING : 
-            env.API_BASE_URL_PROD,
-  port: env.PORT,
+  prodBaseURL: env.PROD_BASE_URL,
+  frontendURL: env.FRONTEND_URL,
+  baseURL: env.API_BASE_URL,
+  port: env.API_PORT,
   jobDelay: ONE_DAY,
   githubClientId: env.GITHUB_CLIENT_ID,
   githubClientSecret: env.GITHUB_CLIENT_SECRET,
-  githubOrganization: env.GITHUB_ORGANIZATION,
+  githubOrganization: env.GITHUB_ORG,
   githubRedirectUri: env.GITHUB_REDIRECT_URI,
   jwtSecret: env.JWT_SECRET,
   jwtExpiresIn: env.JWT_EXPIRES_IN,
@@ -114,7 +105,7 @@ const apiConfig = {
 
   bullBoardBasePath: '/admin/queues',
 
-  logger: (nodeEnv !== 'production' && process.stdout.isTTY
+  logger: (env.NODE_ENV !== 'production' && process.stdout.isTTY
     ? {
         level: 'trace',
         transport: { target: 'pino-pretty' },
