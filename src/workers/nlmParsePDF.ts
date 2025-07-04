@@ -34,7 +34,7 @@ const nlmParsePDF = new DiscordWorker(
       const pdf = await fetchPdf(url, { headers })
 
       job.editMessage(
-        `✅ PDF downloaded. Interpreting PDF via nlm-ingestor. This may take up to 3 minutes. ☕️ ...`
+        `✅ PDF downloaded. Reading PDF via nlm-ingestor. This may take up to 3 minutes. ☕️ ...`
       )
 
       const exists = await vectorDB.hasReport(url)
@@ -46,7 +46,7 @@ const nlmParsePDF = new DiscordWorker(
           const remaining = Math.max(0, 180 - Math.floor(elapsed / 1000))
           if (remaining > 0) {
             await job.editMessage(
-              `✅ PDF downloaded. Interpreting PDF via nlm-ingestor. Approximately ${remaining}s left ☕️ ...`
+              `✅ PDF downloaded. Reading PDF via nlm-ingestor. Approximately ${remaining}s left ☕️ ...`
             )
             await job.sendTyping()
           } else {
