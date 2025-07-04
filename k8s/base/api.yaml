@@ -59,6 +59,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
+            - name: DISCORD_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_CHANNEL_ID
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -81,6 +86,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_PORT
+            - name: OPENAPI_PREFIX
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAPI_PREFIX
             - name: CACHE_MAX_AGE
               valueFrom:
                 secretKeyRef:
@@ -94,14 +104,45 @@ spec:
             - name: DATABASE_URL
               value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
             - name: CHROMA_HOST
-              value: http://chromadb:8000
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_HOST
+            - name: CHROMA_CHUNK_SIZE
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_CHUNK_SIZE
             - name: REDIS_HOST
-              value: redis-master
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_PORT
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: redis
                   key: redis-password
+            - name: DOCLING_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_URL
+            - name: NLM_INGESTOR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NLM_INGESTOR_URL
+            - name: BERGET_AI_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BERGET_AI_TOKEN
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
