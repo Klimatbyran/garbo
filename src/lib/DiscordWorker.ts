@@ -24,7 +24,7 @@ interface Approval {
 export class DiscordJob extends Job {
   declare data: {
     url: string
-    threadId: string
+    threadId?: string
     channelId: string
     messageId?: string
     autoApprove: boolean
@@ -44,7 +44,7 @@ export class DiscordJob extends Job {
   isDataApproved: () => boolean
   hasApproval: () => boolean
   getApprovedBody: () => any
-  setThreadName: (name: string) => Promise<TextChannel>
+  setThreadName: (name: string) => Promise<TextChannel | undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
 }
@@ -75,14 +75,14 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.sendMessage = async (msg: string) => {
-    message = await discord.sendMessage(job.data, msg)
+    message = job.data.threadId ? await discord.sendMessage(job.data.threadId, msg) : null
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })
     return message
   }
 
   job.sendTyping = async () => {
-    return discord.sendTyping(job.data)
+    if (job.data.threadId) return discord.sendTyping(job.data.threadId)
   }
 
   job.requestApproval = async (type: string, data: ChangeDescription, approved: boolean = false, metadata: Approval['metadata'], summary?: string) => {
@@ -139,10 +139,10 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.setThreadName = async (name) => {
-    const thread = (await discord.client.channels.fetch(
+    const thread = (job.data.threadId ? await discord.client.channels.fetch(
       job.data.threadId
-    )) as TextChannel
-    return thread.setName(name)
+    ) : null) as TextChannel
+    return thread?.setName(name)
   }
 
   return job
