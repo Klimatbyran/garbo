@@ -257,7 +257,7 @@ export function addCompanyEmissionChange(companies: any[]) {
   return companies.map(company => {
     return {
       ...company,
-      reportingPeriods: sortReportingPeriodsByEndDate(company.reportingPeriods).map(addEmissionTrendsToReportingPeriods)
+      reportingPeriods: addEmissionTrendsToReportingPeriods(sortReportingPeriodsByEndDate(company.reportingPeriods))
     };
   });
 }
@@ -267,7 +267,7 @@ function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
 }
 
 function addEmissionTrendsToReportingPeriods(periods: any[]) {
-  return periods.forEach((period: any, index: number) => {
+  periods.forEach((period: any, index: number) => {
     if (index < periods.length - 1) {
       const previousPeriod = periods[index + 1];
       period.emissionsTrend = calculateEmissionTrend(period, previousPeriod);
@@ -278,14 +278,26 @@ function addEmissionTrendsToReportingPeriods(periods: any[]) {
       };
     }
   });
+  return periods;
 }
 
 function calculateEmissionTrend(currentPeriod: any, previousPeriod: any) {
   const { adjustedCurrentTotal, adjustedPreviousTotal } = calculateEmissionTotals(currentPeriod, previousPeriod);
 
+  // Add null checks for emissions objects
+  const currentEmissions = currentPeriod.emissions;
+  const previousEmissions = previousPeriod.emissions;
+
+  if (!currentEmissions || !previousEmissions) {
+    return {
+      absolute: null,
+      adjusted: null
+    };
+  }
+
   return {
-    absolute: currentPeriod.emissions.calculatedTotalEmissions > 0
-      ? ((currentPeriod.emissions.calculatedTotalEmissions - previousPeriod.emissions.calculatedTotalEmissions) / previousPeriod.emissions.calculatedTotalEmissions * 100)
+    absolute: currentEmissions.calculatedTotalEmissions > 0
+      ? ((currentEmissions.calculatedTotalEmissions - previousEmissions.calculatedTotalEmissions) / previousEmissions.calculatedTotalEmissions * 100)
       : 0,
     adjusted: adjustedCurrentTotal > 0
       ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100)
