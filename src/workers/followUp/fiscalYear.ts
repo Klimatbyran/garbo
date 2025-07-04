@@ -1,4 +1,8 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
+
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 const schema = z.object({
   fiscalYear: z.object({
@@ -32,4 +36,13 @@ const queryTexts = [
   'Fiscal year dates',
 ]
 
-export default { schema, prompt, queryTexts }
+const fiscalYear = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+                const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.FiscalYear);
+        return answer;
+    }
+);
+
+export default fiscalYear;

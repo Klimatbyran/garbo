@@ -7,6 +7,7 @@ dist
 !env.example
 prisma/generated
 *.xlsx
+companies.json
 
 # Ignore local SQLite databases
 *.db
@@ -19,6 +20,6 @@ prisma/generated
 *secret*
 
 # Ignore accuracy results
-output/accuracy-results.json
+output/accuracy/*
 public/exports
 

@@ -7,6 +7,7 @@ import apiConfig from '../../config/api'
 class MunicipalityService {
   private _all: Municipality[]
   private _lookup: Map<string, Municipality>
+  private _sectorEmissions: any[]
 
   private get allMunicipalities() {
     return this._all ?? this.lazyInit()._all
@@ -14,6 +15,12 @@ class MunicipalityService {
 
   private get municipalitiesByName() {
     return this._lookup ?? this.lazyInit()._lookup
+  }
+
+  private get sectorEmissions() {
+    return (
+      this._sectorEmissions ?? this.lazyInitSectorEmissions()._sectorEmissions
+    )
   }
 
   /**
@@ -38,6 +45,16 @@ class MunicipalityService {
     return this
   }
 
+  /**
+   * Lazy load municipality sector emissions data the first time it's requested.
+   */
+  private lazyInitSectorEmissions() {
+    this._sectorEmissions = JSON.parse(
+      readFileSync(apiConfig.municipalitySectorEmissionsPath, 'utf-8')
+    )
+    return this
+  }
+
   getMunicipalities(): Municipality[] {
     return this.allMunicipalities
   }
@@ -46,6 +63,13 @@ class MunicipalityService {
     return (
       this.municipalitiesByName.get(name.toLocaleLowerCase('sv-SE')) ?? null
     )
+  }
+
+  getMunicipalitySectorEmissions(name: Municipality['name']) {
+    const municipality = this.sectorEmissions.find(
+      (m) => m.name.toLowerCase() === name.toLowerCase()
+    )
+    return municipality?.sectors ?? null
   }
 }
 

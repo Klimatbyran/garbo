@@ -1,32 +1,35 @@
-import { askStream } from '../lib/openai'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types'
+import { askStream } from './openai'
+import { DiscordJob, DiscordWorker } from './DiscordWorker'
 import {
   ChatCompletionAssistantMessageParam,
   ChatCompletionSystemMessageParam,
   ChatCompletionUserMessageParam,
 } from 'openai/resources'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { resolve } from 'path'
-import { vectorDB } from '../lib/vectordb'
-import { QUEUE_NAMES } from '../queues'
+import { vectorDB } from './vectordb'
+import { Queue } from 'bullmq'
+import redis from '../config/redis'
+import { z } from 'zod'
+import { FollowUpType } from '../types'
 
-class FollowUpJob extends DiscordJob {
+export class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
-    type: JobType
     previousAnswer: string
   }
+
+  followUp: (
+    url: string,
+    previousAnswer: string,
+    schema: z.ZodSchema,
+    prompt: string,
+    queryTexts: string[],
+    type: FollowUpType
+  ) => Promise<string | undefined>
 }
 
-const followUp = new DiscordWorker<FollowUpJob>(
-  QUEUE_NAMES.FOLLOW_UP,
-  async (job: FollowUpJob) => {
-    const { type, url, previousAnswer } = job.data
-    const {
-      default: { schema, prompt, queryTexts },
-    } = await import(resolve(import.meta.dirname, `../prompts/${type}`))
-
+function addCustomMethods(job: FollowUpJob) {
+  job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
 
     job.log(`Reflecting on: ${prompt}
@@ -75,6 +78,23 @@ const followUp = new DiscordWorker<FollowUpJob>(
     job.log('Response: ' + response)
     return response
   }
-)
+  return job
+}
+export class FollowUpWorker<
+  T extends FollowUpJob
+> extends DiscordWorker<FollowUpJob> {
+  queue: Queue
+  constructor(
+    name: string,
+    callback: (job: T) => any,
+    options?: WorkerOptions
+  ) {
+    super(name, (job: T) => callback(addCustomMethods(job) as T), {
+      connection: redis,
+      concurrency: 3,
+      ...options,
+    })
 
-export default followUp
+    this.queue = new Queue(name, { connection: redis })
+  }
+}

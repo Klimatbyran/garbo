@@ -1,5 +1,4 @@
-import { Employees, Metadata, Turnover } from '@prisma/client'
-
+import { Employees, Metadata, Turnover, Description } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
@@ -8,17 +7,18 @@ import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const transformedCompanies = addCalculatedTotalEmissions(
+    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
       companies.map(transformMetadata)
-    )
+    ));
+    console.log(transformedCompanies);
     return transformedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
-    const transformedCompanies = addCalculatedTotalEmissions(
+    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
       companies.map(transformMetadata)
-    )
+    ));
     return transformedCompanies
   }
 
@@ -30,9 +30,9 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addCalculatedTotalEmissions([
+    const [transformedCompany] = addCompanyEmissionChange(addCalculatedTotalEmissions([
       transformMetadata(company),
-    ])
+    ]))
 
     return transformedCompany
   }
@@ -50,10 +50,10 @@ class CompanyService {
   }: {
     wikidataId: string
     name: string
-    description?: string
     url?: string
     internalComment?: string
     tags?: string[]
+    lei?: string
   }) {
     return prisma.company.upsert({
       where: {
@@ -94,6 +94,37 @@ class CompanyService {
         },
       },
       ...economyArgs,
+    })
+  }
+
+  async upsertDescription({
+    description,
+    companyId,
+    metadataId
+  }: {
+    description: Omit<Description, 'id' | 'companyId'> & { id?: string | undefined },
+    companyId: string,
+    metadataId?: string
+  }) {
+    return prisma.description.upsert({
+      where: {id: description.id ?? ''},
+      create: {
+        text: description.text,
+        language: description.language,
+        company: {
+          connect: {wikidataId: companyId}
+        },
+        metadata: {
+          connect: {id: metadataId}
+        }
+      },
+      update: {
+        text: description.text,
+        language: description.language,
+        metadata: {
+          connect: {id: metadataId}
+        }
+      }
     })
   }
 
@@ -197,8 +228,8 @@ export function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
-          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || 0
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown;
+          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || scope3?.statedTotalEmissions?.total || 0;
           const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
 
           return {
@@ -220,4 +251,102 @@ export function addCalculatedTotalEmissions(companies: any[]) {
         }),
       }))
   )
+}
+
+export function addCompanyEmissionChange(companies: any[]) {
+  return companies.map(company => {
+    return {
+      ...company,
+      reportingPeriods: addEmissionTrendsToReportingPeriods(sortReportingPeriodsByEndDate(company.reportingPeriods))
+    };
+  });
+}
+
+function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
+  return reportingPeriods.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+}
+
+function addEmissionTrendsToReportingPeriods(periods: any[]) {
+  periods.forEach((period: any, index: number) => {
+    if (index < periods.length - 1) {
+      const previousPeriod = periods[index + 1];
+      period.emissionsTrend = calculateEmissionTrend(period, previousPeriod);
+    } else {
+      period.emissionsTrend = {
+        absolute: null,
+        adjusted: null
+      };
+    }
+  });
+  return periods;
+}
+
+function calculateEmissionTrend(currentPeriod: any, previousPeriod: any) {
+  const { adjustedCurrentTotal, adjustedPreviousTotal } = calculateEmissionTotals(currentPeriod, previousPeriod);
+
+  // Add null checks for emissions objects
+  const currentEmissions = currentPeriod.emissions;
+  const previousEmissions = previousPeriod.emissions;
+
+  if (!currentEmissions || !previousEmissions) {
+    return {
+      absolute: null,
+      adjusted: null
+    };
+  }
+
+  return {
+    absolute: currentEmissions.calculatedTotalEmissions > 0
+      ? ((currentEmissions.calculatedTotalEmissions - previousEmissions.calculatedTotalEmissions) / previousEmissions.calculatedTotalEmissions * 100)
+      : 0,
+    adjusted: adjustedCurrentTotal > 0
+      ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100)
+      : 0
+  };
+}
+
+function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
+  let adjustedCurrentTotal = 0;
+  let adjustedPreviousTotal = 0;
+
+  const { scope1: currentScope1, scope2: currentScope2, scope3: currentScope3 } = currentPeriod.emissions || {};
+  const { scope1: previousScope1, scope2: previousScope2, scope3: previousScope3 } = previousPeriod.emissions || {};
+
+  // Compare Scope 1 emissions
+  if (currentScope1 && previousScope1) {
+    adjustedCurrentTotal += currentScope1?.total ?? 0;
+    adjustedPreviousTotal += previousScope1?.total ?? 0;
+  }
+
+  // Compare Scope 2 emissions
+  if (currentScope2 && previousScope2) {
+    adjustedCurrentTotal += currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0;
+    adjustedPreviousTotal += previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0;
+  }
+
+  // Compare Scope 3 emissions
+  if (currentScope3 && previousScope3) {
+    calculateScope3EmissionsTotals(currentScope3, previousScope3, (current, previous) => {
+      adjustedCurrentTotal += current;
+      adjustedPreviousTotal += previous;
+    });
+  }
+
+  return { adjustedCurrentTotal, adjustedPreviousTotal };
+}
+
+function calculateScope3EmissionsTotals(currentScope3: any, previousScope3: any, addToTotals: (current: number, previous: number) => void) {
+  const hasCurrentCategories = currentScope3?.categories && currentScope3.categories.length > 0;
+  const hasPreviousCategories = previousScope3?.categories && previousScope3.categories.length > 0;
+
+  if (hasCurrentCategories && hasPreviousCategories) {
+    currentScope3.categories.forEach((currentCategory: any) => {
+      const previousCategory = previousScope3.categories.find((category: any) => category.category === currentCategory.category);
+      if (previousCategory) {
+        addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0);
+      }
+    });
+  } else if (currentScope3.statedTotalEmissions && previousScope3.statedTotalEmissions) {
+    addToTotals(currentScope3?.statedTotalEmissions ?? 0, previousScope3?.statedTotalEmissions ?? 0);
+  }
 }

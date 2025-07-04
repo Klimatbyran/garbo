@@ -169,7 +169,8 @@ async function pollTaskAndGetResult(job: DoclingParsePDFJob, resultUrl: string):
       const result = await statusResponse.json();
       markdown = result.content; 
     } else if(statusResponse.status === 202) {
-      const retryAfter = parseInt(statusResponse.headers.get('Retry-After') || "2");
+      const retryAfter = parseInt(statusResponse.headers.get('retry-after') || "2");
+      job.log(`Retry-After: ${retryAfter}`);
       await sleep(retryAfter * 1000);
     } else {
       throw new Error(`Status check failed with status: ${statusResponse.status}`)

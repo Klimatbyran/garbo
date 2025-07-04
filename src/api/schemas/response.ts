@@ -42,29 +42,41 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Company description' }),
+  lei: z.string().optional().nullable(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total emissions value' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
+export const ResponseDescriptionSchema = z.object({
+  id: z.string(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string()
+})
+
 export const BiogenicSchema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total biogenic emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total biogenic emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
 
 export const Scope1Schema = z.object({
   id: z.string(),
-  total: z.number().openapi({ description: 'Total scope 1 emissions' }),
+  total: z
+    .number()
+    .nullable()
+    .openapi({ description: 'Total scope 1 emissions' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
 })
@@ -114,6 +126,7 @@ export const Scope3CategorySchema = z.object({
     .openapi({ description: 'Scope 3 category number (1-16)' }),
   total: z
     .number()
+    .nullable()
     .openapi({ description: 'Total emissions for this category' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
@@ -122,7 +135,7 @@ export const Scope3CategorySchema = z.object({
 export const Scope3Schema = z.object({
   id: z.string(),
   categories: z.array(Scope3CategorySchema),
-  statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
+  statedTotalEmissions: StatedTotalEmissionsSchema.nullable().optional(),
   calculatedTotalEmissions: z
     .number()
     .openapi({ description: 'Calculated total scope 3 emissions' }),
@@ -248,6 +261,10 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
+  emissionsTrend: z.object({
+    absolute: z.number().nullable(),
+    adjusted: z.number().nullable(),
+  }).optional()
 })
 
 const MinimalTurnoverSchema = TurnoverSchema.omit({
@@ -327,7 +344,7 @@ const MinimalEmissionsSchema = EmissionsSchema.omit({
   statedTotalEmissions: MinimalStatedTotalEmissionsSchema.nullable(),
 })
 
-const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
+export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   id: true,
   emissions: true,
   economy: true,
@@ -336,16 +353,21 @@ const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
-const MinimalCompanyBase = CompanyBaseSchema.extend({
+export const MinimalCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable(),
+  baseYear: BaseYearSchema.nullable().optional(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)
@@ -422,6 +444,12 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
+export const MunicipalitySectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
+
+export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
