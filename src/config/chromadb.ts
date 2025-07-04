@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  CHROMA_HOST: z.string().url(),
+  CHROMA_HOST: z.string(),
   CHROMA_CHUNK_SIZE: z.coerce.number(),
 })
 
@@ -13,7 +13,7 @@ if (!parsedEnv.success) {
   console.error(parsedEnv.error.format())
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'CHROMA_HOST')) {
-    console.error('CHROMA_HOST must be a valid URL in the format of a string.');
+    console.error('CHROMA_HOST must be in the format of a string.');
   }
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'CHROMA_CHUNK_SIZE')) {

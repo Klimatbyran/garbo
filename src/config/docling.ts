@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  DOCLING_URL: z.string().url().nonempty(),
+  DOCLING_URL: z.string().nonempty(),
   BERGET_AI_TOKEN: z.string().nonempty()
 })
 
@@ -14,7 +14,7 @@ if (!parsedEnv.success) {
   console.error(parsedEnv.error.format())
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'DOCLING_URL')) {
-    console.error('DOCLING_URL must be a valid URL.');
+    console.error('DOCLING_URL must be a valid URL or string.');
     console.error('When running locally, it is typically http://localhost:5002');
     console.error('In production, ensure this is correctly set in your Kubernetes config.');
   }
