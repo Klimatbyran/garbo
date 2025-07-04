@@ -5,7 +5,7 @@ const envSchema = z.object({
   DISCORD_TOKEN: z.string(),
   DISCORD_APPLICATION_ID: z.string(),
   DISCORD_SERVER_ID: z.string(),
-  DISCORD_CHANNEL_ID: z.string(), // defaults to the channel `reports-to-check` on the klimatkollen Discord server
+  DISCORD_CHANNEL_ID: z.string(), // defaults to the channel `garbo` on the klimatkollen Discord server
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
