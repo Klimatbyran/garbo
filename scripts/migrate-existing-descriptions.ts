@@ -3,12 +3,14 @@ import apiConfig from '../src/config/api.ts'
 import { askPrompt } from '../src/lib/openai'
 
 // baseURL and prod_base_url may be interchanged based on where you want to get and post
-const { baseURL, prod_base_url, secret } = apiConfig
+const { secret } = apiConfig // Change the API_SECRET in your .env file depending on which environment you want to access
+const env = 'prod' // Change depending on which environment you want to migrate in
+const URL = env === 'prod' ? process.env.API_BASE_URL_PROD : (env === 'staging' ? process.env.API_BASE_URL_STAGING : process.env.API_BASE_URL_DEV)
 
 async function updateDescriptions() {
     
     // Get a valid authentication token
-    const responseAuth = await fetch(`${prod_base_url}/auth/token`, {
+    const responseAuth = await fetch(`${URL}/auth/token`, {
         method: `POST`,
         headers: {
             'Content-Type': 'application/json'
@@ -19,15 +21,14 @@ async function updateDescriptions() {
         })
     })
     if(!responseAuth.ok) {
-        console.error('Failed to authenticate.')
-        throw(`Error: ${responseAuth.text}`)
+        console.error('ERROR: Failed to authenticate.', `${await responseAuth.text()}`)
     }
 
     const { token } = await responseAuth.json()
 
     // Get the companies' descriptions
     console.log("Fetching companies' descriptions...")
-    const response = await fetch(`${prod_base_url}/companies`, {
+    const response = await fetch(`${URL}/companies`, {
         method: 'GET',
     })
 
@@ -68,33 +69,27 @@ async function updateDescriptions() {
                     descriptionSV
                 )
                 try {
-                    const response = await fetch(`${prod_base_url}/companies/${elem.wikidataId}`, {
-                        method: 'GET',
-                    })
-                    if(response.ok) {
-                        await fetch(`${baseURL}/companies/${elem.wikidataId}`, {
-                            method: `POST`,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                                descriptions: [
-                                    {
-                                        language: 'SV',
-                                        text: descriptionSV
-                                    },
-                                    {
-                                        language: 'EN',
-                                        text: descriptionEN
-                                    }
-                                ],
-                                name: elem.name,
-                                wikidataId: elem.wikidataId,
-                            })
+                    await fetch(`${URL}/companies/${elem.wikidataId}`, {
+                        method: `POST`,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            descriptions: [
+                                {
+                                    language: 'SV',
+                                    text: descriptionSV
+                                },
+                                {
+                                    language: 'EN',
+                                    text: descriptionEN
+                                }
+                            ],
+                            name: elem.name,
+                            wikidataId: elem.wikidataId,
                         })
-                    }
-                    
+                    })
                 } catch(err) {
                     console.log(`Could not update descriptions: ${err.text}`)
                 }
