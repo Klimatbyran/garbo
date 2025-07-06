@@ -105,8 +105,15 @@ class CompanyService {
     companyId: string,
     metadataId?: string
   }) {
+    const company = await prisma.company.findFirstOrThrow(
+      {
+        where: { wikidataId: companyId },
+        include: { descriptions: true },
+      }
+    )
+    const descr = company.descriptions.find( (desc) => { desc.language === description.language})
     return prisma.description.upsert({
-      where: {id: description.id ?? ''},
+      where: {id: descr?.id ?? ''},
       create: {
         text: description.text,
         language: description.language,
