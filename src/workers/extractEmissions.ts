@@ -15,7 +15,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
     const { companyName } = job.data
-    job.sendMessage(`🤖 Hämtar utsläppsdata...`)
+    job.sendMessage(`🤖 Fetching emissions data...`)
 
     const { wikidata, fiscalYear } = await job.getChildrenEntries()
 
@@ -101,7 +101,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
       },
     })
 
-    job.sendMessage(`🤖 Ställer följdfrågor...`)
+    job.sendMessage(`🤖 Asking follow-up questions...`)
     return true
   }
 )

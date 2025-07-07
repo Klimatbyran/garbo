@@ -12,7 +12,7 @@ const indexMarkdown = new DiscordWorker(
     const childrenValues = await job.getChildrenEntries()
     const { markdown }: { markdown: string } = childrenValues
 
-    await job.sendMessage(`🤖 Sparar i vektordatabas...`)
+    await job.sendMessage(`🤖 Saving to vector database...`)
     job.log(
       'Indexing ' +
         Math.ceil(markdown.length / config.chunkSize) +
@@ -22,14 +22,14 @@ const indexMarkdown = new DiscordWorker(
 
     try {
       await vectorDB.addReport(url, markdown)
-      job.editMessage(`✅ Sparad i vektordatabasen`)
+      job.editMessage(`✅ Saving to vector database...`)
       job.log('Done!')
 
       return { markdown }
     } catch (error) {
       job.log('Error: ' + error)
       job.editMessage(
-        `❌ Ett fel uppstod när vektordatabasen skulle nås: ${error}`
+        `❌ An error occurred when attempting to access the vector database: ${error}`
       )
       throw error
     }

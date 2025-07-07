@@ -85,7 +85,7 @@ const precheck = new DiscordWorker(
       const buttonRow = discord.createEditCompanyNameButtonRow(job)
       
       await job.sendMessage({
-        content: '❌ Kunde inte automatiskt hitta företagets namn i dokumentet. Vänligen ange företagsnamnet manuellt:',
+        content: "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
         components: [buttonRow],
       })
       
@@ -108,7 +108,10 @@ const precheck = new DiscordWorker(
         },
       }
         
-      job.sendMessage('🤖 Ställer frågor om basfakta...')
+      job.log('Company description:\n' + description)
+        
+      job.sendMessage('🤖 Asking questions about basic facts...')
+      
         
       try {
         const extractEmissions = await flow.add({
