@@ -4,7 +4,6 @@ import wikidata from '../prompts/wikidata'
 import { askPrompt, askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
 import discord from '../discord'
@@ -13,7 +12,6 @@ class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
-    type: JobType
     waitingForCompanyName?: boolean
   }
 }
@@ -27,7 +25,7 @@ const companyNameSchema = z.object({
 const precheck = new DiscordWorker(
   QUEUE_NAMES.PRECHECK, 
   async (job: PrecheckJob) => {
-    const { cachedMarkdown, type, waitingForCompanyName, companyName: existingCompanyName, ...baseData } = job.data
+    const { cachedMarkdown, waitingForCompanyName, companyName: existingCompanyName, ...baseData } = job.data
     const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
     // If we already have a company name provided by the user, use it directly
@@ -103,34 +101,8 @@ const precheck = new DiscordWorker(
       job.log('Company name: ' + companyName)
       await job.setThreadName(companyName)
       
-      const description = await askPrompt(
-        `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet.
-    
-        ** Beskrivning **
-        Följ dessa riktlinjer:
-        
-        1. Längd: Beskrivningen får inte överstiga 300 tecken, inklusive mellanslag.
-        2. Syfte: Endast företagets verksamhet ska beskrivas. Använd ett extra sakligt och neutralt språk.
-        3. Förbjudet innehåll (marknadsföring): VIKTIGT! Undvik ord som "ledande", "i framkant", "marknadsledare", "innovativt", "värdefull", "framgångsrik" eller liknande. Texten får INTE innehålla formuleringar som uppfattas som marknadsföring eller säljande språk.
-        4. Förbjudet innehåll (hållbarhet): VIKTIGT! Undvik ord som "hållbarhet", "klimat" eller liknande. Texten får INTE innehålla bedömningar av företagets hållbarhetsarbete.
-        5. Språk: VIKTIGT! Beskrivningen ska ENDAST vara på svenska. Om originaltexten är på engelska, översätt till svenska.
-        
-        För att säkerställa att svaret följer riktlinjerna, tänk på att:
-        
-        - Använd ett sakligt och neutralt språk.
-        - Aldrig använda marknadsförande eller värderande språk.
-        - Tydligt beskriva företagets verksamhet.
-        
-        Svara endast med företagets beskrivning. Lägg inte till andra instruktioner eller kommentarer.
-        
-        Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
-        
-        Följande är ett utdrag ur en PDF:`,
-        markdown.substring(0, 5000)
-      )
-      
       const base = {
-        data: { ...baseData, companyName, description },
+        data: { ...baseData, companyName },
         opts: {
           attempts: 3,
         },
@@ -139,6 +111,7 @@ const precheck = new DiscordWorker(
       job.log('Company description:\n' + description)
         
       job.sendMessage('🤖 Asking questions about basic facts...')
+      
         
       try {
         const extractEmissions = await flow.add({
@@ -152,17 +125,13 @@ const precheck = new DiscordWorker(
               queueName: QUEUE_NAMES.GUESS_WIKIDATA,
               data: {
                 ...base.data,
-                schema: zodResponseFormat(wikidata.schema, type),
+                schema: zodResponseFormat(wikidata.schema, "wikidata"),
               },
             },
             {
               ...base,
-              queueName: QUEUE_NAMES.FOLLOW_UP,
+              queueName: QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR,
               name: 'fiscalYear ' + companyName,
-              data: {
-                ...base.data,
-                type: JobType.FiscalYear,
-              },
             },
           ],
           opts: {
