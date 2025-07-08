@@ -36,13 +36,13 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     const title: string = await getWikipediaTitle(wikidata.node)
 
     if (!checkEmissionsExist(emissions)) {
-      job.editMessage(`❌ Inga utsläpp hittade`)
+      job.editMessage(`❌ No emissions found`)
       console.error('No emissions found')
       throw Error('No emissions found')
     }
 
     if (!title) {
-      job.editMessage(`❌ Ingen Wikipedia-sida hittad`)
+      job.editMessage(`❌ No Wikipedia page found`)
       console.error('No Wikipedia page found')
       throw Error('No Wikipedia page found')
     }
@@ -57,7 +57,7 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     try {
       await updateWikipediaContent(title, content)
     } catch(e) {
-      job.editMessage(`❌ Fel vid uppdatering av Wikipedia: ${e.message}`)
+      job.editMessage(`❌ Error updating Wikipedia: ${e.message}`)
       throw e
     }
 

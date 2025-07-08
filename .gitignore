@@ -20,7 +20,6 @@ companies.json
 *secret*
 
 # Ignore accuracy results
-output/accuracy-results.json
-output/accuracy-results*.csv
+output/accuracy/*
 public/exports
 

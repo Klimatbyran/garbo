@@ -115,7 +115,7 @@ export async function searchCompany({
   return response.search
 }
 
-export async function getWikidataEntities(ids: EntityId[]) {
+export async function getWikidataEntities(ids: `Q${number}`[]) {
   const url = wbk.getEntities({
     ids,
     props: ['info', 'claims', 'descriptions', 'labels'],
@@ -148,10 +148,9 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
   return title
 }
 
-
-export async function getLEINumberClaim(id: EntityId): Promise<string | undefined> {
+export async function getLEINumberFromWikidata(entity: EntityId): Promise<string | undefined> {
   const url = wbk.getEntities({
-      ids: id,
+      ids: entity,
       languages: ["en"]
   })
 
@@ -162,13 +161,9 @@ export async function getLEINumberClaim(id: EntityId): Promise<string | undefine
     return;
   }
 
-  const claims = wikidataEntities[id].claims;
+  const claims = wikidataEntities[entity].claims;
 
-  if(claims === undefined) {
-    return;
-  }
-
-  if(claims["P1278"] === undefined || claims["P1278"].length === 0) {
+  if(claims === undefined || claims["P1278"] === undefined || claims["P1278"].length === 0) {
     return;
   }
 

@@ -6,7 +6,7 @@ import saveToAPI from './saveToAPI';
 export class DiffLEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string;          
-    lei: string | null | undefined; // Switching to lei
+    lei?: string | undefined; // Switching to lei
     existingCompany: any;               
     wikidata: { node: string };   
     

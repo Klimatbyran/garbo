@@ -1,4 +1,7 @@
+import { QUEUE_NAMES } from "../../queues";
+import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
 import { z } from 'zod'
+import { FollowUpType } from "../../types";
 
 export const schema = z.object({
   economy: z.array(
@@ -86,4 +89,13 @@ const queryTexts = [
   'Retrieve company economy data including turnover in SEK or EUR and number of employees with units for each year.',
 ]
 
-export default { prompt, schema, queryTexts }
+const economy = new FollowUpWorker<FollowUpJob>(
+    QUEUE_NAMES.FOLLOW_UP_ECONOMY,
+    async (job) => {
+        const { url, previousAnswer } = job.data;
+        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.Economy);        
+        return answer;
+    }
+);
+
+export default economy;

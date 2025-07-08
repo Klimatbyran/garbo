@@ -7,14 +7,28 @@ import {
 } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
+import apiConfig from '../config/api';
+import { ChangeDescription } from './DiffWorker';
+
+interface Approval {
+  summary?: string;
+  approved: boolean;
+  data: ChangeDescription;
+  type: string;
+  metadata: {
+    source: string;
+    comment: string;
+  };
+};
 
 export class DiscordJob extends Job {
   declare data: {
     url: string
-    threadId: string
+    threadId?: string
     channelId: string
     messageId?: string
     autoApprove: boolean
+    approval?: Approval
   }
 
   //message: any
@@ -26,7 +40,11 @@ export class DiscordJob extends Job {
   ) => Promise<
     OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
   >
-  setThreadName: (name: string) => Promise<TextChannel>
+  requestApproval: (type: string, data: Approval['data'], approved: boolean, metadata: Approval['metadata'], summary?: string) => Promise<void>
+  isDataApproved: () => boolean
+  hasApproval: () => boolean
+  getApprovedBody: () => any
+  setThreadName: (name: string) => Promise<TextChannel | undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
 }
@@ -57,14 +75,33 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.sendMessage = async (msg: string) => {
-    message = await discord.sendMessage(job.data, msg)
+    message = job.data.threadId ? await discord.sendMessage(job.data.threadId, msg) : null
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })
     return message
   }
 
   job.sendTyping = async () => {
-    return discord.sendTyping(job.data)
+    if (job.data.threadId) return discord.sendTyping(job.data.threadId)
+  }
+
+  job.requestApproval = async (type: string, data: ChangeDescription, approved: boolean = false, metadata: Approval['metadata'], summary?: string) => {
+    await job.updateData({ ...job.data, approval: { summary, type, data, approved, metadata }});    
+  }
+
+  job.isDataApproved = () => {
+    return job.data.approval?.approved ?? false
+  }
+
+  job.hasApproval = () => {
+    return !!job.data.approval;
+  }
+
+  job.getApprovedBody = () => {
+    return {
+      ...job.data.approval?.data.newValue,
+      metadata: job.data.approval?.metadata,
+    }
   }
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {
@@ -102,10 +139,10 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.setThreadName = async (name) => {
-    const thread = (await discord.client.channels.fetch(
+    const thread = (job.data.threadId ? await discord.client.channels.fetch(
       job.data.threadId
-    )) as TextChannel
-    return thread.setName(name)
+    ) : null) as TextChannel
+    return thread?.setName(name)
   }
 
   return job

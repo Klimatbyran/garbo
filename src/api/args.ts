@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client'
+import { TurnoverSchema } from './schemas'
 
 export const emissionsArgs = {
   include: {
@@ -68,6 +69,13 @@ export const detailedCompanyArgs = {
     wikidataId: true,
     name: true,
     description: true,
+    descriptions: {
+      select: {
+        id: true,
+        text: true,
+        language: true
+      }
+    },
     lei: true,
     reportingPeriods: {
       select: {
@@ -226,6 +234,14 @@ export const companyListArgs = {
     wikidataId: true,
     name: true,
     description: true,
+    descriptions: {
+      select: {
+        id: true,
+        language: true,
+        text: true
+      }
+    },
+    lei: true,
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
@@ -337,6 +353,12 @@ export const companyExportArgs = (year?) => {
       wikidataId: true,
       name: true,
       description: true,
+      descriptions: {
+        select: {
+          language: true,
+          text: true
+        }
+      },
       baseYear: {
         select: { id: true, year: true },
       },

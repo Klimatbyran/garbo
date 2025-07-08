@@ -23,15 +23,24 @@ import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
 import editCompanyName, { EditCompanyNameJob } from './discord/interactions/inputCompanyName'
 import { queues } from './queues'
 import { DiscordJob } from './lib/DiscordWorker'
+import diffBaseYear from './workers/diffBaseYear'
 
 const queuesWithInteractions = {
   saveToAPI: queues.saveToAPI,
   guessWikidata: queues.guessWikidata,
   precheck: queues.precheck,
+  diffReportingPeriods: queues.diffReportingPeriods,
+  diffGoals: queues.diffGoals,
+  diffLEI: queues.diffLEI,
+  diffTags: queues.diffTags,
+  diffInitiatives: queues.diffInitiatives,
+  diffIndustry: queues.diffIndustry,
+  diffDescriptions: queues.diffDescriptions,
+  diffBaseYear: queues.diffBaseYear,
 } as const
 
 // NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
-const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata', 'precheck'])
+const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata', 'precheck', 'diffReportingPeriods', 'diffGoals', 'diffLEI', 'diffTags', 'diffInitiatives', 'diffIndustry', 'diffDescriptions', 'diffBaseYear'])
 
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
@@ -164,7 +173,7 @@ export class Discord {
   }
 
   async sendMessage(
-    { threadId }: { threadId: string },
+    threadId: string,
     msg: string | BaseMessageOptions
   ) {
     try {
@@ -181,7 +190,7 @@ export class Discord {
     }
   }
 
-  async sendTyping({ threadId }: { threadId: string }) {
+  async sendTyping(threadId: string ) {
     const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
     return thread.sendTyping()
   }

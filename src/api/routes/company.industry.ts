@@ -35,23 +35,30 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       const {
         industry: { subIndustryCode },
         metadata,
-      } = request.body;
-      const { wikidataId } = request.params;
+        verified,
+      } = request.body
+      const { wikidataId } = request.params
 
       const createdMetadata = await metadataService.createMetadata({
         metadata,
         user: request.user,
-      });
+        verified,
+      })
 
       try {
-        await industryService.upsertIndustry(wikidataId, { subIndustryCode }, createdMetadata);
-      } catch(error) {
-        console.error('ERROR Creation or update of industry failed:', error);
-        return reply.status(500).send({message: 'Creation or update of industry failed.'});
+        await industryService.upsertIndustry(
+          wikidataId,
+          { subIndustryCode },
+          createdMetadata
+        )
+      } catch (error) {
+        console.error('ERROR Creation or update of industry failed:', error)
+        return reply
+          .status(500)
+          .send({ message: 'Creation or update of industry failed.' })
       }
-      
 
-      return reply.send({ ok: true });
+      return reply.send({ ok: true })
     }
   )
 }

@@ -1,13 +1,11 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { JobType } from '../types'
 import { QUEUE_NAMES } from '../queues'
 
 class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    type: JobType
   }
 }
 
@@ -17,16 +15,15 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
     const { companyName } = job.data
-    job.sendMessage(`🤖 Hämtar utsläppsdata...`)
+    job.sendMessage(`🤖 Fetching emissions data...`)
 
-    const childrenValues = await job.getChildrenEntries()
+    const { wikidata, fiscalYear } = await job.getChildrenEntries()
 
 
     // updating the job data with the values we seek
     const base = {
       name: companyName,
-      data: { ...job.data, ...childrenValues },
-      queueName: QUEUE_NAMES.FOLLOW_UP,
+      data: { ...job.data, wikidata, fiscalYear },
       opts: {
         attempts: 3,
       },
@@ -42,66 +39,42 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         {
           ...base,
           name: 'industryGics ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.IndustryGics,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS,
         },
         {
           ...base,
           name: 'scope1+2 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope12,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_12,
         },
         {
           ...base,
           name: 'scope3 ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Scope3,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_3,
         },
         {
           ...base,
           name: 'biogenic ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Biogenic,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_BIOGENIC,
         },
         {
           ...base,
           name: 'economy ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Economy,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_ECONOMY,
         },
         {
           ...base,
           name: 'goals ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Goals,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_GOALS,
         },
         {
           ...base,
           name: 'initiatives ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.Initiatives,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_INITIATIVES,
         },
         {
           ...base,
           name: 'baseYear ' + companyName,
-          data: {
-            ...base.data,
-            type: JobType.BaseYear,
-          },
+          queueName: QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
         },
         {
           ...base,
@@ -111,14 +84,24 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             ...base.data,
             wikidataId: base.data.wikidata.node
           }
-        }
+        },
+        {
+          name: 'descriptions ' + companyName,
+          queueName: QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
+          data: {
+            ...job.data,
+            companyId: wikidata.node,
+            type: undefined,
+          },
+
+        },
       ],
       opts: {
         attempts: 3,
       },
     })
 
-    job.sendMessage(`🤖 Ställer följdfrågor...`)
+    job.sendMessage(`🤖 Asking follow-up questions...`)
     return true
   }
 )
