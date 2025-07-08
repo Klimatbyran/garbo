@@ -136,8 +136,6 @@ const precheck = new DiscordWorker(
         },
       }
         
-      job.log('Company description:\n' + description)
-        
       job.sendMessage('🤖 Ställer frågor om basfakta...')
         
       try {
