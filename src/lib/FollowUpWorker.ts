@@ -32,6 +32,7 @@ function addCustomMethods(job: FollowUpJob) {
   job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
 
+
     job.log(`Reflecting on: ${prompt}
     
     Context:
@@ -39,8 +40,8 @@ function addCustomMethods(job: FollowUpJob) {
     
     `)
 
-    const response = await askStream(
-      [
+    
+      const streamMessages = [
         {
           role: 'system',
           content:
@@ -69,14 +70,26 @@ function addCustomMethods(job: FollowUpJob) {
       ]
         .flat()
         .filter((m) => m !== undefined)
-        .filter((m) => m?.content),
-      {
+        .filter((m) => m?.content)
+    
+
+      const response = await askStream(streamMessages, {
         response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
-      }
-    )
+      })
 
     job.log('Response: ' + response)
-    return response
+    
+    // Return standardized format with value and metadata
+    const result = {
+      value: JSON.parse(response),
+      metadata: {
+        context: markdown,
+        prompt: prompt,
+        schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
+      }
+    }
+
+    return JSON.stringify(result)
   }
   return job
 }
