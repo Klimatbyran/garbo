@@ -73,7 +73,7 @@ const precheck = new DiscordWorker(
     const companyName = await extractCompanyName(markdown)
     
     if (companyName) {
-      // Update job data with companyName for grouping/UI
+      // Update job data with companyName for grouping/UI in validation tool
       await job.updateData({ ...job.data, companyName })
     }
     
