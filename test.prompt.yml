@@ -1,8 +1,124 @@
 messages:
   - role: system
-    content: You are a helpful assistant that breaks down action items from a meeting
+    content: >-
+      You are an expert in CSRD and will provide accurate data from a PDF with
+      company CSRD reporting. Be concise and accurate.
   - role: user
-    content: 'Pull out the action items from this meeting transcript: {{input}}'
+    content: >-
+      Results from PDF:  {{markdown}}
+
+
+      *** Golden Rule ***
+
+      - Extract values only if explicitly available in the context. Do not infer
+      or create data. Leave optional fields absent or explicitly set to null if
+      no data is provided.
+
+
+      *** CRITICAL ERROR PREVENTION ***
+
+      For every row you extract, look at the column name, it must match the year
+      of the data you are extracting. If it doesn't, set the value to null.
+
+
+
+      Extract scope 1 and 2 emissions according to the GHG protocol (CO2e).
+      Include all years you can find and never exclude the latest year.
+
+      Include market-based and location-based in scope 2. If you can't find
+      both, include the one you can find and set the other to null.
+
+
+      If emissions are stated both for the company itself and for the whole
+      business group, use the data for the company itself.
+
+      If location-based emissions or unkonwn scope 2 emissions are not available
+      for that given year, give that value as null. Double check that you pick
+      the location-based and unknown categories from the right year or set them
+      to null if not found.
+
+
+      **Units**:
+
+      - Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit
+      **tCO2e** (tons of CO2 equivalent) is preferred.
+
+      - If a company explicitly reports emissions without the "e" suffix (e.g.,
+      **tCO2**), use **tCO2** as the unit. However, if no unit is specified or
+      it is unclear, assume the unit is **tCO2e**.
+
+      - All values must be converted to metric tons if they are provided in
+      other units:
+        - Example: 
+          - 1000 CO2e → 1 tCO2e
+          - 1000 CO2 → 1 tCO2
+          - 1 kton CO2e → 1000 tCO2e
+          - 1 Mton CO2 → 1,000,000 tCO2
+      - Use **tCO2** only if it is explicitly reported without the "e" suffix,
+      otherwise default to **tCO2e**.
+
+
+      for example in this table.. there is only one value for scope 2 (market
+      based) for 2024, so you should set the location based and unknown to null
+      for 2023.
+
+      markdown | Scope | 2021 | 2022 | 2023 | |-------|------|------|------| |
+      Scope 1 | 51 | 30 | 51 | | Scope 2 | 6,480| 6,784| 5,791| | Scope 3 |
+      12,895| 15,763| 16,318| | Total utsläpp | 19,426| 22,576| 21,160| | varav
+      nybyggnation | 5,050| n.a. | n.a. | ### VÄXTHUSGASUTSLÄPP, TON CO2e |
+      Lundbergs | 2024 | 2023 | 2022 | 2021 | | --- | --- | --- | --- | --- | |
+      Scope 1 | 51 | 30 | 51 | 41 | Scope 2 | 6 480 | 6 784 | 5 791 | 6 363 |
+      Scope 3 | 12 895 | 15 763 | 16 318 | 22 567 | Totala utslapp | 19 426 | 22
+      576 | 22 160 | 28 971 | varav nybyggnation | - | - | - | 5 050 ![table
+      image]({page: 26, x: 319}, {y: 283, {width: 244}, {height: 7}) 
+
+
+
+      NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF.
+      If you can't find any data or if you are uncertain, report it as null. Do
+      not use markdown in the output.
+
+
+      *** Example***
+
+      This is only an example format; do not include this specific data in the
+      output and do not use markdown in the output:
+
+      {
+        "scope12": [{
+          "year": 2023,
+          "scope1": {
+            "total": 12.3,
+            "unit": "tCO2e"
+          },
+          "scope2": {
+            "mb": 23.4, //null if not found
+            "lb": 34.5, //null if not found
+            "unknown": null, //null if not found
+            "unit": "tCO2e"
+          }
+        }]
+      }
+
+
+      *** Example 2 (if lb and unknown are missing in the relevant year's
+      column) ***
+
+      {
+        "scope12": [{
+          "year": 2023,
+          "scope1": {
+            "total": 12.3,
+            "unit": "tCO2e"
+          },
+          "scope2": {
+            "mb": 23.4,
+            "lb": null,
+            "unknown": null,
+            "unit": "tCO2e"
+          }
+        }]
+      }
 model: openai/gpt-4o
 testData:
   - input: we decided not to do anything this week
@@ -12,3 +128,227 @@ evaluators:
     uses: github/similarity
   - name: Coherence
     uses: github/coherence
+modelParameters:
+  max_tokens: 4096
+  temperature: 1
+  top_p: 1
+responseFormat: json_schema
+jsonSchema: |2-
+   {
+      "name": "followUp-scope12",
+      "strict": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "scope12": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "year": {
+                  "type": "number"
+                },
+                "scope1": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "unit": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": [
+                                "tCO2e",
+                                "tCO2"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "total",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "scope2": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "mb": {
+                          "type": "number",
+                          "nullable": true,
+                          "description": "Market-based scope 2 emissions"
+                        },
+                        "lb": {
+                          "type": "number",
+                          "nullable": true,
+                          "description": "Location-based scope 2 emissions"
+                        },
+                        "unknown": {
+                          "type": "number",
+                          "nullable": true,
+                          "description": "Unspecified Scope 2 emissions"
+                        },
+                        "unit": {
+                          "$ref": "#/definitions/followUp-scope12_properties_scope12_items_properties_scope1_anyOf_0_properties_unit"
+                        }
+                      },
+                      "required": [
+                        "mb",
+                        "lb",
+                        "unknown",
+                        "unit"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "year",
+                "scope1",
+                "scope2"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "scope12"
+        ],
+        "additionalProperties": false,
+        "definitions": {
+          "followUp-scope12_properties_scope12_items_properties_scope1_anyOf_0_properties_unit": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/followUp-scope12_properties_scope12_items_properties_scope1_anyOf_0_properties_unit_anyOf_0"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "followUp-scope12_properties_scope12_items_properties_scope1_anyOf_0_properties_unit_anyOf_0": {
+            "type": "string",
+            "enum": [
+              "tCO2e",
+              "tCO2"
+            ]
+          },
+          "followUp-scope12": {
+            "type": "object",
+            "properties": {
+              "scope12": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "year": {
+                      "type": "number"
+                    },
+                    "scope1": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "unit": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "tCO2e",
+                                    "tCO2"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "unit"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "scope2": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "mb": {
+                              "type": "number",
+                              "nullable": true,
+                              "description": "Market-based scope 2 emissions"
+                            },
+                            "lb": {
+                              "type": "number",
+                              "nullable": true,
+                              "description": "Location-based scope 2 emissions"
+                            },
+                            "unknown": {
+                              "type": "number",
+                              "nullable": true,
+                              "description": "Unspecified Scope 2 emissions"
+                            },
+                            "unit": {
+                              "$ref": "#/definitions/followUp-scope12_properties_scope12_items_properties_scope1_anyOf_0_properties_unit"
+                            }
+                          },
+                          "required": [
+                            "mb",
+                            "lb",
+                            "unknown",
+                            "unit"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "year",
+                    "scope1",
+                    "scope2"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "scope12"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      }
+    }
