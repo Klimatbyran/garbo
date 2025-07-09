@@ -33,9 +33,14 @@ const checkDB = new DiscordWorker(
       
     } = job.data
   
+    const childrenEntries = await job.getChildrenEntries()
+    
+    // Extract values from the new format where the returned value is wrapped in 'value' so we can also return metadata next to it (for validation tool),
+    //  or fallback to the old format where the returned value is not wrapped in 'value'
+    const extractValue = (entry: any) => entry?.value || entry
     const {
       scope12,
-      scope3,
+      scope3, 
       biogenic,
       industry,
       economy,
@@ -44,7 +49,9 @@ const checkDB = new DiscordWorker(
       initiatives,
       descriptions,
       lei,
-    } = await job.getChildrenEntries()
+    } = Object.fromEntries(
+      Object.entries(childrenEntries).map(([key, value]) => [key, extractValue(value)])
+    )
   
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
