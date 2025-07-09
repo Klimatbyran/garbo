@@ -8,6 +8,42 @@ const schema = z.object({
   scope12: z.array(
     z.object({
       year: z.number(),
+      scope1: z.union([
+        z.object({
+          total: z.number(),
+          unit: emissionUnitSchemaGarbo,
+        }),
+        z.null()
+      ]).optional(),
+      scope2: z.union([
+        z.object({
+          mb: z.union([
+            z.number({ description: 'Market-based scope 2 emissions' }),
+            z.null()
+          ]).optional(),
+          lb: z.union([
+            z.number({ description: 'Location-based scope 2 emissions' }),
+            z.null()
+          ]).optional(),
+          unknown: z.union([
+            z.number({ description: 'Unspecified Scope 2 emissions' }),
+            z.null()
+          ]).optional(),
+          unit: emissionUnitSchemaGarbo,
+        }).refine(({ mb, lb, unknown }) => mb || lb || unknown, {
+          message:
+            'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        }),
+        z.null()
+      ]).optional(),
+    })
+  ),
+})
+
+/* const schema = z.object({
+  scope12: z.array(
+    z.object({
+      year: z.number(),
       scope1: z
         .object({
           total: z.number(),
@@ -39,14 +75,14 @@ const schema = z.object({
         .optional(),
     })
   ),
-})
+}) */
 
 const prompt = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
 Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Include all years you can find and never exclude the latest year.
-Include market-based and location-based in scope 2. 
+Include market-based and location-based in scope 2. If you can't find both, include the one you can find and set the other to null.
 
 **Units**:
 - Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit **tCO2e** (tons of CO2 equivalent) is preferred.
@@ -72,12 +108,13 @@ This is only an example format; do not include this specific data in the output 
       "unit": "tCO2e"
     },
     "scope2": {
-      "mb": 23.4,
-      "lb": 34.5,
-      "unknown": null
+      "mb": 23.4, //null if not found
+      "lb": 34.5, //null if not found
+      "unknown": null, //null if not found
       "unit": "tCO2e"
     }
   }]
+}
 `
 
 const queryTexts = [
