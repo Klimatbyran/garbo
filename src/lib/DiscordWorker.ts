@@ -47,6 +47,7 @@ export class DiscordJob extends Job {
   setThreadName: (name: string) => Promise<TextChannel | undefined>
   sendTyping: () => Promise<void>
   getChildrenEntries: () => Promise<any>
+  hasValidThreadId: () => boolean
 }
 
 function addCustomMethods(job: DiscordJob) {
@@ -74,15 +75,29 @@ function addCustomMethods(job: DiscordJob) {
       .then((values) => Object.fromEntries(values))
   }
 
+  job.hasValidThreadId = function () {
+    return typeof this.data.threadId === 'string' && /^\d{17,19}$/.test(this.data.threadId)
+  }
+
   job.sendMessage = async (msg: string) => {
-    message = job.data.threadId ? await discord.sendMessage(job.data.threadId, msg) : null
+    if (!job.hasValidThreadId()) {
+      console.log('Invalid Discord threadId format in sendMessage:', job.data.threadId)
+      return undefined
+    }
+    const threadId = job.data.threadId as string
+    message = await discord.sendMessage(threadId, msg)
     if (!message) return undefined // TODO: throw error?
     await job.updateData({ ...job.data, messageId: message.id })
     return message
   }
 
   job.sendTyping = async () => {
-    if (job.data.threadId) return discord.sendTyping(job.data.threadId)
+    if (!job.hasValidThreadId()) {
+      console.log('Invalid Discord threadId format in sendTyping:', job.data.threadId)
+      return
+    }
+    const threadId = job.data.threadId as string
+    return discord.sendTyping(threadId)
   }
 
   job.requestApproval = async (type: string, data: ChangeDescription, approved: boolean = false, metadata: Approval['metadata'], summary?: string) => {
@@ -105,6 +120,11 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.editMessage = async (msg: string | BaseMessageOptions) => {
+    if (!job.hasValidThreadId()) {
+      console.log('Invalid Discord threadId format:', job.data.threadId)
+      return undefined;
+    }
+
     if (!message && job.data.messageId) {
       const { channelId, threadId, messageId } = job.data
       message = await discord.findMessage({
@@ -138,10 +158,9 @@ function addCustomMethods(job: DiscordJob) {
     }
   }
 
-  job.setThreadName = async (name) => {
-    const thread = (job.data.threadId ? await discord.client.channels.fetch(
-      job.data.threadId
-    ) : null) as TextChannel
+  job.setThreadName = async (name: string): Promise<TextChannel | undefined> => {
+    const threadId = job.data.threadId as string
+    const thread = await discord.client.channels.fetch(threadId) as TextChannel
     return thread?.setName(name)
   }
 
