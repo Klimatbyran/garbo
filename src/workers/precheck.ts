@@ -72,6 +72,11 @@ const precheck = new DiscordWorker(
       
     const companyName = await extractCompanyName(markdown)
     
+    if (companyName) {
+      // Update job data with companyName for grouping/UI in validation tool
+      await job.updateData({ ...job.data, companyName })
+    }
+    
     if (!companyName) {
       // If we're already waiting for manual input, don't send another message
       if (waitingForCompanyName) {
@@ -99,7 +104,10 @@ const precheck = new DiscordWorker(
 
     async function processWithCompanyName(companyName: string) {
       job.log('Company name: ' + companyName)
-      await job.setThreadName(companyName)
+
+      if (job.hasValidThreadId()) {
+        await job.setThreadName(companyName)
+      }
       
       const base = {
         data: { ...baseData, companyName },
