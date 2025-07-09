@@ -115,9 +115,9 @@ const precheck = new DiscordWorker(
           attempts: 3,
         },
       }
-                
+
       job.sendMessage('🤖 Asking questions about basic facts...')
-      
+
         
       try {
         const extractEmissions = await flow.add({
