@@ -23,3 +23,10 @@ companies.json
 output/accuracy/*
 public/exports
 
+
+# Ignore test files input markdown
+src/jobs/*/tests/input/*
+src/jobs/*/tests/results/*
+
+
+
