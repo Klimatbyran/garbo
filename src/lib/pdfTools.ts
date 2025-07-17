@@ -7,7 +7,29 @@ import {
 
 import { jsonToTables, Table } from './jsonExtraction'
 import nlmIngestorConfig from '../config/nlmIngestor'
-import { writeFile } from 'fs/promises'
+import { writeFile, mkdir } from 'fs/promises'
+import { Storage } from '@google-cloud/storage'
+
+import googleScreenshotBucketConfig from '../config/googleScreenshotBucket'
+
+let credentials: Record<string, unknown>;
+let projectId: string | undefined;
+
+try {
+  const decodedKey = Buffer.from(googleScreenshotBucketConfig.bucketKey || '', 'base64').toString();
+  credentials = JSON.parse(decodedKey);
+  projectId = credentials.project_id as string | undefined;
+} catch (error) {
+  console.error('❌ pdfTools: Error parsing bucketKey:', error.message);
+  credentials = {};
+  projectId = undefined;
+}
+
+const storage = new Storage({
+  credentials,
+  projectId
+});
+
 
 function encodeUriIfNeeded(uri: string): string {
   const decodedUri = decodeURI(uri);
@@ -101,11 +123,40 @@ export function findRelevantTablesGroupedOnPages(
   }, [])
 }
 
+function createSafeFolderName(url: string): string {
+  // Remove protocol and create safe folder name
+  return url
+    .replace(/^https?:\/\//, '')
+    .replace(/[^a-zA-Z0-9.-]/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '')
+    .substring(0, 100) // Limit length
+}
+
+const uploadPageToGoogleCloud = async (
+  bucketName: string,
+  safeFolderName: string,
+  pageNumber: number,
+  buffer: Buffer
+): Promise<void> => {
+  const bucket = storage.bucket(bucketName);
+  const filePath = `${safeFolderName}/page-${pageNumber}.png`;
+  const file = bucket.file(filePath);
+  const [exists] = await file.exists();
+  if (!exists) {
+    await file.save(buffer, { contentType: 'image/png' });
+    console.log('✅ pdfTools: Successfully uploaded to Google Cloud Storage');
+  } else {
+    console.log('ℹ️ pdfTools: File already exists, skipping upload');
+  }
+};
+
 export async function extractTablesFromJson(
   pdf: Buffer,
   json: ParsedDocument,
   outputDir: string,
-  searchTerms: string[]
+  searchTerms: string[],
+  pdfUrl?: string
 ): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
@@ -126,6 +177,7 @@ export async function extractTablesFromJson(
   const reportId = crypto.randomUUID()
   const filenames: { pageNumber: number; filename: string }[] = []
 
+
   for (const { pageIndex } of pages) {
     const pageNumber = pageIndex + 1
     const pageScreenshotPath = path.join(
@@ -142,6 +194,17 @@ export async function extractTablesFromJson(
     }
 
     await writeFile(pageScreenshotPath, result.buffer)
+    
+    if (pdfUrl) {
+      try {
+        const safeFolderName = createSafeFolderName(pdfUrl)
+        const bucketName = googleScreenshotBucketConfig.bucketName;
+        await uploadPageToGoogleCloud(bucketName, safeFolderName, pageNumber, result.buffer);
+      } catch (error) {
+        console.error('❌ pdfTools: Failed to upload to Google Cloud Storage:', error.message);
+        console.error('❌ pdfTools: Error details:', error);
+      }
+    }
 
     filenames.push({ pageNumber, filename: pageScreenshotPath })
 
