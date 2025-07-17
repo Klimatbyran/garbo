@@ -66,7 +66,8 @@ async function process(job: NLMExtractTablesJob) {
       pdf,
       json,
       outputDir,
-      searchTerms
+      searchTerms,
+      url
     )
 
     job.sendMessage(
