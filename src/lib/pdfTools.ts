@@ -11,6 +11,7 @@ import { writeFile, mkdir } from 'fs/promises'
 import { Storage } from '@google-cloud/storage'
 
 import googleScreenshotBucketConfig from '../config/googleScreenshotBucket'
+import { createSafeFolderName } from './pathUtils'
 
 let credentials: Record<string, unknown>;
 let projectId: string | undefined;
@@ -121,16 +122,6 @@ export function findRelevantTablesGroupedOnPages(
     }
     return acc
   }, [])
-}
-
-function createSafeFolderName(url: string): string {
-  // Remove protocol and create safe folder name
-  return url
-    .replace(/^https?:\/\//, '')
-    .replace(/[^a-zA-Z0-9.-]/g, '_')
-    .replace(/_+/g, '_')
-    .replace(/^_|_$/g, '')
-    .substring(0, 100) // Limit length
 }
 
 const uploadPageToGoogleCloud = async (

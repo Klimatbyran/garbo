@@ -39,6 +39,7 @@ import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/industryGics.read'
+import { screenshotsReadRoutes } from './api/routes/screenshots.read';
 
 async function startApp() {
   const app = Fastify({
@@ -129,6 +130,8 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
+  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' });
+
 }
 
 /**
