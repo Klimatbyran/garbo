@@ -24,3 +24,10 @@ output/accuracy/*
 public/exports
 
 .claude
+
+# Ignore test files input markdown
+src/jobs/*/tests/input/*
+src/jobs/*/tests/results/*
+
+
+
