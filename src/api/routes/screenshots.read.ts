@@ -1,9 +1,9 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import googleScreenshotBucketConfig from '../../config/googleScreenshotBucket';
+import googleScreenshotBucketConfig from '@/config/googleScreenshotBucket';
 import { Storage } from '@google-cloud/storage';
-import { createSafeFolderName } from '../../lib/pathUtils';
-import { getTags } from '../../config/openapi';
+import { createSafeFolderName } from '@/lib/pathUtils';
+import { getTags } from '@/config/openapi';
 
 const credentials = JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString());
 const storage = new Storage({
@@ -12,10 +12,7 @@ const storage = new Storage({
 });
 
 const screenshotsQuerySchema = z.object({
-  url: z.string().url('Invalid URL format').refine(
-    (url) => url.toLowerCase().endsWith('.pdf'),
-    'URL must point to a PDF file'
-  ),
+  url: z.string()
 });
 
 const screenshotsResponseSchema = z.object({
@@ -36,11 +33,9 @@ export async function screenshotsReadRoutes(app: FastifyInstance) {
   }, async (request: FastifyRequest<{ Querystring: z.infer<typeof screenshotsQuerySchema> }>, reply) => {
     try {
       const { url } = request.query;
-      console.log(`[screenshots] Fetching screenshots for PDF URL:`, url);
       
       const decodedUrl = decodeURIComponent(url);
       const safeFolderName = createSafeFolderName(decodedUrl);
-      console.log(`[screenshots] Looking for folder in bucket: ${safeFolderName}/`);
       
       const bucket = storage.bucket(googleScreenshotBucketConfig.bucketName);
       const [files] = await bucket.getFiles({ prefix: `${safeFolderName}/` });

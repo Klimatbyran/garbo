@@ -13,24 +13,18 @@ import { Storage } from '@google-cloud/storage'
 import googleScreenshotBucketConfig from '../config/googleScreenshotBucket'
 import { createSafeFolderName } from './pathUtils'
 
-let credentials: Record<string, unknown>;
-let projectId: string | undefined;
+let storage: Storage | null = null;
 
 try {
-  const decodedKey = Buffer.from(googleScreenshotBucketConfig.bucketKey || '', 'base64').toString();
-  credentials = JSON.parse(decodedKey);
-  projectId = credentials.project_id as string | undefined;
+  const credentials = JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString());
+  storage = new Storage({
+    credentials,
+    projectId: credentials.project_id,
+  });
 } catch (error) {
-  console.error('❌ pdfTools: Error parsing bucketKey:', error.message);
-  credentials = {};
-  projectId = undefined;
+  console.error('❌ pdfTools: Error initializing storage');
+  storage = null;
 }
-
-const storage = new Storage({
-  credentials,
-  projectId
-});
-
 
 function encodeUriIfNeeded(uri: string): string {
   const decodedUri = decodeURI(uri);
@@ -130,6 +124,11 @@ const uploadPageToGoogleCloud = async (
   pageNumber: number,
   buffer: Buffer
 ): Promise<void> => {
+  if (!storage) {
+    console.error('❌ pdfTools: Storage not initialized, skipping upload');
+    throw new Error('Storage not initialized, skipping pdf upload');
+  }
+  
   const bucket = storage.bucket(bucketName);
   const filePath = `${safeFolderName}/page-${pageNumber}.png`;
   const file = bucket.file(filePath);
@@ -142,12 +141,38 @@ const uploadPageToGoogleCloud = async (
   }
 };
 
+const saveScreenshots = async (
+  pageScreenshotPath: string,
+  buffer: Buffer,
+  pdfUrl: string,
+  pageNumber: number
+): Promise<void> => {
+  const tasks = [
+    writeFile(pageScreenshotPath, buffer)
+  ];
+
+  if (pdfUrl && pageNumber) {
+    tasks.push(
+      uploadPageToGoogleCloud(
+        googleScreenshotBucketConfig.bucketName,
+        createSafeFolderName(pdfUrl),
+        pageNumber,
+        buffer
+      ).catch(error => {
+        console.error(`❌ pdfTools: Failed to upload page ${pageNumber} to Google Cloud Storage:`, error.message);
+      })
+    );
+  }
+
+  await Promise.all(tasks);
+};
+
 export async function extractTablesFromJson(
   pdf: Buffer,
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[],
-  pdfUrl?: string
+  pdfUrl: string
 ): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
@@ -157,7 +182,8 @@ export async function extractTablesFromJson(
   const width = pages[0].pageWidth * 2
   const height = pages[0].pageHeight * 2
 
-  const pdfConverter = fromBuffer(pdf, {
+  // creates a pdf converter function from a factory
+  const PDFPagetoImageConverter = fromBuffer(pdf, {
     density: 600,
     width,
     height,
@@ -166,48 +192,42 @@ export async function extractTablesFromJson(
   })
 
   const reportId = crypto.randomUUID()
-  const filenames: { pageNumber: number; filename: string }[] = []
 
-
-  for (const { pageIndex } of pages) {
+  // Process all pages in parallel
+  const pagePromises = pages.map(async ({ pageIndex }) => {
     const pageNumber = pageIndex + 1
-    const pageScreenshotPath = path.join(
-      outputDir,
-      `${reportId}-page-${pageNumber}.png`
-    )
-    const result = await pdfConverter(pageNumber, { responseType: 'buffer' })
+
+    
+    const result = await PDFPagetoImageConverter(pageNumber, { responseType: 'buffer' })
 
     if (!result.buffer) {
       throw new Error(
-        `Failed to convert pageNumber ${pageNumber} to a buffer\n` +
+        `Failed to convert pageNumber ${pageNumber} to an image buffer\n` +
           JSON.stringify(result, null, 2)
       )
     }
 
-    await writeFile(pageScreenshotPath, result.buffer)
-    
-    if (pdfUrl) {
-      try {
-        const safeFolderName = createSafeFolderName(pdfUrl)
-        const bucketName = googleScreenshotBucketConfig.bucketName;
-        await uploadPageToGoogleCloud(bucketName, safeFolderName, pageNumber, result.buffer);
-      } catch (error) {
-        console.error('❌ pdfTools: Failed to upload to Google Cloud Storage:', error.message);
-        console.error('❌ pdfTools: Error details:', error);
-      }
-    }
+    const pageScreenshotPath = path.join(
+      outputDir,
+      `${reportId}-page-${pageNumber}.png`
+    )
+    // Save screenshots in parallel (file writing + Google Cloud upload)
+    await saveScreenshots(pageScreenshotPath, result.buffer, pdfUrl, pageNumber);
 
-    filenames.push({ pageNumber, filename: pageScreenshotPath })
+    return { pageNumber, filename: pageScreenshotPath };
+  });
 
-    /* This doesn't work yet because the bounding box is incorrect due to a bug in the NLM ingestor BBOX (see issue here: https://github.com/nlmatics/nlm-ingestor/issues/66).  
-            Once it is fixed, this can be used instead to crop just the table rather than the entire page. */  
-    /* TODO: fix bounding box for tables  
-          const { x, y, width, height } = calculateBoundingBoxForTable(
-              table,
-              pageWidth,
-              pageHeight
-          )*/
-  }
+  const filenames = await Promise.all(pagePromises);
 
   return { pages: filenames }
+
+  /* This doesn't work yet because the bounding box is incorrect due to a bug in the NLM ingestor BBOX (see issue here: https://github.com/nlmatics/nlm-ingestor/issues/66).  
+            Once it is fixed, this can be used instead to crop just the table rather than the entire page. */  
+  /* TODO: fix bounding box for tables  
+        const { x, y, width, height } = calculateBoundingBoxForTable(
+            table,
+            pageWidth,
+            pageHeight
+        )*/
 }
+
