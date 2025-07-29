@@ -6,120 +6,32 @@ import { z } from "zod"
 import { createHash } from "crypto"
 import { zodToJsonSchema } from "zod-to-json-schema"
 
-// Hashing functions for caching
-const hashString = (str: string): string => {
-  return createHash('sha256').update(str).digest('hex').substring(0, 16); // Use first 16 chars for readability
-};
+// ============================================================================
+// CONSTANTS AND CONFIGURATION
+// ============================================================================
 
-const hashPrompt = (prompt: string): string => hashString(prompt);
-const hashSchema = (schema: z.ZodSchema): string => hashString(JSON.stringify(schema._def));
+const HASH_LENGTH = 16;
+const TOP_FAILURE_PATTERNS = 5;
+const BEST_WORST_FILES_LIMIT = 3;
+const DIFFICULTY_THRESHOLDS = {
+  EASY: 80,
+  MEDIUM: 60
+} as const;
 
-// Hash mappings for analysis
+const SKIPPED_FIELDS = [
+  'unit',
+  'mentionOfLocationBasedOrMarketBased',
+  'explanationOfWhyYouPutValuesToMbOrLbOrUnknown'
+] as const;
+
+// ============================================================================
+// TYPES AND INTERFACES
+// ============================================================================
+
 interface HashMappings {
-  prompts: Record<string, string>; // hash -> prompt text
-  schemas: Record<string, any>; // hash -> schema definition
+  prompts: Record<string, string>;
+  schemas: Record<string, any>;
 }
-
-// Deep comparison function to find differences between expected and actual JSON
-const compareJson = (expected: any, actual: any, path: string = ''): JsonDiff[] => {
-  const diffs: JsonDiff[] = [];
-  
-  // Handle null/undefined cases
-  if (expected === null && actual === null) return diffs;
-  if (expected === null && actual !== null) {
-    diffs.push({ path, expected: null, actual, type: 'unexpected_value' });
-    return diffs;
-  }
-  if (expected !== null && actual === null) {
-    diffs.push({ path, expected, actual: null, type: 'missing' });
-    return diffs;
-  }
-  
-  // Handle type mismatches
-  if (typeof expected !== typeof actual) {
-    diffs.push({ path, expected, actual, type: 'type_mismatch' });
-    return diffs;
-  }
-  
-  // Handle primitives
-  if (typeof expected !== 'object') {
-    if (expected !== actual) {
-      // Special handling for numbers - check for precision differences
-      if (typeof expected === 'number' && typeof actual === 'number') {
-        // This approach only allows true precision differences
-        const expectedDecimals = (expected.toString().split('.')[1] || '').length;
-        const actualDecimals = (actual.toString().split('.')[1] || '').length;
-        const minDecimals = Math.min(expectedDecimals, actualDecimals);
-
-        const roundedExpected = Number(expected.toFixed(minDecimals));
-        const roundedActual = Number(actual.toFixed(minDecimals));
-
-        if (roundedExpected === roundedActual) {
-          // Only matches true precision differences like 61.8 vs 61.804
-          console.log(`⚠️  Precision difference at ${path}: expected ${expected}, got ${actual} (rounded to ${minDecimals} decimals: both ${roundedExpected})`);
-          return diffs; // Don't add to diffs - not counted as error
-        }
-      }
-      
-      diffs.push({ path, expected, actual, type: 'different' });
-    }
-    return diffs;
-  }
-  
-  // Handle arrays
-  if (Array.isArray(expected)) {
-    if (!Array.isArray(actual)) {
-      diffs.push({ path, expected, actual, type: 'type_mismatch' });
-      return diffs;
-    }
-    
-    const maxLength = Math.max(expected.length, actual.length);
-    for (let i = 0; i < maxLength; i++) {
-      const newPath = path ? `${path}[${i}]` : `[${i}]`;
-      
-      if (i >= expected.length) {
-        diffs.push({ path: newPath, expected: undefined, actual: actual[i], type: 'extra' });
-      } else if (i >= actual.length) {
-        diffs.push({ path: newPath, expected: expected[i], actual: undefined, type: 'missing' });
-      } else {
-        diffs.push(...compareJson(expected[i], actual[i], newPath));
-      }
-    }
-    return diffs;
-  }
-  
-  // Handle objects
-  const expectedKeys = Object.keys(expected);
-  const actualKeys = Object.keys(actual);
-  const allKeys = new Set([...expectedKeys, ...actualKeys]);
-  
-  for (const key of allKeys) {
-    // Skip comparison of "unit" attributes
-    if (key === 'unit') {
-      continue;
-    }
-
-    if (key === 'mentionOfLocationBasedOrMarketBased') {
-      continue;
-    }
-
-    if (key === 'explanationOfWhyYouPutValuesToMbOrLbOrUnknown') {
-      continue;
-    }
-    
-    const newPath = path ? `${path}.${key}` : key;
-    
-    if (!(key in expected)) {
-      diffs.push({ path: newPath, expected: undefined, actual: actual[key], type: 'extra' });
-    } else if (!(key in actual)) {
-      diffs.push({ path: newPath, expected: expected[key], actual: undefined, type: 'missing' });
-    } else {
-      diffs.push(...compareJson(expected[key], actual[key], newPath));
-    }
-  }
-  
-  return diffs;
-};
 
 interface TestFile {
   name: string;
@@ -130,8 +42,8 @@ interface TestFile {
 interface PromptConfig {
   name: string;
   prompt: string;
-  schema?: z.ZodSchema; // Optional schema override
-  baseline?: boolean; // Mark as baseline for comparison
+  schema?: z.ZodSchema;
+  baseline?: boolean;
 }
 
 interface ComparisonTestConfig {
@@ -165,7 +77,7 @@ interface TestResult {
   }>;
   promptHash: string;
   schemaHash: string;
-  fileHash?: string; // Hash of the markdown content for cache invalidation
+  fileHash?: string;
 }
 
 interface ComparisonReport {
@@ -200,6 +112,423 @@ interface ComparisonReport {
   detailedResults: TestResult[];
 }
 
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+const hashString = (str: string): string => {
+  return createHash('sha256').update(str).digest('hex').substring(0, HASH_LENGTH);
+};
+
+const hashPrompt = (prompt: string): string => hashString(prompt);
+
+const hashSchema = (schema: z.ZodSchema): string => hashString(JSON.stringify(schema._def));
+
+const getCurrentDir = (): string => {
+  return dirname(fileURLToPath(import.meta.url));
+};
+
+const shouldSkipField = (fieldName: string): boolean => {
+  return SKIPPED_FIELDS.includes(fieldName as any);
+};
+
+const calculateAverage = (numbers: number[]): number => {
+  return numbers.length > 0 ? numbers.reduce((a, b) => a + b, 0) / numbers.length : 0;
+};
+
+const determineDifficulty = (avgAccuracy: number): 'easy' | 'medium' | 'hard' => {
+  if (avgAccuracy >= DIFFICULTY_THRESHOLDS.EASY) return 'easy';
+  if (avgAccuracy >= DIFFICULTY_THRESHOLDS.MEDIUM) return 'medium';
+  return 'hard';
+};
+
+// ============================================================================
+// JSON COMPARISON LOGIC
+// ============================================================================
+
+const handleNullComparison = (expected: any, actual: any, path: string): JsonDiff[] => {
+  if (expected === null && actual === null) return [];
+  if (expected === null && actual !== null) {
+    return [{ path, expected: null, actual, type: 'unexpected_value' }];
+  }
+  if (expected !== null && actual === null) {
+    return [{ path, expected, actual: null, type: 'missing' }];
+  }
+  
+  if (expected === undefined && actual === undefined) return [];
+  if (expected === undefined && actual !== undefined) {
+    return [{ path, expected: undefined, actual, type: 'unexpected_value' }];
+  }
+  if (expected !== undefined && actual === undefined) {
+    return [{ path, expected, actual: undefined, type: 'missing' }];
+  }
+  
+  return [];
+};
+
+const handlePrimitiveComparison = (expected: any, actual: any, path: string): JsonDiff[] => {
+  if (expected !== actual) {
+    // Special handling for numbers - check for precision differences
+    if (typeof expected === 'number' && typeof actual === 'number') {
+      const expectedDecimals = (expected.toString().split('.')[1] || '').length;
+      const actualDecimals = (actual.toString().split('.')[1] || '').length;
+      const minDecimals = Math.min(expectedDecimals, actualDecimals);
+
+      const roundedExpected = Number(expected.toFixed(minDecimals));
+      const roundedActual = Number(actual.toFixed(minDecimals));
+
+      if (roundedExpected === roundedActual) {
+        console.log(`⚠️  Precision difference at ${path}: expected ${expected}, got ${actual} (rounded to ${minDecimals} decimals: both ${roundedExpected})`);
+        return []; // Don't add to diffs - not counted as error
+      }
+    }
+    
+    return [{ path, expected, actual, type: 'different' }];
+  }
+  return [];
+};
+
+const handleArrayComparison = (expected: any[], actual: any[], path: string): JsonDiff[] => {
+  if (!Array.isArray(actual)) {
+    return [{ path, expected, actual, type: 'type_mismatch' }];
+  }
+  
+  const diffs: JsonDiff[] = [];
+  const maxLength = Math.max(expected.length, actual.length);
+  
+  for (let i = 0; i < maxLength; i++) {
+    const newPath = path ? `${path}[${i}]` : `[${i}]`;
+    
+    if (i >= expected.length) {
+      diffs.push({ path: newPath, expected: undefined, actual: actual[i], type: 'extra' });
+    } else if (i >= actual.length) {
+      diffs.push({ path: newPath, expected: expected[i], actual: undefined, type: 'missing' });
+    } else {
+      diffs.push(...compareJson(expected[i], actual[i], newPath));
+    }
+  }
+  
+  return diffs;
+};
+
+const handleObjectComparison = (expected: any, actual: any, path: string): JsonDiff[] => {
+  // Check for null/undefined first
+  const nullDiffs = handleNullComparison(expected, actual, path);
+  if (nullDiffs.length > 0) return nullDiffs;
+  
+  // Ensure both are objects
+  if (typeof expected !== 'object' || typeof actual !== 'object') {
+    return [{ path, expected, actual, type: 'type_mismatch' }];
+  }
+  
+  // Additional safety check
+  if (expected === null || expected === undefined || actual === null || actual === undefined) {
+    return [];
+  }
+  
+  const expectedKeys = Object.keys(expected);
+  const actualKeys = Object.keys(actual);
+  const allKeys = new Set([...expectedKeys, ...actualKeys]);
+  const diffs: JsonDiff[] = [];
+  
+  for (const key of allKeys) {
+    if (shouldSkipField(key)) {
+      continue;
+    }
+    
+    const newPath = path ? `${path}.${key}` : key;
+    
+    if (!(key in expected)) {
+      diffs.push({ path: newPath, expected: undefined, actual: actual[key], type: 'extra' });
+    } else if (!(key in actual)) {
+      diffs.push({ path: newPath, expected: expected[key], actual: undefined, type: 'missing' });
+    } else {
+      diffs.push(...compareJson(expected[key], actual[key], newPath));
+    }
+  }
+  
+  return diffs;
+};
+
+const compareJson = (expected: any, actual: any, path: string = ''): JsonDiff[] => {
+  // Handle null/undefined cases
+  const nullDiffs = handleNullComparison(expected, actual, path);
+  if (nullDiffs.length > 0) return nullDiffs;
+  
+  // Handle type mismatches
+  if (typeof expected !== typeof actual) {
+    return [{ path, expected, actual, type: 'type_mismatch' }];
+  }
+  
+  // Handle primitives
+  if (typeof expected !== 'object') {
+    return handlePrimitiveComparison(expected, actual, path);
+  }
+  
+  // Handle arrays
+  if (Array.isArray(expected)) {
+    return handleArrayComparison(expected, actual, path);
+  }
+  
+  // Handle objects
+  return handleObjectComparison(expected, actual, path);
+};
+
+// ============================================================================
+// HASH MAPPINGS MANAGEMENT
+// ============================================================================
+
+const loadHashMappings = (outputDir: string): HashMappings => {
+  const currentDir = getCurrentDir();
+  const hashMappingsFile = join(currentDir, outputDir, 'hashMappings.json');
+  
+  if (!existsSync(hashMappingsFile)) {
+    return { prompts: {}, schemas: {} };
+  }
+  
+  try {
+    const hashMappings = JSON.parse(readFileSync(hashMappingsFile, 'utf-8'));
+    console.log(`📖 Loaded existing hash mappings: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
+    return hashMappings;
+  } catch (error) {
+    console.warn(`⚠️  Could not load existing hash mappings: ${error}`);
+    return { prompts: {}, schemas: {} };
+  }
+};
+
+const updateHashMappings = (
+  hashMappings: HashMappings,
+  promptHash: string,
+  schemaHash: string,
+  promptText: string,
+  schema: z.ZodSchema
+): void => {
+  if (!hashMappings.prompts[promptHash]) {
+    hashMappings.prompts[promptHash] = promptText;
+  }
+  if (!hashMappings.schemas[schemaHash]) {
+    hashMappings.schemas[schemaHash] = zodToJsonSchema(schema);
+  }
+};
+
+const saveHashMappings = (hashMappings: HashMappings, outputDir: string): void => {
+  const currentDir = getCurrentDir();
+  const hashMappingsFile = join(currentDir, outputDir, 'hashMappings.json');
+  writeFileSync(hashMappingsFile, JSON.stringify(hashMappings, null, 2));
+  console.log(`📁 Hash mappings updated: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
+};
+
+// ============================================================================
+// TEST EXECUTION
+// ============================================================================
+
+const executeTestRun = async (
+  markdown: string,
+  prompt: string,
+  schema: z.ZodSchema
+): Promise<{ result: any; duration: number }> => {
+  const runStartTime = Date.now();
+  const result = await extractDataFromMarkdown(markdown, 'scope12', prompt, schema);
+  return {
+    result,
+    duration: Date.now() - runStartTime
+  };
+};
+
+const executeMultipleRuns = async (
+  testFile: TestFile,
+  promptConfig: PromptConfig,
+  baseSchema: z.ZodSchema,
+  runsPerTest: number
+): Promise<{
+  runs: any[];
+  timings: number[];
+  validRuns: any[];
+  parsedRuns: any[];
+}> => {
+  const schema = promptConfig.schema || baseSchema;
+  
+  const promises = Array.from({ length: runsPerTest }, () =>
+    executeTestRun(testFile.markdown, promptConfig.prompt, schema)
+  );
+  
+  const settledResults = await Promise.allSettled(promises);
+  const runs = settledResults.map(r => 
+    r.status === 'fulfilled' ? r.value.result : null
+  );
+  const timings = settledResults.map(r => 
+    r.status === 'fulfilled' ? r.value.duration : null
+  ).filter(t => t !== null) as number[];
+  
+  const validRuns = runs.filter(r => r !== null);
+  const parsedRuns = validRuns.map(run => 
+    typeof run === 'string' ? JSON.parse(run) : run
+  );
+  
+  return { runs, timings, validRuns, parsedRuns };
+};
+
+const filterRunByYears = (run: any, yearsToCheck?: number[]): any => {
+  if (!yearsToCheck || yearsToCheck.length === 0 || !run || !Array.isArray(run.scope12)) {
+    return run;
+  }
+  
+  return {
+    ...run,
+    scope12: run.scope12.filter((item: any) => yearsToCheck.includes(item.year))
+  };
+};
+
+const calculateTestMetrics = (
+  parsedRuns: any[],
+  validRuns: any[],
+  runs: any[],
+  timings: number[],
+  testFile: TestFile,
+  config: ComparisonTestConfig
+): {
+  accuracy: number;
+  successRate: number;
+  avgResponseTime: number;
+  failures: Array<{ runIndex: number; diffs: JsonDiff[] }>;
+  correctRuns: any[];
+} => {
+  const failures: Array<{ runIndex: number; diffs: JsonDiff[] }> = [];
+  const correctRuns = parsedRuns.filter((run, index) => {
+    const filteredRun = filterRunByYears(run, config.yearsToCheck);
+    const diffs = compareJson(testFile.expectedResult, filteredRun);
+    
+    if (diffs.length > 0) {
+      failures.push({ runIndex: index, diffs });
+      return false;
+    }
+    return true;
+  });
+  
+  const accuracy = validRuns.length > 0 ? (correctRuns.length / validRuns.length) * 100 : 0;
+  const successRate = runs.length > 0 ? (validRuns.length / runs.length) * 100 : 0;
+  const avgResponseTime = calculateAverage(timings);
+  
+  return { accuracy, successRate, avgResponseTime, failures, correctRuns };
+};
+
+// ============================================================================
+// REPORT GENERATION
+// ============================================================================
+
+const generatePromptComparison = (results: TestResult[], prompts: PromptConfig[], runsPerTest: number): ComparisonReport['promptComparison'] => {
+  const promptComparison: ComparisonReport['promptComparison'] = {};
+  
+  for (const promptConfig of prompts) {
+    const promptResults = results.filter(r => r.promptName === promptConfig.name);
+    const totalCorrect = promptResults.reduce((sum, r) => sum + (r.accuracy / 100 * runsPerTest), 0);
+    const totalTests = promptResults.length * runsPerTest;
+    const overallAccuracy = totalTests > 0 ? (totalCorrect / totalTests) * 100 : 0;
+    const avgResponseTime = calculateAverage(promptResults.map(r => r.avgResponseTime));
+    const successRate = calculateAverage(promptResults.map(r => r.successRate));
+    
+    // Find best and worst performing files
+    const sortedByAccuracy = [...promptResults].sort((a, b) => b.accuracy - a.accuracy);
+    const bestPerformingFiles = sortedByAccuracy
+      .filter(r => r.accuracy > 0)
+      .slice(0, BEST_WORST_FILES_LIMIT)
+      .map(r => r.fileName);
+    const worstPerformingFiles = sortedByAccuracy
+      .filter(r => r.accuracy < 100)
+      .slice(-BEST_WORST_FILES_LIMIT)
+      .map(r => r.fileName);
+    
+    promptComparison[promptConfig.name] = {
+      overallAccuracy,
+      avgResponseTime,
+      successRate,
+      bestPerformingFiles,
+      worstPerformingFiles,
+      totalCorrect: Math.round(totalCorrect),
+      totalTests
+    };
+  }
+  
+  return promptComparison;
+};
+
+const generateFileComparison = (results: TestResult[], testFiles: TestFile[]): ComparisonReport['fileComparison'] => {
+  const fileComparison: ComparisonReport['fileComparison'] = {};
+  
+  for (const testFile of testFiles) {
+    const fileResults = results.filter(r => r.fileName === testFile.name);
+    const promptRankings = fileResults
+      .map(r => ({
+        promptName: r.promptName,
+        accuracy: r.accuracy,
+        avgResponseTime: r.avgResponseTime
+      }))
+      .sort((a, b) => b.accuracy - a.accuracy);
+    
+    const avgAccuracy = calculateAverage(promptRankings.map(s => s.accuracy));
+    const difficulty = determineDifficulty(avgAccuracy);
+    
+    fileComparison[testFile.name] = {
+      promptRankings,
+      difficulty
+    };
+  }
+  
+  return fileComparison;
+};
+
+const generateComparisonReport = (results: TestResult[], config: ComparisonTestConfig): ComparisonReport => {
+  const { prompts, testFiles, runsPerTest } = config;
+  
+  const promptComparison = generatePromptComparison(results, prompts, runsPerTest);
+  const fileComparison = generateFileComparison(results, testFiles);
+  
+  return {
+    timestamp: new Date().toISOString(),
+    config: {
+      totalTests: prompts.length * testFiles.length,
+      runsPerTest,
+      prompts: prompts.map(p => p.name),
+      testFiles: testFiles.map(f => f.name)
+    },
+    promptComparison,
+    fileComparison,
+    detailedResults: results
+  };
+};
+
+// ============================================================================
+// FILE OPERATIONS
+// ============================================================================
+
+const saveReportToFile = (report: ComparisonReport, config: ComparisonTestConfig): string => {
+  const currentDir = getCurrentDir();
+  const reportWithConfig = { 
+    ...report, 
+    config: { 
+      ...report.config, 
+      prompts: config.prompts.map(p => ({ name: p.name, baseline: p.baseline })) 
+    } 
+  };
+  
+  const timestamp = new Date().toISOString();
+  const filename = `comparison_test_${timestamp.replace(/[:.]/g, '-')}.json`;
+  const filepath = join(currentDir, config.outputDir, filename);
+  
+  if (!existsSync(join(currentDir, config.outputDir))) {
+    mkdirSync(join(currentDir, config.outputDir), { recursive: true });
+  }
+  
+  writeFileSync(filepath, JSON.stringify(reportWithConfig, null, 2));
+  console.log(`\n📁 Results saved to: ${filepath}`);
+  
+  return filepath;
+};
+
+// ============================================================================
+// MAIN TEST EXECUTION
+// ============================================================================
+
 export const runComparisonTest = async (config: ComparisonTestConfig): Promise<ComparisonReport> => {
   const { prompts, testFiles, baseSchema, runsPerTest, outputDir } = config;
   
@@ -207,21 +536,7 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
   console.log(`📊 Total tests: ${prompts.length * testFiles.length} (${runsPerTest} runs each)`);
   
   const results: TestResult[] = [];
-  
-  // Load existing hash mappings to preserve historical data
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  const hashMappingsFile = join(__dirname, outputDir, 'hashMappings.json');
-  let hashMappings: HashMappings = { prompts: {}, schemas: {} };
-  
-  if (existsSync(hashMappingsFile)) {
-    try {
-      hashMappings = JSON.parse(readFileSync(hashMappingsFile, 'utf-8'));
-      console.log(`📖 Loaded existing hash mappings: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
-    } catch (error) {
-      console.warn(`⚠️  Could not load existing hash mappings: ${error}`);
-      hashMappings = { prompts: {}, schemas: {} };
-    }
-  }
+  const hashMappings = loadHashMappings(outputDir);
   
   // Run tests for each prompt-file combination
   for (const promptConfig of prompts) {
@@ -230,74 +545,20 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
     for (const testFile of testFiles) {
       console.log(`  📄 Testing file: ${testFile.name}`);
       
-      // Use prompt-specific schema if provided, otherwise use base schema
       const schema = promptConfig.schema || baseSchema;
-      
-      // Generate hashes for this combination
       const promptHash = hashPrompt(promptConfig.prompt);
       const schemaHash = hashSchema(schema);
       const fileHash = hashString(testFile.markdown);
       
-      // Store hash mappings (only if not already present)
-      if (!hashMappings.prompts[promptHash]) {
-        hashMappings.prompts[promptHash] = promptConfig.prompt;
-      }
-      if (!hashMappings.schemas[schemaHash]) {
-        // Store schema as JSON schema for readability
-        hashMappings.schemas[schemaHash] = zodToJsonSchema(schema);
-      }
+      updateHashMappings(hashMappings, promptHash, schemaHash, promptConfig.prompt, schema);
       
-      // Run multiple times for this prompt-file combination
-      const promises = Array.from({ length: runsPerTest }, () => {
-        const runStartTime = Date.now();
-        return extractDataFromMarkdown(
-          testFile.markdown,
-          'scope12',
-          promptConfig.prompt,
-          schema
-        ).then(result => ({
-          result,
-          duration: Date.now() - runStartTime
-        }));
-      });
-      
-      const settledResults = await Promise.allSettled(promises);
-      const runs = settledResults.map(r => 
-        r.status === 'fulfilled' ? r.value.result : null
-      );
-      const timings = settledResults.map(r => 
-        r.status === 'fulfilled' ? r.value.duration : null
-      ).filter(t => t !== null) as number[];
-      
-      // Calculate metrics
-      const validRuns = runs.filter(r => r !== null);
-      const parsedRuns = validRuns.map(run => 
-        typeof run === 'string' ? JSON.parse(run) : run
+      const { runs, timings, validRuns, parsedRuns } = await executeMultipleRuns(
+        testFile, promptConfig, baseSchema, runsPerTest
       );
       
-      // Compare each run and collect diffs for failed runs
-      const failures: Array<{ runIndex: number; diffs: JsonDiff[] }> = [];
-      const correctRuns = parsedRuns.filter((run, index) => {
-        // Apply year filtering to the actual run before comparison if yearsToCheck is configured
-        let filteredRun = run;
-        if (config.yearsToCheck && config.yearsToCheck.length > 0 && run && Array.isArray(run.scope12)) {
-          filteredRun = {
-            ...run,
-            scope12: run.scope12.filter((item: any) => config.yearsToCheck!.includes(item.year))
-          };
-        }
-        
-        const diffs = compareJson(testFile.expectedResult, filteredRun);
-        if (diffs.length > 0) {
-          failures.push({ runIndex: index, diffs });
-          return false;
-        }
-        return true;
-      });
-      
-      const accuracy = validRuns.length > 0 ? (correctRuns.length / validRuns.length) * 100 : 0;
-      const successRate = runs.length > 0 ? (validRuns.length / runs.length) * 100 : 0;
-      const avgResponseTime = timings.length > 0 ? timings.reduce((a, b) => a + b, 0) / timings.length : 0;
+      const { accuracy, successRate, avgResponseTime, failures, correctRuns } = calculateTestMetrics(
+        parsedRuns, validRuns, runs, timings, testFile, config
+      );
       
       const testResult: TestResult = {
         promptName: promptConfig.name,
@@ -320,102 +581,16 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
     }
   }
   
-  // Generate comparison report
   const report = generateComparisonReport(results, config);
-  
-  // Save results with config for baseline info
-  const reportWithConfig = { ...report, config: { ...report.config, prompts: config.prompts.map(p => ({ name: p.name, baseline: p.baseline })) } };
-  const timestamp = new Date().toISOString();
-  const filename = `comparison_test_${timestamp.replace(/[:.]/g, '-')}.json`;
-  const filepath = join(__dirname, outputDir, filename);
-  
-  if (!existsSync(join(__dirname, outputDir))) {
-    mkdirSync(join(__dirname, outputDir), { recursive: true });
-  }
-  
-  writeFileSync(filepath, JSON.stringify(reportWithConfig, null, 2));
-  console.log(`\n📁 Results saved to: ${filepath}`);
-  
-  // Save updated hash mappings (preserves historical data)
-  writeFileSync(hashMappingsFile, JSON.stringify(hashMappings, null, 2));
-  console.log(`📁 Hash mappings updated: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
+  saveReportToFile(report, config);
+  saveHashMappings(hashMappings, outputDir);
   
   return report;
 };
 
-const generateComparisonReport = (results: TestResult[], config: ComparisonTestConfig): ComparisonReport => {
-  const { prompts, testFiles, runsPerTest } = config;
-  
-  // Prompt comparison
-  const promptComparison: ComparisonReport['promptComparison'] = {};
-  
-  for (const promptConfig of prompts) {
-    const promptResults = results.filter(r => r.promptName === promptConfig.name);
-    const totalCorrect = promptResults.reduce((sum, r) => sum + (r.accuracy / 100 * runsPerTest), 0);
-    const totalTests = promptResults.length * runsPerTest;
-    const overallAccuracy = totalTests > 0 ? (totalCorrect / totalTests) * 100 : 0;
-    const avgResponseTime = promptResults.reduce((sum, r) => sum + r.avgResponseTime, 0) / promptResults.length;
-    const successRate = promptResults.reduce((sum, r) => sum + r.successRate, 0) / promptResults.length;
-    
-    // Find best and worst performing files
-    const sortedByAccuracy = [...promptResults].sort((a, b) => b.accuracy - a.accuracy);
-    const bestPerformingFiles = sortedByAccuracy
-      .filter(r => r.accuracy > 0)
-      .slice(0, 3)
-      .map(r => r.fileName);
-    const worstPerformingFiles = sortedByAccuracy
-      .filter(r => r.accuracy < 100)
-      .slice(-3)
-      .map(r => r.fileName);
-    
-    promptComparison[promptConfig.name] = {
-      overallAccuracy,
-      avgResponseTime,
-      successRate,
-      bestPerformingFiles,
-      worstPerformingFiles,
-      totalCorrect: Math.round(totalCorrect),
-      totalTests
-    };
-  }
-  
-  // File comparison
-  const fileComparison: ComparisonReport['fileComparison'] = {};
-  
-  for (const testFile of testFiles) {
-    const fileResults = results.filter(r => r.fileName === testFile.name);
-    const promptRankings = fileResults
-      .map(r => ({
-        promptName: r.promptName,
-        accuracy: r.accuracy,
-        avgResponseTime: r.avgResponseTime
-      }))
-      .sort((a, b) => b.accuracy - a.accuracy);
-    
-    // Determine difficulty based on overall accuracy
-    const avgAccuracy = promptRankings.reduce((sum, s) => sum + s.accuracy, 0) / promptRankings.length;
-    const difficulty: 'easy' | 'medium' | 'hard' = 
-      avgAccuracy >= 80 ? 'easy' : avgAccuracy >= 60 ? 'medium' : 'hard';
-    
-    fileComparison[testFile.name] = {
-      promptRankings,
-      difficulty
-    };
-  }
-  
-  return {
-    timestamp: new Date().toISOString(),
-    config: {
-      totalTests: prompts.length * testFiles.length,
-      runsPerTest,
-      prompts: prompts.map(p => p.name),
-      testFiles: testFiles.map(f => f.name)
-    },
-    promptComparison,
-    fileComparison,
-    detailedResults: results
-  };
-};
+// ============================================================================
+// SUMMARY AND ANALYSIS FUNCTIONS
+// ============================================================================
 
 const printDiffSummary = (failures: Array<{ runIndex: number; diffs: JsonDiff[] }>, promptName: string, fileName: string) => {
   if (failures.length === 0) return;
@@ -436,7 +611,7 @@ const printDiffSummary = (failures: Array<{ runIndex: number; diffs: JsonDiff[] 
   // Show most common failure patterns
   const sortedPaths = Object.entries(diffsByPath)
     .sort((a, b) => b[1].length - a[1].length)
-    .slice(0, 5); // Top 5 most common issues
+    .slice(0, TOP_FAILURE_PATTERNS);
   
   sortedPaths.forEach(([path, diffs]) => {
     console.log(`  📍 ${path} (${diffs.length}/${failures.length} runs failed):`);
@@ -511,15 +686,10 @@ const calculateImprovements = (report: ComparisonReport, baselinePromptName: str
   return parts.join(', ') || 'no changes';
 };
 
-export const printComparisonSummary = (report: ComparisonReport, config: ComparisonTestConfig) => {
-  console.log('\n🎯 PROMPT COMPARISON TEST SUMMARY');
-  console.log('=' .repeat(50));
-  
-  // Find baseline prompt
+const printPromptRankings = (report: ComparisonReport, config: ComparisonTestConfig): void => {
   const baselinePrompt = config.prompts.find(p => p.baseline);
   const baselinePromptName = baselinePrompt?.name;
   
-  // Prompt rankings
   const promptRankings = Object.entries(report.promptComparison)
     .sort((a, b) => b[1].overallAccuracy - a[1].overallAccuracy);
   
@@ -540,8 +710,9 @@ export const printComparisonSummary = (report: ComparisonReport, config: Compari
     
     console.log('');
   });
-  
-  // File difficulty analysis
+};
+
+const printFileDifficultyAnalysis = (report: ComparisonReport): void => {
   console.log('\n📄 Test File Difficulty Analysis:');
   const filesByDifficulty = Object.entries(report.fileComparison)
     .reduce((acc, [fileName, data]) => {
@@ -556,8 +727,9 @@ export const printComparisonSummary = (report: ComparisonReport, config: Compari
       console.log(`${difficulty.toUpperCase()}: ${files.join(', ')}`);
     }
   });
-  
-  // Winner analysis
+};
+
+const printWinnerAnalysis = (report: ComparisonReport): void => {
   console.log('\n🏆 Winner Analysis:');
   const winnerCounts = Object.values(report.fileComparison).reduce((acc, fileData) => {
     const topRanking = fileData.promptRankings[0];
@@ -583,8 +755,9 @@ export const printComparisonSummary = (report: ComparisonReport, config: Compari
         console.log(`${prompt}: ${wins} file wins`);
       });
   }
-  
-  // Show detailed failure analysis for each prompt/file combination
+};
+
+const printDetailedFailureAnalysis = (report: ComparisonReport): void => {
   console.log('\n📊 Detailed Failure Analysis:');
   const failedResults = report.detailedResults.filter(result => result.failures.length > 0);
   
@@ -594,4 +767,18 @@ export const printComparisonSummary = (report: ComparisonReport, config: Compari
     }
     printDiffSummary(result.failures, result.promptName, result.fileName);
   });
+};
+
+// ============================================================================
+// MAIN SUMMARY FUNCTION
+// ============================================================================
+
+export const printComparisonSummary = (report: ComparisonReport, config: ComparisonTestConfig) => {
+  console.log('\n🎯 PROMPT COMPARISON TEST SUMMARY');
+  console.log('=' .repeat(50));
+  
+  printPromptRankings(report, config);
+  printFileDifficultyAnalysis(report);
+  printWinnerAnalysis(report);
+  printDetailedFailureAnalysis(report);
 };
