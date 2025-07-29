@@ -128,19 +128,3 @@ export const expectedResults = {
     ]
   }
 };
-
-// Mapping from test file names to expected results
-// If not specified, uses 'default'
-export const testFileMapping = {
-  "markdown": "default",
-  "company_report_2024": "company_with_location_based",
-  "sustainability_report": "missing_scope1",
-  "lantmannen": "lantmannen",
-  "lundbergs_fastigheter": "lundbergs_fastigheter",
-  "byggmax": "byggmax",
-  "catena": "catena",
-  "xvivo": "xvivo",
-  "scandic": "scandic",
-  "rise": "rise"
-  // Add more mappings as needed
-};
