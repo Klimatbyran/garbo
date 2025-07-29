@@ -20,7 +20,7 @@
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
     "test": "echo 'No test command specified'",
-    "run-comparison": "node --import tsx src/jobs/scope12/tests/run-comparison.ts",
+    "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
     "eslint": "npx eslint src"

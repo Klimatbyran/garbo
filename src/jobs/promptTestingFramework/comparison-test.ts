@@ -1,4 +1,4 @@
-import { extractDataFromMarkdown } from "../../utils/extractWithAI"
+import { extractDataFromMarkdown } from "../utils/extractWithAI"
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
@@ -497,7 +497,7 @@ const calculateImprovements = (report: ComparisonReport, baselinePromptName: str
     }
   });
   
-  const parts = [];
+  const parts: string[] = [];
   if (improved > 0) {
     const companyList = improvedCompanies.length <= 3 ? improvedCompanies.join(', ') : `${improvedCompanies.slice(0, 3).join(', ')}, +${improvedCompanies.length - 3} more`;
     parts.push(`${improved} improved (${companyList})`);
