@@ -1,16 +1,17 @@
-import { oldSchema, newSchema } from "./data"
-import { prompt as basePrompt } from "../prompt"
+import { oldSchema, newSchema, newSchemaWithInstructions } from "./data"
+import { prompt as basePrompt, marketBasedShortVersionPrompt, byggmaxImprovements, lantmannenTest, lantmannenTestCombined, lantmannenTestUnkonwnStress, lantmannenTestBalancedUnknownMb  } from "../prompt"
 
 // Test variations - edit this file to add/remove/modify test cases
 export const testVariations = [
   {
-    name: "old_schema",
-    prompt: basePrompt,
-    schema: oldSchema
+    name: "example with balanced unknown mb",
+    prompt: lantmannenTestBalancedUnknownMb,
+    schema: newSchemaWithInstructions,
   },
-  {
-    name: "new_schema",
+ /* {
+    name: "baseline prompt",
     prompt: basePrompt,
-    schema: newSchema
-  }
+    schema: newSchema,
+    baseline: true
+  }*/
 ];
