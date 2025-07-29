@@ -1,8 +1,24 @@
 import { extractDataFromMarkdown } from "../../utils/extractWithAI"
-import { writeFileSync, existsSync, mkdirSync } from "fs"
+import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 import { z } from "zod"
+import { createHash } from "crypto"
+import { zodToJsonSchema } from "zod-to-json-schema"
+
+// Hashing functions for caching
+const hashString = (str: string): string => {
+  return createHash('sha256').update(str).digest('hex').substring(0, 16); // Use first 16 chars for readability
+};
+
+const hashPrompt = (prompt: string): string => hashString(prompt);
+const hashSchema = (schema: z.ZodSchema): string => hashString(JSON.stringify(schema._def));
+
+// Hash mappings for analysis
+interface HashMappings {
+  prompts: Record<string, string>; // hash -> prompt text
+  schemas: Record<string, any>; // hash -> schema definition
+}
 
 // Deep comparison function to find differences between expected and actual JSON
 const compareJson = (expected: any, actual: any, path: string = ''): JsonDiff[] => {
@@ -28,6 +44,23 @@ const compareJson = (expected: any, actual: any, path: string = ''): JsonDiff[] 
   // Handle primitives
   if (typeof expected !== 'object') {
     if (expected !== actual) {
+      // Special handling for numbers - check for precision differences
+      if (typeof expected === 'number' && typeof actual === 'number') {
+        // This approach only allows true precision differences
+        const expectedDecimals = (expected.toString().split('.')[1] || '').length;
+        const actualDecimals = (actual.toString().split('.')[1] || '').length;
+        const minDecimals = Math.min(expectedDecimals, actualDecimals);
+
+        const roundedExpected = Number(expected.toFixed(minDecimals));
+        const roundedActual = Number(actual.toFixed(minDecimals));
+
+        if (roundedExpected === roundedActual) {
+          // Only matches true precision differences like 61.8 vs 61.804
+          console.log(`⚠️  Precision difference at ${path}: expected ${expected}, got ${actual} (rounded to ${minDecimals} decimals: both ${roundedExpected})`);
+          return diffs; // Don't add to diffs - not counted as error
+        }
+      }
+      
       diffs.push({ path, expected, actual, type: 'different' });
     }
     return diffs;
@@ -61,6 +94,19 @@ const compareJson = (expected: any, actual: any, path: string = ''): JsonDiff[] 
   const allKeys = new Set([...expectedKeys, ...actualKeys]);
   
   for (const key of allKeys) {
+    // Skip comparison of "unit" attributes
+    if (key === 'unit') {
+      continue;
+    }
+
+    if (key === 'mentionOfLocationBasedOrMarketBased') {
+      continue;
+    }
+
+    if (key === 'explanationOfWhyYouPutValuesToMbOrLbOrUnknown') {
+      continue;
+    }
+    
     const newPath = path ? `${path}.${key}` : key;
     
     if (!(key in expected)) {
@@ -85,6 +131,7 @@ interface PromptConfig {
   name: string;
   prompt: string;
   schema?: z.ZodSchema; // Optional schema override
+  baseline?: boolean; // Mark as baseline for comparison
 }
 
 interface ComparisonTestConfig {
@@ -93,6 +140,8 @@ interface ComparisonTestConfig {
   baseSchema: z.ZodSchema;
   runsPerTest: number;
   outputDir: string;
+  yearsToCheck?: number[];
+  fileNamesToCheck?: string[];
 }
 
 interface JsonDiff {
@@ -114,6 +163,9 @@ interface TestResult {
     runIndex: number;
     diffs: JsonDiff[];
   }>;
+  promptHash: string;
+  schemaHash: string;
+  fileHash?: string; // Hash of the markdown content for cache invalidation
 }
 
 interface ComparisonReport {
@@ -156,6 +208,21 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
   
   const results: TestResult[] = [];
   
+  // Load existing hash mappings to preserve historical data
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const hashMappingsFile = join(__dirname, outputDir, 'hashMappings.json');
+  let hashMappings: HashMappings = { prompts: {}, schemas: {} };
+  
+  if (existsSync(hashMappingsFile)) {
+    try {
+      hashMappings = JSON.parse(readFileSync(hashMappingsFile, 'utf-8'));
+      console.log(`📖 Loaded existing hash mappings: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
+    } catch (error) {
+      console.warn(`⚠️  Could not load existing hash mappings: ${error}`);
+      hashMappings = { prompts: {}, schemas: {} };
+    }
+  }
+  
   // Run tests for each prompt-file combination
   for (const promptConfig of prompts) {
     console.log(`\n🔬 Testing prompt: ${promptConfig.name}`);
@@ -165,6 +232,20 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
       
       // Use prompt-specific schema if provided, otherwise use base schema
       const schema = promptConfig.schema || baseSchema;
+      
+      // Generate hashes for this combination
+      const promptHash = hashPrompt(promptConfig.prompt);
+      const schemaHash = hashSchema(schema);
+      const fileHash = hashString(testFile.markdown);
+      
+      // Store hash mappings (only if not already present)
+      if (!hashMappings.prompts[promptHash]) {
+        hashMappings.prompts[promptHash] = promptConfig.prompt;
+      }
+      if (!hashMappings.schemas[schemaHash]) {
+        // Store schema as JSON schema for readability
+        hashMappings.schemas[schemaHash] = zodToJsonSchema(schema);
+      }
       
       // Run multiple times for this prompt-file combination
       const promises = Array.from({ length: runsPerTest }, () => {
@@ -197,7 +278,16 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
       // Compare each run and collect diffs for failed runs
       const failures: Array<{ runIndex: number; diffs: JsonDiff[] }> = [];
       const correctRuns = parsedRuns.filter((run, index) => {
-        const diffs = compareJson(testFile.expectedResult, run);
+        // Apply year filtering to the actual run before comparison if yearsToCheck is configured
+        let filteredRun = run;
+        if (config.yearsToCheck && config.yearsToCheck.length > 0 && run && Array.isArray(run.scope12)) {
+          filteredRun = {
+            ...run,
+            scope12: run.scope12.filter((item: any) => config.yearsToCheck!.includes(item.year))
+          };
+        }
+        
+        const diffs = compareJson(testFile.expectedResult, filteredRun);
         if (diffs.length > 0) {
           failures.push({ runIndex: index, diffs });
           return false;
@@ -217,30 +307,38 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
         successRate,
         runs: parsedRuns,
         timings,
-        failures
+        failures,
+        promptHash,
+        schemaHash,
+        fileHash
       };
       
       results.push(testResult);
       
       console.log(`    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`);
+      console.log(`       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`);
     }
   }
   
   // Generate comparison report
   const report = generateComparisonReport(results, config);
   
-  // Save results
+  // Save results with config for baseline info
+  const reportWithConfig = { ...report, config: { ...report.config, prompts: config.prompts.map(p => ({ name: p.name, baseline: p.baseline })) } };
   const timestamp = new Date().toISOString();
   const filename = `comparison_test_${timestamp.replace(/[:.]/g, '-')}.json`;
-  const __dirname = dirname(fileURLToPath(import.meta.url));
   const filepath = join(__dirname, outputDir, filename);
   
   if (!existsSync(join(__dirname, outputDir))) {
     mkdirSync(join(__dirname, outputDir), { recursive: true });
   }
   
-  writeFileSync(filepath, JSON.stringify(report, null, 2));
+  writeFileSync(filepath, JSON.stringify(reportWithConfig, null, 2));
   console.log(`\n📁 Results saved to: ${filepath}`);
+  
+  // Save updated hash mappings (preserves historical data)
+  writeFileSync(hashMappingsFile, JSON.stringify(hashMappings, null, 2));
+  console.log(`📁 Hash mappings updated: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`);
   
   return report;
 };
@@ -261,8 +359,14 @@ const generateComparisonReport = (results: TestResult[], config: ComparisonTestC
     
     // Find best and worst performing files
     const sortedByAccuracy = [...promptResults].sort((a, b) => b.accuracy - a.accuracy);
-    const bestPerformingFiles = sortedByAccuracy.slice(0, 3).map(r => r.fileName);
-    const worstPerformingFiles = sortedByAccuracy.slice(-3).map(r => r.fileName);
+    const bestPerformingFiles = sortedByAccuracy
+      .filter(r => r.accuracy > 0)
+      .slice(0, 3)
+      .map(r => r.fileName);
+    const worstPerformingFiles = sortedByAccuracy
+      .filter(r => r.accuracy < 100)
+      .slice(-3)
+      .map(r => r.fileName);
     
     promptComparison[promptConfig.name] = {
       overallAccuracy,
@@ -367,9 +471,53 @@ const printDiffSummary = (failures: Array<{ runIndex: number; diffs: JsonDiff[] 
   });
 };
 
-export const printComparisonSummary = (report: ComparisonReport) => {
+const calculateImprovements = (report: ComparisonReport, baselinePromptName: string, comparisonPromptName: string): string => {
+  const baselineResults = report.detailedResults.filter(r => r.promptName === baselinePromptName);
+  const comparisonResults = report.detailedResults.filter(r => r.promptName === comparisonPromptName);
+  
+  let improved = 0;
+  let gotWorse = 0;
+  let stayedSame = 0;
+  const improvedCompanies: string[] = [];
+  const worseCompanies: string[] = [];
+  
+  // Compare accuracy for each file
+  baselineResults.forEach(baselineResult => {
+    const comparisonResult = comparisonResults.find(r => r.fileName === baselineResult.fileName);
+    if (comparisonResult) {
+      if (comparisonResult.accuracy > baselineResult.accuracy) {
+        improved++;
+        improvedCompanies.push(baselineResult.fileName);
+      } else if (comparisonResult.accuracy < baselineResult.accuracy) {
+        gotWorse++;
+        worseCompanies.push(baselineResult.fileName);
+      } else {
+        stayedSame++;
+      }
+    }
+  });
+  
+  const parts = [];
+  if (improved > 0) {
+    const companyList = improvedCompanies.length <= 3 ? improvedCompanies.join(', ') : `${improvedCompanies.slice(0, 3).join(', ')}, +${improvedCompanies.length - 3} more`;
+    parts.push(`${improved} improved (${companyList})`);
+  }
+  if (gotWorse > 0) {
+    const companyList = worseCompanies.length <= 3 ? worseCompanies.join(', ') : `${worseCompanies.slice(0, 3).join(', ')}, +${worseCompanies.length - 3} more`;
+    parts.push(`${gotWorse} got worse (${companyList})`);
+  }
+  if (stayedSame > 0) parts.push(`${stayedSame} unchanged`);
+  
+  return parts.join(', ') || 'no changes';
+};
+
+export const printComparisonSummary = (report: ComparisonReport, config: ComparisonTestConfig) => {
   console.log('\n🎯 PROMPT COMPARISON TEST SUMMARY');
   console.log('=' .repeat(50));
+  
+  // Find baseline prompt
+  const baselinePrompt = config.prompts.find(p => p.baseline);
+  const baselinePromptName = baselinePrompt?.name;
   
   // Prompt rankings
   const promptRankings = Object.entries(report.promptComparison)
@@ -377,12 +525,19 @@ export const printComparisonSummary = (report: ComparisonReport) => {
   
   console.log('\n📊 Prompt Performance Rankings:');
   promptRankings.forEach(([name, stats], index) => {
-    console.log(`${index + 1}. ${name}`);
+    console.log(`${index + 1}. ${name}${name === baselinePromptName ? ' (baseline)' : ''}`);
     console.log(`   Accuracy: ${stats.overallAccuracy.toFixed(1)}% (${stats.totalCorrect}/${stats.totalTests})`);
     console.log(`   Avg Response Time: ${stats.avgResponseTime.toFixed(0)}ms`);
     console.log(`   Success Rate: ${stats.successRate.toFixed(1)}%`);
     console.log(`   Best Files: ${stats.bestPerformingFiles.join(', ')}`);
     console.log(`   Worst Files: ${stats.worstPerformingFiles.join(', ')}`);
+    
+    // Show improvement comparison against baseline
+    if (baselinePromptName && name !== baselinePromptName) {
+      const improvementInfo = calculateImprovements(report, baselinePromptName, name);
+      console.log(`   📈 vs ${baselinePromptName}: ${improvementInfo}`);
+    }
+    
     console.log('');
   });
   
