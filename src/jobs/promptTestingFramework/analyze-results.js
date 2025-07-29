@@ -3,11 +3,36 @@ import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const resultsDir = join(__dirname, 'comparison_results');
 
-// Configuration - specify the hashes you want to analyze
-const TARGET_PROMPT_HASH = "bbf507516a060b5c";  // Change this to your desired prompt hash
-const TARGET_SCHEMA_HASH = "21972b07d7e48a75";  // Change this to your desired schema hash
+// Parse command line arguments
+const args = process.argv.slice(2);
+if (args.length === 0) {
+  console.error("Usage: node analyze-results.js <test-suite-name> [options]");
+  console.error("Example: node analyze-results.js scope12 --prompt bbf507516a060b5c --schema 21972b07d7e48a75");
+  console.error("Options:");
+  console.error("  --prompt <hash>    Prompt hash to analyze");
+  console.error("  --schema <hash>    Schema hash to analyze");
+  process.exit(1);
+}
+
+const testSuiteName = args[0];
+const resultsDir = join(__dirname, '..', testSuiteName, 'tests', 'comparison_results');
+
+// Parse flags
+let TARGET_PROMPT_HASH = "bbf507516a060b5c";  // Default
+let TARGET_SCHEMA_HASH = "21972b07d7e48a75";  // Default
+
+for (let i = 1; i < args.length; i++) {
+  const arg = args[i];
+  
+  if (arg === '--prompt') {
+    TARGET_PROMPT_HASH = args[i + 1];
+    i++; // Skip next argument
+  } else if (arg === '--schema') {
+    TARGET_SCHEMA_HASH = args[i + 1];
+    i++; // Skip next argument
+  }
+}
 
 // Load hash mappings to show what these hashes represent
 const loadHashMappings = () => {
@@ -128,6 +153,8 @@ const calculateAggregateStats = (results) => {
 const analyzeResults = () => {
   console.log('🔍 PROMPT/SCHEMA ANALYSIS');
   console.log('=' .repeat(50));
+  console.log(`Test Suite: ${testSuiteName}`);
+  console.log(`Results Directory: ${resultsDir}`);
   console.log(`Target Prompt Hash: ${TARGET_PROMPT_HASH}`);
   console.log(`Target Schema Hash: ${TARGET_SCHEMA_HASH}`);
   
