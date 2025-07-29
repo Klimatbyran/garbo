@@ -13,7 +13,7 @@ if (!parsedEnv.success) {
 
   if (parsedEnv.error.errors.some(err => err.path[0] === 'GOOGLE_SCREENSHOT_BUCKET_KEY')) {
     console.error('GOOGLE_SCREENSHOT_BUCKET_KEY must be a string.')
-    console.error('When running locally, this variable can be set freely.')
+    console.error('When running locally, this variable must be set in the local env file')
     console.error('In production, ensure this is correctly set in your Kubernetes config.')
   }
 
