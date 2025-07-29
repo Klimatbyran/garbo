@@ -12,10 +12,7 @@ const storage = new Storage({
 });
 
 const screenshotsQuerySchema = z.object({
-  url: z.string().url('Invalid URL format').refine(
-    (url) => url.toLowerCase().endsWith('.pdf'),
-    'URL must point to a PDF file'
-  ),
+  url: z.string()
 });
 
 const screenshotsResponseSchema = z.object({
