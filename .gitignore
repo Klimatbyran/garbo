@@ -28,5 +28,7 @@ public/exports
 src/jobs/*/tests/input/*
 src/jobs/*/tests/results/*
 
+# Ignore comparison results
+src/jobs/*/tests/comparison_results/*
 
-
+.claude
