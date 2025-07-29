@@ -139,7 +139,7 @@ export const newSchemaWithInstructions = z.object({
             z.string(),
             z.null()
           ]).optional(),
-          explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z.string().optional(),
+          explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z.string().nullable().optional(),
           mb: z.union([
             z.number({ description: 'Market-based scope 2 emissions' }),
             z.null()

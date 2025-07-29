@@ -5,6 +5,8 @@ import { runGenericComparison } from "./generic-run-comparison"
 const main = async () => {
   const args = process.argv.slice(2);
   
+  console.log(`🔧 run-suite.ts received arguments: ${args.join(' ')}`);
+  
   if (args.length === 0) {
     console.error("Usage: node run-suite.js <suite-name> [options]");
     console.error("Example: node run-suite.js scope12 --years 2024 --files rise,catena");
@@ -43,6 +45,8 @@ const main = async () => {
       i++; // Skip next argument
     }
   }
+  
+  console.log(`📤 run-suite.ts calling runGenericComparison with options:`, options);
   
   try {
     await runGenericComparison(suiteName, options);

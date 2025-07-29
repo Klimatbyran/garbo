@@ -47,12 +47,18 @@ const loadTestFiles = (suiteName: string, testSuite: TestSuite, yearsToCheck: nu
   const files = readdirSync(inputDir);
   const testFiles: { name: string; markdown: string; expectedResult: any }[] = [];
   
+  console.log(`🔍 Found ${files.length} files in input directory`);
+  console.log(`🎯 Looking for files: ${fileNamesToCheck.length > 0 ? fileNamesToCheck.join(', ') : 'ALL FILES'}`);
+  
   for (const file of files) {
     if (file.endsWith('.md') || file.endsWith('.txt')) {
       const baseName = file.replace(/\.(md|txt)$/, '');
       
+      console.log(`📄 Processing file: ${baseName}`);
+      
       // Skip this file if fileNamesToCheck is set and doesn't include this file
       if (fileNamesToCheck.length > 0 && !fileNamesToCheck.includes(baseName)) {
+        console.log(`⏭️  Skipping ${baseName} (not in specified files)`);
         continue;
       }
       
@@ -94,6 +100,7 @@ const loadTestFiles = (suiteName: string, testSuite: TestSuite, yearsToCheck: nu
     }
   }
   
+  console.log(`✅ Loaded ${testFiles.length} test files: ${testFiles.map(f => f.name).join(', ')}`);
   return testFiles;
 };
 
@@ -161,6 +168,8 @@ const main = async () => {
     runsPerTest?: number;
   } = {};
   
+  console.log(`🔧 Parsing CLI arguments: ${args.join(' ')}`);
+  
   for (let i = 1; i < args.length; i++) {
     const arg = args[i];
     
@@ -168,18 +177,21 @@ const main = async () => {
       const years = args[i + 1]?.split(',').map(y => parseInt(y.trim()));
       if (years && years.every(y => !isNaN(y))) {
         options.yearsToCheck = years;
+        console.log(`📅 Parsed years: ${years.join(', ')}`);
       }
       i++; // Skip next argument
     } else if (arg === '--files') {
       const files = args[i + 1]?.split(',').map(f => f.trim());
       if (files) {
         options.fileNamesToCheck = files;
+        console.log(`📁 Parsed files: ${files.join(', ')}`);
       }
       i++; // Skip next argument
     } else if (arg === '--runs') {
       const runs = parseInt(args[i + 1]);
       if (!isNaN(runs)) {
         options.runsPerTest = runs;
+        console.log(`🔄 Parsed runs: ${runs}`);
       }
       i++; // Skip next argument
     }
