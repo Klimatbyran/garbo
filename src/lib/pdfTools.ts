@@ -144,8 +144,8 @@ const uploadPageToGoogleCloud = async (
 const saveScreenshots = async (
   pageScreenshotPath: string,
   buffer: Buffer,
-  pdfUrl?: string,
-  pageNumber?: number
+  pdfUrl: string,
+  pageNumber: number
 ): Promise<void> => {
   const tasks = [
     writeFile(pageScreenshotPath, buffer)
@@ -172,7 +172,7 @@ export async function extractTablesFromJson(
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[],
-  pdfUrl?: string
+  pdfUrl: string
 ): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
   const pages = Object.values(
     findRelevantTablesGroupedOnPages(json, searchTerms)
