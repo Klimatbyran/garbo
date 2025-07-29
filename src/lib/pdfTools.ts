@@ -13,24 +13,18 @@ import { Storage } from '@google-cloud/storage'
 import googleScreenshotBucketConfig from '../config/googleScreenshotBucket'
 import { createSafeFolderName } from './pathUtils'
 
-let credentials: Record<string, unknown>;
-let projectId: string | undefined;
+let storage: Storage | null = null;
 
 try {
-  const decodedKey = Buffer.from(googleScreenshotBucketConfig.bucketKey || '', 'base64').toString();
-  credentials = JSON.parse(decodedKey);
-  projectId = credentials.project_id as string | undefined;
+  const credentials = JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString());
+  storage = new Storage({
+    credentials,
+    projectId: credentials.project_id,
+  });
 } catch (error) {
-  console.error('❌ pdfTools: Error parsing bucketKey:', error.message);
-  credentials = {};
-  projectId = undefined;
+  console.error('❌ pdfTools: Error initializing storage');
+  storage = null;
 }
-
-const storage = new Storage({
-  credentials,
-  projectId
-});
-
 
 function encodeUriIfNeeded(uri: string): string {
   const decodedUri = decodeURI(uri);
@@ -130,6 +124,11 @@ const uploadPageToGoogleCloud = async (
   pageNumber: number,
   buffer: Buffer
 ): Promise<void> => {
+  if (!storage) {
+    console.error('❌ pdfTools: Storage not initialized, skipping upload');
+    throw new Error('Storage not initialized, skipping pdf upload');
+  }
+  
   const bucket = storage.bucket(bucketName);
   const filePath = `${safeFolderName}/page-${pageNumber}.png`;
   const file = bucket.file(filePath);
