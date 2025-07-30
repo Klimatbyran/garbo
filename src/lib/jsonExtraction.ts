@@ -8,6 +8,7 @@ import {
   ListItem,
   ParsedDocument,
 } from './nlm-ingestor-schema'
+import { logToFile } from './logUtils'
 
 const deHyphenate = (text: string) => {
   return text
@@ -23,6 +24,8 @@ const deHyphenate = (text: string) => {
     : ''
 }
 
+
+
 const paragraph = (block: { tag: 'para'; sentences: string[] }) =>
   block.sentences
     .map((sentence) => deHyphenate(sentence))
@@ -34,53 +37,90 @@ const getCellValueString = (cell: Cell): string =>
     ? cell.cell_value
     : cell.cell_value.sentences.join(' ')
 
-const table = (block: NLMIngestorTable) => {
-  if (!block.table_rows) return block.name
-  const headerRow = block.table_rows?.find((row) => row.type === 'table_header')
-  const dataRows = block.table_rows?.filter(
-    (row) => row.type !== 'table_header'
-  )
-
-  const headers =
-    headerRow?.cells?.map((cell) => deHyphenate(getCellValueString(cell))) || []
-  const rows = dataRows
-    .map((row) => {
-      if (row.type === 'full_row') {
-        return [`| ${deHyphenate(row.cell_value ?? '')} |`]
+    export const table = (block: NLMIngestorTable, job: any) => {
+      if (!block.table_rows || block.table_rows.length === 0) return block.name
+    
+      console.log('table is now parsed: ', block)
+      job.log('table is now parsed: ', JSON.stringify(block, null, 2))
+      logToFile('table is now parsed', block, job?.id, 'table-parsing.log')
+    
+      const headerRows = block.table_rows?.filter((row) => row.type === 'table_header') || []
+      const dataRows = block.table_rows?.filter(
+        (row) => row.type !== 'table_header'
+      )
+    
+      // Build multi-level headers
+      const formattedHeaders: string[] = []
+      
+      if (headerRows.length > 0) {
+        // Use the LAST header row as the actual table header (most detailed)
+        const mainHeaderRow = headerRows[headerRows.length - 1]
+        const headers = mainHeaderRow?.cells?.map(cell => getCellValueString(cell)) || []
+        
+        formattedHeaders.push(`| ${headers.join(' | ')} |`)
+        
+        // Add separator
+        const separator = Array(headers.length).fill('---')
+        formattedHeaders.push(`| ${separator.join(' | ')} |`)
+        
+        // Add other header rows as regular data rows (grouping info)
+        for (let i = 0; i < headerRows.length - 1; i++) {
+          const groupingHeaders: string[] = []
+          
+          headerRows[i].cells?.forEach((cell) => {
+            const value = getCellValueString(cell)
+            const colSpan = cell.col_span || 1
+            
+            // Expand column spans
+            for (let j = 0; j < colSpan; j++) {
+              groupingHeaders.push(value)
+            }
+          })
+          
+          // Pad to match main header length
+          while (groupingHeaders.length < headers.length) {
+            groupingHeaders.push('')
+          }
+          
+          formattedHeaders.push(`| ${groupingHeaders.join(' | ')} |`)
+        }
       }
-      return row.cells?.map?.((cell) => {
-        const value = deHyphenate(getCellValueString(cell))
-        return `| ${value}`
+    
+      // Build the result array
+      const result: string[] = [...formattedHeaders]
+    
+      // Process data rows
+      dataRows.forEach((row) => {
+        if (row.type === 'full_row') {
+          // Add full-width section header
+          result.push(`| ${row.cell_value ?? ''} |`)
+        } else {
+          // Add regular data row
+          const cells = row.cells?.map((cell) => getCellValueString(cell)) || []
+          result.push(`| ${cells.join(' | ')} |`)
+        }
       })
-    })
-    .filter((row) => row !== undefined)
-
-  const maxColumns = Math.max(
-    headers.length,
-    ...rows.map((row) =>
-      row.reduce((sum, cell) => sum + (cell.match(/\|/g) || []).length - 1, 0)
-    )
-  )
-  const separator = Array(maxColumns).fill('---')
-
-  const formattedHeaders = `| ${headers.join(' | ')} |`
-  const formattedSeparator = `| ${separator.join(' | ')} |`
-  const formattedRows = rows.map((row) => row.join(' '))
-  const bbox = block.bbox
-
-  // NOTE: Some tables include neither `bbox` nor `table_rows`
-  const image = bbox
-    ? `![table image]({page: ${block.page_idx}, x: ${Math.round(
-        bbox[0]
-      )}}, {y: ${Math.round(bbox[1])}, {width: ${Math.round(
-        bbox[2] - bbox[0]
-      )}}, {height: ${Math.round(bbox[3] - bbox[1])}})`
-    : ''
-
-  return [formattedHeaders, formattedSeparator, ...formattedRows, image].join(
-    '\n'
-  )
-}
+    
+      // Add image if bbox exists
+      const bbox = block.bbox
+      const image = bbox
+        ? `![table image]({page: ${block.page_idx}, x: ${Math.round(
+            bbox[0]
+          )}}, {y: ${Math.round(bbox[1])}, {width: ${Math.round(
+            bbox[2] - bbox[0]
+          )}}, {height: ${Math.round(bbox[3] - bbox[1])}})`
+        : ''
+    
+      if (image) result.push(image)
+    
+      const finalResult = result.join('\n')
+      
+      job.log('table result: ', JSON.stringify(finalResult, null, 2))
+      console.log('table result: ', finalResult)
+      logToFile('table result', finalResult, job?.id, 'table-parsing.log')
+      
+      return finalResult
+    }
 const header = (block: Header) => {
   const level = block.level + 1
   const headerText = block.sentences.join(' ')
@@ -91,12 +131,12 @@ const listItem = (block: ListItem) => {
   return `- ${block.sentences.join(' ')}`
 }
 
-const blockToMarkdown = (block: Block) => {
+const blockToMarkdown = (block: Block, job: any) => {
   switch (block.tag) {
     case 'para':
       return paragraph(block as Paragraph)
     case 'table':
-      return table(block as NLMIngestorTable)
+      return table(block as NLMIngestorTable, job)
     case 'header':
       return header(block as Header)
     case 'list_item':
@@ -128,7 +168,7 @@ export const calculateBoundingBoxForTable = (
   return { x, y, width, height }
 }
 
-export const jsonToMarkdown = (json: ParsedDocument): string => {
+export const jsonToMarkdown = (json: ParsedDocument, job: any): string => {
   const blocks = json.return_dict.result.blocks
   const { markdown } = blocks.reduce(
     ({ markdown, pageNr }, block) => {
@@ -136,7 +176,7 @@ export const jsonToMarkdown = (json: ParsedDocument): string => {
       if (currentPage !== pageNr) {
         markdown += `\n<!-- PAGE: ${currentPage} -->\n`
       }
-      markdown += blockToMarkdown(block) + '\n\n'
+      markdown += blockToMarkdown(block, job) + '\n\n'
       return { pageNr: currentPage, markdown }
     },
     { markdown: '', pageNr: 0 }
@@ -144,11 +184,11 @@ export const jsonToMarkdown = (json: ParsedDocument): string => {
   return markdown
 }
 
-export const jsonToTables = (json: ParsedDocument) => {
+export const jsonToTables = (json: ParsedDocument, job: any) => {
   const blocks = json.return_dict.result.blocks
   const tables = blocks
     .filter((block) => block.tag === 'table')
-    .map((block) => ({ ...block, content: table(block as NLMIngestorTable) }))
+    .map((block) => ({ ...block, content: table(block as NLMIngestorTable, job) }))
     .map(
       ({ page_idx, bbox, name, level, content, table_rows }) =>
         ({
