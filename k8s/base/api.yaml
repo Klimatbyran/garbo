@@ -208,4 +208,9 @@ spec:
                 secretKeyRef:
                   name: env
                   key: WIKI_USERNAME
+            - name: GOOGLE_SCREENSHOT_BUCKET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GOOGLE_SCREENSHOT_BUCKET_KEY
           imagePullPolicy: Always
