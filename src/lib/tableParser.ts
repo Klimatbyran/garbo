@@ -23,7 +23,7 @@ const findMostDetailedHeaderRow = (headerRows: any[]): any => {
   if (headerRows.length === 1) return headerRows[0]
   
   // Find the header row with the most detailed information
-  // Prioritize headers with years/numbers 
+  // Prioritize headers with years
   let mostDetailedRow = headerRows[0]
   let maxDetailScore = 0
   
@@ -43,7 +43,7 @@ const findMostDetailedHeaderRow = (headerRows: any[]): any => {
       }
     })
     
-    // Score based on: years (highest priority) > numbers > unique content diversity
+    // Score based on: years (highest priority) > unique content diversity
     const uniqueContentScore = uniqueTexts.size * 10 // More unique content = better, 10 points per unique text
     const detailScore = yearScore + uniqueContentScore
     
