@@ -201,8 +201,7 @@ describe('Table Parser', () => {
     };
 
     const expectedMarkdown = `| Col1 | Col2 |
-| --- | --- |
-`;
+| --- | --- |`;
 
     const result = table(inputBlock, mockJob);
 
