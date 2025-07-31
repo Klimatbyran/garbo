@@ -31,8 +31,8 @@ const paragraph = (block: { tag: 'para'; sentences: string[] }) =>
     .filter((sentence) => sentence !== '')
     .join('\n')
 
-export const table = (block: NLMIngestorTable, job: any) => {
-  return parseTable(block, job)
+export const table = (block: NLMIngestorTable) => {
+  return parseTable(block)
 }
 const header = (block: Header) => {
   const level = block.level + 1
@@ -44,12 +44,12 @@ const listItem = (block: ListItem) => {
   return `- ${block.sentences.join(' ')}`
 }
 
-const blockToMarkdown = (block: Block, job: any) => {
+const blockToMarkdown = (block: Block) => {
   switch (block.tag) {
     case 'para':
       return paragraph(block as Paragraph)
     case 'table':
-      return table(block as NLMIngestorTable, job)
+      return table(block as NLMIngestorTable)
     case 'header':
       return header(block as Header)
     case 'list_item':
@@ -81,7 +81,7 @@ export const calculateBoundingBoxForTable = (
   return { x, y, width, height }
 }
 
-export const jsonToMarkdown = (json: ParsedDocument, job: any): string => {
+export const jsonToMarkdown = (json: ParsedDocument): string => {
   const blocks = json.return_dict.result.blocks
   const { markdown } = blocks.reduce(
     ({ markdown, pageNr }, block) => {
@@ -89,7 +89,7 @@ export const jsonToMarkdown = (json: ParsedDocument, job: any): string => {
       if (currentPage !== pageNr) {
         markdown += `\n<!-- PAGE: ${currentPage} -->\n`
       }
-      markdown += blockToMarkdown(block, job) + '\n\n'
+      markdown += blockToMarkdown(block) + '\n\n'
       return { pageNr: currentPage, markdown }
     },
     { markdown: '', pageNr: 0 }
@@ -97,11 +97,11 @@ export const jsonToMarkdown = (json: ParsedDocument, job: any): string => {
   return markdown
 }
 
-export const jsonToTables = (json: ParsedDocument, job: any) => {
+export const jsonToTables = (json: ParsedDocument) => {
   const blocks = json.return_dict.result.blocks
   const tables = blocks
     .filter((block) => block.tag === 'table')
-    .map((block) => ({ ...block, content: table(block as NLMIngestorTable, job) }))
+    .map((block) => ({ ...block, content: table(block as NLMIngestorTable) }))
     .map(
       ({ page_idx, bbox, name, level, content, table_rows }) =>
         ({
