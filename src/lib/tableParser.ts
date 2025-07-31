@@ -28,7 +28,6 @@ const findMostDetailedHeaderRow = (headerRows: any[]): any => {
   let maxDetailScore = 0
   
   headerRows.forEach((row) => {
-    const cellCount = row.cells?.length || 0
     let yearScore = 0
     
     const uniqueTexts = new Set<string>()
