@@ -1,5 +1,4 @@
 import { Table as NLMIngestorTable } from './nlm-ingestor-schema'
-import { logToFile } from './logUtils'
 
 const getCellValueString = (cell: any): string =>
   typeof cell.cell_value === 'string'
@@ -10,11 +9,6 @@ const validateTableBlock = (block: NLMIngestorTable): boolean => {
   return !!(block.table_rows && block.table_rows.length > 0)
 }
 
-const logTableParsing = (block: NLMIngestorTable, job: any): void => {
-  console.log('table is now parsed: ', block)
-  job.log('table is now parsed: ', JSON.stringify(block, null, 2))
-  logToFile('table is now parsed', block, job?.id, 'table-parsing.log')
-}
 
 const separateHeaderAndDataRows = (tableRows: any[]) => {
   const headerRows = tableRows.filter((row) => row.type === 'table_header') || []
@@ -145,19 +139,10 @@ const createTableImage = (block: NLMIngestorTable): string => {
   )}}, {height: ${Math.round(bbox[3] - bbox[1])}})`
 }
 
-const logTableResult = (finalResult: string, job: any): void => {
-  job.log('table result: ', JSON.stringify(finalResult, null, 2))
-  console.log('table result: ', finalResult)
-  logToFile('table result', finalResult, job?.id, 'table-parsing.log')
-}
 
-export const parseTable = (block: NLMIngestorTable, job: any) => {
+export const parseTable = (block: NLMIngestorTable) => {
   // Early return if table is invalid
   if (!validateTableBlock(block)) return block.name
-  
-  // Log the incoming table data for debugging
-  logTableParsing(block, job)
-  
   // Separate header and data rows
   const { headerRows, dataRows } = separateHeaderAndDataRows(block.table_rows || [])
   
@@ -191,9 +176,6 @@ export const parseTable = (block: NLMIngestorTable, job: any) => {
   if (image) result.push(image)
   
   const finalResult = result.join('\n')
-  
-  // Log the final result for debugging
-  logTableResult(finalResult, job)
   
   return finalResult
 } 
