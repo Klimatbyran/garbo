@@ -2,10 +2,6 @@ import { table } from '../src/lib/jsonExtraction';
 import { Table as NLMIngestorTable } from '../src/lib/nlm-ingestor-schema';
 
 describe('Table Parser', () => {
-  const mockJob = {
-    id: 'test-job-123',
-    log: jest.fn()
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -114,7 +110,7 @@ describe('Table Parser', () => {
 | MtCO2e 4, 11 | 12,6 | 3,2 | 3,3 | 2,2% | 3.3 | 1.2 | 5,7% |
 ![table image]({page: 145, x: 256}, {y: 97, {width: 314}, {height: 7})`;
 
-    const result = table(inputBlock as any, mockJob);
+    const result = table(inputBlock as any);
 
     expect(result).toBe(expectedMarkdown);
   });
@@ -155,7 +151,7 @@ describe('Table Parser', () => {
 | Item A | 100 |
 ![table image]({page: 1, x: 100}, {y: 100, {width: 100}, {height: 50})`;
 
-    const result = table(inputBlock, mockJob);
+    const result = table(inputBlock);
 
     expect(result).toBe(expectedMarkdown);
   });
@@ -173,7 +169,7 @@ describe('Table Parser', () => {
       "table_rows": []
     };
 
-    const result = table(inputBlock, mockJob);
+    const result = table(inputBlock);
 
     expect(result).toBe("Empty Table");
   });
@@ -203,7 +199,7 @@ describe('Table Parser', () => {
     const expectedMarkdown = `| Col1 | Col2 |
 | --- | --- |`;
 
-    const result = table(inputBlock, mockJob);
+    const result = table(inputBlock);
 
     expect(result).toBe(expectedMarkdown);
   });
@@ -251,43 +247,13 @@ describe('Table Parser', () => {
       ]
     };
 
-    const result = table(inputBlock, mockJob);
+    const result = table(inputBlock);
 
     // Should use the second header row (with Category, 2023, 2024, Target)
     expect(result).toContain("| Category | 2023 | 2024 | Target |");
     expect(result).toContain("| Revenue | 100 | 120 | 150 |");
   });
 
-  test('should log parsing information', () => {
-    const inputBlock: NLMIngestorTable = {
-      "block_class": "cls_1",
-      "block_idx": 1,
-      "level": 1,
-      "page_idx": 1,
-      "tag": "table",
-      "left": 0,
-      "top": 0,
-      "name": "Test Table",
-      "table_rows": [
-        {
-          "block_idx": 1,
-          "cells": [{ "cell_value": "Test" }],
-          "type": "table_header"
-        }
-      ]
-    };
-
-    table(inputBlock, mockJob);
-
-    expect(mockJob.log).toHaveBeenCalledWith(
-      'table is now parsed: ',
-      expect.stringContaining('"name": "Test Table"')
-    );
-    expect(mockJob.log).toHaveBeenCalledWith(
-      'table result: ',
-      expect.any(String)
-    );
-  });
 });
 
 // Helper function tests if you extract getCellValueString and deHyphenate
