@@ -8,13 +8,11 @@ import { QUEUE_NAMES } from '../queues'
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    description?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number,
       endMonth: number,
     },
-    childrenValues?: any
     approved?: boolean
     lei?: string
   }
@@ -27,7 +25,6 @@ const checkDB = new DiscordWorker(
   async (job: CheckDBJob) => {
     const {
       companyName,
-      description,
       url,
       fiscalYear,
       wikidata,
@@ -36,12 +33,28 @@ const checkDB = new DiscordWorker(
       
     } = job.data
   
-    const childrenValues = await job.getChildrenEntries()
-    await job.updateData({ ...job.data, childrenValues })
+    const childrenEntries = await job.getChildrenEntries()
+    
+    // Extract values from the new format where the returned value is wrapped in 'value' so we can also return metadata next to it (for validation tool),
+    //  or fallback to the old format where the returned value is not wrapped in 'value'
+    const extractValue = (entry: any) => entry?.value || entry
+    const {
+      scope12,
+      scope3, 
+      biogenic,
+      industry,
+      economy,
+      baseYear,
+      goals,
+      initiatives,
+      descriptions,
+      lei,
+    } = Object.fromEntries(
+      Object.entries(childrenEntries).map(([key, value]) => [key, extractValue(value)])
+    )
   
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
-
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
@@ -58,13 +71,12 @@ const checkDB = new DiscordWorker(
       )
       const body = {
         name: companyName,
-        description,
-        wikidataId, 
+        wikidataId,
         metadata,
       }
   
-      await apiFetch(`/companies/${wikidataId}`, { body }); 
-
+      await apiFetch(`/companies/${wikidataId}`, { body });
+  
       await job.sendMessage(
         `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
       );
@@ -72,25 +84,12 @@ const checkDB = new DiscordWorker(
       job.log(`✅ The company '${companyName}' was found in the database.`);
       await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
     }
-
-    const {
-      scope12,
-      scope3,
-      biogenic,
-      industry,
-      economy,
-      baseYear,
-      goals,
-      initiatives,
-      lei,
-    } = childrenValues
   
     const base = {
       name: companyName,
       data: {
         existingCompany,
         companyName,
-        description,
         url,
         fiscalYear,
         wikidata,
@@ -102,8 +101,6 @@ const checkDB = new DiscordWorker(
         attempts: 3,
       },
     }
-    
-    console.log(`LEI number in checkDB file: ${lei}`);
 
     await job.editMessage(`🤖 Saving data...`)
   
@@ -167,7 +164,6 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
-
         lei
           ? {
               ...base,
@@ -179,7 +175,19 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
-          
+        descriptions
+          ? {
+              name: 'diffDescriptions' + companyName,
+              queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
+              data: {
+                ...job.data,
+                fiscalYear: undefined,
+                wikidataId: wikidataId,
+                existingDescriptions: existingCompany?.descriptions,
+                descriptions: descriptions,
+              },
+            }
+          : null,
       ].filter((e) => e !== null),
     })
   

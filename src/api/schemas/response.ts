@@ -42,10 +42,6 @@ export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
-  description: z
-    .string()
-    .nullable()
-    .openapi({ description: 'Company description' }),
   lei: z.string().optional().nullable(),
 })
 
@@ -57,6 +53,12 @@ export const StatedTotalEmissionsSchema = z.object({
     .openapi({ description: 'Total emissions value' }),
   unit: z.string().openapi({ description: 'Unit of measurement' }),
   metadata: MetadataSchema,
+})
+
+export const ResponseDescriptionSchema = z.object({
+  id: z.string(),
+  language: z.enum(['SV', 'EN']),
+  text: z.string()
 })
 
 export const BiogenicSchema = z.object({
@@ -259,6 +261,10 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
+  emissionsTrend: z.object({
+    absolute: z.number().nullable(),
+    adjusted: z.number().nullable(),
+  }).optional()
 })
 
 const MinimalTurnoverSchema = TurnoverSchema.omit({
@@ -348,6 +354,8 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
 })
 
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
@@ -355,6 +363,8 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
+  description: z.string().optional().nullable(),
+  descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),

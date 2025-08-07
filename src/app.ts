@@ -37,6 +37,9 @@ import { municipalityExportRoutes } from './api/routes/municipality.export'
 import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
+import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
+import { industryGicsRoute } from './api/routes/industryGics.read'
+import { screenshotsReadRoutes } from './api/routes/screenshots.read';
 import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
 
 async function startApp() {
@@ -128,6 +131,8 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
+  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' });
+
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
   })
@@ -149,6 +154,11 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
   app.register(validationsReadRoutes, { prefix: 'api/validation' })
   app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
+
+  app.register(emissionsAssessmentRoutes, {
+    prefix: 'api/emissions-assessment',
+  })
+  app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
 }
 
 export default startApp
