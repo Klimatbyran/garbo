@@ -354,7 +354,6 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
 })
 
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
-  description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   industry: MinimalIndustrySchema.nullable(),
@@ -363,7 +362,6 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
 })
 
 const CompanyBase = CompanyBaseSchema.extend({
-  description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   industry: IndustrySchema.nullable(),
