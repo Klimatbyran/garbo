@@ -57,6 +57,9 @@ const openAPITagDefinitions = {
   Screenshots: {
     description: 'Screenshots of PDF tables from reports',
   },
+  Newsletters: {
+    description: 'Newsletters',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

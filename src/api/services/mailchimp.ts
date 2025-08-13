@@ -1,13 +1,50 @@
 import axios from 'axios'
 import crypto from 'node:crypto'
 import mailchimpConfig from '../../config/mailchimp'
+import { z } from 'zod'
 
 const baseURL = `https://${mailchimpConfig.serverPrefix}.api.mailchimp.com/3.0`
+
+const campaignSchema = z.object({
+  settings: z
+    .object({
+      preview_text: z.string().optional().nullable(),
+      subject_line: z.string().optional().nullable(),
+    })
+    .optional(),
+  id: z.string(),
+  send_time: z.string(),
+  long_archive_url: z.string(),
+})
+
+export const mailchimpResponseSchema = z.object({
+  campaigns: z.array(campaignSchema),
+})
+
+export async function fetchNewsletters() {
+  try {
+    const response = await axios.get(
+      `${baseURL}/campaigns?offset=0&count=9999`,
+      {
+        auth: {
+          username: 'anystring',
+          password: mailchimpConfig.apiKey,
+        },
+      }
+    )
+    console.log(response)
+    const campaigns = mailchimpResponseSchema.parse(response.data)
+
+    return campaigns
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 export async function subscribeAndTagUser(
   email: string,
   reason: string,
-  tag: string,
+  tag: string
 ) {
   const subscriberHash = createSubscriberHash(email)
 
