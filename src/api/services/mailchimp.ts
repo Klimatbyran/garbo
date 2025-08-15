@@ -5,11 +5,14 @@ import { z } from 'zod'
 
 const baseURL = `https://${mailchimpConfig.serverPrefix}.api.mailchimp.com/3.0`
 
+const ALLOWED_TEMPLATE_IDS = [581, 116]
+
 const campaignSchema = z.object({
   settings: z
     .object({
       preview_text: z.string().optional().nullable(),
       subject_line: z.string().optional().nullable(),
+      template_id: z.coerce.number().optional(),
     })
     .optional(),
   id: z.string(),
@@ -22,6 +25,10 @@ export const mailchimpResponseSchema = z.object({
 })
 
 export async function fetchNewsletters() {
+  if (!mailchimpConfig.apiKey) {
+    throw new Error('Mailchimp API key is required')
+  }
+
   try {
     const response = await axios.get(
       `${baseURL}/campaigns?offset=0&count=9999`,
@@ -32,12 +39,23 @@ export async function fetchNewsletters() {
         },
       }
     )
-    console.log(response)
-    const campaigns = mailchimpResponseSchema.parse(response.data)
 
-    return campaigns
+    const parsedResponse = mailchimpResponseSchema.parse(response.data)
+
+    // Filter campaigns to only include those with allowed template IDs
+    const filteredCampaigns = {
+      ...parsedResponse,
+      campaigns: parsedResponse.campaigns.filter(
+        (campaign) =>
+          campaign.settings?.template_id !== undefined &&
+          ALLOWED_TEMPLATE_IDS.includes(campaign.settings.template_id)
+      ),
+    }
+
+    return filteredCampaigns
   } catch (err) {
-    console.log(err)
+    console.error('Failed to fetch newsletters:', err)
+    throw new Error('Failed to fetch newsletters from Mailchimp')
   }
 }
 
@@ -46,6 +64,10 @@ export async function subscribeAndTagUser(
   reason: string,
   tag: string
 ) {
+  if (!mailchimpConfig.apiKey) {
+    throw new Error('Mailchimp API key is required')
+  }
+
   const subscriberHash = createSubscriberHash(email)
 
   // 1. Try to upsert subscriber
