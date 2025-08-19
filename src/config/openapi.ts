@@ -57,6 +57,9 @@ const openAPITagDefinitions = {
   Screenshots: {
     description: 'Screenshots of PDF tables from reports',
   },
+  Newsletters: {
+    description: 'Newsletters',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
@@ -112,7 +115,6 @@ All endpoints require authentication using a Bearer token. Include your API key 
 ## Resources
 
 * [Klimatkollen Website](https://klimatkollen.se)
-* [API Terms of Service](https://klimatkollen.se/terms)
 * [Contact Support](mailto:support@klimatkollen.se)
 
 ## Examples
