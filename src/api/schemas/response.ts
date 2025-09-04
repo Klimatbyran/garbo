@@ -425,13 +425,11 @@ export const InputMunicipalitiesSchema = z.array(InputMunicipalitySchema)
 
 export const MunicipalitySchema = InputMunicipalitySchema.omit({
   emissions: true,
-  emissionBudget: true,
   approximatedHistoricalEmission: true,
   trend: true,
   electricCarChangeYearly: true,
 }).extend({
   emissions: z.array(YearlyDataSchema),
-  emissionBudget: z.array(YearlyDataSchema).nullable(),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),
   trend: z.array(YearlyDataSchema),
   electricCarChangeYearly: z.array(YearlyDataSchema),
