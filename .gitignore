@@ -15,7 +15,7 @@ companies.json
 *.pdf
 *.code-workspace
 
-
+logs/*
 # ignore secrets
 *secret*
 
@@ -26,7 +26,6 @@ public/exports
 .claude
 
 # Ignore test files input markdown
-src/jobs/*/tests/input/*
 src/jobs/*/tests/results/*
 src/jobs/*/tests/comparison_results/*
 
