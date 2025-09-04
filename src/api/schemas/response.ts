@@ -411,7 +411,6 @@ export const InputMunicipalitySchema = z.object({
   sumCarbonLawPath: z.number(),
   historicalEmissionChangePercent: z.number(),
   electricCarChangePercent: z.number(),
-  electricCarChangeYearly: InputYearlyDataSchema,
   climatePlanLink: z.string().nullable(),
   climatePlanYear: z.number().nullable(),
   climatePlanComment: z.string().nullable(),
@@ -430,12 +429,10 @@ export const MunicipalitySchema = InputMunicipalitySchema.omit({
   emissions: true,
   approximatedHistoricalEmission: true,
   trend: true,
-  electricCarChangeYearly: true,
 }).extend({
   emissions: z.array(YearlyDataSchema),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),
   trend: z.array(YearlyDataSchema),
-  electricCarChangeYearly: z.array(YearlyDataSchema),
 })
 
 export const MunicipalitiesSchema = z.array(MunicipalitySchema)
