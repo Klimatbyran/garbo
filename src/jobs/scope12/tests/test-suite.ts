@@ -4,7 +4,7 @@ import { newSchemaWithInstructionsArrayOfExplanations, oldSchema } from "./testD
 import { expectedResults } from "./expected-results"
 import { 
   prompt,
-    bothMBandLBtestVattenfall
+    oldPrompt
   } from "../prompt"
 
 export const testSuite: TestSuite = {
@@ -12,12 +12,12 @@ export const testSuite: TestSuite = {
   testVariations: [
     {
       name: "collection of prompt improvements",
-      prompt: bothMBandLBtestVattenfall,
+      prompt: prompt,
       schema: newSchemaWithInstructionsArrayOfExplanations,
     }, 
     {
       name: "original prompt",
-      prompt: prompt,
+      prompt: oldPrompt,
       schema: oldSchema,
     }
   ]

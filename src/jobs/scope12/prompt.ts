@@ -1,5 +1,5 @@
 
-  export const prompt = `
+  export const oldPrompt = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -307,7 +307,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
 
 
    // current "best"
-   export const bothMBandLBtestVattenfall = `
+   export const prompt = `
    *** Golden Rule ***
    - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
    
