@@ -38,23 +38,25 @@ export const expectedResults = {
       }
     ]
   },
+  "rusta": {
+    
+      "scope12": [
+        {
+          "year": 2024,
+          "scope1": {
+            "total": 154,
+            "unit": "tCO2e"
+          },
+          "scope2": {
+            "mb": null,
+            "lb": null,
+            "unknown": 3344,
+            "unit": "tCO2e"
+          }
+        }]
+  },
   "catena": {
     "scope12": [
-      {
-        "year": 2024,
-        "scope1": {
-          "total": null,
-          "unit": null
-        },
-        "scope2": {
-          "mentionOfLocationBasedOrMarketBased": null,
-          "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": null,
-          "mb": null,
-          "lb": null,
-          "unknown": null,
-          "unit": null
-        }
-      } 
     ]
   },
   "xvivo": {
@@ -69,6 +71,54 @@ export const expectedResults = {
           "mb": null,
           "lb": null,
           "unknown": 92.706,
+          "unit": "tCO2e"
+        }
+      },
+    ]
+  },
+  "svensk-exportkredit": {
+    "scope12": [
+    {
+      "year": 2024,
+      "scope1": null,
+      "scope2": {
+        "mb": 19,
+        "lb": null,
+        "unknown": null,
+        "unit": "tCO2e"
+      }
+    },
+  ]
+  },
+  "epiroc": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 30000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 20000,
+          "lb": 36000,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+  "vattenfall": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 3300000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 30000,
+          "lb": 30000,
+          "unknown": null,
           "unit": "tCO2e"
         }
       },
