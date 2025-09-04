@@ -1,0 +1,1187 @@
+## Scope 2 – Indirekta utsläpp från köpt el och värme
+
+I scope 2 redovisas de indirekta utslapp som kan kopplas
+
+Identifierade väsentliga aspekter
+
+| Områden | Övergripande mål | ESRS | Relaterade områden (Avgränsning*) |
+| --- | --- | --- | --- |
+| Klimat | Klimatneutrala till 2030 (GHG scope 1, 2) | E1 | Metodbeskrivning (Create, Source, Supply, Communicate, Sell) |
+![table image]({page: 13, x: 658}, {y: 212, {width: 288}, {height: 19})
+
+# Metodbeskrivning
+## Scope 1 – Alla direkta utsläpp
+
+I scope 1 redovisas de direkta vaxthusgasutslappen i Rustas verksamhet.
+For Rusta betyder detta
+
+- • Eldningsolja för uppvärmning i någon av våra anläggningar
+
+- • Bränsleförbrukning i fordon som kontrolleras av Rusta
+
+Var strategi ar att mata minska och kompensera vara utslapp av vaxthusgaser och vi kommer att vara helt transparenta med var status och vara framsteg.
+Rustas totala klimatpaverkan framgar av tabellen nedan.
+
+De utslapp av vaxthusgaser som genereras i Rustas verk samhet kommer till storsta delen fran vara produkter.
+Den storsta bidragsgivaren ar den ravara som anvands foljt av den energi som kravs i tillverkningsprocessen av vara produkter.
+Att valja ravaror samt kopa mer fornyelsebara och atervinningsbara ravaror ar Rustas framsta prioritet nar det galler att minska var klimat Vi hittar standigt satt att minska energiforbrukningen.
+Vi har darfor lagt upp tydliga rutiner i vara varuhus som vi kontinuerligt utvecklar.
+Exempel pa energireducerande aktiviteter ar
+
+- • Rörelsesensorer för ljuskällor i personalutrymmen
+
+- • Timer och skymningsrelä för de utvändiga butiksskyltarna
+
+- • Reducerad belysning i varuhusen innan öppning
+
+- • LED-spotlights istället för halogen
+
+- • Byte av lysrör i befintliga varuhus till LED-armaturer
+
+- • För att spara energi värms hela distributionscentralen upp med bergvärme
+
+- • Optimerad ventilation i Rustas centrallager
+
+## Mål:
+
+- • Utveckla policyer och nyckeltal för att hantera väsentliga hållbarhetsfrågor relaterade till klimatförändringar och klimatanpassning under räkenskapsåret 2024/25
+
+| Totala utsläpp per scope [ton co2e] | 2023/24 | Andel av 2023/24 | 2022/23 | Förändring, % |
+| --- | --- | --- | --- | --- |
+| Scope 1 | 154 | 0,01% | 255 | -39,6% |
+| Scope 2 | 3 344 | 0,29% | 3 718 | -10,1% |
+| Scope 3 | 1 162 929 | 99,70% | 1 101 981 | 5,5% |
+| 3.1 Inköp av varor och tjänster | 984 558 | 84,66% | 952 811 | 3,3% |
+| 3.2 Kapitalvaror | 7 531 | 0,65% | 9 737 | -22,7% |
+| 3.3 Energi- och bränslerelaterade utsläpp | 446 | 0,04% | 582 | -23,4% |
+| 3.4 Uppströmstransporter | 16 838 | 1,45% | 18 062 | -6,8% |
+| 3.5 Avfall | 208 | 0,02% | 173 | 20,2% |
+| 3.6 Tjänsteresor | 1 825 | 0,16% | 1 200 | 52,1% |
+| 3.7 Pendling, medarbetare | 4 749 | 0,41% | 4 100 | 15,8% |
+| 3.9 Nedströmstransporter | 86 188 | 7,41% | 81 483 | 5,8% |
+| 3.11 Användning av sålda produkter | 56 348 | 4,85% | 29 700 | 89,7% |
+| 3.12 End-of-life av såld produkt | 4 237 | 0,36% | 4 133 | 2,5% |
+| Total | 1 166 428 | 100,0% | 1 105 954 | 5,5% |
+| CO2e kg total/inköp antal artiklar | 3,86 |  | 3,93 | -1,8% |
+| CO2e, ton total/Nettoomsättning MSEK | 104,93 |  | 108,40 | -3,2% |
+![table image]({page: 14, x: 77}, {y: 543, {width: 456}, {height: 9})
+
+- Antal varuhus
+
+- •
+
+- Kontinuerligt skapa mer medvetenhet och involvera
+
+- nödvändiga intressenter
+
+- • Klimatneutralitet enligt Greenhouse Gas Protocol scope 1 och 2 till 2030
+
+- • Klimatneutralitet enligt Greenhouse Gas Protocol scope 1, 2 och 3 till 2045
+
+# Scope 3 – Andra indirekta utsläpp
+
+I scope 3 redovisas utslapp fran kallor som Rusta inte direkt ager.
+Tillampningsomradet omfattar utslapp fran till exempel inkopta varor och tjanster forpackningar och transporter fran leverantorer men aven avfall som atervinns i leverantorskedjan.
+
+# E2,
+# E3,
+
+- E4
+
+Klimatneutrala till 2045 (GHG scope 1 2 3)
+
+nivan “Bra” eller hogre till 55% under rakenskapsaret 2024/25 i enlighet med miljokriterierna i Rustas externa uppforandekod Energi och drivmedel (Create Source Supply Sell) Transport och distribution (Create Source Supply Communicate Sell) Supply chain planering (Create Source Supply Sell) Centrallager (Create Source Supply Communicate Sell) Miljoutvardering av leverantorer (Source) Fornyelsebara och certifierade ravaror (Create Source) Produktinnehall och kemiska amnen (Create Source)
+
+For bedomning av konsekventiell vasentlighet Rustas paverkan ar poangen baserade pa allvarlighetsgrad omfattning aterstallbarhet och sannolikhet.
+For den finansiella vasentligheten ar poangen baserade pa omradena sannolikhet omfattning och osakerhet i bedomningen.
+For att bedoma storleken pa den potentiella ekonomiska effekten har vi i forsta hand utgatt fran effekten pa EBIT for rullande tolv manader och darefter effekten pa kassaflodet.
+
+Risker och mojligheter poangsattes utifran deras sanno likhet att forverkligas och deras potentiella ekonomiska inverkan pa Rusta.
+Insikter fran intressentdialogerna inforlivades i vart resonemang for varje omrade.
+
+Baserat pa den insamlade informationen och den beskrivna metodiken faststallde vi ett troskelvarde dar de amnen med en poang over genomsnittet bedomdes vara vasentliga.
+Utifran var dubbla vasentlighetsanalys bedomdes atta av de tio ESRS standarder vara vasentliga for Rusta.
+
+Kopplat till de atta ESRS standarder som bedoms vara viktiga for Rusta finns fjorton underamnen som genom var vasentlighetsanalys bedomdes som vasentliga.
+Av de atta ESRS standarder och fjorton underamnen som bedoms vara viktiga for Rusta har vi skapat fem omraden som vi redogor for pa nasta sida.
+
+| Produkter och förpackning | 15% färre defekta kundreturer årligen Årlig besparing på över 10 000 pallar | E5 | Produktkvalité (Create, Source, Supply, Communicate, Sell) Kvalitetsutvärdering - Leverantörer (Source) Hållbara val och märkning (Create, Communicate, Sell) |
+| --- | --- | --- | --- |
+| Miljö och biologisk | mångfald | Genomföra gap-analys till | 2025 baserad på den senaste | väsentlighetsanalysen. | Öka andelen leverantörer på |
+![table image]({page: 13, x: 660}, {y: 375, {width: 365}, {height: 44})
+
+Klimat
+
+| För Rusta är fokus på de åtgärder vi vidtar för att minska vår klimatpåverkan av största vikt och vår hållbarhetsstrategi berör begränsning av klimatföränd- ringar, energieffektivisering och utbyggnad av förnybar energi. De förändringar som påverkar vår planet, som till exempel stigande havsnivåer, krympande bergsglaciärer och en accelererande issmältning är tydliga tecken på att vi inte har tid att vänta. Under verksamhetsåret har vi sammanställt två rapporter i enlighet med Greenhouse Gas Protocol (GHG). Vi har upprättat ambitiösa klimat- mål i linje med målen i Parisavtalet och vi arbetar med en resurs- och handlingsplan i linje med dessa. | till produktionen av den energi som Rusta köpt under året. För Rusta betyder detta: • Elanvändning i Finland, Tyskland, Norge, Sverige, Kina, Indien och Vietnam • Fjärrvärmeanvändning i Finland, Tyskland, Norge och Sverige påverkan. Andra prioritet är att säkra förnybar energi både i Rustas egna verksamheter och i alla de fabriker som producerar för Rusta. Vi strävar efter att kontinuer- ligt förbättra och utöka våra cirkulära affärsprocesser. På Rusta minskar vi kontinuerligt våra utsläpp av växthusgaser. Viktiga bidragsgivare är: • Använda mer återvunnet och förnybart material i våra produkter |
+| • | Välja och byta till material med lägre miljöpåverkan |
+| • Smartare och effektivare förpackningslösningar av återvunnet material • Effektivare lastning i försörjningskedjan, det vill säga containrar och lastbilar • Kontinuerligt konvertera till förnybar energi i våra varuhus, distributionscenter och kontor • Bättre avfallsåtervinning i varuhus och distributionscenter |
+![table image]({page: 14, x: 71}, {y: 171, {width: 225}, {height: 96})
+
+Energi och bransle Denna scope 3 kategori beraknas i samband med verksamhet i scope 1 och 2.
+I scope 3 kategorin ingar de utslapp av vaxthusgaser som orsakas av uppstromsak tiviteter till exempel produktion och transport av bransle eller energi.
+Rusta overvakar energiforbrukningen i vara varuhus och vart centrallager for att samla in realtids data.
+Vi arbetar for narvarande med att strukturera och analysera denna data for att faststalla exakta nyckeltal bade for var egen och for vara leverantorers verksamhet.
+Idag harstammar en stor majoritet av energiforsorjningen till vara svenska och finska varuhus fran fossilfria kallor inkopt direkt av var energileverantor.
+
+### E5 Resursinﬂöden, inklusive resursanvändning E1 Begränsning av klimat- förändringar
+
+E1 Energi
+
+| Socialt ansvar | Öka andelen leverantörer på |  |
+| --- | --- | --- |
+| Tillit | Alla nya medarbetare signerar |  |
+| S1 |
+| S2 |
+| nivån “Bra” eller högre till 85% under räkenskapsåret 2024/25 i enlighet med de sociala kraven i Rustas externa uppförandekod |
+| Rustas interna uppförandekod digitalt Alla leverantörer ska signera Rustas externa uppförandekod och vår affärsetik |
+|  | G1 | Affärsetik (Create, Source, Supply, Communicate, Sell) |
+![table image]({page: 13, x: 660}, {y: 596, {width: 107}, {height: 18})
+
+## Nuläge:
+
+- • Genomfört och redovisat två hela års klimat- beräkningar för Rusta i enlighet med GHG- protokollet
+
+- per drivmedel för personbilar
+
+- per bränsle för gaffeltruckar
+
+## E5 Resursutﬂöden relaterade till produkter och tjänster
+#### E2 Förorening av vatten
+#### E3 Vatten G1 Korruption och mutor
+##### S1 Arbetsvillkor
+##### E2 Ämnen som inger mycket stora betänkligheter E1 Anpassning till klimatförändringar
+
+S2 Arbetsvillkor
+
+## Påverkan
+
+E2 Fororening av luft
+
+###### Ekonomiska verksamheter (1)
+####### A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN
+
+Transport med motor cyklar personbilar och latta fordon CCM 6.5 0 0% Y N/EL N/EL N/EL N/EL N/EL Y
+Y
+Y Y Y
+Y
+Y 0% Forvarv och agande av byggnader
+
+[MSEK] %
+
+|  |  | 14 |  | 9% - | - - | - | - | - | - | - | - | - | - | - | - | 13% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | - |  | - |  |  |  |  |  |  |  |  |  |  |  |  |  |
+|  | - |  | - |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| CCM 7.7 |  | 14 |  | 9% Y | N/EL N/EL N/EL N/EL N/EL Y |  |  |  |  | Y | Y | Y | Y | Y | Y | 13% |
+| CCM 7.7 |  | 138 |  | 88% EL | N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  |  |  |  |  |  | 84% |
+![table image]({page: 25, x: 792}, {y: 435, {width: 338}, {height: 7})
+
+|  |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| EL;N /EL |  |  |  | EL;N /EL EL;N /EL | EL;N /EL | EL;N /EL | EL;N /EL |  |
+| Transport med motor- cyklar, personbilar och lätta fordon CCM 6.5 4 3% EL Förvärv och ägande av byggnader |  |  |  | N/EL N/EL N/EL N/EL N/EL |  |  |  | 3% |
+| 142 91% |  |  |  |  |  |  |  | 87% |
+| 156 100% |  |  |  |  |  |  |  | 100% |
+![table image]({page: 25, x: 243}, {y: 453, {width: 290}, {height: 7})
+
+| 100%Total (A+B) År A.1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) Varav möjliggörande verksamheter Varav omställningsverksamheter A.2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) Driftsutgifter för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) A. Driftsutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) Driftsutgifter hos verksamheter som inte omfattas av taxonomin (B) | 156 100%Total (A+B) År | 100%Total (A+B) År | Kriterier för väsentligt bidrag - - - - - - - - - - - - |
+| --- | --- | --- | --- |
+|  | - | - | - |
+![table image]({page: 25, x: 790}, {y: 616, {width: 322}, {height: 472})
+
+409 100%Total (A+B)
+
+## Resultat SQE
+
+2021/22
+
+2022/23
+
+2023/24
+
+Rustas hallbarhetsstrategi tydliggor vart engagemang for en cirkular omstallning.
+Bade designen for lang livslangd och reparerbarhet ar avgorande liksom smarta forpackningar tillverkade av fornybara eller atervunna resurser.
+Vara vasentliga omraden i denna fraga ar in och utflode av resurser och resursanvand ning relaterat till produkter.
+
+##### A.2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)
+
+| Transport med motor- | cyklar, personbilar | och lätta fordon | CCM 6.5 | 5 | 1% EL | N/EL N/EL N/EL N/EL N/EL | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Förvärv och ägande av byggnader | CCM 7.7 | 215 | 52% EL | N/EL N/EL N/EL N/EL N/EL | N/EL N/EL N/EL N/EL N/EL | N/EL N/EL N/EL N/EL N/EL | 63% | 63% | 63% | 63% | 63% | 63% | 63% |
+|  | 219 54% |  | - | - | - | - | - |  |  |  |  |  | 63% |  |  |
+| Kapitalutgifter för verksamheter som om- fattas av taxonomin men som inte är miljö- mässigt hållbara (ej taxonomiförenliga) (A.2) |
+| A. Kapitalutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) |
+|  | 220 54% 54% 54% - |  |  | - | - | - | - |  |  |  |  |  | 63% |  |  |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin (B) | 190 46% |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| J;N; N/EL | J;N; N/EL | J;N; N/EL | J;N; N/EL | J;N; N/EL | J;N; N/EL | J;N | J;N | J;N | J;N | J;N | J;N | J;N | % | E | T |
+![table image]({page: 25, x: 79}, {y: 473, {width: 251}, {height: 14})
+
+# Bra Miljöval
+
+Bra Miljoval ar Naturskyddsforeningens egen miljomarkning.
+Markningens miljokrav spanner over produktens hela livscykel hela vagen fran ravara till atervinning.
+
+#### Nuläge:
+
+- • 19 av våra varuhus sparade energi med 10% eller mer (genomsnittlig besparing 74 800 kWh)
+
+- • Vårt centrallager i Norrköping minskade energi- förbrukningen med 5%
+
+- • Vårt huvudkontor i Upplands Väsby minskade energiförbrukningen med 13%
+
+- • 84% fossilfri energi i vår egen verksamhet
+
+### Nuläge:
+
+- • Alla våra containrar transporteras fossilfritt mellan hamnen och centrallagret
+
+- • En ny miljöbilaga implementeras för alla nya distributionsavtal
+
+- • 35 % fossilfria bränslen i Rustas distribution till varuhus
+
+- • Tågtransporter från Europa ökade från 35 till 182 jämfört med FY 2022/23
+
+- • 57 000 färre pallar på vårt centrallager i Norrköping innebär ökad flexibilitet
+
+## UNITED NATIONS GLOBAL COMPACT (UNGC) PRINCIPER Sidhänvisning i Rustas hållbarhetsredovisning för verksamhetsår 2023/24
+### MÄNSKLIGA RÄTTIGHETER
+
+- Princip 1
+
+- Stödja och respektera internationella mänskliga rättigheter inom sfären för företagens inflytande
+
+- Hållbarhetsstrategi, sidorna 20-21 Extern uppförandekod, sidorna 44-45 Goda arbetsförhållanden där Rustas produkter tillverkas, sidan 45
+
+- Princip 2
+
+- Försäkra att deras egna företag inte är inblandade i kränkningar av mänskliga rättigheter
+
+- Hållbarhetsstrategi, sidorna 20-21 Extern uppförandekod, sidorna 44-45 Goda arbetsförhållanden där Rustas produkter tillverkas, sidan 45
+
+- ARBETSRÄTT
+
+- Princip 3
+
+- Upprätthålla föreningsfrihet och erkänna rätten till kollektiva förhandlingar
+
+- Föreningsfrihet och kollektiva förhandlingar, sidan 45
+
+- Princip 4
+
+- Eliminera alla former av tvångsarbete
+
+- Tvångsarbete, sidan 45
+
+- Princip 5
+
+- Avskaffa barnarbete
+
+- Extern uppförandekod, sidorna 44-45
+
+- Princip 6
+
+- Avskaffa diskriminering vad gäller rekrytering och arbetsuppgifter
+
+- Sysselsättning, lärande och utveckling, sidan 42
+
+- Cesar Moré
+
+- MILJÖ
+
+- Princip 7
+
+- Stödja försiktighetsprincipen vad gäller miljörisker
+
+- Globala målen för hållbar utveckling, sidan 19 Hållbarhetsstrategi, sidorna 20-21
+
+- Förnybara och certifierade råmaterial,
+
+- sidorna 33-34
+
+- Produktinnehåll och kemiska ämnen, sidan 35
+
+- Klimat, sidorna 28-31
+
+- Miljö och biologisk mångfald, sidorna 32-35
+
+- Produkter och förpackning, sidorna 36-40
+
+- Främja återvinning, sidan 41
+
+- Princip 8
+
+- Ta initiativ för att stärka ett större miljömedvetande
+
+- Hållbarhetsstrategi, sidorna 20-21 Förnybara och certifierade råmaterial, sidorna 33- 34
+
+- Produktinnehåll och kemiska ämnen, sidan 35
+
+- Klimat, sidorna 28-31
+
+- Produkter och förpackning, sidorna 36-40
+
+- Princip 9
+
+- Uppmuntra utvecklandet av miljövänlig teknik
+
+- Hållbarhetsstrategi, sidorna 20-21 Miljöutvärdering av leverantörer, sidan 32 Energi och bränsle, sidan 29
+
+- ANTIKORRUPTION
+
+- Princip 10
+
+- Motarbeta alla former av korruption, inklusive utpressning och mutor
+
+- Extern uppförandekod, sidorna 44-45 Tillit, sidan 46
+
+FN:s Global Compact Index Revisorns yttrande54 55Rusta AB (publ)
+
+Revisorns yttrande avseende den lagstadgade hallbarhetsrapporten Till bolagsstamman i Rusta AB (publ) org.nr 556280-2115 Uppdrag och ansvarsfordelning Det ar styrelsen som har ansvaret for hallbarhetsrapporten for rakenskapsaret 2023/2024 pa sidorna 14 till 54 och for att den ar upprattad i enlighet med arsredovisningslagen.
+
+Granskningens inriktning och omfattning Var granskning har skett enligt FARs rekommendation RevR 12 Revisorns yttrande om den lagstadgade hallbarhetsrapporten.
+Detta innebar att var granskning av hallbarhetsrapporten har en annan inriktning och en vasentligt mindre omfattning jamfort med den inriktning och omfattning som en revision enligt International Standards on Auditing och god revisionssed i Sverige har.
+Vi anser att denna granskning ger oss tillracklig grund for vart uttalande.
+
+## Mål:
+
+- • Att uppdatera Rustas kemikaliekrav för leverantörer och fabriker
+
+- • Att kartlägga och ersätta MCCP*** i våra produkter
+
+- • Att utvalda leverantörer investerar i XRF-utrustning och utbildning
+
+- • Fasa ut PFAS ur Rustas sortiment kontinuerligt Mål:
+
+- • Till 2024/25 ska Rusta köpa in 100% mer hållbar bomull, med enbart Better Cotton, ekologisk- eller återvunnen bomull
+
+- vi strängare krav än vad som finns på någon av våra marknader. Under 2020 anslöt sig Rusta till PFAS-initia- tivet ChemSec. Genom att ansluta sig till detta initiativ stödjer Rusta erkännandet av att PFAS är ett stort hälso- och miljöproblem och genom detta förbinder vi oss att upphöra med all icke-nödvändig PFAS-användning i våra produkter. För att säkerställa att våra krav efterlevs, och som en extra kvalitetskontroll, använder Rusta röntgenfluorescensskannrar (XRF) både på våra asiatiska inköpskontor och i vårt centrallager i Norrköping. Totalt har 1 848 (1 665) röntgenfluorescenstester (XRF) utförts i våra lokaler i Asien och på Rustas centrallager. Förutom att titta på de faktiska testresultaten från våra XRF-skannrar beräknar vi eventuella risker när vi upptäcker ett värde nära den tillåtna gränsen. Allt i syfte att säkerställa säkrast möjliga produkter för våra kunder. Vi utför även stickprovskontroller både i Asien och Sverige på alla elartiklar innan de får säljas i våra butiker. Av erfarenhet har vi konstaterat nödvändigheten av att inte bara kommunicera och utbilda våra kemikaliekrav till våra leverantörer, utan det är också
+
+Antal slumpmassiga tester 2 500
+
+2 000
+
+1 500
+
+1 000
+
+500
+
+0
+
+Pa Rusta siktar vi pa att ersatta jungfruliga fibrer i tillverkningen och oka andelen atervunna fibrer i textilprodukter.
+75 % av Rustas textilleverantorer i Indien Pakistan och Bangladesh arbetar med HIGG Index idag.
+HIGG Index anvands som grundkoncept och guide for alla textilmarken.
+Information och data delas for att mata och jamfora effekterna av varumarken anlagg ningar och produkter inom miljo och sociala fragor.
+Vattenanvandning potentiell global uppvarmning fossila branslen och vattenfororeningar mats bland annat.
+Data och information verifieras av externa parter.
+
+Under 2023/24 var andelen mer hallbar bomull 96 %.
+Det vi anser ar mer hallbar bomull ar Better Cotton ekologisk och atervunnen bomull.
+
+####### Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4
+
+2022-2023
+
+## Mål:
+
+- • Utveckla policyer och nyckeltal för att hantera väsentliga hållbarhetsfrågor relaterade till biologisk mångfald, föroreningar och vatten under 2024/25 • Öka andelen leverantörer på nivå “Bra” eller högre till 55% i enlighet med våra krav i miljödelen av vår uppförandekod • är olagligt avverkat
+
+- • kommer från skyddade områden, intakta natur- skogar/regnskogar eller från skogar med högt bevarandevärde,
+
+Resultat fran utvardering av uppforandekoden relaterad till miljo 2018/19 2019/20 2020/21 2021/22 2022/23 2023/24
+
+- • inte är producerad i enlighet med nationell och regional skogslagstiftning,
+
+- • är involverad i sociala konflikter gällande träverk- samhet,
+
+- • kommer från naturliga tropiska eller subtropiska skogar som omvandlas till plantager,
+
+- • kommer från genmodifierade trädplantager.
+
+| 0 % | 10 % | 20 % | 30 % | 40 % | 50 % | 60 % | 70 % | 80 % | 90 % | 100 % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  | Låg |  | Medel |  | Bra | Hög |  |  |  |
+![table image]({page: 16, x: 138}, {y: 742, {width: 216}, {height: 8})
+
+## Från idé till produkt
+
+- Vi arbetar aktivt för bättre produktion och arbetsförhållanden hos våra leverantörer. Varje år måste våra leverantörer underteckna vår externa uppförandekod och affärsetik för att säkerställa säkra och hälsosamma arbetsförhållanden.
+
+Pa foljande sidor redogor vi for vart hallbarhets atagande.
+Denna hallbarhetsredovisning omfattar rakenskapsaret 2023/24 som stracker sig fran 1 maj 2023 till 30 april 2024.
+Rapporten har upprattats i enlighet med arsredovisningslagen och med hanvisning till Global Reporting Initiative (GRI) standarder.
+Under aret har vi borjat forbereda oss for rapportering i enlighet med Corporate Sustainability Reporting Directive (CSRD).
+Resultaten fran den dubbla vasentlighetsanalysen som vi redovisar i denna rapport ar det forsta steget mot CSRD efterlevnad.
+Begransningar och avgransning for varje materiell aspekt beskrivs pa sidan 27.
+
+- Vi lägger också stor vikt vid vilka material som används i våra produkter.
+
+#### Mål:
+
+- • Kartlägga alternativa energikällor och teknikförbättringar för minskad klimatpåverkan
+
+- • Nollvision för olyckor
+
+
+<!-- PAGE: 16 -->
+
+### Mål:
+
+- • Fortsätta att mäta och förbättra fyllnadsgraden på pallar och i containrar/lastbilar
+
+- • Minska utsläppen av växthusgaser från transporter med mer än 5 % årligen
+
+- • Arbeta vidare med alternativa bränslen och elektrifiering av transportflottan
+
+###### Nuläge:
+
+- • Fortsatt fokus på att minska förpackningsmaterial och öka återvunnet innehåll i våra förpackningslösningar
+
+- • Design för återvinning, vilket gör det enkelt för kunderna att källsortera våra förpackningar
+
+- • Kartläggning av certifierat förpackningsmaterialinnehåll genomförd
+
+- • 12 308 färre pallar genom försörjnings- kedjan ((motsvarar 205 containrar eller lastbilar)
+
+- • Optimerad förpackningslösning och förpackningsmaterial på våra 100 storsäljare
+
+Att ta bort och minska forpackningar skapar fordelar for vara kunder leverantorer och miljon.
+Mindre forpackningsmaterial bidrar aven till lagre priser for vara kunder.
+Pa Rusta siktar vi att endast anvanda ett material per forpackningslosning for att oka atervin ningsbarheten.
+Det gor det enkelt for vara kunder att sortera avfallet.
+Ju farre materialtyper desto battre.
+Nar sa ar mojligt foredrar vi att salja vara produkter utan forpackning.
+Vart mal ar att fortsatta oka antalet produkter som saljs utan konsumentforpackningar.
+
+I nara samarbete med vara leverantorer och kollegor runt om i varlden okar vi kontinuerligt fyllnadsgraden i containrar samtidigt som vi utvecklar smartare for packnings och lastningslosningar i hela var vardekedja.
+Genom att anpassa artiklar och forpackningslosningar for att passa EU pallen kan vi oka antalet artiklar per pall.
+Nar vi gor det kan vi fa plats med samma antal artiklar pa farre pallar.
+Detta resulterar i besparingar av pallar som behover hanteras och transporteras fran fabriken hela vagen till varuhusen.
+Darmed kan vi utnyttja centrallagret pa ett mer effektivt satt nar pal larna har samma egenskap och storlek oavsett varans beskaffenhet.
+Detta gor att vi kan vara mer flexibla vid lagring av pallar och utnyttja de olika lagringssystem vi har pa centrallagret.
+
+| Icke-farligt avfall | 2023/24 | % | 2022/23 | % | 2021/22 | % | 2020/21 | % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Återvinning | 7 553 291 | 80 % | 6 562 209 | 78 % | 6 389 815 | 78 % | 6 266 904 | 76 % |
+| Förbränning | 1 810 687 | 19 % | 1 785 980 | 21 % | 1 733 885 | 21 % | 1 935 496 | 23 % |
+| Deponi | 67 906 | 1 % | 58 185 | 1 % | 67 250 | 1 % | 64 252 | 1 % |
+| Återhämtning | 3 793 | 0 % | 5 023 | 0 % | 4 584 | 0 % | 3 900 | 0 % |
+| Djupbrunnsinjektion |  | 0 % |  | 0 % |  | 0 % |  | 0 % |
+| Total kg | 9 435 677 |  | 8 411 397 |  | 8 195 533 |  | 8 270 553 |  |
+| kg avfall / 100 försäljning | 89 |  | 86 |  | 92 |  | 100 |  |
+![table image]({page: 20, x: 656}, {y: 473, {width: 429}, {height: 9})
+
+# Omsättning
+
+Den totala omsattningen motsvarar nettoomsattningen i koncernens resultatrakning.
+
+het CCM 6.5 Transport med motorcyklar personbilar och latta nyttofordon.
+
+Endast en mindre andel av arets investeringar har bedomts vara taxonomiforenlig under aret och bestar av arets anskaffningar av elbilar.
+
+J = Ja verksamheten omfattas av och ar forenlig med taxonomin for det relavanta miljomalet N = Nej verksamheten omfattas av men ar inte forenlig med taxonomin for det relavanta miljomalet N/EL = Omfattas ej verksamheten omfattas inte av taxonomin for det relevanta miljomalet EL = Verksamhet som omfattas av taxonomin for det relevanta malet T = Omstallning (Transitional) E = Mojliggorande (Enabling)
+
+CapEx Totala investeringar motsvarar anskaffningar till balansposterna immateriella tillgangar materiella anlaggningstillgangar och IFRS 16 klassificerade nyttjanderattstillgangar fore eventuell omvardering avskrivning avskrivning eller nedskrivning och exklusive eventuella forandringar i verkligt varde som kan hittas i not 18 20 och 11.
+Tillampliga investeringar bestar av inkop fran leverantorer vars ekonomiska verksamhet ar beskrivna i taxonomin.
+Denna post bestar av hyresfastigheter som ingar i ekonomisk verksamhet CCM
+
+OpEx De totala driftsutgifterna motsvarar byggnads renoveringskostnader kortsiktiga hyresavtal underhalls och reparationskostnader samt andra indirekta kostnader for den dagliga servicen av tillgangar i materiella anlaggningstillgangar.
+Den del av driftsutgifter som bedoms vara taxonomiforenlig ar relaterad till hyresfastigheten for vart centrallager i Norrkoping som uppfyller kriterierna for att vara taxonomiforenlig byggnad.
+
+- 7.7 förvärv och ägande av byggnader samt leasing av person- och tjänstebilar som ingår i ekonomisk verksam-
+
+Rapportering i enlighet med EU:s taxonomin Rapportering i enlighet med EU:s taxonominRusta AB (publ)
+
+
+<!-- PAGE: 25 -->
+Andel av kapitalutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar rakenskapsaret 2023-05-01 2024-04-30.
+
+Andel av kapitalutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar rakenskapsaret 2023-05-01-2024-04-30
+
+Budgetar
+
+Andel av driftsutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar rakenskapsaret 2023-05-01 2024-04-30.
+
+Andel av driftsutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar rakenskapsaret 2023-05-01-2024-04-30
+
+| 2023/24 | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (DNSH) |
+| --- | --- | --- |
+|  |  |  |
+![table image]({page: 25, x: 193}, {y: 160, {width: 121}, {height: 14})
+
+## Definition nettoskuldsättningsgrad:
+
+Koncernens nettoskuldsattningsgrad = Skulder till kreditinstitut likvida medel / eget kapital moderbolagets nettoskuldsattningsgrad = checkkredit likvida medel / eget kapital +78 % av obeskattade medel.
+
+|  |  |  | Not 5 Intäkter och rörelsesegement |  |
+| --- | --- | --- | --- | --- |
+| Nettoomsättningen kommer i huvudsak från försäljning i varuhus och online och avser försäljning av varor till externa kunder och redovisas i redovisningsvaluta SEK. Transaktionspriset förfaller till omedelbar betalning när kunden tar emot varan och betalar i kassan därmed övergår kontrollen av varan till kunden och intäk- ten redovisas i samband med detta. Koncernen tillämpar öppet köp, vilket ger kunden rätt att returnera varan inom 30 dagar som standard och 365 dagar för registrerade köp som medlem i Club Rusta. Historiska data används för att bedöma returernas storlek vid försäljningstidpunkten. Då storleken på returerna varit stabilt under de senaste åren, är det inte sannolikt att en väsentlig återföring av intäkterna kommer att ske. Koncernen redovisar en återbetalningsskuld under avsättningar. Koncernens åtagande att reparera eller ersätta trasiga produkter i enlighet med normala garantiregler redovisas som en avsättning, se not 33. |
+| Koncernen har ett kundlojalitetsprogram, Club Rusta. Som med- | lem erbjuds man 365 dagars öppet köp och unika erbjudanden och | rabatter men i dagsläget erhåller man inga poäng för gjorda köp | och därmed finns inga tillkommande avsättningar relaterad till | Club Rusta utöver den avseende öppet köp. |
+| Koncernens högsta verkställande ledning utvärderar koncernens |
+| verksamhet både utifrån produkt och geografiskt perspektiv och har identifierat följande tre segment; Sverige, Norge och Övriga marknader. |
+|  | Koncernen | Moderbolaget |  | För respektive segment rapporteras intäkter och de kostnader som kan hänföras till den specifika marknaden. Segmentsuppdel- ningen bygger på Rustas etableringsgrad på respektive marknad. Sverige och Norge är för Rusta mogna och etablerade marknader med historisk stark och god lönsamhet och som Rusta har god kunskap om. Verksamheten i Finland och Tyskland samt Online samlas under det gemensamma segmentet Övriga marknader. På Övriga marknader arbetar Rusta fortfarande delvis i projektform då det är förhållandevis nya marknader men där lönsamheten väntas öka på sikt i takt med att medvetenheten om Rusta ökar. I EBITA exkl IFRS16 redovisas hela kostnaden för leasingavtal som en rörelsekostnad vilket skiljer sig från koncernens resultaträkning där räntedelen ingår i finansnettot. Kostnader för de gemensamma centrala funktionerna redovisas separat och består av bolagets centrala stabs- och inköpsfunk- tioner. Effekter av IFRS16 leasingavtal allokeras inte till segmenten utan särredovisas på raden koncernjusteringar.  |
+|  | 2024-04-30 2023-04-30 | 2024-04-30 2023-04-30 |  |  |
+| Finansiella tillgångar Derivat för säkringsändamål | 19 – | 19 – |  |  |
+| Verkligt värde via resultaträkningen |
+|  derivatinstrument | 0 | 0 | 0 | 0 |
+| Upplupet anskaffningsvärde |
+|  kundfordringar | 16 | 27 | 13 | 16 |
+|  fordringar hos koncernföretag | – | – | 174 | 150 |
+|  övriga kortfristiga fordringar | 1 | 1 | 1 | 1 |
+|  likvida medel | 171 | 182 | 65 | 106 |
+| Summa finansiella tillgångar | 207 | 210 | 273 | 273 |
+| Finansiella skulder Derivat för säkringsändamål | – 21 | – 21 |  |  |
+| Verkligt värde via resultaträkningen |
+|  derivatinstrument | 0 | 0 | 0 | 0 |
+| Upplupet anskaffningsvärde |
+|  övriga långfristiga skulder | 36 | 70 | – | – |
+|  skulder till kreditinstitut | 41 | 437 | 0 | 294 |
+|  leverantörsskulder | 724 | 635 | 614 | 524 |
+|  övriga kortfristiga skulder | 204 | 189 | 67 | 61 |
+| Summa finansiella skulder | 1 005 | 1 354 | 682 | 900 |
+![table image]({page: 48, x: 629}, {y: 371, {width: 527}, {height: 8})
+
+Det har inte skett nagra omklassificeringar mellan varderingskategorierna ovan under perioden.
+
+Vardering av finansiella instrument till verkligt varde
+
+- Finansiella tillgångar och finansiella skulder som värderas till
+
+- verkligt värde i balansräkningen utgörs enbart av derivatin- strument i form av el- och valutaterminer. För övriga finansiella tillgångar och finansiella skulder, som värderas till upplupet anskaffningsvärde, bedöms de redovisade värdena vara en god approximation av de verkliga värdena till följd av att löptiden och/eller räntebindningen är kortfristig och upplåningen är i paritet med aktuella marknadsräntor vilket innebär att en diskon- tering baserat på gällande marknadsförutsättningar inte bedöms leda till någon väsentlig effekt. Det långfristiga lånet relaterat till rekonstruktionsprogrammet i Finland från förvärvet av Hong Kong i maj 2018 löper med en fast ränta på 3,5 – 4 % och lånet löper till utgången av räkenskapsåret 2025/2026. Finansiella tillgångar och finansiella skulder som värderas till verkligt värde i balansräkningen klassificeras i någon av tre nivåer baserat på den information som används för att fastställa det verkliga värdet. El- och valutaterminerna värderas med utgångs- punkt från observerbar information avseende på balansdagen gällande valutakurser och marknadsräntor för återstående löptid. El- och valutaterminerna finns i nivå 2 i verkligt-värde hierarkin. Vid balansdagen 2024-04-30 fanns 15 (23) derivatinstrument (valutaterminer) i USD. Koncernen säkrar delar av varuinköpen från framförallt Asien i USD löpande. Under perioderna har det inte skett några väsentliga överföringar mellan nivåerna." Verkligt värde nivåer Nivå 1: Verkligt värde på finansiella instrument som handlas på en aktiv marknad (såsom börsnoterade derivat och aktierelaterade värdepapper) baseras på noterade marknadspriser på balansda- gen. Det noterade marknadspriset som använts för koncernens finansiella tillgångar är den aktuella köpkursen. Nivå 2: Verkligt värde på finansiella tillgångar som inte handlas på en aktiv marknad (t.ex. OTC derivat) fastställs med hjälp av värderingstekniker som i så stor utsträckning som möjligt utgår från marknadsinformation medan företagsspecifik information används i så liten utsträckning som möjligt. Samtliga väsentliga indata som krävs för verkligt värdevärderingen av ett instrument är observerbara. Nivå 3: I de fall ett eller flera väsentliga indata inte baseras på observerbar marknadsinformation. Detta gäller t.ex. för onoterade instrument. Hantering av kapitalrisk Koncernens mål för förvaltning av kapital är att säkerställa koncernens förmåga att fortsätta sin verksamhet för att generera skälig avkastning till aktieägarna och nytta till övriga intressenter. Koncernen följer upp kapitalstrukturen på basis av nettoskuld- sättningsgraden. Nettoskuldsättningsgraden beräknas som nettoskulden dividerat med eget kapital. Nettoskulden beräknas som skulder till kreditinstitut minus likvida medel.
+
+97Rusta AB (publ)
+
+
+<!-- PAGE: 49 -->
+|  | –142 | –173 | –129 | –165 |
+| --- | --- | --- | --- | --- |
+| Summa | –142 | –173 | –129 | –165 |
+| Not 8 | Kostnader per kostnadsslag |  |  |  |
+![table image]({page: 49, x: 914}, {y: 495, {width: 224}, {height: 13})
+
+| 2023-05-01– | 2022-05-01– | 2023-05-01– | 2022-05-01– |
+| --- | --- | --- | --- |
+| Koncernen | Koncernen | Moderbolaget | Moderbolaget |
+| 2024-04-30 | 2023-04-30 | 2024-04-30 | 2023-04-30 |
+![table image]({page: 49, x: 917}, {y: 564, {width: 267}, {height: 7})
+
+|  |  |  | Råvaror och förnödenheter | 6 283 | 6 016 |  | 5 971 | 5 767 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  | Kostnader för ersättning till anställda | 1 901 | 1 657 |  | 1 282 | 1 140 |
+|  |  |  | Lokalkostnader | –223 | –243 |  | –674 | –627 |
+|  |  |  | Avskrivningar | –941 | –837 |  | –97 | –93 |
+|  |  |  | Övrigt | 1 089 | –975 |  | –826 | –721 |
+|  |  |  | Summa kostnader för sålda varor, försäljning och administration | 10 436 | 9 728 |  | 8 850 | 8 348 |
+| 99Rusta AB (publ) |
+|  |  |  | Nettoomsättning per kategori Varuförsäljning, varuhus Varuförsäljning, online Summa nettoomsättning Uppgift om inköp och försäljning inom Rustakoncernen Försäljning i % av total nettoomsättning Inköp i % av kostnad sålda varor Inköp i % av försäljningsomkostnader Inköp i % av administrativa kostnader Försäljning i % av övriga rörelseintäkter Inköp i % av övriga rörelsekostnader Not 6 Övriga rörelseintäkter 2023-05-01– Valutakursvinster Övriga intäkter Summa Not 7 Övriga rörelsekostnader 2023-05-01– Valutakursförluster | Koncernen 2022-05-01– 2024-04-30 2023-04-30 157 58 215 Koncernen 2022-05-01– 2024-04-30 2023-04-30 | 170 47 216 | 2023-05-01– 2024-04-30 10 939 177 11 116 2023-05-01– 2024-04-30 29 % 38 % 3 % 0 % 0 % 0 % | Moderbolaget Moderbolaget 2023-05-01– 2024-04-30 145 57 202 Moderbolaget 2023-05-01– 2024-04-30 | 2022-05-01– 2023-04-30 10 038 164 10 202 2022-05-01– 2023-04-30 28 % 37 % 3 % 0 % 14 % 2 % 2022-05-01– 2023-04-30 167 45 212 2022-05-01– 2023-04-30 |
+| Segmentsrapportering |
+|  | 2023-05-01– | 2022-05-01– | Koncernen |  |  |  |  |  |
+|  | 2024-04-30 | 2023-04-30 |  |  |  |  |  |  |
+| Nettoomsättning per segment |
+| Sverige | 6 381 | 6 007 |  |  |  |  |  |  |
+| Norge | 2 349 | 2 178 |  |  |  |  |  |  |
+| Övriga marknader | 2 386 | 2 018 |  |  |  |  |  |  |
+| Summa nettoomsättning från externa kunder | 11 116 | 10 202 |  |  |  |  |  |  |
+![table image]({page: 49, x: 629}, {y: 599, {width: 527}, {height: 8})
+
+Intern nettoomsattning som faktureras fran centrala funktioner uppgar till 2 739 MSEK (2 477) for aret och elimineras i sin helhet i koncernen.
+
+| Koncernen | 2023-05-01– | 2022-05-01– |
+| --- | --- | --- |
+| 2024-04-30 |  | 2023-04-30 |
+| EBITA exkl. IFRS 16 per segment |
+| Sverige | 1 075 | 985 |
+| Norge | 273 | 257 |
+| Övriga marknader | 9 | –50 |
+| EBITA exkl. IFRS 16 för segmenten | 1 356 | 1 192 |
+![table image]({page: 49, x: 404}, {y: 248, {width: 527}, {height: 8})
+
+| Centrala funktioner | –765 | –788 |
+| --- | --- | --- |
+| EBITA exkl. IFRS 16 | 591 | 404 |
+| Koncernjusteringar avseende IFRS16 | 170 | 126 |
+| EBITA | 761 | 529 |
+| EBITA-marginal, % | 6,8 % | 5,2 % |
+| Avskrivning på förvärvsrelaterade tillgångar, ej allokerade till segment | –8 | –11 |
+| EBIT | 753 | 518 |
+| EBIT-marginal, % | 6,8 % | 5,1 % |
+![table image]({page: 49, x: 34}, {y: 341, {width: 527}, {height: 8})
+
+| Finansiella poster, netto | –227 | –178 |
+| --- | --- | --- |
+| Resultat före skatt | 525 | 341 |
+| Koncernen | 2023-05-01– | 2022-05-01– |
+| 2024-04-30 |  | 2023-04-30 |
+| Nettoomsättning per land |
+| Sverige | 6 525 | 6 131 |
+| Norge | 2 351 | 2 164 |
+| Finland | 1 924 | 1 696 |
+| Övriga länder | 316 | 212 |
+| Summa nettoomsättning | 11 116 | 10 202 |
+| 2023-05-01– |  | 2022-05-01– |
+| 2024-04-30 |  | 2023-04-30 |
+| Anläggningstillgångar per land |
+| Sverige | 3 966 | 3 687 |
+| Norge | 715 | 672 |
+| Finland | 968 | 1 195 |
+| Övriga länder och koncerngemensamma tillgångar | 451 | 417 |
+| Summa anläggningstillgångar | 6 100 | 5 970 |
+![table image]({page: 49, x: 34}, {y: 430, {width: 527}, {height: 8})
+
+I den geografiska informationen redovisas nettoomsattning baserat pa var kunderna finns medan anlaggningstillgangarna grundas pa var anlaggningarna ar belagna.
+I Sverige avser en del av nettoomsattningen Online forsaljning som redovisas i ”ovriga marknader”.
+
+
+<!-- PAGE: 50 -->
+| Immateriella anläggningstillgångar Försäljningskostnader | –16 | –17 | –6 | –5 |
+| --- | --- | --- | --- | --- |
+| Not 9 | Avskrivningar per funktion |  |  |  |
+| Administrationskostnader | –11 | –11 | –11 | –11 |
+|  | Koncernen |  | Moderbolaget |  |
+|  | 2023-05-01– | 2022-05-01– | 2023-05-01– | 2022-05-01– |
+|  | 2024-04-30 | 2023-04-30 | 2024-04-30 | 2023-04-30 |
+| Koncernen |
+|  |  |  |  |  |
+![table image]({page: 50, x: 34}, {y: 90, {width: 527}, {height: 7})
+
+|  | Avskrivningar på nyttjanderättstillgångar | –762 | –671 |
+| --- | --- | --- | --- |
+|  | Ränta på leasingskulder | –228 | –163 |
+|  | Variabla leasingavgifter som inte ingår i värderingen av leasingskulden | –33 | –28 |
+|  | Intäkt från vidareuthyrning av nyttjanderättstillgångar | 5 | 3 |
+|  | Kostnader för korttidsleasing | 0 | 0 |
+|  | Kostnader för leasar av lågt värde, ej korttidsleasing av lågt värde | –1 | –1 |
+| Koncernen |
+|  | Belopp redovisade i rapporten över kassaflöden | 2023/24 | 2022/23 |
+|  | Summa kassautflöden hänförliga till leasingavtal | 967 | 836 |
+|  | Ovanstående kassautflöde inkluderar såväl belopp för leasingavtal som redovisas som leasingskuld, som belopp som betalas för vari- abla leasingavgifter, korttidsleasing och leasar av lågt värde. | leasingavgifter som baseras på förändringar i lokala prisindex, såsom KPI. Nivåerna på dessa avgifter uppdateras normalt en gång per år och beaktas vid beräkning av leasingskulden löpande. Därutöver tillkommer för många fastighetsleasingavtal omsätt- ningsbaserad hyra samt avgifter som hänför sig till fastighetsskat- ter som läggs på leasegivaren. Dessa belopp fastställs årligen och ingår inte i värderingen av leasingskulden. Kostnaden för dessa avgifter visas ovan under "Variabla leasingavgifter som inte ingår i värderingen av leasingskulden". |  |
+| Koncernen har per 30 april 2024 undertecknat avtal för lokaler där tillträde förväntas ske under de kommande tre räkenskaps- åren. Koncernens åtagande för dessa avtal uppgår till 728 MSEK. |
+| –27 | –28 | –17 | –16 |
+![table image]({page: 50, x: 629}, {y: 140, {width: 241}, {height: 8})
+
+- –914
+
+#### Nuläge:
+
+- • För året 2023/24 minskade energiförbrukningen med 5 %
+
+- • Implementerat IA-system (rapporteringssystem för incidenter på jobbet)
+
+Väsentlighetsanalys
+
+Under rakenskapsaret 2023/24 genomforde vi en dubbel vasentlighetsanalys for att fa en djupare forstaelse for var mest betydande paverkan pa manniskor miljo och affarsrisker samt affarsmojligheter.
+Processen for var dubbla vasentlighetsanalys som foljer kraven i European Sustainability Reporting Standards (ESRS) 1 och 2 har tva dimensioner konsekventiell vasentlighet och finansiell vasentlighet.
+En hallbarhetsfraga anses vara vasentlig om den uppfyller kriterierna for en eller bada dimensionerna.
+
+#### Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4
+
+2022-2023
+
+# Garantier och öppet köp
+
+Avsattningar for garantier och oppet kop redovisas vid tidpunkten for forsaljning av de aktuella produkterna baserat pa foretagsled ningen basta uppskattning av utgiften for att reglera koncernens atagande.
+
+Redovisningsprinciper for moderbolaget Moderbolaget tillampar arsredovisningslagen och Radet for finan siell rapporterings rekommendation RFR 2 Redovisning for juridiska personer.
+Tillampning av RFR 2 innebar att moderbolaget sa langt som mojligt tillampar alla av EU godkanda IFRS inom ramen for ars redovisningslagen och Tryggandelagen samt beaktat sambandet mellan redovisning och beskattning.
+Skillnaderna mellan moderbo lagets och koncernens redovisningsprinciper beskrivs nedan
+
+#### Civilekonomexamen, Handelshögskolan i Stockholm
+
+Andra vasentliga uppdrag
+
+## Års- & Hållbarhets- redovisning 2023/24
+
+
+<!-- PAGE: 1 -->
+
+### Mål:
+
+- • All personal ska årligen genomföra vår e-learning för vår interna uppförandekod
+
+- • Alla nya kollegor undertecknar den interna uppförandekoden digitalt
+
+- • Alla leverantörer ska underteckna Rustas externa uppförandekod Förordning (EU) 2020/852 (taxonomiförordningen) är utformad för att stödja omvandlingen av EU:s ekonomi för att uppfylla dess mål för den europeiska gröna given, inklusive klimatneutralitetsmålet 2050. Tax- onomiförordningen fastställer sex miljömål som beskrivs i de delegerade akter som antas enligt förordningen.
+
+I foljande avsnitt presenterar vi som icke finansiellt moderbolag andelen av koncernens nettoomsattning investeringar (Capex) och driftsutgifter (Opex) for rapportperioden 2023-05-01-2024-04-30 som ar associerade med taxonomi berattigade och anpassade ekonomiska aktiviteter relaterade till de sex miljomalen.
+
+Rusta omfattas av arsredovisningslagens krav for redovisning enligt taxonomiforordningen som icke finansiellt foretag.
+Enligt artikel 8 i taxonomiforord ningen ska foretag som omfattas av direktivet om icke finansiell rapportering (NFRD) redovisa hur och i vilken utstrackning deras verksamhet ar forknippad med ekonomisk verksamhet som anses vara miljomassigt hallbar enligt de tekniska granskningskriterierna.
+Tekniska kriterier har hittills definierats for miljomalen ‘Begransning av klimatforandringar’ ‘Klimatanpassning’ ‘Vatten och marina resurser’ ‘Cirkular ekonomi’ ‘Fororeningar’ och ‘Biologisk mangfald och ekosystem’.
+Enligt artikel 8 ska icke finansiella foretag tillhandahalla information om andelen av sin omsattning kapita lutgifter och driftsutgifter som omfattas av dessa ekonomiska aktiviteter och anpassningen av befintlig ekonomisk verksamhet till miljomalen 1 och 2 som ingar i taxonomin for budgetaret 2023/24.
+For ytterligare ekon omisk verksamhet i miljomal 1 och 2 samt miljomal 3-6 redovisas endast tillamplighet 2023-2024.
+Analysen av ytterligare ekonomiska aktiviteter som Rusta genomfort visar att de inte paverkas av nagon av dessa.
+
+Med hanvisning till bilaga XII i den delegerade akten om karnenergi och naturgas bedriver Rusta ingen karnenergi eller fossilgasrelaterad verksamhet.
+
+Rapportering i enlighet med EU:s taxonominRusta AB (publ) 47Rusta AB (publ)
+
+# Uppströms
+
+- Produktutveckling
+
+- Råmaterial
+
+- Varuleverantörer
+
+- Transport
+
+- Centrallager
+
+- Distribution
+
+- Varuhus och online
+
+- Kunders
+
+sortiment fyllt med inspirerande och standiga nyheter och sasongsprodukter
+
+produktanvandning 69 miljoner besok i vara varuhus och 43 miljoner kunder
+
+Produktens end of life
+
+| Värdeskapande | Enkelhet i design Resurseffektivitet Smarta | Att arbeta tillsammans med pålitliga organisationer för att främja sociala och miljömässiga | Nära samarbete med våra affärspartners och tydlig uppföljning av Rustas sociala och miljömässiga uppförandekod (CoC) samt Supplier Quality Evaluation (SQE) | Effektiva för- packnings- och lastningslösningar för att minska klimatpåverkan och kostnader | Säkra fullastade transporter till och från vårt centrallager | Noggrant planerade försörjning till våra varhus med dubbelstaplade pallar | Inspirera med vårt erbjudande nära kundernas hem. Rustas erbjudande av volymartiklar säkerställer stortdriftsfördelar | Bra kvalitetsprodukter till överraskande låga priser. Vi gör det enkelt för våra kunder att förnya och fylla på hemma |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Certifierade och/eller återvunna råvaror | Certifierade och/eller återvunna råvaror | Certifierade och/eller återvunna råvaror | 538 varuleverantörer Majoriteten av inköpen i Europa | Fartyg, tåg och lastbil | Rustas centrallager ligger centralt i förhållande till våra varuhus för att undvika onödiga transporter | Med lastbil: 35 % fossilfria bränslen i Rustas distribution till varuhus | Medlemmar i regionala insamlingssystem | Medlemmar i regionala insamlingssystem |
+| förpackningar |
+| Klimatavtryck | Hög | Hög | Hög | Medel | Låg | Medel | Medel | Medel | Medel |
+| Nuläge och nyckeltal: | Öka andelen produkter som säljs utan konsument- förpackning |  | CoC Social: 81 % “bra” eller högre CoC miljö: 52 % “bra” eller högre SQE: | Fyllnadsgrad av containrar | Energiförbrukningen minskade 5 % Avfallsgenerering Hälsa och säkerhet | Fyllnadsgrad på pallar | Minska energiförbrukningen Minska avfallsgenereringen | Öka kundnöjdheten Minska andelen defekta kundreturer med 15 % årligen (nuvarande nivå är 0,05 %) |  |
+![table image]({page: 26, x: 1030}, {y: 409, {width: 618}, {height: 71})
+
+Minskar kontnuerligt mangden forpackningsmaterial for att forenkla for vara kunder
+
+Produktens hallbarhet
+
+Mindre konsument forpackningar aspekter Certifierat tra 89 % Mer hallbar bomull
+
+96 % oka andelen atervunnet material
+
+| Besparing av pallar: 12 308 | 74 % “bra” eller högre |
+| --- | --- |
+| Vår värdekedja | 53Rusta AB (publ) Vår värdekedja52 |
+![table image]({page: 26, x: 168}, {y: 709, {width: 49}, {height: 7})
+
+
+<!-- PAGE: 27 -->
+
+### T = Omställning (Transitional)
+### E = Möjliggörande (Enabling)
+
+J = Ja verksamheten omfattas av och ar forenlig med taxonomin for det relavanta miljomalet N = Nej verksamheten omfattas av men ar inte forenlig med taxonomin for det relavanta miljomalet N/EL = Omfattas ej verksamheten omfattas inte av taxonomin for det relevanta miljomalet EL = Verksamhet som omfattas av taxonomin for det relevanta malet
+
+###### A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN
+##### A.1. Miljömässigt hållbara (taxonomiförenliga) verksamheter
+
+| Transport med motor- | cyklar, personbilar | och lätta fordon | CCM 6.5 | 1 | 0% J | N/EL N/EL N/EL N/EL N/EL J | J | J | J | J | J | J | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | 1 | 0% - | - | - | - | - | - | - | - | - | - | - | - | - | - |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | E |
+| Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) |
+| Varav möjliggörande verksamheter Varav omställningsverksamheter |
+| - | - |  |  |  |  |  |  | - | - | - | - | - | - | - | - |  |
+![table image]({page: 25, x: 79}, {y: 377, {width: 319}, {height: 7})
+
+## UN Global Compact
+
+2018 gick Rusta med i varldens storsta frivilliga hallbarhetsnatverk for foretag UN Global Compact for att agera och bana vag mot ett mer hallbart samhalle.
+Pa Rusta har vi atagit oss att anpassa var verksamhet och strategier till de tio principerna i FN:s Global Compact.
+Som medlem i FN:s Global Compact atar sig Rusta att arbeta utifran ett antal riktlinjer som syftar till att framja manskliga rattigheter arbetsratt miljo och hallbarhetsarbete.
+
+# FN:s Global Compact Index
+
+Rusta ar medlem i FN:s Global Compact dar vi foljer en FN:s tio principer inom omradena manskliga rattigheter arbetsratt miljo och antikorruption.
+FN:s Global Compact tabell (nedan) visar var framdrift gallande dessa tio principer.
+
+WE SUPPORT
+
+### PEFC
+
+Programme for the Endorsement of of Forest Certification (PEFC) ar en global allians for nationell skogscertifiering som framjar hallbart skogsbruk genom oberoende tredjepartscertifiering.
+
+### Uttalande
+
+En hallbarhetsrapport har upprattats.
+
+Stockholm den 22 augusti 2024
+
+ohrlings PricewaterhouseCoopers AB
+
+
+<!-- PAGE: 28 -->
+
+# Inköpskontor
+
+Rusta vardesatter en lokal narvaro nar det kommer till inkop.
+Darfor har vi inkopskontor i Sverige Finland Kina Indien och Vietnam med 200 medarbetare direkt involverade i Rustas inkopsaktiviteter.
+Det betyder att vi har hog lokal narvaro i nara anslutning till vara inkopsmarknader.
+Olika funktioner ar involverade sasom inkops och kvalitetsutvecklare leveransplanerare kvalitetsinspektorer och andra specialistfunktioner.
+Vara medarbetare overvakar och kontrollerar kontinuerligt att Rustas uppforandekod alltid foljs av vara leverantorer.
+Detta inkluderar att var inkopspersonal har ratt att nar som helst gora oanmalda besok pa alla fabriker som producerar varor at Rusta for att sakerstalla efterlevnad av var uppforandekod.
+Vidare maste Rustamedarbetare i enlighet med var policy alltid besoka en leverantor innan nagon bestallning gors.
+
+Resultat fran utvardering av uppforandekoden for “Socialt ansvar” 2018/19 2019/20 2020/21 2021/22 2022/23 2023/24
+
+- • Lön som är lika med eller överstiger den lagstadgade miniminivån
+
+- • Tillgång till färskt dricksvatten och toaletter Utöver de grundläggande minimikraven innehåller Rustas externa uppförandekod även flera krav som leverantören ska följa. Dessa krav inkluderar goda arbetsförhållanden, hälso- och säkerhetsbestämmelser, affärsetik och miljöbestämmelser samt skydd av djur och hotade arter. Leverantörerna betygsätts utifrån hur väl de följer den externa uppförandekoden.
+
+|  | 0 % | 10 % | 20 % | 30 % | 40 % | 50 % | 60 % | 70 % | 80 % | 90 % | 100 % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Nuläge: |
+| • Alla fabriker som producerar för Rusta har klarat vår uppförandekod Basic |
+|  |  |  | Låg |  | Medel |  | Bra | Hög |  |  |  |
+![table image]({page: 22, x: 719}, {y: 293, {width: 216}, {height: 8})
+
+## Uttalanden
+
+- Vi har utfört en revision av årsredovisningen och kon- cernredovisningen för Rusta AB (publ) för räkenskapsåret 1 maj 2023 till 30 april 2024 med undantag för bolags- styrningsrapporten på sidorna 63-79. Bolagets årsredo- visning och koncernredovisning ingår på sidorna 59-116 i detta dokument.
+
+Enligt var uppfattning har arsredovisningen upprattats i enlighet med arsredovisningslagen och ger en i alla vasentliga avseenden rattvisande bild av moderbola gets finansiella stallning per den 30 april 2024 och av dess finansiella resultat och kassaflode for aret enligt arsredovisningslagen.
+Koncernredovisningen har upp rattats i enlighet med arsredovisningslagen och ger en i alla vasentliga avseenden rattvisande bild av koncer nens finansiella stallning per den 30 april 2024 och av dess finansiella resultat och kassaflode for aret enligt Inter national Financial Reporting Standards (IFRS) sasom de antagits av EU och arsredovisningslagen.
+Vara uttalanden omfattar inte bolagsstyrningsrapporten pa sidorna 63-79.
+Forvaltningsberattelsen ar forenlig med arsredovisningens och koncernredovisningens ovriga delar.
+
+- Vi tillstyrker därför att bolagsstämman fastställer resul- taträkningen och balansräkningen för moderbolaget och resultaträkning samt rapport över finansiell ställning för koncernen.
+
+Vara uttalanden i denna rapport om arsredovisningen och koncernredovisningen ar forenliga med innehallet i den kompletterande rapport som har overlamnats till moderbolagets och koncernens revisionsutskott i enlig het med revisorsforordningens (537/2014) artikel 11.
+Grund for uttalanden Vi har utfort revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige.
+Vart ansvar enligt dessa standarder beskrivs narmare i avsnit tet Revisorns ansvar.
+Vi ar oberoende i forhallande till moderbolaget och koncernen enligt god revisorssed i Sverige och har i ovrigt fullgjort vart yrkesetiska ansvar enligt dessa krav.
+Detta innefattar att baserat pa var basta kunskap och overtygelse inga forbjudna tjanster som avses i revisorsforordningens (537/2014) artikel 5.1 har tillhandahallits det granskade bolaget eller i fore kommande fall dess moderforetag eller dess kontrolle rade foretag inom EU.
+
+- Vi anser att de revisionsbevis vi har inhämtat är tillräck- liga och ändamålsenliga som grund för våra uttalanden.
+
+Var revisionsansats Revisionens inriktning och omfattning
+
+- Vi utformade vår revision genom att fastställa väsent- lighetsnivå och bedöma risken för väsentliga felaktig- heter i de finansiella rapporterna. Vi beaktade särskilt de områden där verkställande direktören och styrel- sen gjort subjektiva bedömningar, till exempel viktiga redovisningsmässiga uppskattningar som har gjorts med utgångspunkt från antaganden och prognoser om framtida händelser, vilka till sin natur är osäkra. Lik- som vid alla revisioner har vi också beaktat risken för att styrelsen och verkställande direktören åsidosätter den interna kontrollen, och bland annat övervägt om det finns belägg för systematiska avvikelser som givit upphov till risk för väsentliga felaktigheter till följd av oegentligheter.
+
+- Vi anpassade vår revision för att utföra en ändamålsenlig granskning i syfte att kunna uttala oss om de finansiella rapporterna som helhet, med hänsyn tagen till bolagets och koncernens struktur, redovisningsprocesser och kon- troller samt den bransch i vilken koncernen verkar.
+
+Vasentlighet Revisionens omfattning och inriktning paverkades av var bedomning av vasentlighet.
+En revision utformas for att uppna en rimlig grad av sakerhet om huruvida de finan siella rapporterna innehaller nagra vasentliga felaktig heter.
+Felaktigheter kan uppsta till foljd av oegentlighe ter eller misstag.
+De betraktas som vasentliga om enskilt eller tillsammans rimligen kan forvantas paverka de eko nomiska beslut som anvandarna fattar med grund i de finansiella rapporterna.
+
+Baserat pa professionellt omdome faststallde vi vissa kvantitativa vasentlighetstal daribland for den finan siella rapportering som helhet.
+Med hjalp av dessa och kvalitativa overvaganden faststallde vi revisionens inrikt ning och omfattning och vara granskningsatgarders karaktar tidpunkt och omfattning samt att bedoma effekten av enskilda och sammantagna felaktigheter pa de finansiella rapporterna som helhet.
+
+117Rusta AB (publ)
+
+- Revisionsberättelse
+
+| Not 38 | Vinstdisposition |
+| --- | --- |
+| Moderbolaget Till stämmans förfogande står följande vinstmedel (kr) Balanserade vinstmedel | 823 719 027 |
+| Årets resultat | 244 676 891 1 068 395 918 |
+| Styrelsen föreslår att vinstmedlen disponeras så att aktieägarna utdelas 1,15 kr per aktie; |
+| Totalt | 174 254 287 |
+| I ny räkning överförs | 894 141 631 1 068 395 918 |
+| Under räkenskapsåret 2023-05-01–2024-04-30 genomfördes utdelningar på totalt 105 MSEK. |
+| Not 39 | Väsentliga händelser efter räkenskapsårets slut |
+![table image]({page: 58, x: 34}, {y: 90, {width: 342}, {height: 13})
+
+Efter rakenskapsarets slut har Rusta oppnat nytt inkopskontor i Istanbul Turkiet for att ytterligare starka kontrollen av inkopsaktiviteter i sydostra Europa och norra Afrika.
+Rusta signerade aven avtal med automationsleverantoren Vanderlande i juni 2024 om en tillvaxtinves tering i Rustas centrallager.
+Investeringen som uppgar till narmare 300 MSEK avser en losning for att automatisera fler processer och oka effektiviteten i lagret.
+(For mer information se sid 62)
+
+Miljö och biologisk mångfald
+
+Var hallbarhetsstrategi hallbarhetspolicy och externa uppforandekod visar tydligt att Rusta upptrader pa ett miljomedvetet och resurseffektivt satt och tar ett systematiskt grepp om alla aspekter som paverkar miljo och klimat.
+Rusta ska erbjuda marknaden mer hallbara produkter vara energieffektiv anvanda fornybara resurser och minimera avfall och utslapp.
+Vi ska arbeta aktivt for skydd och aterstallande av biologisk mangfald och vi arbetar for klimatneutralitet i hela var vardekedja.
+Vara vasentliga amnen ar kopplade till paverkan pa forlust av biologisk mangfald paverkan pa arternas tillstand kemikalier och fororeningar.
+Vi har sarskilt adresserat denna fraga i Rustas inkopsorganisation dar vi kontinuerligt okar andelen certifierad ravara.
+Under rakenskapsaret 2024/25 kommer vi att fortsatta att kartlagga och utvardera detta omrade.
+Beslut om genomforande av nodvandiga atgarder samt insamling av relevant data kommer att fattas.
+
+Miljoutvardering av leverantorer Rusta arbetar tillsammans med vara leverantorer for att kontinuerligt forbattra var miljoprestanda.
+Utan undantag granskas och utvarderas miljoprestanda hos alla potentiella leverantorer innan de far producera varor at Rusta.
+Under aret har vara leverantorer utvecklats i en positiv riktning vad galler miljodelen av var uppforandekod.
+Forutom vara icke forhandlingsbara krav att alla kritiska miljofaror maste elimineras eller hanteras pa ett hallbart satt betygsatter vi vara leverantorer pa “Rusta Environment” utifran foljande fem omraden
+
+- • Avloppsvatten
+
+- • Elförbrukning
+
+- • Direkt bränsleförbrukning
+
+- • Avfallshantering
+
+- • Utsläpp till luft (icke-växthusgaser) I denna process gör leverantörerna först en självutvärdering som sedan verifieras eller revideras av våra uppförandekodutvärderare
+
+Fornyelsebara och certifierade ravaror Andel av certifierat tra och papper 100 80 60 40 20 0 %
+
+### D
+
+| N |  | A | E | O |  |
+| --- | --- | --- | --- | --- | --- |
+|  | I | I | M | M |  |
+| P |
+| Kriterier för utbetalning av rörlig kontantersättning |
+| R |
+| Rörlig kontantersättning ska belöna uppfyllandet av förutbestämda och mätbara kriterier som främjar bolagets affärsstrategi och långsiktiga intressen, inklusive bolagets hållbarhetspolicy. |
+|  | H F |  |  |  |  |
+| K Q |  | B |  |  | T |
+| G |
+|  |  |  |  | J | Z |
+|  | S U C |  |  |  |  |
+![table image]({page: 34, x: 850}, {y: 605, {width: 49}, {height: 8})
+
+#### Norge
+#### Tyskland
+
+|  | Turkiet | New Delhi | Hangzhou |  |
+| --- | --- | --- | --- | --- |
+| Om Rusta2 |  |  |  | 3Rusta AB (publ) |
+![table image]({page: 1, x: 922}, {y: 698, {width: 47}, {height: 7})
+
+
+<!-- PAGE: 2 -->
+2023/24 i korthet VD ord Jag ar stolt over att kunna summera ett framgangsrikt ar for Rusta trots en orolig omvarld och stora drift
+
+### Nuläge:
+
+- • En incident gällane möjlig korruption rapporterades genom vår tjänst för visselblåsare och hanterades i enlighet med vår HR-policy
+
+- • 100 % av våra leverantörer i Asien har undertecknat vår externa uppförandekod
+
+- • Separata möten på temat korruption med nya leverantörer och nya Rusta-kollegor
+
+- • All ny kontorspersonal undertecknar anställningsavtalet och den interna uppförandekoden digitalt
+
+## Short-Chain Chlorinated Paraffins (SCCP)
+
+- *Per- and Polyfluoroalkyl Substances (PFAS)
+
+- **Medium-chain chlorinated paraffins (MCCP
+
+Miljo och biologisk mangfald Miljo och biologisk mangfaldRusta AB (publ)
+
+
+<!-- PAGE: 18 -->
+
+##### Mål:
+
+- • År 2025 ska 50 % av all plast som används i Rusta- produkter att vara producerad från förnybara källor eller från återvunnet material
+
+- • Rusta har som mål att endast använda förnybara och/eller återvunna material till 2030
+
+Produkter och forpackning Produkter och forpackningRusta AB (publ) 39Rusta AB (publ)
+
+
+<!-- PAGE: 20 -->
+Besparing antal pallar 2019-2023
+
+20 000 18 000 16 050 16 000 14 000 12 000 10 000 8 000 6 000 4 000 2 000 0
+
+Framja atervinning
+
+- Vi ökar kontinuerligt andelen återvunnet material i både varuhus och på centrallagret. Vi har imple- menterat ett årligt insamlingsschema med våra avfallshanteringspartners för att minimera det farliga avfallet som genereras av vårt centrallager och våra varuhus. Tillsammans med våra samarbetspartners bestämmer vi också på vilket sätt avfallet kan, och ska, hanteras och omhändertas. I våra egna anläggningar har vi också förbättrat fyllnadsgraden i de kärl och containrar där vi samlar in avfallet, och därmed minskat antalet transporter. I de grundläggande kraven i Rustas uppförandekod framgår att vi ständigt ska säkerställa att alla kritiska miljörisker beaktas.
+
+18 844
+
+2020/21 15 578 2021/22 12 308 2023/24 10 628 2022/23
+
+- Vi utvärderar också hur avfallshanteringen genomförs hos våra leverantörer. Ett exempel på hur vi har minskat plastförbrukningen är vår sträckfilm på pallar i vår leveranskedja. Vi har investerat i en ny helautomatiserad plastfolieutrustning som optimerar sträckfilmen på pallar ännu mer, vilket minskar plastfilmsförbrukningen med 15 %. Detta arbete är en ständigt pågående process för Rusta.
+
+Produkter och forpackningRusta AB (publ)
+
+2019/20 Avfall per fraktion
+
+| Farligt avfall | 2023/24 | % | 2022/23 | % | 2021/22 | % | 2020/21 | % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Återvinning | 191 148 | 86 % | 123 495 | 62 % | 116 780 | 92 % | 149 443 | 96 % |
+| Förbränning | 5 598 | 3 % | 11 178 | 6 % | 2 649 | 2 % | 2 298 | 1 % |
+| Deponi | 25 224 | 11 % | 64 822 | 32 % | 7 328 | 6 % | 4 596 | 3 % |
+| Återhämtning | 0 | 0 % | 0 | 0 % | 0 | 0 % | 0 | 0 % |
+| Total kg | 221 970 |  | 199 496 |  | 126 757 |  | 156 336 |  |
+![table image]({page: 20, x: 656}, {y: 334, {width: 429}, {height: 9})
+
+Minska forpackningsmaterial Rustas hallbarhetsstrategi sager tydligt att vi ska utveckla smarta forpackningar gjorda av fornybara eller atervunna resurser.
+Var forpackningsstrategi som tacker alla relevanta aspekter inom omradet lanserades 2018.
+Genom optimerade forpackningslosningar skyddar vi produkterna forenklar for vara kunder och minskar var paverkan pa planeten.
+
+## Nuläge:
+
+- • Under 2023/24 ökade andelen hållbart certifierade trä- och pappersprodukter i Rustas sortiment till 89 %
+
+- • 19 miljoner certifierade trä- och pappersprodukter såldes under året.
+
+- • Totalt har 198 utvärderingar utförts av våra utbildade specialister i enlighet med de miljökriterier som anges i Rustas uppförandekod
+
+- • Genom coachning och strukturerade förbättringar har leverantörerna på nivå “Bra” eller högre ökat från 45% till 52%
+
+Koncernens rapport över totalresultat
+
+| MSEK | 2023-05-01–2024-04-30 | 2022-05-01–2023-04-30 | Not |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- |
+| Årets resultat | 408 | 261 |  |  |  |  |
+| Övrigt totalresultat |
+| Poster som kan komma att återföras till resultaträkningen Omräkning av utländska dotterföretag | 9 | –36 |  |  |  |  |
+| Kassaflödessäkringar, netto efter skatt | 27 | –60 |  |  |  |  |
+| Övrigt totalresultat, netto efter skatt | 36 | –97 |  |  |  |  |
+| Summa totalresultat | 445 | 165 |  |  |  |  |
+| Hänförligt till: |
+| Moderföretagets aktieägare | 445 | 165 |  |  |  |  |
+| Innehav utan bestämmande inflytande |
+|  |  |  | MSEK | Not | 2024-04-30 | 2023-04-30 |
+| TILLGÅNGAR Anläggningstillgångar Immateriella anläggningstillgångar |
+|  |  |  | Aktiverade utgifter för utveckling av programvaror | 18 | 79 | 62 |
+|  |  |  | Varumärken | 19 | 0 | 8 |
+|  |  |  | Goodwill | 19 | 118 | 113 |
+|  |  |  | Summa immateriella anläggningstillgångar |  | 196 | 183 |
+| Materiella anläggningstillgångar |
+|  |  |  | Nyttjanderättstillgångar | 11 | 5 237 | 5 115 |
+|  |  |  | Inventarier, verktyg och installationer | 20 | 458 | 473 |
+|  |  |  | Summa materiella anläggningstillgångar |  | 5 695 | 5 588 |
+| Finansiella tillgångar |
+|  |  |  | Övriga finansiella tillgångar |  | 0 | 0 |
+|  |  |  | Summa finansiella tillgångar |  | 0 | 0 |
+|  |  |  | Uppskjutna skattefordringar | 29 | 209 | 199 |
+|  |  |  | Summa anläggningstillgångar |  | 6 100 | 5 970 |
+| Omsättningstillgångar |
+|  |  |  | Varulager | 22 | 2 622 | 2 593 |
+|  |  |  | Kundfordringar | 23 | 16 | 27 |
+|  |  |  | Övriga kortfristiga fordringar | 24 | 49 | 40 |
+|  |  |  | Förutbetalda kostnader och upplupna intäkter | 25 | 140 | 42 |
+|  |  |  | Likvida medel |  | 171 | 182 |
+|  |  |  | Summa omsättningstillgångar |  | 2 997 | 2 885 |
+|  |  |  | SUMMA TILLGÅNGAR |  | 9 097 | 8 855 |
+| EGET KAPITAL OCH SKULDER Eget kapital |
+|  |  |  | Aktiekapital | 26 | 5 | 5 |
+|  |  |  | Övrigt tillskjutet kapital | 27 | 1 | 1 |
+|  |  |  | Reserver | 28 | –17 | –54 |
+|  |  |  | Balanserade vinstmedel inklusive årets resultat |  | 1 605 | 1 323 |
+|  |  |  | Summa eget kapital hänförligt till moderföretagets aktieägare |  | 1 593 | 1 275 |
+| Långfristiga skulder |
+|  |  |  | Uppskjutna skatteskulder | 29 | 131 | 115 |
+|  |  |  | Skulder till kreditinstitut | 31 | 20 | 51 |
+|  |  |  | Leasingskuld | 11 | 4 740 | 4 616 |
+|  |  |  | Övriga långfristiga skulder | 4 | 36 | 70 |
+|  |  |  | Summa långfristiga skulder |  | 4 927 | 4 853 |
+| Kortfristiga skulder |
+|  |  |  | Skulder till kreditinstitut | 31 | 20 | 386 |
+|  |  |  | Leasingskuld | 11 | 905 | 848 |
+|  |  |  | Leverantörsskulder |  | 724 | 635 |
+|  |  |  | Aktuella skatteskulder |  | 23 | 16 |
+|  |  |  | Avsättningar | 32 | 23 | 22 |
+|  |  |  | Övriga kortfristiga skulder | 33 | 204 | 189 |
+|  |  |  | Upplupna kostnader och förutbetalda intäkter | 34 | 678 | 630 |
+|  |  |  | Summa kortfristiga skulder |  | 2 577 | 2 727 |
+|  |  |  | Summa skulder |  | 7 504 | 7 580 |
+|  |  |  | SUMMA EGET KAPITAL OCH SKULDER |  | 9 097 | 8 855 |
+![table image]({page: 40, x: 34}, {y: 619, {width: 527}, {height: 8})
+
+81Rusta AB (publ)
+
+
+<!-- PAGE: 41 -->
+- Koncernens rapport över kassaflöden
+
+- Koncernens rapport över förändringar i eget kapital
+
+| Övrigt | vinstmedel | Summa |
+| --- | --- | --- |
+|  | Balanserade |  |
+| tillskjutet | inklusive årets | eget |
+![table image]({page: 41, x: 454}, {y: 154, {width: 222}, {height: 7})
+
+| MSEK | Aktiekapital | kapital | Reserver | resultat | kapital |
+| --- | --- | --- | --- | --- | --- |
+| Ingående balans per 1 maj 2022 | 5 | 1 | 43 | 1 213 | 1 262 |
+| Årets resultat |  |  |  | 261 | 261 |
+| Övrigt totalresultat |  |  | –97 |  | –97 |
+| Summa totalresultat |  |  | –97 | 261 | 165 |
+![table image]({page: 41, x: 34}, {y: 185, {width: 527}, {height: 8})
+
+| Utgående balans per 30 april 2023 | 5 | 1 | –54 | 1 323 | 1 275 |
+| --- | --- | --- | --- | --- | --- |
+| Utdelning till aktieägare | –152 | –152 | –152 | –152 | –152 |
+| Summa transaktioner med aktieägare | –152 | –152 | –152 | –152 | –152 |
+| Ingående balans per 1 maj 2023 | 5 | 1 | –54 | 1 323 | 1 275 |
+| Årets resultat |  |  |  | 408 | 408 |
+| Övrigt totalresultat |  |  | 36 |  | 36 |
+| Summa totalresultat |  |  | 36 | 408 | 445 |
+![table image]({page: 41, x: 34}, {y: 242, {width: 527}, {height: 8})
+
+| Utdelning till aktieägare | –105 | –105 |
+| --- | --- | --- |
+| Aktiesparprogram | 1 | 1 |
+| Återköp av egna aktier | –22 | –22 |
+![table image]({page: 41, x: 34}, {y: 331, {width: 527}, {height: 8})
+
+| Utgående balans per 30 april 2024 | 5 | 1 | –17 | 1 605 | 1 593 |
+| --- | --- | --- | --- | --- | --- |
+| Summa transaktioner med aktieägare | –126 | –126 | –126 | –126 | –126 |
+![table image]({page: 41, x: 34}, {y: 363, {width: 527}, {height: 8})
+
+| MSEK | Not | 2023-05-01–2024-04-30 | 2022-05-01–2023-04-30 |
+| --- | --- | --- | --- |
+| Kassaflöde från den löpande verksamheten |
+| Rörelseresultat |  | 753 | 518 |
+| Justeringar för poster som inte ingår i kassaflödet: |
+| Avskrivningar | 11, 17, 18, 21 | 941 | 837 |
+| Utrangeringar / avyttringar |  | 1 | 1 |
+| Övrigt |  | – | 8 |
+| Avsättningar | 33 | 2 | 1 |
+| Erhållen ränta | 13 | 13 | 1 |
+| Erlagd ränta | 14 | –241 | –179 |
+| Betald inkomstskatt |  | –111 | –140 |
+| Kassaflöde från den löpande verksamheten | före förändringar i rörelsekapitalet | 1 358 | 1 048 |
+![table image]({page: 41, x: 629}, {y: 154, {width: 527}, {height: 19})
+
+Kassaflode fran forandring av rorelsekapital
+
+| Minskning (+)/ökning (–) av varulager | –9 | 235 |
+| --- | --- | --- |
+| Minskning (+)/ökning (–) av rörelsefordringar | –76 | 68 |
+| Minskning (–)/ökning (+) av rörelseskulder | 123 | –344 |
+| Nettoförändring av rörelsekapital | 38 | –41 |
+| Kassaflöde från den löpande verksamheten | 1 396 | 1 007 |
+![table image]({page: 41, x: 629}, {y: 321, {width: 527}, {height: 8})
+
+#### Nettoomsättningstillväxt:
+
+Rustas malsattning ar en arlig genomsnittlig organisk* nettoomsattningstillvaxt om cirka 8,0 % pa medellang sikt med en arlig genomsnittlig jamforbar tillvaxt over 3,0 %.
+
+### 25Rusta AB (publ) Intressentdialog
+## Mycket hög
+## Mycket hög
+
+- Mycket hög
+
+- Mycket högHög
+
+- Betydelse*Betydelse*
+
+Samarbeta med partners och leverantorer som har ett tydligt hallbarhetsengagemang
+
+Erbjuda produkter av god kvalitet till marknadens lagsta priser Tydliga matbara mal inom hallbarhet Arbeta aktivt for en god affarsetik och nolltolerans mot korruption
+
+Bidra till och engagera oss i valgorande andamal med inriktning pa miljo
+
+Bidra till och engagera oss i valgorande andamal med inriktning pa socialt ansvar och manniskor i utsatta livssituationer
+
+Att lopande kommunicera om vart hallbarhetsarbete Enkelt att returnera uttjanta varor pa Rustas varuhus Erbjuda fler hallbarhets markta produkter Produkter som bidrar till en hallbar och halsosam livsstil Reservdelar och tjanster som gor det enkelt att reparera och underhalla produkterna Anvand mer fornybara och atervunna material Hjalpa vara kunder att gora hallbara val Prisvarda produkter med bra kvalitet som haller lange Enkelt att atervinna produkterna Minska anvandningen av kemikalier Minska mangden forpackningsmaterial Bra arbetsforhallanden dar Rustas produkter tillverkas Aktivt arbeta for att manskliga rattigheter uppfylls/uppratthalls Arbeta aktivt for mangfald och inkludering oppet redovisa bade brister och framgangar i hallbarhetsarbetet Hogt stallda krav och sparbarhet for produkter som harstammar fran djur Arbeta aktivt for jamstalldhet Att vara en trygg arbetsgivare med god arbetsmiljo Att ha en positiv inverkan pa lokala samhallen i de lander dar Rusta ar verksamt Arbeta for att framja biologisk mangfald Hallbara transportlosningar Framja atervinning och cirkulara floden av material Hallbar vattenanvandning Erbjuda produkter utan kemiska amnen som kan paverka miljon negativt Minska mangden avfall Arbeta for att minska och effektivisera energiforbrukningen Anvanda mer hallbarhetscertifierade ramaterial Arbeta for en minskad plastanvandning Anvanda fornybar energi Minska utslappen av vaxthusgaser Stotta utveckling av ny och hallbar produktionsteknik Aktivt arbeta for ett hallbart jord och skogsbruk
+
+- Produkter
+
+- Miljö
+
+- EkonomiSocialt ansvar
+
+- Dialogen har skett på olika sätt beroende på intressentgrupp. Kunder, leverantörer av varor och tjänster samt transportörer och medarbetare har fyllt i ett frågeformulär. Ledningsgrupp och ägare, som representeras av styrelsen givet att delar av styrelsen också är huvudägare, har fått mer detaljerade frågor i linje med European Sustainability Reporting Standards
+
+- samt risker och möjligheter inom hållbarhetsområdet. För icke-statliga organisationer och myndigheter har vi använt en skrivbordsgranskning. Detta är ett effektivt sätt att extrahera viktig information. Baserat på erfarenhet vet vi att vissa intressentgrupper är svåra att kontakta direkt, eller att det är omöjligt att göra ett opartiskt urval. Vi har därför gjort andra typer av
+
+- efterforskningar, såsom till exempel Internetsökningar, för att ta reda på vad dessa intressenter anser är viktigt.
+
+- Vi har sedan samlat in och tagit med denna information i vår analys. Vissa intressentgrupper var också represen- terade med hjälp av forskningsrapporter för att få en objektiv bild av frågan.
+
+- Rusta har under våren 2024 genomfört en väsentlighetsanalys i samband med vår senaste intressentdialog. Denna väsentlighetsanalys utgör grunden för att identifiera våra viktiga hållbarhetsområden.
+
+Niva av betydelse enligt aggregerade svar fran interna
+
+
+<!-- PAGE: 13 -->
