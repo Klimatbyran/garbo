@@ -408,6 +408,7 @@ export const InputMunicipalitySchema = z.object({
   emissions: InputYearlyDataSchema,
   approximatedHistoricalEmission: InputYearlyDataSchema,
   trend: InputYearlyDataSchema,
+  sumCarbonLawPath: z.number(),
   historicalEmissionChangePercent: z.number(),
   electricCarChangePercent: z.number(),
   electricCarChangeYearly: InputYearlyDataSchema,
@@ -419,6 +420,8 @@ export const InputMunicipalitySchema = z.object({
   electricVehiclePerChargePoints: z.number().nullable(),
   procurementScore: z.number(),
   procurementLink: z.string().nullable(),
+  politicalRule: z.array(z.string()),
+  politicalKSO: z.string(),
 })
 
 export const InputMunicipalitiesSchema = z.array(InputMunicipalitySchema)
