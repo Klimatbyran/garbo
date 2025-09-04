@@ -19,9 +19,10 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
-    "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12 --files byggmax --years 2024",
+    "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12 --years 2024 --files catena --runs 1",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
+    "delete-report": "node --import tsx scripts/delete-report.ts",
     "eslint": "npx eslint src",
     "test": "jest"
   },
