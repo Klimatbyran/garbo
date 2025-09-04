@@ -30,11 +30,16 @@ class MunicipalityService {
    */
   private lazyInit() {
     const rawMunicipalities = JSON.parse(
-      readFileSync(apiConfig.municipalityDataPath, 'utf-8')
+      readFileSync(apiConfig.municipalityDataPath, 'utf-8'),
     )
 
+    // climate-data.json is [ [ {...} ], [ {...} ], ... ]
+    const municipalities = Array.isArray(rawMunicipalities)
+      ? rawMunicipalities.flat()
+      : rawMunicipalities
+
     // Ensure the data matches the expected format
-    this._all = InputMunicipalitiesSchema.parse(rawMunicipalities)
+    this._all = InputMunicipalitiesSchema.parse(municipalities)
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, municipality) => {
@@ -50,7 +55,7 @@ class MunicipalityService {
    */
   private lazyInitSectorEmissions() {
     this._sectorEmissions = JSON.parse(
-      readFileSync(apiConfig.municipalitySectorEmissionsPath, 'utf-8')
+      readFileSync(apiConfig.municipalitySectorEmissionsPath, 'utf-8'),
     )
     return this
   }
@@ -67,7 +72,7 @@ class MunicipalityService {
 
   getMunicipalitySectorEmissions(name: Municipality['name']) {
     const municipality = this.sectorEmissions.find(
-      (m) => m.name.toLowerCase() === name.toLowerCase()
+      (m) => m.name.toLowerCase() === name.toLowerCase(),
     )
     return municipality?.sectors ?? null
   }
