@@ -417,8 +417,8 @@ export const InputMunicipalitySchema = z.object({
   bicycleMetrePerCapita: z.number(),
   totalConsumptionEmission: z.number(),
   electricVehiclePerChargePoints: z.number().nullable(),
-  procurementScore: z.string(),
-  procurementLink: z.string(),
+  procurementScore: z.number(),
+  procurementLink: z.string().nullable(),
 })
 
 export const InputMunicipalitiesSchema = z.array(InputMunicipalitySchema)
