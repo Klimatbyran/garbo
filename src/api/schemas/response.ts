@@ -408,7 +408,7 @@ export const InputMunicipalitySchema = z.object({
   emissions: InputYearlyDataSchema,
   approximatedHistoricalEmission: InputYearlyDataSchema,
   trend: InputYearlyDataSchema,
-  sumCarbonLawPath: z.number(),
+  meetsParisGoal: z.boolean(),
   historicalEmissionChangePercent: z.number(),
   electricCarChangePercent: z.number(),
   climatePlanLink: z.string().nullable(),
