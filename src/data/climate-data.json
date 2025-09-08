@@ -219,7 +219,7 @@
         "2022": 41061.31,
         "2023": 42384.8
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 42384.8,
         "2024": 41762.13,
@@ -353,7 +353,7 @@
         "2022": 15784.57,
         "2023": 15898.52
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 15898.52,
         "2024": 14889.48,
@@ -487,7 +487,7 @@
         "2022": 75301.19,
         "2023": 77150.39
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 77150.39,
         "2024": 74279.2,
@@ -822,7 +822,7 @@
         "2022": 16553.89,
         "2023": 16300.91
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 16300.91,
         "2024": 16014.48,
@@ -889,7 +889,7 @@
         "2022": 53977.07,
         "2023": 40263.39
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 40263.39,
         "2024": 36531.73,
@@ -1559,7 +1559,7 @@
         "2022": 31554.79,
         "2023": 32130.13
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 32130.13,
         "2024": 30622.08,
@@ -1626,7 +1626,7 @@
         "2022": 51441.96,
         "2023": 50780.27
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 50780.27,
         "2024": 46691.81,
@@ -1760,7 +1760,7 @@
         "2022": 18461.34,
         "2023": 18725.61
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 18725.61,
         "2024": 17942.09,
@@ -1827,7 +1827,7 @@
         "2022": 33032.16,
         "2023": 32503.47
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 32503.47,
         "2024": 29723.77,
@@ -1961,7 +1961,7 @@
         "2022": 11895.0,
         "2023": 12437.83
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 12437.83,
         "2024": 12023.19,
@@ -2229,7 +2229,7 @@
         "2022": 32843.11,
         "2023": 32030.88
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 32030.88,
         "2024": 30721.58,
@@ -2497,7 +2497,7 @@
         "2022": 32852.54,
         "2023": 31963.37
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 31963.37,
         "2024": 31418.6,
@@ -2564,7 +2564,7 @@
         "2022": 34332.01,
         "2023": 33291.7
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 33291.7,
         "2024": 31009.51,
@@ -2765,7 +2765,7 @@
         "2022": 114851.83,
         "2023": 112417.98
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 112417.98,
         "2024": 106228.41,
@@ -3033,7 +3033,7 @@
         "2022": 22066.8,
         "2023": 21620.5
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 21620.5,
         "2024": 20494.87,
@@ -3167,7 +3167,7 @@
         "2022": 29386.98,
         "2023": 28234.99
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 28234.99,
         "2024": 27215.35,
@@ -3301,7 +3301,7 @@
         "2022": 37639.69,
         "2023": 36802.16
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 36802.16,
         "2024": 35707.85,
@@ -3368,7 +3368,7 @@
         "2022": 24764.01,
         "2023": 24901.17
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 24901.17,
         "2024": 23823.29,
@@ -3435,7 +3435,7 @@
         "2022": 453624.48,
         "2023": 415036.65
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 415036.65,
         "2024": 353594.58,
@@ -3569,7 +3569,7 @@
         "2022": 40934.56,
         "2023": 40089.96
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 40089.96,
         "2024": 39536.29,
@@ -3770,7 +3770,7 @@
         "2022": 257458.81,
         "2023": 255805.2
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 255805.2,
         "2024": 243393.37,
@@ -4105,7 +4105,7 @@
         "2022": 59349.07,
         "2023": 57117.68
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 57117.68,
         "2024": 55344.19,
@@ -4172,7 +4172,7 @@
         "2022": 41164.41,
         "2023": 41152.0
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 41152.0,
         "2024": 39848.13,
@@ -5043,7 +5043,7 @@
         "2022": 71027.37,
         "2023": 71537.87
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 71537.87,
         "2024": 68281.69,
@@ -5110,7 +5110,7 @@
         "2022": 55616.71,
         "2023": 52577.37
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 52577.37,
         "2024": 47722.38,
@@ -5177,7 +5177,7 @@
         "2022": 31988.34,
         "2023": 31437.86
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 31437.86,
         "2024": 29537.52,
@@ -5244,7 +5244,7 @@
         "2022": 45280.87,
         "2023": 43269.69
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 43269.69,
         "2024": 38598.04,
@@ -5311,7 +5311,7 @@
         "2022": 71250.57,
         "2023": 70460.12
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 70460.12,
         "2024": 65671.73,
@@ -5378,7 +5378,7 @@
         "2022": 129833.79,
         "2023": 131218.57
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 131218.57,
         "2024": 129599.83,
@@ -5786,7 +5786,7 @@
         "2022": 67590.88,
         "2023": 66515.97
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 66515.97,
         "2024": 65456.11,
@@ -5853,7 +5853,7 @@
         "2022": 35968.46,
         "2023": 35996.02
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 35996.02,
         "2024": 34060.65,
@@ -6322,7 +6322,7 @@
         "2022": 89930.28,
         "2023": 83961.51
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 83961.51,
         "2024": 77109.63,
@@ -6389,7 +6389,7 @@
         "2022": 151267.9,
         "2023": 146970.1
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 146970.1,
         "2024": 139936.83,
@@ -6523,7 +6523,7 @@
         "2022": 114829.48,
         "2023": 115460.36
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 115460.36,
         "2024": 111626.47,
@@ -6992,7 +6992,7 @@
         "2022": 336224.03,
         "2023": 324235.48
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 324235.48,
         "2024": 314605.81,
@@ -7260,7 +7260,7 @@
         "2022": 194632.07,
         "2023": 194510.53
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 194510.53,
         "2024": 190932.2,
@@ -7595,7 +7595,7 @@
         "2022": 157247.15,
         "2023": 156707.35
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 156707.35,
         "2024": 152831.0,
@@ -7997,7 +7997,7 @@
         "2022": 21435.29,
         "2023": 21630.72
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 21630.72,
         "2024": 19901.54,
@@ -8064,7 +8064,7 @@
         "2022": 29855.51,
         "2023": 31489.29
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 31489.29,
         "2024": 29328.77,
@@ -8198,7 +8198,7 @@
         "2022": 57027.63,
         "2023": 44032.28
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 44032.28,
         "2024": 42900.55,
@@ -8466,7 +8466,7 @@
         "2022": 82872.45,
         "2023": 84655.59
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 84655.59,
         "2024": 81394.43,
@@ -8667,7 +8667,7 @@
         "2022": 50278.48,
         "2023": 48851.21
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 48851.21,
         "2024": 44344.97,
@@ -9069,7 +9069,7 @@
         "2022": 42230.71,
         "2023": 42350.85
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 42350.85,
         "2024": 40827.86,
@@ -9136,7 +9136,7 @@
         "2022": 10656.37,
         "2023": 11047.41
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 11047.41,
         "2024": 10720.94,
@@ -9337,7 +9337,7 @@
         "2022": 56225.82,
         "2023": 56970.48
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 56970.48,
         "2024": 54019.56,
@@ -9404,7 +9404,7 @@
         "2022": 64566.88,
         "2023": 63559.22
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 63559.22,
         "2024": 62007.92,
@@ -9471,7 +9471,7 @@
         "2022": 133818.07,
         "2023": 129917.6
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 129917.6,
         "2024": 128299.58,
@@ -9672,7 +9672,7 @@
         "2022": 20197.1,
         "2023": 20173.79
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 20173.79,
         "2024": 19737.17,
@@ -9806,7 +9806,7 @@
         "2022": 7578.11,
         "2023": 11589.13
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 11589.13,
         "2024": 10948.14,
@@ -9940,7 +9940,7 @@
         "2022": 87862.78,
         "2023": 89557.28
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 89557.28,
         "2024": 86582.15,
@@ -10074,7 +10074,7 @@
         "2022": 116523.07,
         "2023": 115772.34
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 115772.34,
         "2024": 113467.9,
@@ -10141,7 +10141,7 @@
         "2022": 25723.06,
         "2023": 25879.78
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 25879.78,
         "2024": 24873.76,
@@ -10208,7 +10208,7 @@
         "2022": 18402.92,
         "2023": 19692.27
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 19692.27,
         "2024": 18917.26,
@@ -10342,7 +10342,7 @@
         "2022": 40104.47,
         "2023": 38639.07
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 38639.07,
         "2024": 37394.32,
@@ -10543,7 +10543,7 @@
         "2022": 16735.8,
         "2023": 16354.25
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 16354.25,
         "2024": 15840.77,
@@ -10878,7 +10878,7 @@
         "2022": 98726.83,
         "2023": 97260.7
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 97260.7,
         "2024": 94292.28,
@@ -10945,7 +10945,7 @@
         "2022": 18428.16,
         "2023": 19592.26
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 19592.26,
         "2024": 18674.04,
@@ -11012,7 +11012,7 @@
         "2022": 34459.32,
         "2023": 33579.24
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 33579.24,
         "2024": 32043.19,
@@ -11079,7 +11079,7 @@
         "2022": 21870.83,
         "2023": 21533.72
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 21533.72,
         "2024": 20919.7,
@@ -11347,7 +11347,7 @@
         "2022": 42704.2,
         "2023": 42417.22
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 42417.22,
         "2024": 41095.5,
@@ -11615,7 +11615,7 @@
         "2022": 50115.69,
         "2023": 49729.49
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 49729.49,
         "2024": 47083.54,
@@ -11749,7 +11749,7 @@
         "2022": 26143.15,
         "2023": 27340.84
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 27340.84,
         "2024": 25816.22,
@@ -12084,7 +12084,7 @@
         "2022": 35806.92,
         "2023": 35302.41
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 35302.41,
         "2024": 34517.19,
@@ -12419,7 +12419,7 @@
         "2022": 90361.76,
         "2023": 90384.88
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 90384.88,
         "2024": 87414.18,
@@ -12553,7 +12553,7 @@
         "2022": 20205.88,
         "2023": 19327.26
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 19327.26,
         "2024": 18588.8,
@@ -12687,7 +12687,7 @@
         "2022": 207862.4,
         "2023": 206227.61
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 206227.61,
         "2024": 183972.5,
@@ -12754,7 +12754,7 @@
         "2022": 70831.27,
         "2023": 66209.64
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 66209.64,
         "2024": 63402.45,
@@ -12821,7 +12821,7 @@
         "2022": 65300.5,
         "2023": 67202.23
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 67202.23,
         "2024": 63395.24,
@@ -13089,7 +13089,7 @@
         "2022": 29577.38,
         "2023": 29117.09
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 29117.09,
         "2024": 28236.28,
@@ -13156,7 +13156,7 @@
         "2022": 69326.34,
         "2023": 68934.75
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 68934.75,
         "2024": 67723.89,
@@ -13357,7 +13357,7 @@
         "2022": 13546.23,
         "2023": 13495.53
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 13495.53,
         "2024": 12899.98,
@@ -13424,7 +13424,7 @@
         "2022": 31397.08,
         "2023": 30827.31
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 30827.31,
         "2024": 29308.25,
@@ -13692,7 +13692,7 @@
         "2022": 19064.47,
         "2023": 18881.19
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 18881.19,
         "2024": 17974.04,
@@ -13826,7 +13826,7 @@
         "2022": 68372.19,
         "2023": 63302.43
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 63302.43,
         "2024": 60143.58,
@@ -13893,7 +13893,7 @@
         "2022": 28848.91,
         "2023": 28520.82
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 28520.82,
         "2024": 26748.88,
@@ -14027,7 +14027,7 @@
         "2022": 90153.66,
         "2023": 87412.44
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 87412.44,
         "2024": 85959.05,
@@ -14161,7 +14161,7 @@
         "2022": 87107.98,
         "2023": 86030.09
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 86030.09,
         "2024": 82445.42,
@@ -14697,7 +14697,7 @@
         "2022": 32795.55,
         "2023": 32975.53
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 32975.53,
         "2024": 32181.07,
@@ -14764,7 +14764,7 @@
         "2022": 66364.23,
         "2023": 66255.58
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 66255.58,
         "2024": 64916.8,
@@ -15032,7 +15032,7 @@
         "2022": 40106.58,
         "2023": 39613.46
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 39613.46,
         "2024": 38210.09,
@@ -15166,7 +15166,7 @@
         "2022": 45649.96,
         "2023": 46164.8
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 46164.8,
         "2024": 43856.75,
@@ -15635,7 +15635,7 @@
         "2022": 20530.63,
         "2023": 20087.73
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 20087.73,
         "2024": 18873.01,
@@ -16037,7 +16037,7 @@
         "2022": 63869.34,
         "2023": 63804.26
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 63804.26,
         "2024": 62227.69,
@@ -16238,7 +16238,7 @@
         "2022": 42505.95,
         "2023": 41142.41
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 41142.41,
         "2024": 39260.86,
@@ -16573,7 +16573,7 @@
         "2022": 31818.53,
         "2023": 31919.25
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 31919.25,
         "2024": 30672.47,
@@ -16774,7 +16774,7 @@
         "2022": 20167.91,
         "2023": 18950.82
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 18950.82,
         "2024": 18329.56,
@@ -16975,7 +16975,7 @@
         "2022": 31292.87,
         "2023": 31719.31
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 31719.31,
         "2024": 30613.87,
@@ -17109,7 +17109,7 @@
         "2022": 35659.3,
         "2023": 35453.46
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 35453.46,
         "2024": 34919.44,
@@ -17176,7 +17176,7 @@
         "2022": 41109.53,
         "2023": 38605.65
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 38605.65,
         "2024": 37043.04,
@@ -17243,7 +17243,7 @@
         "2022": 316542.94,
         "2023": 258364.32
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 258364.32,
         "2024": 252283.82,
@@ -17913,7 +17913,7 @@
         "2022": 66989.38,
         "2023": 63701.41
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 63701.41,
         "2024": 61360.83,
@@ -18114,7 +18114,7 @@
         "2022": 25716.67,
         "2023": 25126.12
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 25126.12,
         "2024": 24051.16,
@@ -18315,7 +18315,7 @@
         "2022": 73693.35,
         "2023": 69690.62
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 69690.62,
         "2024": 65535.8,
@@ -18382,7 +18382,7 @@
         "2022": 41368.72,
         "2023": 41340.42
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 41340.42,
         "2024": 38209.5,
@@ -18449,7 +18449,7 @@
         "2022": 43587.39,
         "2023": 43617.45
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 43617.45,
         "2024": 41830.91,
@@ -18516,7 +18516,7 @@
         "2022": 21308.45,
         "2023": 20866.26
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 20866.26,
         "2024": 19964.37,
@@ -18583,7 +18583,7 @@
         "2022": 56019.43,
         "2023": 55312.01
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 55312.01,
         "2024": 54503.22,
@@ -18851,7 +18851,7 @@
         "2022": 363646.22,
         "2023": 348316.4
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 348316.4,
         "2024": 333745.13,
@@ -18918,7 +18918,7 @@
         "2022": 63564.16,
         "2023": 58709.63
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 58709.63,
         "2024": 57533.95,
@@ -19052,7 +19052,7 @@
         "2022": 117166.55,
         "2023": 114091.57
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 114091.57,
         "2024": 107382.32,
@@ -19387,7 +19387,7 @@
         "2022": 19940.06,
         "2023": 18893.33
       },
-      "meetsParisGoal": false,
+      "meetsParisGoal": true,
       "approximatedHistoricalEmission": {
         "2023": 18893.33,
         "2024": 17509.44,
