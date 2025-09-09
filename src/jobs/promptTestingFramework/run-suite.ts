@@ -1,55 +1,50 @@
 #!/usr/bin/env node
 
-import { runGenericComparison } from "./generic-run-comparison"
+import { parseArgs } from "./cli"
+import { DEFAULT_RUNS_PER_TEST, loadTestFiles, loadTestSuite } from "./utils"
+import { ComparisonConfig, ComparisonOptions } from "./types"
+import { runComparisonTest, printComparisonSummary } from "./comparison-test"
 
 const main = async () => {
   const args = process.argv.slice(2);
   
   console.log(`🔧 run-suite.ts received arguments: ${args.join(' ')}`);
   
-  if (args.length === 0) {
-    console.error("Usage: node run-suite.js <suite-name> [options]");
-    console.error("Example: node run-suite.js scope12 --years 2024 --files rise,catena");
-    process.exit(1);
-  }
-  
-  const suiteName = args[0];
-  
-  // Parse options
-  const options: {
-    yearsToCheck?: number[];
-    fileNamesToCheck?: string[];
-    runsPerTest?: number;
-  } = {};
-  
-  for (let i = 1; i < args.length; i++) {
-    const arg = args[i];
-    
-    if (arg === '--years') {
-      const years = args[i + 1]?.split(',').map(y => parseInt(y.trim()));
-      if (years && years.every(y => !isNaN(y))) {
-        options.yearsToCheck = years;
-      }
-      i++; // Skip next argument
-    } else if (arg === '--files') {
-      const files = args[i + 1]?.split(',').map(f => f.trim());
-      if (files) {
-        options.fileNamesToCheck = files;
-      }
-      i++; // Skip next argument
-    } else if (arg === '--runs') {
-      const runs = parseInt(args[i + 1]);
-      if (!isNaN(runs)) {
-        options.runsPerTest = runs;
-      }
-      i++; // Skip next argument
-    }
-  }
-  
-  console.log(`📤 run-suite.ts calling runGenericComparison with options:`, options);
-  
+  const { suiteName, options } = parseArgs(args);
+
+  const { yearsToCheck = [], fileNamesToCheck = [], runsPerTest = DEFAULT_RUNS_PER_TEST } = options as ComparisonOptions;
+
+  console.log("— Run Configuration —");
+  console.log(`Suite: ${suiteName}`);
+  console.log(`Runs per test: ${runsPerTest}`);
+  console.log(`Files: ${fileNamesToCheck?.length ? fileNamesToCheck.join(', ') : 'ALL'}`);
+  console.log(`Years: ${yearsToCheck?.length ? yearsToCheck.join(', ') : 'ALL'}`);
+  console.log("———————————————");
+
   try {
-    await runGenericComparison(suiteName, options);
+    const testSuite = await loadTestSuite(suiteName);
+    const testFiles = loadTestFiles(suiteName, testSuite, yearsToCheck ?? [], fileNamesToCheck ?? []);
+
+    if (testFiles.length === 0) {
+      console.error("❌ No test files found. Please add .md/.txt files with corresponding expected results to the input/ directory");
+      process.exit(1);
+    }
+
+    const config: ComparisonConfig = {
+      prompts: testSuite.testVariations,
+      testFiles,
+      baseSchema: testSuite.testVariations[0].schema,
+      runsPerTest,
+      outputDir: `../${suiteName}/tests/comparison_results`,
+      yearsToCheck: yearsToCheck ?? [],
+      fileNamesToCheck: fileNamesToCheck ?? []
+    };
+
+    const report = await runComparisonTest(config);
+    printComparisonSummary(report, config);
+
+    console.log("\n🎉 Comparison test completed!");
+    console.log(`📊 Total tests run: ${config.prompts.length * config.testFiles.length * config.runsPerTest}`);
   } catch (error) {
     console.error(`❌ Error running comparison test:`, error);
     process.exit(1);

@@ -538,48 +538,50 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
   const results: TestResult[] = [];
   const hashMappings = loadHashMappings(outputDir);
   
-  // Run tests for each prompt-file combination
-  for (const promptConfig of prompts) {
-    console.log(`\n🔬 Testing prompt: ${promptConfig.name}`);
-    
-    for (const testFile of testFiles) {
-      console.log(`  📄 Testing file: ${testFile.name}`);
+  // Run tests for each prompt-file combination (prompts in parallel)
+  await Promise.all(
+    prompts.map(async (promptConfig) => {
+      console.log(`\n🔬 Testing prompt: ${promptConfig.name}`);
       
-      const schema = promptConfig.schema || baseSchema;
-      const promptHash = hashPrompt(promptConfig.prompt);
-      const schemaHash = hashSchema(schema);
-      const fileHash = hashString(testFile.markdown);
-      
-      updateHashMappings(hashMappings, promptHash, schemaHash, promptConfig.prompt, schema);
-      
-      const { runs, timings, validRuns, parsedRuns } = await executeMultipleRuns(
-        testFile, promptConfig, baseSchema, runsPerTest
-      );
-      
-      const { accuracy, successRate, avgResponseTime, failures, correctRuns } = calculateTestMetrics(
-        parsedRuns, validRuns, runs, timings, testFile, config
-      );
-      
-      const testResult: TestResult = {
-        promptName: promptConfig.name,
-        fileName: testFile.name,
-        accuracy,
-        avgResponseTime,
-        successRate,
-        runs: parsedRuns,
-        timings,
-        failures,
-        promptHash,
-        schemaHash,
-        fileHash
-      };
-      
-      results.push(testResult);
-      
-      console.log(`    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`);
-      console.log(`       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`);
-    }
-  }
+      for (const testFile of testFiles) {
+        console.log(`  📄 Testing file: ${testFile.name}`);
+        
+        const schema = promptConfig.schema || baseSchema;
+        const promptHash = hashPrompt(promptConfig.prompt);
+        const schemaHash = hashSchema(schema);
+        const fileHash = hashString(testFile.markdown);
+        
+        updateHashMappings(hashMappings, promptHash, schemaHash, promptConfig.prompt, schema);
+        
+        const { runs, timings, validRuns, parsedRuns } = await executeMultipleRuns(
+          testFile, promptConfig, baseSchema, runsPerTest
+        );
+        
+        const { accuracy, successRate, avgResponseTime, failures, correctRuns } = calculateTestMetrics(
+          parsedRuns, validRuns, runs, timings, testFile, config
+        );
+        
+        const testResult: TestResult = {
+          promptName: promptConfig.name,
+          fileName: testFile.name,
+          accuracy,
+          avgResponseTime,
+          successRate,
+          runs: parsedRuns,
+          timings,
+          failures,
+          promptHash,
+          schemaHash,
+          fileHash
+        };
+        
+        results.push(testResult);
+        
+        console.log(`    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`);
+        console.log(`       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`);
+      }
+    })
+  );
   
   const report = generateComparisonReport(results, config);
   saveReportToFile(report, config);

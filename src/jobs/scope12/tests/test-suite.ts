@@ -1,5 +1,5 @@
 import { z } from "zod"
-import type { TestSuite } from "../../promptTestingFramework/generic-run-comparison"
+import type { TestSuite } from "../../promptTestingFramework/types"
 import { newSchemaWithInstructionsArrayOfExplanations, oldSchema } from "./testData"
 import { expectedResults } from "./expected-results"
 import { 
