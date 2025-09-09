@@ -33,13 +33,8 @@ class MunicipalityService {
       readFileSync(apiConfig.municipalityDataPath, 'utf-8'),
     )
 
-    // climate-data.json is [ [ {...} ], [ {...} ], ... ]
-    const municipalities = Array.isArray(rawMunicipalities)
-      ? rawMunicipalities.flat()
-      : rawMunicipalities
-
     // Ensure the data matches the expected format
-    this._all = InputMunicipalitiesSchema.parse(municipalities)
+    this._all = InputMunicipalitiesSchema.parse(rawMunicipalities)
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, municipality) => {
