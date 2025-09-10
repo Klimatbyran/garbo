@@ -1,0 +1,1116 @@
+##### EMISSIONS
+
+In 2024 we continued to lay the groundwork for reporting on greenhouse gas emissions across the group.
+We prepared for future comprehensive emissions reporting.
+Our emissions originate from various sources including office environments (both on site and remote) business travel and facilities supporting data storage and server operations.
+
+The group has implemented various energy efficiency measures over the years including low energy office lighting.
+Our Malta headquar ters has recycling stations to support the sorting of recyclable materials including metal paper and cardboard plastic and glass.
+Today we con sider such measures to be normal hygiene and we look constantly for additional ways to improve and lower our environmental impacts.
+For business travel emissions we operate a robust framework through our dedicated travel platform which streamlines the way we track and manage these emissions.
+The methodology for reporting emissions from our office operations is clearly defined while acknowledging the unique challenges posed by remote work settings.
+The emissions attributed to data storage and server operations represent a more intricate challenge which we are committed to addressing further in 2025.
+
+
+<!-- PAGE: 32 -->
+
+##### HYBRID WORKING
+
+The fact that we operate a blend of online working and physical office presence limits the size of our office network and hence our eco footprint.
+Environmental impact arises primarily from office space and from data storage server operations and business travel.
+Notwithstanding this limited footprint we are firmly committed to finding opportunities to mitigate any negative effects from our infrastructure and operations.
+
+As we move forward with implementing the Corporate Sustainability Reporting Directive (CSRD) our goal is to report on scope 1 2 and 3 emissions embracing a holistic approach to our environmental impact.
+This commitment underscores our dedication to not only adhere to regulatory expectations but also to lead by example in our industry by fostering transparency and sustainability.
+
+##### GLOBAL TRAVEL PLATFORM
+
+We operate a global travel platform that provides a one stop shop for travel bookings and travel management.
+The platform also offers extensive reporting and analysis functionality so we can analyse travel patterns and optimise accordingly.
+Gaining a full perspective on our travel related emissions forms a significant part of our carbon footprint management and to better understand our business travel emissions is a significant step in minimising our negative impacts in the future.
+Furthermore the platform provides a vital foundation to start reporting on our greenhouse gas emissions at group level.
+
+- • Emissions
+
+## Environmental responsibility
+
+Our hybrid working setup contributes to an organisation with a relatively small environmental footprint.
+We are nevertheless determined to reduce environmental impacts by better measuring our greenhouse gas emissions and taking account of environmental factors in our decision making processes.
+
+##### Number of full-time employees (FTEs) Gender diversity Gender pay ratio Employee turnover Sickness absence
+
+Responsible travel Emissions Greenhouse gas emissions Offset emissions
+
+## FOCUS ON SOCIAL RESPONSIBILITY AND GOVERNANCE
+
+- As a purely online business, Catena Media has a relatively small, albeit not negligible, impact on the natural environment. We believe we can best contribute to a sustainable future by focusing on good corporate citizenship in the fields of governance and social responsibility. These areas have therefore commanded our attention in recent years, and we have connected them to the UN Global Compact 10 principles and the UN Sustainable Development Goals (SDGs). This approach forms the basis for our sustainability reporting, as shown in this report.
+
+- Further elements in our sustainability gover- nance framework are the Nasdaq ESG Guide and the Maltese Companies Act’s provisions relating to the EU Directive 2014/95/EU on Non-Financial Reporting (NFRD).
+
+- SUSTAINABILITY GOVERNANCE
+
+- The CFO and the audit committee oversee Catena Media’s sustainability efforts. They serve as the central governing bodies for sustainability, linking the board of directors – which approves all company policies, the group’s code of conduct, and the overall corporate strategy, including sus- tainability – with executive management, which implements all strategies.
+
+- The report starts with an update on the gov- ernance and overall reporting framework that underpins our sustainability efforts. It also de- scribes the group’s strategy, based on our three focus areas – responsible business, responsible employer, and environmental responsibility – and how these relate to our reporting framework, the UN Global Compact and the UN Sustainable Development Goals. The report summarises each focus area, describing key developments and achievements in 2024.
+
+- Quarterly updates on ESG matters, our sustainability work and progress according to the strategy
+
+Audit committee tracks and develops the sustainability strategy and its focus areas and targets We believe these universal principles represent fundamental values on which every business should base its strategies and operations.
+Membership of the Global Compact underlines our commitment to those principles and values and underscores our ambition to show and report on progress across our sustainability related engagements.
+inputs to and implements the sustainability strategy
+
+##### PREPARATIONS FOR CSRD AND DOUBLE MATERIALITY
+
+Building on the 2022 materiality assessment we continued the process of conducting a double materiality analysis in 2024.
+This process involved more stakeholders including operators end customers and non governmental organisations.
+The difference compared to the single materiality analysis approach was that the former included only one perspective which is the impact.
+A double materiality analysis takes account of both the organisation's impact on the planet and society (inside-out perspective) and the planet's and society's potential financial impact on the organisation (outside-in perspective).
+
+This more nuanced method aims to provide a comprehensive understanding of the impacts risks and opportunities associated with Catena Media's sustainability profile and engagement.
+
+- • Impact materiality: covers how Catena Media’s activities factually and theoretically affect the environment and society. It is an “inside-out” perspective in which our actions and decisions are scrutinised for their impact on the environment and society.
+
+
+<!-- PAGE: 26 -->
+
+## UN GLOBAL COMPACT AND THE SDGS
+
+- The UN Global Compact forms the core of our sustainability framework alongside selected UN Sustainable Development Goals. Catena Media officially joined the Global Compact in 2022. Our code of conduct, which all employees are required to uphold, applies the Global Compact’s 10 principles in the areas of human rights, labour, environment, and anti-corruption.
+
+- The CFO and the audit committee develop and follow up on the sustainability strategy and its focus areas and targets. They also update the board every quarter on progress and strategy implementation relating to environment, social responsibility, and corporate governance. The CFO is responsible for group sustainability reporting. ABOUT THIS REPORT In the 2024 report we continue to report on a range of sustainability metrics. We are not yet legally obliged to do so under the terms of EU’s Corporate Sustainability Reporting Directive (CSRD), but preparations are currently under way to meet the requirements of the upcoming directive. Our disclosures should be seen as a starting point towards beginning to measure our impacts. We still have much work to do, especial- ly with regard to environmental impact reporting.
+
+- Regular updates on sustainability work and progress during bi-weekly management meetings
+
+Executive management
+
+
+<!-- PAGE: 25 -->
+
+#### SUSTAINABLE DEVELOPMENT GOALS
+
+#5 Gender equality 5.5 #12 Responsible consumption and production 12.6 #16 Peace and justice strong institutions 16:5
+
+## ENVIRONMENTAL RESPONSIBILITY
+
+- MINIMISING OUR IMPACTS
+
+Our hybrid working model results in a relatively small environmental footprint.
+Even so we are committed to reducing our environmental impact on an ongoing basis.
+We aim to achieve this by offsetting our greenhouse gas emissions and considering environmental footprint in our deci sion making processes.
+
+Anti corruption #10. Work against corruption in all its forms including extortion and bribery
+
+
+<!-- PAGE: 27 -->
+
+#### Materiality
+
+Group scoping
+
+Key audit matters
+
+
+<!-- PAGE: 95 -->
+
+# Independent auditor’s report - continued
+
+| To the Shareholders of Catena Media plc |  | How we tailored our group audit scope |
+| --- | --- | --- |
+| Key audit matter | How our audit addressed the Key audit matter | 
+| IMPAIRMENT ASSESSMENT OTHER INTANGIBLE ASSETS |
+| Other intangible assets having a carrying amount of €108.8 million | as at 31 December 2024 have primarily arisen from a number of | acquisitions made during the preceding financial years.
+| An assessment is required annually to establish whether intangible assets that have an indefinite useful life should continue to be recognised or if any impairment is required. The assessment was performed at the lowest level at which Catena Media plc could allocate and assess impairment which is referred to as a cash generating unit (“CGU”). Management considers that the Group operates two CGUs being sports and casino in line with the basis for the Group's segment reporting as further described in note 7. |
+| We tailored the scope of our audit in order to perform sufficient work to enable us to provide an opinion on the financial statements as a whole taking into account the structure of the Group the accounting processes and controls and the industry in which the Group operates. |
+| The Group includes a number of subsidiaries with the main subsidiary being Catena Operations Limited. The Group has a centralised accounting function based in Malta. We assessed the overall audit approach and determined the type of work that needed to be performed on the consolidated financial line items by applying overall Group materiality and our assessment of risk. We performed additional procedures on the consolidation process. |
+| We evaluated the suitability and appropriateness of the impairment methodology applied and the discounted cash flow model prepared by management by involving our independent valuation experts. We also considered the basis for the determination of the two CGUs. |
+|  | The headroom available in the impairment assessment for both the sports and casino CGUs allows for a deterioration in performance or variation to the discount factor or long term growth rate. The calculations underlying the impairment model were re-performed in order to check the model's accuracy. | This gave us sufficient appropriate audit evidence for our opinion on the Group financial statements as a whole.
+![table image]({page: 95, x: 43}, {y: 80, {width: 470}, {height: 44})
+
+#### RESPONDING TO LEGACY ISSUES
+
+Despite these twin launches sports revenue continued on a downward trajectory during the year.
+The segment has been operating at a loss for a prolonged period primarily due to deficient product development and stewardship under past management.
+
+## Statements of comprehensive income – group
+
+| EUR ’000 | Note | Jan Dec 2024 | Jan Dec 2023 |
+| --- | --- | --- | --- |
+| Revenue | 5 | 49,643 | 76,748
+| Total revenue |  | 49,643 | 76,748
+![table image]({page: 44, x: 45}, {y: 136, {width: 363}, {height: 8})
+
+| Direct costs | 6 | (10,990) | (13,434) |
+| --- | --- | --- | --- |
+| Personnel expenses | 8 | (25,149) | (24,767)
+| Depreciation and amortisation | 13 16 17 18 | (4,998) | (11,219)
+| Impairment on intangibles and investment in associate | 13,16,19 | (41,203) | (34,049)
+| Other operating expenses | 10 | (13,765) | (14,957)
+| Total operating expenses |  | (96,105) | (98,426)
+| Operating loss |  | (46,462) | (21,678)
+| Interest payable on borrowings |  | (3,056) | (5,566)
+| Other losses on financial liability at fair value | through profit or loss | (104) | (1,498)
+| Other finance income | 11 | 1,108 | 747
+| Share of net losses from associate accounted for using the equity method | 19 | (130) | (1)
+| Loss before tax |  | (48,644) | (27,996)
+| Tax income/(expense) | 12 | 698 | (186)
+| Loss for the year attributable | to the equity holders of the parent company | (47,946) | (28,182)
+![table image]({page: 44, x: 45}, {y: 191, {width: 363}, {height: 17})
+
+| Loss for the year from discontinued operations | 13 | (263) | (10,054) |
+| --- | --- | --- | --- |
+| Loss for the year |  | (48,209) | (38,236)
+![table image]({page: 44, x: 45}, {y: 426, {width: 363}, {height: 8})
+
+## CHALLENGING MARKET CONDITIONS
+
+In 2024 competitive pressures in the North American market continued to intensify exemplified by a Google policy update in the first half of the year that negatively affected the organic search fundamentals of some of our strategic media partnerships.
+We moved proactively exiting a number of collaborations.
+Today we are more selective about media partnerships and seek collaborations that drive sustainable profitability for both parties.
+
+### Key issues
+
+- • Business travel
+
+#### MULTICHANNEL BUSINESS MODEL
+
+We attract individuals to visit our branded websites primarily by leveraging the visibility we gain from these products’ high rankings on popular search engines.
+Our ability to achieve these rankings hinges on our advanced knowledge of search engine optimisation.
+
+US regional
+
+### MARKET RISKS
+
+- E. Dynamic changes in the environment
+
+- F. Business cycle risk
+
+- G. Search algorithm risk
+
+- H. Competition risk
+
+######### VT
+######### NH
+######### MA
+######### CT
+######### NJ
+######### RH
+######### MD
+
+84%
+
+Yet to regulate
+
+## Notes to the financial statements
+### Note 1
+### Reporting entity
+
+Catena Media plc (“the company”) is a limited liability company and is incorporated in Malta.
+
+The consolidated financial statements include the financial statements of Catena Media plc and its subsidiaries (“the group” or “Catena Media”).
+
+Results from divested assets are being classified as “discontinued operations”.
+
+Standards interpretations and amendments to published standards effective in 2024 The group has applied "Classification of Liabilities as Current or Non current and Non current liabilities with covenants Amendments to IAS 1" for the first time for its annual reporting period commencing 1 January 2024.
+This new standard had no impact on the group's financial position profit or disclosures since the group\'s borrowings with covenants are due within a year.
+
+Standards interpretations and amendments to published standards not yet effective Certain new standards amendments and interpretations to existing standards have been published by the date of authorisation for issue of these financial statements but are mandatory for the group\'s accounting periods beginning after 1 January 2024.
+In particular IFRS 18 "Presentation and Disclosure in Financial Statements" is effective for annual periods beginning on or after 1 January 2026 with earlier application permitted subject to endorsement by the EU.
+This is the new standard on presentation and disclosure in the financial statements with a focus on updates to the statement of profit or loss.
+The group has not early adopted these revisions to the requirements and management is of the opinion that there are no requirements that will have a possible significant impact on the group's financial results and financial position in the period of initial application.
+
+###### Very likely
+###### Likely
+###### Possible
+###### Unlikely
+###### Very unlikely
+
+Negligible Low Moderate High Very high
+
+
+<!-- PAGE: 40 -->
+| RISK TYPE | DESCRIPTION | RISK MANAGEMENT | PROBABILITY | IMPACT |
+| --- | --- | --- | --- | --- |
+| FINANCIAL RISKS |
+| A CURRENCY RISK | The group operates internationally and is exposed to currency risk in revenue expenses and bank balances that are denominated in currencies other than the functional currency. The increasing popularity of cryptocurrency also exposes Catena Media to price changes and volatility in this instrument as well as to cryp to system and wallet security risks. | Most customers are billed in EUR or other larger currencies nota bly GBP and USD which provides a natural hedge. Smaller billing currencies include bitcoin yen and SEK. Balances in smaller cur rencies are kept to a minimum and the remainder is converted into EUR to minimise exchange rate impacts. Catena Media has poli cies in place to minimise crypto price volatility risk and to facilitate prompt payments from operators. The sale of Global Brands has reduced Catena Media\'s exposure to crypto currencies since many operators who pays in crypto were related to Global Brands. | POSSIBLE | LOW
+| B CREDIT RISK | Credit risk arises principally from outstanding receivables due from Catena Me dia's customers and to a lesser degree on funds held on account in payment wallets and similar locations. A customer's inability to pay would have adverse effects on the group's financial position. | Credit risk is regularly monitored by the finance team which has a dedicated accounts receivable and debt collection team. Catena Media assesses customers’ credit quality based on their financial position and by weighing in their track record and other factors. | UNLIKELY | LOW
+![table image]({page: 40, x: 48}, {y: 77, {width: 695}, {height: 8})
+
+| C | BANKING AND FINANCING RISK | Catena Media's primary finance sources are historically bank loans and corpo rate bonds. Adverse developments in the credit and financial markets as well as banks\' know your customer KYC compliance requirements and position to wards the iGaming sector might negatively impact the group's ability to maintain its banking setup and refinance operations potentially leading to higher financial costs. An impaired ability to refinance debt may also hinder debt repayments that fall due. | The group has liquidity targets in place to ensure that any liabilities that fall due are repaid. However material negative changes in the financial markets may be out of scope for the group and have the potential to affect the group's financial position. | VERY LIKELY | HIGH |
+| --- | --- | --- | --- | --- | --- |
+| D | INTEREST RATE RISK | The group is partly financed by financial instruments with floating rates of Stibor and Euribor plus a margin. Thus Catena Media is exposed to fluctuations on the Euribor and Stibor markets. | Catena Media does not currently take any measures to manage in terest rate risk. Even if such measures were to be undertaken in the future they might not fully eliminate or reduce the negative poten tial impact on the group of interest rate movements. | UNLIKELY | MODERATE
+| MARKET RISKS |
+| E | DYNAMIC CHANGES IN THE ENVIRON MENT | Pandemics wars or climate catastrophes has the potential to impact negatively on the global economy and thereby weaken the group's financial position. It may reduce the disposable incomes of online users leading to reduced demand for Catena Media's services. Cancellations of sports events may reduce sports bet ting activity. | A force majeure factor such as a pandemic a war or a climate ca tastrophe is beyond the group's direct control. Nevertheless some consequences can be mitigated. Catena Media strives to diversify its revenue streams to secure a steady inflow of cash. | UNLIKELY | MODERATE
+| F | BUSINESS CYCLE RISK | In recessions the disposable income of online users may be reduced leading to lower demand for the group's products and services. Market consolidation may also lead to fewer operators narrowing the group\'s sales base. In both cases such events could reduce revenue and earnings. | Catena Media operates in multiple markets in different parts of the world and maintains a balanced and diversified portfolio. This limits the impact of an economic downturn in any one market because markets not affected by recession may continue to generate reve nue and earnings in line with or above expectations. | LIKELY | MODERATE
+![table image]({page: 40, x: 51}, {y: 272, {width: 686}, {height: 50})
+
+
+<!-- PAGE: 41 -->
+| RISK TYPE | DESCRIPTION | RISK MANAGEMENT | PROBABILITY | IMPACT |
+| --- | --- | --- | --- | --- |
+| G SEARCH ALGORITHM RISK | Catena Media\'s brands rely for visibility on specific algorithms used by search en gines. Any material updates to algorithms may significantly affect the group\'s ability to attract quality traffic to its websites and require it to adjust its SEO. | Catena Media monitors algorithm changes on an ongoing basis and controls content quality. The group ensures its websites are well built fast and up to date with the latest software. | LIKELY | HIGH
+| H COMPETITION RISK | Online affiliate marketing is characterised by rapid technical changes and im |  |  | 
+| provements. Catena Media must constantly develop and offer new features to |
+| attract sufficient visitors to its websites to generate revenue and maintain fees | from operators. Demand for affiliate marketing services might decrease if opera tors were to shift to more in house SEO efforts or shift away from bonus offerings which would require alternatives to attract players. | Research and development is a core activity to maintain market edge. The group monitors markets and competitors closely to en sure detection of any changes that could potentially challenge Cat ena Media's position. | POSSIBLE | MODERATE
+![table image]({page: 41, x: 48}, {y: 77, {width: 898}, {height: 39})
+
+#### EXPECTED LAUNCHES 2025
+
+| Market | Adult population | Launch date |
+| --- | --- | --- |
+| Missouri | 4.9m | H2 2025
+| Alberta | 3.8m | 2025
+![table image]({page: 16, x: 584}, {y: 175, {width: 211}, {height: 7})
+
+####### D
+####### H
+####### K
+###### I
+
+G
+
+#### UN GLOBAL COMPACT
+
+#1.
+Support and respect internationally proclaimed human rights #2. No complicity in human rights abuses
+
+### OPERATING RISKS
+
+| I | REVENUE SHARE MODEL RISK | A portion of the group's revenue derives from a share of the net revenue that a user generates on an operator's platform. Hence an increase in the operator's cost base might reduce the net revenue ultimately paid to Catena Media. Any undetected miscalculations on the operator's side might result in incorrect fees also resulting in lower revenue. | The group regularly conducts operator audits to ensure that finan cial calculations are accurate. Catena Media also monitors the de velopment of operator costs. | UNLIKELY | LOW |
+| --- | --- | --- | --- | --- | --- |
+| J | CUSTOMER AGREEMENT RISK | Catena Media's revenue and earnings might be adversely affected if a custom er terminates its agreement with the group or does not comply with the agree ment or its licensing requirements including know your customer and anti-mon ey laundering policies. The group assumes unlimited liability for its services to operators meaning that were an operator to receive a sanction or penalty due to services provided by Catena Media the group might be held responsible. | Catena Media monitors customer satisfaction closely and works actively to detect any activity that might fall outside the scope of prevailing regulations. | UNLIKELY | LOW
+| K | CYBER AND IT SYSTEM RISK | IT systems are an integral part of Catena Media's operations and any inter ruptions or errors may significantly decrease the ability of the group and/or its customers to supply services. Moreover a risk of information security weakness exists in respect of vulnerabilities such as cyberattacks or fraud. A data breach could give rise to financial costs legal penalties and/or reputational impairment. | Catena Media conducts regular IT system scanning and constant monitoring to detect any security issues. The group has a dedicated IT security team tasked with protecting against data breaches and simi lar weaknesses based on defined security management processes. Procedures and routines are in place for technical operations disaster recovery business continuity planning and incident management. | LIKELY | MODERATE
+| L | PRIVACY RISK | Non compliance with data privacy rules (e.g. the EU's General Data Protection Regulation (GDPR) or similar regulations in the US) might expose Catena Media to financial penalties damages payments to data subjects and indemnities to third parties such as operators or service providers. A risk arises of the group entering into a data processing agreement with unlimited liability and/or indem nities or that creates exposure by identifying Catena Media as a data processor. | Catena Media provides annual privacy training for staff in all depart ments and operates a privacy hub hosting extensive information. Employees are required to sign documents and policies on data protection and privacy. Data mapping is performed to oversee in formation flow ownership and governance. | POSSIBLE | MODERATE
+| M | THEFT RISK | Any theft or corruption of databases or intellectual property by an external or in ternal party would potentially expose the group to financial and/or reputational losses as well as operational disruption. This also includes the risks related to Phishing where sensitive data or money could end up in the wrong hands. | Catena Media operates an internal security protocol provides rele vant training and restricts staff access to sensitive data. | POSSIBLE | MODERATE
+![table image]({page: 41, x: 53}, {y: 230, {width: 666}, {height: 39})
+
+
+<!-- PAGE: 42 -->
+| RISK TYPE | DESCRIPTION | RISK MANAGEMENT | PROBABILITY | IMPACT |
+| --- | --- | --- | --- | --- |
+| N RECRUITMENT AND RETEN TION RISK | A failure to recruit or retain qualified employees especially in areas requiring |  |  | 
+| specialist competency such as search engine optimisation may impair the | group's ability to achieve its growth targets and achieve maximum results from business operations. | Catena Media has tools and processes in place to meet its global hiring needs. The group has a retention strategy based on learning development and succession planning and the payment of com petitive remuneration and benefits | LIKELY | HIGH
+| LEGAL AND REGULATORY RISKS |
+| O LEGAL AND REGULATORY RISK | The laws and regulations that govern the online gambling industry are complex constantly evolving and in some cases also uncertain. Since the group oper ates in multiple countries it is exposed to a potentially wide range of regulations. Markets are regulated by both central or local governments. In the US where our presence is growing the respective states have a lot of influence over the reg ulatory aspect. Revenue might also be reduced in the event that Catena Media or an operator were to breach regulations and be penalised by the authorities. Regulatory authorities may also take decisions that directly affect Catena Me dia for example by changing regulations for affiliates such as some states have done related to revenue share models which impacts our ability to differentiate revenue streams. Such changes might also result in increased administrative costs for the group or require the group to change limit or cease its business in specific jurisdictions/states. | Catena Media\'s Compliance department closely tracks regulatory developments in its markets actively monitores proposed chang es to legislation and advertising rules and evaluates existing and potential operator customers. The group diversifies its customer base across multiple segments and territories and engages active ly in dialogue with relevant authorities to ensure full compliance by all parties in all aspects. The sale of grey market operations have mitigated the legal and regulatory risk in the group in so far that regulated markets have predicatbility to a higher degree and and spill over effects from grey markets to regulatory markets is mitigat ed. In addition the risk of draconian changes in a regulated market is less than in a grey market. | LIKELY | MODERATE
+| P POLITICAL RISK | Political shifts sanctions and similar changes may affect the ability of the group to operate. Catena Media\'s increased focus on US also makes us more vuner able for potential material changes to the regulations applicable to the group's operations but also in the rest of Americas. | Catena Media has no direct operations in Russia or Ukraine where war broke out in Q1 2022. The group does have outsourced IT devel opment staff in Ukraine where a risk of service interruption exists. Mitigation measures have been taken to address this. | POSSIBLE | MODERATE
+| Q BRAND ABUSE AND INTELLECTUAL PROPERTY RIGHTS (IPR) RISK | Rogue websites and social media channels pose a risk of brand abuse and |  |  | 
+| trademark infringements. Catena Media uses its intellectual property rights | such as trademarks domain names and website content copyright when provid ing marketing services. A risk exists that the group might be prevented from fully exercising its IPR in all jurisdictions where it operates if for instance a domain name owned by the group were to be challenged by a third party. Any inability to fully use IPR may impair the group's competitiveness and negatively affect revenue and earnings. | Catena Media has monitoring and takedown processes in respect of brand and trademark abuses. The group mitigates IPR risk by working actively to ensure that its intellectual property rights are valid in multiple jurisdictions to mitigate the risk. Catena Media also seeks to diversify the asset portfolio on a continuous basis to re duce the risk of infringement of third parties’ IPR registrations. | VERY LIKELY | LOW
+| R TAX RISK | Online gaming operators are subject to direct and indirect taxes including gam bling taxes. It is increasingly common for licensing regimes to impose taxes on operators. An increased tax burden on operators may indirectly reduce Catena Media's revenues. Also the group may be required to participate in tax audits and investigations for instance into its current transfer pricing setup that may result in higher tax expenses. | Catena Media continuously reviews its tax frameworks to ensure the group applies the correct tax rates and complies with applicable regulations. | LIKELY | MODERATE
+![table image]({page: 42, x: 48}, {y: 77, {width: 748}, {height: 8})
+
+
+<!-- PAGE: 43 -->
+| RISK TYPE | DESCRIPTION | RISK MANAGEMENT | PROBABILITY | IMPACT |
+| --- | --- | --- | --- | --- |
+| SOCIAL RISKS |
+| S REPUTATIONAL RISK | Online gaming is a high profile industry that at times receives negative publicity in contexts such as underage gambling and user addiction. Such negative pub licity might lead to declining social acceptance of online gambling potentially affecting Catena Media's reputation and inviting stricter legislation. Such pub licitity might also result in banks being unwilling to service Catena Media or de manding higher social and governance standards. Reputational damage might also occur if the group were to conduct business with unlicensed operators or operators with criminal links. Reputational damage could reduce the group's ability to operate and impact on its revenue and earnings. | Catena Media engages in dialogue with stakeholders to discuss build and improve regulatory compliance among industry actors. The group is also part of an industry network that seeks to promote understanding and destigmatisation of online gaming where a trade assosciation is being set up in which we together with author ities and competitors will agree on rules for affiliates going forward. This will lead to a "gambling certification" and will assure we are op erating in non grey (or black) markets and fulfill other obligations as well as support sustainable gambling. Moreover Catena Media has a supportive relationship with Raiffeisen Bank International (RBI) in Austria. | UNLIKELY | LOW
+| T FINANCIAL CRIMES RISK | Catena Media's operations entail deposits and withdrawals of money with the po tential to originate from fraudulent operator activity such as money laundering. Any involvement by Catena Media in such activity might result in civil or criminal action and penalties. This and the attendant reputational damage could adverse ly affect the group's financial position and earnings. | The group operates a strict anti-money laundering policy and con ducts randomised player controls. Catena Media also strives to implement an extensive know your customer process and an au tomated detection process to deter financial crime. | POSSIBLE | LOW
+![table image]({page: 43, x: 48}, {y: 77, {width: 664}, {height: 50})
+
+Signed on behalf of the Company's Board of Directors on 26 March 2025 as per Directors’ Declaration on ESEF Annual Financial Report submitted in conjunction with the Annual Report Financial Statements 2024.
+
+Annual Report 2024
+
+
+<!-- PAGE: 1 -->
+
+### Code of conduct and policy documents (what)
+### Process documents and Instructions (how)
+
+could affect the company's objectives if they were to occur.
+Each individual risk has a “risk owner” in the organisation with a mandate and responsibility to ensure that measures and controls are evaluate information from group management and to take responsi bility for identified risks.
+The company focuses on mapping and evaluating the largest risks related to financial reporting to ensure that the group's reporting is correct and reliable.
+One example of such a control is that the group does an impairment test of intangible assets with the aim of assessing return and possible impairment requirements at least on an annual basis.
+behalf of the board been given the overall responsibility for managing issues concerning insider information and the board of directors has appointed the general counsel as responsible for keeping insider lists.
+
+
+<!-- PAGE: 85 -->
+The company's investor relations (IR) function is led and monitored by the company's CFO.
+The main tasks of the IR function are to support the CEO and the senior executives in relation to commu nication with capital markets.
+The IR function also works together with the CEO to prepare the company's financial statements general meetings capital market presentations and other regular reporting on IR activities.
+
+###### 16) Per Widerström resigned on 7 August 2023.
+
+- 17) Theodore Bergqvist resigned on 17 September 2024.
+
+- 18) Austin Malcomb resigned on 15 May 2024.
+
+- 19) Esther Teixeira resigned on 15 May 2024.
+
+- 20) Sean Hurlay was appointed as a new board member on 6 December 2023.
+
+- 21) Dan Castillo was appointed as a new board member on 15 May 2024.
+
+- 22) Martin Zetturlund was appointed as a new board member on 5 December 2024.
+
+- 23) Stephen Taylor Matthews was appointed as a new board member on 2 December 2024.
+
+- 24) Information on the total remuneration (including salary and other remuneration) to the employees can be found on page 61 in the 2024 annual report.
+
+- 25) The figure is comprised of (i) EUR 126,551 being the remuneration paid to Michael Daly, (ii) EUR 155,370 being the remuneration paid to Pierre Cadena as interim-CEO and (iii) EUR 236,063 being the remuneration paid to Manuel Stan.
+
+
+<!-- PAGE: 92 -->
+| ERIK FLINCK | DAN CASTILLO | SEAN HURLEY | ADAM KREJCIK | MARTIN ZETTERLUND | STEPHEN TAYLOR MATTHEWS |
+| --- | --- | --- | --- | --- | --- |
+| Chairman since 15 May 2024. | Director since 15 May 2024. | Director since 6 December 2023. | Director since 15 May 2020. | Director since 4 December 2024. | Director since 20 November 2024.
+![table image]({page: 92, x: 102}, {y: 169, {width: 544}, {height: 16})
+
+| Born | 1980 | 1980 | 1987 | 1981 | 1975 | 1981 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Education | MSc in Industrial Engineering and Management Royal Insti tute of Technology Stockholm MSc in Business and Adminis tration Stockholm University School of Business. | Studies in Economics and Politi cal Science Linkoping Univer sity studies in Entrepreneurship Harvard Business School. | BSc in Accounting and Finance University of Birmingham. | BA in Economics from University of California Santa Barbara. | - | -
+| Other assignments | Board chairman at Dr Hud. | Director of Quartr.com Sharespine AB and Malar stranden Bostader. | Advisor at Courtside Ventures advisor and angel investor in the US gaming sector. | Co founder and partner at Eilers & Krejcik Gaming partner at EKG Ventures early stage private investments in gaming and tech nology companies. | Investor and advisor in cyberse curity and technology ventures. | Founder of Polynate an AI sports analytics company and advisor at Gameplai.
+| Work experience | Managing director at BCG Swe den head of global strategy and M&A at Sandvik AB. | Entrepreneur who has started invested and exited several com panies mainly in the IT sector. | Co founder of American Affiliate head of sportsbook at Draft kings head of commercial at Amelco. | Two years at Bank of America in equity research six years at Roth Capital Partner in equity research. Last eight years co-founder and partner at Eilers & Krejcik Gaming a boutique research and consult |  | 
+| ing firm focused on the digital gam ing industry. |
+|  |  |  |  |  | Co founder and CEO of Sentor Managed Security Services. Founder and CEO Scrapesentry SVP advanced projects at Distil Networks managing director Accenture. | Founder of GoatGaming gen eral manager at Underdog Fan tasy product director Perform Group.
+| Own and closely associ ated holdings | 432,524 shares 200,000 call options and 5,898 capital securi ties (CATME H01). | 40,000 shares and 5,632 capital securities (CATME H01). | 41,835 shares. | 30,625 shares. | 526,802 shares held privately and 900,478 shares held through a holding company. | -
+| Independence | Independent of the company its senior management and the company's major shareholders. | Independent of the company its senior management and the company's major shareholders. | Independent of the company its senior management and the company's major shareholders | Independent of the company its senior management and the com pany's major shareholders. | Independent of the company its senior management and the company's major shareholders. | Independent of the company its senior management and the company's major shareholders
+![table image]({page: 92, x: 42}, {y: 245, {width: 677}, {height: 22})
+
+
+<!-- PAGE: 93 -->
+| MANUEL STAN | MICHAEL GERROW | PIERRE CADENA | EDWARD MIDOLO | LIV BIESEMANS |
+| --- | --- | --- | --- | --- |
+| Hired 1 July 2024. Chief Executive Officer (CEO). | Hired 26 April 2020. Chief Financial Officer (CFO). | Hired 1 November 2023. Chief Operating Officer (COO). | Hired 1 October 2018. Chief Technology Officer (CTO). | Hired 1 January 2025. Chief Legal and Compliance Officer (CLCO).
+![table image]({page: 93, x: 102}, {y: 170, {width: 403}, {height: 24})
+
+| Born | 1984 | 1986 | 1975 | 1984 | 1963 |
+| --- | --- | --- | --- | --- | --- |
+| Other assignments | - | - | Board of Advisors Gaud Ham mer Gaming Group. | - | -
+| Previous assign ments | Two decades in the online gam bling industry including over 16 years at Kindred Group as head of digital marketing marketing director and SVP North America | More than 15 years of business experience including head of financial planning and analysis and VP finance at Catena Media controller at Medusa Medical Technologies (now part of ESO) finance director/partner at Mal ta based independent marketing agency Hangar | US committee chair and board member at Raketech senior vice president revenue & strategy at Fox Entertainment/TMZ senior vice president strategy & corpo rate development at WarnerMe dia/Crunchyroll vice president strategy & corporate develop ment at Caesars Entertainment. | More than 15 years of industry experience including Head of Technical Operations Group Head of Central Technology and VP of Systems Technology at Catena Media senior systems engineer systems architect and manager application services (Europe) at CCBill infrastructure engineer at Gamesys Network Ltd | More than 15 years of experi ence in the online gambling industry first in private practice and subsequently as group head of legal and group deputy gen eral counsel at Kindred Group Plc overseeing both European and North American operations
+| Education | BSc International Business and Economics Bucharest Univer sity of Economic Studies Exec utive Management Programme Diploma Yale School of Man agement | BCom Dalhousie University (Canada) Chartered Profes sional Accountant from CPA Canada Member of Association of Chartered Certified Account ants (UK) | MBA Kenan Flagler Business School at University of North Carolina Chapel Hill BS in Commerce McIntire School of Commerce at University of Vir ginia | National Diploma in ICT (Infra structure) Malta College of Arts Science and Technology | Master of Law Catholic Univer sity Leuven (Belgium) LLM in Intellectual Property and EU Competition Law Liege Univer sity (Belgium) LLM in US Law George Mason University Antonin Scalia Law School
+| Own and closely associated hold ings | 187,947 shares and 400,000 share options/warrants | 380,000 share options/warrants | 62,000 shares and 370,000 share options/warrants. | 39,697 shares and 310,000 share options. | 50,000 share options
+![table image]({page: 93, x: 43}, {y: 247, {width: 522}, {height: 22})
+
+
+<!-- PAGE: 94 -->
+We believe that the audit evidence we have obtained is sufficient and appropriate to provide a basis for our opinion.
+
+# A good corporate citizen
+## SUSTAINABILITY GOVERNANCE
+
+- We believe all companies share an obligation to conduct themselves as good corporate citizens. For Catena Media, this involves going beyond ensuring the sustainability of our own business model. It also means addressing the wider operating environment – the sector we operate in, our key stakeholders such as our employees, and the natural environment and its reso- urces.
+
+- Board of directors
+
+approves code of conduct policies sustainability strategy
+
+# Our sustainability strategy
+## RESPONSIBLE BUSINESS
+
+- A POSITIVE ROLE IN SOCIETY
+
+Acting responsibly is at the core of who we are as a company.
+We are committed to playing a positive role in society by delivering value to our customers and employees through our services and job opportunities.
+Our aim is to establish industry leading standards through the imple mentation of robust policies against bribery and corruption and through other applicable policies.
+We strive to maintain strong corporate governance through a diverse and active board of directors.
+
+| RESPONSIBLE BUSINESS | RESPONSIBLE EMPLOYER | ENVIRONMENTAL RESPONSIBILITY |
+| --- | --- | --- |
+| KEY ISSUES |
+| Business ethics and anti-corruption Data protection and privacy Customer responsibility Board diversity and attendance | Development and growth Diversity and equal opportunities Health and well being Social engagement | 
+![table image]({page: 26, x: 281}, {y: 83, {width: 201}, {height: 34})
+
+## Statements of comprehensive income – parent company
+
+| EUR ’000 | Note | Jan Dec 2024 | Jan Dec 2023 | EUR ’000 | Note | Jan Dec 2024 | Jan Dec 2023 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Investment and related income | 5 | - | 15,000 |  |  |  | 
+| Other comprehensive loss |
+| Personnel expenses | 8 | (492) | (282) |  |  |  | 
+![table image]({page: 48, x: 45}, {y: 136, {width: 363}, {height: 8})
+
+## Q3
+### Revenue Year-on-year revenue growth
+### Adjusted EBITDA Adjusted EBITDA margin New depositing customers
+## Q4
+
+|  |
+| --- |
+| Media partnership landscape redrawn while subaffiliation plans take shape | Content and marketing teams streamlined generating annual cost saving of EUR 2.2m
+| •Revenue in North America down 11 percent to EUR 11.2m (12.5) equivalent to 88 percent |
+| (84) of group revenue from continuing oper ations. |
+| •Edward Midolo appointed CTO effective 1 April and Michael Gerrow becomes CFO from 15 April. |
+![table image]({page: 3, x: 634}, {y: 112, {width: 163}, {height: 29})
+
+- • Revenue from continuing operations of EUR 16.0m (31.5), a decrease of 49 percent.
+
+- • Launch of online sports betting affiliation in Vermont, with an adult population of 0.5m, on 11 January and in North Carolina, with an adult population of 8.5m, on 11 March.
+
+- • Revenue from continuing operations of EUR
+
+- 10.7 million (15.9), down 33 percent, in the face of significant organisational changes.
+
+- • Manuel Stan joins as Chief Executive Officer on 1 July. Pierre Cadena is appointed Chief Operating Officer the same day.
+
+- • Revenue from continuing operations of EUR 10.2m (14.5), down 30 percent on the same period last year.
+
+- • Revenue in North America of EUR 8.9m (12.3), equivalent to 87 percent (85) of group revenue from continuing operations.
+
+- • Departure of CEO Michael Daly is announced on 26 February. Vice President Corporate Strategy Pierre Cadena assumes the role of Interim CEO with immediate effect. • A far-reaching organic search policy update by Google on 5 May impacts the rankings of sports betting and casino content produced in collaboration with established media organ- isations. In response, the company decides not to renew some strategic media partner- ships, leading to cost decreases of EUR 1.4m per quarter plus EUR 0.2-0.3m in quarterly content costs. • Further measures implemented to streamline content production and content marketing teams as part of the transition to a leaner, product-led organisation, generating an esti- mated annual cost saving of EUR 2.2m from 1 November 2024.
+
+€16m
+
+49%
+
+€1.9m 12% €10.7m 33% €1.3m 13% €10.2m 30% €1.5m 15%
+
+44,077
+
+
+<!-- PAGE: 4 -->
+
+######## Catena Europe Limited
+
+Loss for the year was EUR 0.01m.
+Deficit equity at year end totalled EUR 0.02m.
+Loss for the year ended 31 December 2023 was EUR 0.01m while the net equity at year end was EUR 0.01m.
+
+###### Q
+
+R
+
+###### Catena Media K.K.
+
+Profit before tax was EUR 0.01m (0.1).
+Profit after tax for the year was EUR 0.002m (0.04).
+Net equity at year end totalled EUR 0.4m (0.4).
+
+### Items that may be reclassified to loss for the year
+### Currency translation differences 594 (667)
+### Items that will not be reclassified to loss for the year
+
+| Interest payable on hybrid capital securities |  | (4,874) | (4,597) |
+| --- | --- | --- | --- |
+| Total other comprehensive loss for the year |  | (4,280) | (5,264)
+| Total comprehensive loss attributable to the equity holders | of the parent company | (52,489) | (43,500)
+| Earnings per share attributable to the equity holders of the parent company during the year (expressed in euros per share) Basic earnings per share From loss for the year | 14 | (0.63) | (0.37)
+![table image]({page: 44, x: 432}, {y: 215, {width: 363}, {height: 42})
+
+Diluted earnings per share
+
+####### COMPANY
+
+| EUR ’000 | Less than 1 year | Between 1 and 2 years | Between 2 and 4 years | Total |
+| --- | --- | --- | --- | --- |
+| At 31 December 2024 |
+| Borrowings | 22,341 | 26,188 | - | 48,529
+| Trade and other payables | 1,118 | - | - | 1,118
+|  | 23,459 | 26,188 | - | 49,647
+![table image]({page: 60, x: 303}, {y: 278, {width: 136}, {height: 8})
+
+###### Catena Media Sverige AB
+
+Loss before tax was EUR 0.1m (0.03).
+Loss after tax was EUR 0.1m (0.02).
+Net equity at year end totalled EUR 0.7m (0.5).
+
+###### Catena Media Canada Ltd
+
+Profit before tax was EUR 0.3m (0.3) and profit after tax was EUR 0.3m (0.2).
+Net equity at year end totalled EUR 0.8m (0.5).
+
+SUSTAINABILITY
+# Committed to sustainable operations at every level of the business
+
+
+<!-- PAGE: 24 -->
+
+#### TOTAL COSTS
+
+- 3.2
+
+39%
+
+Decrease
+
+## CONTROL ENVIRONMENT
+
+|  |
+|  |
+| Catena Media's control environment is based on the division of work between the board board committees and the CEO as well as the values that the board of directors and group management communi cate and base their work on. To retain and develop a control environ ment to comply with applicable rules and regulations and to ensure that the desired way of carrying out business is implemented in the entire group the board of directors has as the ultimate responsible body established a number of fundamental documents of signifi cance to risk management and internal control including steering documents policies procedures and instructions. These documents include the rules of procedure of the board of directors CEO instruc tions instructions for financial reporting and the group's code of con duct and insider policy. | Policies procedural descriptions and instructions are distributed to affected employees in the group and signed by employees through the group's compliance platform. It is mandatory for all employees in the group to read understand and sign off on company policies and to comply with the group's code of conduct. Employees also conduct regular tests to ensure that they are familiar with the content of rele vant policies procedural descriptions and instructions. RISK ASSESSMENT Catena Media has developed a process for risk assessment where the company annually carries out a risk analysis and risk assessment which is reviewed and if required updated after six months. Risks are identified and categorised as follows • Financial risks • Market risks • Business activites and industry risks • Legal and regulatory risks • Social risks The goal of the risk analysis is to identify the greatest risks that can prevent the company from achieving its objectives or fulfilling its strat egy. Another goal is to evaluate these risks based on the likelihood of them arising during upcoming periods and the degree to which risks in place in order to counteract the risk. The risk owner is also respon sible for monitoring following up and reporting changes in the group's exposure to identified risks. Group management reports identified risks to the audit commit tee. Through the audit committee the board of directors evaluates the group's risk management system and related procedures includ ing risk assessments in an annual risk report that is updated after six months where the top ca. 20 risks based on a risk rating are reviewed in detail. This is to ensure that material risks are managed and that controls are implemented to counteract identified risks.
+| Steering documents are defined as follows | The company's management considers the greatest operational risks to be related to (i) changes in the search algorithm where any material updates to algorithms used by search engines may signifi cantly affect the group\'s ability to attract quality traffic to its websites and require it to adjust its SEO and (ii) changes to regulatory and legislative environment that lead to changes in operators’ (Catena Media's customers\') ability to offer and market their services which could affect existing business growth potential and put commercial pressure on the company. CONTROL ACTIVITIES The company has established a risk management procedure that includes a number of key controls that must be established and work in the risk management processes. The control requirements are an important instrument that enables the board of directors to lead and
+![table image]({page: 84, x: 43}, {y: 249, {width: 392}, {height: 92})
+
+### IDENTIFYING KEY MATERIAL TOPICS
+
+The starting point for the existing assessment was to identify potential material topics for Catena Media.
+To understand the organisation's context we considered our activities business relationships sustainability context and stakeholders.
+We also reached out to selected stakeholders to hear their views on our material topics and potential impacts.
+An employee survey was sent out to all employees.
+Feedback from investors allowed us to understand their requirements and expectations in the coming years.
+Interviews with non executive directors and top management delivered valuable input on their perspectives.
+
+### RISK AND CONTROLS – ANNUAL CYCLE
+
+- 4. Evaluation of risks and controls (self-evaluation)
+
+- 1. Risk evaluation
+
+- 5. Status reporting of internal controls and risk management to the board
+
+of employment for the CEO and group management.
+The committee also has the task of evaluating and preparing proposals on incentive programmes.
+
+relevant steering documents that are implemented and ensuring that employees have adequate knowledge of internal control.
+
+- 2. Follow-up and update of steering documents and controls
+
+- 6. Preparation of the company’s governance report3. Implement updated governing documents
+
+|  |
+|  |
+| Group management | Operationally responsible for controls being in place to reduce identified risks. Ensuring that there are
+| CFO | Operationally responsible for financial reporting including ensuring adequate internal control for the financial statements.
+![table image]({page: 85, x: 45}, {y: 488, {width: 213}, {height: 17})
+
+
+<!-- PAGE: 86 -->
+
+## To the Shareholders of Catena Media plc
+Independent auditor’s report
+# Materiality
+
+The scope of our audit was influenced by our application of materiality.
+An audit is designed to obtain reasonable assurance whether the financial statements are free from material misstatement.
+Misstatements may arise due to fraud or error.
+They are considered material if individually or in aggregate they could reasonably be expected to influence the economic decisions of users taken on the basis of the financial statements.
+
+Based on our professional judgement we determined certain quantitative thresholds for materiality including the overall group materiality for the financial statements as a whole as set out in the table below.
+These together with qualitative considerations helped us to determine the scope of our audit and the nature timing and extent of our audit procedures and to evaluate the effect of misstatements both individually and in aggregate on the financial statements as a whole.
+
+Overall group materiality €496,000
+
+|  |
+|  |
+| How we determined it | Approximately 1% of revenue
+| Rationale for the materiality benchmark applied | We chose revenue because in our view it is a benchmark against which the per formance of the Group is most com monly measured by users and is a gen erally accepted benchmark. We chose 1% which is within a range of quantita tive materiality thresholds that is con sid ered to be acceptable.
+![table image]({page: 94, x: 558}, {y: 225, {width: 237}, {height: 43})
+
+We agreed with the Audit Committee that we would report to them misstatements identified during our audit above €49,000 as well as misstatements below that amount that in our view warranted reporting for qualitative reasons.
+
+Key audit matters Key audit matters are those matters that in our professional judgement were of most significance in our audit of the financial statements of the current period.
+These matters were addressed in the context of our audit of the financial statements as a whole and in forming our opinion thereon and we do not provide a separate opinion on these matters.
+
+- • Overall group materiality: €496,000, which repre- sents approximately 1% of revenue.
+
+- • All audit work was conducted by the group auditor located in Malta, given that the Group’s accounting processes are primarily centralised at its head of- fice in Malta.
+
+- • Impairment Assessment – Other Intangible As- sets
+
+### SOCIAL RISKS
+
+- T. Reputational risk
+
+- U. Financial crimes risk
+
+# Other information
+
+The directors are responsible for the other information.
+The other information comprises all of the information in the Annual Report (but does not include the financial statements and our auditor's report thereon).
+
+Our opinion on the financial statements does not cover the other information and we do not express any form of assurance conclusion thereon except as explicitly stated within the Report on other legal and regulatory requirements.
+
+The impairment assessment relied on value in use calculations based on the estimated future free cash flow to be generated by Catena discounted to present value at an appropriate discount rate.
+The cash flow projections were based on the Group's budget for 2025 to 2029 and an annual growth rate of 2% for all CGUs beyond that period.
+Management's projections consider the Group's strategy for initiatives in the sports segment in terms of new markets and further expansion in certain existing markets which led to higher growth assumptions for this segment.
+On this basis the Group concluded that an impairment charge of €40 million should be recognised with respect to specific assets which have been experiencing deteriorating performances over the past year on the basis of their revised expectations for the projected period.
+Further information is provided in notes 4 13 and 16 to the financial statements.
+We agreed the 2025 cash flow forecasts in the impairment model to the latest Board approved budgets.
+For the remaining periods covered by the model we evaluated the assumptions (including revenue growth rates EBITDA margins and discount rates) underlying the forecasts and considered the depth of the analysis available including consideration of market data to support their basis.
+As part of this process we engaged in detailed discussions with management and enquired on changes to assumptions over the previous period placing particular focus on the higher growth assumptions for the sports CGU.
+Further together with our independent valuation experts we assessed the discount rate and growth rate assumptions by benchmarking the underlying inputs in the calculation to market data and by considering alternate scenarios.
+
+We have considered management's disclosure around sensitivity of whether or not a reasonable possible change in key assumptions could result in additional impairment beyond the amounts reflected in the financial statements for the year ended 31 December 2024.
+
+In connection with our audit of the financial statements our responsibility is to read the other information identified above and in doing so consider whether the other information is materially inconsistent with the financial statements or our knowledge obtained in the audit or otherwise appears to be materially misstated.
+
+If based on the work we have performed we conclude that there is a material misstatement of this other information we are required to report that fact.
+We have nothing to report in this regard.
+
+Responsibilities of the directors and those charged with governance for the financial statements The directors are responsible for the preparation of financial statements that give a true and fair view in accordance with IFRSs as adopted by the EU and the requirements of the Maltese Companies Act (Cap. 386) and for such internal control as the directors determine is necessary to enable the preparation of financial statements that are free from material misstatement whether due to fraud or error.
+
+The underlying forecast cash flows and the supporting assumptions reflect significant judgements as they are affected by unexpected future market or economic conditions changes to laws and regulations as well as Management's success in executing the strategy for growth particularly for the sports segment.
+Projected cash flow estimates and the level to which they are discounted is inherently uncertain and requires judgement.
+
+The extent of judgement and the size of the goodwill and intangible assets resulted in this matter being identified as an area of audit focus.
+
+The recoverable amount and impairment assessment for both the sports and casino CGU are sensitive to changes in key assumptions primarily revenue growth and discount rate applied.
+In particular if the forecast growth rates in revenue are not achieved then an impairment charge may arise.
+We also considered the appropriateness of disclosures made in relation to the impairment assessment of goodwill and other intangible assets (note 16 Other intangible assets).
+Based on the work performed we found the value of other intangible assets as well as the related disclosures required by IAS 36 to be consistent with the explanations and evidence obtained.
+In preparing the financial statements the directors are responsible for assessing the Group's and the Parent Company's ability to continue as a going concern disclosing as applicable matters related to going concern and using the going concern basis of accounting unless the directors either intend to liquidate the Group or the Parent Company or to cease operations or have no realistic alternative but to do so.
+
+Those charged with governance are responsible for overseeing the Group's financial reporting process.
+
+We have no key audit matters to report with respect to our audit of the parent company financial statements.
+
+
+<!-- PAGE: 96 -->
+
+###### S
+###### T
+####### LP
+####### N
+####### M
+####### E
+
+C
+
+STRATEGY
+# Adapting to an era of changing market dynamics
+
+
+<!-- PAGE: 7 -->
+Diagnosing our challenges and responding proactively 2024 was a turbulent year for Catena Media.
+Internally the group made significant changes inc luding the appointment of an entirely new executive management team.
+For the new leadership right sizing the business and establishing a solid operating platform were top priorities.
+Here we present some of the issues identified by the new team along with actions taken to address them.
+
+|  | Challenge | Source | Identified reasons | Response |
+| --- | --- | --- | --- | --- |
+| REVENUE | Group reported revenue declines in 2023 and 2024. | EXTERNAL INTERNAL | A squeeze by operators on marketing budgets and payments to affiliates combined with fewer new state openings. Substandard internal processes and sub-optimal organisational structures also played a part. | We developed a new operating strategy and restructured the organisation in 2024 reducing costs to protect margins (see next pages for details).
+| COST PER ACQUISITION (CPA) RATES | Operators have significantly scaled back their market spending and CPA rates. | EXTERNAL | A lack of new state openings and stiffer competition between oper ators and among affiliates. | We are developing new revenue streams and diversifying the busi ness. Focus is on the delivery of high value players to operators and forging closer player relationships.
+| DIRECT COSTS AND PROFITABILITY | A history of high direct costs and operating expenses leading to unsatisfactory profitability. | INTERNAL | A combination of underperforming media partnerships and an excessively large organisation especially in content marketing and content production inflated the group's direct costs other operat ing expenses and personnel expenses. | In 2024 we terminated several media partnerships on unfavour able terms. A comprehensive cost overview resulted in significant personnel streamlining in the second half of the year and the creation of an organisational structure geared to deliver on the new corporate strategy.
+| ORGANIC SEARCH RANKINGS | Harder to achieve and maintain high search rankings. | EXTERNAL | A Google policy update in 2024 significantly impacted affiliates including many of Catena Media's media partnerships. Changes to Google algorithms further fuelled volatility in organic search. Stiff competition in North America since 2023 has also made it harder to reach and keep the top Google rankings. | During the year we terminated sub-optimal media partnerships and focused on developing our high ranking top quality brands. We established one dedicated team per brand and embedded a much faster response to external changes than previously. We also pursued diversification by expanding in sub-affiliatiation CRM and paid media strengthening our ability to drive sustain able growth across multiple channels.
+| FINANCIAL POSITION | High debt levels and expensive hybrid capital securities impacted financial flexibility and increased interest costs. | INTERNAL | A history of significant debt accumulated from a mixed results mergers and acquisition programme coupled with weaker perfor mance led to unsustainable leverage ratios. | We used asset sale proceeds to make significant debt repayments in 2024. Following the strategic review remaining assets values were evaluated at a product level and impairments were made in line with their expected returns.
+| DATA MANAGEMENT | Under previous management little product data was collected |  |  | 
+|  |  | INTERNAL | The absence of internal policies and data governance along with a lack of initiative follow up impeded asset efficiency. Business intelligence capabilities was also lacking. | In 2024 we incentivised internal knowledge sharing by imple menting new processes and a comprehensive data collection and management toolkit.
+| and stored and key performance indicators were not measured. |
+| TECHNOLOGY INFRASTRUCTURE | Outdated technical infrastructure in some parts of the organisation lowered efficiency. | INTERNAL | No cohesive method for asset development and maintainence. | During the year we developed and launched a new technical plat form geared to supporting technology excellence and agile brand and data management.
+![table image]({page: 7, x: 177}, {y: 151, {width: 621}, {height: 26})
+
+
+<!-- PAGE: 8 -->
+Three new pillars
+
+#### AMORTISATION AND IMPAIRMENT
+
+The group has two operating segments Casino and Sport resulting in two cash generating units (CGUs) for the purpose of IAS 36.
+Management assesses impairment risk by first considering performance at a segment level and by further evaluating individual assets’ value in use.
+During the year ended 31 December 2024 an impairment charge of EUR 40.0m was recognised of which EUR 32.6m relate to specific Sport assets and EUR 7.4m to specific Casino assets.
+
+During Q3 2024 management conducted a comprehensive impairment assessment to determine the recoverable amount of CGUs and individual assets of a new product operating model requiring a reassessment of asset valuations in these areas.
+The assessment was carried out with a proactive approach to financial risk management considering market fluctuations and taking strategic measures to mitigate risks including a significant reduction in the cost base.
+As market conditions continue to evolve this ongoing evaluation may result in future adjustments to the carrying value or useful life of certain assets.
+
+Management's impairment assessment for the Sports CGU in 2024 depends on growth assumptions primarily in North America.
+The North American sports business was particulary impacted in 2024 and has been a major focus of profitable rebuilding.
+These assumptions of the return to profit in this operating segment influences the sensitivity of the impairment headroom for the Sports CGU.
+
+The recoverable amount of the Casino and Sports CGUs was based on cash flow projections comprising forecasted income from operations for 2024 and cash flow projections for the period 2025- 2029 reflecting compounded annual growth rates (CAGR) as per the table below which were duly discounted by the respective discount rates also shown below.
+A post tax discount rate has been applied to post tax cash flows as this yields the same result.
+This is because the post tax discount rate has been adjusted to account for the specific timing of future tax cash flows.
+The CAGR assumes a mix of state revenue growth and new market launches.
+An in perpetuity growth rate of 2 percent was applied beyond this period.
+The effective tax rate was estimated at 30 percent.
+
+
+<!-- PAGE: 69 -->
+|  | CAGR | Discount Rate |
+| --- | --- | --- |
+| Casino | 9% | 14% | 13% | 15%
+| Sports | 22% | 20% | 13% | 15%
+![table image]({page: 69, x: 152}, {y: 189, {width: 235}, {height: 8})
+
+### EXPENSES
+
+- Catena Media holds a strong market position in the online casino and sports betting sector. The group achieves economies of scale by oper- ating the same online brands in several geographical markets. A shared technical platform enables efficiency in production perspective and in data collection. Analysing consumer quality and conversion is crucial to developing and improving website content. The group has acquired sev- eral assets in prior years and, as part of the strategic review in Decem- ber 2022, the group set its focus on the stable regulatory environment of North America and the high-margin opportunities offered as the legalisa- tion of states and provinces in the online sports betting and casino rolls out. The group possesses extensive experience of integrating assets to create synergies while focusing on accelerating investment into long- term growth plans. Catena Media is positioned for future organic growth, with a focus on scaling the current brand portfolio and preparing for future market launches in North America.
+
+- Total operating expenses, including items affecting comparability, totalled EUR 96.1m (98.4). Direct costs decreased to EUR 11.0m (13.4), follow- ing the non-renewal of certain media partnerships and the optimisation of other agreements. Personnel expenses increased to EUR 25.1m (24.8), and excluding items affecting comparability decreased by 5 percent to EUR 22.4m (23.5). The decrease in personnel costs resulted from meas- ures taken to streamline the company’s content production and market- ing teams as part of a shift to a product-led organisation. Other operating expenses totalled EUR 13.8m (15.0), and excluding items affecting com- parability decreased by 24 percent to EUR 10.9m (14.4). The decrease in other operating expenses was mainly due the transfer of full-time-equiv- alent contractors from other operating expenses to personnel, and a re- duction in outsourced content and search engine optimisation support costs, professional fees, and travel and entertainment expenditure.
+
+- IACs from continuing operations totalled EUR 5.7m (1.9). Costs as- sociated with share-based payments of EUR 0.2m (-0.1), reorganisation costs of EUR 2.4m (0.6) and one-time retention incentives of EUR 0.2m
+
+
+<!-- PAGE: 36 -->
+- (0.8)
+
+- were
+
+- included
+
+- in
+
+- “personnel
+
+- expenses”.
+
+- IACs
+
+- in
+
+- ‘‘other
+
+- operating
+
+- expenses’’ of EUR 2.2m related to the termination of the contractual ar-
+
+- rangement previously measured in accordance with the requirements of
+
+- IAS 38 using the financial liability model. EUR 0.6m related to restructur-
+
+- ing costs (0.3) and EUR 0.1 (0.3) related to professional and legal fees.
+
+### TABLE 1 – TOTAL REMUNERATION OF THE BOARD OF DIRECTORS AND THE CEO (EUR)
+
+|  | 1 FIXED REMUNERATION | 2 VARIABLE REMUNERATION | 3 | 4 | 5 | 6 | 7 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| BENEFITS |
+| (START/END) |
+| Catena Media US inc | Michael Daly3) (CEO) | 2024 | 126,331 | 220 | - | - | - | - | 126,551 | 100% Fixed | 23,201
+| Catena Media US inc | Pierre Cadena4) (Interim CEO) | 2024 | 155,073 | 297 | - | - | - | - | 155,370 | 100% Fixed | 1,539
+| Catena Media US inc | Manuel Stan5) (CEO) | 2024 | 229,665 | 955 | - | - | - | 5,443 | 236,063 | 100% Fixed | 7,084
+| Catena Media plc | Goran Blomberg6) (Director) | 2024 | 42,519 | - | - | - | - | - | 42,519 | 100% Fixed | -
+| Catena Media plc | oystein Engebretsen7) (Director) | 2024 | 41,679 | - | - | - | - | - | 41,679 | 100% Fixed | -
+| Catena Media plc | Martin Zetterlund8) (Director) | 2024 | 3,481 | - | - | - | - | - | 3,481 | 100% Fixed | -
+| Catena Media plc | Theodore Bergqvist9) (Director) | 2024 | 33,615 | - | - | - | - | - | 33,615 | 100% Fixed | -
+| Catena Media plc | Adam Krejcik (Director) | 2024 | 46,897 | - | - | - | - | - | 46,897 | 100% Fixed | -
+| Catena Media plc | Austin Malcomb6) (Director) | 2024 | 20,544 | - | - | - | - | - | 20,544 | 100% Fixed | -
+| Catena Media plc | Esther Teixiera6) (Director) | 2024 | 16,810 | - | - | - | - | - | 16,810 | 100% Fixed | -
+| Catena Media plc | Stephen Taylor Matthews10) (Director) | 2024 | 3,854 | - | - | - | - | - | 3,854 | 100% Fixed | -
+| Catena Media plc | Sean Hurley (Director) | 2024 | 44,492 | - | - | - | - | - | 44,492 | 100% Fixed | -
+| Catena Media plc | Dan Castillo11) (Director) | 2024 | 25,464 | - | - | - | - | - | 25,464 | 100% Fixed | -
+| Catena Media plc | Erik Flinck11) (Director) | 2024 | 63,438 | - | - | - | - | - | 63,438 | 100% Fixed | -
+| Total |  |  | 853,862 | 1,472 |  |  |  | 5,443 | 860,777 |  | 31,824
+![table image]({page: 87, x: 275}, {y: 90, {width: 731}, {height: 7})
+
+- 1) Sum of Columns 1-4.
+
+- 2) This cost comprises of share-based remuneration for outstanding options granted to the individual as at 2024. Such options have not been vested or exercised yet, but are accounted for as a cost in the company’s books.
+
+##### A
+##### M
+##### E
+##### Q
+##### S
+##### C
+##### O
+##### G
+##### I
+##### K
+##### B
+##### N
+##### F
+##### R
+##### T
+##### D
+##### P
+##### H
+##### J
+##### L
+##### I M P A C T
+###### A
+###### B
+###### F
+###### J
+
+O
+
+#### EXTRAORDINARY GENERAL MEETING
+
+One extraordinary general meeting was held during 2024.
+
+### Lucienne Pace Ross
+### Principal
+
+For and on behalf of PricewaterhouseCoopers 78 Mill Street
+
+## Opinion
+
+In our opinion the Annual Financial Report for the year ended 31 December 2024 has been prepared in all material respects in accordance with the requirements of the ESEF RTS.
+
+Other reporting requirements The Annual Report 2024 contains other areas required by legislation or regulation on which we are required to report.
+The Directors are responsible for these other areas.
+
+The table below sets out these areas presented within the Annual Financial Report our related responsibilities and reporting in addition to our responsibilities and reporting reflected in the Other information section of our report.
+Except as outlined in the table we have not provided an audit opinion or any form of assurance
+
+
+<!-- PAGE: 97 -->
+| Area of the Annual Report 2024 and the related Directors’ responsibilities | Our responsibilities | Our reporting |
+| --- | --- | --- |
+| Director\'s report | The Maltese Companies Act (Cap. 386) requires the directors to prepare a Directors’ report which includes the contents required by Article 177 of the Act and the Sixth Schedule to the Act. | We are required to consider whether the information given in the Directors’ report for the financial year for which the financial statements are prepared is consistent with the financial statements.
+![table image]({page: 97, x: 48}, {y: 173, {width: 370}, {height: 44})
+
+We are also required to express an opinion as to whether the Directors’ report has been prepared in accordance with the applicable legal requirements.
+
+In addition we are required to state whether in the light of the knowledge and understanding of the Company and its environment obtained in the course of our audit we have identified any material misstatements in the Directors’ report and if so to give an indication of the nature of any such misstatements.
+
+######### SUSTAINABILITY
+
+Sustainability is a strategic imperative for Catena Media.
+The group is a digital platform with a relatively small environmental footprint and therefore focuses its efforts on social responsibility and governance.
+The company works constantly to improve governance and to make its operations more sustainable emphasising business ethics corporate governance and transparency.
+Socially the group stands for equality ethical conduct and diversity at all levels.
+Catena Media\'s sector leadership in corporate social responsibility is reflected in a commitment to fair and equitable gaming.
+More details on sustainability can be found on pages 24-32.
+
+# Report on the audit of the financial statements
+## Our opinion
+### In our opinion:
+
+- • The Group financial statements and the Parent Company financial statements (the “financial statements”) of Catena Media plc give a true and fair view of the Group and the Parent Company’s financial position as at 31 December 2024, and of their financial performance and cash flows for the year then ended in accordance with International Financial Reporting Standards (‘IFRSs’) as adopted by the EU; and
+
+- • The financial statements have been prepared in accordance with the requirements of the Maltese Companies Act (Cap. 386).
+
+Our opinion is consistent with our additional report to the Audit Committee.
+
+#### TOWARDS A SUSTAINABLE REVENUE MIX
+
+In the last two years we have developed a more balanced mix between CPA revenue sharing and other income models.
+Prior to 2022 the overwhelming majority of our contracts were on CPA terms.
+In 2024 83 percent of contracts were CPA 15 percent were revenue share and 2 percent were under alternative models.
+
+2%
+
+### OUR KEY MATERIAL TOPICS
+
+After the assessment internal discussions were conducted to determine what material topics would lay the foundation for our sustainability work and reporting.
+Based on the existing materiality assessment we identified several material areas valuable to our stakeholders.
+The material areas are
+
+- • Anti-corruption and anti-money laundering
+
+- • Diversity, equality and inclusion in the workplace
+
+- • Financial materiality: here the analysis focuses on how external sustainability factors can affect the company’s financial performance. It is, in contrast to the material impact, an “outside-in” perspective in which external changes and trends are analysed to understand their potential impact on Catena Media.
+
+- • Attracting, developing, rewarding and retaining employees
+
+- • Customer responsibility, especially ethical marketing
+
+Safe storage and transparent management of customer data
+
+#### What we have audited
+
+Catena Media plc's financial statements comprise
+
+- • the Consolidated and Parent Company statements of comprehensive income for the year ended 31 December 2024;
+
+- • the Consolidated and Parent Company statements of financial position as at 31 December 2024;
+
+- • the Consolidated and Parent Company statements of changes in equity for the year then ended;
+
+- • the Consolidated and Parent Company statements of cash flows for the year then ended; and
+
+- • the notes to the financial statements, comprising material accounting policy information and other explanatory information.
+
+Basis for opinion We conducted our audit in accordance with International Standards on Auditing (ISAs).
+Our responsibilities under those standards are further described in the Auditor's Responsibilities for the Audit of the Financial Statements section of our report.
+
+#### Note 2
+### Summary of material accounting policies
+
+The principal accounting policies applied in the preparation of these financial statements are set out below.
+These policies have been consistently applied to all periods presented unless otherwise stated.
+The parent company applies the same accounting principles as the group.
+
+The preparation of financial statements in conformity with IFRS as adopted by the EU requires the use of certain accounting estimates.
+It also requires the directors to exercise their judgement in the process of applying the group's accounting policies (see Note 4 Critical accounting estimates and judgements).
+The financial statements incorporate the results of Catena Media plc and its subsidiaries Catena Operations Limited Catena Media UK Limited Catena Media doo Beograd Catena Media US Inc Catena Media Australia PTY Limited Catena Media KK Catena Media Sverige AB Catena Media Italia Srl Catena Media Canada Ltd Lineups.
+com Inc. Catena Media Germany GmbH Catena Publishing Limited
+
+##### IMPAIRMENT ASSESSMENT ON INTANGIBLE ASSETS
+
+The group operates through two distinct segments which form the basis for its two cash generating units (CGUs) under IAS 36.
+Management evaluates impairment risk by first assessing performance at the segment level and then further evaluating individual assets’ value in use.
+During the year ended 31 December 2024 an impairment charge of EUR 40.0m was recognised on specific sports and casino assets.
+This impairment followed the implementation of a new prod uct operating model which necessitated a reassessment of asset values in these areas.
+
+Management has addressed the discrepancy between the company's book value and its market capitalisation by executing streamlining measures to reduce the cost base significantly and stabilise revenue.
+After year end the group received payments totaling EUR 15.0m from divested assets.
+At this time management is confident in the company's liquidity its ability to repay the senior bond due in June 2025 and its ability to continue operating and meet future interest payments on the hybrid capital securities without recourse to dilutive actions.
+During the comparative year an impairment loss of EUR 34.0m was recognised in relation to the group's remaining European non core assets and was classified with continuing operations.
+An impairment loss of EUR 17.9m relating to the UK and Australian online sports betting brands and the Italian online casino and sports betting brands was classified under discontinued operations.
+The group maintains a proactive approach to financial risk management regularly assessing exposure to market fluctuations and taking appropriate steps to mitigate potential risks including significantly reducing the cost base over the last two quarters.
+Based on these factors the financial statements have been prepared on a going concern basis as management believes that the group has adequate resources to continue operations for the foreseeable future.
+This ongoing assessment may lead to revisions in the carrying value or useful life of certain assets as management adapts to evolving market conditions.
+
+Further information on this critical accounting estimate can be found in Note 16 including disclosure of sensitivity for the key assumptions.
+
+#### KEY METRICS
+
+Gender diversity Board meeting attendance Board independence CEO pay ratio
+
+###### KEY SHARE DATA
+
+2024
+
+|  |
+|  |
+| Earnings per share (EUR) after dilution | -0.63
+| Outstanding shares at year end | 78,774,442
+| Last price paid 2024 SEK | 3.73
+| Highest price paid 2024 SEK | 11.99
+| Lowest price paid 2024 SEK | 3.73
+| Number of shareholders 31 Dec 2024 | 8,773
+| Number of shares traded in 2024 | 68,912,198
+| Marketplace | Nasdaq Stockholm
+| Listed | 4 September 2017
+| Segment | Small Cap
+| Sector | Discretionaries
+| Trading name | CTM
+| ISIN code | MT0001000109
+| Currency | SEK
+![table image]({page: 34, x: 561}, {y: 367, {width: 235}, {height: 8})
+
+
+<!-- PAGE: 35 -->
+- Directors’ report
+
+- FINANCIAL YEAR 2024
+
+Following the strategic review that concluded in November 2023 the group entered the 2024 financial year with the aim of reinventing its core technology focus and strengthening the organisation with new product may lead to revisions in the carrying value or useful life of certain assets as management adapts to evolving market conditions.
+
+# Materiality assessment
+
+In 2024 we continued the process of conducting a double materiality assessment which is a requirement of the Corporate Sustainability Reporting Directive (CSRD).
+The assessment will cover a range of stakeholders including employees NGOs senior management investors and non executive directors and prepare Catena Media for the future of sustainability reporting.
+
+## European Single Electronic Format Regulatory Technical Standard (the “ESEF RTS”)
+
+We have undertaken a reasonable assurance engagement in accordance with the requirements of Directive 6 issued by the Accountancy Board in terms of the Accountancy Profession Act (Cap. 281 the Accountancy Profession (European Single Electronic Format) Assurance Directive (the “ESEF Directive 6”) on the Annual Financial Report of Catena Media plc for the year ended 31 December 2024 entirely prepared in a single electronic reporting format.
+
+Responsibilities of the directors The directors are responsible for the preparation of the Annual Financial Report including the consolidated financial statements and the relevant mark up requirements therein in accordance with the requirements of the
+
+### Zone 5, Central Business District
+### Qormi
+### Malta
+### 26 March 2025 Independent auditor’s report - continued
+
+
+<!-- PAGE: 98 -->
+
+###### INCOME TAX AND TRANSFER PRICING
+
+The current tax charge is calculated on the basis of the tax laws enacted or substantively enacted at the end of the reporting period in the countries where the company's subsidiaries operate and generate taxable income.
+
+Management periodically performs a transfer pricing assessment on the group's subsidiaries to analyse whether the pricing is consistent with arm's length principles to support the position taken in the individual entity's tax returns.
+The applicable tax regulation is subject to interpretation.
+The assessment establishes provisions where appropriate on the basis of amounts expected to be paid to the tax authorities.
+
+Management will continue to review its position as the group's cross border activity continues to evolve.
+
+
+<!-- PAGE: 62 -->
+|  | Jan Dec 2024 | Jan Dec 2023 |
+| --- | --- | --- |
+| Revenue | 35,777 | 13,866 | - | - | 49,643 | 41,234 | 35,514 | - | - | 76,748
+| Total revenue | 35,777 | 13,866 | - | - | 49,643 | 41,234 | 35,514 | - | - | 76,748
+| Direct costs | (3,494) | (7,496) | - | - | (10,990) | (4,270) | (9,164) | - | - | (13,434)
+| Personnel expenses | (12,726) | (9,630) | - | (2,793) | (25,149) | (10,306) | (13,160) | - | (1,301) | (24,767)
+| Depreciation and amortisation | (3,645) | (1,353) | - | - | (4,998) | (6,426) | (4,793) | - | - | (11,219)
+| Impairment on intangible assets | (7,368) | (32,617) | - | (1,218) | (41,203) | (21,045) | (13,004) | - | - | (34,049)
+| Other operating expenses | (6,586) | (6,528) | - | (651) | (13,765) | (6,144) | (8,257) | - | (556) | (14,957)
+| Total operating expenses | (33,819) | (57,624) | - | (4,662) | (96,105) | (48,191) | (48,378) | - | (1,857) | (98,426)
+| Operating profit/(loss) | 1,958 | (43,758) | - | (4,662) | (46,462) | (6,957) | (12,864) | - | (1,857) | (21,678)
+| Interest payable on borrowings | - | - | - | (3,056) | (3,056) | - | - | - | (5,566) | (5,566)
+| Other losses on financial liability at fair value through profit or loss | - | - | - | (104) | (104) | - | - | - | (1,498) | (1,498)
+| Other finance income | - | - | - | 1,108 | 1,108 | - | - | - | 747 | 747
+| Share of net loss from associate accounted for using the equity method | - | - | - | (130) | (130) | - | - | - | (1) | (1)
+| Profit/(loss) before tax | 1,958 | (43,758) | - | (6,844) | (48,644) | (6,957) | (12,864) | - | (8,175) | (27,996)
+| Tax income/(expense) | - | - | - | 698 | 698 | - | - | - | (186) | (186)
+| Profit/(loss) for the year attributable to the equity holders of the parent company | 1,958 | (43,758) | - | (6,146) | (47,946) | (6,957) | (12,864) | - | (8,361) | (28,182)
+| (Loss)/profit for the year from discontinued operations | (119) | (144) | - | - | (263) | 9,934 | (19,805) | (183) | - | (10,054)
+| Profit/(loss) for the year | 1,839 | (43,902) | - | (6,146) | (48,209) | 2,977 | (32,669) | (183) | (8,361) | (38,236)
+| Other comprehensive loss Items that may be reclassified to profit for the year Currency translation differences | - | - | - | 594 | 594 | - | - | - | (667) | (667)
+| Items that will not be reclassified to profit for the year |
+| Interest payable on hybrid capital securities | - | - | - | (4,874) | (4,874) | - | - | - | (4,597) | (4,597)
+| Total other comprehensive loss for the year | - | - | - | (4,280) | (4,280) | - | - | - | (5,264) | (5,264)
+![table image]({page: 62, x: 505}, {y: 73, {width: 493}, {height: 17})
+
+Total comprehensive income/(loss) for the year attributable to equity holders of the parent company
+
+## GROUP
+
+| EUR ’000 | Properties | Total |
+| --- | --- | --- |
+| Discounted lease commitments as at 1 January 2023 | 4,259 | 4,259
+| Additions | 920 | 920
+| Terminations | (2,545) | (2,545)
+| Balance at 31 December 2023 | 2,634 | 2,634
+| Additions | 756 | 756
+| Terminations and adjustments | (1,259) | (1,259)
+| Balance at 31 December 2024 | 2,131 | 2,131
+![table image]({page: 70, x: 45}, {y: 117, {width: 235}, {height: 8})
+
+Accumulated depreciation
+
+| At 1 January 2023 | (4,010) | (4,010) |
+| --- | --- | --- |
+| Depreciation | (619) | (619)
+| Terminations | 2,545 | 2,545
+| Balance at 31 December 2023 | (2,084) | (2,084)
+| Depreciation | (480) | (480)
+| Terminations and adjustments | 1,194 | 1,194
+| Balance at 31 December 2024 | (1,370) | (1,370)
+![table image]({page: 70, x: 45}, {y: 258, {width: 235}, {height: 8})
+
+Carrying amounts
+
+| At 31 December 2023 | 550 | 550 |
+| --- | --- | --- |
+| At 31 December 2024 | 761 | 761
+![table image]({page: 70, x: 45}, {y: 375, {width: 235}, {height: 8})
+
+## Statements of financial position – group
+
+| EUR ’000 | Note | 31 Dec 2024 | 31 Dec 2023 |
+| --- | --- | --- | --- |
+| ASSETS |
+| Non current assets |
+| Investment in associate | 19 | 511 | 940
+| Right of use asset | 18 | 761 | 550
+| Other intangible assets | 16 | 108,768 | 155,482
+| Property plant and equipment | 17 | 635 | 869
+| Other receivables | 21 | - | 17,207
+| Total non current assets |  | 110,675 | 175,048
+![table image]({page: 45, x: 45}, {y: 136, {width: 364}, {height: 8})
+
+Current assets
+
+| Trade and other receivables | 21 | 26,692 | 28,468 |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Current tax assets |  | 970 | - |  |  |  | 
+| Cash and cash equivalents | 22 | 8,476 | 38,510 |  |  |  | 
+| Total current assets |  | 36,138 | 66,978 |  |  |  | 
+| Total assets |  | 146,813 | 242,026 |  |  |  | 
+| EQUITY AND LIABILITIES |
+| Capital and reserves |
+| Share capital | 23 | 118 | 118 |  |  |  | 
+| Share premium | 23 | 134,041 | 134,039 |  |  |  | 
+| Treasury reserve | 28 | (6,154) | (6,154) |  |  |  | 
+| Hybrid capital securities | 29 | 35,103 | 35,117 |  |  |  | 
+| Other reserves | 23 | 11,187 | 10,444 |  |  |  | 
+| Retained earnings |  | (51,465) | 1,618 |  |  |  | 
+| Total equity |  | 122,830 | 175,182 |  |  |  | 
+| Liabilities |
+|  |  |  |  | EUR ’000 | Note | 31 Dec 2024 | 31 Dec 2023
+| Non current liabilities |
+|  |  |  |  | Borrowings | 24 | - | 31,430
+|  |  |  |  | Deferred tax liabilities | 25 | 6 | 790
+|  |  |  |  | Lease liability | 18 | 364 | -
+|  |  |  |  | Trade and other payables | 26 | - | 2,058
+|  |  |  |  | Total non current liabilities |  | 370 | 34,278
+| Current liabilities |
+|  |  |  |  | Borrowings | 24 | 21,486 | 25,597
+|  |  |  |  | Trade and other payables | 26 | 2,127 | 6,573
+|  |  |  |  | Current tax liabilities |  | - | 396
+|  |  |  |  | Total current liabilities |  | 23,613 | 32,566
+|  |  |  |  | Total liabilities |  | 23,983 | 66,844
+|  |  |  |  | TOTAL EQUITY AND LIABILITIES |  | 146,813 | 242,026
+![table image]({page: 45, x: 45}, {y: 279, {width: 364}, {height: 8})
+
+The notes on pages 53 to 77 are an integral part of these financial statements.
+
+The financial statements on pages 45 to 77 were approved and authorised for issue by the board of directors on 26 March 2025 and signed on its behalf by Signed on behalf of the Company's Board of Directors on 26 March 2025 as per Directors’ Declaration on ESEF Annual Financial Report submitted in conjunction with the Annual Report Financial Statements 2024.
+
+- Erik Flinck
+
+- Sean Hurley
+
+- Chairman of the Board
+
+- Director
+
+
+<!-- PAGE: 46 -->
