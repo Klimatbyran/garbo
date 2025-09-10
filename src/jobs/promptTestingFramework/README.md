@@ -25,6 +25,15 @@ Available options:
 - `--files rise,catena`: run only these input files (names without extension)
 - `--runs 3`: number of runs per prompt/file (default 1)
 
+## Environment variables
+- The test runners will use **OPENAI_API_KEY** from your terminal session if it is set.
+- If no terminal key is found, they fall back to the key configured in the Garbo environment.
+- To use the Garbo key, ensure you do not override it with a terminal key.
+
+Quick checks:
+- Verify: `echo $OPENAI_API_KEY`
+- Temporarily remove for the current shell: `unset OPENAI_API_KEY`
+
 ## Analyzing results
 List available prompt/schema combinations (“stacks”):
 ```bash
