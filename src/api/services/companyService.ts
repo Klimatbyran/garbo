@@ -7,18 +7,21 @@ import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
-      companies.map(transformMetadata)
-    ));
-    console.log(transformedCompanies);
+    const transformedCompanies = addCompanyEmissionChange(
+      addCalculatedTotalEmissions(companies.map(transformMetadata)),
+    )
+    console.log(transformedCompanies)
     return transformedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
-    const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
-    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
-      companies.map(transformMetadata)
-    ));
+    const companies = await prisma.company.findMany({
+      ...companyListArgs,
+      where: { name: { contains: searchTerm } },
+    })
+    const transformedCompanies = addCompanyEmissionChange(
+      addCalculatedTotalEmissions(companies.map(transformMetadata)),
+    )
     return transformedCompanies
   }
 
@@ -30,9 +33,9 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addCompanyEmissionChange(addCalculatedTotalEmissions([
-      transformMetadata(company),
-    ]))
+    const [transformedCompany] = addCompanyEmissionChange(
+      addCalculatedTotalEmissions([transformMetadata(company)]),
+    )
 
     return transformedCompany
   }
@@ -100,31 +103,33 @@ class CompanyService {
   async upsertDescription({
     description,
     companyId,
-    metadataId
+    metadataId,
   }: {
-    description: Omit<Description, 'id' | 'companyId'> & { id?: string | undefined },
-    companyId: string,
+    description: Omit<Description, 'id' | 'companyId'> & {
+      id?: string | undefined
+    }
+    companyId: string
     metadataId?: string
   }) {
     return prisma.description.upsert({
-      where: {id: description.id ?? ''},
+      where: { id: description.id ?? '' },
       create: {
         text: description.text,
         language: description.language,
         company: {
-          connect: {wikidataId: companyId}
+          connect: { wikidataId: companyId },
         },
         metadata: {
-          connect: {id: metadataId}
-        }
+          connect: { id: metadataId },
+        },
       },
       update: {
         text: description.text,
         language: description.language,
         metadata: {
-          connect: {id: metadataId}
-        }
-      }
+          connect: { id: metadataId },
+        },
+      },
     })
   }
 
@@ -201,18 +206,21 @@ export function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
     return data.map((item) => transformMetadata(item))
   } else if (data && typeof data === 'object') {
-    const transformed = Object.entries(data).reduce((acc, [key, value]) => {
-      if (key === 'metadata' && Array.isArray(value)) {
-        acc[key] = value[0] || null
-      } else if (value instanceof Date) {
-        acc[key] = value
-      } else if (typeof value === 'object' && value !== null) {
-        acc[key] = transformMetadata(value)
-      } else {
-        acc[key] = value
-      }
-      return acc
-    }, {} as Record<string, any>)
+    const transformed = Object.entries(data).reduce(
+      (acc, [key, value]) => {
+        if (key === 'metadata' && Array.isArray(value)) {
+          acc[key] = value[0] || null
+        } else if (value instanceof Date) {
+          acc[key] = value
+        } else if (typeof value === 'object' && value !== null) {
+          acc[key] = transformMetadata(value)
+        } else {
+          acc[key] = value
+        }
+        return acc
+      },
+      {} as Record<string, any>,
+    )
 
     return transformed
   }
@@ -228,9 +236,20 @@ export function addCalculatedTotalEmissions(companies: any[]) {
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown;
-          const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || scope3?.statedTotalEmissions?.total || 0;
-          const calculatedTotalEmissions = (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
+          const scope1Total = scope1?.total
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
+          const scope3Total =
+            scope3?.categories?.reduce(
+              (total, category) => category.total + total,
+              0,
+            ) ?? scope3?.statedTotalEmissions?.total
+
+          const allEmissionsAreNull =
+            scope1Total == null && scope2Total == null && scope3Total == null
+
+          const calculatedTotalEmissions = allEmissionsAreNull
+            ? null
+            : (scope1Total ?? 0) + (scope2Total ?? 0) + (scope3Total ?? 0)
 
           return {
             ...reportingPeriod,
@@ -244,7 +263,7 @@ export function addCalculatedTotalEmissions(companies: any[]) {
                 ...scope3,
                 calculatedTotalEmissions: scope3Total || 0,
               },
-              calculatedTotalEmissions: calculatedTotalEmissions || 0,
+              calculatedTotalEmissions: calculatedTotalEmissions,
             },
             metadata: reportingPeriod.metadata,
           }
@@ -254,99 +273,139 @@ export function addCalculatedTotalEmissions(companies: any[]) {
 }
 
 export function addCompanyEmissionChange(companies: any[]) {
-  return companies.map(company => {
+  return companies.map((company) => {
     return {
       ...company,
-      reportingPeriods: addEmissionTrendsToReportingPeriods(sortReportingPeriodsByEndDate(company.reportingPeriods))
-    };
-  });
+      reportingPeriods: addEmissionTrendsToReportingPeriods(
+        sortReportingPeriodsByEndDate(company.reportingPeriods),
+      ),
+    }
+  })
 }
 
 function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
-  return reportingPeriods.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+  return reportingPeriods.sort(
+    (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime(),
+  )
 }
 
 function addEmissionTrendsToReportingPeriods(periods: any[]) {
   periods.forEach((period: any, index: number) => {
     if (index < periods.length - 1) {
-      const previousPeriod = periods[index + 1];
-      period.emissionsTrend = calculateEmissionTrend(period, previousPeriod);
+      const previousPeriod = periods[index + 1]
+      period.emissionsTrend = calculateEmissionTrend(period, previousPeriod)
     } else {
       period.emissionsTrend = {
         absolute: null,
-        adjusted: null
-      };
+        adjusted: null,
+      }
     }
-  });
-  return periods;
+  })
+  return periods
 }
 
 function calculateEmissionTrend(currentPeriod: any, previousPeriod: any) {
-  const { adjustedCurrentTotal, adjustedPreviousTotal } = calculateEmissionTotals(currentPeriod, previousPeriod);
+  const { adjustedCurrentTotal, adjustedPreviousTotal } =
+    calculateEmissionTotals(currentPeriod, previousPeriod)
 
   // Add null checks for emissions objects
-  const currentEmissions = currentPeriod.emissions;
-  const previousEmissions = previousPeriod.emissions;
+  const currentEmissions = currentPeriod.emissions
+  const previousEmissions = previousPeriod.emissions
 
   if (!currentEmissions || !previousEmissions) {
     return {
       absolute: null,
-      adjusted: null
-    };
+      adjusted: null,
+    }
   }
 
   return {
-    absolute: currentEmissions.calculatedTotalEmissions > 0
-      ? ((currentEmissions.calculatedTotalEmissions - previousEmissions.calculatedTotalEmissions) / previousEmissions.calculatedTotalEmissions * 100)
-      : 0,
-    adjusted: adjustedCurrentTotal > 0
-      ? ((adjustedCurrentTotal - adjustedPreviousTotal) / adjustedPreviousTotal * 100)
-      : 0
-  };
+    absolute:
+      currentEmissions.calculatedTotalEmissions > 0
+        ? ((currentEmissions.calculatedTotalEmissions -
+            previousEmissions.calculatedTotalEmissions) /
+            previousEmissions.calculatedTotalEmissions) *
+          100
+        : 0,
+    adjusted:
+      adjustedCurrentTotal > 0
+        ? ((adjustedCurrentTotal - adjustedPreviousTotal) /
+            adjustedPreviousTotal) *
+          100
+        : 0,
+  }
 }
 
 function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
-  let adjustedCurrentTotal = 0;
-  let adjustedPreviousTotal = 0;
+  let adjustedCurrentTotal = 0
+  let adjustedPreviousTotal = 0
 
-  const { scope1: currentScope1, scope2: currentScope2, scope3: currentScope3 } = currentPeriod.emissions || {};
-  const { scope1: previousScope1, scope2: previousScope2, scope3: previousScope3 } = previousPeriod.emissions || {};
+  const {
+    scope1: currentScope1,
+    scope2: currentScope2,
+    scope3: currentScope3,
+  } = currentPeriod.emissions || {}
+  const {
+    scope1: previousScope1,
+    scope2: previousScope2,
+    scope3: previousScope3,
+  } = previousPeriod.emissions || {}
 
   // Compare Scope 1 emissions
   if (currentScope1 && previousScope1) {
-    adjustedCurrentTotal += currentScope1?.total ?? 0;
-    adjustedPreviousTotal += previousScope1?.total ?? 0;
+    adjustedCurrentTotal += currentScope1?.total ?? 0
+    adjustedPreviousTotal += previousScope1?.total ?? 0
   }
 
   // Compare Scope 2 emissions
   if (currentScope2 && previousScope2) {
-    adjustedCurrentTotal += currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0;
-    adjustedPreviousTotal += previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0;
+    adjustedCurrentTotal +=
+      currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0
+    adjustedPreviousTotal +=
+      previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0
   }
 
   // Compare Scope 3 emissions
   if (currentScope3 && previousScope3) {
-    calculateScope3EmissionsTotals(currentScope3, previousScope3, (current, previous) => {
-      adjustedCurrentTotal += current;
-      adjustedPreviousTotal += previous;
-    });
+    calculateScope3EmissionsTotals(
+      currentScope3,
+      previousScope3,
+      (current, previous) => {
+        adjustedCurrentTotal += current
+        adjustedPreviousTotal += previous
+      },
+    )
   }
 
-  return { adjustedCurrentTotal, adjustedPreviousTotal };
+  return { adjustedCurrentTotal, adjustedPreviousTotal }
 }
 
-function calculateScope3EmissionsTotals(currentScope3: any, previousScope3: any, addToTotals: (current: number, previous: number) => void) {
-  const hasCurrentCategories = currentScope3?.categories && currentScope3.categories.length > 0;
-  const hasPreviousCategories = previousScope3?.categories && previousScope3.categories.length > 0;
+function calculateScope3EmissionsTotals(
+  currentScope3: any,
+  previousScope3: any,
+  addToTotals: (current: number, previous: number) => void,
+) {
+  const hasCurrentCategories =
+    currentScope3?.categories && currentScope3.categories.length > 0
+  const hasPreviousCategories =
+    previousScope3?.categories && previousScope3.categories.length > 0
 
   if (hasCurrentCategories && hasPreviousCategories) {
     currentScope3.categories.forEach((currentCategory: any) => {
-      const previousCategory = previousScope3.categories.find((category: any) => category.category === currentCategory.category);
+      const previousCategory = previousScope3.categories.find(
+        (category: any) => category.category === currentCategory.category,
+      )
       if (previousCategory) {
-        addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0);
+        addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0)
       }
-    });
-  } else if (currentScope3.statedTotalEmissions && previousScope3.statedTotalEmissions) {
-    addToTotals(currentScope3?.statedTotalEmissions ?? 0, previousScope3?.statedTotalEmissions ?? 0);
+    })
+  } else if (
+    currentScope3.statedTotalEmissions &&
+    previousScope3.statedTotalEmissions
+  ) {
+    addToTotals(
+      currentScope3?.statedTotalEmissions ?? 0,
+      previousScope3?.statedTotalEmissions ?? 0,
+    )
   }
 }
