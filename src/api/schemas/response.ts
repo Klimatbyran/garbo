@@ -159,6 +159,7 @@ export const EmissionsSchema = z.object({
   statedTotalEmissions: StatedTotalEmissionsSchema.nullable(),
   calculatedTotalEmissions: z
     .number()
+    .nullable()
     .openapi({ description: 'Total calculated emissions across all scopes' }),
 })
 
