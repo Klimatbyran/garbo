@@ -30,10 +30,13 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const cacheKey = `municipalities:data:v${process.env.npm_package_version || 'unknown'}`
+      const version = (process.env.npm_package_version || 'unknown').split(
+        '.',
+      )[0]
+      const cacheKey = `municipalities:data:v${version}`
       const clientEtag = request.headers['if-none-match']
 
-      const eTag = `municipalities-${process.env.npm_package_version || 'unknown'}`
+      const eTag = `municipalities-${version}`
 
       if (clientEtag === eTag) return reply.code(304).send()
 
