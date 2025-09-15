@@ -183,9 +183,11 @@ class ExportService {
           municipality.electricVehiclePerChargePoints,
         procurementScore: municipality.procurementScore,
         procurementLink: municipality.procurementLink,
-        politicalRule: municipality.politicalRule?.join(', ') ?? '',
-        politicalKSO: municipality.politicalKSO,
-        meetsParisGoal: municipality.meetsParisGoal,
+        politicalRule: municipality.politicalRule
+          ? municipality.politicalRule.join(', ')
+          : '',
+        politicalKSO: municipality.politicalKSO || '', // Ensure it's a string
+        meetsParisGoal: municipality.meetsParisGoal || false, // Ensure it's a boolean
         ...this.transformYearlyData(municipality.emissions, 'emissions'),
         ...this.transformYearlyData(
           municipality.approximatedHistoricalEmission,
