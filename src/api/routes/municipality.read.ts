@@ -12,6 +12,17 @@ import {
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
 
+// Extract major version safely
+const getMajorVersion = (versionString: string): string => {
+  const majorVersionMatch = versionString.match(/^[vV]?(\d+)\..*$|^(\d+)$/)
+
+  if (majorVersionMatch) {
+    return majorVersionMatch[1] || majorVersionMatch[2]
+  }
+
+  return 'unknown-version'
+}
+
 export async function municipalityReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
@@ -30,24 +41,36 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const version = (process.env.npm_package_version || 'unknown').split(
-        '.',
-      )[0]
-      const cacheKey = `municipalities:data:v${version}`
-      const clientEtag = request.headers['if-none-match']
+      const version = getMajorVersion(
+        process.env.npm_package_version || 'unknown',
+      )
 
-      const eTag = `municipalities-${version}`
-
-      if (clientEtag === eTag) return reply.code(304).send()
-
-      let municipalities = await redisCache.get(cacheKey)
-
-      if (!municipalities) {
-        municipalities = municipalityService.getMunicipalities()
-        await redisCache.set(cacheKey, JSON.stringify(municipalities))
+      const cache_prefix = 'municipalities'
+      const cache_keys = {
+        etag: `${cache_prefix}:etag:v${version}`,
+        data: `${cache_prefix}:data:v${version}`,
       }
 
-      reply.header('ETag', eTag)
+      const clientEtag = request.headers['if-none-match']
+      let currentEtag: string = await redisCache.get(cache_keys.etag)
+
+      if (!currentEtag || !currentEtag.startsWith(version)) {
+        currentEtag = `${version}-${new Date().toISOString()}`
+        await redisCache.set(cache_keys.etag, currentEtag)
+      }
+
+      if (clientEtag === currentEtag) return reply.code(304).send()
+
+      let municipalities = await redisCache.get(cache_keys.data)
+      if (municipalities) {
+        municipalities = JSON.parse(municipalities)
+      }
+      if (!municipalities) {
+        municipalities = await municipalityService.getMunicipalities()
+        await redisCache.set(cache_keys.data, JSON.stringify(municipalities))
+      }
+
+      reply.header('ETag', `${currentEtag}`)
       reply.send(municipalities)
     },
   )
