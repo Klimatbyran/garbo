@@ -12,7 +12,8 @@ import {
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
 
-// Extract major and minor version safely
+const unknownVersion = { major: '0', minor: '0' }
+
 const getVersionParts = (
   versionString: string,
 ): { major: string; minor: string } => {
@@ -25,7 +26,7 @@ const getVersionParts = (
     }
   }
 
-  return { major: 'unknown', minor: 'unknown' }
+  return unknownVersion
 }
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
@@ -51,9 +52,10 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      const { major, minor } = getVersionParts(
-        process.env.npm_package_version || 'unknown',
-      )
+      const packageVersion = process.env.npm_package_version
+      const { major, minor } = packageVersion
+        ? getVersionParts(packageVersion)
+        : unknownVersion
 
       const versionKey = `${major}.${minor}`
 
@@ -66,7 +68,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
         }
 
         currentEtag = `${versionKey}-${new Date().toISOString()}`
-        await redisCache.set(cacheKey, JSON.stringify(currentEtag))
+        await redisCache.set(cacheKey, currentEtag)
       }
 
       if (clientEtag === currentEtag) return reply.code(304).send()
