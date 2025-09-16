@@ -12,15 +12,20 @@ import {
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
 
-// Extract major version safely
-const getMajorVersion = (versionString: string): string => {
-  const majorVersionMatch = versionString.match(/^[vV]?(\d+)\..*$|^(\d+)$/)
+// Extract major and minor version safely
+const getVersionParts = (
+  versionString: string,
+): { major: string; minor: string } => {
+  const versionMatch = versionString.match(/^[vV]?(\d+)\.(\d+).*$|^(\d+)$/)
 
-  if (majorVersionMatch) {
-    return majorVersionMatch[1] || majorVersionMatch[2]
+  if (versionMatch) {
+    return {
+      major: versionMatch[1] || versionMatch[3] || 'unknown',
+      minor: versionMatch[2] || '0',
+    }
   }
 
-  return 'unknown-version'
+  return { major: 'unknown', minor: 'unknown' }
 }
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
@@ -46,25 +51,27 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      const version = getMajorVersion(
+      const { major, minor } = getVersionParts(
         process.env.npm_package_version || 'unknown',
       )
 
-      if (!currentEtag || !currentEtag.startsWith(version)) {
+      const versionKey = `${major}.${minor}`
+
+      if (!currentEtag || !currentEtag.startsWith(versionKey)) {
         const oldVersion = currentEtag ? currentEtag.split('-')[0] : null
 
-        if (oldVersion && oldVersion !== version) {
+        if (oldVersion && oldVersion !== versionKey) {
           const oldDataCacheKey = `municipalities:data:${oldVersion}`
           await redisCache.delete(oldDataCacheKey)
         }
 
-        currentEtag = `${version}-${new Date().toISOString()}`
+        currentEtag = `${versionKey}-${new Date().toISOString()}`
         await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
       if (clientEtag === currentEtag) return reply.code(304).send()
 
-      const dataCacheKey = `municipalities:data:${version}`
+      const dataCacheKey = `municipalities:data:${versionKey}`
 
       let municipalities = await redisCache.get(dataCacheKey)
 
