@@ -19,8 +19,11 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
+    "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12",
+    "analyze": "node src/jobs/promptTestingFramework/analyze-results.js",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
+    "delete-report": "node --import tsx scripts/delete-report.ts",
     "eslint": "npx eslint src",
     "test": "jest"
   },
@@ -61,7 +64,8 @@
     "sharp": "^0.33.5",
     "tsx": "^4.19.2",
     "wikibase-sdk": "^10.2.1",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.24.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
