@@ -22,6 +22,7 @@
     "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12 --years 2024 --runs 1",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
+    "docling:ingest": "node --import tsx scripts/docling-ingest-single-report.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
     "eslint": "npx eslint src",
     "test": "jest"

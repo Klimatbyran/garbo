@@ -39,7 +39,7 @@ const nlmParsePDF = new DiscordWorker(
 
       const exists = await vectorDB.hasReport(url)
 
-      if (!exists) {
+      if (true) {
         const before = Date.now()
         const interval = setInterval(async () => {
           const elapsed = Date.now() - before

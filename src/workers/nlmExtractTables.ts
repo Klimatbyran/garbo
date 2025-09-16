@@ -104,8 +104,8 @@ async function process(job: NLMExtractTablesJob) {
         }
       }
 
-      const markdown = await extractTextViaVisionAPI({ filename }, contextMarkdown) ?? ''
-
+      //  const markdown = await extractTextViaVisionAPI({ filename }, contextMarkdown) ?? ''
+      const markdown = "";
       return {
         page_idx: Number(pageNumber - 1),
         markdown,

@@ -31,3 +31,8 @@ src/jobs/*/tests/comparison_results/*
 
 # Ignore comparison results
 src/jobs/*/tests/comparison_results/*
+
+
+docling-ingest-result.md
+nlm-ingest-result.json
+test.md
