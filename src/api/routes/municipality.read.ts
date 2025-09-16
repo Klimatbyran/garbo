@@ -62,9 +62,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       if (clientEtag === currentEtag) return reply.code(304).send()
 
       let municipalities = await redisCache.get(cache_keys.data)
-      if (municipalities) {
-        municipalities = JSON.parse(municipalities)
-      }
       if (!municipalities) {
         municipalities = await municipalityService.getMunicipalities()
         await redisCache.set(cache_keys.data, JSON.stringify(municipalities))
