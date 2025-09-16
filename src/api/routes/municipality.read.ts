@@ -12,6 +12,23 @@ import {
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
 
+const unknownVersion = { major: '0', minor: '0' }
+
+const getVersionParts = (
+  versionString: string,
+): { major: string; minor: string } => {
+  const versionMatch = versionString.match(/^[vV]?(\d+)\.(\d+).*$|^(\d+)$/)
+
+  if (versionMatch) {
+    return {
+      major: versionMatch[1] || versionMatch[3] || 'unknown',
+      minor: versionMatch[2] || '0',
+    }
+  }
+
+  return unknownVersion
+}
+
 export async function municipalityReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
@@ -30,21 +47,43 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const cacheKey = `municipalities:data:v${process.env.npm_package_version || 'unknown'}`
       const clientEtag = request.headers['if-none-match']
+      const cacheKey = 'municipalities:etag'
 
-      const eTag = `municipalities-${process.env.npm_package_version || 'unknown'}`
+      let currentEtag: string = await redisCache.get(cacheKey)
 
-      if (clientEtag === eTag) return reply.code(304).send()
+      const packageVersion = process.env.npm_package_version
+      const { major, minor } = packageVersion
+        ? getVersionParts(packageVersion)
+        : unknownVersion
 
-      let municipalities = await redisCache.get(cacheKey)
+      const versionKey = `${major}.${minor}`
 
-      if (!municipalities) {
-        municipalities = municipalityService.getMunicipalities()
-        await redisCache.set(cacheKey, JSON.stringify(municipalities))
+      if (!currentEtag || !currentEtag.startsWith(versionKey)) {
+        const oldVersion = currentEtag ? currentEtag.split('-')[0] : null
+
+        if (oldVersion && oldVersion !== versionKey) {
+          const oldDataCacheKey = `municipalities:data:${oldVersion}`
+          await redisCache.delete(oldDataCacheKey)
+        }
+
+        currentEtag = `${versionKey}-${new Date().toISOString()}`
+        await redisCache.set(cacheKey, currentEtag)
       }
 
-      reply.header('ETag', eTag)
+      if (clientEtag === currentEtag) return reply.code(304).send()
+
+      const dataCacheKey = `municipalities:data:${versionKey}`
+
+      let municipalities = await redisCache.get(dataCacheKey)
+
+      if (!municipalities) {
+        municipalities = await municipalityService.getMunicipalities()
+        await redisCache.set(dataCacheKey, JSON.stringify(municipalities))
+      }
+
+      reply.header('ETag', `${currentEtag}`)
+
       reply.send(municipalities)
     },
   )
