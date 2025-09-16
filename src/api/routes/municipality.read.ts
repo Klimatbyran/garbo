@@ -41,33 +41,33 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      const clientEtag = request.headers['if-none-match']
+      const cacheKey = 'municipalities:etag'
+
+      let currentEtag: string = await redisCache.get(cacheKey)
+
       const version = getMajorVersion(
         process.env.npm_package_version || 'unknown',
       )
 
-      const cache_prefix = 'municipalities'
-      const cache_keys = {
-        etag: `${cache_prefix}:etag:v${version}`,
-        data: `${cache_prefix}:data:v${version}`,
-      }
-
-      const clientEtag = request.headers['if-none-match']
-      let currentEtag: string = await redisCache.get(cache_keys.etag)
-
       if (!currentEtag || !currentEtag.startsWith(version)) {
         currentEtag = `${version}-${new Date().toISOString()}`
-        await redisCache.set(cache_keys.etag, currentEtag)
+        redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
       if (clientEtag === currentEtag) return reply.code(304).send()
 
-      let municipalities = await redisCache.get(cache_keys.data)
+      const dataCacheKey = `municipalities:data:${version}`
+
+      let municipalities = await redisCache.get(dataCacheKey)
+
       if (!municipalities) {
         municipalities = await municipalityService.getMunicipalities()
-        await redisCache.set(cache_keys.data, JSON.stringify(municipalities))
+        await redisCache.set(dataCacheKey, JSON.stringify(municipalities))
       }
 
       reply.header('ETag', `${currentEtag}`)
+
       reply.send(municipalities)
     },
   )
