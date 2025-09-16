@@ -51,8 +51,15 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       )
 
       if (!currentEtag || !currentEtag.startsWith(version)) {
+        const oldVersion = currentEtag ? currentEtag.split('-')[0] : null
+
+        if (oldVersion && oldVersion !== version) {
+          const oldDataCacheKey = `municipalities:data:${oldVersion}`
+          await redisCache.delete(oldDataCacheKey)
+        }
+
         currentEtag = `${version}-${new Date().toISOString()}`
-        redisCache.set(cacheKey, JSON.stringify(currentEtag))
+        await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
       if (clientEtag === currentEtag) return reply.code(304).send()
