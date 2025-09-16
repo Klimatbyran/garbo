@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-
 import { getTags } from '../../config/openapi'
 import { MunicipalityNameParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
@@ -31,10 +30,10 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const cacheKey = 'municipalities:data'
+      const cacheKey = `municipalities:data:v${process.env.npm_package_version || 'unknown'}`
       const clientEtag = request.headers['if-none-match']
 
-      const eTag = 'static-etag-for-municipalities'
+      const eTag = `municipalities-${process.env.npm_package_version || 'unknown'}`
 
       if (clientEtag === eTag) return reply.code(304).send()
 
@@ -47,7 +46,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
       reply.header('ETag', eTag)
       reply.send(municipalities)
-    }
+    },
   )
 
   app.get(
@@ -67,7 +66,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply
+      reply,
     ) => {
       const { name } = request.params
       const municipality = municipalityService.getMunicipality(name)
@@ -80,7 +79,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(municipality)
-    }
+    },
   )
 
   app.get(
@@ -100,7 +99,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply
+      reply,
     ) => {
       const { name } = request.params
       const sectorEmissions =
@@ -114,6 +113,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    }
+    },
   )
 }
