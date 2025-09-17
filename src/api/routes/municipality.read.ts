@@ -11,6 +11,7 @@ import {
 } from '../schemas'
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
+import apiConfig from '@/config/api'
 
 const unknownVersion = { major: '0', minor: '0' }
 
@@ -47,6 +48,13 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
+      // For development purposes, we can return the municipalities directly
+      if (apiConfig.nodeEnv === 'development') {
+        const municipalities = await municipalityService.getMunicipalities()
+        reply.send(municipalities)
+        return
+      }
+
       const clientEtag = request.headers['if-none-match']
       const cacheKey = 'municipalities:etag'
 
