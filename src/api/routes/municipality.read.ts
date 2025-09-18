@@ -40,20 +40,28 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
         response: {
           200: MunicipalitiesSchema,
+          304: {
+            description: 'Not Modified',
+            type: 'null',
+          },
         },
       },
     },
-    async (_, reply) => {
-      const cachedTimestamp = await redisCache.get(MUNICIPALITIES_TIMESTAMP_KEY)
+    async (request, reply) => {
       const currentTimestamp = getDataFileTimestamp()
+      const etagValue = `"${currentTimestamp}"`
+      const ifNoneMatch = request.headers['if-none-match']
 
-      if (cachedTimestamp && Number(cachedTimestamp) === currentTimestamp) {
-        const cachedMunicipalities = await redisCache.get(
-          MUNICIPALITIES_CACHE_KEY,
-        )
-        if (cachedMunicipalities) {
-          return reply.send(cachedMunicipalities)
-        }
+      if (ifNoneMatch === etagValue) {
+        return reply.code(304).send()
+      }
+
+      const cachedMunicipalities = await redisCache.get(
+        MUNICIPALITIES_CACHE_KEY,
+      )
+
+      if (cachedMunicipalities) {
+        return reply.header('ETag', etagValue).send(cachedMunicipalities)
       }
 
       const municipalities = await municipalityService.getMunicipalities()
@@ -67,7 +75,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
         currentTimestamp.toString(),
       )
 
-      reply.send(municipalities)
+      reply.header('ETag', etagValue).send(municipalities)
     },
   )
 
@@ -91,18 +99,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       reply,
     ) => {
       const { name } = request.params
-
-      const cachedTimestamp = await redisCache.get(MUNICIPALITIES_TIMESTAMP_KEY)
-      const currentTimestamp = getDataFileTimestamp()
-      const cacheKey = `municipality:${name.toLowerCase()}`
-
-      if (cachedTimestamp && Number(cachedTimestamp) === currentTimestamp) {
-        const cachedMunicipality = await redisCache.get(cacheKey)
-        if (cachedMunicipality) {
-          return reply.send(JSON.parse(cachedMunicipality))
-        }
-      }
-
       const municipality = municipalityService.getMunicipality(name)
 
       if (!municipality) {
@@ -111,8 +107,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
           message: 'The requested resource could not be found.',
         })
       }
-
-      await redisCache.set(cacheKey, JSON.stringify(municipality))
 
       reply.send(municipality)
     },
@@ -138,18 +132,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       reply,
     ) => {
       const { name } = request.params
-
-      const cachedTimestamp = await redisCache.get(MUNICIPALITIES_TIMESTAMP_KEY)
-      const currentTimestamp = getDataFileTimestamp()
-      const cacheKey = `municipality:${name.toLowerCase()}:sectors`
-
-      if (cachedTimestamp && Number(cachedTimestamp) === currentTimestamp) {
-        const cachedSectors = await redisCache.get(cacheKey)
-        if (cachedSectors) {
-          return reply.send({ sectors: JSON.parse(cachedSectors) })
-        }
-      }
-
       const sectorEmissions =
         municipalityService.getMunicipalitySectorEmissions(name)
 
@@ -159,8 +141,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
           message: 'The requested resource could not be found.',
         })
       }
-
-      await redisCache.set(cacheKey, JSON.stringify(sectorEmissions))
 
       reply.send({ sectors: sectorEmissions })
     },
