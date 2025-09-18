@@ -50,7 +50,12 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       const clientEtag = request.headers['if-none-match']
       const cacheKey = 'municipalities:etag'
 
-      let currentEtag: string = await redisCache.get(cacheKey)
+      let currentEtag
+      try {
+        currentEtag = await redisCache.get(cacheKey)
+      } catch (error) {
+        request.log.error('Error retrieving municipalities from cache', error)
+      }
 
       const packageVersion = process.env.npm_package_version
       const { major, minor } = packageVersion
