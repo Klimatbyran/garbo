@@ -1,8 +1,8 @@
-import WBK, { SearchResponse, EntityId, Entity } from 'wikibase-sdk'
+/*import WBK, { SearchResponse, EntityId, Entity } from 'wikibase-sdk'
 import { WbGetEntitiesResponse } from 'wikibase-sdk/dist/src/helpers/parse_responses'
 import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_entities'
 
-/*const transformData = (data: any): any => {
+const transformData = (data: any): any => {
   return Object.entries(data)
     .map(([key, wikidata]: [string, any]) => {
       if (!wikidata || !wikidata.claims) return null
@@ -81,7 +81,7 @@ import { SearchEntitiesOptions } from 'wikibase-sdk/dist/src/queries/search_enti
       }
     })
     .filter((item) => item !== null)
-}*/
+}
 
 const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -168,5 +168,5 @@ export async function getLEINumberFromWikidata(entity: EntityId): Promise<string
   }
 
   return claims["P1278"][0].mainsnak.datavalue.value;
-}
+}*/
 
