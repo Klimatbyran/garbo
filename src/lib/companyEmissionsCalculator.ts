@@ -2,11 +2,13 @@
  * This file contains the functions for emissions calculations for companies.
  */
 
-import { ReportingPeriod, Scope3, Scope3Category } from '@/types'
+export function calculateFututreEmissionTrend() {
+  return
+}
 
 export function calculateEmissionTrend(
-  currentPeriod: ReportingPeriod,
-  previousPeriod: ReportingPeriod,
+  currentPeriod: any,
+  previousPeriod: any,
 ) {
   const { adjustedCurrentTotal, adjustedPreviousTotal } =
     calculateEmissionTotals(currentPeriod, previousPeriod)
@@ -24,17 +26,14 @@ export function calculateEmissionTrend(
 
   return {
     absolute:
-      currentEmissions.calculatedTotalEmissions &&
-      currentEmissions.calculatedTotalEmissions > 0 &&
-      previousEmissions.calculatedTotalEmissions &&
-      previousEmissions.calculatedTotalEmissions > 0
+      currentEmissions.calculatedTotalEmissions > 0
         ? ((currentEmissions.calculatedTotalEmissions -
             previousEmissions.calculatedTotalEmissions) /
             previousEmissions.calculatedTotalEmissions) *
           100
         : 0,
     adjusted:
-      adjustedCurrentTotal > 0 && adjustedPreviousTotal > 0
+      adjustedCurrentTotal > 0
         ? ((adjustedCurrentTotal - adjustedPreviousTotal) /
             adjustedPreviousTotal) *
           100
@@ -42,10 +41,7 @@ export function calculateEmissionTrend(
   }
 }
 
-function calculateEmissionTotals(
-  currentPeriod: ReportingPeriod,
-  previousPeriod: ReportingPeriod,
-) {
+function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
   let adjustedCurrentTotal = 0
   let adjustedPreviousTotal = 0
 
@@ -90,8 +86,8 @@ function calculateEmissionTotals(
 }
 
 function calculateScope3EmissionsTotals(
-  currentScope3: Scope3,
-  previousScope3: Scope3,
+  currentScope3: any,
+  previousScope3: any,
   addToTotals: (current: number, previous: number) => void,
 ) {
   const hasCurrentCategories =
@@ -100,10 +96,9 @@ function calculateScope3EmissionsTotals(
     previousScope3?.categories && previousScope3.categories.length > 0
 
   if (hasCurrentCategories && hasPreviousCategories) {
-    currentScope3.categories.forEach((currentCategory: Scope3Category) => {
+    currentScope3.categories.forEach((currentCategory: any) => {
       const previousCategory = previousScope3.categories.find(
-        (category: Scope3Category) =>
-          category.category === currentCategory.category,
+        (category: any) => category.category === currentCategory.category,
       )
       if (previousCategory) {
         addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0)
@@ -114,8 +109,8 @@ function calculateScope3EmissionsTotals(
     previousScope3.statedTotalEmissions
   ) {
     addToTotals(
-      currentScope3?.statedTotalEmissions?.total ?? 0,
-      previousScope3?.statedTotalEmissions?.total ?? 0,
+      currentScope3?.statedTotalEmissions ?? 0,
+      previousScope3?.statedTotalEmissions ?? 0,
     )
   }
 }
