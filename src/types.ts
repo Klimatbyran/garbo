@@ -44,7 +44,6 @@ export interface Emissions {
   scope3?: Scope3
   statedTotalEmissions?: Emission
   biogenic?: Emission
-  calculatedTotalEmissions?: number | null
 }
 
 export interface Economy {
