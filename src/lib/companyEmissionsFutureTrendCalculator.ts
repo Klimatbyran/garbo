@@ -2,7 +2,17 @@
  * This file contains the functions for emissions calculations for companies.
  */
 
-interface ReportedPeriod {
+import {
+  checkDataReportedForBaseYear,
+  checkDataReportedFor3YearsAfterBaseYear,
+  checkScope3DataFor3YearsAfterBaseYear,
+  checkOnlyScope1And2DataFor3YearsAfterBaseYear,
+  checkScope3DataFor3Years,
+  checkScope1And2DataFor3Years,
+  checkForNulls,
+} from './companyEmissionsFutureTrendChecks'
+
+export interface ReportedPeriod {
   year: number
   emissions: {
     calculatedTotalEmissions: number
@@ -44,56 +54,73 @@ export function has3YearsOfNonNullData(
   let filteredPeriods
 
   switch (emissionsType) {
-    case 'calculatedTotalEmissions':
-      filteredPeriods = reportedPeriods.filter(
-        (period) =>
-          period.emissions.calculatedTotalEmissions !== null &&
-          period.emissions.calculatedTotalEmissions !== undefined,
-      )
-      break
     case 'scope3':
       filteredPeriods = reportedPeriods.filter(
         (period) =>
-          period.emissions.scope3 !== null &&
-          period.emissions.scope3 !== undefined,
+          checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total), // todo behöver också kolla kategorierna?
       )
       break
     case 'scope1and2':
       filteredPeriods = reportedPeriods.filter(
         (period) =>
-          (period.emissions.scope1?.total !== null &&
-            period.emissions.scope1?.total !== undefined) ||
-          (period.emissions.scope2?.mb !== null &&
-            period.emissions.scope2?.mb !== undefined) ||
-          (period.emissions.scope2?.lb !== null &&
-            period.emissions.scope2?.lb !== undefined) ||
-          (period.emissions.scope2?.unknown !== null &&
-            period.emissions.scope2?.unknown !== undefined),
+          checkForNulls(period.emissions.scope1?.total) ||
+          checkForNulls(period.emissions.scope2?.mb) ||
+          checkForNulls(period.emissions.scope2?.lb) ||
+          checkForNulls(period.emissions.scope2?.unknown),
       )
       break
     default:
-      filteredPeriods = reportedPeriods.filter(
-        (period) =>
-          period.emissions.calculatedTotalEmissions !== null &&
-          period.emissions.calculatedTotalEmissions !== undefined,
+      filteredPeriods = reportedPeriods.filter((period) =>
+        checkForNulls(period.emissions.calculatedTotalEmissions),
       )
   }
 
   return filteredPeriods.length >= 3
 }
 
-export function checkDataReportedForBaseYear(
-  reportedPeriods: ReportedPeriod[],
-  baseYear: number,
-) {
-  return reportedPeriods.some((period) => period.year === baseYear)
+export function extractScope3EmissionsArray(reportedPeriods: ReportedPeriod[]) {
+  // todo denna ska ta med totala beräknande utsläpp för varje år som har scope 3
+  return reportedPeriods
+    .filter((period) => period.emissions.scope3)
+    .map((period) => {
+      if (period.emissions.scope3?.statedTotalEmissions?.total) {
+        return period.emissions.scope3.statedTotalEmissions.total
+      }
+      // Sum up all category totals if statedTotalEmissions is not available
+      return (
+        period.emissions.scope3?.categories.reduce(
+          (sum, category) => sum + category.total,
+          0,
+        ) || null
+      )
+    })
 }
 
-export function checkDataReportedFor3YearsAfterBaseYear(
+export function extractScope1And2EmissionsArray(
   reportedPeriods: ReportedPeriod[],
-  baseYear: number,
 ) {
-  return reportedPeriods.slice(baseYear).length >= 3
+  return reportedPeriods.map((period) => {
+    let total = 0
+    if (period.emissions.scope1?.total) {
+      total += period.emissions.scope1.total
+    }
+    if (period.emissions.scope2) {
+      total +=
+        period.emissions.scope2.mb ||
+        period.emissions.scope2.lb ||
+        period.emissions.scope2.unknown ||
+        0
+    }
+    return total > 0 ? total : null
+  })
+}
+
+export function extractCalculatedTotalEmissionsArray(
+  reportedPeriods: ReportedPeriod[],
+) {
+  return reportedPeriods.map(
+    (period) => period.emissions.calculatedTotalEmissions,
+  )
 }
 
 export function extractEmissionsArray(
@@ -101,78 +128,13 @@ export function extractEmissionsArray(
   emissionsType: EmissionsType,
 ) {
   switch (emissionsType) {
-    case 'calculatedTotalEmissions':
-      return reportedPeriods.map(
-        (period) => period.emissions.calculatedTotalEmissions,
-      )
     case 'scope3':
-      return reportedPeriods
-        .filter((period) => period.emissions.scope3)
-        .map((period) => {
-          if (period.emissions.scope3?.statedTotalEmissions?.total) {
-            return period.emissions.scope3.statedTotalEmissions.total
-          }
-          // Sum up all category totals if statedTotalEmissions is not available
-          return (
-            period.emissions.scope3?.categories.reduce(
-              (sum, category) => sum + category.total,
-              0,
-            ) || null
-          )
-        })
+      return extractScope3EmissionsArray(reportedPeriods)
     case 'scope1and2':
-      return reportedPeriods.map((period) => {
-        let total = 0
-        if (period.emissions.scope1?.total) {
-          total += period.emissions.scope1.total
-        }
-        if (period.emissions.scope2) {
-          total +=
-            period.emissions.scope2.mb ||
-            period.emissions.scope2.lb ||
-            period.emissions.scope2.unknown ||
-            0
-        }
-        return total > 0 ? total : null
-      })
+      return extractScope1And2EmissionsArray(reportedPeriods)
     default:
-      return reportedPeriods.map(
-        (period) => period.emissions.calculatedTotalEmissions,
-      )
+      return extractCalculatedTotalEmissionsArray(reportedPeriods)
   }
-}
-
-export function checkScope3DataFor3YearsAfterBaseYear(
-  reportedPeriods: ReportedPeriod[],
-  baseYear: number,
-) {
-  const periodsAfterBaseYear = reportedPeriods.filter(
-    (period) => period.year >= baseYear,
-  )
-  return has3YearsOfNonNullData(periodsAfterBaseYear, 'scope3')
-}
-
-export function checkOnlyScope1And2DataFor3YearsAfterBaseYear(
-  reportedPeriods: ReportedPeriod[],
-  baseYear: number,
-) {
-  const periodsAfterBaseYear = reportedPeriods.filter(
-    (period) => period.year >= baseYear,
-  )
-  return (
-    periodsAfterBaseYear.every((period) => !period.emissions.scope3) &&
-    has3YearsOfNonNullData(periodsAfterBaseYear, 'scope1and2')
-  )
-}
-
-export function checkScope3DataFor3Years(reportedPeriods: ReportedPeriod[]) {
-  return has3YearsOfNonNullData(reportedPeriods, 'scope3')
-}
-
-export function checkScope1And2DataFor3Years(
-  reportedPeriods: ReportedPeriod[],
-) {
-  return has3YearsOfNonNullData(reportedPeriods, 'scope1and2')
 }
 
 export function calculateLADTrendSlope(
@@ -254,7 +216,7 @@ export function calculateFututreEmissionTrend(company: Company) {
   }
 
   let calculateTrend = false
-  let emissionsType = 'calculatedTotalEmissions'
+  let emissionsType: EmissionsType = 'calculatedTotalEmissions'
   if (baseYear) {
     // Check if company has data reported for base year
     const hasDataForBaseYear = checkDataReportedForBaseYear(
@@ -296,11 +258,11 @@ export function calculateFututreEmissionTrend(company: Company) {
 
   let futureEmissionTrendSlope: number | null = null
   if (calculateTrend) {
-    const totalEmissionsArray = extractEmissionsArray(
+    const emissionsArray = extractEmissionsArray(
       reportedPeriods,
-      'calculatedTotalEmissions', // TODO this needs to be fixed so it uses the correct emissions type
+      emissionsType,
     ).filter((value): value is number => value !== null)
-    futureEmissionTrendSlope = calculateLADTrendSlope(totalEmissionsArray)
+    futureEmissionTrendSlope = calculateLADTrendSlope(emissionsArray)
   }
 
   return {
