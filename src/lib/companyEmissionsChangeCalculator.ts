@@ -1,3 +1,38 @@
+export function calculateEmissionChangeLastTwoYears(
+  currentPeriod: any,
+  previousPeriod: any,
+) {
+  const { adjustedCurrentTotal, adjustedPreviousTotal } =
+    calculateEmissionTotals(currentPeriod, previousPeriod)
+
+  // Add null checks for emissions objects
+  const currentEmissions = currentPeriod.emissions
+  const previousEmissions = previousPeriod.emissions
+
+  if (!currentEmissions || !previousEmissions) {
+    return {
+      absolute: null,
+      adjusted: null,
+    }
+  }
+
+  return {
+    absolute:
+      currentEmissions.calculatedTotalEmissions > 0
+        ? ((currentEmissions.calculatedTotalEmissions -
+            previousEmissions.calculatedTotalEmissions) /
+            previousEmissions.calculatedTotalEmissions) *
+          100
+        : 0,
+    adjusted:
+      adjustedCurrentTotal > 0
+        ? ((adjustedCurrentTotal - adjustedPreviousTotal) /
+            adjustedPreviousTotal) *
+          100
+        : 0,
+  }
+}
+
 function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
   let adjustedCurrentTotal = 0
   let adjustedPreviousTotal = 0
