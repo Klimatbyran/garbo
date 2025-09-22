@@ -146,37 +146,33 @@ export function checkScope3DataFor3YearsAfterBaseYear(
   reportedPeriods: ReportedPeriod[],
   baseYear: number,
 ) {
-  return reportedPeriods
-    .slice(baseYear)
-    .some((period) => period.emissions.scope3)
+  const periodsAfterBaseYear = reportedPeriods.filter(
+    (period) => period.year >= baseYear,
+  )
+  return has3YearsOfNonNullData(periodsAfterBaseYear, 'scope3')
 }
 
 export function checkOnlyScope1And2DataFor3YearsAfterBaseYear(
   reportedPeriods: ReportedPeriod[],
   baseYear: number,
 ) {
+  const periodsAfterBaseYear = reportedPeriods.filter(
+    (period) => period.year >= baseYear,
+  )
   return (
-    reportedPeriods
-      .slice(baseYear)
-      .every((period) => !period.emissions.scope3) &&
-    checkDataReportedFor3YearsAfterBaseYear(reportedPeriods, baseYear)
+    periodsAfterBaseYear.every((period) => !period.emissions.scope3) &&
+    has3YearsOfNonNullData(periodsAfterBaseYear, 'scope1and2')
   )
 }
 
-export function checkDataReportedFor3Years(reportedPeriods: ReportedPeriod[]) {
-  return reportedPeriods.length >= 3
-}
-
 export function checkScope3DataFor3Years(reportedPeriods: ReportedPeriod[]) {
-  return reportedPeriods.some((period) => period.emissions.scope3)
+  return has3YearsOfNonNullData(reportedPeriods, 'scope3')
 }
 
 export function checkScope1And2DataFor3Years(
   reportedPeriods: ReportedPeriod[],
 ) {
-  return reportedPeriods.some(
-    (period) => period.emissions.scope1 || period.emissions.scope2,
-  )
+  return has3YearsOfNonNullData(reportedPeriods, 'scope1and2')
 }
 
 export function calculateLADTrendSlope(
@@ -258,6 +254,7 @@ export function calculateFututreEmissionTrend(company: Company) {
   }
 
   let calculateTrend = false
+  let emissionsType = 'calculatedTotalEmissions'
   if (baseYear) {
     // Check if company has data reported for base year
     const hasDataForBaseYear = checkDataReportedForBaseYear(
@@ -267,6 +264,7 @@ export function calculateFututreEmissionTrend(company: Company) {
     // Check if company has data reported for at least 2 years after base year
     const hasDataReportedFor3YearsAfterBaseYear =
       checkDataReportedFor3YearsAfterBaseYear(reportedPeriods, baseYear)
+    emissionsType = 'scope3'
 
     // Check if company has scope 3 data for at least 3 years starting from base year
     const hasScope3DataFor3YearsAfterBaseYear =
@@ -284,6 +282,7 @@ export function calculateFututreEmissionTrend(company: Company) {
   } else {
     // Check if company has scope 3 data for at least 3 years
     const hasScope3DataFor3Years = checkScope3DataFor3Years(reportedPeriods)
+    emissionsType = 'scope3'
 
     // Check if company has scope 1 and 2 data for at least 3 years
     const hasScope1And2DataFor3Years =

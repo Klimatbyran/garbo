@@ -6,6 +6,9 @@ import {
   checkDataReportedFor3YearsAfterBaseYear,
   checkScope3DataFor3YearsAfterBaseYear,
   checkScope1And2DataFor3Years,
+  has3YearsOfNonNullData,
+  checkOnlyScope1And2DataFor3YearsAfterBaseYear,
+  checkScope3DataFor3Years,
 } from '../src/lib/companyEmissionsFutureTrendCalculator'
 
 describe('Company Emissions Calculator', () => {
@@ -157,6 +160,42 @@ describe('Company Emissions Calculator', () => {
       },
     ]
 
+    const reportingPeriodsWithMixedScope1And2Data = [
+      {
+        year: 1,
+        emissions: {
+          calculatedTotalEmissions: 3,
+          scope1: { total: 1 },
+          scope2: { mb: 1, lb: 1, unknown: 0 },
+          scope3: { categories: [{ category: 1, total: 1 }] },
+        },
+      },
+      {
+        year: 2,
+        emissions: {
+          calculatedTotalEmissions: 4,
+          scope1: { total: 2 },
+          scope2: { mb: 2, lb: 2, unknown: 0 },
+        },
+      },
+      {
+        year: 3,
+        emissions: {
+          calculatedTotalEmissions: 6,
+          scope1: { total: 3 },
+          scope2: { mb: 3, lb: 3, unknown: 0 },
+        },
+      },
+      {
+        year: 4,
+        emissions: {
+          calculatedTotalEmissions: 8,
+          scope1: { total: 4 },
+          scope2: { mb: 4, lb: 4, unknown: 0 },
+        },
+      },
+    ]
+
     const calculatedTotalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
 
     test('should return true if there is sufficient emissions data', () => {
@@ -170,6 +209,22 @@ describe('Company Emissions Calculator', () => {
       // Less than 2 reported periods with emissions should be flagged false
 
       const result = has3YearsOfReportedData(reportedPeriods.slice(0, 2))
+      expect(result).toEqual(false)
+    })
+
+    test('should return true if there is at least 3 years of non null data', () => {
+      const result = has3YearsOfNonNullData(
+        reportedPeriods,
+        'calculatedTotalEmissions',
+      )
+      expect(result).toEqual(true)
+    })
+
+    test('should return false if there is less than 3 years of non null data', () => {
+      const result = has3YearsOfNonNullData(
+        reportedPeriods.slice(0, 2),
+        'calculatedTotalEmissions',
+      )
       expect(result).toEqual(false)
     })
 
@@ -203,6 +258,34 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    test('should return true if there is only scope 1 and 2 data for at least 3 years starting from base year', () => {
+      const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
+        reportingPeriodsWithMixedScope1And2Data.slice(1, 4),
+        2,
+      )
+      expect(result).toEqual(true)
+    })
+
+    test('should return false if the company has both scope 3 and scope 1 and 2 data starting from base year, but less than 3 years of scope 3 data', () => {
+      const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
+        reportingPeriodsWithMixedScope1And2Data,
+        1,
+      )
+      expect(result).toEqual(false)
+    })
+
+    test('should return true if there is scope 3 data for at least 3 years', () => {
+      const result = checkScope3DataFor3Years(reportedPeriods)
+      expect(result).toEqual(true)
+    })
+
+    test('should return false if the company has less than 3 years of scope 3 data', () => {
+      const result = checkScope3DataFor3Years(
+        reportingPeriodsWithMixedScope1And2Data,
+      )
+      expect(result).toEqual(false)
+    })
+
     test('should return true if there is scope 1 and 2 data for at least 3 years', () => {
       const result = checkScope1And2DataFor3Years(reportedPeriods)
       expect(result).toEqual(true)
@@ -231,22 +314,6 @@ describe('Company Emissions Calculator', () => {
       expect(roundedResult).toEqual(expectedResult)
     })
 
-    /*
-    test('should only use data after base year, if base year is provided', () => {
-
-    test('if scope 3 data is available for some year, only calculate trend if there is at least 3 valid years of scope 3 data', () => {
-
-    test('if there's no scope 3 data, use calculated total emissions to calculate trend', () => {
-
-    test('company with base year and scope 3 data for 3 years should calculate trend using data after base year (that has scope 3 data)', () => {
-    
-    test('should handle null or missing data', () => {
-      const result = calculateFututreEmissionTrend(null);
-      
-      expect(result).toEqual({
-        // Expected output for null input
-      });
-    });
-    */
+    // test calculateFututreEmissionTrend for different scenarios
   })
 })
