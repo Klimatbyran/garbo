@@ -198,20 +198,18 @@ describe('Company Emissions Calculator', () => {
 
     const calculatedTotalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
 
+    // test has3YearsOfReportedData
     test('should return true if there is sufficient emissions data', () => {
-      // More than 2 reported periods with emissions should be flagged true
-
       const result = has3YearsOfReportedData(reportedPeriods)
       expect(result).toEqual(true)
     })
 
     test('should return false if there is not sufficient emissions data', () => {
-      // Less than 2 reported periods with emissions should be flagged false
-
       const result = has3YearsOfReportedData(reportedPeriods.slice(0, 2))
       expect(result).toEqual(false)
     })
 
+    // test has3YearsOfNonNullData
     test('should return true if there is at least 3 years of non null data', () => {
       const result = has3YearsOfNonNullData(
         reportedPeriods,
@@ -228,6 +226,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkDataReportedForBaseYear
     test('should return true if there is data reported for base year', () => {
       const result = checkDataReportedForBaseYear(reportedPeriods, 2)
       expect(result).toEqual(true)
@@ -238,6 +237,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkDataReportedFor3YearsAfterBaseYear
     test('should return true if there is data reported for at least 3 years after base year', () => {
       const result = checkDataReportedFor3YearsAfterBaseYear(reportedPeriods, 2)
       expect(result).toEqual(true)
@@ -248,6 +248,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkScope3DataFor3YearsAfterBaseYear
     test('should return true if there is scope 3 data for at least 3 years starting from base year', () => {
       const result = checkScope3DataFor3YearsAfterBaseYear(reportedPeriods, 2)
       expect(result).toEqual(true)
@@ -258,6 +259,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkOnlyScope1And2DataFor3YearsAfterBaseYear
     test('should return true if there is only scope 1 and 2 data for at least 3 years starting from base year', () => {
       const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
         reportingPeriodsWithMixedScope1And2Data.slice(1, 4),
@@ -274,6 +276,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkScope3DataFor3Years
     test('should return true if there is scope 3 data for at least 3 years', () => {
       const result = checkScope3DataFor3Years(reportedPeriods)
       expect(result).toEqual(true)
@@ -286,6 +289,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test checkScope1And2DataFor3Years
     test('should return true if there is scope 1 and 2 data for at least 3 years', () => {
       const result = checkScope1And2DataFor3Years(reportedPeriods)
       expect(result).toEqual(true)
@@ -296,6 +300,7 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(false)
     })
 
+    // test extractEmissionsArray
     test('should return expected result for total emissions array', () => {
       const result = extractEmissionsArray(
         reportedPeriods,
@@ -305,8 +310,8 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(calculatedTotalEmissionsArray)
     })
 
+    // Test for LAD slope per index step
     test('should return expected result for LAD slope per index step', () => {
-      // Test for LAD slope per index step
       const result = calculateLADTrendSlope(calculatedTotalEmissionsArray)
 
       const expectedResult = 2.8
