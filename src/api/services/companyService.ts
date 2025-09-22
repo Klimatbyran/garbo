@@ -3,7 +3,7 @@ import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
-import { calculateEmissionTrend } from '@/lib/companyEmissionsCalculator'
+import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsChangeCalculator'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
@@ -290,9 +290,12 @@ function addEmissionTrendsToReportingPeriods(periods: any[]) {
   periods.forEach((period: any, index: number) => {
     if (index < periods.length - 1) {
       const previousPeriod = periods[index + 1]
-      period.emissionsTrend = calculateEmissionTrend(period, previousPeriod)
+      period.emissionsChangeLastTwoYears = calculateEmissionChangeLastTwoYears(
+        period,
+        previousPeriod,
+      )
     } else {
-      period.emissionsTrend = {
+      period.emissionsChangeLastTwoYears = {
         absolute: null,
         adjusted: null,
       }
