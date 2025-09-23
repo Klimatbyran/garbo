@@ -23,6 +23,8 @@ import {
   scope3EmissionsArray,
   scope1And2EmissionsArray,
   scope1and2TotalEmissionsArray,
+  aleEmissionSlope,
+  aleEmissionsArray,
 } from './companyEmissionsCalculatorDummyData'
 
 describe('Company Emissions Calculator', () => {
@@ -201,10 +203,16 @@ describe('Company Emissions Calculator', () => {
 
     // Test for LAD slope per index step
     test('should return expected result for LAD slope per index step', () => {
-      // todo test with karlshamn data
       const result = calculateLADTrendSlope(scope1and2TotalEmissionsArray)
 
       const expectedResult = 2.8
+      const roundedResult = Number(result.toFixed(2))
+      expect(roundedResult).toEqual(expectedResult)
+    })
+
+    test('should return expected result for LAD slope per index step for ale', () => {
+      const result = calculateLADTrendSlope(aleEmissionsArray)
+      const expectedResult = aleEmissionSlope
       const roundedResult = Number(result.toFixed(2))
       expect(roundedResult).toEqual(expectedResult)
     })
