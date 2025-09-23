@@ -203,11 +203,11 @@ describe('Company Emissions Calculator', () => {
       },
     ]
 
-    const totalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
-
     const scope3EmissionsArray = [7, 14, 10, 17, 15, 21]
 
     const scope1And2EmissionsArray = [4, 6, 8]
+
+    const scope1and2TotalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
 
     // test has3YearsOfReportedData
     test('should return true if there is sufficient emissions data', () => {
@@ -222,17 +222,14 @@ describe('Company Emissions Calculator', () => {
 
     // test has3YearsOfNonNullData
     test('should return true if there is at least 3 years of non null data', () => {
-      const result = has3YearsOfNonNullData(
-        reportedPeriods,
-        'calculatedTotalEmissions',
-      )
+      const result = has3YearsOfNonNullData(reportedPeriods, 'scope3')
       expect(result).toEqual(true)
     })
 
     test('should return false if there is less than 3 years of non null data', () => {
       const result = has3YearsOfNonNullData(
-        reportedPeriods.slice(0, 2),
-        'calculatedTotalEmissions',
+        reportedPeriods.slice(6, 9),
+        'scope3',
       )
       expect(result).toEqual(false)
     })
@@ -330,11 +327,8 @@ describe('Company Emissions Calculator', () => {
 
     // test extractEmissionsArray
     test('should return expected result for total emissions array', () => {
-      const result = extractEmissionsArray(
-        reportedPeriods,
-        'calculatedTotalEmissions',
-      )
-      expect(result).toEqual(totalEmissionsArray)
+      const result = extractEmissionsArray(reportedPeriods, 'scope1and2')
+      expect(result).toEqual(scope1and2TotalEmissionsArray)
     })
 
     // test checkForScope3Data
@@ -364,17 +358,25 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(scope1And2EmissionsArray)
     })
 
-    // todo extractCalculatedTotalEmissionsArray
-
+    // test extractEmissionsArray
     test('should return expected result for scope 3 emissions array', () => {
       const result = extractEmissionsArray(reportedPeriods, 'scope3')
 
       expect(result).toEqual(scope3EmissionsArray)
     })
 
+    test('should return expected result for scope 1 and 2 emissions array', () => {
+      const result = extractEmissionsArray(
+        reportingPeriodsWithMixedScopeData.slice(1, 4),
+        'scope1and2',
+      )
+      expect(result).toEqual(scope1And2EmissionsArray)
+    })
+
     // Test for LAD slope per index step
     test('should return expected result for LAD slope per index step', () => {
-      const result = calculateLADTrendSlope(totalEmissionsArray)
+      // todo test with karlshamn data
+      const result = calculateLADTrendSlope(scope1and2TotalEmissionsArray)
 
       const expectedResult = 2.8
       const roundedResult = Number(result.toFixed(2))

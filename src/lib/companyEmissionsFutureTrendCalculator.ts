@@ -3,8 +3,12 @@
  */
 
 // TODO needs to be discussed:
-// - do we want to use statedTotalEmissions or calculatedTotalEmissions for scope 3?
-// - do we want to use categories for scope 3 as well as statedTotalEmissions?
+// - do we want to use calculatedTotalEmissions (or statedTotalEmissions) for scope 3?
+// - do we want to use calculatedTotalEmissions, categories for scope 3, as well as statedTotalEmissions? This is relevant for sums and checks
+
+// todo i need to check
+// todo hur gör jag med år utan data med som har en rapporteringsperiod?
+// todo OBS kolla att de tre rapporterade åren inte har null i sig!!!!! minst 3 utan null!
 
 import {
   checkDataReportedForBaseYear,
@@ -46,7 +50,7 @@ interface Company {
   baseYear?: number
 }
 
-export type EmissionsType = 'calculatedTotalEmissions' | 'scope3' | 'scope1and2' // todo is calculatedTotalEmissions needed?
+export type EmissionsType = 'scope3' | 'scope1and2'
 
 export function has3YearsOfReportedData(reportedPeriods: ReportedPeriod[]) {
   return reportedPeriods.length >= 3
@@ -100,25 +104,6 @@ export function extractScope3EmissionsArray(reportedPeriods: ReportedPeriod[]) {
 export function extractScope1And2EmissionsArray(
   reportedPeriods: ReportedPeriod[],
 ) {
-  return reportedPeriods.map((period) => {
-    let total = 0
-    if (period.emissions.scope1?.total) {
-      total += period.emissions.scope1.total
-    }
-    if (period.emissions.scope2) {
-      total +=
-        period.emissions.scope2.mb ||
-        period.emissions.scope2.lb ||
-        period.emissions.scope2.unknown ||
-        0
-    }
-    return total > 0 ? total : null
-  })
-}
-
-export function extractCalculatedTotalEmissionsArray(
-  reportedPeriods: ReportedPeriod[],
-) {
   return reportedPeriods.map(
     (period) => period.emissions.calculatedTotalEmissions,
   )
@@ -128,14 +113,11 @@ export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
 ) {
-  switch (emissionsType) {
-    case 'scope3':
-      return extractScope3EmissionsArray(reportedPeriods)
-    case 'scope1and2':
-      return extractScope1And2EmissionsArray(reportedPeriods)
-    default:
-      return extractCalculatedTotalEmissionsArray(reportedPeriods)
+  if (emissionsType === 'scope3') {
+    return extractScope3EmissionsArray(reportedPeriods)
   }
+
+  return extractScope1And2EmissionsArray(reportedPeriods)
 }
 
 export function calculateLADTrendSlope(
@@ -217,21 +199,23 @@ export function calculateFututreEmissionTrend(company: Company) {
   }
 
   let calculateTrend = false
-  let emissionsType: EmissionsType = 'calculatedTotalEmissions'
+  let emissionsType: EmissionsType = 'scope1and2'
   if (baseYear) {
     // Check if company has data reported for base year
     const hasDataForBaseYear = checkDataReportedForBaseYear(
       reportedPeriods,
       baseYear,
     )
-    // Check if company has data reported for at least 2 years after base year
+    // Check if company has data reported for at least 3 years after base year
     const hasDataReportedFor3YearsAfterBaseYear =
       checkDataReportedFor3YearsAfterBaseYear(reportedPeriods, baseYear)
-    emissionsType = 'scope3'
 
     // Check if company has scope 3 data for at least 3 years starting from base year
     const hasScope3DataFor3YearsAfterBaseYear =
       checkScope3DataFor3YearsAfterBaseYear(reportedPeriods, baseYear)
+    if (hasScope3DataFor3YearsAfterBaseYear) {
+      emissionsType = 'scope3'
+    }
 
     // Check if company without scope 3 data has scope 1 and 2 data for at least 3 years starting from base year
     const hasScope1And2DataFor3YearsAfterBaseYear =
@@ -245,7 +229,9 @@ export function calculateFututreEmissionTrend(company: Company) {
   } else {
     // Check if company has scope 3 data for at least 3 years
     const hasScope3DataFor3Years = checkScope3DataFor3Years(reportedPeriods)
-    emissionsType = 'scope3'
+    if (hasScope3DataFor3Years) {
+      emissionsType = 'scope3'
+    }
 
     // Check if company has scope 1 and 2 data for at least 3 years
     const hasScope1And2DataFor3Years =
@@ -253,9 +239,6 @@ export function calculateFututreEmissionTrend(company: Company) {
 
     calculateTrend = hasScope3DataFor3Years || hasScope1And2DataFor3Years
   }
-
-  // todo hur gör jag med år utan data med som har en rapporteringsperiod?
-  // todo OBS kolla att de tre rapporterade åren inte har null i sig!!!!! minst 3 utan null!
 
   let futureEmissionTrendSlope: number | null = null
   if (calculateTrend) {
