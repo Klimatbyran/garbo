@@ -25,7 +25,7 @@ import {
   scope1and2TotalEmissionsArray,
   aleEmissionSlope,
   aleEmissionsArray,
-} from './companyEmissionsCalculatorDummyData'
+} from './companyEmissionsCalculatorTestData'
 
 describe('Company Emissions Calculator', () => {
   describe('calculateFututreEmissionTrend', () => {
@@ -212,9 +212,8 @@ describe('Company Emissions Calculator', () => {
 
     test('should return expected result for LAD slope per index step for ale', () => {
       const result = calculateLADTrendSlope(aleEmissionsArray)
-      const expectedResult = aleEmissionSlope
-      const roundedResult = Number(result.toFixed(2))
-      expect(roundedResult).toEqual(expectedResult)
+      const roundedResult = Number(result.toFixed(4))
+      expect(roundedResult).toEqual(aleEmissionSlope)
     })
 
     // todo test calculateFututreEmissionTrend for different scenarios
