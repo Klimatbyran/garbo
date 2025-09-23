@@ -356,13 +356,13 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(scope3EmissionsArray)
     })
 
-    // // test extractScope1And2EmissionsArray
-    // test('should return expected result for scope 1 and 2 emissions array', () => {
-    //   const result = extractScope1And2EmissionsArray(
-    //     reportingPeriodsWithMixedScopeData.slice(1, 4),
-    //   )
-    //   expect(result).toEqual(scope1And2EmissionsArray)
-    // })
+    // test extractScope1And2EmissionsArray
+    test('should return expected result for scope 1 and 2 emissions array', () => {
+      const result = extractScope1And2EmissionsArray(
+        reportingPeriodsWithMixedScopeData.slice(1, 4),
+      )
+      expect(result).toEqual(scope1And2EmissionsArray)
+    })
 
     // todo extractCalculatedTotalEmissionsArray
 
