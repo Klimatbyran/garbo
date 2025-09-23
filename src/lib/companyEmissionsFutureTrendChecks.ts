@@ -14,6 +14,19 @@ export function checkForNulls(emission: number | null | undefined) {
   return emission !== null && emission !== undefined
 }
 
+export function checkForScope3Data(period: ReportedPeriod) {
+  if (!period.emissions.scope3) return false
+
+  return (
+    checkForNulls(period.emissions.calculatedTotalEmissions) ||
+    checkForNulls(period.emissions.scope3.statedTotalEmissions?.total) ||
+    period.emissions.scope3.categories?.some((category) =>
+      checkForNulls(category.total),
+    ) ||
+    false
+  )
+}
+
 export function checkDataReportedFor3YearsAfterBaseYear(
   reportedPeriods: ReportedPeriod[],
   baseYear: number,

@@ -1,6 +1,8 @@
 import {
   calculateLADTrendSlope,
   extractEmissionsArray,
+  extractScope1And2EmissionsArray,
+  extractScope3EmissionsArray,
   has3YearsOfNonNullData,
   has3YearsOfReportedData,
 } from '../src/lib/companyEmissionsFutureTrendCalculator'
@@ -13,6 +15,7 @@ import {
   checkScope3DataFor3Years,
   checkForNulls,
   filterFromBaseYear,
+  checkForScope3Data,
 } from '../src/lib/companyEmissionsFutureTrendChecks'
 
 describe('Company Emissions Calculator', () => {
@@ -164,7 +167,7 @@ describe('Company Emissions Calculator', () => {
       },
     ]
 
-    const reportingPeriodsWithMixedScope1And2Data = [
+    const reportingPeriodsWithMixedScopeData = [
       {
         year: 1,
         emissions: {
@@ -203,6 +206,8 @@ describe('Company Emissions Calculator', () => {
     const totalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
 
     const scope3EmissionsArray = [7, 14, 10, 17, 15, 21]
+
+    const scope1And2EmissionsArray = [4, 6, 8]
 
     // test has3YearsOfReportedData
     test('should return true if there is sufficient emissions data', () => {
@@ -268,7 +273,7 @@ describe('Company Emissions Calculator', () => {
     // test filterFromBaseYear
     test('should return the correct periods after base year', () => {
       const result = filterFromBaseYear(reportedPeriods, 2)
-      expect(result).toEqual(reportedPeriods.slice(2))
+      expect(result).toEqual(reportedPeriods.slice(1))
     })
 
     // test checkScope3DataFor3YearsAfterBaseYear
@@ -285,7 +290,7 @@ describe('Company Emissions Calculator', () => {
     // test checkOnlyScope1And2DataFor3YearsAfterBaseYear
     test('should return true if there is only scope 1 and 2 data for at least 3 years starting from base year', () => {
       const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
-        reportingPeriodsWithMixedScope1And2Data.slice(1, 4),
+        reportingPeriodsWithMixedScopeData.slice(1, 4),
         2,
       )
       expect(result).toEqual(true)
@@ -293,7 +298,7 @@ describe('Company Emissions Calculator', () => {
 
     test('should return false if the company has both scope 3 and scope 1 and 2 data starting from base year, but less than 3 years of scope 3 data', () => {
       const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
-        reportingPeriodsWithMixedScope1And2Data,
+        reportingPeriodsWithMixedScopeData,
         1,
       )
       expect(result).toEqual(false)
@@ -307,7 +312,7 @@ describe('Company Emissions Calculator', () => {
 
     test('should return false if the company has less than 3 years of scope 3 data', () => {
       const result = checkScope3DataFor3Years(
-        reportingPeriodsWithMixedScope1And2Data,
+        reportingPeriodsWithMixedScopeData,
       )
       expect(result).toEqual(false)
     })
@@ -329,13 +334,35 @@ describe('Company Emissions Calculator', () => {
         reportedPeriods,
         'calculatedTotalEmissions',
       )
-      console.log('result', result)
       expect(result).toEqual(totalEmissionsArray)
     })
 
-    // todo extractScope3EmissionsArray
+    // test checkForScope3Data
+    test('should return true if there is scope 3 data for a period', () => {
+      const result = checkForScope3Data(reportedPeriods[0])
+      expect(result).toEqual(true)
+    })
 
-    // todo extractScope1And2EmissionsArray
+    test('should return false if there is no scope 3 data for a period', () => {
+      const result = checkForScope3Data(reportedPeriods[6])
+      expect(result).toEqual(false)
+    })
+
+    // test extractScope3EmissionsArray
+    test('should return expected result for scope 3 emissions array', () => {
+      const result = extractScope3EmissionsArray(reportedPeriods)
+      console.log('result', result)
+      console.log('scope3EmissionsArray', scope3EmissionsArray)
+      expect(result).toEqual(scope3EmissionsArray)
+    })
+
+    // // test extractScope1And2EmissionsArray
+    // test('should return expected result for scope 1 and 2 emissions array', () => {
+    //   const result = extractScope1And2EmissionsArray(
+    //     reportingPeriodsWithMixedScopeData.slice(1, 4),
+    //   )
+    //   expect(result).toEqual(scope1And2EmissionsArray)
+    // })
 
     // todo extractCalculatedTotalEmissionsArray
 

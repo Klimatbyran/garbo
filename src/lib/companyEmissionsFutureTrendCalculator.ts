@@ -2,6 +2,10 @@
  * This file contains the functions for emissions calculations for companies.
  */
 
+// TODO needs to be discussed:
+// - do we want to use statedTotalEmissions or calculatedTotalEmissions for scope 3?
+// - do we want to use categories for scope 3 as well as statedTotalEmissions?
+
 import {
   checkDataReportedForBaseYear,
   checkDataReportedFor3YearsAfterBaseYear,
@@ -10,6 +14,7 @@ import {
   checkScope3DataFor3Years,
   checkScope1And2DataFor3Years,
   checkForNulls,
+  checkForScope3Data,
 } from './companyEmissionsFutureTrendChecks'
 
 export interface ReportedPeriod {
@@ -41,10 +46,10 @@ interface Company {
   baseYear?: number
 }
 
-export type EmissionsType = 'calculatedTotalEmissions' | 'scope3' | 'scope1and2'
+export type EmissionsType = 'calculatedTotalEmissions' | 'scope3' | 'scope1and2' // todo is calculatedTotalEmissions needed?
 
 export function has3YearsOfReportedData(reportedPeriods: ReportedPeriod[]) {
-  return reportedPeriods.length > 3
+  return reportedPeriods.length >= 3
 }
 
 export function has3YearsOfNonNullData(
@@ -57,7 +62,11 @@ export function has3YearsOfNonNullData(
     case 'scope3':
       filteredPeriods = reportedPeriods.filter(
         (period) =>
-          checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total), // todo behöver också kolla kategorierna?
+          checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) ||
+          (period.emissions.scope3?.categories &&
+            period.emissions.scope3.categories.some((category) =>
+              checkForNulls(category.total),
+            )),
       )
       break
     case 'scope1and2':
@@ -79,20 +88,12 @@ export function has3YearsOfNonNullData(
 }
 
 export function extractScope3EmissionsArray(reportedPeriods: ReportedPeriod[]) {
-  // todo denna ska ta med totala beräknande utsläpp för varje år som har scope 3
   return reportedPeriods
     .filter((period) => period.emissions.scope3)
     .map((period) => {
-      if (period.emissions.scope3?.statedTotalEmissions?.total) {
-        return period.emissions.scope3.statedTotalEmissions.total
+      if (checkForScope3Data(period)) {
+        return period.emissions.calculatedTotalEmissions
       }
-      // Sum up all category totals if statedTotalEmissions is not available
-      return (
-        period.emissions.scope3?.categories.reduce(
-          (sum, category) => sum + category.total,
-          0,
-        ) || null
-      )
     })
 }
 
@@ -143,7 +144,7 @@ export function calculateLADTrendSlope(
 ): number {
   const n = y.length
 
-  const maxIter = opts.maxIter ?? 200
+  const maxIter = opts.maxIter ?? 1000
   const tol = opts.tol ?? 1e-10
   const eps = opts.eps ?? 1e-6
 
@@ -253,8 +254,8 @@ export function calculateFututreEmissionTrend(company: Company) {
     calculateTrend = hasScope3DataFor3Years || hasScope1And2DataFor3Years
   }
 
-  // hur gör jag med år utan data med som har en rapporteringsperiod?
-  // OBS kolla att de tre rapporterade åren inte har null i sig!!!!! minst 3 utan null!
+  // todo hur gör jag med år utan data med som har en rapporteringsperiod?
+  // todo OBS kolla att de tre rapporterade åren inte har null i sig!!!!! minst 3 utan null!
 
   let futureEmissionTrendSlope: number | null = null
   if (calculateTrend) {
