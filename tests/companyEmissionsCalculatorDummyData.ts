@@ -178,3 +178,13 @@ export const scope3EmissionsArray = [7, 14, 10, 17, 15, 21]
 export const scope1And2EmissionsArray = [4, 6, 8]
 
 export const scope1and2TotalEmissionsArray = [7, 14, 10, 17, 15, 21, 26, 23]
+
+export const aleEmissionsArray = [
+  122479.269721, 149847.593565, 137858.649371, 162048.314627, 153825.085295,
+  152178.7955, 155980.925217, 162008.760113, 168504.59322, 151960.022899,
+  157751.287931, 142529.055614, 136223.552398,
+]
+
+export const aleEmissionSlope = -1340.30077
+
+export const aleEmissionTotalTrend = 3.036519e6
