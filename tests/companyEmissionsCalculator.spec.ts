@@ -210,7 +210,7 @@ describe('Company Emissions Calculator', () => {
       expect(roundedResult).toEqual(expectedResult)
     })
 
-    test('should return expected result for LAD slope per index step for ale', () => {
+    test('should return expected result for LAD slope per index step for ale to ensure model performs same as for municipalities', () => {
       const result = calculateLADTrendSlope(aleEmissionsArray)
       const roundedResult = Number(result.toFixed(4))
       expect(roundedResult).toEqual(aleEmissionSlope)

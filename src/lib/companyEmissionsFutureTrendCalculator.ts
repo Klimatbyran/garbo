@@ -8,7 +8,8 @@
 
 // todo i need to check
 // todo hur gör jag med år utan data med som har en rapporteringsperiod?
-// todo OBS kolla att de tre rapporterade åren inte har null i sig!!!!! minst 3 utan null!
+// todo OBS kolla att de tre rapporterade åren inte har null i sig
+// todo printa xlsx med alla resultat
 
 import {
   checkDataReportedForBaseYear,
