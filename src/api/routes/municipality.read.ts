@@ -11,22 +11,19 @@ import {
 } from '../schemas'
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
+import fs from 'fs'
+import apiConfig from '../../config/api'
 
-const unknownVersion = { major: '0', minor: '0' }
+const MUNICIPALITIES_CACHE_KEY = 'municipalities:all'
+const MUNICIPALITIES_TIMESTAMP_KEY = 'municipalities:timestamp'
 
-const getVersionParts = (
-  versionString: string,
-): { major: string; minor: string } => {
-  const versionMatch = versionString.match(/^[vV]?(\d+)\.(\d+).*$|^(\d+)$/)
-
-  if (versionMatch) {
-    return {
-      major: versionMatch[1] || versionMatch[3] || 'unknown',
-      minor: versionMatch[2] || '0',
-    }
+const getDataFileTimestamp = (): number => {
+  try {
+    const stats = fs.statSync(apiConfig.municipalityDataPath)
+    return stats.mtimeMs
+  } catch (_) {
+    return 0
   }
-
-  return unknownVersion
 }
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
@@ -43,48 +40,42 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
         response: {
           200: MunicipalitiesSchema,
+          304: {
+            description: 'Not Modified',
+            type: 'null',
+          },
         },
       },
     },
     async (request, reply) => {
-      const clientEtag = request.headers['if-none-match']
-      const cacheKey = 'municipalities:etag'
+      const currentTimestamp = getDataFileTimestamp()
+      const etagValue = `"${currentTimestamp}"`
+      const ifNoneMatch = request.headers['if-none-match']
 
-      let currentEtag: string = await redisCache.get(cacheKey)
-
-      const packageVersion = process.env.npm_package_version
-      const { major, minor } = packageVersion
-        ? getVersionParts(packageVersion)
-        : unknownVersion
-
-      const versionKey = `${major}.${minor}`
-
-      if (!currentEtag || !currentEtag.startsWith(versionKey)) {
-        const oldVersion = currentEtag ? currentEtag.split('-')[0] : null
-
-        if (oldVersion && oldVersion !== versionKey) {
-          const oldDataCacheKey = `municipalities:data:${oldVersion}`
-          await redisCache.delete(oldDataCacheKey)
-        }
-
-        currentEtag = `${versionKey}-${new Date().toISOString()}`
-        await redisCache.set(cacheKey, currentEtag)
+      if (ifNoneMatch === etagValue) {
+        return reply.code(304).send()
       }
 
-      if (clientEtag === currentEtag) return reply.code(304).send()
+      const cachedMunicipalities = await redisCache.get(
+        MUNICIPALITIES_CACHE_KEY,
+      )
 
-      const dataCacheKey = `municipalities:data:${versionKey}`
-
-      let municipalities = await redisCache.get(dataCacheKey)
-
-      if (!municipalities) {
-        municipalities = await municipalityService.getMunicipalities()
-        await redisCache.set(dataCacheKey, JSON.stringify(municipalities))
+      if (cachedMunicipalities) {
+        return reply.header('ETag', etagValue).send(cachedMunicipalities)
       }
 
-      reply.header('ETag', `${currentEtag}`)
+      const municipalities = await municipalityService.getMunicipalities()
 
-      reply.send(municipalities)
+      await redisCache.set(
+        MUNICIPALITIES_CACHE_KEY,
+        JSON.stringify(municipalities),
+      )
+      await redisCache.set(
+        MUNICIPALITIES_TIMESTAMP_KEY,
+        currentTimestamp.toString(),
+      )
+
+      reply.header('ETag', etagValue).send(municipalities)
     },
   )
 
