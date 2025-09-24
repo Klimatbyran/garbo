@@ -35,15 +35,11 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Municipalities'),
 
         response: {
           200: MunicipalitiesSchema,
-          304: {
-            description: 'Not Modified',
-            type: 'null',
-          },
         },
       },
     },
