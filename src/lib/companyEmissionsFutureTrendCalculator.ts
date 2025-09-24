@@ -32,21 +32,23 @@ export interface ReportedPeriod {
     scope2?: {
       mb: number
       lb: number
-      unknown: number
-    }
+      unknown: number | null
+    } | null
     scope3?: {
+      calculatedTotalEmissions?: number | null
       statedTotalEmissions?: {
-        total: number
+        total: number | null
       }
       categories: {
         category: number
-        total: number
+        total: number | null
       }[]
     }
+    statedTotalEmissions?: number | null
   }
 }
 
-interface Company {
+export interface Company {
   reportedPeriods: ReportedPeriod[]
   baseYear?: number
 }
@@ -65,13 +67,8 @@ export function has3YearsOfNonNullData(
 
   switch (emissionsType) {
     case 'scope3':
-      filteredPeriods = reportedPeriods.filter(
-        (period) =>
-          checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) ||
-          (period.emissions.scope3?.categories &&
-            period.emissions.scope3.categories.some((category) =>
-              checkForNulls(category.total),
-            )),
+      filteredPeriods = reportedPeriods.filter((period) =>
+        checkForScope3Data(period),
       )
       break
     case 'scope1and2':
@@ -93,36 +90,42 @@ export function has3YearsOfNonNullData(
 }
 
 export function extractScope3EmissionsArray(reportedPeriods: ReportedPeriod[]) {
-  return reportedPeriods
-    .filter((period) => period.emissions.scope3)
-    .map((period) => {
-      if (checkForScope3Data(period)) {
-        return period.emissions.calculatedTotalEmissions
-      }
-    })
+  const scope3EmissionsArray = reportedPeriods
+    .filter((period) => checkForScope3Data(period))
+    .map((period) => ({
+      year: period.year,
+      emissions: period.emissions.calculatedTotalEmissions,
+    }))
+
+  console.log('scope3EmissionsArray', scope3EmissionsArray)
+  return scope3EmissionsArray
 }
 
 export function extractScope1And2EmissionsArray(
   reportedPeriods: ReportedPeriod[],
 ) {
-  return reportedPeriods.map(
-    (period) => period.emissions.calculatedTotalEmissions,
-  )
+  const scope1and2EmissionsArray = reportedPeriods.map((period) => ({
+    year: period.year,
+    emissions: period.emissions.calculatedTotalEmissions,
+  }))
+  return scope1and2EmissionsArray
 }
 
 export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
 ) {
-  if (emissionsType === 'scope3') {
-    return extractScope3EmissionsArray(reportedPeriods)
-  }
+  const emissionsArray =
+    emissionsType === 'scope3'
+      ? extractScope3EmissionsArray(reportedPeriods)
+      : extractScope1And2EmissionsArray(reportedPeriods)
 
-  return extractScope1And2EmissionsArray(reportedPeriods)
+  const sortedEmissionsArray = emissionsArray.sort((a, b) => a.year - b.year)
+  return sortedEmissionsArray
 }
 
 export function calculateLADTrendSlope(
-  y: number[],
+  y: { year: number; emissions: number }[],
   opts: { maxIter?: number; tol?: number; eps?: number } = {},
 ): number {
   const n = y.length
@@ -136,12 +139,12 @@ export function calculateLADTrendSlope(
 
   // init with ordinary least squares for faster convergence
   const mx = (n - 1) / 2
-  const my = y.reduce((a, b) => a + b, 0) / n
+  const my = y.reduce((a, b) => a + b.emissions, 0) / n
   let num = 0,
     den = 0
   for (let i = 0; i < n; i++) {
     const dx = x[i] - mx
-    num += dx * (y[i] - my)
+    num += dx * (y[i].emissions - my)
     den += dx * dx
   }
   let b1 = den === 0 ? 0 : num / den // slope
@@ -152,7 +155,7 @@ export function calculateLADTrendSlope(
     // weights w_i = 1 / max(|r_i|, eps)
     const w = new Array(n)
     for (let i = 0; i < n; i++) {
-      const r = y[i] - (b0 + b1 * x[i])
+      const r = y[i].emissions - (b0 + b1 * x[i])
       w[i] = 1 / Math.max(Math.abs(r), eps)
     }
 
@@ -171,8 +174,8 @@ export function calculateLADTrendSlope(
       S_w += wi
       S_x += wi * xi
       S_xx += wi * xi * xi
-      S_y += wi * yi
-      S_xy += wi * xi * yi
+      S_y += wi * yi.emissions
+      S_xy += wi * xi * yi.emissions
     }
     const det = S_w * S_xx - S_x * S_x
     if (Math.abs(det) < 1e-18) break // degenerate; keep current b0, b1
@@ -222,11 +225,14 @@ export function calculateFututreEmissionTrend(company: Company) {
     const hasScope1And2DataFor3YearsAfterBaseYear =
       checkOnlyScope1And2DataFor3YearsAfterBaseYear(reportedPeriods, baseYear)
 
-    calculateTrend =
-      hasDataForBaseYear &&
-      hasDataReportedFor3YearsAfterBaseYear &&
-      (hasScope3DataFor3YearsAfterBaseYear ||
-        hasScope1And2DataFor3YearsAfterBaseYear)
+    const hasRequiredData =
+      hasDataForBaseYear && hasDataReportedFor3YearsAfterBaseYear
+
+    const hasSomeScopeData =
+      hasScope3DataFor3YearsAfterBaseYear ||
+      hasScope1And2DataFor3YearsAfterBaseYear
+
+    calculateTrend = hasRequiredData && hasSomeScopeData
   } else {
     // Check if company has scope 3 data for at least 3 years
     const hasScope3DataFor3Years = checkScope3DataFor3Years(reportedPeriods)
@@ -243,11 +249,11 @@ export function calculateFututreEmissionTrend(company: Company) {
 
   let futureEmissionTrendSlope: number | null = null
   if (calculateTrend) {
-    const emissionsArray = extractEmissionsArray(
-      reportedPeriods,
-      emissionsType,
-    ).filter((value): value is number => value !== null)
-    futureEmissionTrendSlope = calculateLADTrendSlope(emissionsArray)
+    const emissionsData = extractEmissionsArray(reportedPeriods, emissionsType)
+    console.log('emissionsData', emissionsData)
+    futureEmissionTrendSlope = calculateLADTrendSlope(
+      emissionsData as unknown as { year: number; emissions: number }[],
+    )
   }
 
   return {
