@@ -298,8 +298,8 @@ export const sveviaEmissions: ReportedPeriod[] = [
       scope1: { total: 25084 },
       scope2: null,
       scope3: {
-        calculatedTotalEmissions: 235,
-        statedTotalEmissions: { total: 235 },
+        calculatedTotalEmissions: 0,
+        statedTotalEmissions: { total: null },
         categories: [],
       },
       statedTotalEmissions: null,
