@@ -1,12 +1,12 @@
-import { DiscordJob } from "./DiscordWorker"
+import { DiscordJob } from './DiscordWorker'
 
 export const createDiscordLogger = (job?: DiscordJob) => {
-    if(!job){
-        return {
-            info: (message: string) => console.log(`${message}`),
-            error: (message: string) => console.error(`❌ ${message}`),
-        }
+  if (!job) {
+    return {
+      info: (message: string) => console.log(`${message}`),
+      error: (message: string) => console.error(`❌ ${message}`),
     }
+  }
   return {
     info: async (message: string) => {
       await job.log(message)

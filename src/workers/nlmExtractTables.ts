@@ -15,17 +15,17 @@ const nlmExtractTables = new DiscordWorker(
   QUEUE_NAMES.NLM_EXTRACT_TABLES,
   async (job: NLMExtractTablesJob, logger: Logger) => {
     const { json, url } = job.data
-    try {  
+    try {
       await createScreenshots(json, url, logger)
     } catch (error) {
-      logger.error(`Error in ${QUEUE_NAMES.NLM_EXTRACT_TABLES}: ${error.message}`)
-      throw new UnrecoverableError(`Error in ${QUEUE_NAMES.NLM_EXTRACT_TABLES}: ${error.message}`)
+      logger.error(
+        `Error in ${QUEUE_NAMES.NLM_EXTRACT_TABLES}: ${error.message}`,
+      )
+      throw new UnrecoverableError(
+        `Error in ${QUEUE_NAMES.NLM_EXTRACT_TABLES}: ${error.message}`,
+      )
     }
-
   },
 )
 
 export default nlmExtractTables
-
-
-
