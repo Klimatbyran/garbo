@@ -15,15 +15,12 @@ export function checkForNulls(emission: number | null | undefined) {
 }
 
 export function checkForScope3Data(period: ReportedPeriod) {
-  if (!period.emissions.scope3) return false
-
   return (
-    checkForNulls(period.emissions.calculatedTotalEmissions) ||
-    checkForNulls(period.emissions.scope3.statedTotalEmissions?.total) ||
-    period.emissions.scope3.categories?.some((category) =>
-      checkForNulls(category.total),
-    ) ||
-    false
+    checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) ||
+    (period.emissions.scope3?.categories &&
+      period.emissions.scope3.categories.some((category) =>
+        checkForNulls(category.total),
+      ))
   )
 }
 
@@ -31,7 +28,8 @@ export function checkDataReportedFor3YearsAfterBaseYear(
   reportedPeriods: ReportedPeriod[],
   baseYear: number,
 ) {
-  return reportedPeriods.slice(baseYear).length >= 3
+  const periodsAfterBaseYear = filterFromBaseYear(reportedPeriods, baseYear)
+  return periodsAfterBaseYear.length >= 3
 }
 
 export function filterFromBaseYear(
