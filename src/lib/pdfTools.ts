@@ -125,7 +125,6 @@ const uploadPageToGoogleCloud = async (
   buffer: Buffer
 ): Promise<void> => {
   if (!storage) {
-    console.error('❌ pdfTools: Storage not initialized, skipping upload');
     throw new Error('Storage not initialized, skipping pdf upload');
   }
   
@@ -167,17 +166,16 @@ const saveScreenshots = async (
   await Promise.all(tasks);
 };
 
-export async function extractTablesFromJson(
+export async function extractTableScreenshotsFromJson(
   pdf: Buffer,
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[],
   pdfUrl: string
-): Promise<{ pages: { pageNumber: number; filename: string }[] }> {
-  const pages = Object.values(
-    findRelevantTablesGroupedOnPages(json, searchTerms)
-  )
-  if (!pages.length) return { pages: [] }
+): Promise<number> {
+  const pages = findRelevantTablesGroupedOnPages(json, searchTerms)
+  
+  if (!pages.length) return 0;
 
   const width = pages[0].pageWidth * 2
   const height = pages[0].pageHeight * 2
@@ -194,7 +192,7 @@ export async function extractTablesFromJson(
   const reportId = crypto.randomUUID()
 
   // Process all pages in parallel
-  const pagePromises = pages.map(async ({ pageIndex }) => {
+  const createScreenshotsPromises = pages.map(async ({ pageIndex }) => {
     const pageNumber = pageIndex + 1
 
     
@@ -214,12 +212,11 @@ export async function extractTablesFromJson(
     // Save screenshots in parallel (file writing + Google Cloud upload)
     await saveScreenshots(pageScreenshotPath, result.buffer, pdfUrl, pageNumber);
 
-    return { pageNumber, filename: pageScreenshotPath };
   });
 
-  const filenames = await Promise.all(pagePromises);
+  await Promise.all(createScreenshotsPromises);
 
-  return { pages: filenames }
+  return pages.length;
 
   /* This doesn't work yet because the bounding box is incorrect due to a bug in the NLM ingestor BBOX (see issue here: https://github.com/nlmatics/nlm-ingestor/issues/66).  
             Once it is fixed, this can be used instead to crop just the table rather than the entire page. */  
