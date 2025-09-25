@@ -387,3 +387,20 @@ export const companyWithoutScope3Data = [
     },
   },
 ]
+
+export const hanzaPeriod = {
+  year: 2023,
+  emissions: {
+    calculatedTotalEmissions: 5200,
+    scope1: { total: 2300 },
+    scope2: { mb: 1100, lb: 600, unknown: null },
+    scope3: {
+      calculatedTotalEmissions: 0,
+      statedTotalEmissions: { total: 0 },
+      categories: [
+        { category: 1, total: null },
+        { category: 5, total: 0 },
+      ],
+    },
+  },
+}

@@ -1,3 +1,4 @@
+import { ReportedPeriod } from '../src/lib/companyEmissionsFutureTrendCalculator'
 import {
   checkDataReportedForBaseYear,
   checkDataReportedFor3YearsAfterBaseYear,
@@ -15,6 +16,7 @@ import {
   sveviaEmissions,
   sveviaLastPeriod,
   companyWithoutScope3Data,
+  hanzaPeriod,
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Future Trend Checks', () => {
@@ -144,6 +146,11 @@ describe('Company Emissions Future Trend Checks', () => {
 
     test('should return false if there is no scope 3 data for a period', () => {
       const result = checkForScope3Data(sveviaLastPeriod)
+      expect(result).toEqual(false)
+    })
+
+    test('should return false for Hanza with no scope 3 data', () => {
+      const result = checkForScope3Data(hanzaPeriod)
       expect(result).toEqual(false)
     })
   })

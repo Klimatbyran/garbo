@@ -16,10 +16,11 @@ export function checkForNulls(emission: number | null | undefined) {
 
 export function checkForScope3Data(period: ReportedPeriod) {
   return (
-    checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) ||
+    (checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) &&
+      period.emissions.scope3?.statedTotalEmissions?.total > 0) ||
     (period.emissions.scope3?.categories &&
-      period.emissions.scope3.categories.some((category) =>
-        checkForNulls(category.total),
+      period.emissions.scope3.categories.some(
+        (category) => checkForNulls(category.total) && category.total! > 0,
       ))
   )
 }
