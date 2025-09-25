@@ -61,16 +61,34 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(scope1and2TotalEmissionsArray)
     })
 
+    test('should return expected result for total emissions array with base year', () => {
+      const result = extractEmissionsArray(reportedPeriods, 'scope1and2', 2)
+      expect(result).toEqual(scope1and2TotalEmissionsArray.slice(1))
+    })
+
     // test extractScope3EmissionsArray
     test('should return expected result for scope 3 emissions array', () => {
       const result = extractScope3EmissionsArray(reportedPeriods)
       expect(result).toEqual(scope3EmissionsArray)
     })
 
+    test('should return expected result for scope 3 emissions array with base year', () => {
+      const result = extractScope3EmissionsArray(reportedPeriods, 2)
+      expect(result).toEqual(scope3EmissionsArray.slice(1))
+    })
+
     // test extractScope1And2EmissionsArray
     test('should return expected result for scope 1 and 2 emissions array', () => {
       const result = extractScope1And2EmissionsArray(
         reportingPeriodsWithMixedScopeData.slice(1, 4),
+      )
+      expect(result).toEqual(scope1And2EmissionsArray)
+    })
+
+    test('should return expected result for scope 1 and 2 emissions array with base year', () => {
+      const result = extractScope1And2EmissionsArray(
+        reportingPeriodsWithMixedScopeData.slice(1),
+        2,
       )
       expect(result).toEqual(scope1And2EmissionsArray)
     })
