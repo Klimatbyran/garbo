@@ -9,6 +9,8 @@
 // todo i need to check
 // todo add total emissions type where there is scope 3 data and total emissions should be used for those years
 // todo how is scope 3 emissionsType used? total emissions or only scope 3?
+// todo MilDef Group - trend for brant?
+// todo OEM International - trend för brant?
 // todo hur gör jag med år utan data med som har en rapporteringsperiod?
 // todo OBS kolla att de tre rapporterade åren inte har null i sig
 // todo printa xlsx med alla resultat
@@ -207,7 +209,6 @@ export function calculateLADTrendSlope(
 export function calculateFututreEmissionTrend(company: Company) {
   const { reportedPeriods, baseYear } = company
   const hasSufficientData = has3YearsOfReportedData(reportedPeriods)
-  console.log('hasSufficientData', hasSufficientData)
   if (!hasSufficientData) {
     return {
       futureEmissionTrendSlope: null,
@@ -237,10 +238,6 @@ export function calculateFututreEmissionTrend(company: Company) {
     // Check if company without scope 3 data has scope 1 and 2 data for at least 3 years starting from base year
     const hasScope1And2DataFor3YearsAfterBaseYear =
       checkOnlyScope1And2DataFor3YearsAfterBaseYear(reportedPeriods, baseYear)
-    console.log(
-      'hasScope1And2DataFor3YearsAfterBaseYear',
-      hasScope1And2DataFor3YearsAfterBaseYear,
-    )
 
     const hasRequiredData =
       hasDataForBaseYear && hasDataReportedFor3YearsAfterBaseYear
