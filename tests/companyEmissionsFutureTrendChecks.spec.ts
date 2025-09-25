@@ -14,6 +14,7 @@ import {
   reportingPeriodsWithMixedScopeData,
   sveviaEmissions,
   sveviaLastPeriod,
+  companyWithoutScope3Data,
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Future Trend Checks', () => {
@@ -101,6 +102,14 @@ describe('Company Emissions Future Trend Checks', () => {
         1,
       )
       expect(result).toEqual(false)
+    })
+
+    test('should return true if the company has only scope 1 and 2 data for at least 3 years starting from base year', () => {
+      const result = checkOnlyScope1And2DataFor3YearsAfterBaseYear(
+        companyWithoutScope3Data,
+        2,
+      )
+      expect(result).toEqual(true)
     })
 
     // test checkScope3DataFor3Years

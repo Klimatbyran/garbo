@@ -332,3 +332,58 @@ export const sveviaEmissionsArray = [
 export const sveviaEmissionSlope = 2670.25
 
 export const sveviaLastPeriod = sveviaEmissions[sveviaEmissions.length - 1]
+
+export const companyWithoutScope3Data = [
+  {
+    year: 2020,
+    emissions: {
+      calculatedTotalEmissions: 5000,
+      scope1: { total: 2000 },
+      scope2: { mb: 1000, lb: 500, unknown: null },
+      scope3: {
+        calculatedTotalEmissions: 0,
+        statedTotalEmissions: { total: null },
+        categories: [],
+      },
+    },
+  },
+  {
+    year: 2021,
+    emissions: {
+      calculatedTotalEmissions: 4500,
+      scope1: { total: 1800 },
+      scope2: { mb: 900, lb: 450, unknown: null },
+      scope3: {
+        calculatedTotalEmissions: 0,
+        statedTotalEmissions: { total: null },
+        categories: [],
+      },
+    },
+  },
+  {
+    year: 2022,
+    emissions: {
+      calculatedTotalEmissions: 4200,
+      scope1: { total: 1700 },
+      scope2: { mb: 850, lb: 400, unknown: null },
+      scope3: {
+        calculatedTotalEmissions: 0,
+        statedTotalEmissions: { total: null },
+        categories: [],
+      },
+    },
+  },
+  {
+    year: 2023,
+    emissions: {
+      calculatedTotalEmissions: 4000,
+      scope1: { total: 1600 },
+      scope2: { mb: 800, lb: 400, unknown: null },
+      scope3: {
+        calculatedTotalEmissions: 0,
+        statedTotalEmissions: { total: null },
+        categories: [],
+      },
+    },
+  },
+]
