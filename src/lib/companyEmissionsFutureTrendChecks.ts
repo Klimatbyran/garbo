@@ -53,8 +53,25 @@ export function checkOnlyScope1And2DataFor3YearsAfterBaseYear(
 ) {
   const periodsAfterBaseYear = filterFromBaseYear(reportedPeriods, baseYear)
   return (
-    periodsAfterBaseYear.every((period) => !period.emissions.scope3) &&
-    has3YearsOfNonNullData(periodsAfterBaseYear, 'scope1and2')
+    periodsAfterBaseYear.every((period) => {
+      if (!period.emissions.scope3) return true
+
+      const hasCalculatedEmissions =
+        period.emissions.scope3.calculatedTotalEmissions &&
+        period.emissions.scope3.calculatedTotalEmissions > 0
+
+      const hasStatedTotal =
+        period.emissions.scope3.statedTotalEmissions?.total &&
+        period.emissions.scope3.statedTotalEmissions.total > 0
+
+      const hasCategories =
+        period.emissions.scope3.categories &&
+        period.emissions.scope3.categories.some(
+          (cat) => cat.total && cat.total > 0,
+        )
+
+      return !(hasCalculatedEmissions || hasStatedTotal || hasCategories)
+    }) && has3YearsOfNonNullData(periodsAfterBaseYear, 'scope1and2')
   )
 }
 
