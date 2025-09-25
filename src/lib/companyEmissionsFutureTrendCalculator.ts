@@ -7,6 +7,8 @@
 // - do we want to use calculatedTotalEmissions, categories for scope 3, as well as statedTotalEmissions? This is relevant for sums and checks
 
 // todo i need to check
+// todo add total emissions type where there is scope 3 data and total emissions should be used for those years
+// todo how is scope 3 emissionsType used? total emissions or only scope 3?
 // todo hur gör jag med år utan data med som har en rapporteringsperiod?
 // todo OBS kolla att de tre rapporterade åren inte har null i sig
 // todo printa xlsx med alla resultat
@@ -53,7 +55,7 @@ export interface Company {
   baseYear?: number
 }
 
-export type EmissionsType = 'scope3' | 'scope1and2'
+export type EmissionsType = 'scope3' | 'scope1and2' | 'total'
 
 export function has3YearsOfReportedData(reportedPeriods: ReportedPeriod[]) {
   return reportedPeriods.length >= 3
@@ -89,36 +91,45 @@ export function has3YearsOfNonNullData(
   return filteredPeriods.length >= 3
 }
 
-export function extractScope3EmissionsArray(reportedPeriods: ReportedPeriod[]) {
+export function extractScope3EmissionsArray(
+  reportedPeriods: ReportedPeriod[],
+  baseYear?: number,
+) {
   const scope3EmissionsArray = reportedPeriods
-    .filter((period) => checkForScope3Data(period))
+    .filter(
+      (period) =>
+        checkForScope3Data(period) &&
+        (baseYear ? period.year >= baseYear : true),
+    )
     .map((period) => ({
       year: period.year,
       emissions: period.emissions.calculatedTotalEmissions,
     }))
-
-  console.log('scope3EmissionsArray', scope3EmissionsArray)
   return scope3EmissionsArray
 }
 
 export function extractScope1And2EmissionsArray(
   reportedPeriods: ReportedPeriod[],
+  baseYear?: number,
 ) {
-  const scope1and2EmissionsArray = reportedPeriods.map((period) => ({
-    year: period.year,
-    emissions: period.emissions.calculatedTotalEmissions,
-  }))
+  const scope1and2EmissionsArray = reportedPeriods
+    .filter((period) => (baseYear ? period.year >= baseYear : true))
+    .map((period) => ({
+      year: period.year,
+      emissions: period.emissions.calculatedTotalEmissions,
+    }))
   return scope1and2EmissionsArray
 }
 
 export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
+  baseYear?: number | undefined,
 ) {
   const emissionsArray =
     emissionsType === 'scope3'
-      ? extractScope3EmissionsArray(reportedPeriods)
-      : extractScope1And2EmissionsArray(reportedPeriods)
+      ? extractScope3EmissionsArray(reportedPeriods, baseYear)
+      : extractScope1And2EmissionsArray(reportedPeriods, baseYear)
 
   const sortedEmissionsArray = emissionsArray.sort((a, b) => a.year - b.year)
   return sortedEmissionsArray
@@ -196,6 +207,7 @@ export function calculateLADTrendSlope(
 export function calculateFututreEmissionTrend(company: Company) {
   const { reportedPeriods, baseYear } = company
   const hasSufficientData = has3YearsOfReportedData(reportedPeriods)
+  console.log('hasSufficientData', hasSufficientData)
   if (!hasSufficientData) {
     return {
       futureEmissionTrendSlope: null,
@@ -210,6 +222,7 @@ export function calculateFututreEmissionTrend(company: Company) {
       reportedPeriods,
       baseYear,
     )
+
     // Check if company has data reported for at least 3 years after base year
     const hasDataReportedFor3YearsAfterBaseYear =
       checkDataReportedFor3YearsAfterBaseYear(reportedPeriods, baseYear)
@@ -224,6 +237,10 @@ export function calculateFututreEmissionTrend(company: Company) {
     // Check if company without scope 3 data has scope 1 and 2 data for at least 3 years starting from base year
     const hasScope1And2DataFor3YearsAfterBaseYear =
       checkOnlyScope1And2DataFor3YearsAfterBaseYear(reportedPeriods, baseYear)
+    console.log(
+      'hasScope1And2DataFor3YearsAfterBaseYear',
+      hasScope1And2DataFor3YearsAfterBaseYear,
+    )
 
     const hasRequiredData =
       hasDataForBaseYear && hasDataReportedFor3YearsAfterBaseYear
@@ -249,8 +266,11 @@ export function calculateFututreEmissionTrend(company: Company) {
 
   let futureEmissionTrendSlope: number | null = null
   if (calculateTrend) {
-    const emissionsData = extractEmissionsArray(reportedPeriods, emissionsType)
-    console.log('emissionsData', emissionsData)
+    const emissionsData = extractEmissionsArray(
+      reportedPeriods,
+      emissionsType,
+      baseYear,
+    )
     futureEmissionTrendSlope = calculateLADTrendSlope(
       emissionsData as unknown as { year: number; emissions: number }[],
     )
