@@ -8,12 +8,7 @@
 
 // todo i need to check
 // todo add total emissions type where there is scope 3 data and total emissions should be used for those years
-// todo how is scope 3 emissionsType used? total emissions or only scope 3?
-// todo MilDef Group - trend for brant?
-// todo OEM International - trend för brant?
-// todo hur gör jag med år utan data med som har en rapporteringsperiod?
-// todo OBS kolla att de tre rapporterade åren inte har null i sig
-// todo printa xlsx med alla resultat
+// todo correct usage of emissionsType atm? Should there be three cases, or would scope 3 or total be sufficient?
 
 import {
   checkDataReportedForBaseYear,
@@ -57,7 +52,7 @@ export interface Company {
   baseYear?: number
 }
 
-export type EmissionsType = 'scope3' | 'scope1and2' | 'total'
+export type EmissionsType = 'scope3' | 'scope1and2'
 
 export function has3YearsOfReportedData(reportedPeriods: ReportedPeriod[]) {
   return reportedPeriods.length >= 3
