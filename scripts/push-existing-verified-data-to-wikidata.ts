@@ -1,7 +1,4 @@
-import {
-  Claim,
-  transformEmissionsToClaims,
-} from '../src/lib/wikidata/util'
+import { Claim, transformEmissionsToClaims } from '../src/lib/wikidata/util'
 import {
   bulkCreateOrEditCarbonFootprintClaim,
   reduceToMostRecentClaims,
@@ -9,7 +6,7 @@ import {
 import { exit } from 'process'
 import { ReportingPeriod } from '../src/lib/emissions'
 
-function removeMillisecondsFromISO(dateTime) {
+function removeMillisecondsFromISO(dateTime: string) {
   try {
     // Check if input is a valid ISO string
     const date = new Date(dateTime)
@@ -19,8 +16,8 @@ function removeMillisecondsFromISO(dateTime) {
 
     // Convert to ISO string and remove the milliseconds part
     return date.toISOString().split('.')[0] + 'Z'
-  } catch (error) {
-    console.error('Error:', error.message)
+  } catch (error: unknown) {
+    console.error('Error:', error instanceof Error && error.message)
     return ''
   }
 }
@@ -47,17 +44,17 @@ async function pushWikidata() {
             reportingPeriod.emissions,
             removeMillisecondsFromISO(reportingPeriod.startDate),
             removeMillisecondsFromISO(reportingPeriod.endDate),
-            reportingPeriod.reportURL ?? ''
-          )
+            reportingPeriod.reportURL ?? '',
+          ),
         )
       }
     }
-    claims = reduceToMostRecentClaims(claims);
+    claims = reduceToMostRecentClaims(claims)
     if (claims.length > 0) {
       await bulkCreateOrEditCarbonFootprintClaim(
         company.wikidataId as `Q${number}`,
-        claims
-      );
+        claims,
+      )
     }
   }
 }
