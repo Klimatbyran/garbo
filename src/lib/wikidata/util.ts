@@ -52,7 +52,8 @@ export const wikibaseEditConfig = {
  */
 export function compareClaims(claimA: Claim, claimB: Claim) {
   const scopeMatches = claimA.scope === claimB.scope;
-  const categoryMatches = claimA.category === claimB.category;
+  const normalizeCategory = (category: ItemId | undefined) => category || undefined;
+  const categoryMatches = normalizeCategory(claimA.category) === normalizeCategory(claimB.category);
 
   return scopeMatches && categoryMatches;
 }
