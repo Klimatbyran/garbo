@@ -68,7 +68,6 @@ export const detailedCompanyArgs = {
   select: {
     wikidataId: true,
     name: true,
-    description: true,
     descriptions: {
       select: {
         id: true,
@@ -233,7 +232,6 @@ export const companyListArgs = {
   select: {
     wikidataId: true,
     name: true,
-    description: true,
     descriptions: {
       select: {
         id: true,
