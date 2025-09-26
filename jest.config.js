@@ -5,12 +5,9 @@ export default {
   transform: {
     '^.+\\.tsx?$': ['ts-jest', { useESM: true }],
   },
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   testMatch: ['**/tests/**/*.spec.ts', '**/tests/**/*.test.ts'],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-  ],
-}; 
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
+}
