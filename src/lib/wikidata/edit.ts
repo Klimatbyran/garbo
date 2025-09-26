@@ -278,8 +278,15 @@ function shouldUpdateClaim(
   rmClaims: RemoveClaim[] = []
 ): boolean {
   for (const claim of existingClaims) {
-    const isMatchingClaim = claim.scope === scope && claim.category === category;
+    // Normalize empty strings and undefined for comparison
+    const normalizeValue = (val: any) => val === '' || val === undefined || val === null ? undefined : val;
+    const normalizedClaimScope = normalizeValue(claim.scope);
+    const normalizedClaimCategory = normalizeValue(claim.category);
+    const normalizedScope = normalizeValue(scope);
+    const normalizedCategory = normalizeValue(category);
 
+    const isMatchingClaim = normalizedClaimScope === normalizedScope && normalizedClaimCategory === normalizedCategory;
+ 
     if (isMatchingClaim) {
       if (claim.endDate === mostRecentEndDate) {
         if (claim.value !== '+' + totalValue && claim.id) {
