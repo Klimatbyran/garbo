@@ -147,12 +147,17 @@ export function calculateLADTrendSlope(
   const tol = opts.tol ?? 1e-10
   const eps = opts.eps ?? 1e-6
 
-  // Precompute x = 0..n-1
-  const x = Array.from({ length: n }, (_, i) => i)
+  // Use actual years instead of indices
+  const years = y.map((item) => item.year)
+  const minYear = Math.min(...years)
 
-  // init with ordinary least squares for faster convergence
-  const mx = (n - 1) / 2
-  const my = y.reduce((a, b) => a + b.emissions, 0) / n
+  // Normalize years relative to the minimum year to maintain reasonable scale
+  const x = years.map((year) => year - minYear)
+
+  // Calculate means for ordinary least squares initialization, for faster convergence
+  const mx = x.reduce((sum, val) => sum + val, 0) / n
+  const my = y.reduce((sum, item) => sum + item.emissions, 0) / n
+
   let num = 0,
     den = 0
   for (let i = 0; i < n; i++) {
@@ -202,7 +207,7 @@ export function calculateLADTrendSlope(
     if (delta < tol) break
   }
 
-  // return slope per index step
+  // return slope per year
   return b1
 }
 
@@ -268,6 +273,8 @@ export function calculateFututreEmissionTrend(company: Company) {
       emissionsType,
       baseYear,
     )
+
+    console.log('emissionsData', emissionsData)
     futureEmissionTrendSlope = calculateLADTrendSlope(
       emissionsData as unknown as { year: number; emissions: number }[],
     )
