@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  GOOGLE_SCREENSHOT_BUCKET_KEY: z.string(),
+  GOOGLE_SCREENSHOT_BUCKET_KEY: z.string().optional(),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -17,13 +17,13 @@ if (!parsedEnv.success) {
     console.error('In production, ensure this is correctly set in your Kubernetes config.')
   }
 
-  throw new Error('Invalid initialization of Google Screenshot Bucket environment variables')
+  // throw new Error('Invalid initialization of Google Screenshot Bucket environment variables')
 }
 
 const env = parsedEnv.data
 
 const googleScreenshotBucketConfig = {
-  bucketKey: env.GOOGLE_SCREENSHOT_BUCKET_KEY,
+  bucketKey: env?.GOOGLE_SCREENSHOT_BUCKET_KEY,
   bucketName: 'garbo-screenshots',
 }
 
