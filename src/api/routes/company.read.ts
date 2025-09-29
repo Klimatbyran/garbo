@@ -83,8 +83,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
-      if (clientEtag === currentEtag) return reply.code(304).send()
-
       const dataCacheKey = `companies:data:${databaseFingerprint}`
 
       let companies = await redisCache.get(dataCacheKey)
