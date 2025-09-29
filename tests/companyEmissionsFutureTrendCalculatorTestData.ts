@@ -333,6 +333,10 @@ export const sveviaEmissionSlope = 2670.25
 
 export const sveviaLastPeriod = sveviaEmissions[sveviaEmissions.length - 1]
 
+export const sveviaEmissionsWithNull: ReportedPeriod[] = sveviaEmissions.map(
+  (period) => (period.year === 2021 ? { ...period, emissions: null } : period),
+)
+
 export const companyWithoutScope3Data = [
   {
     year: 2020,

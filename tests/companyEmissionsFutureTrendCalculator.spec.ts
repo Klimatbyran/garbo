@@ -19,6 +19,7 @@ import {
   sveviaEmissions,
   sveviaEmissionsArray,
   sveviaEmissionSlope,
+  sveviaEmissionsWithNull,
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Calculator', () => {
@@ -137,6 +138,13 @@ describe('Company Emissions Calculator', () => {
       // should use total calculated emissions 2020-2024
       const roundedResult = Number(result?.toFixed(4))
       expect(roundedResult).toEqual(sveviaEmissionSlope)
+    })
+
+    test('should handle null emissions for one of the years in sveviaEmissions', () => {
+      const result = calculateFutureEmissionTrend(sveviaEmissionsWithNull)
+
+      expect(result).not.toBeNull()
+      expect(typeof result).toBe('number')
     })
   })
 })
