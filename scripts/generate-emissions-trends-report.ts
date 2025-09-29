@@ -1,10 +1,7 @@
 // src/scripts/generate-emissions-trends-report.ts
 import fs from 'fs'
 import ExcelJS from 'exceljs'
-import {
-  calculateFutureEmissionTrend,
-  Company,
-} from '../src/lib/companyEmissionsFutureTrendCalculator.js'
+import { Company } from '../src/lib/companyEmissionsFutureTrendCalculator.js'
 import { createCanvas } from 'canvas'
 import { jsPDF } from 'jspdf'
 import { prisma } from '../src/lib/prisma.js'
