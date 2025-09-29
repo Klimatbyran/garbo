@@ -7,15 +7,23 @@ import {
 } from '../src/lib/companyEmissionsFutureTrendCalculator.js'
 import { createCanvas } from 'canvas'
 import { jsPDF } from 'jspdf'
+import { prisma } from '../src/lib/prisma.js'
+import { companyListArgs } from '../src/api/args.js'
+import {
+  transformMetadata,
+  addCalculatedTotalEmissions,
+  addCompanyEmissionChange,
+  addFutureEmissionsTrendSlope,
+} from '../src/api/services/companyService.js'
 
-// Define the company structure based on the API response
-interface ApiCompany {
+// Define the company structure based on the database response
+interface DbCompany {
   name: string
   wikidataId: string
   lei?: string
   reportingPeriods: {
-    startDate: string
-    endDate: string
+    startDate: Date
+    endDate: Date
     emissions: {
       calculatedTotalEmissions: number | null
       scope1?: { total: number } | null
@@ -29,16 +37,21 @@ interface ApiCompany {
   }[]
   baseYear?: {
     year: number
+    metadata?: {
+      user: {
+        name: string
+      }
+    }
   }
 }
 
-// Map API company to our calculator input format
-function mapToCalculatorFormat(apiCompany: ApiCompany) {
+// Map DB company to our calculator input format
+function mapToCalculatorFormat(dbCompany: DbCompany) {
   const company: Company = {
-    reportedPeriods: apiCompany.reportingPeriods
+    reportedPeriods: dbCompany.reportingPeriods
       .filter((period) => period.emissions !== null)
       .map((period) => ({
-        year: new Date(period.startDate).getFullYear(),
+        year: new Date(period.endDate).getFullYear(),
         emissions: {
           calculatedTotalEmissions:
             period.emissions?.calculatedTotalEmissions || 0,
@@ -59,20 +72,20 @@ function mapToCalculatorFormat(apiCompany: ApiCompany) {
             : undefined,
         },
       })),
-    baseYear: apiCompany.baseYear?.year,
+    baseYear: dbCompany.baseYear?.year,
   }
   return company
 }
 
 // Create a graph for a company's emissions data
-function createCompanyGraph(company: ApiCompany, trendSlope: number | null) {
+function createCompanyGraph(company: DbCompany, trendSlope: number | null) {
   const canvas = createCanvas(800, 400)
   const ctx = canvas.getContext('2d')
 
   // Sort periods by year
   const periods = [...company.reportingPeriods].sort(
     (a, b) =>
-      new Date(a.startDate).getFullYear() - new Date(b.startDate).getFullYear(),
+      new Date(a.endDate).getFullYear() - new Date(b.endDate).getFullYear(),
   )
 
   // Extract years and emissions, ensuring no null values
@@ -85,7 +98,7 @@ function createCompanyGraph(company: ApiCompany, trendSlope: number | null) {
     return null
   }
 
-  const years = validPeriods.map((p) => new Date(p.startDate).getFullYear())
+  const years = validPeriods.map((p) => new Date(p.endDate).getFullYear())
   const emissions = validPeriods.map(
     (p) => p.emissions.calculatedTotalEmissions || 0,
   )
@@ -320,69 +333,82 @@ function createCompanyGraph(company: ApiCompany, trendSlope: number | null) {
 // Main function
 async function generateEmissionsTrendReport() {
   try {
-    console.log('Reading companies data from local file...')
-    // Read from local JSON file instead of API
-    const companiesPath =
-      '/Users/elviraboman/Documents/Garbo/garbo/src/data/companies.json'
-    const allCompanies = JSON.parse(fs.readFileSync(companiesPath, 'utf8'))
+    console.log('Fetching companies data from database...')
 
-    // List of wikidataIds to process
-    const wikidataIdsToProcess = [
-      'Q4356297',
-      'Q1028092',
-      'Q187854',
-      'Q6460556',
-      'Q106647141',
-      'Q105965579',
-      'Q115168501',
-      'Q130366912',
-      'Q115167139',
-      'Q3437039',
-      'Q126366671',
-      'Q7295902',
-      'Q5464603',
-      'Q115167405',
-      'Q49103488',
-      'Q6696047',
-      'Q1571428',
-      'Q10684798',
-      'Q11977084',
-      'Q10397786',
-      'Q17102820',
-      'Q1657823',
-      'Q28449044',
-      'Q130367296',
-      'Q134691493',
-      'Q126366693',
-      'Q10429580',
-      'Q1423707',
-      'Q63993633',
-      'Q10535401',
-      'Q2084093',
-      'Q1703203',
-      'Q43895238',
-      'Q10434929',
-      'Q792486',
-      'Q5055199',
-      'Q106594396',
-      'Q4994121',
-      'Q627577',
-      'Q975655',
-      'Q1324884',
-      'Q10443838',
-      'Q10423854',
-      'Q54075',
-      'Q891345',
-    ]
+    // List of wikidataIds to process (sourced from doc)
+    // const wikidataIdsToProcess = [
+    //   'Q4356297',
+    //   'Q1028092',
+    //   'Q187854',
+    //   'Q6460556',
+    //   'Q106647141',
+    //   'Q105965579',
+    //   'Q115168501',
+    //   'Q130366912',
+    //   'Q115167139',
+    //   'Q3437039',
+    //   'Q126366671',
+    //   'Q7295902',
+    //   'Q5464603',
+    //   'Q115167405',
+    //   'Q49103488',
+    //   'Q6696047',
+    //   'Q1571428',
+    //   'Q10684798',
+    //   'Q11977084',
+    //   'Q10397786',
+    //   'Q17102820',
+    //   'Q1657823',
+    //   'Q28449044',
+    //   'Q130367296',
+    //   'Q134691493',
+    //   'Q126366693',
+    //   'Q10429580',
+    //   'Q1423707',
+    //   'Q63993633',
+    //   'Q10535401',
+    //   'Q2084093',
+    //   'Q1703203',
+    //   'Q43895238',
+    //   'Q10434929',
+    //   'Q792486',
+    //   'Q5055199',
+    //   'Q106594396',
+    //   'Q4994121',
+    //   'Q627577',
+    //   'Q975655',
+    //   'Q1324884',
+    //   'Q10443838',
+    //   'Q10423854',
+    //   'Q54075',
+    //   'Q891345',
+    // ]
 
-    // Filter companies to only include those in the list
-    const companies = allCompanies.filter((company) =>
-      wikidataIdsToProcess.includes(company.wikidataId),
+    // Fetch companies from database using the same logic as the API
+    const rawCompanies = await prisma.company.findMany({
+      ...companyListArgs,
+      // where: {
+      //   wikidataId: {
+      //     in: wikidataIdsToProcess,
+      //   },
+      // },
+    })
+
+    // Transform the data using the same logic as the companyService
+    const transformedCompanies = rawCompanies.map(transformMetadata)
+    const companiesWithCalculatedTotalEmissions =
+      addCalculatedTotalEmissions(transformedCompanies)
+    const companiesWithEmissionsChange = addCompanyEmissionChange(
+      companiesWithCalculatedTotalEmissions,
     )
+    const companies = addFutureEmissionsTrendSlope(companiesWithEmissionsChange)
 
-    console.log(
-      `Processing ${companies.length} companies out of ${allCompanies.length} total`,
-    )
+    console.log(`Processing ${companies.length} companies from database`)
+
+    // Initialize trend counters
+    let noTrendCount = 0
+    let increasingTrendCount = 0
+    let decreasingTrendCount = 0
 
     // Create PDF document
     const pdf = new jsPDF({
@@ -398,8 +424,10 @@ async function generateEmissionsTrendReport() {
     // Add headers to Excel
     sheet.columns = [
       { header: 'Company', key: 'company', width: 30 },
+      { header: 'Wikidata ID', key: 'wikidataId', width: 15 },
       { header: 'Trend Slope', key: 'slope', width: 15 },
       { header: 'Base Year', key: 'baseYear', width: 10 },
+      { header: 'Base Year User', key: 'baseYearUser', width: 20 },
     ]
 
     // Process each company
@@ -409,9 +437,23 @@ async function generateEmissionsTrendReport() {
 
       // Convert to calculator format
       const calculatorInput = mapToCalculatorFormat(company)
-      // Calculate trend
-      const futureEmissionTrendSlope =
-        calculateFutureEmissionTrend(calculatorInput)
+      // Calculate trend - use the slope already calculated by the service
+      const futureEmissionTrendSlope = company.futureEmissionsTrendSlope
+
+      // Count trends
+      if (
+        futureEmissionTrendSlope === null ||
+        futureEmissionTrendSlope === undefined
+      ) {
+        noTrendCount++
+      } else if (futureEmissionTrendSlope > 0) {
+        increasingTrendCount++
+      } else if (futureEmissionTrendSlope < 0) {
+        decreasingTrendCount++
+      } else {
+        // futureEmissionTrendSlope === 0
+        noTrendCount++
+      }
 
       // Add to Excel
       sheet.addRow({
@@ -419,6 +461,7 @@ async function generateEmissionsTrendReport() {
         wikidataId: company.wikidataId,
         slope: futureEmissionTrendSlope,
         baseYear: company.baseYear?.year || 'N/A',
+        baseYearUser: company.baseYear?.metadata?.user?.name || 'N/A',
       })
 
       // Create graph
@@ -444,7 +487,7 @@ async function generateEmissionsTrendReport() {
           180,
         )
         pdf.text(
-          `Base year by: ${company.baseYear?.metadata.user.name || 'Not defined'}`,
+          `Base year by: ${company.baseYear?.metadata?.user?.name || 'Not defined'}`,
           10,
           190,
         )
@@ -458,6 +501,14 @@ async function generateEmissionsTrendReport() {
       }
     }
 
+    // Log trend statistics
+    console.log('\n=== TREND STATISTICS ===')
+    console.log(`Total companies processed: ${companies.length}`)
+    console.log(`Companies with no trend: ${noTrendCount}`)
+    console.log(`Companies with increasing trend: ${increasingTrendCount}`)
+    console.log(`Companies with decreasing trend: ${decreasingTrendCount}`)
+    console.log('========================\n')
+
     // Save files
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
     pdf.save(`emissions-trends-report-${timestamp}.pdf`)
@@ -468,6 +519,9 @@ async function generateEmissionsTrendReport() {
     console.log(`Excel data saved as: emissions-trends-data-${timestamp}.xlsx`)
   } catch (error) {
     console.error('Error generating report:', error)
+  } finally {
+    // Close the database connection
+    await prisma.$disconnect()
   }
 }
 
