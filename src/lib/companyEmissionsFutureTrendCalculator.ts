@@ -278,9 +278,6 @@ export function calculateFutureEmissionTrend(
         !isNaN(item.emissions),
     )
 
-    console.log('emissionsData', emissionsData)
-    console.log('validEmissionsData', validEmissionsData)
-
     if (validEmissionsData.length >= 3) {
       futureEmissionsTrendSlope = calculateLADTrendSlope(validEmissionsData)
     }
