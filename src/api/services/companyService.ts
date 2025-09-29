@@ -9,13 +9,18 @@ import { calculateFutureEmissionTrend } from '@/lib/companyEmissionsFutureTrendC
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const transformedCompanies = addFutureEmissionTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions(companies.map(transformMetadata)),
-      ),
+
+    const transformedCompanies = companies.map(transformMetadata)
+    const companiesWithCalculatedTotalEmissions =
+      addCalculatedTotalEmissions(transformedCompanies)
+    const companiesWithEmissionsChange = addCompanyEmissionChange(
+      companiesWithCalculatedTotalEmissions,
     )
-    console.log(transformedCompanies)
-    return transformedCompanies
+    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
+      companiesWithEmissionsChange,
+    )
+    // console.log(companiesWithFutureEmissionsTrendSlope)
+    return companiesWithFutureEmissionsTrendSlope
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
@@ -23,7 +28,7 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = addFutureEmissionTrendSlope(
+    const transformedCompanies = addFutureEmissionsTrendSlope(
       addCompanyEmissionChange(
         addCalculatedTotalEmissions(companies.map(transformMetadata)),
       ),
@@ -39,7 +44,7 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addFutureEmissionTrendSlope(
+    const [transformedCompany] = addFutureEmissionsTrendSlope(
       addCompanyEmissionChange(
         addCalculatedTotalEmissions([transformMetadata(company)]),
       ),
@@ -287,7 +292,7 @@ export function addCompanyEmissionChange(companies: any[]) {
   })
 }
 
-export function addFutureEmissionTrendSlope(companies: any[]) {
+export function addFutureEmissionsTrendSlope(companies: any[]) {
   return companies.map((company) => {
     const transformedCompany = {
       reportedPeriods: company.reportingPeriods.map((period) => ({
@@ -306,7 +311,7 @@ export function addFutureEmissionTrendSlope(companies: any[]) {
 
     return {
       ...company,
-      futureEmissionTrendSlope: slope,
+      futureEmissionsTrendSlope: slope,
     }
   })
 }
