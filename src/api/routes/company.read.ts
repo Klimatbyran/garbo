@@ -15,7 +15,6 @@ import {
 } from '../schemas'
 import { redisCache } from '../..'
 
-
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
@@ -30,6 +29,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
         response: {
           200: CompanyList,
+          304: {},
         },
       },
     },
@@ -65,7 +65,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
       reply.header('ETag', `${currentEtag}`)
 
       reply.send(companies)
-    }
+    },
   )
 
   app.get(
@@ -94,14 +94,12 @@ export async function companyReadRoutes(app: FastifyInstance) {
               ...company.industry,
               industryGics: {
                 ...company.industry.industryGics,
-                ...getGics(
-                  company.industry.industryGics.subIndustryCode
-                ),
+                ...getGics(company.industry.industryGics.subIndustryCode),
               },
             }
           : null,
       })
-    }
+    },
   )
 
   app.get(
@@ -114,15 +112,18 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         querystring: companySearchQuerySchema,
         response: {
-          200: CompanyList
+          200: CompanyList,
         },
       },
     },
-    async (request: FastifyRequest<{ Querystring: CompanySearchQuery }>, reply) => {
+    async (
+      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
+      reply,
+    ) => {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      console.log(companies);
+      console.log(companies)
       reply.send(companies)
-    }
+    },
   )
 }
