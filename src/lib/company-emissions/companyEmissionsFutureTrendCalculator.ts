@@ -40,7 +40,7 @@ export interface ReportedPeriod {
       }[]
     }
     statedTotalEmissions?: number | null | undefined
-  }
+  } | null
 }
 
 export interface Company {
