@@ -15,6 +15,8 @@ export function checkForNulls(emission: number | null | undefined) {
 }
 
 export function checkForScope3Data(period: ReportedPeriod) {
+  if (!period.emissions) return false
+
   return (
     (checkForNulls(period.emissions.scope3?.statedTotalEmissions?.total) &&
       period.emissions.scope3?.statedTotalEmissions?.total > 0) ||
@@ -55,7 +57,7 @@ export function checkOnlyScope1And2DataFor3YearsAfterBaseYear(
   const periodsAfterBaseYear = filterFromBaseYear(reportedPeriods, baseYear)
   return (
     periodsAfterBaseYear.every((period) => {
-      if (!period.emissions.scope3) return true
+      if (!period.emissions || !period.emissions.scope3) return true
 
       const hasCalculatedEmissions =
         period.emissions.scope3.calculatedTotalEmissions &&
