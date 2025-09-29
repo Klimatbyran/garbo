@@ -2,7 +2,7 @@
 import fs from 'fs'
 import ExcelJS from 'exceljs'
 import {
-  calculateFututreEmissionTrend,
+  calculateFutureEmissionTrend,
   Company,
 } from '../src/lib/companyEmissionsFutureTrendCalculator.js'
 import { createCanvas } from 'canvas'
@@ -410,8 +410,8 @@ async function generateEmissionsTrendReport() {
       // Convert to calculator format
       const calculatorInput = mapToCalculatorFormat(company)
       // Calculate trend
-      const { futureEmissionTrendSlope } =
-        calculateFututreEmissionTrend(calculatorInput)
+      const futureEmissionTrendSlope =
+        calculateFutureEmissionTrend(calculatorInput)
 
       // Add to Excel
       sheet.addRow({
