@@ -35,7 +35,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
         tags: getTags('Municipalities'),
 
         response: {
@@ -43,14 +43,9 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
         },
       },
     },
-    async (request, reply) => {
+    async (_, reply) => {
       const currentTimestamp = getDataFileTimestamp()
       const etagValue = `"${currentTimestamp}"`
-      const ifNoneMatch = request.headers['if-none-match']
-
-      if (ifNoneMatch === etagValue) {
-        return reply.code(304).send()
-      }
 
       const cachedMunicipalities = await redisCache.get(
         MUNICIPALITIES_CACHE_KEY,
