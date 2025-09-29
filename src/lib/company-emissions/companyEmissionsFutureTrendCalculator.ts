@@ -2,10 +2,6 @@
  * This file contains the functions for emissions calculations for companies.
  */
 
-// TODO needs to be discussed:
-// - do we want to use calculatedTotalEmissions (or statedTotalEmissions) for scope 3?
-// - do we want to use calculatedTotalEmissions, categories for scope 3, as well as statedTotalEmissions? This is relevant for sums and checks
-
 // todo i need to check
 // todo add total emissions type where there is scope 3 data and total emissions should be used for those years
 // todo correct usage of emissionsType atm? Should there be three cases, or would scope 3 or total be sufficient?

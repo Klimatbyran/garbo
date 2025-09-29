@@ -3,8 +3,8 @@ import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
-import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsCalculator'
-import { calculateFutureEmissionTrend } from '@/lib/companyEmissionsFutureTrendCalculator'
+import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
+import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {

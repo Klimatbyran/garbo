@@ -7,7 +7,7 @@ import {
   has3YearsOfReportedData,
   calculateFutureEmissionTrend,
   ReportedPeriod,
-} from '../src/lib/companyEmissionsFutureTrendCalculator'
+} from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import {
   reportedPeriods,
   reportingPeriodsWithMixedScopeData,

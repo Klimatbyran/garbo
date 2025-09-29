@@ -1,4 +1,4 @@
-import { ReportedPeriod } from '../src/lib/companyEmissionsFutureTrendCalculator'
+import { ReportedPeriod } from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import {
   checkDataReportedForBaseYear,
   checkDataReportedFor3YearsAfterBaseYear,
@@ -9,7 +9,7 @@ import {
   checkForNulls,
   filterFromBaseYear,
   checkForScope3Data,
-} from '../src/lib/companyEmissionsFutureTrendChecks'
+} from '../src/lib/company-emissions/companyEmissionsFutureTrendChecks'
 import {
   reportedPeriods,
   reportingPeriodsWithMixedScopeData,

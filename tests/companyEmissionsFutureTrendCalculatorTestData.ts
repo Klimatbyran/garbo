@@ -1,4 +1,4 @@
-import { ReportedPeriod } from '../src/lib/companyEmissionsFutureTrendCalculator'
+import { ReportedPeriod } from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
 export const reportedPeriods = [
   {
