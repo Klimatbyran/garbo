@@ -35,11 +35,11 @@ export interface Company {
 
 export type EmissionsType = 'scope3' | 'scope1and2'
 
-function hasValidValue(value: number | null | undefined): boolean {
+export function hasValidValue(value: number | null | undefined): boolean {
   return value !== null && value !== undefined && !isNaN(value)
 }
 
-function hasScope3Data(period: ReportedPeriod): boolean {
+export function hasScope3Data(period: ReportedPeriod): boolean {
   if (!period.emissions?.scope3) return false
 
   const { scope3 } = period.emissions
@@ -54,7 +54,7 @@ function hasScope3Data(period: ReportedPeriod): boolean {
   return scope3.categories?.some((cat) => cat.total && cat.total > 0) ?? false
 }
 
-function hasScope1And2Data(period: ReportedPeriod): boolean {
+export function hasScope1And2Data(period: ReportedPeriod): boolean {
   if (!period.emissions) return false
 
   const scope1Total = period.emissions.scope1?.total
@@ -68,28 +68,26 @@ function hasScope1And2Data(period: ReportedPeriod): boolean {
   )
 }
 
-function getPeriodsFromBaseYear(
+export function getPeriodsFromBaseYear(
   periods: ReportedPeriod[],
   baseYear?: number,
 ): ReportedPeriod[] {
   return baseYear ? periods.filter((p) => p.year >= baseYear) : periods
 }
 
-function getValidDataPeriods(
+export function getValidDataPeriods(
   periods: ReportedPeriod[],
   emissionsType: EmissionsType,
 ): ReportedPeriod[] {
+  if (emissionsType === 'scope1and2' && periods.some(hasScope3Data)) {
+    return []
+  }
+
   return periods.filter((period) =>
     emissionsType === 'scope3'
       ? hasScope3Data(period)
-      : hasScope1And2Data(period),
+      : hasScope1And2Data(period) && !hasScope3Data(period),
   )
-}
-
-export function has3YearsOfReportedData(
-  reportedPeriods: ReportedPeriod[],
-): boolean {
-  return reportedPeriods.length >= 3
 }
 
 export function has3YearsOfNonNullData(
@@ -186,7 +184,7 @@ export function calculateLADTrendSlope(
   return b1
 }
 
-function determineEmissionsType(
+export function determineEmissionsType(
   periods: ReportedPeriod[],
   baseYear?: number,
 ): EmissionsType | null {
@@ -215,10 +213,6 @@ export function calculateFutureEmissionTrend(
   reportedPeriods: ReportedPeriod[],
   baseYear?: number,
 ): number | null {
-  if (!has3YearsOfReportedData(reportedPeriods)) {
-    return null
-  }
-
   const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
   if (!emissionsType) {
     return null
