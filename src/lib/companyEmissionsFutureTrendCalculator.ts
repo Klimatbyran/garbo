@@ -206,13 +206,14 @@ export function calculateLADTrendSlope(
   return b1
 }
 
-export function calculateFututreEmissionTrend(company: Company) {
-  const { reportedPeriods, baseYear } = company
+export function calculateFutureEmissionTrend(
+  reportedPeriods: ReportedPeriod[],
+  baseYear: number,
+) {
   const hasSufficientData = has3YearsOfReportedData(reportedPeriods)
+
   if (!hasSufficientData) {
-    return {
-      futureEmissionTrendSlope: null,
-    }
+    return null
   }
 
   let calculateTrend = false
@@ -269,13 +270,10 @@ export function calculateFututreEmissionTrend(company: Company) {
       baseYear,
     )
 
-    console.log('emissionsData', emissionsData)
     futureEmissionTrendSlope = calculateLADTrendSlope(
       emissionsData as unknown as { year: number; emissions: number }[],
     )
   }
 
-  return {
-    futureEmissionTrendSlope,
-  }
+  return futureEmissionTrendSlope
 }
