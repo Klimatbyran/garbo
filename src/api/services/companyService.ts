@@ -3,7 +3,7 @@ import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
-import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsChangeCalculator'
+import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/companyEmissionsFutureTrendCalculator'
 
 class CompanyService {
