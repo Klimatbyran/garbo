@@ -216,6 +216,20 @@ export const aleEmissionsArray = [
 
 export const aleEmissionSlope = -1340.3008
 
+export const kirunaEmissionsArray = [
+  { year: 2015, emissions: 697942.32 },
+  { year: 2016, emissions: 729473.19 },
+  { year: 2017, emissions: 731176.2 },
+  { year: 2018, emissions: 717595.47 },
+  { year: 2019, emissions: 730901.91 },
+  { year: 2020, emissions: 721544.76 },
+  { year: 2021, emissions: 698619.98 },
+  { year: 2022, emissions: 690283.05 },
+  { year: 2023, emissions: 687670.88 },
+]
+
+export const kirunaEmissionSlope = -5979.7797
+
 // company data for Svevia
 export const sveviaEmissions: ReportedPeriod[] = [
   {
