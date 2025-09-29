@@ -76,11 +76,21 @@ export async function editEntity(
     },
     summary: 'Added/Updated carbon footprint data',
   }
-  try {
-    const res = await wbEdit.entity.edit(body)
-  } catch (error) {
-    console.log(`Could not update entity ${entity}: ${error}`)
-  }
+  // Dry Run
+  console.log(
+    `Would edit entity ${entity} with:`,
+    JSON.stringify(body, null, 2),
+  )
+  console.log(
+    `Claims to add: ${claims.length}, Claims to remove: ${removeClaim.length}`,
+  )
+
+  // Comment out to prevent direct changes
+  // try {
+  //   const res = await wbEdit.entity.edit(body);
+  // } catch(error) {
+  //   console.log(`Could not update entity ${entity}: ${error}`);
+  // }
 }
 /**
  * Calculates the claims to add and which to remove in order to update the entity
@@ -160,6 +170,35 @@ export function removeExistingDuplicates(
       if (duplicate && existingClaim.id !== undefined) {
         rmClaims.push({ id: existingClaim.id, remove: true })
       }
+    }
+  }
+  return { rmClaims }
+}
+
+export function removeZeroValueClaims(
+  existingClaims: Claim[],
+  rmClaims: RemoveClaim[],
+) {
+  for (const existingClaim of existingClaims) {
+    // Check if this claim is already marked for removal
+    if (rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
+      continue
+    }
+
+    // Check if this is a 0-value scope 3 claim that should be removed
+    const value = existingClaim.value.startsWith('+')
+      ? existingClaim.value.substring(1)
+      : existingClaim.value
+    const isZeroValueScope3 =
+      value === '0' &&
+      existingClaim.scope === SCOPE_3 &&
+      existingClaim.category !== undefined
+
+    if (isZeroValueScope3 && existingClaim.id !== undefined) {
+      console.log(
+        `Marking 0-value scope 3 claim for removal: Category ${existingClaim.category}, Period ${existingClaim.startDate} to ${existingClaim.endDate}, ID: ${existingClaim.id}`,
+      )
+      rmClaims.push({ id: existingClaim.id, remove: true })
     }
   }
   return { rmClaims }
@@ -362,6 +401,7 @@ export async function bulkCreateOrEditCarbonFootprintClaim(
       rmClaims,
     ))
     ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
+    ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))
     if (newClaims.length > 0 || rmClaims.length > 0) {
       await editEntity(entity, newClaims, rmClaims)
       console.log(`Updated ${entity}`)
