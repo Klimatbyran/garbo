@@ -11,15 +11,18 @@ class CompanyService {
     const companies = await prisma.company.findMany(companyListArgs)
 
     const transformedCompanies = companies.map(transformMetadata)
+
     const companiesWithCalculatedTotalEmissions =
       addCalculatedTotalEmissions(transformedCompanies)
+
     const companiesWithEmissionsChange = addCompanyEmissionChange(
       companiesWithCalculatedTotalEmissions,
     )
+
     const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
       companiesWithEmissionsChange,
     )
-    // console.log(companiesWithFutureEmissionsTrendSlope)
+
     return companiesWithFutureEmissionsTrendSlope
   }
 
@@ -28,12 +31,17 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = addFutureEmissionsTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions(companies.map(transformMetadata)),
-      ),
+    const transformedCompanies = companies.map(transformMetadata)
+    const companiesWithCalculatedTotalEmissions =
+      addCalculatedTotalEmissions(transformedCompanies)
+    const companiesWithEmissionsChange = addCompanyEmissionChange(
+      companiesWithCalculatedTotalEmissions,
     )
-    return transformedCompanies
+    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
+      companiesWithEmissionsChange,
+    )
+
+    return companiesWithFutureEmissionsTrendSlope
   }
 
   async getCompanyWithMetadata(wikidataId: string) {
