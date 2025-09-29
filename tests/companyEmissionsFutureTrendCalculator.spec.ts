@@ -5,7 +5,7 @@ import {
   extractScope3EmissionsArray,
   has3YearsOfNonNullData,
   has3YearsOfReportedData,
-  calculateFututreEmissionTrend,
+  calculateFutureEmissionTrend,
 } from '../src/lib/companyEmissionsFutureTrendCalculator'
 import {
   reportedPeriods,
@@ -21,7 +21,7 @@ import {
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Calculator', () => {
-  describe('calculateFututreEmissionTrend', () => {
+  describe('calculateFutureEmissionTrend', () => {
     beforeEach(() => {
       jest.clearAllMocks()
     })
@@ -129,14 +129,14 @@ describe('Company Emissions Calculator', () => {
       expect(roundedResult).toEqual(sveviaEmissionSlope)
     })
 
-    // test calculateFututreEmissionTrend
-    test('should return expected result for calculateFututreEmissionTrend', () => {
-      const result = calculateFututreEmissionTrend({
+    // test calculateFutureEmissionTrend
+    test('should return expected result for calculateFutureEmissionTrend', () => {
+      const result = calculateFutureEmissionTrend({
         reportedPeriods: sveviaEmissions,
       })
 
       // should use total calculated emissions 2020-2024
-      const roundedResult = Number(result.futureEmissionTrendSlope?.toFixed(4))
+      const roundedResult = Number(result?.toFixed(4))
       expect(roundedResult).toEqual(sveviaEmissionSlope)
     })
   })
