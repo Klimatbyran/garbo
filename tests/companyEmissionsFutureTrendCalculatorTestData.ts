@@ -1,20 +1,29 @@
 import { ReportedPeriod } from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
-export const reportedPeriods = [
-  {
-    year: 1,
-    emissions: {
-      calculatedTotalEmissions: 7,
-      scope3: {
-        categories: [
-          {
-            category: 1,
-            total: 6,
-          },
-        ],
-      },
+export const reportedPeriodWithScope3Data = {
+  year: 1,
+  emissions: {
+    calculatedTotalEmissions: 7,
+    scope3: {
+      categories: [
+        {
+          category: 1,
+          total: 6,
+        },
+      ],
     },
   },
+}
+
+export const reportedPeriodWithoutScope3Data = {
+  year: 7,
+  emissions: {
+    calculatedTotalEmissions: 26,
+  },
+}
+
+export const reportedPeriods = [
+  reportedPeriodWithScope3Data,
   {
     year: 2,
     emissions: {
@@ -125,12 +134,7 @@ export const reportedPeriods = [
       },
     },
   },
-  {
-    year: 7,
-    emissions: {
-      calculatedTotalEmissions: 26,
-    },
-  },
+  reportedPeriodWithoutScope3Data,
   {
     year: 8,
     emissions: {
@@ -174,6 +178,13 @@ export const reportingPeriodsWithMixedScopeData = [
     },
   },
 ]
+
+export const reportingPeriodWithoutScope1And2Data = {
+  year: 7,
+  emissions: {
+    calculatedTotalEmissions: 26,
+  },
+}
 
 export const scope3EmissionsArray = [
   { year: 1, emissions: 7 },
@@ -350,61 +361,6 @@ export const sveviaLastPeriod = sveviaEmissions[sveviaEmissions.length - 1]
 export const sveviaEmissionsWithNull: ReportedPeriod[] = sveviaEmissions.map(
   (period) => (period.year === 2021 ? { ...period, emissions: null } : period),
 )
-
-export const companyWithoutScope3Data = [
-  {
-    year: 2020,
-    emissions: {
-      calculatedTotalEmissions: 5000,
-      scope1: { total: 2000 },
-      scope2: { mb: 1000, lb: 500, unknown: null },
-      scope3: {
-        calculatedTotalEmissions: 0,
-        statedTotalEmissions: { total: null },
-        categories: [],
-      },
-    },
-  },
-  {
-    year: 2021,
-    emissions: {
-      calculatedTotalEmissions: 4500,
-      scope1: { total: 1800 },
-      scope2: { mb: 900, lb: 450, unknown: null },
-      scope3: {
-        calculatedTotalEmissions: 0,
-        statedTotalEmissions: { total: null },
-        categories: [],
-      },
-    },
-  },
-  {
-    year: 2022,
-    emissions: {
-      calculatedTotalEmissions: 4200,
-      scope1: { total: 1700 },
-      scope2: { mb: 850, lb: 400, unknown: null },
-      scope3: {
-        calculatedTotalEmissions: 0,
-        statedTotalEmissions: { total: null },
-        categories: [],
-      },
-    },
-  },
-  {
-    year: 2023,
-    emissions: {
-      calculatedTotalEmissions: 4000,
-      scope1: { total: 1600 },
-      scope2: { mb: 800, lb: 400, unknown: null },
-      scope3: {
-        calculatedTotalEmissions: 0,
-        statedTotalEmissions: { total: null },
-        categories: [],
-      },
-    },
-  },
-]
 
 export const hanzaPeriod = {
   year: 2023,
