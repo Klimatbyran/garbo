@@ -5,7 +5,6 @@ import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsChangeCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/companyEmissionsFutureTrendCalculator'
-import { baseYear } from '../schemas'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
@@ -307,8 +306,7 @@ export function addFutureEmissionTrendSlope(companies: any[]) {
 
     return {
       ...company,
-      futureEmissionTrendSlope:
-        slope === null || slope === undefined ? null : slope, // TODO: remove this once we have the correct slope, should not be undefined
+      futureEmissionTrendSlope: slope,
     }
   })
 }
