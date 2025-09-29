@@ -2,8 +2,13 @@ import {
   calculateLADTrendSlope,
   extractEmissionsArray,
   has3YearsOfNonNullData,
-  has3YearsOfReportedData,
   calculateFutureEmissionTrend,
+  hasValidValue,
+  hasScope3Data,
+  hasScope1And2Data,
+  getPeriodsFromBaseYear,
+  getValidDataPeriods,
+  determineEmissionsType,
 } from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import {
   reportedPeriods,
@@ -19,6 +24,9 @@ import {
   sveviaEmissionsWithNull,
   kirunaEmissionsArray,
   kirunaEmissionSlope,
+  reportedPeriodWithScope3Data,
+  reportedPeriodWithoutScope3Data,
+  reportingPeriodWithoutScope1And2Data,
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Calculator', () => {
@@ -31,15 +39,67 @@ describe('Company Emissions Calculator', () => {
       jest.restoreAllMocks()
     })
 
-    // test has3YearsOfReportedData
-    test('should return true if there is sufficient emissions data', () => {
-      const result = has3YearsOfReportedData(reportedPeriods)
+    // test hasValidValue
+    test('should return true if the value is not null or undefined', () => {
+      const result = hasValidValue(1)
       expect(result).toEqual(true)
     })
 
-    test('should return false if there is not sufficient emissions data', () => {
-      const result = has3YearsOfReportedData(reportedPeriods.slice(0, 2))
+    test('should return false if the value is null', () => {
+      const result = hasValidValue(null)
       expect(result).toEqual(false)
+    })
+
+    test('should return false if the value is undefined', () => {
+      const result = hasValidValue(undefined)
+      expect(result).toEqual(false)
+    })
+
+    // test hasScope3Data
+    test('should return true if the period has scope 3 data', () => {
+      const result = hasScope3Data(reportedPeriodWithScope3Data)
+      expect(result).toEqual(true)
+    })
+
+    test('should return false if the period does not have scope 3 data', () => {
+      const result = hasScope3Data(reportedPeriodWithoutScope3Data)
+      expect(result).toEqual(false)
+    })
+
+    // test hasScope1And2Data
+    test('should return true if the period has scope 1 and 2 data', () => {
+      const result = hasScope1And2Data(reportingPeriodsWithMixedScopeData[1])
+      expect(result).toEqual(true)
+    })
+
+    test('should return false if the period does not have scope 1 and 2 data', () => {
+      const result = hasScope1And2Data(reportingPeriodWithoutScope1And2Data)
+      expect(result).toEqual(false)
+    })
+
+    // test getPeriodsFromBaseYear
+    test('should return expected result for getPeriodsFromBaseYear', () => {
+      const result = getPeriodsFromBaseYear(reportedPeriods, 2)
+      expect(result).toEqual(reportedPeriods.slice(1))
+    })
+
+    test('should return expected result for getPeriodsFromBaseYear without base year', () => {
+      const result = getPeriodsFromBaseYear(reportedPeriods)
+      expect(result).toEqual(reportedPeriods)
+    })
+
+    // test getValidDataPeriods
+    test('should return expected result for getValidDataPeriods', () => {
+      const result = getValidDataPeriods(reportedPeriods, 'scope3')
+      expect(result).toEqual(reportedPeriods.slice(0, 6))
+    })
+
+    test('should return expected result for getValidDataPeriods with scope 1 and 2', () => {
+      const result = getValidDataPeriods(
+        reportingPeriodsWithMixedScopeData,
+        'scope1and2',
+      )
+      expect(result).toEqual([])
     })
 
     // test has3YearsOfNonNullData
@@ -118,6 +178,24 @@ describe('Company Emissions Calculator', () => {
       const result = calculateLADTrendSlope(sveviaEmissionsArray)
       const roundedResult = Number(result.toFixed(4))
       expect(roundedResult).toEqual(sveviaEmissionSlope)
+    })
+
+    // test determineEmissionsType
+    test('should return expected result for determineEmissionsType', () => {
+      const result = determineEmissionsType(reportedPeriods)
+      expect(result).toEqual('scope3')
+    })
+
+    test('should return expected result for determineEmissionsType with scope 1 and 2', () => {
+      const result = determineEmissionsType(
+        reportingPeriodsWithMixedScopeData.slice(1),
+      )
+      expect(result).toEqual('scope1and2')
+    })
+
+    test('should return null for determineEmissionsType with less than 3 years of data', () => {
+      const result = determineEmissionsType(reportedPeriods.slice(0, 2))
+      expect(result).toEqual(null)
     })
 
     // test calculateFutureEmissionTrend
