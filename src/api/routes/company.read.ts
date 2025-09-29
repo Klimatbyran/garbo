@@ -34,7 +34,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
 
     async (request, reply) => {
-      const clientEtag = request.headers['if-none-match']
       const cacheKey = 'companies:etag'
 
       let currentEtag: string = await redisCache.get(cacheKey)

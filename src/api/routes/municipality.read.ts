@@ -35,7 +35,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Municipalities'),
 
         response: {
@@ -43,7 +43,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
         },
       },
     },
-    async (_, reply) => {
+    async (request, reply) => {
       const currentTimestamp = getDataFileTimestamp()
       const etagValue = `"${currentTimestamp}"`
 
