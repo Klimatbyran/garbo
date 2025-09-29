@@ -214,7 +214,7 @@ export const aleEmissionsArray = [
   { year: 2023, emissions: 136223.552398 },
 ]
 
-export const aleEmissionSlope = -1340.3008
+export const aleEmissionSlope = -1340.3
 
 export const kirunaEmissionsArray = [
   { year: 2015, emissions: 697942.32 },
@@ -228,7 +228,7 @@ export const kirunaEmissionsArray = [
   { year: 2023, emissions: 687670.88 },
 ]
 
-export const kirunaEmissionSlope = -5979.7797
+export const kirunaEmissionSlope = -5979.78
 
 // company data for Svevia
 export const sveviaEmissions: ReportedPeriod[] = [

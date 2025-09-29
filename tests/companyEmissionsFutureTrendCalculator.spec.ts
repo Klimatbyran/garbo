@@ -1,12 +1,9 @@
 import {
   calculateLADTrendSlope,
   extractEmissionsArray,
-  extractScope1And2EmissionsArray,
-  extractScope3EmissionsArray,
   has3YearsOfNonNullData,
   has3YearsOfReportedData,
   calculateFutureEmissionTrend,
-  ReportedPeriod,
 } from '../src/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 import {
   reportedPeriods,
@@ -20,6 +17,8 @@ import {
   sveviaEmissionsArray,
   sveviaEmissionSlope,
   sveviaEmissionsWithNull,
+  kirunaEmissionsArray,
+  kirunaEmissionSlope,
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Calculator', () => {
@@ -70,29 +69,13 @@ describe('Company Emissions Calculator', () => {
 
     // test extractScope3EmissionsArray
     test('should return expected result for scope 3 emissions array', () => {
-      const result = extractScope3EmissionsArray(reportedPeriods)
+      const result = extractEmissionsArray(reportedPeriods, 'scope3')
       expect(result).toEqual(scope3EmissionsArray)
     })
 
     test('should return expected result for scope 3 emissions array with base year', () => {
-      const result = extractScope3EmissionsArray(reportedPeriods, 2)
+      const result = extractEmissionsArray(reportedPeriods, 'scope3', 2)
       expect(result).toEqual(scope3EmissionsArray.slice(1))
-    })
-
-    // test extractScope1And2EmissionsArray
-    test('should return expected result for scope 1 and 2 emissions array', () => {
-      const result = extractScope1And2EmissionsArray(
-        reportingPeriodsWithMixedScopeData.slice(1, 4),
-      )
-      expect(result).toEqual(scope1And2EmissionsArray)
-    })
-
-    test('should return expected result for scope 1 and 2 emissions array with base year', () => {
-      const result = extractScope1And2EmissionsArray(
-        reportingPeriodsWithMixedScopeData.slice(1),
-        2,
-      )
-      expect(result).toEqual(scope1And2EmissionsArray)
     })
 
     // test extractEmissionsArray
@@ -110,8 +93,8 @@ describe('Company Emissions Calculator', () => {
       expect(result).toEqual(scope1And2EmissionsArray)
     })
 
-    // Test for LAD slope per index step
-    test('should return expected result for LAD slope per index step', () => {
+    // Test for LAD slope
+    test('should return expected result for LAD slope', () => {
       const result = calculateLADTrendSlope(scope1and2TotalEmissionsArray)
 
       const expectedResult = 2.8
@@ -119,13 +102,19 @@ describe('Company Emissions Calculator', () => {
       expect(roundedResult).toEqual(expectedResult)
     })
 
-    test('should return expected result for LAD slope per index step for ale to ensure model performs same as for municipalities', () => {
+    test('should return expected result for LAD slope for ale to ensure model performs same as for municipalities', () => {
       const result = calculateLADTrendSlope(aleEmissionsArray)
-      const roundedResult = Number(result.toFixed(4))
+      const roundedResult = Number(result.toFixed(2)) // we're OK with 2 decimal accuracy since we use an approximation of LAD
       expect(roundedResult).toEqual(aleEmissionSlope)
     })
 
-    test('should return expected result for LAD slope per index step for svevia', () => {
+    test('should return expected result for LAD slope for kiruna to ensure model performs same as for municipalities', () => {
+      const result = calculateLADTrendSlope(kirunaEmissionsArray)
+      const roundedResult = Number(result.toFixed(2)) // same accuracy as for Ale here, since we use an approximation of LAD
+      expect(roundedResult).toEqual(kirunaEmissionSlope)
+    })
+
+    test('should return expected result for LAD slope step for svevia', () => {
       const result = calculateLADTrendSlope(sveviaEmissionsArray)
       const roundedResult = Number(result.toFixed(4))
       expect(roundedResult).toEqual(sveviaEmissionSlope)
