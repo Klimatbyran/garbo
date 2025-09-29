@@ -6,6 +6,7 @@ import {
   has3YearsOfNonNullData,
   has3YearsOfReportedData,
   calculateFutureEmissionTrend,
+  ReportedPeriod,
 } from '../src/lib/companyEmissionsFutureTrendCalculator'
 import {
   reportedPeriods,
@@ -131,9 +132,7 @@ describe('Company Emissions Calculator', () => {
 
     // test calculateFutureEmissionTrend
     test('should return expected result for calculateFutureEmissionTrend', () => {
-      const result = calculateFutureEmissionTrend({
-        reportedPeriods: sveviaEmissions,
-      })
+      const result = calculateFutureEmissionTrend(sveviaEmissions)
 
       // should use total calculated emissions 2020-2024
       const roundedResult = Number(result?.toFixed(4))
