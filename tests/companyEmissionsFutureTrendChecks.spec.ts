@@ -20,7 +20,7 @@ import {
 } from './companyEmissionsFutureTrendCalculatorTestData'
 
 describe('Company Emissions Future Trend Checks', () => {
-  describe('calculateFututreEmissionTrendChecks', () => {
+  describe('calculateFutureEmissionTrendChecks', () => {
     beforeEach(() => {
       jest.clearAllMocks()
     })
