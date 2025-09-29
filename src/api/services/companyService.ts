@@ -4,12 +4,16 @@ import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/companyEmissionsChangeCalculator'
+import { calculateFutureEmissionTrend } from '@/lib/companyEmissionsFutureTrendCalculator'
+import { baseYear } from '../schemas'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const transformedCompanies = addCompanyEmissionChange(
-      addCalculatedTotalEmissions(companies.map(transformMetadata)),
+    const transformedCompanies = addFutureEmissionTrendSlope(
+      addCompanyEmissionChange(
+        addCalculatedTotalEmissions(companies.map(transformMetadata)),
+      ),
     )
     console.log(transformedCompanies)
     return transformedCompanies
@@ -20,8 +24,10 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = addCompanyEmissionChange(
-      addCalculatedTotalEmissions(companies.map(transformMetadata)),
+    const transformedCompanies = addFutureEmissionTrendSlope(
+      addCompanyEmissionChange(
+        addCalculatedTotalEmissions(companies.map(transformMetadata)),
+      ),
     )
     return transformedCompanies
   }
@@ -34,8 +40,10 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addCompanyEmissionChange(
-      addCalculatedTotalEmissions([transformMetadata(company)]),
+    const [transformedCompany] = addFutureEmissionTrendSlope(
+      addCompanyEmissionChange(
+        addCalculatedTotalEmissions([transformMetadata(company)]),
+      ),
     )
 
     return transformedCompany
@@ -276,6 +284,31 @@ export function addCompanyEmissionChange(companies: any[]) {
       reportingPeriods: addEmissionTrendsToReportingPeriods(
         sortReportingPeriodsByEndDate(company.reportingPeriods),
       ),
+    }
+  })
+}
+
+export function addFutureEmissionTrendSlope(companies: any[]) {
+  return companies.map((company) => {
+    const transformedCompany = {
+      reportedPeriods: company.reportingPeriods.map((period) => ({
+        year: new Date(period.endDate).getFullYear(),
+        emissions: period.emissions,
+      })),
+      baseYear: company.baseYear,
+    }
+
+    const baseYear = transformedCompany.baseYear?.year
+
+    const slope = calculateFutureEmissionTrend(
+      transformedCompany.reportedPeriods,
+      baseYear,
+    )
+
+    return {
+      ...company,
+      futureEmissionTrendSlope:
+        slope === null || slope === undefined ? null : slope, // TODO: remove this once we have the correct slope, should not be undefined
     }
   })
 }
