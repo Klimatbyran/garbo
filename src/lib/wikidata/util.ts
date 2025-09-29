@@ -123,15 +123,17 @@ export function transformEmissionsToClaims(
     })
   }
   emissions.scope3?.categories?.forEach((category) => {
-    claims.push({
-      scope: SCOPE_3,
-      startDate,
-      endDate,
-      referenceUrl,
-      archiveUrl,
-      category: wikidataConfig.translateIdToCategory(category.category),
-      value: category.total?.toString() ?? '0',
-    })
+    if (category.total !== null && category.total !== undefined) {
+      claims.push({
+        scope: SCOPE_3,
+        startDate,
+        endDate,
+        referenceUrl,
+        archiveUrl,
+        category: wikidataConfig.translateIdToCategory(category.category),
+        value: category.total.toString(),
+      })
+    }
   })
   return claims
 }
