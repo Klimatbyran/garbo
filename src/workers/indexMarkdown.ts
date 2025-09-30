@@ -3,14 +3,16 @@ import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 
-class IndexMarkdownJob extends DiscordJob {}
+class IndexMarkdownJob extends DiscordJob {
+  declare data: DiscordJob['data'] & {
+    markdown: string
+  }
+}
 
 const indexMarkdown = new DiscordWorker(
   QUEUE_NAMES.INDEX_MARKDOWN,
   async (job: IndexMarkdownJob) => {
-    const { url } = job.data
-    const childrenValues = await job.getChildrenEntries()
-    const { markdown }: { markdown: string } = childrenValues
+    const { url, markdown } = job.data
 
     await job.sendMessage(`🤖 Saving to vector database...`)
     job.log(

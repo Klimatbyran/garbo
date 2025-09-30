@@ -11,23 +11,19 @@ import {
 } from '../schemas'
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
-import apiConfig from '@/config/api'
+import fs from 'fs'
+import apiConfig from '../../config/api'
 
-const unknownVersion = { major: '0', minor: '0' }
+const MUNICIPALITIES_CACHE_KEY = 'municipalities:all'
+const MUNICIPALITIES_TIMESTAMP_KEY = 'municipalities:timestamp'
 
-const getVersionParts = (
-  versionString: string,
-): { major: string; minor: string } => {
-  const versionMatch = versionString.match(/^[vV]?(\d+)\.(\d+).*$|^(\d+)$/)
-
-  if (versionMatch) {
-    return {
-      major: versionMatch[1] || versionMatch[3] || 'unknown',
-      minor: versionMatch[2] || '0',
-    }
+const getDataFileTimestamp = (): number => {
+  try {
+    const stats = fs.statSync(apiConfig.municipalityDataPath)
+    return stats.mtimeMs
+  } catch (_) {
+    return 0
   }
-
-  return unknownVersion
 }
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
@@ -39,7 +35,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Municipalities'),
 
         response: {
@@ -48,51 +44,34 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      // For development purposes, we can return the municipalities directly
-      if (apiConfig.nodeEnv === 'development') {
-        const municipalities = await municipalityService.getMunicipalities()
-        reply.send(municipalities)
-        return
+      const currentTimestamp = getDataFileTimestamp()
+      const etagValue = `"${currentTimestamp}"`
+      const ifNoneMatch = request.headers['if-none-match']
+
+      if (ifNoneMatch === etagValue) {
+        return reply.code(304).send()
       }
 
-      const clientEtag = request.headers['if-none-match']
-      const cacheKey = 'municipalities:etag'
+      const cachedMunicipalities = await redisCache.get(
+        MUNICIPALITIES_CACHE_KEY,
+      )
 
-      let currentEtag: string = await redisCache.get(cacheKey)
-
-      const packageVersion = process.env.npm_package_version
-      const { major, minor } = packageVersion
-        ? getVersionParts(packageVersion)
-        : unknownVersion
-
-      const versionKey = `${major}.${minor}`
-
-      if (!currentEtag || !currentEtag.startsWith(versionKey)) {
-        const oldVersion = currentEtag ? currentEtag.split('-')[0] : null
-
-        if (oldVersion && oldVersion !== versionKey) {
-          const oldDataCacheKey = `municipalities:data:${oldVersion}`
-          await redisCache.delete(oldDataCacheKey)
-        }
-
-        currentEtag = `${versionKey}-${new Date().toISOString()}`
-        await redisCache.set(cacheKey, currentEtag)
+      if (cachedMunicipalities) {
+        return reply.header('ETag', etagValue).send(cachedMunicipalities)
       }
 
-      if (clientEtag === currentEtag) return reply.code(304).send()
+      const municipalities = await municipalityService.getMunicipalities()
 
-      const dataCacheKey = `municipalities:data:${versionKey}`
+      await redisCache.set(
+        MUNICIPALITIES_CACHE_KEY,
+        JSON.stringify(municipalities),
+      )
+      await redisCache.set(
+        MUNICIPALITIES_TIMESTAMP_KEY,
+        currentTimestamp.toString(),
+      )
 
-      let municipalities = await redisCache.get(dataCacheKey)
-
-      if (!municipalities) {
-        municipalities = await municipalityService.getMunicipalities()
-        await redisCache.set(dataCacheKey, JSON.stringify(municipalities))
-      }
-
-      reply.header('ETag', `${currentEtag}`)
-
-      reply.send(municipalities)
+      reply.header('ETag', etagValue).send(municipalities)
     },
   )
 
