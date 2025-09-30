@@ -223,29 +223,13 @@ class ExportService {
     const csvRows: CsvRow[] = []
 
     for (const region of regions) {
-      // Flatten the regional data structure for CSV export
-      const baseRow: CsvRow = {
-        name: region.name,
-      }
-
       // Add yearly data for each year in the regional data
-      for (const [year, yearData] of Object.entries(region.emissions)) {
-        const yearDataObj = yearData as Record<string, unknown>
-        if (yearDataObj && typeof yearDataObj === 'object') {
-          csvRows.push({
-            ...baseRow,
-            year: year,
-            total_emissions: (yearDataObj.total_emissions as number) || 0,
-            ...this.flattenSectorData(
-              (yearDataObj.sectors as Record<string, unknown>) || {},
-              'sector',
-            ),
-            ...this.flattenSectorData(
-              (yearDataObj.subsectors as Record<string, unknown>) || {},
-              'subsector',
-            ),
-          })
-        }
+      for (const [year, totalEmissions] of Object.entries(region.emissions)) {
+        csvRows.push({
+          name: region.name,
+          year: year,
+          total_emissions: totalEmissions,
+        })
       }
     }
 

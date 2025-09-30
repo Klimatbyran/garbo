@@ -34,10 +34,26 @@ class RegionalService {
     )
 
     // Transform the regional data from the nested format to a flat array
-    this._all = Object.entries(rawRegionalData).map(([regionName, data]) => ({
-      name: regionName,
-      emissions: data as Record<string, unknown>,
-    }))
+    this._all = Object.entries(rawRegionalData).map(([regionName, data]) => {
+      const regionData = data as Record<string, any>
+      const emissions: Record<string, number> = {}
+
+      // Extract only total_emissions for each year
+      for (const [year, yearData] of Object.entries(regionData)) {
+        if (
+          yearData &&
+          typeof yearData === 'object' &&
+          'total_emissions' in yearData
+        ) {
+          emissions[year] = yearData.total_emissions
+        }
+      }
+
+      return {
+        name: regionName,
+        emissions,
+      }
+    })
 
     // Validate the transformed data
     this._all = InputRegionalDataSchema.parse(this._all)

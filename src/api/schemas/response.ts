@@ -447,13 +447,13 @@ export const MunicipalitySectorEmissionsSchema = z.object({
 export const InputRegionalDataSchema = z.array(
   z.object({
     name: z.string(),
-    emissions: z.record(z.string(), z.unknown()),
+    emissions: z.record(z.string(), z.number()),
   }),
 )
 
 export const RegionalDataSchema = z.object({
   name: z.string(),
-  emissions: z.record(z.string(), z.unknown()),
+  emissions: z.record(z.string(), z.number()),
 })
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
