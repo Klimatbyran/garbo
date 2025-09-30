@@ -1,6 +1,6 @@
-import WBK, { ItemId } from "wikibase-sdk";
-import wikidataConfig from "../../config/wikidata";
-import { Emissions } from "../emissions";
+import WBK, { ItemId } from 'wikibase-sdk'
+import wikidataConfig from '../../config/wikidata'
+import { Emissions } from '../emissions'
 
 export interface Claim {
   id?: string
@@ -24,7 +24,7 @@ const {
   SCOPE_2_LOCATION_BASED,
   SCOPE_2_MARKET_BASED,
   SCOPE_3,
-} = wikidataConfig.entities;
+} = wikidataConfig.entities
 
 export const wbk = WBK({
   instance: 'https://www.wikidata.org',
@@ -38,7 +38,7 @@ export const wikibaseEditConfig = {
       consumer_key: wikidataConfig.wikidataConsumerKey,
       consumer_secret: wikidataConfig.wikidataConsumerSecret,
       token: wikidataConfig.wikidataToken,
-      token_secret: wikidataConfig.wikidataTokenSecet,
+      token_secret: wikidataConfig.wikidataTokenSecret,
     },
   },
   userAgent: 'KlimatkollenGarbotBot/v0.1.0 (https://klimatkollen.se)',
@@ -51,11 +51,13 @@ export const wikibaseEditConfig = {
  * @returns true if scope and category are equal
  */
 export function compareClaims(claimA: Claim, claimB: Claim) {
-  const scopeMatches = claimA.scope === claimB.scope;
-  const normalizeCategory = (category: ItemId | undefined) => category || undefined;
-  const categoryMatches = normalizeCategory(claimA.category) === normalizeCategory(claimB.category);
+  const scopeMatches = claimA.scope === claimB.scope
+  const normalizeCategory = (category: ItemId | undefined) =>
+    category || undefined
+  const categoryMatches =
+    normalizeCategory(claimA.category) === normalizeCategory(claimB.category)
 
-  return scopeMatches && categoryMatches;
+  return scopeMatches && categoryMatches
 }
 
 /**
@@ -78,7 +80,7 @@ export function transformEmissionsToClaims(
   startDate: string,
   endDate: string,
   referenceUrl?: string,
-  archiveUrl?: string
+  archiveUrl?: string,
 ): Claim[] {
   const claims: Claim[] = []
 
