@@ -63,8 +63,9 @@ const wikipediaUpload = new DiscordWorker<WikipediaUploadJob>(
     }
 
     try {
-      if(title)
-      await updateWikipediaContent(title, content)
+      if(title) {
+        await updateWikipediaContent(title, content)
+      }
     } catch(e) {
       job.editMessage(`❌ Error updating Wikipedia: ${e.message}`)
       throw e
