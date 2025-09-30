@@ -334,8 +334,8 @@ export interface Municipality {
   name: string
   region: string
   emissions: YearlyData[] // List of yearly emissions data
-  totalTrend: number // Total trend of emissions
-  totalCarbonLaw: number // Total carbon law of emissions
+  totalTrend: number // Sum of future trend of emissions
+  totalCarbonLaw: number // Sum of future carbon law of emissions
   approximatedHistoricalEmission: YearlyData[] // List of historical emission approximations
   trend: YearlyData[] // List of yearly emissions trend data
   historicalEmissionChangePercent: number // Change in historical emissions percentage
