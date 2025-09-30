@@ -25,16 +25,20 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid initialization of API environment variables:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some(err => err.path[0] === 'API_SECRET')) {
-    console.error('API_SECRET must be a secret in the form of a string.');
-    console.error('When running locally, this variable can be set freely.');
-    console.error('In production, ensure this is correctly set in your Kubernetes config.');
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'API_SECRET')) {
+    console.error('API_SECRET must be a secret in the form of a string.')
+    console.error('When running locally, this variable can be set freely.')
+    console.error(
+      'In production, ensure this is correctly set in your Kubernetes config.',
+    )
   }
 
-  if (parsedEnv.error.errors.some(err => err.path[0] === 'JWT_SECRET')) {
-    console.error('JWT_SECRET must be a secret in the form of a string.');
-    console.error('When running locally, this variable can be set freely.');
-    console.error('In production, ensure this is correctly set in your Kubernetes config.');
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'JWT_SECRET')) {
+    console.error('JWT_SECRET must be a secret in the form of a string.')
+    console.error('When running locally, this variable can be set freely.')
+    console.error(
+      'In production, ensure this is correctly set in your Kubernetes config.',
+    )
   }
 
   throw new Error('Invalid initialization of API environment variables')
@@ -76,8 +80,8 @@ const apiConfig = {
     env.NODE_ENV === 'staging'
       ? stageOrigins
       : env.NODE_ENV === 'production'
-      ? productionOrigins
-      : developmentOrigins,
+        ? productionOrigins
+        : developmentOrigins,
 
   nodeEnv: env.NODE_ENV,
   secret: env.API_SECRET,
@@ -95,12 +99,12 @@ const apiConfig = {
 
   municipalityDataPath: resolve(
     import.meta.dirname,
-    '../data/climate-data.json'
+    '../data/municipalities.json',
   ),
 
   municipalitySectorEmissionsPath: resolve(
     import.meta.dirname,
-    '../data/municipality-sector-emissions.json'
+    '../data/municipality-sector-emissions.json',
   ),
 
   bullBoardBasePath: '/admin/queues',
