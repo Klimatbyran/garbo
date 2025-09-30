@@ -109,8 +109,6 @@ const apiConfig = {
 
   regionDataPath: resolve(import.meta.dirname, '../data/regional-data.json'),
 
-  nationalDataPath: resolve(import.meta.dirname, '../data/national-data.json'),
-
   bullBoardBasePath: '/admin/queues',
 
   logger: (env.NODE_ENV !== 'production' && process.stdout.isTTY
