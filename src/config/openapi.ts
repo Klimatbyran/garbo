@@ -12,8 +12,8 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid initialization of OpenAPI environment variables:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some(err => err.path[0] === 'OPENAPI_PREFIX')) {
-    console.error('OPENAPI_PREFIX must be a prefix in the form of a string.');
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'OPENAPI_PREFIX')) {
+    console.error('OPENAPI_PREFIX must be a prefix in the form of a string.')
   }
 
   throw new Error('Invalid initialization of OpenAPI environment variables')
@@ -48,6 +48,9 @@ const openAPITagDefinitions = {
   Municipalities: {
     description: 'Climate data related to Swedish municipalities',
   },
+  Regions: {
+    description: 'Climate data related to Swedish regions',
+  },
   Auth: {
     descriptions: 'Authentification',
   },
@@ -71,7 +74,7 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
     tags[tagName] = { name: tagName, ...tag }
     return tags
   },
-  {} as Record<TagName, Tag>
+  {} as Record<TagName, Tag>,
 )
 
 /**
