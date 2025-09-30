@@ -139,7 +139,7 @@ const wikidataConfig = {
   wikidataConsumerKey: env.WIKIDATA_CONSUMER_KEY,
   wikidataConsumerSecret: env.WIKIDATA_CONSUMER_SECRET,
   wikidataToken: env.WIKIDATA_TOKEN,
-  wikidataTokenSecet: env.WIKIDATA_TOKEN_SECRET,
+  wikidataTokenSecret: env.WIKIDATA_TOKEN_SECRET,
   entities:
     env.WIKIDATA_URL === 'https://www.wikidata.org'
       ? LiveWikidataEntities
