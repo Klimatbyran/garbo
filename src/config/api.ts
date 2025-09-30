@@ -99,13 +99,17 @@ const apiConfig = {
 
   municipalityDataPath: resolve(
     import.meta.dirname,
-    '../data/municipalities.json',
+    '../data/municipality-data.json',
   ),
 
   municipalitySectorEmissionsPath: resolve(
     import.meta.dirname,
     '../data/municipality-sector-emissions.json',
   ),
+
+  regionDataPath: resolve(import.meta.dirname, '../data/regional-data.json'),
+
+  nationalDataPath: resolve(import.meta.dirname, '../data/national-data.json'),
 
   bullBoardBasePath: '/admin/queues',
 
