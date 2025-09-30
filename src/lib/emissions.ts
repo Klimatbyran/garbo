@@ -1,4 +1,4 @@
-export function calculatedTotalEmissions(emissions) {
+export function calculatedTotalEmissions(emissions: Emissions) {
     const { scope1, scope2, scope3 } = emissions || {};
     const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown;
     const scope3Total = scope3?.categories.reduce((total, category) => category.total + total, 0) || 0;
