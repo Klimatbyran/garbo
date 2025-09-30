@@ -15,7 +15,7 @@ describe('transformEmissionsToClaims', () => {
     expect(claims).toHaveLength(0)
   })
 
-  it('creates scope1 claim when total > 0 excludes 0/null/undefine', () => {
+  it('creates scope1 claim when total > 0 excludes 0/null/undefined', () => {
     const e1: Emissions = { scope1: { total: 100, unit: 'tCO2e' } }
     const e0: Emissions = { scope1: { total: 0, unit: 'tCO2e' } }
     const enull: Emissions = { scope1: { total: null, unit: 'tCO2e' } }
