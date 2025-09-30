@@ -73,8 +73,16 @@ class RegionalService {
   }
 
   getRegionalSectorEmissions(name: RegionalData['name']) {
-    const region = this.sectorEmissions[name]
+    // Find the correct case-sensitive key by checking all keys
+    const regionKey = Object.keys(this.sectorEmissions).find(
+      (key) => key.toLowerCase() === name.toLowerCase(),
+    )
 
+    if (!regionKey) {
+      return null
+    }
+
+    const region = this.sectorEmissions[regionKey]
     return region ?? null
   }
 }

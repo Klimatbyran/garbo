@@ -459,7 +459,7 @@ export const RegionalDataSchema = z.object({
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
 export const RegionalSectorEmissionsSchema = z.object({
-  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+  sectors: z.record(z.string(), z.unknown()),
 })
 
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
