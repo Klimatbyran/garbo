@@ -93,7 +93,7 @@ describe('reduceToMostRecentClaims', () => {
     expect(result).toHaveLength(1)
   })
 
-  it('should return all claism with identical most recent endDate', () => {
+  it('should return all claims with identical most recent endDate', () => {
     const claims = [
       {
         id: 'Q1',
