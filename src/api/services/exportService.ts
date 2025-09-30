@@ -3,6 +3,8 @@ import * as path from 'path'
 import { prisma } from '../../lib/prisma'
 import { companyExportArgs } from '../args'
 import { municipalityService } from './municipalityService'
+import { regionalService } from './regionalService'
+import { RegionalData } from '../types'
 import ExcelJS from 'exceljs'
 
 const EXPORT_FOLDER_PATH = './public/exports'
@@ -66,6 +68,23 @@ class ExportService {
           : await this.generateXLSX(
               this.transformMunicipalitiesIntoRows(municipalities),
             )
+
+    return this.createExportFile(fileName, content)
+  }
+
+  async exportRegions(type: ExportType = 'json'): Promise<ExportResult> {
+    const fileName = this.getFileName('region', type)
+    const existingFile = await this.getValidExport(fileName)
+    if (existingFile) return existingFile
+
+    const regions = await regionalService.getRegions()
+
+    const content =
+      type === 'json'
+        ? JSON.stringify(regions)
+        : type === 'csv'
+          ? this.generateCSV(this.transformRegionsIntoRows(regions))
+          : await this.generateXLSX(this.transformRegionsIntoRows(regions))
 
     return this.createExportFile(fileName, content)
   }
@@ -200,6 +219,58 @@ class ExportService {
     return csvRows
   }
 
+  private transformRegionsIntoRows(regions: RegionalData[]): CsvRow[] {
+    const csvRows: CsvRow[] = []
+
+    for (const region of regions) {
+      // Flatten the regional data structure for CSV export
+      const baseRow: CsvRow = {
+        name: region.name,
+      }
+
+      // Add yearly data for each year in the regional data
+      for (const [year, yearData] of Object.entries(region.data)) {
+        const yearDataObj = yearData as Record<string, unknown>
+        if (yearDataObj && typeof yearDataObj === 'object') {
+          csvRows.push({
+            ...baseRow,
+            year: year,
+            total_emissions: (yearDataObj.total_emissions as number) || 0,
+            ...this.flattenSectorData(
+              (yearDataObj.sectors as Record<string, unknown>) || {},
+              'sector',
+            ),
+            ...this.flattenSectorData(
+              (yearDataObj.subsectors as Record<string, unknown>) || {},
+              'subsector',
+            ),
+          })
+        }
+      }
+    }
+
+    return csvRows
+  }
+
+  private flattenSectorData(
+    sectorData: Record<string, unknown>,
+    prefix: string,
+  ): CsvRow {
+    const flattened: CsvRow = {}
+    for (const [sectorName, sectorValue] of Object.entries(sectorData)) {
+      if (typeof sectorValue === 'object' && sectorValue !== null) {
+        // Handle nested subsector data
+        for (const [subName, subValue] of Object.entries(sectorValue)) {
+          flattened[`${prefix}_${sectorName}_${subName}`] =
+            (subValue as number) || 0
+        }
+      } else {
+        flattened[`${prefix}_${sectorName}`] = (sectorValue as number) || 0
+      }
+    }
+    return flattened
+  }
+
   private transformYearlyData(yearlyData: YearlyData[], type: string) {
     const subCsvRow: CsvRow = {}
     for (const yearlyDatapoint of yearlyData) {
@@ -253,7 +324,7 @@ class ExportService {
   }
 
   private getFileName(
-    type: 'company' | 'municipality',
+    type: 'company' | 'municipality' | 'region',
     ext: 'csv' | 'json' | 'xlsx',
     year?: number,
   ): string {

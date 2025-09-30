@@ -6,7 +6,9 @@ import { economyArgs, emissionsArgs, reportingPeriodArgs } from './args'
 
 export type WikidataIdParams = z.infer<typeof schemas.wikidataIdParamSchema>
 
-export type CompanySearchQuery = z.infer<typeof schemas.companySearchQuerySchema>
+export type CompanySearchQuery = z.infer<
+  typeof schemas.companySearchQuerySchema
+>
 
 export type DefaultEmissions = Prisma.EmissionsGetPayload<typeof emissionsArgs>
 
@@ -35,6 +37,10 @@ export type Municipality = z.infer<typeof schemas.MunicipalitySchema>
 export type MunicipalityNameParams = z.infer<
   typeof schemas.MunicipalityNameParamSchema
 >
+
+export type RegionalData = z.infer<typeof schemas.RegionalDataSchema>
+
+export type RegionalNameParams = z.infer<typeof schemas.RegionalNameParamSchema>
 
 export type userAuthenticationBody = z.infer<
   typeof schemas.userAuthenticationBodySchema
