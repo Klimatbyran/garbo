@@ -378,3 +378,130 @@ export const hanzaPeriod = {
     },
   },
 }
+
+// Edge case test data
+export const zeroEmissionsData = [
+  { year: 2020, emissions: 0 },
+  { year: 2021, emissions: 0 },
+  { year: 2022, emissions: 0 },
+  { year: 2023, emissions: 0 },
+]
+
+export const identicalEmissionsData = [
+  { year: 2020, emissions: 100 },
+  { year: 2021, emissions: 100 },
+  { year: 2022, emissions: 100 },
+  { year: 2023, emissions: 100 },
+]
+
+export const extremeOutlierData = [
+  { year: 2020, emissions: 100 },
+  { year: 2021, emissions: 120 },
+  { year: 2022, emissions: 110 },
+  { year: 2023, emissions: 1000000 }, // Extreme outlier
+]
+
+export const nanEmissionsData = [
+  { year: 2020, emissions: 100 },
+  { year: 2021, emissions: NaN },
+  { year: 2022, emissions: 200 },
+  { year: 2023, emissions: 150 },
+]
+
+export const insufficientDataAfterBaseYear = [
+  { year: 2020, emissions: 100 },
+  { year: 2021, emissions: 120 },
+  { year: 2022, emissions: 110 },
+  { year: 2023, emissions: 130 },
+  { year: 2024, emissions: 125 },
+]
+
+export const baseYearNotFoundData = [
+  { year: 2020, emissions: 100 },
+  { year: 2021, emissions: 120 },
+  { year: 2022, emissions: 110 },
+]
+
+export const scope3OnlyStatedTotalData = {
+  year: 2020,
+  emissions: {
+    calculatedTotalEmissions: 100,
+    scope3: {
+      statedTotalEmissions: { total: 100 },
+      categories: [],
+    },
+  },
+}
+
+export const scope3EmptyCategoriesData = {
+  year: 2020,
+  emissions: {
+    calculatedTotalEmissions: 100,
+    scope3: {
+      statedTotalEmissions: { total: null },
+      categories: [],
+    },
+  },
+}
+
+export const scope2OnlyUnknownData = {
+  year: 2020,
+  emissions: {
+    calculatedTotalEmissions: 100,
+    scope1: { total: 50 },
+    scope2: { mb: undefined, lb: 0, unknown: 50 },
+  },
+}
+
+export const scope1ZeroData = {
+  year: 2020,
+  emissions: {
+    calculatedTotalEmissions: 100,
+    scope1: { total: 0 },
+    scope2: { mb: 50, lb: 50, unknown: null },
+  },
+}
+
+// Test data for base year filtering
+export const baseYearTestData: ReportedPeriod[] = [
+  {
+    year: 2018,
+    emissions: {
+      calculatedTotalEmissions: 1000,
+      scope1: { total: 500 },
+      scope2: { mb: 300, lb: 200, unknown: null },
+    },
+  },
+  {
+    year: 2019,
+    emissions: {
+      calculatedTotalEmissions: 1100,
+      scope1: { total: 550 },
+      scope2: { mb: 330, lb: 220, unknown: null },
+    },
+  },
+  {
+    year: 2020,
+    emissions: {
+      calculatedTotalEmissions: 1200,
+      scope1: { total: 600 },
+      scope2: { mb: 360, lb: 240, unknown: null },
+    },
+  },
+  {
+    year: 2021,
+    emissions: {
+      calculatedTotalEmissions: 1300,
+      scope1: { total: 650 },
+      scope2: { mb: 390, lb: 260, unknown: null },
+    },
+  },
+  {
+    year: 2022,
+    emissions: {
+      calculatedTotalEmissions: 1400,
+      scope1: { total: 700 },
+      scope2: { mb: 420, lb: 280, unknown: null },
+    },
+  },
+]
