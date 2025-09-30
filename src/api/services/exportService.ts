@@ -229,7 +229,7 @@ class ExportService {
       }
 
       // Add yearly data for each year in the regional data
-      for (const [year, yearData] of Object.entries(region.data)) {
+      for (const [year, yearData] of Object.entries(region.emissions)) {
         const yearDataObj = yearData as Record<string, unknown>
         if (yearDataObj && typeof yearDataObj === 'object') {
           csvRows.push({

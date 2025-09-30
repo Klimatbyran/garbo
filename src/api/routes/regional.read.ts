@@ -43,7 +43,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
         },
       },
     },
-    async (request, reply) => {
+    async (_request, reply) => {
       const currentTimestamp = getDataFileTimestamp(apiConfig.regionDataPath)
       const etagValue = `"${currentTimestamp}"`
 

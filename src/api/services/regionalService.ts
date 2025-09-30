@@ -36,7 +36,7 @@ class RegionalService {
     // Transform the regional data from the nested format to a flat array
     this._all = Object.entries(rawRegionalData).map(([regionName, data]) => ({
       name: regionName,
-      data: data as Record<string, unknown>,
+      emissions: data as Record<string, unknown>,
     }))
 
     // Validate the transformed data
