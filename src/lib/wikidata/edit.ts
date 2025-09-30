@@ -1,7 +1,13 @@
 import { ItemId } from 'wikibase-sdk'
 import wikidataConfig from '../../config/wikidata'
 import WBEdit from 'wikibase-edit'
-import { RemoveClaim, Claim, wikibaseEditConfig, compareClaims, compareDateStrings } from './util'
+import {
+  RemoveClaim,
+  Claim,
+  wikibaseEditConfig,
+  compareClaims,
+  compareDateStrings,
+} from './util'
 import { getClaims } from './read'
 
 const {
@@ -27,7 +33,7 @@ const {
 export async function editEntity(
   entity: ItemId,
   claims: Claim[],
-  removeClaim: RemoveClaim[]
+  removeClaim: RemoveClaim[],
 ) {
   if (claims.length === 0 && removeClaim.length === 0) {
     return
@@ -71,9 +77,15 @@ export async function editEntity(
     summary: 'Added/Updated carbon footprint data',
   }
   // Dry Run
-  console.log(`Would edit entity ${entity} with:`, JSON.stringify(body, null, 2));
-  console.log(`Claims to add: ${claims.length}, Claims to remove: ${removeClaim.length}`);
-  
+
+  console.log(
+    `Would edit entity ${entity} with:`,
+    JSON.stringify(body, null, 2),
+  )
+  console.log(
+    `Claims to add: ${claims.length}, Claims to remove: ${removeClaim.length}`,
+  )
+
   // Comment out to prevent direct changes
   // try {
   //   const res = await wbEdit.entity.edit(body);
@@ -89,7 +101,7 @@ export async function editEntity(
  */
 async function diffCarbonFootprintClaims(
   claims: Claim[],
-  existingClaims: Claim[]
+  existingClaims: Claim[],
 ) {
   const newClaims: Claim[] = []
   const rmClaims: RemoveClaim[] = []
@@ -142,70 +154,84 @@ async function diffCarbonFootprintClaims(
   return { newClaims, rmClaims }
 }
 
-export function removeExistingDuplicates(existingClaims: Claim[], rmClaims: RemoveClaim[]) {
-  for(const existingClaim of existingClaims) {
-    if(!rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
+export function removeExistingDuplicates(
+  existingClaims: Claim[],
+  rmClaims: RemoveClaim[],
+) {
+  for (const existingClaim of existingClaims) {
+    if (!rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
       const duplicate = existingClaims.find(
-        (claimI) => 
-        compareClaims(existingClaim, claimI) 
-        && existingClaim.startDate === claimI.startDate
-        && existingClaim.endDate === claimI.endDate
-        && claimI.id !== existingClaim.id 
-        && !rmClaims.find((claimR) => claimI.id === claimR.id));
-      if(duplicate && existingClaim.id !== undefined) {
-        rmClaims.push({id: existingClaim.id, remove: true});
+        (claimI) =>
+          compareClaims(existingClaim, claimI) &&
+          existingClaim.startDate === claimI.startDate &&
+          existingClaim.endDate === claimI.endDate &&
+          claimI.id !== existingClaim.id &&
+          !rmClaims.find((claimR) => claimI.id === claimR.id),
+      )
+      if (duplicate && existingClaim.id !== undefined) {
+        rmClaims.push({ id: existingClaim.id, remove: true })
       }
     }
   }
-  return {rmClaims};
+  return { rmClaims }
 }
 
-export function removeZeroValueClaims(existingClaims: Claim[], rmClaims: RemoveClaim[]) {
-  for(const existingClaim of existingClaims) {
+export function removeZeroValueClaims(
+  existingClaims: Claim[],
+  rmClaims: RemoveClaim[],
+) {
+  for (const existingClaim of existingClaims) {
     // Check if this claim is already marked for removal
-    if(rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
-      continue;
+    if (rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
+      continue
     }
-    
+
     // Check if this is a 0-value scope 3 claim that should be removed
-    const value = existingClaim.value.startsWith('+') ? existingClaim.value.substring(1) : existingClaim.value;
-    const isZeroValueScope3 = value === '0' && existingClaim.scope === SCOPE_3 && existingClaim.category !== undefined;
-    
-    if(isZeroValueScope3 && existingClaim.id !== undefined) {
-      console.log(`Marking 0-value scope 3 claim for removal: Category ${existingClaim.category}, Period ${existingClaim.startDate} to ${existingClaim.endDate}, ID: ${existingClaim.id}`);
-      rmClaims.push({id: existingClaim.id, remove: true});
+    const value = existingClaim.value.startsWith('+')
+      ? existingClaim.value.substring(1)
+      : existingClaim.value
+    const isZeroValueScope3 =
+      value === '0' &&
+      existingClaim.scope === SCOPE_3 &&
+      existingClaim.category !== undefined
+
+    if (isZeroValueScope3 && existingClaim.id !== undefined) {
+      console.log(
+        `Marking 0-value scope 3 claim for removal: Category ${existingClaim.category}, Period ${existingClaim.startDate} to ${existingClaim.endDate}, ID: ${existingClaim.id}`,
+      )
+      rmClaims.push({ id: existingClaim.id, remove: true })
     }
   }
-  return {rmClaims};
+  return { rmClaims }
 }
 
 export async function diffTotalCarbonFootprintClaims(
   newClaims: Claim[],
   existingClaims: Claim[],
-  rmClaims: RemoveClaim[]
+  rmClaims: RemoveClaim[],
 ) {
   // Get claims from the most recent reporting period
-  const mostRecentClaims = reduceToMostRecentClaims([
-    ...newClaims,
-    ...existingClaims,
-  ], rmClaims);
+  const mostRecentClaims = reduceToMostRecentClaims(
+    [...newClaims, ...existingClaims],
+    rmClaims,
+  )
 
   if (mostRecentClaims.length === 0) {
-    return { newClaims, rmClaims };
+    return { newClaims, rmClaims }
   }
 
   // Calculate total emissions for all scopes
-  const total = calculateTotalEmissions(mostRecentClaims);
+  const total = calculateTotalEmissions(mostRecentClaims)
 
   // Calculate total scope 3 emissions (with categories)
-  const totalScope3 = calculateTotalScope3Emissions(mostRecentClaims);
+  const totalScope3 = calculateTotalScope3Emissions(mostRecentClaims)
 
   const mostRecentDate = {
     startDate: mostRecentClaims[0].startDate,
     endDate: mostRecentClaims[0].endDate,
     archiveUrl: mostRecentClaims[0].archiveUrl,
     referenceUrl: mostRecentClaims[0].referenceUrl,
-  };
+  }
 
   // Handle total emissions claim
   const shouldUpdateTotalClaim = shouldUpdateClaim(
@@ -214,15 +240,15 @@ export async function diffTotalCarbonFootprintClaims(
     total,
     undefined,
     undefined,
-    rmClaims
-  );
+    rmClaims,
+  )
 
   if (shouldUpdateTotalClaim) {
-      newClaims.push({
+    newClaims.push({
       ...mostRecentDate,
-        value: total.toString(),
-    });
-    }
+      value: total.toString(),
+    })
+  }
 
   // Handle total scope 3 emissions claim
   const shouldUpdateScope3Claim = shouldUpdateClaim(
@@ -231,66 +257,76 @@ export async function diffTotalCarbonFootprintClaims(
     totalScope3,
     SCOPE_3,
     undefined,
-    rmClaims
-  );
+    rmClaims,
+  )
 
   if (shouldUpdateScope3Claim) {
-      newClaims.push({
+    newClaims.push({
       ...mostRecentDate,
-        scope: SCOPE_3,
+      scope: SCOPE_3,
       value: totalScope3.toString(),
-    });
-    }
+    })
+  }
 
-  return { newClaims, rmClaims };
+  return { newClaims, rmClaims }
 }
 
 function calculateTotalEmissions(claims: Claim[]): number {
   return claims.reduce((total: number, current) => {
-    if (!current.scope) return total;
+    if (!current.scope) return total
 
     // Skip certain claims based on conditions
     if (shouldSkipClaimForTotal(current, claims)) {
-      return total;
+      return total
     }
 
-    return total + parseClaimValue(current.value);
-  }, 0);
+    return total + parseClaimValue(current.value)
+  }, 0)
 }
 
 function calculateTotalScope3Emissions(claims: Claim[]): number {
   return claims.reduce((total: number, current) => {
     if (current.scope === SCOPE_3 && current.category !== undefined) {
-      return total + parseClaimValue(current.value);
+      return total + parseClaimValue(current.value)
     }
-    return total;
-  }, 0);
+    return total
+  }, 0)
 }
 
 function parseClaimValue(value: string): number {
   if (typeof value !== 'number' && value.startsWith('+')) {
-    return parseInt(value.substring(1));
+    return parseInt(value.substring(1))
   }
-  return parseInt(value);
+  return parseInt(value)
 }
 
 function shouldSkipClaimForTotal(claim: Claim, allClaims: Claim[]): boolean {
-  if (claim.scope === SCOPE_3 && claim.category === undefined &&
-      allClaims.some(c => c.scope === SCOPE_3 && c.category !== undefined)) {
-    return true;
+  if (
+    claim.scope === SCOPE_3 &&
+    claim.category === undefined &&
+    allClaims.some((c) => c.scope === SCOPE_3 && c.category !== undefined)
+  ) {
+    return true
   }
 
-  if (claim.scope === SCOPE_2_LOCATION_BASED &&
-      allClaims.some(c => c.scope === SCOPE_2_MARKET_BASED)) {
-    return true;
+  if (
+    claim.scope === SCOPE_2_LOCATION_BASED &&
+    allClaims.some((c) => c.scope === SCOPE_2_MARKET_BASED)
+  ) {
+    return true
   }
 
-  if (claim.scope === SCOPE_2 &&
-      allClaims.some(c => c.scope === SCOPE_2_MARKET_BASED || c.scope === SCOPE_2_LOCATION_BASED)) {
-    return true;
+  if (
+    claim.scope === SCOPE_2 &&
+    allClaims.some(
+      (c) =>
+        c.scope === SCOPE_2_MARKET_BASED || c.scope === SCOPE_2_LOCATION_BASED,
+    )
+  ) {
+    return true
   }
 
-  return false;
+  return false
 }
 
 function shouldUpdateClaim(
@@ -299,32 +335,39 @@ function shouldUpdateClaim(
   totalValue: number,
   scope?: ItemId,
   category?: ItemId,
-  rmClaims: RemoveClaim[] = []
+  rmClaims: RemoveClaim[] = [],
 ): boolean {
   for (const claim of existingClaims) {
     // Normalize empty strings and undefined for comparison
-    const normalizeValue = (val: any) => val === '' || val === undefined || val === null ? undefined : val;
-    const normalizedClaimScope = normalizeValue(claim.scope);
-    const normalizedClaimCategory = normalizeValue(claim.category);
-    const normalizedScope = normalizeValue(scope);
-    const normalizedCategory = normalizeValue(category);
 
-    const isMatchingClaim = normalizedClaimScope === normalizedScope && normalizedClaimCategory === normalizedCategory;
+    const normalizeValue = (val: any) =>
+      val === '' || val === undefined || val === null ? undefined : val
+    const normalizedClaimScope = normalizeValue(claim.scope)
+    const normalizedClaimCategory = normalizeValue(claim.category)
+    const normalizedScope = normalizeValue(scope)
+    const normalizedCategory = normalizeValue(category)
+
+    const isMatchingClaim =
+      normalizedClaimScope === normalizedScope &&
+      normalizedClaimCategory === normalizedCategory
 
     if (isMatchingClaim) {
       if (claim.endDate === mostRecentEndDate) {
         if (claim.value !== '+' + totalValue && claim.id) {
-          rmClaims.push({ id: claim.id, remove: true });
+          rmClaims.push({ id: claim.id, remove: true })
         } else {
-          return false;
+          return false
         }
       }
     }
   }
-  return true;
+  return true
 }
 
-export function reduceToMostRecentClaims(claims: Claim[], rmClaims: RemoveClaim[] = []): Claim[] {
+export function reduceToMostRecentClaims(
+  claims: Claim[],
+  rmClaims: RemoveClaim[] = [],
+): Claim[] {
   return claims.reduce((recentClaims: Claim[], current) => {
     if (
       current.id === undefined || //Always check for new claim
@@ -335,35 +378,37 @@ export function reduceToMostRecentClaims(claims: Claim[], rmClaims: RemoveClaim[
         current.endDate > recentClaims[0].endDate
       ) {
         recentClaims = [current] // We override our set with most recent claims
-      } else if (current.endDate === recentClaims[0].endDate) { //Otherwise if the current claim is as recent as our set of most recent claims
+      } else if (current.endDate === recentClaims[0].endDate) {
+        //Otherwise if the current claim is as recent as our set of most recent claims
         recentClaims.push(current) //We add the claim to the set
       }
     }
     return recentClaims
-  }, []);
+  }, [])
 }
-
 
 export async function bulkCreateOrEditCarbonFootprintClaim(
   entity: ItemId,
-  claims: Claim[]
+  claims: Claim[],
 ) {
-  try {    
-    const existingClaims = await getClaims(entity);
+  try {
+    const existingClaims = await getClaims(entity)
     let { newClaims, rmClaims } = await diffCarbonFootprintClaims(
       claims,
-      existingClaims
-    );
-    ({ newClaims, rmClaims } = await diffTotalCarbonFootprintClaims(
+      existingClaims,
+    )
+    ;({ newClaims, rmClaims } = await diffTotalCarbonFootprintClaims(
       newClaims,
       existingClaims,
-      rmClaims
-    ));
-    ({rmClaims} = removeExistingDuplicates(existingClaims, rmClaims));
-    ({rmClaims} = removeZeroValueClaims(existingClaims, rmClaims));
+      rmClaims,
+    ))
+    ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
+    ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))
     if (newClaims.length > 0 || rmClaims.length > 0) {
       await editEntity(entity, newClaims, rmClaims)
       console.log(`Updated ${entity}`)
     }
-  } catch (error) {console.error(error)}
+  } catch (error) {
+    console.error(error)
+  }
 }
