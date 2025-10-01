@@ -23,8 +23,12 @@ function removeMillisecondsFromISO(dateTime: string) {
 }
 
 //Currently still in testing the filters filter out only data related to ABB as this company is present in the Sandbox
-async function pushWikidata() {
+async function pushWikidata(dryRun: boolean = false) {
   const envBaseURL: string = 'https://api.klimatkollen.se/api'
+
+  if (dryRun) {
+    console.log('🔍 DRY RUN MODE - No changes will be made to Wikidata\n')
+  }
 
   const companyRes = await fetch(`${envBaseURL}/companies`)
 
@@ -54,9 +58,12 @@ async function pushWikidata() {
       await bulkCreateOrEditCarbonFootprintClaim(
         company.wikidataId as `Q${number}`,
         claims,
+        dryRun,
       )
     }
   }
 }
 
-pushWikidata()
+// Check for dry-run flag
+const dryRun = process.argv.includes('dry-run')
+pushWikidata(dryRun)

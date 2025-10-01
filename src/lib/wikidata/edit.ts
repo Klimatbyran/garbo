@@ -34,6 +34,7 @@ export async function editEntity(
   entity: ItemId,
   claims: Claim[],
   removeClaim: RemoveClaim[],
+  dryRun: boolean = false,
 ) {
   if (claims.length === 0 && removeClaim.length === 0) {
     return
@@ -76,22 +77,29 @@ export async function editEntity(
     },
     summary: 'Added/Updated carbon footprint data',
   }
-  // Dry Run
+  if (dryRun) {
+    console.log(`\n=== DRY RUN: Entity ${entity} ===`)
+    console.log('\nClaims to ADD:')
+    claims.forEach((claim, idx) => {
+      console.log(
+        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}`,
+      )
+    })
+    console.log('\nClaims to REMOVE:')
+    removeClaim.forEach((claim, idx) => {
+      console.log(`  [${idx + 1}] ID: ${claim.id}`)
+    })
+    console.log(
+      `\nTotal: ${claims.length} to add, ${removeClaim.length} to remove\n`,
+    )
+    return
+  }
 
-  console.log(
-    `Would edit entity ${entity} with:`,
-    JSON.stringify(body, null, 2),
-  )
-  console.log(
-    `Claims to add: ${claims.length}, Claims to remove: ${removeClaim.length}`,
-  )
-
-  // Comment out to prevent direct changes
-  // try {
-  //   const res = await wbEdit.entity.edit(body);
-  // } catch(error) {
-  //   console.log(`Could not update entity ${entity}: ${error}`);
-  // }
+  try {
+    const res = await wbEdit.entity.edit(body)
+  } catch (error) {
+    console.log(`Could not update entity ${entity}: ${error}`)
+  }
 }
 /**
  * Calculates the claims to add and which to remove in order to update the entity
@@ -390,6 +398,7 @@ export function reduceToMostRecentClaims(
 export async function bulkCreateOrEditCarbonFootprintClaim(
   entity: ItemId,
   claims: Claim[],
+  dryRun: boolean = false,
 ) {
   try {
     const existingClaims = await getClaims(entity)
@@ -405,8 +414,10 @@ export async function bulkCreateOrEditCarbonFootprintClaim(
     ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
     ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))
     if (newClaims.length > 0 || rmClaims.length > 0) {
-      await editEntity(entity, newClaims, rmClaims)
-      console.log(`Updated ${entity}`)
+      await editEntity(entity, newClaims, rmClaims, dryRun)
+      if (!dryRun) {
+        console.log(`Updated ${entity}`)
+      }
     }
   } catch (error) {
     console.error(error)
