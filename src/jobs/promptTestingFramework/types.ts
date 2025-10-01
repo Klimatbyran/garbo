@@ -25,6 +25,7 @@ export interface ComparisonOptions {
   yearsToCheck?: number[];
   fileNamesToCheck?: string[];
   runsPerTest?: number;
+  dataKey?: string; // e.g. "scope12" (default) or "scope3"
 }
 
 export interface ComparisonConfig {
@@ -40,6 +41,7 @@ export interface ComparisonConfig {
   outputDir: string;
   yearsToCheck: number[];
   fileNamesToCheck: string[];
+  dataKey: string; // which top-level key contains the yearly array
 }
 
 export interface ParsedArguments {

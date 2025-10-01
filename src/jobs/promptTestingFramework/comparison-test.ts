@@ -54,6 +54,7 @@ interface ComparisonTestConfig {
   outputDir: string;
   yearsToCheck?: number[];
   fileNamesToCheck?: string[];
+  dataKey?: string;
 }
 
 interface JsonDiff {
@@ -325,10 +326,11 @@ const saveHashMappings = (hashMappings: HashMappings, outputDir: string): void =
 const executeTestRun = async (
   markdown: string,
   prompt: string,
-  schema: z.ZodSchema
+  schema: z.ZodSchema,
+  dataKey: string
 ): Promise<{ result: any; duration: number }> => {
   const runStartTime = Date.now();
-  const result = await extractDataFromMarkdown(markdown, 'scope12', prompt, schema);
+  const result = await extractDataFromMarkdown(markdown, dataKey, prompt, schema);
   return {
     result,
     duration: Date.now() - runStartTime
@@ -339,7 +341,8 @@ const executeMultipleRuns = async (
   testFile: TestFile,
   promptConfig: PromptConfig,
   baseSchema: z.ZodSchema,
-  runsPerTest: number
+  runsPerTest: number,
+  dataKey: string
 ): Promise<{
   runs: any[];
   timings: number[];
@@ -349,7 +352,7 @@ const executeMultipleRuns = async (
   const schema = promptConfig.schema || baseSchema;
   
   const promises = Array.from({ length: runsPerTest }, () =>
-    executeTestRun(testFile.markdown, promptConfig.prompt, schema)
+    executeTestRun(testFile.markdown, promptConfig.prompt, schema, dataKey)
   );
   
   const settledResults = await Promise.allSettled(promises);
@@ -368,15 +371,45 @@ const executeMultipleRuns = async (
   return { runs, timings, validRuns, parsedRuns };
 };
 
-const filterRunByYears = (run: any, yearsToCheck?: number[]): any => {
-  if (!yearsToCheck || yearsToCheck.length === 0 || !run || !Array.isArray(run.scope12)) {
+const filterRunByYears = (run: any, yearsToCheck?: number[], dataKey: string = 'scope12'): any => {
+  if (!yearsToCheck || yearsToCheck.length === 0 || !run || !Array.isArray(run[dataKey])) {
     return run;
   }
   
   return {
     ...run,
-    scope12: run.scope12.filter((item: any) => yearsToCheck.includes(item.year))
+    [dataKey]: run[dataKey].filter((item: any) => yearsToCheck.includes(item.year))
   };
+};
+
+const normalizeScope3Categories = (data: any): any => {
+  if (!data) return data;
+  const cloned = JSON.parse(JSON.stringify(data));
+  const yearly = cloned?.scope3;
+  if (!Array.isArray(yearly)) return cloned;
+
+  cloned.scope3 = yearly.map((yr: any) => {
+    const cats = yr?.scope3?.categories;
+    const byId = new Map<number, any>();
+    if (Array.isArray(cats)) {
+      for (const c of cats) {
+        if (c && typeof c.category === 'number') byId.set(c.category, c);
+      }
+    }
+    const filled = Array.from({ length: 15 }, (_, i) => {
+      const id = i + 1;
+      return byId.get(id) ?? { category: id, total: null, unit: null };
+    }).sort((a, b) => a.category - b.category);
+
+    return {
+      ...yr,
+      scope3: yr?.scope3
+        ? { ...yr.scope3, categories: filled }
+        : yr?.scope3
+    };
+  });
+
+  return cloned;
 };
 
 const calculateTestMetrics = (
@@ -395,9 +428,21 @@ const calculateTestMetrics = (
 } => {
   const failures: Array<{ runIndex: number; diffs: JsonDiff[] }> = [];
   const correctRuns = parsedRuns.filter((run, index) => {
-    const filteredRun = filterRunByYears(run, config.yearsToCheck);
-    const diffs = compareJson(testFile.expectedResult, filteredRun);
-    
+    const filteredRun = filterRunByYears(run, config.yearsToCheck, config.dataKey || 'scope12');
+
+    const expectedForCompare = (config.dataKey === 'scope3')
+      ? normalizeScope3Categories(testFile.expectedResult)
+      : testFile.expectedResult;
+
+    const actualForCompare = (config.dataKey === 'scope3')
+      ? normalizeScope3Categories(filteredRun)
+      : filteredRun;
+
+    const diffsRaw = compareJson(expectedForCompare, actualForCompare);
+    const diffs = (config.dataKey === 'scope3')
+      ? diffsRaw.filter(d => d.type !== 'extra')
+      : diffsRaw;
+
     if (diffs.length > 0) {
       failures.push({ runIndex: index, diffs });
       return false;
@@ -554,7 +599,7 @@ export const runComparisonTest = async (config: ComparisonTestConfig): Promise<C
         updateHashMappings(hashMappings, promptHash, schemaHash, promptConfig.prompt, schema);
         
         const { runs, timings, validRuns, parsedRuns } = await executeMultipleRuns(
-          testFile, promptConfig, baseSchema, runsPerTest
+          testFile, promptConfig, baseSchema, runsPerTest, config.dataKey || 'scope12'
         );
         
         const { accuracy, successRate, avgResponseTime, failures, correctRuns } = calculateTestMetrics(
