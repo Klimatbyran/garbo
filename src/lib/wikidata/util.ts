@@ -137,5 +137,39 @@ export function transformEmissionsToClaims(
       })
     }
   })
+
+  // Add total scope 3 claim: prefer statedTotalEmissions, fallback to calculated sum of categories
+  if (
+    emissions.scope3?.statedTotalEmissions?.total !== null &&
+    emissions.scope3?.statedTotalEmissions?.total !== undefined
+  ) {
+    claims.push({
+      scope: SCOPE_3,
+      startDate,
+      endDate,
+      referenceUrl,
+      archiveUrl,
+      value: emissions.scope3.statedTotalEmissions.total.toString(),
+    })
+  } else if (
+    emissions.scope3?.categories &&
+    emissions.scope3.categories.length > 0
+  ) {
+    // Calculate total from categories as fallback
+    const calculatedTotal = emissions.scope3.categories.reduce(
+      (total, category) => total + (category.total ?? 0),
+      0,
+    )
+    if (calculatedTotal > 0) {
+      claims.push({
+        scope: SCOPE_3,
+        startDate,
+        endDate,
+        referenceUrl,
+        archiveUrl,
+        value: calculatedTotal.toString(),
+      })
+    }
+  }
   return claims
 }

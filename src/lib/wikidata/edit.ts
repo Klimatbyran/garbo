@@ -217,22 +217,22 @@ export async function diffTotalCarbonFootprintClaims(
   newClaims: Claim[],
   existingClaims: Claim[],
   rmClaims: RemoveClaim[],
+  allClaimsFromAPI: Claim[],
 ) {
-  // Get claims from the most recent reporting period
-  const mostRecentClaims = reduceToMostRecentClaims(
-    [...newClaims, ...existingClaims],
-    rmClaims,
-  )
+  // Get claims from the most recent reporting period from the API data
+  const mostRecentClaims = reduceToMostRecentClaims(allClaimsFromAPI, [])
 
   if (mostRecentClaims.length === 0) {
     return { newClaims, rmClaims }
   }
 
-  // Calculate total emissions for all scopes
+  // Calculate total emissions for all scopes based on API data
   const total = calculateTotalEmissions(mostRecentClaims)
 
-  // Calculate total scope 3 emissions (with categories)
-  const totalScope3 = calculateTotalScope3Emissions(mostRecentClaims)
+  // Check if there's a stated total scope 3 from the API (without category)
+  const statedTotalScope3Claim = mostRecentClaims.find(
+    (claim) => claim.scope === SCOPE_3 && claim.category === undefined,
+  )
 
   const mostRecentDate = {
     startDate: mostRecentClaims[0].startDate,
@@ -258,24 +258,6 @@ export async function diffTotalCarbonFootprintClaims(
     })
   }
 
-  // Handle total scope 3 emissions claim
-  const shouldUpdateScope3Claim = shouldUpdateClaim(
-    existingClaims,
-    mostRecentDate.endDate,
-    totalScope3,
-    SCOPE_3,
-    undefined,
-    rmClaims,
-  )
-
-  if (shouldUpdateScope3Claim) {
-    newClaims.push({
-      ...mostRecentDate,
-      scope: SCOPE_3,
-      value: totalScope3.toString(),
-    })
-  }
-
   return { newClaims, rmClaims }
 }
 
@@ -289,15 +271,6 @@ function calculateTotalEmissions(claims: Claim[]): number {
     }
 
     return total + parseClaimValue(current.value)
-  }, 0)
-}
-
-function calculateTotalScope3Emissions(claims: Claim[]): number {
-  return claims.reduce((total: number, current) => {
-    if (current.scope === SCOPE_3 && current.category !== undefined) {
-      return total + parseClaimValue(current.value)
-    }
-    return total
   }, 0)
 }
 
@@ -410,6 +383,7 @@ export async function bulkCreateOrEditCarbonFootprintClaim(
       newClaims,
       existingClaims,
       rmClaims,
+      claims,
     ))
     ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
     ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))
