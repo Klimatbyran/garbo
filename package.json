@@ -20,6 +20,7 @@
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
     "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12",
+    "test:scope3": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope3",
     "analyze": "node src/jobs/promptTestingFramework/analyze-results.js",
     "prisma": "prisma",
     "reset": "node --import tsx scripts/dev-reset.ts",
