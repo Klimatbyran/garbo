@@ -64,5 +64,50 @@ describe('Company Emission Budgets', () => {
         expect(result?.getDate()).toBe(11)
       },
     )
+
+    test('should return same date as for old calculation for municipalities', () => {
+      const aleSlope = 782.3341
+      const alesLastReportedEmission = 144501.6222
+      const aleCurrentYear = 2024
+      const alesCarbonLawSum = 286595.3809
+      const result = calculateWhenFutureTrendExceedsCarbonLaw(
+        aleSlope,
+        alesLastReportedEmission,
+        alesCarbonLawSum,
+        aleCurrentYear,
+      )
+
+      expect(result?.getFullYear()).toBe(2025)
+      expect(result?.getMonth()).toBe(11)
+      expect(result?.getDate()).toBe(21)
+    })
+
+    test('should return null if the future trend is samee as the carbon law path', () => {
+      const linearSlope = -5
+      const carbonLawSum = 20
+
+      const result = calculateWhenFutureTrendExceedsCarbonLaw(
+        linearSlope,
+        LAST_REPORTED_EMISSION,
+        carbonLawSum,
+        CURRENT_YEAR,
+      )
+
+      expect(result).toBeNull()
+    })
+
+    test('should return null if the future trend is samee as the carbon law path', () => {
+      const linearSlope = -10
+      const carbonLawSum = 20
+
+      const result = calculateWhenFutureTrendExceedsCarbonLaw(
+        linearSlope,
+        LAST_REPORTED_EMISSION,
+        carbonLawSum,
+        CURRENT_YEAR,
+      )
+
+      expect(result).toBeNull()
+    })
   })
 })

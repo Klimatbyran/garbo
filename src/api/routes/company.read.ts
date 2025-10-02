@@ -15,7 +15,6 @@ import {
 } from '../schemas'
 import { redisCache } from '../..'
 
-
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
@@ -34,38 +33,39 @@ export async function companyReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const clientEtag = request.headers['if-none-match']
-      const cacheKey = 'companies:etag'
+      // const clientEtag = request.headers['if-none-match']
+      // const cacheKey = 'companies:etag'
 
-      let currentEtag: string = await redisCache.get(cacheKey)
+      // let currentEtag: string = await redisCache.get(cacheKey)
 
-      const latestMetadata = await prisma.metadata.findFirst({
-        select: { updatedAt: true },
-        orderBy: { updatedAt: 'desc' },
-      })
-      const latestMetadataUpdatedAt =
-        latestMetadata?.updatedAt.toISOString() || ''
+      // const latestMetadata = await prisma.metadata.findFirst({
+      //   select: { updatedAt: true },
+      //   orderBy: { updatedAt: 'desc' },
+      // })
+      // const latestMetadataUpdatedAt =
+      //   latestMetadata?.updatedAt.toISOString() || ''
 
-      if (!currentEtag || !currentEtag.startsWith(latestMetadataUpdatedAt)) {
-        currentEtag = `${latestMetadataUpdatedAt}-${new Date().toISOString()}`
-        redisCache.set(cacheKey, JSON.stringify(currentEtag))
-      }
+      // if (!currentEtag || !currentEtag.startsWith(latestMetadataUpdatedAt)) {
+      //   currentEtag = `${latestMetadataUpdatedAt}-${new Date().toISOString()}`
+      //   redisCache.set(cacheKey, JSON.stringify(currentEtag))
+      // }
 
-      if (clientEtag === currentEtag) return reply.code(304).send()
+      // if (clientEtag === currentEtag) return reply.code(304).send()
 
-      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
+      // const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
 
-      let companies = await redisCache.get(dataCacheKey)
+      // let companies = await redisCache.get(dataCacheKey)
 
-      if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
-        await redisCache.set(dataCacheKey, JSON.stringify(companies))
-      }
+      // if (!companies) {
+      //   companies = await companyService.getAllCompaniesWithMetadata()
+      //   await redisCache.set(dataCacheKey, JSON.stringify(companies))
+      // }
 
-      reply.header('ETag', `${currentEtag}`)
+      // reply.header('ETag', `${currentEtag}`)
 
+      const companies = await companyService.getAllCompaniesWithMetadata()
       reply.send(companies)
-    }
+    },
   )
 
   app.get(
@@ -94,14 +94,12 @@ export async function companyReadRoutes(app: FastifyInstance) {
               ...company.industry,
               industryGics: {
                 ...company.industry.industryGics,
-                ...getGics(
-                  company.industry.industryGics.subIndustryCode
-                ),
+                ...getGics(company.industry.industryGics.subIndustryCode),
               },
             }
           : null,
       })
-    }
+    },
   )
 
   app.get(
@@ -114,15 +112,18 @@ export async function companyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         querystring: companySearchQuerySchema,
         response: {
-          200: CompanyList
+          200: CompanyList,
         },
       },
     },
-    async (request: FastifyRequest<{ Querystring: CompanySearchQuery }>, reply) => {
+    async (
+      request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
+      reply,
+    ) => {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
-      console.log(companies);
+      console.log(companies)
       reply.send(companies)
-    }
+    },
   )
 }
