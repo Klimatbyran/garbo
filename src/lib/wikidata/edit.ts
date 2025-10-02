@@ -282,9 +282,24 @@ function parseClaimValue(value: string): number {
 }
 
 function shouldSkipClaimForTotal(claim: Claim, allClaims: Claim[]): boolean {
+  // Check if there's a stated total scope 3 (without category)
+  const hasStatedScope3Total = allClaims.some(
+    (c) => c.scope === SCOPE_3 && c.category === undefined,
+  )
+
+  // If there's a stated total, skip individual scope 3 categories
+  if (
+    claim.scope === SCOPE_3 &&
+    claim.category !== undefined &&
+    hasStatedScope3Total
+  ) {
+    return true
+  }
+
   if (
     claim.scope === SCOPE_3 &&
     claim.category === undefined &&
+    !hasStatedScope3Total &&
     allClaims.some((c) => c.scope === SCOPE_3 && c.category !== undefined)
   ) {
     return true
