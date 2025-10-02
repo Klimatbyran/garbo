@@ -1,4 +1,5 @@
 import {
+  calculateEmissionAtStart,
   calculateWhenFutureTrendExceedsCarbonLaw,
   meetsParisAgreement,
   sumOfExponentialTrendPath,
@@ -17,6 +18,21 @@ describe('Company Emission Budgets', () => {
 
     afterEach(() => {
       jest.restoreAllMocks()
+    })
+
+    test('should calculate the emission at start', () => {
+      const linearSlope = -0.5
+      const lastReportedYear = 2023
+
+      const result = calculateEmissionAtStart(
+        linearSlope,
+        LAST_REPORTED_EMISSION,
+        lastReportedYear,
+        CURRENT_YEAR,
+      )
+
+      const expectedResult = 9
+      expect(result).toEqual(expectedResult)
     })
 
     test('should calculate the sum of future emissions path', () => {
