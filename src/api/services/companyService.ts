@@ -9,7 +9,7 @@ import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmi
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const packagedCompanies = packageCompanies(companies)
+    const packagedCompanies = processMetadataAndAddCalculations(companies)
     return packagedCompanies
   }
 
@@ -18,7 +18,7 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const packagedCompanies = packageCompanies(companies)
+    const packagedCompanies = processMetadataAndAddCalculations(companies)
     return packagedCompanies
   }
 
@@ -201,7 +201,7 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-function packageCompanies(companies: Company[]) {
+function processMetadataAndAddCalculations(companies: Company[]) {
   const transformedCompanies = companies.map(transformMetadata)
 
   const companiesWithCalculatedTotalEmissions =
