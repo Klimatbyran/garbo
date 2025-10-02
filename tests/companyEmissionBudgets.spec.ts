@@ -1,5 +1,6 @@
 import {
   calculateWhenFutureTrendExceedsCarbonLaw,
+  meetsParisAgreement,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
 } from '../src/lib/company-emissions/companyEmissionBudgets'
@@ -18,7 +19,7 @@ describe('Company Emission Budgets', () => {
       jest.restoreAllMocks()
     })
 
-    test('should be able to calculate the sum of future emissions path', () => {
+    test('should calculate the sum of future emissions path', () => {
       const emissionsSlope = 1
       const lastReportedYear = 2023
 
@@ -33,7 +34,7 @@ describe('Company Emission Budgets', () => {
       expect(result).toEqual(expectedResult)
     })
 
-    test('should be able to calculate the sum of carbon law path', () => {
+    test('should calculate the sum of carbon law path', () => {
       const result = sumOfExponentialTrendPath(
         CARBON_LAW_SLOPE,
         LAST_REPORTED_EMISSION,
@@ -45,8 +46,35 @@ describe('Company Emission Budgets', () => {
       expect(roundedResult).toEqual(expectedResult)
     })
 
+    test('should decide if company meets paris agreement', () => {
+      const totalTrend = 10
+      const totalCarbonLaw = 20
+
+      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+
+      expect(result).toBe(true)
+    })
+
+    test('should decide if company does not meet paris agreement', () => {
+      const totalTrend = 20
+      const totalCarbonLaw = 10
+
+      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+
+      expect(result).toBe(false)
+    })
+
+    test('should decide if company meets paris agreement when total trend is equal to total carbon law', () => {
+      const totalTrend = 20
+      const totalCarbonLaw = 20
+
+      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+
+      expect(result).toBe(true)
+    })
+
     test(
-      'should be able to calculate when sum of total future trend emissions exceeds sum ' +
+      'should calculate when sum of total future trend emissions exceeds sum ' +
         'of total carbon law path (when carbon law path allows for no more emissions, sort of when budget runs out)',
       () => {
         const linearSlope = -0.5
