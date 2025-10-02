@@ -1,10 +1,11 @@
 import { Employees, Metadata, Turnover, Description } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
-import { Company, DefaultEconomyType } from '../types'
+import { CompanyListPayload, DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
+import { addParisAgreement } from '@/lib/company-emissions/companyEmissionBudgets'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
@@ -201,7 +202,7 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-function processMetadataAndAddCalculations(companies: Company[]) {
+function processMetadataAndAddCalculations(companies: CompanyListPayload[]) {
   const transformedCompanies = companies.map(transformMetadata)
 
   const companiesWithCalculatedTotalEmissions =
@@ -215,7 +216,11 @@ function processMetadataAndAddCalculations(companies: Company[]) {
     companiesWithEmissionsChange,
   )
 
-  return companiesWithFutureEmissionsTrendSlope
+  const companiesWithParisAgreement = addParisAgreement(
+    companiesWithFutureEmissionsTrendSlope,
+  )
+
+  return companiesWithParisAgreement
 }
 
 export function transformMetadata(data: any): any {
