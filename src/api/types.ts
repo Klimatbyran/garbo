@@ -2,11 +2,18 @@ import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 
 import * as schemas from './schemas'
-import { economyArgs, emissionsArgs, reportingPeriodArgs } from './args'
+import {
+  companyListArgs,
+  economyArgs,
+  emissionsArgs,
+  reportingPeriodArgs,
+} from './args'
 
 export type WikidataIdParams = z.infer<typeof schemas.wikidataIdParamSchema>
 
-export type CompanySearchQuery = z.infer<typeof schemas.companySearchQuerySchema>
+export type CompanySearchQuery = z.infer<
+  typeof schemas.companySearchQuerySchema
+>
 
 export type DefaultEmissions = Prisma.EmissionsGetPayload<typeof emissionsArgs>
 
@@ -49,3 +56,5 @@ export type exportQuery = z.infer<typeof schemas.exportQuerySchema>
 export type ValidationClaims = z.infer<typeof schemas.ValidationClaimsSchema>
 export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
 export type Description = z.infer<typeof schemas.descriptionSchema>
+
+export type Company = Prisma.CompanyGetPayload<typeof companyListArgs>
