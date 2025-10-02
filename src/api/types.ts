@@ -57,4 +57,6 @@ export type ValidationClaims = z.infer<typeof schemas.ValidationClaimsSchema>
 export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
 export type Description = z.infer<typeof schemas.descriptionSchema>
 
-export type Company = Prisma.CompanyGetPayload<typeof companyListArgs>
+export type CompanyListPayload = Prisma.CompanyGetPayload<
+  typeof companyListArgs
+>
