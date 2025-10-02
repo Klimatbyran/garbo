@@ -1,4 +1,7 @@
-import { sumOfTotalFutureTrendEmissions } from '../src/lib/company-emissions/companyEmissionBudgets'
+import {
+  sumOfExponentialTrendPath,
+  sumOfLinearTrendPath,
+} from '../src/lib/company-emissions/companyEmissionBudgets'
 
 describe('Company Emission Budgets', () => {
   describe('sumOfTotalFutureTrendEmissions', () => {
@@ -10,13 +13,13 @@ describe('Company Emission Budgets', () => {
       jest.restoreAllMocks()
     })
 
-    test('should be able to calculate the sum of future trend emissions', () => {
+    test('should be able to calculate the sum of future emissions path', () => {
       const emissionsSlope = 1
       const lastReportedEmission = 10
       const lastReportedYear = 2023
       const currentYear = 2025
 
-      const result = sumOfTotalFutureTrendEmissions(
+      const result = sumOfLinearTrendPath(
         emissionsSlope,
         lastReportedEmission,
         lastReportedYear,
@@ -27,7 +30,21 @@ describe('Company Emission Budgets', () => {
       expect(result).toEqual(expectedResult)
     })
 
-    test('should be able to calculate the sum of carbon law path', () => {})
+    test('should be able to calculate the sum of carbon law path', () => {
+      const carbonLawSlope = -0.1172
+      const lastReportedEmission = 10
+      const currentYear = 2025
+
+      const result = sumOfExponentialTrendPath(
+        carbonLawSlope,
+        lastReportedEmission,
+        currentYear,
+      )
+      const roundedResult = Number(result.toFixed(4))
+
+      const expectedResult = 81.9862
+      expect(roundedResult).toEqual(expectedResult)
+    })
 
     test(
       'should be able to calculate when sum of total future trend emissions exceeds sum ' +
