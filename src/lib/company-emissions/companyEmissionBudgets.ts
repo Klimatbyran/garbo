@@ -1,4 +1,15 @@
+import { Company } from '@/types'
+
 const END_YEAR = 2050
+
+export function calculateEmissionAtCurrentYear(
+  linearSlope: number,
+  lastReportedEmissions: number,
+  lastReportedYear: number,
+  currentYear: number,
+): number {
+  return lastReportedEmissions + linearSlope * (currentYear - lastReportedYear)
+}
 
 export function sumOfLinearTrendPath(
   linearSlope: number,
@@ -6,19 +17,23 @@ export function sumOfLinearTrendPath(
   lastReportedYear: number,
   currentYear: number,
 ): number {
-  const emissionAtStart =
-    lastReportedEmissions + linearSlope * (currentYear - lastReportedYear)
+  const emissionAtCurrentYear = calculateEmissionAtCurrentYear(
+    linearSlope,
+    lastReportedEmissions,
+    lastReportedYear,
+    currentYear,
+  )
   const emissionAtEnd =
     lastReportedEmissions + linearSlope * (END_YEAR - lastReportedYear)
 
   const numberOfYears = END_YEAR - currentYear + 1
 
-  return (numberOfYears / 2) * (emissionAtStart + emissionAtEnd)
+  return (numberOfYears / 2) * (emissionAtCurrentYear + emissionAtEnd)
 }
 
 export function sumOfExponentialTrendPath(
   exponentialSlope: number,
-  emissionAtStart: number,
+  emissionAtCurrentYear: number,
   startYear: number,
 ): number {
   if (END_YEAR < startYear) return 0
@@ -27,19 +42,26 @@ export function sumOfExponentialTrendPath(
   const n = END_YEAR - startYear + 1
 
   const EPS = 1e-12
-  if (Math.abs(1 - r) < EPS) return emissionAtStart * n
+  if (Math.abs(1 - r) < EPS) return emissionAtCurrentYear * n
 
-  return (emissionAtStart * (1 - Math.pow(r, n))) / (1 - r)
+  return (emissionAtCurrentYear * (1 - Math.pow(r, n))) / (1 - r)
+}
+
+export function meetsParisAgreement(
+  sumOfLinearTrendPath: number,
+  sumOfExponentialTrendPath: number,
+): boolean {
+  return sumOfLinearTrendPath <= sumOfExponentialTrendPath
 }
 
 export function calculateWhenFutureTrendExceedsCarbonLaw(
   linearSlope: number,
-  emissionAtStart: number,
+  emissionAtCurrentYear: number,
   carbonLawSum: number,
   currentYear: number,
 ): Date | null {
   const a = linearSlope / 2
-  const b = emissionAtStart
+  const b = emissionAtCurrentYear
   const c = -carbonLawSum
 
   const discriminant = b * b - 4 * a * c
@@ -58,4 +80,28 @@ export function calculateWhenFutureTrendExceedsCarbonLaw(
   dateTrendExceedsCarbonLaw.setDate(dateTrendExceedsCarbonLaw.getDate() + days)
 
   return dateTrendExceedsCarbonLaw
+}
+
+export function addParisAgreement(companies: Company[]) {
+  const currentYear = new Date().getFullYear()
+  return companies.map((company) => {
+    return {
+      ...company,
+      meetsParisGoal: meetsParisAgreement(
+        company.futureEmissionsTrendSlope,
+        company.carbonLawSum,
+      ),
+      // dateTrendExceedsCarbonLaw: calculateWhenFutureTrendExceedsCarbonLaw(
+      //   company.futureEmissionsTrendSlope,
+      //   calculateEmissionAtCurrentYear(
+      //     company.futureEmissionsTrendSlope,
+      //     company.reportingPeriods[0].emissions.totalCalculatedEmissions,
+      //     new Date(company.reportingPeriods[0].startDate).getFullYear(),
+      //     currentYear,
+      //   ),
+      //   company.carbonLawSum,
+      //   currentYear,
+      // ),
+    }
+  })
 }

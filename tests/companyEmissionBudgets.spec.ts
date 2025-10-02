@@ -1,5 +1,5 @@
 import {
-  calculateEmissionAtStart,
+  calculateEmissionAtCurrentYear,
   calculateWhenFutureTrendExceedsCarbonLaw,
   meetsParisAgreement,
   sumOfExponentialTrendPath,
@@ -24,7 +24,7 @@ describe('Company Emission Budgets', () => {
       const linearSlope = -0.5
       const lastReportedYear = 2023
 
-      const result = calculateEmissionAtStart(
+      const result = calculateEmissionAtCurrentYear(
         linearSlope,
         LAST_REPORTED_EMISSION,
         lastReportedYear,
