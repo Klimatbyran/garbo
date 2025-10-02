@@ -82,7 +82,7 @@ describe('Company Emission Budgets', () => {
       expect(result?.getDate()).toBe(21)
     })
 
-    test('should return null if the future trend is samee as the carbon law path', () => {
+    test('should return null if the future trend is same as the carbon law path', () => {
       const linearSlope = -5
       const carbonLawSum = 20
 
@@ -96,7 +96,7 @@ describe('Company Emission Budgets', () => {
       expect(result).toBeNull()
     })
 
-    test('should return null if the future trend is samee as the carbon law path', () => {
+    test('should return null if the future trend is same as the carbon law path', () => {
       const linearSlope = -10
       const carbonLawSum = 20
 

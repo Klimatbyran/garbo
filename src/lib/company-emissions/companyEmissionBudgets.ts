@@ -2,14 +2,14 @@ const END_YEAR = 2050
 
 export function sumOfLinearTrendPath(
   linearSlope: number,
-  lastReportedEmisssions: number,
+  lastReportedEmissions: number,
   lastReportedYear: number,
   currentYear: number,
 ): number {
   const emissionAtStart =
-    lastReportedEmisssions + linearSlope * (currentYear - lastReportedYear)
+    lastReportedEmissions + linearSlope * (currentYear - lastReportedYear)
   const emissionAtEnd =
-    lastReportedEmisssions + linearSlope * (END_YEAR - lastReportedYear)
+    lastReportedEmissions + linearSlope * (END_YEAR - lastReportedYear)
 
   const numberOfYears = END_YEAR - currentYear + 1
 
@@ -54,8 +54,8 @@ export function calculateWhenFutureTrendExceedsCarbonLaw(
   if (!T) return null
 
   const days = Math.round(T * 365)
-  const dateTrendExeedsCarbonLaw = new Date(currentYear, 0, 1)
-  dateTrendExeedsCarbonLaw.setDate(dateTrendExeedsCarbonLaw.getDate() + days)
+  const dateTrendExceedsCarbonLaw = new Date(currentYear, 0, 1)
+  dateTrendExceedsCarbonLaw.setDate(dateTrendExceedsCarbonLaw.getDate() + days)
 
-  return dateTrendExeedsCarbonLaw
+  return dateTrendExceedsCarbonLaw
 }
