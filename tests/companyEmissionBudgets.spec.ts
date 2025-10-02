@@ -1,7 +1,12 @@
 import {
+  calculateWhenFutureTrendExceedsCarbonLaw,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
 } from '../src/lib/company-emissions/companyEmissionBudgets'
+
+const CARBON_LAW_SLOPE = -0.1172
+const LAST_REPORTED_EMISSION = 10
+const CURRENT_YEAR = 2025
 
 describe('Company Emission Budgets', () => {
   describe('sumOfTotalFutureTrendEmissions', () => {
@@ -15,15 +20,13 @@ describe('Company Emission Budgets', () => {
 
     test('should be able to calculate the sum of future emissions path', () => {
       const emissionsSlope = 1
-      const lastReportedEmission = 10
       const lastReportedYear = 2023
-      const currentYear = 2025
 
       const result = sumOfLinearTrendPath(
         emissionsSlope,
-        lastReportedEmission,
+        LAST_REPORTED_EMISSION,
         lastReportedYear,
-        currentYear,
+        CURRENT_YEAR,
       )
 
       const expectedResult = 637
@@ -31,14 +34,10 @@ describe('Company Emission Budgets', () => {
     })
 
     test('should be able to calculate the sum of carbon law path', () => {
-      const carbonLawSlope = -0.1172
-      const lastReportedEmission = 10
-      const currentYear = 2025
-
       const result = sumOfExponentialTrendPath(
-        carbonLawSlope,
-        lastReportedEmission,
-        currentYear,
+        CARBON_LAW_SLOPE,
+        LAST_REPORTED_EMISSION,
+        CURRENT_YEAR,
       )
       const roundedResult = Number(result.toFixed(4))
 
@@ -50,8 +49,19 @@ describe('Company Emission Budgets', () => {
       'should be able to calculate when sum of total future trend emissions exceeds sum ' +
         'of total carbon law path (when carbon law path allows for no more emissions, sort of when budget runs out)',
       () => {
-        // const result = sumOfTotalFutureTrendEmissionsExceedsTotalCarbonLawPath(1, 2, 3)
-        // expect(result).toEqual(4)
+        const linearSlope = -0.5
+        const carbonLawSum = 20
+
+        const result = calculateWhenFutureTrendExceedsCarbonLaw(
+          linearSlope,
+          LAST_REPORTED_EMISSION,
+          carbonLawSum,
+          CURRENT_YEAR,
+        )
+
+        expect(result?.getFullYear()).toBe(2027)
+        expect(result?.getMonth()).toBe(1)
+        expect(result?.getDate()).toBe(11)
       },
     )
   })
