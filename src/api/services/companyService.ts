@@ -1,6 +1,6 @@
 import { Employees, Metadata, Turnover, Description } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
-import { DefaultEconomyType } from '../types'
+import { Company, DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
@@ -9,21 +9,8 @@ import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmi
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-
-    const transformedCompanies = companies.map(transformMetadata)
-
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
-    )
-
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    const packagedCompanies = packageCompanies(companies)
+    return packagedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
@@ -31,17 +18,8 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = companies.map(transformMetadata)
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
-    )
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    const packagedCompanies = packageCompanies(companies)
+    return packagedCompanies
   }
 
   async getCompanyWithMetadata(wikidataId: string) {
@@ -222,6 +200,23 @@ class CompanyService {
 }
 
 export const companyService = new CompanyService()
+
+function packageCompanies(companies: Company[]) {
+  const transformedCompanies = companies.map(transformMetadata)
+
+  const companiesWithCalculatedTotalEmissions =
+    addCalculatedTotalEmissions(transformedCompanies)
+
+  const companiesWithEmissionsChange = addCompanyEmissionChange(
+    companiesWithCalculatedTotalEmissions,
+  )
+
+  const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
+    companiesWithEmissionsChange,
+  )
+
+  return companiesWithFutureEmissionsTrendSlope
+}
 
 export function transformMetadata(data: any): any {
   if (Array.isArray(data)) {
