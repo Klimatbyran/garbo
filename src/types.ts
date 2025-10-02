@@ -87,3 +87,9 @@ export interface Initiative {
   year?: string;
   scope?: string;
 }
+
+
+export interface Logger {
+  info(message: string, meta?: any): void;
+  error(message: string, meta?: any): void;
+}
