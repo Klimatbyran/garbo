@@ -4,7 +4,7 @@ import {
   meetsParisGoal,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
-} from '../src/lib/calculateParisKPIs'
+} from '../src/lib/parisKPICalculator'
 
 const CARBON_LAW_SLOPE = -0.1172
 const LAST_REPORTED_EMISSION = 10

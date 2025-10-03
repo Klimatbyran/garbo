@@ -11,7 +11,7 @@ import {
   meetsParisGoal,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
-} from '@/lib/calculateParisKPIs'
+} from '@/lib/parisKPICalculator'
 import { Company, Emissions } from '@/types'
 
 class CompanyService {
