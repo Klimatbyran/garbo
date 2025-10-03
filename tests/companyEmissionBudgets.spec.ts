@@ -1,7 +1,7 @@
 import {
   calculateEmissionAtCurrentYear,
   calculateWhenFutureTrendExceedsCarbonLaw,
-  meetsParisAgreement,
+  meetsParisGoal,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
 } from '../src/lib/company-emissions/companyEmissionBudgets'
@@ -66,7 +66,7 @@ describe('Company Emission Budgets', () => {
       const totalTrend = 10
       const totalCarbonLaw = 20
 
-      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+      const result = meetsParisGoal(totalTrend, totalCarbonLaw)
 
       expect(result).toBe(true)
     })
@@ -75,7 +75,7 @@ describe('Company Emission Budgets', () => {
       const totalTrend = 20
       const totalCarbonLaw = 10
 
-      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+      const result = meetsParisGoal(totalTrend, totalCarbonLaw)
 
       expect(result).toBe(false)
     })
@@ -84,7 +84,7 @@ describe('Company Emission Budgets', () => {
       const totalTrend = 20
       const totalCarbonLaw = 20
 
-      const result = meetsParisAgreement(totalTrend, totalCarbonLaw)
+      const result = meetsParisGoal(totalTrend, totalCarbonLaw)
 
       expect(result).toBe(true)
     })
