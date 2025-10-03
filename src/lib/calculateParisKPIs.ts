@@ -1,5 +1,4 @@
-import { Company } from '@/types'
-
+const CARBON_LAW_SLOPE = -0.1172
 const END_YEAR = 2050
 
 export function calculateEmissionAtCurrentYear(
@@ -35,9 +34,9 @@ export function sumOfLinearTrendPath(
 }
 
 export function sumOfExponentialTrendPath(
-  exponentialSlope: number,
   emissionAtCurrentYear: number,
   startYear: number,
+  exponentialSlope: number = CARBON_LAW_SLOPE,
 ): number {
   if (END_YEAR < startYear) return 0
 
