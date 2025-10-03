@@ -16,13 +16,16 @@ export function sumOfLinearTrendPath(
   lastReportedEmissions: number,
   lastReportedYear: number,
   currentYear: number,
-): number {
+): number | null {
   const emissionAtCurrentYear = calculateEmissionAtCurrentYear(
     linearSlope,
     lastReportedEmissions,
     lastReportedYear,
     currentYear,
   )
+
+  if (!emissionAtCurrentYear) return null
+
   const emissionAtEnd =
     lastReportedEmissions + linearSlope * (END_YEAR - lastReportedYear)
 
@@ -47,7 +50,7 @@ export function sumOfExponentialTrendPath(
   return (emissionAtCurrentYear * (1 - Math.pow(r, n))) / (1 - r)
 }
 
-export function meetsParisAgreement(
+export function meetsParisGoal(
   sumOfLinearTrendPath: number,
   sumOfExponentialTrendPath: number,
 ): boolean {
@@ -75,33 +78,18 @@ export function calculateWhenFutureTrendExceedsCarbonLaw(
   const T = [T1, T2].filter((t) => t > 0).sort((x, y) => x - y)[0]
   if (!T) return null
 
-  const days = Math.round(T * 365)
-  const dateTrendExceedsCarbonLaw = new Date(currentYear, 0, 1)
-  dateTrendExceedsCarbonLaw.setDate(dateTrendExceedsCarbonLaw.getDate() + days)
+  const yearFraction = T
+  const millisecondsPerYear = 365.25 * 24 * 60 * 60 * 1000 // Account for leap years
+  const totalMilliseconds = yearFraction * millisecondsPerYear
 
-  return dateTrendExceedsCarbonLaw
-}
+  // Use UTC to avoid timezone issues
+  const baseDate = new Date(Date.UTC(currentYear, 0, 1))
+  const resultDate = new Date(baseDate.getTime() + totalMilliseconds)
 
-export function addParisAgreement(companies: Company[]) {
-  const currentYear = new Date().getFullYear()
-  return companies.map((company) => {
-    return {
-      ...company,
-      meetsParisGoal: meetsParisAgreement(
-        company.futureEmissionsTrendSlope,
-        company.carbonLawSum,
-      ),
-      // dateTrendExceedsCarbonLaw: calculateWhenFutureTrendExceedsCarbonLaw(
-      //   company.futureEmissionsTrendSlope,
-      //   calculateEmissionAtCurrentYear(
-      //     company.futureEmissionsTrendSlope,
-      //     company.reportingPeriods[0].emissions.totalCalculatedEmissions,
-      //     new Date(company.reportingPeriods[0].startDate).getFullYear(),
-      //     currentYear,
-      //   ),
-      //   company.carbonLawSum,
-      //   currentYear,
-      // ),
-    }
-  })
+  const truncatedDate = new Date(
+    resultDate.getFullYear(),
+    resultDate.getMonth(),
+    resultDate.getDate(),
+  )
+  return truncatedDate
 }
