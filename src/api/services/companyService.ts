@@ -398,7 +398,6 @@ function addParisAgreementKPIsToCompanies(companies: Company[]) {
     const sumOfLinearTrend = sumOfLinearTrendPath(
       company.futureEmissionsTrendSlope,
       emissionAtCurrentYear,
-      new Date(lastReportedPeriod.startDate).getFullYear(),
       currentYear,
     )
 
