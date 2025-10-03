@@ -72,24 +72,19 @@ export function calculateWhenFutureTrendExceedsCarbonLaw(
 
   const sqrtD = Math.sqrt(discriminant)
 
-  const T1 = (-b + sqrtD) / (2 * a)
-  const T2 = (-b - sqrtD) / (2 * a)
+  const solutions = [(-b + sqrtD) / (2 * a), (-b - sqrtD) / (2 * a)]
+  const positiveSolution = solutions.filter((t) => t > 0)[0]
+  if (!positiveSolution) return null
 
-  const T = [T1, T2].filter((t) => t > 0).sort((x, y) => x - y)[0]
-  if (!T) return null
+  const resultDate = new Date(Date.UTC(currentYear, 0, 1))
+  resultDate.setUTCMilliseconds(
+    resultDate.getUTCMilliseconds() +
+      positiveSolution * 365.25 * 24 * 60 * 60 * 1000,
+  )
 
-  const yearFraction = T
-  const millisecondsPerYear = 365.25 * 24 * 60 * 60 * 1000 // Account for leap years
-  const totalMilliseconds = yearFraction * millisecondsPerYear
-
-  // Use UTC to avoid timezone issues
-  const baseDate = new Date(Date.UTC(currentYear, 0, 1))
-  const resultDate = new Date(baseDate.getTime() + totalMilliseconds)
-
-  const truncatedDate = new Date(
+  return new Date(
     resultDate.getFullYear(),
     resultDate.getMonth(),
     resultDate.getDate(),
   )
-  return truncatedDate
 }
