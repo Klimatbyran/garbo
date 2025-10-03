@@ -11,7 +11,7 @@ import {
   meetsParisGoal,
   sumOfExponentialTrendPath,
   sumOfLinearTrendPath,
-} from '@/lib/company-emissions/companyEmissionBudgets'
+} from '@/lib/calculateParisKPIs'
 import { Company, Emissions } from '@/types'
 
 class CompanyService {
@@ -375,7 +375,6 @@ function addParisAgreementKPIsToCompanies(companies: Company[]) {
       }
     }
 
-    const carbonLawSlope = -0.1172
     const lastReportedPeriod = company.reportingPeriods[0]
 
     const lastReportedEmissions =
@@ -404,7 +403,6 @@ function addParisAgreementKPIsToCompanies(companies: Company[]) {
     )
 
     const sumOfCarbonLaw = sumOfExponentialTrendPath(
-      carbonLawSlope,
       emissionAtCurrentYear,
       currentYear,
     )
