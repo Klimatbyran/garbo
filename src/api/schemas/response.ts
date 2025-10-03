@@ -360,6 +360,8 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   futureEmissionsTrendSlope: z.number().nullable(),
+  meetsParisGoal: z.boolean().nullable(),
+  dateTrendExceedsCarbonLaw: z.date().nullable(),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
@@ -370,6 +372,8 @@ const CompanyBase = CompanyBaseSchema.extend({
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   futureEmissionsTrendSlope: z.number().nullable(),
+  meetsParisGoal: z.boolean().nullable(),
+  dateTrendExceedsCarbonLaw: z.date().nullable(),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
 })
