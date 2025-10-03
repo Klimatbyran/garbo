@@ -1,4 +1,4 @@
-import { askStream } from './openai'
+import { ask } from './openai'
 import { DiscordJob, DiscordWorker } from './DiscordWorker'
 import {
   ChatCompletionAssistantMessageParam,
@@ -24,14 +24,20 @@ export class FollowUpJob extends DiscordJob {
     schema: z.ZodSchema,
     prompt: string,
     queryTexts: string[],
-    type: FollowUpType
+    type: FollowUpType,
   ) => Promise<string | undefined>
 }
 
 function addCustomMethods(job: FollowUpJob) {
-  job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
+  job.followUp = async (
+    url,
+    previousAnswer,
+    schema,
+    prompt,
+    queryTexts,
+    type,
+  ) => {
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
-
 
     job.log(`Reflecting on: ${prompt}
     
@@ -40,45 +46,43 @@ function addCustomMethods(job: FollowUpJob) {
     
     `)
 
-    
-      const streamMessages = [
-        {
-          role: 'system',
-          content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
-        } as ChatCompletionSystemMessageParam,
-        {
-          role: 'user',
-          content: 'Results from PDF: \n' + markdown,
-        } as ChatCompletionUserMessageParam,
-        {
-          role: 'user',
-          content: prompt,
-        } as ChatCompletionUserMessageParam,
-        Array.isArray(job.stacktrace)
-          ? [
-              {
-                role: 'assistant',
-                content: previousAnswer,
-              } as ChatCompletionAssistantMessageParam,
-              {
-                role: 'user',
-                content: job.stacktrace.join(''),
-              } as ChatCompletionUserMessageParam,
-            ]
-          : undefined,
-      ]
-        .flat()
-        .filter((m) => m !== undefined)
-        .filter((m) => m?.content)
-    
+    const streamMessages = [
+      {
+        role: 'system',
+        content:
+          'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+      } as ChatCompletionSystemMessageParam,
+      {
+        role: 'user',
+        content: 'Results from PDF: \n' + markdown,
+      } as ChatCompletionUserMessageParam,
+      {
+        role: 'user',
+        content: prompt,
+      } as ChatCompletionUserMessageParam,
+      Array.isArray(job.stacktrace)
+        ? [
+            {
+              role: 'assistant',
+              content: previousAnswer,
+            } as ChatCompletionAssistantMessageParam,
+            {
+              role: 'user',
+              content: job.stacktrace.join(''),
+            } as ChatCompletionUserMessageParam,
+          ]
+        : undefined,
+    ]
+      .flat()
+      .filter((m) => m !== undefined)
+      .filter((m) => m?.content)
 
-      const response = await askStream(streamMessages, {
-        response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
-      })
+    const response = await ask(streamMessages, {
+      response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
+    })
 
     job.log('Response: ' + response)
-    
+
     // Return standardized format with value and metadata
     const result = {
       value: JSON.parse(response),
@@ -86,7 +90,7 @@ function addCustomMethods(job: FollowUpJob) {
         context: markdown,
         prompt: prompt,
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
-      }
+      },
     }
 
     return JSON.stringify(result)
@@ -94,13 +98,13 @@ function addCustomMethods(job: FollowUpJob) {
   return job
 }
 export class FollowUpWorker<
-  T extends FollowUpJob
+  T extends FollowUpJob,
 > extends DiscordWorker<FollowUpJob> {
   queue: Queue
   constructor(
     name: string,
     callback: (job: T) => any,
-    options?: WorkerOptions
+    options?: WorkerOptions,
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
