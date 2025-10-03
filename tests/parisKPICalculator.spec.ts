@@ -10,8 +10,8 @@ const CARBON_LAW_SLOPE = -0.1172
 const LAST_REPORTED_EMISSION = 10
 const CURRENT_YEAR = 2025
 
-describe('Company Emission Budgets', () => {
-  describe('sumOfTotalFutureTrendEmissions', () => {
+describe('Paris KPIs Calculator', () => {
+  describe('parisKPICalculator', () => {
     beforeEach(() => {
       jest.clearAllMocks()
     })
@@ -37,28 +37,25 @@ describe('Company Emission Budgets', () => {
 
     test('should calculate the sum of future emissions path', () => {
       const emissionsSlope = 1
-      const lastReportedYear = 2023
 
       const result = sumOfLinearTrendPath(
         emissionsSlope,
         LAST_REPORTED_EMISSION,
-        lastReportedYear,
         CURRENT_YEAR,
       )
 
-      const expectedResult = 637
+      const expectedResult = 585
       expect(result).toEqual(expectedResult)
     })
 
     test('should calculate the sum of carbon law path', () => {
       const result = sumOfExponentialTrendPath(
-        CARBON_LAW_SLOPE,
         LAST_REPORTED_EMISSION,
         CURRENT_YEAR,
+        CARBON_LAW_SLOPE,
       )
       const roundedResult = Number(result.toFixed(4))
-
-      const expectedResult = 81.9862
+      // 81.97
       expect(roundedResult).toEqual(expectedResult)
     })
 
