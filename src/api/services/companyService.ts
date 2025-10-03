@@ -5,13 +5,20 @@ import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
-import { addParisAgreement } from '@/lib/company-emissions/companyEmissionBudgets'
+import {
+  calculateEmissionAtCurrentYear,
+  calculateWhenFutureTrendExceedsCarbonLaw,
+  meetsParisGoal,
+  sumOfExponentialTrendPath,
+  sumOfLinearTrendPath,
+} from '@/lib/company-emissions/companyEmissionBudgets'
+import { Company, Emissions } from '@/types'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const packagedCompanies = processMetadataAndAddCalculations(companies)
-    return packagedCompanies
+    const processedCompanies = processMetadataAndAddCalculations(companies)
+    return processedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
@@ -19,11 +26,11 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const packagedCompanies = processMetadataAndAddCalculations(companies)
-    return packagedCompanies
+    const processedCompanies = processMetadataAndAddCalculations(companies)
+    return processedCompanies
   }
 
-  async getCompanyWithMetadata(wikidataId: string) {
+  async getCompanyWithMetadata(wikidataId: string): Promise<Company> {
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,
       where: {
@@ -31,9 +38,11 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addFutureEmissionsTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions([transformMetadata(company)]),
+    const [transformedCompany] = addParisAgreementKPIsToCompanies(
+      addFutureEmissionsTrendSlope(
+        addCompanyEmissionChange(
+          addCalculatedTotalEmissions([transformMetadata(company)]),
+        ),
       ),
     )
 
@@ -216,11 +225,11 @@ function processMetadataAndAddCalculations(companies: CompanyListPayload[]) {
     companiesWithEmissionsChange,
   )
 
-  const companiesWithParisAgreement = addParisAgreement(
+  const companiesWithParisAgreementKPIs = addParisAgreementKPIsToCompanies(
     companiesWithFutureEmissionsTrendSlope,
   )
 
-  return companiesWithParisAgreement
+  return companiesWithParisAgreementKPIs
 }
 
 export function transformMetadata(data: any): any {
@@ -300,18 +309,49 @@ export function addCompanyEmissionChange(companies: any[]) {
   })
 }
 
-export function addFutureEmissionsTrendSlope(companies: any[]) {
+function transformEmissionsForTrendCalculator(emissions: Emissions) {
+  return {
+    calculatedTotalEmissions: emissions.calculatedTotalEmissions,
+    scope1: emissions.scope1 ? { total: emissions.scope1.total } : undefined,
+    scope2: emissions.scope2
+      ? {
+          mb: emissions.scope2.mb,
+          lb: emissions.scope2.lb ?? 0,
+          unknown: emissions.scope2.unknown ?? null,
+        }
+      : null,
+    scope3: emissions.scope3
+      ? {
+          calculatedTotalEmissions:
+            emissions.scope3.calculatedTotalEmissions ?? null,
+          statedTotalEmissions: emissions.scope3.statedTotalEmissions
+            ? {
+                total: emissions.scope3.statedTotalEmissions.total ?? null,
+              }
+            : undefined,
+          categories: emissions.scope3.categories?.map((cat) => ({
+            category: cat.category,
+            total: cat.total ?? null,
+          })),
+        }
+      : undefined,
+    statedTotalEmissions: emissions.statedTotalEmissions?.total ?? null,
+  }
+}
+
+function addFutureEmissionsTrendSlope(companies: Company[]) {
   return companies.map((company) => {
     const transformedCompany = {
       reportedPeriods: company.reportingPeriods.map((period) => ({
         year: new Date(period.endDate).getFullYear(),
-        emissions: period.emissions,
+        emissions: period.emissions
+          ? transformEmissionsForTrendCalculator(period.emissions)
+          : null,
       })),
       baseYear: company.baseYear,
     }
 
     const baseYear = transformedCompany.baseYear?.year
-
     const slope = calculateFutureEmissionTrend(
       transformedCompany.reportedPeriods,
       baseYear,
@@ -320,6 +360,72 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
     return {
       ...company,
       futureEmissionsTrendSlope: slope,
+    }
+  })
+}
+
+function addParisAgreementKPIsToCompanies(companies: Company[]) {
+  const currentYear = new Date().getFullYear()
+  return companies.map((company) => {
+    if (!company.futureEmissionsTrendSlope) {
+      return {
+        ...company,
+        meetsParisGoal: null,
+        dateTrendExceedsCarbonLaw: null,
+      }
+    }
+
+    const carbonLawSlope = -0.1172
+    const lastReportedPeriod = company.reportingPeriods[0]
+
+    const lastReportedEmissions =
+      lastReportedPeriod.emissions.calculatedTotalEmissions
+
+    if (!lastReportedEmissions) {
+      return {
+        ...company,
+        meetsParisGoal: null,
+        dateTrendExceedsCarbonLaw: null,
+      }
+    }
+
+    const emissionAtCurrentYear = calculateEmissionAtCurrentYear(
+      company.futureEmissionsTrendSlope,
+      lastReportedEmissions,
+      new Date(lastReportedPeriod.startDate).getFullYear(),
+      currentYear,
+    )
+
+    const sumOfLinearTrend = sumOfLinearTrendPath(
+      company.futureEmissionsTrendSlope,
+      emissionAtCurrentYear,
+      new Date(lastReportedPeriod.startDate).getFullYear(),
+      currentYear,
+    )
+
+    const sumOfCarbonLaw = sumOfExponentialTrendPath(
+      carbonLawSlope,
+      emissionAtCurrentYear,
+      currentYear,
+    )
+
+    let meetsParis: boolean | null = null
+    if (sumOfLinearTrend && sumOfCarbonLaw) {
+      meetsParis = meetsParisGoal(sumOfLinearTrend, sumOfCarbonLaw)
+    }
+
+    const whenFutureTrendExceedsCarbonLaw =
+      calculateWhenFutureTrendExceedsCarbonLaw(
+        company.futureEmissionsTrendSlope,
+        emissionAtCurrentYear,
+        sumOfCarbonLaw,
+        currentYear,
+      )
+
+    return {
+      ...company,
+      meetsParisGoal: meetsParis,
+      dateTrendExceedsCarbonLaw: whenFutureTrendExceedsCarbonLaw,
     }
   })
 }
