@@ -12,21 +12,13 @@ export function calculateEmissionAtCurrentYear(
 
 export function sumOfLinearTrendPath(
   linearSlope: number,
-  lastReportedEmissions: number,
-  lastReportedYear: number,
+  emissionAtCurrentYear: number,
   currentYear: number,
 ): number | null {
-  const emissionAtCurrentYear = calculateEmissionAtCurrentYear(
-    linearSlope,
-    lastReportedEmissions,
-    lastReportedYear,
-    currentYear,
-  )
-
   if (!emissionAtCurrentYear) return null
 
   const emissionAtEnd =
-    lastReportedEmissions + linearSlope * (END_YEAR - lastReportedYear)
+    emissionAtCurrentYear + linearSlope * (END_YEAR - currentYear)
 
   const numberOfYears = END_YEAR - currentYear + 1
 
