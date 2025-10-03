@@ -3,10 +3,9 @@ import OpenAI from 'openai'
 import {
   ChatCompletionCreateParamsNonStreaming,
   ChatCompletionMessageParam,
-  ResponseFormatJSONSchema,
 } from 'openai/resources'
 import openaiConfig from '../config/openai'
-import { RequestOptions } from 'openai/core'
+import { AskOptions } from '@/types'
 
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
@@ -14,23 +13,38 @@ const openai = new OpenAI({
 
 const ask = async (
   messages: ChatCompletionMessageParam[],
-  options?: RequestOptions & {
-    onParagraph?: (response: string, paragraph: string) => void
-  } & { response_format?: ResponseFormatJSONSchema },
+  options?: AskOptions,
 ) => {
+  const {
+    baseUrl,
+    apiKey,
+    model,
+    response_format: _unusedResponseFormat,
+    onParagraph: _unusedOnParagraph,
+    temperature,
+    max_tokens,
+    ...requestOptions
+  } = options ?? {}
+
+  const client =
+    baseUrl || apiKey
+      ? new OpenAI({
+          baseURL: baseUrl,
+          apiKey: apiKey ?? openaiConfig.apiKey,
+          organization: openaiConfig.organization,
+        })
+      : openai
+
   const config = {
     messages: messages.filter((m) => m.content),
-    model: 'gpt-4o-2024-08-06',
-    temperature: 0.1,
-    max_tokens: 4096,
+    model: model ?? 'gpt-4o-2024-08-06',
+    temperature: temperature ?? 0.1,
+    max_tokens: max_tokens ?? 4096,
     response_format: options?.response_format,
     stream: false,
-    ...options,
   } satisfies ChatCompletionCreateParamsNonStreaming
 
-  const response = await openai.chat.completions.create(
-    config as ChatCompletionCreateParamsNonStreaming,
-  )
+  const response = await client.chat.completions.create(config, requestOptions)
 
   return response.choices[0].message.content ?? ''
 }

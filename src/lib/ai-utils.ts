@@ -5,12 +5,14 @@ import {
 } from 'openai/resources/chat/completions'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { z } from 'zod'
+import { AskOptions } from '@/types'
 
 export const askWithContext = async (
   markdown: string,
   prompt: string,
   schema: z.ZodSchema,
   type: string,
+  options?: AskOptions,
 ) => {
   const response = await ask(
     [
@@ -32,6 +34,7 @@ export const askWithContext = async (
       .filter((m) => m !== undefined)
       .filter((m) => m?.content),
     {
+      ...options,
       response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
     },
   )
