@@ -23,8 +23,30 @@ export interface Emission {
 
 export interface Company {
   reportingPeriods: ReportingPeriod[]
-  futureEmissionsTrendSlope: number
+  futureEmissionsTrendSlope: number | null
   carbonLawSum: number
+  industry: Industry
+  baseYear: BaseYear
+  goals: Goal[]
+  initiatives: Initiative[]
+  tags: string[]
+  description: string | null
+  descriptions: Description[]
+  wikidataId: string
+  name: string
+  url: string | null
+  lei: string | null
+}
+
+interface BaseYear {
+  id: string
+  year: number
+}
+
+interface Description {
+  id: string
+  text: string
+  language: string
 }
 
 export interface Scope2 {
@@ -42,9 +64,11 @@ export interface Scope3Category {
 export interface Scope3 {
   categories: Scope3Category[]
   statedTotalEmissions?: Emission
+  calculatedTotalEmissions?: number
 }
 
 export interface Emissions {
+  calculatedTotalEmissions?: number
   scope1?: Emission
   scope2?: Scope2
   scope3?: Scope3
@@ -85,6 +109,12 @@ export interface Goal {
 
 export interface Industry {
   subIndustryCode: string
+  industryGics?: {
+    sectorCode?: string
+    groupCode?: string
+    industryCode?: string
+    subIndustryCode?: string
+  }
 }
 
 export interface Initiative {
@@ -95,6 +125,6 @@ export interface Initiative {
 }
 
 export interface Logger {
-  info(message: string, meta?: any): void
-  error(message: string, meta?: any): void
+  info(message: string, meta?: unknown): void
+  error(message: string, meta?: unknown): void
 }
