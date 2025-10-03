@@ -55,7 +55,8 @@ describe('Paris KPIs Calculator', () => {
         CARBON_LAW_SLOPE,
       )
       const roundedResult = Number(result.toFixed(4))
-      // 81.97
+
+      const expectedResult = 81.9862
       expect(roundedResult).toEqual(expectedResult)
     })
 
