@@ -1,5 +1,6 @@
 import { table } from '../src/lib/jsonExtraction';
 import { Table as NLMIngestorTable } from '../src/lib/nlm-ingestor-schema';
+import {jest} from '@jest/globals';
 
 describe('Table Parser', () => {
 
