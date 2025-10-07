@@ -6,7 +6,12 @@ import {
 } from 'openai/resources'
 import openaiConfig from '../config/openai'
 import { AskOptions } from '@/types'
-
+import {
+  DEFAULT_MODEL,
+  DEFAULT_TEMPERATURE,
+  DEFAULT_MAX_TOKENS,
+} from '@/constants/ai'
+import { SYSTEM_PROMPT_GENERIC } from '@/constants/prompts'
 const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
 })
@@ -19,11 +24,10 @@ const ask = async (
     baseUrl,
     apiKey,
     model,
-    response_format: _unusedResponseFormat,
+    response_format,
     onParagraph: _unusedOnParagraph,
     temperature,
     max_tokens,
-    ...requestOptions
   } = options ?? {}
 
   const client =
@@ -31,22 +35,36 @@ const ask = async (
       ? new OpenAI({
           baseURL: baseUrl,
           apiKey: apiKey ?? openaiConfig.apiKey,
-          organization: openaiConfig.organization,
+          ...(baseUrl ? {} : { organization: openaiConfig.organization }),
         })
       : openai
 
   const config = {
     messages: messages.filter((m) => m.content),
-    model: model ?? 'gpt-4o-2024-08-06',
-    temperature: temperature ?? 0.1,
-    max_tokens: max_tokens ?? 4096,
-    response_format: options?.response_format,
-    stream: false,
-  } satisfies ChatCompletionCreateParamsNonStreaming
+    model: model ?? DEFAULT_MODEL,
+    temperature: temperature ?? DEFAULT_TEMPERATURE,
+    max_tokens: max_tokens ?? DEFAULT_MAX_TOKENS,
+    response_format: baseUrl
+      ? {
+          type: 'json_object' as const,
+          schema: response_format?.json_schema.schema,
+        }
+      : response_format,
+  }
 
-  const response = await client.chat.completions.create(config, requestOptions)
-
-  return response.choices[0].message.content ?? ''
+  try {
+    const response = await client.chat.completions.create(config)
+    return response.choices[0].message.content ?? ''
+  } catch (error) {
+    if (error instanceof OpenAI.APIError) {
+      console.log(error.request_id)
+      console.log(error.status)
+      console.log(error.name)
+      console.log(error.headers)
+    } else {
+      throw error
+    }
+  }
 }
 
 const askPrompt = async (prompt: string, context: string) => {
@@ -55,7 +73,7 @@ const askPrompt = async (prompt: string, context: string) => {
   return await ask([
     {
       role: 'system',
-      content: 'You are a friendly expert. Be concise and accurate.',
+      content: SYSTEM_PROMPT_GENERIC,
     },
     { role: 'user', content: prompt },
     { role: 'assistant', content: 'Sure! Just send me the context?' },

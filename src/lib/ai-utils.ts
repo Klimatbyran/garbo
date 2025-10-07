@@ -6,6 +6,7 @@ import {
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { z } from 'zod'
 import { AskOptions } from '@/types'
+import { SYSTEM_PROMPT_CSRD } from '@/constants/prompts'
 
 export const askWithContext = async (
   markdown: string,
@@ -18,8 +19,7 @@ export const askWithContext = async (
     [
       {
         role: 'system',
-        content:
-          'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+        content: SYSTEM_PROMPT_CSRD,
       } as ChatCompletionSystemMessageParam,
       {
         role: 'user',

@@ -1,5 +1,8 @@
 import { RequestOptions } from 'openai/core'
-import { ResponseFormatJSONSchema } from 'openai/resources'
+import {
+  ResponseFormatJSONObject,
+  ResponseFormatJSONSchema,
+} from 'openai/resources'
 
 export enum FollowUpType {
   IndustryGics = 'followUp/industryGics',
