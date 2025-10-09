@@ -7,18 +7,18 @@ import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
+    const transformedCompanies = addCompanyEmissionChange(addRelatableNumbers(addCalculatedTotalEmissions(
       companies.map(transformMetadata)
-    ));
+    )));
     console.log(transformedCompanies);
     return transformedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({...companyListArgs, where: {name: {contains: searchTerm}}})
-    const transformedCompanies = addCompanyEmissionChange(addCalculatedTotalEmissions(
+    const transformedCompanies = addCompanyEmissionChange(addRelatableNumbers(addCalculatedTotalEmissions(
       companies.map(transformMetadata)
-    ));
+    )));
     return transformedCompanies
   }
 
@@ -30,9 +30,9 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addCompanyEmissionChange(addCalculatedTotalEmissions([
+    const [transformedCompany] = addCompanyEmissionChange(addRelatableNumbers(addCalculatedTotalEmissions([
       transformMetadata(company),
-    ]))
+    ])))
 
     return transformedCompany
   }
@@ -251,6 +251,37 @@ export function addCalculatedTotalEmissions(companies: any[]) {
         }),
       }))
   )
+}
+
+export function addRelatableNumbers(companies: any[]) {
+  return companies.map(company => ({
+    ...company,
+    reportingPeriods: company.reportingPeriods.map((reportingPeriod: any) => {
+      const totalEmissions = reportingPeriod.emissions?.calculatedTotalEmissions;
+      const turnoverValue = reportingPeriod.economy?.turnover?.value;
+      const employeesValue = reportingPeriod.economy?.employees?.value;
+      
+      // Calculate CO2 per million currency units (e.g., tCO2e per MSEK)
+      const co2PerMillionRevenue = 
+        totalEmissions && turnoverValue && turnoverValue > 0
+          ? (totalEmissions / turnoverValue) * 1000000
+          : null;
+      
+      // Calculate CO2 per employee (e.g., tCO2e per employee)
+      const co2PerEmployee = 
+        totalEmissions && employeesValue && employeesValue > 0
+          ? totalEmissions / employeesValue
+          : null;
+      
+      return {
+        ...reportingPeriod,
+        relatableNumbers: {
+          co2PerMillionRevenue,
+          co2PerEmployee,
+        },
+      };
+    }),
+  }));
 }
 
 export function addCompanyEmissionChange(companies: any[]) {
