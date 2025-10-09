@@ -43,21 +43,11 @@ export async function companyReadRoutes(app: FastifyInstance) {
         companyCount,
         reportingPeriodCount,
         emissionsCount,
-        industryCount,
-        goalCount,
-        initiativeCount,
-        baseYearCount,
-        descriptionCount,
         latestMetadata,
-      ] = await Promise.all([
+      ] = await prisma.$transaction([
         prisma.company.count(),
         prisma.reportingPeriod.count(),
         prisma.emissions.count(),
-        prisma.industry.count(),
-        prisma.goal.count(),
-        prisma.initiative.count(),
-        prisma.baseYear.count(),
-        prisma.description.count(),
         prisma.metadata.findFirst({
           select: { updatedAt: true },
           orderBy: { updatedAt: 'desc' },
@@ -69,11 +59,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
         companyCount,
         reportingPeriodCount,
         emissionsCount,
-        industryCount,
-        goalCount,
-        initiativeCount,
-        baseYearCount,
-        descriptionCount,
         latestMetadata?.updatedAt?.toISOString() || '',
       ].join('|')
 
