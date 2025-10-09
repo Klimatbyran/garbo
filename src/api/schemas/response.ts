@@ -247,6 +247,21 @@ export const InitiativeSchema = z.object({
   metadata: MetadataSchema,
 })
 
+export const RelatableNumbersSchema = z.object({
+  co2PerMillionRevenue: z
+    .number()
+    .nullable()
+    .openapi({ 
+      description: 'CO2 emissions per million currency units of revenue (e.g., tCO2e per MSEK)',
+    }),
+  co2PerEmployee: z
+    .number()
+    .nullable()
+    .openapi({ 
+      description: 'CO2 emissions per employee (e.g., tCO2e per employee)',
+    }),
+})
+
 export const ReportingPeriodSchema = z.object({
   id: z.string(),
   startDate: dateStringSchema.openapi({
@@ -261,6 +276,7 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
+  relatableNumbers: RelatableNumbersSchema.optional(),
   emissionsTrend: z
     .object({
       absolute: z.number().nullable(),

@@ -949,3 +949,19 @@ scope3: [
     }
 ]
 ```
+
+**Relatable Numbers:**
+
+Relatable numbers are calculated metrics that normalize emissions data against economic indicators to provide more meaningful comparisons across companies and over time. These are computed at runtime and not stored in the database.
+
+```typescript
+relatableNumbers: {
+    co2PerMillionRevenue?: number | null,  // CO2 emissions per million currency units of revenue (e.g., tCO2e per MSEK)
+    co2PerEmployee?: number | null         // CO2 emissions per employee (e.g., tCO2e per FTE)
+}
+```
+
+- `co2PerMillionRevenue`: Calculated as `(totalEmissions / turnoverValue) * 1,000,000`. This provides emissions intensity per million units of revenue, making it easier to compare companies of different sizes and track performance independent of revenue changes.
+- `co2PerEmployee`: Calculated as `totalEmissions / numberOfEmployees`. This provides emissions per employee, useful for understanding operational efficiency in terms of carbon footprint.
+
+Both values are `null` when the required data (emissions, turnover, or employees) is missing or zero.
