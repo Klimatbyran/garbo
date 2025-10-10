@@ -1,50 +1,52 @@
-import { z } from "zod"
+import { AskOptions } from '@/types'
+import { z } from 'zod'
 
 export interface TestSuite {
   expectedResults: {
-    [key: string]: any;
-  };
+    [key: string]: any
+  }
   testFileMapping?: {
-    [fileName: string]: string;
-  };
+    [fileName: string]: string
+  }
+  askOptionsDefault?: AskOptions
   testVariations: Array<{
-    name: string;
-    prompt: string;
-    schema: z.ZodSchema;
-    baseline?: boolean;
-  }>;
+    name: string
+    prompt: string
+    schema: z.ZodSchema
+    baseline?: boolean
+    askOptions?: AskOptions
+  }>
 }
 
 export interface TestFile {
-  name: string;
-  markdown: string;
-  expectedResult: any;
+  name: string
+  markdown: string
+  expectedResult: any
 }
 
 export interface ComparisonOptions {
-  yearsToCheck?: number[];
-  fileNamesToCheck?: string[];
-  runsPerTest?: number;
+  yearsToCheck?: number[]
+  fileNamesToCheck?: string[]
+  runsPerTest?: number
 }
 
 export interface ComparisonConfig {
   prompts: Array<{
-    name: string;
-    prompt: string;
-    schema: z.ZodSchema;
-    baseline?: boolean;
-  }>;
-  testFiles: TestFile[];
-  baseSchema: z.ZodSchema;
-  runsPerTest: number;
-  outputDir: string;
-  yearsToCheck: number[];
-  fileNamesToCheck: string[];
+    name: string
+    prompt: string
+    schema: z.ZodSchema
+    baseline?: boolean
+    askOptions?: AskOptions
+  }>
+  testFiles: TestFile[]
+  baseSchema: z.ZodSchema
+  runsPerTest: number
+  outputDir: string
+  yearsToCheck: number[]
+  fileNamesToCheck: string[]
 }
 
 export interface ParsedArguments {
-  suiteName: string;
-  options: ComparisonOptions;
+  suiteName: string
+  options: ComparisonOptions
 }
-
-
