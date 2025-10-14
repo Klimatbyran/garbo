@@ -135,6 +135,10 @@ const nlmParsePDF = new DiscordWorker(
             {
               ...base,
               name: 'indexMarkdown ' + name,
+              data: {
+                ...base.data,
+                markdown,
+              },
               queueName: QUEUE_NAMES.INDEX_MARKDOWN,
               children: [
                 {
