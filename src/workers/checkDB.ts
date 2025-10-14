@@ -105,7 +105,6 @@ const checkDB = new DiscordWorker(
 
     await job.editMessage(`🤖 Saving data...`)
 
-      
     await flow.add({
       ...base,
       queueName: QUEUE_NAMES.SEND_COMPANY_LINK,
