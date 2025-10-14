@@ -143,6 +143,24 @@ export const expectedResults = {
       ]
     
   },
+  "embracer": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 1623,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": null,
+          "lb": null,
+          "unknown": 5909,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+
+  },
   "rise": {
       "scope12": [
         {
