@@ -70,6 +70,9 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 8. **Output Format**:
   Keep the output strictly in JSON format, following this structure:
 
+9. **Fiscal Year**:
+   For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (2016) in your output.
+
 \`\`\`json
 {
   "scope3": [

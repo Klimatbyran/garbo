@@ -2,6 +2,20 @@
 // Each test file can map to a specific expected result
 
 export const expectedResults = {
+  "embracer":{
+    "scope3": [ 
+      {
+        "year": 2024,
+        "scope3": {
+          "categories": null,
+          "statedTotalEmissions": {
+            "total": 484055,
+            "unit": "tCO2e"
+          }
+        }
+      }
+    ]
+  },
   "ambea": {
     "scope3": [
       {
