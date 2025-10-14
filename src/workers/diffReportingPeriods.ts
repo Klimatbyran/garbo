@@ -32,6 +32,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       economy = [],
     } = job.data
 
+
     console.log(job.isDataApproved());
 
     if (job.isDataApproved()) {
