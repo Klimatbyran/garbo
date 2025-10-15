@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue, UnrecoverableError } from 'bullmq'
 import {
   BaseMessageOptions,
   Message,
@@ -9,6 +9,8 @@ import redis from '../config/redis'
 import discord from '../discord'
 import apiConfig from '../config/api';
 import { ChangeDescription } from './DiffWorker';
+import { createDiscordLogger } from './logger';
+import { Logger } from '@/types';
 
 interface Approval {
   summary?: string;
@@ -62,17 +64,24 @@ function addCustomMethods(job: DiscordJob) {
       .then((values) =>
         values
           .map((value) => {
-            // Only parse the result for children jobs that returned potential JSON
             if (value && typeof value === 'string') {
-              // NOTE: This still assumes all children jobs return JSON, and will crash if we return string results.
-              return Object.entries(JSON.parse(value))
+              return JSON.parse(value)
             } else {
-              return Object.entries(value)
+              return value
             }
           })
-          .flat()
       )
-      .then((values) => Object.fromEntries(values))
+      .then((objects) => {
+        const out: Record<string, any> = {}
+        for (const obj of objects as Record<string, any>[]) {
+          if (!obj || typeof obj !== 'object') continue
+          const payload = (Object.prototype.hasOwnProperty.call(obj, 'value') && obj.value && typeof obj.value === 'object')
+            ? (obj.value as Record<string, any>)
+            : obj
+          Object.assign(out, payload)
+        }
+        return out
+      })
   }
 
   job.hasValidThreadId = function () {
@@ -171,14 +180,22 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
-    callback: (job: T) => any,
-    options?: WorkerOptions
+    callback: (job: T, logger: Logger) => any,
+    options?: WorkerOptions,
   ) {
-    super(name, (job: T) => callback(addCustomMethods(job) as T), {
-      connection: redis,
-      concurrency: 3,
-      ...options,
-    })
+    super(
+      name,
+      async (raw: T) => {
+        const job = addCustomMethods(raw) as T
+        const logger = createDiscordLogger(job)
+        return callback(job, logger)
+      },
+      {
+        connection: redis,
+        concurrency: 3,
+        ...options,
+      }
+    )
 
     this.queue = new Queue(name, { connection: redis })
   }

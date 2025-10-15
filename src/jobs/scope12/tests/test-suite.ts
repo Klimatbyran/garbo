@@ -11,14 +11,9 @@ export const testSuite: TestSuite = {
   expectedResults,
   testVariations: [
     {
-      name: "collection of prompt improvements",
+      name: "prompt improvements",
       prompt: prompt,
       schema: newSchemaWithInstructionsArrayOfExplanations,
-    }, 
-    {
-      name: "original prompt",
-      prompt: oldPrompt,
-      schema: oldSchema,
     }
   ]
 } 
