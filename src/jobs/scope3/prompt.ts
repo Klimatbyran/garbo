@@ -1,4 +1,3 @@
-
 export const prompt = `## Scope 3:
 Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`scope3\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.
 
@@ -6,6 +5,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 
 1. **Reporting Categories**:
   Always report data according to the official GHG Protocol categories. If a reported category does not match the official list, include it under "16: Other."
+  Data can either be prefixed with the numbers 1-16, the category name, or the number preceded by the number 3 that stands for Scope 3, like 3.2.
 
   GHG Categories:
 
@@ -30,7 +30,10 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   16. Other: Any other relevant emissions sources not covered by the categories above, such as outsourced activities or unique business processes. Note that this is not in line with the GHG protocol, but used in this process to include emissions not accurately categorised by the company.
 
 2. **Missing Or Incomplete Data**:
-- Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
+- Extract values only if explicitly available in the context. Do not infer or create data. 
+- If no data is provided for a category, set the total to null.
+- If a value of 0/zero is explicitly stated, include that value and report it as 0.
+
 
 3. **Absolute Values Only**:
 - Only include emission values that are clearly specified as absolute measurements (e.g., "10,000 tCO2e for Category 1").
@@ -63,6 +66,9 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 8. **Output Format**:
   Keep the output strictly in JSON format, following this structure:
 
+9. **Fiscal Year**:
+   For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (2016) in your output.
+
 \`\`\`json
 {
   "scope3": [
@@ -73,7 +79,19 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
         { "category": 1, "total": 10, "unit": "tCO2e" },
         { "category": 2, "total": 20, "unit": "tCO2e" },
         { "category": 3, "total": 40, "unit": "tCO2e" },
-        { "category": 14, "total": 40, "unit": "tCO2e" }
+         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value was explicitly stated as 0, include it and set its total to 0.
+         { "category": 5, "total": null, "unit": "tCO2e" },
+         { "category": 6, "total": null, "unit": "tCO2e" },
+         { "category": 7, "total": null, "unit": "tCO2e" },
+         { "category": 8, "total": null, "unit": "tCO2e" },
+         { "category": 9, "total": 40, "unit": "tCO2e" },
+         { "category": 10, "total": null, "unit": "tCO2e" },
+         { "category": 11, "total": null, "unit": "tCO2e" },
+         { "category": 12, "total": null, "unit": "tCO2e" },
+         { "category": 13, "total": null, "unit": "tCO2e" },
+         { "category": 15, "total": null, "unit": "tCO2e" },
+         { "category": 16, "total": null, "unit": "tCO2e" },
+
       ],
       "statedTotalEmissions": { "total": 110, "unit": "tCO2e" }
     }
@@ -88,5 +106,49 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   }
   ]
 }
+
+
+//example where the source has values explicitly stated as null/no value or 0
+{
+  "scope3": [
+  {
+    "year": 2021,
+    "scope3": {
+      "categories": [
+        { "category": 1, "total": null, "unit": "tCO2e" }, //if a value was explicitly stated as no value, '-', include it and set its total to null.
+        { "category": 2, "total": 0, "unit": "tCO2e" },
+        { "category": 3, "total": null, "unit": "tCO2e" },
+         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value was explicitly stated as 0, include it and set its total to 0.
+         { "category": 5, "total": null, "unit": "tCO2e" },
+         { "category": 6, "total": null, "unit": "tCO2e" }, 
+         { "category": 7, "total": null, "unit": "tCO2e" },
+         { "category": 8, "total": null, "unit": "tCO2e" }, 
+         { "category": 9, "total": 40, "unit": "tCO2e" }, 
+         { "category": 10, "total": null, "unit": "tCO2e" },  
+         { "category": 11, "total": null, "unit": "tCO2e" }, 
+         { "category": 12, "total": null, "unit": "tCO2e" }, 
+         { "category": 13, "total": null, "unit": "tCO2e" },
+         { "category": 14, "total": null, "unit": "tCO2e" }, 
+         { "category": 15, "total": null, "unit": "tCO2e" },
+         { "category": 16, "total": null, "unit": "tCO2e" }, 
+      ],
+      "statedTotalEmissions": { "total": 40, "unit": "tCO2e" }
+    }
+  },
+  {
+    "year": 2022,
+    "scope3": null
+  },
+  {
+    "year": 2023,
+    "scope3": null
+  }
+  ]
+}
 \`\`\`
+
+
+9. **Complete Category List**:
+The output must contain exactly ONE entry for each category 1-16, in numerical order. All values for that category should be included. Categories with a value of zero should have "total": 0, categories without any kind of data should have "total": null. 
+Never duplicate categories or skip category numbers.
 `
