@@ -73,10 +73,18 @@ export const detailedCompanyArgs = {
       select: {
         id: true,
         text: true,
-        language: true
-      }
+        language: true,
+      },
     },
     lei: true,
+    identifiers: {
+      select: {
+        id: true,
+        type: true,
+        value: true,
+        metadata: metadataArgs,
+      },
+    },
     reportingPeriods: {
       select: {
         id: true,
@@ -238,10 +246,18 @@ export const companyListArgs = {
       select: {
         id: true,
         language: true,
-        text: true
-      }
+        text: true,
+      },
     },
     lei: true,
+    identifiers: {
+      select: {
+        id: true,
+        type: true,
+        value: true,
+        metadata: metadataArgs,
+      },
+    },
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
@@ -356,8 +372,8 @@ export const companyExportArgs = (year?) => {
       descriptions: {
         select: {
           language: true,
-          text: true
-        }
+          text: true,
+        },
       },
       baseYear: {
         select: { id: true, year: true },

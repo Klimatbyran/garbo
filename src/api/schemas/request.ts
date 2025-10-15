@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
 
-const createMetadataSchema = z.object({
+export const createMetadataSchema = z.object({
   metadata: z
     .object({
       source: z.string().optional(),
@@ -126,7 +126,7 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
+        },
       )
       .optional(),
     scope3: z
@@ -138,7 +138,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaWithDefault,
               verified: z.boolean().optional(),
-            })
+            }),
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
