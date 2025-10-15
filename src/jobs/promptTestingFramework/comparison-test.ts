@@ -382,6 +382,7 @@ const filterRunByYears = (run: any, yearsToCheck?: number[], dataKey: string = '
   };
 };
 
+//this fills in missing categories for the test comparison, and makes sure they are in the correct order.
 const normalizeScope3Categories = (data: any): any => {
   if (!data) return data;
   const cloned = JSON.parse(JSON.stringify(data));
