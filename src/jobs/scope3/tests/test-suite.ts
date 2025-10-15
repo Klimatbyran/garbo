@@ -6,6 +6,7 @@ import {
   schemaWithSubValuesForCategory,
   summarizePrompt,
   } from "./testData"
+import { schema } from "@/jobs/scope3/schema"
 
 export const testSuite: TestSuite = {
   expectedResults,
@@ -15,6 +16,11 @@ export const testSuite: TestSuite = {
       prompt: summarizePrompt,
       schema: schemaWithSubValuesForCategory,
     }, 
+    {
+      name: "original prompt",
+      prompt: prompt,
+      schema: schema,
+    }
 
   ]
 } 
