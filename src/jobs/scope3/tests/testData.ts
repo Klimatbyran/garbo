@@ -166,10 +166,12 @@ export const schemaWithoutUnitInstruction = z.object({
         z.object({
           categories: z.array(
             z.object({
-              subValuesForCategory: z.union([z.array(z.number()), z.null()]),
+              originalUnitInReport: z.string(),
+              unitNeedsConversionToMatchStandardUnit: z.boolean(),
               categoryMentionsInReport: z.union([z.array(z.string()), z.null()]),
               categoryNumbersInReport: z.union([z.array(z.string()), z.null()]),
               category: z.number().int().min(1).max(16),
+              subValuesForCategory: z.union([z.array(z.number()), z.null()]),
               total: z.union([z.number(), z.null()]),
               unit: emissionUnitSchemaGarbo,
             })
