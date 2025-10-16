@@ -364,8 +364,30 @@ const executeMultipleRuns = async (
   ).filter(t => t !== null) as number[];
   
   const validRuns = runs.filter(r => r !== null);
+
+  const safeParse = (s: string) => {
+    try { return JSON.parse(s) } catch (e: any) {
+      const m = String(e?.message || '')
+      const pos = Number((m.match(/position (\d+)/)?.[1]) || 0)
+      const start = Math.max(0, pos - 200)
+      const end = Math.min(s.length, pos + 200)
+      console.error('Invalid JSON near position', pos, '\n---\n' + s.slice(start, end) + '\n---')
+      // Dump the raw JSON to tests/errors for debugging
+      try {
+        const currentDir = getCurrentDir()
+        const errorsDir = join(currentDir, 'src', 'jobs', 'scope3', 'tests', 'errors')
+        if (!existsSync(errorsDir)) mkdirSync(errorsDir, { recursive: true })
+        const ts = new Date().toISOString().replace(/[:.]/g, '-')
+        const file = join(errorsDir, `invalid_json_${ts}.json`)
+        writeFileSync(file, s)
+        console.error('💾 Saved invalid JSON to', file)
+      } catch {}
+      throw e
+    }
+  }
+
   const parsedRuns = validRuns.map(run => 
-    typeof run === 'string' ? JSON.parse(run) : run
+    typeof run === 'string' ? safeParse(run) : run
   );
   
   return { runs, timings, validRuns, parsedRuns };

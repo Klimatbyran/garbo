@@ -5,6 +5,7 @@ import { prompt } from "../prompt"
 import { 
   schemaWithSubValuesForCategory,
   summarizePrompt,
+  originalPrompt,
   } from "./testData"
 import { schema } from "@/jobs/scope3/schema"
 
@@ -16,11 +17,5 @@ export const testSuite: TestSuite = {
       prompt: summarizePrompt,
       schema: schemaWithSubValuesForCategory,
     }, 
-    {
-      name: "original prompt",
-      prompt: prompt,
-      schema: schema,
-    }
-
   ]
 } 

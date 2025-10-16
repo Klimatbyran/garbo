@@ -10,6 +10,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 1. **Reporting Categories**:
   Always report data according to the official GHG Protocol categories. If a reported category does not match the official list, include it under "16: Other."
   Data can either be prefixed with the numbers 1-16, the category name, or the number preceded by the number 3 that stands for Scope 3, like 3.2.
+  Be very careful to include all subcategories / subvalues for a certain category, like 3.2, with the corresponding category so they are all in the same place in the output.
 
   GHG Categories:
 
@@ -37,6 +38,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 - Extract values only if explicitly available in the context. Do not infer or create data. 
 - If no data is provided for a category, set the total to null.
 - If a value of 0/zero is explicitly stated, include that value and report it as 0.
+- Be very careful to check if a value is stated as 0 or null/no value. That distinction is very important and the output must be correct.
 
 
 3. **Absolute Values Only**:
@@ -83,9 +85,9 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
         { "category": 1, "total": 10, "unit": "tCO2e" },
         { "category": 2, "total": 20, "unit": "tCO2e" },
         { "category": 3, "total": 40, "unit": "tCO2e" },
-         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value was explicitly stated as 0, include it and set its total to 0.
+         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value is included in the source and explicitly stated as 0, include it and set its total to 0.
          { "category": 5, "total": null, "unit": "tCO2e" },
-         { "category": 6, "total": null, "unit": "tCO2e" },
+         { "category": 6, "total": null, "unit": "tCO2e" }, //if a value is not included in the source, ALWAYS INCLUDE IT ANYWAY, but set its total to null..
          { "category": 7, "total": null, "unit": "tCO2e" },
          { "category": 8, "total": null, "unit": "tCO2e" },
          { "category": 9, "total": 40, "unit": "tCO2e" },
@@ -122,9 +124,9 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
         { "category": 1, "total": null, "unit": "tCO2e" }, //if a value was explicitly stated as no value, '-', include it and set its total to null.
         { "category": 2, "total": 0, "unit": "tCO2e" },
         { "category": 3, "total": null, "unit": "tCO2e" },
-         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value was explicitly stated as 0, include it and set its total to 0.
+         { "category": 4, "total": 0, "unit": "tCO2e" }, // if a value is included in the source and explicitly stated as 0, include it and set its total to 0.
          { "category": 5, "total": null, "unit": "tCO2e" },
-         { "category": 6, "total": null, "unit": "tCO2e" }, 
+         { "category": 6, "total": null, "unit": "tCO2e" }, //if a value is not included in the source, ALWAYS INCLUDE IT ANYWAY, but set its total to null..
          { "category": 7, "total": null, "unit": "tCO2e" },
          { "category": 8, "total": null, "unit": "tCO2e" }, 
          { "category": 9, "total": 40, "unit": "tCO2e" }, 
@@ -166,10 +168,12 @@ export const schemaWithSubValuesForCategory = z.object({
         z.object({
           categories: z.array(
             z.object({
-              subValuesForCategory: z.union([z.array(z.number()), z.null()]),
+              originalUnitInReport: z.string(),
+              unitNeedsConversionToMatchStandardUnit: z.boolean(),
               categoryMentionsInReport: z.union([z.array(z.string()), z.null()]),
               categoryNumbersInReport: z.union([z.array(z.string()), z.null()]),
               category: z.number().int().min(1).max(16),
+              subValuesForCategory: z.union([z.array(z.number()), z.null()]),
               total: z.union([z.number(), z.null()]),
               unit: emissionUnitSchemaGarbo,
             })

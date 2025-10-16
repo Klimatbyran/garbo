@@ -49,7 +49,7 @@ const askStream = async (
     model: 'gpt-4o-2024-08-06',
     temperature: 0.1,
     stream: true,
-    max_tokens: 4096,
+    max_tokens: 8192,
     response_format: options.response_format,
     ...safeOpenAIOptions,
   } satisfies ChatCompletionCreateParamsStreaming;

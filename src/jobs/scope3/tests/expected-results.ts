@@ -13,9 +13,105 @@ export const expectedResults = {
             "unit": "tCO2e"
           }
         }
-      }
+      },
     ]
   },
+  "embracer2025": {
+    "scope3": [
+          {
+            "year": 2025,
+            "scope3": {
+              "categories": [
+                {
+                  "category": 1,
+                  "total": 5032,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 2,
+                  "total": null,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 3,
+                  "total": 749,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 4,
+                  "total": 1124,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 5,
+                  "total": null,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 6,
+                  "total": 3253,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 7,
+                  "total": 2985,
+                  "unit": "tCO2e"
+                },
+                {
+                  "category": 8,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 9,
+                  "total": 1763,
+                  "unit": null
+                },
+                {
+                  "category": 10,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 11,
+                  "total": 315927,
+                  "unit": null
+                },
+                {
+                  "category": 12,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 13,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 14,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 15,
+                  "total": null,
+                  "unit": null
+                },
+                {
+                  "category": 16,
+                  "total": null,
+                  "unit": null
+                }
+              ],
+              "statedTotalEmissions": {
+                "total": 330833,
+                "unit": "tCO2e"
+              }
+            }
+          }
+        ]
+      }
+  ,
   "ambea": {
     "scope3": [
       {
@@ -153,9 +249,19 @@ export const expectedResults = {
                 "unit": "tCO2e"
               },
               {
+                "category": 8,
+                "total": null,
+                "unit": null
+              },
+              {
                 "category": 9,
                 "total": 43000,
                 "unit": "tCO2e"
+              },
+              {
+                "category": 10,
+                "total": null,
+                "unit": null
               },
               {
                 "category": 11,
@@ -173,9 +279,19 @@ export const expectedResults = {
                 "unit": "tCO2e"
               },
               {
+                "category": 14,
+                "total": null,
+                "unit": null
+              },
+              {
                 "category": 15,
                 "total": 2000,
                 "unit": "tCO2e"
+              },
+              {
+                "category": 16,
+                "total": null,
+                "unit": null
               }
             ],
             "statedTotalEmissions": {

@@ -33,3 +33,6 @@ src/jobs/*/tests/comparison_results/*
 src/jobs/*/tests/comparison_results/*
 
 test.md
+
+
+src/jobs/promptTestingFramework/src/*
