@@ -4,8 +4,6 @@ import { DiscordQueue } from './lib/DiscordQueue'
 export const QUEUE_NAMES = {
   PARSE_PDF: 'parsePdf',
   DOCLING_PARSE_PDF: 'doclingParsePDF',
-  DOCLING_LOCAL_PARSE_PDF: 'doclingLocalParsePDF',
-  // NLM_EXTRACT_TABLES: 'nlmExtractTables',
   INDEX_MARKDOWN: 'indexMarkdown',
   PRECHECK: 'precheck',
   GUESS_WIKIDATA: 'guessWikidata',
@@ -40,7 +38,6 @@ export const QUEUE_NAMES = {
 export const queues = {
   parsePdf: new DiscordQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
-  doclingLocalParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_LOCAL_PARSE_PDF),
   indexMarkdown: new DiscordQueue(QUEUE_NAMES.INDEX_MARKDOWN),
   // nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
   precheck: new DiscordQueue(QUEUE_NAMES.PRECHECK),
