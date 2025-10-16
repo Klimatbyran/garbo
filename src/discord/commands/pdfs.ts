@@ -72,7 +72,7 @@ export default {
             url: url.trim(),
             threadId: thread.id,
             autoApprove,
-          } as DiscordJob['data'],
+          },
           {
             backoff: {
               type: 'fixed',
