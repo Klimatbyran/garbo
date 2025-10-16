@@ -73,7 +73,7 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
   Keep the output strictly in JSON format, following this structure:
 
 9. **Fiscal Year**:
-   For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (2016) in your output.
+   Very important! For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (2016) in your output.
 
 \`\`\`json
 {
@@ -158,7 +158,32 @@ Extract scope 3 emissions according to the GHG Protocol and organize them by yea
 The output must contain exactly ONE entry for each category 1-16, in numerical order. All values for that category should be included. Categories with a value of zero should have "total": 0, categories without any kind of data should have "total": null. 
 Never duplicate categories or skip category numbers.
 `
-
+export const schemaWithoutUnitInstruction = z.object({
+  scope3: z.array(
+    z.object({
+      year: z.number(),
+      scope3: z.union([
+        z.object({
+          categories: z.array(
+            z.object({
+              subValuesForCategory: z.union([z.array(z.number()), z.null()]),
+              categoryMentionsInReport: z.union([z.array(z.string()), z.null()]),
+              categoryNumbersInReport: z.union([z.array(z.string()), z.null()]),
+              category: z.number().int().min(1).max(16),
+              total: z.union([z.number(), z.null()]),
+              unit: emissionUnitSchemaGarbo,
+            })
+          ),
+          statedTotalEmissions: z.union([
+            z.object({ total: z.union([z.number(), z.null()]), unit: emissionUnitSchemaGarbo }),
+            z.null()
+          ])
+        }),
+        z.null()
+      ])
+    })
+  ),
+})
 
 export const schemaWithSubValuesForCategory = z.object({
   scope3: z.array(
@@ -189,6 +214,33 @@ export const schemaWithSubValuesForCategory = z.object({
   ),
 })
 
+
+export const originalSchema = z.object({
+  scope3: z.array(
+    z.object({
+      year: z.number(),
+      scope3: z
+        .object({
+          categories: z
+            .array(
+              z.object({
+                category: z.number().int(),
+                total: z.number(),
+                unit: emissionUnitSchemaGarbo,
+              })
+            )
+            .nullable()
+            .optional(),
+          statedTotalEmissions: z
+            .object({ total: z.number(), unit: emissionUnitSchemaGarbo })
+            .nullable()
+            .optional(),
+        })
+        .nullable()
+        .optional(),
+    })
+  ),
+})
 
 
 
