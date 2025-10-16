@@ -4,7 +4,6 @@ import {
   TextChannel,
 } from 'discord.js'
 import { queues } from '../../queues'
-import { DiscordJob } from '../../lib/DiscordWorker'
 
 export default {
   data: new SlashCommandBuilder()
@@ -59,7 +58,6 @@ export default {
         ).threads.create({
           name: url.slice(-20),
           autoArchiveDuration: 1440,
-          //startMessage: message.id,
         })
 
         thread.send(`PDF i kö: ${url}`)
