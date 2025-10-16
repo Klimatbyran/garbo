@@ -13,7 +13,7 @@ export const testSuite: TestSuite = {
   expectedResults,
   testVariations: [
     {
-      name: "baseline scope 3 prompt",
+      name: "new",
       prompt: summarizePrompt,
       schema: schemaWithSubValuesForCategory,
     }, 
