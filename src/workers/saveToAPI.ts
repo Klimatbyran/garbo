@@ -16,6 +16,8 @@ export interface SaveToApiJob extends DiscordJob {
 function removeNullValuesFromGarbo(data: any, preserveNullsInEmissions: boolean = false): any {
   if (Array.isArray(data)) {
     const mapped = data.map((item) => removeNullValuesFromGarbo(item, preserveNullsInEmissions))
+
+    //filtering out undefined values from arrays, but not nulls, if we are preserving nulls in emissions:
     return preserveNullsInEmissions
       ? mapped.filter((item) => item !== undefined)
       : mapped.filter((item) => item !== null && item !== undefined)
@@ -28,6 +30,7 @@ function removeNullValuesFromGarbo(data: any, preserveNullsInEmissions: boolean 
       }
 
       const sanitizedValue = removeNullValuesFromGarbo(value, preserveNullsInEmissions)
+      //when working our way 'back up' from the bottom of the tree, we preserve children values that still have a null or a value.
       if (preserveNullsInEmissions) {
         if (sanitizedValue !== undefined) acc[key] = sanitizedValue
       } else {
