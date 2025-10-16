@@ -15,7 +15,7 @@ if (!parsedEnv.success) {
 
   if (parsedEnv.error.errors.some((err) => err.path[0] === 'DOCLING_URL')) {
     console.error('DOCLING_URL must be a valid URL or string.')
-    console.error('When running locally, it is typically http://localhost:5002')
+    console.error('When running locally, it is typically http://localhost:5001')
     console.error(
       'In production, ensure this is correctly set in your Kubernetes config.',
     )
@@ -33,8 +33,9 @@ if (!parsedEnv.success) {
 
 const { DOCLING_USE_LOCAL, BERGET_AI_TOKEN, DOCLING_URL } = parsedEnv.data
 
-// If using local, default to http://localhost:5002 unless overridden
-const rawUrl = DOCLING_URL || (DOCLING_USE_LOCAL ? 'http://localhost:5001' : '')
+// If using local, default to http://localhost:5001 unless overridden
+const rawUrl =
+  DOCLING_URL || (DOCLING_USE_LOCAL ? 'http://localhost:5001/v1' : '')
 const baseUrl = rawUrl.replace(/\/+$/, '')
 
 if (!DOCLING_USE_LOCAL && (!baseUrl || !BERGET_AI_TOKEN)) {

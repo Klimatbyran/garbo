@@ -1,3 +1,4 @@
+// ! Commented out until we have decided how to handle screenshots and table extraction
 // import { UnrecoverableError } from 'bullmq'
 // import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 // import { ParsedDocument } from '../lib/nlm-ingestor-schema'

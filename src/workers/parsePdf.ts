@@ -4,7 +4,6 @@ import redis from '../config/redis'
 import precheck from './precheck'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
-import docling from '../config/docling'
 
 const flow = new FlowProducer({ connection: redis })
 
@@ -41,13 +40,8 @@ const parsePdf = new DiscordWorker(
               children: [
                 {
                   ...base,
-                  name:
-                    (docling.DOCLING_USE_LOCAL
-                      ? 'doclingLocalParsePDF '
-                      : 'doclingParsePDF ') + name,
-                  queueName: docling.DOCLING_USE_LOCAL
-                    ? QUEUE_NAMES.DOCLING_LOCAL_PARSE_PDF
-                    : QUEUE_NAMES.DOCLING_PARSE_PDF,
+                  name: 'doclingParsePDF',
+                  queueName: QUEUE_NAMES.DOCLING_PARSE_PDF,
                 },
               ],
             },
