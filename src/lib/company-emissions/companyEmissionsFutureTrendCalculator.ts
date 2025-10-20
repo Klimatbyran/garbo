@@ -160,7 +160,6 @@ export function calculateLADTrendSlope(
   y: { year: number; emissions: number }[],
   opts: { maxIter?: number; tol?: number; eps?: number } = {},
 ): number {
-  // LAD algorithm implementation remains the same
   const n = y.length
   const maxIter = opts.maxIter ?? 1000
   const tol = opts.tol ?? 1e-10
@@ -220,6 +219,11 @@ export function calculateLADTrendSlope(
     if (delta < tol) break
   }
 
+  // Validate result is a finite number
+  if (!isFinite(b1)) {
+    throw new Error('Invalid calculation result (non-finite number)')
+  }
+
   return b1
 }
 
@@ -252,22 +256,34 @@ export function calculateFutureEmissionTrend(
   reportedPeriods: ReportedPeriod[],
   baseYear?: number,
 ): number | null {
-  const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
-  if (!emissionsType) {
+  try {
+    // Check if we can determine emissions type
+    const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
+    if (!emissionsType) {
+      return null
+    }
+
+    // Extract and filter emissions data
+    const emissionsData = extractEmissionsArray(
+      reportedPeriods,
+      emissionsType,
+      baseYear,
+    )
+    const validEmissionsData = emissionsData.filter(
+      (item): item is { year: number; emissions: number } =>
+        hasValidValue(item.emissions) && item.emissions !== undefined,
+    )
+
+    // Check if we have enough data for trend calculation (need 3+ points)
+    if (validEmissionsData.length < 3) {
+      return null
+    }
+
+    // Calculate trend slope
+    return calculateLADTrendSlope(validEmissionsData)
+  } catch (error) {
+    // Log error for debugging but don't crash
+    console.warn('Error calculating future emission trend:', error)
     return null
   }
-
-  const emissionsData = extractEmissionsArray(
-    reportedPeriods,
-    emissionsType,
-    baseYear,
-  )
-  const validEmissionsData = emissionsData.filter(
-    (item): item is { year: number; emissions: number } =>
-      hasValidValue(item.emissions) && item.emissions !== undefined,
-  )
-
-  return validEmissionsData.length >= 3
-    ? calculateLADTrendSlope(validEmissionsData)
-    : null
 }
