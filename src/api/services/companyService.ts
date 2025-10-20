@@ -326,9 +326,12 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
         baseYear,
       )
 
+      // Ensure we always return a valid value (number or null)
+      const validSlope = typeof slope === 'number' ? slope : null
+
       return {
         ...company,
-        futureEmissionsTrendSlope: slope ?? null,
+        futureEmissionsTrendSlope: validSlope,
       }
     } catch (error) {
       console.error(
