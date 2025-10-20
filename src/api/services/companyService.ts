@@ -302,24 +302,44 @@ export function addCompanyEmissionChange(companies: any[]) {
 
 export function addFutureEmissionsTrendSlope(companies: any[]) {
   return companies.map((company) => {
-    const transformedCompany = {
-      reportedPeriods: company.reportingPeriods.map((period) => ({
-        year: new Date(period.endDate).getFullYear(),
-        emissions: period.emissions,
-      })),
-      baseYear: company.baseYear,
-    }
+    try {
+      // Ensure we have reporting periods
+      if (!company.reportingPeriods || company.reportingPeriods.length === 0) {
+        return {
+          ...company,
+          futureEmissionsTrendSlope: null,
+        }
+      }
 
-    const baseYear = transformedCompany.baseYear?.year
+      const transformedCompany = {
+        reportedPeriods: company.reportingPeriods.map((period) => ({
+          year: new Date(period.endDate).getFullYear(),
+          emissions: period.emissions,
+        })),
+        baseYear: company.baseYear,
+      }
 
-    const slope = calculateFutureEmissionTrend(
-      transformedCompany.reportedPeriods,
-      baseYear,
-    )
+      const baseYear = transformedCompany.baseYear?.year
 
-    return {
-      ...company,
-      futureEmissionsTrendSlope: slope,
+      const slope = calculateFutureEmissionTrend(
+        transformedCompany.reportedPeriods,
+        baseYear,
+      )
+
+      return {
+        ...company,
+        futureEmissionsTrendSlope: slope ?? null,
+      }
+    } catch (error) {
+      console.error(
+        'Error calculating future emissions trend slope for company:',
+        company.wikidataId,
+        error,
+      )
+      return {
+        ...company,
+        futureEmissionsTrendSlope: null,
+      }
     }
   })
 }
