@@ -407,7 +407,7 @@ const InputYearlyDataSchema = z
 export const InputMunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
-  coatOfArmsUrl: z.string().nullable(),
+  logoUrl: z.string().nullable(),
   emissions: InputYearlyDataSchema,
   approximatedHistoricalEmission: InputYearlyDataSchema,
   trend: InputYearlyDataSchema,
