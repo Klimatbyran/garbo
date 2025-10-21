@@ -12,18 +12,20 @@ const main = async () => {
   
   const { suiteName, options } = parseArgs(args);
 
-  const { yearsToCheck = [], fileNamesToCheck = [], runsPerTest = DEFAULT_RUNS_PER_TEST } = options as ComparisonOptions;
+  const { yearsToCheck = [], fileNamesToCheck = [], runsPerTest = DEFAULT_RUNS_PER_TEST, dataKey } = options as ComparisonOptions;
 
   console.log("— Run Configuration —");
   console.log(`Suite: ${suiteName}`);
   console.log(`Runs per test: ${runsPerTest}`);
   console.log(`Files: ${fileNamesToCheck?.length ? fileNamesToCheck.join(', ') : 'ALL'}`);
   console.log(`Years: ${yearsToCheck?.length ? yearsToCheck.join(', ') : 'ALL'}`);
+  console.log(`Data key: ${dataKey ?? (suiteName.includes('scope3') ? 'scope3' : 'scope12')}`);
   console.log("———————————————");
 
   try {
     const testSuite = await loadTestSuite(suiteName);
-    const testFiles = loadTestFiles(suiteName, testSuite, yearsToCheck ?? [], fileNamesToCheck ?? []);
+    const resolvedDataKey = dataKey ?? (suiteName.includes('scope3') ? 'scope3' : 'scope12');
+    const testFiles = loadTestFiles(suiteName, testSuite, yearsToCheck ?? [], fileNamesToCheck ?? [], resolvedDataKey);
 
     if (testFiles.length === 0) {
       console.error("❌ No test files found. Please add .md/.txt files with corresponding expected results to the input/ directory");
@@ -37,7 +39,8 @@ const main = async () => {
       runsPerTest,
       outputDir: `../${suiteName}/tests/comparison_results`,
       yearsToCheck: yearsToCheck ?? [],
-      fileNamesToCheck: fileNamesToCheck ?? []
+      fileNamesToCheck: fileNamesToCheck ?? [],
+      dataKey: resolvedDataKey
     };
 
     const report = await runComparisonTest(config);

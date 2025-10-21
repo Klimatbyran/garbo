@@ -31,3 +31,8 @@ src/jobs/*/tests/comparison_results/*
 
 # Ignore comparison results
 src/jobs/*/tests/comparison_results/*
+
+test.md
+
+
+src/jobs/promptTestingFramework/src/*

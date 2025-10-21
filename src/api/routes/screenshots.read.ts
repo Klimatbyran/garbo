@@ -5,11 +5,13 @@ import { Storage } from '@google-cloud/storage';
 import { createSafeFolderName } from '@/lib/pathUtils';
 import { getTags } from '@/config/openapi';
 
-const credentials = JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString());
-const storage = new Storage({
+const credentials = googleScreenshotBucketConfig.bucketKey 
+  ? JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString())
+  : null;
+const storage = credentials ? new Storage({
   credentials,
   projectId: credentials.project_id,
-});
+}) : null;
 
 const screenshotsQuerySchema = z.object({
   url: z.string()
@@ -32,6 +34,12 @@ export async function screenshotsReadRoutes(app: FastifyInstance) {
     },
   }, async (request: FastifyRequest<{ Querystring: z.infer<typeof screenshotsQuerySchema> }>, reply) => {
     try {
+      if (!storage) {
+        return reply
+          .status(503)
+          .send({ error: 'Screenshot service not configured' });
+      }
+
       const { url } = request.query;
       
       const decodedUrl = decodeURIComponent(url);

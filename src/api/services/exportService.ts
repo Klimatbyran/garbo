@@ -173,6 +173,7 @@ class ExportService {
         region: municipality.region,
         totalTrend: municipality.totalTrend,
         totalCarbonLaw: municipality.totalCarbonLaw,
+        logoUrl: municipality.logoUrl,
         historicalEmissionChangePercent:
           municipality.historicalEmissionChangePercent,
         electricCarChangePercent: municipality.electricCarChangePercent,
@@ -333,6 +334,7 @@ export type YearlyData = { year: string; value: number } | null
 export interface Municipality {
   name: string
   region: string
+  logoUrl: string | null
   emissions: YearlyData[] // List of yearly emissions data
   totalTrend: number // Sum of future trend of emissions
   totalCarbonLaw: number // Sum of future carbon law of emissions
