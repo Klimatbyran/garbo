@@ -171,6 +171,7 @@ class ExportService {
       csvRows.push({
         name: municipality.name,
         region: municipality.region,
+        logoUrl: municipality.logoUrl,
         historicalEmissionChangePercent:
           municipality.historicalEmissionChangePercent,
         electricCarChangePercent: municipality.electricCarChangePercent,
@@ -332,6 +333,7 @@ export type YearlyData = { year: string; value: number } | null
 export interface Municipality {
   name: string
   region: string
+  logoUrl: string | null
   emissions: YearlyData[] // List of yearly emissions data
   approximatedHistoricalEmission: YearlyData[] // List of historical emission approximations
   trend: YearlyData[] // List of yearly emissions trend data
