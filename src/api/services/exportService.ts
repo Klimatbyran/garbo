@@ -171,6 +171,8 @@ class ExportService {
       csvRows.push({
         name: municipality.name,
         region: municipality.region,
+        totalTrend: municipality.totalTrend,
+        totalCarbonLaw: municipality.totalCarbonLaw,
         logoUrl: municipality.logoUrl,
         historicalEmissionChangePercent:
           municipality.historicalEmissionChangePercent,
@@ -188,7 +190,6 @@ class ExportService {
           ? municipality.politicalRule.join(', ')
           : '',
         politicalKSO: municipality.politicalKSO || '', // Ensure it's a string
-        meetsParisGoal: municipality.meetsParisGoal || false, // Ensure it's a boolean
         ...this.transformYearlyData(municipality.emissions, 'emissions'),
         ...this.transformYearlyData(
           municipality.approximatedHistoricalEmission,
@@ -335,9 +336,10 @@ export interface Municipality {
   region: string
   logoUrl: string | null
   emissions: YearlyData[] // List of yearly emissions data
+  totalTrend: number // Sum of future trend of emissions
+  totalCarbonLaw: number // Sum of future carbon law of emissions
   approximatedHistoricalEmission: YearlyData[] // List of historical emission approximations
   trend: YearlyData[] // List of yearly emissions trend data
-  meetsParisGoal: boolean
   historicalEmissionChangePercent: number // Change in historical emissions percentage
   electricCarChangePercent: number // Percentage change in electric cars
   climatePlanLink: string | null // Link to the climate plan (nullable)
