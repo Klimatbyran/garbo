@@ -1,7 +1,7 @@
 [
   {
     "name": "Ale",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ale%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ale%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 122479.27,
@@ -67,7 +67,7 @@
   },
   {
     "name": "Alingsås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alings%C3%A5s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alings%C3%A5s%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 168626.46,
@@ -133,7 +133,7 @@
   },
   {
     "name": "Alvesta",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alvesta%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alvesta%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 154820.05,
@@ -199,7 +199,7 @@
   },
   {
     "name": "Aneby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aneby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aneby%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 60302.63,
@@ -265,7 +265,7 @@
   },
   {
     "name": "Arboga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arboga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arboga%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 84405.49,
@@ -331,7 +331,7 @@
   },
   {
     "name": "Arjeplog",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arjeplog%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arjeplog%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 48530.02,
@@ -397,7 +397,7 @@
   },
   {
     "name": "Arvidsjaur",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arvidsjaur%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arvidsjaur%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 56011.28,
@@ -463,7 +463,7 @@
   },
   {
     "name": "Arvika",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arvika%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Arvika%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 164919.97,
@@ -529,7 +529,7 @@
   },
   {
     "name": "Askersund",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Askersund%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Askersund%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 168281.24,
@@ -595,7 +595,7 @@
   },
   {
     "name": "Avesta",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Avesta%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Avesta%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 320739.56,
@@ -661,7 +661,7 @@
   },
   {
     "name": "Bengtsfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bengtsfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bengtsfors%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 116263.04,
@@ -727,7 +727,7 @@
   },
   {
     "name": "Berg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Berg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Berg%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 94664.08,
@@ -793,7 +793,7 @@
   },
   {
     "name": "Bjurholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bjurholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bjurholm%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 26535.39,
@@ -859,7 +859,7 @@
   },
   {
     "name": "Bjuv",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bjuv%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bjuv%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 179143.9,
@@ -925,7 +925,7 @@
   },
   {
     "name": "Boden",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Boden%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Boden%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 162717.58,
@@ -991,7 +991,7 @@
   },
   {
     "name": "Bollebygd",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bollebygd%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bollebygd%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 48847.91,
@@ -1057,7 +1057,7 @@
   },
   {
     "name": "Bollnäs",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bolln%C3%A4s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bolln%C3%A4s%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 170380.33,
@@ -1123,7 +1123,7 @@
   },
   {
     "name": "Borgholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Borgholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Borgholm%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 168909.02,
@@ -1189,7 +1189,7 @@
   },
   {
     "name": "Borlänge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Borl%C3%A4nge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Borl%C3%A4nge%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 551572.72,
@@ -1255,7 +1255,7 @@
   },
   {
     "name": "Borås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bor%C3%A5s%20kommunvapen%20-%20Riksarkivet%20Sverige-vector.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bor%C3%A5s%20kommunvapen%20-%20Riksarkivet%20Sverige-vector.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 452680.09,
@@ -1321,7 +1321,7 @@
   },
   {
     "name": "Botkyrka",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Botkyrka%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Botkyrka%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 362738.58,
@@ -1387,7 +1387,7 @@
   },
   {
     "name": "Boxholm",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Östergötlands län",
     "emissions": {
       "1990": 77577.39,
@@ -1453,7 +1453,7 @@
   },
   {
     "name": "Bromölla",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brom%C3%B6lla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brom%C3%B6lla%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 138491.07,
@@ -1519,7 +1519,7 @@
   },
   {
     "name": "Bräcke",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Br%C3%A4cke%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Br%C3%A4cke%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 73838.84,
@@ -1585,7 +1585,7 @@
   },
   {
     "name": "Burlöv",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Burl%C3%B6v%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Burl%C3%B6v%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 188368.05,
@@ -1651,7 +1651,7 @@
   },
   {
     "name": "Båstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/B%C3%A5stad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/B%C3%A5stad%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 162158.48,
@@ -1717,7 +1717,7 @@
   },
   {
     "name": "Dals-Ed",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dals-Ed%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dals-Ed%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 43167.27,
@@ -1783,7 +1783,7 @@
   },
   {
     "name": "Danderyd",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Danderyd%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Danderyd%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 104400.21,
@@ -1849,7 +1849,7 @@
   },
   {
     "name": "Degerfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Degerfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Degerfors%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 91849.06,
@@ -1915,7 +1915,7 @@
   },
   {
     "name": "Dorotea",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dorotea%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dorotea%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 26600.66,
@@ -1981,7 +1981,7 @@
   },
   {
     "name": "Eda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eda%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 84288.95,
@@ -2047,7 +2047,7 @@
   },
   {
     "name": "Ekerö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eker%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eker%C3%B6%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 100806.2,
@@ -2113,7 +2113,7 @@
   },
   {
     "name": "Eksjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eksj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eksj%C3%B6%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 129879.38,
@@ -2179,7 +2179,7 @@
   },
   {
     "name": "Emmaboda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emmaboda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Emmaboda%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 72560.05,
@@ -2245,7 +2245,7 @@
   },
   {
     "name": "Enköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enk%C3%B6ping%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 319407.18,
@@ -2311,7 +2311,7 @@
   },
   {
     "name": "Eskilstuna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eskilstuna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eskilstuna%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 451870.55,
@@ -2377,7 +2377,7 @@
   },
   {
     "name": "Eslöv",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Esl%C3%B6v%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Esl%C3%B6v%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 310436.53,
@@ -2443,7 +2443,7 @@
   },
   {
     "name": "Essunga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Essunga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Essunga%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 51171.29,
@@ -2509,7 +2509,7 @@
   },
   {
     "name": "Fagersta",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Fagersta%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Fagersta%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 102503.8,
@@ -2575,7 +2575,7 @@
   },
   {
     "name": "Falkenberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falkenberg%20kommunvapen%20-%20Riksarkivet%20Sverige-vector.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falkenberg%20kommunvapen%20-%20Riksarkivet%20Sverige-vector.svg",
     "region": "Hallands län",
     "emissions": {
       "1990": 350081.97,
@@ -2641,7 +2641,7 @@
   },
   {
     "name": "Falköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falk%C3%B6ping%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 295247.24,
@@ -2707,7 +2707,7 @@
   },
   {
     "name": "Falun",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falun%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Falun%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 235402.59,
@@ -2773,7 +2773,7 @@
   },
   {
     "name": "Filipstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Filipstad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Filipstad%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 99717.0,
@@ -2839,7 +2839,7 @@
   },
   {
     "name": "Finspång",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Finsp%C3%A5ng%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Finsp%C3%A5ng%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 126740.56,
@@ -2905,7 +2905,7 @@
   },
   {
     "name": "Flen",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flen%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Flen%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 132924.82,
@@ -2971,7 +2971,7 @@
   },
   {
     "name": "Forshaga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Forshaga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Forshaga%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 57655.25,
@@ -3037,7 +3037,7 @@
   },
   {
     "name": "Färgelanda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/F%C3%A4rgelanda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/F%C3%A4rgelanda%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 63837.09,
@@ -3103,7 +3103,7 @@
   },
   {
     "name": "Gagnef",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gagnef%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gagnef%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 55192.49,
@@ -3169,7 +3169,7 @@
   },
   {
     "name": "Gislaved",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gislaved%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gislaved%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 173891.11,
@@ -3235,7 +3235,7 @@
   },
   {
     "name": "Gnesta",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gnesta%20k%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gnesta%20k%C3%B6ping%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 66168.26,
@@ -3301,7 +3301,7 @@
   },
   {
     "name": "Gnosjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gnosj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gnosj%C3%B6%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 58924.68,
@@ -3367,7 +3367,7 @@
   },
   {
     "name": "Gotland",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gotland%20kommunvapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gotland%20kommunvapen.svg",
     "region": "Gotlands län",
     "emissions": {
       "1990": 2314888.42,
@@ -3433,7 +3433,7 @@
   },
   {
     "name": "Grums",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Grums%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Grums%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 130025.67,
@@ -3499,7 +3499,7 @@
   },
   {
     "name": "Grästorp",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gr%C3%A4storp%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gr%C3%A4storp%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 58651.99,
@@ -3565,7 +3565,7 @@
   },
   {
     "name": "Gullspång",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gullsp%C3%A5ng%20vapen2.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gullsp%C3%A5ng%20vapen2.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 58761.58,
@@ -3631,7 +3631,7 @@
   },
   {
     "name": "Gällivare",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%A4llivare%20kommunvapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%A4llivare%20kommunvapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 357491.41,
@@ -3697,7 +3697,7 @@
   },
   {
     "name": "Gävle",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%A4vle%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%A4vle%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 604687.19,
@@ -3763,7 +3763,7 @@
   },
   {
     "name": "Göteborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%B6teborg%20kommunvapen%20-%20Riksarkivet%20Sverige.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%B6teborg%20kommunvapen%20-%20Riksarkivet%20Sverige.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 2485948.52,
@@ -3829,7 +3829,7 @@
   },
   {
     "name": "Götene",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%B6tene%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/G%C3%B6tene%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 168370.93,
@@ -3895,7 +3895,7 @@
   },
   {
     "name": "Habo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Habo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Habo%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 70164.45,
@@ -3961,7 +3961,7 @@
   },
   {
     "name": "Hagfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hagfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hagfors%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 165447.79,
@@ -4027,7 +4027,7 @@
   },
   {
     "name": "Hallsberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallsberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallsberg%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 112876.04,
@@ -4093,7 +4093,7 @@
   },
   {
     "name": "Hallstahammar",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallstahammar%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hallstahammar%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 85179.12,
@@ -4159,7 +4159,7 @@
   },
   {
     "name": "Halmstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Halmstad%20stora%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Halmstad%20stora%20vapen.svg",
     "region": "Hallands län",
     "emissions": {
       "1990": 730543.15,
@@ -4225,7 +4225,7 @@
   },
   {
     "name": "Hammarö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hammar%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hammar%C3%B6%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 151244.25,
@@ -4291,7 +4291,7 @@
   },
   {
     "name": "Haninge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Haninge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Haninge%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 218902.31,
@@ -4357,7 +4357,7 @@
   },
   {
     "name": "Haparanda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Haparanda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Haparanda%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 81104.08,
@@ -4423,7 +4423,7 @@
   },
   {
     "name": "Heby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Heby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Heby%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 132007.52,
@@ -4489,7 +4489,7 @@
   },
   {
     "name": "Hedemora",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hedemora%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hedemora%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 118555.08,
@@ -4555,7 +4555,7 @@
   },
   {
     "name": "Helsingborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Helsingborg%2C%20Sweden.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Coat%20of%20arms%20of%20Helsingborg%2C%20Sweden.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 1112372.0,
@@ -4621,7 +4621,7 @@
   },
   {
     "name": "Herrljunga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Herrljunga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Herrljunga%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 94572.11,
@@ -4687,7 +4687,7 @@
   },
   {
     "name": "Hjo",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 64160.33,
@@ -4753,7 +4753,7 @@
   },
   {
     "name": "Hofors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hofors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hofors%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 162647.96,
@@ -4819,7 +4819,7 @@
   },
   {
     "name": "Huddinge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Huddinge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Huddinge%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 334565.94,
@@ -4885,7 +4885,7 @@
   },
   {
     "name": "Hudiksvall",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hudiksvall%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hudiksvall%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 406991.94,
@@ -4951,7 +4951,7 @@
   },
   {
     "name": "Hultsfred",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hultsfred%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hultsfred%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 156331.12,
@@ -5017,7 +5017,7 @@
   },
   {
     "name": "Hylte",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hylte%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hylte%20vapen.svg",
     "region": "Hallands län",
     "emissions": {
       "1990": 234390.12,
@@ -5083,7 +5083,7 @@
   },
   {
     "name": "Hällefors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4llefors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4llefors%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 106461.33,
@@ -5149,7 +5149,7 @@
   },
   {
     "name": "Härjedalen",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rjedalen%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rjedalen%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 153696.06,
@@ -5215,7 +5215,7 @@
   },
   {
     "name": "Härnösand",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rn%C3%B6sand%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rn%C3%B6sand%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 236932.57,
@@ -5281,7 +5281,7 @@
   },
   {
     "name": "Härryda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rryda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4rryda%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 186797.64,
@@ -5353,7 +5353,7 @@
   },
   {
     "name": "Hässleholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4ssleholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A4ssleholm%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 402423.67,
@@ -5419,7 +5419,7 @@
   },
   {
     "name": "Håbo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A5bo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%A5bo%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 109824.69,
@@ -5485,7 +5485,7 @@
   },
   {
     "name": "Höganäs",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6gan%C3%A4s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6gan%C3%A4s%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 256146.85,
@@ -5551,7 +5551,7 @@
   },
   {
     "name": "Högsby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6gsby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6gsby%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 62844.05,
@@ -5617,7 +5617,7 @@
   },
   {
     "name": "Hörby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6rby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6rby%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 148930.02,
@@ -5683,7 +5683,7 @@
   },
   {
     "name": "Höör",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6%C3%B6r%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B6%C3%B6r%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 101937.23,
@@ -5749,7 +5749,7 @@
   },
   {
     "name": "Jokkmokk",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jokkmokk%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jokkmokk%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 94965.32,
@@ -5815,7 +5815,7 @@
   },
   {
     "name": "Järfälla",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%A4rf%C3%A4lla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%A4rf%C3%A4lla%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 125762.12,
@@ -5881,7 +5881,7 @@
   },
   {
     "name": "Jönköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6nk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%B6nk%C3%B6ping%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 674950.73,
@@ -5947,7 +5947,7 @@
   },
   {
     "name": "Kalix",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalix%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalix%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 200448.21,
@@ -6013,7 +6013,7 @@
   },
   {
     "name": "Kalmar",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Kalmar län",
     "emissions": {
       "1990": 398335.95,
@@ -6079,7 +6079,7 @@
   },
   {
     "name": "Karlsborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlsborg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlsborg%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 46188.52,
@@ -6145,7 +6145,7 @@
   },
   {
     "name": "Karlshamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlshamn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlshamn%20vapen.svg",
     "region": "Blekinge län",
     "emissions": {
       "1990": 254313.21,
@@ -6211,7 +6211,7 @@
   },
   {
     "name": "Karlskoga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlskoga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlskoga%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 310474.21,
@@ -6277,7 +6277,7 @@
   },
   {
     "name": "Karlskrona",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlskrona%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlskrona%20vapen.svg",
     "region": "Blekinge län",
     "emissions": {
       "1990": 333668.92,
@@ -6343,7 +6343,7 @@
   },
   {
     "name": "Karlstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlstad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karlstad%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 499673.47,
@@ -6409,7 +6409,7 @@
   },
   {
     "name": "Katrineholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Katrineholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Katrineholm%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 280286.73,
@@ -6475,7 +6475,7 @@
   },
   {
     "name": "Kil",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kil%20municipal%20arms.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kil%20municipal%20arms.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 78664.73,
@@ -6541,7 +6541,7 @@
   },
   {
     "name": "Kinda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kinda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kinda%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 114833.64,
@@ -6607,7 +6607,7 @@
   },
   {
     "name": "Kiruna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kiruna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kiruna%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 295876.93,
@@ -6673,7 +6673,7 @@
   },
   {
     "name": "Klippan",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Klippan%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Klippan%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 217218.24,
@@ -6739,7 +6739,7 @@
   },
   {
     "name": "Knivsta",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Knivsta%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Knivsta%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 94787.27,
@@ -6805,7 +6805,7 @@
   },
   {
     "name": "Kramfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kramfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kramfors%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 210820.5,
@@ -6871,7 +6871,7 @@
   },
   {
     "name": "Kristianstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kristianstad%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kristianstad%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Skåne län",
     "emissions": {
       "1990": 615301.31,
@@ -6937,7 +6937,7 @@
   },
   {
     "name": "Kristinehamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kristinehamn-vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kristinehamn-vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 193515.72,
@@ -7003,7 +7003,7 @@
   },
   {
     "name": "Krokom",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Krokom%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Krokom%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 115752.22,
@@ -7069,7 +7069,7 @@
   },
   {
     "name": "Kumla",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kumla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kumla%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 178398.9,
@@ -7135,7 +7135,7 @@
   },
   {
     "name": "Kungsbacka",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kungsbacka%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kungsbacka%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Hallands län",
     "emissions": {
       "1990": 300419.63,
@@ -7201,7 +7201,7 @@
   },
   {
     "name": "Kungsör",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kungs%C3%B6r%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kungs%C3%B6r%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 66305.19,
@@ -7267,7 +7267,7 @@
   },
   {
     "name": "Kungälv",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kung%C3%A4lv%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kung%C3%A4lv%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 173189.19,
@@ -7333,7 +7333,7 @@
   },
   {
     "name": "Kävlinge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%A4vlinge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%A4vlinge%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 140322.71,
@@ -7399,7 +7399,7 @@
   },
   {
     "name": "Köping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%B6pings%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/K%C3%B6pings%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 761036.28,
@@ -7465,7 +7465,7 @@
   },
   {
     "name": "Laholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Laholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Laholm%20vapen.svg",
     "region": "Hallands län",
     "emissions": {
       "1990": 270381.35,
@@ -7531,7 +7531,7 @@
   },
   {
     "name": "Landskrona",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Landskrona%20fulla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Landskrona%20fulla%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 505568.97,
@@ -7597,7 +7597,7 @@
   },
   {
     "name": "Laxå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lax%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lax%C3%A5%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 99908.23,
@@ -7663,7 +7663,7 @@
   },
   {
     "name": "Lekeberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lekeberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lekeberg%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 52016.24,
@@ -7729,7 +7729,7 @@
   },
   {
     "name": "Leksand",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leksand%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leksand%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 92957.77,
@@ -7795,7 +7795,7 @@
   },
   {
     "name": "Lerum",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lerum%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lerum%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 131429.74,
@@ -7861,7 +7861,7 @@
   },
   {
     "name": "Lessebo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lessebo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lessebo%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 75734.13,
@@ -7927,7 +7927,7 @@
   },
   {
     "name": "Lidingö",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Stockholms län",
     "emissions": {
       "1990": 105912.02,
@@ -7993,7 +7993,7 @@
   },
   {
     "name": "Lidköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lidk%C3%B6ping%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lidk%C3%B6ping%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 236414.85,
@@ -8059,7 +8059,7 @@
   },
   {
     "name": "Lilla Edet",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lilla%20Edet%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lilla%20Edet%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 87448.85,
@@ -8125,7 +8125,7 @@
   },
   {
     "name": "Lindesberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lindesberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lindesberg%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 245979.69,
@@ -8191,7 +8191,7 @@
   },
   {
     "name": "Linköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Link%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Link%C3%B6ping%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 1209898.44,
@@ -8257,7 +8257,7 @@
   },
   {
     "name": "Ljungby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljungby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljungby%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 266177.87,
@@ -8323,7 +8323,7 @@
   },
   {
     "name": "Ljusdal",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljusdal%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljusdal%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 166442.35,
@@ -8389,7 +8389,7 @@
   },
   {
     "name": "Ljusnarsberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljusnarsberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ljusnarsberg%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 59391.14,
@@ -8455,7 +8455,7 @@
   },
   {
     "name": "Lomma",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lomma%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lomma%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 123221.7,
@@ -8521,7 +8521,7 @@
   },
   {
     "name": "Ludvika",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ludvika%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ludvika%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 197557.08,
@@ -8587,7 +8587,7 @@
   },
   {
     "name": "Luleå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lule%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lule%C3%A5%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 3160885.56,
@@ -8653,7 +8653,7 @@
   },
   {
     "name": "Lund",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Skåne län",
     "emissions": {
       "1990": 326582.39,
@@ -8719,7 +8719,7 @@
   },
   {
     "name": "Lycksele",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lycksele%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lycksele%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 89251.48,
@@ -8785,7 +8785,7 @@
   },
   {
     "name": "Lysekil",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lysekil%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lysekil%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 1244402.94,
@@ -8851,7 +8851,7 @@
   },
   {
     "name": "Malmö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malm%C3%B6%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malm%C3%B6%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Skåne län",
     "emissions": {
       "1990": 1278198.73,
@@ -8917,7 +8917,7 @@
   },
   {
     "name": "Malung-Sälen",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malung%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Malung%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 81276.7,
@@ -8983,7 +8983,7 @@
   },
   {
     "name": "Malå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mal%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mal%C3%A5%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 17216.09,
@@ -9049,7 +9049,7 @@
   },
   {
     "name": "Mariestad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mariestad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mariestad%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 168094.87,
@@ -9115,7 +9115,7 @@
   },
   {
     "name": "Mark",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mark%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mark%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 207017.91,
@@ -9181,7 +9181,7 @@
   },
   {
     "name": "Markaryd",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Markaryd%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Markaryd%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 150655.34,
@@ -9247,7 +9247,7 @@
   },
   {
     "name": "Mellerud",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mellerud%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mellerud%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 111327.55,
@@ -9313,7 +9313,7 @@
   },
   {
     "name": "Mjölby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mj%C3%B6lby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mj%C3%B6lby%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 180893.74,
@@ -9379,7 +9379,7 @@
   },
   {
     "name": "Mora",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Dalarnas län",
     "emissions": {
       "1990": 123450.32,
@@ -9445,7 +9445,7 @@
   },
   {
     "name": "Motala",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Motala%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Motala%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 214244.26,
@@ -9511,7 +9511,7 @@
   },
   {
     "name": "Mullsjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mullsj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mullsj%C3%B6%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 33838.58,
@@ -9577,7 +9577,7 @@
   },
   {
     "name": "Munkedal",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Munkedal%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Munkedal%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 122663.56,
@@ -9643,7 +9643,7 @@
   },
   {
     "name": "Munkfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Munkfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Munkfors%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 27320.24,
@@ -9709,7 +9709,7 @@
   },
   {
     "name": "Mölndal",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6lndal%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6lndal%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 342047.26,
@@ -9775,7 +9775,7 @@
   },
   {
     "name": "Mönsterås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6nster%C3%A5s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6nster%C3%A5s%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 108785.8,
@@ -9841,7 +9841,7 @@
   },
   {
     "name": "Mörbylånga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6rbyl%C3%A5nga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/M%C3%B6rbyl%C3%A5nga%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 301593.92,
@@ -9907,7 +9907,7 @@
   },
   {
     "name": "Nacka",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nacka%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nacka%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 196104.84,
@@ -9973,7 +9973,7 @@
   },
   {
     "name": "Nora",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nora%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nora%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 56726.49,
@@ -10039,7 +10039,7 @@
   },
   {
     "name": "Norberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norberg%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 43848.48,
@@ -10105,7 +10105,7 @@
   },
   {
     "name": "Nordanstig",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nordanstig%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nordanstig%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 90583.24,
@@ -10171,7 +10171,7 @@
   },
   {
     "name": "Nordmaling",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nordmaling%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nordmaling%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 81034.22,
@@ -10237,7 +10237,7 @@
   },
   {
     "name": "Norrköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norrk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norrk%C3%B6ping%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 655250.41,
@@ -10303,7 +10303,7 @@
   },
   {
     "name": "Norrtälje",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norrt%C3%A4ljes%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norrt%C3%A4ljes%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 416466.64,
@@ -10369,7 +10369,7 @@
   },
   {
     "name": "Norsjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norsj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Norsj%C3%B6%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 32793.44,
@@ -10435,7 +10435,7 @@
   },
   {
     "name": "Nybro",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nybro%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nybro%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 127372.44,
@@ -10501,7 +10501,7 @@
   },
   {
     "name": "Nykvarn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nykvarn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nykvarn%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 49443.58,
@@ -10567,7 +10567,7 @@
   },
   {
     "name": "Nyköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyk%C3%B6ping%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 591694.99,
@@ -10633,7 +10633,7 @@
   },
   {
     "name": "Nynäshamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyn%C3%A4shamn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nyn%C3%A4shamn%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 224276.01,
@@ -10699,7 +10699,7 @@
   },
   {
     "name": "Nässjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/N%C3%A4ssj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/N%C3%A4ssj%C3%B6%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 184013.53,
@@ -10765,7 +10765,7 @@
   },
   {
     "name": "Ockelbo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ockelbo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ockelbo%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 41781.5,
@@ -10831,7 +10831,7 @@
   },
   {
     "name": "Olofström",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Olofstr%C3%B6m%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Olofstr%C3%B6m%20vapen.svg",
     "region": "Blekinge län",
     "emissions": {
       "1990": 84141.68,
@@ -10897,7 +10897,7 @@
   },
   {
     "name": "Orsa",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Orsa%20vapen2.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Orsa%20vapen2.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 37599.05,
@@ -10963,7 +10963,7 @@
   },
   {
     "name": "Orust",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Orust%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Orust%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 100275.79,
@@ -11029,7 +11029,7 @@
   },
   {
     "name": "Osby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Osby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Osby%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 80423.28,
@@ -11095,7 +11095,7 @@
   },
   {
     "name": "Oskarshamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oskarshamn%20kommunvapen%20%E2%80%93%20Riksarkivet%20Sverige.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oskarshamn%20kommunvapen%20%E2%80%93%20Riksarkivet%20Sverige.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 187868.18,
@@ -11161,7 +11161,7 @@
   },
   {
     "name": "Ovanåker",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ovan%C3%A5ker%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ovan%C3%A5ker%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 72891.14,
@@ -11227,7 +11227,7 @@
   },
   {
     "name": "Oxelösund",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oxel%C3%B6sund%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oxel%C3%B6sund%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 2339416.07,
@@ -11293,7 +11293,7 @@
   },
   {
     "name": "Pajala",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pajala%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pajala%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 71586.42,
@@ -11359,7 +11359,7 @@
   },
   {
     "name": "Partille",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Partille%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Partille%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 77218.12,
@@ -11425,7 +11425,7 @@
   },
   {
     "name": "Perstorp",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Perstorp%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Perstorp%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 153337.94,
@@ -11491,7 +11491,7 @@
   },
   {
     "name": "Piteå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pite%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pite%C3%A5%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 413186.77,
@@ -11557,7 +11557,7 @@
   },
   {
     "name": "Ragunda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ragunda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ragunda%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 62737.5,
@@ -11623,7 +11623,7 @@
   },
   {
     "name": "Robertsfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Robertsfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Robertsfors%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 82023.54,
@@ -11689,7 +11689,7 @@
   },
   {
     "name": "Ronneby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ronneby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ronneby%20vapen.svg",
     "region": "Blekinge län",
     "emissions": {
       "1990": 188379.64,
@@ -11755,7 +11755,7 @@
   },
   {
     "name": "Rättvik",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/R%C3%A4ttvik%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/R%C3%A4ttvik%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 199731.16,
@@ -11821,7 +11821,7 @@
   },
   {
     "name": "Sala",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sala%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sala%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 203747.88,
@@ -11887,7 +11887,7 @@
   },
   {
     "name": "Salem",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Salem%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Salem%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 57594.49,
@@ -11953,7 +11953,7 @@
   },
   {
     "name": "Sandviken",
-    "coatOfArmsUrl": null,
+    "logoUrl": null,
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 260793.71,
@@ -12019,7 +12019,7 @@
   },
   {
     "name": "Sigtuna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sigtuna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sigtuna%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 422922.67,
@@ -12085,7 +12085,7 @@
   },
   {
     "name": "Simrishamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Simrishamn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Simrishamn%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 151939.24,
@@ -12151,7 +12151,7 @@
   },
   {
     "name": "Sjöbo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sj%C3%B6bo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sj%C3%B6bo%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 162511.64,
@@ -12217,7 +12217,7 @@
   },
   {
     "name": "Skara",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skara%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skara%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 185677.28,
@@ -12283,7 +12283,7 @@
   },
   {
     "name": "Skellefteå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skellefte%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skellefte%C3%A5%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 691454.99,
@@ -12349,7 +12349,7 @@
   },
   {
     "name": "Skinnskatteberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skinnskatteberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skinnskatteberg%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 43696.63,
@@ -12415,7 +12415,7 @@
   },
   {
     "name": "Skurup",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skurup%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skurup%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 78536.81,
@@ -12481,7 +12481,7 @@
   },
   {
     "name": "Skövde",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skoevde%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Skoevde%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 872602.66,
@@ -12547,7 +12547,7 @@
   },
   {
     "name": "Smedjebacken",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Smedjebacken%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Smedjebacken%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 169152.41,
@@ -12613,7 +12613,7 @@
   },
   {
     "name": "Sollefteå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sollefte%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sollefte%C3%A5%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 176770.92,
@@ -12679,7 +12679,7 @@
   },
   {
     "name": "Sollentuna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sollentuna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sollentuna%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 198441.81,
@@ -12745,7 +12745,7 @@
   },
   {
     "name": "Solna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Solna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Solna%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 203605.9,
@@ -12811,7 +12811,7 @@
   },
   {
     "name": "Sorsele",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sorsele%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sorsele%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 25384.31,
@@ -12877,7 +12877,7 @@
   },
   {
     "name": "Sotenäs",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Soten%C3%A4s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Soten%C3%A4s%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 58056.26,
@@ -12943,7 +12943,7 @@
   },
   {
     "name": "Staffanstorp",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Staffanstorp%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Staffanstorp%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 113953.53,
@@ -13009,7 +13009,7 @@
   },
   {
     "name": "Stenungsund",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Stenungsund%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Stenungsund%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 776200.51,
@@ -13075,7 +13075,7 @@
   },
   {
     "name": "Stockholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Stockholm%20vapen%20bra.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Stockholm%20vapen%20bra.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 2161270.22,
@@ -13141,7 +13141,7 @@
   },
   {
     "name": "Storfors",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Storfors%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Storfors%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 42649.08,
@@ -13207,7 +13207,7 @@
   },
   {
     "name": "Storuman",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Storuman%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Storuman%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 74837.57,
@@ -13273,7 +13273,7 @@
   },
   {
     "name": "Strängnäs",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%A4ngn%C3%A4s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%A4ngn%C3%A4s%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 183961.42,
@@ -13339,7 +13339,7 @@
   },
   {
     "name": "Strömstad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%B6mstad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%B6mstad%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 99864.94,
@@ -13405,7 +13405,7 @@
   },
   {
     "name": "Strömsund",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%B6msund%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Str%C3%B6msund%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 144856.36,
@@ -13471,7 +13471,7 @@
   },
   {
     "name": "Sundbyberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sundbyberg%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sundbyberg%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Stockholms län",
     "emissions": {
       "1990": 46578.16,
@@ -13537,7 +13537,7 @@
   },
   {
     "name": "Sundsvall",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sundsvall%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sundsvall%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 1240015.57,
@@ -13603,7 +13603,7 @@
   },
   {
     "name": "Sunne",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sunne%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sunne%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 139741.5,
@@ -13669,7 +13669,7 @@
   },
   {
     "name": "Surahammar",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Surahammar%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Surahammar%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 70775.87,
@@ -13735,7 +13735,7 @@
   },
   {
     "name": "Svalöv",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sval%C3%B6v%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sval%C3%B6v%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 118180.87,
@@ -13801,7 +13801,7 @@
   },
   {
     "name": "Svedala",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Svedala%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Svedala%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 142193.59,
@@ -13867,7 +13867,7 @@
   },
   {
     "name": "Svenljunga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Svenljunga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Svenljunga%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 96941.34,
@@ -13933,7 +13933,7 @@
   },
   {
     "name": "Säffle",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4ffle%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4ffle%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 202838.31,
@@ -13999,7 +13999,7 @@
   },
   {
     "name": "Säter",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4ter%20City%20Arms.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4ter%20City%20Arms.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 80501.84,
@@ -14065,7 +14065,7 @@
   },
   {
     "name": "Sävsjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4vsj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A4vsj%C3%B6%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 85969.92,
@@ -14131,7 +14131,7 @@
   },
   {
     "name": "Söderhamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6derhamn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6derhamn%20vapen.svg",
     "region": "Gävleborgs län",
     "emissions": {
       "1990": 211349.77,
@@ -14197,7 +14197,7 @@
   },
   {
     "name": "Söderköping",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6derk%C3%B6ping%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6derk%C3%B6ping%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 108097.44,
@@ -14263,7 +14263,7 @@
   },
   {
     "name": "Södertälje",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6dert%C3%A4lje%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6dert%C3%A4lje%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 767837.48,
@@ -14329,7 +14329,7 @@
   },
   {
     "name": "Sölvesborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6lvesborg%20vapen2.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%B6lvesborg%20vapen2.svg",
     "region": "Blekinge län",
     "emissions": {
       "1990": 109486.68,
@@ -14395,7 +14395,7 @@
   },
   {
     "name": "Tanum",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tanum%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tanum%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 160236.21,
@@ -14461,7 +14461,7 @@
   },
   {
     "name": "Tibro",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tibro%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tibro%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 58832.32,
@@ -14527,7 +14527,7 @@
   },
   {
     "name": "Tidaholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tidaholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tidaholm%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 99322.65,
@@ -14593,7 +14593,7 @@
   },
   {
     "name": "Tierp",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tierp%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tierp%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 210185.24,
@@ -14659,7 +14659,7 @@
   },
   {
     "name": "Timrå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Timr%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Timr%C3%A5%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 147080.59,
@@ -14725,7 +14725,7 @@
   },
   {
     "name": "Tingsryd",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tingsryd%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tingsryd%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 122408.28,
@@ -14791,7 +14791,7 @@
   },
   {
     "name": "Tjörn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tj%C3%B6rn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tj%C3%B6rn%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 85222.35,
@@ -14857,7 +14857,7 @@
   },
   {
     "name": "Tomelilla",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tomelilla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tomelilla%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 139911.15,
@@ -14923,7 +14923,7 @@
   },
   {
     "name": "Torsby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Torsby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Torsby%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 119227.81,
@@ -14989,7 +14989,7 @@
   },
   {
     "name": "Torsås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tors%C3%A5s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tors%C3%A5s%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 73973.89,
@@ -15055,7 +15055,7 @@
   },
   {
     "name": "Tranemo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tranemo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tranemo%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 125372.63,
@@ -15121,7 +15121,7 @@
   },
   {
     "name": "Tranås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tran%C3%A5s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tran%C3%A5s%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 83201.46,
@@ -15187,7 +15187,7 @@
   },
   {
     "name": "Trelleborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trelleborg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trelleborg%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 258712.49,
@@ -15253,7 +15253,7 @@
   },
   {
     "name": "Trollhättan",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trollh%C3%A4ttan%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trollh%C3%A4ttan%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 318061.01,
@@ -15319,7 +15319,7 @@
   },
   {
     "name": "Trosa",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trosa%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trosa%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 82062.85,
@@ -15385,7 +15385,7 @@
   },
   {
     "name": "Tyresö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyres%C3%B6%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyres%C3%B6%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Stockholms län",
     "emissions": {
       "1990": 58802.77,
@@ -15451,7 +15451,7 @@
   },
   {
     "name": "Täby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/T%C3%A4by%20municipal%20arms.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/T%C3%A4by%20municipal%20arms.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 183856.71,
@@ -15517,7 +15517,7 @@
   },
   {
     "name": "Töreboda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/T%C3%B6reboda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/T%C3%B6reboda%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 91485.36,
@@ -15583,7 +15583,7 @@
   },
   {
     "name": "Uddevalla",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uddevalla%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uddevalla%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 303153.61,
@@ -15649,7 +15649,7 @@
   },
   {
     "name": "Ulricehamn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ulricehamn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ulricehamn%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 189678.09,
@@ -15715,7 +15715,7 @@
   },
   {
     "name": "Umeå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ume%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ume%C3%A5%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 478105.13,
@@ -15781,7 +15781,7 @@
   },
   {
     "name": "Upplands Väsby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Upplands%20V%C3%A4sby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Upplands%20V%C3%A4sby%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 118276.19,
@@ -15847,7 +15847,7 @@
   },
   {
     "name": "Upplands-Bro",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Upplands-Bro%20City%20Arms.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Upplands-Bro%20City%20Arms.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 186219.82,
@@ -15913,7 +15913,7 @@
   },
   {
     "name": "Uppsala",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uppsala%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uppsala%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 988763.96,
@@ -15979,7 +15979,7 @@
   },
   {
     "name": "Uppvidinge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uppvidinge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Uppvidinge%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 89337.38,
@@ -16045,7 +16045,7 @@
   },
   {
     "name": "Vadstena",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vadstena%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vadstena%20kommunvapen%20-%20Riksarkivet%20Sverige.png",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 58158.86,
@@ -16111,7 +16111,7 @@
   },
   {
     "name": "Vaggeryd",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vaggeryd%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vaggeryd%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 130712.65,
@@ -16177,7 +16177,7 @@
   },
   {
     "name": "Valdemarsvik",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Valdemarsvik%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Valdemarsvik%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 94439.26,
@@ -16243,7 +16243,7 @@
   },
   {
     "name": "Vallentuna",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vallentuna%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vallentuna%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 196436.07,
@@ -16309,7 +16309,7 @@
   },
   {
     "name": "Vansbro",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vansbro%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vansbro%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 63122.14,
@@ -16375,7 +16375,7 @@
   },
   {
     "name": "Vara",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vara%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vara%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 165308.68,
@@ -16441,7 +16441,7 @@
   },
   {
     "name": "Varberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Varberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Varberg%20vapen.svg",
     "region": "Hallands län",
     "emissions": {
       "1990": 407255.92,
@@ -16507,7 +16507,7 @@
   },
   {
     "name": "Vaxholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vaxholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vaxholm%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 39798.76,
@@ -16573,7 +16573,7 @@
   },
   {
     "name": "Vellinge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vellinge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vellinge%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 111129.3,
@@ -16639,7 +16639,7 @@
   },
   {
     "name": "Vetlanda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vetlanda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vetlanda%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 230965.85,
@@ -16705,7 +16705,7 @@
   },
   {
     "name": "Vilhelmina",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vilhelmina%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vilhelmina%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 68452.68,
@@ -16771,7 +16771,7 @@
   },
   {
     "name": "Vimmerby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vimmerby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vimmerby%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 131587.18,
@@ -16837,7 +16837,7 @@
   },
   {
     "name": "Vindeln",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vindeln%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vindeln%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 53538.57,
@@ -16903,7 +16903,7 @@
   },
   {
     "name": "Vingåker",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ving%C3%A5ker%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ving%C3%A5ker%20vapen.svg",
     "region": "Södermanlands län",
     "emissions": {
       "1990": 83873.72,
@@ -16969,7 +16969,7 @@
   },
   {
     "name": "Vänersborg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4nersborg-vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4nersborg-vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 466309.46,
@@ -17035,7 +17035,7 @@
   },
   {
     "name": "Vännäs",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4nn%C3%A4s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4nn%C3%A4s%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 44956.7,
@@ -17101,7 +17101,7 @@
   },
   {
     "name": "Värmdö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4rmd%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4rmd%C3%B6%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 208931.16,
@@ -17167,7 +17167,7 @@
   },
   {
     "name": "Värnamo",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4rnamo%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4rnamo%20vapen.svg",
     "region": "Jönköpings län",
     "emissions": {
       "1990": 241400.79,
@@ -17233,7 +17233,7 @@
   },
   {
     "name": "Västervik",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4stervik%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4stervik%20vapen.svg",
     "region": "Kalmar län",
     "emissions": {
       "1990": 290606.39,
@@ -17299,7 +17299,7 @@
   },
   {
     "name": "Västerås",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4ster%C3%A5s%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4ster%C3%A5s%20vapen.svg",
     "region": "Västmanlands län",
     "emissions": {
       "1990": 1006647.25,
@@ -17365,7 +17365,7 @@
   },
   {
     "name": "Växjö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4xj%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A4xj%C3%B6%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 470406.63,
@@ -17431,7 +17431,7 @@
   },
   {
     "name": "Vårgårda",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A5rg%C3%A5rda%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/V%C3%A5rg%C3%A5rda%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 94160.91,
@@ -17497,7 +17497,7 @@
   },
   {
     "name": "Ydre",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ydre%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ydre%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 49160.12,
@@ -17563,7 +17563,7 @@
   },
   {
     "name": "Ystad",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ystad%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ystad%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 269950.21,
@@ -17629,7 +17629,7 @@
   },
   {
     "name": "Älmhult",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lmhult%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lmhult%20vapen.svg",
     "region": "Kronobergs län",
     "emissions": {
       "1990": 140566.01,
@@ -17695,7 +17695,7 @@
   },
   {
     "name": "Älvdalen",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvdalen%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvdalen%20vapen.svg",
     "region": "Dalarnas län",
     "emissions": {
       "1990": 76907.67,
@@ -17761,7 +17761,7 @@
   },
   {
     "name": "Älvkarleby",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvkarleby%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvkarleby%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 110933.25,
@@ -17827,7 +17827,7 @@
   },
   {
     "name": "Älvsbyn",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvsbyn%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84lvsbyn%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 56151.54,
@@ -17893,7 +17893,7 @@
   },
   {
     "name": "Ängelholm",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84ngelholm%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%84ngelholm%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 267966.1,
@@ -17959,7 +17959,7 @@
   },
   {
     "name": "Åmål",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85m%C3%A5l%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85m%C3%A5l%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 110303.2,
@@ -18025,7 +18025,7 @@
   },
   {
     "name": "Ånge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85nge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85nge%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 194579.93,
@@ -18091,7 +18091,7 @@
   },
   {
     "name": "Åre",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85re%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85re%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 114953.6,
@@ -18157,7 +18157,7 @@
   },
   {
     "name": "Årjäng",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85rj%C3%A4ng%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85rj%C3%A4ng%20vapen.svg",
     "region": "Värmlands län",
     "emissions": {
       "1990": 96126.08,
@@ -18223,7 +18223,7 @@
   },
   {
     "name": "Åsele",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85sele%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85sele%20vapen.svg",
     "region": "Västerbottens län",
     "emissions": {
       "1990": 55329.54,
@@ -18289,7 +18289,7 @@
   },
   {
     "name": "Åstorp",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85storp%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85storp%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 89540.24,
@@ -18355,7 +18355,7 @@
   },
   {
     "name": "Åtvidaberg",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85tvidaberg%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%85tvidaberg%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 76779.67,
@@ -18421,7 +18421,7 @@
   },
   {
     "name": "Öckerö",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96cker%C3%B6%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96cker%C3%B6%20vapen.svg",
     "region": "Västra Götalands län",
     "emissions": {
       "1990": 48201.51,
@@ -18487,7 +18487,7 @@
   },
   {
     "name": "Ödeshög",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96desh%C3%B6g%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96desh%C3%B6g%20vapen.svg",
     "region": "Östergötlands län",
     "emissions": {
       "1990": 88197.16,
@@ -18553,7 +18553,7 @@
   },
   {
     "name": "Örebro",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rebro%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rebro%20vapen.svg",
     "region": "Örebro län",
     "emissions": {
       "1990": 802507.05,
@@ -18619,7 +18619,7 @@
   },
   {
     "name": "Örkelljunga",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rkelljunga%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rkelljunga%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 93047.92,
@@ -18685,7 +18685,7 @@
   },
   {
     "name": "Örnsköldsvik",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rnsk%C3%B6ldsvik%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96rnsk%C3%B6ldsvik%20vapen.svg",
     "region": "Västernorrlands län",
     "emissions": {
       "1990": 782153.84,
@@ -18751,7 +18751,7 @@
   },
   {
     "name": "Östersund",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96stersund%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96stersund%20vapen.svg",
     "region": "Jämtlands län",
     "emissions": {
       "1990": 344739.67,
@@ -18817,7 +18817,7 @@
   },
   {
     "name": "Österåker",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96ster%C3%A5ker%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96ster%C3%A5ker%20vapen.svg",
     "region": "Stockholms län",
     "emissions": {
       "1990": 165621.51,
@@ -18883,7 +18883,7 @@
   },
   {
     "name": "Östhammar",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96sthammar%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96sthammar%20vapen.svg",
     "region": "Uppsala län",
     "emissions": {
       "1990": 210094.75,
@@ -18949,7 +18949,7 @@
   },
   {
     "name": "Östra Göinge",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96stra%20G%C3%B6inge%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96stra%20G%C3%B6inge%20vapen.svg",
     "region": "Skåne län",
     "emissions": {
       "1990": 107100.2,
@@ -19015,7 +19015,7 @@
   },
   {
     "name": "Överkalix",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96verkalix%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96verkalix%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 51510.64,
@@ -19081,7 +19081,7 @@
   },
   {
     "name": "Övertorneå",
-    "coatOfArmsUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96vertorne%C3%A5%20vapen.svg",
+    "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%96vertorne%C3%A5%20vapen.svg",
     "region": "Norrbottens län",
     "emissions": {
       "1990": 63690.77,
