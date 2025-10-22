@@ -46,6 +46,7 @@ export async function editEntity(
         amount: claim.value,
         unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
       },
+      rank: 'preferred', // Set as preferred to indicate this is the most current data
       qualifiers: {
         [START_TIME]: claim.startDate,
         [END_TIME]: claim.endDate,
@@ -82,7 +83,7 @@ export async function editEntity(
     console.log('\nClaims to ADD:')
     claims.forEach((claim, idx) => {
       console.log(
-        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}`,
+        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}, Rank: preferred`,
       )
     })
     console.log('\nClaims to REMOVE:')
@@ -96,9 +97,16 @@ export async function editEntity(
   }
 
   try {
+    console.log(`🔄 Attempting to update Wikidata entity ${entity}...`)
     const res = await wbEdit.entity.edit(body)
+    console.log(`✅ Successfully updated entity ${entity}`)
   } catch (error) {
-    console.log(`Could not update entity ${entity}: ${error}`)
+    console.error(`❌ Could not update entity ${entity}:`, error)
+    console.error(`Error details:`, {
+      message: error.message,
+      code: error.code,
+      status: error.status
+    })
   }
 }
 /**
@@ -139,10 +147,17 @@ async function diffCarbonFootprintClaims(
           compareDateStrings(existingClaim.endDate, claim.endDate) === 0 &&
           compareDateStrings(existingClaim.startDate, claim.startDate) === 0
         ) {
-          if ('+' + claim.value !== existingClaim.value) {
-            newClaims.push(claim) //Update value by removing old claim and adding new claim
+          // Check if value OR rank is different (new claims always have 'preferred' rank)
+          const valueChanged = '+' + claim.value !== existingClaim.value
+          const rankChanged = existingClaim.rank !== 'preferred'
+          
+          if (valueChanged || rankChanged) {
+            newClaims.push(claim) //Update value or rank by removing old claim and adding new claim
             if (existingClaim.id !== undefined) {
               rmClaims.push({ id: existingClaim.id, remove: true })
+            }
+            if (rankChanged) {
+              console.log(`🔄 Rank update needed for ${claim.scope}: ${existingClaim.rank || 'normal'} -> preferred`)
             }
           }
           duplicate = true
@@ -349,8 +364,14 @@ function shouldUpdateClaim(
 
     if (isMatchingClaim) {
       if (claim.endDate === mostRecentEndDate) {
-        if (claim.value !== '+' + totalValue && claim.id) {
+        const valueChanged = claim.value !== '+' + totalValue
+        const rankChanged = claim.rank !== 'preferred'
+        
+        if ((valueChanged || rankChanged) && claim.id) {
           rmClaims.push({ id: claim.id, remove: true })
+          if (rankChanged) {
+            console.log(`🔄 Total claim rank update needed: ${claim.rank || 'normal'} -> preferred`)
+          }
         } else {
           return false
         }
@@ -389,7 +410,8 @@ export async function bulkCreateOrEditCarbonFootprintClaim(
   dryRun: boolean = false,
 ) {
   try {
-    const existingClaims = await getClaims(entity)
+    // In dry run mode, skip fetching existing claims to avoid "no-such-entity" errors
+    const existingClaims = dryRun ? [] : await getClaims(entity)
     let { newClaims, rmClaims } = await diffCarbonFootprintClaims(
       claims,
       existingClaims,
@@ -402,13 +424,21 @@ export async function bulkCreateOrEditCarbonFootprintClaim(
     ))
     ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
     ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))
+    
     if (newClaims.length > 0 || rmClaims.length > 0) {
       await editEntity(entity, newClaims, rmClaims, dryRun)
       if (!dryRun) {
-        console.log(`Updated ${entity}`)
+        console.log(`✅ Updated ${entity}`)
       }
+    } else {
+      console.log(`ℹ️  No changes needed for ${entity}`)
     }
   } catch (error) {
-    console.error(error)
+    console.error(`❌ Error processing entity ${entity}:`, error)
+    console.error(`Error details:`, {
+      message: error.message,
+      code: error.code,
+      status: error.status
+    })
   }
 }

@@ -22,8 +22,15 @@ function removeMillisecondsFromISO(dateTime: string) {
   }
 }
 
+// Test company ID mapping for sandbox testing
+const TEST_COMPANY_MAPPING: Record<string, string> = {
+  // Map production company IDs to test company IDs for sandbox testing
+  // Format: "production_id": "test_id"
+  "Q52825": "Q238311", // ABB production ID -> ABB test ID
+}
+
 //Currently still in testing the filters filter out only data related to ABB as this company is present in the Sandbox
-async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
+async function pushWikidata(dryRun: boolean = false, companyQid?: string, useTestMapping: boolean = false) {
   const envBaseURL: string = 'https://api.klimatkollen.se/api'
 
   if (dryRun) {
@@ -32,6 +39,10 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
 
   if (companyQid) {
     console.log(`🎯 Filtering for company: ${companyQid}\n`)
+  }
+
+  if (useTestMapping) {
+    console.log(`🧪 TEST MAPPING MODE - Using test company ID mapping\n`)
   }
 
   const companyRes = await fetch(`${envBaseURL}/companies`)
@@ -54,10 +65,14 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
   }
 
   for (const company of companies) {
+    console.log(`\n📊 Processing company: ${company.name} (${company.wikidataId})`)
     const reportingPeriods: ReportingPeriod[] = company.reportingPeriods
+    console.log(`📅 Found ${reportingPeriods.length} reporting periods`)
+    
     let claims: Claim[] = []
     for (const reportingPeriod of reportingPeriods) {
       if (reportingPeriod.emissions && reportingPeriod.reportURL) {
+        console.log(`✅ Processing period: ${reportingPeriod.startDate} to ${reportingPeriod.endDate}`)
         claims.push(
           ...transformEmissionsToClaims(
             reportingPeriod.emissions,
@@ -66,15 +81,31 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
             reportingPeriod.reportURL ?? '',
           ),
         )
+      } else {
+        console.log(`⚠️  Skipping period: ${reportingPeriod.startDate} to ${reportingPeriod.endDate} (missing emissions or reportURL)`)
       }
     }
+    
+    console.log(`📝 Generated ${claims.length} claims before filtering`)
     claims = reduceToMostRecentClaims(claims)
+    console.log(`📝 Generated ${claims.length} claims after filtering to most recent`)
+    
     if (claims.length > 0) {
+      // Use test mapping if enabled and mapping exists
+      let targetWikidataId = company.wikidataId as `Q${number}`
+      if (useTestMapping && TEST_COMPANY_MAPPING[company.wikidataId]) {
+        targetWikidataId = TEST_COMPANY_MAPPING[company.wikidataId] as `Q${number}`
+        console.log(`🔄 Mapping ${company.wikidataId} -> ${targetWikidataId} for test environment`)
+      }
+      
+      console.log(`🚀 Pushing ${claims.length} claims to Wikidata entity ${targetWikidataId}`)
       await bulkCreateOrEditCarbonFootprintClaim(
-        company.wikidataId as `Q${number}`,
+        targetWikidataId,
         claims,
         dryRun,
       )
+    } else {
+      console.log(`❌ No claims to push for ${company.name}`)
     }
   }
 }
@@ -82,6 +113,7 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
 // Parse command line arguments
 const args = process.argv.slice(2)
 const dryRun = args.includes('dry-run')
+const useTestMapping = args.includes('--test')
 
 // Parse company QID flag (e.g., --company=Q52618 or --company Q52618)
 let companyQid: string | undefined
@@ -97,4 +129,4 @@ if (companyArgIndex !== -1) {
   }
 }
 
-pushWikidata(dryRun, companyQid)
+pushWikidata(dryRun, companyQid, useTestMapping)

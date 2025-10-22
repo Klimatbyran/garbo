@@ -10,6 +10,7 @@ export interface Claim {
   referenceUrl?: string
   archiveUrl?: string
   scope?: ItemId
+  rank?: string
   category?: ItemId
 }
 
