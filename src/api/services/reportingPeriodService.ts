@@ -16,7 +16,7 @@ class ReportingPeriodService {
       endDate: Date
       reportURL?: string
       year: string
-    }
+    },
   ) {
     return prisma.reportingPeriod.upsert({
       where: {
@@ -28,7 +28,6 @@ class ReportingPeriodService {
       update: {
         startDate,
         endDate,
-        reportURL,
         metadata: {
           connect: {
             id: metadata.id,
