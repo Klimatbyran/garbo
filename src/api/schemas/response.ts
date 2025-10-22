@@ -144,7 +144,7 @@ export const Scope3Schema = z.object({
 
 export const Scope1And2Schema = z.object({
   id: z.string(),
-  total: z.number(),
+  total: z.number().nullable(),
   unit: z.string(),
   metadata: MetadataSchema,
 })
