@@ -26,6 +26,7 @@ export const postCompanyBodySchema = z
     internalComment: z.string().optional(),
     tags: z.array(z.string()).optional(),
     lei: z.string().optional(),
+    isDefunct: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
@@ -126,7 +127,7 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
+        },
       )
       .optional(),
     scope3: z
@@ -138,7 +139,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaWithDefault,
               verified: z.boolean().optional(),
-            })
+            }),
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,

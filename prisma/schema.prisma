@@ -40,6 +40,9 @@ model Company {
 
   /// Tags to help categorize and filter companies
   tags String[]
+
+  /// Indicates if the company is no longer existing (e.g., bankrupt, merged, delisted)
+  isDefunct Boolean @default(false)
 }
 
 /// Explicitly stated base year for comparable data

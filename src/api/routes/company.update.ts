@@ -9,6 +9,7 @@ import {
 import { getTags } from '../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../types'
 import { metadataService } from '../services/metadataService'
+import { cacheService } from '../services/cacheService'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(
@@ -31,9 +32,19 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostCompanyBody
       }>,
-      reply
+      reply,
     ) => {
-      const { name, wikidataId, descriptions, internalComment, tags, url, lei, metadata } = request.body
+      const {
+        name,
+        wikidataId,
+        descriptions,
+        internalComment,
+        tags,
+        url,
+        lei,
+        isDefunct,
+        metadata,
+      } = request.body
       try {
         await companyService.upsertCompany({
           name,
@@ -42,26 +53,31 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           tags,
           url,
           lei,
+          isDefunct,
         })
         // Create descriptions
-        descriptions?.map(
-          async (description) => {
-            const createdMetadata = await metadataService.createMetadata({
-              user: request.user,
-              metadata,
-            })
-            await companyService.upsertDescription({
-              description,
-              companyId: wikidataId,
-              metadataId: createdMetadata.id
-            })
-          }
-        )
+        descriptions?.map(async (description) => {
+          const createdMetadata = await metadataService.createMetadata({
+            user: request.user,
+            metadata,
+          })
+          await companyService.upsertDescription({
+            description,
+            companyId: wikidataId,
+            metadataId: createdMetadata.id,
+          })
+        })
+
+        // Invalidate company cache since company data was updated
+        await cacheService.invalidateCompanyCache()
+
         return reply.send({ ok: true })
-      } catch(error) {
+      } catch (error) {
         console.error('ERROR Creation or update of company failed:', error)
-        return reply.status(500).send({message: "Creation or update of company failed."});
+        return reply
+          .status(500)
+          .send({ message: 'Creation or update of company failed.' })
       }
-    }
+    },
   )
 }
