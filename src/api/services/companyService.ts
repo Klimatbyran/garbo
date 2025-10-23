@@ -84,6 +84,7 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    isDefunct?: boolean
   }) {
     return prisma.company.upsert({
       where: {
