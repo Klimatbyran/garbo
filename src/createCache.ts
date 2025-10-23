@@ -6,7 +6,7 @@ export const API_REDIS_PREFIX = 'redis_api/'
 
 const redisUrl = `redis://default:${redisConfig.password}@${redisConfig.host}:${redisConfig.port}`
 
-const redis = createClient({
+export const redis = createClient({
   url: redisUrl,
 })
 await redis.connect()
@@ -34,5 +34,15 @@ export function createServerCache({ maxAge }: { maxAge: number }) {
       const keys = await redis.keys(`${API_REDIS_PREFIX}*`)
       if (keys.length > 0) await redis.del(keys)
     },
+  }
+}
+
+export async function invalidateCompanyCache() {
+  // Get all keys matching the company cache pattern
+  const pattern = `${API_REDIS_PREFIX}companies:*`
+  const keys = await redis.keys(pattern)
+
+  if (keys && keys.length > 0) {
+    await redis.del(keys)
   }
 }
