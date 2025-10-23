@@ -355,7 +355,7 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
-export const MinimalCompanyBase = CompanyBaseSchema.extend({
+export const CompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
@@ -365,16 +365,7 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
   tags: z.array(z.string()),
 })
 
-const CompanyBase = CompanyBaseSchema.extend({
-  description: z.string().optional().nullable(),
-  descriptions: z.array(ResponseDescriptionSchema).optional(),
-  reportingPeriods: z.array(ReportingPeriodSchema),
-  futureEmissionsTrendSlope: z.number().nullable(),
-  industry: IndustrySchema.nullable(),
-  baseYear: BaseYearSchema.nullable().optional(),
-})
-
-export const CompanyList = z.array(MinimalCompanyBase)
+export const CompanyList = z.array(CompanyBase)
 
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),

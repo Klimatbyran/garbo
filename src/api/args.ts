@@ -73,8 +73,8 @@ export const detailedCompanyArgs = {
       select: {
         id: true,
         text: true,
-        language: true
-      }
+        language: true,
+      },
     },
     lei: true,
     reportingPeriods: {
@@ -226,6 +226,7 @@ export const detailedCompanyArgs = {
     baseYear: {
       select: { id: true, year: true, metadata: metadataArgs },
     },
+    tags: true,
   },
 } satisfies Prisma.CompanyDefaultArgs
 
@@ -238,8 +239,8 @@ export const companyListArgs = {
       select: {
         id: true,
         language: true,
-        text: true
-      }
+        text: true,
+      },
     },
     lei: true,
     baseYear: {
@@ -356,8 +357,8 @@ export const companyExportArgs = (year?) => {
       descriptions: {
         select: {
           language: true,
-          text: true
-        }
+          text: true,
+        },
       },
       baseYear: {
         select: { id: true, year: true },
