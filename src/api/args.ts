@@ -69,6 +69,7 @@ export const detailedCompanyArgs = {
     wikidataId: true,
     name: true,
     description: true,
+    isDefunct: true,
     descriptions: {
       select: {
         id: true,

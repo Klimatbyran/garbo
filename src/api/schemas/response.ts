@@ -363,6 +363,7 @@ export const CompanyBase = CompanyBaseSchema.extend({
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
+  isDefunct: z.boolean().optional(),
 })
 
 export const CompanyList = z.array(CompanyBase)
