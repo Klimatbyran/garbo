@@ -151,6 +151,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
