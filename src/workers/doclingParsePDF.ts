@@ -146,7 +146,7 @@ const doclingParsePDF = new DiscordWorker(
         const isLocal = docling.DOCLING_USE_LOCAL
         const endpoint = isLocal
           ? `${docling.baseUrl}/convert/source/async`
-          : `${docling.baseUrl}/ocr`
+          : `${docling.baseUrl}/v1/ocr`
 
         const headers: Record<string, string> = {
           'Content-Type': 'application/json',
@@ -341,68 +341,57 @@ async function pollTaskAndGetResult(
     return { markdown }
   } else {
     // Berget AI polling logic
-    const resultUrl = job.data.resultUrl?.startsWith('http')
-      ? job.data.resultUrl
-      : `${docling.baseUrl}/v1/ocr/${job.data.resultUrl}`
+    const resultUrl = job.data.resultUrl
+
+    if (!resultUrl) {
+      throw new Error('No result url provided.')
+    }
 
     job.log(`Result URL: ${resultUrl}`)
 
     // Poll the result endpoint until completion
-    let taskComplete = false
-    let resultData: any
-
-    while (!taskComplete) {
+    while (true) {
       job.log(`Polling Berget AI result: ${resultUrl}`)
 
-      const resultResponse = await fetch(resultUrl, { headers })
-      job.log(`Polling status ${resultResponse.status}`)
+      const response = await fetch(resultUrl, {
+        headers,
+      })
 
-      if (!resultResponse.ok) {
-        const errorText = await resultResponse.text()
-        job.log(`Result check error: ${errorText}`)
-        throw new Error(
-          `Result check failed with status: ${resultResponse.status}`,
+      if (response.status === 200) {
+        const result = await response.json()
+
+        if (result.error) {
+          throw new Error(`Berget AI error: ${result.error}`)
+        }
+
+        const markdown = result.content ?? ''
+
+        if (!markdown) {
+          job.log(`Full Berget result data: ${JSON.stringify(result, null, 2)}`)
+          throw new Error('No content found in Berget AI result')
+        }
+
+        const totalTime = Math.floor((Date.now() - startTime) / 1000)
+        const pages = result.usage?.pages || 'unknown'
+        const characters = result.usage?.characters || 'unknown'
+
+        job.editMessage(
+          `PDF parsed successfully in ${totalTime}s (${pages} pages, ${characters} characters)`,
         )
-      }
-
-      resultData = await resultResponse.json()
-      job.log(`Result response: ${JSON.stringify(resultData)}`)
-
-      if (
-        resultData.status === 'pending' ||
-        resultData.status === 'processing'
-      ) {
-        await sleep(2000)
-      } else if (resultData.content) {
-        taskComplete = true
-      } else if (resultData.error) {
-        throw new Error(`Task failed: ${JSON.stringify(resultData)}`)
+        job.log(
+          `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`,
+        )
+        return { markdown }
+      } else if (response.status === 202) {
+        const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
+        console.log(
+          `Job still processing, retrying in ${retryAfter} seconds...`,
+        )
+        await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000))
       } else {
-        // Unknown status, log and continue
-        job.log(`Unknown status: ${resultData.status}, continuing...`)
-        await sleep(2000)
+        throw new Error(`Failed to get result: ${response.status}`)
       }
     }
-
-    const markdown = resultData.content
-
-    if (!markdown) {
-      job.log(`Full Berget result data: ${JSON.stringify(resultData, null, 2)}`)
-      throw new Error('No content found in Berget AI result')
-    }
-
-    const totalTime = Math.floor((Date.now() - startTime) / 1000)
-    const pages = resultData.usage?.pages || 'unknown'
-    const characters = resultData.usage?.characters || 'unknown'
-
-    job.editMessage(
-      `PDF parsed successfully in ${totalTime}s (${pages} pages, ${characters} characters)`,
-    )
-    job.log(
-      `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`,
-    )
-
-    return { markdown }
   }
 }
 
