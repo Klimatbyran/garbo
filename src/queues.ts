@@ -2,9 +2,8 @@ import { DiscordQueue } from './lib/DiscordQueue'
 
 // Queue names as constants
 export const QUEUE_NAMES = {
-  NLM_PARSE_PDF: 'nlmParsePDF',
+  PARSE_PDF: 'parsePdf',
   DOCLING_PARSE_PDF: 'doclingParsePDF',
-  NLM_EXTRACT_TABLES: 'nlmExtractTables',
   INDEX_MARKDOWN: 'indexMarkdown',
   PRECHECK: 'precheck',
   GUESS_WIKIDATA: 'guessWikidata',
@@ -37,10 +36,10 @@ export const QUEUE_NAMES = {
 
 // Create queue clients (NOT workers)
 export const queues = {
-  nlmParsePDF: new DiscordQueue(QUEUE_NAMES.NLM_PARSE_PDF),
+  parsePdf: new DiscordQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new DiscordQueue(QUEUE_NAMES.INDEX_MARKDOWN),
-  nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
+  // nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
   precheck: new DiscordQueue(QUEUE_NAMES.PRECHECK),
   checkDB: new DiscordQueue(QUEUE_NAMES.CHECK_DB),
   diffBaseYear: new DiscordQueue(QUEUE_NAMES.DIFF_BASE_YEAR),
@@ -68,5 +67,4 @@ export const queues = {
   wikipediaUpload: new DiscordQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
   extractLEI: new DiscordQueue(QUEUE_NAMES.EXTRACT_LEI),
   diffLEI: new DiscordQueue(QUEUE_NAMES.DIFF_LEI),
-
 }
