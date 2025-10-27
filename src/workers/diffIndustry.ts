@@ -15,15 +15,14 @@ export class DiffIndustryJob extends DiffJob {
 const diffIndustry = new DiffWorker<DiffIndustryJob>(
   QUEUE_NAMES.DIFF_INDUSTRY,
   async (job) => {
-    const { wikidata, companyName, existingCompany, industry } =
-      job.data
-    
+    const { wikidata, companyName, existingCompany, industry } = job.data
+
     if (job.isDataApproved()) {
       await job.enqueueSaveToAPI(
         'industry',
         companyName,
         wikidata,
-        job.getApprovedBody()
+        job.getApprovedBody(),
       )
       return
     }
@@ -31,7 +30,7 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
     if (!job.hasApproval()) {
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
-        before: existingCompany?.industry,
+        before: existingCompany?.industry || null,
         after: industry,
       })
 
@@ -45,14 +44,14 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
         'industry',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
       )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay);
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
-  }
+  },
 )
 
 export default diffIndustry
