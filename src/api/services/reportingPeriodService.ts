@@ -28,6 +28,7 @@ class ReportingPeriodService {
       update: {
         startDate,
         endDate,
+        reportURL,
         metadata: {
           connect: {
             id: metadata.id,
