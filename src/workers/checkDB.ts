@@ -32,15 +32,18 @@ const checkDB = new DiscordWorker(
       channelId,
       
     } = job.data
+
+
   
     const childrenEntries = await job.getChildrenEntries()
     
-    // Extract values from the new format where the returned value is wrapped in 'value' so we can also return metadata next to it (for validation tool),
-    //  or fallback to the old format where the returned value is not wrapped in 'value'
-    const extractValue = (entry: any) => entry?.value || entry
+    const extractValue = (entry: any) => (entry && typeof entry === 'object' && 'value' in entry ? entry.value : entry)
+
+    const root = extractValue(childrenEntries) // <- this is the object that has scope12, scope3, etc.
+    
     const {
       scope12,
-      scope3, 
+      scope3,
       biogenic,
       industry,
       economy,
@@ -49,9 +52,7 @@ const checkDB = new DiscordWorker(
       initiatives,
       descriptions,
       lei,
-    } = Object.fromEntries(
-      Object.entries(childrenEntries).map(([key, value]) => [key, extractValue(value)])
-    )
+    } = root || {}
   
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
@@ -103,7 +104,7 @@ const checkDB = new DiscordWorker(
     }
 
     await job.editMessage(`🤖 Saving data...`)
-  
+
     await flow.add({
       ...base,
       queueName: QUEUE_NAMES.SEND_COMPANY_LINK,

@@ -144,7 +144,7 @@ export const Scope3Schema = z.object({
 
 export const Scope1And2Schema = z.object({
   id: z.string(),
-  total: z.number(),
+  total: z.number().nullable(),
   unit: z.string(),
   metadata: MetadataSchema,
 })
@@ -261,7 +261,7 @@ export const ReportingPeriodSchema = z.object({
     .openapi({ description: 'URL to the report' }),
   emissions: EmissionsSchema.nullable(),
   economy: EconomySchema.nullable(),
-  emissionsTrend: z
+  emissionsChangeLastTwoYears: z
     .object({
       absolute: z.number().nullable(),
       adjusted: z.number().nullable(),
@@ -359,6 +359,7 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
@@ -368,6 +369,7 @@ const CompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
+  futureEmissionsTrendSlope: z.number().nullable(),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
 })
@@ -405,10 +407,12 @@ const InputYearlyDataSchema = z
 export const InputMunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
+  logoUrl: z.string().nullable(),
   emissions: InputYearlyDataSchema,
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
   approximatedHistoricalEmission: InputYearlyDataSchema,
   trend: InputYearlyDataSchema,
-  meetsParisGoal: z.boolean(),
   historicalEmissionChangePercent: z.number(),
   electricCarChangePercent: z.number(),
   climatePlanLink: z.string().nullable(),
