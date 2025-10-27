@@ -445,6 +445,27 @@ export const MunicipalitySectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.record(z.string(), z.number())),
 })
 
+/**
+ * Regional data schemas
+ */
+export const InputRegionalDataSchema = z.array(
+  z.object({
+    name: z.string(),
+    emissions: z.record(z.string(), z.number()),
+  }),
+)
+
+export const RegionalDataSchema = z.object({
+  name: z.string(),
+  emissions: z.record(z.string(), z.number()),
+})
+
+export const RegionalDataListSchema = z.array(RegionalDataSchema)
+
+export const RegionalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.unknown()),
+})
+
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())

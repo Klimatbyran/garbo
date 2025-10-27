@@ -5,15 +5,15 @@ import { exportQuery } from '../types'
 import { exportService } from '../services/exportService'
 import { exportQuerySchema } from '../schemas/request'
 
-export async function municipalityExportRoutes(app: FastifyInstance) {
+export async function regionalExportRoutes(app: FastifyInstance) {
   app.get(
     '/export',
     {
       schema: {
-        summary: 'Export all municipalities',
+        summary: 'Export all regions',
         description:
-          'Export a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
-        tags: getTags('Municipalities'),
+          'Export a list of all regions with their historical emissions data broken down by sectors and subsectors over time.',
+        tags: getTags('Regions'),
         querystring: exportQuerySchema,
       },
     },
@@ -23,7 +23,7 @@ export async function municipalityExportRoutes(app: FastifyInstance) {
       }>,
       reply,
     ) => {
-      const { content, name } = await exportService.exportMunicipalities(
+      const { content, name } = await exportService.exportRegions(
         request.query.type,
       )
       try {

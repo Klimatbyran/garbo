@@ -126,7 +126,7 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        }
+        },
       )
       .optional(),
     scope3: z
@@ -138,7 +138,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaWithDefault,
               verified: z.boolean().optional(),
-            })
+            }),
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
@@ -221,6 +221,12 @@ export const MunicipalityNameSchema = z.string()
 
 export const MunicipalityNameParamSchema = z.object({
   name: MunicipalityNameSchema,
+})
+
+export const RegionalNameSchema = z.string()
+
+export const RegionalNameParamSchema = z.object({
+  name: RegionalNameSchema,
 })
 
 export const userAuthenticationBodySchema = z.object({
