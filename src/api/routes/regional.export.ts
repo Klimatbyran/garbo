@@ -3,6 +3,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify'
 import { getTags } from '../../config/openapi'
 import { exportQuery } from '../types'
 import { exportService } from '../services/exportService'
+import { exportQuerySchema } from '../schemas/request'
 
 export async function regionalExportRoutes(app: FastifyInstance) {
   app.get(
@@ -13,6 +14,7 @@ export async function regionalExportRoutes(app: FastifyInstance) {
         description:
           'Export a list of all regions with their historical emissions data broken down by sectors and subsectors over time.',
         tags: getTags('Regions'),
+        querystring: exportQuerySchema,
       },
     },
     async (
