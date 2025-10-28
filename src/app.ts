@@ -32,6 +32,7 @@ import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
 import { regionalReadRoutes } from './api/routes/regional.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
+import { companyIdentifiersRoutes } from './api/routes/company.identifiers'
 import { authentificationRoutes } from './api/routes/auth'
 import { companyExportRoutes } from './api/routes/company.export'
 import { municipalityExportRoutes } from './api/routes/municipality.export'
@@ -41,7 +42,7 @@ import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/industryGics.read'
-import { screenshotsReadRoutes } from './api/routes/screenshots.read';
+import { screenshotsReadRoutes } from './api/routes/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
 
 async function startApp() {
@@ -109,7 +110,7 @@ async function startApp() {
  */
 async function publicContext(app: FastifyInstance) {
   app.get('/', { schema: { hide: true } }, (request, reply) =>
-    reply.redirect(openAPIConfig.prefix)
+    reply.redirect(openAPIConfig.prefix),
   )
 
   app.register(fastifyStatic, {
@@ -121,7 +122,7 @@ async function publicContext(app: FastifyInstance) {
     { schema: { hide: true }, logLevel: 'silent' },
     async (request, reply) => {
       return reply.sendFile('favicon.ico')
-    }
+    },
   )
 
   app.register(authentificationRoutes, { prefix: 'api/auth' })
@@ -135,7 +136,7 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
-  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' });
+  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' })
 
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
@@ -154,6 +155,7 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyGoalsRoutes, { prefix: 'api/companies' })
   app.register(companyBaseYearRoutes, { prefix: 'api/companies' })
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
+  app.register(companyIdentifiersRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
   app.register(validationsReadRoutes, { prefix: 'api/validation' })

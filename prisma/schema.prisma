@@ -24,6 +24,9 @@ model Company {
   url         String?
   lei         String?
 
+  /// Company identifiers (LEI, Swedish org number, etc.)
+  identifiers CompanyIdentifier[]
+
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
   // swedishOrgNumber
 
@@ -332,6 +335,7 @@ model Metadata {
   turnoverId             String?
   employeesId            String?
   descriptionId          String?
+  companyIdentifierId    String?
 
   goal                 Goal?                 @relation(fields: [goalId], references: [id])
   initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
@@ -350,6 +354,7 @@ model Metadata {
   turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
   employees            Employees?            @relation(fields: [employeesId], references: [id])
   description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
+  companyIdentifier    CompanyIdentifier?
 }
 
 model User {
@@ -382,4 +387,18 @@ model Description {
 
   company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
   metadata  Metadata[]
+}
+
+/// Company identifiers (LEI, Swedish org number, ISIN, etc.)
+model CompanyIdentifier {
+  id        String   @id @default(cuid())
+  companyId String
+  type      String   // 'lei', 'swedishOrgNumber', 'isin', 'cin', 'duns'
+  value     String
+  metadataId String? @unique
+
+  company   Company  @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata  Metadata? @relation(fields: [metadataId], references: [id])
+
+  @@unique([companyId, type])
 }

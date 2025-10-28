@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
 
-const createMetadataSchema = z.object({
+export const createMetadataSchema = z.object({
   metadata: z
     .object({
       source: z.string().optional(),

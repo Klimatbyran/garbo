@@ -39,10 +39,18 @@ export const MetadataSchema = z.object({
 
 export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
 
+export const CompanyIdentifierSchema = z.object({
+  id: z.string(),
+  type: z.string(),
+  value: z.string(),
+  metadata: MetadataSchema,
+})
+
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
+  identifiers: z.array(CompanyIdentifierSchema).optional(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
