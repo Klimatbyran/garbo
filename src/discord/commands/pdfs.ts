@@ -22,6 +22,12 @@ export default {
         .setName('auto-approve')
         .setDescription('Automatically approve the extracted data.')
         .setRequired(false),
+    )
+    .addBooleanOption((option) =>
+      option
+        .setName('force-reindex')
+        .setDescription('Re-index markdown even if already indexed')
+        .setRequired(false),
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
@@ -37,6 +43,7 @@ export default {
 
       const autoApprove =
         interaction.options.getBoolean('auto-approve') || false
+      const forceReindex = interaction.options.getBoolean('force-reindex') || false
 
       if (!urls || !urls.length) {
         await interaction.followUp({
@@ -64,12 +71,16 @@ export default {
         thread.send(
           `Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`,
         )
+        if (forceReindex) {
+          thread.send(`🔁 Force re-index enabled`)
+        }
         queues.parsePdf.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),
             threadId: thread.id,
             autoApprove,
+            forceReindex,
           },
           {
             backoff: {

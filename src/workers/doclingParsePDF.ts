@@ -146,7 +146,7 @@ const doclingParsePDF = new DiscordWorker(
         const isLocal = docling.DOCLING_USE_LOCAL
         const endpoint = isLocal
           ? `${docling.baseUrl}/convert/source/async`
-          : `${docling.baseUrl}/v1/ocr`
+          : `${docling.baseUrl}`
 
         const headers: Record<string, string> = {
           'Content-Type': 'application/json',
