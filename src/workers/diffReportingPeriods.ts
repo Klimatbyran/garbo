@@ -32,8 +32,6 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       economy = [],
     } = job.data
 
-    console.log(job.isDataApproved())
-
     if (job.isDataApproved()) {
       job.enqueueSaveToAPI(
         'reporting-periods',
@@ -45,13 +43,23 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     }
 
     if (!job.hasApproval()) {
-      // Get all unique years from all sources
-      const years = new Set([
-        ...scope12.map((d) => d.year),
-        ...scope3.map((d) => d.year),
-        ...biogenic.map((d) => d.year),
-        ...economy.map((d) => d.year),
-      ])
+      // Get all unique years from all sources (incoming data)
+      const incomingYears = new Set(
+        [
+          ...scope12.map((d) => d.year),
+          ...scope3.map((d) => d.year),
+          ...biogenic.map((d) => d.year),
+          ...economy.map((d) => d.year),
+        ].filter((year) => !isNaN(year) && year != null),
+      )
+
+      // Also include years from existing reporting periods to preserve them
+      const existingYears =
+        existingCompany?.reportingPeriods
+          ?.map((rp: any) => parseInt(rp.year))
+          .filter((year: number) => !isNaN(year)) || []
+
+      const years = new Set([...incomingYears, ...existingYears])
 
       // Determine the report year - use the most recent year found in the data
       // This represents the year the current report actually covers
@@ -77,24 +85,47 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       // Fill in data from each source, only keeping data that was changed.
       const updatedReportingPeriods = reportingPeriods.map(
         ({ year, ...period }) => {
-          const emissions = {
-            scope1: scope12.find((d) => d.year === year)?.scope1,
-            scope2: scope12.find((d) => d.year === year)?.scope2,
-            scope3: scope3.find((d) => d.year === year)?.scope3,
-            biogenic: biogenic.find((d) => d.year === year)?.biogenic,
-          }
-
-          const economyData =
-            economy.find((d) => d.year === year)?.economy ?? {}
-
+          const scope12Data = scope12.find((d) => d.year === year)
+          const scope3Data = scope3.find((d) => d.year === year)
+          const biogenicData = biogenic.find((d) => d.year === year)
+          const economyData = economy.find((d) => d.year === year)
           const reportingPeriod: any = period
 
-          if (Object.values(emissions).some((value) => value !== undefined)) {
-            reportingPeriod.emissions = emissions
+          // Only add emissions if we have actual emission data (not null/undefined)
+          const hasEmissionData =
+            scope12Data?.scope1 != null ||
+            scope12Data?.scope2 != null ||
+            scope3Data?.scope3 != null ||
+            biogenicData?.biogenic !== undefined
+
+          if (hasEmissionData) {
+            reportingPeriod.emissions = {}
+
+            if (scope12Data?.scope1 != null) {
+              reportingPeriod.emissions.scope1 = scope12Data.scope1
+            }
+            if (scope12Data?.scope2 != null) {
+              reportingPeriod.emissions.scope2 = scope12Data.scope2
+            }
+            if (scope3Data?.scope3 != null) {
+              reportingPeriod.emissions.scope3 = scope3Data.scope3
+            }
+            if (biogenicData?.biogenic !== undefined) {
+              reportingPeriod.emissions.biogenic = biogenicData.biogenic
+            }
           }
 
-          if (Object.values(economyData).some((value) => value !== undefined)) {
-            reportingPeriod.economy = economyData
+          // Only add economy data if we have actual economy data
+          if (
+            economyData?.economy &&
+            Object.keys(economyData.economy).length > 0
+          ) {
+            const hasEconomyValues = Object.values(economyData.economy).some(
+              (value) => value != null && value !== '',
+            )
+            if (hasEconomyValues) {
+              reportingPeriod.economy = economyData.economy
+            }
           }
 
           // Preserve existing reportURL for years that don't match the current report year
@@ -121,7 +152,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
 
       const change: ChangeDescription = {
         type: 'reportingPeriods',
-        oldValue: { reportingPeriods: existingCompany.reportingPeriods },
+        oldValue: { reportingPeriods: existingCompany?.reportingPeriods || [] },
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
 

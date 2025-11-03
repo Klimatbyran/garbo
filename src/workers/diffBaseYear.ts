@@ -21,7 +21,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
         'baseYear',
         companyName,
         wikidata,
-        job.getApprovedBody()
+        job.getApprovedBody(),
       )
       return
     }
@@ -29,13 +29,13 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
     if (!job.hasApproval()) {
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
-        before: existingCompany?.baseYear,
+        before: existingCompany?.baseYear || null,
         after: { baseYear },
       })
 
       const change: ChangeDescription = {
         type: 'baseYear',
-        oldValue: { baseYear: existingCompany.baseYear.year },
+        oldValue: { baseYear: existingCompany?.baseYear?.year },
         newValue: { baseYear: baseYear },
       }
 
@@ -43,16 +43,16 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
         'baseYear',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
       )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
       try {
         await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-      } catch(_err) {}      
+      } catch (_err) {}
     }
-  }
+  },
 )
 
 export default diffBaseYear

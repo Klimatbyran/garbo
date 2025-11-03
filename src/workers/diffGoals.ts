@@ -22,7 +22,7 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
         'goals',
         companyName,
         wikidata,
-        job.getApprovedBody()
+        job.getApprovedBody(),
       )
       return
     }
@@ -30,13 +30,13 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
     if (!job.hasApproval()) {
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
-        before: existingCompany?.goals,
+        before: existingCompany?.goals || null,
         after: goals,
       })
 
       const change: ChangeDescription = {
         type: 'goals',
-        oldValue: { goals: existingCompany.goals },
+        oldValue: { goals: existingCompany?.goals },
         newValue: { goals: goals },
       }
 
@@ -44,14 +44,14 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
         'goals',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false
+        typeof requiresApproval == 'boolean' ? requiresApproval : false,
       )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
-  }
+  },
 )
 
 export default diffGoals

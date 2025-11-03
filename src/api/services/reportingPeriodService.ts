@@ -16,7 +16,7 @@ class ReportingPeriodService {
       endDate: Date
       reportURL?: string
       year: string
-    }
+    },
   ) {
     return prisma.reportingPeriod.upsert({
       where: {

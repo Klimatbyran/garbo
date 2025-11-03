@@ -30,35 +30,36 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostIndustryBody
       }>,
-      reply
+      reply,
     ) => {
-      const {
-        industry: { subIndustryCode },
-        metadata,
-        verified,
-      } = request.body
-      const { wikidataId } = request.params
-
-      const createdMetadata = await metadataService.createMetadata({
-        metadata,
-        user: request.user,
-        verified,
-      })
-
       try {
+        const {
+          industry: { subIndustryCode },
+          metadata,
+          verified,
+        } = request.body
+        const { wikidataId } = request.params
+
+        const createdMetadata = await metadataService.createMetadata({
+          metadata,
+          user: request.user,
+          verified,
+        })
+
         await industryService.upsertIndustry(
           wikidataId,
           { subIndustryCode },
-          createdMetadata
+          createdMetadata,
         )
+
+        return reply.send({ ok: true })
       } catch (error) {
         console.error('ERROR Creation or update of industry failed:', error)
-        return reply
-          .status(500)
-          .send({ message: 'Creation or update of industry failed.' })
+        return reply.status(500).send({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Creation or update of industry failed.',
+        })
       }
-
-      return reply.send({ ok: true })
-    }
+    },
   )
 }

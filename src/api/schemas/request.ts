@@ -26,6 +26,7 @@ export const postCompanyBodySchema = z
     internalComment: z.string().optional(),
     tags: z.array(z.string()).optional(),
     lei: z.string().optional(),
+    isDefunct: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
@@ -150,6 +151,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
