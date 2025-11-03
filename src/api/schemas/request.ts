@@ -23,6 +23,7 @@ export const postCompanyBodySchema = z
     name: z.string(),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),
+    logoUrl: z.string().optional().nullable(),
     internalComment: z.string().optional(),
     tags: z.array(z.string()).optional(),
     lei: z.string().optional(),
