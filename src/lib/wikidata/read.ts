@@ -14,6 +14,57 @@ const {
   ARCHIVE_URL,
 } = wikidataConfig.properties;
 
+async function fetchJsonWithRetries<T = any>(
+  url: string,
+  {
+    headers,
+    maxAttempts = 3,
+    expectedContentType = 'application/json',
+    context,
+  }: {
+    headers?: Record<string, string>
+    maxAttempts?: number
+    expectedContentType?: string
+    context?: string
+  },
+): Promise<T> {
+  let attempt = 0
+  let res: Response | undefined
+  while (attempt < maxAttempts) {
+    res = await fetch(url, { headers })
+    if (res.ok) break
+    if ([429, 502, 503, 504].includes(res.status)) {
+      await new Promise((r) => setTimeout(r, (attempt + 1) * 1000))
+      attempt++
+      continue
+    }
+    break
+  }
+
+  const ctx = context ? `${context} ` : ''
+
+  if (!res) {
+    throw new Error(`${ctx}no response received`)
+  }
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => '')
+    throw new Error(
+      `${ctx}HTTP ${res.status} ${res.statusText} – body: ${text.slice(0, 300)}`,
+    )
+  }
+
+  const ct = (res.headers.get('content-type') || '').toLowerCase()
+  if (!ct.includes(expectedContentType)) {
+    const text = await res.text().catch(() => '')
+    throw new Error(
+      `${ctx}returned non-JSON (${ct}) – body: ${text.slice(0, 300)}`,
+    )
+  }
+
+  return (await res.json()) as T
+}
+
 export async function getWikipediaTitle(id: EntityId): Promise<string> {
   const url = wbk.getEntities({
     ids: [id],
@@ -82,40 +133,12 @@ export async function searchCompany({
     'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
   }
 
-  // Lightweight retry for transient errors
-  let attempt = 0
-  let res: Response | undefined
-  while (attempt < 3) {
-    res = await fetch(searchEntitiesQuery, { headers })
-    if (res.ok) break
-    if ([429, 502, 503, 504].includes(res.status)) {
-      await new Promise((r) => setTimeout(r, (attempt + 1) * 1000))
-      attempt++
-      continue
-    }
-    break
-  }
-
-  if (!res) {
-    throw new Error('Wikidata search: no response received')
-  }
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(
-      `Wikidata search HTTP ${res.status} ${res.statusText} – body: ${text.slice(0, 300)}`,
-    )
-  }
-
-  const ct = (res.headers.get('content-type') || '').toLowerCase()
-  if (!ct.includes('application/json')) {
-    const text = await res.text().catch(() => '')
-    throw new Error(
-      `Wikidata search returned non-JSON (${ct}) – body: ${text.slice(0, 300)}`,
-    )
-  }
-
-  const response = (await res.json()) as SearchResponse
+  const response = (await fetchJsonWithRetries<SearchResponse>(searchEntitiesQuery, {
+    headers,
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata search',
+  })) as SearchResponse
 
   if ((response as any)?.error) {
     throw new Error('Wikidata search failed: ' + (response as any).error)
@@ -134,37 +157,12 @@ export async function getWikidataEntities(ids: `Q${number}`[]) {
     'User-Agent': 'KlimatkollenGarboBot/1.0 (+https://klimatkollen.se)',
   }
 
-  // Retry transient errors
-  let attempt = 0
-  let res: Response | undefined
-  while (attempt < 3) {
-    res = await fetch(url, { headers })
-    if (res.ok) break
-    if ([429, 502, 503, 504].includes(res.status)) {
-      await new Promise((r) => setTimeout(r, (attempt + 1) * 1000))
-      attempt++
-      continue
-    }
-    break
-  }
-
-  if (!res) throw new Error('Wikidata entities: no response received')
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(
-      `Wikidata entities HTTP ${res.status} ${res.statusText} – body: ${text.slice(0, 300)}`,
-    )
-  }
-
-  const ct = (res.headers.get('content-type') || '').toLowerCase()
-  if (!ct.includes('application/json')) {
-    const text = await res.text().catch(() => '')
-    throw new Error(
-      `Wikidata entities returned non-JSON (${ct}) – body: ${text.slice(0, 300)}`,
-    )
-  }
-
-  const { entities }: WbGetEntitiesResponse = await res.json()
+  const { entities }: WbGetEntitiesResponse = await fetchJsonWithRetries<WbGetEntitiesResponse>(url, {
+    headers,
+    maxAttempts: 3,
+    expectedContentType: 'application/json',
+    context: 'Wikidata entities',
+  })
 
   return Object.values(entities) as (Entity & {
     labels: { [lang: string]: { language: string; value: string } }
