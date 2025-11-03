@@ -232,3 +232,47 @@ export function calculateFutureEmissionTrend(
     ? calculateLADTrendSlope(validEmissionsData)
     : null
 }
+
+export function calculateFutureEmissionTrendWithPercent(
+  reportedPeriods: ReportedPeriod[],
+  baseYear?: number,
+): { slope: number | null; percent: number | null } {
+  try {
+    const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
+    if (!emissionsType) {
+      return { slope: null, percent: null }
+    }
+
+    const emissionsData = extractEmissionsArray(
+      reportedPeriods,
+      emissionsType,
+      baseYear,
+    )
+    const validEmissionsData = emissionsData.filter(
+      (item): item is { year: number; emissions: number } =>
+        hasValidValue(item.emissions) && item.emissions !== undefined,
+    )
+
+    if (validEmissionsData.length < 3) {
+      return { slope: null, percent: null }
+    }
+
+    // Calculate trend slope
+    const slope = calculateLADTrendSlope(validEmissionsData)
+
+    // Calculate average emissions for normalization
+    // Using only the emissions/years that were used in the LAD calculation
+    const averageEmissions =
+      validEmissionsData.reduce((sum, item) => sum + item.emissions, 0) /
+      validEmissionsData.length
+
+    // Calculate percentage change per year (normalized by average emissions)
+    const percent =
+      averageEmissions > 0 ? (slope / averageEmissions) * 100 : null
+
+    return { slope, percent }
+  } catch (error) {
+    console.warn('Error calculating future emission trend with percent:', error)
+    return { slope: null, percent: null }
+  }
+}

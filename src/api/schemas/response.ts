@@ -355,13 +355,26 @@ export const MinimalReportingPeriodSchema = ReportingPeriodSchema.omit({
   economy: MinimalEconomySchema.nullable(),
 })
 
+const CompanyAnalysisSchema = z.object({
+  futureEmissionsTrendSlope: z.number().nullable(),
+  emissionsTrendPercent: z.number().nullable(),
+  meetsParisGoal: z.boolean().nullable(),
+  dateTrendExceedsCarbonLaw: z.date().nullable(),
+  futureEmissionsTrendTotal: z.number().nullable(),
+  carbonLawCalculatedBudget: z.number().nullable(),
+})
+
 export const MinimalCompanyBase = CompanyBaseSchema.extend({
   description: z.string().optional().nullable(),
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(MinimalReportingPeriodSchema),
   futureEmissionsTrendSlope: z.number().nullable(),
+  emissionsTrendPercent: z.number().nullable(),
   meetsParisGoal: z.boolean().nullable(),
   dateTrendExceedsCarbonLaw: z.date().nullable(),
+  futureEmissionsTrendTotal: z.number().nullable(),
+  carbonLawCalculatedBudget: z.number().nullable(),
+  analysis: CompanyAnalysisSchema.optional(),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
   tags: z.array(z.string()),
@@ -372,8 +385,12 @@ const CompanyBase = CompanyBaseSchema.extend({
   descriptions: z.array(ResponseDescriptionSchema).optional(),
   reportingPeriods: z.array(ReportingPeriodSchema),
   futureEmissionsTrendSlope: z.number().nullable(),
+  emissionsTrendPercent: z.number().nullable(),
   meetsParisGoal: z.boolean().nullable(),
   dateTrendExceedsCarbonLaw: z.date().nullable(),
+  futureEmissionsTrendTotal: z.number().nullable(),
+  carbonLawCalculatedBudget: z.number().nullable(),
+  analysis: CompanyAnalysisSchema.optional(),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
 })

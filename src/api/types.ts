@@ -53,6 +53,10 @@ export type serviceAuthenticationBody = z.infer<
 
 export type exportQuery = z.infer<typeof schemas.exportQuerySchema>
 
+export type CompanyExpandedQuery = z.infer<
+  typeof schemas.companyExpandedQuerySchema
+>
+
 export type ValidationClaims = z.infer<typeof schemas.ValidationClaimsSchema>
 export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
 export type Description = z.infer<typeof schemas.descriptionSchema>
@@ -60,3 +64,89 @@ export type Description = z.infer<typeof schemas.descriptionSchema>
 export type CompanyListPayload = Prisma.CompanyGetPayload<
   typeof companyListArgs
 >
+
+// Types for processed companies (incremental additions through pipeline)
+// Using more flexible types to accommodate transformations
+
+export type CompanyWithMetadata = CompanyListPayload & {
+  // Metadata transformation may modify structure slightly
+  [key: string]: unknown
+}
+
+export type CompanyWithCalculatedEmissions = CompanyWithMetadata & {
+  reportingPeriods: Array<
+    CompanyListPayload['reportingPeriods'][0] & {
+      emissions?:
+        | (NonNullable<
+            CompanyListPayload['reportingPeriods'][0]['emissions']
+          > & {
+            calculatedTotalEmissions: number
+            scope2?:
+              | (NonNullable<
+                  NonNullable<
+                    CompanyListPayload['reportingPeriods'][0]['emissions']
+                  >['scope2']
+                > & {
+                  calculatedTotalEmissions: number
+                })
+              | null
+            scope3?:
+              | (NonNullable<
+                  NonNullable<
+                    CompanyListPayload['reportingPeriods'][0]['emissions']
+                  >['scope3']
+                > & {
+                  calculatedTotalEmissions: number
+                })
+              | null
+          })
+        | null
+    }
+  >
+}
+
+export type CompanyWithEmissionChange = CompanyWithCalculatedEmissions & {
+  reportingPeriods: Array<
+    CompanyWithCalculatedEmissions['reportingPeriods'][0] & {
+      emissionsChangeLastTwoYears?: {
+        absolute: number | null
+        adjusted: number | null
+        absoluteDifference?: number | null
+        adjustedDifference?: number | null
+      }
+    }
+  >
+}
+
+export type CompanyWithTrend = CompanyWithEmissionChange & {
+  futureEmissionsTrendSlope: number | null
+  emissionsTrendPercent: number | null
+}
+
+export type ProcessedCompany = CompanyWithTrend & {
+  meetsParisGoal: boolean | null
+  dateTrendExceedsCarbonLaw: Date | null
+  futureEmissionsTrendTotal: number | null
+  carbonLawCalculatedBudget: number | null
+}
+
+export type CompanyWithoutAnalysisFields = Omit<
+  ProcessedCompany,
+  | 'futureEmissionsTrendSlope'
+  | 'emissionsTrendPercent'
+  | 'meetsParisGoal'
+  | 'dateTrendExceedsCarbonLaw'
+  | 'futureEmissionsTrendTotal'
+  | 'carbonLawCalculatedBudget'
+>
+
+export type CompanyWithAnalysis = CompanyWithoutAnalysisFields & {
+  analysis: {
+    futureEmissionsTrendSlope: number | null
+    emissionsTrendPercent: number | null
+    meetsParisGoal: boolean | null
+    dateTrendExceedsCarbonLaw: Date | null
+    futureEmissionsTrendTotal: number | null
+    carbonLawCalculatedBudget: number | null
+  }
+}
