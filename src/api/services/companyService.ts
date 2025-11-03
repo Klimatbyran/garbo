@@ -75,7 +75,7 @@ class CompanyService {
     wikidataId: string
     name: string
     url?: string
-    logoUrl: string
+    logoUrl?: string
     internalComment?: string
     tags?: string[]
     lei?: string
