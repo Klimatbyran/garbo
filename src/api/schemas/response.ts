@@ -43,7 +43,7 @@ const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
-  logoUrl: z.string,
+  logoUrl: z.string().url().optional(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
