@@ -53,6 +53,9 @@ export interface ReportedPeriod {
       lb: number
       unknown?: number | null
     } | null
+    scope1And2?: {
+      total?: number | null
+    } | null
     scope3?: {
       calculatedTotalEmissions?: number | null
       statedTotalEmissions?: {
@@ -97,13 +100,14 @@ export function hasScope1And2Data(period: ReportedPeriod): boolean {
   if (!period.emissions) return false
 
   const scope1Total = period.emissions.scope1?.total
-  const { scope2 } = period.emissions
+  const { scope2, scope1And2 } = period.emissions
 
   return (
     hasValidValue(scope1Total) ||
     hasValidValue(scope2?.mb) ||
     hasValidValue(scope2?.lb) ||
-    hasValidValue(scope2?.unknown)
+    hasValidValue(scope2?.unknown) ||
+    hasValidValue(scope1And2?.total)
   )
 }
 

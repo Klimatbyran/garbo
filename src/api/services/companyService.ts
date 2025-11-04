@@ -80,6 +80,40 @@ class CompanyService {
     tags?: string[]
     lei?: string
   }) {
+    // Filter out undefined values so Prisma will update fields that are explicitly set.
+    // This ensures that if logoUrl (or any optional field) is provided with a value,
+    // it will be updated even if the current database value is null/undefined.
+    // Fields that are undefined (not provided) are excluded from the update.
+    // Note: We keep null values as they explicitly mean "set to null" (clear the field)
+    const updateData = Object.fromEntries(
+      Object.entries(data).filter(([key, value]) => {
+        // Always include name (required field)
+        if (key === 'name') return true
+        // Include field if it's not undefined (allows null, empty strings, etc.)
+        return value !== undefined
+      }),
+    ) as {
+      name: string
+      url?: string
+      logoUrl?: string
+      internalComment?: string
+      tags?: string[]
+      lei?: string
+    }
+
+    // Debug logging to see what's being passed to Prisma
+    console.log('upsertCompany - data received:', {
+      wikidataId,
+      logoUrl: data.logoUrl,
+      logoUrlInData: 'logoUrl' in data,
+      allDataKeys: Object.keys(data),
+    })
+    console.log('upsertCompany - updateData:', {
+      logoUrl: updateData.logoUrl,
+      logoUrlInUpdate: 'logoUrl' in updateData,
+      updateDataKeys: Object.keys(updateData),
+    })
+
     return prisma.company.upsert({
       where: {
         wikidataId,
@@ -257,17 +291,25 @@ export function addCalculatedTotalEmissions(companies: any[]) {
       .map((company) => ({
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
-          const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
+          const { scope1, scope2, scope3, scope1And2 } =
+            reportingPeriod.emissions || {}
+          const scope1Total = scope1?.total ?? 0
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown ?? 0
           const scope3Total =
             scope3?.categories.reduce(
-              (total, category) => category.total + total,
+              (total, category) => (category.total ?? 0) + total,
               0,
             ) ||
-            scope3?.statedTotalEmissions?.total ||
+            (scope3?.statedTotalEmissions?.total ?? 0) ||
             0
-          const calculatedTotalEmissions =
-            (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
+
+          // Calculate scope 1+2 emissions: use separate values if available, otherwise fall back to combined scope1And2
+          const hasSeparateScope1Or2 = scope1Total > 0 || scope2Total > 0
+          const scope1And2Total = hasSeparateScope1Or2
+            ? scope1Total + scope2Total
+            : (scope1And2?.total ?? 0)
+
+          const calculatedTotalEmissions = scope1And2Total + scope3Total
 
           return {
             ...reportingPeriod,
