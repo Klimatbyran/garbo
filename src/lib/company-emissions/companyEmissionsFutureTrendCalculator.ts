@@ -1,5 +1,44 @@
 /**
  * This file contains the functions for emissions calculations for companies.
+ *
+ * ASSUMPTIONS FOR FUTURE TREND CALCULATIONS:
+ *
+ * 1. MINIMUM DATA REQUIREMENT: 3 years
+ *    - Statistical significance for trend calculation
+ *    - Business requirement for reliable projections
+ *    - Prevents overfitting with insufficient data
+ *
+ * 2. SCOPE 3 PRIORITY: Scope 3 data takes precedence over Scope 1&2
+ *    - When companies start reporting scope 3 emissions often dramatically rise impacting the trend calculation
+ *    - Regulatory reporting standard for most companies
+ *    - Better represents total company environmental impact
+ *
+ * 3. LAD REGRESSION: Approximates LAD using weighted regression
+ *    - More robust to outliers and extreme values
+ *    - Better handles companies with irregular reporting patterns
+ *    - Reduces impact of data quality issues
+ *    - Not using LAD directly to avoid complex implementation
+ *
+ * 4. CONVERGENCE PARAMETERS:
+ *    - Max iterations: 1000 (prevents infinite loops)
+ *    - Tolerance: 1e-10 (numerical precision for convergence)
+ *    - Epsilon: 1e-6 (prevents division by zero in weights)
+ *
+ * 5. DATA VALIDATION: Only uses calculatedTotalEmissions
+ *    - Pre-calculated using best available scope data
+ *    - Consistent data source regardless of scope type
+ *    - Handles different reporting formats uniformly
+ *
+ * 6. BASE YEAR FILTERING: Optional base year parameter
+ *    - Allows focusing on specific reporting periods
+ *    - Must have base year present in data if specified
+ *    - Still requires minimum 3 years after filtering
+ *
+ * 7. DATA QUALITY ASSUMPTIONS:
+ *    - Zero emissions are valid (not missing data)
+ *    - Negative emissions are not expected (data quality issue)
+ *    - NaN/null values indicate missing/invalid data
+ *    - Scope data validation ensures appropriate data type usage
  */
 
 export interface ReportedPeriod {
@@ -121,7 +160,6 @@ export function calculateLADTrendSlope(
   y: { year: number; emissions: number }[],
   opts: { maxIter?: number; tol?: number; eps?: number } = {},
 ): number {
-  // LAD algorithm implementation remains the same
   const n = y.length
   const maxIter = opts.maxIter ?? 1000
   const tol = opts.tol ?? 1e-10
@@ -181,6 +219,11 @@ export function calculateLADTrendSlope(
     if (delta < tol) break
   }
 
+  // Validate result is a finite number
+  if (!isFinite(b1)) {
+    throw new Error('Invalid calculation result (non-finite number)')
+  }
+
   return b1
 }
 
@@ -213,24 +256,31 @@ export function calculateFutureEmissionTrend(
   reportedPeriods: ReportedPeriod[],
   baseYear?: number,
 ): number | null {
-  const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
-  if (!emissionsType) {
+  try {
+    const emissionsType = determineEmissionsType(reportedPeriods, baseYear)
+    if (!emissionsType) {
+      return null
+    }
+
+    const emissionsData = extractEmissionsArray(
+      reportedPeriods,
+      emissionsType,
+      baseYear,
+    )
+    const validEmissionsData = emissionsData.filter(
+      (item): item is { year: number; emissions: number } =>
+        hasValidValue(item.emissions) && item.emissions !== undefined,
+    )
+
+    if (validEmissionsData.length < 3) {
+      return null
+    }
+
+    return calculateLADTrendSlope(validEmissionsData)
+  } catch (error) {
+    console.warn('Error calculating future emission trend:', error)
     return null
   }
-
-  const emissionsData = extractEmissionsArray(
-    reportedPeriods,
-    emissionsType,
-    baseYear,
-  )
-  const validEmissionsData = emissionsData.filter(
-    (item): item is { year: number; emissions: number } =>
-      hasValidValue(item.emissions) && item.emissions !== undefined,
-  )
-
-  return validEmissionsData.length >= 3
-    ? calculateLADTrendSlope(validEmissionsData)
-    : null
 }
 
 export function calculateFutureEmissionTrendWithPercent(

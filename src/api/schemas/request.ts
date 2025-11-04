@@ -223,6 +223,12 @@ export const MunicipalityNameParamSchema = z.object({
   name: MunicipalityNameSchema,
 })
 
+export const RegionalNameSchema = z.string()
+
+export const RegionalNameParamSchema = z.object({
+  name: RegionalNameSchema,
+})
+
 export const userAuthenticationBodySchema = z.object({
   code: z.string(),
 })

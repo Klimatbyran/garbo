@@ -1,0 +1,1493 @@
+DEFINITIONER OCH BERÄKNINGSMETOD FÖR AMBEAS KLIMATAVTRYCK PÅ SIDAN 16
+# Scope Kategori 2024 2019
+
+- 1.1 Egna anläggningar Utsläppen täcker förbrukning av olja och naturgas i Sverige och Danmark. I Norge är detta ej relevant. Ut- släpp från köldmedieläckage beräknas utifrån påfylld mängd och typ av köldmedium. Korrigering av dubbelräkning av CO2e köldmedier i Sverige och Danmark.
+
+- 1.2 Ägda och leasade fordon Utsläpp från fordon beräknas koncernövergripande genom en kombination av volymen inköpta specifika bränslen samt antal körda kilometer per individuellt fordon och bränsletyp. Dessutom inkluderas en beräkning av utsläpp baserad på ersättning utbetald till medarbetare för körda kilometer i privatägd bil. Uppdatering av emissionsfaktorer för Sverige och Norge.
+
+2 El och fjarrvarme Sverige I Sverige kops fossilfri el for alla elavtal som ags av bolaget.
+Dessa avtal tacker cirka 80 % av elfor brukningen.
+For ovrig el anvands utslappsfaktorn for residualmix och for fjarrvarme tillampas utslappsfaktorn for det svenska genomsnittet.
+
+Norge I Norge kops ursprungsmarkt el for 100 % av den totala forbrukningen baserad pa karnkraft.
+
+Danmark I Danmark kops ursprungsmarkt el for 100 % av den totala forbrukningen baserad pa karnkraft.
+Utslappet for fjarrvarme beraknas med utslappsfaktor for danskt genomsnitt.
+Uppfoljning av el och varmeforbrukning har forbattrats och kan vara en forklaring till okade utslapp inom kategorin.
+
+Uppdaterad emissionsfaktor for energi i Danmark har lett till lagre utslapp samtidigt som en uppdaterad emissionsfaktor har lett till okat utslapp i Sverige 2020.
+
+- 3.1 Inköpta varor och tjänster Klimatutsläpp har beräknats för mat och förbrukningsartiklar. För att höja datakvaliteten i Ambeas klimatrap- portering har siffrorna omräknats för åren 2019–2023, baserat på Ambeas faktiska historiska inköp av livs- medel. Till stor del används aktivitetsbaserad data från Ambeas största leverantörer, som står för upp till två tredjedelar. Datakvaliteten har förbättrats avsevärt i alla tre länder, men en mindre andel kostnadsbaserade beräkningar används fortfarande. Avtryck från framför allt mat och förbrukningsartiklar. I Sverige är matavtryck redovisat utifrån LCA-data från svenska RISE, och förbrukningsmaterial utifrån LCA-data från distri- butören. I Norge och Danmark är avtryck beräknat utifrån menyer och antal vårddygn.
+
+- 3.3 Energi- och bränslerelaterade utsläpp Omfattar utsläpp från produktion av bränslen och energi som förbrukas av företaget men som inte ingår i Scope 1 eller 2, såsom upstreamutsläpp från utvinning, raffinering och transport. Se 2024.
+
+- 3.4 Transport och distribution Utsläppen har beräknats med hjälp av data från de största leverantörerna samt kostnadsbaserad data relate- rad till transport. Dessutom har transport i Danmark och Norge inkluderats, till skillnad från tidigare år. Uppskattat avtryck från våra största leverantörer.
+
+- 3.5 Avfallshantering Emissionsfaktorerna för kategorin har uppdaterats. De har tidigare visat sig vara för höga vilket resulterat i betydande minskningar av utsläpp som beräknats utifrån data på avfallsvolymer producerade i verksamheter i Sverige och Danmark. Cirka en tredjedel av all data är baserade på faktiska uppgifter om avfallsmängder och -typer. Dessutom har utsläpp från avfall i Norge inkluderats för första gången, där avfallsmängderna är baserade på kostnadsbaserad data. Avtryck kopplat till avfallsvolymer från huvudleverantörer i Sverige. Norge hanteras allt avfall av kommunerna. I Danmark saknas data.
+
+| 3.7 | Pendlingsresor | Utsläppen är beräknade utifrån en enkät från 2023 med svar från cirka 6 000 anställda (cirka 23%) utspridda över de tre länderna. Resultatet från enkäten har extrapolerats utifrån fördelning av sysselsättningsgrad och antal anställda med data från 2024. | Avtryck beräknat utifrån enkätundersökning 2020 med svar från cirka 6 000 medarbetare i Norden. |
+| --- | --- | --- | --- |
+| 3.6 Tjänsteresor Data om reseaktiviteter har samlats in via respektive lands resebyrå. Dessutom har en beräkning baserad på Uppräkning av Danmarks flygutsläpp med RFI-faktor på 1,9, samma som i Sverige. |
+| kostnadsdata inkluderats för resor utanför resebyrån. Data omfattar flyg-, tåg- och bussresor samt hotellöver- nattningar. |
+![table image]({page: 128, x: 63}, {y: 426, {width: 580}, {height: 26})
+
+
+<!-- PAGE: 129 -->
+
+## tCO e Klimatavtryck 2
+
+|                                           |                                           |                                           | 2024        | 2024   | 2024   | 2024                 | 2024              | 2023   | 2023   | 2023   | 2023                 | 2023              | 2019                 | 2019              |
+|-------------------------------------------|-------------------------------------------|-------------------------------------------|-------------|--------|--------|----------------------|-------------------|--------|--------|--------|----------------------|-------------------|----------------------|-------------------|
+| Scope                                     | #                                         | (utsläppsområde) Kategori                 | SV          | NO     | DK     | per  Totalt kategori | per  Totalt scope | SV     | NO     | DK     | per  Totalt kategori | per  Totalt scope | per  Totalt kategori | per  Totalt scope |
+| Scope 1                                   | 1                                         | Egna anläggningar                         | 162 0       |        | 327    | 489                  | 2 205             | 144    | 0      | 293    | 408                  | 2 894             | 103                  | 3 694             |
+|                                           | 2                                         | Egenägda fordon                           | 847         | 664    | 205    | 1 716                | 2 205             | 1 252  | 888    | 346    | 2 486                | 2 894             | 3 591                | 3 694             |
+| Scope 2                                   | 1                                         | Energi från el, fjärrvärme och fjärrkyla  | 1 069       | 26     | 99     | 1 194                | 1 194             | 1 200  | 0      | 872    | 2 073                | 2 073             | 932 5                | 5 932             |
+| Scope 3                                   | 1                                         | Inköpta varor och tjänster 1              | 17 409      | 1 047  | 2 130  | 20 586               | 32 066            | 22 095 | 1 130  | 908    | 24 133               |                   | 26 529               |                   |
+|                                           | 3                                         | Bränsle- och energirelaterade aktiviteter | 1 369       | 248    | 272    | 1 888                | 32 066            | 847    | 249    | 216    | 1 313                |                   | 94                   |                   |
+|                                           | 4                                         | Transport och distribution                | 289         | N/A    | N/A    | 289                  | 32 066            | 64     | N/A    | N/A    | 64                   |                   | 491                  |                   |
+|                                           | 5                                         | Avfallshantering i egna verksamheten      | 40          | 70     | 13     | 123                  | 32 066            | 1 148  | N/A    | 6      | 1 154                | 36 075            | 26                   | 39 561            |
+|                                           | 6                                         | Tjänsteresor                              | 180         | 330    | 100    | 610                  | 32 066            | 138    | 183    | 44     | 365                  |                   | 589                  |                   |
+|                                           | 7                                         | Pendlingsresor 2                          | 5 175 2 452 |        | 943    | 8 570                | 32 066            | 5 318  | 2 440  | 1 289  | 9 047                |                   | 12 122               |                   |
+| Totalt scope 1-3                          | Totalt scope 1-3                          | Totalt scope 1-3                          |             |        |        |                      | 35 465            |        |        |        |                      | 41 042            |                      | 49 477            |
+| Totalt scope 1-3 exklusive pendlingsresor | Totalt scope 1-3 exklusive pendlingsresor | Totalt scope 1-3 exklusive pendlingsresor |             |        |        |                      | 26 895            |        |        |        |                      | 31 995            |                      | 37 355            |
+| Andel scope 1-3 exklusive pendlingsresor  | Andel scope 1-3 exklusive pendlingsresor  | Andel scope 1-3 exklusive pendlingsresor  |             |        |        |                      | 76%               |        |        |        |                      | 78%               |                      | 75%               |
+
+- för vår nuvarande målsättning. Då datakvaliteten successivt förbättrats och blivit mer exakt har kategorin 3.1 "Inköp av varor och tjänster" räknats om för 1 Ambeas klimatavtryck började mätas 2019. Det är även utgångsår
+- Tidigare har beräkningar utgått från en menybaserad metod, nu kan istället en aktivitetsbaserad metod användas vilket ger mer korrekt klimatdata på våra faktiska inköp. Sverige historiskt för att vara jämförbar mellan åren.
+- Uppskattat avtryck utifrån medarbetarundersökning 2023 2
+
+#### Ambeas klimatpåverkan
+
+- Vi eftersträvar ambitiösa mål och använder validerade metoder för att minska våra koldioxidutsläpp. För att nå dessa mål prioriterar vi initiativ med störst effekt på utsläppen. Sedan starten med datainsamling 2019 har vår kunskap ökat om var störst klimatavtryck finns. Inom direkta utsläpp, så kallade Scope 1, är klimatavtrycket främst från transporter inom verksamheten. Inom Scope 2 ser vi avtryck från värme och viss el. Inom Scope 3, indirekta utsläpp, finns mat, förbrukningsmaterial, pend- lingsresor samt bränsle-.och energirelaterade aktiviteter. För Ambea finns störst utsläpp inom Scope 3, cirka 90 procent. Ambeas totala utsläpp 2024, inklusive pendlingsresor, uppgår till 35 465 ton koldioxidekvivalen- ter (tCO2e). De kommande åren riktar vi in oss mot att hitta gemensamma lösningar tillsammans med kunder, fastighetsägare, matleverantörer och leverantörer av förbrukningsmaterial för att minska avtrycket. Vi eftersträvar även att klimatutsläpp blir en naturlig del av vår interna beslutsprocess Vi riktar också våra insatser mot fossilfria fordons- och energilösningar, bland annat genom att fasa ut fordon som körs på fossila bränslen till förmån för helt eldrivna fordon. Vårt mål är att minst 90 procent av Ambeas cirka 1 200 verksamhets- och tjänstebilar är eldrivna i slutet av 2025.
+
+## AMBEAS NYCKELTALSUPPFÖLJNING AV KLIMATAVTRYCK
+
+|  | 2024 | 2019 | Utveckling |  Ambea beräknar sitt klimatavtryck enligt Greenhouse Gas Protocol (GHG) och klimatsiffror redovisas i ton koldioxidekvivalenter (tCO2e). Som konsolideringsansats används Operational control approach och scope 2 beräknas med market-based method. Om Ambea istället hade använt location-based method hade scope 2 varit 1 055 ton CO2e. Greenhouse Gas Protocol delar upp utsläppen i områden (scope) och i underkategorier. |
+| --- | --- | --- | --- | --- |
+| Klimatavtryck scope 1–33, tCO2e | 26 895 | 37 355 | -28% |  |
+| Nettoomsättning, MSEK | 14 195 | 11 040 | 29% |  |
+| Klimatavtryck per intäkt, tCO2e/MSEK | 1,89 | 3,38 | -44% |  För ytterligare information om definitioner och beräkningsmetoder, se sidan 129. |
+| Klimatavtryck scope 1–33, tCO e2 | 26 895 | 37 355 | -28% |  |
+| Antal möjliga vårddygn4 | 5 087 785 | 4 611 746 | 10% |  |
+| Klimatavtryck per möjligt vårddygn, kg | 5,29 | 8,10 | -35% |  |
+![table image]({page: 15, x: 300}, {y: 415, {width: 369}, {height: 8})
+
+3 Exklusive pendlingsresor 4 Samtliga tillgangliga omsorgsplatser under ett kalenderar.
+
+
+<!-- PAGE: 16 -->
+
+# GRI-index
+
+Ambea har rapporterat i enlighet med GRI Standards 2021 for perioden 1/1-31/12 2024.
+GRI 1 Foundation 2021 har tillampats.
+
+| GRI-Standard | Upplysning |  | Sida | Avsteg från krav | Skäl | Avsteg | Förklaring |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| GRI 2: GENERELLA UPPLYSNINGAR 2021 |
+| Organisation och redovisning | 2-1 | Organisationsdetaljer | 3, 53, 60 |  |  |  |  |
+|  | 2-2 | Enheter som ingår i organisationens hållbarhetsredovisning | 60, 93–96, 119–120 |  |  |  |  |
+|  | 2-3 | Rapporteringsperiod, frekvens och kontaktpunkt | 2, 107, 113, 131 |  |  |  |  |
+|  | 2-4 | Rättelser av tidigare lämnade upplysningar | 117, 129 |  |  |  |  |
+|  | 2-5 | Extern revision | 130 |  |  |  |  |
+| Verksamheter och anställda | 2-6 | Verksamheter, värdekedja och andra affärsrelationer | 12–13, 25, 28–38, 60, 119 | 2-6, Nedströms enheter | Inte tillämpligt |  | Ambea har inga enheter nedströms |
+|  | 2-7 | Anställda | 117 | 2-7, Uppdelning på anställningsform och region | Ofullständig information |  | Data saknas |
+|  | 2-8 | Arbetare som inte är anställda |  | 2-8, Ej anställda | Inte tillämpligt |  | Ambeas verksamhet drivs primärt av anställ- da medarbetare, konsulter kan tas in tillfälligt. |
+| Bolagsstyrning | 2-9 | Bolagsstyrning och sammansättning | 46–47, 54–57, 119 |  |  |  |  |
+|  | 2-10 | Nominering och val av högsta beslutande organ/styrelse | 46–47 |  |  |  |  |
+|  | 2-11 | Ordförande i det högsta styrelseorganet | 54 |  |  |  |  |
+|  | 2-12 | Det högsta organets roll i arbetet att följa upp hantering och styrning av hållbarhetspåverkan | 47, 119 |  |  |  |  |
+|  | 2-13 | Delegering av ansvar | 47, 119 |  |  |  |  |
+|  | 2-14 | Styrelsens roll i hållbarhetsrapporteringen | 47, 119 |  |  |  |  |
+|  | 2-15 | Intressekonflikter | 47, 118–120 |  |  |  |  |
+|  | 2-16 | Kommunikation av kritiska frågor | 43–44, 116, 119 |  |  |  |  |
+|  | 2-17 | Kompetens i styrelsen | 54, 119 |  |  |  |  |
+|  | 2-18 | Utvärdering av styrelsens arbete | 46–47 |  |  |  |  |
+|  | 2-19 | Ersättningspolicyer för styrelseledamöter och ledande befattningshavare | 47, 75 |  |  |  |  |
+|  | 2-20 | Process för att fastställa ersättning | 47, 75 |  |  |  |  |
+|  | 2-21 | Total årlig kompensations-kvot | 117 | 2-21, Kvot procentuell årlig ökning högst betald/medianlön | Ofullständig information |  | Data saknas |
+![table image]({page: 125, x: 62}, {y: 189, {width: 637}, {height: 17})
+
+
+<!-- PAGE: 126 -->
+| GRI-Standard | Upplysning |  | Sida | Avsteg från krav | Skäl | Avsteg | Förklaring |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Strategi och policy | 2-22 | Uttalande om strategi för hållbar utveckling | 5–6, 11 |  |  |  |  |
+|  | 2-23 | Policyåtaganden | 47, 114, 119 |  |  |  |  |
+|  | 2-24 | Förankring av policyåtaganden | 47, 119 |  |  |  |  |
+|  | 2-25 | Processer för att åtgärda negativa effekter | 43–44, 116, 118 |  |  |  |  |
+|  | 2-26 | Visselblåsning och liknande mekanismer | 44 |  |  |  |  |
+|  | 2-27 | Efterlevnad av lagar och förordningar | 116 |  |  |  |  |
+|  | 2-28 | Medlemskap | 22, 119 |  |  |  |  |
+| Intressentdialog | 2-29 | Samverkan med intressenter | 113 |  |  |  |  |
+|  | 2-30 | Kollektivavtal | 116, 119 |  |  |  |  |
+| GRI 3: Väsentliga frågor 2021  | 3-1 | Process för att fastställa väsentliga frågor | 15, 114 |  |  |  |  |
+|  | 3-2 | Lista över väsentliga frågor | 11, 114–115 |  |  |  |  |
+| Miljö |
+| GRI 3: Väsentliga frågor 2021 | 3-3 | Hantering av väsentlig fråga | 11, 14, 113–115, 119, 121–122 |  |  |  |  |
+| GRI 305: Utsläpp 2016 | 305-1 | Direkta utsläpp av växthusgaser (scope 1) | 14–17 |  |  |  |  |
+|  | 305-2 | Indirekta utsläpp av växthusgaser (scope 2) | 14–17 |  |  |  |  |
+|  | 305-3 | Övriga indirekta utsläpp av växthusgaser (scope 3) | 14–17 |  |  |  |  |
+| Socialt ansvar |
+| GRI 3: Väsentliga frågor 2021 | 3-3 | Hantering av väsentlig fråga | 9–13, 17, 26–27, 39–40, 113–115, 118–119 |  |  |  |  |
+| GRI 403: Arbetshälsa och säkerhet 2018 | 403-9 | Arbetsrelaterade skador | 39–40, 117 | 403-9 Arbetsrelaterade skador | Ofullständig information |  | Viss data saknas |
+|  | 403-10 | Arbetsrelaterad ohälsa | 39–40, 117 | 403-10 Arbetsrelaterade skador | Ofullständig information |  | Viss data saknas |
+![table image]({page: 126, x: 62}, {y: 119, {width: 650}, {height: 8})
+
+
+<!-- PAGE: 127 -->
+| GRI-Standard | Upplysning | Sida | Avsteg | Avsteg från krav | Skäl | Förklaring |
+| --- | --- | --- | --- | --- | --- | --- |
+| GRI 405: Mångfald och lika möjligheter 2016 | 405-1 Mångfald i styrande organ och bland medarbetare | 117 |  |  |  |  |
+| GRI 406: Icke-diskriminering 2016 | 406-1 Fall av diskriminering och vidtagna åtgärder | 117 |  |  |  |  |
+| GRI 416: Kundhälsa och säkerhet 2016 | 416-2 Avvikelser avseende produkters och tjänsters påverkan på hälsa och säker- het | 11, 17, 43–44, 116–117 |  |  |  |  |
+| Bolagsstyrning |
+| GRI 3: Väsentliga frågor 2021 | 3-3 Hantering av väsentlig fråga | 4, 9, 11–15, 26, 38–40, 113–115, 118–119 |  |  |  |  |
+| GRI 404: Träning och utbildning 2016 | 404-2 Program kompetensutveckling och program för omställningsstöd | 9, 12–13, 117 |  |  |  |  |
+| GRI 414: Bedömning av leverantörer utifrån sociala kriterier 2016 | 414-1 Leverantörer som granskats utifrån sociala kriterier | 119 |  |  |  |  |
+![table image]({page: 127, x: 62}, {y: 119, {width: 479}, {height: 17})
+
+
+<!-- PAGE: 128 -->
+
+##### 1 Ton koldioxidekvivalenter per intäktskrona, scope 1–3, exklusive medarbetarnas pendlingsresor.
+
+arsredovisning med kvalitets och hallbarhetsrapport 2024 | 11
+
+#### Fakta klimatmål
+
+Verksamhetens klimatavtryck for 2024 beraknas till 26 895 tCO2e (exklu sive pendlingsresor).
+Sedan 2019 har vi minskat vara utslapp per intakts krona med 44 procent vilket ar en forbattring med 6 procentenheter fran 2023. Vi utvecklar kontinuerligt var process for datainsamling for att fa en heltack ande bild av vart klimatavtryck.
+Vart mal om 50 procents minskning till 2025 ligger kvar.
+En redovisning av utslapp per scope foljer pa sidan 16.
+
+44%
+
+minskade utslapp per intaktskrona sedan 2019.
+
+## A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (g)
+EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL
+
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 6 | 2% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 6% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggna- der (och parkeringsplatser i anslutning till byggnader) | CCM 7.4 | 1 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Yrkestjänster i samband med byggnaders energiprestanda | CCM 9.3 | 2 | 1% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Driftsutgifter för verksamheter som omfattas av taxonomin men som inte är | miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 9 | 3% | 3% | 0% | 0% | 0% | 0% | 0% | 6% |
+| A. Drifsutgifer för verksamheter som omfattas av taxonomin (A.1 + A.2) B. Verksamheter som inte omfattas av taxonomin |  | 9 | 3% | 3% | 0% | 0% | 0% | 0% | 0% | 6% |
+| EL – Verksamhet som omfattas av taxonomin för det relevanta målet. N/EL – Verksamhet som inte omfattas av taxonomin för det relevanta målet. Ambea omfattas inte av de upplysningar som anges i artikel 8.6 och 8.7. |
+| Driftsutgifterna hos verksamheter som inte omfattas av taxonomin |  | 339 | 97% |  |  |  |  |  |  |  |
+| TOTALT |  | 348 | 100% |  |  |  |  |  |  |  |
+![table image]({page: 124, x: 64}, {y: 297, {width: 350}, {height: 7})
+
+### Driftsutgifter
+
+Taxonomins definition av driftsutgifter skiljer sig fran ovrig finansiell rapportering.
+Redovisade belopp motsvarar utgifter ar 2024 for underhall och reparation av teknisk utrustning vardutrustning samt andra inventarier och anlaggningstillgangar som kravs for verksamhetens bedrivande samt byggnadsunderhall och leasingkont rakt som ej kostnadsforts enligt IFRS 16.
+Driftutgifter omfattar aven enskilda atgarder for byggnadsrenovering.
+
+Rakenskapsarets kostnader for kortfristiga leasingavtal utgor del av driftsutgifterna dock ej leasing av lagt varde.
+For information om kortfristiga leasingavtal se not K6 pa sidan 72.
+Beloppen har tillskrivits genom konton samt fakturor hanforliga till projekt som tillfaller under taxono min.
+7.4 omfattar kostnader for service av laddstolpar och verksamheten under 6.5 avser konton hanforliga till reparation och service av leasade fordon.
+Ekonomisk verksamhet 9.3 avser ett belopp om 2 MSEK hanforliga till fakturor avseende konsulttjanster for verksamhetens hallbara utveckling samt personalkostnader som avser roller inom energiomradet.
+Konsulttjansterna avser energi utredningar akustikprojektering radgivning solceller och transportkartlaggning.
+
+
+<!-- PAGE: 122 -->
+ANDEL AV OMSaTTNINGEN FRaN PRODUKTER ELLER TJaNSTER SOM aR FoRKNIPPADE MED EKONOMISKA VERKSAMHETER SOM aR FoRENLIGA MED TAXONOMIKRAVEN UPPLYSNINGAR SOM OMFATTAR aR 2024
+
+| Finansiellt år 2024 | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (h) (DNSH) |
+| --- | --- | --- |
+|  | MSEK | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| Ekonomiska verksamheter |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter Verksamhet | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | 0% | – | – |
+| Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheter- na (A.1) | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | 0% |  |  |
+| Varav möjliggörande verksamheter | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | 0% | E |  |
+| Varav omställningsverksamheter | 0 | 0% |  |  |  |  |  | – | – | – | – | – | – | – | 0% |  | T |
+![table image]({page: 122, x: 63}, {y: 127, {width: 916}, {height: 7})
+
+## UTFALL
+
+| Miljömässig hållbarhet |  | Sidan | Mål 2025 | 2024 | 2023 |
+| --- | --- | --- | --- | --- | --- |
+| Klimatavtryck2 per intäkt tCO e (MSEK):2 | Klimatavtryck i ton koldioxidekvivalenter (tCO e) per intäktskrona (MSEK). Mål till år 2025. 2 | 16 | 1,69 | 1,89 | 2,40 |
+| Klimatavtryck2 kg CO e per möjligt vårddygn: 2 | Klimatavtryck i kg koldioxidekvivalenter (kg CO e) per vårddygn. Mål till år 2025. 2 | 16 | 4,05 | 5,29 | 6,41 |
+![table image]({page: 16, x: 59}, {y: 397, {width: 764}, {height: 8})
+
+1 Foreslagen utdelning avseende 2024 2 Scope 1-3 exklusive medarbetares pendlingsresor till och fran arbetsplatsen.
+
+
+<!-- PAGE: 17 -->
+
+####### A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (g)
+EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL
+
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 124 | 13% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 28% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| "Installation, underhåll och reparation av laddstationer för elfordon i byggna- der (och parkeringsplatser i anslutning till byggnader" | CCM 7.4 | 1 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Installation, underhåll och reparation av instrument och anordningar för mät- ning, reglering och kontroll av byggnaders energiprestanda | CCM 7.5 | 2 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Förvärv och ägande av byggnader | CCM 7.7 | 561 | 57% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 36% |
+| Kapitalutgifter för verksamheter som omfattas av taxonomin men som inte är | miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 688 | 70% | 70% | 0% | 0% | 0% | 0% | 0% | 64% |
+| A. Kapitalutgifer för verksamheter som omfattas av taxonomin (A.1 + A.2) B. Verksamheter som inte omfattas av taxonomin |  | 688 | 70% | 70% | 0% | 0% | 0% | 0% | 0% | 64% |
+| EL – Verksamhet som omfattas av taxonomin för det relevanta målet. N/EL – Verksamhet som inte omfattas av taxonomin för det relevanta målet. Ambea omfattas inte av de upplysningar som anges i artikel 8.6 och 8.7. |
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin |  | 297 | 30% |  |  |  |  |  |  |  |
+| TOTALT |  | 985 | 100% |  |  |  |  |  |  |  |
+![table image]({page: 123, x: 63}, {y: 298, {width: 339}, {height: 7})
+
+ANDEL AV KAPITALUTGIFTER/TOTALA KAPITALUTGIFTER
+
+|  | Taxonomiförenlighet per mål (aligned) | Mål som omfattas av taxonomin (eligible) |
+| --- | --- | --- |
+| CCM | 0% | 70% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 123, x: 113}, {y: 453, {width: 224}, {height: 7})
+
+
+<!-- PAGE: 124 -->
+ANDEL AV DRIFTSUTGIFTERNA FRaN PRODUKTER ELLER TJaNSTER SOM aR FoRKNIPPADE MED EKONOMISKA VERKSAMHETER SOM aR FoRENLIGA MED TAXONOMIKRAVEN UPPLYSNINGAR SOM OMFATTAR aR 2023
+
+| Finansiellt år 2024 | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (h) (DNSH) |
+| --- | --- | --- |
+|  | MSEK | % | J; N; N/ EL | J; N; N/ EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| Ekonomiska verksamheter |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter Verksamhet | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | – | 0% | – | – |
+| Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheter- na (A.1) | 0 | 0% | 0% | – | – | – | – | – | – | – | – | – | – | – | – | 0% |  |  |
+| Varav möjliggörande verksamheter | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | – | 0% | E |  |
+| Varav omställningsverksamheter | 0 | 0% |  |  |  |  |  |  | – | – | – | – | – | – | – | 0% |  | T |
+![table image]({page: 124, x: 64}, {y: 83, {width: 928}, {height: 7})
+
+# EU-taxonomin: Ambeas bidrag till klimatanpassning av verksamheten
+
+EU:s Taxonomiforordning ska stodja finansiering av hallbara investeringar for att bidra till EU:s klimat och energimal samt malsattningar i den ”Grona Given”.
+Implementeringen utvidgas stegvis.
+I nulaget omfattas Ambea av taxonomin avseende verksamheter som vard och omsorg sociala tjanster och utbildning NACE ko derna Q87 och P85 och dessas bidrag till Miljomal 1 Begransning av klimatforandringar och Miljomal 2 Anpassning till klimatforandringar.
+Ambea anses i dags laget inte omfattas av de resterande fyra klimatmalen samt saknar aktivitet och rapporterar darfor inget under alignment for de klimatmalen.
+
+Om EU:s taxonomi EU:s taxonomi ar ett klassificeringssystem for miljomas sigt hallbara ekonomiska verksamheter.
+Syftet ar att guida investerare till att identifiera investeringar som bidrar till nagot av EU:s sex prioriterade miljomal
+
+- 1. Begränsning av klimatförändringar.
+
+- 2. Anpassning till klimatförändringar.
+
+- 3. Hållbar användning och skydd av vatten och marina resurser.
+
+- 4. Övergång till en cirkulär ekonomi.
+
+- 5. Förebyggande och kontroll av föroreningar.
+
+- 6. Skydd och återställande av biologisk mångfald och ekosystem.
+
+For att avgora om en ekonomisk verksamhet bidrar vasentligt till nagot miljomalen faststaller EU kommis sionen genom delegerade forordningar sa kallade tekniska granskningskriterier.
+I februari 2022 hade kom missionen endast publicerat kriterier for de tva klimat relaterade miljomalen (miljomal 1 och 2) under 2023 har ytterligare fyra klimatmal tillkommit (miljomal 3-6).
+
+Rapportering mot ovriga fyra miljomal ar i dagslaget inte aktuellt for Ambea.
+Andelen av Ambeas verksam het som omfattas ar forenlig med taxonomins tva klimatrelaterade miljomal och ska redovisas genom tre centrala resultatindikatorer omsattning kapitalutgifter och driftsutgifter.
+Dessa presenteras i enligt faststallda mallar i tabellerna pa sidorna 123-125.
+Omsattningen bedoms till 0% 70% av kapitalutgifterna och 3% av driftsutgifterna bedoms omfattas av EU:s taxonomi.
+
+Det bor noteras att EU taxonomin ar fortsatt under utveckling.
+Omsattning kapitalutgifter och driftsutgifter som inte omfattas av EU taxonomin kan ge miljofordelar eller inte.
+
+Omfattade verksamheter Ambeas huvudsakliga verksamheter bestar av vard och omsorg bemanning inom vard och omsorg samt utbild ning.
+Ambeas taxonomiomfattade verksamheter i 12.1 Vard och omsorg med boende samt 11.
+Utbildning dar fastigheten ar en del av dar verksamheten utfors och det ar fastigheten som star i fokus for miljomalet.
+Da Ambea inte ager fastigheterna dar verksamheten bedrivs ar mojligheten att bedriva ett langsiktigt arbete som mil jomalet beskriver vad galler klimatscenarioanalyser begransat.
+Dock har de langa hyreskontrakt Ambea generellt besitter en okad exponering av risk over tid om byggnaderna inte anpassas.
+Darfor blir det viktigt for Ambea att samarbeta med fastighetsagare och upp dragsgivare (kommunerna) for att bidra till att identifiera losningar som anpassar byggnaderna till risker associe rade med klimatforandringarna.
+Av identifierade fysiska risker ser vi att konsekvenser sasom hogre temperaturer kraftiga temperaturvariationer forhojda vattennivaer och kraftiga ovader kan fa en vasentlig paverkan pa verksamheten inom fragor som beror saker energiforsorj ning luft och vattenkvalitet inomhusmiljoer trygga omsorgsrutiner samt sunda arbets och boendemiljoer.
+
+### Innehåll
+
+| Introduktion | 2 |  |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| Det kunskapsledande omsorgsföretaget 2 |
+| Ambea i korthet | 3 |  |  |  |  |
+| Året i korthet | 4 |  |  |  |  |
+| Intervju med vd Mark Jensen | 5 |  |  |  |  |
+| Strategi för hållbar omsorg | 7 |  |  |  |  |
+| Vår strategi | 8 |  |  |  |  |
+| Omsorgstjänster med kunden i fokus | 9 |  |  |  |  |
+| Vi levererar kvalitet genom kompetens | 9 |  |  |  |  |
+| Vi skapar tid för omsorg | 10 |  |  |  |  |
+| Vi accelererar innovation och |
+| välfärdsteknologi | 10 |  |  |  |  |
+| Hållbar omsorg | 11 |  |  |  |  |
+| Social hållbarhet – en del av vårt DNA 12 |
+| Klimatpåverkan och styrning | 14 |  |  |  |  |
+| Dubbel väsentlighetsanalys | 15 |  |  |  |  |
+| Klimatavtryck tCO2e | 16 |  |  |  |  |
+| Nyckeltal | 17 |  |  |  |  |
+| Ambea som investering 18 |  |  |  |  |  |
+| Investera i Skandinaviens kunskaps- |
+| ledande omsorgsbolag | 19 |  |  |  |  |
+|  |  | Omvärlden | 20 | Risker | 50 |
+|  |  | Vår omvärld | 21 | Om aktien | 53 |
+|  |  | En stor och växande marknad | 23 | Styrelse | 54 |
+|  |  |  |  | Koncernledning | 56 |
+|  |  | Vår verksamhet | 24 | Revisorns yttrande om bolags- |  |
+|  |  | Skandinaviens kunskapsledande |  | styrningsrapporten | 58 |
+|  |  | omsorgsföretag | 25 | Räkenskaper | 59 |
+|  |  | Individanpassad omsorg | 26 | Förvaltningsberättelse | 60 |
+|  |  | Nytida | 28 | Koncernens räkenskaper | 63 |
+|  |  | Vardaga | 30 | Förteckning noter | 67 |
+|  |  | Stendi | 32 | Koncernens noter | 68 |
+|  |  | Altiden | 34 | Moderbolagets räkenskaper | 99 |
+|  |  | Klara | 36 | Moderbolagets noter | 101 |
+|  |  | Lära | 38 | Styrelsens försäkran | 106 |
+|  |  | Våra medarbetare växer med oss | 39 | Revisionsberättelse | 107 |
+|  |  | Ambea Innovation hub | 41 | Definitioner och syfte | 111 |
+|  |  | Vår värld ger oss svaren | 42 | Om hållbarhetsredovisningen | 113 |
+|  |  | Kvalitet – lätt att göra rätt | 43 | EU-taxonomin: Ambeas bidrag till klimatanpassning av verksamheten | 121 |
+|  |  | Styrning och rapportering | 45 | GRI-index | 126 |
+|  |  | Bolagsstyrningsrapport | 46 | Revisorns yttrande avseende den |  |
+|  |  | Styrelsens arbete 2024 | 48 | lagstadgade hållbarhetsrapporten | 130 |
+|  |  | Internkontroll | 49 | Årsstämma | 131 |
+![table image]({page: 1, x: 536}, {y: 223, {width: 304}, {height: 8})
+
+arsredovisningen publicerades 31 mars 2025.
+Den reviderade arsredovisningen och koncernredovisningen finns pa sidorna 63-106.
+
+Omslaget Elever i skolmiljo som far stod av Klara Elevhalsa Bolagsstyrningsrapporten som granskats av revisorerna finns pa sidorna 45-57.
+Den lagstadgade hallbarhetsrapporten omfattar Foto Jenny Drakenlind sidorna 14-17 samt 113-129.
+
+
+<!-- PAGE: 2 -->
+
+######## C
+
+3 352 10 241 9 114 9 464 9 633
+
+########## B
+
+5 087
+
+| 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | --- | --- | --- | --- |
+| A | Nytida | D |  |  |
+| B | E Altiden Vardaga | Klara |  |  |
+| Stendi C |
+| • Vi har förberett oss för EU:s nya lagkrav enligt CSRD och anslutit oss till Science Based Targets initiative (SBTi) för att sätta forskningsbaserade klimatmål i linje med Parisavtalet. • Lära genomförde flera publika webbseminarier i syfte att dela vår kunskap. Det mest besökta var NPF och vuxenliv – Från isolering till delak- tighet, som genomfördes tillsammans med Nytida. |
+![table image]({page: 3, x: 540}, {y: 485, {width: 198}, {height: 8})
+
+
+<!-- PAGE: 4 -->
+
+# Styrelsens försäkran
+
+Styrelsen och verkstallande direktoren forsakrar harmed att arsredovis ningen inklusive hallbarhetsrapport har upprattats enligt arsredo visningslagen samt RFR 2 och ger en rattvisande bild av foretagets stallning och resultat och att forvaltningsberattelsen ger en rattvisande oversikt over utvecklingen av foretagets verksamhet stallning och resultat samt beskriver vasentliga risker och osakerhetsfaktorer som foretaget star infor.
+
+Styrelsen och verkstallande direktoren forsakrar harmed att koncern redovisningen har upprattats enligt International Financial Reporting Standards (IFRS) sasom de antagits av EU och ger en rattvisande bild av koncernens stallning och resultat och att forvaltningsberattelsen for koncernen ger en rattvisande oversikt over utvecklingen av koncernens verksamhet stallning och resultat samt beskriver vasentliga risker och osakerhetsfaktorer som de foretag som ingar i koncernen star infor.
+
+arsredovisningen innehaller ocksa koncernens och moderbolagets hallbarhetsrapportering enligt aRL 6 kap 11§ se sidorna 7-19 och 121-125 och hallbarhetsredovisningen enligt Global Reporting Initiative GRI se GRI index sidorna 126-129.
+
+Stockholm den dag som framgar av var elektroniska underskrift
+
+| Yrjö Närhinen | Daniel Björklund | Hilde Britt Mellbye |
+| --- | --- | --- |
+| Styrelsens ordförande | Styrelseledamot | Styrelseledamot |
+![table image]({page: 105, x: 482}, {y: 199, {width: 472}, {height: 9})
+
+| Dan Olsson | Gunilla Rudebjer | Samuel Skott |
+| --- | --- | --- |
+| Styrelseledamot | Styrelseledamot | Styrelseledamot |
+![table image]({page: 105, x: 486}, {y: 245, {width: 461}, {height: 9})
+
+| Patricia Briceño | Charalampos Kalpakas | Magnus Sällström |
+| --- | --- | --- |
+| Arbetstagarrepresentant | Arbetstagarrepresentant | Arbetstagarrepresentant |
+![table image]({page: 105, x: 478}, {y: 291, {width: 495}, {height: 9})
+
+# Om hållbarhetsredovisningen
+
+Hallbarhet handlar om ett langsiktigt ansvarstagande for manniskor miljo och ekonomi.
+Ambeas kvalitets och hallbarhetsredovisning reflekterar de fragor som bolagets interna och externa intressenter identifierat som mest vasentliga for Ambea inom namnda omraden.
+
+Hallbarhetsredovisningen ar upprattad enligt riktlinjer i arsredovisningslagen och foljer GRI1 Standards 2021.
+Rapporten upprattas arligen och omfattar perioden 1 januari till 31 december 2024 vilket ar samma period som den finansiella rapporteringen.
+
+Intressenter och dialog Ambea har flera intressentgrupper dar god forstaelse och dialog ar synonym med kvalitativ omsorg.
+Dessa ar framfor allt • omsorgstagare samt deras narstaende
+
+- • medarbetare
+
+- • ägare, investerare, analytiker och banker
+
+- • fackliga företrädare
+
+- • kommuner som är uppdragsgivare
+
+- • övriga uppdragsgivare/kunder
+
+- • potentiella medarbetare då hela omsorgsbranschen har ett stort rekryterings- och kompetensbehov för att kunna ta hand om den växande skaran av omsorgstagare
+
+- • samarbetspartners som bidrar till utveckling av verksamheten, såsom utbildningsinstitutioner, intresseorganisationer och andra experter inom vård och omsorg
+
+- • leverantörer, genom ett växande samarbete för att med gemensamma initiativ minska negativ klimatpåverkan och säkra god etik och ansvarstagande i hela värdekedjan
+
+- • politiker, tjänstemän och myndigheter
+
+- • media och allmänhet med intresse för utvecklingen inom vård och omsorg.
+
+| Intressentgrupp | Forum och kanal | Frågor som diskuteras |
+| --- | --- | --- |
+| Omsorgstagare och | Mötesforum, dialog vid inflytt samt | Trygg och säker vård och omsorg av hög |
+| närstående | uppföljning under boendetiden | och jämn kvalitet |
+| Uppdragsgivare, kommuner | Upphandlingar, tillväxtdiskussioner, sam- | Entreprenadkontrakt, nyetableringar |
+|  | verkansmöten samt avtalsuppföljningar | samt utveckling, utbildning och föreläsningar |
+| Övriga uppdragsgivare/ | Upphandlingar, dialog och möten med | Utbildning och handledning, utmaningar |
+| kunder | beställare, workshops och utvecklings- | och behov inom kompetensområdet, |
+|  | grupper, dialog med deltagare | utveckling av arbetsplatser, uppföljning av insatser, online och mobila arbetssätt |
+| Medarbetare | Mötesforum i grupp samt individuella | Anställning, kompetens, utveckling samt |
+|  | möten | arbetsmiljö |
+| Fackliga organisationer | Samverkan enligt kollektivavtal | Villkor, avtal, organisationsförändringar, utveckling |
+| Ägare, investerare, analytiker | Årsstämma, års- samt kvartalsredovis- | Verksamhetens drift, utveckling och |
+| och banker | ning, investerarträffar | kvalitet |
+| Leverantörer | Avtal och uppförandekod | Kvalitet, säkerhet och effektivitet i pro- duktion, beställning och leverans, etiska och ansvarsfulla inköp |
+| Utbildningsinstitutioner | Samverkan och projekt för forskning och | Utveckling och ökad kvalitet omsorgs- |
+|  | utveckling, praktik | tjänster, praktik |
+| Intresseorganisationer | Samarbeten kring evenemang samt | Synliggöra olika grupper samt motverka |
+|  | sponsring | fördomar och okunskap |
+| Politiker och myndigheter | Möten, debatter, opinionsbildning, | Verksamhetsinnehåll, kvalitet, samsyn |
+|  | föreläsningar | samt att bidra till lösningar av välfärds- utmaningar |
+| Media, journalister och | Intervjuer, debatt, opinionsbildning, | Transparens, förmedla kunskap om |
+| allmänhet | föreläsningar | vården och omsorgen |
+![table image]({page: 112, x: 550}, {y: 165, {width: 370}, {height: 8})
+
+1 Global Reporting Initiative
+
+
+<!-- PAGE: 113 -->
+
+## Väsentlighetsanalys
+
+Ambeas hallbarhetsarbete struktureras utifran ett lang siktigt ansvarstagande for manniskor miljo och ekonomi.
+I grunden for hallbarhetsarbetet finns vasentlighetsana lysen fran 2016 som justeras dynamiskt i takt med tiden genom kontinuerlig dialog med investerare och andra nyckelintressenter ny lagstiftning samt analys av trender och konkurrenters agerande inom hallbarhetsomradet.
+Vasentlighetsanalysen 2016 genomfordes med ingangsvarden fran intressentdialogen omvarldsanalys av trender och forvantningar inom hallbarhetsomradet investerarkrav och en konkurrensanalys.
+Ambea identifie rade och prioriterade koncernens viktigaste hallbarhets fragor och arbetet involverade flera interna nyckelfunk tioner bland annat fran kvalitet kommunikation HR och finans och resultatet sammanstalldes i en gemen sam workshop.
+De prioriterade hallbarhetsfragorna och vasentlighetsanalysen forankrades i Ambeas koncernled ning.
+Under 2023 genomforde koncernledningen en genomlysning av de vasentliga fragorna och de bedom des som relevanta utifran ett paverkansperspektiv.
+
+Under 2024 har arbetet med en dubbel vasentlighets bedomning pagatt och slutforts for att identifiera och bedoma finansiell och materiell paverkan da vi kommer att rapportera enligt EU:s direktiv Corporate Sustainabi lity Reporting Directive (CSRD) nar det blir tillampligt.
+
+Pa foljande sidor presenteras Ambeas nuvarande vasentliga hallbarhetsfragor samt nyckeltal.
+
+| Dimension | Fokusområden | Väsentliga frågor | Frågor i Ambeas väsentlighetsanalys | Koppling till FN:s globala mål (Agenda 2030) | Policy | Läs mer om vårt arbete |
+| --- | --- | --- | --- | --- | --- | --- |
+| Social hållbarhet | Individen i centrum | Ökad hälsa, välbefinnande och livs- kvalitet | Hälsa och säkerhet för våra omsorgstagare; Nöjda och trygga omsorgstagare; Motive- rade medarbetare; Hälsa och säkerhet för medarbetaren | 3 God hälsa och välbefinnande 8 Anständiga arbetsvillkor och ekonomisk tillväxt | Uppförandekod, Medarbetar- och arbetsmiljöpolicy, Kvalitet- och håll- barhetspolicy | Omsorgstjänster med kunden i fokus (sidan 9), Vi skapar tid för omsorg (sidan 10), Individanpassad omsorg (sidan 26–27), Social hållbarhet – en del av vårt DNA (sidan 12–13), Våra medarbe- tare växer med oss (sidan 39–40) |
+|  |  | Respekt för individen och mänskliga rättigheter | Integritet, självbestämmande och empati; Respekt för individen och mänskliga rättig- heter; Mångfald och likabehandling | 3 God hälsa och välbefinnande | Policy för behandling av personuppgifter (GDPR), Policy för visselblåsning | Omsorgstjänster med kunden i fokus (sidan 9), Vi skapar tid för omsorg (sidan 10), Social hållbarhet – en del av vårt DNA (sidan 12–13), Kvalitet – lätt att göra rätt (sidan 43–44) |
+|  | Innovation i vård och | Kompetens, metoder och tjänster för | Digitalisering och välfärdsteknologi; | 4 God utbildning för alla | Kvalitet- och hållbarhetspolicy | Vi accelererar innovation och välfärds- |
+|  | omsorg | bättre vård och omsorg | Utveckling av metoder, pedagogik och |  |  | teknologi (sidan 10), Ambea Innovation |
+|  |  |  | tjänster; Evidensbaserad forskning och |  |  | hub (sidan 41) |
+| innovation genom samverkan |
+|  |  | Konstruktiv samhällsdebatt | Utveckla synen på vård och omsorg; | 4 God utbildning för alla | – | Vi accelererar innovation och välfärds- |
+|  |  |  | Integration, förebygga utanförskap; Stöd till |  |  | teknologi (sidan 10), Aktiv medlem i |
+|  |  |  | samhällsprojekt |  |  | branschorganisation (sidan 22) |
+|  | Etik och kvalitet | Hög kvalitet i omsorgen | Tydliga mål och rutiner; Kundnöjdhet och | 3 God hälsa och välbefinnande | Uppförandekod, Kvalitet- och hållbar- | Vi levererar kvalitet genom kompetens |
+|  |  |  | effektivitet | 8 Anständiga arbetsvillkor och | hetspolicy, Policy för Intern kontroll, | (sidan 9), Kvalitet – lätt att göra rätt |
+|  |  |  |  | ekonomisk tillväxt | Policy för Riskhantering | (sidan 43–44) |
+| Dimension | Fokusområden | Väsentliga frågor | Frågor i Ambeas väsentlighetsanalys | Koppling till FN:s globala mål (Agenda 2030) | Policy | Läs mer om vårt arbete |
+| Ekonomisk och | Etik och kvalitet | God affärsetik och hög transparens | Lagar, regler och föreskrifter; Antikorrup- | 8 Anständiga arbetsvillkor och | Uppförandekod, Kvalitet- och hållbar- | Vi levererar kvalitet genom kompetens |
+| social hållbarhet |  |  | tion; Etisk marknadsföring; Ansvar för miljö | ekonomisk tillväxt | hetspolicy, Finanspolicy, Kommunika- | (sidan 9) |
+| tionspolicy, Informationssäkerhetspolicy, Insiderpolicy, Närstående Policy |
+|  |  | Nära samarbeten och tydliga krav på | Affärsetik; Miljö och mänskliga rättigheter | 8 Anständiga arbetsvillkor och | Uppförandekod, Inköpspolicy, Policy | Vi levererar kvalitet genom kompetens |
+|  |  | leverantörer |  | ekonomisk tillväxt | dataskydd personuppgifter | (sidan 9), Klimatpåverkan och styrning (sidan 14) |
+| Miljö | Klimatpåverkan | Hållbara resor och transporter | Hållbart resande och transporter | 12 Hållbar konsumtion och produktion | Kvalitet-och hållbarhetspolicy, Policy för tjänsteresor | Klimatpåverkan och styrning (sidan 14) |
+|  |  | Minskat matsvinn och ansvarsfull avfallshantering | Klimatavtryck kopplat till mat och avfall | 12 Hållbar konsumtion och produktion | Kvalitet-och hållbarhetspolicy | Klimatpåverkan och styrning (sidan 14) |
+|  |  | Energieffektiva fastigheter och fossilfri el | Förnybar/fossilfri energi och livscykel- analyser | 7 Hållbar energi för alla | Kvalitet-och hållbarhetspolicy | Klimatpåverkan och styrning (sidan 14) |
+![table image]({page: 113, x: 67}, {y: 254, {width: 701}, {height: 16})
+
+
+<!-- PAGE: 115 -->
+- KVALITETSRELATERADE NYCKELTAL
+
+- NYCKELTAL – MILJÖ OCH BOLAGSSTYRNING
+
+|  | 2024 | 2023 | 2024 | 2023 | 2024 | 2023 | 2024 | 2023 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Vardaga | Vardaga | Nytida | Nytida | Stendi | Stendi | Altiden | Altiden |
+| Antal avvikelser | 34 817 | 32 124 | 34 269 | 34 568 | 10 029 | 10 351 | 302 | 564 |
+| Totalt antal avvikelser grad 41 | 7 | 17 | 20 | 9 | 3 | 15 | 2 | 6 |
+| Antal tillsyner (varav med kritik) | 3 (1) | 2 | 48 (23) | 99 (11) | 181 (24) | 185 (28) | 64 (5) | 51 (6) |
+| Lex Maria (vårdskada), antal anmäla händelser till IVO | 12 | 7 | 8 | 5 | N/A | N/A | N/A | N/A |
+| Lex Maria, utredningar som inte är anmälningspliktiga | 51 | 48 | 62 | 50 | N/A | N/A | N/A | N/A |
+| Lex Sarah (missförhållande), antal anmäla händelser till IVO | 8 | 6 | 17 | 16 | N/A | N/A | N/A | N/A |
+| Lex Sarah, utredningar som inte är anmälningspliktiga | 81 | 68 | 111 | 118 | N/A | N/A | N/A | N/A |
+![table image]({page: 115, x: 288}, {y: 126, {width: 460}, {height: 8})
+
+Ambea har tydliga rutiner for att identifiera dokumen tera och rapportera avvikelser och risker.
+Genom att arbeta med avvikelser pa den nivan sa minimeras risken att allvarliga handelser intraffar se sidan 43.
+Det svenska dataskyddsombudet har gjort 17 anmal ningar till IMY under 2024.
+Dessa har varit av olika karak vidtas for att forhindra aterupprepning.
+Resterande inci denter anses ha orsakats av organisatoriska och tekniska brister inom systemforvaltning.
+atgarder har genomforts till viss del direkt i anslutning till incidenterna men ar i fortsatt behov av lopande arbete for att sakerstalla att samtliga behandlingar foljer dataskyddslagstiftning.
+Av
+
+| tär, men ingen av dem har medfört eller bedömts som | de beslut som vi fått vidtar IMY inte några åtgärder med |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| en stor risk för de registrerade. Anledningen till ökat antal | anledning av vår anmälan. Altiden har anmält totalt |  |  |  |  |  |  |  |
+| anmälningar anses bero på att det varit andra anmälare | två incidenter till Datatilsynet och inväntar återkoppling |  |  |  |  |  |  |  |
+| som granskat händelserna, därav andra bedömningar. I | för dessa. Stendi har inte anmält några incidenter till |  |  |  |  |  |  |  |
+| de flesta fallen har relevanta åtgärder omgående kunnat | Datatilsynet. |  |  |  |  |  |  |  |
+| Utfall |
+|  |  | Grupp | Hållbarhetsindikator | 2024 | 2023 | 2022 | 2021 | 2020 |
+| Miljö |
+|  |  | Klimatavtryck2 | Klimatavtryck per intäkt, tCO2e per MSEK | 1,89 | 2,40 | 2,57 | 2,66 | 2,78 |
+| Bolagsstyrning |
+|  |  | Mångfald i styrelse | Antal styrelsemedlemmar | 9 | 9 | 9 | 9 | 9 |
+|  |  |  | Andel kvinnor i styrelsen, % | 33% | 33% | 33% | 44% | 44% |
+|  |  |  | Antal fackliga representanter | 3 | 3 | 3 | 3 | 3 |
+|  |  | Styrelsens oberoende3 | Andel oberoende till bolaget, % | 100% | 100% | 100% | 100% | 100% |
+|  |  |  | Andel oberoende till huvudägare, % | 100% | 83% | 83% | 83% | 83% |
+|  |  | Styrelsens utskott | Antal utskott | 3 | 3 | 3 | 3 | 3 |
+|  |  |  | Antal utskott med kvinnlig ordförande | 1 | 1 | 2 | 3 | 3 |
+|  |  | Kollektivavtal | Andel anställda med kollektivavtal, % | 100% | 99,1% | 97,4% | 98,2% | 99,0% |
+|  |  | Etik och antikorruption | Andel medarbetare som formellt signerat uppförandekod, % | 96% | 98% | 99% | 99% | 67% |
+![table image]({page: 115, x: 59}, {y: 326, {width: 459}, {height: 8})
+
+Fakta myndighetstillsyner IVO (Inspektionen for vard och omsorg) IVO ar en statlig tillsynsmyndighet som ansvarar for att granska vard och omsorg i Sverige inklusive halso och sjukvard samt social tjanst.
+Deras uppdrag ar att sakerstalla att varden och omsorgen bedrivs enligt lagstiftning och med hog kvalitet.
+Myndigheten hanterar aven tillstandsfragor for privata vardgivare.
+
+Lex Sarah En anmalningsskyldighet inom socialtjansten och LSS (lagen om stod och service till vissa funktionshind rade) som innebar att personalen ar skyldig att rapportera allvarliga missforhallanden eller risker for sadana.
+Detta gors till IVO syftet ar att forbattra kvaliteten i verksamheten och skydda individens rattigheter.
+
+Lex Maria En anmalningsskyldighet inom halso och sjuk varden som kraver att vardgivare rapporterar handelser som har medfort eller kunnat medfora allvarlig vardskada.
+Detta gors till IVO och syftet ar att forebygga vardskador genom systematiskt forbattringsarbete.
+
+IMY (Integritetsskyddsmyndigheten) IMY overvakar och sakerstaller efterlevnaden av regler for dataskydd inklusive GDPR.
+Myndigheten arbetar med fragor som ror personupp giftsskydd och har som uppdrag att starka individers ratt till integritet i digitala miljoer.
+
+1 Allvarliga avvikelser grad 4 = Katastrofal handelser som innebar bestaende stor skada eller far bestaende konsekvenser for den enskilde utifran aktuell handelse (sensorisk motorisk fysiologisk intellektuell eller psykologisk) samt ovantade dodsfall.
+2 Scope 1-3 exklusive medarbetares pendlingsresor.
+Scope 3 exklusive pendlingsresor omfattar cirka 60% av samtliga utslapp.
+
+3 Exklusive fackliga representanter.
+
+
+<!-- PAGE: 116 -->
+
+##### ANDEL AV OMSÄTTNING/TOTAL OMSÄTTNING
+
+|  | Taxonomiförenlighet per mål (aligned) | Mål som omfattas av taxonomin (eligible) |
+| --- | --- | --- |
+| CCM | 0% | 0% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 122, x: 113}, {y: 453, {width: 224}, {height: 7})
+
+
+<!-- PAGE: 123 -->
+ANDEL AV KAPITALUTGIFTER FRaN PRODUKTER ELLER TJaNSTER SOM aR FoRKNIPPADE MED EKONOMISKA VERKSAMHETER SOM aR FoRENLIGA MED TAXONOMIKRAVEN UPPLYSNINGAR SOM OMFATTAR aR 2024
+
+| Finansiellt år 2024 | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (h) (DNSH) |
+| --- | --- | --- |
+|  | MSEK | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/ EL | J; N; N/EL | J; N; N/EL | J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| Ekonomiska verksamheter |
+| A. Verksamheter som omfattas av taxonomin A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter Verksamhet | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | – | 0% | – | – |
+| Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksam- heterna (A.1) | 0 | 0% | 0% | – | – | – | – | – | – | – | – | – | – | – | – | 0% |  |  |
+| Varav möjliggörande verksamheter | 0 | 0% | – | – | – | – | – | – | – | – | – | – | – | – | – | 0% | E |  |
+| Varav omställningsverksamheter | 0 | 0% |  |  |  |  |  |  | – | – | – | – | – | – | – | 0% |  | T |
+![table image]({page: 123, x: 63}, {y: 83, {width: 931}, {height: 7})
+
+### AMBEAS ANDEL AV EKONOMISKA AKTIVITETER SOM OMFATTAS AV EU-TAXONOMIN
+
+| % | 2024 |
+| --- | --- |
+| Omsättning | 0 |
+| Kapitalutgifter | 70 |
+| Driftsutgifter | 3 |
+![table image]({page: 120, x: 539}, {y: 393, {width: 221}, {height: 8})
+
+Tillampning av taxonomin Huvudsakliga verksamheter under miljomal 1 Ambeas huvudsakliga verksamhet omfattas inte av aktiviteter under miljomal 1.
+Trots det finns det andra satt dar Ambea engagerar sig och bidrar till hallbarhet och socialt ansvar inom ramen for sin verksamhet.
+Mer om det finns beskrivet i avsnittet Strategi for hallbar omsorg pa sidan 7-17.
+
+Huvudsakliga verksamheter under miljomal 2 Under miljomal 2 (anpassning till klimatforandringar) aterfinns tva aktiviteter med relevans for taxonomin 12.1 Vard och omsorg med boende.
+Forutsattningarna for att rapportera omsattning kapitalutgifter eller driftsutgifter under miljomal 2 skiljer sig at for dessa tva aktiviteter beroende pa om de utgor anpassningsverksamheter eller mojliggorande verksamheter.
+Saval 11 Utbildning som 12.1 Vard och omsorg med boende anses utgora anpassningsverksamheter under taxonomiforordningens miljomal 2.
+For anpassningsverksamheter ar endast kapi tal och driftutgifter for atgarder som syftar till att oka verksamhetens motstandskraft mot fysiska och icke fysi ska risker kopplade till klimatforandringarna relevanta.
+Sadana atgarder ska bygga pa bland annat klimatsce narioanalyser som star i proportion till verksamheten.
+En viktig aspekt har ar att Ambea inte ager fastigheterna dar aldreomsorgsboenden och utbildningsverksamhet sker varfor ansvaret for att genomfora klimatscenario analyser och anpassningsatgarder i regel tillfaller fastig hetsagarna.
+Foljaktligen ar det inte aktuellt for Ambea att rapportera nagra kapital eller driftsutgifter for sadana anpassningsverksamheter.
+
+
+<!-- PAGE: 121 -->
+ovriga verksamheter under taxonomin
+
+Taxonomin ger flera olika alternativ for att rapportera kapital och driftsutgifter som hallbara.
+Dessa preciseras i den delegerade forordningen med redovisningsprinci per.
+Utover utgifter kopplade till vara huvudsakliga verksamheter (vard och omsorg bemanning inom vard och omsorg samt utbildning) har darfor en kartlaggning gjorts av foljande
+
+- • Kapital- och driftsutgifter som är en del av en plan för att utvidga andelen verksamheter som omfattas av taxonomin eller göra det möjligt för ekonomiska verksamheter som omfattas av taxonomin att bli förenliga med kraven i taxonomin inom fem år.
+
+- • Inköp av produkter från ekonomiska verksamheter som är förenliga med taxonomikraven samt enskilda åtgärder som gör det möjligt för verksamheterna att bli koldioxidsnåla eller minska växthusgasutsläpp.
+
+I kartlaggningen av miljomal 2 identifierades kapital utgifter kopplade till verksamhet 6.5 Transport med motorcyklar personbilar och latta motorfordon.
+Utgif terna harror fran leasade fordon som anvands i var verk samhet och som kapitalforts under rakenskapsar 2024 samt avslutade leasingkontrakt under aret.
+Utgifter som under aret kostnadsforts och som avser underhall av leasade fordon enligt beskrivningen i 6.5 har bedomts utgora relevanta driftsutgifter enligt taxonomins redo visningsprinciper.
+Da de leasade fordonen utgors av latta fordon enligt beskrivningen under verksamhetskod 6.5 i den delegerade forordningen pa klimatomradet ar var slutsats dessa kapital respektive driftsutgifter omfattas av taxonomin.
+Vidare har kapitalutgifter identifierats som svarar mot verksamheterna 7.4 Installation underhall och repara tion av laddstationer for elfordon i byggnader samt 7.5 Installation underhall och reparation av instrument och anordningar for matning reglering och kontroll av byggnaders energiprestanda.
+Utgifterna avser dels laddstationer som under ar 2024 installerats i anslutning till annans fastighet dels utbyte av bergvarmepumpar i fastigheter dar vi bedriver var verksamhet.
+atgarderna bedoms svara mot beskrivningarna under verksamhets koderna 7.4 och 7.5 i den delegerade forordningen pa klimatomradet och var slutsats ar darfor att kapitalutgif terna omfattas av taxonomin.
+
+Vidare har utgifter identifierats forknippade med verksamhet 9.3 Yrkestjanster i samband med byggna ders energiprestanda.
+Utgifterna avser konsulttjanster for energirelaterade atgarder i annans fastighet och bedoms svara mot beskrivningen under den aktuella verksamhetskoden i den delegerade forordningen pa klimatomradet.
+Utgifterna uppgar till mindre an en pro cent av Ambeas totala driftsutgifter enligt taxonomins definition.
+Slutligen har kapitalutgifter identifierats kopp lade till 7.7 Forvarv och agande av byggnader.
+Utgifter bestar av tillkommande avslutade och omvarderade leasingkontrakt av fastigheter.
+
+Bedomning av taxonomiforenlighet For de utgifter som identifierats har ingen bedomning kunnat goras om huruvida de ar forenliga med taxono min eller inte.
+Eftersom de kapital och driftsutgifter som omfattas av taxonomin avser inkop av produkter och enskilda atgarder som ar forknippade med verksamhe ter i taxonomin ar Ambea beroende av uppgifter fran leverantorer for att kunna gora en bedomning om taxo nomiforenlighet.
+Da uppgifter om hur verksamheterna uppfyller de tekniska granskningskriterierna saknats har en sadan bedomning inte varit mojligt infor arets rapportering.
+
+#### Lokala insatser för att minska utsläppen
+
+Under aret har Ambea lanserat Road to Reduction ett internt pro gram som syftar till att minska koldioxidutslappen inom organisa tionen i enlighet med malet att uppna en 50 procents minskning av koldioxidutslappen till 2025.
+
+Road to Reduction fokuserar pa koncerngemensamma aktiviteter inom transport mat och energi dar aktiviteterna bryts ner mats och foljs upp per affarsomrade.
+Ett nytt systemstod for hallbarhetsarbetet implementerades under 2024 for att mer frekvent kunna mata och folja upp framdriften i varje affarsomrade och justera insatserna efter behov.
+
+### Klimatpåverkan och styrning
+
+I Ambea styr vi var verksamhet med en varderingsstyrd kultur regelefterlevnad och en transparent dialog.
+Nar det galler miljo anpassar vi verksamheten till klimatforandringar och staller om till fossilfritt.
+Vi har en ambitios malsattning att minska klimatavtrycket med 50 procent till ar 2025 jamfort med 2019Vi forbattrar hela tiden vara metoder for att mata vara utslapp och under aret tog vi nasta steg i vart hallbar hetsarbete genom att ansluta oss till Science Based Targets initiative.
+
+For att na vara klimatmal ar samarbeten med uppdragsgivare myn digheter leverantorer foretag och fackliga organisationer viktiga.
+Lika viktig ar var egen innovationsformaga och starka ambition att mini mera paverkan pa planetens resurser.
+
+Tva ganger om aret genomfor vi egenkontroller for att folja upp miljoarbetet i vara verksamheter.
+Da utvarderas en rad miljoaspekter sasom hantering av kemikalier och avfall.
+
+### Förvaltningsberättelse 60
+
+EU taxonomin Ambeas bidrag till klimatanpassning
+
+Revisorns yttrande avseende den lagstadgade
+
+| Koncernens räkenskaper | 63 |
+| Koncernens noter | 67 |
+| Moderbolagets räkenskaper | 99 |
+| Moderbolagets noter | 100 |
+| Styrelsens försäkran | 106 |
+| Revisionsberättelse | 107 |
+| Definitioner och syfte | 111 |
+| Om hållbarhetsredovisningen | 113 |
+| av verksamheten | 121 |
+| GRI-index | 126 |
+| hållbarhetsrapporten | 130 |
+| Årsstämma | 131 |
+![table image]({page: 58, x: 59}, {y: 246, {width: 224}, {height: 8})
+
+
+<!-- PAGE: 59 -->
+
+## Nettoomsättning (MSEK)
+
+|  |  |  |  | 14 195 |
+| --- | --- | --- | --- | --- |
+| 11 083 | 11 478 |  |  |  |
+|  |  | 12 635 | 13 312 |  |
+![table image]({page: 2, x: 250}, {y: 448, {width: 43}, {height: 8})
+
+2020 2021 2022 2023 2024
+
+## Tydliga klimatmål med Science Based Targets initiative
+
+For att satta och uppna klimatmal som ar matbara och vetenskapligt forankrade anslot vi oss under 2024 till Science Based Targets initiative (SBTi).
+
+Science Based Targets ar en global organisation som gor det mojligt for foretag att satta ambitiosa mal for utslappsminskningar i linje med den senaste klimat vetenskapen och Parisavtalets malsattning om att begransa den globala uppvarmningen till 1,5°C.
+Under 2025 ska vi ta fram nya klimatmal som ska valideras och godkannas av SBTi infor 2026.
+
+Genom att ansluta oss till Science Based Targets initiative far vi en tydlig och vetenskapligt validerad plan som stodjer oss i klimatom stallningen.
+
+ANDEL AV DRIFTSUTGIFTER/TOTALA DRIFTSUTGIFTER
+
+|  | Taxonomiförenlighet per mål (aligned) | Mål som omfattas av taxonomin (eligible) |
+| --- | --- | --- |
+| CCM | 0% | 3% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 124, x: 113}, {y: 453, {width: 224}, {height: 7})
+
+
+<!-- PAGE: 125 -->
+
+### Kapitalutgifter
+
+Redovisade belopp motsvarar forvarv av materiella och immateriella anlaggningstillgangar under ar 2024 fore eventuella avskrivningar omvarderingar och nedskriv ningar och undantaget forandringar i verkligt varde.
+Dessa inbegriper aktiverade leasingavtal rorelseforvarv och ovriga forvarv under rakenskapsaret exklusive Goodwill.
+For mer detaljerad information om investerin garna se not K6 K12 och K13 pa sidan 72 78 och 79.
+Beloppen har tillskrivits genom konton samt fakturor hanforliga till projekt som tillfaller under taxonomin.
+
+Verksamheten 6.5 avser kostnader for leasade fordon och beloppet har tagits fran leasingredovisningssyste met.
+Ekonomisk verksamhet under 7.4 avser implemen teringen av laddstolpar dar beloppet hanfors till fakturor kopplade till projektet.
+Verksamheten under 7.4 avser fakturor hanforda till projekt for att forbattra varmeflo dets reglering samt 7.7 dar belopp hamtats fran leasing redovisningssystemet.
+
+###### A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (g)
+####### EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL
+
+| Verksamhet | 0 | 0% | – | – | – | – | – | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Omsättning för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 0 | 0% | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| A. Omsättning för verksamheter som omfattas av taxonomin (A.1 + A.2) B. Verksamheter som inte omfattas av taxonomin | 0 | 0% | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| EL – Verksamhet som omfattas av taxonomin för det relevanta målet. N/EL – Verksamhet som inte omfattas av taxonomin för det relevanta målet. Ambea omfattas inte av de upplysningar som anges i artikel 8.6 och 8.7. |
+| Omsättning hos verksamheter som inte omfattas av taxonomin | 14 195 | 100% |  |  |  |  |  |  |
+| TOTALT | 14 195 | 100% |  |  |  |  |  |  |
+![table image]({page: 122, x: 62}, {y: 343, {width: 337}, {height: 7})
+
+### UPPLYSNINGAR LEASING BRUTTOREDOVISNING 2024
+
+| MSEK | Ingående balans | Justerat mot ingående balans Justerad ingående balans | Redovisat över resultaträkning | Redovisat mot övrigt total- resultat | Förvärv/avytt- ring av rörelse | Omräkning | Utgående balans |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Uppskjutna skattefordringar | 1 768 | – 1 768 | 73 | – | – | – | 1 841 |
+| Uppskjuta skatteskulder | −1 696 | – −1 696 | −54 | – | – | – | −1 750 |
+| Summa | 72 | – 72 | 19 | – | – | – | 91 |
+![table image]({page: 86, x: 59}, {y: 144, {width: 694}, {height: 8})
+
+### UPPLYSNINGAR LEASING BRUTTOREDOVISNING 2023
+
+| MSEK | Ingående balans | Justerat mot ingående balans Justerad ingående balans | Redovisat över resultaträkning | Redovisat mot övrigt total- resultat | Förvärv/avytt- ring av rörelse | Omräkning | Utgående balans |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Uppskjutna skattefordringar | 1 668 | – 1 668 | 100 | – | – | – | 1 768 |
+| Uppskjuta skatteskulder | −1 613 | – −1 613 | −83 | – | – | – | −1 696 |
+| Summa | 55 | – 55 | 17 | – | – | – | 72 |
+![table image]({page: 86, x: 59}, {y: 261, {width: 694}, {height: 8})
+
+NOT K24 Upplupna kostnader och forutbetalda intakter
+
+| MSEK | 2024−12−31 | 2023−12−31 |
+| --- | --- | --- |
+| Semesterlöner inklusive sociala avgifter | 509 | 485 |
+| Upplupna personalkostnader, exklusive semesterlöner | 570 | 500 |
+| Förskottsfakturerade vårdavgifter | 119 | 85 |
+| Upplupna räntekostnader | 9 | 14 |
+| Hyresperiodiseringar | 41 | 48 |
+| Upplupna konsult- och revisionskostnader | 10 | 9 |
+| Övriga poster | 70 | 76 |
+| Summa | 1 328 | 1 217 |
+![table image]({page: 86, x: 59}, {y: 360, {width: 340}, {height: 8})
+
+
+<!-- PAGE: 87 -->
+- NOT K25
+
+- Värdering av finansiella tillgångar
+
+## Vår omvärld
+
+Ambea paverkas av en rad omvarldsfaktorer.
+Tre tydliga trender pa samhallsniva formar for utsattningarna for branschen under den kom mande tioarsperioden.
+
+Trenderna beror till stor del pa demografiska forandrin gar vilka kommer att leda till pafrestningar for samhallet i alla skandinaviska lander men ocksa goda mojlighe ter for Ambea att bista och skapa losningar.
+Sammanta get kallar vi trenderna den stora valfardsutmaningen
+
+- • Färre ska försörja fler
+
+- • Omsorgsbehovet växer
+
+- • Bristen på omsorgsmedarbetare ökar
+
+#### Omsorgstjänster med kunden i fokus
+
+Med utgangspunkt i vara omsorgstagares och uppdragsgivares behov hjalper vi samhallet inom prioriterade segment av aldre och social omsorg.
+
+###### Marknad
+
+I Danmark vaxte omsorgsmarknaden med nastan tre och en halv pro cent arligen mellan 2018 och 2023.
+Inom aldreomsorgen (aldreboenden och hemtjanst) star den privata marknadsandelen for cirka 25 procent hemtjanst utgor dock primart denna marknad.
+Privat drivna aldreboen den utgor endast fem procent av den totala marknaden inom segmen tet.
+40 procent av den sociala omsorgen sker i privat regi.
+
+## Årsredovisning med kvalitets- och hållbarhetsrapport 2024
+Framtidssäkrad omsorg
+
+
+<!-- PAGE: 1 -->
+
+########## Andel privat omsorg
+########### TOTALT ÄLDRE SOCIAL
+
+21% 16% 29%
+
+| Vår position inom privat omsorg | Total marknad |  |  |  |
+| --- | --- | --- | --- | --- |
+| 214 mdr SEK |
+| Andra privata aktörer |
+| Humana, Ecura, Uloba, Norlandia/Aberia |
+| Andel privat omsorg |
+|  | TOTALT | ÄLDRE SOCIAL |  |  |
+| 15% 10% 25% |
+|  |  | Vår position inom privat omsorg Total marknad |  |  |
+| 138 mdr SEK |
+| Andra privata aktörer |
+| Andel privat omsorg |
+|  |  | TOTALT | ÄLDRE | SOCIAL |
+![table image]({page: 22, x: 268}, {y: 451, {width: 110}, {height: 7})
+
+30% 25% 40%
+
+## En stor och växande marknad
+
+Den skandinaviska marknaden for omsorgstjanster vaxer stadigt driven av demografiska forandringar och okade behov.
+Samtidigt paverkar politiska beslut och lokala regelverk branschen vilket bade skapar mojligheter och utmaningar for privata aktorer i Sverige Norge och Danmark.
+
+###### Marknad
+
+Den svenska omsorgsmarknaden vaxte med over fem procent arligen mellan 2018 och 2023.
+Efterfragan och belaggningen inom aldreomsor gen fortsatte att oka under 2022 och 2023 efter en tillfallig minskning under coronapandemin.
+Inom aldreomsorgen (aldreboenden och hemtjanst)star den privata andelen for cirka 16 procent av den totala aldreomsorgsmarknaden.
+Inom marknaden for socialomsorg ar den privata andelen 29 procent.
+
+Trots visst politiskt motstand har efterfragan pa omsorgstjanster som utfors av privata aktorer fortsatt att vaxa sarskilt inom omraden som personlig assistans och social omsorg for vuxna barn och unga.
+
+# Definitioner och syfte
+
+I de finansiella rapporter som Ambea presenterar finns alternativa nyckeltal angivna vilka kompletterar de matt som specificeras i gallande regelverk for finan siell rapportering.
+Alternativa nyckeltal anges da de i sina sammanhang ger tydligare eller mer fordjupad information an de matt som definieras i tillampliga reg ler for finansiell rapportering.
+
+Effekten fran IFRS 16 har justerats bort fran utvalda alternativa nyckeltal for att underlatta analys.
+
+| Nyckeltal | Definition och beräkning | Syfte |
+| --- | --- | --- |
+| Tillväxt (%) Förvärvad tillväxt (%) Valutaeffekt på tillväxt (%) | Periodens ökning i nettoomsättning hänförlig till förändring i valutakurser/Jämförelseperiodens nettoomsättning | Nyckeltalet används för att följa upp hur stor del av bolagets omsättningsökning som är drivet av förändring i valutakurser |
+| Organisk tillväxt (%) | Periodens ökning i nettoomsättning justerad för förvärv, avyttringar och valuta/Jämförelseperiodens nettoomsättning | Nyckeltalet används vid analys av underliggande omsättningstillväxt driven av jämförbara enheter mellan olika perioder |
+| Rörelseresultat (EBIT) | Periodens resultat före finansiella poster och skatt Summa rörelsens intäkter - Rörelsekostnader | Nyckeltalet används för uppföljning av bolagets resultat som genereras av den löpande verk- samheten. Nyckeltalet möjliggör jämförelser av lönsamhet mellan bolag/branscher |
+| EBITA | Rörelseresultat före av- och nedskrivningar på immateriella tillgångar Rörelseresultat (EBIT) + Av- och nedskrivningar på immateriella tillgångar | Nyckeltalet används för uppföljning av bolagets resultat genererad av den löpande |
+| Jämförelsestörande poster | Poster från sådana händelser i företagets verksamhet som stör jämförelser med andra perioders resultat. Inkluderar: - Transaktionskostnader hänförliga till större förvärv |  |
+![table image]({page: 110, x: 73}, {y: 257, {width: 333}, {height: 17})
+
+Tillvaxt utgors av forsaljningsokning i forhallande till jamforelseperioden.
+
+Periodens okning i nettoomsattning/Jamforelseperiodens nettoomsattning
+
+Periodens okning i nettoomsattning fran forvarv/Jamforelseperiodens nettoomsattning
+
+Nyckeltalet anvands for att folja upp bolagets omsattningstillvaxt
+
+Nyckeltalet anvands for att folja upp hur stor del av bolagets omsattningstillvaxt som genererats genom forvarv
+
+verksamheten.
+Nyckeltalet mojliggor jamforelser av lonsamhet mellan bolag/branscher
+
+Nyckeltalet jamforelsestorande poster anvands for att fa en rattvis jamforelse av den underliggande utvecklingen i den operativa verksamheten
+
+|  | EBITA + Jämförelsestörande poster | Nyckeltalet används för uppföljning av bolagets resultat genererad av den löpande verksamheten för att få en rättvis jämförelse av den underliggande utvecklingen i den operativa verksamheten. Nyckeltalet möjliggör jämförelser av lönsamhet mellan bolag/branscher |
+| --- | --- | --- |
+|  | - Större omorganisationer |  |
+| Justerad EBITA | Rörelseresultat före av- och nedskrivningar på immateriella tillgångar justerat för poster från sådana händelser i företagets verksamhet som stör jämförelser med andra perioders resultat |  |
+| Nyckeltal | Definition och beräkning | Syfte |
+| EBITDA | Rörelseresultat före av- och nedskrivningar på immateriella och materiella tillgångar |  |
+| Rörelseresultat (EBIT) + Av- och nedskrivningar på immateriella och materiella tillgångar | Nyckeltalet används för att följa upp bolagets resultat genererad av den löpande verksamheten. | Nyckeltalet möjliggör jämförelser av lönsamhet mellan bolag/branscher |
+| Operativt kassaflöde | Totalt kassaflöde från den löpande verksamheten exklusive skatt, finansnetto samt kassaflöde från investeringsverksam- heten exklusive förvärv och avyttring av verksamheter |  |
+|  | EBITDA + Förändringar i rörelsekapital + Kassaföde från investeringsverksamheten exkl. förvärv och avyttringar av dotterbolag + justering för kassaföde från investeringsverksamheten avseende ökad kapacitet/tillväxt | Nyckeltalet visar kassaflödet från bolagets verksamhet, exklusive företagsförvärv, företags- avyttringar finansiering, skatt och används för att följa upp huruvida bolaget kan generera ett tillräckligt positivt kassaflöde för att upprätthålla och utvidga sin verksamhet |
+| Fritt kassaflöde | Totalt kassaflöde från den löpande verksamheten samt kassaflöde från investeringsverksamheten exklusive förvärv och avyttring av verksamheter |  |
+|  | Kassaföde från den löpande verksamheten + Kassaföde från investeringsverksamheten exkl. förvärv och avyttringar av dotterbolag | Nyckeltalet visar kassaflöde från den löpande verksamheten inklusive kassaflöde från investe- ringsverksamheten exklusive förvärv och avyttring av verksamheter och det används för att det är ett relevant mått för investerare för att kunna förstå koncernens kassaflöde från den löpande verksamheten |
+| Kassagenerering /Cash Conversion (%) | Kassagenerering eller Cash Conversion i % är definierad som operativt kassaflöde dividerat med EBITDA |  |
+| Operativt kassaföde/EBITDA | Nyckeltalet används som ett effektivitetsmått på hur stor andel av ett företags resultat som | omvandlas till kassa |
+| Nettoskuld | Koncernens räntebärande skulder exklusive pensionsavsättningar justerade för likvida medel Räntebärande skulder - likvida medel | Nyckeltalet är ett mått på bolagets skuldsättningsgrad och används av bolaget för att bedöma möjligheterna att leva upp till finansiella åtaganden |
+| Nettoskuld /EBITDA R12 (LTM) | Nettoskuld /EBITDA är ett mått för skuldsättningsgrad som definieras som utgående balans av nettoskulden i relation till rullande EBITDA |  |
+| Nettoskuld/EBITDA R12 (LTM) | Nyckeltalet används för att övervaka nivån på bolagets skuldsättning så att finansierings- | avtalets covenanter efterlevs |
+| Rörelsemarginal (%) | Rörelseresultat i procent av nettoomsättningen. Rörelseresultat (EBIT)/Nettoomsättning | Nyckeltalet används för att följa upp hur stor andel i procent av rörelsens nettoomsättning som blir kvar för att täcka räntor och skatt samt ge vinst, efter att bolagets kostnader har betalats |
+| EBITDA exklusive IFRS 16 effekt | Rörelseresultat före av- och nedskrivningar på immateriella och materiella tillgångar, justerat för IFRS 16 effekt | Nyckeltalet används för att följa upp bolagets resultat genererad av den löpande verksamheten, exklusive effekter från IFRS 16. Nyckeltalet möjliggör jämförelser av lönsamhet mellan bolag/ branscher |
+| Nettoskuld /EBITDA R12 (LTM) exklusive IFRS 16 effekter | Nettoskuld /EBITDA exklusive IFRS 16 effekter är ett mått för skuldsättningsgrad som definieras som utgående balans av nettoskulden, justerad för IFRS effekter, i relation till rullande EBITDA, justerad för IFRS 16 effekter |  |
+| Nettoskuld exklusive IFRS 16 efekt/EBITDA exklusive IFRS 16 efekt R12 (LTM) | Nyckeltalet används för att övervaka nivån på bolagets skuldsättning så att finansieringsavta- | lets covenanter efterlevs |
+| Nettoskuld exklusive IFRS 16 effekt | Koncernens räntebärande skulder, justerat för IFRS 16 effekt, exklusive pensionsavsättningar justerade för likvida medel |  |
+![table image]({page: 110, x: 238}, {y: 466, {width: 552}, {height: 8})
+
+
+<!-- PAGE: 111 -->
+Nettoskuld leasingskulder relaterat till fastigheter och fordon Nyckeltalet anvands for att berakna skuldsattningsgraden exklusive effekter fran IFRS 16
+
+
+<!-- PAGE: 112 -->
+
+#### Identiferade tillgångsslag
+
+Ambea har identifierat tva huvudsakliga tillgangsslag fastigheter/lokaler och bilar dar fastigheter utgor cirka 98 (98) procent av redovisad leasingskuld per 31 decem ber 2024.
+
+Ambea har valt att exkludera ett antal avtal som avser mindre forrad p-platser och mindre kontor.
+Dessa far ej nagon materiell paverkan pa redovisad leasings kuld.
+Av samma anledning har leasing av datorer och skrivare exkluderats.
+Ambea har aven valt att exkludera tillsvidarekontrakt pa hyreslagenheter med kort uppsag ningstid (upp till 12 manader).
+Hade dessa lagenheter inkluderats sa hade leasingskulden varit hogre men da det ar en ur Ambeas perspektiv flexibel kontraktsform hade skulden dessutom varit mer volatil till foljd av kons tant andrade antaganden och forandringar i kontrakts portfoljen.
+
+#### Avskrivningsprinciper
+
+Avskrivning sker linjart over tillgangens beraknade nyttjandeperiod.
+Den beraknade nyttjandeperioden ar
+
+Nedlagda kostnader pa annans fastighet (den kortare av hyresperioden och ekonomisk livslangd)5-20 ar Inventarier 5-15 ar
+
+
+<!-- PAGE: 80 -->
+| NOT K15 | Långfristiga fordringar samt andelar i BRF och övriga fordringar | NOT K16 | Förutbetalda kostnader och upplupna intäkter |
+| --- | --- | --- | --- |
+| LÅNGFRISTIGA FORDRINGAR SAMT ANDELAR I BRF |
+| MSEK | 2024−12−31 2023−12−31 |  |  |
+| Depositioner | 37 18 |  |  |
+| Andelar i bostadsrättsföreningar | 88 88 |  |  |
+| Övrigt | 7 7 |  |  |
+| Summa | 132 113 |  |  |
+![table image]({page: 80, x: 59}, {y: 103, {width: 340}, {height: 8})
+
+##### SEGMENTSINFORMATION 2023
+
+| MSEK | Nytida | Vardaga | Stendi | Altiden | Klara | Ofördelade poster* | Koncern- justeringar | Totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rörelsens intäkter Nettoomsättning | 4 031 | 4 582 | 3 142 | 1 290 | 454 | – | −187 | 13 312 |
+| Övriga rörelseintäkter | 43 | 161 | 9 | 20 | 5 | 31 | – | 269 |
+| Summa intäkter | 4 074 | 4 743 | 3 151 | 1 310 | 459 | 31 | −187 | 13 581 |
+| Rörelsens kostnader Förbrukningsmaterial | −120 | −176 | −95 | −72 | −1 | −1 | – | −465 |
+| Övriga externa kostnader | −512 | −608 | −397 | −160 | −89 | 145 | 198 | −1 434 |
+| Personalkostnader | −2 530 | −2 993 | −2 340 | −1 030 | −310 | −203 | – | −9 406 |
+| Övriga rörelsekostnader | 2 | −2 | 1 | 1 | – | – | – | 2 |
+| Av- och nedskrivningar av materiella anlägg- ningstillgångar | −363 | −619 | −106 | −94 | −5 | −15 | – | −1 202 |
+| Summa kostnader | −3 523 | −4 398 | −2 937 | −1 355 | −405 | −74 | 187 | −12 505 |
+| EBITA | 551 | 345 | 214 | −45 | 54 | −43 | – | 1 076 |
+| EBITA marginal (%) | 13,7% | 7,5% | 6,8% | −3,5% | 11,9% | – | – | 8,1% |
+| Avskrivningar immateriella anläggningstill- gångar |  |  |  |  |  |  |  | −95 |
+| Rörelseresultat (EBIT) |  |  |  |  |  |  |  | 981 |
+| Finansiella intäkter |  |  |  |  |  |  |  | – |
+| Finansiella kostnader |  |  |  |  |  |  |  | −416 |
+| Finansiella poster netto |  |  |  |  |  |  |  | −416 |
+| Resultat före skatt |  |  |  |  |  |  |  | 565 |
+| Skatt på årets resultat |  |  |  |  |  |  |  | −110 |
+| Periodens resultat |  |  |  |  |  |  |  | 455 |
+| Tillgångar | 6 366 | 7 580 | 1 995 | 1 505 | 312 | 135 | – | 17 893 |
+![table image]({page: 70, x: 59}, {y: 134, {width: 635}, {height: 8})
+
+Intakter fran svenska kunder utgor 67 (67) procent och intakter fran norska kunder utgor 24 (23) procent av koncernens nettoomsattning.
+9 (10) procent utgor intakter fran kunder i Danmark.
+Ambeas huvudsak liga uppdragsgivare ar kommuner runt om i Skandinavien som koper omsorg for sina kommuninvanares rakning.
+
+Av koncernens anlaggningstillgangar ar 82 (81) procent fordelade till Sverige och 10 (10) procent fordelade till Norge.
+8 (9) procent avser tillgan gar i Danmark och ofordelat.
+
+Internpris mellan koncernens olika segment ar i forekommande fall satta utifran principen om ”armlangds avstand” det vill saga mellan parter som ar oberoende av varandra valinformerade och med ett intresse av att transaktionerna genomfors.
+I segmentens resultat och tillgangar har direkt hanforbara poster samt poster som kan fordelas pa segmenten pa ett rimligt och tillforlitligt satt inkluderats.
+Ej fordelade poster bestar av centralt beslutade kostnader avseende allman central administration omstruktureringar forvarv och avyttringar.
+Tillgangar och skulder som inte har fordelats ut pa segment ar uppskjutna skatte fordringar och uppskjutna skatteskulder skatteskulder samt ranteba rande tillgangar och skulder.
+
+| NOT K5 Övriga externa kostnader |  |  |
+| --- | --- | --- |
+| MSEK | 2024 | 2023 |
+| Inhyrd vårdpersonal och medicinska konsulter | −390 | −394 |
+| Lokalkostnader, inklusive hyreskostnader som ej klassas som IFRS 16* | −383 | −464 |
+| Operationell leasing, exklusive hyreskostnader | −66 | −67 |
+| Reklam/PR | −43 | −32 |
+| Telefoni och kontorsmaterial | −49 | −45 |
+| Bilkostnader | −63 | −60 |
+| Externa administrativa tjänster | −331 | −306 |
+| Övrigt | −7 | −66 |
+| Summa | −1 332 | −1 434 |
+![table image]({page: 70, x: 715}, {y: 347, {width: 278}, {height: 8})
+
+- Lokalkostnader avser driftkostnader likt el, värme, vatten och avlopp.
+
+
+<!-- PAGE: 71 -->
+| NOT K6 Arvode till revisorer |  |  |
+| --- | --- | --- |
+| MSEK | 2024 | 2023 |
+| Ernst & Young AB |
+| Revisionsuppdraget | −13 | −13 |
+| Revisionsverksamhet utöver revisionsuppdraget | – | – |
+| Övriga tjänster | – | −3 |
+| Koncernen totalt | −13 | −16 |
+![table image]({page: 71, x: 59}, {y: 103, {width: 281}, {height: 8})
+
+#### Förlängningsoptioner och tillsvidarekontrakt
+
+For avtal inom Vardaga gors antagandet att eventuella foreliggande forlangningsoptioner med ett startdatum inom cirka fem ar kommer nyttjas.
+For perioden darefter gors bedomning att det i dagslaget inte gar att avgora om option kommer nyttjas eller ej.
+Dessa optioner analy seras arligen och kommer att raknas in i leasingskulden sa snart det ar rimligt sakert att den kommer nyttjas.
+ar avtalet konstruerat pa ett sadant satt att Ambea har ratt att saga upp det fore hyresvarden sa gors overlag antagandet att vi kommer sitta kvar under den period hyresvarden ar uppbunden.
+
+Vad galler tillsvidarekontrakt annat an lagenheter med kort uppsagningstid vilka exkluderas sa gors en individuell bedomning per avtal.
+Dessa avtal analyseras arligen och forlangs med ett ar i taget.
+
+
+<!-- PAGE: 97 -->
+| NOT K33 | Avstämning av alternativa nyckeltal |
+| --- | --- |
+| Se avsnitt definitioner och syfte på sidan 111–112 för mer information. |
+| MSEK | 2024 2023 |
+| Tillväxt/Förvärvad tillväxt |
+| Nettoomsättningstillväxt (%) | 6,6% 5,4% |
+| Varav organisk tillväxt (%) | 6,5% 6,2% |
+| Varav förvärvad tillväxt (%) | 0,5% −0,4% |
+| Varav valutaeffekt (%) | −0,4% −0,4% |
+| Rörelsemarginal (EBIT) |
+| Nettoomsättning | 14 195 13 312 |
+| Rörelseresultat (EBIT) | 1 278 981 |
+| Rörelsemarginal (EBIT) (%) | 9,0% 7,4% |
+| EBITA |
+| Rörelseresultat (EBIT) | 1 278 981 |
+| Av- och nedskrivningar på immateriella tillgångar | 94 95 |
+| EBITA | 1 372 1 076 |
+| Nettoomsättning | 14 195 13 312 |
+| EBITA-marginal (%) | 9,7% 8,1% |
+| EBITDA |
+| Rörelseresultat (EBIT) | 1 278 981 |
+| Av- och nedskrivningar på immateriella och materiella tillgångar | 1 367 1 297 |
+| EBITDA | 2 645 2 278 |
+| EBITDA marginal |
+| Nettoomsättning | 14 195 13 312 |
+| EBITDA marginal (%) | 18,6% 17,1% |
+![table image]({page: 97, x: 59}, {y: 104, {width: 221}, {height: 8})
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| EBITDA exklusive IFRS 16 Rörelseresultat (EBIT) | 1 278 | 981 |
+| Av- och nedskrivningar på immateriella och materiella tillgångar | 1 367 | 1 297 |
+| Avgår: Hyreskostnad Fastigheter | −1 332 | −1 255 |
+| Avgår: Hyreskostnad Fordon | −71 | −59 |
+| Avgår: Realisationsresultat från avslutade avtal | −5 | −3 |
+| Netto IFRS 16 effekt på EBITDA | −1 408 | −1 317 |
+| EBITDA exklusive IFRS 16 effekt | 1 237 | 961 |
+| Operativt kassaflöde EBITDA | 2 645 | 2 278 |
+| Justering för poster som inte ingår i kassa- flödet | −81 | 36 |
+| Kassaflöde från investeringsverksamheten exkl. förvärv och avyttringar av dotterbolag | −100 | −83 |
+| Justering för kassaflöde från investerings- verksamhet avseende ökad kapacitet/ tillväxt | 19 | 12 |
+| Förändring i rörelsekapital | 107 | −82 |
+| Operativt kassaflöde | 2 590 | 2 161 |
+| Kassagenerering, Cash Conversion (%) Operativt kassaflöde | 2 590 | 2 161 |
+| EBITDA | 2 645 | 2 278 |
+| Kassagenerering, Cash Conversion (%) | 97,9% | 94,9% |
+![table image]({page: 97, x: 297}, {y: 135, {width: 221}, {height: 8})
+
+| MSEK | 2024 | 2023 |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| Nettoskuld, nettoskuld/EBITDA |
+| Långfristiga räntebärande skulder | 8 878 | 8 969 |  |  |  |
+| Kortfristiga räntebärande skulder | 2 177 | 1 776 |  |  |  |
+| Avgår: likvida medel | −28 | −6 |  |  |  |
+| Nettoskuld | 11 027 | 10 739 |  |  |  |
+| EBITDA | 2 645 | 2 278 |  |  |  |
+| Nettoskuld/EBITDA (ggr) | 4,17 | 4,7 |  |  |  |
+| Rörelsekapital |
+| Kundfordringar | 1 284 | 1 278 |  |  |  |
+| Övriga fordringar | 83 | 93 |  |  |  |
+| Förutbetalda kostnader och upplupna intäkter | 431 | 406 |  |  |  |
+| Avgår leverantörskulder | −403 | −402 |  |  |  |
+| Avgår skatteskulder | −127 | −67 |  |  |  |
+| Avgår övriga icke räntebärande skulder | −180 | −195 |  |  |  |
+| Avgår upplupna kostnader och förut- betalda intäkter | −1 327 | −1 217 |  |  |  |
+| Summa rörelsekapital | −239 | −104 |  |  |  |
+| Nettoomsättning | 14 195 | 13 312 |  |  |  |
+| Rörelsekapital i förhållande till netto- omsättning % | −1,7% | −0,8% |  |  |  |
+| Nettoskuld, nettoskuld/EBITDA exkl IFRS 16 effekt Långfristiga räntebärande skulder | 8 878 | 8 969 |  |  |  |
+| Avgår: kortfristiga leasingskulder som avser fastigheter redovisade på rad leasingskuld Avgår: kortfristiga leasingskulder som avser fordon redovisade på rad leasingskuld | −7 568 −223 | −7 381 −165 |  |  |  |
+|  |  |  | MSEK | 2024 | 2023 |
+|  |  |  | Kortfristiga räntebärande skulder | 2 177 | 1 776 |
+|  |  |  | Avgår: kortfristiga leasingskulder som avser fastigheter redovisade på rad leasingskuld | −1 062 | −966 |
+|  |  |  | Avgår: kortfristiga leasingskulder som avser fordon redovisade på rad leasingskuld | −76 | −71 |
+|  |  |  | Avgår: likvida medel | −28 | −6 |
+|  |  |  | Nettoskuld exklusive IFRS 16 effekter | 2 098 | 2 156 |
+|  |  |  | EBITDA justerad för IFRS 16 | 1 237 | 961 |
+|  |  |  | Nettoskuld/EBITDA (ggr) exklusive IFRS 16 effekter | 1,7 | 2,2 |
+| NOT K34 Statliga bidrag |
+|  |  |  | MSEK | 2024 | 2023 |
+| Övriga intäkter |
+|  |  |  | Beviljade ersättningar för elstöd | – | 12 |
+|  |  |  | Omställningsstöd | 7 | – |
+|  |  |  | Övriga bidrag | 30 | – |
+| Kostnadsreduktion i resultaträkningen |
+|  |  |  | Anställningsstöd i form av lönebidrag | 67 | 61 |
+|  |  |  | Ersättning för sjuklönekostnader | 3 | 8 |
+|  |  |  | Summa statliga bidrag | 107 | 81 |
+![table image]({page: 97, x: 536}, {y: 135, {width: 221}, {height: 8})
+
+
+<!-- PAGE: 98 -->
+
+### Nyckeltal
+
+| MSEK | 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | --- | --- | --- | --- | --- |
+| Nettoomsättning (MSEK) | 3 497 | 3 664 | 4 172 | 4 582 | 5 087 |
+| Omsättningstillväxt (%) | 0 | 5 | 14 | 10 | 11 |
+| EBITA (MSEK) | 154 | 198 | 271 | 345 | 491 |
+| Rörelsemarginal EBITA (%) | 4,4 | 5,4 | 6,5 | 7,5 | 9,7 |
+| Andel verksamhet i egen regi (%) | 62 | 65 | 68 | 70 | 69 |
+![table image]({page: 30, x: 538}, {y: 130, {width: 278}, {height: 8})
+
+Andel av koncernens nettoomsattning 3 625 Omsorgsplatser i egen regi 80 % av omsorgstagarna ar nojda
+
+###### RÄKENSKAPSÅR 2024
+
+| MSEK | Nytida | Vardaga | Stendi | Altiden | Klara Koncerngemensamt och elimineringar | Koncernen |
+| --- | --- | --- | --- | --- | --- | --- |
+| Typ av tjänsteleverans |
+| Egen regi | 3 428 | 3 486 | 3 318 | 910 | – – | 11 142 |
+| Entreprenad | 821 | 1 601 | 34 | 363 | – – | 2 819 |
+| Kompetens- och bemanningslösningar | – | – | – | – | 409 −175 | 234 |
+| Summa intäkter från avtal med kunder | 4 249 | 5 087 | 3 352 | 1 273 | 409 −175 | 14 195 |
+| Intäkter |
+| Externa kunder | 4 249 | 5 087 | 3 352 | 1 273 | 234 – | 14 195 |
+| Intäkter mellan segment | – | – | – | – | 175 −175 | 0 |
+| Summa intäkter från avtal med kunder | 4 249 | 5 087 | 3 352 | 1 273 | 409 −175 | 14 195 |
+![table image]({page: 68, x: 343}, {y: 130, {width: 638}, {height: 8})
+
+| KONTRAKTSBALANSER | PRESTATIONSÅTAGANDEN |
+| --- | --- |
+| MSEK | 2024−12−31 2023−12−31 |
+| Kundfordringar | 1 284 1 278 |
+| Förskottsfakturering | 119 85 |
+| Redovisade intäkter under året som återfanns i avtalsskulder per 1 januari | 85 99 |
+![table image]({page: 68, x: 343}, {y: 288, {width: 281}, {height: 17})
+
+|  |  | MSEK |  | 2024−12−31 2023−12−31 |
+| --- | --- | --- | --- | --- |
+| Transaktionspris som fördelats till de presentations- åtaganden som är uppfyllda (eller delvis ouppfyllda) i slutet av rapportperioden fördelar sig enligt: |
+|  |  | Inom ett år |  | 119 85 |
+|  |  | Senare än ett år |  | – – |
+| RÄKENSKAPSÅR 2023 |
+| MSEK Typ av tjänsteleverans | Nytida | Vardaga Stendi Altiden Klara Koncerngemensamt och elimineringar |  | Koncernen |
+| Egen regi | 3 247 | 3 202 3 008 860 | – | – 10 317 |
+| Entreprenad | 784 | 1 380 134 430 | – | – 2 728 |
+| Kompetens- och bemanningslösningar | – | – – – 454 |  | −187 267 |
+| Summa intäkter från avtal med kunder | 4 031 | 4 582 3 142 1 290 454 |  | −187 13 312 |
+| Intäkter |
+| Externa kunder | 4 031 | 4 582 3 142 1 290 267 |  | – 13 312 |
+| Intäkter mellan segment | – | – – – 187 |  | −187 – |
+| Summa intäkter från avtal med kunder | 4 031 | 4 582 3 142 1 290 454 |  | −187 13 312 |
+![table image]({page: 68, x: 670}, {y: 304, {width: 638}, {height: 8})
+
+
+<!-- PAGE: 69 -->
+- Övriga intäkter
+
+- SEGMENTSINFORMATION 2024 NOT K3
+
+ovriga intakter utgors bland annat av andrahandsuthyrning av lokaler (operationell leasing) statliga bidrag forsaljning av bilar och fastigheter.
+
+| MSEK | 2024 | 2023 |  |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Andrahandsuthyrning | 12 | 5 |  |  |  |  |  |  |  |  |  |
+| Staliga bidrag (Not K34) | 37 | 12 |  |  |  |  |  |  |  |  |  |
+| Övrigt | 112 | 251 |  |  |  |  |  |  |  |  |  |
+| Summa | 162 | 268 |  |  |  |  |  |  |  |  |  |
+| NOT K4 Segmentsinformation |  |  |  |  |  |  |  |  |  |  |  |
+| Den verkställande direktören leder verksamheten utifrån rörelse- segmenten Vardaga, Nytida, Stendi, Altiden och Klara. Dessa överensstämmer med de affärsområden genom vilka koncernen bedriver sin verksamhet. |
+| Nytida Omfattar tjänster inom social omsorg till vuxna, barn och unga samt skola för barn och unga med neuro- psykiatrisk funktionsnedsättning i Sverige. |  |  |  |  |  |  |  |  |  |  |  |
+| Vardaga Omfattar äldreboenden och hemtjänst i Sverige. |
+| Stendi Omfattar social omsorg till vuxna, barn och unga. Dessutom erbjuder vi personlig assistans i Norge. |  |  |  |  |  |  |  |  |  |  |  |
+| Altiden Omfattar social omsorg till vuxna, barn och unga och äldreomsorg i Danmark. |  |  |  |  |  |  |  |  |  |  |  |
+| Klara Omfattar kompetens- och bemanningslösningar för vård och omsorg samt medicinsk elevhälsa i Sverige. |  |  |  |  |  |  |  |  |  |  |  |
+| Återläggning av leasingavgifter och avskrivningar på nyttjande- rättstillgång redovisas under respektive segment. |
+|  |  |  | MSEK | Nytida | Vardaga | Stendi | Altiden | Klara | Ofördelade poster* | Koncern- justeringar | Koncernen |
+| Rörelsens intäkter |
+|  |  |  | Nettoomsättning | 4 249 | 5 087 | 3 352 | 1 273 | 409 | – | −175 | 14 195 |
+|  |  |  | Övriga rörelseintäkter | 41 | 101 | 11 | 3 | 1 | 5 |  | 162 |
+|  |  |  | Summa intäkter | 4 290 | 5 188 | 3 363 | 1 276 | 410 | 5 | −175 | 14 357 |
+| Rörelsens kostnader |
+|  |  |  | Förbrukningsmaterial | −128 | −193 | −84 | −87 | 0 | 0 | – | −492 |
+|  |  |  | Övriga externa kostnader | −531 | −551 | −393 | −124 | −95 | 187 | 175 | −1 332 |
+|  |  |  | Personalkostnader | −2 689 | −3 313 | −2 437 | −962 | −273 | −217 | – | −9 891 |
+|  |  |  | Övriga rörelsekostnader | 0 | 0 | 1 | 2 | 0 | 0 | – | 3 |
+|  |  |  | Av- och nedskrivningar av materiella anlägg- ningstillgångar | −404 | −640 | −116 | −92 | −7 | −14 | – | −1 273 |
+|  |  |  | Summa kostnader | −3 752 | −4 696 | −3 029 | −1 263 | −375 | −44 | 175 | −12 985 |
+|  |  |  | EBITA | 538 | 491 | 334 | 13 | 35 | −39 | – | 1 372 |
+|  |  |  | EBITA marginal (%) | 12,7% | 9,7% | 10,0% | 1,0% | 8,6% | – | – | 9,7% |
+|  |  |  | Avskrivningar immateriella anläggningstill- gångar |  |  |  |  |  |  |  | −94 |
+|  |  |  | Rörelseresultat (EBIT) |  |  |  |  |  |  |  | 1 278 |
+|  |  |  | Finansiella intäkter |  |  |  |  |  |  |  | – |
+|  |  |  | Finansiella kostnader |  |  |  |  |  |  |  | −466 |
+|  |  |  | Finansiella poster netto |  |  |  |  |  |  |  | −466 |
+|  |  |  | Resultat före skatt |  |  |  |  |  |  |  | 812 |
+|  |  |  | Skatt på årets resultat |  |  |  |  |  |  |  | −192 |
+|  |  |  | Periodens resultat |  |  |  |  |  |  |  | 620 |
+|  |  |  | Tillgångar | 6 885 | 7 625 | 2 021 | 1 455 | 312 | 177 | – | 18 475 |
+![table image]({page: 69, x: 59}, {y: 165, {width: 635}, {height: 8})
+
+
+<!-- PAGE: 70 -->
+
+# Nyckeltal
+## UTFALL
+
+|  | Sidan | Mål 2024 | 2024 | 2023 |
+| --- | --- | --- | --- | --- |
+| Tillväxt | En årlig tillväxttakt av intäkter genom en kombination av organisk tillväxt och förvärv. | 4, 98 | 8–10% | 7% | 5% |
+| Ekonomisk hållbarhet |
+| Lönsamhet | Justerad EBITA-marginal på medellång sikt. | 4, 98 | 9,5% | 9,7% | 8,1% |
+| Skuldsättning | Nettoskulden i relation till justerad EBITDA (exklusive effekter från IFRS 16). | 98 | <3,25x | 1,7x | 2,2x |
+| Utdelningspolicy | Andelen av årets resultat som ska delas ut till aktieägarna. | 4, 53 | 30% | 30%1 | 30% |
+| Social hållbarhet |
+| Upplevd omsorg | Andel positiva i svar på fråga i brukarundersökning om total nöjdhet med vår omsorg och verksamhet. | 44 | >87% | 86% | 86% |
+| Medarbetarnöjdhet | Koncernens medarbetarundersökning i pulsformat som genomförs regelbundet under året. Skala 0–100. | 40 | >75 | 73 | 73 |
+| Ambeas kvalitetsindex | Funktion av åtta utvalda kvalitets-och HR-parametrar som indikerar status i verksamheten på ett relevant sätt. Skala 0–10. | 44 | >7,50 | 7,58 | 7,52 |
+| Ledarskapsindex | Koncernens medarbetarundersökning avseende ledarskap. Skala 0–100. | 40 | >80 | 78 | 77 |
+| Förbättringsindex | Verksamheternas hantering av rapporterade avvikelser och dokumenterade systematiska kvalitetsarbete. Skala 0–10. | 43 | >7,50 | 7,38 | 7,41 |
+| eNPS | Koncernens undersökning avseende medarbetarlojalitet. Skalan -100 – +100. | 39 | >+20 | +26 | +21 |
+| Intern styrning | Verksamheternas kontroll av hur man efterlever kvalitetsledningssystemet på cirka 200 punkter. Skala 0–2. | 43 | >1,85 | 1,87 | 1,86 |
+| Kort sjukfrånvaro | Den korta sjukfrånvaron hos våra medarbetare. % | 40 | <3,5% | 3,8% | 4,0% |
+![table image]({page: 16, x: 676}, {y: 159, {width: 764}, {height: 8})
+
+########## AVSTÄMNING EFFEKTIV SKATT
+
+| MSEK | 2024 | 2023 |
+| --- | --- | --- |
+| Resultat före skatt | 812 | 812 | 565 | 565 |
+| Skatt enligt gällande skattesats | 20,6% | −167 | 20,6% | −116 |
+| Ej avdragsgilla kostnader | 1,8% | −15 | 0,2% | −1 |
+| Skatt avseende tidigare perioder | 0,2% | −2 | −1,4% | 8 |
+| Ej skattepliktiga intäkter | 0,0% | 0 | 0,0% | – |
+| Skillnader i skattesats | 0,5% | −4 | 0,2% | −1 |
+| Ej bokförda skattepliktiga intäkter | 0,5% | −4 | 0,0% | – |
+| Redovisad effektiv skatt | 23,6% | −192 | 19,5% | −110 |
+![table image]({page: 76, x: 537}, {y: 326, {width: 459}, {height: 8})
+
+
+<!-- PAGE: 77 -->
+Global minimiskatt for multinationella koncerner
+
+Genom lagen (2023:875) har Sverige inforlivat EU direk tivet (EU) 2022/2523 om sakerstallande av en global minimiskatteniva for multinationella koncerner och stor skaliga nationella koncerner i unionen.
+Lagen trader i kraft for det rakenskapsar som borjar narmast efter den 31 december 2023.
+Reglerna syftar till att koncerner med en intakt over stigande 750 miljoner euro ska ha en minsta effektiv skattesats som uppgar till minst 15 procent i var och en av de skattejurisdiktioner dar den ar verksam inklusive Sverige.
+Tillfalliga lattnadsregler har inforts som bygger pa koncernens land for landrapportering av skatt.
+Om kriterierna ar uppfyllda tas ingen tillaggsskatt ut for den skattejurisdiktionen och nagon fullstandig tillaggsskatte berakning behover inte goras.
+Koncernen har en sammanlagd intakt som overstiger 750 miljoner euro.
+Utifran den preliminara land for land rapporteringen for 2023 har Bolaget gjort bedomningen att kriterierna for att fa tillampa den tillfalliga lattnaden kommer att vara uppfyllda for 2024.
+
+Tillaggsskatten bedoms saledes inte innebara nagra beloppsmassiga konsekvenser for koncernen for 2024.
+Ambea koncernen tillampar undantaget i IAS 12 fran att redovisa uppskjuten skatt pa tillaggsskatt enligt BEPS andra pelare.
+Ambea bedomer att forenklingsregeln for tillaggsskatt ar tillamplig i samtliga jurisdiktioner dar man ar verksam.
+
+Tillaggsskatt uppskjutna poster Enligt artikel 88A i redovisningsstandarden IAS 12 om inkomstskatter som infordes i maj 2023 och galler tills vidare ska uppskjutna poster avseende tillaggsskatt inte redovisas.
+Detta ar ett undantag fran annars gallande principer for redovisning av uppskjuten skatt.
+Ambea tillampar detta undantag och saledes inte redovisa upp skjutna poster avseende tillaggsskatt i den man sadana skulle uppkomma.
+
+| NOT K12 Resultat per aktie |  |  |
+| --- | --- | --- |
+| MSEK | 2024 | 2023 |
+| Periodens resultat hänförligt till moderbolagets aktieägare, MSEK | 620 | 455 |
+| Vägt genomsnittligt antal stamaktier Genomsnittligt antal aktier före utspädning, tusental | 85 945 | 89 765 |
+| Teckningsoptioner, tusental | 194 | 0 |
+| Genomsnittligt antal aktier efter utspädning, tusental | 86 139 | 89 765 |
+| Resultat per aktie före utspädning, SEK | 7,21 | 5,07 |
+| Resultat per aktie efter utspädning, SEK | 7,20 | 5,07 |
+![table image]({page: 77, x: 581}, {y: 104, {width: 414}, {height: 8})
+
+
+<!-- PAGE: 78 -->
+- NOT K13
+
+- Immateriella tillgångar och goodwill
+
+| MSEK | 2024−12−31 2023−12−31 2024−12−31 2023−12−31 2024−12−31 2023−12−31 |
+| --- | --- |
+|  | Goodwill | Goodwill | Kundkontrakt och kundrelationer | Kundkontrakt och kundrelationer | Programvaror och licenser |
+| Ingående balans | 7 006 | 7 095 | 1 688 | 1 696 | 88 | 80 |
+| Ackumulerade anskaffningsvärden |
+| Rörelseförvärv | 208 | – | 49 | – | – | – |
+| Övriga förvärv | – | – | – | – | 12 | 10 |
+| Avyttringar och utrangeringar | – | – | – | – | −1 | −1 |
+| Årets valutakursdifferenser | −3 | −89 | – | −8 | – | −1 |
+| Utgående balans | 7 211 | 7 006 | 1 737 | 1 688 | 99 | 88 |
+| Ackumulerade av- och nedskriv- ningar Ingående balans | – | – | −1 392 | −1 312 | −63 | −54 |
+| Årets avskrivningar | – | – | −83 | −86 | −11 | −9 |
+| Årets valutakursdifferenser | – | – | – | 6 | – | 0 |
+| Utgående balans | – | – | −1 475 | −1 392 | −74 | −63 |
+| Utgående balans total | 7 211 | 7 006 | 262 | 296 | 25 | 25 |
+| Avskrivningsprinciper |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+![table image]({page: 78, x: 219}, {y: 127, {width: 224}, {height: 9})
+
+##### KONCERNENS RÄKENSKAPER
+
+Koncernens kassaflodesanalys
+
+| MSEK | Not | 2024 | 2023 | MSEK | Not | 2024 | 2023 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Den löpande verksamheten |  |  |  | Finansieringsverksamheten |  |  |  |
+| Resultat före finansiella poster |  | 1 278 | 981 |  |  |  |  |
+|  |  |  |  | Upptagna lån |  | 3 487 | 4 070 |
+![table image]({page: 65, x: 59}, {y: 130, {width: 420}, {height: 8})
+
+| Av- och nedskrivningar |  | 1 367 | 1 297 | Amortering av skuld | −3 207 | −3 808 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Realisationsresultat |  | −20 | −4 | Amortering av leasingskuld | −1 092 | −1 019 |
+| Förändringar i avsättningar |  | −61 | 40 | Nettoförändring checkräkning | −338 | −966 |
+| Summa ej kassaflödespåverkande poster |  | 1 286 | 1 333 |  |  |  |
+|  |  |  |  | Nyemission | 23 | – |
+| Erhållen ränta | 29 | 0 | 0 | Premier för teckningsoptioner | 1 | 2 |
+| Erlagd ränta | 29 | −467 | −415 | Återköp egna aktier | −431 | −47 |
+| Betald skatt |  | −138 | −103 | Utbetald utdelning | −130 | −112 |
+| Kassaflöde från den löpande verksamheten före förändringar av rörelsekapital |  | 1 959 | 1 796 | Kassaflöde från finansieringsverksamheten | −1 687 | −1 880 |
+| Kassaflöde från förändringar i rörelsekapital |
+| Minskning/ökning av fordringar |  | 30 | −152 |  |  |  |
+|  |  |  |  | Årets kassaflöde | 21 | −259 |
+|  |  |  |  | Likvida medel vid periodens början | 6 | 259 |
+![table image]({page: 65, x: 59}, {y: 177, {width: 420}, {height: 8})
+
+| Minskning/ökning av kortfristiga skulder | 77 | 70 | Valutakursdifferens i likvida medel |  | 1 | 6 |
+| --- | --- | --- | --- | --- | --- | --- |
+| Kassaflöde från den löpande verksamheten | 2 066 | 1 714 | Likvida medel vid årets slut | 29 | 28 | 6 |
+| Investeringsverksamheten |
+| Förvärv av dotterbolag 30 | −253 | −10 |  |  |  |  |
+| Förvärv av immateriella tillgångar 13 | −12 | −10 |  |  |  |  |
+| Förvärv av materiella tillgångar 14 | −105 | −80 |  |  |  |  |
+| Försäljning av materiella tillgångar 14 | 17 | 7 |  |  |  |  |
+| Investeringar i finansiella instrument | −5 | – |  |  |  |  |
+| Kassaflöde från investeringsverksamheten | −358 | −93 |  |  |  |  |
+![table image]({page: 65, x: 59}, {y: 316, {width: 420}, {height: 8})
+
+
+<!-- PAGE: 66 -->
+
+##### 3 Månatlig uppföljning av alla enheter
+
+Varje manad foljer vi upp vara verksamheter med ett kvalitetsindex som bestar av ett antal nyckeltal inom HR och kvalitet.
+Indexet inkluderar data om bland annat engagemang kundnojdhet ledarskap systematiskt forbattringsarbete sjukfranvaro samt efterlevnad av Ambeas kvalitetskrav.
+Syftet ar att snabbt identifiera enheter som behover stod samt att uppna en jamn kva litet over hela organisationen.
+
+# Dubbel väsentlighetsanalys för en hållbar och framtidssäkrad omsorg
+
+Under 2024 har Ambea genomfort en dubbel vasentlighetsanalys for att identifiera de hallbarhetsomraden dar var verksamhet har storst paverkan pa samhallet och vara intres senter sasom omsorgstagare medarbetare kommuner leverantorer och aktieagare.
+
+Denna analys ar en del av var anpassning till EU:s Corporate Sustainability Reporting Directive (CSRD) och de nya europeiska hallbarhetsstandarderna (ESRS).
+Det dubbla vasentlighetsperspektivet inne bar att vi bedomt hallbarhetsfragornas vasentlig het utifran tva perspektiv
+
+- • Konsekventiell väsentlighet, eller påverkansväsentlighet, fokuserar på hur vår verksamhet påverkar människor och miljö, ”inifrån och ut”.
+
+- • Finansiell väsentlighet granskar de hållbarhetsfaktorer som kan påverka Ambeas ekonomiska ställning, kassaflöde och finansiering, ”utifrån och in”.
+
+|  | ringar inom hållbarhet och framtida hållbarhets- | • ESRS S4 Konsumenter och slutanvändare: Trygg- |
+| --- | --- | --- |
+| Ett ämne som bedöms som väsentligt innebär en | rapportering. Vi har identifierat följande områden | het, säkerhet och kvalitet för våra omsorgstagare. |
+| ökad transparens genom att vi redovisar hur vi | som mest relevanta för vår verksamhet: | • ESRS G1 Ansvarsfullt företagande: Korruption och |
+| arbetar inom detta område enligt CSRDs regelverk. |  | mutor, skydd för visselblåsare och företagskultur. |
+| I och med det öppnar vi upp för extern granskning. | • ESRS E1 Klimatförändring: Minska utsläpp och anpassa verksamheten till klimatförändringar. | Under 2025 fortsätter vi att utveckla våra processer |
+| Våra prioriterade hållbarhetsfaktorer | • ESRS S1 Den egna arbetskraften: Arbetsmiljö, | för att säkerställa rapportering enligt CSRD samt |
+| Resultatet av den dubbla väsentlighetsanalysen | inkludering och kompetensutveckling för våra | effektivisera datainsamling och analyser. Even- |
+| ligger till grund för Ambeas strategiska priorite- | medarbetare. | tuella förändringar i regelverket bevakas av oss. |
+![table image]({page: 14, x: 282}, {y: 429, {width: 640}, {height: 9})
+
+####### FÖRÄNDRING SKULDER 2023
+
+Summa Kassaflodespaverkande forandringar Forvarv
+
+Summa kassaflodespaverkande forandringar Forvarv Nya leasingavtal Nya leasingavtal Avslutade leasingavtal Avslutade leasingavtal Omvarderingar av leasingavtal Omvarderingar av leasingavtal Valutakursdifferenser andringar i verkliga varden Valutakursdifferenser andringar i verkliga varden ovriga forandringar ovriga forandringar Summa icke kassaflodespaverkande forandringar Summa icke kassaflodespaverkande forandringar 2024−12−31 Nya lan 2023−12−31 Nya lan
+
+| Långfristiga lån | 2 403 | 152 | −1 137 | −985 | −10 | – | – | −58 | 73 | 5 | 1 423 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Kassaflödespåverkande förändringar | Kassaflödespåverkande förändringar | Kassaflödespåverkande förändringar | Kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar | Icke-kassaflödespåverkande förändringar |  |
+| MSEK | 2022−12−31 | Amorteringar | Amorteringar |  |  |  |  |  |  |  |  |
+| Kortfristiga lån | 458 | 4 089 | −3 808 | 281 | – | – | – | – | – | – | – | – | 739 |
+| Leasingskuld | 8 098 | – | −1 019 | −1 019 | – | 709 | −373 | 1 208 | −39 | – | – | 1 505 | 8 583 |
+| Summa skulder | 10 959 | 4 241 | −5 964 | −1 723 | −10 | 709 | −373 | 1 208 | −39 | −58 | 73 | 1 510 | 10 745 |
+![table image]({page: 94, x: 195}, {y: 370, {width: 876}, {height: 8})
+
+
+<!-- PAGE: 95 -->
+- NOT K30
+
+- Förvärv av rörelse
+
+Effekter av forvarv 2024
+
+Den 2 maj forvarvades Alpklyftan AB som bedriver HVB verksamhet for barn och unga till en kopeskilling om 26 MSEK.
+Den 3 juni forvarvades Evus Omsorg AB som bedriver tre LSS boenden och tva dagliga verksam heter till en kopeskilling om 62 MSEK.
+Den 1 juli forvar vades bolaget Sorbus Vardboende AB som bedriver boende for personer med Huntingtons sjukdom samt yngre personer med demenssjukdom till en kopeskilling om 20 MSEK.
+Den 5 november forvarvades Friab Individ och Familj AB med verksamheter inom familjehem HVB och LSS boenden till en kopeskilling om 141 MSEK.
+I samband med forvarvet lostes ett lan utstallt fran sal jarna till Friab.
+Forvarvsanalysen for Friab ar preliminar.
+Samtliga forvarv ar gjorda inom Nytida.
+
+Transaktionskostnaderna for forvarven uppgar till 4 MSEK.
+Sedan forvarvstidpunkten har bolagen bidra git med 76 MSEK till nettoomsattning och 4 MSEK till resultat fore skatt.
+Om forvarven hade genomforts den 1 januari 2024 skulle bolagen ha bidragit med 265 MSEK till nettoomsattning och 5 MSEK till resultat fore skatt.
+
+Effekter av forvarv 2023 Det har inte skett nagra forvarv under 2023. En slutlig over enskommelse om den villkorade kopeskillingen avseende SkolPool har slutits under 2023.
+Den faststallda villkorade kopeskillingen uppgick till 10 MSEK skillnaden redovisades som en ovrig intakt om 24 MSEK.
+Betalning skedde i januari 2023.
+
+- NOT K31
+
+- Händelser efter balansdagen
+
+Beslut om aterkop av hogst 2 000 000 egna aktier har tagits.
+
+Ambea har ingatt avtal om att forvarva Validia Oy en ledande omsorgsaktor i Finland fran Invalidilitto.
+For varvet starker Ambeas position i Norden och tillfor cirka 50 boenden med 1 400 baddar och 2 600 medarbetare.
+Kopeskillingen uppgar till 1 382 MSEK pa en kontant och skuldfri basis varav 217 MSEK betalas i egna aktier.
+Forvarvet forvantas slutforas den 1 april 2025.
+
+| MSEK | Alpklyftan Evus Omsorg | Sorbus Vårdboende | Friab | Verkligt värde redovisat i koncernen |
+| --- | --- | --- | --- | --- |
+| Materiella anläggningstillgångar | 0 2 | 1 | 11 | 14 |
+| Immateriella tillgångar | 4 11 | 6 | 28 | 49 |
+| Nyttjanderättstillgångar | 11 47 | 26 | 69 | 153 |
+| Kundfordringar och övriga fordringar | 4 5 | 4 | 42 | 55 |
+| Likvida medel | 8 7 | 1 | 13 | 29 |
+| Långfristiga skulder och avsättningar | 0 0 | 0 | −58 | −58 |
+| Uppskjuten skatteskuld | −1 −2 | −1 | −6 | −10 |
+| Leasingskulder | −11 −47 | −26 | −69 | −153 |
+| Leverantörsskulder och övriga skulder | −4 −6 | −4 | −24 | −38 |
+| Netto identifierbara tillgångar och skulder | 11 17 | 7 | 6 | 41 |
+| Koncerngoodwill | 15 45 | 13 | 135 | 208 |
+| Total köpeskilling | 26 62 | 20 | 141 | 249 |
+| Avgår: likvida medel | −8 −7 | −1 | −13 | −29 |
+| Avgår: ej utbetald tilläggsköpeskilling | – – | −2 | – | −2 |
+| Tillkommer: lösen av lån till säljare | – – | – | 35 | 35 |
+| Kassaflödespåverkan | 18 55 | 17 | 163 | 253 |
+![table image]({page: 95, x: 62}, {y: 277, {width: 448}, {height: 8})
+
+
+<!-- PAGE: 96 -->
+- NOT K32
+
+- Viktiga uppskattningar och
+
+- bedömningar
+
+De kritiska bedomningar och uppskattningar for redo visningsandamal som behandlas i detta avsnitt ar de som bolagsledningen och styrelsen bedomer vara de viktigaste for en forstaelse av Ambeas finansiella rappor ter med hansyn tagen till graden av betydande bedom ningar och osakerhet.
+Dessa bedomningar baseras pa historiska erfarenheter och de olika antaganden som bolagsledningen och styrelsen bedomer vara rimliga under gallande omstandigheter.
+Harigenom dragna slutsatser utgor grunden for avgoranden rorande redo visade varden pa tillgangar och skulder i de fall des sa inte utan vidare kan faststallas genom information fran andra kallor.
+Faktiska utfall kan skilja sig fran dessa bedomningar om andra antaganden gors eller andra forutsattningar ar for handen.
+Bolagsledningen bedomer att det inte finns nagon betydande risk for vasentliga justeringar av tillgangar eller skulder det nastkommande rakenskapsaret.
+
+- A) Nedskrivningsprövning av immateriella tillgångar
+
+Immateriella tillgangar inom koncernen hanfor sig i allt vasentligt till goodwill som uppkommit i samband med rorelseforvarv varderade kundkontrakt och kundrelationer och till en mindre del ovriga immateriella tillgangar.
+Redo visade immateriella tillgangar representeras i huvudsak av tillgangar som uppkommit i samband med forvarv.
+For varderade kundkontrakt och kundrelationer redovisas avskrivningar i takt med den forvantande forbrukningen av de ekonomiska fordelarna fran dessa tillgangar.
+For ovriga immateriella tillgangar redovisas avskrivningar i resultatrakningen linjart over den beraknade nyttjande perioden.
+Goodwill provas for nedskrivningsbehov arligen eller sa snart indikationer uppkommer som tyder pa att till gangen ifraga har minskat i varde.
+Utover den demogra fiska utvecklingen som paverkar verksamheten i samtliga lander dar Ambea ar verksamt bedoms utvecklingen vara starkt beroende av statliga och kommunala beslut sasom antagandet om okad konkurrensutsattning av offentligt finansierad sjukvard och omsorg.
+Dessa beslut paverkas av den finansiella stallningen i stat landsting och kommuner.
+
+Den allmanna konjunkturen har en paverkan pa kostnads laget i verksamheten.
+
+Vid bedomning av atervinningsvardet i samband med en nedskrivningsprovning anvands uppskattade fram tida kassafloden baserat pa en femarig affarsplan som ledningen tagit fram for Ambea.
+For perioden efter prog nosperioden har tillvaxten antagits vara 2,0 (2,0) procent och bibehallen marginal.
+Vid diskontering till nuvarde av framtida kassaflode utgor den viktade genomsnitt liga kapitalkostnaden 10,8-14,9 (10,9-15,6) procent fore skatt.
+aven om bolagsledningen anser att uppskattade framtida kassafloden ar rimliga kan andra antaganden gallande kassafloden paverka gjorda varderingar.
+Se not K12 for mer information avseende nedskrivningsprovning av immateriella tillgangar.
+
+######## VILLKORAD TILLÄGGSKÖPESKILLING
+
+| MSEK | 2024−12−31 2023−12−31 |
+| --- | --- |
+| Ingående balans | – 34 |
+| Förvärv | 2 – |
+| Utbetalt | – −10 |
+| Värdeförändring i resultatet | – −24 |
+| Justering av förvärvsanalys | – – |
+| Utgående balans | 2 – |
+![table image]({page: 88, x: 59}, {y: 399, {width: 222}, {height: 8})

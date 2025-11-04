@@ -80,6 +80,7 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    logoUrl?: string
   }) {
     return prisma.company.upsert({
       where: {
@@ -414,7 +415,7 @@ function addParisAgreementKPIsToCompanies(
         futureEmissionsTrendTotal: null,
         carbonLawCalculatedBudget: null,
         emissionsTrendPercent: company.emissionsTrendPercent ?? null,
-      }
+      } as ProcessedCompany
     }
 
     const lastReportedPeriod = company.reportingPeriods[0]

@@ -1,6 +1,4 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
-
-import { getWikidataEntities, searchCompany } from '../lib/wikidata'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
@@ -9,6 +7,7 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
+import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {

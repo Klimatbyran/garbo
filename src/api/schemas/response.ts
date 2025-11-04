@@ -43,6 +43,7 @@ const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
+  logoUrl: z.string().optional().nullable(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
@@ -144,7 +145,7 @@ export const Scope3Schema = z.object({
 
 export const Scope1And2Schema = z.object({
   id: z.string(),
-  total: z.number(),
+  total: z.number().nullable(),
   unit: z.string(),
   metadata: MetadataSchema,
 })
@@ -428,10 +429,12 @@ const InputYearlyDataSchema = z
 export const InputMunicipalitySchema = z.object({
   name: z.string(),
   region: z.string(),
+  logoUrl: z.string().nullable(),
   emissions: InputYearlyDataSchema,
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
   approximatedHistoricalEmission: InputYearlyDataSchema,
   trend: InputYearlyDataSchema,
-  meetsParisGoal: z.boolean(),
   historicalEmissionChangePercent: z.number(),
   electricCarChangePercent: z.number(),
   climatePlanLink: z.string().nullable(),
@@ -462,6 +465,27 @@ export const MunicipalitiesSchema = z.array(MunicipalitySchema)
 
 export const MunicipalitySectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+/**
+ * Regional data schemas
+ */
+export const InputRegionalDataSchema = z.array(
+  z.object({
+    name: z.string(),
+    emissions: z.record(z.string(), z.number()),
+  }),
+)
+
+export const RegionalDataSchema = z.object({
+  name: z.string(),
+  emissions: z.record(z.string(), z.number()),
+})
+
+export const RegionalDataListSchema = z.array(RegionalDataSchema)
+
+export const RegionalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.unknown()),
 })
 
 export const AuthentificationResponseScheme = z.object({ token: z.string() })

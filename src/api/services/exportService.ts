@@ -3,6 +3,8 @@ import * as path from 'path'
 import { prisma } from '../../lib/prisma'
 import { companyExportArgs } from '../args'
 import { municipalityService } from './municipalityService'
+import { regionalService } from './regionalService'
+import { RegionalData } from '../types'
 import ExcelJS from 'exceljs'
 
 const EXPORT_FOLDER_PATH = './public/exports'
@@ -66,6 +68,23 @@ class ExportService {
           : await this.generateXLSX(
               this.transformMunicipalitiesIntoRows(municipalities),
             )
+
+    return this.createExportFile(fileName, content)
+  }
+
+  async exportRegions(type: ExportType = 'json'): Promise<ExportResult> {
+    const fileName = this.getFileName('region', type)
+    const existingFile = await this.getValidExport(fileName)
+    if (existingFile) return existingFile
+
+    const regions = await regionalService.getRegions()
+
+    const content =
+      type === 'json'
+        ? JSON.stringify(regions)
+        : type === 'csv'
+          ? this.generateCSV(this.transformRegionsIntoRows(regions))
+          : await this.generateXLSX(this.transformRegionsIntoRows(regions))
 
     return this.createExportFile(fileName, content)
   }
@@ -171,6 +190,9 @@ class ExportService {
       csvRows.push({
         name: municipality.name,
         region: municipality.region,
+        totalTrend: municipality.totalTrend,
+        totalCarbonLaw: municipality.totalCarbonLaw,
+        logoUrl: municipality.logoUrl,
         historicalEmissionChangePercent:
           municipality.historicalEmissionChangePercent,
         electricCarChangePercent: municipality.electricCarChangePercent,
@@ -187,7 +209,6 @@ class ExportService {
           ? municipality.politicalRule.join(', ')
           : '',
         politicalKSO: municipality.politicalKSO || '', // Ensure it's a string
-        meetsParisGoal: municipality.meetsParisGoal || false, // Ensure it's a boolean
         ...this.transformYearlyData(municipality.emissions, 'emissions'),
         ...this.transformYearlyData(
           municipality.approximatedHistoricalEmission,
@@ -198,6 +219,42 @@ class ExportService {
     }
 
     return csvRows
+  }
+
+  private transformRegionsIntoRows(regions: RegionalData[]): CsvRow[] {
+    const csvRows: CsvRow[] = []
+
+    for (const region of regions) {
+      // Add yearly data for each year in the regional data
+      for (const [year, totalEmissions] of Object.entries(region.emissions)) {
+        csvRows.push({
+          name: region.name,
+          year: year,
+          total_emissions: totalEmissions,
+        })
+      }
+    }
+
+    return csvRows
+  }
+
+  private flattenSectorData(
+    sectorData: Record<string, unknown>,
+    prefix: string,
+  ): CsvRow {
+    const flattened: CsvRow = {}
+    for (const [sectorName, sectorValue] of Object.entries(sectorData)) {
+      if (typeof sectorValue === 'object' && sectorValue !== null) {
+        // Handle nested subsector data
+        for (const [subName, subValue] of Object.entries(sectorValue)) {
+          flattened[`${prefix}_${sectorName}_${subName}`] =
+            (subValue as number) || 0
+        }
+      } else {
+        flattened[`${prefix}_${sectorName}`] = (sectorValue as number) || 0
+      }
+    }
+    return flattened
   }
 
   private transformYearlyData(yearlyData: YearlyData[], type: string) {
@@ -253,7 +310,7 @@ class ExportService {
   }
 
   private getFileName(
-    type: 'company' | 'municipality',
+    type: 'company' | 'municipality' | 'region',
     ext: 'csv' | 'json' | 'xlsx',
     year?: number,
   ): string {
@@ -332,10 +389,12 @@ export type YearlyData = { year: string; value: number } | null
 export interface Municipality {
   name: string
   region: string
+  logoUrl: string | null
   emissions: YearlyData[] // List of yearly emissions data
+  totalTrend: number // Sum of future trend of emissions
+  totalCarbonLaw: number // Sum of future carbon law of emissions
   approximatedHistoricalEmission: YearlyData[] // List of historical emission approximations
   trend: YearlyData[] // List of yearly emissions trend data
-  meetsParisGoal: boolean
   historicalEmissionChangePercent: number // Change in historical emissions percentage
   electricCarChangePercent: number // Percentage change in electric cars
   climatePlanLink: string | null // Link to the climate plan (nullable)
