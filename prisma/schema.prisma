@@ -40,6 +40,8 @@ model Company {
 
   /// Tags to help categorize and filter companies
   tags String[]
+
+  logoUrl String?
 }
 
 /// Explicitly stated base year for comparable data

@@ -43,7 +43,7 @@ const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,
   name: z.string(),
   lei: z.string().optional().nullable(),
-  logoUrl: z.string().optional().nullable(),
+  logoUrl: z.string().url().optional().nullable(),
 })
 
 export const StatedTotalEmissionsSchema = z.object({
@@ -378,6 +378,7 @@ export const MinimalCompanyBase = CompanyBaseSchema.extend({
   analysis: CompanyAnalysisSchema.optional(),
   industry: MinimalIndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
   tags: z.array(z.string()),
 })
 
@@ -394,6 +395,7 @@ const CompanyBase = CompanyBaseSchema.extend({
   analysis: CompanyAnalysisSchema.optional(),
   industry: IndustrySchema.nullable(),
   baseYear: BaseYearSchema.nullable().optional(),
+  logoUrl: z.string().url().optional().nullable(),
 })
 
 export const CompanyList = z.array(MinimalCompanyBase)
