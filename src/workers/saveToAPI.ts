@@ -69,7 +69,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
 
       if (Array.isArray(sanitizedBody?.reportingPeriods)) {
         for (const rp of sanitizedBody.reportingPeriods) {
-          coerceNullScope3ToEmptyObject(rp?.emissions)
+          coerceNullScope3ToEmptyObject(rp.emissions)
         }
       }
 
