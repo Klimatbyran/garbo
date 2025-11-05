@@ -57,7 +57,21 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       const wikidataId = wikidata.node
 
       console.log(body)
+
+      // remove all null values except for emissions where we want them to be explicit
       const sanitizedBody = removeNullValuesFromGarbo(body)
+
+      // Coerce emissions.scope3: null -> {} so API accepts "explicitly none this year"
+      const coerceNullScope3ToEmptyObject = (emissions?: any) => {
+        if (!emissions || typeof emissions !== 'object') return
+        if (emissions.scope3 === null) emissions.scope3 = {}
+      }
+
+      if (Array.isArray(sanitizedBody?.reportingPeriods)) {
+        for (const rp of sanitizedBody.reportingPeriods) {
+          coerceNullScope3ToEmptyObject(rp.emissions)
+        }
+      }
 
       job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
