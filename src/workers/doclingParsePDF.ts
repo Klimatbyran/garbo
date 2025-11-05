@@ -102,7 +102,7 @@ function createRequestPayload(
         inputFormat: ['pdf'],
         outputFormat: 'md',
         includeImages: false,
-        doOcr: true,
+        doOcr: false,
         ocrMethod: 'easyocr',
         tableMode: 'accurate',
         doTableStructure: true,
