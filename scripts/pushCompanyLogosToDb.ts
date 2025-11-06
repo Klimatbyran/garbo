@@ -13,7 +13,7 @@ async function getApiToken(user: string) {
     },
     body: JSON.stringify({
       client_id: user,
-      client_secret: '123123',
+      client_secret: secret,
     }),
   })
 
