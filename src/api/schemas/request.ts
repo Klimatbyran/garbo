@@ -248,6 +248,10 @@ export const exportQuerySchema = z.object({
   year: z.string().optional(),
 })
 
+export const companyExpandedQuerySchema = z.object({
+  expanded: z.boolean().optional(),
+})
+
 export const claimValidationSchema = z.object({
   steal: z.boolean(),
 })

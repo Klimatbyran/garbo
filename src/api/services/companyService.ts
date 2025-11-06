@@ -1,29 +1,37 @@
 import { Employees, Metadata, Turnover, Description } from '@prisma/client'
 import { OptionalNullable } from '../../lib/type-utils'
-import { DefaultEconomyType } from '../types'
+import {
+  CompanyListPayload,
+  DefaultEconomyType,
+  CompanyWithMetadata,
+  CompanyWithCalculatedEmissions,
+  CompanyWithEmissionChange,
+  CompanyWithTrend,
+  ProcessedCompany,
+  CompanyWithAnalysis,
+  CompanyWithoutAnalysisFields,
+} from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
 import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
-import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
+import {
+  calculateFutureEmissionTrend,
+  calculateFutureEmissionTrendWithPercent,
+} from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
+import {
+  calculateEmissionAtCurrentYear,
+  calculateWhenFutureTrendExceedsCarbonLaw,
+  meetsParisGoal,
+  sumOfExponentialTrendPath,
+  sumOfLinearTrendPath,
+} from '@/lib/parisKPICalculator'
+import { Company, Emissions } from '@/types'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {
     const companies = await prisma.company.findMany(companyListArgs)
-
-    const transformedCompanies = companies.map(transformMetadata)
-
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
-    )
-
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    const processedCompanies = processMetadataAndAddCalculations(companies)
+    return processedCompanies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
@@ -31,20 +39,11 @@ class CompanyService {
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = companies.map(transformMetadata)
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
-    )
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    const processedCompanies = processMetadataAndAddCalculations(companies)
+    return processedCompanies
   }
 
-  async getCompanyWithMetadata(wikidataId: string) {
+  async getCompanyWithMetadata(wikidataId: string): Promise<Company> {
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,
       where: {
@@ -52,13 +51,16 @@ class CompanyService {
       },
     })
 
-    const [transformedCompany] = addFutureEmissionsTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions([transformMetadata(company)]),
+    const transformed = transformMetadata(
+      company as unknown as CompanyListPayload,
+    ) as CompanyWithMetadata
+    const [transformedCompany] = addParisAgreementKPIsToCompanies(
+      addFutureEmissionsTrendSlope(
+        addCompanyEmissionChange(addCalculatedTotalEmissions([transformed])),
       ),
     )
 
-    return transformedCompany
+    return transformedCompany as unknown as Company
   }
 
   async getCompany(wikidataId: string) {
@@ -79,6 +81,7 @@ class CompanyService {
     internalComment?: string
     tags?: string[]
     lei?: string
+    logoUrl?: string
   }) {
     return prisma.company.upsert({
       where: {
@@ -224,44 +227,76 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-export function transformMetadata(data: any): any {
-  if (Array.isArray(data)) {
-    return data.map((item) => transformMetadata(item))
-  } else if (data && typeof data === 'object') {
+function processMetadataAndAddCalculations(companies: CompanyListPayload[]) {
+  const transformedCompanies = companies.map(
+    (c) => transformMetadata(c) as CompanyWithMetadata,
+  )
+
+  const companiesWithCalculatedTotalEmissions =
+    addCalculatedTotalEmissions(transformedCompanies)
+
+  const companiesWithEmissionsChange = addCompanyEmissionChange(
+    companiesWithCalculatedTotalEmissions,
+  )
+
+  const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
+    companiesWithEmissionsChange,
+  )
+
+  const companiesWithParisAgreementKPIs = addParisAgreementKPIsToCompanies(
+    companiesWithFutureEmissionsTrendSlope,
+  )
+
+  return companiesWithParisAgreementKPIs
+}
+
+export function transformMetadata(
+  data: CompanyListPayload,
+): CompanyWithMetadata {
+  if (data && typeof data === 'object') {
     const transformed = Object.entries(data).reduce(
       (acc, [key, value]) => {
         if (key === 'metadata' && Array.isArray(value)) {
           acc[key] = value[0] || null
         } else if (value instanceof Date) {
           acc[key] = value
+        } else if (Array.isArray(value)) {
+          acc[key] = value.map((item) =>
+            typeof item === 'object' && item !== null
+              ? transformMetadata(item as unknown as CompanyListPayload)
+              : item,
+          )
         } else if (typeof value === 'object' && value !== null) {
-          acc[key] = transformMetadata(value)
+          acc[key] = transformMetadata(value as unknown as CompanyListPayload)
         } else {
           acc[key] = value
         }
         return acc
       },
-      {} as Record<string, any>,
+      {} as Record<string, unknown>,
     )
 
-    return transformed
+    return transformed as CompanyWithMetadata
   }
-  return data
+  return data as CompanyWithMetadata
 }
 
-export function addCalculatedTotalEmissions(companies: any[]) {
+export function addCalculatedTotalEmissions(
+  companies: CompanyWithMetadata[],
+): CompanyWithCalculatedEmissions[] {
   return (
     companies
       // Calculate total emissions for each reporting period
       // This allows comparing against the statedTotalEmissions provided by the company report
       .map((company) => ({
         ...company,
+        ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
           const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
           const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
           const scope3Total =
             scope3?.categories.reduce(
-              (total, category) => category.total + total,
+              (total, category) => (category.total ?? 0) + total,
               0,
             ) ||
             scope3?.statedTotalEmissions?.total ||
@@ -271,26 +306,33 @@ export function addCalculatedTotalEmissions(companies: any[]) {
 
           return {
             ...reportingPeriod,
-            emissions: reportingPeriod.emissions && {
-              ...reportingPeriod.emissions,
-              scope2: scope2 && {
-                ...scope2,
-                calculatedTotalEmissions: scope2Total || 0,
-              },
-              scope3: scope3 && {
-                ...scope3,
-                calculatedTotalEmissions: scope3Total || 0,
-              },
-              calculatedTotalEmissions: calculatedTotalEmissions || 0,
-            },
-            metadata: reportingPeriod.metadata,
-          }
+            emissions: reportingPeriod.emissions
+              ? {
+                  ...reportingPeriod.emissions,
+                  scope2: scope2
+                    ? {
+                        ...scope2,
+                        calculatedTotalEmissions: scope2Total || 0,
+                      }
+                    : scope2,
+                  scope3: scope3
+                    ? {
+                        ...scope3,
+                        calculatedTotalEmissions: scope3Total || 0,
+                      }
+                    : scope3,
+                  calculatedTotalEmissions: calculatedTotalEmissions || 0,
+                }
+              : null,
+          } as CompanyWithCalculatedEmissions['reportingPeriods'][0]
         }),
-      }))
+      })) as CompanyWithCalculatedEmissions[]
   )
 }
 
-export function addCompanyEmissionChange(companies: any[]) {
+export function addCompanyEmissionChange(
+  companies: CompanyWithCalculatedEmissions[],
+): CompanyWithEmissionChange[] {
   return companies.map((company) => {
     return {
       ...company,
@@ -301,73 +343,227 @@ export function addCompanyEmissionChange(companies: any[]) {
   })
 }
 
-export function addFutureEmissionsTrendSlope(companies: any[]) {
-  return companies.map((company) => {
-    try {
-      // Ensure we have reporting periods
-      if (!company.reportingPeriods || company.reportingPeriods.length === 0) {
-        return {
-          ...company,
-          futureEmissionsTrendSlope: null,
+function transformEmissionsForTrendCalculator(emissions: Emissions) {
+  return {
+    calculatedTotalEmissions: emissions.calculatedTotalEmissions,
+    scope1: emissions.scope1 ? { total: emissions.scope1.total } : undefined,
+    scope2: emissions.scope2
+      ? {
+          mb: emissions.scope2.mb,
+          lb: emissions.scope2.lb ?? 0,
+          unknown: emissions.scope2.unknown ?? null,
         }
-      }
+      : null,
+    scope3: emissions.scope3
+      ? {
+          calculatedTotalEmissions:
+            emissions.scope3.calculatedTotalEmissions ?? null,
+          statedTotalEmissions: emissions.scope3.statedTotalEmissions
+            ? {
+                total: emissions.scope3.statedTotalEmissions.total ?? null,
+              }
+            : undefined,
+          categories: emissions.scope3.categories?.map((cat) => ({
+            category: cat.category,
+            total: cat.total ?? null,
+          })),
+        }
+      : undefined,
+    statedTotalEmissions: emissions.statedTotalEmissions?.total ?? null,
+  }
+}
 
-      const transformedCompany = {
-        reportedPeriods: company.reportingPeriods.map((period) => ({
-          year: new Date(period.endDate).getFullYear(),
-          emissions: period.emissions,
-        })),
-        baseYear: company.baseYear,
-      }
+function addFutureEmissionsTrendSlope(
+  companies: CompanyWithEmissionChange[],
+): CompanyWithTrend[] {
+  return companies.map((company) => {
+    const transformedCompany = {
+      reportedPeriods: company.reportingPeriods.map((period) => ({
+        year: new Date(period.endDate).getFullYear(),
+        emissions: period.emissions
+          ? transformEmissionsForTrendCalculator(
+              period.emissions as unknown as Emissions,
+            )
+          : null,
+      })),
+      baseYear: company.baseYear,
+    }
 
-      const baseYear = transformedCompany.baseYear?.year
+    const baseYear = transformedCompany.baseYear?.year
+    const { slope, percent } = calculateFutureEmissionTrendWithPercent(
+      transformedCompany.reportedPeriods,
+      baseYear,
+    )
 
-      const slope = calculateFutureEmissionTrend(
-        transformedCompany.reportedPeriods,
-        baseYear,
-      )
+    return {
+      ...company,
+      futureEmissionsTrendSlope: slope,
+      emissionsTrendPercent: percent,
+    } as CompanyWithTrend
+  })
+}
 
-      // Ensure we always return a valid value (number or null)
-      const validSlope = typeof slope === 'number' ? slope : null
-
+function addParisAgreementKPIsToCompanies(
+  companies: CompanyWithTrend[],
+): ProcessedCompany[] {
+  const currentYear = new Date().getFullYear()
+  return companies.map((company) => {
+    if (!company.futureEmissionsTrendSlope) {
       return {
         ...company,
-        futureEmissionsTrendSlope: validSlope,
-      }
-    } catch (error) {
-      console.error(
-        'Error calculating future emissions trend slope for company:',
-        company.wikidataId,
-        error,
-      )
+        meetsParisGoal: null,
+        dateTrendExceedsCarbonLaw: null,
+        futureEmissionsTrendTotal: null,
+        carbonLawCalculatedBudget: null,
+        emissionsTrendPercent: company.emissionsTrendPercent ?? null,
+      } as ProcessedCompany
+    }
+
+    const lastReportedPeriod = company.reportingPeriods[0]
+    if (!lastReportedPeriod?.emissions) {
       return {
         ...company,
-        futureEmissionsTrendSlope: null,
+        meetsParisGoal: null,
+        dateTrendExceedsCarbonLaw: null,
+        futureEmissionsTrendTotal: null,
+        carbonLawCalculatedBudget: null,
+        emissionsTrendPercent: company.emissionsTrendPercent ?? null,
+      } as ProcessedCompany
+    }
+
+    const lastReportedEmissions =
+      lastReportedPeriod.emissions.calculatedTotalEmissions
+
+    if (!lastReportedEmissions) {
+      return {
+        ...company,
+        meetsParisGoal: null,
+        dateTrendExceedsCarbonLaw: null,
+        futureEmissionsTrendTotal: null,
+        carbonLawCalculatedBudget: null,
+        emissionsTrendPercent: company.emissionsTrendPercent ?? null,
       }
+    }
+
+    const emissionAtCurrentYear = calculateEmissionAtCurrentYear(
+      company.futureEmissionsTrendSlope,
+      lastReportedEmissions,
+      new Date(lastReportedPeriod.startDate).getFullYear(),
+      currentYear,
+    )
+
+    const sumOfLinearTrend = sumOfLinearTrendPath(
+      company.futureEmissionsTrendSlope,
+      emissionAtCurrentYear,
+      currentYear,
+    )
+
+    const sumOfCarbonLaw = sumOfExponentialTrendPath(
+      emissionAtCurrentYear,
+      currentYear,
+    )
+
+    let meetsParis: boolean | null = null
+    if (sumOfLinearTrend && sumOfCarbonLaw) {
+      meetsParis = meetsParisGoal(sumOfLinearTrend, sumOfCarbonLaw)
+    }
+
+    const whenFutureTrendExceedsCarbonLaw =
+      calculateWhenFutureTrendExceedsCarbonLaw(
+        company.futureEmissionsTrendSlope,
+        emissionAtCurrentYear,
+        sumOfCarbonLaw,
+        currentYear,
+      )
+
+    return {
+      ...company,
+      meetsParisGoal: meetsParis,
+      dateTrendExceedsCarbonLaw: whenFutureTrendExceedsCarbonLaw,
+      futureEmissionsTrendTotal: sumOfLinearTrend,
+      carbonLawCalculatedBudget: sumOfCarbonLaw,
+      emissionsTrendPercent: company.emissionsTrendPercent ?? null,
     }
   })
 }
 
-function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
+function sortReportingPeriodsByEndDate(
+  reportingPeriods: ProcessedCompany['reportingPeriods'],
+): ProcessedCompany['reportingPeriods'] {
   return reportingPeriods.sort(
     (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime(),
   )
 }
 
-function addEmissionTrendsToReportingPeriods(periods: any[]) {
-  periods.forEach((period: any, index: number) => {
-    if (index < periods.length - 1) {
-      const previousPeriod = periods[index + 1]
-      period.emissionsChangeLastTwoYears = calculateEmissionChangeLastTwoYears(
-        period,
-        previousPeriod,
-      )
-    } else {
-      period.emissionsChangeLastTwoYears = {
-        absolute: null,
-        adjusted: null,
-      }
+export function transformCompaniesWithAnalysis(
+  companies: ProcessedCompany[],
+  includeAnalysis: boolean,
+): (CompanyWithoutAnalysisFields | CompanyWithAnalysis)[] {
+  if (!includeAnalysis) {
+    // Remove analysis fields from top level
+    return companies.map((company) => {
+      const {
+        futureEmissionsTrendSlope,
+        emissionsTrendPercent,
+        meetsParisGoal,
+        dateTrendExceedsCarbonLaw,
+        futureEmissionsTrendTotal,
+        carbonLawCalculatedBudget,
+        ...rest
+      } = company
+      return rest as CompanyWithoutAnalysisFields
+    })
+  }
+
+  // Nest analysis fields
+  return companies.map((company) => {
+    const {
+      futureEmissionsTrendSlope,
+      emissionsTrendPercent,
+      meetsParisGoal,
+      dateTrendExceedsCarbonLaw,
+      futureEmissionsTrendTotal,
+      carbonLawCalculatedBudget,
+      ...rest
+    } = company
+
+    return {
+      ...rest,
+      analysis: {
+        futureEmissionsTrendSlope,
+        emissionsTrendPercent,
+        meetsParisGoal,
+        dateTrendExceedsCarbonLaw,
+        futureEmissionsTrendTotal,
+        carbonLawCalculatedBudget,
+      },
     }
   })
-  return periods
+}
+
+function addEmissionTrendsToReportingPeriods(
+  periods: CompanyWithCalculatedEmissions['reportingPeriods'],
+): CompanyWithEmissionChange['reportingPeriods'] {
+  return periods.map((period, index: number) => {
+    if (index < periods.length - 1) {
+      const previousPeriod = periods[index + 1]
+      return {
+        ...period,
+        emissionsChangeLastTwoYears: calculateEmissionChangeLastTwoYears(
+          period as CompanyWithEmissionChange['reportingPeriods'][0],
+          previousPeriod as CompanyWithEmissionChange['reportingPeriods'][0],
+        ),
+      }
+    } else {
+      return {
+        ...period,
+        emissionsChangeLastTwoYears: {
+          absolute: null,
+          adjusted: null,
+          absoluteDifference: null,
+          adjustedDifference: null,
+        },
+      }
+    }
+  }) as CompanyWithEmissionChange['reportingPeriods']
 }
