@@ -13,7 +13,6 @@ export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     overrideWikidataId: EntityId
-    approved: boolean
     wikidata?: Wikidata
   }
 }
@@ -36,16 +35,15 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
   async (job: GuessWikidataJob) => {
     const {
       companyName,
-      approved = false,
       overrideWikidataId,
-      wikidata: approvedWikidata,
     } = job.data
     if (!companyName) throw new Error('No company name was provided')
     job.log('Company name: ' + companyName)
-    job.log('Wikidata: ' + JSON.stringify(approvedWikidata, null, 2))
-    job.log('Approved: ' + approved)
+    job.log('Approval: ' + JSON.stringify(job.data.approval, null, 2))
 
-    if (approved) {
+    // If approved, process the wikidata
+    if (job.isDataApproved()) {
+      const approvedWikidata = job.getApprovedBody().wikidata
       if (!approvedWikidata) {
         throw new Error('Missing approved wikidata: ' + approvedWikidata)
       }
@@ -56,6 +54,12 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       })
 
       return JSON.stringify({ wikidata: approvedWikidata }, null, 2)
+    }
+
+    // If approval exists but not approved, wait for approval
+    if (job.hasApproval() && !job.isDataApproved()) {
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      return JSON.stringify({ message: 'Waiting for approval' }, null, 2)
     }
 
     /* NOTE: Can be activated once the corresponding endpoint is ready in prod
@@ -76,6 +80,21 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       } satisfies Wikidata
 
       job.log("auto approve");
+
+      // Auto-approve since company found in production by search
+      await job.requestApproval(
+        'wikidata',
+        {
+          type: 'wikidata',
+          newValue: { wikidata }
+        },
+        true, // auto-approved
+        {
+          source: 'production-search',
+          comment: 'Company found in production via search'
+        },
+        `Auto-approved wikidata for ${companyName} from production search`
+      )
 
       job.sendMessage({
         content: `Company with the same name found in production auto-approving the wikidata for: ${companyName}`,
@@ -213,7 +232,21 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       if(checkIfWikidataExistInProductionRes.ok) {
         const checkIfWikidataExistInProduction = await checkIfWikidataExistInProductionRes.json();
         if(checkIfWikidataExistInProduction.wikidataId) {  
-          await job.updateData({ ...job.data, wikidata: wikidataForApproval, approved: true });      
+          // Auto-approve since company exists in production
+          await job.requestApproval(
+            'wikidata',
+            {
+              type: 'wikidata',
+              newValue: { wikidata: wikidataForApproval }
+            },
+            true, // auto-approved
+            {
+              source: 'production-database',
+              comment: 'Company found in production database'
+            },
+            `Auto-approved wikidata for ${companyName}`
+          )
+          
           job.sendMessage({
             content: `🚀 Company found in production database, we will approve automatically: ${companyName}`,
             components: [],
@@ -228,8 +261,23 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       })
     }
 
-    job.log('Updating job data')
-    await job.updateData({ ...job.data, wikidata: wikidataForApproval })
+    job.log('Creating approval request for wikidata')
+    
+    // Create approval request using standard pattern
+    await job.requestApproval(
+      'wikidata',
+      {
+        type: 'wikidata',
+        newValue: { wikidata: wikidataForApproval }
+      },
+      false, // requires manual approval
+      {
+        source: 'wikidata-search',
+        comment: 'Wikidata found via search and LLM selection'
+      },
+      `Wikidata selection for ${companyName}`
+    )
+    
     const buttonRow = discord.createEditWikidataButtonRow(job)
 
     await job.sendMessage({

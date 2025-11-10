@@ -186,6 +186,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GOOGLE_SCREENSHOT_BUCKET_KEY
+            - name: DOCLING_USE_LOCAL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_USE_LOCAL
           imagePullPolicy: Always
 ---
 apiVersion: autoscaling/v2

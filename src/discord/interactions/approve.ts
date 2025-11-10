@@ -4,7 +4,7 @@ import { Wikidata } from '../../prompts/wikidata'
 
 export class ApproveJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    wikidata: Wikidata
+    wikidata?: Wikidata
   }
 }
 
