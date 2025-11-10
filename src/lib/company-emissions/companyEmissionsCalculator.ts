@@ -62,37 +62,32 @@ function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
     scope1And2: previousScope1And2,
   } = previousPeriod.emissions || {}
 
-  // Compare Scope 1 emissions
-  if (currentScope1 && previousScope1) {
-    adjustedCurrentTotal += currentScope1?.total ?? 0
-    adjustedPreviousTotal += previousScope1?.total ?? 0
-  }
+  // Calculate scope 1+2 totals for each period independently
+  // Use separate scope1/scope2 if available, otherwise fall back to combined scope1And2
+  // This allows comparing periods where one has separate values and another has combined values
+  const currentScope1Total = currentScope1?.total ?? 0
+  const currentScope2Total =
+    currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0
+  const currentSeparateTotal = currentScope1Total + currentScope2Total
+  const currentScope1And2Total =
+    currentSeparateTotal > 0
+      ? currentSeparateTotal
+      : (currentScope1And2?.total ?? 0)
 
-  // Compare Scope 2 emissions
-  if (currentScope2 && previousScope2) {
-    adjustedCurrentTotal +=
-      currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0
-    adjustedPreviousTotal +=
-      previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0
-  }
+  const previousScope1Total = previousScope1?.total ?? 0
+  const previousScope2Total =
+    previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0
+  const previousSeparateTotal = previousScope1Total + previousScope2Total
+  const previousScope1And2Total =
+    previousSeparateTotal > 0
+      ? previousSeparateTotal
+      : (previousScope1And2?.total ?? 0)
 
-  // If both periods don't have separate scope1/scope2 but have scope1And2, use that
-  const hasCurrentSeparateScope1Or2 =
-    (currentScope1?.total ?? 0) > 0 ||
-    (currentScope2?.mb ?? currentScope2?.lb ?? currentScope2?.unknown ?? 0) > 0
-  const hasPreviousSeparateScope1Or2 =
-    (previousScope1?.total ?? 0) > 0 ||
-    (previousScope2?.mb ?? previousScope2?.lb ?? previousScope2?.unknown ?? 0) >
-      0
-
-  if (
-    !hasCurrentSeparateScope1Or2 &&
-    !hasPreviousSeparateScope1Or2 &&
-    currentScope1And2 &&
-    previousScope1And2
-  ) {
-    adjustedCurrentTotal += currentScope1And2?.total ?? 0
-    adjustedPreviousTotal += previousScope1And2?.total ?? 0
+  // Compare scope 1+2 totals if at least one period has data
+  // This allows comparing separate values to combined values (they represent the same thing)
+  if (currentScope1And2Total > 0 || previousScope1And2Total > 0) {
+    adjustedCurrentTotal += currentScope1And2Total
+    adjustedPreviousTotal += previousScope1And2Total
   }
 
   // Compare Scope 3 emissions
