@@ -55,10 +55,10 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
       const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
 
-      let companies = await redisCache.get(dataCacheKey)
-
+      let companies = null
+      
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        const companies = await companyService.getAllCompaniesWithMetadata()
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       }
 
