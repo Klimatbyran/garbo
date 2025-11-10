@@ -22,7 +22,6 @@ model Company {
   descriptions Description[]
   /// Company website URL
   url         String?
-  logoUrl     String?
   lei         String?
 
   /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
