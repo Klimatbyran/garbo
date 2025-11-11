@@ -215,6 +215,7 @@ export const reportingPeriodSchema = z
 export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
+    replaceAllEmissions: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
