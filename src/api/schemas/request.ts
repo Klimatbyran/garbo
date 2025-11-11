@@ -94,7 +94,7 @@ export const statedTotalEmissionsSchema = z
     unit: emissionUnitSchemaWithDefault,
     verified: z.boolean().optional(),
   })
-  .optional()
+  .nullish()
 
 export const emissionsSchema = z
   .object({
