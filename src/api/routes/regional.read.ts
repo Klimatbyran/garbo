@@ -7,7 +7,6 @@ import {
   RegionalDataListSchema,
   getErrorSchemas,
   RegionalNameParamSchema,
-  RegionalSectorEmissionsSchema,
 } from '../schemas'
 import { regionalService } from '../services/regionalService'
 import { redisCache } from '../..'
@@ -35,7 +34,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all regions',
         description:
-          'Retrieve a list of all regions with their historical emissions data broken down by sectors and subsectors over time. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
+          'Retrieve a list of all regions with their historical emissions data, trends, Paris agreement compliance status, and municipalities. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Regions'),
 
         response: {
@@ -68,7 +67,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get one region',
         description:
-          'Retrieve a specific region with its historical emissions data broken down by sectors and subsectors over time.',
+          'Retrieve a specific region with its historical emissions data, trends, Paris agreement compliance status, and municipalities.',
         tags: getTags('Regions'),
         params: RegionalNameParamSchema,
         response: {
@@ -89,36 +88,6 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(region)
-    },
-  )
-
-  app.get(
-    '/:name/sector-emissions',
-    {
-      schema: {
-        summary: 'Get regional sector emissions',
-        description:
-          'Retrieve sector emissions data for a specific region, broken down by different sectors and subsectors over time.',
-        tags: getTags('Regions'),
-        params: RegionalNameParamSchema,
-        response: {
-          200: RegionalSectorEmissionsSchema,
-          ...getErrorSchemas(400, 404),
-        },
-      },
-    },
-    async (request: FastifyRequest<{ Params: RegionalNameParams }>, reply) => {
-      const { name } = request.params
-      const sectorEmissions = regionalService.getRegionalSectorEmissions(name)
-
-      if (!sectorEmissions) {
-        return reply.status(404).send({
-          code: 'NOT_FOUND',
-          message: 'The requested resource could not be found.',
-        })
-      }
-
-      reply.send({ sectors: sectorEmissions })
     },
   )
 }

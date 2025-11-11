@@ -33,34 +33,12 @@ class RegionalService {
       readFileSync(apiConfig.regionDataPath, 'utf-8'),
     )
 
-    // Transform the regional data from the nested format to a flat array
-    this._all = Object.entries(rawRegionalData).map(([regionName, data]) => {
-      const regionData = data as Record<string, any>
-      const emissions: Record<string, number> = {}
-
-      // Extract only total_emissions for each year
-      for (const [year, yearData] of Object.entries(regionData)) {
-        if (
-          yearData &&
-          typeof yearData === 'object' &&
-          'total_emissions' in yearData
-        ) {
-          emissions[year] = yearData.total_emissions
-        }
-      }
-
-      return {
-        name: regionName,
-        emissions,
-      }
-    })
-
-    // Validate the transformed data
-    this._all = InputRegionalDataSchema.parse(this._all)
+    // Validate and parse the data - InputRegionalDataSchema will handle transformation
+    this._all = InputRegionalDataSchema.parse(rawRegionalData)
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, region) => {
-      acc.set(region.name.toLowerCase(), region)
+      acc.set(region.region.toLowerCase(), region)
       return acc
     }, new Map())
 
@@ -68,15 +46,12 @@ class RegionalService {
   }
 
   /**
-   * Lazy load regional sector emissions data the first time it's requested.
+   * Lazy load regional sector emissions data is no longer supported
+   * as the new data format doesn't include sector-level data.
    */
   private lazyInitSectorEmissions() {
-    const rawRegionalData = JSON.parse(
-      readFileSync(apiConfig.regionDataPath, 'utf-8'),
-    )
-
-    this._sectorEmissions = rawRegionalData
-
+    // Sector emissions are no longer available in the new data format
+    this._sectorEmissions = {}
     return this
   }
 
