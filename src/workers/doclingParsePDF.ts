@@ -127,6 +127,13 @@ const doclingParsePDF = new DiscordWorker(
         return await pollTaskAndGetResult(job, taskId)
       }
 
+      // Add a small random delay (0-5 seconds) to stagger job starts and avoid thundering herd
+      const staggerDelay = Math.floor(Math.random() * 5000) // 0-5000ms
+      if (staggerDelay > 0) {
+        job.log(`Staggering job start by ${staggerDelay}ms to avoid simultaneous API calls`)
+        await sleep(staggerDelay)
+      }
+
       if (!doclingSettings) {
         const requestPayload = createRequestPayload(url)
         job.updateData({
@@ -254,7 +261,7 @@ const doclingParsePDF = new DiscordWorker(
       throw error
     }
   },
-  { concurrency: 1, connection: redis, lockDuration: 30 * 60 * 1000 }, // Increased lock duration for async processing
+  { concurrency: 10, connection: redis, lockDuration: 30 * 60 * 1000 }, // Increased lock duration for async processing, allow 10 parallel jobs
 )
 
 async function pollTaskAndGetResult(
