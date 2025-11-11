@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
+import {
+  emissionUnitSchemaWithDefault,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -137,7 +141,7 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number().nullable().optional(),
-              unit: emissionUnitSchemaWithDefault,
+              unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
             }),
           )
