@@ -7,7 +7,6 @@ import apiConfig from '../../config/api'
 class RegionalService {
   private _all: RegionalData[]
   private _lookup: Map<string, RegionalData>
-  private _sectorEmissions: Record<string, unknown>
 
   private get allRegions() {
     return this._all ?? this.lazyInit()._all
@@ -15,12 +14,6 @@ class RegionalService {
 
   private get regionsByName() {
     return this._lookup ?? this.lazyInit()._lookup
-  }
-
-  private get sectorEmissions() {
-    return (
-      this._sectorEmissions ?? this.lazyInitSectorEmissions()._sectorEmissions
-    )
   }
 
   /**
@@ -45,36 +38,12 @@ class RegionalService {
     return this
   }
 
-  /**
-   * Lazy load regional sector emissions data is no longer supported
-   * as the new data format doesn't include sector-level data.
-   */
-  private lazyInitSectorEmissions() {
-    // Sector emissions are no longer available in the new data format
-    this._sectorEmissions = {}
-    return this
-  }
-
   getRegions() {
     return this.allRegions
   }
 
-  getRegion(name: RegionalData['name']) {
+  getRegion(name: RegionalData['region']) {
     return this.regionsByName.get(name.toLowerCase()) ?? null
-  }
-
-  getRegionalSectorEmissions(name: RegionalData['name']) {
-    // Find the correct case-sensitive key by checking all keys
-    const regionKey = Object.keys(this.sectorEmissions).find(
-      (key) => key.toLowerCase() === name.toLowerCase(),
-    )
-
-    if (!regionKey) {
-      return null
-    }
-
-    const region = this.sectorEmissions[regionKey]
-    return region ?? null
   }
 }
 
