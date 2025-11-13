@@ -100,6 +100,7 @@ export const Scope2BaseSchema = z.object({
   metadata: MetadataSchema,
   calculatedTotalEmissions: z
     .number()
+    .nullable()
     .openapi({ description: 'Calculated total scope 2 emissions' }),
 })
 
