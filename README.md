@@ -23,7 +23,6 @@ flowchart TB
 
     PDF[PDF]
     Cache{Is in cache?}
-    NLM[Parse PDF]
     DocLing[DocLing Parse PDF]
     Tables[Extract Tables]
     Emissions[Extract Emissions]
