@@ -172,7 +172,7 @@ class EmissionsService {
       categories?: {
         category: number
         total: number | null
-        unit: string
+        unit: string | null
         verified?: boolean
       }[]
       statedTotalEmissions?: Omit<

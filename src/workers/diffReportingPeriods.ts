@@ -14,6 +14,7 @@ export class DiffReportingPeriodsJob extends DiffJob {
     scope3?: any[]
     biogenic?: any[]
     economy?: any[]
+    replaceAllEmissions?: boolean
   }
 }
 
@@ -39,7 +40,9 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         'reporting-periods',
         companyName,
         wikidata,
-        job.getApprovedBody(),
+        { ...job.getApprovedBody(), 
+        ...(job.data.replaceAllEmissions && { replaceAllEmissions: true })
+        },
       )
       return
     }

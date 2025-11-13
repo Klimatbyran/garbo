@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
+import {
+  emissionUnitSchemaWithDefault,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -23,7 +27,7 @@ export const postCompanyBodySchema = z
     name: z.string(),
     descriptions: z.array(descriptionSchema).optional(),
     url: z.string().url().optional(),
-    logoUrl: z.string().url().optional(),
+    logoUrl: z.string().url().optional().nullable(),
     internalComment: z.string().optional(),
     tags: z.array(z.string()).optional(),
     lei: z.string().optional(),
@@ -90,7 +94,7 @@ export const statedTotalEmissionsSchema = z
     unit: emissionUnitSchemaWithDefault,
     verified: z.boolean().optional(),
   })
-  .optional()
+  .nullish()
 
 export const emissionsSchema = z
   .object({
@@ -137,7 +141,7 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number().nullable().optional(),
-              unit: emissionUnitSchemaWithDefault,
+              unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
             }),
           )
@@ -215,6 +219,7 @@ export const reportingPeriodSchema = z
 export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
+    replaceAllEmissions: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
