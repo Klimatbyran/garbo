@@ -44,7 +44,7 @@
 export interface ReportedPeriod {
   year: number
   emissions?: {
-    calculatedTotalEmissions?: number
+    calculatedTotalEmissions?: number | null
     scope1?: {
       total?: number
     }
@@ -145,7 +145,7 @@ export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
   baseYear?: number,
-): { year: number; emissions: number | undefined }[] {
+): { year: number; emissions: number | null | undefined }[] {
   const filteredPeriods = getPeriodsFromBaseYear(reportedPeriods, baseYear)
   const validPeriods =
     emissionsType === 'scope3'
