@@ -104,6 +104,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     scope2: z
       .object({
@@ -119,7 +120,7 @@ export const emissionsSchema = z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .nullable()
           .optional(),
-        unit: emissionUnitSchemaWithDefault,
+        unit: emissionUnitSchemaGarbo.optional(),
         verified: z.boolean().optional(),
       })
       .refine(
@@ -131,6 +132,27 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
+        },
+      )
+      .refine(
+        ({ mb, lb, unknown, unit }) => {
+          // If all values are null or undefined, unit can be null
+          const allValuesNull = 
+            (mb === null || mb === undefined) &&
+            (lb === null || lb === undefined) &&
+            (unknown === null || unknown === undefined);
+          
+          if (allValuesNull) {
+            return true; // unit can be null when all values are null
+          }
+          
+          // If any value is not null, unit must be provided (not null)
+          return unit !== null && unit !== undefined;
+        },
+        {
+          message:
+            'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
+          path: ['unit'],
         },
       )
       .optional(),
@@ -148,6 +170,7 @@ export const emissionsSchema = z
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
+      .nullable()
       .optional(),
     biogenic: z
       .object({
@@ -155,6 +178,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
@@ -163,6 +187,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
   })
   .optional()
