@@ -31,9 +31,19 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostCompanyBody
       }>,
-      reply
+      reply,
     ) => {
-      const { name, wikidataId, descriptions, internalComment, tags, url, lei, metadata } = request.body
+      const {
+        name,
+        wikidataId,
+        descriptions,
+        internalComment,
+        tags,
+        url,
+        logoUrl,
+        lei,
+        metadata,
+      } = request.body
       try {
         await companyService.upsertCompany({
           name,
@@ -41,27 +51,28 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           internalComment,
           tags,
           url,
+          logoUrl,
           lei,
         })
         // Create descriptions
-        descriptions?.map(
-          async (description) => {
-            const createdMetadata = await metadataService.createMetadata({
-              user: request.user,
-              metadata,
-            })
-            await companyService.upsertDescription({
-              description,
-              companyId: wikidataId,
-              metadataId: createdMetadata.id
-            })
-          }
-        )
+        descriptions?.map(async (description) => {
+          const createdMetadata = await metadataService.createMetadata({
+            user: request.user,
+            metadata,
+          })
+          await companyService.upsertDescription({
+            description,
+            companyId: wikidataId,
+            metadataId: createdMetadata.id,
+          })
+        })
         return reply.send({ ok: true })
-      } catch(error) {
+      } catch (error) {
         console.error('ERROR Creation or update of company failed:', error)
-        return reply.status(500).send({message: "Creation or update of company failed."});
+        return reply
+          .status(500)
+          .send({ message: 'Creation or update of company failed.' })
       }
-    }
+    },
   )
 }

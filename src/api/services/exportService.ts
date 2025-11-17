@@ -190,6 +190,9 @@ class ExportService {
       csvRows.push({
         name: municipality.name,
         region: municipality.region,
+        totalTrend: municipality.totalTrend,
+        totalCarbonLaw: municipality.totalCarbonLaw,
+        logoUrl: municipality.logoUrl,
         historicalEmissionChangePercent:
           municipality.historicalEmissionChangePercent,
         electricCarChangePercent: municipality.electricCarChangePercent,
@@ -206,7 +209,6 @@ class ExportService {
           ? municipality.politicalRule.join(', ')
           : '',
         politicalKSO: municipality.politicalKSO || '', // Ensure it's a string
-        meetsParisGoal: municipality.meetsParisGoal || false, // Ensure it's a boolean
         ...this.transformYearlyData(municipality.emissions, 'emissions'),
         ...this.transformYearlyData(
           municipality.approximatedHistoricalEmission,
@@ -223,6 +225,7 @@ class ExportService {
     const csvRows: CsvRow[] = []
 
     for (const region of regions) {
+<<<<<<< HEAD
       csvRows.push({
         region: region.region,
         totalTrend: region.totalTrend,
@@ -237,6 +240,16 @@ class ExportService {
         ),
         ...this.transformYearlyData(region.trend, 'trend'),
       })
+=======
+      // Add yearly data for each year in the regional data
+      for (const [year, totalEmissions] of Object.entries(region.emissions)) {
+        csvRows.push({
+          name: region.name,
+          year: year,
+          total_emissions: totalEmissions,
+        })
+      }
+>>>>>>> main
     }
 
     return csvRows
@@ -393,10 +406,12 @@ export type YearlyData = { year: string; value: number } | null
 export interface Municipality {
   name: string
   region: string
+  logoUrl: string | null
   emissions: YearlyData[] // List of yearly emissions data
+  totalTrend: number // Sum of future trend of emissions
+  totalCarbonLaw: number // Sum of future carbon law of emissions
   approximatedHistoricalEmission: YearlyData[] // List of historical emission approximations
   trend: YearlyData[] // List of yearly emissions trend data
-  meetsParisGoal: boolean
   historicalEmissionChangePercent: number // Change in historical emissions percentage
   electricCarChangePercent: number // Percentage change in electric cars
   climatePlanLink: string | null // Link to the climate plan (nullable)

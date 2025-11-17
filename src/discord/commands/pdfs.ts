@@ -3,40 +3,47 @@ import {
   SlashCommandBuilder,
   TextChannel,
 } from 'discord.js'
-import { queues } from '../../queues';
-import { DiscordJob } from '../../lib/DiscordWorker'
+import { queues } from '../../queues'
 
 export default {
   data: new SlashCommandBuilder()
     .setName('pdfs')
     .setDescription(
-      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.',
     )
     .addStringOption((option) =>
       option
         .setName('urls')
         .setDescription('URLs to PDF files. Separate with comma or new lines.')
-        .setRequired(true)
+        .setRequired(true),
     )
-    .addBooleanOption((option) => 
+    .addBooleanOption((option) =>
       option
         .setName('auto-approve')
         .setDescription('Automatically approve the extracted data.')
-        .setRequired(false)
+        .setRequired(false),
+    )
+    .addBooleanOption((option) =>
+      option
+        .setName('force-reindex')
+        .setDescription('Re-index markdown even if already indexed')
+        .setRequired(false),
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       await interaction.deferReply({ ephemeral: true })
-      
+
       const urls = interaction.options
         .getString('urls')
         ?.split(/\s*,\s*|\s+/)
         .map((url) => url.trim()) // Remove whitespace
         .filter(Boolean) // Remove empty strings
         .filter((url) => url.startsWith('http')) // Only allow URLs
-      
-      const autoApprove = interaction.options.getBoolean('auto-approve') || false
+
+      const autoApprove =
+        interaction.options.getBoolean('auto-approve') || false
+      const forceReindex = interaction.options.getBoolean('force-reindex') || false
 
       if (!urls || !urls.length) {
         await interaction.followUp({
@@ -58,25 +65,30 @@ export default {
         ).threads.create({
           name: url.slice(-20),
           autoArchiveDuration: 1440,
-          //startMessage: message.id,
         })
 
         thread.send(`PDF i kö: ${url}`)
-        thread.send(`Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`)
-        queues.nlmParsePDF.add(
+        thread.send(
+          `Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`,
+        )
+        if (forceReindex) {
+          thread.send(`🔁 Force re-index enabled`)
+        }
+        queues.parsePdf.add(
           'download ' + url.slice(-20),
           {
             url: url.trim(),
             threadId: thread.id,
             autoApprove,
-          } as DiscordJob['data'],
+            forceReindex,
+          },
           {
             backoff: {
               type: 'fixed',
               delay: 60_000,
             },
             attempts: 10,
-          }
+          },
         )
       })
     } catch (error) {

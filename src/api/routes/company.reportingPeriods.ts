@@ -1,4 +1,8 @@
-import { FastifyInstance, AuthenticatedFastifyRequest, FastifyRequest } from 'fastify'
+import {
+  FastifyInstance,
+  AuthenticatedFastifyRequest,
+  FastifyRequest,
+} from 'fastify'
 import { emissionsService } from '../services/emissionsService'
 import { companyService } from '../services/companyService'
 import { reportingPeriodService } from '../services/reportingPeriodService'
@@ -37,19 +41,22 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostReportingPeriodsBody
       }>,
-      reply
+      reply,
     ) => {
       const { wikidataId } = request.params
       const { reportingPeriods, metadata } = request.body
       const user = request.user
-      let company;
+      let company
 
       try {
         company = await companyService.getCompany(wikidataId)
-      } catch(error) {
-        console.error(`Error: ${error}`);
-        return reply.status(404).send({code: "404", message: `There is no company with wikidataId ${wikidataId}`});
-      }     
+      } catch (error) {
+        console.error(`Error: ${error}`)
+        return reply.status(404).send({
+          code: '404',
+          message: `There is no company with wikidataId ${wikidataId}`,
+        })
+      }
 
       const results = await Promise.allSettled(
         reportingPeriods.map(
@@ -80,7 +87,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   endDate,
                   reportURL,
                   year,
-                }
+                },
               )
 
             const [dbEmissions, dbEconomy] = await Promise.all([
@@ -114,103 +121,130 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                 emissionsService.upsertScope1(
                   dbEmissions,
                   _.omit(scope1, 'verified'),
-                  scope1.verified ? verifiedMetadata : createdMetadata
+                  scope1.verified ? verifiedMetadata : createdMetadata,
                 ),
               scope2 &&
                 emissionsService.upsertScope2(
                   dbEmissions,
                   _.omit(scope2, 'verified'),
-                  scope2.verified ? verifiedMetadata : createdMetadata
+                  scope2.verified ? verifiedMetadata : createdMetadata,
                 ),
               scope3 &&
-                emissionsService.upsertScope3(dbEmissions, scope3, (verified: boolean) =>
-                  metadataService.createMetadata({
-                    metadata,
-                    user,
-                    verified,
-                  })
+                emissionsService.upsertScope3(
+                  dbEmissions,
+                  {
+                    ...scope3,
+                    categories: scope3.categories?.map((category) => ({
+                      ...category,
+                      total: category.total ?? null,
+                    })),
+                    statedTotalEmissions: scope3.statedTotalEmissions
+                      ? {
+                          ...scope3.statedTotalEmissions,
+                          total: scope3.statedTotalEmissions.total ?? null,
+                        }
+                      : undefined,
+                  },
+                  (verified: boolean) =>
+                    metadataService.createMetadata({
+                      metadata,
+                      user,
+                      verified,
+                    }),
                 ),
               statedTotalEmissions !== undefined &&
                 emissionsService.upsertStatedTotalEmissions(
                   dbEmissions,
-                  statedTotalEmissions.verified ? verifiedMetadata : createdMetadata,
+                  statedTotalEmissions.verified
+                    ? verifiedMetadata
+                    : createdMetadata,
                   _.omit(statedTotalEmissions, 'verified'),
                 ),
               biogenic &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
                   _.omit(biogenic, 'verified'),
-                  biogenic.verified ? verifiedMetadata : createdMetadata
+                  biogenic.verified ? verifiedMetadata : createdMetadata,
                 ),
               scope1And2 &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
                   _.omit(scope1And2, 'verified'),
-                  scope1And2.verified ? verifiedMetadata : createdMetadata
+                  scope1And2.verified ? verifiedMetadata : createdMetadata,
                 ),
               turnover &&
                 companyService.upsertTurnover({
                   economy: dbEconomy,
-                  metadata: turnover.verified ? verifiedMetadata : createdMetadata,
+                  metadata: turnover.verified
+                    ? verifiedMetadata
+                    : createdMetadata,
                   turnover: _.omit(turnover, 'verified'),
                 }),
               employees &&
                 companyService.upsertEmployees({
                   economy: dbEconomy,
                   employees: _.omit(employees, 'verified'),
-                  metadata: employees.verified ? verifiedMetadata : createdMetadata,
+                  metadata: employees.verified
+                    ? verifiedMetadata
+                    : createdMetadata,
                 }),
             ])
-          }
-        )
+          },
+        ),
       )
 
-      for(const result of results) {
-        if(result.status === 'rejected') {
-          console.error('ERROR Creation or update of reporting periods failed', result.reason);
-          return reply.status(500).send({message: 'Creation or update of reporting periods failed.'});
+      for (const result of results) {
+        if (result.status === 'rejected') {
+          console.error(
+            'ERROR Creation or update of reporting periods failed',
+            result.reason,
+          )
+          return reply.status(500).send({
+            message: 'Creation or update of reporting periods failed.',
+          })
         }
       }
 
       return reply.send({ ok: true })
-    }
+    },
   )
 }
 
-export async function companyPublicReportingPeriodsRoutes(app: FastifyInstance) {
+export async function companyPublicReportingPeriodsRoutes(
+  app: FastifyInstance,
+) {
   app.get(
     '/years',
     {
       schema: {
         summary: 'Get list of reporting periods',
         description:
-          'Retrieve a list of all existing reporting periods identified by it\'s end date year',
+          "Retrieve a list of all existing reporting periods identified by it's end date year",
         tags: getTags('ReportingPeriods'),
         response: {
           200: ReportingPeriodYearsSchema,
         },
       },
     },
-    async (
-      _request: FastifyRequest,
-      reply
-    ) => {
+    async (_request: FastifyRequest, reply) => {
       const reportingPeriods = await prisma.reportingPeriod.findMany({
         select: {
           endDate: true,
         },
-      });
-    
+      })
+
       // Extract unique years from the endDate field in JavaScript
       const distinctYears = Array.from(
         new Set(
-          reportingPeriods.map((record) => record.endDate.getFullYear().toString())
-        )
-      );
+          reportingPeriods.map((record) =>
+            record.endDate.getFullYear().toString(),
+          ),
+        ),
+      )
 
-      distinctYears.sort();
-      
-      reply.send(distinctYears);
-    }
+      distinctYears.sort()
+
+      reply.send(distinctYears)
+    },
   )
 }

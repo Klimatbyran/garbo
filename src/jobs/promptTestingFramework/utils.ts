@@ -60,15 +60,16 @@ export const getExpectedResultKey = (
 
 export const filterExpectedResultByYears = (
   expectedResult: any, 
-  yearsToCheck: number[]
+  yearsToCheck: number[],
+  dataKey: string
 ): any => {
-  if (yearsToCheck.length === 0 || !expectedResult || !Array.isArray(expectedResult.scope12)) {
+  if (yearsToCheck.length === 0 || !expectedResult || !Array.isArray(expectedResult[dataKey])) {
     return expectedResult;
   }
   
   return {
     ...expectedResult,
-    scope12: expectedResult.scope12.filter((item: any) => 
+    [dataKey]: expectedResult[dataKey].filter((item: any) => 
       yearsToCheck.includes(item.year)
     )
   };
@@ -78,7 +79,8 @@ export const loadTestFile = (
   filePath: string, 
   baseName: string, 
   testSuite: TestSuite, 
-  yearsToCheck: number[]
+  yearsToCheck: number[],
+  dataKey: string
 ): TestFile | null => {
   try {
     const markdown = readFileSync(filePath, 'utf-8');
@@ -90,7 +92,7 @@ export const loadTestFile = (
       return null;
     }
     
-    const filteredExpectedResult = filterExpectedResultByYears(expectedResult, yearsToCheck);
+    const filteredExpectedResult = filterExpectedResultByYears(expectedResult, yearsToCheck, dataKey);
     
     console.log(`✅ Loaded test file: ${baseName} (expected: ${expectedResultKey})`);
     
@@ -109,7 +111,8 @@ export const loadTestFiles = (
   suiteName: string, 
   testSuite: TestSuite, 
   yearsToCheck: number[], 
-  fileNamesToCheck: string[]
+  fileNamesToCheck: string[],
+  dataKey: string
 ): TestFile[] => {
   const inputDir = getInputDirectory(suiteName);
   
@@ -138,7 +141,7 @@ export const loadTestFiles = (
     }
     
     const markdownPath = join(inputDir, file);
-    const testFile = loadTestFile(markdownPath, baseName, testSuite, yearsToCheck);
+    const testFile = loadTestFile(markdownPath, baseName, testSuite, yearsToCheck, dataKey);
     
     if (testFile) {
       testFiles.push(testFile);
