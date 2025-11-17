@@ -479,6 +479,14 @@ export const RegionalDataSchema = z.object({
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
+export const RegionalKpiSchema = z.object({
+  region: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
+})
+
+export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
+
 export const AuthentificationResponseScheme = z.object({ token: z.string() })
 
 export const ReportingPeriodYearsSchema = z.array(z.string())

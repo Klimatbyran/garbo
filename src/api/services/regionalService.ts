@@ -45,6 +45,14 @@ class RegionalService {
   getRegion(name: RegionalData['region']) {
     return this.regionsByName.get(name.toLowerCase()) ?? null
   }
+
+  getRegionalKpis() {
+    return this.allRegions.map((region) => ({
+      region: region.region,
+      meetsParis: region.meetsParis,
+      historicalEmissionChangePercent: region.historicalEmissionChangePercent,
+    }))
+  }
 }
 
 export const regionalService = new RegionalService()

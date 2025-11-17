@@ -5,6 +5,7 @@ import { cachePlugin } from '../plugins/cache'
 import {
   RegionalDataSchema,
   RegionalDataListSchema,
+  RegionalKpiListSchema,
   getErrorSchemas,
   RegionalNameParamSchema,
 } from '../schemas'
@@ -58,6 +59,25 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       await redisCache.set(REGIONS_TIMESTAMP_KEY, currentTimestamp.toString())
 
       reply.header('ETag', etagValue).send(regions)
+    },
+  )
+
+  app.get(
+    '/kpis',
+    {
+      schema: {
+        summary: 'Get regional KPIs',
+        description:
+          'Retrieve key performance indicators for all regions, including Paris agreement compliance and historical emission change percentages.',
+        tags: getTags('Regions'),
+        response: {
+          200: RegionalKpiListSchema,
+        },
+      },
+    },
+    async (_request, reply) => {
+      const kpis = regionalService.getRegionalKpis()
+      reply.send(kpis)
     },
   )
 
