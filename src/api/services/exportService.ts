@@ -225,7 +225,6 @@ class ExportService {
     const csvRows: CsvRow[] = []
 
     for (const region of regions) {
-<<<<<<< HEAD
       csvRows.push({
         region: region.region,
         totalTrend: region.totalTrend,
@@ -240,16 +239,6 @@ class ExportService {
         ),
         ...this.transformYearlyData(region.trend, 'trend'),
       })
-=======
-      // Add yearly data for each year in the regional data
-      for (const [year, totalEmissions] of Object.entries(region.emissions)) {
-        csvRows.push({
-          name: region.name,
-          year: year,
-          total_emissions: totalEmissions,
-        })
-      }
->>>>>>> main
     }
 
     return csvRows
