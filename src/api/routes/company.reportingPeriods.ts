@@ -193,34 +193,36 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             }
 
             await Promise.allSettled([
-              scope1 &&
+              scope1 !== undefined &&
                 emissionsService.upsertScope1(
                   dbEmissions,
                   _.omit(scope1, 'verified') as any,
-                  scope1.verified ? verifiedMetadata : createdMetadata,
+                  scope1?.verified ? verifiedMetadata : createdMetadata,
                 ),
-              scope2 &&
+              scope2 !== undefined &&
                 emissionsService.upsertScope2(
                   dbEmissions,
-                  _.omit(scope2, 'verified'),
-                  scope2.verified ? verifiedMetadata : createdMetadata,
+                  _.omit(scope2, 'verified') as any,
+                  scope2?.verified ? verifiedMetadata : createdMetadata,
                 ),
-              scope3 &&
+              scope3 !== undefined &&
                 emissionsService.upsertScope3(
                   dbEmissions,
-                  {
-                    ...scope3,
-                    categories: scope3.categories?.map((category) => ({
-                      ...category,
-                      total: category.total ?? null,
-                    })),
-                    statedTotalEmissions: scope3.statedTotalEmissions
-                      ? {
-                          ...scope3.statedTotalEmissions,
-                          total: scope3.statedTotalEmissions.total ?? null,
-                        }
-                      : undefined,
-                  },
+                  scope3 === null
+                    ? {}
+                    : {
+                        ...scope3,
+                        categories: scope3.categories?.map((category) => ({
+                          ...category,
+                          total: category.total ?? null,
+                        })),
+                        statedTotalEmissions: scope3.statedTotalEmissions
+                          ? {
+                              ...scope3.statedTotalEmissions,
+                              total: scope3.statedTotalEmissions.total ?? null,
+                            }
+                          : undefined,
+                      },
                   (verified: boolean) =>
                     metadataService.createMetadata({
                       metadata,
@@ -231,22 +233,22 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
               statedTotalEmissions !== undefined &&
                 emissionsService.upsertStatedTotalEmissions(
                   dbEmissions,
-                  statedTotalEmissions.verified
+                  statedTotalEmissions?.verified
                     ? verifiedMetadata
                     : createdMetadata,
                   _.omit(statedTotalEmissions, 'verified') as any,
                 ),
-              biogenic &&
+              biogenic !== undefined &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
                   _.omit(biogenic, 'verified') as any,
-                  biogenic.verified ? verifiedMetadata : createdMetadata,
+                  biogenic?.verified ? verifiedMetadata : createdMetadata,
                 ),
-              scope1And2 &&
+              scope1And2 !== undefined &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
                   _.omit(scope1And2, 'verified') as any,
-                  scope1And2.verified ? verifiedMetadata : createdMetadata,
+                  scope1And2?.verified ? verifiedMetadata : createdMetadata,
                 ),
               turnover &&
                 companyService.upsertTurnover({
