@@ -40,6 +40,7 @@ export interface DiffReport {
         unknown?: Diff;
       }
       scope1And2?: Diff;
+      scope3StatedTotalEmissions?: Diff;
       scope3:
         {
           categoryId: number;
@@ -185,6 +186,14 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   );
   diffs.push(diffReport.diffs.emissions.statedTotalEmissions);
 
+  // Scope 3 stated total emissions
+  diffReport.diffs.emissions.scope3StatedTotalEmissions = compareNumbers(
+    productionReportingPeriod.emissions?.scope3?.statedTotalEmissions?.total,
+    stagingReportingPeriod.emissions?.scope3?.statedTotalEmissions?.total,
+    productionReportingPeriod.emissions?.scope3?.statedTotalEmissions?.metadata.verifiedBy != null
+  );
+  diffs.push(diffReport.diffs.emissions.scope3StatedTotalEmissions);
+
   for(let i = 1; i <= NUMBER_OF_CATEGORIES; i++) {
     const productionCategory = productionReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;
     const stagingCategory = stagingReportingPeriod.emissions?.scope3?.categories.find((categoryI) => categoryI.category === i) ?? undefined;   
@@ -235,9 +244,10 @@ function compareNumbers(productionNumber: number | undefined | null, stagingNumb
 }
 
 async function outputEvalMetrics(companies: Company[]) {
-  const outputPathCSV = resolve('output', 'accuracy', 'garbo-evaluation.csv');
-  const outputPathXLSX = resolve('output', 'accuracy', 'garbo-evaluation.xlsx');
-  const outputPathJSON = resolve('output', 'accuracy', 'garbo-evaluation.json');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const outputPathCSV = resolve('output', 'accuracy', `garbo-evaluation-${timestamp}.csv`);
+  const outputPathXLSX = resolve('output', 'accuracy', `garbo-evaluation-${timestamp}.xlsx`);
+  const outputPathJSON = resolve('output', 'accuracy', `garbo-evaluation-${timestamp}.json`);
   const csvContent = convertCompanyEvalsToCSV(companies)
   const xlsx = await generateXLSX(csvContent.split('\n'))
   const jsonObject = JSON.stringify(companies)
