@@ -38,9 +38,11 @@ async function deleteScope3Emissions(emissions: any) {
 
 async function deleteScope1And2Emissions(emissions: any) {
   if (emissions.scope1?.id) {
+    console.log('deleting scope1', emissions.scope1.id)
     await emissionsService.deleteScope1(emissions.scope1.id)
   }
   if (emissions.scope2?.id) {
+    console.log('deleting scope2', emissions.scope2.id)
     await emissionsService.deleteScope2(emissions.scope2.id)
   }
   if (emissions.scope1And2?.id) {
