@@ -1,19 +1,24 @@
 import { z } from "zod"
 import type { TestSuite } from "../../promptTestingFramework/types"
-import { newSchemaWithInstructionsArrayOfExplanations, oldSchema } from "./testData"
+import { newSchemaWithInstructionsArrayOfExplanations, oldSchema, recencyPrompt, schemaRecency } from "./testData"
 import { expectedResults } from "./expected-results"
 import { 
   prompt,
-    oldPrompt
   } from "../prompt"
+import { schema } from "../schema"
 
 export const testSuite: TestSuite = {
   expectedResults,
   testVariations: [
     {
-      name: "prompt improvements",
+      name: "recency improvements",
+      prompt: recencyPrompt,
+      schema: schemaRecency,
+    },
+    {
+      name: "current",
       prompt: prompt,
-      schema: newSchemaWithInstructionsArrayOfExplanations,
+      schema: schema,
     }
   ]
 } 

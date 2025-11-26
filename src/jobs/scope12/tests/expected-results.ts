@@ -21,6 +21,112 @@ export const expectedResults = {
       },
     ]
   },
+  "duni": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 16051,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mentionOfLocationBasedOrMarketBased": [
+            "Metoden som används för att beräkna scope 2-utsläppen är marknadsbaserad."
+          ],
+          "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "The company mentions that they use a market-based approach in general. That means values are market-based and added to the mb field.",
+          "mb": 424,
+          "lb": 12128,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      },
+    ]
+  },
+  "nibe": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 29977,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 1090,
+          "lb": 56576,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+  "powercell": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 6.6,
+          "unit": "tCO2"
+        },
+        "scope2": {
+          "mb": 40.4,
+          "lb": 250.5,
+          "unknown": null,
+          "unit": "tCO2"
+        }
+      },
+    ]
+  },
+  "alfalaval": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 16113,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 4817,
+          "lb": 65086,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+  "storaenso": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 1170000,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 50000,
+          "lb": 420000,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+  "thule": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 3845,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 136,
+          "lb": 5327,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      },
+    ]
+  },
   "lantmannen": {
     "scope12": [
       {
