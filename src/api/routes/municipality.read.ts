@@ -46,11 +46,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     async (request, reply) => {
       const currentTimestamp = getDataFileTimestamp()
       const etagValue = `"${currentTimestamp}"`
-      const ifNoneMatch = request.headers['if-none-match']
-
-      if (ifNoneMatch === etagValue) {
-        return reply.code(304).send()
-      }
 
       const cachedMunicipalities = await redisCache.get(
         MUNICIPALITIES_CACHE_KEY,
