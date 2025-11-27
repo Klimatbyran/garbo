@@ -30,10 +30,24 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const { companyName, runOnly } = job.data
     job.sendMessage(`🤖 Fetching emissions data...`)
 
-    const entries = await job.getChildrenEntries()
-    // Keep the whole object; unwrap only specific fields that might be nested
-    const wikidata = (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
-    const fiscalYear = (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
+    // Try to get wikidata/fiscalYear from children; if not present (e.g. manual rerun),
+    // fall back to values already on the job data.
+    let entries: any
+    try {
+      entries = await job.getChildrenEntries()
+    } catch {
+      entries = undefined
+    }
+
+    const wikidataFromChildren =
+      (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
+    const fiscalYearFromChildren =
+      (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
+
+    const wikidata =
+      wikidataFromChildren ?? (job.data as any)?.wikidata
+    const fiscalYear =
+      fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
     // updating the job data with the values we seek
     const base = {
