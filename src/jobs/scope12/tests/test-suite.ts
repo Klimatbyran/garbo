@@ -12,13 +12,8 @@ export const testSuite: TestSuite = {
   testVariations: [
     {
       name: "recency improvements",
-      prompt: recencyPrompt,
-      schema: schemaRecency,
-    },
-    {
-      name: "current",
       prompt: prompt,
       schema: schema,
-    }
+    },
   ]
 } 

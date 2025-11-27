@@ -165,7 +165,7 @@ export const newSchemaWithInstructionsArrayOfExplanations = z.object({
 export const schemaRecency = z.object({
   scope12: z.array(
     z.object({
-      mostRecentYearInReport: z.number(),
+      absoluteMostRecentYearInReport: z.number(),
       year: z.number(),
       scope1: z.union([
         z.object({
@@ -180,7 +180,17 @@ export const schemaRecency = z.object({
             z.array(z.string()),
             z.null()
           ]).optional(),
+          listOfAllAvailableNumbersAndTheirMethods: z.union([z.array(z.object({
+            number: z.number(),
+            method: z.string(),
+            specifiedScope: z.array(z.enum(['scope1', 'scope2', 'scope3'])),
+            unit: z.string(),
+            comment: z.string(),
+          })), z.null()]),
           explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z.string().nullable().optional(),
+          mbValuesWeNeedToSum: z.union([z.array(z.number()), z.null()]).nullable().optional(),
+          lbValuesWeNeedToSum: z.union([z.array(z.number()), z.null()]).nullable().optional(),
+          unknownValuesWeNeedToSum: z.union([z.array(z.number()), z.null()]).nullable().optional(),
           mb: z.union([
             z.number({ description: 'Market-based scope 2 emissions' }),
             z.null()
@@ -213,7 +223,10 @@ export const recencyPrompt = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
-Extract scope 1 and 2 emissions according to the GHG protocol (CO2e). Look for the most recent year they specify scope emissions for. Always include that latest year. Also include other years' data.
+- First of all, find out which is the most recent year they specify scope emissions for. Put that year in the field absoluteMostRecentYearInReport.
+
+Extract absolute scope 1 and 2 emissions according to the GHG protocol (CO2e) for all years in the report, starting from the most recent one. The values need to be in tonnes only, or a simple multiple of tonnes. 
+Do NOT extract emission intensity values and NOT values that are ton/something like ton/area, just absolute values in tons. 
 Include market-based and location-based in scope 2. If you can't find both, include the one you can find and set the other to null.
 
 **Units**:
@@ -238,20 +251,20 @@ etc.
 Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 thousand tons
 
 
-- If there is any mention of location based or market based anywhere in the document, add the quote from the document in mentionOfLocationBasedOrMarketBased.
+- If there is any mention of location based or market based anywhere in the document (tables, footnotes, text), add the quote from the document in mentionOfLocationBasedOrMarketBased.
 
-- EXTREMELY IMPORTANT: Do not assume any method and DO NOT infer if it is location based or market based based on energy use or other information, just use their explicit method statement to decide if you put values in the field for lb (location-based), mb (market-based), both or unknown. 
-- CRITICAL RULE: If the document states they use a methodology IN GENERAL (e.g., "we use market-based approach"), then ALL scope 2 values in that document are classified with that method. You do NOT need individual values to be labeled - the general statement applies to everything.
+- EXTREMELY IMPORTANT: Do not assume any methods and DO NOT infer if a number is location based or market based based on energy use or other information, just use their explicit method statement to decide which values to put in the field for lb (location-based), mb (market-based), both or unknown. 
 - ONLY use "unknown" if NO methodology is mentioned ANYWHERE in the document.  - ALWAYS PUT THE VALUES IN THE UNKNOWN FIELD IF NO METHOD IS MENTIONED: "No method is mentioned, so the values are put in the unknown field."
 
 - FORBIDDEN REASONING: Never say "specific value is not labeled" or "value not explicitly stated as market-based" - this reasoning is incorrect and forbidden.
 
 
-- Fill in explanationOfWhyYouPutValuesToMbOrLbOrUnknown with a short explanation of why you put the values in the field for mb (market-based), lb (location-based), both mb and lb or unknown. Then put the values in the corresponding field.
+- Fill in explanationOfWhyYouPutValuesToMbOrLbOrUnknown with a short explanation of why you put the values in the field for mb (market-based), lb (location-based), both mb and lb or unknown. Base this on all mentions in mentionOfLocationBasedOrMarketBased! Then put the values in the corresponding field.
+- Put all values in the listOfAllAvailableNumbersAndTheirMethods. If there are duplicate values for mb or lb, add them all to the list but for choosing a value, prefer the ones that are from the same table or page.
 
 IMPORTANT: 
-1. First: LOOK CAREFULLY and find ALL mentions of market based and location based methods in the table headers, table rows and text and add ALL OF THEM (words or phrases) to the array mentionOfLocationBasedOrMarketBased. Make sure to include both market based and location based if both are stated! Remember to look in the table rows where the methods can also can be mentioned directly next to the values!
-2. Second: Use that to create an explanation for explanationOfWhyYouPutValuesToMbOrLbOrUnknown.
+1. First: LOOK CAREFULLY and find ALL mentions of market based and location based methods in the table headers, table rows, footnotes and text and add ALL OF THEM (words or phrases) to the array mentionOfLocationBasedOrMarketBased. Make sure to include both market based and location based if both are stated! Remember to look in the table rows where the methods can also can be mentioned directly next to the values!
+2. Second: Use those mentions to create an explanation for explanationOfWhyYouPutValuesToMbOrLbOrUnknown. 
 3. Third:Only after that you put the values in the corresponding field or fields. 
 
 For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (2016) in your output.

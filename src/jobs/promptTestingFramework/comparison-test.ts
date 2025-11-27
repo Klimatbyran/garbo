@@ -22,7 +22,12 @@ const SKIPPED_FIELDS = [
   'unit',
   'mentionOfLocationBasedOrMarketBased',
   'explanationOfWhyYouPutValuesToMbOrLbOrUnknown',
-  'mostRecentYearInReport'
+  'absoluteMostRecentYearInReport',
+  'mbValuesWeNeedToSum',
+  'lbValuesWeNeedToSum',
+  'unknownValuesWeNeedToSum',
+  'listOfAllAvailableScope2NumbersAndTheirMethods',
+  'listOfAllAvailableScope1Numbers',
 ] as const;
 
 // ============================================================================
