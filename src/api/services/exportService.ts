@@ -225,14 +225,20 @@ class ExportService {
     const csvRows: CsvRow[] = []
 
     for (const region of regions) {
-      // Add yearly data for each year in the regional data
-      for (const [year, totalEmissions] of Object.entries(region.emissions)) {
-        csvRows.push({
-          name: region.name,
-          year: year,
-          total_emissions: totalEmissions,
-        })
-      }
+      csvRows.push({
+        region: region.region,
+        totalTrend: region.totalTrend,
+        totalCarbonLaw: region.totalCarbonLaw,
+        historicalEmissionChangePercent: region.historicalEmissionChangePercent,
+        meetsParis: region.meetsParis,
+        municipalities: region.municipalities.join(', '),
+        ...this.transformYearlyData(region.emissions, 'emissions'),
+        ...this.transformYearlyData(
+          region.approximatedHistoricalEmission,
+          'approximatedHistoricalEmission',
+        ),
+        ...this.transformYearlyData(region.trend, 'trend'),
+      })
     }
 
     return csvRows
