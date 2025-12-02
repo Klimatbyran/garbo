@@ -261,7 +261,7 @@ const doclingParsePDF = new DiscordWorker(
       throw error
     }
   },
-  { concurrency: 2, connection: redis, lockDuration: 30 * 60 * 1000 }, // Increased lock duration for async processing, allow 1 parallel jobs
+  { concurrency: 1, connection: redis, lockDuration: 30 * 60 * 1000 }, // Increased lock duration for async processing, allow 1 parallel jobs
 )
 
 async function pollTaskAndGetResult(
