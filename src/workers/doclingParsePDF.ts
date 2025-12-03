@@ -150,12 +150,13 @@ const doclingParsePDF = new DiscordWorker(
         job.log(`Making request to: ${docling.baseUrl}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
 
-        const isLocal = docling.DOCLING_USE_LOCAL
-
-          //const endpoint = isLocal
-          //        ? `${docling.baseUrl}/convert/source/async`
-         //        : `${docling.baseUrl}`
-         //we use the local logic temporarily at all times since the berget internal endpoint uses the same endpoints.
+        //const isLocal = docling.DOCLING_USE_LOCAL
+        //we use the local logic temporarily at all times since the berget internal endpoint uses the same endpoints.
+        const isLocal = true;
+        //const endpoint = isLocal
+        //        ? `${docling.baseUrl}/convert/source/async`
+        //        : `${docling.baseUrl}`
+        //we use the local logic temporarily at all times since the berget internal endpoint uses the same endpoints.
         const endpoint = `${docling.baseUrl}/convert/source/async`
       
 
