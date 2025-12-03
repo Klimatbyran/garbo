@@ -60,7 +60,12 @@ class DoclingParsePDFJob extends DiscordJob {
 function createRequestPayload(
   url: string,
 ): BergetDoclingRequest | DoclingServeRequest {
-  if (docling.DOCLING_USE_LOCAL) {
+
+
+  //we use the local logic temporarily at all times since the berget internal endpoint uses the same endpoints.
+  //const isLocal = docling.DOCLING_USE_LOCAL
+  const isLocal = true;
+  if (isLocal) {
     // Docling-serve payload structure
     const doclingServePayload: DoclingServeRequest = {
       options: {
@@ -134,13 +139,13 @@ const doclingParsePDF = new DiscordWorker(
         await sleep(staggerDelay)
       }
 
-      if (!doclingSettings) {
-        const requestPayload = createRequestPayload(url)
-        job.updateData({
-          ...job.data,
-          doclingSettings: requestPayload,
-        })
-      }
+    
+      const requestPayload = createRequestPayload(url)
+      job.updateData({
+        ...job.data,
+        doclingSettings: requestPayload,
+      })
+
 
       job.sendMessage('Starting PDF parsing with Docling (async mode)...')
 
