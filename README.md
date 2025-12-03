@@ -12,7 +12,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
 
 ## Data Flow
 
