@@ -1,6 +1,5 @@
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
-import wikipediaUpload from './wikipediaUpload'
 import { QUEUE_NAMES } from '../queues'
 
 
@@ -79,12 +78,6 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
         body: sanitizedBody,
       })
-
-      if (apiSubEndpoint === 'reporting-periods') {
-        await wikipediaUpload.queue.add('Wikipedia Upload for ' + companyName, {
-          ...job.data,
-        })
-      }
 
       return { success: true }
     } catch (error) {
