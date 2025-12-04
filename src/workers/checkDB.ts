@@ -15,6 +15,7 @@ export class CheckDBJob extends DiscordJob {
     },
     approved?: boolean
     lei?: string
+    replaceAllEmissions?: boolean
   }
 }
 
@@ -97,6 +98,7 @@ const checkDB = new DiscordWorker(
         threadId,
         channelId,
         autoApprove: job.data.autoApprove,
+      replaceAllEmissions: job.data.replaceAllEmissions,
       },
       opts: {
         attempts: 3,

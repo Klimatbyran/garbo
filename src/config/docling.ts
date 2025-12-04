@@ -34,8 +34,9 @@ if (!parsedEnv.success) {
 const { DOCLING_USE_LOCAL, BERGET_AI_TOKEN, DOCLING_URL } = parsedEnv.data
 
 // If using local, default to http://localhost:5001 unless overridden
-const rawUrl =
-  DOCLING_URL || (DOCLING_USE_LOCAL ? 'http://localhost:5001/v1' : '')
+const rawUrl = DOCLING_USE_LOCAL 
+  ? 'http://localhost:5001/v1' 
+  : DOCLING_URL
 const baseUrl = rawUrl.replace(/\/+$/, '')
 
 if (!DOCLING_USE_LOCAL && (!baseUrl || !BERGET_AI_TOKEN)) {

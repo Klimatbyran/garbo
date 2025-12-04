@@ -21,7 +21,13 @@ const DIFFICULTY_THRESHOLDS = {
 const SKIPPED_FIELDS = [
   'unit',
   'mentionOfLocationBasedOrMarketBased',
-  'explanationOfWhyYouPutValuesToMbOrLbOrUnknown'
+  'explanationOfWhyYouPutValuesToMbOrLbOrUnknown',
+  'absoluteMostRecentYearInReport',
+  'mbValuesWeNeedToSum',
+  'lbValuesWeNeedToSum',
+  'unknownValuesWeNeedToSum',
+  'listOfAllAvailableScope2NumbersAndTheirMethods',
+  'listOfAllAvailableScope1Numbers',
 ] as const;
 
 // ============================================================================

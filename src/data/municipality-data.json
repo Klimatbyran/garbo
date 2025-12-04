@@ -15680,7 +15680,7 @@
     "electricVehiclePerChargePoints": 67.08,
     "procurementScore": 2,
     "procurementLink": "https://drive.google.com/file/d/1d87b8ZKab9jzAX6vpuptgTUv6F0EDH4v/view?usp=drive_link",
-    "politicalRule": ["L", "MP", "S"],
+    "politicalRule": ["M", "S"],
     "politicalKSO": "S"
   },
   {
