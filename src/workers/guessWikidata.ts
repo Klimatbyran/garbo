@@ -35,15 +35,35 @@ async function handleOverrideWikidataId(
   companyName: string,
   overrideWikidataId: EntityId
 ): Promise<string | null> {
-  const [{ id, labels, descriptions }] = await getWikidataEntities([
+  const wikidataEntities = await getWikidataEntities([
     overrideWikidataId as `Q${number}`,
   ])
+
+  if (!wikidataEntities.length) {
+    throw new Error(
+      `No Wikidata entity found for overrideWikidataId ${overrideWikidataId}`,
+    )
+  }
+
+  const [{ id, labels, descriptions }] = wikidataEntities
+
+  const label =
+    labels?.sv?.value ??
+    labels?.en?.value ??
+    Object.values(labels ?? {})[0]?.value ??
+    companyName
+
+  const description =
+    descriptions?.sv?.value ??
+    descriptions?.en?.value ??
+    Object.values(descriptions ?? {})[0]?.value ??
+    ''
 
   const wikidataForApproval = {
     node: id,
     url: `https://wikidata.org/wiki/${id}`,
-    label: labels.sv?.value ?? labels.en?.value,
-    description: descriptions.sv?.value ?? descriptions.en?.value,
+    label,
+    description,
   } satisfies Wikidata
 
   job.log('Using overrideWikidataId, requesting approval for verification')
