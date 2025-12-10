@@ -31,7 +31,8 @@ class RegionalService {
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, region) => {
-      acc.set(region.region.toLowerCase(), region)
+      const key = region.region.replace(/s?\slän$/i, '').toLowerCase()
+      acc.set(key, region)
       return acc
     }, new Map())
 
@@ -43,7 +44,8 @@ class RegionalService {
   }
 
   getRegion(name: RegionalData['region']) {
-    return this.regionsByName.get(name.toLowerCase()) ?? null
+    const normalizedName = name.replace(/s?\slän$/i, '').toLowerCase()
+    return this.regionsByName.get(normalizedName) ?? null
   }
 
   getRegionalKpis() {
