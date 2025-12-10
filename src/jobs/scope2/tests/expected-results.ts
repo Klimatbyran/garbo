@@ -8,15 +8,11 @@ export const expectedResults = {
       "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 61657,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
-          "mb": 7828,
+          "mb": null,
           "lb": null,
-          "unknown": null,
+          "unknown": 6480,
           "unit": "tCO2e"
         }
       },
@@ -26,15 +22,11 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 2196,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 281,
           "lb": 188,
-          "unknown": 280,
+          "unknown": null,
           "unit": "tCO2e"
         }
       }
@@ -44,7 +36,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": null,
         "scope1And2": {
           "total": 1931,
           "unit": "tCO2e"
@@ -57,10 +48,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 16051,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mentionOfLocationBasedOrMarketBased": [
@@ -79,10 +66,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 29977,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 1090,
@@ -97,10 +80,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 6.6,
-          "unit": "tCO2"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 40.4,
@@ -115,10 +94,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 0,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": null,
@@ -133,10 +108,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 181.7,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 159,
@@ -147,14 +118,24 @@ export const expectedResults = {
       }
     ]
   },
+  "bilia": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1And2": null,
+        "scope2": {
+          "mb": 2533,
+          "lb": 2842,
+          "unknown": null,
+          "unit": "tCO2e"
+        },
+      },
+    ]
+  },
   "bico": {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 37,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": null,
@@ -169,10 +150,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 32,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 680,
@@ -188,10 +165,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 394,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mentionOfLocationBasedOrMarketBased": [
@@ -210,10 +183,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 639,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 4946,
@@ -228,10 +197,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 1,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 571,
@@ -247,12 +212,12 @@ export const expectedResults = {
       {
         "absoluteMostRecentYearInReport": 2024,
         "year": 2024,
-        "scope1": null,
         "scope1And2": {
           "total": 24858,
-          "unit": "tCO2e" 
+          "unit": "tCO2e"
         },
         "scope2": null,
+
       },
     ]
   },
@@ -260,10 +225,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 5,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 3844,
@@ -280,7 +241,6 @@ export const expectedResults = {
       {
         "absoluteMostRecentYearInReport": 2024,
         "year": 2024,
-        "scope1": null,
         "scope1And2": {
           "total": 2100,
           "unit": "tCO2e"
@@ -293,10 +253,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 16113,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 4817,
@@ -311,10 +267,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 1170000,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 50000,
@@ -329,10 +281,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 3845,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 136,
@@ -347,10 +295,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 59600,
-          "unit": "tCO2"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 24400,
@@ -366,10 +310,6 @@ export const expectedResults = {
       "scope12": [
         {
           "year": 2024,
-          "scope1": {
-            "total": 154,
-            "unit": "tCO2e"
-          },
           "scope1And2": null,
           "scope2": {
             "mb": null,
@@ -381,16 +321,17 @@ export const expectedResults = {
   },
   "catena": {
     "scope12": [
+      {
+        "year": 2024,
+        "scope2": null,
+        "scope1And2": null,
+      },
     ]
   },
   "xvivo": {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 61.804,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": null,
@@ -405,7 +346,6 @@ export const expectedResults = {
     "scope12": [
     {
       "year": 2024,
-      "scope1": null,
       "scope1And2": null,
       "scope2": {
         "mb": 19,
@@ -420,10 +360,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 30000,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 20000,
@@ -438,10 +374,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 3300000,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": 30000,
@@ -456,10 +388,6 @@ export const expectedResults = {
       "scope12": [
         {
           "year": 2024,
-          "scope1": {
-            "total": 3591.1,
-            "unit": "tCO2e"
-          },
           "scope1And2": null,
           "scope2": {
             "mb": null,
@@ -477,10 +405,6 @@ export const expectedResults = {
       {
         "absoluteMostRecentYearInReport": 2024,
         "year": 2024,
-        "scope1": {
-          "total": 3171000,
-          "unit": "tCO2"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": null,
@@ -495,16 +419,28 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 777,
-          "unit": "tCO2"
-        },
         "scope2": {
           "mb": null,
           "lb": null,
           "unknown": 6242,
           "unit": "tCO2"
-        }
+        },
+        "scope1And2": null,
+      },
+    ]
+  },
+  "rottneros": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope2": 
+        {
+          "mb": null,
+          "lb": null,
+          "unknown": 110448,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
       },
     ]
   },
@@ -513,16 +449,13 @@ export const expectedResults = {
       {
         "absoluteMostRecentYearInReport": 2024,
         "year": 2024,
-        "scope1": {
-          "total": 23,
-          "unit": "tCO2e"
-        },
         "scope2": {
           "mb": 658,
           "lb": 737,
           "unknown": null,
           "unit": "tCO2e"
-        }
+        },
+        "scope1And2": null,
       },
      
     ]
@@ -531,10 +464,6 @@ export const expectedResults = {
       "scope12": [
         {
           "year": 2024,
-          "scope1": {
-            "total": 832,
-            "unit": "tCO2e"
-          },
           "scope1And2": null,
           "scope2": {
             "mb": null,
@@ -549,7 +478,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": null,
         "scope1And2": {
           "total": 690,
           "unit": "tCO2e"
@@ -562,10 +490,6 @@ export const expectedResults = {
     "scope12": [
       {
         "year": 2024,
-        "scope1": {
-          "total": 500,
-          "unit": "tCO2e"
-        },
         "scope1And2": null,
         "scope2": {
           "mb": null,

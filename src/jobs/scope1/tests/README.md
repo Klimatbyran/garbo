@@ -57,3 +57,52 @@ Garo
 Swedavia
 Bergman & beving
 
+
+
+
+scope 1:
+castellum: we get intensity per nettointäkt value. fixed now!
+
+only graphics and we calculate percentage
+emilshus
+
+
+
+
+parsing errors:
+folksam!
+assa abloy! (column is not clear if target or retrospective, they got merged)
+
+
+other issues
+investor: garbo vet inte om hon ska ta operating subsidiaries, investor AB eller consolidated groups siffror
+
+
+allow duplicate correct numbers:
+electrolux: there are 2 ok numbers 2144 and 2159
+cibus: 2 different numbers: 424 or 680 ??
+norva24 : two numbers randomly
+nobia: both 5,428 and 5,429 are correct
+
+
+
+
+https://mb.cision.com/Main/1026/4135075/3386101.pdf
+
+
+kabe: only graphics -> maybe with ocr??
+synsam: only graphics -> maybe with ocr?? (do test?)
+aak: only graphics -> we get scope1+2 in a number
+fm mattson: only graphics
+
+
+probi: only a diagram, nothign clear
+momentum: only 'company cars' and in grams
+swedavia: also is it the company or the group??
+
+
+
+
+
+alfa laval.. correct, not sure why not saving?
+rottneros, also correct now, also not sure why not saving?

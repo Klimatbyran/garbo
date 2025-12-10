@@ -14,6 +14,7 @@ const ask = async (messages: ChatCompletionMessageParam[], options?: RequestOpti
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
+    max_completion_tokens: 16384,
     temperature: 0.1,
     stream: false,
     ...options,
@@ -49,7 +50,7 @@ const askStream = async (
     model: 'gpt-4o-2024-08-06',
     temperature: 0.1,
     stream: true,
-    max_tokens: 8192,
+    max_tokens: 16384,
     response_format: options.response_format,
     ...safeOpenAIOptions,
   } satisfies ChatCompletionCreateParamsStreaming;

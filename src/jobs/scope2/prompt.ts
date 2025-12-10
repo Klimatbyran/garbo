@@ -823,7 +823,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
 
 
 - Fill in explanationOfWhyYouPutValuesToMbOrLbOrUnknown with a short explanation of why you put the values in the field for mb (market-based), lb (location-based), both mb and lb or unknown. Base this on all mentions in mentionOfLocationBasedOrMarketBased! Then put the values in the corresponding field.
-- Put all values in the listOfAllAvailableNumbersAndTheirMethods. If there are duplicate values for mb or lb, add them all to the list but for choosing a value, prefer the ones that are from the same table or page.
+- Put all values in the listOfAllNumbersAndTheirMethods. If there are duplicate values for mb or lb, add them all to the list but for choosing a value, prefer the ones that are from the same table or page.
 
 IMPORTANT: 
 1. First: LOOK CAREFULLY and find ALL mentions of market based and location based methods in the table headers, table rows, footnotes and text and add ALL OF THEM (words or phrases) to the array mentionOfLocationBasedOrMarketBased. Make sure to include both market based and location based if both are stated! Remember to look in the table rows where the methods can also can be mentioned directly next to the values!
@@ -875,15 +875,18 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
 `
 
 
-export const promptNew4Dec = `
+export const promptScope2Only = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
 
 - First of all, find out which is the most recent year they specify scope emissions for. Put that year in the field absoluteMostRecentYearInReport. The years and emissions can be specified in a table header, in a retrospective column, or in text.
 
-Extract absolute (in tonnes only) scope 1 and 2 emissions that are specified in tonnes CO2 or CO2e according to the GHG protocol (CO2e) for all years in the report, starting from the most recent one. 
+Extract absolute (in tonnes only) scope 2 emissions that are specified in tonnes CO2 or CO2e according to the GHG protocol (CO2e) for all years in the report, starting from the most recent one. 
 The values need to be in tonnes only, or a simple multiple of tonnes. Do NOT extract emission intensity values and NOT values that are ton/something like ton/area, just absolute values in tons. 
 Include market-based and location-based in scope 2. If you can't find both, include the one you can find and set the other to null.
+
+Make sure every number is only included under the corresponding year in the output (pick the last if Fiscal year notation is used like FY2005/2006 or 2005/2006)! Don't mix up numbers from different years!
+
 
 **Units**:
 - Always report emissions in metric tons (**tCO2e** or **tCO2**). The unit **tCO2e** (tons of CO2 equivalent) is preferred.
@@ -910,14 +913,22 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
 
 
 - If there is any mention of location based or market based anywhere in the document (tables, footnotes, text), add the quote from the document in mentionOfLocationBasedOrMarketBased.
+- If they mentioned market based or location based, try to find the values for both (even if they are zero or given as '-' or '0').
 
 - EXTREMELY IMPORTANT: Do not assume any methods and DO NOT infer if a number is location based or market based based on energy use or other information, just use their explicit method statement to decide which values to put in the field for lb (location-based), mb (market-based), both or unknown. 
 - ONLY use "unknown" if NO methodology is mentioned ANYWHERE in the document.  - ALWAYS PUT THE VALUES IN THE UNKNOWN FIELD IF NO METHOD IS MENTIONED: "No method is mentioned, so the values are put in the unknown field."
 
 - FORBIDDEN REASONING: Never say "specific value is not labeled" or "value not explicitly stated as market-based" - this reasoning is incorrect and forbidden.
 
-A scope 2 value consists of electricty and heating emissions. Sometimes electricity and heating are stated separately, and only electricity has a method specification.
+CRUCIAL: PREFER TOTALS!
+If there is a scope 2 total value use that value! Always include any total value in the listOfAllScope2NumbersForThisYearAndTheirMethods, even if the method is unknown! If the method is unknown that value must be put in the unknown field. If however there is only a breakdown of electricity and heating/cooling, we have to register all those numbers and summarize them to get the total scope 2 value. NEVER put a partial value (only electricity or only heating/cooling) in the mb, lb or unknown fields! Those fields are only for totals!
+
+If there is a sum value for mb, lb or unknonwn, we must put that value in that category and cannot leave a category blank if there is a sum for it!
+
+A scope 2 value consists of electricty and heating/cooling emissions. Sometimes electricity and heating are stated separately, and only electricity has a method specification.
 Heating can be used for both methods. Also if electricity or heating is stated as a zero, it means the lb or mb value only consists of the heating value!
+
+CRITICAL: ONLY SUMMARIZE PARTIAL VALUES! DO NOT SUMMARIZE TOTAL VALUES, pick the most representative total value!
 
 If both are stated, heating needs to be summed with each method's electricity value to get the full scope 2 value for that method. 
 
@@ -936,7 +947,7 @@ Do NOT put electricity values or heating values in the mb or lb field. Only put 
 If a value is electricityOnly, orHeating only, it must never be used as a final mb, lb or unknown value. It would have to be summed with heating first, and if there is no heating it must be discarded!
 
 - Fill in explanationOfWhyYouPutValuesToMbOrLbOrUnknown with a short explanation of why you put the values in the field for mb (market-based), lb (location-based), both mb and lb or unknown. Base this on all mentions in mentionOfLocationBasedOrMarketBased! Then put the values in the corresponding field.
-- Put all values in the listOfAllAvailableNumbersAndTheirMethods. If there are duplicate values for mb or lb, add them all to the list but for choosing a value, prefer the ones that are from the same table or page.
+- Put all values and scope2 data points (include numbers specified as '-' or 0) in the listOfAllScope2NumbersAndTheirMethods. If there are duplicate values for mb or lb, add them all to the list but for choosing a value, prefer the ones that are from the same table or page.
 
 IMPORTANT: 
 1. First: LOOK CAREFULLY and find ALL mentions of market based and location based methods in the table headers, table rows, footnotes and text and add ALL OF THEM (words or phrases) to the array mentionOfLocationBasedOrMarketBased. Make sure to include both market based and location based if both are stated! Remember to look in the table rows where the methods can also can be mentioned directly next to the values!
@@ -947,7 +958,8 @@ For any fiscal year notation (2015/16, FY16, etc.), always use the ENDING year (
 
 NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you can't find any data or if you are uncertain, report it as null. Do not use markdown in the output.
 
-Only fill in scope1And2 if there are no separate values for scope 1 and 2 and only a combined value is explicitly stated. 
+ONLY fill in the combined scope1And2 if there are no separate values for scope 2 and we only find a combined scope 1 and 2 value is explicitly stated.
+Set scope1and2 to null if there are already separate values for scope 2!
 
 Use a specific value ONLY ONCE! A value only belongs to one category, it cannot be used as final value in multiple categories!
 
@@ -956,44 +968,51 @@ Use a specific value ONLY ONCE! A value only belongs to one category, it cannot 
 
 // Case 1: Method explicitly stated
 {
-  "scope12": [{
+  "scope2": [{
     "year": 2023,
-    "scope1": { "total": 12.3, "unit": "tCO2e" },
     "scope2": { 
     "mb": 23.4, //a final value has to be a full scope 2 value (from document or summarized from electricity and heating)
     "lb": null, 
     "unknown": null, 
     "unit": "tCO2e",
     "mentionOfLocationBasedOrMarketBased": ["We use market-based methodology"],
-    "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "The company mentions that they use a market-based approach in general. That means values are market-based and added to the mb field."
+    "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "The company mentions that they use a market-based approach in general. That means values are market-based and added to the mb field.",
     "listOfSummarizedElectricityAndHeatingValuesToGetFullScope2Values": null,
-    "listOfMaxThreeSummarizedElectricityAndHeatingValuesToGetFullScope2Values": null,
-    }
+    "listOfMaxThreeSummarizedElectricityAndHeatingValuesToGetFullScope2Values": null
+    },
+    "scope1And2": null
   }]
 }
-
-
 
 // Case 2: Method NOT specified - use unknown
 {
-  "scope12": [{
+  "scope2": [{
     "year": 2023,
-    "scope1": { "total": 12.3, "unit": "tCO2e" },
-    "scope2": { "mb": null, "lb": null, "unknown": 34.5, "unit": "tCO2e", "mentionOfLocationBasedOrMarketBased": null, "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "No method is mentioned, so the values are put in the unknown field." } // if there is no method ALWAYS put to unknown, never anywhere else.
+    "scope2": { "mb": null, "lb": null, "unknown": 34.5, "unit": "tCO2e", "mentionOfLocationBasedOrMarketBased": null, "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "No method is mentioned, so the values are put in the unknown field." }, // if there is no method ALWAYS put to unknown, never anywhere else.
+    "scope1And2": null
   }]
 }
 
-  // Case 3: Both methods are stated
+// Case 3: Both methods are stated
 {
-  "scope12": [{
+  "scope2": [{
     "year": 2023,
-    "scope1": { "total": 12.3  , "unit": "tCO2e" },
-    "scope2": { "mb": 23.4, "lb": 34.5, "unknown": null, "unit": "tCO2e", "mentionOfLocationBasedOrMarketBased": ["We use market-based methodology", "We use location-based methodology", "Market-based emissions", "Location-based emissions"], "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "The company mentions that they use both market-based and location-based methodology. That means some values are market-based and added to the mb field and others are location-based and added to the lb field." }
+    "scope2": { "mb": 23.4, "lb": 34.5, "unknown": null, "unit": "tCO2e", "mentionOfLocationBasedOrMarketBased": ["We use market-based methodology", "We use location-based methodology", "Market-based emissions", "Location-based emissions"], "explanationOfWhyYouPutValuesToMbOrLbOrUnknown": "The company mentions that they use both market-based and location-based methodology. That means some values are market-based and added to the mb field and others are location-based and added to the lb field." },
+    "scope1And2": null
   }]
 }
 
-// Case 4: No data for any year
+// Case 4: Combined scope 1 and 2 value only (when no separate scope 2 is available)
 {
- "scope12": []
+  "scope2": [{
+    "year": 2023,
+    "scope2": null,
+    "scope1And2": { "total": 45.6, "unit": "tCO2e" } //only if no separate scope 2 value is available!
+  }]
+}
+
+// Case 5: No data for any year
+{
+ "scope2": []
 }
 `
