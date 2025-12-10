@@ -94,6 +94,7 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
   for(const productionCompany of productionCompanies) {
     const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
     if (stagingCompany) {
+      debugCounters.companiesProcessed++;
       companies.push({
         name: productionCompany.name,
         wikidataId: productionCompany.wikidataId,
@@ -103,20 +104,51 @@ function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies:
         const prodReportingPeriod = productionCompany?.reportingPeriods.find((period) => typeof period.startDate === 'string' ? period.startDate.includes(reportingYear) : period.startDate.toString().includes(reportingYear))
         const stagingReportingPeriod = prodReportingPeriod ? stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === prodReportingPeriod.startDate && periodI.endDate === prodReportingPeriod.endDate) : undefined;
         if(stagingReportingPeriod && prodReportingPeriod) {
+          debugCounters.periodsProcessed++;
           const diffReport = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
           const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
           existingCompany?.diffReports.push(diffReport);
+        } else if (prodReportingPeriod) {
+          debugCounters.filteredOutNoStagingData++;
         }
       }
       else {
         for(const reportingPeriod of productionCompany.reportingPeriods) {
           const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate);
           if(stagingReportingPeriod) {
+            debugCounters.periodsProcessed++;
             const diffReport = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
             const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
             existingCompany?.diffReports.push(diffReport);
+          } else {
+            debugCounters.filteredOutNoStagingData++;
           }
         }
+      }
+    } else {
+      debugCounters.filteredOutNoStagingCompany++;
+      
+      // Count scope2 fields for this missing company
+      let scope2FieldsInMissingCompany = 0;
+      for (const period of productionCompany.reportingPeriods) {
+        // Filter by year if specified
+        if (reportingYear) {
+          const periodStartDate = typeof period.startDate === 'string' ? period.startDate : period.startDate.toString();
+          if (!periodStartDate.includes(reportingYear)) continue;
+        }
+        
+        const scope2 = period.emissions?.scope2;
+        if (scope2?.lb != null) scope2FieldsInMissingCompany++;
+        if (scope2?.mb != null) scope2FieldsInMissingCompany++;
+        if (scope2?.unknown != null) scope2FieldsInMissingCompany++;
+      }
+      
+      if (scope2FieldsInMissingCompany > 0) {
+        debugCounters.missingCompanies.push({
+          wikidataId: productionCompany.wikidataId,
+          name: productionCompany.name,
+          scope2Fields: scope2FieldsInMissingCompany
+        });
       }
     }
   }
@@ -153,22 +185,34 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   diffReport.diffs.emissions.scope2.lb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.lb,
     stagingReportingPeriod.emissions?.scope2?.lb,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.lb'
   );
+  if (productionReportingPeriod.emissions?.scope2?.lb != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.lb);
 
   diffReport.diffs.emissions.scope2.mb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.mb,
     stagingReportingPeriod.emissions?.scope2?.mb,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.mb'
   );
+  if (productionReportingPeriod.emissions?.scope2?.mb != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.mb);
 
   diffReport.diffs.emissions.scope2.unknown  = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.unknown,
     stagingReportingPeriod.emissions?.scope2?.unknown,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.unknown'
   );
+  if (productionReportingPeriod.emissions?.scope2?.unknown != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.unknown);
 
   diffReport.diffs.emissions.scope1And2 = compareNumbers(
@@ -215,18 +259,46 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   return diffReport;
 }
 
-function compareNumbers(productionNumber: number | undefined | null, stagingNumber: number | undefined | null, productionVerified?: boolean): Diff {
+function compareNumbers(productionNumber: number | undefined | null, stagingNumber: number | undefined | null, productionVerified?: boolean, fieldType?: string): Diff {
+  // If we only check verified data and production is not verified, treat as non-existent
+  if(ONLY_CHECK_VERIFIED_DATA && !productionVerified) {
+    if (productionNumber != null) {
+      debugCounters.filteredOutUnverified++;
+      if (fieldType?.startsWith('scope2')) {
+        debugCounters.scope2FilteredOutUnverified++;
+      }
+    }
+    // Track staging-only fields that get filtered due to unverified production metadata
+    if (fieldType?.startsWith('scope2') && productionNumber == null && stagingNumber != null) {
+      debugCounters.scope2StagingOnlyFiltered++;
+    }
+    return {
+      productionValue: undefined,
+      stagingValue: undefined,
+      difference: undefined,
+      differencePerct: undefined
+    };
+  }
+
   const diff: Diff = {
     productionValue: productionNumber ?? undefined,
     stagingValue: stagingNumber ?? undefined,
     difference: undefined,
     differencePerct: undefined
   };
-  if(ONLY_CHECK_VERIFIED_DATA && !productionVerified) {
-    diff.difference = undefined;
-    diff.differencePerct = undefined;
+
+  // Track scope2 fields that make it into the final diff array
+  if (fieldType?.startsWith('scope2')) {
+    if (productionNumber != null || stagingNumber != null) {
+      debugCounters.scope2FieldsInDiffs++;
+    }
+    // Track staging-only fields (AI hallucinations)
+    if (productionNumber == null && stagingNumber != null) {
+      debugCounters.scope2StagingOnlyFields++;
+    }
   }
-  else if(stagingNumber && productionNumber) {
+
+  if(stagingNumber && productionNumber) {
     diff.difference = Math.abs(stagingNumber - productionNumber);
     diff.differencePerct = Math.ceil((diff.difference / productionNumber) * 100) / 100;
   }
@@ -247,13 +319,188 @@ async function outputEvalMetrics(companies: Company[]) {
   console.log(`✅ Statistics per report, written to ${outputPathCSV}.`);
 }
 
+// Global debugging counters
+const debugCounters = {
+  productionScope2Fields: 0,
+  comparisonScope2Fields: 0,
+  filteredOutUnverified: 0,
+  scope2FilteredOutUnverified: 0,
+  filteredOutNoStagingData: 0,
+  filteredOutNoStagingCompany: 0,
+  companiesProcessed: 0,
+  periodsProcessed: 0,
+  missingCompanies: [] as Array<{wikidataId: string, name: string, scope2Fields: number}>,
+  scope2FieldsInDiffs: 0,
+  scope2StagingOnlyFields: 0,
+  scope2StagingOnlyFiltered: 0
+};
+
+function outputVerificationCounts(productionCompanies: CompanyList, reportingYear?: string) {
+  const counts = {
+    scope1: { verified: 0, unverified: 0, withValues: 0 },
+    scope2: { verified: 0, unverified: 0, withValues: 0 },
+    scope1And2: { verified: 0, unverified: 0, withValues: 0 },
+    scope3: { verified: 0, unverified: 0, withValues: 0 },
+    statedTotal: { verified: 0, unverified: 0, withValues: 0 },
+    employees: { verified: 0, unverified: 0, withValues: 0 },
+    turnover: { verified: 0, unverified: 0, withValues: 0 }
+  };
+
+  for (const company of productionCompanies) {
+    for (const period of company.reportingPeriods) {
+      // Filter by year if specified
+      if (reportingYear) {
+        const periodStartDate = typeof period.startDate === 'string' ? period.startDate : period.startDate.toString();
+        if (!periodStartDate.includes(reportingYear)) continue;
+      }
+
+      // Scope1
+      if (period.emissions?.scope1?.total != null) {
+        counts.scope1.withValues++;
+        if (period.emissions.scope1.metadata.verifiedBy != null) {
+          counts.scope1.verified++;
+        } else {
+          counts.scope1.unverified++;
+        }
+      }
+
+      // Scope2 (lb, mb, unknown)
+      const scope2 = period.emissions?.scope2;
+      if (scope2?.lb != null || scope2?.mb != null || scope2?.unknown != null) {
+        if (scope2.lb != null) {
+          counts.scope2.withValues++;
+          debugCounters.productionScope2Fields++;
+          if (scope2.metadata.verifiedBy != null) {
+            counts.scope2.verified++;
+          } else {
+            counts.scope2.unverified++;
+          }
+        }
+        if (scope2.mb != null) {
+          counts.scope2.withValues++;
+          debugCounters.productionScope2Fields++;
+          if (scope2.metadata.verifiedBy != null) {
+            counts.scope2.verified++;
+          } else {
+            counts.scope2.unverified++;
+          }
+        }
+        if (scope2.unknown != null) {
+          counts.scope2.withValues++;
+          debugCounters.productionScope2Fields++;
+          if (scope2.metadata.verifiedBy != null) {
+            counts.scope2.verified++;
+          } else {
+            counts.scope2.unverified++;
+          }
+        }
+      }
+
+      // Scope1And2
+      if (period.emissions?.scope1And2?.total != null) {
+        counts.scope1And2.withValues++;
+        if (period.emissions.scope1And2.metadata.verifiedBy != null) {
+          counts.scope1And2.verified++;
+        } else {
+          counts.scope1And2.unverified++;
+        }
+      }
+
+      // Scope3 categories
+      if (period.emissions?.scope3?.categories) {
+        for (const category of period.emissions.scope3.categories) {
+          if (category.total != null) {
+            counts.scope3.withValues++;
+            if (category.metadata.verifiedBy != null) {
+              counts.scope3.verified++;
+            } else {
+              counts.scope3.unverified++;
+            }
+          }
+        }
+      }
+
+      // Stated Total Emissions
+      if (period.emissions?.statedTotalEmissions?.total != null) {
+        counts.statedTotal.withValues++;
+        if (period.emissions.statedTotalEmissions.metadata.verifiedBy != null) {
+          counts.statedTotal.verified++;
+        } else {
+          counts.statedTotal.unverified++;
+        }
+      }
+
+      // Economy fields
+      if (period.economy?.employees?.value != null) {
+        counts.employees.withValues++;
+        if (period.economy.employees.metadata.verifiedBy != null) {
+          counts.employees.verified++;
+        } else {
+          counts.employees.unverified++;
+        }
+      }
+
+      if (period.economy?.turnover?.value != null) {
+        counts.turnover.withValues++;
+        if (period.economy.turnover.metadata.verifiedBy != null) {
+          counts.turnover.verified++;
+        } else {
+          counts.turnover.unverified++;
+        }
+      }
+    }
+  }
+
+  console.log(`\n📊 Verification Counts${reportingYear ? ` for ${reportingYear}` : ' (all years)'}`);
+  console.log('='.repeat(50));
+  
+  Object.entries(counts).forEach(([scope, count]) => {
+    const total = count.verified + count.unverified;
+    const verifiedPct = total > 0 ? ((count.verified / total) * 100).toFixed(1) : '0.0';
+    console.log(`${scope.padEnd(12)}: ${count.withValues.toString().padStart(3)} with values | ${count.verified.toString().padStart(3)} verified (${verifiedPct}%) | ${count.unverified.toString().padStart(3)} unverified`);
+  });
+  console.log('='.repeat(50));
+  console.log(`🔍 DEBUG: Production scope2 fields found: ${debugCounters.productionScope2Fields}`);
+}
+
 // Main function for fetching, comparison, and output
 async function main() {
   try {
     const reportingYear = process.argv[2]
     const stagingData = await fetchCompanies(process.env.API_BASE_URL_STAGING); 
     const productionData = await fetchCompanies(process.env.API_BASE_URL_PROD); 
+    
+    // Output verification counts first
+    outputVerificationCounts(productionData, reportingYear);
+    
     const companies = compareCompanyLists(productionData, stagingData, reportingYear);
+    
+    // Debug output
+    console.log(`\n🔧 DEBUGGING DISCREPANCIES:`);
+    console.log(`📈 Companies processed: ${debugCounters.companiesProcessed}`);
+    console.log(`📅 Periods processed: ${debugCounters.periodsProcessed}`);
+    console.log(`❌ Filtered out (no staging company): ${debugCounters.filteredOutNoStagingCompany}`);
+    console.log(`❌ Filtered out (no staging data): ${debugCounters.filteredOutNoStagingData}`);
+    console.log(`📊 Scope2 fields in production data: ${debugCounters.productionScope2Fields}`);
+    console.log(`🔄 Scope2 fields in comparison: ${debugCounters.comparisonScope2Fields}`);
+    console.log(`🚫 All fields filtered out (unverified): ${debugCounters.filteredOutUnverified}`);
+    console.log(`🚫 Scope2 fields filtered out (unverified): ${debugCounters.scope2FilteredOutUnverified}`);
+    console.log(`✅ Scope2 fields that made it to diffs: ${debugCounters.scope2FieldsInDiffs}`);
+    console.log(`🤖 Scope2 staging-only fields (AI hallucinations): ${debugCounters.scope2StagingOnlyFields}`);
+    console.log(`🧮 CALCULATION: ${debugCounters.comparisonScope2Fields} - ${debugCounters.scope2FilteredOutUnverified} + ${debugCounters.scope2StagingOnlyFields} = ${debugCounters.comparisonScope2Fields - debugCounters.scope2FilteredOutUnverified + debugCounters.scope2StagingOnlyFields}`);
+    console.log(`📉 Expected scope2 final count: ${debugCounters.comparisonScope2Fields - debugCounters.scope2FilteredOutUnverified + debugCounters.scope2StagingOnlyFields}`);
+    
+    if (debugCounters.missingCompanies.length > 0) {
+      console.log(`\n🏢 COMPANIES MISSING FROM STAGING (with scope2 data):`);
+      const totalMissingScope2Fields = debugCounters.missingCompanies.reduce((sum, company) => sum + company.scope2Fields, 0);
+      console.log(`📊 Total scope2 fields in missing companies: ${totalMissingScope2Fields}`);
+      console.log('='.repeat(60));
+      debugCounters.missingCompanies.forEach(company => {
+        console.log(`${company.name.padEnd(40)} | ${company.wikidataId} | ${company.scope2Fields} scope2 fields`);
+      });
+      console.log('='.repeat(60));
+    }
+    
     outputTotalStatistics(companies)
     outputEvalMetrics(companies);
   } catch (error) {
