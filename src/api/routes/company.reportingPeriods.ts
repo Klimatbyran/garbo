@@ -58,6 +58,62 @@ async function deleteStatedTotalEmissions(emissions: any) {
   }
 }
 
+function buildScope1Promise(
+  scope1Payload: any,
+  dbEmissions: any,
+  createdMetadata: any,
+  verifiedMetadata: any,
+) {
+  const hasExistingScope1 = Boolean(dbEmissions.scope1?.id)
+
+  if (scope1Payload === null && hasExistingScope1) {
+    return emissionsService.deleteScope1(dbEmissions.scope1.id)
+  }
+
+  if (scope1Payload === undefined || scope1Payload === null) {
+    // No change requested for scope1
+    return false
+  }
+
+  const metadataForScope1 = scope1Payload.verified
+    ? verifiedMetadata
+    : createdMetadata
+
+  return emissionsService.upsertScope1(
+    dbEmissions,
+    _.omit(scope1Payload, 'verified') as any,
+    metadataForScope1,
+  )
+}
+
+function buildScope2Promise(
+  scope2Payload: any,
+  dbEmissions: any,
+  createdMetadata: any,
+  verifiedMetadata: any,
+) {
+  const hasExistingScope2 = Boolean(dbEmissions.scope2?.id)
+
+  if (scope2Payload === null && hasExistingScope2) {
+    return emissionsService.deleteScope2(dbEmissions.scope2.id)
+  }
+
+  if (scope2Payload === undefined || scope2Payload === null) {
+    // No change requested for scope2
+    return false
+  }
+
+  const metadataForScope2 = scope2Payload.verified
+    ? verifiedMetadata
+    : createdMetadata
+
+  return emissionsService.upsertScope2(
+    dbEmissions,
+    _.omit(scope2Payload, 'verified') as any,
+    metadataForScope2,
+  )
+}
+
 export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
   app.post(
     '/:wikidataId/reporting-periods',
@@ -195,26 +251,18 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
             }
 
             await Promise.allSettled([
-              // scope1: null means "delete", undefined means "leave as is"
-              scope1 === null && dbEmissions.scope1?.id
-                ? emissionsService.deleteScope1(dbEmissions.scope1.id)
-                : scope1 !== undefined &&
-                  scope1 !== null &&
-                  emissionsService.upsertScope1(
-                    dbEmissions,
-                    _.omit(scope1, 'verified') as any,
-                    scope1.verified ? verifiedMetadata : createdMetadata,
-                  ),
-              // scope2: null means "delete", undefined means "leave as is"
-              scope2 === null && dbEmissions.scope2?.id
-                ? emissionsService.deleteScope2(dbEmissions.scope2.id)
-                : scope2 !== undefined &&
-                  scope2 !== null &&
-                  emissionsService.upsertScope2(
-                    dbEmissions,
-                    _.omit(scope2, 'verified') as any,
-                    scope2.verified ? verifiedMetadata : createdMetadata,
-                  ),
+              buildScope1Promise(
+                scope1,
+                dbEmissions,
+                createdMetadata,
+                verifiedMetadata,
+              ),
+              buildScope2Promise(
+                scope2,
+                dbEmissions,
+                createdMetadata,
+                verifiedMetadata,
+              ),
               scope3 !== undefined &&
                 emissionsService.upsertScope3(
                   dbEmissions,
