@@ -12,12 +12,44 @@ export const expectedResults = {
           "total": 61657,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 7828,
           "lb": null,
           "unknown": null,
           "unit": "tCO2e"
         }
+      },
+    ]
+  },
+  "coor": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 2196,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "scope2": {
+          "mb": 281,
+          "lb": 188,
+          "unknown": 280,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+  "bergmanbeving": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": null,
+        "scope1And2": {
+          "total": 1931,
+          "unit": "tCO2e"
+        },
+        "scope2": null,
       },
     ]
   },
@@ -29,6 +61,7 @@ export const expectedResults = {
           "total": 16051,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mentionOfLocationBasedOrMarketBased": [
             "Metoden som används för att beräkna scope 2-utsläppen är marknadsbaserad."
@@ -50,6 +83,7 @@ export const expectedResults = {
           "total": 29977,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 1090,
           "lb": 56576,
@@ -67,6 +101,7 @@ export const expectedResults = {
           "total": 6.6,
           "unit": "tCO2"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 40.4,
           "lb": 250.5,
@@ -84,6 +119,7 @@ export const expectedResults = {
           "total": 0,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": null,
           "lb": null,
@@ -101,6 +137,7 @@ export const expectedResults = {
           "total": 181.7,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 159,
           "lb": 348,
@@ -118,6 +155,7 @@ export const expectedResults = {
           "total": 37,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": null,
           "lb": null,
@@ -127,6 +165,25 @@ export const expectedResults = {
       }
     ]
   },
+  "nivika" : {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 32,
+          "unit": "tCO2e"
+        },
+        "scope1And2": null,
+        "scope2": {
+          "mb": 680,
+          "lb": 1302,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      }
+    ]
+  },
+   
   "eastnine": {
     "scope12": [
       {
@@ -135,6 +192,7 @@ export const expectedResults = {
           "total": 394,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mentionOfLocationBasedOrMarketBased": [
             "Scope 2-utsläpp enligt location-based-metoden: 4 305 ton 2024 (6 007 ton 2023), beräknat automatiskt i ett GHG-beräkningsverktyg baserat på Scope 2-data."
@@ -156,6 +214,7 @@ export const expectedResults = {
           "total": 639,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 4946,
           "lb": 20516,
@@ -173,12 +232,27 @@ export const expectedResults = {
           "total": 1,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 571,
           "lb": 1170,
           "unknown": null,
           "unit": "tCO2e"
         }
+      },
+    ]
+  },
+  "aqgroup": {
+    "scope12": [
+      {
+        "absoluteMostRecentYearInReport": 2024,
+        "year": 2024,
+        "scope1": null,
+        "scope1And2": {
+          "total": 24858,
+          "unit": "tCO2e" 
+        },
+        "scope2": null,
       },
     ]
   },
@@ -190,6 +264,7 @@ export const expectedResults = {
           "total": 5,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 3844,
           "lb": 2647,
@@ -200,6 +275,20 @@ export const expectedResults = {
     ]
 
   },
+  "swedavia": {
+    "scope12": [
+      {
+        "absoluteMostRecentYearInReport": 2024,
+        "year": 2024,
+        "scope1": null,
+        "scope1And2": {
+          "total": 2100,
+          "unit": "tCO2e"
+        },
+        "scope2": null,
+      },
+    ]
+  },
   "alfalaval": {
     "scope12": [
       {
@@ -208,6 +297,7 @@ export const expectedResults = {
           "total": 16113,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 4817,
           "lb": 65086,
@@ -225,6 +315,7 @@ export const expectedResults = {
           "total": 1170000,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 50000,
           "lb": 420000,
@@ -242,6 +333,7 @@ export const expectedResults = {
           "total": 3845,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 136,
           "lb": 5327,
@@ -259,6 +351,7 @@ export const expectedResults = {
           "total": 59600,
           "unit": "tCO2"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 24400,
           "lb": null,
@@ -277,6 +370,7 @@ export const expectedResults = {
             "total": 154,
             "unit": "tCO2e"
           },
+          "scope1And2": null,
           "scope2": {
             "mb": null,
             "lb": null,
@@ -297,6 +391,7 @@ export const expectedResults = {
           "total": 61.804,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": null,
           "lb": null,
@@ -311,6 +406,7 @@ export const expectedResults = {
     {
       "year": 2024,
       "scope1": null,
+      "scope1And2": null,
       "scope2": {
         "mb": 19,
         "lb": null,
@@ -328,6 +424,7 @@ export const expectedResults = {
           "total": 30000,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 20000,
           "lb": 36000,
@@ -345,6 +442,7 @@ export const expectedResults = {
           "total": 3300000,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": 30000,
           "lb": 30000,
@@ -362,6 +460,7 @@ export const expectedResults = {
             "total": 3591.1,
             "unit": "tCO2e"
           },
+          "scope1And2": null,
           "scope2": {
             "mb": null,
             "lb": null,
@@ -373,6 +472,61 @@ export const expectedResults = {
       ]
     
   },
+  "sas": {
+    "scope12": [
+      {
+        "absoluteMostRecentYearInReport": 2024,
+        "year": 2024,
+        "scope1": {
+          "total": 3171000,
+          "unit": "tCO2"
+        },
+        "scope1And2": null,
+        "scope2": {
+          "mb": null,
+          "lb": null,
+          "unknown": 3000,
+          "unit": "tCO2"
+        }
+      },
+    ]
+  },
+  "nyfosa": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": {
+          "total": 777,
+          "unit": "tCO2"
+        },
+        "scope2": {
+          "mb": null,
+          "lb": null,
+          "unknown": 6242,
+          "unit": "tCO2"
+        }
+      },
+    ]
+  },
+  "emilshus": {
+    "scope12": [
+      {
+        "absoluteMostRecentYearInReport": 2024,
+        "year": 2024,
+        "scope1": {
+          "total": 23,
+          "unit": "tCO2e"
+        },
+        "scope2": {
+          "mb": 658,
+          "lb": 737,
+          "unknown": null,
+          "unit": "tCO2e"
+        }
+      },
+     
+    ]
+  },
   "rise": {
       "scope12": [
         {
@@ -381,14 +535,28 @@ export const expectedResults = {
             "total": 832,
             "unit": "tCO2e"
           },
+          "scope1And2": null,
           "scope2": {
-            "mb": 1870,
-            "lb": 1347,
-            "unknown": 0,
+            "mb": null,
+            "lb": null,
+            "unknown": 1870,
             "unit": "tCO2e"
           }
         }
       ]
+  },
+  "garo": {
+    "scope12": [
+      {
+        "year": 2024,
+        "scope1": null,
+        "scope1And2": {
+          "total": 690,
+          "unit": "tCO2e"
+        },
+        "scope2": null,
+      },
+    ]
   },
   "byggmax" : {
     "scope12": [
@@ -398,6 +566,7 @@ export const expectedResults = {
           "total": 500,
           "unit": "tCO2e"
         },
+        "scope1And2": null,
         "scope2": {
           "mb": null,
           "lb": null,

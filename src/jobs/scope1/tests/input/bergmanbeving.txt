@@ -1,0 +1,701 @@
+Climate calculations
+
+These calculations are based on calendar year data and exclude acquisitions during the year. Ateco, Elkington, Itaab, Orbital, Sandbergs and Tema were acquired last year and are the newest companies included in the Group's climate calculations. Maskinab, Spraylat, Levypinta, Ovesta, Collinder and Labsense were acquired during the year but will not be included in the Group's climate calculations until next year.
+
+- New companies that are currently included in the Group's climate calculations increased the amount of purchased energy by 1,021 MWh. Excluding these new companies, the Group's purchased energy decreased 12 percent.
+- Energy consumption per Swedish krona in revenue decreased during the year as a result of focused energy savings measures at several of the Group's companies, primarily at our production units. New companies that are currently included in the Group's climate calculations are more energy-intensive.
+- New companies that are currently included in the Group's climate calculations increased the number of kilometres driven by company car to 3,910 kilometres. Nonetheless, there was a decrease of CO2e per kilometre driven since the share of kilometres driven by electric vehicle increased and the share of kilometres driven by cars using fossil fuels declined.
+
+|                                                                                    | 2024/2025   | 2023/2024   | 2022/2023   | 2021/2022   | 2020/2021   |
+|------------------------------------------------------------------------------------|-------------|-------------|-------------|-------------|-------------|
+| Emissions and energy consumption                                                   |             |             |             |             |             |
+| GHG Protocol, Scope 1 and 2                                                        |             |             |             |             |             |
+| Scope 1-2 emissions per Swedish krona in revenue (total CO₂e emissions tonne/MSEK) | 0.236       | 0.259       | 0.223       | 0.231       | 0.259       |
+| Total Scope 1-2 emissions (tonne CO₂e)                                             | 1,764       | 1,931       | 1,763       | 1,843       | 1,886       |
+| Total energy consumption (MWh)                                                     | 12,014      | 12,479      | 10,280      | 10,713      | 9,254       |
+| of which electricity (MWh)                                                         | 6,785       | 6,828       | 5,988       | 5,989       | 5,164       |
+| of which district heating and cooling (MWh)                                        | 5,229       | 5,651       | 4,291       | 4,724       | 4,090       |
+| Energy consumption per Swedish krona in revenue (MWh/ MSEK)                        | 1.60        | 1.68        | 1.30        | 1.34        | 1.27        |
+| Coefficients of fullness                                                           |             |             |             |             |             |
+| Coefficient of fullness, incoming freight (%)                                      | 71.8        | 71.9        | 68.8        | 72.3        | 72.1        |
+| Coefficient of fullness, outgoing freight (%)                                      | 55.9        | 49.8        | 46.9        | 46.6        | 46.9        |
+| Percentage air shipments (%)                                                       | 2.2         | 1.3         | 2.4         | 2.0         | 2.5         |
+| Product portfolio                                                                  |             |             |             |             |             |
+| Share of revenue from certified products and services%                             | 84.6        | 83.1        | 85.4        | 83.6        | 66.3        |
+| Materials and waste                                                                |             |             |             |             |             |
+| Consumption of packaging (hg/m³)                                                   | 85.6        | 97 .4       | 73.1        | 76.0        | 72.8        |
+| EU taxonomy                                                                        |             |             |             |             |             |
+| Proportion of turnover aligned with the taxonomy%                                  | n/a         | n/a         | n/a         | n/a         | -           |
+| Proportion of OPEX (investments) aligned with the taxonomy%                        | n/a         | n/a         | n/a         | n/a         | -           |
+| Proportion of CAPEX (costs) aligned with the taxonomy%                             | n/a         | n/a         | n/a         | n/a         | -           |
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+- Environment &amp; climate ·
+
+Social sustainability
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+Emissions and energy consumption
+Activities and progress during the year
+
+The project focused on reporting and monitoring emissions in accordance with the GHG Protocol's Scope 3 categories upstream and downstream in the Group's value chain - continued during the year and the target was achieved for the Group's large units. This is the first step before the smaller units are included in the reporting, and Bergman &amp; Beving intends to report material categories within Scope 3, in addition to Scopes 1 and 2, for the next financial year. This work is also in line with the EU-directive CSRD and the reporting standards ESRS.
+
+By measuring and analysing our emissions and energy consumption first, we can concentrate our resources to where we have the greatest impact and opportunities to improve. When it comes to transportation, Bergman &amp; Beving has opted to minimise air transport and thus mainly uses marine transport between continents. The containers loaded onto the ships should achieve a certain coefficient of fullness in order to be efficient as regards both costs and reducing emissions. The coefficient of fullness is also measured on all transports leaving the Group's logistics centre in Ulricehamn, where deliveries to customers go by truck. The climate footprint of our upstream and downstream transports is included in the project to calculate Scope 3 GHG emissions.
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+- Environment &amp; climate Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+FOCUS AREA
+
+Sustainability initiatives focused where we have the greatest impact
+
+Bergman &amp; Beving's decentralised governance model creates sustainable and profitable growth by developing and acquiring companies managed by passionate entrepreneurs. It is clear that innovation and demand for sustainable products and technological solutions is growing continuously, which creates business opportunities for Bergman &amp; Beving since our companies strive to offer solutions that combine functionality with safety and sustainability.
+
+We are convinced that systematic sustainability work needs to be part of the business strategy at every one of our companies in order to create long-term value. The goal of our strategic sustainability work is to promote business opportunities, attract the best employees, meet the requirements of CSRD and to drive sustainable, profitable growth while reducing our climate impact not only in our own operations but throughout the entire value chain.
+
+It is important for us that each company, in addition to working with the joint Group-wide goals, also identifies its key sustainability matters with associated goals and activities. We consider the combination of Group-wide and company-specific goals to be an important part of our sustainability work. With an emphasis on people, innovation, products and relationships with customers and suppliers, we are continuing on our collective journey to contribute to the ongoing transition. We continuously strive to be the reliable choice for our customers, employees and shareholders.
+
+We completed our double materiality assessment in accordance with the requirements in the CSRD during the year and will continue to further develop our sustainability framework in 2025/2026, for example by making climate calculations in accordance with all three Scopes of the GHG Protocol. At the same time, our companies are carrying out various sustainability initiatives, such as developing Environmental Product Declarations (EPD), expanding ISO certifications and working with product development and our customer offering. Several companies have made energy efficiency improvements, which reduced our climate impact in GHG Scope 2, purchased energy, by several kWh despite our acquisitions during the year. The companies have also worked to measure waste generated by own operations and replaced plastic packaging with paper packaging. Their suppliers have also continued to sign our Code of Conduct. The companies impacted by the upcoming EU steel tariffs are working to meet the requirements of the Carbon Border Adjustment Mechanism (CBAM).
+
+We have elected to focus on and prioritise sustainability efforts in the areas where we have the greatest ability to have a positive impact and to make a difference for our stakeholders, work that we will continue with going forward.
+
+Magnus Söderlind President &amp; CEO
+
+<!-- image -->
+
+We are convinced that systematic sustainability work needs to be part of the business strategy at every one of our companies in order to create long-term value.
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction General disclosures Environment &amp; climate Social sustainability Governance Auditor's opinion Financial information Other information ·
+
+Environment &amp; climate
+
+Bergman &amp; Beving's performance measures related to emissions and energy consumption, product portfolio, and materials, waste and circular flows are presented in the table below.
+
+Our impact:
+
+- A direct impact on customers, consumers and the environment through the use of our products, where we prioritise offering certified, safe and sustainable products with long service lives.
+- An indirect impact through emissions from transportation suppliers, which is addressed by using marine freight to the greatest possible extent, avoiding air freight and actively choosing transportation suppliers with a lower climate impact.
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+- General disclosures Environment &amp; climate Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+Materials, waste and circular flows
+Activities and progress during the year
+
+Bergman &amp; Beving works to limit the environmental impact of our operations. We want to increase resource efficiency in order to reduce material consumption, recycle and reuse more materials, and improve circular flows. The performance measure we currently monitor within the Group is consumption of packaging per delivered cubic metre (m³) from our logistics centre, which many of our units have agreements with and use as a logistics partner. The goal is to gradually reduce the use of packaging.
+
+The Group is carrying out a project to measure and monitor more areas across our entire value chain linked to materials, waste and circular flows. In several places, these are included in the GHG Protocol's Scope 3 categories and will be reported in the 2025/2026 financial year in accordance with the new sustainability reporting legislation.
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+- Environment &amp; climate Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+Our impact:
+
+- An indirect impact on the environment, working conditions and human rights in the value chain, which is addressed through regular audits of suppliers.
+- An indirect impact through emissions from transportation providers, which is addressed by using marine freight to the greatest possible extent, avoiding air freight and actively choosing transportation providers with a lower climate impact.
+- A direct impact through coefficient of fullness for incoming and outgoing goods as well as packaging consumption, which is addressed through measuring and following up on these parameters.
+
+Environmental Policy
+
+Our Environmental Policy, which is part of the Code of Conduct, describes how the Group is to work actively to continuously reduce our direct and indirect environmental impact. According to the Environmental Policy, the Group's activities should be based on circularity and efficient use of natural resources, and important decisions should take environmental impacts into consideration in order to create long-term value for the Group's stakeholders.
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+- Environment &amp; climate Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+FOCUS AREA
+
+Focus areas and goal formulation
+
+Bergman &amp; Beving believes that the Group's sustainability goals, which are structured in a framework with focus areas, are still current and relevant, but will continue to be evaluated in accordance with the CSRD. The focus areas apply across all units within the Group and are described in more detail in the next chapter.
+
+Each company can implement unit-specific goals in addition to these focus areas. The Board monitors sustainability efforts in connection with the annual strategy review. Based on the results of completed stakeholder dialogues and materiality assessments, management's priorities are structured in a framework with six focus areas linked to the UN Sustainable Development Goals. We have goals in all ESG areas environment &amp; climate, social sustainability and governance (Environment, Social and Governance).
+
+<!-- image -->
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+- General disclosures ·
+
+Environment &amp; climate
+
+Social sustainability
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+FOCUS AREA
+
+EU taxonomy
+
+Our industry is not taxonomy-eligible.
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+- Environment &amp; climate ·
+
+Social sustainability
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+FOCUS AREA
+
+Sustainability Report 2024/2025
+
+Bergman &amp; Beving has prepared a Sustainability Report for the 2024/2025 financial year covering the Parent Company, Bergman &amp; Beving AB (publ), Corporate Registration Number 556034-8590, and its subsidiaries. We are committed to sustainable business and actively work to limit the impact of our operations on the environment. In this way, we contribute to creating long-term value for both society and our shareholders. Our efforts to achieve this are presented in this Sustainability Report. By signing the 2024/2025 Annual Report, the Board of Directors has also signed the Sustainability Report.
+
+In accordance with the Swedish Annual Accounts Act, Bergman &amp; Beving has chosen to prepare this statutory sustainability report as a separate report from the statutory annual report. The Sustainability Report describes our sustainability goals, why we have them and our progress during the year.
+
+The Sustainability Report, structured according to the table of contents below, is in line with the strategy we developed based on our chosen focus areas and goals from the UN Sustainable Development Goals. Our goals cover all ESG areas: environment &amp; climate, social sustainability and governance (Environment, Social and Governance).
+
+<!-- image -->
+
+| Introduction                                                | General disclosures                                                                                        | Environment &climate                                                                                                                                                               | Social sustainability                                                                                       | Governance                                                                                                          |
+|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| 46 Introduction from the President 47 Sustainability vision | 48 Sustainability governance 49 Sustainability strategy 50 Value chain 51 Focus areas and goal formulation | 52 Focus area: Emissions and Energy consumption 53 Focus area: Product portfolio 54 Focus area: Materials, Waste and Circular Flows 55 Performance measures: Environment & Climate | 57 Focus area: Employees 58 Focus area: Equality & Diversity 59 Performance measures: Social Sustainability | 60 Focus area: Sustainable Value Chain 61 Business conduct 62 Performance measures: Governance 63 Auditor's opinion |
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+- Introduction ·
+
+General disclosures
+
+Environment &amp; climate
+
+Social sustainability
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+Our impact:
+
+- A direct impact on workers' health and safety, with a focus on safe workplaces and good working conditions.
+- A direct impact through energy consumption at our premises, which is addressed through energy efficiency actions.
+
+Sustainable value chain
+
+The companies in the Group have worked to increase the share of procurement from certified suppliers, which yielded results during the year. The share of procurement volume from suppliers who have signed our Code of Conduct decreased, however, due to a change in mix and acquisitions.
+
+|                                                                                 | 2024/2025   | 2023/2024   | 2022/2023   | 2021/2022   | 2020/2021   |
+|---------------------------------------------------------------------------------|-------------|-------------|-------------|-------------|-------------|
+| Sustainable value chain                                                         |             |             |             |             |             |
+| Share of procurement volume from certified suppliers%                           | 80.8        | 78.4        | 76.2        | 75.0        | 73.0        |
+| Share of procurement volume from suppliers who have signed our Code of Conduct% | 92.1        | 97 .2       | 92.9        | 83.8        | 83.9        |
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+Environment &amp; climate
+
+Social sustainability
+
+- Governance ·
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+How Bergman &amp; Beving governs sustainability
+
+<!-- image -->
+
+Upstream activities
+
+Bergman &amp; Beving's key upstream activities include purchasing the products, services, capital goods and energy necessary to conduct our operations. Products are then transported to Bergman &amp; Beving's operations. Upstream activities also include the waste generated in our own operations as well as business travel and employee commuting.
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Employees
+
+Group-wide employee surveys are conducted roughly every 18 months, and the most recent survey in 2023 showed an improvement in Employee index (EI) and Employer net promoter score (eNPS). Units can choose to carry out 'temperature readings' in between surveys.
+
+|                                                                      | 2024/2025   | 2023/2024   | 2022/2023   | 2021/2022   | 2020/2021   |
+|----------------------------------------------------------------------|-------------|-------------|-------------|-------------|-------------|
+| Equality &diversity                                                  |             |             |             |             |             |
+| Gender distribution %(women/men)                                     | 30/70       | 31/69       | 33/67       | 34/66       | 33/67       |
+| Gender distribution: managers %(women/men)                           | 23/77       | 25/75       | 26/74       | 30/70       | 27/73       |
+| Gender distribution: newly recruited salaried employees% (women/men) | 24/76       | 22/78       | 38/62       | 32/68       | 43/57       |
+| Employees                                                            |             |             |             |             |             |
+| Employee index                                                       | -           | 81          | -           | 80          | -           |
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+Environment &amp; climate
+
+- Social sustainability ·
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+FOCUS AREA
+
+Skills development
+
+Our governance model includes an internal Business School for training employees in business matters, explaining Bergman &amp; Beving's values and facilitating the exchange of experience with other business units. During the year, six training sessions were held in three countries with approximately 110 participants.
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction General disclosures
+
+Environment &amp; climate
+
+- Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+FOCUS AREA
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction General disclosures Environment &amp; climate Social sustainability Governance Auditor's opinion ·
+
+Financial information
+
+Other information
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+Environment &amp; climate
+
+Social sustainability
+
+- Governance ·
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+Environment and climate
+Coefficients of fullness
+
+- Coefficient of fullness, incoming freight: There was a great deal of turbulence in the maritime market during the year. Reduced allocations from our primary supplier meant that we had to contract alternative suppliers at short notice in order to have any products delivered at all. Nonetheless, we managed to maintain last year's positive coefficient of fullness for incoming freight, and the item structure was stable.
+- Coefficient of fullness, outgoing freight: The method for measuring the coefficient for fullness was expanded during the year to include all sent packages that previously lacked data. Regardless of whether the new or old method (50 percent) was used, this performance measure improved during the year through continued, focused work on following up with our customers through regular debriefing meetings. The packing procedures include clear instructions to cut down cartons to minimise the amount of air, and we also have a dialogue with our customers regarding their selection of transportation solution to reduce the amount of air in cartons.
+
+Social sustainability
+
+Bergman &amp; Beving's performance measures related to Employees and Equality &amp; Diversity are presented in the table below.
+
+Opinion
+
+A statutory sustainability report has been prepared.
+
+Stockholm June 27 , 2025
+
+Deloitte AB
+
+Sustainability strategy
+Stakeholder dialogues and materiality assessments
+
+Bergman &amp; Beving works continuously to prioritise how we can maximise the impact of our sustainability initiatives. To enable targeted efforts and resources, Bergman &amp; Beving's sustainability strategy is based on several materiality assessments, through which we have assessed where we have the greatest impact. The foundation for the Group's sustainability strategy was laid in 2017 when the first stakeholder dialogue and subsequent assessment were carried out. In 2021/2022, another materiality assessment was carried out in the form of stakeholder dialogues, and in 2023-2024, a double materiality assessment was carried out in accordance with the CSRD requirements.
+
+Double materiality assessment in accordance with the CSRD In 2023, Bergman &amp; Beving started to prepare for the new EU directive on sustainability reporting, the CSRD, along with the associated European Sustainability Reporting Standards (ESRS), by carrying out a double materiality assessment. Double materiality looks at the outward impact of the operations on people and the environment as well as the inward impact of sustainability-related financial risks and opportunities on the operations. Both perspectives cover our own operations as well as the entire value chain, both upstream and downstream. This allows the double materiality assessment to provide an overview of the areas where Bergman &amp; Beving has the greatest impact and will provide the basis for continued work in sustainability.
+
+<!-- image -->
+
+In the 2025/2026 financial year, Bergman &amp; Beving will continue to collect data and work on internal processes in line with the CSRD and to prepare the Sustainability Report in accordance with the ESRS
+
+<!-- image -->
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+- General disclosures ·
+
+Environment &amp; climate
+
+Social sustainability
+
+Governance
+
+Auditor's opinion
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+The scope of the audit
+
+Our examination has been conducted in accordance with FAR's standard RevR 12 The auditor´s opinion regarding the statutory sustainability report. This means that our examination of the statutory sustainability report is substantially different and less in scope than an audit conducted in accordance with International Standards on Auditing and generally accepted auditing standards in Sweden. We believe that the examination has provided us with sufficient basis for our opinion.
+
+Governance
+
+Bergman &amp; Beving's performance measures related to sustainable value chain are presented in the table below.
+
+Group policies
+
+In addition to our Code of Conduct, the Group has a number of policies and guidelines for our employees, such as guidelines for systematic occupational health and safety, incidents and emergencies, equal treatment as well as guidelines for alcohol, drugs and hazardous substances.
+
+Business conduct
+Code of Conduct
+
+The Code of Conduct is a key tool for supporting Bergman &amp; Beving's decentralised organisation and it applies to everyone working directly or indirectly for Bergman &amp; Beving. The Code of Conduct contains the following:
+
+- Human Rights Policy
+- Business Ethics Policy
+- Social Policy
+- Environmental Policy
+
+The Code of Conduct is based on documents such as the Universal Declaration of Human Rights, the International Labour Organization (ILO) Core Conventions, the OECD Guidelines for Multinational Enterprises and the principles of the UN Global Compact. The Code of Conduct is also based on the Code of Business Conduct from the Swedish Anti-Corruption Institute (IMM), a driving force within anti-corruption in society and business.
+
+Whistleblowing system
+
+The Group has a whistleblowing system where both internal and external stakeholders can report suspected misconduct and improprieties. To ensure anonymity, an external whistleblowing function is used. It is available via a link on Bergman &amp; Beving's website as well as on the subsidiary websites.
+
+<!-- image -->
+
+Orbital Fabrications is the UK's leading supplier of systems for the handling of gases and liquids with high demands on cleanliness.
+
+Sustainability governance
+
+Sustainability is an important part of Bergman &amp; Beving's operations and business model, with sustainability governance integrated into the overall operations as well as the management structure. This means that important decision-making processes across the entire organisation take sustainability matters into consideration.
+
+The Board bears the ultimate responsibility for the sustainability strategy, including setting Group-wide sustainability goals and resolving on policies and the Group-wide Code of Conduct. The Board is also responsible for monitoring the sustainability-related impacts, risks and opportunities identified in the Group's double materiality assessment. Management breaks down the sustainability goals, priorities work efforts and is responsible for monitoring and evaluating sustainability work. Each business unit establishes its own sustainability goals in addition to the Group-wide goals and conducts its own sustainability initiatives. Employees carry out sustainability initiatives and develop the tools and processes necessary for promoting sustainability in each company.
+
+Materials and waste
+
+Consumption of packaging decreased during the year primarily due to changes in the order structure as well as in the choice of transportation solutions that require less packaging.
+
+<!-- image -->
+Sustainability Report
+
+Cresto Group delivers safety solutions for working at height through brands such as CRESTO, RESQ, SLIX and TORQ.
+
+ANDREAS FROUNTZOS
+
+Authorized Public Accountant
+
+Introduction
+
+Strategy and market
+
+Operations
+
+Administration Report
+
+Corporate Governance Report
+
+Sustainability Report
+
+Introduction
+
+General disclosures
+
+Environment &amp; climate
+
+Social sustainability
+
+Governance
+
+- Auditor's opinion ·
+
+Financial information
+
+Other information
+
+<!-- image -->
+
+<!-- image -->
+
+Engagement and responsibility
+
+It is the board of directors who is responsible for the statutory sustainability report for the financial year 2024-04-01 - 2025-03-31 and that it has been prepared in accordance with the Annual Accounts Act. The Sustainability Report is included on pages 44-62 in the annual report.
+
+Auditor's report on the statutory sustainability report
+
+TO THE GENERAL MEETING OF THE SHAREHOLDERS IN BERGMAN &amp; BEVING AB (PUBL), CORPORARE IDENTITY NUMBER 556034-8590

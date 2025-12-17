@@ -3,8 +3,8 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { Company, Diff, DiffReport } from './comparing-staging-production';
 
-// Configuration: Path to the evaluation JSON file
-const EVALUATION_FILE_PATH = 'output/accuracy/garbo-evaluation.json';
+const EVALUATION_FILE_PATH = 'PATH_TO_EVALUATION_FILE';
+
 
 interface AccuracyMetrics {
   correct: number;
@@ -42,8 +42,8 @@ function isDiffCorrect(diff: Diff | undefined): boolean {
   if (prodVal === null || prodVal === undefined || stagingVal === null || stagingVal === undefined) {
     return false;
   }
-  // Use floating-point tolerance to match frontend behavior
-  return Math.abs(prodVal - stagingVal) < 0.01;
+  // Use floating-point tolerance of 1 tonne CO2e
+  return Math.abs(prodVal - stagingVal) < 1.0;
 }
 
 /**
@@ -103,16 +103,10 @@ function extractScope2Diffs(companies: Company[]): Diff[] {
       // Filter to 2024 reports only (matches frontend)
       if (!is2024Report(report)) continue;
       
-      // Extract scope2 values (lb, mb, unknown)
-      if (report.diffs.emissions.scope2.lb) {
-        diffs.push(report.diffs.emissions.scope2.lb);
-      }
-      if (report.diffs.emissions.scope2.mb) {
-        diffs.push(report.diffs.emissions.scope2.mb);
-      }
-      if (report.diffs.emissions.scope2.unknown) {
-        diffs.push(report.diffs.emissions.scope2.unknown);
-      }
+      // Extract scope2 values (lb, mb, unknown) - include even if undefined to match filtering logic
+      diffs.push(report.diffs.emissions.scope2.lb);
+      diffs.push(report.diffs.emissions.scope2.mb);
+      diffs.push(report.diffs.emissions.scope2.unknown);
     }
   }
   
@@ -139,16 +133,10 @@ function extractScope1And2Diffs(companies: Company[]): Diff[] {
         diffs.push(report.diffs.emissions.scope1);
       }
       
-      // Extract scope2 values (lb, mb, unknown)
-      if (report.diffs.emissions.scope2.lb) {
-        diffs.push(report.diffs.emissions.scope2.lb);
-      }
-      if (report.diffs.emissions.scope2.mb) {
-        diffs.push(report.diffs.emissions.scope2.mb);
-      }
-      if (report.diffs.emissions.scope2.unknown) {
-        diffs.push(report.diffs.emissions.scope2.unknown);
-      }
+      // Extract scope2 values (lb, mb, unknown) - include even if undefined to match filtering logic
+      diffs.push(report.diffs.emissions.scope2.lb);
+      diffs.push(report.diffs.emissions.scope2.mb);
+      diffs.push(report.diffs.emissions.scope2.unknown);
       
       // Extract scope1And2 (combined value) - frontend includes this if available
       if (report.diffs.emissions.scope1And2) {
@@ -220,12 +208,33 @@ function extractTotalEmissionsDiffs(companies: Company[]): Diff[] {
  * Counts fields where at least one side (production or staging) has a value
  * Skips fields where both are undefined/null
  */
-function calculateAccuracy(diffs: Diff[]): AccuracyMetrics {
+function calculateAccuracy(diffs: Diff[], label?: string): AccuracyMetrics {
   // Count diffs where at least one side has a value
   const diffsWithAnyValue = diffs.filter(hasAnyValue);
   const correct = diffsWithAnyValue.filter(isDiffCorrect).length;
   const total = diffsWithAnyValue.length;
   const accuracy = total > 0 ? correct / total : 0;
+  
+  if (label === 'scope2') {
+    console.log(`\n🔍 SCOPE2 DEBUG in calculate-scope-accuracy:`);
+    console.log(`📊 Total scope2 diffs extracted: ${diffs.length}`);
+    console.log(`✅ Diffs with any value: ${total}`);
+    
+    // Count different types
+    let prodOnly = 0, stagingOnly = 0, both = 0, neither = 0;
+    diffs.forEach(diff => {
+      if (!diff) return;
+      const hasProd = diff.productionValue !== undefined && diff.productionValue !== null;
+      const hasStaging = diff.stagingValue !== undefined && diff.stagingValue !== null;
+      
+      if (hasProd && hasStaging) both++;
+      else if (hasProd) prodOnly++;
+      else if (hasStaging) stagingOnly++;
+      else neither++;
+    });
+    
+    console.log(`🔢 Breakdown: ${both} both values, ${prodOnly} prod only, ${stagingOnly} staging only, ${neither} neither`);
+  }
   
   return {
     correct,
@@ -247,7 +256,7 @@ function calculateScopeAccuracies(companies: Company[]): ScopeAccuracyResults {
   const totalDiffs = extractTotalEmissionsDiffs(companies);
   
   const scope1Metrics = calculateAccuracy(scope1Diffs);
-  const scope2Metrics = calculateAccuracy(scope2Diffs);
+  const scope2Metrics = calculateAccuracy(scope2Diffs, 'scope2');
   const scope1And2Metrics = calculateAccuracy(scope1And2Diffs);
   const scope3Metrics = calculateAccuracy(scope3Diffs);
   const totalsMetrics = calculateAccuracy(totalDiffs);

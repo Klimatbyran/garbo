@@ -5,6 +5,8 @@ import { QUEUE_NAMES } from '../queues'
 
 type FollowUpKey =
   | 'industryGics'
+  | 'scope1'
+  | 'scope2'
   | 'scope1+2'
   | 'scope3'
   | 'biogenic'
@@ -77,11 +79,19 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         }
       },
       {
-        key: 'scope1+2',
+        key: 'scope1',
         job: {
           ...base,
-          name: 'scope1+2 ' + companyName,
-          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_12,
+          name: 'scope1 ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_1,
+        }
+      },
+      {
+        key: 'scope2',
+        job: {
+          ...base,
+          name: 'scope2 ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_2,
         }
       },
       {

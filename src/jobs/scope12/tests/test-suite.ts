@@ -4,16 +4,17 @@ import { newSchemaWithInstructionsArrayOfExplanations, oldSchema, recencyPrompt,
 import { expectedResults } from "./expected-results"
 import { 
   prompt,
+  promptNew4Dec,
   } from "../prompt"
-import { schema } from "../schema"
+import { schemaScope1And2 } from "../schema"
 
 export const testSuite: TestSuite = {
   expectedResults,
   testVariations: [
     {
       name: "recency improvements",
-      prompt: prompt,
-      schema: schema,
+      prompt: promptNew4Dec,
+      schema: schemaScope1And2,
     },
   ]
 } 

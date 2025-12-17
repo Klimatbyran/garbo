@@ -1,0 +1,626 @@
+GREENHOUSE GAS EMISSIONS, SCOPE 2
+
+|                      | Unit        | FY2024   | FY 2023   | Base year 2010   |
+|----------------------|-------------|----------|-----------|------------------|
+| Energy               |             |          |           |                  |
+| CO 2 energy          | 1,000tonnes | 3.0      | 5.1       | 24.9             |
+| AsofCO 2 electricity | 1,000tonnes | 0.0      | 2.3       | 12.3             |
+| AsofCO 2 heating     | 1,000tonnes | 3.0      | 2.9       | 12.6             |
+
+GREENHOUSE GAS EMISSIONS, SCOPE 1
+
+|                                     | Unit                     | FY 2024   | FY 2023 6)   | Base year 2010   |
+|-------------------------------------|--------------------------|-----------|--------------|------------------|
+| Flight Operations                   |                          |           |              |                  |
+| CO 2 total                          | 1,000 tonnes             | 3,171     | 3,081        | 3,522            |
+| as of domestic flights              | 1,000 tonnes             | 480       | 536          |                  |
+| as of flightsto/fromEU/EEA/GB       | 1,000 tonnes             | 1,425     | 1,201        |                  |
+| as of flights to/from outsideEU/EEA | 1,000 tonnes             | 1,266     | 1,344        |                  |
+| as of biogenicCO 2 emission 1)      | 1,000 tonnes             | 36.2      | 19.1         | -                |
+| CO 2 passenger share                | 1,000 tonnes             | 2,973     | 2,892        | 3,254            |
+| NOx                                 | 1,000 tonnes             | 11.8      | 11.8         | 14.3             |
+| SO 2                                | 1,000 tonnes             | 1.0       | 1.0          |                  |
+| CO                                  | 1,000 tonnes             | 3.3       | 3.3          |                  |
+| HC 2)                               | 1,000 tonnes             | 0.12      | 0.14         | -                |
+| Passenger kilometers                | million                  | 36,612    | 33,528       | 29,572           |
+| Tonne kilometer                     | million                  | 4,064     | 3,729        | 3,480            |
+| Departures                          | 1,000                    | 224       | 226          | 279              |
+| CO 2 /passenger kilometer           | gram                     | 81        | 88           | 110              |
+| CO 2 /available seat kilometer      | gram                     | 52        | 55           | 74               |
+| CO 2 /tonne kilometer               | gram                     | 780       | 821          | 1,012            |
+| CO 2 e total 3) Flight operations   | 1,000 tonnes             | 3,191     | 3,100        | 3,544            |
+| GroundHandling                      |                          |           |              |                  |
+| CO 2 Vehicle Petrol 4)              | tonnes                   | 41        | 39           |                  |
+| CO 2 Vehicle Diesel 4)              | tonnes                   | 1,956     | 2,034        |                  |
+| HVO                                 | tonnes                   | 71        | 47           |                  |
+| MaintenanceProductions              |                          |           |              |                  |
+| CO 2 Vehicle Petrol 4)              | tonnes                   | 26        | 25           |                  |
+| CO 2 Vehicle Diesel 4)              | tonnes                   | 56        | 90           |                  |
+| HVO                                 | tonnes                   | 3         | 3            |                  |
+| SASCargoGroup                       |                          |           |              |                  |
+| CO 2 cargo share flown              | 1,000 tonnes             | 198       | 179          | 231              |
+| Cargotonnekilometerflown            | million                  | 403       | 378          | 570              |
+| CO 2 /cargo tonne kilometer flown   | gram                     | 491       | 475          | 405              |
+| CO 2 /cargo tonne kilometer trucked | gram                     | 85        | 91           |                  |
+| TotalCO 2 e 5)                      | 1,000tonnes              | 3,193     | 3,102        |                  |
+| Aircraft Noise - takeoff            | 85 db area inkm 2 perdep | 1,55      | 1.77         | 2.40             |
+
+1) Biogenic CO2 from 11,455 tonnes SAF
+
+2 ) HC in kerosene including CH4
+
+3 ) Emission factor 3.18 for CO 2e (DEFRA)
+
+4 ) SAS only report on main bases ARN, CPH and OSL
+
+5) Total CO
+
+2
+
+e includes Flight operation, Ground handling and Maintenance production
+
+6) Jet-A correlated emissions FY23 has been adjusted from emission factor 3.15 to 3.16
+
+<!-- image -->
+
+CO2 emissions per available seat kilometer - Scope 1
+
+In order to calculate the CO 2 emissions for each available seat, the assumption is that each seat is occupied by one passenger which corresponds to 100 kg. The metric is calculated by dividing the total CO 2 emissions with the total available tonne kilometer and then multiplied with 0.1 (i.e. 100 kg or 0.1 tonne).
+
+What are our relative and absolute emissions?
+
+Absolute emissions pertain to the total quantity of emissions, typically measured in tonnes of CO 2 .
+
+Relative emissions denote emissions per production unit, such as grams of CO 2 per tonne-kilometer, grams of CO2 per passenger-kilometer, grams of CO 2 per cargo tonne-kilometer, or grams of CO 2 per available seat-kilometer.
+
+Share of CO2 emissions
+
+In our analysis of total CO 2 emissions for FY 2024, we made the following observations: Flights under 500 km accounted for 11.1% of emissions, flights spanning 500 to 800 km for 10.2%, those between 800 and 3,000 km for 36.6%, and flights exceeding 3,000 km for 42.1%. Domestic flights contributed to 15.1% of emissions, while international flights were responsible for the remainder.
+
+Own business travel
+
+We have direct control over our business trips on SAS flights, resulting in an emission of approximately 10.879 tonnes of CO2 during the year. SAS is currently exploring and assessing strategies to encourage our suppliers to report on our scope 3 emissions.
+
+Non-CO2 emissions
+
+SAS has opted to report different emissions separately in this report, with our emission calculator available on our website. Most emission calculators estimate CO 2 equivalents (CO 2 e) using various multipliers to account for non-CO2 emissions. Due to a lack of consensus among scientists and experts on how to convert NOX, particles, and water vapor emissions into CO 2 e, SAS refrains from calculations of CO 2 e. We actively support various initiatives to reduce the impact of non-CO 2 emissions in our daily operations and to develop a more advanced calculation methodology. Our current fleet renewal and technology choices contribute to a greater relative reduction of non-CO 2 emissions compared to CO 2 emissions.
+
+New EU regulation set for enforcement by 2025 will mandate airlines to track and report their non-CO 2 emissions. However, the precise methodology for implementing this reporting requirement is still under consideration, marking an ongoing area of development within the industry.
+
+Contrails, which reflect radiation, exhibit dual effects on the climate - cooling during the day but potentially warming it at night. In FY 2023, IATA established a task force to address non-carbon dioxide (CO 2 )
+
+emissions, with a specific focus on the environmental impact of contrails generated by aircraft. This highlights the imperative for a proactive approach.
+
+In response to the challenges posed by contrails, some companies utilize digital modeling technologies to track moist air patches, offering alternative routes to avoid the formation of contrails.
+
+OUR MOST MATERIAL ISSUES
+Reduce climate impact
+
+Based on the materiality assessment conducted in FY 2022, and excluding matters related to accident and safety management, our foremost environmental priority is to reduce our climate impact. With emissions stemming from aircraft operations (Scope 1) accountable for over 99% of our greenhouse gas emissions within scope 1 and 2 this remains a core priority in our sustainability efforts.
+
+To reduce our climate impact, we:
+
+-  Continue fleet modernization
+-  Expanding the use of SAF (sustainable aviation fuels)
+-  Enhancing flight efficiency
+-  Minimizing onboard weight
+-  Work together with Air traffic control
+-  Find disruptive technologies that are or will be used to reduce CO2 emissions in aviation.
+
+SAS FLIGHT OPERATIONS TOTAL CO2 EMISSIONS
+
+<!-- image -->
+
+CO2 EMISSIONS FOR SCANDINAVIAN AIRLINES AIRCRAFT OPERATIONS FISCAL YEAR 2024
+
+|                                                                      | 1,000s tonnesCO 2   | %oftotal aircraft operationCO 2   |
+|----------------------------------------------------------------------|---------------------|-----------------------------------|
+| Denmark                                                              |                     |                                   |
+| Domestic Flights                                                     | 21                  | 0.7%                              |
+| FlightstoEU/EES/GB                                                   | 319                 | 10.1%                             |
+| Flights tooutsideEU/EES/GB                                           | 531                 | 16.8%                             |
+| Norway                                                               |                     |                                   |
+| Domestic Flights                                                     | 311                 | 9.8%                              |
+| FlightstoEU/EES/GB                                                   | 246                 | 7.7%                              |
+| Flights tooutsideEU/EES/GB                                           | 51                  | 1.6%                              |
+| Sweden                                                               |                     |                                   |
+| Domestic Flights                                                     | 140                 | 4.4%                              |
+| FlightstoEU/EES/GB                                                   | 271                 | 8.6%                              |
+| Flights tooutsideEU/EES/GB                                           | 78                  | 2.5%                              |
+| Finland                                                              |                     |                                   |
+| Domestic Flights                                                     |                     |                                   |
+| FlightstoEU/EES/GB                                                   | 18                  | 0.6%                              |
+| EU/EEA/GB                                                            |                     |                                   |
+| DepartingEU/EEA/GB¹for Scandinavia andFinland                        | 575                 | 18.1%                             |
+| DepartingEU/EEA/GB¹for outsideEU/EEA/GB¹ Departures withinEU/EES/GB¹ | 1                   | 0.0%                              |
+| OutsideEU/EEA/GB                                                     |                     |                                   |
+| Departures outsideEU/EES/ GB¹toScandinavia andFinland                | 605                 | 19.1%                             |
+| Departures outsideEU/EES/ GB¹tooutsideEU/EES/GB                      | 1                   | 0.0%                              |
+| Total                                                                | 3,171               | 100.0%                            |
+
+1)   Excluding Denmark, Sweden, Norway and Finland, which are   reported separately.
+
+External environmental related
+
+costs - are the sum of environmental charges and environmentally related charges and taxes.
+
+Fossil fuels - are fuels consisting of organic carbon and hydrogen compounds in sediment or underground deposits - especially coal, oil and natural gas.
+
+Global Compact - is a challenge from the former UN Secretary General Kofi Annan to business and industry to live up to ten principles of human rights, employee rights, the environment and anti-corruption, as formulated by the UN. www.unglobalcompact.org
+
+Greenhouse effect - Carbon dioxide and other gases trap and reradiate incoming solar radiation that would otherwise be reflected back into space. Most scientists agree that human use of fossil fuels is causing global warming. Other gases that contribute to the greenhouse effect are CFCs (see definition), methane and nitrous oxide.
+
+- GRI - Global Reporting Initiative is an organization that provides companies and organizations with a global sustainability reporting framework and thereby allows comparisons between companies from a social, environmental and economic perspective. www.globalreporting.org
+
+Halons
+
+- See CFCs.
+
+Jet A-1 - is the common jet fuel specification outside North America. Jet A and Jet A-1 are very similar and throughout this Sustainability Report the term 'jet fuel' is used to describe fuel used by the aviation industry.
+
+- MRV - Monitoring, Reporting and Verification of CO 2 emissions and production in tonne-kilometers in the EU Emissions Trading Scheme.
+
+Nitrogen oxides - (NOx) Formed during combustion in jet engines. The high temperature and pressure in aircraft engines cause the atmospheric nitrogen and oxygen to react with each other. This mainly occurs during take-off and ascent when the engine temperature is at a maximum.
+
+Noise - includes environmentally detrimental, undesirable sounds. The environmental impact of air traffic in the form of noise is primarily a local issue. Noise is normally described and measured in dB(A), an A-weighted sound level.
+
+NOx
+
+- Nitrogen oxides (see definition).
+
+Occupational accident - is the number of injuries employees incur by accident due to a sudden, unforeseen and external incident, resulting in at least one day of absence.
+
+- PK - (used in the sustainability-related reporting) - Passenger Kilometers, includes all passengers (100 kg per passenger including luggage) excluding active crew multiplied by the great circle distance flown for all flights performed.
+
+SAF - Sustainable Aviation Fuel is a term for fuel made for aviation, that is produced in a sustainable way and with sustainable raw material, aimed to reduce the greenhouse gas emissions. It includes biofuel, but is not limited to biofuel.
+
+SAFUG - Sustainable Aviation Fuel Users Group. Aviation industry organization focused on accelerating the development and commercialization of sustainable aviation fuels.
+
+Tonne kilometers - are the number of transported metric tonnes of passengers and cargo multiplied by the distance flown.
+
+Weighted noise contour - is calculated based on the number of takeoffs per day at a given airport, with regard to the aircraft types the airline uses at that airport. The weighted noise contour defines the area in km 2  that is subjected to a noise footprint of 85 dB(A) or more in connection with take-off.
+
+<!-- image -->
+
+CO2 emissions per passenger kilometer and cargo tonne kilometer - Scope 1
+
+SAS has chosen to apply a calculation method to divide the amount of fuel used for passenger and cargo transport before dividing the amount by passenger or cargo tonne-kilometer. The method is based on the
+
+IATA Carbon Calculator Tool. The assumption is that fuel usage is proportional to weight. Passenger fuel usage is the ratio of total passenger weight to total weight multiplied by the total fuel used. The remainder is allocated to cargo transport.
+
+| Total Passenger FuelUsage   | =   | (Total Passenger Weight/Total Weight) × Total FuelUsed   |
+|-----------------------------|-----|----------------------------------------------------------|
+| Where, Total Weight         | =   | TotalPassengerWeight + Total Freight/Cargo Weight        |
+| Total Passenger Weight (kg) | =   | (Number of Seats ×50kg) + (Number of Passengers ×100 kg) |
+
+The calculation method allocates 50 kg per seat as a prerequisite for passenger transport and the same weight per passenger as used in all other calculations applied within the industry.
+
+For cases when flights were conducted without passengers or freight/cargo transport, all CO 2 emissions were allocated as passenger transport. This may include training flights, positioning flights between scheduled flights, and flights to/from maintenance, etc. The reason for this changed calculation method is to achieve more precise CO 2 emissions per production unit calculations. The previous calculation method essentially involved double accounting, with emissions per passenger kilometer including the fuel used for freight/cargo transport and vice versa.
+
+2025
+
+-  25% lower total CO2 emissions compared with 2005 (absolute emissions)
+
+ENVIRONMENTAL GOALS AND PERFORMANCE INDICATORS
+
+To reduce our greenhouse gas emissions and to advance our environmental efforts, we have established comprehensive and ambitious short- and long-term environmental goals.
+
+Environment-related costs
+
+In FY 2024, SAS external environment-related user charges and travel taxes amounted to MSEK 2,478 (2,097). These charges and travel taxes comprise environment-related travel taxes and user charges sometimes associated with the environmental performance of aircraft and are included in landing fees. Our environmental taxes in Sweden and Norway amounted to MSEK 981 (961).
+
+In accordance with the European Union Emission Trading Scheme (EU-ETS), the aviation industry addresses its CO 2 emissions within the EU through a market-based approach. From January 1, 2021, SAS has also been reporting CO 2 emissions to CORSIA. Furthermore, the United Kingdom introduced its own emission trading scheme (UK-ETS) as of the same date, which SAS fully adheres to.
+
+We advocate for market-based measures that prioritize emission reduction targets and encourage continuous improvement without distorting competition. For several years, SAS has actively supported the development of a global, market-based solution for airline emissions. While SAS fully embraces the Polluter Pays Principle and
+
+<!-- image -->
+
+takes responsibility for its emissions, we raise concerns about the additional Swedish and Norwegian taxes, which do not directly correlate with actual CO 2 emissions and are in addition to EU-ETS and the soon-to-beintroduced CORSIA. This approach may be viewed as an economic measure but lacks incentives for reducing CO 2 emissions. For instance, a passenger on an A320neo aircraft powered by 50% SAF incurs the same tax as a passenger on an aircraft two generations older, despite the significantly lower emissions of the former.
+
+Environmental related charges -
+
+are charges imposed by the airport operators to motivate aircraft operators to operate aircraft with high eco-  efficiency with respect to noise and other emissions such as NOx, as well as surcharges imposed by airport operators to motivate aircraft operators to avoid take-offs and landings at night.
+
+EMISSION RIGHTS
+
+Any emission rights received from the respective countries' government agencies, without the need for payment of any consideration, are recognized at their nominal amounts, which in practice means that the intangible asset and the prepaid income are valued at zero. Any emission rights purchased for own uses are recognized as intangible assets under current assets at cost after impairment. A provision is recognized in the balance sheet commensurate to the extent that emission rights used correspond to emission rights held. This provision is measured at the cost of the emission rights held. The provision is measured at the current market price with a corresponding cost in the statement of income commensurate to the extent emission rights used exceed the amount of emission rights held.
+
+Emissions calculations and CO2 offsetting
+
+In FY2024, SAS has taken bold steps to reshape the aviation industry by shifting its focus from compensatory measures to long-term emissions reduction. As part of the EuroBonus Conscious Traveler program, SAS discontinued carbon offsetting for EuroBonus travelers, Youth travel with SAS, and staff tickets as of December 1, 2023. This shift redirects efforts toward scaling up the production of sustainable aviation fuels (SAF) and advancing new technologies for cleaner flying from the outset. Through the Conscious Traveler program, SAS reinvests in rewarding all participating travelers who contribute to more sustainable travel.
+
+Airlines are required to submit reports annually on the
+
+<!-- image -->
+
+<!-- image -->
+
+Material issues to include in reporting
+ENVIRONMENT
+
+- Pollution prevention
+- Climate change adaption
+- Noise pollution
+
+Environmentally related taxes
+
+- Taxes that, in contrast to other corporate taxation, are motivated by environmental grounds. Examples are the environmentally motivated passenger charge in the UK and the environmentally related fiscal CO 2 charges in Sweden and Norway.
+
+ENERGY AND EMISSIONS
+
+SAS continuously works to reduce energy consumption. The decrease in energy consumption from our base year 2010 is largely attributed to the implementation of more efficient lighting and the reduced utilization of building floor space.
+
+GRI CONTENT INDEX
+
+Statement of use GRI 1 used Applicable GRI Sector Standard(s)
+
+SAS has reported in accordance to GRI Standards for the period November 1, 2023-October 31, 2024.
+
+GRI 1: Foundation 2021
+
+No sector standard is available yet
+
+OMISSION
+
+GRI STANDARDS
+
+GENERAL DISCLOSURES
+
+GRI 2: General Disclosures 2021
+
+| DISCLOSURE                                                           | LOCATION                                                          | REQUIREMENT(S)OMITTED        | REASON EXPLANATION                              |
+|----------------------------------------------------------------------|-------------------------------------------------------------------|------------------------------|-------------------------------------------------|
+| Theorganizationanditsreportingpractices                              |                                                                   |                              |                                                 |
+| 2-1 Organizational                                                   | details 51, 52                                                    |                              |                                                 |
+| 2-2 Entities included in the organization's sustainability reporting | 43-44                                                             |                              |                                                 |
+| 2-3 Reporting period, frequency andcontact                           | point 43,51                                                       |                              |                                                 |
+| 2-4 Restatements                                                     | information 44-45                                                 |                              |                                                 |
+| 2-5 External assurance                                               | 43,49                                                             |                              |                                                 |
+| Activitiesandworkers                                                 |                                                                   |                              |                                                 |
+| 2-6 Activities, value                                                | chain andother business relationships 3-4, 9-10, 40-41, 51-52     |                              |                                                 |
+| 2-7 Employees                                                        | 33,45                                                             | 2-7-b-iii                    | Not applicable Nonon-guaranteed hoursemployees. |
+| 2-8 Workers who are                                                  | not employees 33                                                  | Typesofworkand methodologies | Info inadequate Information unavailable         |
+| Governance                                                           |                                                                   |                              |                                                 |
+| 2-9 Governance structure                                             | andcomposition 67                                                 |                              | Not applicable SAShasbeendelisted               |
+| 2-10 Nomination andselection                                         | of the highest governancebody 67                                  |                              | Not applicable SAShasbeendelisted               |
+| 2-11 Chair of the highest                                            | governancebody 67                                                 |                              |                                                 |
+| 2-12 Role of the highest                                             | governance bodyin overseeingthemanagementofimpacts 15, 34, 36, 39 |                              | Not applicable SAShasbeendelisted               |
+| 2-13 Delegation of responsibility                                    | for managingimpacts 36, 44                                        |                              | Not applicable SAShasbeendelisted               |
+| 2-14 Role of the highest                                             | governance bodyin sustainability reporting 15, 44                 |                              |                                                 |
+| 2-15 Conflicts of interest                                           | n/a                                                               |                              | Not applicable SAShasbeendelisted               |
+| 2-16 Communication                                                   | of critical concerns 37                                           |                              |                                                 |
+| 2-17 Collective knowledge                                            | of the highest governancebody n/a                                 |                              | Not applicable SAShasbeendelisted               |
+| 2-18 Evaluation of the                                               | performance of the highest governancebody n/a                     |                              | Not applicable SAShasbeendelisted               |
+| 2-19 Remuneration                                                    | policies 82                                                       |                              | Not applicable SAShasbeendelisted               |
+| 2-20 Process to determine                                            | remuneration n/a                                                  |                              | Not applicable SAShasbeendelisted               |
+| 2-21 Annual total compensation                                       | ratio n/a                                                         |                              | Not applicable SAShasbeendelisted               |
+| Strategy,policiesandpractices                                        |                                                                   |                              |                                                 |
+| 2-22 Statement onsustainable                                         | development strategy 7, 8 17, 31, 32, 34, 36-37,                  |                              |                                                 |
+| 2-23 Policycommitments                                               | 39-41, 61                                                         |                              |                                                 |
+| 2-24 Embeddingpolicycommitments                                      | 16, 36, 39-41, 61                                                 |                              |                                                 |
+| 2-25 Processes to remediate                                          | negative impacts 37                                               |                              |                                                 |
+| 2-26 Mechanismsfor                                                   | seeking advice andraising concerns 37                             |                              |                                                 |
+| 2-27 Compliance with                                                 | laws andregulations 30, 57                                        |                              |                                                 |
+
+<!-- image -->
+
+Governance &amp; economics &gt;
+
+About this report
+
+GRI Content Index
+
+Assurance report
+
+Governance &amp; economics &gt;
+
+About this report GRI Content Index Assurance report
+
+About this report &gt;
+
+GRI Content Index Assurance report
+
+For environmental responsibility, SAS strives to distinguish between airline and ground operations. Accordingly, the following distinctions have been made: ·  Airline operations with an SK flight number. Scope 1
+
+-  Ground handling in SAS Ground Handling (SGH). SGH conducts ground handling for SAS and other customers, such as other airlines. Scope 1
+-  Technical maintenance in SAS Maintenance Production. SAS Maintenance Production conduct technical maintenance primarily for SAS but also for other customers, such as other airlines. Scope 1
+-  Freight and mail services within SAS Cargo Group A/S (SCG). Scope 1
+-  Facilities owned or leased by SAS. Scope 2
+
+Social &gt;
+
+Governance &amp; economics About this report GRI Content Index
+
+Assurance report
+
+About this report &gt;
+
+GRI Content Index Assurance report
+
+Sustainability
+
+Sustainability
+
+Environment
+
+Social
+
+Governance &amp; economics
+
+About this report
+
+- GRI Content Index Assurance report &gt;
+
+|                                                                    |                              |                                                                             |                  | OMISSION               | OMISSION                            | OMISSION                                               |
+|--------------------------------------------------------------------|------------------------------|-----------------------------------------------------------------------------|------------------|------------------------|-------------------------------------|--------------------------------------------------------|
+| GRISTANDARDS                                                       | DISCLOSURE                   |                                                                             | LOCATION         | REQUIREMENT(S)OMITTED  | REASON                              | EXPLANATION                                            |
+| DIVERSITYANDEQUALOPPORTUNITY                                       | DIVERSITYANDEQUALOPPORTUNITY |                                                                             |                  |                        |                                     |                                                        |
+| GRI 3: Material Topics 2021                                        | 3-3                          | Managementofmaterial topics                                                 | 16, 32-33        |                        |                                     |                                                        |
+| GRI 405: Diversity and Equal Opportunity                           | 2016405-1                    | Diversity of governance bodiesandemployees                                  | 32-33            | 405-1-a-ii, 405-1-b-ii | Information unavailable/ incomplete | Informationonagenot available per employee category.   |
+| TRAININGANDEDUCATION                                               | TRAININGANDEDUCATION         |                                                                             |                  |                        |                                     |                                                        |
+| GRI 3: Material Topics 2021                                        | 3-3                          | Managementofmaterial topics                                                 | 16, 33           |                        |                                     |                                                        |
+| GRI 404: Training and Education 2016 SUPPLIERSOCIALASSESSMENT      | 404-1                        | Average hours of training per year per employee                             | 33               | 404-1-a-i &ii          | Information unavailable/ incomplete | Information not availablebygenderand employeecategory. |
+| GRI 3: Material Topics 2021                                        | 3-3                          | Managementofmaterial topics                                                 | 37, 40-41, 61    |                        |                                     |                                                        |
+| GRI 414: Supplier Social Assessment 2016 CUSTOMERHEALTHANDSAFETY   | 414-1                        | Newsuppliers that were screened using social criteria                       | 41               |                        |                                     | All newsuppliers                                       |
+| GRI 3: Material Topics 2021                                        | 3-3                          | Managementofmaterial topics                                                 | 42, 60-61        |                        |                                     |                                                        |
+| GRI 416: Customer Health and Safety 2016 INNOVATION&DIGITALIZATION | 416-1                        | Assessment of the health andsafety impacts of productand service categories | n/a              | 416-1                  | Information unavailable/ incomplete | Information not available.                             |
+| GRI 3: Material Topics 2021                                        | 3-3                          | Managementofmaterial topics Innovation &digitalization                      | 16, 42, 64-65 16 |                        |                                     |                                                        |
+
+<!-- image -->
+
+Governance &amp; economics &gt;
+
+About this report GRI Content Index Assurance report
+
+<!-- image -->
+
+Environment &gt;
+
+Social Governance &amp; economics About this report GRI Content Index
+
+Assurance report
+
+CO 2 emissions
+
+During the year, CO 2 emissions increased three percent year-onyear. The main cause of this was SAS' ramp-up of new destinations and routes. Continuous deliveries of more efficient aircraft, with 15-30% lower fuel consumption than the aircraft they replace, had a positive effect on CO 2 emissions.
+
+CLIMATE CHANGE MITIGATION
+
+<!-- image -->
+
+In FY 2024, the absolute CO 2 emissions from aircraft operations increased by 3% compared to the previous year. This change can be attributed to the higher proportion of international flights, which involve longer travel distances.
+
+Conversely, the CO 2 emissions per passenger kilo  meter decreased by 8% to 81 grams (from 88) driven by a higher cabin factor and the ongoing fleet renewal. The carbon emissions per available seat kilometer experienced a decrease of 5% to 52 grams (from 55).
+
+Throughout FY 2024, SAS utilized 11,455 tonnes of sustainable aviation fuel (SAF), marking an 89% increase compared to previous year (6,049 tonnes). This growth is driven by customer participation through the purchase of SAF products, as well as compliance with the Norwegian blend-in obligation and Swedish reduction mandate.
+
+Compared to 2005, carbon emissions have significantly decreased by 29% while the production measured in tonne-kilometers has increased (+0.4%). This achievement reflects efficiency improvements in our fleet as well as improved fuel efficiency, among other contributing factors.
+
+SUSTAINABILITY DEFINITIONS
+Average number of employees - is
+
+defined as the average number of employees expressed in full-time equivalents, excluding leave of absence, parental leave and long-term sick leave. This definition is also used in financial reporting. Sometimes the term FTE (Full-Time Equivalent) is used.
+
+Biofuels - are solid or liquid fuels of biological origin. Liquid fuels for vehicle/ship/aircraft engines. They are considered carbon neutral to various degrees. The EU renewables directive (2009/28/EC) and biofuels directive (2003/30/EC) define the EU's mandates on biofuels and degree of carbon neutrality.
+
+Carbon dioxide (CO 2 ) - is a colorless gas that is formed in the combustion of all fossil fuels.
+
+Cargo tonne kilometer - includes all freight and mail (in metric tonnes) multiplied by the great circle distance flown for all flights performed.
+
+- CDP - is a not-for-profit charity that runs the global disclosure system for investors, companies, cities, states and regions to manage their environmental impacts. Read more at http:// www.cdp.net.
+
+CFCs - are a group of chlorofluorocarbons that may also contain hydrogen and/or bromide. A class of stable chemical compounds mostly known under the trade names Freon or Halon. Their manufacture is prohibited by the Montreal Protocol because of their depletion of the ozone layer. Aviation has an exception for use under a critical use clause due to the lack of approved alternatives. Research for alternatives is ongoing.
+
+Charges for infrastructure - imposed by the operators of the infrastructure and which are intended to cover operating and capital costs for airlines and air traffic management.
+
+- CO2 - Carbon dioxide (see definition).
+
+CO2 passenger or cargo share - is the amount of CO 2 emissions from passenger or cargo transport.
+
+Code of Conduct - is the ethics rules and guidelines of a particular business.
+
+CSR
+
+- Corporate Social Responsibility.
+
+- dB - Decibel, a logarithmic unit of measurement that expresses the magnitude of a physical quantity relative to a specified or implied reference level.
+
+ASK, Available Seat Kilometers
+
+- -The total number of seats available for passengers multiplied by the number of kilometers which they are flown.
+
+Capital employed T otal capital according to the balance sheet less non-interest-bearing liabilities.
+
+Carbon dioxide (CO ² ) -A colorless gas that is formed in the combustion of all fossil fuels. The airline industry's CO 2 emissions are being reduced based on a changeover to more fuel-efficient aircraft.
+
+Code share When one or more airlines' flight number is stated in the timetable for a flight, while only one of the airlines operates the flight.
+
+Debt/equity ratio Financial net debt in relation to equity.
+
+EBIT -
+
+Operating income.
+
+EBIT margin EBIT divided by revenue.
+
+- EBT Income before tax.
+- EEA European Economic Area.
+
+Equity method Shares in affiliated companies are taken up at the SAS Group's share of equity, taking acquired surplus and deficit values into account.
+
+Equity/assets ratio Equity in relation to total assets.
+
+Financial net debt Interest-bearing liabilities less interest-bearing assets excluding net pension funds.
+
+Financial net debt/Adjusted EBITDA Average financial net debt in relation to Adjusted EBITDA.
+
+Financial preparedness Cash and cash equivalents, plus unutilized credit facilities with a maturity longer than three months, in relation to fixed costs
+
+FTE Average number of employees, full-time equivalents.
+
+IATA International Air Transport Association. A global association of almost 300 airlines.
+
+ICAO International Civil Aviation Organization. The United Nations' specialized agency for international civil aviation.
+
+Interest-coverage ratio Operating income plus financial income in relation to financial expenses.
+
+Interline revenue Ticket settlement between airlines.
+
+Items affecting comparability Items affecting comparability are identified to facilitate comparison of SAS' underlying results in different periods. These items consist of impairment, restructuring costs, capital gains/losses, and other items affecting comparability. They arise as a consequence of specific events, and are items that both management and external assessors take note of when analyzing SAS. By reporting earnings excluding nonrecurring items, the underlying results are shown, which facilitates comparability between different periods.
+
+LCC Low Cost Carrier. Low Cost Carrier.
+
+Load factor RPK divided by ASK. Describes the capacity utilization of available seats.
+
+- NPV Net present value. Used to calculate capitalized future costs of operating leases for aircraft, for example.
+
+Operating leases Based on a leasing contract in which the risks and rewards of ownership remain with the lessor and is equivalent to renting. The leasing charges are expensed on a current basis in the statement of income. As of November 1, 2019, SAS Group applies IFRS 16 Leases. See Right-of-use assets.
+
+SAS FLIGHT OPERATIONS CO2 GRAM/PASSENGER KILOMETER
+
+<!-- image -->
+
+Environment &gt;
+
+Social
+
+Governance &amp; economics About this report GRI Content Index
+
+Assurance report
+
+Thus, this year marked the completion of SAS's final carbon offset commitments, covering 97,759 tonnes of CO2 from FY2024. These offsets were achieved through investments in third-party renewable energy projects in Asia, closing a chapter on compensatory practices in favor of transformative solutions.
+
+Scope
+
+SAS is committed to sustainable development with a holistic approach that encompasses environmental, social, and financial responsibility. This is reflected in our sustainability strategy. Our sustainability initiatives are driven by the belief that sustainable practices are vital for the betterment of today and tomorrow. We recognize that innovation and collaboration are at the core of achieving the necessary changes for a sustainable future.
+
+RISK MANAGEMENT
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+|                       | Risk area Risk                                      | Risk level   | Risk control measures fiscal year 2024                                                                                                                                                                                                                                                     |
+|-----------------------|-----------------------------------------------------|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1                     | Market risks 1.1 Macro economic development         |              | Continuous monitoring of demand, competition, and projected revenue and adjustments of SAS' capacity offering and production to adapt.                                                                                                                                                     |
+| 1                     | 1.2 Market and competition                          |              | Continuous monitoring of demand, competition, and projected revenue and adjustments of SAS' capacity offering and production to adapt.                                                                                                                                                     |
+| 2                     | Employee risks 2.1 Capability / Capacity            |              | Annual people reviews and successor identification.                                                                                                                                                                                                                                        |
+| 2                     | 2.2 Engagement                                      |              | Strengthened leadership, increased internal communication and transparency.                                                                                                                                                                                                                |
+| 2                     | 2.3 Processes and systems                           |              | Follow-up of low and high-performing individuals. Documentation of internal processes and maximizing the cross functional collaboration.                                                                                                                                                   |
+| 2                     | 2.4 Labor actions                                   |              | Strengthen dialogue and relationships to increase consensus with the unions.                                                                                                                                                                                                               |
+| 3                     | Operating risks 3.1 Incidents and accidents         |              | Continuous internal monitoring and reporting to the Board.                                                                                                                                                                                                                                 |
+| 3                     | 3.2 Suppliers                                       |              | Focus on renegotiating agreements with strategic suppliers as well as follow up quality levels and efficiency.                                                                                                                                                                             |
+| 3                     | 3.3 Cost competitiveness and efficiency             |              | Transformation office to ensure continuous scrutiny on the progress of the savings initiatives in SAS Forward.                                                                                                                                                                             |
+| 4                     | Sustainability risks 4.1 Environmental requirements |              | Continued efforts with measures to improve climate and environmental performance, and to ensure compliance with applicable laws and regulations. Organizational enhancements to drive ESG improvements.                                                                                    |
+| 4                     | 4.2 Human rights                                    |              | Requirement of complying with United Nations Global Compact in contracts with suppliers and subcontractors. Continuous monitoring of compliancy.                                                                                                                                           |
+| 5 Legal and political | risks 5.1 Political and regulatory risks            |              | Active dialogues with the political systems and industry organizations (IATA) to obtain early information about regulatory changes and sanctions, and to participate in decision-making. Together with the industry, SAS promotes the importance of the aviation for business and society. |
+| 5 Legal and political | 5.2 Fraud and other crime                           |              | Continuous improvement of SAS' capabilities for proactive identification and prevention of potential criminal and fraudulent activity.                                                                                                                                                     |
+| 5 Legal and political | 5.3 Legal and insurance risks                       |              | Development of policies and training to stay compliant with laws and regulations. Ongoing self-assessment of compliancy. Legal counseling and participation in contracting processes. Insurance protection for operations and employees.                                                   |
+| 6 Financial risks     | 6.1 Liquidity, refinancing and funding risk         |              | Ongoing follow-up and projections of financial preparedness.                                                                                                                                                                                                                               |
+| 6 Financial risks     | 6.2 Exchange rates                                  |              | Currency hedging in line with SAS' financial policy and monitoring the currency market.                                                                                                                                                                                                    |
+| 6 Financial risks     | 6.3 Interest rates                                  |              | Interest rate risk in line with SAS´ financial policy. Relatively large portion of liabilities are fixed rate, but new convertible MUSD 725 is floating rate.                                                                                                                              |
+| 6 Financial risks     | 6.4 Jet-fuel price and emission rights              |              | Jet-fuel hedging in line with SAS' financial policy and monitoring the jet-fuel price trend.                                                                                                                                                                                               |
+| 6 Financial risks     | 6.5 Counterparty losses                             |              | SAS' counterparty risks are managed in line with SAS' financial policy.                                                                                                                                                                                                                    |
+| 7                     | IT 7.1 Operational reliability and dependability    |              | Continual improvement of monitoring, incident- and problem-handling procedures.                                                                                                                                                                                                            |
+| 7                     | 7.2 Cyber Security                                  |              | Expansion and improvement of processes and tools to prevent negative impacts on operations.                                                                                                                                                                                                |
+| 8 Other               | events 8.1 Extraordinary events                     |              | Continuous monitoring of extraordinary events. Discussion within Executive Leadership Team on their impact on SAS operations and financial situation, and implementation of mitigating activities.                                                                                         |
+| 8 Other               | 8.2 Brand and reputation                            |              | Constant monitoring of SAS presentation in media, and implementation of brand strengthening activities.                                                                                                                                                                                    |
+
+<!-- image -->
+
+Low risk
+
+<!-- image -->
+
+Medium risk
+
+<!-- image -->
+
+<!-- image -->
+
+Sustainability
+
+Sustainability Environment
+
+Social
+
+Sustainability
+
+Sustainability
+
+Environment
+
+Social
+
+Sustainability
+
+Sustainability
+
+SOCIAL
+
+- Responsible supply chain
+- Human rights
+- Societal engagement
+
+Sustainability
+
+Sustainability Environment
+
+Environment &gt;
+
+Social Governance &amp; economics About this report GRI Content Index Assurance report
+
+Sustainability
+Sustainability &gt;
+
+Environment Social Governance &amp; economics About this report GRI Content Index
+
+Assurance report
+
+Environment &gt;
+
+Social
+
+Governance &amp; economics About this report GRI Content Index
+
+Assurance report
+
+Emissions of ozone-depleting substances
+
+use, consumption, leakage, and storage of halon to the authorities. In FY 2024, no instance of halon use for fire safety precautions was reported.
+
+External review: material sustainability information and EU-ETS and UK ETS
+
+All material sustainability information in the Annual and Sustainability Report for FY 2024 has been reviewed by KPMG. The Auditor's assurance report can be found on page 49.
+
+For the year of 2023 Verifavia verified the reporting systems for CORSIA, as well as the EU and UK trading scheme for emission allowances for flights.

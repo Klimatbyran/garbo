@@ -19,6 +19,8 @@
     "dev": "concurrently \"npm run dev-board\" \"npm run dev-workers\"",
     "import": "node --import=tsx scripts/import-spreadsheet-companies.ts",
     "evaluate-accuracy": "node --import=tsx scripts/garbo-evaluation/comparing-staging-production.ts",
+    "test:scope1": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope1",
+    "test:scope2": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope2",
     "test:scope12": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope12",
     "test:scope3": "node --import tsx src/jobs/promptTestingFramework/run-suite.ts scope3",
     "analyze": "node src/jobs/promptTestingFramework/analyze-results.js",

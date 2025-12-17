@@ -4,8 +4,16 @@ export function reportStatistics(diffs: Diff[]) {
   const prodOrStagingHasNumericValue = (current: Diff) => {return current.productionValue !== undefined || current.stagingValue !== undefined}
   const prodAndStagingHasNumericValue = (current: Diff) => {return current.productionValue !== undefined && current.stagingValue !== undefined}
 
+  // Helper function to check if values are equal within tolerance
+  const valuesAreEqual = (prod: number | undefined, staging: number | undefined): boolean => {
+    if (prod === undefined || prod === null || staging === undefined || staging === null) {
+      return prod === staging;
+    }
+    return Math.abs(prod - staging) < 0.01;
+  };
+
   // Out of all fields that are supposed to have a numerical value, How many are correct? (excludes all instances where prod has an undefined value)
-  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return prodOrStagingHasNumericValue(current) && (current.productionValue === current.stagingValue) ? acc + 1 : acc;}, 0)
+  const numbCorrectNumericalFields = diffs.reduce((acc: number, current: Diff) => { return prodOrStagingHasNumericValue(current) && valuesAreEqual(current.productionValue, current.stagingValue) ? acc + 1 : acc;}, 0)
   const numbNumericalFields = diffs.reduce((acc: number, current: Diff) => { return prodOrStagingHasNumericValue(current) ? acc + 1 : acc;}, 0);
   const accuracyNumericalFields = {
     description: 'Out of all fields that are supposed to have a numerical value, how many are correct?',
