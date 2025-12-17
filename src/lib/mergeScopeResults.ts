@@ -1,8 +1,17 @@
+import { z } from 'zod'
+import { schema as scope1Schema } from '@/jobs/scope1/schema'
+import { schema as scope2Schema } from '@/jobs/scope2/schema'
+
+type Scope1Result = z.infer<typeof scope1Schema>
+type Scope2Result = z.infer<typeof scope2Schema>
+type Scope1Entry = Scope1Result['scope12'][number]
+type Scope2Entry = Scope2Result['scope12'][number]
+
 export type ScopeEntry = {
   year?: number
-  scope1?: any
-  scope2?: any
-  scope1And2?: any
+  scope1?: Scope1Entry['scope1']
+  scope2?: Scope2Entry['scope2']
+  scope1And2?: Scope1Entry['scope1And2'] | Scope2Entry['scope1And2']
   absoluteMostRecentYearInReport?: number
 }
 
@@ -148,7 +157,7 @@ function pickScopeField(
   field: 'scope1' | 'scope2',
   primaryEntry?: ScopeEntry,
   legacyEntry?: ScopeEntry,
-): any | undefined {
+): ScopeEntry['scope1'] | ScopeEntry['scope2'] {
   const primaryValue = primaryEntry && primaryEntry[field]
   if (primaryValue !== undefined) return primaryValue
 
@@ -160,7 +169,10 @@ function pickScope1And2(
   scope1Entry?: ScopeEntry,
   scope2Entry?: ScopeEntry,
   legacyEntry?: ScopeEntry,
-): any | undefined {
+): ScopeEntry['scope1And2'] {
+  // Prefer scope1 worker's scope1And2 value when both scope1 and scope2 workers
+  // provide conflicting values. This is an explicit choice to prioritize scope1
+  // worker results for combined scope1+2 emissions data.
   if (scope1Entry?.scope1And2 !== undefined) return scope1Entry.scope1And2
   if (scope2Entry?.scope1And2 !== undefined) return scope2Entry.scope1And2
   return legacyEntry?.scope1And2
