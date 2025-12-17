@@ -155,7 +155,8 @@ export const emissionsSchema = z
           path: ['unit'],
         },
       )
-      .optional(),
+      .optional()
+      .nullable(),
     scope3: z
       .object({
         categories: z
