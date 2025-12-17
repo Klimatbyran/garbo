@@ -1,8 +1,8 @@
 import { QUEUE_NAMES } from "../../queues"
 import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker"
 import { FollowUpType } from "../../types"
-import { schemaScope1 } from "../../jobs/scope1/schema"
-import { promptScope1 } from "../../jobs/scope1/prompt"
+import { schema } from "../../jobs/scope1/schema"
+import { prompt } from "../../jobs/scope1/prompt"
 import { queryTexts } from "../../jobs/scope1/queryTexts"
 
 const followUpScope1 = new FollowUpWorker<FollowUpJob>(
@@ -13,8 +13,8 @@ const followUpScope1 = new FollowUpWorker<FollowUpJob>(
     const answer = await job.followUp(
       url,
       previousAnswer,
-      schemaScope1,
-      promptScope1,
+      schema,
+      prompt,
       queryTexts,
       FollowUpType.Scope1,
     )
