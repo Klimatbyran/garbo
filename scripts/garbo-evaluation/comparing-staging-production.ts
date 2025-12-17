@@ -6,6 +6,13 @@ import * as schemas from '../../src/api/schemas';
 import { fetchCompanies } from './utils/fetchUtils';
 import { convertCompanyEvalsToCSV, generateXLSX } from './utils/outputFunctions';
 import { reportStatistics, outputTotalStatistics } from './utils/statisticsFunctions';
+import {
+  debugCounters,
+  type VerificationCounter,
+  incrementVerificationCounter,
+  incrementScope2FieldCounters,
+  logDebugCounters
+} from './comparing-staging-production-debug-helpers';
 
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
@@ -310,53 +317,13 @@ async function outputEvalMetrics(companies: Company[]) {
   const outputPathCSV = resolve('output', 'accuracy', 'garbo-evaluation.csv');
   const outputPathXLSX = resolve('output', 'accuracy', 'garbo-evaluation.xlsx');
   const outputPathJSON = resolve('output', 'accuracy', 'garbo-evaluation.json');
-  const csvContent = convertCompanyEvalsToCSV(companies)
-  const xlsx = await generateXLSX(csvContent.split('\n'))
-  const jsonObject = JSON.stringify(companies)
+  const csvContent = convertCompanyEvalsToCSV(companies);
+  const xlsx = await generateXLSX(csvContent.split('\n'));
+  const jsonObject = JSON.stringify(companies);
   await writeFile(outputPathXLSX, xlsx, 'utf8');
   await writeFile(outputPathCSV, csvContent, 'utf8');
   await writeFile(outputPathJSON, jsonObject, 'utf8');
   console.log(`✅ Statistics per report, written to ${outputPathCSV}.`);
-}
-
-// Global debugging counters
-const debugCounters = {
-  productionScope2Fields: 0,
-  comparisonScope2Fields: 0,
-  filteredOutUnverified: 0,
-  scope2FilteredOutUnverified: 0,
-  filteredOutNoStagingData: 0,
-  filteredOutNoStagingCompany: 0,
-  companiesProcessed: 0,
-  periodsProcessed: 0,
-  missingCompanies: [] as Array<{ wikidataId: string; name: string; scope2Fields: number }>,
-  scope2FieldsInDiffs: 0,
-  scope2StagingOnlyFields: 0,
-  scope2StagingOnlyFiltered: 0
-};
-
-type VerificationCounter = { verified: number; unverified: number; withValues: number };
-
-function incrementVerificationCounter(counter: VerificationCounter, isVerified: boolean) {
-  counter.withValues++;
-  if (isVerified) {
-    counter.verified++;
-  } else {
-    counter.unverified++;
-  }
-}
-
-function incrementScope2FieldCounters(
-  scope2Value: number | null | undefined,
-  isVerified: boolean,
-  scope2Counter: VerificationCounter
-) {
-  if (scope2Value == null) {
-    return;
-  }
-
-  debugCounters.productionScope2Fields++;
-  incrementVerificationCounter(scope2Counter, isVerified);
 }
 
 function outputVerificationCounts(productionCompanies: CompanyList, reportingYear?: string) {
@@ -466,32 +433,8 @@ async function main() {
     outputVerificationCounts(productionData, reportingYear);
     
     const companies = compareCompanyLists(productionData, stagingData, reportingYear);
-    
-    // Debug output
-    console.log(`\n🔧 DEBUGGING DISCREPANCIES:`);
-    console.log(`📈 Companies processed: ${debugCounters.companiesProcessed}`);
-    console.log(`📅 Periods processed: ${debugCounters.periodsProcessed}`);
-    console.log(`❌ Filtered out (no staging company): ${debugCounters.filteredOutNoStagingCompany}`);
-    console.log(`❌ Filtered out (no staging data): ${debugCounters.filteredOutNoStagingData}`);
-    console.log(`📊 Scope2 fields in production data: ${debugCounters.productionScope2Fields}`);
-    console.log(`🔄 Scope2 fields in comparison: ${debugCounters.comparisonScope2Fields}`);
-    console.log(`🚫 All fields filtered out (unverified): ${debugCounters.filteredOutUnverified}`);
-    console.log(`🚫 Scope2 fields filtered out (unverified): ${debugCounters.scope2FilteredOutUnverified}`);
-    console.log(`✅ Scope2 fields that made it to diffs: ${debugCounters.scope2FieldsInDiffs}`);
-    console.log(`🤖 Scope2 staging-only fields (AI hallucinations): ${debugCounters.scope2StagingOnlyFields}`);
-    console.log(`🧮 CALCULATION: ${debugCounters.comparisonScope2Fields} - ${debugCounters.scope2FilteredOutUnverified} + ${debugCounters.scope2StagingOnlyFields} = ${debugCounters.comparisonScope2Fields - debugCounters.scope2FilteredOutUnverified + debugCounters.scope2StagingOnlyFields}`);
-    console.log(`📉 Expected scope2 final count: ${debugCounters.comparisonScope2Fields - debugCounters.scope2FilteredOutUnverified + debugCounters.scope2StagingOnlyFields}`);
-    
-    if (debugCounters.missingCompanies.length > 0) {
-      console.log(`\n🏢 COMPANIES MISSING FROM STAGING (with scope2 data):`);
-      const totalMissingScope2Fields = debugCounters.missingCompanies.reduce((sum, company) => sum + company.scope2Fields, 0);
-      console.log(`📊 Total scope2 fields in missing companies: ${totalMissingScope2Fields}`);
-      console.log('='.repeat(60));
-      debugCounters.missingCompanies.forEach(company => {
-        console.log(`${company.name.padEnd(40)} | ${company.wikidataId} | ${company.scope2Fields} scope2 fields`);
-      });
-      console.log('='.repeat(60));
-    }
+
+    logDebugCounters();
     
     outputTotalStatistics(companies)
     outputEvalMetrics(companies);
