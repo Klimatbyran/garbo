@@ -1,6 +1,5 @@
 import { z } from "zod"
 import type { TestSuite } from "../../promptTestingFramework/types"
-import { newSchemaWithInstructionsArrayOfExplanations, oldSchema, recencyPrompt, schemaRecency } from "./testData"
 import { expectedResults } from "./expected-results"
 import { 
   prompt,
