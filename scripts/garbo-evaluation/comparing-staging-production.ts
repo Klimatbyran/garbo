@@ -94,71 +94,183 @@ export interface DiffReport {
 
 
 // Function to compare data between staging and production
-function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList, reportingYear?: string): Company[] {
+function compareCompanyLists(
+  productionCompanies: CompanyList,
+  stagingCompanies: CompanyList,
+  reportingYear?: string
+): Company[] {
   const companies: Company[] = [];
-  for(const productionCompany of productionCompanies) {
-    const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+
+  for (const productionCompany of productionCompanies) {
+    const stagingCompany = stagingCompanies.find(
+      companyCandidate => companyCandidate.wikidataId === productionCompany.wikidataId
+    );
+
     if (stagingCompany) {
-      debugCounters.companiesProcessed++;
-      companies.push({
-        name: productionCompany.name,
-        wikidataId: productionCompany.wikidataId,
-        diffReports: []
-      })
-      if (reportingYear) {
-        const prodReportingPeriod = productionCompany?.reportingPeriods.find((period) => typeof period.startDate === 'string' ? period.startDate.includes(reportingYear) : period.startDate.toString().includes(reportingYear))
-        const stagingReportingPeriod = prodReportingPeriod ? stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === prodReportingPeriod.startDate && periodI.endDate === prodReportingPeriod.endDate) : undefined;
-        if(stagingReportingPeriod && prodReportingPeriod) {
-          debugCounters.periodsProcessed++;
-          const diffReport = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
-          const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-          existingCompany?.diffReports.push(diffReport);
-        } else if (prodReportingPeriod) {
-          debugCounters.filteredOutNoStagingData++;
-        }
-      }
-      else {
-        for(const reportingPeriod of productionCompany.reportingPeriods) {
-          const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate);
-          if(stagingReportingPeriod) {
-            debugCounters.periodsProcessed++;
-            const diffReport = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
-            const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-            existingCompany?.diffReports.push(diffReport);
-          } else {
-            debugCounters.filteredOutNoStagingData++;
-          }
-        }
-      }
+      handleCompanyWithStagingMatch({
+        productionCompany,
+        stagingCompany,
+        reportingYear,
+        companies
+      });
     } else {
-      debugCounters.filteredOutNoStagingCompany++;
-      
-      // Count scope2 fields for this missing company
-      let scope2FieldsInMissingCompany = 0;
-      for (const period of productionCompany.reportingPeriods) {
-        // Filter by year if specified
-        if (reportingYear) {
-          const periodStartDate = typeof period.startDate === 'string' ? period.startDate : period.startDate.toString();
-          if (!periodStartDate.includes(reportingYear)) continue;
-        }
-        
-        const scope2 = period.emissions?.scope2;
-        if (scope2?.lb != null) scope2FieldsInMissingCompany++;
-        if (scope2?.mb != null) scope2FieldsInMissingCompany++;
-        if (scope2?.unknown != null) scope2FieldsInMissingCompany++;
-      }
-      
-      if (scope2FieldsInMissingCompany > 0) {
-        debugCounters.missingCompanies.push({
-          wikidataId: productionCompany.wikidataId,
-          name: productionCompany.name,
-          scope2Fields: scope2FieldsInMissingCompany
-        });
-      }
+      handleCompanyMissingInStaging(productionCompany, reportingYear);
     }
   }
 
-  return companies; 
+  return companies;
+}
+
+function handleCompanyWithStagingMatch(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  reportingYear?: string;
+  companies: Company[];
+}) {
+  const { productionCompany, stagingCompany, reportingYear, companies } = params;
+
+  debugCounters.companiesProcessed++;
+
+  const companyDiffTarget: Company = {
+    name: productionCompany.name,
+    wikidataId: productionCompany.wikidataId,
+    diffReports: []
+  };
+  companies.push(companyDiffTarget);
+
+  if (reportingYear) {
+    addDiffForSingleReportingYear({
+      productionCompany,
+      stagingCompany,
+      reportingYear,
+      companyDiffTarget
+    });
+  } else {
+    addDiffForAllReportingPeriods({
+      productionCompany,
+      stagingCompany,
+      companyDiffTarget
+    });
+  }
+}
+
+function addDiffForSingleReportingYear(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  reportingYear: string;
+  companyDiffTarget: Company;
+}) {
+  const { productionCompany, stagingCompany, reportingYear, companyDiffTarget } = params;
+
+  const productionReportingPeriod = productionCompany.reportingPeriods.find(period => {
+    const periodStartDate =
+      typeof period.startDate === 'string'
+        ? period.startDate
+        : period.startDate.toString();
+    return periodStartDate.includes(reportingYear);
+  });
+
+  const stagingReportingPeriod = productionReportingPeriod
+    ? stagingCompany.reportingPeriods.find(
+        candidatePeriod =>
+          candidatePeriod.startDate === productionReportingPeriod.startDate &&
+          candidatePeriod.endDate === productionReportingPeriod.endDate
+      )
+    : undefined;
+
+  if (stagingReportingPeriod && productionReportingPeriod) {
+    debugCounters.periodsProcessed++;
+    const diffReport = compareReportingPeriods(
+      productionReportingPeriod,
+      stagingReportingPeriod,
+      productionCompany
+    );
+    companyDiffTarget.diffReports.push(diffReport);
+  } else if (productionReportingPeriod) {
+    debugCounters.filteredOutNoStagingData++;
+  }
+}
+
+function addDiffForAllReportingPeriods(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  companyDiffTarget: Company;
+}) {
+  const { productionCompany, stagingCompany, companyDiffTarget } = params;
+
+  for (const productionReportingPeriod of productionCompany.reportingPeriods) {
+    const stagingReportingPeriod = stagingCompany.reportingPeriods.find(
+      candidatePeriod =>
+        candidatePeriod.startDate === productionReportingPeriod.startDate &&
+        candidatePeriod.endDate === productionReportingPeriod.endDate
+    );
+
+    if (stagingReportingPeriod) {
+      debugCounters.periodsProcessed++;
+      const diffReport = compareReportingPeriods(
+        productionReportingPeriod,
+        stagingReportingPeriod,
+        productionCompany
+      );
+      companyDiffTarget.diffReports.push(diffReport);
+    } else {
+      debugCounters.filteredOutNoStagingData++;
+    }
+  }
+}
+
+function handleCompanyMissingInStaging(
+  productionCompany: CompanyResponse,
+  reportingYear?: string
+) {
+  debugCounters.filteredOutNoStagingCompany++;
+
+  const scope2FieldsInMissingCompany = countScope2FieldsForMissingCompany(
+    productionCompany,
+    reportingYear
+  );
+
+  if (scope2FieldsInMissingCompany === 0) {
+    return;
+  }
+
+  debugCounters.missingCompanies.push({
+    wikidataId: productionCompany.wikidataId,
+    name: productionCompany.name,
+    scope2Fields: scope2FieldsInMissingCompany
+  });
+}
+
+function countScope2FieldsForMissingCompany(
+  productionCompany: CompanyResponse,
+  reportingYear?: string
+): number {
+  let scope2FieldsInMissingCompany = 0;
+
+  for (const period of productionCompany.reportingPeriods) {
+    if (reportingYear && !reportingPeriodMatchesYear(period, reportingYear)) {
+      continue;
+    }
+
+    const scope2 = period.emissions?.scope2;
+    if (scope2?.lb != null) scope2FieldsInMissingCompany++;
+    if (scope2?.mb != null) scope2FieldsInMissingCompany++;
+    if (scope2?.unknown != null) scope2FieldsInMissingCompany++;
+  }
+
+  return scope2FieldsInMissingCompany;
+}
+
+function reportingPeriodMatchesYear(
+  reportingPeriod: ReportingPeriod,
+  reportingYear: string
+): boolean {
+  const periodStartDate =
+    typeof reportingPeriod.startDate === 'string'
+      ? reportingPeriod.startDate
+      : reportingPeriod.startDate.toString();
+
+  return periodStartDate.includes(reportingYear);
 }
 
 
