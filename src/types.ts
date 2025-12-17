@@ -1,5 +1,7 @@
 export enum FollowUpType {
   IndustryGics = 'followUp/industryGics',
+  Scope1 = 'followUp/scope1',
+  Scope2 = 'followUp/scope2',
   Scope12 = 'followUp/scope12',
   Scope3 = 'followUp/scope3',
   Biogenic = 'followUp/biogenic',
