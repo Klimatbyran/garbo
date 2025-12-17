@@ -329,14 +329,41 @@ const debugCounters = {
   filteredOutNoStagingCompany: 0,
   companiesProcessed: 0,
   periodsProcessed: 0,
-  missingCompanies: [] as Array<{wikidataId: string, name: string, scope2Fields: number}>,
+  missingCompanies: [] as Array<{ wikidataId: string; name: string; scope2Fields: number }>,
   scope2FieldsInDiffs: 0,
   scope2StagingOnlyFields: 0,
   scope2StagingOnlyFiltered: 0
 };
 
+type VerificationCounter = { verified: number; unverified: number; withValues: number };
+
+function incrementVerificationCounter(counter: VerificationCounter, isVerified: boolean) {
+  counter.withValues++;
+  if (isVerified) {
+    counter.verified++;
+  } else {
+    counter.unverified++;
+  }
+}
+
+function incrementScope2FieldCounters(
+  scope2Value: number | null | undefined,
+  isVerified: boolean,
+  scope2Counter: VerificationCounter
+) {
+  if (scope2Value == null) {
+    return;
+  }
+
+  debugCounters.productionScope2Fields++;
+  incrementVerificationCounter(scope2Counter, isVerified);
+}
+
 function outputVerificationCounts(productionCompanies: CompanyList, reportingYear?: string) {
-  const counts = {
+  const counts: Record<
+    'scope1' | 'scope2' | 'scope1And2' | 'scope3' | 'statedTotal' | 'employees' | 'turnover',
+    VerificationCounter
+  > = {
     scope1: { verified: 0, unverified: 0, withValues: 0 },
     scope2: { verified: 0, unverified: 0, withValues: 0 },
     scope1And2: { verified: 0, unverified: 0, withValues: 0 },
@@ -356,97 +383,62 @@ function outputVerificationCounts(productionCompanies: CompanyList, reportingYea
 
       // Scope1
       if (period.emissions?.scope1?.total != null) {
-        counts.scope1.withValues++;
-        if (period.emissions.scope1.metadata.verifiedBy != null) {
-          counts.scope1.verified++;
-        } else {
-          counts.scope1.unverified++;
-        }
+        incrementVerificationCounter(
+          counts.scope1,
+          period.emissions.scope1.metadata.verifiedBy != null
+        );
       }
 
       // Scope2 (lb, mb, unknown)
       const scope2 = period.emissions?.scope2;
-      if (scope2?.lb != null || scope2?.mb != null || scope2?.unknown != null) {
-        if (scope2.lb != null) {
-          counts.scope2.withValues++;
-          debugCounters.productionScope2Fields++;
-          if (scope2.metadata.verifiedBy != null) {
-            counts.scope2.verified++;
-          } else {
-            counts.scope2.unverified++;
-          }
-        }
-        if (scope2.mb != null) {
-          counts.scope2.withValues++;
-          debugCounters.productionScope2Fields++;
-          if (scope2.metadata.verifiedBy != null) {
-            counts.scope2.verified++;
-          } else {
-            counts.scope2.unverified++;
-          }
-        }
-        if (scope2.unknown != null) {
-          counts.scope2.withValues++;
-          debugCounters.productionScope2Fields++;
-          if (scope2.metadata.verifiedBy != null) {
-            counts.scope2.verified++;
-          } else {
-            counts.scope2.unverified++;
-          }
-        }
+      if (scope2) {
+        const scope2IsVerified = scope2.metadata.verifiedBy != null;
+        incrementScope2FieldCounters(scope2.lb, scope2IsVerified, counts.scope2);
+        incrementScope2FieldCounters(scope2.mb, scope2IsVerified, counts.scope2);
+        incrementScope2FieldCounters(scope2.unknown, scope2IsVerified, counts.scope2);
       }
 
       // Scope1And2
       if (period.emissions?.scope1And2?.total != null) {
-        counts.scope1And2.withValues++;
-        if (period.emissions.scope1And2.metadata.verifiedBy != null) {
-          counts.scope1And2.verified++;
-        } else {
-          counts.scope1And2.unverified++;
-        }
+        incrementVerificationCounter(
+          counts.scope1And2,
+          period.emissions.scope1And2.metadata.verifiedBy != null
+        );
       }
 
       // Scope3 categories
       if (period.emissions?.scope3?.categories) {
         for (const category of period.emissions.scope3.categories) {
           if (category.total != null) {
-            counts.scope3.withValues++;
-            if (category.metadata.verifiedBy != null) {
-              counts.scope3.verified++;
-            } else {
-              counts.scope3.unverified++;
-            }
+            incrementVerificationCounter(
+              counts.scope3,
+              category.metadata.verifiedBy != null
+            );
           }
         }
       }
 
       // Stated Total Emissions
       if (period.emissions?.statedTotalEmissions?.total != null) {
-        counts.statedTotal.withValues++;
-        if (period.emissions.statedTotalEmissions.metadata.verifiedBy != null) {
-          counts.statedTotal.verified++;
-        } else {
-          counts.statedTotal.unverified++;
-        }
+        incrementVerificationCounter(
+          counts.statedTotal,
+          period.emissions.statedTotalEmissions.metadata.verifiedBy != null
+        );
       }
 
       // Economy fields
       if (period.economy?.employees?.value != null) {
-        counts.employees.withValues++;
-        if (period.economy.employees.metadata.verifiedBy != null) {
-          counts.employees.verified++;
-        } else {
-          counts.employees.unverified++;
-        }
+        incrementVerificationCounter(
+          counts.employees,
+          period.economy.employees.metadata.verifiedBy != null
+        );
       }
 
       if (period.economy?.turnover?.value != null) {
-        counts.turnover.withValues++;
-        if (period.economy.turnover.metadata.verifiedBy != null) {
-          counts.turnover.verified++;
-        } else {
-          counts.turnover.unverified++;
-        }
+        incrementVerificationCounter(
+          counts.turnover,
+          period.economy.turnover.metadata.verifiedBy != null
+        );
       }
     }
   }

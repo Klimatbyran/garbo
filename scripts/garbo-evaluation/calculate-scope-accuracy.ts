@@ -42,7 +42,7 @@ function isDiffCorrect(diff: Diff | undefined): boolean {
   if (prodVal === null || prodVal === undefined || stagingVal === null || stagingVal === undefined) {
     return false;
   }
-  // Use floating-point tolerance to match frontend behavior
+  // Use floating-point tolerance of 1 tonne CO2e
   return Math.abs(prodVal - stagingVal) < 1.0;
 }
 
