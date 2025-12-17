@@ -57,3 +57,18 @@ Garo
 Swedavia
 Bergman & beving
 
+
+
+
+
+
+castellum: 
+bergmanbeving: split fiscsal year and scope1+2 given together
+
+
+
+
+hard nuts:
+lundbergs fastigheter (koncernen eller ab?)
+emilshus: - tolkas som inget värde
+rise: två electricty-values förvirrar..
