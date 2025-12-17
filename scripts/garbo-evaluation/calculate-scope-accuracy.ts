@@ -3,10 +3,7 @@ import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 import { Company, Diff, DiffReport } from './comparing-staging-production';
 
-// Configuration: Path to the evaluation JSON file
-//const EVALUATION_FILE_PATH = '/Users/elin/Documents/klimatkollen/garbo/output/accuracy/garbo-evaluation-2025-10-28T06-44-45-044Z.json';
-
-const EVALUATION_FILE_PATH = '/Users/elin/Documents/klimatkollen/garbo/output/accuracy/garbo-evaluation.json';
+const EVALUATION_FILE_PATH = 'PATH_TO_EVALUATION_FILE';
 
 
 interface AccuracyMetrics {
