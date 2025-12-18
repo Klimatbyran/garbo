@@ -33,7 +33,7 @@ function ensureValidFollowUpInputs(
   prompt: string | null | undefined,
   queryTexts: string[] | null | undefined,
   type: FollowUpType
-): string {
+): void {
   if (!markdown || !markdown.trim()) {
     throw new Error(`Missing markdown context for follow-up: ${type}`)
   }
@@ -45,14 +45,12 @@ function ensureValidFollowUpInputs(
   if (!Array.isArray(queryTexts) || queryTexts.length === 0) {
     throw new Error(`Missing query texts for follow-up: ${type}`)
   }
-
-  return markdown
 }
 
 function addCustomMethods(job: FollowUpJob) {
   job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
-    const rawMarkdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
-    const markdown = ensureValidFollowUpInputs(rawMarkdown, prompt, queryTexts, type)
+    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
+    ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
     job.log(`Reflecting on: ${prompt}
     
