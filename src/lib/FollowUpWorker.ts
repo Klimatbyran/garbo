@@ -28,10 +28,29 @@ export class FollowUpJob extends DiscordJob {
   ) => Promise<string | undefined>
 }
 
+function ensureValidFollowUpInputs(
+  markdown: string | null | undefined,
+  prompt: string | null | undefined,
+  queryTexts: string[] | null | undefined,
+  type: FollowUpType
+): void {
+  if (!markdown || !markdown.trim()) {
+    throw new Error(`Missing markdown context for follow-up: ${type}`)
+  }
+
+  if (!prompt || !prompt.trim()) {
+    throw new Error(`Missing prompt for follow-up: ${type}`)
+  }
+
+  if (!Array.isArray(queryTexts) || queryTexts.length === 0) {
+    throw new Error(`Missing query texts for follow-up: ${type}`)
+  }
+}
+
 function addCustomMethods(job: FollowUpJob) {
   job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
-
+    ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
     job.log(`Reflecting on: ${prompt}
     
@@ -40,46 +59,43 @@ function addCustomMethods(job: FollowUpJob) {
     
     `)
 
-    
-      const streamMessages = [
-        {
-          role: 'system',
-          content:
-            'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
-        } as ChatCompletionSystemMessageParam,
-        {
-          role: 'user',
-          content: 'Results from PDF: \n' + markdown,
-        } as ChatCompletionUserMessageParam,
-        {
-          role: 'user',
-          content: prompt,
-        } as ChatCompletionUserMessageParam,
-        Array.isArray(job.stacktrace)
-          ? [
-              {
-                role: 'assistant',
-                content: previousAnswer,
-              } as ChatCompletionAssistantMessageParam,
-              {
-                role: 'user',
-                content: job.stacktrace.join(''),
-              } as ChatCompletionUserMessageParam,
-            ]
-          : undefined,
-      ]
-        .flat()
-        .filter((m) => m !== undefined)
-        .filter((m) => m?.content)
-    
+    const streamMessages = [
+      {
+        role: 'system',
+        content:
+          'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+      } as ChatCompletionSystemMessageParam,
+      {
+        role: 'user',
+        content: 'Results from PDF: \n' + markdown,
+      } as ChatCompletionUserMessageParam,
+      {
+        role: 'user',
+        content: prompt,
+      } as ChatCompletionUserMessageParam,
+      Array.isArray(job.stacktrace)
+        ? [
+            {
+              role: 'assistant',
+              content: previousAnswer,
+            } as ChatCompletionAssistantMessageParam,
+            {
+              role: 'user',
+              content: job.stacktrace.join(''),
+            } as ChatCompletionUserMessageParam,
+          ]
+        : undefined,
+    ]
+      .flat()
+      .filter((message) => message !== undefined)
+      .filter((message) => message?.content)
 
-      const response = await askStream(streamMessages, {
-        response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
-      })
+    const response = await askStream(streamMessages, {
+      response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
+    })
 
     job.log('Response: ' + response)
     
-    // Return standardized format with value and metadata
     const result = {
       value: JSON.parse(response),
       metadata: {
