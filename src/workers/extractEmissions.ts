@@ -21,6 +21,9 @@ class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     runOnly?: (FollowUpKey | 'all')[]
+    markdownContextScope1?: string
+    markdownContextScope2?: string
+    markdownContextScope12?: string
   }
 }
 
@@ -29,7 +32,7 @@ const flow = new FlowProducer({ connection: redis })
 const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
-    const { companyName, runOnly } = job.data
+    const { companyName, runOnly, markdownContextScope1, markdownContextScope2, markdownContextScope12 } = job.data
     job.sendMessage(`🤖 Fetching emissions data...`)
 
     // Try to get wikidata/fiscalYear from children; if not present (e.g. manual rerun),
@@ -84,6 +87,10 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'scope1 ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_1,
+          data: {
+            ...base.data,
+            markdownContext: markdownContextScope1 ?? markdownContextScope12,
+          },
         }
       },
       {
@@ -92,6 +99,10 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'scope2 ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_2,
+          data: {
+            ...base.data,
+            markdownContext: markdownContextScope2 ?? markdownContextScope12,
+          },
         }
       },
       {

@@ -16,6 +16,7 @@ export class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
     previousAnswer: string
+    markdownContext?: string
   }
 
   followUp: (
@@ -47,9 +48,28 @@ function ensureValidFollowUpInputs(
   }
 }
 
+function hasMarkdownContext(job: FollowUpJob): boolean {
+  const { markdownContext } = job.data
+  return typeof markdownContext === 'string' && markdownContext.trim().length > 0
+}
+
+async function getMarkdownForFollowUp(
+  job: FollowUpJob,
+  url: string,
+  queryTexts: string[],
+  type: FollowUpType
+): Promise<string> {
+  if (hasMarkdownContext(job)) {
+    job.log(`Using provided markdown context for follow-up: ${type}`)
+    return job.data.markdownContext!.trim()
+  }
+
+  return vectorDB.getRelevantMarkdown(url, queryTexts, 15)
+}
+
 function addCustomMethods(job: FollowUpJob) {
   job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
-    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
+    const markdown = await getMarkdownForFollowUp(job, url, queryTexts, type)
     ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
     job.log(`Reflecting on: ${prompt}
