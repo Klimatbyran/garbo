@@ -1,6 +1,6 @@
 # Klimatkollen Garbo AI
 
-This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend) . Garbo is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend). Garbo is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
