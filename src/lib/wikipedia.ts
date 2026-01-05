@@ -1,4 +1,8 @@
-import mw from 'nodemw'
+/*
+  // Disabled due to nodemw security vulnerability and we don't currently use this worker so the code is disabled - see wikipedia.ts
+
+
+import mw from 'nodemw' 
 import { Emissions } from './emissions'
 import * as cheerio from 'cheerio'
 import wikipediaConfig from '../config/wikipedia'
@@ -174,4 +178,4 @@ export function generateWikipediaArticleText(emissions: Emissions, title: string
         default:
             throw new Error(`Unsupported language: ${language}`)
     }
-}
+} */
