@@ -1,0 +1,527 @@
+Analys
+
+Scope 1 avser direkta utsläpp som kontrolleras av verksamheten själva och där Nivika har direkt kontroll över sin klimatpåverkan, utsläpp från egna fordon samt från köldmedia. Nivika har inga egna värmepannor och har inte haft något läckage av köldmedia under året. 2024 uppgår utsläppen till 32 ton CO2e och motsvarar för mindre än en procent av de totala utsläppen.
+
+Scope 2 avser indirekta utsläpp från inköpt energi; fastighetsel, fjärrvärme och fjärrkyla. Trots ökat inköp av fjärrvärme minskar ändå utsläppen i scope 2 med -16 procent jämfört med 2022/2023 och uppgår till 1 302 ton CO2e (1547), vilket är ett resultat av konsekvent arbete med energieffektiviseringar i fastigheterna.
+
+Scope 3 omfattar indirekta utsläpp upp- och nedströms i värdekedjan som Nivika ger upphov till men inte kontrollerar direkt. Ungefär 90 procent av de totala utsläppen återfinns i scope 3, 13 999 ton CO2e. Av scope 3 kopplas knappt 80 procent av dessa utsläpp till byggverksamheten (nybyggnation och projektavfall).
+
+HÅLLBARHETSNOTER
+Hållbarhetsnot E1 Utsläpp av växthusgaser
+
+|                                                  |                                                                              |                                                       | 2024                       | 2024                   | 2023/24                    | 2023/24                | 2022/23                    | 2022/23                |
+|--------------------------------------------------|------------------------------------------------------------------------------|-------------------------------------------------------|----------------------------|------------------------|----------------------------|------------------------|----------------------------|------------------------|
+| Aktivitet, Scope 1 & 2                           | Datakälla                                                                    | Omvandlingsfaktorer                                   | Absoluta utsläpp, ton CO2e | Intensitet, kg CO2e/m2 | Absoluta utsläpp, ton CO2e | Intensitet, kg CO2e/m2 | Absoluta utsläpp, ton CO2e | Intensitet, kg CO2e/m2 |
+| Företagsbilar och poolbilar                      | Intern inhämtning från körjournaler                                          | Emissionsfaktor för respektive fordon, bränslebaserad | 25                         | 0,04                   | 23                         | 0,04                   | 26                         | 0,05                   |
+| Förmånsbilar                                     | Intern inhämtning från körjournaler                                          | Emissionsfaktor för respektive fordon, bränslebaserad | 7                          | 0,01                   | -                          | -                      | -                          | -                      |
+| Köldmedia                                        | Hämtas från respektive fastighet enligt lag om obligatorisk köldmediarapport | Svensk Kyl & Värmepumps- förening                     | 0                          | 0,00                   | 0                          | 0,00                   | 0                          | 0,00                   |
+| Scope 1 direkta utsläpp total                    |                                                                              |                                                       | 32                         | 0,05                   | 23                         | 0,05                   | 26                         | 0,04                   |
+| El (Market based)                                | Data från leverantör                                                         |                                                       | 26                         | 0,04                   | 107                        | 0,18                   | 29,7                       | 0,05                   |
+| El (Location based)                              | Data från leverantör                                                         | Nordisk mix 2023: 51,3, Miljöbarometern               | 648                        | 1,04                   | 794                        | 1,31                   | 939,2                      | 1,68                   |
+| Fjärrvärme                                       | Data från leverantör                                                         |                                                       | 654                        | 1,05                   | 660                        | 1,09                   | 607,9                      | 1,09                   |
+| Fjärrkyla                                        | Data från leverantör                                                         |                                                       | 0                          | 0,00                   | 0                          | 0,00                   | 0,0                        | 0,00                   |
+| Scope 2 indirekta utsläpp total (Market based)   | Scope 2 indirekta utsläpp total (Market based)                               |                                                       | 680                        | 1,1                    | 767                        | 1,3                    | 638                        | 1,1                    |
+| Scope 2 indirekta utsläpp total (Location based) | Scope 2 indirekta utsläpp total (Location based)                             |                                                       | 1 302                      | 2,1                    | 1 454                      | 2,4                    | 1 547                      | 2,8                    |
+| Scope 1+2 Total (Marked based)                   | Scope 1+2 Total (Marked based)                                               |                                                       | 712                        | 1,1                    | 790                        | 1,3                    | 664                        | 1,2                    |
+| Scope 1+2 Total (Location based)                 | Scope 1+2 Total (Location based)                                             |                                                       | 1 334                      | 2,1                    | 1 477                      | 2,4                    | 1 573                      | 2,8                    |
+
+|                                              |                                                                                          |                                                                                                               | 2024                       | 2024                   | 2023/24                    | 2022/23                    |
+|----------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|----------------------------|------------------------|----------------------------|----------------------------|
+| Aktivitet, Scope 3                           | Datakälla                                                                                | Omvandligsfaktorer                                                                                            | Absoluta utsläpp, ton CO2e | Intensitet, kg CO2e/m2 | Absoluta utsläpp, ton CO2e | Absoluta utsläpp, ton CO2e |
+| 3.1 Köpta varor och tjänster                 | Upphandlingsmyndigheten miljöspendanalysverktyg                                          | Spendbaserad beräkning; Reparationer, underhåll och service: 0,008                                            | 677                        | 1,09                   | 920                        | -                          |
+| 3.2 Kapitalvaror                             | IVL´s vägledning scope 3 för bostadsföretag                                              | Faktiska värden; klimatdeklarationer Schablonvärden; IVL                                                      | 11 299                     | 18,14                  | 11 318                     | 12 886                     |
+| 3.3 Bränsle och energirelaterade aktiviteter | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.4 Transport och distribution, uppströms    | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.5 Avfall genererat i verksamheten          | Blandat avfall till förbränning: Avfall Sverige Materialåtervinning: DEFRA. Deponi:DEFRA | Beräknikng per hanteringsmetod: Blandat avfall till förbränning: 0,45 Materialåtervinning: 0,02. Deponi: 0,47 | 119                        | 0,19                   | 212                        | 430                        |
+| 3.6 Tjänsteresor - privatägd bil             | Intern inhämtning från körjournaler                                                      | Emissionsfaktor för respektive fordon, bränslebaserad                                                         | 3                          | 0,00                   | 9                          | 18                         |
+| 3.7 Anställdas pendling                      | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.8 Leasade tillgångar, uppströms            | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.9 Transport och distrubution, nedströms    | Inte relevant för Nivikas verksamhet                                                     |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.10 Bearbetning av sålda produkter          | Inte relevant för Nivikas verksamhet                                                     |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.11 Användning av sålda produkter           | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.12 Slutbehandling av sålda produkter       | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.13 Leasade tillgångar, nedströms           | Schablon årsförbrukning: Konsumenternas energimarknadsbyrå. Nordisk mix:Miljöbarometern. | Uppskattad data + faktiska värden Nordisk mix 2022 0,0667                                                     | 1 901                      | 3,05                   | 545                        | 549                        |
+| 3.14 Franshiser                              | Inte relevant för Nivikas verksamhet                                                     |                                                                                                               | -                          | -                      | -                          | -                          |
+| 3.15 Investeringar                           | Ingen data                                                                               |                                                                                                               | -                          | -                      | -                          | -                          |
+| Scope 3 övriga indirekta utsläpp total       |                                                                                          |                                                                                                               | 13 999                     | 22,5                   | 13 004                     | 13 883                     |
+| Scope 1+2+3 Total (Marked based)             |                                                                                          |                                                                                                               | 14 711                     | 23,6                   | 13 771                     | 14 547                     |
+| Scope 1+2+3 Total (Location based)           |                                                                                          |                                                                                                               | 15 333                     | 24,6                   | 14 481                     | 15 456                     |
+
+| Hållbarhetsnot E1 Energianvändning   | Hållbarhetsnot E1 Energianvändning   | Hållbarhetsnot E1 Energianvändning   | Hållbarhetsnot E1 Energianvändning   | Hållbarhetsnot E1 Energianvändning   |
+|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|
+| Energianvändning, kWh                | 2024                                 | 2023/24                              | 2022/23                              | 2021/22                              |
+| El                                   | 15 283 909                           | 15 470 173                           | 14 081 088                           | 13 418 621                           |
+| Fjärrvärme                           | 24 750 429                           | 24 803 113                           | 24 193 749                           | 19 532 531                           |
+| Fjärrkyla                            | 22 420                               | 15 981                               | 9 378                                | 10 852                               |
+| Total förbrukning                    | 40 056 758                           | 40 289 267                           | 38 284 215                           | 32 962 004                           |
+
+Totala utsläpp fördelade på scope
+
+<!-- image -->
+
+Mätetal och mål
+
+- A. Organisationens mätetal för att bedöma klimatrelaterade risker och möjligheter i linje med sin strategi och riskhanteringsprocess.
+
+Se sid. 45-46
+
+- B. Scope 1, Scope 2 och Scope 3-utsläpp av växthusgaser och relaterade risker.
+
+Se sid. 48, Hållbarhetsnot E1 Utsläpp av växthusgaser
+
+- C. Mål som organisationen använder för att hantera klimatrelaterade risker och möjligheter och utveckling mot mål.
+
+Se sid. 45-46
+
+EU Environmental Objective
+
+Climate change mitigation
+
+Mål och mätetal
+Nya mål verifieras av SBTi
+
+Under 2025 kommer mål skickas in för verifiering av Science Based Targets Initiative (SBTi) för minskning av utsläppen av växthusgaser i linje med Parisavtalet. Minskning av växthusgaser kopplas till de två områden; energianvändning i drift samt byggverksamheten. Då omarbetning av målsättning och målomfattning pågår kommer tidigare målsättning om att minska 25 procent till år 2025 (basår 2019) i egna verksamheten att utgå. Utfallet av årets minskning av utsläpp kopplat till egen verksamhet är -15 procent jämfört med 2022/2023 och uppgår till 1 334 ton CO2e (1 573).
+
+ESRS E1
+-KLIMATFÖRÄNDRINGAR
+
+Nivikas verksamhet har en negativ påverkan på klimat och miljö genom både direkta och indirekta växthusgasutsläpp. I den egna verksamheten uppstår exempelvis utsläpp i samband med energianvändning och värmeproduktion samt utsläpp som kommer från företagsresor och användning av företagsfordon. I den övriga värdekedjan uppkommer växthusgasutsläpp kopplat till exempelvis nybyggnation och ombyggnation, användning av byggmaterial samt fastighetsdrift.
+
+Mål 2030
+Minska utsläppen av växthusgaser i linje med Parisavtalet*
+
+Minska utsläppen av växthusgaser kopplat till energianvändningen i drift (E1)* Minska utsläppen av växthusgaser kopplat till byggverksamheten (E5)*
+
+Åtgärdsarbete
+
+Nivika lägger stort fokus på att minska både energibehov och klimatpåverkan från såväl projektverksamhet som fastighetsdrift.
+
+Klimatpåverkan inom den egna organisationen, scope 1, är marginell då Nivika inte har några egna värmepannor i fastigheterna. Utsläppen genereras från tjänstebilar för service och drift och påverkas av Nivikas val av drivmedel till fordonsflottan.
+
+Utsläppen inom scope 2 är kopplade till fastigheternas energianvändning, där Nivika arbetar aktivt för att minska klimatpåverkan genom energieffektiva lösningar och hållbara energival. Samtidigt är fjärrvärmeleverantörernas omställning till mer klimatsmarta produktionsmetoder en viktig del av arbetet mot minskade utsläpp.
+
+De mest omfattande utsläppen finns inom scope 3 och berör verksamhet utanför Nivikas direkta verksamhet, framför allt från ny- och ombyggnationer. Nivika lägger stor vikt vid att arbeta med dessa utsläpp genom att välja klimatsmarta material och förbättra avfallshanteringen i byggprojekten. Klimatkalkyler hjälper till att synliggöra påverkan och möjliggör förbättringar. Vidare kan krav på bränsle för fordon och maskiner bidra till en mer hållbar utveckling. Hyresgästers påverkan hanteras genom att inspirera och vägleda till hållbara val, som förnybar el, effektiv avfallssortering att underlätta för klimatsmarta pendlingsresor.
+
+Klimatberäkning
+
+Nivika rapporterar utsläppen av växthusgaser med hjälp av GHG-protokollet (Green House Gas Protocol), i enlighet med modellen Operational Control approach. Beräkningarna av Nivikas klimatpåverkande utsläpp utvecklas kontinuerligt för mer tillförlitliga nyckeltal och för att inkludera fler utsläppsposter. En del av beräkningarna är baserade på faktiska data och en del på schabloner.
+
+Förändring i år i jämförelse med föregående klimatbokslut:
+
+- Från Financial Control till Operational Control
+- Scope 3 kategori 3.1 Köpta varor och tjänster; nytillkomna data spendbaserad beräkning
+- Scope 3 kategori 3.13 Hyresgästernas bilkörning; omvärderats i väsentlighetsanalys för scope 3, ej längre väsentlig då Nivikas rådighet är väldigt låg
+
+Resultat dubbel väsentlighetanalys
+
+|    | ESRS standard   | Väsentliga hållbarhetsfrågor                                     | Bedömning väsetlighet   |
+|----|-----------------|------------------------------------------------------------------|-------------------------|
+|  1 | ESRS E1         | Klimatanpassning                                                 | Väsentlig               |
+|  2 | ESRS E1         | Klimatpåverkan                                                   | Väsentlig               |
+|  3 | ESRS E1         | Energi                                                           | Väsentlig               |
+|  4 | ESRS E2         | Förorening av mark                                               | Bevakning               |
+|  5 | ESRS E2         | Förorening av luft                                               | Låg                     |
+|  6 | ESRS E2         | Förorening av vatten                                             | Bevakning               |
+|  7 | ESRS E2         | Föroreningar av levande organismer och livsmedelsresurser        | Låg                     |
+|  8 | ESRS E2         | Potentiellt skadliga ämnen                                       | Bevakning               |
+|  9 | ESRS E2         | Särskilt farliga ämnen                                           | Låg                     |
+| 10 | ESRS E3         | Vattenförbrukning                                                | Bevakning               |
+| 11 | ESRS E3         | Försämring av livsmiljöer och trycket på marina resurser         | Låg                     |
+| 12 | ESRS E3         | Vattenuttag                                                      | Låg                     |
+| 13 | ESRS E3         | Vattenutsläpp i vattendrag och hav                               | Låg                     |
+| 14 | ESRS E4         | Direkt påverkan på förlust av biologisk mångfald                 | Väsentlig               |
+| 15 | ESRS E4         | Påverkan på arters tillstånd                                     | Låg                     |
+| 16 | ESRS E4         | Effekter på ekosystemens omfattning och tillstånd                | Låg                     |
+| 17 | ESRS E4         | Påverkan på och beroende av ekosystemtjänster                    | Låg                     |
+| 18 | ESRS E5         | Resursinflöden, inklusive resursanvändning                       | Väsentlig               |
+| 19 | ESRS E5         | Resursutflöden relaterat till produkter och tjänster             | Låg                     |
+| 20 | ESRS E5         | Avfall                                                           | Väsentlig               |
+| 21 | ESRS S1         | Arbetsförhållanden i egen verksamhet                             | Väsentlig               |
+| 22 | ESRS S1         | Likabehandling och lika möjligheter för alla i egen verksamhet   | Låg                     |
+| 23 | ESRS S1         | Andra arbetsrelaterade rättigheter i egen verksamhet             | Låg                     |
+| 24 | ESRS S2         | Likvärdig behandling och lika möjligheter för alla i värdekedjan | Låg                     |
+| 25 | ESRS S2         | Arbetsförhållanden i värdekedjan                                 | Väsentlig               |
+| 26 | ESRS S2         | Andra arbetsrelaterade rättigheter i värdekedjan                 | Låg                     |
+| 27 | ESRS S3         | Samhällens civila och politiska rättigheter                      | Låg                     |
+| 28 | ESRS S3         | Samhällens ekonomiska, sociala och kulturella rättigheter        | Väsentlig               |
+| 29 | ESRS S3         | Specifika rättigheter för ursprungsbefolkning                    | Låg                     |
+| 30 | ESRS S4         | Informationsrelaterade påverkan för kunder                       | Bevakning               |
+| 31 | ESRS S4         | Personlig säkerhet för kunder                                    | Väsentlig               |
+| 32 | ESRS S4         | Social inkludering för kunder                                    | Väsentlig               |
+| 33 | ESRS G1         | Företagskultur                                                   | Väsentlig               |
+| 34 | ESRS G1         | Skydd för visselblåsare                                          | Låg                     |
+| 35 | ESRS G1         | Djurskydd                                                        | Låg                     |
+| 36 | ESRS G1         | Politiskt engagemang och lobbyism                                | Låg                     |
+| 37 | ESRS G1         | Hantering av leverantörsrelationer, samt betalningspraxis        | Låg                     |
+| 38 | ESRS G1         | Korruption och mutor                                             | Väsentlig               |
+
+Finansiell väsentlighet
+
+Konsekventiell väsentlighet
+
+<!-- image -->
+
+Koldioxidutsläpp från byggverksamheten
+
+Nivikas aktiviteter inom nybyggnation och ombyggnation, inklusive transporter och användning av byggmaterial, samt drift av fastigheter, leder till betydande koldioxidutsläpp. Dessa utsläpp bidrar negativt till klimatförändringarna och är en utmaning för vår hållbarhetsstrategi. Det är avgörande att identifiera och implementera åtgärder för att minska dessa utsläpp, både genom effektivare byggprocesser samt genom att använda mer hållbara material och energikällor i driften av våra fastigheter.
+
+Omfattning samt förenlighet EU-taxonomin för samtliga Miljömål
+
+|          | Andel omsättning/total omsättning   | Andel omsättning/total omsättning   | Andel kapitalutgifter/totala kapitalutgifter   | Andel kapitalutgifter/totala kapitalutgifter   | Andel driftsutgifter/totala driftsutgifter   | Andel driftsutgifter/totala driftsutgifter   |
+|----------|-------------------------------------|-------------------------------------|------------------------------------------------|------------------------------------------------|----------------------------------------------|----------------------------------------------|
+| Miljömål | Taxonomi- förenlighet per mål, %    | Mål som omfattas av taxonomin, %    | Taxonomi- förenlighet per mål, %               | Mål som omfattas av taxonomin, %               | Taxonomi- förenlighet per mål, %             | Mål som omfattas av taxonomin, %             |
+| CMM      | 37                                  | 100                                 | 14                                             | 100                                            | 7                                            | 100                                          |
+| CCA      | 0                                   | 0                                   | 0                                              | 0                                              | 0                                            | 0                                            |
+| WTR      | 0                                   | 0                                   | 0                                              | 0                                              | 0                                            | 0                                            |
+| CE       | 0                                   | 0                                   | 0                                              | 0                                              | 0                                            | 0                                            |
+| PPC      | 0                                   | 0                                   | 0                                              | 0                                              | 0                                            | 0                                            |
+| BIO      | 0                                   | 0                                   | 0                                              | 0                                              | 0                                            | 0                                            |
+
+Förkortningar av EU-taxonomins mål 1-6 enligt EUs standard. Nivika redovisar enbart mot Miljömål 1 Climate Change Mitigation, CCM.
+
+ICMA GBP Kategori
+
+Green and energyefficient buildings
+
+NEGATIV PÅVERKAN
+
+- Koldioxidutsläpp från byggverksamheten (klimatpåverkan) 1
+- Energiförbrukning (energi) 2
+- 3
+- Markexploatering (biologisk mångfald)
+- Resursförbrukning (resursanvändning) 4
+- Avfall (avfall) 5
+- Avsaknad av kollektivavtal (arbetare i värdekedjan) 6
+
+Mål 2030
+Enbart arbeta med affärspartners som följer Nivikas värdegrunder
+
+Leverantörsuppförandekod (G1/S2) Uppförandekod är känd av alla medarbetare (G1) Andelen icke reklamerade fakturor som ska betalas i tid ska uppgå till 100 % (G1)
+
+GOVERNANCE
+
+G
+
+G1
+Ansvarsfullt företagande
+Företagskultur
+
+- Positiv påverkan +
+
+UN SDG
+
+SDG 7 - Affordable and Clean Energy SDG 11 - Sustainable Cities and Communities
+
+Strategi
+
+Nivika är ett småländskt entreprenördrivet företag med huvudkontor i Värnamo mitt i den företagstäta Gnosjöregionen. Smålänningarna är kända för sin seghet, påhittighet och klurighet. Vi har en vana att anpassa oss efter tillväxt och nya förhållanden vilket underlättar i omställningsarbetet som klimatförändringarna innebär.
+
+Klimatförändringar medför risker för Nivika på kort, medellång och lång sikt. Exempelvis risk för ökade kostnader för förebyggande åtgärder och klimatanpassningar av fastigheter, förändrade fastighetsvärderingar, ökade försäkringskostnader, behov av att byta ut teknik i förtid, förändrade regelverk, ökad elanvändning samt stigande priser på material och energi.
+
+Att mäta och redovisa utvecklingen av Nivikas klimatpåverkan är ett sätt att identifiera, prioritera och följa upp åtgärder för att minska klimatutsläppen. Genom ökad kunskap om direkta och indirekta utsläpp kan klimatplaner och metoder tas fram för att prioritera de åtgärder som ger bäst effekt.
+
+Nivika har under 2024 påbörjat arbetet med att ta fram en klimatomställningplan där syftet är att ge en samlad bild över hur Bolaget kan minska sin klimatpåverkan och specificera vilka åtgärder som krävs i verksamheten för att nå klimatmålen i linje med Parisavtalet. Under 2025 kommer målen att skickas in för verifiering av Science Based Targets Initiative (SBTi).
+
+Nivikas metodiska arbete med energieffektivisering under lång tid har bidragit till både högre lönsamhet och lägre utsläpp. Genom att använda förnybar energi, öka den egenproducerade elen, samt minska energianvändningen minskas utsläpp av växthusgaser och även driftkostnaderna.
+
+Nivika arbetar i dagsläget inte med upptagning och lagring av växthusgaser eller med klimatkompensering. Nivika har för närvarande inte introducerat något internt system för koldioxidprissättning.
+
+Energieffektivitet, innovation och klimatanpassning
+
+I vårt hållbarhetsarbete har vi fortsatt vårt arbete med att minska energianvändningen i fastigheterna. Flera större energibesparande projekt har genomförts, bland annat i fastigheten Kärleken 2 i Värnamo, där vi gjort värmekonvertering från el till vattenburet med luftvärmepump vilket lett till en besparing i december på -30 procent, vilket motsvarar ca 7 000kWh. Energiintensiteten har minskat med -5 procent jämfört med 2022/2023. Ett exempel på vårt innovationsarbete är byggnationen av vårt nya huvudkontor, där vi valde ett innovativt stomsystem med hybridbjälklag som minskar betonganvändningen med 75 procent, vilket bidrar till ett betydligt lägre CO2-avtryck. Utsläpp kopplat till egen verksamhet har minskat med -15 procent jämfört med 2022/2023. Vi har också genomfört hållbarhetsriskanalyser på samtliga fastigheter, där bland annat ökad nederbörd och översvämningar identifierades som potentiella framtida risker. För att hantera dessa risker vidtar vi åtgärder både i förvaltningen av våra fastigheter och i våra pågående och framtida byggprojekt.
+
+Klimatpåverkan
+
+Nivikas verksamhet inom ny- och ombyggnation, inklusive transporter och användning av byggmaterial, samt drift av fastigheter, leder till betydande koldioxidutsläpp som har en negativ påverkan på klimatet.
+
+Hållbarhetsnot E1 Energiintensitet
+
+| Energiintensitet, kWh/m2 Atemp   |   2024 | Förändring %                 |   2024/23 |   Föränring % |   2022/23 |   Föränring % |   2021/22 |
+|----------------------------------|--------|------------------------------|-----------|---------------|-----------|---------------|-----------|
+| Total energiintensitet           |     89 | -5 *se jämfört med år 23/22. |        91 |            -2 |        93 |            -4 |        97 |
+
+| Hållbarhetsnot E1 Producerad energi                | 2024   |     |       |
+|----------------------------------------------------|--------|-----|-------|
+| Totalt installerad effekt (kWp)                    | 4 702  | 31  | 3 588 |
+| Energiproduktion                                   | 2 780  | 79  | 1 553 |
+| Intensitet (W/m2)                                  | 7,6    | 18  | 6,4   |
+| Egenproducerad el som används på plats             | 1 938  | 25  | 1 553 |
+| Egenproducerad el som säljs till elnätet           | 842    | 100 | 0     |
+| %av den totala elanvändningen som används på plats | 11     | N/A |       |
+
+| Hållbarhetsnot E1 Laddplatser   |      |
+|---------------------------------|------|
+| Laddplatser per ort, st         | 2024 |
+| Värnamo                         |   79 |
+| Jönköping                       |   70 |
+| Växjö                           |   58 |
+| Västkusten                      |   26 |
+| Totalt                          |  233 |
+
+Befintliga fastigheter som ligger till grund för investering
+
+| Fastighet                    | Fastighets- värde, mkr   |   Energiförbr. i % av BBR- krav | Energi- klass   | Undvikna utsläpp, ton CO₂   |
+|------------------------------|--------------------------|---------------------------------|-----------------|-----------------------------|
+| Advokaten 5                  | 161                      |                              69 | B               | -8 761                      |
+| Avenboken 1                  | 100                      |                              65 | B               | -7 596                      |
+| Barnarps-Kråkebo 1:79        | 99                       |                              75 | B               | -15 267                     |
+| Bergbunken 1                 | 63                       |                              87 | C               | -1 510                      |
+| Bikupan 22                   | 25                       |                              89 | C               | -518                        |
+| Bäret 1                      | 50                       |                              79 | C               | -1 814                      |
+| Diabasen 4                   | 162                      |                              59 | B               | -32 170                     |
+| Drängen 2                    | 133                      |                              50 | A               | -20 848                     |
+| Eklövet 1                    | 64                       |                              71 | B               | -3 261                      |
+| Folkets Hus 1                | 83                       |                             100 | C               | -                           |
+| Garvaren 5                   | 66                       |                              43 | A               | -16 793                     |
+| Graniten 2                   | 90                       |                             100 | C               | -                           |
+| Gravören 18                  | 12                       |                              78 | C               | -1 238                      |
+| Hedenstorp 2:30              | 22                       |                              83 | B               | -1 947                      |
+| Hematiten 1                  | 163                      |                              80 | B               | -22 279                     |
+| Hemmeslöv 10:208             | 120                      |                              69 | B               | -7 208                      |
+| Hjortronet 7                 | 28                       |                              69 | B               | -5 096                      |
+| Hjällbo 150:1                | 59                       |                              97 | C               | -1 521                      |
+| Hällstorp 1:107 Lamellhus    | 118                      |                              75 | B               | -4 267                      |
+| Klynnan 12                   | 43                       |                              62 | B               | -6 207                      |
+| Klynnan 13                   | 17                       |                              41 | A               | -10 546                     |
+| Lagern 9                     | 65                       |                              96 | C               | -1 293                      |
+| Lejonet 18                   | 26                       |                              88 | C               | -1 001                      |
+| Norra Amerika 1              | 141                      |                              62 | B               | -12 535                     |
+| Pionen 6                     | 6                        |                              70 | B               | -548                        |
+| Porfyren 2                   | 41                       |                              59 | B               | -12 600                     |
+| Porfyren 3                   | 87                       |                              62 | B               | -11 491                     |
+| Porfyren 4, under uppförande | 3                        |                              72 | B               | -                           |
+| Refugen 6, hotell            | 116                      |                             100 | C               | -                           |
+| Refugen 6, kontor            | ingår i ovan             |                              86 | C               | -1 858                      |
+| Rosen 1                      | 188                      |                              80 | C               | -15 388                     |
+| Roten 2                      | 264                      |                              80 | C               | -9 586                      |
+| Råstenen 1 Norra             | 69                       |                              69 | B               | -4 272                      |
+| Råstenen 1 Västra            | 92                       |                              69 | B               | -2 620                      |
+| Sadelmakaren 1               | 268                      |                              55 | B               | -25 091                     |
+| Sandstenen 1                 | 38                       |                              80 | B               | -2 989                      |
+| Sandstenen 2                 | 208                      |                              80 | C               | -16 282                     |
+| Schaktet 1                   | 79                       |                              60 | B               | -7 245                      |
+| Snöflingan 16                | 193                      |                              75 | B               | -8 507                      |
+| Stationen 2                  | 45                       |                              78 | C               | -4 053                      |
+
+| Fastighet                  | Fastighets- värde, mkr   | Energiförbr. i % av BBR- krav   | Energi- klass   | Undvikna utsläpp, ton CO₂   |
+|----------------------------|--------------------------|---------------------------------|-----------------|-----------------------------|
+| Stålet 2                   | 64                       | 47                              | A               | -17 477                     |
+| Tor 3                      | 120                      | 73                              | B               | -6 866                      |
+| Tunnbindaren 7             | 45                       | 98                              | C               | -368                        |
+| Täljstenen 1               | 109                      | 46                              | B               | -8 762                      |
+| Valplatsen 2               | 106                      | 93                              | C               | -4 934                      |
+| Valplatsen 8               | 292                      | 61                              | B               | -20 636                     |
+| Vombaten 2 & Vråken 2      | 91                       | 56                              | B               | -7 609                      |
+| Vråken 1                   | 161                      | 87                              | C               | -3 244                      |
+| Värendsvallen 12, bostäder | 436                      | 61                              | B               | -15 190                     |
+| Värendsvallen 12, skola    | ingår i ovan             | 47                              | A               | -49 104                     |
+| Västergöken 1              | 256                      | 72                              | B               | -11 731                     |
+| Totalt                     | 5 285                    |                                 |                 | -452 132                    |
+
+Mål och mätetal
+Energianvändning
+
+Energiintensiteten har under året minskat med -5 procent, jämfört med 2022/2023 har vi minskat från 93 till 89 kWh/m2 Atemp. Viss verksamhetsel ingår i sammanställningen på grund av svårigheter att urskilja denna från fastighetselen, vilket innebär att vissa hyresgästers energianvändning finns med i sammanställningen.
+
+Energiförbrukning
+
+Nybyggnation av fastigheter och den löpande energiförbrukningen från hyresgästers elanvändning utgör betydande källor till negativ miljöpåverkan. Dessa aktiviteter leder till höga nivåer av energikonsumtion, vilket i sin tur bidrar till ökade koldioxidutsläpp och belastning på miljön. För att minska denna negativa påverkan är det avgörande att använda mer energieffektiva byggnadsmetoder och uppmuntra hyresgästerna till att minska sin energianvändning genom hållbara praxis och teknologier.
+
+Energieffektivitet, innovation och klimatanpassning
+
+I vårt hållbarhetsarbete har vi fortsatt att minska energianvändningen i fastigheterna. Flera större energibesparande projekt har genomförts, bland annat i fastigheten Kärleken 2 i Värnamo. Där har vi g jort värmekonvertering från el till vattenburet med luftvärmepump lett till en besparing i december på -30 procent jämfört med föregående år, vilket motsvarar ca 7 000 kWh. Energiintensiteten har minskat med -5 procent jämfört med 2022/2023.
+
+Ett exempel på vårt innovationsarbete är byggnationen av vårt nya huvudkontor, där vi valde ett innovativt stomsystem med hybridbjälklag som minskar betonganvändningen med 75 procent, vilket bidrar till ett betydligt lägre CO2-avtryck. Utsläpp kopplat till egen verksamhet har minskat med -15 procent jämfört med 2022/2023.
+
+Vi har också genomfört hållbarhetsriskanalyser på samtliga fastigheter, där ökad nederbörd och översvämningar identifierades som potentiella framtida risker. För att hantera dessa risker vidtar vi åtgärder både i förvaltningen av våra fastigheter och i våra pågående och framtida byggprojekt.
+
+VÄSENTLIGA OMRÅDEN MILJÖ
+
+Den egna arbetskraften (S1) Arbetskraft längs värdekedjan (S2) Påverkade samhällen (S3) Konsumenter och samhällen (S4)
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+SOCIAL
+
+E1
+Klimatförändringar
+Klimatanpassning
+
+- Risk !
+- Risk !
+
+VÄSENTLIGA OMRÅDEN MILJÖ Ansvarsfullt företagande (G1)
+
+- -Företagskultur
+- -Korruption och mutor
+
+<!-- image -->
+
+VÄSENTLIGA OMRÅDEN MILJÖ
+Klimatförändringar (E1)
+
+-Klimatanpassning -Klimatpåverkan -Energi
+
+Bedöma ej avsevärd skada
+
+För att vara uppfylla EU-taxonomins krav, utöver väsentligt bidrag till ett miljömål, krävs även att man inte orsakar betydande skada till något av de andra miljömålen. För aktivitet 7.7 finns, i dagsläget, endast tekniska granskningskriterier för Miljömål 2 Anpassning till klimatförändringar. För att en 7.7-aktivitet ska uppfylla granskningskriterierna för Miljömål 2 behöver en klimatrisk- och sårbarhetsanalys utföras för att identifiera de viktigaste klimatriskerna samt möjliga anpassningslösningar.
+
+Nivika har genomfört en djupgående riskkartläggning där samtliga fastigheter i fastighetsbeståndet, på byggnadsnivå, har utvärderats och hållbarhetsrisker analyserats. För de identifierade riskfastigheterna har en åtgärdsplan upprättats. Riskfastigheterna har analyserats mer djupgående och relevanta investeringar och insatser som ska genomföras för att anpassa de fastigheterna till ett förändrat klimat och öka deras motståndskraft har definierats.
+
+Har byggnaden en hållbarhetsriskanalys och en åtgärdsplan om klimatrisk finns anser Nivika att byggnaden har uppfyllt kraven i miljömål 2.
+
+Läs mer om klimatanpassning samt riskkartläggningen på sida 46.
+
+S2 Arbetskraft längst värdekedjan
+Arbetsförhållanden
+
+- Negativ påverkan -
+
+!
+
+Risk
+
+ENVIRONMENT
+
+E
+
+Energieffektivitet, innovation och klimatanpassning
+
+Energianvändningen i fastigheterna har fortsatt att minska genom olika effektiviseringsåtgärder. Ett större energibesparande projekt i fastigheten Kärleken 2 i Värnamo innebar en konvertering från eluppvärmning till ett vattenburet system med luftvärmepump, vilket resulterade i en energibesparing på 30 procent under december, motsvarande cirka 7 000 kWh. Totalt sett har energiintensiteten minskat med 5 procent jämfört med 2022/2023.
+
+Innovationsarbetet har bland annat inkluderat byggnationen av ett nytt huvudkontor med ett hybridbjälklag som reducerar betonganvändningen med 75 procent, vilket kraftigt minskar byggprojektets koldioxidavtryck. Utsläppen från den egna verksamheten har minskat med 15 procent jämfört med föregående år.
+
+Hållbarhetsriskanalyser har genomförts för samtliga fastigheter, där ökad nederbörd och översvämningar identifierats som potentiella framtida risker. Åtgärder implementeras både i förvaltningen och vid nybyggnation för att hantera dessa utmaningar.
+
+Not 20 Räntebärande krediter och lån
+
+Specifikation över förändringar av skulder som uppkommer från finansieringsverksamheten
+
+|                                         | Räntebärande finansiella skulder, långfristiga   | Räntebärande finansiella skulder, långfristiga   | Derivatinstrument, långfristiga   | Derivatinstrument, långfristiga   | Räntebärande finansiella skulder, kortfristiga   | Räntebärande finansiella skulder, kortfristiga   | Derivatinstrument, kortfristiga   | Derivatinstrument, kortfristiga   |
+|-----------------------------------------|--------------------------------------------------|--------------------------------------------------|-----------------------------------|-----------------------------------|--------------------------------------------------|--------------------------------------------------|-----------------------------------|-----------------------------------|
+| tkr                                     | 24-12-31                                         | 23-08-31                                         | 24-12-31                          | 23-08-31                          | 24-12-31                                         | 23-08-31                                         | 24-12-31                          | 23-08-31                          |
+| Ingående balans                         | 5 235 271                                        | 5 792 563                                        | -                                 | -                                 | 130 149                                          | 138 898                                          | -                                 | -                                 |
+| Kassaflöde - Upptagna lån               | 4 218 306                                        | 1 292 294                                        | -                                 | -                                 | 137 749                                          | 126 523                                          | -                                 | -                                 |
+| Kassaflöde - Amortering av lån          | -3 672 652                                       | -1 865 126                                       | -                                 | -                                 | -126 523                                         | -138 898                                         | -                                 | -                                 |
+| Leasingavtal                            | 3 824                                            | 17 741                                           | -                                 | -                                 | 687                                              | 6 417                                            | -                                 | -                                 |
+| Kassaflöde - Amortering av leasingskuld | -13 384                                          | -2 202                                           | -                                 | -                                 | -531                                             | -2 791                                           | -                                 | -                                 |
+| Förändring av verkligt värde            | -                                                | -                                                | 45 098*                           | -                                 | -                                                | -                                                | -                                 | -                                 |
+| Utgående balans                         | 5 771 365                                        | 5 235 271                                        | 45 098                            | -                                 | 141 531                                          | 130 149                                          | -                                 | -                                 |
+
+*) Verkligt värde har förändrats från fordran på 36 793 till skuld på 45 098, alltså en förändring på -81 891.
+
+Tabellen nedan visar koncernens olika räntebärande krediter och lån.
+
+| tkr                              | 2024-12-31   | 2023-08-31   |
+|----------------------------------|--------------|--------------|
+| Långfristiga                     |              |              |
+| Banklån (rörlig ränta)           | 5 294 516    | 4 542 100    |
+| Övriga lån (främst rörlig ränta) | 476 846      | 693 171      |
+| Derivatinstrument                | -            | -            |
+| Summa långfristiga skulder       | 5 771 365    | 5 235 271    |
+| Kortfristiga                     |              |              |
+| Banklån (rörlig ränta)           | 110 231      | 130 149      |
+| Övriga lån (fast ränta)          | 31 300       | -            |
+| Summa kortfristiga skulder       | 141 531      | 130 149      |
+| Räntebärande skuld               | 5 912 896    | 5 365 420    |
+
+Outnyttjad checkräkningskredit uppgår till 40 000 tkr (40 000). Outnyttjad kredit (byggnadskreditiv) uppgår till 342 807 tkr (198 619).
+
+I tabellen nedan sammanfattas återbetalningsplanen för koncernens krediter och lån.
+
+| Förfallostruktur lån per räkenskapsår, tkr      | 2024-12-31   | 2023-08-31   |
+|-------------------------------------------------|--------------|--------------|
+| 2024/2025 (2023/2024)                           | 2 446        | 1 627 820    |
+| 2025/2026 (2024/2025)                           | 20 380       | 2 472 239    |
+| 2026/2027 (2025/2026)                           | 599 967      | 683 519      |
+| 2027/2028 eller senare (2026/2027 eller senare) | 2 830 665    | 556 468      |
+| Summa räntebärande skulder                      | 5 896 927    | 5 340 047    |
+
+Koncernens exponering, avseende lån, för ränteförändringar och kontraktsenliga datum när det gäller omförhandlingar av räntor är följande:
+
+|                                  | Externa kreditgivare   | Externa kreditgivare   | Total portfölj   | Total portfölj   |
+|----------------------------------|------------------------|------------------------|------------------|------------------|
+| Ränteförfallostruktur 2024-12-31 | Volym1                 | Ränta, %²              | Volym            | Ränta, %         |
+| Inom 1 år                        | 2 446 915              | 6,9                    | 2 446 915        | 6,9              |
+| 1-2 år                           | 20 380                 | 2,1                    | 20 380           | 2,1              |
+| 2-3 år                           | 599 967                | 2,7                    | 599 967          | 2,7              |
+| 3-4 år                           | 209 000                | 3,6                    | 209 000          | 3,6              |
+| 4-5 år                           | 1 327 500              | 2,8                    | 1 327 500        | 2,8              |
+| > 5 år                           | 1 294 165              | 2,3                    | 1 294 165        | 2,3              |
+| Summa                            | 5 896 927              |                        | 5 896 927        |                  |
+
+Risköversikt
+Strategiska risker
+
+| Hållbarhet                     | - Klimatförändringar kan leda till fysisk påverkan på fastigheterna som kan ge ökade kostnader och kräva större resurser vilket kan påverka Nivikas verksamhet, hyresgäster och leverantörer - Bristande kontroll och uppföljning kan ge en klimatpåverkan i hela värdekedjan och påverka verksamhetens klimatpåverkan negativt                                                                                                                                                                                                                                                                                  |
+|--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Planering och resursallokering | - Omstrateg och affärsplan saknas eller otydlig kan det försvåra möjligheten att uppnå strategiska mål - Fastigheter i Nivikas bestånd kan uppfattas som mindre attraktiva för hyresgäster om Nivika inte förstår hyresgästens behov av exempelvis läge, hyresnivå, storlek eller kvalitet och kan leda till lägre hyresintäkter och högre vakanser - Brist i planering, budgetering, likviditet, organisation eller resurser kan leda till att Nivika inte kan fullfölja strategiska beslut, genomföra projektstart enligt plan eller fullfölja överenskommelser                                                |
+| Fastighetstransaktioner        | - Nivika förvärvar och avyttrar fastigheter i syfte att förädla fastighetsportföljen, om due diligens är bristfällig, dokumentation eller lagefterlevnad saknas kan det leda till ekonomiska konsekvenser eller utökade krav på resurser i form av tid.                                                                                                                                                                                                                                                                                                                                                          |
+| Marknad och makrofaktorer      | - Processer tillsammans med potentiella hyresgäster, leverantörer, kommuner eller länsstyrelser kan vara långdragna och kräva mer tid och resurser än planerat och kan även leda till ökade kostnader och eventuellt förseningar - Konkurrens på lokal fastighetsmarknad kan öka och skulle kunna göra att projekt blir dyrare eller att Nivika inte har möjlighet att växa i de områden där Bolaget vill växa - Omdet blir många aktörer på fastighetsmarknaden kan det leda till att utbudet blir högre än efterfrågan på lokaler och bostäder vilken kan ge högre vakanser och lägre hyresintäkter för Nivika |
+| Kommunikation och relationer   | - OmNivikas kommunikation med intressenter skulle vara otillräcklig och Bolaget därmed inte når ut med sitt budskap och strategi mot ägare och kreditgivare eller om Nivikas policys och riktlinjer är otillräckligt kommunicerade inom Bolaget och därmed inte efterföljs kan det skada Nivikas varumärke och lokala ställning                                                                                                                                                                                                                                                                                  |
+
+| Fastighetsutveckling   | - Nivika utvecklar fastighetsportföljen via renovering, om- och nybyggnation, om projektprocessen är bristfällig, dokumentation brister eller felbedömningar sker kan det leda till ekonomiska konsekvenser eller utökade krav på resurser i form av tid. - OmNivika inte klarar av att fullfölja projekt enligt plan, kan det leda till förlorade intäkter och vite - OmProjekt försenade på grund av kulturskydd, miljöskydd, ändringar i planbestämmelser, överklaganden m.m. - Miljörisker vid förvärv av mark, fastigheter och/eller andra bolag. Kan finnas i verksamheten, bland leverantörerna eller hyresgästernas verksamhet och vara kopplat till ex materialval, radon, föroreningar, upptäcks inte detta vid Due Diligense kan det leda till ökade kostnader   |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Fastighetsförvaltning  | - OmNivika brister i tillsyn, underhåll och förvaltning av sina fastigheter kan det skapa hyresgäster som är missnöjda med sin lokal eller bostad vilket kan skada Nivikas varumärke och lokalställning samt riskera utökad vakans - Vakanser kan uppstå i beståndet vid te x minskning av fysisk handel eller rädsla för lågkonjunktur vilket innebär lägre hyresintäkter och högre vakanser - Hyresgästanpassningar och ombyggnationer av kommersiella lokaler blir inte lönsamma vilket skulle kunna innebära lägre hyresintäkter och högre vakanser - Extremt väder leder till ökade kostnader, ex. översvämningar, ökat snöfall, regn och storm m.m.                                                                                                                   |
+| Uthyrning              | - Nivika gör inte tillräcklig motpartskontroll och därmed riskerar att ta in hyresgäster som inte kan betala. hyresgäster som är stökiga och skapar otrivsel för omgivande hyresgäster kan innebära lägre hyresintäkter och ökad vakans. - Hyresgäster som är missnöjda med sin lokal eller bostad kan skada Nivikas varumärke och lokalställning samt riskera utökad vakans - Hyresgästanpassningar och ombyggnationer av kommersiella lokaler blir inte lönsamma vilket skulle kunna innebära lägre hyresintäkter och högre vakanser                                                                                                                                                                                                                                      |
+| Medarbetare            | - Att inte kunna attrahera och behålla nyckelpersoner eller kompetenta medarbetare eller om den psykosociala påfrestningen eller arbetsbelastningen blir för hög kan det skada Nivikas varumärke och leda till högre kostnader - Bristande efterlevnad av säkerhets- och hälsoföreskrifter kan leda till olycka eller orsaka på person och kan påverka produktivitet och varumärke negativt                                                                                                                                                                                                                                                                                                                                                                                 |
+| IT- och cybersäkerhet  | - Nivika kan råka ut för fel i, eller intrång i dess drift- och serversystem som kan orsaka problem med lagring eller hantering av personuppgifter - Beroende av IT-system i verksamheten kan orsaka ökade kostnader och krav på resurser vid intrång eller problem i drift                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Oförutsedda händelser  | - OmNivika har bristande kontinuitetsplanering kan det leda till att Bolaget förlorar viktigt information och har långsam återhämtningsprocess                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+
+forts. Energi
+
+- Risk !
+
+Kartläggning av energiklasser
+
+Energideklarationen visar hur mycket energi som en fastighet förbrukar. Förutom energiklass finns nedbruten information som kan vara ett underlag till förbättringsåtgärder och energioptimering för att minska byggnadens energianvändning. En energideklaration är ett myndighetskrav, alla hyresfastigheter, bostäder eller kommersiella lokaler, ska vara energideklarerade, vissa byggnader är dock undantagna från krav om energideklaration.
+
+Energiklasserna graderas i en skala från A till G, där A står för den lägsta energianvändning en byggnad kan ha, och G för den högsta. En byggnad som har en energianvändning som uppfyller kraven som ställs på ett nybyggt hus får klass C eller bättre. Energiklassen är viktig för kartläggningen av hur bolagets ekonomiska aktiviteter står sig i förhållande till taxonomins tröskelvärden och ligger till grund för hur stor andel av Nivikas lån som är hållbara. Nivika arbetar löpande med energiförbättrande åtgärder för att kunna påvisa en förbättrad energiklass över tid. Nivika har inventerat hela fastighetsportföljen och fastigheter med energiklass F och G har fått en plan för energiförbättring.
+
+1 Magasinet Fastighetsvärlden nr 7/2024
+
+<!-- image -->
+
+Energiklasser
+
+Baserat på fastighetsvärde är endast 6 procent av Nivikas fastighetsportfölj fastigheter med energiklass F &amp; G och 30 procent fastigheter med energiklass A &amp; B. 84 procent av Nivikas fastighetsvärde har en giltig energideklaration och Nivika har för avsikt att över tid energideklarera samtliga fastigheter. Se fördelningen av energiklasser i Nivikas fastighetsbestånd i tabellen till vänster.
+
+UPPFÖLJNING GRÖNT RAMVERK
+
+Hösten 2020 gav Nivika ut sitt första Grönt Ramverk i samband med att bolagets första gröna obligation emitterades. Som ett led i det finansiella hållbarhetsarbetet har Nivika under hösten 2024 upprättat ett nytt grönt ramverk, som granskats och godkänts av Sustainanalytics.
+
+Det uppdaterade gröna ramverket linjerar till stora delar med EUtaxonomin och innebär att grön finansiering kan användas till projekt och tillgångar som är gröna, såsom gröna och energieffektiva byggnader, men kan också vara investeringar i omfattande energieffektiviseringsåtgärder.
+
+Hållbarhetsnot EU-taxonomi Kärnenergi- och fossilgasrelaterade verksamheter
+
+| Kärnenergi- och fossilgasrelaterade verksamheter                                                                                                                                                                                                                                                                              | Ja/Nej   |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| Kärnenergirelaterade verksamheter                                                                                                                                                                                                                                                                                             |          |
+| 1. Företaget utför, finansierar eller är exponerat mot forskning, utveckling, demonstration och utbyggnad av innovativa elproduktionsanläggningar som producerar energi från kärnenergiprocesser med minimalt avfall från bränslecykeln.                                                                                      | Nej      |
+| 2. Företaget utför, finansierar eller är exponerat mot uppförande och säker drift av nya kärntekniska anläggningar för produktion av el eller processvärme, inbegripet för fjärrvärme eller industriella processer, såsom vätgasproduktion, samt för säkerhetsuppgraderingar av dessa med hjälp av bästa tillgängliga teknik. | Nej      |
+| 3. Företaget utför, finansierar eller är exponerat mot säker drift av befintliga kärntekniska anläggningar som producerar el eller processvärme, inbegripet för fjärrvärme eller industriella processer, såsom vätgasproduktion från kärnenergi, samt säkerhetsuppgraderingar av dessa.                                       | Nej      |
+
+Fossilgasrelaterade verksamheter
+
+| 4. Företaget utför, finansierar eller är exponerat mot uppförande eller drift av elproduktionsanläggningar som producerar el med hjälp av fossila gasformiga bränslen.                           | Nej   |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| 5. Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av anläggningar för kombinerad produktion av värme/kyla och el med hjälp av fossila gasformiga bränslen. | Nej   |
+| 6. Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av värmeproduktionsanläggningar som producerar värme/kyla med hjälp av fossila gasformiga bränslen.      | Nej   |
+
+CSRD - nya redovisningskrav
+
+Nivika omfattas av EU:s nya hållbarhetsdirektiv CSRD (Corporate Sustainability Reporting Directive) från och med räkenskapsåret 2025. CSRD innebär att Nivika måste rapportera enligt standarden ESRS (European Sustainability Reporting Standard). Under våren 2024 genomförde Nivika sin första Dubbla Väsentlighetsanalys i enlighet med ESRS. Fortsatt utveckling av arbetet för att göra en fullständig redovisning enligt CSRD kommer att fortlöpa under 2025 och bevakar utvecklingen av EU:s Omnibusförslag.
+
+Nivika har påbörjat och kommer fortsätta att utveckla en strukturerad process för rapportering av hållbarhetsdata. Det innebär mer regelbundna möten där alla involverade parter får information vad det nya direktivet innebär och vilka omställningar som kommer att behöva genomgås. Hållbarhetsavdelningen kommer att fortsätta driva på arbetet med omställningen till ESRS och de olika projekt som rapporteringen medför.
+
+Uppdaterat grönt ramverk
+
+Under fjärde kvartalet 2024 uppdaterades ramverket för grön finansiering. Det nya ramverket är anpassat till EU-taxonomins kriterier för energieffektivitet i befintligt bestånd och ombyggnadsprojekt, med tillägg för riskbedömning och tröskelvärden för koldioxidutsläpp vid nybyggnation.
+
+Hållbarhetsrapporten upprättas separat i enlighet med årsredovisningslagen och återfinns på sidorna 32-62 i årsredovisningen, fristående från den finansiella rapporten.

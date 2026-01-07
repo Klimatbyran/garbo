@@ -9,10 +9,12 @@ const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
 })
 
+
 const ask = async (messages: ChatCompletionMessageParam[], options?: RequestOptions & {response_format?: ResponseFormatJSONSchema}) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
+    max_completion_tokens: 16384,
     temperature: 0.1,
     stream: false,
     ...options,
@@ -42,17 +44,19 @@ const askStream = async (
   options: RequestOptions  & {onParagraph?: (response: string, paragraph: string) => void} & {response_format?: ResponseFormatJSONSchema}
 ) => {
   const { stream: _, ...safeOpenAIOptions } = options
-  const stream:  Stream<ChatCompletionChunk> = await openai.chat.completions.create({
+
+  const config = {
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o-2024-08-06',
     temperature: 0.1,
     stream: true,
-    max_tokens: 4096,
-    response_format: {
-      type: 'json_object',
-    },
+    max_tokens: 16384,
+    response_format: options.response_format,
     ...safeOpenAIOptions,
-  }  satisfies ChatCompletionCreateParamsStreaming);
+  } satisfies ChatCompletionCreateParamsStreaming;
+
+  const stream:  Stream<ChatCompletionChunk> = await openai.chat.completions.create(config);
+
 
   let response = ''
   let paragraph = ''

@@ -4,7 +4,6 @@ import { DiscordQueue } from './lib/DiscordQueue'
 export const QUEUE_NAMES = {
   PARSE_PDF: 'parsePdf',
   DOCLING_PARSE_PDF: 'doclingParsePDF',
-  NLM_EXTRACT_TABLES: 'nlmExtractTables',
   INDEX_MARKDOWN: 'indexMarkdown',
   PRECHECK: 'precheck',
   GUESS_WIKIDATA: 'guessWikidata',
@@ -42,7 +41,7 @@ export const queues = {
   parsePdf: new DiscordQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new DiscordQueue(QUEUE_NAMES.INDEX_MARKDOWN),
-  nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
+  // nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
   precheck: new DiscordQueue(QUEUE_NAMES.PRECHECK),
   checkDB: new DiscordQueue(QUEUE_NAMES.CHECK_DB),
   diffBaseYear: new DiscordQueue(QUEUE_NAMES.DIFF_BASE_YEAR),

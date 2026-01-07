@@ -40,6 +40,8 @@ model Company {
 
   /// Tags to help categorize and filter companies
   tags String[]
+
+  logoUrl String?
 }
 
 /// Explicitly stated base year for comparable data
@@ -237,7 +239,7 @@ model Scope3Category {
   // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
   total    Float?
   scope3Id String
-  unit     String
+  unit     String?
 
   scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
   metadata Metadata[]

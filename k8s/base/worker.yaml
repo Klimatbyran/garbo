@@ -24,6 +24,11 @@ spec:
           env:
             - name: WORKER
               value: 'true'
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NODE_ENV
             - name: DISCORD_APPLICATION_ID
               valueFrom:
                 secretKeyRef:
@@ -39,6 +44,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DISCORD_TOKEN
+            - name: DISCORD_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DISCORD_CHANNEL_ID
             - name: API_TOKENS
               valueFrom:
                 secretKeyRef:
@@ -46,6 +56,11 @@ spec:
                   key: API_TOKENS
             - name: API_BASE_URL
               value: http://garbo/api
+            - name: API_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: API_PORT
             - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -56,15 +71,41 @@ spec:
                 secretKeyRef:
                   name: env
                   key: OPENAI_ORG_ID
+            - name: OPENAPI_PREFIX
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: OPENAPI_PREFIX
+            - name: CACHE_MAX_AGE
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CACHE_MAX_AGE
             # - name: CHROMA_TOKEN
             #   valueFrom:
             #     secretKeyRef:
             #       name: chromadb-auth
             #       key: token
             - name: CHROMA_HOST
-              value: http://chromadb:8000
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_HOST
+            - name: CHROMA_CHUNK_SIZE
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: CHROMA_CHUNK_SIZE
             - name: REDIS_HOST
-              value: redis-master
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: REDIS_PORT
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -75,10 +116,16 @@ spec:
                 secretKeyRef:
                   name: postgresql
                   key: postgres-password
-            - name: NLM_INGESTOR_URL
-              value: http://nlm:5001
             - name: DOCLING_URL
-              value: https://api.berget.ai/v1/ocr
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_URL
+            - name: NLM_INGESTOR_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: NLM_INGESTOR_URL
             - name: BERGET_AI_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -89,6 +136,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: GITHUB_CLIENT_ID
+            - name: GITHUB_ORG
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GITHUB_ORG
             - name: GITHUB_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -109,6 +161,16 @@ spec:
                 secretKeyRef:
                   name: env
                   key: API_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_SECRET
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: JWT_EXPIRES_IN
             - name: WIKI_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -119,6 +181,16 @@ spec:
                 secretKeyRef:
                   name: env
                   key: WIKI_USERNAME
+            - name: GOOGLE_SCREENSHOT_BUCKET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: GOOGLE_SCREENSHOT_BUCKET_KEY
+            - name: DOCLING_USE_LOCAL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: DOCLING_USE_LOCAL
           imagePullPolicy: Always
 ---
 apiVersion: autoscaling/v2
