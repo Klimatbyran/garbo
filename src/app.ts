@@ -30,15 +30,19 @@ import { companyUpdateRoutes } from './api/routes/company.update'
 import { companyDeleteRoutes } from './api/routes/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { municipalityReadRoutes } from './api/routes/municipality.read'
+import { regionalReadRoutes } from './api/routes/regional.read'
 import { companyBaseYearRoutes } from './api/routes/company.baseYear'
 import { authentificationRoutes } from './api/routes/auth'
 import { companyExportRoutes } from './api/routes/company.export'
 import { municipalityExportRoutes } from './api/routes/municipality.export'
+import { regionalExportRoutes } from './api/routes/regional.export'
 import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/industryGics.read'
+import { screenshotsReadRoutes } from './api/routes/screenshots.read';
+import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
 
 async function startApp() {
   const app = Fastify({
@@ -125,10 +129,17 @@ async function publicContext(app: FastifyInstance) {
   app.register(companyExportRoutes, { prefix: 'api/companies' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
   app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
+  app.register(regionalReadRoutes, { prefix: 'api/regions' })
+  app.register(regionalExportRoutes, { prefix: 'api/regions' })
   app.register(companyPublicReportingPeriodsRoutes, {
     prefix: 'api/reporting-period',
   })
   app.register(mailingListDownloadsRoute, { prefix: 'api' })
+  app.register(screenshotsReadRoutes, { prefix: 'api/screenshots' });
+
+  app.register(newsletterArchiveDownloadsRoute, {
+    prefix: 'api/newsletters',
+  })
 }
 
 /**

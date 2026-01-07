@@ -20,10 +20,10 @@ const sendCompanyLink = new DiscordWorker<SendCompanyLinkJob>(
 
     if (existingCompany) {
       await job.sendMessage(
-        `✅ Företaget har uppdaterats! Se resultatet här: ${url}`
+        `✅ The company has been updated! See the result here: ${url}`
       )
     } else {
-      await job.sendMessage(`✅ Se resultatet här: ${url}`)
+      await job.sendMessage(`✅ See the result here: ${url}`)
     }
 
     return { url }

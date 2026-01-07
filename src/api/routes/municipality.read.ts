@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-
 import { getTags } from '../../config/openapi'
 import { MunicipalityNameParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
@@ -12,6 +11,20 @@ import {
 } from '../schemas'
 import { municipalityService } from '../services/municipalityService'
 import { redisCache } from '../..'
+import fs from 'fs'
+import apiConfig from '../../config/api'
+
+const MUNICIPALITIES_CACHE_KEY = 'municipalities:all'
+const MUNICIPALITIES_TIMESTAMP_KEY = 'municipalities:timestamp'
+
+const getDataFileTimestamp = (): number => {
+  try {
+    const stats = fs.statSync(apiConfig.municipalityDataPath)
+    return stats.mtimeMs
+  } catch (_) {
+    return 0
+  }
+}
 
 export async function municipalityReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -22,7 +35,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all municipalities',
         description:
-          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more.',
+          'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Municipalities'),
 
         response: {
@@ -31,23 +44,35 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       },
     },
     async (request, reply) => {
-      const cacheKey = 'municipalities:data'
-      const clientEtag = request.headers['if-none-match']
+      const currentTimestamp = getDataFileTimestamp()
+      const etagValue = `"${currentTimestamp}"`
+      const ifNoneMatch = request.headers['if-none-match']
 
-      const eTag = 'static-etag-for-municipalities'
-
-      if (clientEtag === eTag) return reply.code(304).send()
-
-      let municipalities = await redisCache.get(cacheKey)
-
-      if (!municipalities) {
-        municipalities = municipalityService.getMunicipalities()
-        await redisCache.set(cacheKey, JSON.stringify(municipalities))
+      if (ifNoneMatch === etagValue) {
+        return reply.code(304).send()
       }
 
-      reply.header('ETag', eTag)
-      reply.send(municipalities)
-    }
+      const cachedMunicipalities = await redisCache.get(
+        MUNICIPALITIES_CACHE_KEY,
+      )
+
+      if (cachedMunicipalities) {
+        return reply.header('ETag', etagValue).send(cachedMunicipalities)
+      }
+
+      const municipalities = await municipalityService.getMunicipalities()
+
+      await redisCache.set(
+        MUNICIPALITIES_CACHE_KEY,
+        JSON.stringify(municipalities),
+      )
+      await redisCache.set(
+        MUNICIPALITIES_TIMESTAMP_KEY,
+        currentTimestamp.toString(),
+      )
+
+      reply.header('ETag', etagValue).send(municipalities)
+    },
   )
 
   app.get(
@@ -67,7 +92,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply
+      reply,
     ) => {
       const { name } = request.params
       const municipality = municipalityService.getMunicipality(name)
@@ -80,7 +105,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(municipality)
-    }
+    },
   )
 
   app.get(
@@ -100,7 +125,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply
+      reply,
     ) => {
       const { name } = request.params
       const sectorEmissions =
@@ -114,6 +139,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    }
+    },
   )
 }

@@ -15,12 +15,24 @@ companies.json
 *.pdf
 *.code-workspace
 
-
+logs/*
 # ignore secrets
 *secret*
 
 # Ignore accuracy results
-output/accuracy-results.json
-output/accuracy-results*.csv
+output/accuracy/*
 public/exports
 
+.claude
+
+# Ignore test files input markdown
+src/jobs/*/tests/results/*
+src/jobs/*/tests/comparison_results/*
+
+# Ignore comparison results
+src/jobs/*/tests/comparison_results/*
+
+test.md
+
+
+src/jobs/promptTestingFramework/src/*

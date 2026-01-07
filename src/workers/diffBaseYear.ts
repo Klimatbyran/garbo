@@ -1,45 +1,57 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
-import { defaultMetadata, diffChanges } from '../lib/saveUtils'
+import apiConfig from '../config/api'
+import { ChangeDescription, DiffJob, DiffWorker } from '../lib/DiffWorker'
+import { diffChanges } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
-import saveToAPI from './saveToAPI'
 
-export class DiffBaseYearJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffBaseYearJob extends DiffJob {
+  declare data: DiffJob['data'] & {
     companyName: string
     existingCompany: any
-    wikidata: { node: string }
     baseYear?: number
   }
 }
 
-const diffBaseYear = new DiscordWorker<DiffBaseYearJob>(
+const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
   QUEUE_NAMES.DIFF_BASE_YEAR,
   async (job) => {
-    const { url, companyName, existingCompany, baseYear } = job.data
-    const metadata = defaultMetadata(url)
+    const { companyName, existingCompany, baseYear, wikidata } = job.data
 
-    const body = {
-      baseYear,
-      metadata,
+    if (job.isDataApproved()) {
+      await job.enqueueSaveToAPI(
+        'baseYear',
+        companyName,
+        wikidata,
+        job.getApprovedBody()
+      )
+      return
     }
 
-    const { diff, requiresApproval } = await diffChanges({
-      existingCompany,
-      before: existingCompany?.baseYear,
-      after: { baseYear },
-    })
-
-    if (diff) {
-      await saveToAPI.queue.add(companyName + ' base-year', {
-        ...job.data,
-        body,
-        diff,
-        requiresApproval,
-        apiSubEndpoint: 'base-year',
+    if (!job.hasApproval()) {
+      const { diff, requiresApproval } = await diffChanges({
+        existingCompany,
+        before: existingCompany?.baseYear,
+        after: { baseYear },
       })
+
+      const change: ChangeDescription = {
+        type: 'baseYear',
+        oldValue: { baseYear: existingCompany.baseYear.year },
+        newValue: { baseYear: baseYear },
+      }
+
+      await job.handleDiff(
+        'baseYear',
+        diff,
+        change,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
+      )
     }
 
-    return { body, diff, requiresApproval }
+    if (job.hasApproval() && !job.isDataApproved()) {
+      try {
+        await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
+      } catch(_err) {}      
+    }
   }
 )
 

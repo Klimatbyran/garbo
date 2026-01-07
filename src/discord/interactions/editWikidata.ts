@@ -11,8 +11,8 @@ import config from '../../config/discord'
 
 export class EditWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    wikidata: Wikidata
-    overrideWikidataId: string
+    wikidata?: Wikidata
+    overrideWikidataId?: string
   }
 }
 

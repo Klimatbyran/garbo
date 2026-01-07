@@ -1,0 +1,895 @@
+## Page 30:
+                ```markdown
+| EMISSION INTENSITY (SCOPE 1+2), CO₂e, kg/m² |
+|----------------------------------------------|
+| Year           | kg/m²                      |
+|----------------|----------------------------|
+| 2019           | 12                         |
+| 2020           | 9                          |
+| 2021           | 3                          |
+| 2022           | 9                          |
+| 2023           | 3                          |
+| 2024           | n.a.                       |
+| TARGET 2030    | 6.51 kg/m²                 |
+```
+
+### Metrics and targets
+
+Targets related to climate change mitigation and adaptation Scandic has set a clear goal to reduce its scope 1 and scope 2 carbon emissions by 50 percent per square meter (CO2e/m²) by 2030 compared with the base year 2019.
+This means that emis sions per square meter must be decreased from 13.02 kg CO2e/m² in 2019 to 6.51 kg CO2e/m² by 2030.
+During 2024 Scandic reduced emissions by 30 percent compared with 2019.
+
+The decrease can be partly explained by the increased use of renewable electricity and district heating compared with the base year 2019.
+Together with reduced energy and water consumption this has led to lower carbon emissions.
+See the table below.
+For more information on gross greenhouse gas emissions within scope 1 2 and 3 as well as total greenhouse gas emissions see page 49.
+Targets related to climate change mitigation and adaptation 2024 2023
+
+## Page 49:
+                ```markdown
+| Energy consumption and mix, MWh |   2024   |   2023   |   2022   |   2021   |   2029   |
+|----------------------------------|----------|----------|----------|----------|----------|
+| 1 Total consumption from coal and coal products                     |     0.0 |     n.a. |     n.a. |     n.a. |     n.a. |
+| 2 Fuel consumption from crude oil and petroleum products               |  106.6  |  404.2  |     n.a. |     n.a. |     n.a. |
+| 3 Fuel consumption from natural gas                                    | 3580.8  |  647.9  |     n.a. |     n.a. |     n.a. |
+| 4 Fuel consumption from other fossil sources                           |  387.1  |  786.1  |     n.a. |     n.a. |     n.a. |
+| 5 Consumption of purchased or acquired electricity, heat, steam and cooling from fossil sources | 278,057.6 | 289,736.3 |     n.a. |     n.a. |     n.a. |
+| 6 Total fossil energy consumption (sum of rows 1-5)                  | 282,132.1 | 297,404.6 |     n.a. |     n.a. |     n.a. |
+| Share of fossil sources in total energy consumption                    |   45.7% |   46.3% |     n.a. |     n.a. |     n.a. |
+| Share of nuclear energy sources in total energy consumption            |     0.0 |     0.0 |     n.a. |     n.a. |     n.a. |
+| 8 Fuel Consumption from renewable energy sources, including biomass    |  366.0  |  27.2   |     n.a. |     n.a. |     n.a. |
+| 9 Consumption of purchased or acquired electricity, heat, steam and cooling from fossil sources | 334,636.1 | 344,974.2 |     n.a. |     n.a. |     n.a. |
+| 10 Consumption of self-produced renewable non-fuel energy              |  362.9  |     n.a. |     n.a. |     n.a. |     n.a. |
+| 11 Total consumption of renewable energy (sum of rows 8-10)          | 335,364.9 | 345,001.4 |     n.a. |     n.a. |     n.a. |
+| Share of renewable sources in total energy consumption                 |   54.3% |   53.7% |     n.a. |     n.a. |     n.a. |
+| Total energy consumption (sum of rows 6 and 11)                       | 617,497.1 | 642,406.0 |     n.a. |     n.a. |     n.a. |
+
+| Gross greenhouse gas emissions within scope 1, 2 and 3 and total greenhouse gas emissions, tonnes |   2024   |   2023   |   2022   |   2021   |   2019   |
+|-------------------------------------------------------------------------------------------------------|----------|----------|----------|----------|----------|
+| Scope 1                                                                                       |          |          |          |          |          |
+| Propane                                                                                       |  205.5   |  210.9   |  214.4   |  175.5   |  169.4   |
+| Gas for heating                                                                                |  341.2   |  314.3   |  679.6   |  1,102.1 |  654.5   |
+| Natural gas                                                                                   |  138.2   |  135.4   |  137.6   |  101.9   |  112.9   |
+| Gasoline                                                                                      |  15.4    |  28.6    |  19.4    |  17.0    |  54.6    |
+| Heating oil                                                                                   |   n.a.   |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| Refrigerants                                                                                   |  2,865.1 |  1,805.8 |  1,893.7 |  1,097.0 |  393.8   |
+| Total                                                                                         |  3,591.1 |  2,538.8 |  2,979.1 |  2,495.9 |  1,618.4 |
+
+| Scope 2                                                                                       |          |          |          |          |          |
+| Electricity                                                                                    |  147.6   |  417.4   |   n.a.   |  279.8   |  911.5   |
+| District heating                                                                                |  20,698.4 | 27,484.0 | 24,373.6 | 25,143.2 | 23,060.9 |
+| District cooling                                                                                |  107.2   |  109.8   |  145.1   |  101.0   |  156.4   |
+| Total                                                                                         |  22,282.4 | 31,768.6 | 24,518.7 | 25,244.3 | 34,590.4 |
+
+| Scope 3 Business travel                                                                       |          |          |          |          |          |
+| Air                                                                                         |  416.3   |  450.4   |  302.5   |  83.4    |  143.7   |
+| Train                                                                                       |  140.5   |   3.0    |   0.0    |   0.0    |   0.0    |
+| Car                                                                                         |  317.7   |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| Taxi                                                                                        |  78.7    |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| Bus                                                                                         |  169.6   |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| Total                                                                                         |  1,122.9 |  453.4   |  302.5   |  83.4    |  666.6   |
+
+| Franchise hotels                                                                              |          |          |          |          |          |
+| Electricity                                                                                    |  6,588.7 |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| District heating                                                                                |  110.8   |  115.0   |  156.1   |  243.3   |  248.4   |
+| District cooling                                                                                |   n.a.   |   n.a.   |   n.a.   |   n.a.   |   n.a.   |
+| Total                                                                                         |  6,699.5 |  115.0   |  156.1   |  243.3   |  364.7   |
+```
+
+##### Scope 3
+
+⦁ Improved metrics Scandic has further developed its methods for mapping and analyzing emissions related to purchases enabling more detailed and accurate tracking of scope 3 emissions.
+
+⦁ Identification of high priority measures The most effective measures for reducing scope 3 emissions have been mapped to enable targeted improvements.
+
+⦁ Mapping of emissions from forests land and agriculture As a major purchaser of food Scandic is working to gain a deeper understanding of and manage emissions associated with raw material production and the supply chain.
+
+⦁ Science based targets for scope 3 During 2025 Scandic will focus on establishing science based targets for scope 3.
+
+### REdUcEd ENVIRONMENTAL IMPAcT PER GUEST NIGHT, %
+
+Reduced environmental impact 1996-2024 Energy -37% CO2e -60% Water -36%
+
+100 80 60 40 20 0 -20 -40 -60 -80 -100 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014 2016 2018 2020 2022 2024 kg/m2
+
+100
+
+80
+
+60
+
+40
+
+20
+
+0
+
+-20
+
+-40
+
+-60
+
+-80
+
+| -100 |  |  | 202420222020201820162014201220102008200620042002200019981996 |
+| --- | --- | --- | --- |
+|  | Energy consumption kWh/guest night | CO2e kg/guest night | Water consumption liters/guest night
+![table image]({page: 30, x: 267}, {y: 525, {width: 335}, {height: 7})
+
+Deviations in data from 2020-2021 are due to the Covid 19 pandemic.
+
+|  |
+|  |
+| More information on how Scandic works to minimize the environmental impact of its hotel operations by using ecolabeled products that support biodiversity responsible water con sumption circular economy practices and waste management can be found on pages 47-54. | equivalents per square meter of surface com pared with the base year 2019 (Scope 1 and 2). To achieve this goal Scandic has clear action plans that primarily focus on energy efficiency and using green energy such as fossil free district heating and renewable electricity. Increasing awareness and changing behavior among team members guests partners and property owners can help Scandic reduce emissions further. As part of the effort to reduce climate emissions Scandic also analyzes all indirect emissions in the value chain and has identified necessary measures to operate with the least environmental impact possible. Emissions and energy
+| When it comes to emissions from the gas oil refrigerants heating cooling and electricity that Scandic uses the road to fossil free operations is mainly dependent on the efforts of district heating companies to reduce their use of fossil energy sources. This is because emissions from | district heating account for the majority of Scandic's CO2 emissions in Scope 1 and 2. To reduce energy consumption Scandic is working to optimize operations and implement energy saving measures such as LED lighting and motion control solutions as well as energy efficient kitchen installations and equipment. Energy consumption per square meter decreased by 3.9 percent between 2024 and the comparison year 2019 which can partly be explained by reduced water consumption improved energy efficiency and monitoring. This together with a larger amount of fossil free district heating and an increased share of renewable electricity has led to reduced carbon dioxide emissions. Compared to the base year 2019 Scandic's carbon dioxide emissions per square meter were reduced by 30 percent. For more information about Scandic's environmental and climate efforts see page 47.
+![table image]({page: 30, x: 456}, {y: 124, {width: 341}, {height: 220})
+
+##### CO2 emissions
+
+Decrease CO2e/m2 by 50% by 2030 compared with the base year 2019 (scope 1 and 2) -30% -9%
+
+Scandic involves relevant stakeholders including team members guests and suppliers in its work to define and implement its climate targets.
+Through continuous dialogue and collection of feedback the company ensures that its targets are both achievable and responsible.
+
+To ensure that the climate goals remain relevant and effective Scandic adjusts its goals and methods as needed in line with the latest scientific research and changes in legislation.
+This flexible and proactive strategy enables long term and sustainable initia tives to reduce the company's climate impact.
+
+### EMISSION INTENSITY (ScOPE 1+2), cO2e, kg/m2
+#### TARGET 2030: 6.51 kg/m2
+
+15
+
+12
+
+9
+
+6
+
+3
+
+
+<!-- PAGE: 31 -->
+
+## Governance
+
+The role of administrative management and supervisory bodies as well as the information and sustainability issues submitted to and addressed by these bodies
+
+Follow up of the most significant sustainability matters is vhandled by the Executive Committee.
+The SISC prepares sustain ability matters and provides recommendations to the Executive Committee which in turn provides recommendations to the Board.
+In 2024 the Board and Executive Committee addressed the following sustainability related issues
+
+⦁ Review and assurance of the implementation of the prioritized actions and goals for 2024.
+
+⦁ Decision on prioritized areas and goals for 2025.
+
+⦁ Updating and approving most of Scandic's policies.
+When external expertise is needed Scandic collaborates with relevant stakeholders to ensure knowledge and expertise on sustainability matters.
+The Board and Executive Committee have conducted CSRD training.
+
+Sustainability management Scandic's sustainability initiatives are based on the sustainability matters that are most material to its business in terms of its impacts risks and opportunities.
+To ensure that sustainability matters are anchored and integrated across the entire company Scandic has a cross functional Sustainability Initiative Steering Committee (SISC).
+The SISC recommends prioritized actions goal setting and a budget for each year which are approved by the Board and Executive Committee.
+In addition the SISC also ensures the overall progress of Scandic's sustainability initiatives.
+Scandic's strategy and sustainability department prepares SISC meetings and supports sustainability initiatives across the entire organiza tion.
+Responsibility for executing sustainability initiatives is dele gated to the respective functions within the organization and the effectiveness of governance is continuously evaluated through performance monitoring.
+The Executive Committee the Audit Committee and the Board receive regular updates on key sustain ability matters and achievement of goals.
+
+For more information see pages 84-87.
+
+Calculations of carbon dioxide emissions within scope 1 2 and 3 are handled by Scandic's central procurement department and strategy and sustainability department.
+All environmental data has been verified through a third party review by Ethos International in accordance with AA1000AS v3.
+
+
+<!-- PAGE: 34 -->
+
+##### Sustainable Procurement Guidelines
+
+Scandic's Sustainable Procurement Guidelines are the theoretical framework that underpins all decisions regarding sustainable procurement within the company.
+The guidelines also provide detailed information on production conditions with specific requirements for energy efficient production and low carbon emissions.
+For more information on sustainable procurement see page 53.
+
+Actions in relation to climate change mitigation and energy Scandic is actively working according to a transition plan focused on energy efficiency and the shift to green renewable energy.
+During 2024 the company focused on the following actions Scope 1 and 2 ⦁ Compliance with sustainability requirements of the Nordic Swan Ecolabel Scandic has ensured that its operations comply with the Nordic Swan Ecolabel's requirements for sustainable hotel operations including targets for energy efficiency and sustainable procurement.
+
+⦁ Increased purchases of fossil free district heating and renewable electricity To reduce emissions within scope 1 and 2 a larger share of the company's energy consumption was shifted to renewable energy sources.
+
+⦁ Development of a new 5 year plan for energy efficiency A sustainability fund was established to finance energy effi ciency measures.
+At the same time property management and work routines related to energy consumption are being strength ened.
+During 2025 the company will evaluate two different energy management models to identify the most effective strategy for optimizing energy use at its hotels.
+
+⦁ Overview of climate targets Scandic has begun work to revise scope 1 and 2 targets in line with the latest climate science.
+
+##### Code of Conduct
+
+The Code of Conduct includes a commitment to minimizing environmental impact continuously reducing greenhouse gas emissions and decreasing energy consumption.
+For more information see page 55.
+
+Scandic has an established goal to reduce carbon dioxide emissions (measured in CO₂ equivalents) by 50 percent per square meter of space by 2030 compared with 2019.
+This target includes emissions in Scopes 1 and 2.
+In 2024 Scandic achieved a 30 percent reduction in CO₂ emissions per square meter of space compared to 2019.
+
+To achieve this goal Scandic follows a clear transition plan focused on mitigating climate change through energy efficiency and increased use of renewable energy including fossil free district heating and renewable electricity.
+Energy efficiency contributes to reduced resource consumption and cost savings.
+Scandic systemat ically works through an environmental management system where the criteria for Nordic Swan Ecolabel certification set limits for energy and water usage as well as requirements for sustainable procurement for all hotels.
+This holistic approach strengthens Scandic's competitiveness while also reducing its climate impact.
+
+Material impacts risks and opportunities and their interaction with strategy and business model
+
+Mitigation of climate change and energy Scandic's hotel operations and value chain have a climate impact.
+To minimize this impact Scandic actively follows a transition plan that includes measures for energy efficiency and increasing the use of renewable energy.
+
+######## Board and Executive Committee
+
+Ultimately Scandic's Board is responsible for its sustainability strategy.
+The Board's Audit Committee is further responsible for reviewing and ensuring in accordance with its instructions that there is sufficient and satisfactory internal control of sustainability reporting.
+
+Reporting errors in prior periods In 2024 Scandic made minor adjustments to its carbon emissions calculation methodology.
+In accordance with the GHG Protocol emissions from franchisees are now reported under Scope 3 instead of Scope 1 and 2 as previously.
+Energy data has also been updated to now exclude franchisees.
+To ensure comparability historical data has also been adjusted to reflect this change.
+
+In conducting the double materiality analysis which forms the basis for the sustainability reporting Scandic's upstream and downstream value chain was considered.
+
+Disclosures in relation to specific circumstances
+
+Value chain estimation and sources of estimation and outcome uncertainty Emissions data is calculated in accordance with the Greenhouse Gas (GHG) Protocol based on consumption data and supplier sta tistics.
+Scandic currently only reports parts of scope 3 but is con stantly working to improve the quality of its carbon calculations.
+This work includes increased use of primary data such as weight based data as well as an expansion of the categories reported within scope 3.
+The aim is to enhance the accuracy of Scandic's published emissions statistics and more effectively measure the impact of the implemented emission reduction measures.
+
+### Strategy
+
+Transition plan for climate change mitigation Climate change poses potential risks for Scandic's operations including increased energy costs carbon taxes new regulatory requirements water restrictions changing customer behaviors and supply chain disruptions.
+
+Within Scandic's transition plan targets for indirect carbon emissions (Scope 3) are also being established in line with the Paris Agreement and with the approval of the Science Based Targets initiative (SBTi).
+
+Scandic typically leases hotel properties through long term lease agreements.
+If a property has poor energy efficiency or a sub optimal electricity supply this can result in “locked-in” emissions throughout the entire lease period.
+As a hotel operator Scandic has limited opportunities to influence a property's fundamental construction and technical systems which creates challenges in efforts to reduce climate impact.
+To manage this challenge Scandic creates shared incentives and strives to establish a competitive sustainable and responsible collaboration with property owners.
+Scandic's transition plan to limit climate change is an integral part of its sustainability strategy.
+The plan is updated regularly in collaboration with relevant parts of Scandic's operations and the SISC and it is established through approval by both the Executive Committee and the Board.
+
+Policies related to climate change mitigation and adaptation Scandic's Code of Conduct Environmental Policy Supplier Code of Conduct and Guidelines for Sustainable Procurement together serve as guiding policies to reduce the company's negative environmental impact.
+
+##### MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+###### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+
+<!-- PAGE: 49 -->
+Energy consumption and mix MWh
+
+|  | 2024 | 2019 |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 Fuel consumption from coal and coal products | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 2 Fuel consumption from crude oil and petroleum products | 106.6 | 404.2 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 3 Fuel consumption from natural gas | 3,580.8 | 6,477.9 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 4 Fuel consumption from other fossil sources | 387.1 | 786.1 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 5 Consumption of purchased or acquired electricity heat steam and cooling from fossil sources | 278,057.6 | 289,736.3 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 6 Total fossil energy consumption (sum of rows 1-5) | 282,132.1 | 297,404.6 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS |
+| Share of fossil sources in total energy consumption | 45.7% | 46.3% |  |  |  |  |  |  |  |  |  |  |  |  | 
+| Share of nuclear energy sources in total energy consumption | 0 | 0 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| 8 Fuel consumption from renewable energy sources including biomass (including indus trial and municipal waste of biological origin biofuel renewable hydrogen etc.). | 366.0 | 27.2 |  |  |  |  |  |  |  |  |  |  |  |  | 
+| Gross greenhouse gas emissions within scope 1 2 and 3 and total greenhouse gas emissions tonnes |
+|  |  |  |  | 2024 | 2023 | 2022 | 2021 | 2020 2019 SCOPE 1 |  | 2024 | 2023 | 2022 | 2021 | 2020 | 2019
+|  |  |  | Propane | 205.5 | 210.9 | 214.4 | 175.5 | 169.4 282.2 |  |  |  |  |  |  | 
+|  |  |  | Gas for heating | 341.2 | 314.3 | 679.6 | 1,102.1 | 1,319.2 654.5 |  |  |  |  |  |  | 
+|  |  |  | Natural gas | 138.2 | 154.1 | 137.6 | 101.9 | 112.9 406.6 |  |  |  |  |  |  | 
+|  |  |  | Biofuel | 15.4 | 24.4 | 28.6 | 19.4 | 17.0 54.6 |  |  |  |  |  |  | 
+|  |  |  | Gasoline | 25.8 | 29.4 | 25.2 | - | - - |  |  |  |  |  |  | 
+|  |  |  | Heating oil | - | - | - | - | -110.3 |  |  |  |  |  |  | 
+|  |  |  | Refriger ants | 2865.1 1805.8 1893.7 1097.0 |  |  |  | -393.8 |  |  |  |  |  |  | 
+|  |  |  | Total | 3,591.1 | 2,538.8 | 2,979.1 | 2,495.9 | 1,618.4 1,901.9 |  |  |  |  |  |  | 
+| SCOPE 2 |
+|  |  |  | Electricity | 1476.8 | 4174.8 | - | - | 279.8 911.5 |  |  |  |  |  |  | 
+|  |  |  | District heating | 20,698.4 | 27,484.0 | 24,373.6 | 25,143.3 | 22,852.2 33,060.9 |  |  |  |  |  |  | 
+|  |  |  | District cooling | 107.2 | 109.8 | 145.1 | 101.0 | 156.4 617.9 |  |  |  |  |  |  | 
+|  |  |  | Total | 22,282.4 | 31,768.6 | 24,518.7 | 25,244.3 | 23,288.4 34,590.4 |  |  |  |  |  |  | 
+| MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS |
+| GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION |
+| SCOPE 3 |
+| Business travel |
+|  |  |  |  |  |  |  |  |  | Air | 416.3 | 450.4 | 302.5 | 83.4 | 143.7 | 666.6
+|  |  |  |  |  |  |  |  |  | Train | 140.5 | 3.0 | 0.4 | 0.0 | 0.0 | 0.0
+|  |  |  |  |  |  |  |  |  | Car | 317.7 | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Taxi | 78.7 | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Bus | 169.6 | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Total | 1,122.9 | 453.4 | 302.9 | 83.4 | 143.7 | 666.6
+| Franchise hotels |
+|  |  |  |  |  |  |  |  |  | Propane | 50.3 | 42.6 | 24.2 | 36.2 | 32.4 | 54.0
+|  |  |  |  |  |  |  |  |  | Gas for heating | - | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Natural gas | - | - | - | 54.2 | 140.7 | 245.3
+|  |  |  |  |  |  |  |  |  | Biofuel | - | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Gasoline | 7.7 | 6.4 | 6.7 | - | - | -
+|  |  |  |  |  |  |  |  |  | Heating oil | 0.0 | 0.0 | 0.0 | - | - | -
+|  |  |  |  |  |  |  |  |  | Refrigerants | 44.3 | 67.2 | 119.8 | 17.3 | - | -
+|  |  |  |  |  |  |  |  |  | Total | 102.3 | 116.2 | 150.7 | 107.7 | 173.0 | 299.4
+| Franchise hotels |
+|  |  |  |  |  |  |  |  |  | Electricity | 6,588.7 | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | District heating | 110.8 | 115.0 | 156.1 | 243.3 | 248.4 | 364.7
+|  |  |  |  |  |  |  |  |  | District cooling | - | - | - | - | - | -
+|  |  |  |  |  |  |  |  |  | Total | 6,699.5 | 115.0 | 156.1 | 243.3 | 248.4 | 364.7
+![table image]({page: 49, x: 446}, {y: 94, {width: 232}, {height: 7})
+
+| 9 Consumption of purchased or acquired electricity heat steam and cooling from fossil sources | 334,636.1 | 344,974.2 |
+| --- | --- | --- |
+| 10 Consumption of self produced renewable non fuel energy | 362.9 | -
+| 11 Total consumption of renewable energy (sum of rows 8-10) | 335,364.9 | 345,001.4
+| Share of renewable sources in total energy consumption | 54.3% | 53.7%
+| Total energy consumption (sum of rows 6 7 and 11) | 617,497.1 | 642,406.0
+![table image]({page: 49, x: 266}, {y: 305, {width: 232}, {height: 17})
+
+Energy usage per square meter decreased by 3.9 percent between 2024 and the base year 2019 which can be partly explained by reduced water consumption better energy efficiency and improved monitoring.
+Scandic increased the share of renewable energy from 53.7 percent in 2019 to 54.3 percent in 2024.
+
+
+<!-- PAGE: 50 -->
+
+#### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+Changes in preparation or presentation of sustainability information In 2024 Scandic began adapting to ESRS in preparation for reporting the 2025 financial year aligning with the expanded requirements introduced by the implementation of CSRD and its associated reporting standards in the Swedish Annual Accounts Act. Previous reporting under the Global Reporting Initiative (GRI) standards contains similar information and is therefore excluded from this year's report.
+Consequently certain information is presented using different metrics adapted to ESRS.
+
+The sustainability report has been prepared at a consolidated level and the scope is the same as for Scandic's financial report ing.
+In addition certain reporting from Scandic's franchisees is also included (data on water chemicals and waste as well as statistics for Nordic Swan Ecolabel certification).
+
+### THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+
+<!-- PAGE: 67 -->
+
+###### THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+##### EU TAXONOMY – NUcLEAR ENERGY ANd FOSSIL FUEL-RELATEd AcTIVITIES THIS IS SCANDIC
+#### MARKET AND STRATEGY
+#### SUSTAINABLE BUSINESS
+#### SUSTAINABILITY STATEMENTS
+##### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+
+<!-- PAGE: 47 -->
+cLIMATE cHANGE THIS IS SCANDIC MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+
+Impact in value chain Financial impact
+
+| Material sustainability matters | Actual | Potential |
+| --- | --- | --- |
+| Climate change mitigation Upstream and downstream |  | 
+| Energy Own operations |  | 
+![table image]({page: 47, x: 266}, {y: 128, {width: 156}, {height: 7})
+
+Changes in weather patterns could also disrupt supply chains potentially driving up costs.
+At the same time increased demand for sustainable solutions may lead to higher procurement costs as guests and partners place greater demands related to environ mental issues.
+
+Financial opportunities include increased customer satisfaction and a stronger brand position due to Scandic's work to mitigate climate change.
+Moreover investments in energy efficiency can contribute to long term reductions in operating costs and improved profitability.
+
+######## THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS
+######### HIGHLIGHTS 2024
+######### PROUD HERITAGE
+######### STRATEGY FOR
+######### SUSTAINABLE BUSINESS
+######### MEET
+######### EAT
+######### SLEEP
+######### SUSTAINABLE HOTEL OPERATIONS
+######### GOOD CORPORATE CITIZEN
+# SUSTAINABLE HOTEL OPERATIONS
+
+|  | Ambition | According to ISO 14024 the Nordic Swan Ecolabel is a Type 1 ecolabel and one of the world's most credible environmental certifications. It ensures that a product meets all of the environmental requirements of an independent third party the Nordic Ecolabelling Board. Requirements are continually sharpened and developed from a life cycle perspective. These requirements help Scan dic in its work to reduce its use of resources. The chart below illustrates how Scandic has reduced its environmental impact per guest night through constant improvements in hotel operations. |
+| --- | --- | --- |
+| Scandic's ambition is to be a leader in sustain | able hotel operations by constantly minimizing | its environmental and climate impact.
+| Activities and initiatives Nordic Swan Ecolabel for constant improvement |
+| Scandic aims for all hotels to be certified by the Nordic Swan Ecolabel or at a minimum comply with the limit values for energy consumption unsorted waste water consumption and ecola beled chemicals for cleaning internal laundry and washing dishes. All team members at Scandic's hotels also undergo training on the criteria of the Nordic Swan Ecolabel. |
+| SUSTAINABILITY STATEMENT GOVERNANcE ANd AdMINISTRATION FINANcIAL REPORTS | At year end 96 percent of Scandic's hotels were certified. During the year Scandic focused on ensuring that its hotels in Germany and Poland met with the strict environmental requirements which makes Scandic the first hotel company in these countries with hotels certified by the Nordic Swan Ecolabel. | 
+| Climate strategy By 2030 Scandic aims to reduce CO2e emissions by 50 percent measured in carbon dioxide |
+![table image]({page: 30, x: 266}, {y: 124, {width: 168}, {height: 30})
+
+######## MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+######### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+Given this it could be argued that the majority of Scandic's hotel portfolio is not included in the economic activity as Scandic's hotels do not have the opportunity to contribute to the environ mental goal according to the established criteria.
+However accord ing to the FAQs published in draft form by the European Commis sion in November 2024 it was clarified that hotels included in activity 2.1 can be tested for taxonomy alignment regardless of their location.
+Based on this clarification it was assessed that all of Scandic's hotels should still be covered by the economic activity and considered eligible but that the majority are exempt from the investigation of technical screening criteria 1 and 2 regarding com pliance with the taxonomy's environmental goals.
+For the majority of Scandic's hotel portfolio the testing of taxonomy alignment was therefore conducted based on substantial contribution solely according to technical screening criteria 3-5 as well as all techni cal screening criteria to ensure no significant harm to other environmental goals.
+
+#### THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+#### THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+##### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+cONSUMERS ANd ENd USERS
+
+|  | Impact in value chain | Financial impact |
+| --- | --- | --- |
+| Data security and use of guest data Own operations |  |  |  |  |  | 
+| Health safety and security of guests Own operations |  |  |  |  |  | 
+| Non discrimination and accessibility Own operations |  |  |  |  |  | 
+| Responsible marketing Own operations |  |  |  |  |  | 
+![table image]({page: 62, x: 496}, {y: 113, {width: 196}, {height: 7})
+
+###### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+Substantial contribution criteria DNSH criteria (Do No Significant Harm)
+
+#### MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+
+<!-- PAGE: 61 -->
+
+### THIS IS ScANdIc MARKET ANd STRATEGY SUSTAINABLE BUSINESS
+#### HIGHLIGHTS 2024
+#### PROUD HERITAGE
+#### STRATEGY FOR
+#### SUSTAINABLE BUSINESS
+#### MEET
+#### EAT
+#### SLEEP
+#### SUSTAINABLE HOTEL OPERATIONS
+#### GOOD CORPORATE CITIZEN
+### HIGHLIGHTS 2024
+
+During the year Scandic made many strides in sustainability.
+Since 2019 CO2e emissions per square meter have dropped by 30 percent for lower emissions
+
+30% 96%
+
+Scandic partnered with and was certified by InClue Recruitment to strengthen diversity and inclusion in recruitment.
+Read more on page 27
+
+###### Own operations Own operations Own operations
+
+Guest privacy is a crucial factor for Scandic's success.
+Data security breaches such as intrusions leading to the leakage of personal data could not only negatively affect guests but also undermine their trust in Scandic which in turn represents a financial risk.
+
+By creating a hotel experience that promotes health and well being Scandic strives to attract more guests while simultaneously increasing profitability.
+Failure to ensure guests’ health safety and security could have a negative impact on both guests and
+
+Own operations Own operations Own operations
+
+
+<!-- PAGE: 41 -->
+| million SEK | Total | Share of economic activities that are taxonomy eligible % | Share of economic activities that are taxonomy non eligible % | Share of taxonomy eligible activities that are environmentally sustainable % | Share of taxonomy eligible activities that are not environmentally sustainable %1) |
+| --- | --- | --- | --- | --- | --- |
+|  | Scandic.
+| Non discrimination and accessibility | Scandic works to ensure that people with disabilities feel welcome and have their needs met which strengthens Scandic's brand and competitiveness. Accessibility shortcomings on the other hand could have a potential negative impact as they may lead to practical challenges and risk being perceived as discriminatory.
+| Responsible marketing Responsible and strategic marketing can strengthen Scandic's competitiveness. At the same time it inspires guests to make more sustainable choices which |
+| Own operations Own operations Own operations
+| Upstream and downstream Upstream own operations and downstream contributes to a positive impact.
+| members which is the foundation for guest satisfaction and strong financial results.
+| Close and responsible collaboration with suppliers is crucial for competitive procurement.
+| Business conduct Corporate culture Scandic's strong corporate culture contributes to satisfied and engaged team Corruption and bribery Unethical business practices such as corruption and bribery could negatively impact Scandic's operations and society.
+| Collaboration with subcontractors
+| Impact risk and opportunity management
+| Description of the processes to identify and assess material impacts risks and opportunities The double materiality analysis was conducted in accordance with ESRS with the support of external advisors with special expertise in the area. The analysis which was reviewed and approved by Scandic's Executive Committee and Board was carried out in four phases
+| 1. Context analysis and identification of possible sustainability areas for impacts risks and opportunities.
+| 2. Stakeholder dialogues conducted through surveys and interviews.
+| GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+| 3. Evaluation of impacts risks and opportunities
+| 4. Execution and validation.
+| Context analysis and identification of sustainability impacts risks and opportunities Scandic identified potentially material sustainability matters based on previous materiality analyses market and industry reports societal sustainability trends and an overview of relevant legislation and sector specific frameworks as well as the ESRS. The criteria for Nordic Swan Ecolabel certification which maps hotel operations’ impacts risks and opportunities were also used to identify relevant sustainability matters. These sustainability matters were validated with key personnel and external experts before being included in the continued analysis.
+| Stakeholder engagement To gain a deeper understanding of key sustainability matters for Scandic surveys and interviews were conducted. Two types of sur veys were used a shorter version for guests and a more compre hensive survey for other stakeholders. A total of 11 interviews were conducted to identify key sustainability matters assess risks and opportunities and evaluate current practices and communication. The stakeholder groups were selected by Scandic based on their impact on the company. They included guests team members the Executive Committee suppliers property owners corporate clients analysts and owners.
+| Evaluation of impacts risks and opportunities The third phase of the analysis included a workshop with the SISC and other key personnel from Scandic. The purpose of the work shop was to evaluate and assess Scandic's sustainability impact as well as the financial effects of risks and opportunities. The assess ment of impacts financial risks and opportunities was based on severity scope and likelihood. For negative impacts the extent to which damage could be remedied was taken into consideration.
+| Probability was assessed on a five point scale where actual or highly likely effects were rated as "5 = very likely." In assessing the severity and financial impact gross risk was used meaning an evaluation without considering the actions already taken.
+| To determine material sustainability matters the median scores of all evaluated sustainability matters were set as a threshold value. Generally sustainability matters above the median were considered material with two exceptions. The matters “Workers in the value chain Working conditions workers’ rights and equal treatment” and “Affected communities (human trafficking)” fell below the threshold but were still included due to their potential negative impact on human rights and the significance of individual cases for Scandic.
+| Execution and validation External advisors conducted a final validation of the results. A final validation workshop was then held with SISC. The double material ity analysis was approved by the Board and Executive Committee.
+| Learning and development are of significant strategic importance for Scandic both to be well equipped to meet the needs of guests and to attract and retain team members.
+| MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+| GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+| THIS IS SCANDIC MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+| GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+| ENVIRONMENTAL DISCLOSURES
+| TAXONOMY REPORT
+| Pursuant to Article 8 of Regulation (EU) 2020/852 (Taxonomy Regulation)
+| Background
+| In order to achieve the EU's climate goals and to make it easier to identify environmentally sustainable economic activities the EU has introduced what is known as the EU taxonomy. The taxonomy is an EU wide classification system that aims to increase invest ments in sustainable activities within the EU. The EU Taxonomy Regulation is a key component of the European Commission's action plan to redirect capital flows toward a more sustainable economy and an important step toward achieving carbon neutral ity before 2050 in line with the EU's climate goals.
+| 1 and 2 (Annex 1 and 2) related to applicable economic activities. For this reason Scandic's applicable turnover for these years amounted to 0. In June 2023 however the list of applicable activities was expanded. The delegated acts of the EU Taxonomy Regulation along with additional annexes for environmental objectives 3-6. Environmental objective 6 Biodiversity includes activity “2 Accommodation activities” and more specifically “2.1 Hotels holiday camping grounds and similar accommodation” in which Scandic's turnover is included. reporting the original assessment of how the taxonomy works included the requirement that the business must meet all five technical screening criteria for contributing substantially to the specific economic activity. For activity 2.1 technical screening criteria 1 and 2 focus solely on criteria that can be met by hotels located in or near protected areas.
+| In 2024 Scandic therefore investigated whether its hotels are located in or near any protected areas. Based on the Natura 2000 tools and the WWF Biodiversity Risk Filter Scandic identified that only five hotels less than 2 percent of Scandic's total portfolio are located near such risk areas.
+| GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+| Accounting principles
+| Scandic has been covered by the EU directive from the financial year 2021 since the company is classified as a large group accord ing to the taxonomy has shares listed on a regulated market and has more than 500 employees on average. The above category has been assessed to cover Scandic's entire net turnover except for franchise and management fees as this revenue stream is currently not included in the taxonomy's list of applicable activities. Apart from franchise and management fees the category includes Scandic's entire revenue such as room reve nue conference revenue and revenue from the sale of food and beverages at hotels. Scandic's policy is that the assessment of CapEx and OpEx follows the same evaluation as turnover as the investments are made to support the activities that generate turnover.
+| In order for a hotel to be assessed as environmentally sustain able or aligned with the environmental goals set by the taxonomy and to be considered an applicable activity in the taxonomy In 2022 Scandic's turnover was not included in the delegated acts of the EU Taxonomy Regulation environmental objectives
+| Less than 2 percent of Scandic's total portfolio is located in or near a protected area.
+| Economic activities that are taxonomy eligible
+| Turnover | 21,927 | 99.9 (100.0) | 0.1 (0.0) | Under investigation | Under investigation
+| CapEx | 3,606 | 100.0 (100.0) | 0.0 (0.0) | Under investigation | Under investigation
+| OpEx | 266 | 100.0 (100.0) | 0.0 (0.0) | Under investigation | Under investigation
+![table image]({page: 41, x: 266}, {y: 460, {width: 737}, {height: 7})
+
+- 1) For 2024, Scandic has reported its activities as applicable but not fully aligned, as the interpretation of how the regulations should be applied and assessed for compliance has been discussed with the EU Commission. FAQs from the Commission on this matter were published in late 2024, and then only in draft form. When the European Commission’s interpretations are finalized in 2025, Scandic’s assessments of the level of compliance may therefore change.
+
+
+<!-- PAGE: 42 -->
+
+CONTENTS
+
+02
+
+## Strategy
+
+Interests and views of stakeholders GOVERNANcE ANd AdMINISTRATION FINANcIAL REPORTS
+
+Scandic maintains an ongoing dialogue with suppliers to ensure that their employees’ interests opinions and rights are considered and safeguarded.
+For more information on how stakeholders’ interests and feedback are taken into account see page 37.
+Scandic is aware of its responsibility throughout the entire value chain and actively works to ensure that suppliers’ labor practices and ethical guidelines align with the company's sustainability requirements and principles.
+
+In its domestic markets Scandic has identified the risk of exploitation of migrant workers among subcontractors in the cleaning and construction sectors.
+Outside Scandic's domestic markets the main risks have been assessed to be linked to workers on coffee plantations in Africa Asia and South America as well as workers in the textile production industry in Asia.
+
+Material impacts risks and opportunities and their interaction with strategy and business model
+
+Working conditions and work related rights Through its procurement Scandic indirectly impacts suppliers’ employees making their working conditions and rights an import ant concern for the company.
+Scandic's largest purchasing categories include
+
+The Supplier Code of Conduct applies to suppliers subcontrac tors and other business partners including both permanent and temporary employees within their organizations.
+The code is available on Scandic's website and is attached to all procurement documents.
+
+Scandic's Supplier Code of Conduct has been adopted by the Board and is managed by the Chief Financial Officer.
+The opera tional responsibility for implementation lies with the director of Group procurement in collaboration with the managing directors in each respective country of operations.
+
+⦁ Food & beverage ⦁ Services ⦁ Materials for renovations and maintenance ⦁ Contracted workers ⦁ Laundry services
+
+Among the professional groups working at Scandic's hotels that are not part of Scandic's staff outsourced cleaning staff and workers within construction and renovations constitute the largest group.
+
+Additionally workers at the beginning of the value chain includ ing those involved in cultivating and processing raw materials such as grains dairy products coffee and proteins may be impacted by Scandic's operations.
+Other professional groups significantly impacted by Scandic's operations include workers in the manufac turing of fixed and loose furnishings as well as staff at external laundry suppliers.
+
+Identified risks both within and outside of Scandic's domestic market have been assessed to be systemic and industry specific meaning they are structurally linked to the sectors in which the suppliers operate.
+For this reason Scandic is particularly vigilant when making purchases in these sectors and has a reinforced focus on responsible supplier relationships.
+However Scandic has not identified any reported cases of negative impact related to these risks.
+
+######### STRATEGIc cORNERSTONES
+######### ENGAGEd ANd MOTIVATEd TEAM MEMBERS
+########## SUSTAINABLE BUSINESS
+
+|  | cOMMERcIAL EXcELLENcE | OPERATIONAL EXcELLENcEPORTFOLIO EXcELLENcE |
+| --- | --- | --- |
+| Risk management and internal controls over sustainability reporting |
+| Regular monitoring of sustainability data is ensured by the person responsible for each sustainability area which often includes both internal and external validation of the data. During 2025 Scandic will review the internal control system for sustainability data to further strengthen data quality and traceability in reporting. |
+| ORGANIc GROWTH |  |  | dIVIdENdS
+![table image]({page: 34, x: 732}, {y: 507, {width: 52}, {height: 10})
+
+5%
+
+≥ 50%
+
+
+<!-- PAGE: 35 -->
+
+SOCIAL DISCLOSURES
+# OWN WORKFORcE
+## Impact, risk and opportunity management
+
+Policies related to own workforce Scandic's most important asset is the corporate culture and shared ethical foundation that its team members create together.
+To ensure a consistent and sustainable work environment all team members must comply with Scandic's Code of Conduct Diversity & Inclusion Policy and Whistleblowing Policy.
+
+|  | Impact in value chain | Financial impact |
+| --- | --- | --- |
+| Working conditions health and safety Own operations |  |  |  |  |  | 
+| Diversity & inclusion Own operations |  |  |  |  |  | 
+| Work life balance Own operations |  |  |  |  |  | 
+| GOVERNANcE ANd AdMINISTRATION FINANcIAL REPORTS |
+| Training and skills development Own operations |  |  |  |  |  | 
+| Other work related rights Own operations |  |  |  |  |  | 
+![table image]({page: 55, x: 490}, {y: 156, {width: 187}, {height: 7})
+
+#### Our vision
+##### SUSTAINABILITY STATEMENT GOVERNANcE ANd AdMINISTRATION FINANcIAL REPORTS
+
+Our focus areas
+
+### EU TAXONOMY – cAPITAL EXPENdITURES (cAPEX)
+#### THIS IS SCANDIC MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+
+Proportion of capital expenditures from products or services associated with taxonomy aligned economic activities information covering the year 2024
+
+#### ESTABLISHING
+#### HOTELS
+##### MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+###### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+Part of the value chain Impact Management
+
+Scandic leases properties and is responsible for hotel operations and interior design while the property owner is responsible for the maintenance and refurbishment of the building.
+
+Possibility to impact
+
+- • Construction, renovation and property management impact the environment and society.
+
+- • Procuring goods and services is a signi ficant part of Scandic’s impact on the environment and society.
+
+- • Close cooperation with property owners. Sustainability-related issues areusually regulated in lease agreements.
+
+- • Scandic has a positive impact by creating shared incentives to improve the environmental standards of properties.
+
+2
+
+##### Positive Negative Opportunity Risk
+##### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+### Impact, risk and opportunity management
+#### GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+
+Description of the processes to identify and assess material climate related impacts risks and opportunities For more information on the double materiality analysis and the identification of significant climate related impacts risks and opportunities see page 40.
+
+## Provisions
+
+Provisions for environmental restoration measures restructuring costs and legal claims are reported when the Group has a legal or constructive obligation as a result of past events it is probable that an outflow of resources will be required to settle the obligation and the amount can be reliably estimated.
+
+##### Turnover
+
+According to the taxonomy total turnover is the same as net sales according to the consolidated income statement see page 89.
+The Group's net sales consist of the value of goods and services gener ated in hotels under lease agreements as well as management and franchise fees.
+Franchise and management fees have been excluded from applicable revenue as this revenue stream is not covered by the taxonomy's applicable economic activities.
+
+Capital expenditures (CapEx) Total CapEx refers to investments in tangible and intangible assets excluding goodwill and right of use assets.
+Investments during the year can be found in Notes 12 and 13 on pages 105 and 106.
+CapEx related to right of use assets in accordance with IFRS 16 for the financial year amounts to approximately 3.6 billion SEK (6.1) and consists mainly of extensions of existing leases and new leases for hotel properties.
+These investments can be found in Note 13 on page 106.
+Total CapEx for the year amounted to 3.7 billion SEK (6.6).
+According to the taxonomy applicable CapEx refers to invest ments related to an identified sales activity (2.1 Hotels holiday camping grounds and similar accommodation).
+Since all CapEx was intended to benefit Scandic's economic activities 100 percent of CapEx for the year is considered applicable for the current financial year.
+
+Operating expenses (OpEx) According to the taxonomy total OpEx is considered to be costs for maintaining the Group's fixed assets.
+For Scandic these costs include direct expenses related to maintenance of property plant and equipment carried out by the Group or third parties that is necessary to ensure the smooth and efficient functioning of the assets including renovation expenses related to property plant and equipment and short term leases.
+These costs are not speci fied in the consolidated income statement but are included in Other external costs on page 89.
+Eligible OpEx is the part of the total OpEx that relates to identified sales activities (2.1 Hotels holiday camping grounds and similar accommodation) which for 2023 is considered to be 100 percent.
+
+Next steps The next step in Scandic's work related to the taxonomy is to determine and work toward taxonomy alignment for turnover CapEx and OpEx in accordance with the taxonomy's criteria for the biodiversity environmental objective.
+When the final guidance based on the FAQs which are currently in draft form is published the Group will consider this in its ongoing work to assess comp liance for the 2025 reporting.
+
+
+<!-- PAGE: 43 -->
+
+### EU TAXONOMY – OPERATING EXPENSES (OPEX)
+#### THIS IS SCANDIC MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+
+Proportion of operational expenditures from products or services associated with taxonomy aligned economic activities information covering the year 2024
+
+### Per G. Braathen
+
+Chairman of the Board
+
+## Adjusted EBITDA
+
+Earnings before pre-opening costs items affecting comparability taxes depreciation and amortization adjusted for the effects of IFRS 16.
+Items affecting comparability Items that are not directly related to the normal operations of the Group for example costs for transactions integration restructur ing and capital gains/losses from sale of operations.
+
+Free cash flow Adjusted EBITDA less pre-opening costs items affecting compara bility items not included in cash flow paid tax change of cash flow interest paid to credit institutions and investments in fixed assets as well as net of acquisition/sale of business.
+
+Working capital net Total current assets excluding derivative instruments and cash and cash equivalents less total current liabilities excluding deriv ative instruments and the current portion of lease liabilities.
+
+Justification There is a need to optimize cash generation to create value for Scandic's shareholders.
+The management team therefore has a focus on working capital and on reducing lead times between income generation and payments received.
+
+Interest bearing net liabilities Liabilities to credit institutions commercial papers convertible loans and other interest bearing liabilities less cash and cash equivalents.
+
+Justification Interest bearing net liabilities are used to calcu late the company's indebtedness which is one of Scandic's finan cial targets.
+The definition chosen corresponds to the definition used for the calculation of indebtedness according to Scandic's loan agreements.
+
+A more comprehensive list of definitions and alternative performance measures and related justifications is available at www.scandichotelsgroup.com/investors/financial-overview/ definitions/ Production Scandic in cooperation with Hallvarsson & Halvarsson
+
+###### SLEEP
+
+12SDGS
+
+###### MEET
+
+3 5 8SDGS
+
+###### GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+
+Scandic's most important stakeholders
+
+| Stakeholder group | Important sustainability aspects |
+| --- | --- |
+| Guests | •Opportunity to make sustainable choices when they stay (food and beverages cleaning singel used plastics etc.) • Reducing CO2 emissions emissions and energy efficiency • An inclusive hotel experience Corporate customers • Reducing CO2 emissions
+| •Efficient use of resources (energy water etc.) • Responsible employer (fair labor practices diversity and inclusion) |
+![table image]({page: 37, x: 266}, {y: 300, {width: 222}, {height: 17})
+
+- • A safe and inclusive work environment with fair labor practices
+
+- • Responsible use of guest data Owners and investors • Reducing CO2 emissions (including mitigating climate-related risks)
+
+- • Efficient use of resources (energy, water, food and beverages)
+
+- • Responsible employer (fair labor practices, diversity and inclusion)
+
+- • Clear governance model for sustainability (engagement of Executive Committee and Board, integrated across entire organization)
+
+- • Close collaboration with suppliers and other business partners on sustainability issues
+
+- • Reducing environmental impact (use of resources, CO2 emissions)
+
+- • Accessible hotels
+
+- • Responsible partner in local communities and value chain
+
+Team members and Executive Committee • Responsible use of resources (minimize waste recycling)
+
+|  |
+|  |
+| Business partners (suppliers and property owners) | •Responsible employer (diversity and inclusion fair labor practices recruiting preventing harassment)
+| Interest organizations | •Fair labor practices
+![table image]({page: 37, x: 266}, {y: 475, {width: 217}, {height: 8})
+
+Stakeholder dialogues are important for Scandic to prioritize its sustainability efforts.
+
+
+<!-- PAGE: 38 -->
+
+##### A. TAXONOMY-ELIGIBLE ACTIVITIES
+###### A.1. Environmentally sustainable activities (taxonomy-aligned) OpEx of environmentally sustainable activities
+
+|  |
+|  |
+| (taxonomy-aligned) (A.1) | - - - - - - - - - - - - - - - -
+![table image]({page: 45, x: 270}, {y: 305, {width: 180}, {height: 6})
+
+| Of which enabling | - |
+| --- | --- |
+| - - - - - - - - - - - - - - - - |
+| A.2. Taxonomy eligible but not environmentally sustainable activities (not taxonomy aligned activities) |
+|  |  |  | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL |  |  |  | 
+| Hotels holiday camping grounds and similar accommodation BIO 2.1 | 266 | 100% | N/EL | N/EL | N/EL | N/EL | N/EL | EL |  |  | 100% | 
+| OpEx of taxonomy eligible but not environmentally sustainable activities (not taxonomy aligned activities) (A.2) | 266 | 100% | 0% | 0% | 0% | 0% | 0% | 100% |  |  | 100% | 
+| A. OpEx of taxonomy eligible activities (A1+A2) | 266 | 100% | 0% | 0% | 0% | 0% | 0% | 100% |  |  | 100% | 
+| B. TAXONOMY NON ELIGIBLE ACTIVITIES |
+| OpEx of taxonomy non eligible activities | 0 | 0% |  |  |  |  |  |  |  |  |  | 
+| TOTAL | 266 | 100% |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 45, x: 270}, {y: 320, {width: 225}, {height: 6})
+
+Y Yes taxonomy eligible and taxonomy aligned activity with the relevant environmental objective.
+N No taxonomy eligible but not taxonomy aligned activity with the relevant environmental objective.
+N/EL Not eligible taxonomy non eligible activity for the relevant environmental objective.
+Y Yes taxonomy eligible and taxonomy aligned activity with the relevant environmental objective.
+N No taxonomy eligible but not taxonomy aligned activity with the relevant environmental objective.
+N/EL Not eligible taxonomy non eligible activity for the relevant environmental objective.
+
+
+<!-- PAGE: 46 -->
+
+###### SUSTAINABLE HOTEL OPERATIONS
+
+12SDG
+
+6
+7
+8 119 13SDGS
+
+#### MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+
+<!-- PAGE: 57 -->
+
+#### MARKET ANd STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENT
+
+GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR'S OPINION
+
+
+<!-- PAGE: 66 -->
+
+EBT
+
+Earnings before tax.
+
+##### GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+
+| Targets | 2024 | 2023 |
+| --- | --- | --- |
+| Reduce edible food waste by 25% per guest night (compared with base year 2019) by 2025 | -31% | -17%
+![table image]({page: 54, x: 266}, {y: 231, {width: 232}, {height: 17})
+
+Beyond the goal to reduce food waste Scandic has still not devel oped additional measurable goals for sustainable resource use or waste management.
+Scandic however monitors and applies limit values for recycling and sustainable procurement at all hotels certified by the Nordic Swan Ecolabel.
+
+Resource inflows Scandic currently lacks information on the weight of all purchases.
+
+Resource outflows The total amount of waste decreased by 21 percent in 2024 com pared to 2019.
+Scandic collects monthly waste data categorized by waste type including hazardous waste recyclable materials household/residual waste and landfill.
+
+Waste data is gathered through regular weighing by Scandic's waste service providers.
+Each month data is sent directly to Scan dic's internal systems for most hotels while hotels with individual suppliers conduct manual reporting.
+An exception is in Sweden where municipalities cannot provide Scandic with the actual weight of household waste classified as non hazardous waste.
+Instead reporting is based on estimates.
+Waste reporting encom passes both Scandic operated hotels and franchise operated hotels.
+Food waste is weighed daily and the data is analyzed monthly.
+
+| Waste tonnes | 2024 | 2019 |
+| --- | --- | --- |
+| Total amount of waste | 15,701.8 | 19,924.3
+| Total weight diverted from disposal |
+| Hazardous waste | 151.9 | 87.5
+| Non hazardous waste | 15,549.9 | 19,836.8
+| Breakdown of recycling operations |
+| Preparation for recycling | 2.0 | 0
+| Recycling | 8,606.6 | 11,315.2
+| Other recycling operations | 7,000.0 | 8,562.9
+| Total amount of waste sent to landfill through |
+| Combustion | - | -
+| Landfill | 93.2 | 46.2
+| Other landfill methods | - | -
+| Total |
+| Total amount of non recycled waste | 7,093.3 | 8,609.03
+| Percentage of non recycled waste | 45.2% | 43.2%
+![table image]({page: 54, x: 519}, {y: 247, {width: 232}, {height: 7})
+
+Already in 2024 Scandic achieved the goal by reducing food waste by 31 percent.
+
+###### MARKET AND STRATEGY SUSTAINABLE BUSINESS SUSTAINABILITY STATEMENTS
+####### GENERAL DISCLOSURES ENVIRONMENTAL DISCLOSURES SOCIAL DISCLOSURES GOVERNANCE DISCLOSURES AUDITOR’S OPINION
+
+Material impacts risks and opportunities and their interaction with strategy and business model
+
+Through the double materiality analysis Scandic has identified sustainability matters where its business directly or through the value chain has a significant impact on people and the environment as well as where risks and opportunities can impact Scandic's financial position.
+For information on how material sustainability matters are linked to Scandic's sustainability strategy and integrated into the business model see page 34.
+
+For a description of the materiality analysis process see page 40.
+
+|  | Impact in value chain | Financial impact |
+| --- | --- | --- |
+| Climate change Climate change mitigation | Scandic has an environmental impact throughout its entire value chain. Changes in regulations regarding greenhouse gas emissions could potentially lead to increased operating costs. Financial opportunities include increased customer satisfaction and a stronger brand position due to Scandic's work to mitigate climate change. |  |  |  |  |  | 
+| GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS |
+| measures can result in lower operating costs. At the same time there is a risk of stricter energy efficiency regulations which could result in higher operating costs |
+| and/or investments. |
+| Upstream and downstream |
+| Energy | High energy use has a negative impact on the environment. Energy efficiency | Upstream and in own operations |  |  |  |  | 
+| Impact of procurement of goods and services on biodiversity |
+| Water and marine resources Water | Scandic's hotel and restaurant operations are dependent on water which can negatively impact local water availability especially in areas with high water stress. Water scarcity can lead to increased regulatory requirements and the need for |  |  |  |  |  | 
+| Biodiversity and ecosystems Resource use and circular economy Procurement of goods and services including use of resources | Purchasing goods and services have an environmental impact. Increased regulations for materials can lead to higher costs. | Upstream and in own operations |  |  |  |  | 
+![table image]({page: 38, x: 778}, {y: 159, {width: 493}, {height: 58})
+
+Upstream and in own operations
+
+## Page 26:
+                ```markdown
+| Focus areas                 | Goals                                                       | 2024  | 2023  | 2022  | 2021  | 2020  | 2019  |
+|----------------------------|-------------------------------------------------------------|-------|-------|-------|-------|-------|-------|
+| MEET                       | Health and wellness                                          | 7.9   | 8.0   | 7.8   | n.a.  | n.a.  | n.a.  |
+|                            | Diversity and inclusion                                      | 8.6   | 8.8   | 8.8   | n.a.  | n.a.  | n.a.  |
+| EAT                        | Food waste*                                                 | -31%  | -17%  | -20%  | -18%  | 3%    | n.a.  |
+|                            | Plant-based food**                                         | 57%   | 56%   | 52%   | n.a.  | n.a.  | 49%   |
+|                            | Organic food***                                            | 100%  | 50%   | n.a.  | n.a.  | n.a.  | n.a.  |
+| SLEEP                      | CO2 emissions                                              | -30%  | -9%   | -29%  | -25%  | -32%  | n.a.  |
+|                            | Environmental certification                                 | 96%   | 90%   | 76%   | 76%   | 77%   | 77%   |
+| GOOD CORPORATE CITIZEN    | Scandic in Society                                         | 674   | 463   | n.a.  | 357*  | n.a.  | 500   |
+```
+
+## Opinion
+
+A sustainability report has been prepared.
+
+Stockholm as per the date stated on the electronic signature ohrlings PricewaterhouseCoopers AB
+
+##### FINANCIAL REPORTS
+
+⦁ ESRS E1 E3-E5 Environmental matters Climate change water resources biodiversity and ecosystems as well as resource use and circular economy.
+
+⦁ ESRS S1-S4 Social matters These include the well being of Scandic's team members and suppliers’ employees the impact on the communities Scandic is part of and a strong focus on guest well being and safety.
+
+⦁ ESRS G1 Governance matters This area pertains to corporate governance business ethics and anti-corruption.
+
+
+<!-- PAGE: 78 -->
+
+## ANNUAL & SUSTAINABILITY REPORT 2024
+
+
+<!-- PAGE: 1 -->
+
+###### GOVERNANCE AND ADMINISTRATION FINANCIAL REPORTS
+
+As part of adapting to the new requirements of the Corporate Sustainability Reporting Directive (CSRD) and European Sustain ability Reporting Standards (ESRS) the structure and contents of this year's sustainability report have been updated.
+
+Key principles for the overall governance of Scandic's sustain ability initiatives are Scandic's Code of Conduct Anti Corruption Policy Data Protection Policy Diversity and Inclusion Policy Environmental Policy Supplier Code of Conduct and Scandic's Sustainable Procurement Guidelines.
