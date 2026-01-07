@@ -43,7 +43,7 @@ async function authPlugin(app: FastifyInstance) {
 
 export async function enforceAuthentication(request, reply) {
     if (!request.user) {
-        reply.code(401).send(unauthorizedError);
+        return reply.code(401).send(unauthorizedError);
     }
 }
 
