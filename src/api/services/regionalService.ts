@@ -31,6 +31,7 @@ class RegionalService {
 
     // Create a lookup for fast reads
     this._lookup = this._all.reduce((acc, region) => {
+      // Remove the suffixes "län" or "s län" from the region name and convert to lowercase
       const key = region.region.replace(/s?\slän$/i, '').toLowerCase()
       acc.set(key, region)
       return acc
