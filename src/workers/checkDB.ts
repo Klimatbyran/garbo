@@ -4,18 +4,19 @@ import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
+import { extractScopeEntriesFromFollowUp, mergeScope1AndScope2Results } from '../lib/mergeScopeResults'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
-    description?: string
     wikidata: { node: string }
     fiscalYear: {
       startMonth: number,
       endMonth: number,
     },
-    childrenValues?: any
     approved?: boolean
+    lei?: string
+    replaceAllEmissions?: boolean
   }
 }
 
@@ -26,23 +27,50 @@ const checkDB = new DiscordWorker(
   async (job: CheckDBJob) => {
     const {
       companyName,
-      description,
       url,
       fiscalYear,
       wikidata,
       threadId,
       channelId,
+      
     } = job.data
+
+
   
-    const childrenValues = await job.getChildrenEntries()
-    await job.updateData({ ...job.data, childrenValues })
+    const childrenEntries = await job.getChildrenEntries()
+
+    const extractValue = (entry: any) =>
+      entry && typeof entry === 'object' && 'value' in entry ? entry.value : entry
+
+    const root = extractValue(childrenEntries) // <- this is the object that has scope data, economy, etc.
+
+    const {
+      scope12: legacyScope12,
+      scope1,
+      scope2,
+      scope3,
+      biogenic,
+      industry,
+      economy,
+      baseYear,
+      goals,
+      initiatives,
+      descriptions,
+      lei,
+    } = root || {}
+
+    const mergedScope12 = mergeScope1AndScope2Results(
+      extractScopeEntriesFromFollowUp(scope1),
+      extractScopeEntriesFromFollowUp(scope2),
+      extractScopeEntriesFromFollowUp(legacyScope12),
+    )
   
-    job.sendMessage(`🤖 kontrollerar om ${companyName} finns i API...`)
+    job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
-  
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
+    job.log(existingCompany);
   
     if (!existingCompany) {
       const metadata = {
@@ -51,56 +79,44 @@ const checkDB = new DiscordWorker(
       }
   
       job.sendMessage(
-        `🤖 Ingen tidigare data hittad för ${companyName} (${wikidataId}). Skapar...`
+        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
       const body = {
         name: companyName,
-        description,
         wikidataId,
         metadata,
       }
   
-      await apiFetch(`/companies`, { body })
+      await apiFetch(`/companies/${wikidataId}`, { body });
   
       await job.sendMessage(
-        `✅ Företaget har skapats! Se resultatet här: ${getCompanyURL(
-          companyName,
-          wikidataId
-        )}`
-      )
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
+      );
+    } else {
+      job.log(`✅ The company '${companyName}' was found in the database.`);
+      await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
     }
-  
-    const {
-      scope12,
-      scope3,
-      biogenic,
-      industry,
-      economy,
-      baseYear,
-      goals,
-      initiatives,
-    } = childrenValues
   
     const base = {
       name: companyName,
       data: {
         existingCompany,
         companyName,
-        description,
         url,
         fiscalYear,
         wikidata,
         threadId,
         channelId,
         autoApprove: job.data.autoApprove,
+      replaceAllEmissions: job.data.replaceAllEmissions,
       },
       opts: {
         attempts: 3,
       },
     }
-  
-    await job.editMessage(`🤖 Sparar data...`)
-  
+
+    await job.editMessage(`🤖 Saving data...`)
+
     await flow.add({
       ...base,
       queueName: QUEUE_NAMES.SEND_COMPANY_LINK,
@@ -108,13 +124,13 @@ const checkDB = new DiscordWorker(
         ...base.data,
       },
       children: [
-        scope12 || scope3 || biogenic || economy
+        mergedScope12 || scope3 || biogenic || economy
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_REPORTING_PERIODS,
               data: {
                 ...base.data,
-                scope12,
+                scope12: mergedScope12,
                 scope3,
                 biogenic,
                 economy,
@@ -158,6 +174,30 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 initiatives,
+              },
+            }
+          : null,
+        lei
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_LEI,
+              data: {
+                ...base.data,
+                lei,
+                   
+              },
+            }
+          : null,
+        descriptions
+          ? {
+              name: 'diffDescriptions' + companyName,
+              queueName: QUEUE_NAMES.DIFF_DESCRIPTIONS,
+              data: {
+                ...job.data,
+                fiscalYear: undefined,
+                wikidataId: wikidataId,
+                existingDescriptions: existingCompany?.descriptions,
+                descriptions: descriptions,
               },
             }
           : null,

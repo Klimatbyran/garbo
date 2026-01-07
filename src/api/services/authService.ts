@@ -111,10 +111,9 @@ class AuthService {
         const currentTimeInSeconds = Date.now() / 1000;
         const renewalThreshold = AuthService.TOKEN_EXPIRY_BUFFER_MINUTES * AuthService.SECONDS_IN_A_MINUTE;
 
+        const shouldRenew = currentTimeInSeconds > userPayload.exp - renewalThreshold;
+
         const {exp, ...user} = userPayload;
-
-        const shouldRenew = currentTimeInSeconds > exp - renewalThreshold;
-
         return {
             user, 
             newToken: shouldRenew ? this.createToken(user) : undefined
@@ -122,7 +121,7 @@ class AuthService {
     }
 
     createToken(payload: User) {
-       return jwt.sign(payload, apiConfig.jwtSecret, {expiresIn: parseInt(apiConfig.jwtExpiresIn)});
+       return jwt.sign(payload, apiConfig.jwtSecret, {expiresIn: apiConfig.jwtExpiresIn});
     }
 }
 

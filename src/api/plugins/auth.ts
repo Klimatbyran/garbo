@@ -35,6 +35,7 @@ async function authPlugin(app: FastifyInstance) {
       }
       request.user = user;
     } catch (err) {
+      console.log(err);
       request.log.error('Authentication failed:', err)
       return;
     }

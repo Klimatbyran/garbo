@@ -1,0 +1,1087 @@
+###### Koldioxidavtryck
+
+Klimatpaverkan inom den egna organisationen Scope 1 ar marginell eftersom bolaget inte langre har nagra egna varmepannor i fastigheterna och majoriteten av service fordonen ar fossilfria.
+De indirekta utslappen Scope 2 utgors framst av energianvandningen i fastigheterna och paverkas av bade effektiviteten i energiforbrukningen och valet av energislag for respektive byggnad.
+Den storsta andelen utslapp kommer fran verksamhet utanfor den egna organisationen inom Scope 3.
+Dessa utslapp kan Stendorren paverka genom val av byggpro jekt och byggmaterial samt genom att satta ambitiosa mal for avfallshantering.
+Bolaget kan aven stalla krav pa anvandning av fossilfria branslen i fordon och maskiner som anvands i byggprojekten.
+Utslapp kopplade till hyresgasternas anvandning av lokaler kan till viss del
+
+###### Totala utsläpp
+
+Under aret minskade utslappen i Scope 1 till 25 ton (110).
+Minskningen ar framst ett resultat av att en oljepanna demonterats samt att majoriteten av bolagets fordon nu ar fossilfria.
+
+20242023202220212020
+
+20242023202220212020
+
+Utslappen i scoop 2 minskade till 952 ton (1 189) vilket kan tillskrivas bade lagre energiforbrukning i fastighets bestandet och forbattrade emissionsfaktorer fran fjarr varmeleverantorerna.
+
+De totala utslappen i Scope 3 okade till 8 104 ton (4 522).
+okningen forklaras huvudsakligen av ett okat antal avslutade nybyggnadsprojekt och genomforda hyresgastanpassningar.
+Samtidigt har antalet pendlings resor med fossildrivna fordon minskat markant da en betydande andel av dessa resor nu sker med elbilar.
+Majoriteten av Scope 3 utslappen harror fran material Inom Scope 3 har utslappen fran nybyggnation minskat till 251 kg CO2/kvm (BTA) (350).
+Denna forbattring ar ett resultat av ett systematiskt arbete med att minska klimat avtrycket per tillford kvadratmeter i bolagets projekt.
+
+For ombyggnationer och hyresgastanpassningar okade utslappen nagot till 35 kg CO2/kvm (LOA) (32).
+Dessa utslapp baseras dock helt pa schablonvarden vilket delvis inte speglar de konkreta insatser som genomforts i ombyggnadsprojekten for att minska klimatpaverkan.
+Under 2025 kommer berakningsmodellen att uppdateras for att ge en mer korrekt och rattvisande bild av bola gets systematiska arbete med att oka andelen aterbrukat material i ombyggnationer.
+
+## Page 39:
+                ```markdown
+| Ton CO₂,e | 2024 | 2023 | 2022 | 2021 | 2020 | Emissionsfaktor             | Källa emissionsfaktor | Kommentar                      |
+|-----------|------|------|------|------|------|------------------------------|-----------------------|--------------------------------|
+| Scope 1   |      |      |      |      |      |                              |                       |                                |
+| Köpeta energibränslen (naturgas, olja, pellets) | 0    | 0    | 1    | 16   | 29   | 192                          | Olja: 0.268 kgCO₂e/kWh     |                                |
+| Drivmedel till tjänstefordon och maskiner   | 10   | 60   | 84   | 110  | 386  | Bensin: 2.114 kgCO₂e/l      |                       |                                |
+|                                            |      |      |      |      |      | Diesel: 1.958 kgCO₂e/l      |                       |                                |
+|                                            |      |      |      |      |      | Biodiesel (HVO 100%): 0.00 kgCO₂e/l |                   |                                |
+|                                            |      |      |      |      |      | E85: 0.463 kgCO₂e/l         |                       |                                |
+|                                            |      |      |      |      |      | Fordonsgas: 0.358 kgCO₂e/l   |                       |                                |
+|                                            |      |      |      |      |      | Biogas: 0.00 kgCO₂e/l       |                       |                                |
+| Köldmedialäckage                       | 15   | 50   | 151  | 71   | –    |                              |                       |                                |
+| Summa Scope 1                          | 25   | 110  | 251  | 210  | 578  |                              |                       |                                |
+| Scope 2                                |      |      |      |      |      |                              |                       |                                |
+| Fjärrvärme                             | 951  | 1,188| 1,080| 1,268| 941  | Emissionsfaktor från varje leverantör (1 års eftersläpning) |                       |                                |
+| Köpt el (platsbaserad)                | 903  | 972  | 1,060| 1,222| 1,245| Nordisk elmix: 0.072 kgCO₂e/kWh |                       |                                |
+| Köpt el (marknadsbaserad)              | 1    | 1    | 1    | 1    | 1    | El vattenkraft: 0.0000383 kgCO₂e/kWh | EPD Vattenfall Vattenkraft |                                |
+| Summa Scope 2 (platsbaserad)          | 1,854| 2,160| 2,140| 2,490| 2,186| Nordisk elmix, emissionsfaktor är densamma för alla år |                       |                                |
+| Summa Scope 2 (marknadsbaserad)        | 952  | 1,189| 1,081| 1,269| 942  | IVL, SBTi                    |                                |
+| Utsläppintensitet, Scope 1 och 2 (kg CO₂, per uthyrd kvm) | 2.2  | 2.6  | 2.7  | 3.2  | 2.9  |                              |                       |                                |
+```
+
+## Page 40:
+                ```markdown
+-----------------------------------------------------------------------------------------------------------------------|
+| Scope 3                                                           |        |        |        |        |        |                                                                                                                                                                   |                                                                                                               |                                                                                                                                                               |
+| Uppströms                                                         |        |        |        |        |        |                                                                                                                                                                   |                                                                                                               |                                                                                                                                                               |
+| Stora inköp och underhåll (3.1)                                   | 0      | 0      | 0      | -      | -      |                                                                                                                                                                   |                                                                                                               |                                                                                                                                                               |
+| Nybyggnation (Avser A1-A5 i klimatdeklarationen)  (3.2)           | 3 008  | 982    | 5 529  | -      | -      | Generiska representativa värden enligt Boverkets klimatdatabas EPD:er på specifika material där det finns                                                         | Byggsektorn klimat  beräkningsverktyg (BM) EPD International Klimatberäkning i Nodon samt med extern  konsult | Tre större projekt startades  och avsludades under 2024.  Totalt resulterade dessa  projekt (inklusive byggdel   7 och 8) på -35% kgCO2/kvm  (BTA) mot 2023). |
+| Nybyggnation (utöver klimatdeklaration) (3.2)                     | 1 091  | 702    | 2 088  | -      | -      | Schablon byggdel 7 och 8 beroende på byggnadstyp Markarbete under byggnad: 30 kgCO2e/kvm Asfalterad yta: 0,049 kgCO2e/kg                                          | Schabloner byggdel 7, 8 och markarbete:  IVL Asfalt: Trafikverket BM (från BM)                                |                                                                                                                                                               |
+| ROT (värdehöjande) (3.2)                                          | 3 699  | 2 633  | 2 058  | -      | -      | Schablon Small: 29 kgCO2e/kvm Schablon Medium: 55 kgCO2e/kvm Schablon Large: 80 kgCO2e/kvm                                                                        | Schablon framtagen tillsammans med IVL                                                                        | Flera hyresgästanpassningar  har genomförts och avslutats  under 2024. Generiska  värden. Schablon baserad på  investerad kr/kvm.                             |
+| Uppströms: Köpta energibränslen (naturgas, olja,  pellets) (3.3.) | 0      | 0,11   | 1      | 2      | -      | Eldningsolja till uppvärmning: 0,022 kgCO2e/kWh                                                                                                                   | Värmeforsk                                                                                                    |                                                                                                                                                               |
+| Uppströms: Fjärrvärme (3.3)                                       | 119    | 140    | 132    | 159    | -      | Emissionsfaktor från varje leverantör (1 års eftersläpning)                                                                                                       | Energiföretagen                                                                                               |                                                                                                                                                               |
+| Uppströms: Köpt el (platsbaserad) (3.3)                           | 264    | 297    | 314    | 361    | -      | Nordisk elmix: 0,0213 kgCO2e/kWh                                                                                                                                  | IVL                                                                                                           |                                                                                                                                                               |
+| Uppströms: Köpt el (marknadsbaserad) (3.3)                        | 30     | 36     | 40     | 45     | -      | El vattenkraft: 0,00295 kgCO2e/kWh                                                                                                                                | EPD Vattenfall Vattenkraft                                                                                    |                                                                                                                                                               |
+| Uppströms påverkan drivmedel (3.3)                                | 5      | 14     | 20     | 16     | -      | Bensin: 0,49 kgCO2e/l  Diesel: 0,46 kgCO2e/l Biodiesel (HVO 100%): 0,00 kgCO2e/l E85: 0,563 kgCO2e/l Fordonsgas: 0,784 kgCO2e/l Biogas: 0,563 kgCO2e/l            | Naturvårdsverket                                                                                              | Avsevärd minskning av  fossilberoende bilar.                                                                                                                  |
+| Upphandlade transporter (3.4)                                     |        |        |        |        |        |                                                                                                                                                                   |                                                                                                               |                                                                                                                                                               |
+| Avfallshantering i den egna verksamheten (3.5)                    |        |        |        |        |        |                                                                                                                                                                   |                                                                                                               |                                                                                                                                                               |
+| Tjänsteresor (3.6)                                                | 12     | 6      | 10     | 5      | -      | Flyg: cirka 0,315 kgCO2e/km Inga resor med privat bil Övriga färdmedel: 0 kgCO2e                                                                                  | Zeroemissions                                                                                                 | Fler affärsresor, utanför  Sverige, med flyg.                                                                                                                 |
+| Pendlingsresor (3.7)                                              | 7      | 9      | 17     | -      | -      | Bensin: 0,154 kgCO2e/km Diesel: 0,131 kgCO2e/km Diesel (100% bio): 0,00 kgCO2e/km Elbil: 0,00 kgCO2e/km Laddhybrid: 0,066 kgCO2e/km Övriga färdmedel: 0 kgCO2e/km | Naturvårdsverket                                                                                              | Fler km per anställd i  fossiloberoende bilar samt  med kollektivtrafik. Betydligt  färre km i fossilberoende  bilar.                                         |
+| Hyrda tillgångar (3.8)                                            | 0      | 0      | 0      | 0      | -      | Nordisk elmix: 0,072 kgCO2e/kWh Emissionsfaktor från fjv leverantör                                                                                               |                                                                                                               |                                                                                                                                                               |
+
+<!-- image -->
+
+| Ton CO2e                                        | 2024   | 2023   | 2022   | 2021   | 2020   | Emissionsfaktor                  | Källa emissionsfaktor      | Kommentar                                                                                                                              |
+|-------------------------------------------------|--------|--------|--------|--------|--------|----------------------------------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Nedströms                                       |        |        |        |        |        |                                  |                            |                                                                                                                                        |
+| Hyresgästersenergianvändning (verksamhet (3.13) | 87     | -      | -      | -      | -      | Nordisk elmix: 0,0213 kgCO2e/kWh | Energimarknadsinspektionen | Uppstart att inkudera  hyresgästers förbrukning i  årets redovisning. (mindre  andel, 10%, redovisats av  hyresgästers verksamhetsel). |
+| Hyresgästersavfall (verksamhet) (3.13)          | 46     | -      | -      | -      | -      |                                  | Avfallsentreprenör         | Uppstart av redovisning av  hyresgästers avfall.                                                                                       |
+| Summa Scope 3 (platsbaserad)                    | 8 338  | 4 783  | 10 169 | 543    | 0      |                                  |                            |                                                                                                                                        |
+| Summa Scope 3 (marknadsbaserad)                 | 8 104  | 4 522  | 9 895  | 227    | 0      |                                  |                            |                                                                                                                                        |
+| Summa klimatpåverkan (platsbaserad energi)      | 10 217 | 7 053  | 12 560 | 3 243  | 1 519  |                                  |                            |                                                                                                                                        |
+| Summa klimatpåverkan (marknadsbaserad energi)   | 9 081  | 5 821  | 11 227 | 1 706  | 1 519  |                                  |                            |                                                                                                                                        |
+
+```
+
+### HÅLLBARHETSNOTER
+#### Stendörrens växthusgasutsläpp
+
+Stendorren foljer arligen upp bolagets utslapp i enlighet med ramverket Greenhouse Gas Protocol (GHG-Protocol).
+Utslappen ar redovisade inom Scope 1 2 och 3.
+Under 2022 har berakningarna for Scope 3 justerats och inkluderar nu fler klimatposter an tidigare ar.
+
+| Ton CO2e | 2024 | 2023 | 2022 | 2021 | 2020 | Emissionsfaktor | Källa emissionsfaktor | Kommentar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Scope 1 |
+| Köpta energibränslen (naturgas, olja, pellets) | 0 | 0,1 | 16 | 29 | 192 | Olja: 0,268 kgCO2e/kWh | Energiföretagen | Inga oljepannor i drift. |
+| Drivmedel till tjänstefordon och maskiner | 10 | 60 | 84 | 110 | 386 | Bensin: 2,114 kgCO2e/l Diesel: 1,958 kgCO2e/l Biodiesel (HVO 100%): 0,00 kgCO2e/l E85: 0,463 kgCO2e/l Fordonsgas: 0,358 kgCO2e/l Biogas: 0,00 kgCO2e/l | Naturvårdsverket | Egna ägda samt leasade bilar, är majoritet el eller hybridbilar. De sista (2) |
+| fossildrivna bilar har avyttrats under året. |
+| Köldmedialäckage | 15 | 50 | 151 | 71 | – |  |  |  |
+| Summa Scope 1 | 25 | 110 | 251 | 210 | 578 |  |  |  |
+| Scope 2 |
+| Fjärrvärme | 951 | 1 188 | 1 080 | 1 268 | 941 | Emissionsfaktor från varje leverantör (1 års eftersläpning) | Energiföretagen |  |
+| Köpt el (platsbaserad)1 | 903 | 972 | 1 060 | 1 222 | 1 245 | Nordisk elmix: 0,072 kgCO2e/kWh | IVL | Bättre inhämtning av data i hela Norden. |
+| Energieffektivisering av fastigheter (mindre förbrukning i det svenska beståndet). |
+| Köpt el (marknadsbaserad) | 1 | 1 | 1 | 1 | 1 | El vattenkraft: 0,0000383 kgCO2e/kWh | EPD Vattenfall Vattenkraft |  |
+| Summa Scope 2 (platsbaserad) | 1 854 | 2 160 | 2 140 | 2 490 | 2 186 | Nordisk elmix, emissionsfaktor är densamma för alla år |  |  |
+| Summa Scope 2 (marknadsbaserad) | 952 | 1 189 | 1 081 | 1 269 | 942 |  |  |  |
+| Utsläppsintensitet, Scope 1 och 2 (kg CO2 per uthyrbar kvm)  | 2,2 | 2,6 | 2,7 | 3,2 | 2,9 |  | IVL, SBTi | För att klara 1,5 graders målet, skall energi till |
+![table image]({page: 39, x: 34}, {y: 169, {width: 954}, {height: 17})
+
+bolagets drift av fastigheter max uppga till 2,82 kgCO2/ kvm till 2030.
+
+
+<!-- PAGE: 40 -->
+Hallbarhetsnoter Introduktion Verksamheten Finansiella rapporter Bolagsstyrning ovrig informationHallbarhetsrapport
+
+| Ton CO2e | 2024 | 2023 | 2022 | 2021 | 2020 | Emissionsfaktor | Källa emissionsfaktor | Kommentar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Scope 3 |
+| Uppströms |
+| Stora inköp och underhåll (3.1) | 0 | 0 | 0 | – | – |  |  |  |
+| Nybyggnation (Avser A1-A5 i klimatdeklarationen) (3.2) | 3 008 | 982 | 5 529 | – | – | Generiska representativa värden enligt Boverkets klimatdatabas EPD:er på specifika material där det finns | Byggsektorn klimat beräkningsverktyg (BM) EPD International Klimatberäkning i Nodon samt med extern konsult | Tre större projekt startades och avsludades under 2024. Totalt resulterade dessa projekt (inklusive byggdel 7 och 8) på –35% kgCO2/kvm |
+|  | 0 | 0,11 | 1 | 2 | – | Eldningsolja till uppvärmning: 0,022 kgCO2e/kWh | Värmeforsk |  (BTA) mot 2023). |
+| med kollektivtrafik. Betydligt färre km i fossilberoende bilar. |
+| Nybyggnation (utöver klimatdeklaration) (3.2) | 1 091 | 702 | 2 088 | – | – | Schablon byggdel 7 och 8 beroende på byggnadstyp Markarbete under byggnad: 30 kgCO2e/kvm Asfalterad yta: 0,049 kgCO2e/kg | Schabloner byggdel 7, 8 och markarbete: IVL Asfalt: Trafikverket BM (från BM) |  |
+| ROT (värdehöjande) (3.2) | 3 699 | 2 633 | 2 058 | – | – | Schablon Small: 29 kgCO2e/kvm Schablon Medium: 55 kgCO2e/kvm Schablon Large: 80 kgCO2e/kvm | Schablon framtagen tillsammans med IVL | Flera hyresgästanpassningar har genomförts och avslutats under 2024. Generiska värden. Schablon baserad på investerad kr/kvm. |
+| Uppströms: Köpta energibränslen (naturgas, olja, pellets) (3.3.) |
+| Uppströms: Fjärrvärme (3.3) | 119 | 140 | 132 | 159 | – | Emissionsfaktor från varje leverantör (1 års eftersläpning) | Energiföretagen |  |
+| Uppströms: Köpt el (platsbaserad) (3.3) | 264 | 297 | 314 | 361 | – | Nordisk elmix: 0,0213 kgCO2e/kWh | IVL |  |
+| Uppströms: Köpt el (marknadsbaserad) (3.3) | 30 | 36 | 40 | 45 | – | El vattenkraft: 0,00295 kgCO2e/kWh | EPD Vattenfall Vattenkraft |  |
+| Uppströms påverkan drivmedel (3.3) | 5 | 14 | 20 | 16 | – | Bensin: 0,49 kgCO2e/l Diesel: 0,46 kgCO2e/l | Naturvårdsverket | Avsevärd minskning av fossilberoende bilar. |
+|  |  |  |  |  |  |  | Zeroemissions | Fler affärsresor, utanför Sverige, med flyg. |
+|  |  |  |  |  |  |  | Naturvårdsverket | Fler km per anställd i fossiloberoende bilar samt |
+![table image]({page: 40, x: 34}, {y: 61, {width: 266}, {height: 17})
+
+Biodiesel (HVO 100%) 0,00 kgCO2e/l E85 0,563 kgCO2e/l Fordonsgas 0,784 kgCO2e/l Biogas 0,563 kgCO2e/l
+
+ovriga fardmedel 0 kgCO2e
+
+Diesel (100% bio) 0,00 kgCO2e/km Elbil 0,00 kgCO2e/km Laddhybrid 0,066 kgCO2e/km ovriga fardmedel 0 kgCO2e/km
+
+| Avfallshantering i den egna verksamheten (3.5) Tjänsteresor (3.6) | 12 | 6 | 10 | 5 | – | Flyg: cirka 0,315 kgCO2e/km Inga resor med privat bil |
+| --- | --- | --- | --- | --- | --- | --- |
+| Upphandlade transporter (3.4) |  |  |  |  |  |  |
+| Pendlingsresor (3.7) | 7 | 9 | 17 | – | – | Bensin: 0,154 kgCO2e/km Diesel: 0,131 kgCO2e/km |
+| Hyrda tillgångar (3.8) | 0 | 0 | 0 | 0 | – | Nordisk elmix: 0,072 kgCO2e/kWh Emissionsfaktor från fjv leverantör |
+![table image]({page: 40, x: 34}, {y: 371, {width: 580}, {height: 17})
+
+
+<!-- PAGE: 41 -->
+| Ton CO2e | 2024 | 2023 | 2022 | 2021 | 2020 | Emissionsfaktor | Källa emissionsfaktor | Kommentar |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Hållbarhetsnoter | Introduktion | Introduktion | Introduktion | Introduktion | Introduktion | Introduktion | Verksamheten | Finansiella rapporter | Bolagsstyrning | Övrig informationHållbarhetsrapport |
+| Nedströms |
+| Hyresgästersenergianvändning (verksamhet (3.13) | 87 | – | – | – | – | Nordisk elmix: 0,0213 kgCO2e/kWh | Energimarknadsinspektionen | Uppstart att inkudera hyresgästers förbrukning i årets redovisning. (mindre andel, 10%, redovisats av |
+| hyresgästers verksamhetsel). |
+| Hyresgästersavfall (verksamhet) (3.13) |  | 46 | – | – | – | – | Avfallsentreprenör | Uppstart av redovisning av hyresgästers avfall. |
+| Summa Scope 3 (platsbaserad) | 8 338 | 4 783 | 10 169 |  | 543 | 0 |  |  |
+| Summa Scope 3 (marknadsbaserad) | 8 104 | 4 522 |  | 9 895 | 227 | 0 |  |  |
+| Summa klimatpåverkan (platsbaserad energi) | 10 217 | 7 053 | 12 560 |  | 3 243 | 1 519 |  |  |
+| Summa klimatpåverkan (marknadsbaserad energi) | 9 081 | 5 821 |  | 11 227 | 1 706 | 1 519 |  |  |
+| Hyresgästavfall |
+| Ton 2024 | 2023 | 2022 |  |  |  |  |  |  |
+| Energi återvinning 184 | 81 | 75 |  |  |  |  |  |  |
+| Återvinning 120 | 328 | 328 |  |  |  |  |  |  |
+| Destruktion1) 0 | 0 | 0 |  |  |  |  |  |  |
+| Deponi 4 | 10 | 10 |  |  |  |  |  |  |
+| Farligt avfall 1 | 26 | 31 |  |  |  |  |  |  |
+| 1) Datan har inte kunnat bryta ut de mängder som går på destruktion men inte energiåtervinning. |
+| Direkt skapat ekonomiskt värde Mkr | 2024 | 2023 | 2022 | 2021 | 2020 | 2019 | 2018 | 2017 |
+| Totala intäkter | 910,15 | 853,98 | 732,82 | 652,87 | 631,03 | 591,58 | 537,40 | 452,30 |
+| Drift | 168,09 | 158,09 | 158,95 | 150,41 | 149,77 | 171,45 | 167,20 | 124,30 |
+| Löner och ersättning till anställda | 83,89 | 70,67 | 67,80 | 63,80 | 59,42 | 62,35 | 67,49 | 42,33 |
+| Betalning till finansiärer | 323,40 | 308,76 | 207,86 | 135,43 | 133,58 | 166,35 | 131,30 | 105,20 |
+| Betalningar till den offentliga sektorn | 87,71 | 41,19 | 58,51 | 28,99 | 31,68 | 30,01 | 23,80 | 23,10 |
+| Behållet ekonomiskt värde | 247,06 | 275,27 | 239,71 | 274,25 | 256,58 | 161,41 | 147,61 | 157,38 |
+| Utdelning | – | – | – | – | – | 31,53 | 59,20 | 49,70 |
+![table image]({page: 41, x: 34}, {y: 19, {width: 484}, {height: 8})
+
+
+<!-- PAGE: 42 -->
+
+##### Scope 1
+##### Scope 2
+##### Scope 3
+
+Utvardera energileverantorer.
+Investera i fornyelsebara energi kallor (sol geotermisk).
+
+Forbattra atervinnings mojligheter.
+
+Insamling av hyresgastdata (avfall energi etc.).
+
+Utfora Klimatriskinventering samt folja klimatriskrutin enligt Stendorrens klimatriskstrategi.
+
+Folja Stendorrens strategi for cirkulara processer.
+
+Ta fram ekosystemtjanststrategi.
+
+Ta fram ekosystemtjanststrategi.
+
+- 1) Renovering, ombyggnad och tillbyggnad
+
+
+<!-- PAGE: 30 -->
+Miljomassig hallbarhet
+
+## Page 41:
+                ```markdown
+| Ton CO₂,e                    | 2024 | 2023 | 2022 | 2021 | 2020 | Emissionsfaktor                      | Kommentar                                                          |
+|------------------------------|------|------|------|------|------|--------------------------------------|-------------------------------------------------------------------|
+| Nedströms                    |      |      |      |      |      | Nordic elmix: 0.0213 kgCO₂e/kWh    | Energimarknadsinspektionen                                          |
+| Hyresgästersavfall           |      |      |      |      |      |                                      | Uppstart av redovisning av hyresgästers avfall.                  |
+| Summa Scope 3 (platsbaserad) | 8 338| 4 783| 10 169| 543  | 0    |                                      |                                                                   |
+| Summa Scope 3 (marknadsbaserad)| 8 104| 4 522| 9 895 | 227  | 0    |                                      |                                                                   |
+| Summa klimatpåverkan (platsbaserad energi) | 10 217| 7 053| 12 560| 3 243| 1 519|                                      |                                                                   |
+| Summa klimatpåverkan (marknadsbaserad energi)| 9 081| 5 821| 11 227| 1 706| 1 519|                                      |                                                                   |
+
+| Hyresgästfall                | Ton  | 2024 | 2023 | 2022 |
+|------------------------------|------|------|------|------|
+| Energiåtervinning            |      | 184  | 81   | 75   |
+| Återvinning                  |      | 120  | 328  | 328  |
+| Destruktion                  |      | 0    | 0    | 0    |
+| Deponi                       |      | 4    | 10   | 10   |
+| Farligt avfall               |      | 1    | 26   | 31   |
+
+| Direkt skapat ekonomiskt värde | Mkr  | 2024   | 2023   | 2022   | 2021   | 2020   | 2019   | 2018   | 2017   |
+|--------------------------------|------|--------|--------|--------|--------|--------|--------|--------|--------|
+| Totala intäkter               |      | 910,15 | 853,98 | 732,82 | 652,87 | 631,03 | 591,58 | 537,40 | 452,30 |
+| Drift                          |      | 168,09 | 158,09 | 158,01 | 149,77 | 171,45 | 167,20 | 124,30 | n.a.   |
+| Löner och ersättning till anställda | | 83,89  | 70,67  | 67,80  | 63,80  | 59,42  | 62,35  | 67,49  | 42,33  |
+| Betalning till finansiärer     |      | 323,40 | 308,76 | 207,86 | 135,43 | 133,58 | 166,35 | 131,30 | 105,20 |
+| Betalning till den offentliga sektorn | | 87,71  | 41,19  | 58,51  | 28,99  | 31,68  | 30,01  | 23,80  | 23,10  |
+| Behållet ekonomiskt värde      |      | 247,06 | 275,27 | 239,71 | 274,25 | 256,58 | 161,41 | 147,61 | 157,38 |
+| Utdelning                      |      | n.a.   | n.a.   | n.a.   | n.a.   | 31,53  | 59,20  | 49,70  | n.a.   |
+```
+
+###### Utsläppsintensitet
+
+Inom Scope 1 och 2 som omfattar det forvaltade fast ighetsbestandet har energiforbrukningen minskat och utslappen reducerats till 2,2 kg CO2/kvm uthyrbar area (LOA) (2,6).
+
+Klimatpaverkan (Scope 1 och 2)
+
+## STENDÖRRENS KLIMATFÄRDPLAN
+### NULÄGE 2025 2030 2040
+
+- Alla fordon ska vara fossilbränsleoberoende. Klimatneutralt bestånd (Scope 1 och 2) uppnått 2022. Uppnå nettonollutsläpp i hela värdekedjan.
+
+- 70% av fastigheter skall vara certifierade enligt BREEAM.
+
+- 108 kWh/kvm basår 2020 (Scope 2).
+
+- 350 CO2/kvm basår 2022 (Scope 3).
+
+## Page 31:
+                ```markdown
+| KPI                            | 2024 | 2023 | 2022 |
+|--------------------------------|------|------|------|
+| Intensitet (b)                | kWh/kvm | kg CO₂/kvm |
+|                                | 79   | 85   | 89   |
+| Certifiering                  | Antal miljöcertifierade fastigheter | 94   | 68   | 45   |
+| Andel miljöcertifierad uthyrningsyta, % | 73   | 58   | 42   |
+| Andel certifierade hy- och ombyggnationer | 3    | 1    | 0    |
+```
+
+## Page 37:
+                ```markdown
+| GRI-standard/annan källa | GRI-referens | Plats | Krav uteslämnat | Skala | Förklaring |
+|--------------------------|--------------|-------|------------------|-------|------------|
+| GRI 3:                   |              |       |                  |       |            |
+| Väsentliga frågor 2021   | 3-3          | 27    | 36               |       |            |
+| GRI 205:                 | 205-2        | 34    | 36               |       |            |
+| Antikorruption 2016      | 205-3        | 36    | n.a.             | n.a.  | n.a.      |
+| Energikategori           |              |       |                  |       |            |
+| GRI 3:                   |              |       |                  |       |            |
+| Väsentliga frågor 2021   | 3-3          | 27    | 31               |       |            |
+| GRI 302:                 | 302-1        | 31    | 32               |       |            |
+| Energi                   |              |       |                  |       |            |
+| GRI 305:                 | 305-1        | 32    | 40               |       |            |
+| Utsläpp till luft 2016   | 305-2        | 32    | 40               |       |            |
+|                          | 305-3        | 32    | 41               |       |            |
+|                          | 305-4        | 13    | 32               | 40    | n.a.      |
+```
+
+## Ramverk och standarder
+
+Stendorren tillampar foljande internationella ramverk och standarder i sin hallbarhetsredovisning
+
+Greenhouse Gas Protocol (GHGP) en global standard for att mata och rapportera vaxthusgasutslapp.
+
+Global Reporting Initiative (GRI) ett internationellt ramverk for hallbarhetsrapportering.
+
+Task Force on Climate related Disclosure (TCFD) ett ramverk for rapportering av klimatrelaterade finansiella risker.
+
+Science Based Target initiative (SBTi) ett internationellt ramverk for att satta hallbarhetsmal som ligger i linje med Parisavtalets mal om maximalt 1,5 graders upp varmning.
+
+## GRI\xadINDEX
+
+| GRI\xadstandard/annan källa | GRI\xadreferens | Plats | Krav utelämnat | Skäl | Förklaring |
+| --- | --- | --- | --- | --- | --- |
+|  | Avsteg | Avsteg | Avsteg | Avsteg | Avsteg |
+| Allmänna upplysningar GRI 2: |
+| Allmänna upplysningar |
+| 2021 | 2-1 2-2 | Uppgifter om organisationen Enheter inkluderade i organisationens hållbarhetsrapportering | 3, 9, 53 53, 72 |  |  |
+|  | 2-3 | Redovisningsperiod, regelbundenhet och kontaktperson | 24, 45, 46 |  |  |
+|  | 2-4 | Förklaring till effekten av förändringar av information som lämnats i tidigare redovisningar och skälen för sådana förändringar | 53 |  |  |
+|  | 2-5 | Externt bestyrkande | 24, 43 |  |  |
+|  | 2-6 | Verksamheten, värdekedja och övriga affärsrelationer | 12 |  |  |
+|  | 2-7 | Anställda | 45, 68 |  |  |
+|  | 2-8 | Medarbetare som inte är anställda | 68 |  |  |
+|  | 2-9 | Översikt över styrning och sammansättning | 26, 80, 81 |  |  |
+|  | 2-10 | Nominering och val av det högsta styrande organet | 80, 81 |  |  |
+|  | 2-11 | Ordförande för det högst styrande organet | 81, 87 |  |  |
+|  | 2-12 | Roll för det högsta styrande organet i att bevaka hanteringen av påverkan | 25, 26 |  |  |
+|  | 2-13 | Delegering av ansvaret hanteringen av påverkan | 25, 26 |  |  |
+|  | 2-14 | Funktion för det högsta styrandeorganet i hållbarhetsrapporteringen | 25, 26 |  |  |
+|  | 2-15 | Intressekonflikter | 80, 81 |  |  |
+|  | 2-16 | Kommunikation av kritiska angelägenheter | 82, 83 |  |  |
+|  | 2-17 | Kollektivt kunnande inom det högsta styrande organet | 82, 83 |  |  |
+|  | 2-18 | Utvärdering av resultat för det högsta styrande organet | 82, 83 |  |  |
+|  | 2-19 | Ersättningspolicyer | 69, 85, 86 |  |  |
+|  | 2-20 | Process för att fastställa ersättningar | 85, 86 |  |  |
+|  | 2-21 | Årligt totalt kompensationsförhållande | 68, 69 |  |  |
+|  | 2-22 | Uttalande om strategi för hållbar utveckling | 28, 45, 46 |  |  |
+|  | 2-23 | Policyförpliktelser | 25 |  |  |
+|  | 2-24 | Integrera policyförpliktelser | 25 |  |  |
+|  | 2-25 | Process för att åtgärda negativ påverkan | 36 |  |  |
+|  | 2-26 | Mekanismer för att söka rådgivning och väcka frågor | 36 |  |  |
+|  | 2-27 | Efterlevnad av lagar och regler | 24 |  |  |
+|  | 2-28 | Medlemskap i organisationer | 25 |  |  |
+|  | 2-29 | Metoder för samarbeten med intressenter | 27 |  |  |
+|  | 2-30 | Andel av personalstyrkan som omfattas av kollektivavtal |  |  |  |
+| GRI\xadindex | Introduktion | Verksamheten | Finansiella rapporter | Bolagsstyrning | Övrig informationHållbarhetsrapport |
+![table image]({page: 36, x: 836}, {y: 107, {width: 966}, {height: 8})
+
+
+<!-- PAGE: 37 -->
+| GRI\xadstandard/annan källa | GRI\xadreferens | Plats | Krav utelämnat | Skäl | Förklaring |
+| --- | --- | --- | --- | --- | --- |
+|  | Avsteg | Avsteg | Avsteg | Avsteg | Avsteg |
+| VÄSENTLIGA FRÅGOR |
+| GRI 3: |
+| Väsentliga frågor 2021 3-1 | Process för att fastställa väsentliga frågor | 27 |  |  |  |
+| 3-2 | Lista på väsentliga frågor | 27 |  |  |  |
+| 3-3 | Hantering av väsentliga frågor | 27 |  |  |  |
+| EKONOMISKA STANDARDER |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27 |  |  |  |
+| GRI 201: |
+| Ekonomiskt resultat 2016 201-1 | Skapat och levererat direkt ekonomiskt värde | 42 |  |  |  |
+| 201-3 | Förmånsbestämda åtaganden och andra pensionsplaner | 55, 85, 86 |  |  |  |
+| ANTIKORRUPTION |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27, 36 |  |  |  |
+| GRI 205: |
+| Antikorruption 2016 205-2 | Kommunikation och utbildning i anti-korruptionspolicyer och rutiner | 34, 36 |  |  |  |
+| 205-3 | Bekräftade korruptionsfall samt vidtagna åtgärder | 36 |  |  |  |
+| ENERGI |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27, 31 |  |  |  |
+| GRI 302: |
+| Energi 302-1 | Energianvändning inom organisationen | 31, 32 |  |  |  |
+| 302-3 | Energiintensitet | 31, 32 |  |  |  |
+| 302-4 | Minskad energianvändning | 31, 32 |  |  |  |
+| UTSLÄPP TILL LUFT |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27, 32 |  |  |  |
+| GRI 305: |
+| Utsläpp till luft 2016 305-1 | Direkta utsläpp av växthusgaser (Scope 1) | 32, 40 |  |  |  |
+| 305-2 | Indirekta utsläpp av växthusgaser energi (Scope 2) | 32, 40 |  |  |  |
+| 305-3 | Övriga indirekta utsläpp av växthusgaser (Scope 3) | 32, 41 |  |  |  |
+| 305-4 | Utsläppsintensitet växthusgaser | 13, 32, 40 |  |  |  |
+![table image]({page: 37, x: 836}, {y: 57, {width: 506}, {height: 8})
+
+
+<!-- PAGE: 38 -->
+GRI\xadindex Introduktion Verksamheten Finansiella rapporter Bolagsstyrning ovrig informationHallbarhetsrapport behandling 2016
+
+| GRI\xadstandard/annan källa | GRI\xadreferens | Plats | Krav utelämnat | Skäl | Förklaring |
+| --- | --- | --- | --- | --- | --- |
+|  | Avsteg | Avsteg | Avsteg | Avsteg | Avsteg |
+| AVFALLSHANTERING |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27, 31, 32 |  |  |  |
+| GRI 306: |
+| Avfall 2022 306-3 | Genererat avfall | 42 |  |  |  |
+| 306-4 | Avfall till återanvändning och återvinning | 42 |  |  |  |
+| 306-5 | Avfall till förbränning och deponering | 42 |  |  |  |
+| MÅNGFALD OCH LIKABEHANDLING |
+| GRI 3: |
+| Väsentliga frågor 2021 3-3 | Hantering av väsentliga frågor | 27, 34 |  |  |  |
+| GRI 405: 405-1 | Mångfald hos styrelse, ledning och anställda | 34, 57 |  |  |  |
+| Mångfald och lika\xad |
+| 405-2 | Kvinnors grundlön och ersättning i förhållande till mäns |  | a, b | Information ej tillgänglig | Data finns men ej sammanställd i relevant format |
+![table image]({page: 38, x: 836}, {y: 57, {width: 819}, {height: 17})
+
+
+<!-- PAGE: 39 -->
+
+######### Verksamheten Hållbarhetsrapport Finansiella rapporter Bolagsstyrning Verksamheten Hållbarhetsrapport Finansiella rapporter Bolagsstyrning Övrig informationIntroduktion
+
+I Norge okade transaktionsvolymen for lager logi stik och industrifastigheter till 15,3 miljarder NOK vilket var mer an en dubblering mot 2023 ars niva.
+Segmen tet dominerades av moderna logistikfastigheter medan aldre och mindre effektiva lokaler sag okande vakans grader.
+Direkavkastningskraven for logistikfastigheter steg med 25 baspunkter till 5,50 procent men en kom pression forvantas under 2025 i takt med att marknaden stabiliseras.
+Hyresnivan okade nagot under 2024 och ligger pa de hogsta nivaerna i Norden.
+
+Finlands marknad for lager logistik och industri fastigheter uppvisade en volym pa 546 miljoner EUR vilket var en minskning med 10 procent i jamforelse med 2023.
+Trots en trogare andra halva av aret pekar rante sankningar och okade investeringar pa en aterhamtning under 2025. En viss kompression (10 baspunkter) av direktavkastningskravet for logistikfastigheter i Helsing forsomradet kunde dock noteras under 2024 medan marknadshyran okade marginellt.
+
+| Stockholm prime |  | Göteborg prime | Övriga Mälardalen | Borås |
+| --- | --- | --- | --- | --- |
+| Utveckling direktavkastningskrav, Logistik, 2015–2024 |
+| % Utveckling direktavkastningskrav, Industri och lager, 2016–2024 % |  |  |  |  |
+![table image]({page: 8, x: 422}, {y: 530, {width: 632}, {height: 7})
+
+8
+7
+6
+5 4 3
+2
+1 0
+
+- –1 2024202320222021202020192018201720162015 –1
+
+| Stockholm prime | Göteborg prime | Övriga Mälardalen | Borås |
+| --- | --- | --- | --- |
+| Köpenhamn prime | Helsingfors prime | Oslo prime | STIBOR 3M |
+![table image]({page: 8, x: 45}, {y: 530, {width: 260}, {height: 7})
+
+8
+7
+6
+5 4 3
+2
+1 0
+
+202420232022202120202019201820172016
+
+Stockholm prime Goteborg prime ovriga Malardalen Boras STIBOR 3M
+
+
+<!-- PAGE: 9 -->
+2
+
+## Page 30:
+                ```markdown
+| MINSKNING AV ENERGI- INTENSITET (kWh/kvm) | 27,1% |
+|-------------------------------------------|-------|
+| MILJÖCERTIFIERAD AREA                     | 73,4% |
+| BYGGAVFALL TILL DEPONI                    | 2%    |
+| ANDEL FOSSIL ENERGI                       | 97,4% |
+| MINSKNING AV KOLOXIDAVTRYCK VID NYBYGGNATION CO2/kvm | 28,3% |
+```
+
+######## HÅLLBAR ENERGI FÖR ALLA HÅLLBARA STÄDER OCH SAMHÄLLEN HÅLLBAR KONSUMTION OCH PRODUKTION BEKÄMPA KLIMAT- FÖRÄNDRINGARNA
+
+Mal 40% minskning fran basar 2022 till 2030
+
+- 1) Per 31 december 2024 jämfört med basår 2020.
+
+- 2) Av totalt bestånd per 31 december 2024.
+
+
+<!-- PAGE: 31 -->
+| Miljömässig hållbarhet | Introduktion | Verksamheten | Finansiella rapporter | Bolagsstyrning | Övrig informationHållbarhetsrapport |
+| --- | --- | --- | --- | --- | --- |
+| respektive hyresgäst är insamling av data och uppfölj- ning av avfallsflöden fortsatt en utmaning. Under 2024 gick 2 procent av byggavfallet till deponi. För att stärka arbetet med avfallshanteringen arbetar Stendörren med att implementera gröna hyresavtal, vilka syftar till att möjliggöra bättre tillgång till avfallsdata framöver. | begränsas genom att uppmuntra till inköp av fossilfri eller förnybar el, främja effektiv avfallshantering samt underlätta klimatsmarta pendlingsalternativ. En sammanställning av Stendörrens totala växthus- gasutsläpp för perioden 2020–2024 återfinns i tabellen på sidorna 40–42. | användning i ny- och ombyggnadsprojekt. Detta är ett resultat av ökad efterfrågan på bolagets fastigheter, vilket under året lett till att fler byggprojekt befunnit sig i den produktionsintensiva fasen. |  |  |  |
+![table image]({page: 31, x: 34}, {y: 19, {width: 921}, {height: 66})
+
+## MARKNADSSEGMENT OCH TRENDER
+
+Svensk fastighetsmarknad och dess trender Under 2024 uppvisade den svenska fastighetsmarknaden tydliga tecken pa aterhamtning efter ett svagt 2023.
+Den totala transaktionsvolymen uppgick till 140 miljarder kro nor vilket ar en okning med 35 procent jamfort med 2023.
+Trots detta ligger volymen fortsatt 30 procent under det historiska genomsnittet for perioden 2015-2023.
+Antalet transaktioner uppgick till 342 vilket ar 14 fler an under 2023 men den mest patagliga skillnaden vid jamforelse mellan dessa tva ar ar en markant okning av storre affarer under 2024 antalet transaktioner over en miljard kronor fordubblades fran aret innan.
+Geografiskt sett dominerade Stockholmsregionen transaktionsmarknaden med 45 procent av den totala volymen vilket ar nagot over det historiska genomsnit tet.
+Regionstaderna stod for 28 procent medan Gote borg okade till 10 procent.
+Malmo fortsatte daremot sin nedgang och bidrog endast med 4 procent av volymen den lagsta nivan pa tio ar.
+Resterande delar av Sverige bidrog med 13 procent av volymen.
+
+Nar det galler segmentsfordelningen var bostader den starkaste kategorin under 2024 med en andel om 31 procent av transaktionsvolymen drivet av en bety dande okning i transaktionsvarden.
+Kontorsfastigheter foljde tatt efter med 26 procent dar hogkvalitativa och centralt belagna kontor stod i fokus.
+Segmentet for lager logistik och industrifastigheter noterade en rela tivt stark efterfragan med 19 procent av volymen aven om andelen minskade nagot fran foregaende ar.
+Seg mentet fortsatter attrahera investerare tack vare laga vakansgrader och langsiktiga hyresavtal.
+
+Hallbarhet fortsatter att sta i centrum drivet av EU:s skarpta krav pa energieffektivisering och klimat neutra litet.
+Initiativ som solcellsinstallationer och utfasning av fossila energikallor paverkar bade byggande och forvaltning.
+
+## 2,2 KG CO2/KVM
+
+Lager och logistik 47% Kontor 19% Latt industri 23% Sallankopshandel 9% ovrigt 2% Stockholms stad 27% Stockholms lan 29% ovriga Malardalen 32% Goteborgsregionen 2% Kopenhamn Oslo Helsingfors 10%
+
+### Resurseffektivitet
+
+- Hållbarhetsstrategi
+
+- Färdplanen
+
+- Inköpspolicy
+
+- Gröna kartan
+
+- Uppförandekod för leverantörer
+
+- Stendörrens strategi för cirkulära processer
+
+- Anvisningar klimatberäkningar
+
+### Stendörrens hållbarhetsarbete
+
+Stendorrens langsiktiga miljomal ar att uppna nettonoll koldioxidutslapp i hela vardekedjan till ar 2040.
+Bolaget stravar efter att successivt hoja ambitionsnivan och kontinuerligt forbattra rutiner och processer i syfte att optimera resultat och effekt av hallbarhetsarbetet.
+Detta gors genom att hallbarhet integreras i bolagets alla verksamhetsomraden.
+
+Stendorren arbetar for att tillgodose hyresgasternas lokalbehov samtidigt som hansyn tas till miljo klimat och biologisk mangfald.
+For Stendorren betyder det fram for allt att utbyggnad av fastigheter behover ske inom de planetara granserna och att existerande bygg nader behover anpassas till det forandrade klimatet.
+Stendorrens storsta klimatpaverkan uppstar uppstroms i vardekedjan.
+Darfor ar det avgorande att fokusera pa resurseffektivitet i hela vardekedjan vid forvaltning renovering och nyproduktion.
+
+##### GOD HÄLSA OCH VÄLBEFINNANDE
+##### HÅLLBARA STÄDER OCH SAMHÄLLEN
+###### JÄMSTÄLLDHET
+###### HÅLLBAR KONSUMTION OCH PRODUKTION
+####### HÅLLBAR ENERGI FÖR ALLA
+####### BEKÄMPA KLIMAT- FÖRÄNDRINGARNA
+
+ANSTaNDIGA ARBETSVILLKOR OCH EKONOMISK TILLVaXT
+
+### OPERATIONELL EXCELLENS
+#### Ambition
+
+- Leverantörer till bolagets förvalt-
+
+ning samt utvecklingsverksamhet ska underteckna och efterleva Stendorrens uppforandekod.
+
+- Samtliga fordon ska vara fossil- bränsleoberoende senast 2025.
+
+- Mål om nettonoll koldioxidutsläpp
+
+validerat av Science Based Targets initiative (SBTi).
+
+
+<!-- PAGE: 29 -->
+
+#### MINSKNING AV KOLDIOXIDAVTRYCK
+#### VID NYBYGGNATION CO2/KVM
+
+28,3%
+
+######### Kg CO2/kvm
+
+3,5 3,0 2,5 2,0 1,5 1,0 0,5 0,0
+
+### NULÄGE 20302025 2040
+####  ÅTGÄRDER OCH AKTIVITETER (2025–2030)
+
+| Fastighetsförvärv | Förvaltning (ROT1)) | Förvaltning (drift) |
+| --- | --- | --- |
+| Energimätning ska tas med i teknisk due diligence. | Alltid se över möjligheterna till energi effektivisering vid ROT-projekt som genomförs av andra skäl. | Energieffektivisering av alla energi slag, löpande avstäm- ningar och optimering enligt Stendörrens energistrategi. |
+![table image]({page: 29, x: 34}, {y: 225, {width: 334}, {height: 39})
+
+Vardering av investering for att energieffektivisering (uppna EPC A eller B) ska inkluderas i teknisk due diligence.
+
+- –30% kWh/kvm mot basår 2020 (Scope 2).
+
+- –40% kgCO2/kvm mot basår 2022 (Scope 3).
+
+- <1% av byggavfall på deponi.
+
+- 100% fossilfri (inköpt) energi.
+
+###### FOKUSOMRÅDEN
+####### Resurseffektivitet – utfall
+
+| KPI | 2024 | 2023 | 2022 |
+| --- | --- | --- | --- |
+| Energi |
+| Andel inköpt fossilfri energi, % | 97 | 98 | 96 |
+| Total energianvändning, MWh | 34 437 | 40 858 | 44 970 |
+|  varav från förnyelsebara källor, MWh | 33 531 | 39 903 | 42 970 |
+|  varav från icke förnyelsebara källor, MWh | 906 | 955 | 2006 |
+| Uppvärmning från fjärrvärme, MWh | 24 090 | 28 703 | 30 165 |
+| Uppvärmning från el Värmepumpar, direktverkande el etc, MWh | 965 | 1 021 | 759 |
+| Uppvärmning från eldningsolja, MWh | 0 | 0 | 58 |
+| Energiintensitet, kWh/kvm | 79 | 85 | 89 |
+| Fastighetsel (exkl el till uppvärmning), MWh | 9 333 | 11 078 | 13 988 |
+| Kyla från fjärrkyla, MWh | 49 | 56 | – |
+![table image]({page: 31, x: 34}, {y: 370, {width: 363}, {height: 8})
+
+| KPI | 2024 | 2023 | 2022 |
+| --- | --- | --- | --- |
+| Intensiteter1) |
+| kWh/kvm | 79 | 85 | 89 |
+| kg CO2/kvm | 2,2 | 2,6 | 2,7 |
+| Certifiering |
+| Antal miljöcertifierade fastigheter | 94 | 68 | 45 |
+| Andel miljöcertifierad uthyrningsbar yta, % | 73 | 58 | 42 |
+| Antal certifierade ny- och ombyggnationer2) | 3 | 1 | 0 |
+![table image]({page: 31, x: 410}, {y: 370, {width: 363}, {height: 8})
+
+- 1) Intensitet baserat på Scope 1 och 2 och kvadratmeter beräknas utifrån LOA. Kommer justeras i framtida rapportering då datainsamling för Scope 3 påbörjats.
+
+- 2) Erhållet certifikat. Resterande (totalt 100 %) av nybyggnationsom avslutas under 2023, inväntar godkänt certifikat.
+
+Andel fornyelsebara och atervunna energikallor i verksamheten 100
+
+80
+
+60
+
+40
+
+20
+
+0
+
+n Icke fornyelsebara energikallor n Fornyelsebara och atervunna energikallor
+
+
+<!-- PAGE: 32 -->
+Miljomassig hallbarhet
+
+## MÅL OCH UTFALL
+
+| Avkastning på eget kapital | NAV tillväxt | Räntetäckningsgrad | Soliditet | Energiintensitet | Utsläppsintensitet1) | Jämställdhet |
+| --- | --- | --- | --- | --- | --- | --- |
+| Mål: >12% Utfall: 7% | Mål: >15% Utfall: 8% | Mål: 2,0x Utfall: 2,0x | Mål: 35% Utfall: 37% | Mål: 75,6 kWh/kvm Utfall: 78,7 kWh/kvm | Mål: 210 CO2/kvm (BTA2)) Utfall: 251 CO2/kvm (BTA) | Mål: 40/60 Utfall: 54/46 |
+| Genomsnittlig avkastning på eget kapital ska långsiktigt uppgå till lägst 12 procent. | Tillväxt i långsiktigt substans- värde ska långsiktigt uppgå till lägst 15 procent. | Räntetäckningsgraden ska långsiktigt uppgå till lägst 2,0 gånger. | Soliditeten ska långsiktigt uppgå till 35 procent och aldrig understiga 20 procent. |  |  |  |
+| Avkastning på eget kapital |
+| % | NAV tillväxt % | Räntetäckningsgrad ggr | Soliditet % | Energiintensitet kWh/kvm | Utsläppsintensitet CO2/kvm | Könsfördelning % |
+|  |  | 3,0 | 50 | 120 | 400 |  |
+|  |  | 2,5 | 40 | 100 | 300 | 60 |
+|  |  | 2,0 | 30 | 80 |  |  |
+|  |  | 1,5 |  | 60 | 200 | 40 |
+| 20 1,0 40 |
+|  |  |  |  |  | 100 | 20 |
+![table image]({page: 12, x: 38}, {y: 145, {width: 20}, {height: 7})
+
+10 0,5 20
+
+0
+0
+0 -5
+
+0 5 10 15 20 25 30
+
+20242023202220212020 20242023202220212020 20242023202220212020 0 202420232022 20242023202220212020
+
+- –5
+
+0 5 10 15 20 25 30 35 40
+
+20242023202220212020
+
+0,0 80
+
+20242023202220212020
+
+|  |  | Kvinnor |  |
+| --- | --- | --- | --- |
+| Kommentar |
+| Avkastningen på genomsnittligt | eget kapital (beräknat på 12 | månaders genomsnitt) uppgick | vid periodens slut till 7 procent. |
+| Kommentar |
+| Tillväxt i långsiktigt substans- värde uppgick vid periodens utgång (de senaste 12 måna- derna) till 8 procent och 18 procent om ej justerat för nyemission under fjärde kvartalet 2024. |
+| Kommentar Räntetäckningsgraden uppgick till 2,0 gånger. |  | Kommentar Soliditeten uppgick vid periodens slut till 37 procent. Angiven soliditet är beräknad exkl. den leasingskuld som tillämpningen av IFRS 16 medför. Om denna skuldpost medräknas påverkas soliditeten negativt med cirka 0,7 procentenheter. Kommentar Energiintensiteten minskade med 5,7 procent i förhållande till föregående år. Jämförelsetal utgår från ”like-to-like” samt normalårskorrigering. Kommentar Under Scope 3 och inom ny- byggnation minskade utsläppen. |  |
+| Bolaget utgår från Boverkets standard för klimatdeklaration. Stendörren inkluderar även bygg- del 7 och 8 i redovisad utsläpps- intensitet. Beräkning och metod följer Greenhouse Gas Protocol. |
+| Kommentar |
+![table image]({page: 12, x: 906}, {y: 384, {width: 44}, {height: 8})
+
+Mal och utfall redovisar konsfordelningen bland bolagets chefer.
+Malet ar en jamn konsfordelning med en fordelning om 40/60 i endera riktning.
+I ledningsgruppen ar utfallet 50/50.
+
+Scope 3 redovisas fran 2022 da Stendorren utokade sin rapportering.
+
+1) Nybyggnation
+
+
+<!-- PAGE: 13 -->
+
+### Fysiska risker
+
+I den analys som Stendorren genomforde under 2022 och 2023 utgick bolaget fran FN:s klimatpanel IPCC:s fyra utslappsscenarier RCP8,5 (varsta scenario fortsatt okade utslapp) RCP6 (fortsatt okade utslapp fram till 2060) RCP4,5 (fortsatt okade utslapp fram till 2040) och RCP2,6 (kulminerade utslapp 2020 och darefter en minskning).
+Resultatet av den genomforda kartlaggningen visar att fram till ar 2040 har 22 fastigheter en mojlig fysisk klimatrisk.
+Av dessa har en djupare genomgang och inventering paborjats under 2024 for att kunna hantera risker i respektive fastighet.
+Riskerna ar fram for allt kopplade till hydrologi och kylgraddagar.
+Analysen av bolagets svenska fastigheter utgar fran underlag sam manstallt av SMHI byggnadernas konstruktion energi prestanda geografiska lage och byggar.
+Fastigheter i Norge Danmark och Finland har annu inte inkluderats i det rapporterade underlaget.
+De fastigheter som idag finns utanfor Sverige kommer att utredas nar en lamplig modell for detta tagits fram.
+identifierade 16 fastigheter som genom genomforda och planerade atgarder successivt minskar sina utslapp och darmed ar i linje med bolagets mal om nettonoll koldioxid utslapp till 2040.
+
+Stendorren utgar i sitt arbete fran ett scenario med en global temperaturokning om 1,5 grader vilket satter ramarna for hur bolaget hanterar sina omstallnings risker.
+En central del i detta arbete ar att byta till upp varmningslosningar som bergvarme och fjarrvarme med hogre andel fornybar energi.
+Anpassningsarbetet for att minska konsekvenserna av omstallningen har inletts och pagar lopande.
+
+Inom fokusomradet har vi en direkt paverkan pa
+
+##### Koncernen som leasegivare
+
+I egenskap av hyresvard innehar koncernen operationella leasingavtal med kun der.
+Redovisningsprinciper for redovisning av hyresintakter framgar av stycket Intakter Hyresintakter pa sidan 53.
+
+####### Analys över Stendörrens primära geografier
+
+Den nordiska marknaden for lager logistik och indu strifastigheter visade positiva resultat under 2024 men med variationer mellan landerna.
+Den svenska transaktionsvolymen for lager logistik och industrifastigheter nadde under 2024 upp till 25,4 miljarder kronor vilket ar en minskning fran 27,5 miljarder kronor foregaende ar.
+Minskningen kan huvudsakligen tillskrivas en kraftig nedgang i utlandska investeringar dar andelen utlandskt kapital sjonk fran 43,6 procent till 19,4 procent.
+Regionstaderna stod for 48 procent av volymen foljt av ovriga delar av Sverige (24,4 procent) Stockholm (14,2 procent) och Goteborg (11,7 procent).
+Direktavkastningskravet for ”prime” logistik sjonk under 2024 fran 5,25 procent till 5,00 procent vilket signalerar en stark efterfragan och aterhamtning inom segmentet.
+Dessutom har hyresnivaerna fortsatt att oka sarskilt i konkurrenskraftiga hubbar som Stockholm och Jonkoping.
+I Danmark nadde transaktionsvolymen for lager logistik och industrifastigheter 11,5 miljarder DKK vilket ar en okning med 33 procent fran 2023 och den nast hogsta noteringen nagonsin for segmentet.
+Kopenhamn noterade dock en viss okning av direktavkastningskra vet for logistikfastig heter i primelage fran 5,10 procent till 5,25 procent medan hog byggaktivitet och okade vakansgrader paverkade hyresmarknaden dar mark nadshyran stod kvar pa samma niva som under 2023.
+Efterfragan riktades framst mot centrala lagen och moderna faciliteter med hog standard.
+
+#### Marknaden för lager-, logistik- och industrifastigheter
+
+Lager logistik och industrifastigheter har pa senare ar blivit ett av de mer transaktionsintensiva segmenten inom fastighetssektorn vilket ar delvis drivet av e-han deln och dess behov av lagerutrymme och logistikyta.
+Denna trend forstarktes ytterligare i sam band med covid 19 pandemin och transportflodena har fortsatt vara starka aven efter att samhallet oppnade upp igen.
+Dessutom forvantas Sveriges intrade i NATO paverka sektorn positivt bade genom ett okat behov av industri ell produktion och att nya krav stalls pa lagerhallning av viktig forsvarsmateriel och andra fornodenheter.
+Geopo litiska risker paverkar aven foretagens riskhantering dar flera aktorer valjer att diversifiera sina forsorjningskedjor genom att dels forflytta sin produktion och lagerhante ring narmare sina huvudmarknader men aven genom att sprida ut sina lager pa fler orter an tidigare.
+
+####### E\xadhandeln driver
+
+E-handeln fortsatter att vara en central drivkraft for segmentet med okande krav pa moderna lagerlosningar nara urbana omraden for att mojliggora snabba leve ranser.
+Marknaden praglas av strukturella forandringar i konsumtionsbeteenden och leveranskedjor samt en vaxande efterfragan pa robusta och hallbara losningar.
+Teknologiska framsteg och hallbarhetsfokus spelar en allt viktigare roll dar investeringar i grona losningar och energieffektiva byggnader prioriteras.
+
+Trots utmaningar som regionala variationer i vakans grader forblir lager logistik och industrisegmentet en attraktiv investeringsmojlighet med stabila kassafloden och langsiktiga hyresavtal och ar darmed val positione rat for fortsatt god utveckling.
+
+| Svenska investerare | Utländska investerare | Antal transaktioner | Bostad | Kontor | Handel | Lager, logistik, industri |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  | Samhällsfastigheter |  | Övrigt (till exempel mark och hotell) |  |
+![table image]({page: 7, x: 43}, {y: 531, {width: 210}, {height: 7})
+
+
+<!-- PAGE: 8 -->
+Marknadssegment och trender
+
+# INTRESSENTENGAGEMANG OCH VÄSENTLIGHETSANALYS
+
+| Intressentgrupp | Förväntningar | Kontaktytor | Stendörrens fokus |
+| --- | --- | --- | --- |
+| Ägare och styrelse | strategin utifrån Stendörrens affärsstrategi. |  Styrelsemöten 6–8 gånger per år. |  |
+![table image]({page: 26, x: 34}, {y: 170, {width: 356}, {height: 18})
+
+- Årliga strategimöten.
+
+- Möten med ägarrepresentanter.
+
+- Kontakt med vd, ekonomi- direktör och hållbarhets chef.
+
+- Avdelningsmöten veckovis.
+
+- Informationsmöten månadsvis.
+
+- Konferenser med olika teman.
+
+- Frukostar och informella möten med kollegor.
+
+Investerarpresentationer.
+
+- Kvartalsrapportering.
+
+- Kontakt med vd, ekonomi- direktör och hållbarhets chef.
+
+Kundmoten.
+
+- Förhandlingar.
+
+- Dialog via upparbetade personliga kontakter.
+
+- Anonyma enkäter.
+
+Dialog vid upphandling av ramavtal och entreprenad upphandling.
+
+- Regelbundna revisioner.
+
+- Kontraktsmöten.
+
+- Platsbesök.
+
+Nara dialog vid processer rorande detaljplaner och bygglov.
+
+- Förberedelser för CSRD.
+
+- Arbeta aktivt med klimat- och omställningsrisker.
+
+- Följa upp och utveckla håll barhetsstrategi och mål.
+
+Under hosten 2024 genomfordes dubbel vasentlig hetsanalys.
+Den baserades pa en riktad intressent dialog med syfte att identifiera bade den inverkan som Stendorren har pa omvarlden och de hallbar hetsrelaterade risker och mojligheter som kan paverka Stendorrens finansiella stallning.
+Intressent dialogen bestod av intervjuer med medarbetare pa Stendorren samt externa intressenter sasom hyresgaster samarbetspartners och finansiarer.
+
+Stendorrens ledning har analyserat och strukturerat de mest vasentliga fragorna utifran paverkan omfattning sannolikhet och mojlighet till atgard.
+
+- Transparent redovisning.
+
+- Säker och trygg värdekedja.
+
+- Regelefterlevnad.
+
+Resultatet av vasentlighetsanalysen visar att omraden sasom klimat energi och foretags kultur bedoms som de mest vasentliga fragorna for bolaget.
+Under processen har aven ett antal tematiska omraden identifierats som sarskilt vasentliga for Stendorren att arbeta mer struk turerat med och inkludera i framtida hallbar hetsrapportering.
+Dessa omraden ar vardeked jan cirkulara processer och avfall samt biologisk mangfald.
+De vasentliga omradena integreras i den befintliga strategin samt de fem fokus omraden som bolaget tidigare har beslutat om.
+
+Medarbetare inklusive lednings\xad grupp Finansiarer och langivare
+
+- Regelbunden eNPS-mätning.
+
+- Följa upp medarbetarsamtal.
+
+- Utbildning inom relevanta områden.
+
+- Fokus på de mål och aktiviteter som bidrar mest till hållbar utveckling.
+
+- God företagskultur och professionell utveckling.
+
+###### ÅTGÄRDER OCH AKTIVITETER (2030–2040)
+
+- Använda alternativa byggmaterial.
+
+- Ytterligare optimering och styrning av fastigheter, delvis genom AI.
+
+- Teknisk utveckling.
+
+- Samverkan i och mellan branscher som står i beroendeställning till varandra.
+
+- Kommersialisering av återbruk.
+
+#### Styrning av leverantörskedjan
+
+Under slutet av 2024 har mindre uppdateringar genom forts i uppforandekoden for leverantorer och affarspart ners inom bade fastighetsforvaltningen och projektut vecklingsverksamheten.
+Syftet med uppdateringarna ar att kvalitetssakra processerna och skarpa hallbarhets kraven vid upphandling av leverantorer.
+
+##### STYRELSENS ARBETE UNDER 2024
+###### OKTOBER
+
+- Fastställande av delårs-
+
+rapport for arets tredje kvartal Genomgang av revi
+
+sorernas oversiktliga granskning av delars rapporten for det tredje kvartalet
+
+#### Uppskjuten skatt
+
+Underskottsavdrag utgors av tidigare ars skattemassiga forluster.
+Dessa forluster ar inte tidsbegransade och rullas vidare till nastkommande ar och nyttjas genom att kvittas mot framtida skattemassiga vinster.
+Den uppskjutna skatten har beraknats med skattesatsen 20,6 procent.
+Moderbolagets skattemassiga under skottsavdrag uppgar till 2 miljoner kronor (2).
+
+| Mkr | 2024 | 2023 |
+| --- | --- | --- |
+| Uppskjuten skattefordran Underskottsavdrag Ingående redovisat värde | 0 | 0 |
+| Årets förändring | 0 | 0 |
+| Utgående redovisat värde | 0 | 0 |
+| Summa uppskjuten skattefordran | 0 | 0 |
+| Uppskjuten skatteskuld Obeskattade reserver Ingående redovisat värde | – | – |
+| Årets förändring över resultaträkningen | – | – |
+| Köp/försäljning | – | – |
+| Utgående redovisat värde | – | – |
+| Summa uppskjuten skatteskuld | – | – |
+| Uppskjuten skatt, netto redovisat värde | 0 | 0 |
+![table image]({page: 69, x: 370}, {y: 153, {width: 319}, {height: 8})
+
+| 9 | Immateriella anläggningstillgångar |  |
+| --- | --- | --- |
+| Mkr | 2024 | 2023 |
+| Ingående anskaffningsvärde | 10 | 8 |
+| Investeringar | 7 | 2 |
+| Utgående ackumulerade anskaffningsvärden | 17 | 10 |
+| Ingående ackumulerade avskrivningar | –7 | –6 |
+| Årets avskrivningar | –1 | –1 |
+| Utgående ackumulerade avskrivningar | –8 | –7 |
+| Utgående redovisat värde | 9 | 3 |
+| Immateriella anläggningstillgångar består av balanserade utgifter för hemsida och programvara. |
+| 10 | Inventarier |  |
+| Mkr | 2024 | 2023 |
+| Ingående anskaffningsvärde | 19 | 17 |
+| Investeringar | – | 2 |
+| Omklassificering | –6 | – |
+| Utgående ackumulerade anskaffningsvärden | 13 | 19 |
+| Ingående ackumulerade avskrivningar | –9 | –8 |
+| Årets avskrivningar | –1 | –1 |
+| Utgående ackumulerade avskrivningar | –10 | –9 |
+| Utgående redovisat värde | 3 | 10 |
+![table image]({page: 69, x: 712}, {y: 58, {width: 318}, {height: 8})
+
+
+<!-- PAGE: 70 -->
+| 11 Andelar i koncernföretag |  |  |
+| --- | --- | --- |
+| Mkr | 2024 | 2023 |
+| Ingående redovisat värde | 979 | 964 |
+| Förvärv | 95 | 53 |
+| Tillskott | 165 | – |
+| Avyttring | –50 | – |
+| Nedskrivningar | –24 | –38 |
+| Utgående redovisat värde | 1 165 | 979 |
+![table image]({page: 70, x: 40}, {y: 58, {width: 319}, {height: 8})
+
+Kreditrisken for utlaning fran moderbolaget till dotterbolag bedoms lag med hansyn till de underliggande varden som finns i respektive dotterbolag i form av fastigheter.
+
+## FRAMTIDSSÄKRING
+### Introduktion Verksamheten Finansiella rapporter Bolagsstyrning Finansiella rapporter Bolagsstyrning Bolagsstyrning Övrig informationHållbarhetsrapport
+### Ambition
+
+- Inkludera relevanta TCFD-indikatorer och rapportera enligt TCFD.
+
+- Samtliga fastigheter med hög risk ska
+
+riskinventeras och forses med relevanta handlingsplaner.
+
+- Öka andel fastigheter med Energideklara-
+
+tion (Energy Performance Construction EPC) betyg C eller battre.
+
+- Mål om nettonoll koldioxidutsläpp validerat av Science Based Targets initiative (SBTi).
+
+I linje med Task Force on Climate\xadrelated Fi\xad nancial Disclosures (TCFD) rekommendationer har bolaget kategoriserat sina klimatrelaterade finansiella risker i tva huvudgrupper fysiska risker och omstallningsrisker.
+Stendorren har genomfort analyser av det svenska fastighets\xad bestandet och under 2024 tagit fram en strategi for att hantera och begransa de identifierade riskerna.
+
+Fysiska risker avser de risker som uppstar till foljd av klimatforandringar sasom okad nederbord hogre tem peraturer eller stigande havsnivaer.
+Omstallningsrisker omfattar politiska regulatoriska marknadsmassiga och tekniska risker som kan uppsta i samband med over gangen till ett samhalle med lagre koldioxidutslapp.
+
+Under de senaste aren har Stendorren genomfort en omfattande klimatriskanalys av hela det svenska fast ighetsbestandet i syfte att identifiera vilka fastigheter som ar mest utsatta for klimatforandringar.
+Analysen visade att cirka 21 procent av bestandets varde ar expo nerat for hogre klimatrelaterade risker.
+Under aret har bolaget i samarbete med externa konsulter genomfort tva fordjupade pilotprojekt for att utveckla en metod och arbetsrutin for att inventera samtliga 20 fastigheter som bedomts ha betydande risker framst kopplade till hydrologiska faktorer.
+Resultatet av denna inventering utgor grunden for det fortsatta arbetet med att klimat sakra de mest riskutsatta fastigheterna i portfoljen.
+
+## OPERATIONELL EXCELLENS
+### Ambition
+
+- Leverantörer till bolagets förvaltning samt
+
+utvecklingsverksamhet ska underteckna och efterleva Stendorrens uppforandekod.
+
+- Samtliga fordon ska vara fossilbränsle- oberoende senast 2025.
+
+Fokusomradet identifierar de riktlinjer som medarbetarna inom Stendorren ska arbeta utifran for att bidra till en hallbar verksamhet.
+Det handlar om att bevaka risker och forand\xad ringar i omvarlden men framfor allt om att bygga en stark och stabil organisation med valfungerande stodprocesser metoder verktyg rutiner och policyer.
+
+### Väsentlighetsmatris
+
+|  | Låg | Medel | Hög |
+| --- | --- | --- | --- |
+| Klimatavtryck |
+| Företagskultur |
+| Leverantörsgranskning |
+| Bolagsstyrning |
+| Energianvändning i fastigheter |
+| Anti-korruption |
+| Klimatrisk |
+| Attraktiva affärspartners |
+| Arbetsmiljö |
+| Jämställdhet |
+| Välmående och hälsa |
+| Grön finansiering |
+| Mänskliga rättigheter |
+| Kommunikation |
+| Trygghet |
+| Biologisk mångfald |
+| Miljöcertifiering av fastigheter |
+| Digitalisering |
+| Transparent redovisning. |
+| Energi och CO2-utsläpp. |
+| Hantering och kontroll av klimatrisker. |
+| Lokaler som möter behov. |
+| Låg energiförbrukning och hållbara energikällor. |
+| Kontroll över klimatrisker. |
+|  Engagemang och samverkan för hållbara materialval. |
+| Energi och CO2-utsläpp. |
+| Goda relationer och arbetsmiljö. |
+| Uppföljning av gröna och hållbarhets länkade lån. |
+| Öka transparens i hållbarhets- rapportering. |
+| Öka samverkan . |
+| Gröna bilagor vid hyresavtal. |
+| Resurseffektivisering. Hyresgäster och |
+| hyresgästombud |  |  |  |
+![table image]({page: 26, x: 629}, {y: 531, {width: 67}, {height: 8})
+
+Leverantorer och samarbetspartners
+
+Kravstallning vid upphandling.
+
+- Bakgrundskontroller och upp- följning av hur uppförandekoden efterlevs.
+
+- Ökat engagemang och sam- verkan med samarbetspartners.
+
+- Tydlig och öppen kommunikation.
+
+- Bidra till hållbar utveckling i de kommuner där Stendörren har fastigheter eller byggrätter.
+
+### Året som gått
+
+- Energieffektiviseringsarbetet har fortlöpt med goda
+
+resultat i enlighet med bolagets energistrategi.
+
+- Omfattande klimatinventering av bolagets högrisk-
+
+fastigheter har genomforts.
+
+- Inom projektutvecklingen har särskilt fokus lagts på
+
+att sakerstalla minskat klimatavtryck vid uppforandet av nya byggnader.
+
+- Kontinuerlig dialog med medarbetare har förts, både
+
+individuellt och kollektivt i syfte att starka engage mang och framja personlig utveckling.
+
+- Stendörren nominerades till Allbrightpriset 2024 efter
+
+att ha placerat sig pa listan over Sveriges mest jam stallda bolag.
+
+- Bolaget har samarbetat med externa organisationer
+
+for att skapa mojligheter for personer som star langt fran arbetsmarknaden.
+
+- Dubbel väsentlighetsanalys har genomförts i enlighet
+
+med ESRS standarderna.
+
+
+<!-- PAGE: 24 -->
+
+### Värderingsmetodik
+
+Stendorrens marknadsvarderingar (bade de externa och interna varderingarna) ar utforda som avkastningsvarderingar enligt kassaflodesmodell i linje med IPD Svenskt Fastighetsindex varderingshandledning.
+Varderingarna grundar sig pa kassaflodesanalyser innebarande att fastighetens varde baseras pa nuvardet av prognostiserade kassafloden jamte restvarde under kalkylperioder som varierar for de enskilda varderingsobjekten mellan 5-15 ar enligt foljande princip Forvantat framtida kassaflode under vald kalkylperiod beraknas enligt + Hyresinbetalningar
+
+- Betalda driftkostnader
+
+- Underhållskostnader = Driftnetto
+
+- Investeringar = Kassaflöde
+
+Antaganden avseende de forvantade framtida kassaflodena gors utifran analys av
+
+- Marknadens/närområdets framtida utveckling
+
+- Fastighetens marknadsförutsättningar och marknadsposition
+
+- Marknadsmässiga hyresvillkor
+
+- Drift- och underhållskostnader i likartade fastigheter i jämförelse med dem i den aktuella fastigheten
+
+- Känt och bedömt investeringsbehov i fastigheten (hyresgästanpassningar och större investeringsbehov som inte omfattas av det löpande underhållet)
+
+De vardepaverkande parametrar som anvands i varderingen motsvarar den externa varderarens tolkning av hur en presumtiv kopare pa marknaden skulle resonera och summan av nuvardet av driftnetton och restvarde kan darmed tas som ett uttryck for marknadsvardet.
+Samtliga fastigheter besiktigas fysiskt av varderingsman vid forsta varderingstillfalle och ombesiktigas vid behov (exem pelvis efter om eller tillbyggnad eller efter storre hyresgastanpassningar).
+Det ska dock aldrig ga mer an 3 ar mellan besiktningstillfallena.
+Byggratter och potentiella byggratter har varderats utifran ortprisstudier lage i planprocessen och faststallda avyttringsvarden.
+
+Stendorrens samtliga fastigheter har varderats enligt varderingshierarki 3 inom IFRS 13.
+Det har inte forekommit nagon forflyttning av fastigheter mellan olika varderingshierarkier.
+Forandringar under perioden i de icke observerbara indata som tillampas vid varderingarna analyseras vid varje bokslutstillfalle av foretagsledningen mot internt tillganglig information information fran genom forda/planerade transaktioner samt information fran de externa varderingsfore tagen.
+Varderingarna har beaktat basta och maximala anvandningen av fastig heterna.
+
+#### Nya och ändrade standarder och tolkningar som ännu ej trätt i kraft
+
+Ett antal andringar av standarder trader i kraft for rakenskapsar som borjar den 1 januari 2025 eller senare och har inte tillampats vid upprattandet av denna finansiella rapport.
+
+Med undantag for IFRS 18 bedomer koncernen att dessa andringar inte kommer att ha nagon vasentlig effekt pa de finansiella rapporterna.
+
+IFRS 18 Presentation and Disclosure in Financial Statements ersatter IAS 1 Utformning av finansiella rapporter.
+IFRS 18 faststaller nya krav pa hur finansiella rapporter presenteras med sarskilt fokus pa
+
+- Resultaträkningen: Krav på vissa obligatoriska delsummor införs såsom rörelse- resultat. Intäkter och kostnader kommer i resultaträkningen att klassificeras i fem kategorier: rörelsen (operating), finansiering, investering, inkomstskatt och avvecklad verksamhet.
+
+- Aggregering och uppdelning av information, inklusive införandet av över- gripande principer för hur information bör aggregeras och delas upp i de
+
+finansiella rapporterna.
+
+- Upplysningar om nyckeltal (”Management Defined Performed Measures
+
+- MPMs”) ska lämnas i en enda not, med avstämningar till närmaste IFRS-
+
+kompatibla delsumma.
+
+IFRS 18 trader i kraft for redovisningsperioder som borjar den 1 januari 2027 eller senare med tidigare tillampning tillaten.
+Foretag kommer att behova rakna om jamforelseperioder.
+Vad galler IFRS 18 har koncernen annu inte utvarderat dess effekt pa kon cernens finansiella rapportering.
+IFRS 18 kommer inte ha nagon paverkan pa redovisning och vardering av koncernens transaktioner utan endast paverka koncernens utformning och presentation av de finansiella rapporterna inklusive de finansiella rakningarna och noter.
+IFRS 18 kan aven komma att paverka de nyckeltal som presenteras och hur de beraknas.

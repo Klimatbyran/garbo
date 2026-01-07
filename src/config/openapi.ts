@@ -3,14 +3,28 @@ import { descriptions } from 'wikibase-sdk/dist/src/helpers/simplify'
 import { z } from 'zod'
 
 const envSchema = z.object({
-  OPENAPI_PREFIX: z.string().default('api'),
+  OPENAPI_PREFIX: z.string(),
 })
 
-const env = envSchema.parse(process.env)
+const parsedEnv = envSchema.safeParse(process.env)
+
+if (!parsedEnv.success) {
+  console.error('❌ Invalid initialization of OpenAPI environment variables:')
+  console.error(parsedEnv.error.format())
+
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'OPENAPI_PREFIX')) {
+    console.error('OPENAPI_PREFIX must be a prefix in the form of a string.')
+  }
+
+  throw new Error('Invalid initialization of OpenAPI environment variables')
+}
 
 const openAPITagDefinitions = {
   Companies: {
     description: 'Companies and related resources',
+  },
+  CompanyDescription: {
+    description: 'Description of a company',
   },
   Industry: {
     description: 'Company industry',
@@ -34,9 +48,21 @@ const openAPITagDefinitions = {
   Municipalities: {
     description: 'Climate data related to Swedish municipalities',
   },
+  Regions: {
+    description: 'Climate data related to Swedish regions',
+  },
   Auth: {
-    descriptions: 'Authentification'
-  }
+    descriptions: 'Authentification',
+  },
+  ReportValidations: {
+    description: 'Report validations',
+  },
+  Screenshots: {
+    description: 'Screenshots of PDF tables from reports',
+  },
+  Newsletters: {
+    description: 'Newsletters',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
@@ -48,7 +74,7 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
     tags[tagName] = { name: tagName, ...tag }
     return tags
   },
-  {} as Record<TagName, Tag>
+  {} as Record<TagName, Tag>,
 )
 
 /**
@@ -57,6 +83,8 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
 export function getTags(...tags: (keyof typeof openAPITags)[]) {
   return tags
 }
+
+const env = parsedEnv.data
 
 export default {
   prefix: env.OPENAPI_PREFIX,
@@ -90,7 +118,6 @@ All endpoints require authentication using a Bearer token. Include your API key 
 ## Resources
 
 * [Klimatkollen Website](https://klimatkollen.se)
-* [API Terms of Service](https://klimatkollen.se/terms)
 * [Contact Support](mailto:support@klimatkollen.se)
 
 ## Examples
