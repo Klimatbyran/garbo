@@ -2,13 +2,24 @@ import { DiscordQueue } from './lib/DiscordQueue'
 
 // Queue names as constants
 export const QUEUE_NAMES = {
-  NLM_PARSE_PDF: 'nlmParsePDF',
+  PARSE_PDF: 'parsePdf',
   DOCLING_PARSE_PDF: 'doclingParsePDF',
   NLM_EXTRACT_TABLES: 'nlmExtractTables',
   INDEX_MARKDOWN: 'indexMarkdown',
   PRECHECK: 'precheck',
   GUESS_WIKIDATA: 'guessWikidata',
-  FOLLOW_UP: 'followUp',
+  FOLLOW_UP_SCOPE_1: 'followUpScope1',
+  FOLLOW_UP_SCOPE_2: 'followUpScope2',
+  FOLLOW_UP_SCOPE_12: 'followUpScope12',
+  FOLLOW_UP_SCOPE_3: 'followUpScope3',
+  FOLLOW_UP_BIOGENIC: 'followUpBiogenic',
+  FOLLOW_UP_ECONOMY: 'followUpEconomy',
+  FOLLOW_UP_GOALS: 'followUpGoals',
+  FOLLOW_UP_INITIATIVES: 'followUpInitiatives',
+  FOLLOW_UP_FISCAL_YEAR: 'followUpFiscalYear',
+  FOLLOW_UP_COMPANY_TAGS: 'followUpCompanyTags',
+  FOLLOW_UP_BASE_YEAR: 'followUpBaseYear',
+  FOLLOW_UP_INDUSTRY_GICS: 'followUpIndustryGics',
   EXTRACT_DESCRIPTIONS: 'extractDescriptions',
   EXTRACT_EMISSIONS: 'extractEmissions',
   CHECK_DB: 'checkDB',
@@ -28,7 +39,7 @@ export const QUEUE_NAMES = {
 
 // Create queue clients (NOT workers)
 export const queues = {
-  nlmParsePDF: new DiscordQueue(QUEUE_NAMES.NLM_PARSE_PDF),
+  parsePdf: new DiscordQueue(QUEUE_NAMES.PARSE_PDF),
   doclingParsePDF: new DiscordQueue(QUEUE_NAMES.DOCLING_PARSE_PDF),
   indexMarkdown: new DiscordQueue(QUEUE_NAMES.INDEX_MARKDOWN),
   nlmExtractTables: new DiscordQueue(QUEUE_NAMES.NLM_EXTRACT_TABLES),
@@ -42,7 +53,18 @@ export const queues = {
   diffDescriptions: new DiscordQueue(QUEUE_NAMES.DIFF_DESCRIPTIONS),
   diffTags: new DiscordQueue(QUEUE_NAMES.DIFF_TAGS),
   extractEmissions: new DiscordQueue(QUEUE_NAMES.EXTRACT_EMISSIONS),
-  followUp: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP),
+  followUpScope1: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_SCOPE_1),
+  followUpScope2: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_SCOPE_2),
+  followUpScope12: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_SCOPE_12),
+  followUpScope3: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_SCOPE_3),
+  followUpBiogenic: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_BIOGENIC),
+  followUpInitiatives: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_INITIATIVES),
+  followUpCompanyTags: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS),
+  followUpGoals: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_GOALS),
+  followUpIndustryGics: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS),
+  followUpBaseYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_BASE_YEAR),
+  followUpEconomy: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_ECONOMY),
+  followUpFiscalYear: new DiscordQueue(QUEUE_NAMES.FOLLOW_UP_FISCAL_YEAR),
   extractDescriptions: new DiscordQueue(QUEUE_NAMES.EXTRACT_DESCRIPTIONS),
   guessWikidata: new DiscordQueue(QUEUE_NAMES.GUESS_WIKIDATA),
   saveToAPI: new DiscordQueue(QUEUE_NAMES.SAVE_TO_API),
@@ -50,5 +72,4 @@ export const queues = {
   wikipediaUpload: new DiscordQueue(QUEUE_NAMES.WIKIPEDIA_UPLOAD),
   extractLEI: new DiscordQueue(QUEUE_NAMES.EXTRACT_LEI),
   diffLEI: new DiscordQueue(QUEUE_NAMES.DIFF_LEI),
-
 }
