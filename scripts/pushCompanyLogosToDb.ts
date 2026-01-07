@@ -110,7 +110,7 @@ const fetchLogoUrls = async (companies: any[]) => {
       logoUrl: string | null
     }> = []
 
-    companiesWikiData.forEach((company) => {
+    companiesWikiData.forEach(async (company) => {
       if (!company || !company.entities) {
         return
       }
@@ -120,15 +120,31 @@ const fetchLogoUrls = async (companies: any[]) => {
         return
       }
 
-      const path = company?.entities?.[
-        id
-      ]?.claims?.P154?.[0]?.mainsnak?.datavalue?.value?.replaceAll(' ', '_')
+      const path =
+        company?.entities?.[
+          id
+        ]?.claims?.P154?.[0]?.mainsnak?.datavalue?.value?.replaceAll(
+          ' ',
+          '_',
+        ) || null
 
-      const url = path
-        ? `https://commons.wikimedia.org/wiki/Special:Redirect/file/${path}`
-        : null
+      if (!path) {
+        companyLogoUrls.push({ wikidataId: id, logoUrl: null })
+        return
+      }
 
-      companyLogoUrls.push({ wikidataId: id, logoUrl: url })
+      const url = `https://commons.wikimedia.org/wiki/Special:Redirect/file/${path}`
+      const response = await fetch(url, {
+        method: 'HEAD',
+        redirect: 'follow',
+
+        headers,
+      })
+      const finalUrl = response.url
+      console.log('Original URL:', url)
+      console.log('Final URL:', finalUrl)
+
+      companyLogoUrls.push({ wikidataId: id, logoUrl: finalUrl })
     })
 
     console.log(`Found ${companyLogoUrls.length} logo URLs`)
@@ -145,7 +161,7 @@ const pushCompanyLogos = async (logoUrls: any, token: string | null) => {
   }
 
   // Option 1: Use Prisma directly (recommended for local testing)
-  if (!token) {
+  /*  if (!token) {
     console.log('Using Prisma directly (no API token)')
     const { prisma } = await import('../src/lib/prisma')
 
@@ -165,7 +181,7 @@ const pushCompanyLogos = async (logoUrls: any, token: string | null) => {
 
     await prisma.$disconnect()
     return
-  }
+  } */
 
   // Option 2: Use API
 
