@@ -246,6 +246,7 @@ export function transformMetadata(data: any, onlyIncludeVerified = false): any {
 }
 
 export function addCalculatedTotalEmissions(companies: any[]) {
+  console.log('HEJHEJ')
   return (
     companies
       // Calculate total emissions for each reporting period
@@ -260,13 +261,9 @@ export function addCalculatedTotalEmissions(companies: any[]) {
               (total, category) => category.total + total,
               0,
             ) || 0
-          const calculatedTotalEmissions =
-            (scope1?.total ?? 0) +
-            (scope2Total ?? 0) +
-            (scope3Total !== 0
-              ? scope3Total
-              : (scope3.statedTotalEmissions.total ?? 0))
 
+          const calculatedTotalEmissions =
+            (scope1?.total ?? 0) + (scope2Total ?? 0) + (scope3Total ?? 0)
           return {
             ...reportingPeriod,
             emissions: reportingPeriod.emissions && {
@@ -279,11 +276,13 @@ export function addCalculatedTotalEmissions(companies: any[]) {
                 ...scope3,
                 calculatedTotalEmissions: scope3Total,
               },
-              calculatedTotalEmissions: calculatedTotalEmissions,
+              calculatedTotalEmissions: calculatedTotalEmissions || 0,
             },
             metadata: reportingPeriod.metadata,
           }
         }),
+
+        futureEmissionsTrendSlope: company.futureEmissionsTrendSlope ?? null,
       }))
   )
 }
