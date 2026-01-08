@@ -38,7 +38,6 @@ class CompanyService {
     wikidataId: string,
     authenticated: boolean = false,
   ) {
-    console.log(authenticated)
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,
       where: {
@@ -246,7 +245,7 @@ export function transformMetadata(data: any, onlyIncludeVerified = false): any {
 }
 
 export function addCalculatedTotalEmissions(companies: any[]) {
-  console.log('HEJHEJ')
+
   return (
     companies
       // Calculate total emissions for each reporting period
