@@ -15,7 +15,7 @@ class CompanyService {
   async getAllCompaniesWithMetadata(authenticated: boolean = false) {
     const companies = await prisma.company.findMany(companyListArgs)
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map((data) => transformMetadata(data, !authenticated)),
+      companies.map((data) => transformMetadata(data, authenticated)),
     )
     return transformedCompanies
   }
@@ -29,7 +29,7 @@ class CompanyService {
       where: { name: { contains: searchTerm } },
     })
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map((data) => transformMetadata(data, !authenticated)),
+      companies.map((data) => transformMetadata(data, authenticated)),
     )
     return transformedCompanies
   }
@@ -46,7 +46,7 @@ class CompanyService {
     })
 
     const [transformedCompany] = addCalculatedTotalEmissions([
-      transformMetadata(company, !authenticated),
+      transformMetadata(company, authenticated),
     ])
 
     return transformedCompany
@@ -215,14 +215,14 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-export function transformMetadata(data: any, onlyIncludeVerified = false): any {
+export function transformMetadata(data: any, authenticated = false): any {
   if (Array.isArray(data)) {
-    return data.map((item) => transformMetadata(item, onlyIncludeVerified))
+    return data.map((item) => transformMetadata(item, authenticated))
   } else if (data && typeof data === 'object') {
     const transformed = Object.entries(data).reduce(
       (acc, [key, value]) => {
         if (key === 'metadata' && Array.isArray(value)) {
-          if (onlyIncludeVerified) {
+          if (!authenticated) {
             acc[key] = { verified: value[0].verifiedBy !== null }
           } else {
             acc[key] = { ...value[0], verified: value[0].verifiedBy !== null }
@@ -230,7 +230,7 @@ export function transformMetadata(data: any, onlyIncludeVerified = false): any {
         } else if (value instanceof Date) {
           acc[key] = value
         } else if (typeof value === 'object' && value !== null) {
-          acc[key] = transformMetadata(value, onlyIncludeVerified)
+          acc[key] = transformMetadata(value, authenticated)
         } else {
           acc[key] = value
         }
@@ -245,7 +245,6 @@ export function transformMetadata(data: any, onlyIncludeVerified = false): any {
 }
 
 export function addCalculatedTotalEmissions(companies: any[]) {
-
   return (
     companies
       // Calculate total emissions for each reporting period
