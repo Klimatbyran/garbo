@@ -25,7 +25,7 @@ async function authPlugin(app: FastifyInstance) {
 
       if (!token) {
         request.log.error('No token provided')
-        return reply.status(401).send(unauthorizedError)
+        return;
       }
 
       const { user, newToken } = authService.verifyToken(token)
@@ -37,9 +37,15 @@ async function authPlugin(app: FastifyInstance) {
     } catch (err) {
       console.log(err);
       request.log.error('Authentication failed:', err)
-      return reply.status(401).send(unauthorizedError)
+      return;
     }
   })
+}
+
+export async function enforceAuthentication(request, reply) {
+    if (!request.user) {
+        return reply.code(401).send(unauthorizedError);
+    }
 }
 
 export default fp(authPlugin)

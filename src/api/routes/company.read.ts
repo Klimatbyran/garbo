@@ -34,7 +34,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
     async (request, reply) => {
       const clientEtag = request.headers['if-none-match']
-      const cacheKey = 'companies:etag'
+      const cacheKey = `companies-${request.user ? 'authenticated' : 'public'}:etag`
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
@@ -52,13 +52,22 @@ export async function companyReadRoutes(app: FastifyInstance) {
 
       if (clientEtag === currentEtag) return reply.code(304).send()
 
-      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
+      const dataCacheKey = `companies-${request.user ? 'authenticated' : 'public'}:data:${latestMetadataUpdatedAt}`
 
       let companies = await redisCache.get(dataCacheKey)
 
       if (!companies) {
-        companies = await companyService.getAllCompaniesWithMetadata()
+        companies = await companyService.getAllCompaniesWithMetadata(
+          request.user != null,
+        )
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
+      } else {
+        if (Array.isArray(companies)) {
+          companies = companies.map((c: any) => ({
+            ...c,
+            futureEmissionsTrendSlope: c.futureEmissionsTrendSlope ?? null,
+          }))
+        }
       }
 
       reply.header('ETag', `${currentEtag}`)
@@ -84,7 +93,10 @@ export async function companyReadRoutes(app: FastifyInstance) {
     },
     async (request: FastifyRequest<{ Params: WikidataIdParams }>, reply) => {
       const { wikidataId } = request.params
-      const company = await companyService.getCompanyWithMetadata(wikidataId)
+      const company = await companyService.getCompanyWithMetadata(
+        wikidataId,
+        request.user != null,
+      )
       reply.send({
         ...company,
         // Add translations for GICS data

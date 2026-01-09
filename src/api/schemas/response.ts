@@ -35,9 +35,12 @@ export const MetadataSchema = z.object({
         .openapi({ description: 'Name of the user who verified the data' }),
     })
     .nullable(),
-})
+  verfied: z.boolean().default(false),
+}).or(z.object({
+  verfied: z.boolean().default(false)
+}));
 
-export const MinimalMetadataSchema = MetadataSchema.pick({ verifiedBy: true })
+export const MinimalMetadataSchema = MetadataSchema;
 
 const CompanyBaseSchema = z.object({
   wikidataId: wikidataIdSchema,

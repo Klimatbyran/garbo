@@ -12,55 +12,55 @@ import {
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
 class CompanyService {
-  async getAllCompaniesWithMetadata() {
+  async getAllCompaniesWithMetadata(authenticated: boolean = false) {
     const companies = await prisma.company.findMany(companyListArgs)
 
-    const transformedCompanies = companies.map(transformMetadata)
+    const policy = authenticated
+      ? transformForAuthedUser
+      : transformForUnAuthedUser
 
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
+    const transformedCompanies = addCalculatedTotalEmissions(
+      companies.map((company) => traverse(company, policy)),
     )
 
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
-    )
-
-    return companiesWithFutureEmissionsTrendSlope
+    return transformedCompanies
   }
+  async getAllCompaniesBySearchTerm(
+    searchTerm: string,
+    authenticated: boolean = false,
+  ) {
+    const policy = authenticated
+      ? transformForAuthedUser
+      : transformForUnAuthedUser
 
-  async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
-    const transformedCompanies = companies.map(transformMetadata)
-    const companiesWithCalculatedTotalEmissions =
-      addCalculatedTotalEmissions(transformedCompanies)
-    const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
-    )
-    const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
+
+    const transformedCompanies = addCalculatedTotalEmissions(
+      companies.map((company) => traverse(company, policy)),
     )
 
-    return companiesWithFutureEmissionsTrendSlope
+    return transformedCompanies
   }
 
-  async getCompanyWithMetadata(wikidataId: string) {
+  async getCompanyWithMetadata(
+    wikidataId: string,
+    authenticated: boolean = false,
+  ) {
     const company = await prisma.company.findFirstOrThrow({
       ...detailedCompanyArgs,
-      where: {
-        wikidataId,
-      },
+      where: { wikidataId },
     })
-    const [transformedCompany] = addFutureEmissionsTrendSlope(
-      addCompanyEmissionChange(
-        addCalculatedTotalEmissions([transformMetadata(company)]),
-      ),
-    )
+
+    const policy = authenticated
+      ? transformForAuthedUser
+      : transformForUnAuthedUser
+
+    const [transformedCompany] = addCalculatedTotalEmissions([
+      traverse(company, policy),
+    ])
 
     return transformedCompany
   }
@@ -228,31 +228,37 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-export function transformMetadata(data: any): any {
-  if (Array.isArray(data)) {
-    return data.map((item) => transformMetadata(item))
-  } else if (data && typeof data === 'object') {
-    const transformed = Object.entries(data).reduce(
-      (acc, [key, value]) => {
-        if (key === 'metadata' && Array.isArray(value)) {
-          acc[key] = value[0] || null
-        } else if (value instanceof Date) {
-          acc[key] = value
-        } else if (typeof value === 'object' && value !== null) {
-          acc[key] = transformMetadata(value)
-        } else {
-          acc[key] = value
-        }
-        return acc
-      },
-      {} as Record<string, any>,
-    )
-
-    return transformed
+function transformForAuthedUser(key: string | null, value: any) {
+  if (key === 'metadata' && Array.isArray(value) && value[0]) {
+    return { ...value[0], verified: value[0].verifiedBy !== null }
   }
-  return data
+  return value
 }
 
+function transformForUnAuthedUser(key: string | null, value: any) {
+  if (key === 'metadata' && Array.isArray(value) && value[0]) {
+    return { verified: value[0].verifiedBy !== null }
+  }
+  return value
+}
+
+function traverse(
+  data: any,
+  callback: (key: string | null, value: any) => any,
+): any {
+  if (Array.isArray(data)) {
+    return data.map((item) => traverse(item, callback))
+  } else if (data && typeof data === 'object') {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [
+        key,
+        traverse(callback(key, value), callback),
+      ]),
+    )
+  } else {
+    return data
+  }
+}
 export function addCalculatedTotalEmissions(companies: any[]) {
   return (
     companies
@@ -261,14 +267,16 @@ export function addCalculatedTotalEmissions(companies: any[]) {
       .map((company) => ({
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
-          const { scope2, scope3 } = reportingPeriod.emissions || {}
+          const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
+          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
+          const scope3Total =
+            scope3?.categories.reduce(
+              (total, category) => category.total + total,
+              0,
+            ) || 0
 
-          const scope2Total = calculateScope2Total(scope2)
-          const scope3Total = calculateScope3Total(scope3)
-          const totalEmissions = calculatedTotalEmissions(
-            reportingPeriod.emissions,
-          )
-
+          const calculatedTotalEmissions =
+            (scope1?.total ?? 0) + (scope2Total ?? 0) + (scope3Total ?? 0)
           return {
             ...reportingPeriod,
             emissions: reportingPeriod.emissions && {
@@ -281,11 +289,13 @@ export function addCalculatedTotalEmissions(companies: any[]) {
                 ...scope3,
                 calculatedTotalEmissions: scope3Total,
               },
-              calculatedTotalEmissions: totalEmissions,
+              calculatedTotalEmissions: calculatedTotalEmissions || 0,
             },
             metadata: reportingPeriod.metadata,
           }
         }),
+
+        futureEmissionsTrendSlope: company.futureEmissionsTrendSlope ?? null,
       }))
   )
 }
