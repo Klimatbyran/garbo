@@ -194,10 +194,31 @@ const workerOptions = {
   })
 }
 
+// Flag to log configuration once in the first job (appears in BullMQ logs)
+let hasLoggedConfiguration = false
+
+function logConfigurationOnce(job: DoclingParsePDFJob): void {
+  if (hasLoggedConfiguration) {
+    return
+  }
+  hasLoggedConfiguration = true
+  job.log('📡 Docling configuration:')
+  job.log(`  - Primary API URL: ${docling.baseUrl}`)
+  job.log(`  - Use local format: ${docling.DOCLING_USE_LOCAL}`)
+  job.log(`  - Use backup API: ${docling.USE_BACKUP_API}`)
+  if (docling.USE_BACKUP_API) {
+    job.log(`  - Backup API URL: ${docling.BACKUP_API_URL}`)
+    job.log(`  - Backup auth header: ${docling.BACKUP_API_AUTH_HEADER}`)
+  }
+}
+
 const doclingParsePDF = new DiscordWorker(
   QUEUE_NAMES.DOCLING_PARSE_PDF,
   async (job: DoclingParsePDFJob) => {
     const { url, doclingSettings, taskId } = job.data
+
+    // Log configuration once (first job only) - appears in BullMQ logs
+    logConfigurationOnce(job)
 
     try {
       if (taskId) {
