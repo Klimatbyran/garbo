@@ -180,6 +180,20 @@ function shouldAddAuthHeader(
   return true
 }
 
+// Configure limiter when using backup API to prevent overload
+// Limiter applies across ALL worker instances (shared via Redis)
+const workerOptions = {
+  concurrency: 1,
+  connection: redis,
+  lockDuration: 30 * 60 * 1000,
+  ...(docling.USE_BACKUP_API && {
+    limiter: {
+      max: 2, // Max 2 concurrent jobs across all worker instances
+      duration: 1, // Per 1ms (essentially "at any given time")
+    }
+  })
+}
+
 const doclingParsePDF = new DiscordWorker(
   QUEUE_NAMES.DOCLING_PARSE_PDF,
   async (job: DoclingParsePDFJob) => {
@@ -336,7 +350,7 @@ const doclingParsePDF = new DiscordWorker(
       throw error
     }
   },
-  { concurrency: 1, connection: redis, lockDuration: 30 * 60 * 1000 }, // Increased lock duration for async processing, allow 1 parallel jobs
+  workerOptions,
 )
 
 async function pollTaskAndGetResult(
