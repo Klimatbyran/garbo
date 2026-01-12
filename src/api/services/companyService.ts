@@ -15,12 +15,34 @@ class CompanyService {
   async getAllCompaniesWithMetadata(authenticated: boolean = false) {
     const companies = await prisma.company.findMany(companyListArgs)
 
-    const policy = authenticated
-      ? transformForAuthedUser
-      : transformForUnAuthedUser
+    const rawTransformed = companies.map((data) =>
+      transformMetadata(data, !authenticated),
+    )
+
+    if (process.env.DEBUG_DATE_SHAPES === '1') {
+      for (const c of rawTransformed) {
+        if (!c || !Array.isArray(c.reportingPeriods)) continue
+        for (const rp of c.reportingPeriods) {
+          if (!rp) continue
+          const startType = rp.startDate === null ? 'null' : typeof rp.startDate
+          const endType = rp.endDate === null ? 'null' : typeof rp.endDate
+          if (
+            (startType === 'object' && !(rp.startDate instanceof Date)) ||
+            (endType === 'object' && !(rp.endDate instanceof Date))
+          ) {
+            console.warn(
+              'DEBUG_DATE_SHAPES: found bad reportingPeriod shape for company',
+              c.wikidataId,
+            )
+            console.warn('reportingPeriod:', JSON.stringify(rp, null, 2))
+            break
+          }
+        }
+      }
+    }
 
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map((company) => traverse(company, policy)),
+      rawTransformed.map((data) => coerceReportingPeriodDates(data)),
     )
 
     return transformedCompanies
@@ -29,22 +51,43 @@ class CompanyService {
     searchTerm: string,
     authenticated: boolean = false,
   ) {
-    const policy = authenticated
-      ? transformForAuthedUser
-      : transformForUnAuthedUser
-
     const companies = await prisma.company.findMany({
       ...companyListArgs,
       where: { name: { contains: searchTerm } },
     })
 
+    const rawTransformed = companies.map((data) =>
+      transformMetadata(data, !authenticated),
+    )
+
+    if (process.env.DEBUG_DATE_SHAPES === '1') {
+      for (const c of rawTransformed) {
+        if (!c || !Array.isArray(c.reportingPeriods)) continue
+        for (const rp of c.reportingPeriods) {
+          if (!rp) continue
+          const startType = rp.startDate === null ? 'null' : typeof rp.startDate
+          const endType = rp.endDate === null ? 'null' : typeof rp.endDate
+          if (
+            (startType === 'object' && !(rp.startDate instanceof Date)) ||
+            (endType === 'object' && !(rp.endDate instanceof Date))
+          ) {
+            console.warn(
+              'DEBUG_DATE_SHAPES: found bad reportingPeriod shape for company',
+              c.wikidataId,
+            )
+            console.warn('reportingPeriod:', JSON.stringify(rp, null, 2))
+            break
+          }
+        }
+      }
+    }
+
     const transformedCompanies = addCalculatedTotalEmissions(
-      companies.map((company) => traverse(company, policy)),
+      rawTransformed.map((data) => coerceReportingPeriodDates(data)),
     )
 
     return transformedCompanies
   }
-
   async getCompanyWithMetadata(
     wikidataId: string,
     authenticated: boolean = false,
@@ -54,17 +97,35 @@ class CompanyService {
       where: { wikidataId },
     })
 
-    const policy = authenticated
-      ? transformForAuthedUser
-      : transformForUnAuthedUser
+    const rawTransformed = transformMetadata(company, !authenticated)
+
+    if (process.env.DEBUG_DATE_SHAPES === '1') {
+      if (rawTransformed && Array.isArray(rawTransformed.reportingPeriods)) {
+        for (const rp of rawTransformed.reportingPeriods) {
+          if (!rp) continue
+          const startType = rp.startDate === null ? 'null' : typeof rp.startDate
+          const endType = rp.endDate === null ? 'null' : typeof rp.endDate
+          if (
+            (startType === 'object' && !(rp.startDate instanceof Date)) ||
+            (endType === 'object' && !(rp.endDate instanceof Date))
+          ) {
+            console.warn(
+              'DEBUG_DATE_SHAPES: found bad reportingPeriod shape for company',
+              rawTransformed.wikidataId,
+            )
+            console.warn('reportingPeriod:', JSON.stringify(rp, null, 2))
+            break
+          }
+        }
+      }
+    }
 
     const [transformedCompany] = addCalculatedTotalEmissions([
-      traverse(company, policy),
+      coerceReportingPeriodDates(rawTransformed),
     ])
 
     return transformedCompany
   }
-
   async getCompany(wikidataId: string) {
     return prisma.company.findFirstOrThrow({
       where: { wikidataId },
@@ -228,37 +289,120 @@ class CompanyService {
 
 export const companyService = new CompanyService()
 
-function transformForAuthedUser(key: string | null, value: any) {
-  if (key === 'metadata' && Array.isArray(value) && value[0]) {
-    return { ...value[0], verified: value[0].verifiedBy !== null }
-  }
-  return value
-}
-
-function transformForUnAuthedUser(key: string | null, value: any) {
-  if (key === 'metadata' && Array.isArray(value) && value[0]) {
-    return { verified: value[0].verifiedBy !== null }
-  }
-  return value
-}
-
-function traverse(
-  data: any,
-  callback: (key: string | null, value: any) => any,
-): any {
+export function transformMetadata(data: any, onlyIncludeVerified = false): any {
   if (Array.isArray(data)) {
-    return data.map((item) => traverse(item, callback))
+    return data.map((item) => transformMetadata(item, onlyIncludeVerified))
   } else if (data && typeof data === 'object') {
-    return Object.fromEntries(
-      Object.entries(data).map(([key, value]) => [
-        key,
-        traverse(callback(key, value), callback),
-      ]),
+    const transformed = Object.entries(data).reduce(
+      (acc, [key, value]) => {
+        if (key === 'metadata' && Array.isArray(value)) {
+          const meta = value[0] || null
+          if (onlyIncludeVerified) {
+            acc[key] = meta
+              ? { verified: meta.verifiedBy !== null }
+              : { verified: false }
+          } else {
+            acc[key] = meta
+              ? { ...meta, verified: meta.verifiedBy !== null }
+              : null
+          }
+        } else if (value instanceof Date) {
+          acc[key] = value
+        } else if (typeof value === 'object' && value !== null) {
+          acc[key] = transformMetadata(value, onlyIncludeVerified)
+        } else {
+          acc[key] = value
+        }
+        return acc
+      },
+      {} as Record<string, any>,
     )
-  } else {
-    return data
+
+    return transformed
   }
+  return data
 }
+
+export function coerceReportingPeriodDates(company: any) {
+  if (!company || !Array.isArray(company.reportingPeriods)) return company
+
+  company.reportingPeriods = company.reportingPeriods.map((rp: any) => {
+    const coerce = (val: any) => {
+      if (val == null) return val
+      if (val instanceof Date) return val.toISOString()
+      if (typeof val === 'string') {
+        const parsed = new Date(val)
+        return isNaN(parsed.getTime()) ? val : parsed.toISOString()
+      }
+
+      if (typeof val === 'object') {
+        // if it's a Date-like object with toISOString
+        if (typeof (val as any).toISOString === 'function') {
+          try {
+            return (val as any).toISOString()
+          } catch (e) {
+            // continue to other heuristics
+          }
+        }
+
+        // handle MongoDB / ISO wrappers like { $date: '...' } or { date: '...' }
+        const maybeStr = (val.$date ??
+          val.date ??
+          val.iso ??
+          val.ISO ??
+          val.value) as string | undefined
+        if (typeof maybeStr === 'string') {
+          const parsed = new Date(maybeStr)
+          if (!isNaN(parsed.getTime())) return parsed.toISOString()
+        }
+
+        // Firestore-like timestamp: { seconds, nanoseconds } or { _seconds, _nanoseconds }
+        const seconds = (val.seconds ?? val._seconds) as number | undefined
+        const nanos = (val.nanoseconds ?? val._nanoseconds) as
+          | number
+          | undefined
+        if (typeof seconds === 'number') {
+          const ms = Math.round((seconds as number) * 1000 + (nanos ?? 0) / 1e6)
+          const asDate = new Date(ms)
+          if (!isNaN(asDate.getTime())) return asDate.toISOString()
+        }
+
+        // handle { year, month, day }
+        if ((val.year || val.month || val.day) && !Array.isArray(val)) {
+          const year = Number(val.year)
+          const month = Number(val.month) - 1
+          const day = Number(val.day)
+          if (
+            !Number.isNaN(year) &&
+            !Number.isNaN(month) &&
+            !Number.isNaN(day)
+          ) {
+            return new Date(Date.UTC(year, month, day)).toISOString()
+          }
+        }
+
+        // try generic Date coercion as a last resort
+        try {
+          const asDate = new Date(val as any)
+          if (!isNaN(asDate.getTime())) return asDate.toISOString()
+        } catch (e) {
+          // fallthrough
+        }
+      }
+
+      return val
+    }
+
+    return {
+      ...rp,
+      startDate: coerce(rp.startDate),
+      endDate: coerce(rp.endDate),
+    }
+  })
+
+  return company
+}
+
 export function addCalculatedTotalEmissions(companies: any[]) {
   return (
     companies
@@ -289,7 +433,12 @@ export function addCalculatedTotalEmissions(companies: any[]) {
                 ...scope3,
                 calculatedTotalEmissions: scope3Total,
               },
-              calculatedTotalEmissions: calculatedTotalEmissions || 0,
+              calculatedTotalEmissions:
+                (scope1?.total ?? 0) +
+                (scope2Total ?? 0) +
+                (scope3Total !== 0
+                  ? scope3Total
+                  : (scope3.statedTotalEmissions.total ?? 0)),
             },
             metadata: reportingPeriod.metadata,
           }

@@ -5,7 +5,10 @@ import { prisma } from '../../lib/prisma'
 import { getTags } from '../../config/openapi'
 import { CompanySearchQuery, WikidataIdParams } from '../types'
 import { cachePlugin } from '../plugins/cache'
-import { companyService } from '../services/companyService'
+import {
+  companyService,
+  coerceReportingPeriodDates,
+} from '../services/companyService'
 import {
   CompanyList,
   wikidataIdParamSchema,
@@ -63,8 +66,9 @@ export async function companyReadRoutes(app: FastifyInstance) {
         await redisCache.set(dataCacheKey, JSON.stringify(companies))
       } else {
         if (Array.isArray(companies)) {
+          // Ensure dates and shapes match schema after loading from cache
           companies = companies.map((c: any) => ({
-            ...c,
+            ...coerceReportingPeriodDates(c),
             futureEmissionsTrendSlope: c.futureEmissionsTrendSlope ?? null,
           }))
         }
