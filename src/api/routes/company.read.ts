@@ -32,27 +32,42 @@ export async function companyReadRoutes(app: FastifyInstance) {
         },
       },
     },
+
     async (request, reply) => {
-      const clientEtag = request.headers['if-none-match']
       const cacheKey = 'companies:etag'
 
       let currentEtag: string = await redisCache.get(cacheKey)
 
-      const latestMetadata = await prisma.metadata.findFirst({
-        select: { updatedAt: true },
-        orderBy: { updatedAt: 'desc' },
-      })
-      const latestMetadataUpdatedAt =
-        latestMetadata?.updatedAt.toISOString() || ''
+      // Check for database changes by looking at record counts across relevant tables
+      const [
+        companyCount,
+        reportingPeriodCount,
+        emissionsCount,
+        latestMetadata,
+      ] = await prisma.$transaction([
+        prisma.company.count(),
+        prisma.reportingPeriod.count(),
+        prisma.emissions.count(),
+        prisma.metadata.findFirst({
+          select: { updatedAt: true },
+          orderBy: { updatedAt: 'desc' },
+        }),
+      ])
 
-      if (!currentEtag || !currentEtag.startsWith(latestMetadataUpdatedAt)) {
-        currentEtag = `${latestMetadataUpdatedAt}-${new Date().toISOString()}`
-        redisCache.set(cacheKey, JSON.stringify(currentEtag))
+      // Create a unique fingerprint based on company data
+      const databaseFingerprint = [
+        companyCount,
+        reportingPeriodCount,
+        emissionsCount,
+        latestMetadata?.updatedAt?.toISOString() || '',
+      ].join('|')
+
+      if (!currentEtag || !currentEtag.startsWith(databaseFingerprint)) {
+        currentEtag = `${databaseFingerprint}-${new Date().toISOString()}`
+        await redisCache.set(cacheKey, JSON.stringify(currentEtag))
       }
 
-      if (clientEtag === currentEtag) return reply.code(304).send()
-
-      const dataCacheKey = `companies:data:${latestMetadataUpdatedAt}`
+      const dataCacheKey = `companies:data:${databaseFingerprint}`
 
       let companies = await redisCache.get(dataCacheKey)
 
