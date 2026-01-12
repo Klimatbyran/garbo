@@ -30,7 +30,7 @@ class MunicipalityService {
    */
   private lazyInit() {
     const rawMunicipalities = JSON.parse(
-      readFileSync(apiConfig.municipalityDataPath, 'utf-8')
+      readFileSync(apiConfig.municipalityDataPath, 'utf-8'),
     )
 
     // Ensure the data matches the expected format
@@ -50,7 +50,7 @@ class MunicipalityService {
    */
   private lazyInitSectorEmissions() {
     this._sectorEmissions = JSON.parse(
-      readFileSync(apiConfig.municipalitySectorEmissionsPath, 'utf-8')
+      readFileSync(apiConfig.municipalitySectorEmissionsPath, 'utf-8'),
     )
     return this
   }
@@ -67,7 +67,7 @@ class MunicipalityService {
 
   getMunicipalitySectorEmissions(name: Municipality['name']) {
     const municipality = this.sectorEmissions.find(
-      (m) => m.name.toLowerCase() === name.toLowerCase()
+      (m) => m.name.toLowerCase() === name.toLowerCase(),
     )
     return municipality?.sectors ?? null
   }

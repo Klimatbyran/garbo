@@ -1,10 +1,10 @@
 # Klimatkollen Garbo AI
 
-This is the main repo for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend). Garbo is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
 Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
 
-Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts. 
+Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
 We utilise an open source queue manager called BullMQ which relies on Redis. The data is then stored into DB and Wikidata.
 
@@ -12,7 +12,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON.
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
 
 ## Data Flow
 
@@ -23,7 +23,6 @@ flowchart TB
 
     PDF[PDF]
     Cache{Is in cache?}
-    NLM[Parse PDF]
     DocLing[DocLing Parse PDF]
     Tables[Extract Tables]
     Emissions[Extract Emissions]
@@ -194,6 +193,82 @@ Make sure to replace `[PASS]` with your actual Redis password. If your Redis ins
 ### Setup completed 🎉
 
 Well done! You've now set up the `garbo` backend and are ready to start development :)
+
+---
+
+### How to run the pipeline
+
+To run the Garbo pipeline for processing sustainability reports, you'll need to set up Discord and connect the bot to your server or use the validation tool frontend.
+
+#### Setting up Discord
+
+1. **Download and Install Discord**
+
+   - Download Discord from [discord.com](https://discord.com)
+   - Create a Discord account if you don't have one
+
+2. **Enable Developer Mode**
+
+   - Go to Settings > Advanced > Developer Mode (or search for 'Developer Mode' in Settings)
+   - Toggle it on
+
+3. **Create a Discord Server**
+
+   - Click the "+" button in the server list on the left side
+   - Follow the prompts to create your server
+
+4. **Create a Discord Application/Bot**
+
+   - Go to the [Discord Developer Portal](https://discord.com/developers/applications)
+   - Click "New Application" and give it a name
+   - Navigate to the "Bot" tab and click "Add Bot"
+
+5. **Configure Environment Variables**
+
+   Add these variables to your `.env` file:
+
+   - **DISCORD_APPLICATION_ID**: Found in the "General Information" tab of your application
+   - **DISCORD_TOKEN**: In the "Bot" tab, click "Reset Token" and copy the newly generated token
+   - **DISCORD_SERVER_ID**: Right-click on your server in Discord and select "Copy Server ID"
+   - **DISCORD_CHANNEL_ID**: Right-click on a text channel (e.g., "general") in your server and select "Copy Channel ID"
+
+6. **Connect the Bot to Your Server**
+
+   Paste this URL in your web browser, replacing `<your-bot-id>` with your actual `DISCORD_APPLICATION_ID`:
+
+   ```
+   https://discord.com/oauth2/authorize?client_id=<your-bot-id>&scope=bot
+   ```
+
+   Select your server and authorize the bot.
+
+7. **Assign Permissions to the Bot**
+   - Go to Server Settings > Roles
+   - Create a new role or select an existing one
+   - In the "Manage Members" section, add your bot to this role
+   - In the "Permissions" tab, grant all available permissions to ensure the bot can function properly
+
+#### Running a Report Through the Pipeline
+
+Once your Discord bot is set up and the application is running (using `npm run dev` or `npm run dev-board` + `npm run dev-workers`):
+
+1. Go to your Discord server
+2. In any text channel, use the `/pdfs` command
+3. Provide the URL to the sustainability report PDF
+4. Choose whether to set `auto-approve` to `true` (automatic processing) or `false` (manual approval)
+   - If `auto-approve` is `false` or not set, you'll need to manually approve messages in the thread as Garbo processes the report
+   - If `auto-approve` is `true`, Garbo will process the report autonomously
+
+Example command:
+
+```
+/pdfs url:https://example.com/sustainability-report.pdf auto-approve:true
+```
+
+5. Monitor the progress:
+   - Watch the Discord thread for updates from Garbo
+   - View detailed progress in the BullMQ dashboard at <http://localhost:3000/admin/queues>
+   - Check logs and restart failed jobs if needed
 
 ---
 

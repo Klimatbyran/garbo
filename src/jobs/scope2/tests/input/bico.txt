@@ -1,0 +1,424 @@
+Scope 1 &amp; 2
+
+Scope 1: koldioxidutsläpp för koncernen (direkta utsläpp från ägda eller kontrollerade källor) uppgick till 37 tCO2e, huvudsakligen från företagsägda fordon. Scope 2: koldioxidutsläppen (indirekta utsläpp från köpt energi) uppgick till 0,027 ton CO2e/ kvm för både marknadsbaserad och platsbaserad metod, och andelen förnybar energi har ökat från 40 % till 60 % 2024 jämfört med 2023.
+
+<!-- image -->
+
+Scope 3
+
+Scope 3-utsläppen rapporteras enligt tabellen nedan. De största bidragsgivarna till CO2e-utsläppen är inköpta varor, kapitalvaror, transporter, tjänsteresor och användning av sålda produkter, vilket representerar 96 % av de totala Scope 3-utsläppen.
+
+Klimatperspektiv
+
+De totala Scope 1, 2 och 3-utsläppen från BICO:s värdekedjor är 24 551 tCO2e enligt marknadsbaserad metod och 24 543 tCO2e enligt platsbaserad metod. Med förbättrad datakvalitet har 2024 fastställts som basår för BICOs koldioxidreduktionsplan framåt.
+
+Kategori 3: Bränsle- och energirelaterade aktiviteter, utanför scope 1 &amp; 2
+
+Bränsle- och energiförbrukningen som används för att beräkna Scope 1 och 2 GHG-utsläpp multiplicerades med specifika utsläppsfaktorer.
+
+SCOPE 3-UTSLÄPP PER GHG KATEGORI (tCO2e)
+
+<!-- image -->
+
+ENERGIKÄLLOR SCOPE 2 (MWh])
+
+<!-- image -->
+
+<!-- image -->
+
+Initia tiv för 202 4
+
+Under 2024 tog BICO Group flera initiativ för att förbättra rapporteringen av Scope 3 CO2e-utsläpp. De cirkulära ekonomiambitionerna förstärktes genom ökad försäljning av begagnade instrument och aktiviteter för reparation, renovering och återtillverkning, vilket rapporteras i sektionen: EU-taxonomi. Data har även givit en förbättrad förståelse av CO2e-utsläppens ursprung i produkternas livscykel.
+
+<!-- image -->
+
+Förklaring av beräkning av växthusgasutsläpp
+Tillämpade standarder
+
+Växthusgasutsläpp redovisas och rapporteras baserat på de standardiserade riktlinjerna i GHG-protokollets 2004 Corporate Accounting and Reporting Standard och 2011 Corporate Value Chain (Scope 3) Accounting and Reporting Standard. Operativ kontroll valdes som konsolideringsmetod.
+
+Miljöansvar
+
+BICO förväntas att nå netto-noll koldioxidutsläpp till 2045. 2024 är basåret för vår CO2e-rapportering i linje med Parisavtalets 1,5ºC-mål. BICO kommer att ha ett åtagande enligt Science Based Targets-initiativet (SBTi) och följa GHGprotokollet i våra ambitioner att uppnå Parisavtalets 1,5ºCmål. Under 2024 har vi prioriterat att förbättra datakvaliteten för Scope 1, 2 och 3 och anpassa rapporteringen mot CSRD/ESRS och EU-taxonomin.
+
+GHG-protokollkategorier som gäller för BICO Group är:
+Kategori 1: Inköpta varor och tjänster
+
+Utsläpp från utvinning, produktion och transport av varor och tjänster som köps av de rapporterande företagen. Både indirekta och direkta utgifter ingår. Antalet mottagna artiklar multiplicerat med specifika utsläppsfaktorer användes som primär metod. I sällsynta fall användes en utgiftsbaserad metod.
+
+Kategori 9: Nedströms transporter och distribution
+
+GHG-utsläpp som redovisas i kategorin 'Nedströms transporter och distribution' multiplicerades med en uppskattad faktor för förhållandet mellan betalda och obetalda transportaktiviteter till kunder baserat på tillgängliga data.
+
+Kategori 11: Användning av sålda produkter
+
+Utsläpp från användningen av produkter och tjänster som sålts av företaget under deras livscykel. Energikonsumtion, livslängdsförväntningar och elnätet i regionen där produkten säljs användes för att beräkna utsläppen.
+
+TOTALA CO2e UTSLÄPP (tCO2e)
+
+<!-- image -->
+
+Bedömning av hållbarhetspåverkan
+
+Riskbedömningsprocessen för att identifiera och bedöma väsentliga påverkningar, risker och möjligheter för ESG-relaterade ämnen är strukturerad baserat på kraven i CSRD.
+
+År 2023 genomfördes en grundläggande bedömning som förberedelse för CSRD. Resultatet fungerar som en grund för en uppdaterad dubbel väsentlighetsbedömning vilken genomfördes i alla operativa bolag under 2024. Resultaten aggregerades till koncernnivå med en bottom-up-ansats.
+
+Bedömningen validerades med interna intressenter som koncernledningen och hållbarhetsrådet som består av representanter från alla operativa bolag. Revisionsutskottet och styrelsen informerades om processen och resultatet.
+
+Planen är att den dubbla väsentlighetsanalysen årligen kommer att bedömas och de väsentliga påverkningar, risker och möjligheter att uppdateras baserat på resultaten av denna bedömning. Åtgärdsplanen visas i tabellen nedan.
+
+I det första steget av den dubbla väsentlighetsanalysen skedde insamling och analys av bakgrundsfakta om potentiellt väsentliga ämnesområden. För detta användes olika källor:
+
+- NGO-källor, och deras bedömning av väsentliga ämnesområden gällande mänskliga rättigheter och affärsetik i länder representerade i BICO Groups värdekedjor
+- Intressentengagemang med investerare, kunder och medarbetare
+- Tidigare års bedömningar och datainsamling
+
+Denna input formade synen på potentiellt väsentliga miljömässiga, sociala och styrningsrelaterade påverkningar, risker och möjligheter. Under 2024 organiserades flera workshops med ledningsgrupper för de operativa bolagen, med målsättningen att bedöma och kalibrera potentiell och faktisk påverkan, risker samt möjligheter för alla ämnesområden som ingår i CSRD. I genomförda workshops bedömdes dessa utifrån allvarlighetsgrad (omfattning, räckvidd och oåterkallelighet) och sannolikhet.
+
+Denna bedömning kategoriserades per värdekedjeområde (uppströms, egen tillverkning och nedströms). Finansiell väsentlighet analyserades även per ämnesområde, baserat på samma väsentlighetskriterier som används för finansiella rapporter. När väsentlighetsbedömningen gjordes diskuterades även potentiella områden som inte ingick i de ämnesområden som beskrivs i CSRD.
+
+I den tredje fasen skapades en åtgärdsplan med prioriterade aktiviteter vilket baserades på resultatet från workshops.
+
+Därefter har åtgärdsplanen med de prioriterade aktiviteterna validerats tillsammans med våra externa intressenter, både potentiellt påverkade intressenter och användare av informationen.
+
+| MÖJLIGHET                                        | ÅTGÄRDSPLAN                                                                                                                                                                          | TIDSLINJE   | INTRESSENTKRAV                 |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|--------------------------------|
+| Renoverade instrument                            | Förlänga livslängden för instrumenten. Utöka erbjudandet av renoverade/begag- nade instrument och lägg till andra möjligheter till förlängd livslängd (mjukvara, reparerbarhet etc). | 2025-2030   | Myndigheter, Kunder            |
+| Möjliggöra hälsa och välbefinnande               | Integrera hållbarhetsaspekter i affärsmodeller och övergripande strategi.                                                                                                            | 2025-2030   | Myndigheter, Kunder            |
+| NEGATIV PÅVERKAN                                 | ÅTGÄRDSPLAN                                                                                                                                                                          | TIDSLINJE   | INTRESSENTKRAV                 |
+| Scope 3-påverkan                                 | Integrera cirkulära ekonomiprinciper och följ upp från design till kundanvändning, för påverkan på inköpta varor, avfall, kapitalvaror och transporter.                              | 2025-2030   | Myndigheter, Kunder            |
+| Scope 3-utsläpp värdekedjan                      | Implementera strategi och mål som stöder en kortsiktig CO2-reduktionsplan (basår 2024, slutår 2030) för att anpassa till SBTi.                                                       | 2025-2030   | Myndigheter, Kunder, Anställda |
+| Scope 2-utsläpp från El-/ Värme-/Kyla            | Sätt en policy för att öka andelen förnybara energikällor för el-, värme- och kylkon- sumtion till 80 %till 2030.                                                                    | 2025-2030   | Myndigheter, Kunder, Anställda |
+| Potentiella incidenter av mutor eller korruption | Fortsätt att aktualisera uppförandekoden (mellanslag saknades) bland anställda och affärspartners.                                                                                   | 2024-2030   | Myndigheter, Investerare       |
+| Brist på transparens i leveranskedjan            | Initiera ett självskattnings- och uppföljningssystem som gör förstahandslever- antörerna medvetna om potentiella människorättsproblem i leveranskedjan.                              | 2025-2027   | Myndigheter, Investerare       |
+
+<!-- image -->
+
+Riskbegränsning
+
+BICO har utökat antalet datapunkter som täcker in utsläpp i Scope 3 och stödjer EUs standarder för hållbarhetsredovisning (ESRS). Datakvaliteten förbättras kontinuerligt i det onlineverktyg för rapportering som används av BICOs koncernbolag. Dessutom arbetar BICO med att erbjuda möjligheter att återanvända instrument.
+
+Kategori 4: Uppströms transporter och distribution
+
+Utsläpp från transport och distribution av produkter som köpts av företaget under rapporteringsåret. Leverantörsspecifika data och interna beräkningar med hjälp av transportmedel, avstånd mellan leverantör och mottagande lager användes, multiplicerat med specifika utsläppsfaktorer.
+
+EU-taxonomi
+
+Andel av driftsutgifterna från produkter eller tjänster som är förknippade med ekonomiska verksamheter som är förenliga med taxonomi-kraven - upplysningar som omfattar år 2024.
+
+|     | Andel av OpEx / Total OpEx       | Andel av OpEx / Total OpEx          |
+|-----|----------------------------------|-------------------------------------|
+|     | Taxonomi-kvalifi- cerade per mål | Taxonomi-över- ensstämmande per mål |
+| CCM | 0,0%                             | 0,0%                                |
+| CCA | 0,0%                             | 0,0%                                |
+| WTR | 0,0%                             | 0,0%                                |
+| CE  | 0,3%                             | 0,0%                                |
+| PPC | 0,0%                             | 0,0%                                |
+| BIO | 0,0%                             | 0,0%                                |
+
+Här är en översikt över de olika förkortningarna och deras motsvarande mål:
+
+CCM: Klimatförändringsmål (Climate Change Mitigation)
+
+CCA : Klimatanpassningsmål (Climate Change Adaptation)
+
+WTR : Vatten- och marina resursmål (Water and Marine Resources)
+
+- CE : Cirkulär ekonomi (Circular Economy) PPC : Förebyggande och kontroll av föroreningar (Pollution Prevention and Control)
+- BIO : Biologisk mångfald och ekosystem (Biodiversity and ecosystems)
+
+Dessa koder hjälper till att tydligt identifiera vilket mål varje ekonomisk aktivitet bidrar till enligt EU:s taxonomiförordning.
+
+|                                                                                                                                     |                                                                                                                                     |                                            |                 | Väsentliga påverkanskriteria    | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria          |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+|-------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|-----------------|---------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|---------------------------------------|----------------------------------|-----------------------|-------------|-------------------|----------------------|-------------------------|----------------------------|-------------------------------------------------|------------------------------------------|--------------------------------------|
+| Ekonomiska aktiviteter (1)                                                                                                          | Kod (2)                                                                                                                             | Total OpEx (3)                             | Del av OpEx (4) | Klimatförändringsåt- gärder (5) | Klimatanpassning (6)           | Vatten (7)                     | Föroreningar (8)               | Cirkulärekonomi (9)            | Biologisk mångfald och ekosystem (10) | Klimatförändringsåt- gärder (11) | Klimatanpassning (12) | Vatten (13) | Föroreningar (14) | Cirkulärekonomi (15) | Biologisk mångfald (16) | Minsta skyddsåtgärder (17) | Taxonomi anpassning del av total OpEx, årN (18) | Kate- gori (möjlig- görande åtgärd) (20) | Kategori (övergång- saktivitet) (21) |
+|                                                                                                                                     |                                                                                                                                     | Mkr                                        | %               | %                               | %                              | %                              | %                              | %                              | %                                     | J/N                              | J/N                   | J/N         | J/N               | J/N                  | J/N                     | J/N                        | %                                               | E                                        | T                                    |
+| A. TAXONOMI-KVALIFICERADE AKTIVITETER                                                                                               | A. TAXONOMI-KVALIFICERADE AKTIVITETER                                                                                               | A. TAXONOMI-KVALIFICERADE AKTIVITETER      | 0,3%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| A.1. Miljömässiga hållbara aktiviteter (Taxonomi-överensstämmande)                                                                  |                                                                                                                                     |                                            |                 |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+|                                                                                                                                     |                                                                                                                                     |                                            | 0,0%            | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                         |                            | 0,0%                                            |                                          |                                      |
+|                                                                                                                                     |                                                                                                                                     |                                            | 0,0%            | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                         |                            | 0,0%                                            |                                          |                                      |
+|                                                                                                                                     |                                                                                                                                     |                                            | 0,0%            | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                         |                            | 0,0%                                            |                                          |                                      |
+| OpEx från Miljömässiga hållbara aktiviteter (Taxonomi-överensstäm- mande) (A.1)                                                     | OpEx från Miljömässiga hållbara aktiviteter (Taxonomi-överensstäm- mande) (A.1)                                                     | 0,0                                        | 0,0%            | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  | N/EL                             | N/EL                  | N/EL        | N/EL              | N/EL                 | N/EL                    | N/EL                       | 0,0%                                            | 0,0%                                     | 0,0%                                 |
+| A.2 Taxonomi-kvalificerade, men icke miljömässiga hållbara aktiviteter (icke Taxonomi-överensstämmande aktiviteter)                 |                                                                                                                                     |                                            |                 |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| Repair refurbish and remanufacturing                                                                                                | CE 5.1                                                                                                                              | 0,7                                        | 0,3%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| Sale of second-hand goods                                                                                                           | CE 5.4                                                                                                                              | 0,1                                        | 0,0%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+|                                                                                                                                     |                                                                                                                                     | 0,0                                        | 0,0%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| OpEx från Taxonomi-kvalificerade, men icke miljömässiga hållbara akti- viteter (icke Taxonomi-överensstäm- mande aktiviteter) (A.2) | OpEx från Taxonomi-kvalificerade, men icke miljömässiga hållbara akti- viteter (icke Taxonomi-överensstäm- mande aktiviteter) (A.2) | 0,8                                        | 0,3%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| Total (A.1+A.2)                                                                                                                     |                                                                                                                                     | 0,8                                        | 0,3%            |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER                                                                                          | B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER                                                                                          | B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER |                 |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| CapEx från icke kvalificerade aktivi- teter enligt Taxonomin                                                                        | CapEx från icke kvalificerade aktivi- teter enligt Taxonomin                                                                        | 252,2                                      | 99,7%           |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+| Totalt (A+B)                                                                                                                        | Totalt (A+B)                                                                                                                        | 253,0                                      | 100,0%          |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                         |                            |                                                 |                                          |                                      |
+
+<!-- image -->
+
+Kategori 5: Avfall genererat i verksamheten
+
+BICOs verksamhet producerade 54 tCO2e i utsläpp. Det genererade avfallet kvantifierades med hjälp av utsläppsfaktorer
+
+UTSLÄPP KAPITALVAROR (tCO2e)
+
+<!-- image -->
+
+Kategori 7: Pendling av anställda
+
+Den rapporterade distansen, antalet arbetsdagar och transportmedel från medarbetarundersökningen justerades med antalet anställda 2024, multiplicerat med specifika utsläppsfaktorer.
+
+FN Global Compact
+FN HÅLLBARA UTVECKLINGSMÅL
+
+BICO Group har varit medlem av FN Global Compact sedan 2021 och stödjer FN Compacts tio principer och de 17 hållbara utvecklingsmålen (SDG). För att säkerställa att vi riktar våra insatser där vi kan ha störst påverkan, fokuserar vi på sex SDG:
+
+Addresserbar marknad
+
+BICO är verksamma på en marknad som totalt uppgår till (TAM) ~121 miljarder USD och som växer med 12 1  procent per år, och där BICO har en adresserbar marknad (SAM) på ~3 miljarder USD som i genomsnitt växer med samma årliga tillväxttakt (CAGR) som den totala marknaden; med en fördelning mellan Lab Automation som uppskattas till cirka ~1 100 - 1 300 miljoner USD, Life Science Solutions som uppskattas till cirka ~1 400 miljoner USD och Bioprinting som uppskattas till cirka ~300 miljoner USD.
+
+För närvarande utvecklas branschen för laboratorieautomation signifikant. Marknadsstorleken värderades till ~5,5-6,8 miljarder USD år 2023 och med en tillväxttakt som indikerades till 6,3-9,3 procent CAGR mellan 2023 och 2035 2 .
+
+Värdet för den integrerade marknaden för automatiserade lösningar som BICO är verksam inom estimeras till 20 procent av den totala marknaden eller cirka 1 miljard USD och denna del av marknaden för laboratorieautomation växer och förväntas fortsätta växa snabbare än den totala marknaden.
+
+Life science-branschen befinner sig fortfarande i en osäker marknadsmiljö. Branschen påverkades av minskad post-pandemisk efterfrågan, liksom minskad efterfrågan från Kina och ökad geopolitisk osäkerhet. Under början av 2025 är en stor del av osäkerheten kopplad till utvecklingen av statlig finansiering av medicinsk forskning i USA samt eventuella ytterligare amerikanska tullar.
+
+Detta leder till större osäkerhet vad gäller marknadsdata och CAGR-estimat, vilket har bekräftats av branschkollegor. En del har reviderat sina prognoser och guidning, vilket innebär att ett spann mellan negativt och positivt låga ensiffriga tillväxttal avseende intäkter för helåret 2025 har kommunicerats.
+
+1 BICO årsredovising; Riksbank;marknadsrapporter (projekt för TAM Portfolio); bolagsdata samt EY-Parthenon analys.
+
+2 Marknadsrapporter (Portfolio TAM project); Root Analysis, World Industry News, Global Market Insight, Precedence Research, Meticulous Research, Spherical Insights and Insight Lace Analytics. Bolagsanalys.
+
+GLOBAL TAM - PER MARKNADSSEGMENT 2023  (USDbn) Potentiell marknadsstorlek, oberoende av BICOs förmåga att nå och adressera
+
+<!-- image -->
+
+UTSLÄPP INKÖPTA VAROR (tCO2e)
+
+<!-- image -->
+
+UTSLÄPP TRANSPORTER (tCO2e)
+
+<!-- image -->
+
+specifika för varje material och avfallshanteringsmetod. Avfallshanteringsdata kategoriseras enligt följande:
+
+- Radioaktivt: 0 %
+- Farligt avfall: 0,4 %
+- Icke-farligt avfall: 99,6 %
+
+Emissionskostnader
+
+Under räkenskapsåret har emissionskostnader om 0,0 Mkr (0,6), bokförda inom eget kapital, dragits av som avdragsgilla kostnader i skatteberäkningen. Skatteeffekt om 0,0 Mkr (0,0) har redovisats direkt över eget kapital.
+
+EU-taxonomi
+
+Andel av omsättningen från produkter eller tjänster som är förknippade med ekonomiska verksamheter som är förenliga med taxonomi-kraven upplysningar som omfattar år 2024.
+
+Andel av omsättning  / Total omsättning
+
+|     | Taxonomi-kvalifi- cerade per mål   | Taxonomi-över- ensstämmande per mål   |
+|-----|------------------------------------|---------------------------------------|
+| CCM | 0,0%                               | 0,0%                                  |
+| CCA | 0,0%                               | 0,0%                                  |
+| WTR | 0,0%                               | 0,0%                                  |
+| CE  | 33,0%                              | 3,1%                                  |
+| PPC | 0,0%                               | 0,0%                                  |
+| BIO | 0,0%                               | 0,0%                                  |
+
+Här är en översikt över de olika förkortningarna och deras motsvarande mål:
+
+- CCM: Klimatförändringsmål (Climate Change Mitigation)
+- CCA : Klimatanpassningsmål (Climate Change Adaptation)
+- WTR : Vatten- och marina resursmål (Water and Marine Resources)
+- CE : Cirkulär ekonomi (Circular Economy) PPC : Förebyggande och kontroll av föroreningar (Pollution Prevention and Control)
+- BIO : Biologisk mångfald och ekosystem (Biodiversity and ecosystems)
+
+Dessa koder hjälper till att tydligt identifiera vilket mål varje ekonomisk aktivitet bidrar till enligt EU:s taxonomiförordning.
+
+<!-- image -->
+
+EU-taxonomi
+
+Andel av kapitalutgifterna från produkter eller tjänster som är förknippade med ekonomiska verksamheter som är förenliga med taxonomi-kraven - upplysningar som omfattar år 2024.
+
+|     | Taxonomi-kvalifi- cerade per mål   | Taxonomi-över- ensstämmande per mål   |
+|-----|------------------------------------|---------------------------------------|
+| CCM | 0,0%                               | 0,0%                                  |
+| CCA | 0,0%                               | 0,0%                                  |
+| WTR | 0,0%                               | 0,0%                                  |
+| CE  | 0,0%                               | 0,0%                                  |
+| PPC | 0,0%                               | 0,0%                                  |
+| BIO | 0,0%                               | 0,0%                                  |
+
+Här är en översikt över de olika förkortningarna och deras motsvarande mål:
+
+- CCM: Klimatförändringsmål (Climate Change Mitigation)
+
+CCA : Klimatanpassningsmål (Climate Change Adaptation)
+
+- WTR : Vatten- och marina resursmål (Water and Marine Resources)
+- CE : Cirkulär ekonomi (Circular Economy) föroreningar (Pollution Prevention and
+- PPC : Förebyggande och kontroll av Control)
+- BIO : Biologisk mångfald och ekosystem (Biodiversity and ecosystems)
+
+Dessa koder hjälper till att tydligt identifiera vilket mål varje ekonomisk aktivitet bidrar till enligt EU:s taxonomiförordning.
+
+|                                                                                                                                      |                                                                                                                                      |                                            |                  | Väsentliga påverkanskriteria    | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria   | Väsentliga påverkanskriteria          |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|------------------|---------------------------------|--------------------------------|--------------------------------|--------------------------------|--------------------------------|---------------------------------------|----------------------------------|-----------------------|-------------|-------------------|----------------------|----------------------------------------------------|--------------------------------------------------|-----------------|--------------------------|--------------------------------------|
+| Ekonomiska aktiviteter (1)                                                                                                           | Kod (2)                                                                                                                              | Total CapEx (3)                            | Del av CapEx (4) | Klimatförändringsåt- gärder (5) | Klimatanpassning (6)           | Vatten (7)                     | Föroreningar (8)               | Cirkulärekonomi (9)            | Biologisk mångfald och ekosystem (10) | Klimatförändringsåt- gärder (11) | Klimatanpassning (12) | Vatten (13) | Föroreningar (14) | Cirkulärekonomi (15) | Biologisk mångfald (16) Minsta skyddsåtgärder (17) | Taxonomi anpassning del av total CapEx, årN (18) | Kate- gori (20) | (möjlig- görande åtgärd) | Kategori (övergång- saktivitet) (21) |
+|                                                                                                                                      |                                                                                                                                      | Mkr                                        | %                | %                               | %                              | %                              | %                              | %                              | %                                     | J/N                              | J/N                   | J/N         | J/N               | J/N                  | J/N J/N                                            | %                                                |                 | E                        | T                                    |
+| A. TAXONOMI-KVALIFICERADE AKTIVITETER                                                                                                | A. TAXONOMI-KVALIFICERADE AKTIVITETER                                                                                                |                                            | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| A.1. Miljömässiga hållbara aktiviteter (Taxonomi-överensstämmande)                                                                   |                                                                                                                                      |                                            |                  |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      |                                            | 0,0%             | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                                                    | 0,0%                                             |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      |                                            | 0,0%             | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                                                    | 0,0%                                             |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      |                                            | 0,0%             | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  |                                  |                       |             |                   |                      |                                                    | 0,0%                                             |                 |                          |                                      |
+| CapEx från Miljömässiga hållbara aktiviteter (Taxonomi-överensstäm- mande) (A.1)                                                     | CapEx från Miljömässiga hållbara aktiviteter (Taxonomi-överensstäm- mande) (A.1)                                                     | 0,0                                        | 0,0%             | 0,0%                            | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                           | 0,0%                                  | N/EL                             |                       | N/EL N/EL   | N/EL              | N/EL                 | N/EL N/EL                                          |                                                  | 0,0%            | 0,0%                     | 0,0%                                 |
+| A.2 Taxonomi-kvalificerade, men icke miljömässiga hållbara aktiviteter (icke Taxonomi-överensstämmande aktiviteter)                  |                                                                                                                                      |                                            |                  |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      | 0,0                                        | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      | 0,0                                        | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+|                                                                                                                                      |                                                                                                                                      | 0,0                                        | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| CapEx från Taxonomi-kvalificerade, men icke miljömässiga hållbara akti- viteter (icke Taxonomi-överensstäm- mande aktiviteter) (A.2) | CapEx från Taxonomi-kvalificerade, men icke miljömässiga hållbara akti- viteter (icke Taxonomi-överensstäm- mande aktiviteter) (A.2) | 0,0                                        | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| Totalt (A.1+A.2)                                                                                                                     |                                                                                                                                      | 0,0                                        | 0,0%             |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER                                                                                           | B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER                                                                                           | B. TAXONOMI-ICKE-KVALIFICERADE AKTIVITETER |                  |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| CapEx från icke kvalificerade aktivi- teter enligt Taxonomin                                                                         | CapEx från icke kvalificerade aktivi- teter enligt Taxonomin                                                                         | 46,4                                       | 100,0%           |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+| Totalt (A+B)                                                                                                                         | Totalt (A+B)                                                                                                                         | 46,4                                       | 100,0%           |                                 |                                |                                |                                |                                |                                       |                                  |                       |             |                   |                      |                                                    |                                                  |                 |                          |                                      |
+
+Riskbeskrivning
+
+De främsta miljömässiga riskerna inom koncernen är relaterade till utsläpp i Scope 3, såsom transporter, affärsresor, inköpta varor och avfall. Dessutom utgör cirkulära affärsmodeller med nya eller förändrade krav, såsom minskad användning av engångsprodukter eller strategier för att hyra istället för att köpa, från intressenter eller lagstiftare och som är relaterade till BICOs verksamhet eller produkter en framtida risk. Förorening av luft, vatten och mark, påverkan på vatten och marina resurser samt biologisk mångfald och ekosystem är mycket begränsad inom BICOs verksamhet och värdekedjor och har ingen väsentlig påverkan.
+
+STRATEGISK ÖVERSYN AV KONCERNENS SAMTLIGA FoU-PROJEKT
+
+År 2024 investerades cirka 8,5 procent (investeringar i FoU som andel av omsättning) inom koncernen. FoU skedde främst i de BICO-bolag som är verksamma i USA, Tyskland, Taiwan, Sverige och Frankrike. Ett projektkontor (PMO) har etablerats och tillsammans med koncernledningen har PMO genomfört en strategisk översyn av samtliga FoU-projekt inom koncernen. Under 2024 har FoU-produktiviteten ökat genom ytterligare utveckling av en gate stage process för produktutveckling samt att beslut fattades om att upphöra med ett fåtal projekt som inte ansågs tillräckligt kommersiellt lönsamma.
+
+Kategori 2: Kapitalvaror
+
+Utsläpp från kapitalvaror som köps eller förvärvas av företaget. En utgiftsbaserad metod baserad på leverantörsfakturor användes.
+
+Strategisk Agenda
+
+Vision
+
+Strategic Review
+BESKRIVNING
+
+Fokus på kundcentrerad FoU och gate stage process för produktutveckling har vidareutvecklats och implementerats. Därtill utvärderar koncernen kontinuerligt hur vår portfölj av tillgångar passar strategiskt.
+
+G.PREP NGS Automation Solution som kombinerar teknik från Dispendix och CYTENA löser dessa utmaningar:
+Implementering av automatiseringslösningen G.PREP NGS ger stora fördelar:
+
+- Höga reagenskostnader: Vanliga NGS-arbetsflöden kräver stora volymer av dyra reagenser, vilket kan begränsa antalet prover som kan bearbetas på ett kostnadseffektivt sätt
+- Komplex optimering: Miniatyrisering av protokoll för att spara in på reagenskostnader innebär vanligtvis omfattande optimering och validering, vilket förbrukar såväl tid som resurser
+- Problem med skalbarhet: Det är svårt att skala provbearbetningen utan att datakvaliteten försämras på grund av tekniköverföring och analysernas känslighet för små förändringar i pipetteringsteknik och protokollutförande
+- Miniatyriserade arbetsflöden: Med hjälp av Dispendix I.DOT Non-contact Dispenser och CYTENAs G.PURE NGS Clean-up Device möjliggör G.PREP-systemet NGS-beredning med reducerade volymer - ner till en femtedel av standardprotokollet
+- Standardiserade och testade rutiner: Validerade standardrutiner för vanliga NGS-kit somTwist Enzymatic Fragmentation 2.0 DNA-Seq tillhandahålls. Dessa standardrutiner innebär att kunderna inte behöver utföra egen optimering
+- Hög precision och tillförlitlighet: Den avancerade dispenseringstekniken säkerställer exakt hantering av små volymer samtidigt som hög datakvalitet och reproducerbarhet bibehålls
+- Användarvänlig implementering: Kunderna kan börja använda de miniatyriserade arbetsflödena utan omfattande utbildning eller tidigare erfarenhet, vilket gör att de uppnår resultat snabbare
+- Kostnadsbesparingar: Reagensförbrukningen minskar drastiskt - kunderna kan bearbeta upp till 384 prover med hjälp av ett kit som ursprungligen utformades för 96 prover, vilket innebär kostnadsbesparingar
+- Ökad kapacitet: Sekvenseringsprojekt med hög kapacitet möjliggörs eftersom fler prover kan bearbetas samtidigt utan att kostnaderna för reagenser ökar
+- Tidseffektivitet: Behovet av protokollutveckling och optimering elimineras, vilket gör att forskare kan fokusera på dataanalys och datatolkning
+- Stärkt konkurrenskraft: Laboratorier kan erbjuda konkurrenskraftiga tjänster tack vare lägre driftskostnader och snabbare tid till leverans
+
+Rapportering om värdekedjor omfattar en koncernövergripande transparens kring resursflöden
+
+<!-- image -->
+
+Lösning
+
+Biosero, en leverantör för laboratorieautomationslösningar för vetenskapliga upptäckter, som utvecklar Green Button Go (GBG) Scheduler, en mjukvara som schemalägger och utför vetenskapliga processer för olika integrerade plattformar. GBG spelade en avgörande roll i att hjälpa Astellas forskare med att schemalägga olika processer, samt med att lyckas integrera instrument från tredje part under ett gemensamt hårdvaruagnostiskt system. Detta möjliggjordes tack vare GBGs breda sortiment av kompatibla drivrutiner (drivers) för instrument från tredje part. GBG skickar även proaktivt ut mejlnotifikationer för att informera forskare om händelser i labbet som kan kräva hantering av personal.
+
+Med GBGs mjukvara kunde forskarna:
+
+- Schemalägga flytten av cellkultursplattor och cellmedium-sbehållare mellan en CO 2 -inkubator och en kall inkubator.
+- Stödja långvarig cellodling genom schemaläggning av dagliga cellmediumsbyten i ett automatiserat vätskehanteringssystem.
+- Programmera flytt av cellkultursplattor mellan en konfokal bildcytometer och CO 2 -inkubator vid specifika tidpunkter för tidsseriebildtagning av celler.
+- Hantera när en automatiserad rengörare för mikrotiterplattor användes för att hjälpa med formalinfixering och immunfärgningsprocedurer, vilka behövs för immunofluorescens-analyser.
+- Fånga och kontextualisera viktiga data under cellkulturoch analysprocesserna.
+
+Experiment utförda med Astellas 'Screening Station' har uppnått en framgångsgrad på cirka 95 procent. Forskare har också rapporterat att den automatiska vätskehanteringsstationen konsekvent fördela med pipett och placera celler på samma plats i varje hål i 96-hålsplattor. Automationen har ökat effektiviteten vid cellöverföring från 19,7 procent vid manuellt arbete till 100 procent, vilket avsevärt höjt kvaliteten och reproducerbarheten av experimenten.
+
+<!-- image -->
+
+Automatiserat arbetsflöde via Green Button Go
+
+Arbetsflöde med Astellas 'Screening Station', som möjliggjorts av Bioseros Green Button Go Scheduler
+
+<!-- image -->
+
+Arbetsflöde för tidsseriebildtagning av levande celler, utvecklat av forskare på Astellas och hanterat av Green Button Go Scheduler
+
+Green Button Go
+
+Green Button Go® är en hårdvaruagnostisk programvara som utvecklats av Biosero och som kopplar samman schemalagda arbetsflöden till orkestrerade lösningar för hela laboratoriet.
+
+BEHOV AV PLATTFORMAR SOM UPPFYLLER REGULATORISKA KRAV
+
+I takt med att kundernas krav förändras blir det regulatoriska landskapet allt mer komplext. Det blir då viktigt att lösningar och plattformar utformas så att de uppfyller strikta standarder för att säkerställa kvalitet och efterlevnad och för att uppfylla kundernas krav. Inom labautomation måste man följa 21 CFR Part 11, EU GMP Annex 11 samt den nyligen utfärdade EU Cyber Resilience Act. Den sistnämnda säkerställer att automatiserade system för datainsamling, analys och rapportering upprätthåller dataintegritet, säkerhet och spårbarhet för att kunna uppfylla kundernas behov. Genom att säkerställa att dessa regler följs och integreras i produkterna, inom design och utveckling, kommer plattformarna att möjliggöra en effektivare väg till marknaden.
+
+6
+
+Uttalande
+
+En hållbarhetsrapport har upprättats.
+
+Göteborg den 20 mars 2025
+
+Deloitte AB
+
+Lab Automation
+
+Affärsområdet tillhandahåller den egenutvecklade och hårdvaruagnostiska programvaran Green Button Go Suite för uppkopplade och smarta arbetsflöden. Arbetet bedrivs i projektform och Biosero tillhandahåller integration av automationsteknik samt konsult- och ingenjörstjänster för att designa, bygga och installera automatiserade laboratoriesystem.
+
+ANDEL AV FÖRSÄLJNING 2024
+
+29 %
+
+Lab Automation
+
+Affärsområdet tillhandahåller den egenutvecklade och hårdvaruagnostiska programvaran Green Button Go Suite för uppkopplade och smarta arbetsflöden. Green Button Go kopplar samman enheter från BICO och andra instrumenttillverkare och möjliggör hela kedjan från digitalisering av manuella processer till fullständig laboratorieintegration som är verksam 24/7. Dessa laboratorieintegrerings- och automatiseringslösningar möjliggör för forskare att iscensätta och påskynda sina upptäckter. Arbetet bedrivs i projektform och Biosero tillhandahåller integration av automationsteknik samt konsult- och ingenjörstjänster för att designa, bygga och installera automatiserade laboratoriesystem.
+
+Pharma, biotech
+
+och diagnostik
+
+LAB AUTOMATION
+
+Biosero levererade tre större produktuppdateringar av programvaran Green Button Go för labbautomation och över 50 drivrutiner vilket möjliggör uppkoppling av fler instrument. Produktuppdateringar säkerställer att funktioner som efterfrågas av kunderna regelbundet adderas för att förbättra såväl användarvänlighet som produktivitet. Utvecklingen av nya och uppdaterade drivrutiner gör det möjligt för användare att ansluta sin Green Button Go-programvara till fler enheter, vilket möjliggör längre kedjor av automatiserade vetenskapliga arbetsflöden och snabbare forskning.
+
+Resultat
+
+Med 'Screening Station', driven av GBG, har Astellas utvecklat ett automatiserat laboratoriesystem. Deras system har underlättat och hanterat de begränsningar som kan relateras till forskares scheman, integrerat flera instrument i ett hårdvaruagnostiskt system, och möjliggjort distansbaserad övervakning samt automatisk insamling av viktiga data från experiment. Astellas har sömlöst replikerat deras automatiserade 'Screening Station' och validerat sitt protokoll på ett flertal platser runt om i världen, inklusive andra labb i Japan samt i San Francisco. Forskarna har visat att ett helautomatiserat laboratoriesystem kan möjliggöra gemensamma forskningsprojekt på olika geografiska platser, även för komplexa cellbaserade analyser.
+
+Negativ materiell påverkan
+
+- Förorening av luft, jord och vatten har sin huvudsakliga påverkan uppströms i värdekedjan speciellt vid framställning av råmaterial, andrahandsleverantörer och inkommande transporter
+- Nedströms: utgående transporter bidrar till luftföroreningar
+- Biologisk mångfald och ekosystem och vattenanvändning påverkas främst vid framställning av råmaterial och andrahandsleverantörer
+- Klimatförändringar påverkas främst av valet av material i våra produkter och energiförbrukningen i vår verksamhet
+- Klimatförändringar som global uppvärmning, extrema väderförhållanden, pandemier och naturkatastrofer kan leda till ekonomiska risker och kraftigt ökade omkostnader och energikostnader
+
+Kategori 6: Tjänsteresor
+
+Registrerade tågresor, flygresor och hyrbilsrutter samt antalet nätter som tillbringats på hotell multiplicerades med specifika utsläppsfaktorer. Rutter och nätter på hotell som inte registrerades uppskattades och multiplicerades med en specifik utsläppsfaktor. Utgifter per kategori användes när andra källor inte är tillgängliga.
+
+Koncernens förändringar i eget kapital
+
+| Mkr                                        | Aktiekapital   | Övrigt tillskjutet kapital   | Omräkningsreserv   | Balanserade vinstmedel inkl, årets resultat   | Innehav utan bestämmande inflytande   | Summa    |
+|--------------------------------------------|----------------|------------------------------|--------------------|-----------------------------------------------|---------------------------------------|----------|
+| Ingående eget kapital 2023-01-01           | 1,8            | 7 590,5                      | 419,3              | -1 106,5                                      | 27,2                                  | 6 932,2  |
+| Justering av historiska perioder*          | -              | -                            | -93,9              | -2 569,0                                      | -                                     | -2 662,9 |
+| Ingående eget kapital 2023-01-01           | 1,8            | 7 590,5                      | 325,4              | -3 675,5                                      | 27,2                                  | 4 269,3  |
+| Årets resultat                             | -              | -                            | -                  | -1 172,7                                      | -1,1                                  | -1 173,8 |
+| Årets övrigt totalresultat                 | -              | -                            | 20,2               | -                                             | -0,7                                  | 19,5     |
+| Transaktioner med ägare                    |                |                              |                    |                                               |                                       |          |
+| Nyemission                                 | 0,0            | 5,9                          | -                  | -                                             | -                                     | 5,9      |
+| Emissionskostnader, netto efter skatt      | -              | -0,6                         | -                  | -                                             | -                                     | -0,6     |
+| Aktierelaterade ersättningar               | -              | -20,1                        | -                  | -                                             | -                                     | -20,1    |
+| Övriga rörelser                            | -              | 4,8                          | -                  | -4,8                                          | -                                     | 0,0      |
+| Utgående eget kapital 2023-12-31           | 1,8            | 7 580,5                      | 345,6              | -4 853,0                                      | 25,4                                  | 3 100,3  |
+| Ingående eget kapital 2024-01-01           | 1,8            | 7 580,5                      | 345,6              | -4 853,0                                      | 25,4                                  | 3 100,3  |
+| Årets resultat                             | -              | -                            | -                  | -5,5                                          | -3,6                                  | -9,0     |
+| Årets övrigt totalresultat                 | -              | -                            | -91,7              | -                                             | 0,7                                   | -91,0    |
+| Transaktioner med ägare                    |                |                              |                    |                                               |                                       |          |
+| Optionspremier                             | -              | 3,6                          | -                  | -                                             | -                                     | 3,6      |
+| Effekt av återköpta konvertibla skuldebrev | -              | 1,6                          | -                  | -                                             | -                                     | 1,6      |
+| Aktierelaterade ersättningar               | -              | 2,1                          | -                  | -                                             | -                                     | 2,1      |
+| Övriga rörelser                            | -              | 3,9                          | -0,5               | -3,4                                          | -                                     | 0,0      |
+| Utgående eget kapital 2024-12-31           | 1,8            | 7 591,7                      | 253,3              | -4 861,8                                      | 22,6                                  | 3 007,6  |

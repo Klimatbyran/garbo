@@ -1,13 +1,13 @@
 import nlp from 'compromise'
 import {
   Block,
-  Cell,
   Header,
   Paragraph,
   Table as NLMIngestorTable,
   ListItem,
   ParsedDocument,
 } from './nlm-ingestor-schema'
+import { parseTable } from './tableParser'
 
 const deHyphenate = (text: string) => {
   return text
@@ -23,63 +23,16 @@ const deHyphenate = (text: string) => {
     : ''
 }
 
+
+
 const paragraph = (block: { tag: 'para'; sentences: string[] }) =>
   block.sentences
     .map((sentence) => deHyphenate(sentence))
     .filter((sentence) => sentence !== '')
     .join('\n')
 
-const getCellValueString = (cell: Cell): string =>
-  typeof cell.cell_value === 'string'
-    ? cell.cell_value
-    : cell.cell_value.sentences.join(' ')
-
-const table = (block: NLMIngestorTable) => {
-  if (!block.table_rows) return block.name
-  const headerRow = block.table_rows?.find((row) => row.type === 'table_header')
-  const dataRows = block.table_rows?.filter(
-    (row) => row.type !== 'table_header'
-  )
-
-  const headers =
-    headerRow?.cells?.map((cell) => deHyphenate(getCellValueString(cell))) || []
-  const rows = dataRows
-    .map((row) => {
-      if (row.type === 'full_row') {
-        return [`| ${deHyphenate(row.cell_value ?? '')} |`]
-      }
-      return row.cells?.map?.((cell) => {
-        const value = deHyphenate(getCellValueString(cell))
-        return `| ${value}`
-      })
-    })
-    .filter((row) => row !== undefined)
-
-  const maxColumns = Math.max(
-    headers.length,
-    ...rows.map((row) =>
-      row.reduce((sum, cell) => sum + (cell.match(/\|/g) || []).length - 1, 0)
-    )
-  )
-  const separator = Array(maxColumns).fill('---')
-
-  const formattedHeaders = `| ${headers.join(' | ')} |`
-  const formattedSeparator = `| ${separator.join(' | ')} |`
-  const formattedRows = rows.map((row) => row.join(' '))
-  const bbox = block.bbox
-
-  // NOTE: Some tables include neither `bbox` nor `table_rows`
-  const image = bbox
-    ? `![table image]({page: ${block.page_idx}, x: ${Math.round(
-        bbox[0]
-      )}}, {y: ${Math.round(bbox[1])}, {width: ${Math.round(
-        bbox[2] - bbox[0]
-      )}}, {height: ${Math.round(bbox[3] - bbox[1])}})`
-    : ''
-
-  return [formattedHeaders, formattedSeparator, ...formattedRows, image].join(
-    '\n'
-  )
+export const table = (block: NLMIngestorTable) => {
+  return parseTable(block)
 }
 const header = (block: Header) => {
   const level = block.level + 1

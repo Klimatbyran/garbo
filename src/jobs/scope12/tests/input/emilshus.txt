@@ -1,0 +1,1070 @@
+Koldioxidutsläpp
+
+Efter en kartläggning 2023 av bolagets koldioxidutsläpp i enlighet med Greenhouse Gas Protocol (GHG-protokollet), påbörjades kvartalsvis rapportering av utsläpp under 2024. Scope 1 inkluderar direkta utsläpp från källor som ägs eller kontrolleras av bolaget, vilket i Emilshus fall är utsläpp kopplade till tjänsteresor som görs med tjänstebil. Under 2024 påbörjades arbetet med att förbereda redovisning av utsläpp från köldmedier. Scope 2 omfattar indirekta utsläpp från inköpt energi, vilket i Emilshus fall utgörs av el och fjärrvärme.
+
+Växthusgasutsläpp
+
+|                                                             | Enhet      | 2024   | 2023   |
+|-------------------------------------------------------------|------------|--------|--------|
+| Scope 1 utsläpp (direkta utsläpp                            | tCO2e      | 23     | 23     |
+| Scope 2 utsläpp (indirekta utsläpp orsakat av verksamheten) | tCO2e      |        |        |
+| El (market based) 2)                                        | tCO2e      | -      | -      |
+| El (location-based) 3)                                      | tCO2e      | 79     | 75     |
+| Fjärrvärme 4)                                               | tCO2e      | 658    | 537    |
+| Scope 1 och 2 total                                         |            | 760    | 635    |
+| Utsläppsintensitet i Scope 1                                | kgCO2e/kvm | -      | -      |
+| Utsläppsintensitet i Scope 2                                | kgCO2e/kvm | 2,3    | 2,4    |
+| Utsläppsintensitet Scope 1 och 2                            | kgCO2e/kvm | 2,3    | 2,4    |
+
+1)   Avser fastighetsenergi LOA i fastigheter där Emilshus har abonnemang och därmed har kontroll över energianvändningen. Värden är normalårskorrigerade utifrån temperatur.
+
+2) Vid redovisning enligt market-based metoden är emissionsfaktorn 0 gCOe/kWh.
+
+3)   Vid redovisning enligt location  based metoden, det vill säga vid avsaknad om avtal om förnybar ursprungsmärkt el är utsläppen 79 ton CO2e. Emissionsfaktor inhämtas från energibolagen.
+
+4) Emissionsfaktorn för fjärrvärme har hämtats från respektive fjärrvärmeleverantör.
+
+<!-- image -->
+
+Aktiekapitalets utveckling
+
+|   År | Händelse                     | Förändring i antalet aktier   | Totalt antal A-aktier   | Totalt antal B-aktier   | Totalt antal preferensaktier   | Förändring i aktiekapitalet (kr)   | Aktiekapital (kr)   |   Kvotvärde (kr) |
+|------|------------------------------|-------------------------------|-------------------------|-------------------------|--------------------------------|------------------------------------|---------------------|------------------|
+| 2018 | Nybildning                   | -                             |                         | -                       | -                              | 50 000                             | 50 000              |                1 |
+| 2018 | Sammanläggning 1:20          | -47 500                       | 2 500                   | -                       | -                              | -                                  | 50 000              |               20 |
+| 2018 | Nyemission                   | 177 500                       | 180 000                 | -                       | -                              | 3 550 000                          | 3 600 000           |               20 |
+| 2018 | Nyemission                   | 206 009                       | 386 009                 | -                       | -                              | 4 120 180                          | 7 720 180           |               20 |
+| 2018 | Nyemission                   | 1 110 000                     | 1 496 009               | -                       | -                              | 22 200 000                         | 29 920 180          |               20 |
+| 2018 | Nyemission                   | 20 601                        | 1 516 610               | -                       | -                              | 412 020                            | 30 332 200          |               20 |
+| 2019 | Utbyte av konvertibler       | 1 110 000                     | 2 626 610               | -                       | -                              | 22 200 000                         | 52 532 200          |               20 |
+| 2019 | Nyemission                   | 410 000                       | 3 036 610               | -                       | -                              | 8 200 000                          | 60 732 200          |               20 |
+| 2019 | Omvandling                   | -                             | 607 322                 | 2 429 288               | -                              | -                                  | 60 732 200          |               20 |
+| 2019 | Nyemission                   | 909 091                       | 789 141                 | 3 156 560               | -                              | 18 181 820                         | 78 914 020          |               20 |
+| 2019 | Nyemission                   | 373 637                       | 789 141                 | 3 530 197               | -                              | 7 472 740                          | 86 386 760          |               20 |
+| 2019 | Nyemission                   | 118 333                       | 789 141                 | 3 648 530               | -                              | 2 366 660                          | 88 753 420          |               20 |
+| 2019 | Nyemission                   | 1 602 909                     | 1 152 789               | 4 887 791               | -                              | 32 058 180                         | 120 811 600         |               20 |
+| 2021 | Nyemission                   | 604 058                       | 1 152 789               | 5 491 849               | -                              | 12 081 160                         | 132 892 760         |               20 |
+| 2021 | Nyemission                   | 561 798                       | 1 152 789               | 5 491 849               | 561 798                        | 11 235 960                         | 144 128 720         |               20 |
+| 2021 | Uppdelning 10:1              | 64 857 924                    | 11 527 890              | 54 918 490              | 5 617 980                      | -                                  | 144 128 720         |                2 |
+| 2021 | Nyemission                   | 7 246 377                     | 11 527 890              | 54 918 490              | 12 864 357                     | 14 492 754                         | 158 621 474         |                2 |
+| 2021 | Nyemission                   | 1 086 956                     | 11 527 890              | 54 918 490              | 13 951 313                     | 2 173 912                          | 160 795 386         |                2 |
+| 2022 | Nyemission                   | 5 172 414                     | 11 527 890              | 54 918 490              | 19 123 727                     | 10 344 828                         | 171 140 214         |                2 |
+| 2022 | Nyemission                   | 1 504 898                     | 11 527 890              | 54 918 490              | 20 628 625                     | 3 009 796                          | 174 150 010         |                2 |
+| 2022 | Nyemission i Erbjudandet     | 24 000 000                    | 11 527 890              | 78 918 490              | 20 628 625                     | 48 000 000                         | 222 150 010         |                2 |
+| 2022 | Nyemission övertilldelning   | 2 427 919                     | 11 527 890              | 81 346 309              | 20 628 625                     | 4 855 638                          | 227 005 648         |                2 |
+| 2023 | Nyemission                   | 7 407 408                     | 11 527 890              | 88 753 717              | 20 628 625                     | 14 814 816                         | 241 820 464         |                2 |
+| 2024 | Nyemission                   | 10 343 335                    | 11 527 890              | 99 097 052              | 20 628 625                     | 20 686 670                         | 262 507 134         |                2 |
+| 2024 | Nyemission övertilldelning   | 1 656 665                     | 11 527 890              | 100 753 717             | 20 628 625                     | 3 313 330                          | 265 820 464         |                2 |
+| 2024 | Inlösen av teckningsoptioner | 1 872 660                     | 11 527 890              | 102 626 377             | 20 628 625                     | 3 745 320                          | 269 565 784         |                2 |
+
+Mål
+
+- Den el som Emilshus köper ska vara fossilfri och så långt som möjligt vara förnybar, ursprungsmärkt eller närproducerad 1) .
+- Emilshus ska minska energianvändningen per kvm i jämförbart fastighetsbestånd med i genomsnitt 2 % per år från 2022 till 2030.
+
+1)   Avser fastigheter som ägts/förvaltats den senaste 12-månaderspersioden och där Emilshus ansvarar för elavtalet.
+
+Väsentliga händelser i hållbarhetsarbetet 2024
+Energieffektiviserande åtgärder
+
+För att effektivisera energianvändningen i fastigheterna och samtidigt förbättra arbetsmiljön för bolagets hyresgäster arbetar Emilshus bland annat med att se över äldre värme- och ventilationsaggregat i byggnaderna. Genom att investera i nya aggregat kan betydande minskning i energianvändning uppnås, vilket även innebär minskade kostnader för både Emilshus och   hyresgästen. Emilshus arbetar löpande med att genomföra energiprojekt i fastig  hetsbeståndet och identifiera lämpliga insatser. Nedan beskrivs projekt som genomfördes under det gångna året.
+
+Under årets första kvartal genomfördes optimering av styrsystemen för ventilation och värme i fastigheten Lunden 13 i Vetlanda, vilket resulterade i ett bättre inomhusklimat för hyresgästerna och en minskad energianvändning om 60 000 kWh under det andra kvartalet, motsvarande en besparing om 25 %. Optimering av system leder även till större kännedom om byggnaden, vilket ger bra beslutsunderlag för kommande planerade energiprojekt i fastigheten. Emilshus genomförde   motsvarande översyn och optimering av styrning för värme och kyla i stora delar av beståndet under våren, en tid då temperaturen svänger stort vilket gör det enklare att identifiera var det finns förbättrings  potential.
+
+<!-- image -->
+
+På fastigheten Bagaren 3 i Värnamo genomför Emilshus en omfattande energirenovering där äldre lysrörsarmaturer byts till ny LED-belysning, vilket ger en betydande energibesparing och samtidigt bättre ljusförhållanden för hyresgästerna. Vidare byttes ventilationsaggregat ut och i samband med det kopplades installationerna upp för fjärrövervakning, optimering och larmhantering. Totalt beräknas projektet generera en total besparing om 105 000 kWh årligen, motsvarande 12 % av fastighetens totala energianvändning.
+
+I fastigheten Öskaret 16 i Jönköping genomfördes ett belysningsprojekt som lett till en betydande energibesparing. Läs mer om projektet på sidan 27.
+
+Riskhantering
+
+Arbetet med riskhantering avser en systematisk tillämpning av principer, förfaranden och praxis gällande identifiering, analys, kontroll och uppföljning av risker inom Emilshus verksamhet. I arbetet med riskhantering ska den bästa tillgängliga informationen användas, och vid behov kompletteras med ytterligare undersökningar. Emilshus arbete avseende riskhantering följer en definierad process, inkluderande följande fem områden: riskidentifiering, riskbedömning, riskåtgärder, självutvärdering och rapportering. Dessa aktiviteter ska utföras minst årligen. Uppföljningar och separata utvärderingar utförs kontinuerligt på olika nivåer i bolaget.
+
+klassificerats och där respektive riskåtgärd har värderats. Riskanalysen har behandlats inom Emilshus ledningsgrupp och styrelse.
+
+Emilshus risker identifieras och värderas inom fem kategorier.
+
+- Strategiska risker
+- Finansiella risker
+- Operativa risker
+- Hållbarhetsrisker
+- Omvärldsrisker
+
+Emilshus genomförde under 2023 en riskanalys där ett antal väsentliga risker inom de fem riskkategorierna har   analyserats,
+
+Nedan finns en samanställning över de nyckelrisker som Emilshus har identifierat.
+
+| Riskområde         | Risk             | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Hantering                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|--------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Strategiska risker | Transaktion      | Förvärv av fastigheter är en del av Emilshus tillväxtstrategi. I samband med fastighetstransaktioner finns en risk att den förvärvade fastigheten inte motsvarar förväntningarna eller den erlagda köpeskillingen. Det finns även risk för oväntade vakanser eller kostnader som uppkommer i fastigheten efter förvärvet och som inte är reglerade i avtalet. Då förvärv vanligtvis sker via aktiebolag finns även risker kopplade till bolaget, till exempel moms och skatter. | I sin organisation har Emilshus kompetens och kapacitet att analysera ett stort antal potentiella affärer och genomföra förvärv av både större portföljer och enstaka fastigheter. Bolaget följer en tydlig och beprövad process i genomförandet av transaktioner. Vid varje förvärv sker en grundlig genomlysning av fastigheter och hyresgäster för att säkerställa att dessa motsvarar bolagets krav.                                                                                                                   |
+|                    | Fastighetsvärden | Värderingen av Emilshus förvaltningsfastigheter ger en direkt påverkan på såväl resultat som nyckeltal. Hur stora värdeförändringarna blir beror dels på Emilshus egen förmåga att, genom förändring och förädling av fastigheter samt avtals- och hyresgäststruktur, höja fastigheternas marknadsvärde, dels på yttre faktorer som påverkar utbud och efterfrå- gan på den fastighetsmarknad där Emilshus är verksam.                                                          | Emilshus har ett diversifierat fastighetsbestånd med fokus på kommersiella lokaler inom kategorier med generellt god efterfrågan. Ett dynamiskt näringslivsklimat och stabil regional tillväxt ger förutsättningar för en fortsatt efterfrågan på industri- och lagerlokaler samt kontorsfastigheter på Emilshus marknader. För att ha god kontroll på värdeutveckling låter Emilshus kvartalsvis genomföra externa värderingar av hela fastighetsportföljen. Emilshus samarbetar med Newsec avseende fastighetsvärdering. |
+|                    | Organisation     | En av Emilshus viktigaste resurser är dess personal. Idag krävs en flexibel och lärande organisation för att möta hyresgästernas och andra intressenters förväntningar. Det finns en risk att Emilshus inte lyckas vidareutveckla organisationen och attrahera, behålla och utveckla rätt kompetens som matchar de behov som hyresgäster, medarbetare och andra intressenter har.                                                                                               | Emilshus arbetar aktivt med att säkerställa organisationens kompetensutveckling och personalförsörjning i alla led, bland annat genom att låta medarbetarna få växa inom organisationen med successivt ökat ansvar. Med närhet till affärsbeslut och delaktighet i affärsutvecklingen ges förutsättningar för bättre resultat och ökad tillfredställelse med det egna arbetet.                                                                                                                                             |
+
+| Riskområde         | Risk                                   | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Hantering                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Operativa risker   | Hyresintäkter                          | Emilshus hyresintäkter är starkt korrelerande med hyresnivåerna och vakansgraden i Emilshus fastighetsbestånd. Både hyresnivåer och vakansgrad påverkas i hög grad av den allmänna tillväxten i den svenska ekonomin, men även av tillväxten på Emilshus marknader.                                                                                                                                                                                                                                                                                                                                                                     | Emilshus marknader har ett brett och livskraftigt näringsliv med många företag och en hög tillväxt i bruttoregionalprodukt jämfört med riket. Emilshus har låg vakansnivå och konkurrenskraftiga hyror. Med en egen lokal förvalt- ningsorganisation har bolaget god förmåga att minimera vakanser.                                                                                            |
+| Operativa risker   | Fastighetskostnader                    | Fastighetskostnaderna består främst av kostnader för el, vatten, värme och snöröjning samt underhållskostnader och fastighetsskatt. Flera av dessa kostnader avser varor och tjänster som endast kan köpas från en eller ett fåtal motparter, vilket riskerar att påverka kostnaden för sådana produkter.                                                                                                                                                                                                                                                                                                                               | Analys av bolagets fastighetskostnader och uppföljning sker löpande. Emilshus bedriver ett långsiktigt arbete med att minska energianvändning och därigenom energikostnader. Emilshus terminssäkrar utifrån en fastställd strategi delar av koncernens elkostnader.                                                                                                                            |
+| Operativa risker   | IT-säkerhet                            | Emilshus är beroende av väl fungerande IS/ IT-system för sin verksam- het. Ökad digitalisering innebär ett större beroende av dessa system och en ökad mängd känsliga data i alla system som medför en potentiell säkerhetsrisk. Det finns en ständigt närvarande risk för dataintrång och Emilshus är lika utsatt för IT-attacker som andra företag. Haverier eller intrång såväl i interna verksamhetssystem som i fastigheters styrsystem kan få betydande konsekvenser för bolaget och hyresgästerna.                                                                                                                               | Emilshus har valt molnbaserade lösningar för sitt IS/IT-system. Huvudleverantören är en etablerad aktör med dokumenterad kompetens med inriktning på industriell verksamhet. Ledningen följer löpande upp samarbetet och har möten med leverantören för strategisk och operativ planering och uppföljning. Bolaget fastställer årligen en IT-säkerhetspolicy samt dess IT-policy.              |
+| Finansiella risker | Finansierings- och refinansieringsrisk | Emilshus förmåga att finansiera sin verksamhet är beroende av ett antal faktorer, såsom marknadsförhållanden, kassaflöden från verksamheten och tillgång till ytterligare skuld och aktiefinansiering. Det finns ingen garanti för att sådan finansiering kommer att vara tillgänglig till en rimlig kostnad. Ett misslyckande att erhålla tillräcklig finansiering på skäliga villkor kan ha en väsentlig negativ effekt på Emilshus möjligheter att finansiera sina kapitalinvesteringar, vilket i sin tur kan få en väsentlig negativ effekt på Emilshus framtidsutsikter och framtida intäkter och Emilshus konsoliderade resultat. | Emilshus har varit framgångsrikt i arbetet med sin finansiering. Bolaget har väletablerade kontakter med flera banker för bankfinansiering och har löpande genomfört kapital- anskaffningar på kapitalmarknaden. Emilshus styrelse och ledning besitter en lång och bred erfarenhet inom finans och finansiering.                                                                              |
+| Finansiella risker | Ränterisk                              | Emilshus verksamhet finansieras huvudsakligen med eget kapital, lån från kreditinstitut och andra kapitalmarknadsprodukter. Räntekostnaderna är en av Emilshus största kostnadsposter. Ökade räntekostnader kan leda till förändringar i fastigheters marknadsvärden och kan därmed ha en väsentlig negativ inverkan på Emilshus finansiella ställning.                                                                                                                                                                                                                                                                                 | Emilshus har genom derivat räntesäkrat motsvarande 81 %av koncernens räntebärande skulder per 31 december 2024. Derivaten begränsar eventuella framtida ränteökningars effekt på Emilshus upplånings- kostnad.                                                                                                                                                                                 |
+| Finansiella risker | Kreditrisk                             | Emilshus sammansättning av hyresgäster innebär att förmågan att betala hyran bedöms innebära en låg risk för större hyresförluster.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Emilshus hyresgäster utgörs i hög grad av större stabila bolag med långsiktighet i sina verksamheter och god betatalningsförmåga. Kreditbedömning görs av hyresgäster vid förvärv och löpande i förvaltningen. Med en egen lokal förvaltningsorganisation har bolaget god marknadskännedom. Emilshus har löpande kreditbevakning av koncernens hyresgäster genom ett samarbete med Creditsafe. |
+
+| Riskområde        | Risk             | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Hantering                                                                                                                                                                                                                                                                                                                               |
+|-------------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Hållbarhetsrisker | Miljöpåverkan    | Enligt svensk lagstiftning är huvudregeln att den nuvarande eller tidi- gare verksamhetsutövaren är ansvarig för saneringen av en förorenad fastighet. Det kan finnas, eller kan tidigare ha funnits, hyresgäster på de fastigheter som ägs direkt eller indirekt av koncernen som bedriver tillståndspliktig verksamhet enligt miljöbalken. Eftersom Emilshus äger 130 fastigheter finns det en risk att krav på sanering eller efterbehand- ling kan komma att riktas mot koncernen under vissa omständigheter på grund av förekomst av, eller misstanke om, föroreningar i marken, vattenområden eller grundvatten, i syfte att säkerställa att fastigheten är i ett sådant skick som krävs enligt miljöbalken vilket kan få en väsentlig negativ effekt på Emilshus kostnader och konsoliderade resultat. | Vid varje förvärv sker en utförlig granskning och riskanalys av fastigheter och hyresgäster för att säkerställa att dessa motsvarar bolagets krav.                                                                                                                                                                                      |
+|                   | Klimatpåverkan   | Klimatet kommer förändras i någon utsträckning under kommande årtionden. Klimatförändringar i form av exempelvis fler kraftiga stormar, varmare temperaturer eller ökade grundvattennivåer innebär risk för stigande kostnader för fukt och skadereglering och försäkringar samt ökat kylbehov. På längre sikt ökar sannolikt också investeringarna för att anpassa Emilshus fastigheter till ett förändrat klimat.                                                                                                                                                                                                                                                                                                                                                                                           | Analys av klimatrelaterade risker ingår som en del i Emilshus förvärvsprocess. Emilshus utvärderar löpande fastigheterna i beståndet för att utröna behov av åtgärder. Bolaget följer utvecklingen inom området och avser att stärka arbetet med analys av scenarier.                                                                   |
+|                   | Arbetsmiljö      | I den dagliga verksamheten kan det förekomma incidenter varigenom medarbetare, entreprenörer eller hyresgäster/tredje part skadas i Emils- hus projekt och fastigheter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Emilshus följer tillämplig arbetsmiljölagstiftning och andra föreskrifter och krav som bolaget berörs av. Vid upphandlingar av teknisk förvaltning och inom projektverksamheten ska Fastighets- branschens uppförandekod för leverantörer tillämpas. Emilshus erbjuder en anonym visselblåsarfunktion för anställda och externa parter. |
+| Omvärldsrisker    | Regelefterlevnad | Lagar, förordningar och andra regler påverkar Emilshus dagliga verksamhet. Bristande efterlevnad av dessa regelverk kan leda till ekonomiska sanktioner och skadat förtroende för Emilshus.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Emilshus arbetar utifrån ett internt ramverk som består av handlingsplaner och policyer. Dessa fastställs av styrelsen och utvärderas löpande för att utröna behov av förändring eller åtgärder.                                                                                                                                        |
+|                   | Kris             | Emilshus och Emilshus hyresgäster är beroende av stabilitet inom de globala handels- och finansmarknaderna. Omfattande störningar kan få väsentlig påverkan på Emilshus resultat och ställning.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Emilshus bedriver en löpande omvärldsbevakning avseende marknad och finansiering. Bolaget har en IT-säkerhetsstrategi som stöd för hantering av störningar i IT- och driftssystem.                                                                                                                                                      |
+
+Transporter
+
+I linje med Emilshus mål om att bolagets medarbetare ska ta miljöhänsyn vid val av transportsätt vid tjänsteresor genom  fördes under året en översyn av medarbetarnas tjänstebilar. Av den totala fordonsflottan är 85 % (92) hybridbilar och 15 % (8) elbilar.
+
+VD-kommentar
+
+För Emilshus innebär en hållbar verksamhet att ta miljöoch samhällsansvar men det är också en fråga om sunt och lönsamt företagande som ligger mycket nära våra grundvärden. Det linjerar också med den långsiktighet som Emilshus verksamhet präglas av. Vår förvaltning fokuserar på lokal närvaro och ett nära samarbete med hyresgästerna för att skapa värde och bidra till minskad klimatpåverkan. Därtill strävar vi efter att vara en aktiv part i näringslivet och utvecklingen på de orter vi är verksamma. Vi arbetar utifrån ett internt ramverk som består av hållbarhetsstrategi, handlingsplaner samt policyer som berör Emilshus medarbetare och leverantörer. Vidare baseras vårt hållbarhetsarbete på ett åtagande mot FN:s globala mål för hållbar utveckling och vi fortsätter att stödja FN:s Global Compacts tio principer inom mänskliga rättigheter, arbetsrätt, miljö och antikorruption. Emilshus strategier är sammantaget utformade för att generera långsiktigt uthållig avkastning och att säkra en lönsam verksamhet över tid.
+
+Att arbeta aktivt med att identifiera och utföra åtgärder som syftar till energieffektiviseringar i fastighetsbeståndet ser vi som den enskilt viktigaste insats vi kan göra för att minska Emilshus klimatpåverkan. Energianvändningen i våra fastigheter är också en viktig kostnadspost som vi med ett strukturerat arbete kan minska, något som sker i nära samarbete med våra hyresgäster. Under 2024 minskade bolagets energianvändning per kvm med 6 % i jämförbart bestånd. Under året påbörjade vi rapportering av koldioxidutsläpp inom scope 1 och 2 i enlighet med Greenhouse Gas Protocol.
+
+Vi fortsätter att arbeta steg för steg mot våra mål och gröna finansiella ramverk, både med processer och optimering av driften av husen. Därtill kommer en rad andra initiativ i syfte att både möta hyresgästerna krav och leva upp till bolagets hållbarhetsstrategi.
+
+Jakob Fyrberg, VD
+
+<!-- image -->
+
+Energianvändning
+
+|                                                             | Enhet   |   2024 |   2023 | 2022   |
+|-------------------------------------------------------------|---------|--------|--------|--------|
+| El                                                          | GWh     |      9 |     10 | 6      |
+| Fjärrvärme                                                  | GWh     |     17 |     17 | 10     |
+| Energianvändning total 1)                                   | GWh     |     26 |     27 | 16     |
+| Energiintensitet el                                         | kWh/kvm |     33 |     34 | 37     |
+| Energiintensitet fjärrvärme                                 | kWh/kvm |     73 |     75 | 84     |
+| Energiintensitet totalt                                     | kWh/kvm |    106 |    109 | 119    |
+| - Förändring jämfört med mot- svarande period föregående år | %       |     -6 |     -6 |        |
+
+Gröna tillgångar
+
+Emilshus uppdaterade under 2024 sitt gröna finansiella ramverk som bolaget tillämpat sedan 2021. Ramverket gör det möjligt för Emilshus att emittera gröna obligationer och andra finansiella instrument för finansiering av projekt och tillgångar. Emilshus gröna ramverk har granskats av oberoende tredje part, ISS, som ställer krav på årlig uppföljning, rapportering och styrning av data avseende bland annat energianvändning, energieffektivitet och minskning av koldioxidutsläpp. Ramverket och granskningen finns tillgängliga på bolagets webbsida.
+
+<!-- image -->
+
+Energianvändning
+
+Emilshus energianvändning minskade under 2024 med 6 % i jämförbart fastighetsbestånd, jämfört med föregående år. Det visar att de energieffektiviserande åtgärder som genomförts under året har givit resultat. Emilshus totala energianvändning för 2024 uppgick till 26 GWh 1 . Av den el som köps in utgörs 100 % av fossilfri energi. Efter årets utgång har avtal tecknats om inköp av el från förnyelsebara energikällor för hela fastighetsbeståndet.
+
+Mål
+
+- Alla externa tekniska förvaltare ska uppfylla Fastighetsbranschens uppförandekod för leverantörer.
+- Emilshus ska välja material med hänsyn till människorna som vistas i bolagets fastigheter samt med hänsyn till miljöaspekter i stort.
+- Nybyggnation och tillbyggnader ska, där det är möjligt, ha minst 30 % lägre energianvändning än kraven i Boverkets Byggregler (BBR), uppnå kraven för energiklass A eller B alternativt kvalificera för miljöcertifiering.
+- Hantering av demonterat och bortfört byggmaterial och inredning i större projekt (över 2 miljoner kronor) ska, där det är möjligt, dokumenteras (återanvändning, materialåtervinning och deponering).
+
+Fokusområden
+
+Emilshus har formulerat en långsiktig vision inom bolagets fyra fokusområden och satt upp mätbara mål och mätområden. Mål och mätområden följs upp årligen och utvärderas löpande för att fortsatt vara relevanta för den verksamhet som Emilshus bedriver. Bolagets arbete fortsätter att utvecklas och en översyn av hållbarhetsstrategin kommer att ske under 2025.
+
+<!-- image -->
+
+Andel fossilfri el
+
+|                                   | Enhet   |   2024 |   2023 |   2022 |
+|-----------------------------------|---------|--------|--------|--------|
+| Andel av inköpt el                | %       |    100 |    100 |    100 |
+| varav från förnybara energikällor | %       |     19 |     63 |     67 |
+| varav från kärnkraft              | %       |     81 |     37 |     33 |
+
+Melltorp 2:28, Mark
+
+Fastighetskategori: Lätt industri
+
+Projekttyp: Lokalanpassning
+
+Area: 6 500 kvm Färdigställande: Sommaren 2025 Förändring av hyresavtal: Nytt 10-  årigt hyresavtal projekt med om- och tillbyggnationer är ett sätt att möta hyresgästernas behov och samtidigt skapa värde för Emilshus genom förlängda hyresavtal, ökade hyresnivåer och ökat fastighetsvärde', kommenterar Pierre Folkesson.
+
+Att skapa energieffektiva lokaler med moderna installationer är en central del i alla Emilshus ombyggnationer. Därtill drivs det löpande energiprojekt i syfte att minska energianvändningen i fastigheterna och därmed också minska klimatavtryck och kostnader. Som en del i ombyggnationen av fastigheten i Mark utrustas byggnaderna med nya system för uppvärmning och ventilation som både innebär hög komfort i lokalerna och låg energianvändning. Installation av modern LED-belysning bidrar också till att minimera energianvändningen.
+
+Emilshus har ett antal pågående projekt för befintliga hyresgäster med vilka bolaget förlängt och omförhandlat hyresavtal med. Ett exempel är fastigheten Krokodilen 4 i Kalmar där det sker en om- och tillbyggnation för Toyotahandlaren Bil och Motor i Sydost AB som samtidigt tecknat ett nytt 12-årigt hyresavtal om totalt 2 800 kvm.
+
+Nyemission 2024
+
+I maj 2024 genomfördes en riktad nyemission av 12 miljoner stamaktier av serie B till en teckningskurs om 32 kronor per aktie. Genom nyemissionen tillfördes Emilshus 384 miljoner kronor före transaktionsrelaterade kostnader. Ett antal svenska och internationella institutionella investerare, bland annat de befintliga aktieägarna AB Sagax, Lannebo Fonder, Länsförsäkringar Fondförvaltning och Handelsbanken Fonder, deltog i emissionen.
+
+Industritäta regioner
+
+Emilshus marknader är kända för en stark entreprenörsanda som har skapat en gynnsam mix av innovation och industriell tradition vilket bidragit till god tillväxt i regionerna. Här finns flera större börsnoterade och världsledande företag inom sina respektive segment samt välmående småindustrier. I bolagets största förvaltningsområde Växjö med omnejd finns därtill ett väl differentierat näringsliv med högteknologiska och kunskapsintensiva företag och kommunen är en av de mest IT-företagstäta i landet. I samtliga tre regioner finns universitet och högskolor som med sin närvaro gynnar näringsliv och tillväxt.
+
+Goda kommunikationsmöjligheter
+
+Regionernas läge mellan storstadsområdena Stockholm, Göteborg och Malmö samt med närhet till E4:an innebär goda kommunikationsmöjligheter, vilket gör Emilshus marknader attraktiva för industriföretag. Det gynnsamma geografiska läget i kombination med ett gott näringslivsklimat skapar förutsättningar för en god efterfrågan på moderna industri- och lagerlokaler samt kontorsfastigheter i centrala lägen.
+
+Energieffektiviseringsprojekt
+
+Under 2024 fortsatte Emilshus arbetet med en bred kartläggning av energianvändningen i beståndet. Resultaten visar på stora möjligheter till fortsatt optimering av befintliga installationer och ett flertal energieffektiviseringsprojekt utfördes under året. Dessa avser främst temperaturstyrning av värme och ventilation som i kombination genererar betydande minskning i energianvändning samtidigt som det ökar komforten för hyresgästerna.
+
+Emilshus har under året arbetat med uppkoppling av fastigheternas styrsystem, något som möjliggör effektiv larmhantering och optimering från distans för bolagets fastighetsskötare. Detta är fördelaktigt för hyresgästerna och bidrar till lägre kostnader för Emilshus. Andra viktiga områden är belysnings- och ventilationsprojekt som leder till minskad energianvändning. Arbetet med energieffektivisering kommer drivas vidare med samma inriktning under 2025.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Andel miljöklassade tjänstebilar
+
+|                         | 2024   | 2023   | 2022   |
+|-------------------------|--------|--------|--------|
+| Andel av fordonsflottan |        |        |        |
+| Elbilar,%               | 15     | 8      | 11     |
+| Hybridbilar,%           | 85     | 92     | 89     |
+| Fossildrivna bilar,%    | 0      | 0      | 0      |
+
+Koncernens rapport över finansiell ställning
+
+|                                                             |        | 31 dec   | 31 dec   |
+|-------------------------------------------------------------|--------|----------|----------|
+| mkr                                                         | Not    | 2024     | 2023     |
+| TILLGÅNGAR                                                  |        |          |          |
+| Anläggningstillgångar                                       |        |          |          |
+| Förvaltningsfastigheter                                     | 8      | 8 940    | 7 324    |
+| Övriga anläggningstillgångar                                | 9      | 1        | 1        |
+| Derivat                                                     | 16     | 10       | 35       |
+| Summa anläggningstillgångar                                 |        | 8 951    | 7 360    |
+| Omsättningstillgångar                                       |        |          |          |
+| Hyresfordringar                                             |        | 6        | 6        |
+| Skattefordran                                               |        | 17       | -        |
+| Övriga fordringar                                           |        | 0        | 20       |
+| Förutbetalda kostnader och upplupna intäkter                | 11     | 19       | 24       |
+| Likvida medel                                               | 22     | 100      | 212      |
+| Summa omsättningstillgångar                                 |        | 143      | 262      |
+| SUMMATILLGÅNGAR                                             |        | 9 094    | 7 621    |
+| EGET KAPITAL OCH SKULDER                                    |        |          |          |
+| Eget kapital                                                | 17     |          |          |
+| Aktiekapital                                                |        | 270      | 242      |
+| Övrigt tillskjutet kapital                                  |        | 2 310    | 1 922    |
+| Balanserat resultat inkl. årets resultat                    |        | 1 277    | 1 030    |
+| Summa eget kapital hänförligt till moderbolagets aktieägare |        | 3 856    | 3 194    |
+| Långfristiga skulder                                        |        |          |          |
+| Skulder till kreditinstitut                                 | 13, 15 | 3 643    | 3 306    |
+| Obligationslån                                              |        | 396      | 576      |
+| Uppskjuten skatteskuld                                      |        | 307      | 241      |
+| Övriga skulder                                              |        | 1        | 1        |
+| Summa långfristiga skulder                                  |        | 4 347    | 4 125    |
+| Kortfristiga skulder                                        |        |          |          |
+| Skulder till kreditinstitut                                 | 13     | 665      | 101      |
+| Checkräkningskredit                                         | 13, 15 | 13       | -        |
+| Leverantörsskulder                                          |        | 14       | 14       |
+| Skatteskulder                                               |        | 0        | 15       |
+| Övriga skulder                                              |        | 34       | 34       |
+| Upplupna kostnader och förutbetalda intäkter                | 18     | 165      | 139      |
+| Summa kortfristiga skulder                                  |        | 892      | 303      |
+| SUMMAEGET KAPITAL OCH SKULDER                               |        | 9 094    | 7 621    |
+
+Beskrivning av området
+Hur området har beaktats i revisionen
+
+Förvaltningsfastigheter redovisas i koncernredovisningen till verkligt värde. Det redovisade värdet uppgår till 8 940 MSEK per den 31 december 2024.
+
+Fastigheternas verkliga värde har fastställts baserat på värderingar.
+
+utförda av oberoende externa värderare. De externa värderingarna granskas av koncernen, och vid avvikande uppfattning beaktas den interna värderingen.
+
+Givet förvaltningsfastigheternas väsentliga andel av koncernens totala tillgångar och det inslag av bedömningar och uppskattningar som ingår i värderingsprocessen utgör detta ett särskilt betydelsefullt område i vår revision.
+
+Risken är att det redovisade värdet på förvaltningsfastigheter kan vara över- eller underskattat och att varje justering av värdet direkt påverkar årets resultat.
+
+Vi har övervägt om den tillämpade värderingsmetodiken är rimlig genom att jämföra den med vår erfarenhet av metoder som andra fastighetsbolag och värderare tillämpar och vilka antaganden som är normala vid värdering av jämförbara objekt.
+
+Vi har bedömt kompetensen och oberoendet hos de externa värderarna och tagit del av värderarnas uppdragsavtal i syfte att bedöma huruvida det finns avtalsvillkor som kan påverka omfattningen eller inriktningen av de externa värderarnas uppdrag.
+
+Vi har testat de kontroller som koncernen har etablerat för att identifiera felaktigheter i de externa fastighetsvärderingarna.
+
+Vi har på stickprovsbasis testat ett urval av de   upprättade fastighetsvärderingarna. Härvid har vi använt marknadsdata från externa källor, särskilt antaganden om direktavkastnings  krav, diskonteringsräntor och hyresnivåer. Vi har beaktat den makroekonomiska situationen och dess påverkan på de upprättade fastighetsvärderingarna.
+
+Vi har kontrollerat riktigheten i de upplysningar om förvaltningsfastigheterna som koncernen lämnar i not 1 och not 8 i årsredovisningen.
+
+Ramverk
+
+Emilshus hållbarhetsarbete baseras på ett åtagande mot FN Global Compact och FN:s globala mål för hållbar utveckling. Genom att vara medlem i Global Compact åtar sig bolaget att följa de tio principerna baserade på FN:s deklaration om de mänskliga rättig  heterna, ILO:s grundläggande konventioner om de mänskliga rättigheterna i arbetslivet, Riodeklarationen samt FN:s konvention mot korruption. Det interna hållbarhetsramverket som bolaget arbetar utifrån består av hållbarhetsstrategi, handlingsplaner samt policyer som berör Emilshus medarbetare och leverantörer. Frågor gällande mångfald och jämställdhet berörs inom bolagets arbetsmiljöpolicy. Policydokumenten ses över och uppdateras efter behov och antas av styrelsen årligen.
+
+<!-- image -->
+
+Styrelsens försäkran
+
+| Koncernredovisningen respektive årsredovisningen har upprättats i enlighet med de internationella redovisningsstandarder som avses i Europaparlamentets och rådets förordning (EG) nr 1606/2002 av den 19 juli 2002 om tillämpning av internationella redovisnings- standarder respektive god redovisningssed och ger en rättvisande bild av koncernens och moderbolagets ställning och resultat.   |                                   | Växjö den 28 mars 2025         |                                     |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|--------------------------------|-------------------------------------|
+| Förvaltningsberättelsen för koncernen respektive moderbolaget ger en rättvisande översikt över utvecklingen av koncernens och moderbolagets verksamhet, ställning och resultat samt beskriver väsentliga risker och osäkerhetsfaktorer som moderbolaget och                                                                                                                                         | Johan Ericsson Styrelseordförande | Jakob Fyrberg Styrelseledamot  | Björn Garat Styrelseledamot         |
+|                                                                                                                                                                                                                                                                                                                                                                                                     | Rutger Källén Styrelseledamot     | Ulrika Valassi Styrelseledamot | Elisabeth Thuresson Styrelseledamot |
+
+Vår revisionsberättelse har lämnats den 28 mars 2025
+
+KPMG
+
+Mattias Johansson Auktoriserad revisor
+
+Värdering till verkligt värde
+
+IFRS 13 Värdering till verkligt värde innehåller en värderingshierarki avseende indata till värderingarna. Denna värderingshierarki indelas i tre nivåer, vilka utgörs av:
+
+- Nivå 1 Noterade priser (ojusterade) på aktiva marknader för identiska tillgångar eller skulder.
+- Nivå 2 Andra observerbara indata för tillgången eller skulder än noterade priser inkluderade i nivå 1, antingen direkt (dvs som prisnoteringar) eller indirekt (dvs härledda från prisnoteringar).
+- Nivå 3 Indata för tillgången eller skulden som inte baseras på observerbara marknadsdata (dvs. icke observerbara indata).
+
+Följande policydokument och riktlinjer, antagna av Emilshus styrelse och ledning, tillämpas.
+
+- Affärsetik och antikorruptionspolicy
+- VD-instruktion
+- Fastighetsbranschens uppförandekod för leverantörer
+- Hållbarhets- och arbetsmiljöpolicy
+- Miljö- och hållbarhetspolicy
+- IT-policy
+- Riktlinjer för inköp
+- Riktlinjer för behandling av personuppgifter
+- Personalhandbok
+
+<!-- image -->
+
+Fördelning av uthyrbar yta per förvaltningsområde och fastighetskategori den 1 januari 2025
+
+| Område    |   Lätt industri, tkvm |   Extern- och dagligvaru- handel, tkvm |   Industriservice/ proffshandel, tkvm | Övrigt, tkvm   |   Totalt, tkvm | Andel, %   |
+|-----------|-----------------------|----------------------------------------|---------------------------------------|----------------|----------------|------------|
+| Halmstad  |                    10 |                                      6 |                                    22 | 3              |             42 | 5          |
+| Jönköping |                    91 |                                     12 |                                    33 | 24             |            160 | 17         |
+| Kalmar    |                    10 |                                     22 |                                    33 | -              |             64 | 7          |
+| Linköping |                    72 |                                      8 |                                    22 | -              |            102 | 11         |
+| Vetlanda  |                    85 |                                     33 |                                    13 | 17             |            147 | 16         |
+| Värnamo   |                   184 |                                     20 |                                    12 | -              |            216 | 23         |
+| Växjö     |                    76 |                                     66 |                                    21 | 32             |            194 | 21         |
+| Totalt    |                   528 |                                    167 |                                   155 | 77             |            926 | 100        |
+| Andel,%   |                    57 |                                     18 |                                    17 | 8              |            100 |            |
+
+För ytterligare information om fastighetsbeståndet se sidorna 13-19.
+
+Finansiell information
+
+| Förvaltningsberättelse              | Förvaltningsberättelse                             | 47   |
+|-------------------------------------|----------------------------------------------------|------|
+| Finansiella rapporter               | Finansiella rapporter                              | 50   |
+| Noter och redovisningsprinciper     | Noter och redovisningsprinciper                    |      |
+| Not 1                               | Redovisningsprinciper                              | 54   |
+| Not 2                               | Hyresintäkter                                      | 56   |
+| Not 3                               | Fastighetskostnader                                | 56   |
+| Not 4                               | Personalkostnader                                  | 57   |
+| Not 5                               | Centrala administrationskostnader                  | 57   |
+| Not 6                               | Räntekostnader och liknande resultatposter         | 58   |
+| Not 7                               | Aktuell skatt och uppskjuten skatt                 | 58   |
+| Not 8                               | Förvaltningsfastigheter                            | 59   |
+| Not 9                               | Inventarier                                        | 61   |
+| Not 10                              | Andelar i koncernföretag                           | 61   |
+| Not 11                              | Förutbetalda kostnader och upplupna intäkter       | 63   |
+| Not 12                              | Uppskjuten skatt                                   | 63   |
+| Not 13                              | Räntebärande skulder                               | 64   |
+| Not 14                              | Ställda säkerheter för skulder till kreditinstitut | 64   |
+| Not 15                              | Checkräkningskredit                                | 64   |
+| Not 16                              | Finansiella instrument                             | 64   |
+| Not 17                              | Eget kapital                                       | 65   |
+| Not 18                              | Upplupna kostnader och förutbetalda intäkter       | 65   |
+| Not 19                              | Transaktioner med närstående                       | 65   |
+| Not 20                              | Händelser efter räkenskapsårets utgång             | 66   |
+| Not 21                              | Finansiella risker                                 | 66   |
+| Not 22                              | Likvida medel                                      | 67   |
+| Not 23                              | Specifikationer till kassaflödesanalysen           | 67   |
+| Not 24                              | Styrelsens förslag till vinstdisposition           | 67   |
+| Styrelsens och revisors underskrift | Styrelsens och revisors underskrift                | 68   |
+| Revisionsberättelse                 | Revisionsberättelse                                | 69   |
+| Nyckeltal                           | Nyckeltal                                          | 73   |
+| Definitioner                        | Definitioner                                       | 74   |
+| Avstämning av nyckeltal             | Avstämning av nyckeltal                            | 75   |
+| Information om årsstämma            | Information om årsstämma                           | 77   |
+
+Uppförandekod leverantörer
+Andel av externa driftoperatörer som uppfyllt   Fastighetsbranschens uppförandekod
+
+| uppförandekod   |   2024 |   2023 |   2022 |
+|-----------------|--------|--------|--------|
+| Andel,%         |    100 |    100 |    100 |
+
+Uthyrningsbar area per kategori
+
+<!-- image -->
+
+|                            | 1 januari   | 1 januari   |
+|----------------------------|-------------|-------------|
+| Nyckeltal Halmstad         | 2025        | 2024        |
+| Antal fastigheter          | 15          | 7           |
+| Uthyrningsbar area, tkvm   | 42          | 20          |
+| Redovisat värde, mkr       | 517         | 269         |
+| Hyresvärde, mkr            | 45          | 21          |
+| Hyresvärde kr/kvm          | 1 072       | 1 074       |
+| Ekonomisk uthyrningsgrad,% | 96          | 95          |
+| Kontrakterad årshyra, mkr  | 43          | 20          |
+
+<!-- image -->
+
+Definitioner
+
+| Nyckeltal                                | Förklaring                                                                                                                                                                                                                                                                                                        | Motivering                                                                                                                                 |
+|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Avkastning på eget kapital               | Periodens resultat, omräknat till 12 månader, i förhål- lande till genomsnittligt eget kapital (IB+UB)/2 under perioden.                                                                                                                                                                                          | Visar hur ägarnas kapital förräntas under perioden.                                                                                        |
+| Avkastning på eget kapital per stamaktie | Resultatet efter skatt omräknat till 12 månader, redu- cerat med preferensaktiernas företrädesrätt till utdel- ning för perioden och resultatandel för innehav utan bestämmande inflytande, i procent av genomsnittligt eget kapital efter avräkning av preferenskapital och innehav utan bestämmande inflytande. | Visar hur ägarnas kapital förräntas under perioden med beaktande av preferensaktie- ägarnas rätt till utdelning.                           |
+| Belåningsgrad fastigheter                | Räntebärande skulder med säkerhet i fastigheter i för- hållande till verkligt värde på förvaltningsfastigheter.                                                                                                                                                                                                   | Visar skuldsättningsnivå avseende säkerställda skulder.                                                                                    |
+| Direktavkastning (yield)                 | Driftsöverskott omräknad till 12 månader, i procent av fastighetsportföljens värde vid periodens utgång, justerad för innehavstid. Nyckeltalet visar avkast- ningen från den operativa verksamheten i förhållande till fastighetens värde.                                                                        | Visar lönsamhet före finansiella kostnader och kostnader för central administration i relation till fastig- hetsportföljens marknadsvärde. |
+| Driftsöverskott                          | Periodens intäkter minus fastighetskostnader.                                                                                                                                                                                                                                                                     | Visar förvaltningens lönsamhet före kostnader för central adminis- tration och finansnetto.                                                |
+| Eget kapital per preferensaktie          | Eget kapital per preferensaktie motsvarar aktiens lösenpris vid likvidation (32 kronor per preferens - aktie) jämte upplupen utdelning.                                                                                                                                                                           | Visar preferensaktieägarnas andel av eget kapital.                                                                                         |
+| Eget kapital per stamaktie               | Eget kapital hänförligt till moderbolagets aktieägare efter avräkning av preferenskapitalet i förhållande till antalet stamaktier vid periodens utgång.                                                                                                                                                           | Visar stamaktieägarnas andel av eget kapital.                                                                                              |
+| Förvaltnings- resultat                   | Beräknas som summan av driftsöverskott, försälj- nings- och administrationskostnader samt finansnetto.                                                                                                                                                                                                            | Visar lönsamhet före värde- förändringar                                                                                                   |
+| Förvaltnings- resultat per stamaktie     | Periodens resultat före skatt och värdeförändringar reducerat med preferensaktiernas företrädesrätt till utdelning i förhållande till vägt genomsnittligt antal stamaktier.                                                                                                                                       | Visar lönsamhet före värdeför- ändringar med hänsyn tagen till utdelning på preferensaktier.                                               |
+| Genomsnittlig låneränta                  | Vägd ränta på räntebärande skulder med beaktande av räntederivat på balansdagen.                                                                                                                                                                                                                                  | Visar genomsnittlig ränta och ger en bild av bolagets ränterisk.                                                                           |
+| Hyrestid                                 | Den vägda genomsnittliga återstående löptiden på hyresavtalen.                                                                                                                                                                                                                                                    | Visar risk för framtida vakanser.                                                                                                          |
+| Hyresvärde                               | Kontrakterad årshyra som löper direkt efter perio- dens utgång med tillägg för bedömd marknadshyra för vakanta lokaler.                                                                                                                                                                                           | Visar intäktspotential utifrån aktuellt fastighetsinnehav.                                                                                 |
+| Intäkter                                 | Utdebiterad hyra, plus utdebiterade tillägg såsom värme, el, fastighetsskatt m.m.                                                                                                                                                                                                                                 | Visar totala intäkter från verksamheten.                                                                                                   |
+| Långsiktigt substansvärde                | Redovisat eget kapital efter att hänsyn tagits till preferenskapitalet och innehav utan bestämmande inflytande, med återläggning av derivat och uppskjuten skatt.                                                                                                                                                 | Visar långsiktigt substansvärde och är ett etablerat mått som används av noterade fastighetsbolag på ett enhetligt sätt.                   |
+
+| Nyckeltal                               | Förklaring                                                                                                                                                                                                                   | Motivering                                                                                                                                            |
+|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Långsiktigt substansvärde per stamaktie | Redovisat eget kapital, efter hänsyn tagits till preferenskapitalet och innehav utan bestämmande inflytande, med återläggning av derivat och upp- skjuten skatt, i förhållande till antalet stamaktier vid periodens utgång. | Visar hur stor del av substansvärdet som är hänförligt till stamaktie- ägarna efter att andelen hänför- ligt till preferensaktieägarna har avräknats. |
+| Nettobelånings- grad                    | Räntebärande nettoskulder i förhållande till verkligt värde förvaltningsfastigheter.                                                                                                                                         | Visar en typ av finansiell risk.                                                                                                                      |
+| Nettobelånings- grad fastigheter        | Räntebärande nettoskulder med säkerhet i fastigheter i förhållande till verkligt värde förvaltningsfastigheter.                                                                                                              | Visar en typ av finansiell risk.                                                                                                                      |
+| Nettouthyrning                          | Under perioden ingångna nya hyresavtal, +/- effekter av omförhandlade hyresavtal, reducerat med upp- sägningar för avflyttning (inklusive konkurser) inom 24 månader.                                                        | Visar intäktspotential från uthyrningsverksamheten.                                                                                                   |
+| Preferenskapital                        | Antalet preferensaktier multiplicerat med eget kapital per preferensaktie.                                                                                                                                                   | Visar eget kapital hänförligt till preferensaktieägarna.                                                                                              |
+| Resultat per preferensaktie             | Preferensaktieägarnas andel av resultatet vilket motsvarar den årliga utdelningen per preferensaktie.                                                                                                                        | Visar preferensaktieägarnas andel av resultatet.                                                                                                      |
+| Resultat per stamaktie                  | Periodens resultat hänförligt till moderbolagets aktieägare, reducerat med preferensaktiernas före- trädesrätt till utdelning för perioden, i förhållande till genomsnittligt antal stamaktier.                              | Visar stamaktieägarnas andel av resultatet med hänsyn tagen till utdelning på preferensaktier.                                                        |
+| Räntebärande nettoskuld                 | Räntebärande skulder efter avdrag för likvida medel.                                                                                                                                                                         | Visar koncernens skuldsättning.                                                                                                                       |
+| Räntetäcknings- grad                    | Förvaltningsresultat plus finansnetto i förhållande till finansnetto.                                                                                                                                                        | Visar förmåga att betala ränta utifrån finansiellt utfall för den operativa verksamheten.                                                             |
+| Skuldkvot                               | Nettoskuld i förhållande till driftsöverskott med avdrag för kostnader avseende central administration enligt intjäningsförmågan.                                                                                            | Visar en typ av finansiell risk.                                                                                                                      |
+| Soliditet                               | Eget kapital i förhållande till balansomslutning.                                                                                                                                                                            | Visar hur stor andel av tillgångarna som är finansierade med eget kapital och belyser den finansiella stabiliteten.                                   |
+| Uthyrningsgrad, ekonomisk               | Kontrakterad årshyra i förhållande till hyresvärdet.                                                                                                                                                                         | Visar den ekonomiska utnyttjande- graden för förvaltningsfastigheter.                                                                                 |
+| Uthyrningsgrad, area                    | Uthyrd area i förhållande till uthyrningsbar area.                                                                                                                                                                           | Visar den ytmässiga utnyttjande- graden för förvaltningsfastigheter.                                                                                  |
+| Överskottsgrad                          | Driftsöverskott i förhållande till intäkter.                                                                                                                                                                                 | Visar förvaltningsverksamhetens lönsamhet.                                                                                                            |
+
+Avstämning av nyckeltal
+
+|                                                   | Jan-dec     | Jan-dec     | Jan-dec    | Jan-dec    |
+|---------------------------------------------------|-------------|-------------|------------|------------|
+| mkr                                               | 2024        | 2023        | 2022       | 2021       |
+| Långsiktigt substansvärde                         |             |             |            |            |
+| Eget kapital, mkr                                 | 3 856       | 3 194       | 3 007      | 1 848      |
+| Eget kapital tillhörande preferensaktier, mkr     | -660        | -660        | -660       | -446       |
+| Återläggning av derivat, mkr                      | -10         | -35         | -137       | -12        |
+| Återläggning av uppskjuten skatt, mkr             | 307         | 241         | 237        | 171        |
+| Långsiktigt substansvärde, mkr                    | 3 493       | 2 740       | 2 447      | 1 560      |
+| Ekonomisk uthyrningsgrad                          |             |             |            |            |
+| Kontrakterad årshyra, mkr                         | 747         | 606         | 557        | 350        |
+| Hyresvärde, mkr                                   | 790         | 636         | 581        | 361        |
+| Ekonomisk uthyrningsgrad,%                        | 95          | 95          | 96         | 97         |
+| Areamässig uthyrningsgrad                         |             |             |            |            |
+| Total uthyrningsbar area kvm                      | 926 319     | 805 124     | 786 100    | 580 732    |
+| Kontrakterad area, kvm                            | 879 374     | 777 945     | 760 599    | 568 504    |
+| Areamässig uthyrningsgrad,%                       | 95          | 97          | 97         | 98         |
+| Överskottsgrad                                    |             |             |            |            |
+| Driftsöverskott, mkr                              | 542         | 471         | 363        | 228        |
+| Intäkter, mkr                                     | 674         | 593         | 454        | 280        |
+| Överskottsgrad,%                                  | 80          | 79          | 80         | 81         |
+| Förvaltningsresultat per stamaktie                |             |             |            |            |
+| Förvaltningsresultat, mkr                         | 297         | 233         | 182        | 131        |
+| Utdelning till preferensaktier, mkr               | 41          | 41          | 41         | 10         |
+| Genomsnittligt antal stamaktier, st               | 108 290 971 | 93 779 549  | 80 559 130 | 64 936 235 |
+| Förvaltningsresultat per stamaktie, kr            | 2,36        | 2,05        | 1,76       | 1,87       |
+| Periodens resultat per stamaktie                  |             |             |            |            |
+| Periodens resultat, mkr                           | 288         | 33          | 311        | 469        |
+| Preferensaktiernas del av resultatet, mkr         | 41          | 41          | 41         | 10         |
+| Genomsnittligt antal stamaktier, st               | 108 290 971 | 93 779 549  | 80 559 130 | 64 936 235 |
+| Periodens resultat per stamaktie, kr              | 2,28        | -0,09       | 3,36       | 7,07       |
+| Eget kapital per stamaktie                        |             |             |            |            |
+| Eget kapital, mkr                                 | 3 856       | 3 194       | 3 007      | 1 848      |
+| Eget kapital hänförligt till preferensaktier, mkr | -660        | -660        | -660       | -446       |
+| Antal stamaktier vid periodens utgång, st         | 114 154 267 | 100 281 607 | 92 874 199 | 66 446 380 |
+| Eget kapital per stamaktie, kr                    | 27,99       | 25,26       | 25,27      | 21,09      |
+
+|                                                            | Jan-dec     | Jan-dec     | Jan-dec    | Jan-dec    |
+|------------------------------------------------------------|-------------|-------------|------------|------------|
+| mkr                                                        | 2024        | 2023        | 2022       | 2021       |
+| Långsiktigt substansvärde per stamaktie                    |             |             |            |            |
+| Eget kapital, mkr                                          | 3 856       | 3 194       | 3 007      | 1 848      |
+| Eget kapital tillhörande preferensaktier, mkr              | -660        | -660        | -660       | -446       |
+| Återläggning av derivat, mkr                               | -10         | -35         | -137       | -12        |
+| Återläggning av uppskjuten skatt temporära skillnader, mkr | 307         | 241         | 237        | 171        |
+| Långsiktigt substansvärde, mkr                             | 3 493       | 2 740       | 2 447      | 1 560      |
+| Antal stamaktier vid periodens utgång, st                  | 114 154 267 | 100 281 607 | 92 874 199 | 66 446 380 |
+| Långsiktigt substansvärde per stamaktie, kr                | 30,60       | 27,32       | 26,34      | 23,48      |
+| Soliditet                                                  |             |             |            |            |
+| Eget kapital, mkr                                          | 3 856       | 3 194       | 3 007      | 1 848      |
+| Totala tillgångar, mkr                                     | 9 094       | 7 621       | 7 525      | 4 987      |
+| Soliditet,%                                                | 42          | 42          | 40         | 37         |
+| Avkastning på eget kapital                                 |             |             |            |            |
+| Periodens resultat, mkr                                    | 288         | 33          | 311        | 469        |
+| Genomsnittligt eget kapital, mkr                           | 3 525       | 3 100       | 2 427      | 1 395      |
+| Avkastning på eget kapital,%                               | 8           | 1           | 13         | 34         |
+| Nettobelåningsgrad                                         |             |             |            |            |
+| Räntebärande skulder, mkr                                  | 4 717       | 3 984       | 4 103      | 2 839      |
+| Likvida medel, mkr                                         | -100        | -212        | -224       | -93        |
+| Räntebärande nettoskulder, mkr                             | 4 617       | 3 772       | 3 879      | 2 747      |
+| Verkligt värde förvaltningsfastigheter                     | 8 940       | 7 324       | 7 111      | 4 827      |
+| Nettobelåningsgrad,%                                       | 52          | 52          | 55         | 57         |
+| Nettobelåningsgrad fastigheter                             |             |             |            |            |
+| Räntebärande skulder, mkr                                  | 4 717       | 3 984       | 4 103      | 2 839      |
+| Räntebärande skulder utan säkerhet i fastigheter, mkr      | -396        | -576        | -707       | -541       |
+| Likvida medel, mkr.                                        | -100        | -212        | -224       | -93        |
+| Räntebärande nettoskuld med säkerhet i fastigheter, mkr    | 4 221       | 3 196       | 3 173      | 2 206      |
+| Verkligt värde förvaltningsfastigheter, mkr                | 8 940       | 7 324       | 7 111      | 4 827      |
+| Nettobelåningsgrad fastigheter,%                           | 47          | 44          | 45         | 46         |
+
+|                                                          | Jan-dec    | Jan-dec    | Jan-dec    | Jan-dec    |
+|----------------------------------------------------------|------------|------------|------------|------------|
+| mkr                                                      | 2024       | 2023       | 2022       | 2021       |
+| Räntetäckningsgrad                                       |            |            |            |            |
+| Förvaltningsresultat, mkr                                | 297        | 233        | 182        | 131        |
+| Finansnetto, mkr                                         | -211       | -205       | -143       | -74        |
+| Förvaltningsresultat före finansnetto, mkr               | 508        | 439        | 325        | 205        |
+| Räntetäckningsgrad, ggr                                  | 2,4        | 2,1        | 2,3        | 2,8        |
+| Skuldkvot                                                |            |            |            |            |
+| Räntebärande nettoskuld, mkr                             | 4 617      | 3 772      | 3 879      | 2 747      |
+| Driftsöverskott enligt intjäningsförmåga, mkr            | 595        | 491        | 454        | 287        |
+| Central administration enligt intjäningsförmåga, mkr     | -35        | -31        | -33        | -29        |
+| Justerat driftsöverskott, mkr                            | 560        | 460        | 421        | 259        |
+| Skuldkvot, ggr                                           | 8,2        | 8,2        | 9,2        | 10,6       |
+| Räntebärande nettoskuld                                  |            |            |            |            |
+| Räntebärande skulder, mkr                                | 4 717      | 3 984      | 4 103      | 2 839      |
+| Likvida medel, mkr                                       | -100       | -212       | -224       | -93        |
+| Räntebärande nettoskuld, mkr                             | 4 617      | 3 772      | 3 879      | 2 747      |
+| Avkastning på eget kapital per stamaktie                 |            |            |            |            |
+| Periodens resultat, mkr                                  | 288        | 33         | 311        | 469        |
+| Tillägg för omräkning till årsvärde, mkr                 | -          | -          | -          | -          |
+| Resultat hänförligt till preferensaktier, mkr            | 41         | 41         | 41         | 10         |
+| Genomsnittligt eget kapital, mkr                         | 3 525      | 3 100      | 2 427      | 1 395      |
+| Genomsnittligt preferenskapital, mkr                     | 660        | 660        | 553        | 157        |
+| Avkastning på eget kapital per stamaktie,%               | 9          | 0          | 14         | 37         |
+| Eget kapital per preferensaktie                          |            |            |            |            |
+| Preferensaktieägares företrädesrätt vid likvidation, mkr | 660        | 660        | 660        | 446        |
+| Antal utestående preferensaktier                         | 20 628 625 | 20 628 625 | 20 628 625 | 13 951 313 |
+| Eget kapital per preferensaktie, kr                      | 32,00      | 32,00      | 32,00      | 32,00      |
+| Direktavkastning                                         |            |            |            |            |
+| Driftsöverskott                                          | 542        | 471        | 363        | 228        |
+| Tillägg för omräkning till årsvärde                      | -          | -          | -          | -          |
+| Justerat driftsöverskott                                 | 542        | 471        | 363        | 228        |
+| Genomsnittligt fastighetsvärde justerat för innehavstid  | 8 135      | 7 177      | 5 991      | 3 761      |
+| Direktavkastning,%                                       | 6,7        | 6,6        | 6,1        | 6,1        |
+
+Räntebärande nettoskuld
+
+<!-- image -->
+
+<!-- image -->
+
+Not 7  Aktuell skatt och uppskjuten skatt
+
+|                                                                 | 2024   | 2024   | 2023   | 2023   |
+|-----------------------------------------------------------------|--------|--------|--------|--------|
+| mkr                                                             | %      | mkr    | %      | mkr    |
+| KONCERNEN                                                       |        |        |        |        |
+| Aktuell skatt                                                   |        |        |        |        |
+| Aktuell skatt för året                                          |        | -34    |        | -42    |
+| Totalt                                                          |        | -34    |        | -42    |
+| Uppskjuten skatt                                                |        |        |        |        |
+| Uppskjuten skatt avseende förvaltningsfastigheter               |        | -71    |        | -25    |
+| Uppskjuten skatt hänförlig till finansiella instrument          |        | 5      |        | 21     |
+| Uppskjuten skatt hänförlig till outnyttjade underskottsavdragmm |        | 1      |        | -0     |
+| Totalt                                                          |        | -65    |        | -4     |
+| Total redovisad skattekostnad i koncernen                       |        | -99    |        | -46    |
+| Avstämning av effektiv skatt                                    |        |        |        |        |
+| Redovisat resultat före skatt                                   |        | 387    |        | 79     |
+| Skatt enligt gällande skattesats för moderbolaget               | -20,6  | -80    | -20,6  | -16    |
+| Skatteeffekt av övriga ej avdragsgilla kostnader                | -0,2   | -1     | 0,6    | -1     |
+| Skatteeffekt av ej avdragsgillt räntenetto                      | -3,7   | -14    | -23,1  | -18    |
+| Skatteeffekt av utnyttjande av carry forward ränteavdrag        | 0,1    | 0      | 0,3    | 0      |
+| Skatteeffekt av skatt hänförligt till föregående år             | 0,2    | 1      | -0,3   | 0      |
+| Skatteeffekt för ej bokförda kostnader                          | 0,0    | 0      | 1,5    | 1      |
+| Skatteeffekt av begränsningsregler för temporära skillnader     | -0,3   | -1     | -15,2  | -12    |
+| Skatteeffekt av justeringar uppskjuten skatt ingående balans    | -1,5   | -6     | 0,0    | 0      |
+| Övrigt                                                          | 0,4    | 2      | -0,1   | 0      |
+| Redovisad effektiv skatt                                        | -25,6  | -99    | -58,2  | -46    |
+
+|                                                                            | 2024   | 2024   | 2023   | 2023   |
+|----------------------------------------------------------------------------|--------|--------|--------|--------|
+| mkr                                                                        | %      | mkr    | %      | mkr    |
+| MODERBOLAGET                                                               |        |        |        |        |
+| Aktuell skatt                                                              |        |        |        |        |
+| Aktuell skatt för året                                                     |        | -      |        | -      |
+| Totalt                                                                     |        | -      |        | -      |
+| Uppskjuten skatt                                                           |        |        |        |        |
+| Uppskjuten skatt hänförlig till underskottmm                               |        | 0      |        | 1      |
+| Totalt                                                                     |        | 0      |        | 1      |
+| Total redovisad skattekostnad i moderbolaget                               |        | 0      |        | 1      |
+| Avstämning av effektiv skatt                                               |        |        |        |        |
+| Redovisat resultat före skatt                                              |        | -20    |        | -11    |
+| Skatt enligt gällande skattesats för moderbolaget                          | -20,6  | 4      | -20,6  | 2      |
+| Skatteeffekt av övriga ej avdragsgilla kostnader                           | -15,6  | -3     | -2,6   | -0     |
+| Skatteeffekt återföring av ränteavdrag                                     | 0,0    | 0      | -8,9   | -1     |
+| Skatteeffekt av överföring av negativt räntenetto till/från koncernföretag | -5,0   | -1     | -22,8  | -3     |
+| Skatteeffekt av ej bokförda kostnader                                      | 0,0    | 0      | 11,3   | 1      |
+| Skatteeffekt för underskottsavdrag                                         | 0,0    | 0      | 2,5    | 0      |
+| Övrigt                                                                     | 0,0    | 0      | 4,3    | 1      |
+| Redovisad effektiv skatt                                                   | 0,0    | 0      | 4,4    | 1      |
+
+Moderbolagets rapport över förändring av eget kapital
+
+| mkr                                   | Antal stamaktier   | Antal preferens- aktier   | Aktie- kapital   | Över- kursfond   | Balanserade vinstmedel inklusive årets resultat   | Totalt eget kapital 1   |
+|---------------------------------------|--------------------|---------------------------|------------------|------------------|---------------------------------------------------|-------------------------|
+| Eget kapital 2023-01-01               | 92 874 199         | 20 628 625                | 227              | 1 743            | -51                                               | 1 918                   |
+| Nyemission stamaktier                 | 7 407 408          | -                         | 15               | 185              | -                                                 | 200                     |
+| Nyemission preferensaktier            |                    |                           |                  |                  |                                                   |                         |
+| Nyemission teckningsoptioner          | -                  | _                         | _                | 0                | -                                                 | 0                       |
+| Kostnader nyemissioner                | -                  | -                         | -                | -6               | -                                                 | -6                      |
+| Utdelning preferensaktier             | -                  | -                         | -                | -                | -41                                               | -41                     |
+| Årets resultat och totalresultat 2023 | -                  | -                         | -                | -                | -11                                               | -11                     |
+| Övriga förändringar av eget kapital   | -                  | -                         | -                | -0               | -                                                 | -0                      |
+| Eget kapital 2023-12-31               | 100 281 607        | 20 628 625                | 242              | 1 922            | -104                                              | 2 060                   |
+| Eget kapital 2024-01-01               | 100 281 607        | 20 628 625                | 242              | 1 922            | -104                                              | 2 060                   |
+| Nyemission stamaktier                 | 13 872 660         | -                         | 28               | 399              | -                                                 | 426                     |
+| Nyemission teckningsoptioner          | -                  | -                         | -                | -                | -                                                 | -                       |
+| Kostnader nyemission                  | -                  | -                         | -                | -11              | -                                                 | -11                     |
+| Utdelning på preferensaktier          | -                  | -                         | -                | -                | -41                                               | -41                     |
+| Årets resultat och totalresultat 2024 | -                  | -                         | -                | -                | -20                                               | -20                     |
+| Eget kapital 2024-12-31               | 114 154 267        | 20 628 625                | 270              | 2 309            | -165                                              | 2 415                   |
+
+Koncernens rapport i sammandrag över förändring av eget kapital
+
+| mkr                             | Antal stamaktier   | Antal preferens- aktier   | Aktie- kapital   | Övrigt tillskjutet kapital   | Balanserade vinstmedel inklusive periodens resultat 1)   | Totalt eget kapital 1)   |
+|---------------------------------|--------------------|---------------------------|------------------|------------------------------|----------------------------------------------------------|--------------------------|
+| Eget kapital 2023-01-01         | 92 874 199         | 20 628 625                | 227              | 1 742                        | 1 038                                                    | 3 007                    |
+| Nyemission stamaktier           | 7 407 408          | -                         | 15               | 185                          | -                                                        | 200                      |
+| Nyemission av teckningsoptioner | -                  | -                         | -                | 0                            | -                                                        | 0                        |
+| Kostnader nyemissioner          | -                  | -                         | -                | -6                           | -                                                        | -6                       |
+| Utdelning preferensaktier       | -                  | -                         | -                | -                            | -41                                                      | -41                      |
+| Årets resultat 2023             | -                  | -                         | -                | -                            | 33                                                       | 33                       |
+| Eget kapital 2023-12-31         | 100 281 607        | 20 628 625                | 242              | 1 922                        | 1 030                                                    | 3 194                    |
+| Eget kapital 2024-01-01         | 100 281 607        | 20 628 625                | 242              | 1 922                        | 1 030                                                    | 3 194                    |
+| Nyemission stamaktier           | 13 872 660         | -                         | 28               | 399                          | -                                                        | 426                      |
+| Kostnader nyemissioner          | -                  | -                         | -                | -11                          | -                                                        | -11                      |
+| Utdelning på preferensaktier    | -                  | -                         | -                | -                            | -41                                                      | -41                      |
+| Årets resultat 2024             | -                  | -                         | -                | -                            | 288                                                      | 288                      |
+| Eget kapital 2024-12-31         | 114 154 267        | 20 628 625                | 270              | 2 309                        | 1 276                                                    | 3 856                    |
+
+1)  Totalt eget kapital, Periodens resultat och Periodens Totalresultat är i sin helhet hänförligt till moderbolagets aktieägare.
+
+Nyckeltal
+
+Fastighetsrelaterade
+
+Antal fastigheter, st
+
+Uthyrningsbar area, tkvm
+
+Fastigheternas verkliga värde, mkr
+
+Fastigheternas verkliga värde, kr/kvm
+
+Långsiktigt substansvärde, mkr
+
+Hyresvärde, mkr
+
+Hyresvärde, kr/kvm
+
+Återstående hyrestid, år
+
+Nettouthyrning, mkr
+
+Ekonomisk uthyrningsgrad, %
+
+Areamässig uthyrningsgrad, %
+
+Direktavkastning, %
+
+Överskottsgrad, %
+
+Nyckeltal i sammandrag
+
+|                                                                                 | 2024   | 2023   |
+|---------------------------------------------------------------------------------|--------|--------|
+| Fastighetsvärde, mkr                                                            | 8 940  | 7 324  |
+| Intäkter, mkr                                                                   | 674    | 593    |
+| Driftsöverskott, mkr                                                            | 542    | 471    |
+| Förvaltningsresultat, mkr                                                       | 297    | 233    |
+| Periodens resultat, mkr                                                         | 288    | 33     |
+| Kassaflöde från den löpande verksamheten före förändring av rörelsekapital, mkr | 270    | 196    |
+| Ekonomisk uthyrningsgrad,%                                                      | 95     | 95     |
+| Återstående hyrestid, år                                                        | 5,0    | 5,3    |
+| Fastigheternas direktavkastning,%                                               | 6,7    | 6,6    |
+| Avkastning på eget kapital,%                                                    | 8      | 1      |
+| Nettobelåningsgrad,%                                                            | 52     | 52     |
+| Räntetäckningsgrad, ggr                                                         | 2,4    | 2,1    |
+| Skuldkvot, ggr                                                                  | 8,2    | 8,2    |
+| Nyckeltal per stamaktie                                                         |        |        |
+| Förvaltningsresultat per stamaktie, kr                                          | 2,36   | 2,05   |
+| Tillväxt förvaltningsresultat per stamaktie,%                                   | 15     | 16     |
+| Periodens resultat per stamaktie före utspädning, kr                            | 2,28   | -0,09  |
+| Periodens resultat per stamaktie efter utspädning, kr                           | 2,27   | -0,09  |
+| Eget kapital per stamaktie, kr                                                  | 27,99  | 25,26  |
+| Långsiktigt substansvärde per stamaktie, kr                                     | 30,60  | 27,32  |
+
++27 %
+
+Förvaltningsresultat
+
+2024
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Under 2024 fortsatte Emilshus att växa med god lönsamhet.
+
+Positiv nettouthyrning
+
+En positiv nettouthyrning under årets sista kvartal om 5 miljoner kronor med flera nytecknade och fleråriga hyresavtal innebar att Emilshus för helåret 2024 rapporterade en positiv nettouthyrning om 2 miljoner kronor. Parallellt med en framgångsrik uthyrningsverksamhet har förvaltningsorganisationen under året arbetat med kostnadseffektiviseringar, vilket är en av förklaringarna till ökningen av driftsöverskottet med 15 %.
+
+<!-- image -->
+
+Aktier och ägare
+
+Emilshus har tre aktieslag - onoterade stamaktier av serie A samt noterade stamaktier av serie B och noterade preferensaktier. Aktierna är noterade på Nasdaq Stockholm, Mid Cap sedan den 13 juni 2022. Preferensaktierna var dessförinnan upptagna till handel på Nasdaq First North Growth Market. Sista betalkurs den 30 december 2024 var 43,50 kronor för stamaktien av serie B och 29,80 kronor för preferensaktien, motsvarande ett totalt marknadsvärde om 5 580 miljoner kronor. Den volymviktade genomsnittskursen för stamaktie av serie B uppgick under året till 36,74 kronor. Emilshus aktiekurs hade baserat på stängningskursen för stamaktien av serie B på balansdagen en positiv kursutveckling om 37 % under året att jämföra med Nasdaqs fastighetsindex som under samma period hade en utveckling om om -2 %.
+
+Per 31 december 2024 uppgick det totala antalet aktier i Emilshus till 134 782 892, varav 11 527 890 aktier utgjordes av stamaktier av serie A, 102 626 377 aktier utgjordes av stamaktier av serie B och 20 628 625 aktier utgjordes av preferensaktier. Varje stamaktie av serie A berättigar till 10 röster, varje stamaktie av serie B berättigar till en röst och varje preferensaktie berättigar till en röst på bolagsstämman.
+
+Preferensaktierna medför företrädesrätt framför stamaktierna till årlig utdelning om 2,00 kronor per preferensaktie med kvartalsvis utbetalning om 0,50 kronor per preferensaktie. Avstämningsdagar för utbetalningarna ska vara den sista bankdagen i mars, juni, september och december.
+
+Minskning av aktiekapitalet, dock inte under minimikapitalet, kan ske genom inlösen av ett visst antal eller samtliga preferensaktier efter beslut av bolagsstämman. Lösenbeloppet för varje inlöst preferensaktie ska vara 32 kronor jämte eventuell upplupen del av preferensutdelning.
+
+Moderbolagets redovisningsprinciper
+
+Moderbolaget har upprättat sina finansiella rapporter enligt årsredovisningslagen och Rådet för hållbarhets- och finansiell rapporterings rekommendation RFR 2 Redovisning för juridiska personer.
+
+Skillnaderna mellan koncernens och moderbolagets redovisningsprinciper framgår nedan. De angivna redovisningsprinciperna för moderbolaget har tillämpats konsekvent på samtliga perioder som presenteras i moderbolagets finansiella rapporter, om inte annat anges.
+
+Bedömningar och uppskattningar
+
+Vid upprättandet av de finansiella rapporterna måste företagsledningen och styrelsen göra vissa bedömningar och antaganden som påverkar det redovisade värdet av tillgångs- och skuldposter samt intäkts- och kostnadsposter. Bedömningarna baseras på erfarenheter och antaganden som bedöms vara rimliga under rådande omständigheter. Faktiskt utfall kan sedan skilja sig från dessa bedömningar om andra förutsättningar uppstår.
+
+Emilshus fokusområden
+
+Utifrån ovan nämnda ramverk och omvärldsanalys har Emilshus identifierat fyra fokusområden i verksamheten som är särskilt viktiga. Inom dessa områden anses bolaget har störst påverkan och har möjlighet bidra med en positiv förändring.
+
+- Fastigheter
+- Hyresgäster
+- Medarbetare
+- Externa samarbetspartners
+
+Ledning
+
+<!-- image -->
+
+Värdering av förvaltningsfastigheter
+
+Se not 1 Redovisningsprinciper och not 8 Förvaltningsfastigheter på sidorna 54-55 samt 59-61 i årsredovisningen och koncernredovisningen för detaljerade upplysningar och beskrivning av området.
+
+Särskilt betydelsefulla områden
+
+Särskilt betydelsefulla områden för revisionen är de områden som enligt vår professionella bedömning var de mest betydelsefulla för revisionen av årsredovisningen och koncernredovisningen för den aktuella perioden. Dessa områden behandlades inom ramen för revisionen av, och i vårt ställningstagande till, årsredovisningen och koncernredovisningen som helhet, men vi gör inga separata uttalanden om dessa områden.
+
+Not 21    Finansiella risker
+
+Koncernens affärsverksamhet är utsatt för olika slags finansiella risker; kreditrisk, ränterisk och likviditetsrisk samt finansieringsoch refinansieringsrisk. Bolaget arbetar med att förebygga och begränsa riskerna. Riskerna är desamma för moderbolaget och koncernen.
+
+Det är styrelsen som har det övergripande ansvaret för koncernens riskarbete, inklusive finansiella risker. Riskarbetet omfattar att identifiera, bedöma och värdera de risker som koncernen ställs inför. Prioritet läggs på de risker som vid en samlad bedömning avseende möjlig påverkan, sannolikhet och konsekvens, bedöms kunna ge mest negativ effekt för koncernen. Koncernens övergripande målsättning för finansiella risker är att säkerställa kort- och långsiktig kapitalförsörjning, uppnå en långsiktig och stabil kapitalstruktur med optimal förfallostruktur samt säkerställa att riskexponeringen avseende kreditrisk och likviditetsrisk reduceras till en acceptabel nivå. Bolaget har utarbetat en policy för riskhantering och intern kontroll.
+
+Finansiella tillgångar och skulder
+
+Med anledning av sambandet mellan redovisning och beskattning, tillämpas inte reglerna om finansiella instrument enligt IFRS 9 i moderbolaget, utan moderbolaget tillämpar reglerna i enlighet med RFR 2. Detta innebär att moderbolaget redovisar finansiella instrument med utgångspunkt i anskaffningsvärdet i enlighet med reglerna i ÅRL.
+
+Finansiella riskbegränsningar
+
+Nettobelåningsgrad
+
+Nettobelåningsgraden ska varaktigt inte överstiga 60 %. Nettobelåningsgraden uppgick vid periodens utgång till 52 %.
+
+Segmentsrapportering
+
+Rörelsesegment rapporteras på ett sätt som överensstämmer med den interna rapportering som lämnas till den Högste Verkställande Beslutsfattaren. Den Högste Verkställande Beslutsfattaren är den funktion som ansvarar för tilldelning av resurser och bedömning av rörelsesegmentens resultat. I koncernen har denna funktion identifierats som ledningsgruppen.
+
+Ett rörelsesegment är en del av koncernen som bedriver verksamhet från vilken den kan generera intäkter och ådrar sig kostnader och för vilka det finns fristående finansiell information tillgänglig. Emilshus delar inte upp verksamheten i olika segment utan ser hela koncernens verksamhet som ett segment, vilket återspeglas i företagets interna organisation och rapportering.
+
+Revisorns ansvar
+
+Vår uppgift är att uttala oss med rimlig säkerhet om Esef-  rapporten i allt väsentligt är upprättad i ett format som uppfyller kraven i 16 kap. 4 a § lagen (2007:528) om värdepappersmarknaden, på grundval av vår granskning.
+
+RevR 18 kräver att vi planerar och genomför våra granskningsåtgärder för att uppnå rimlig säkerhet att Esef-rapporten är upprättad i ett format som uppfyller dessa krav.
+
+Rimlig säkerhet är en hög grad av säkerhet, men är ingen garanti för att en granskning som utförs enligt RevR 18 och god revisionssed i Sverige alltid kommer att upptäcka en väsentlig felaktighet om en sådan finns. Felaktigheter kan uppstå på grund av oegentligheter eller misstag och anses vara väsentliga om de enskilt eller tillsammans rimligen kan förväntas påverka de ekonomiska beslut som användare fattar med grund i Esef-rapporten. Revisionsföretaget tillämpar International Standard on Quality
+
+Management 1, som kräver att företaget utformar, implementerar och hanterar ett system för kvalitetsstyrning inklusive riktlinjer eller rutiner avseende efterlevnad av yrkesetiska krav,   standarder för yrkesutövningen och tillämpliga krav i lagar och andra författningar.
+
+Granskningen innefattar att genom olika åtgärder inhämta bevis om Esef-rapporten har upprättats i ett format som möjliggör enhetlig elektronisk rapportering av årsredovisningen och koncernredovisningen. Vi väljer vilka åtgärder som ska utföras, bland annat genom att bedöma riskerna för väsentliga felaktigheter i rapporteringen vare sig dessa beror på oegentligheter eller misstag. Vid denna riskbedömning beaktar vi de delar av den interna kontrollen som är relevanta för hur styrelsen och verkställande direktören tar fram underlaget i syfte att utforma granskningsåtgärder som är ändamålsenliga med hänsyn till omständigheterna, men inte i syfte att göra ett uttalande om effektiviteten i den interna kontrollen. Granskningen omfattar också en utvärdering av ändamålsenligheten och rimligheten i styrelsens och verkställande direktörens antaganden.
+
+Granskningsåtgärderna omfattar huvudsakligen validering av att Esef-rapporten upprättats i ett giltigt XHTML-format och en avstämning av att Esef-rapporten överensstämmer med den granskade årsredovisningen och koncernredovisningen.
+
+Vidare omfattar granskningen även en bedömning av huruvida koncernens resultat-, balans- och egetkapitalräkningar, kassaflödesanalys samt noter i Esef-rapporten har märkts med iXBRL i enlighet med vad som följer av Esef-förordningen.
+
+Revisorns granskning av bolagsstyrningsrapporten Det är styrelsen som har ansvaret för bolagsstyrningsrapporten på sidorna 39-45 och för att den är upprättad i enlighet med årsredovisningslagen.
+
+Vår granskning har skett enligt FARs rekommendation RevR 16 Revisorns granskning av bolagsstyrningsrapporten. Detta innebär att vår granskning av bolagsstyrningsrapporten har en annan inriktning och en väsentligt mindre omfattning jämfört med den inriktning och omfattning som en revision enligt International Standards on Auditing och god revisionssed i Sverige har. Vi anser att denna granskning ger oss tillräcklig grund för våra uttalanden.
+
+En bolagsstyrningsrapport har upprättats. Upplysningar i enlighet med 6 kap. 6 § andra stycket punkterna 2-6 årsredovisningslagen samt 7 kap. 31 § andra stycket samma lag är förenliga med årsredovisningens och koncernredovisningens övriga delar samt är i överensstämmelse med årsredovisningslagen.
+
+Revisorns ansvar
+
+Vårt mål beträffande revisionen av förvaltningen, och därmed vårt uttalande om ansvarsfrihet, är att inhämta revisionsbevis för att med en rimlig grad av säkerhet kunna bedöma om någon styrelseledamot eller verkställande direktören i något väsentligt avseende:
+
+- företagit någon åtgärd eller gjort sig skyldig till någon försummelse som kan föranleda ersättningsskyldighet mot bolaget, eller
+- på något annat sätt handlat i strid med aktiebolagslagen, årsredovisningslagen eller bolagsordningen.
+
+Vårt mål beträffande revisionen av förslaget till dispositioner av bolagets vinst eller förlust, och därmed vårt uttalande om detta, är att med rimlig grad av säkerhet bedöma om förslaget är förenligt med aktiebolagslagen.
+
+Rimlig säkerhet är en hög grad av säkerhet, men ingen garanti för att en revision som utförs enligt god revisionssed i Sverige alltid kommer att upptäcka åtgärder eller försummelser som kan föranleda ersättningsskyldighet mot bolaget, eller att ett förslag till dispositioner av bolagets vinst eller förlust inte är förenligt med aktiebolagslagen.
+
+Som en del av en revision enligt god revisionssed i Sverige använder vi professionellt omdöme och har en professionellt skeptisk inställning under hela revisionen. Granskningen av förvaltningen och förslaget till dispositioner av bolagets vinst eller förlust grundar sig främst på revisionen av räkenskaperna. Vilka tillkommande granskningsåtgärder som utförs baseras på vår professionella bedömning med utgångspunkt i risk och väsentlighet. Det innebär att vi fokuserar granskningen på sådana åtgärder, områden och förhållanden som är väsentliga för verksamheten och där avsteg och överträdelser skulle ha särskild betydelse för bolagets situation. Vi går igenom och prövar fattade beslut, beslutsunderlag, vidtagna åtgärder och andra förhållanden som är relevanta för vårt uttalande om ansvarsfrihet. Som underlag för vårt uttalande om styrelsens förslag till dispositioner beträffande bolagets vinst eller förlust har vi granskat styrelsens motiverade yttrande samt ett urval av underlagen för detta för att kunna bedöma om förslaget är förenligt med aktiebolagslagen.
+
+Grund för uttalanden
+
+Vi har utfört revisionen enligt god revisionssed i Sverige. Vårt ansvar enligt denna beskrivs närmare i avsnittet Revisorns ansvar. Vi är oberoende i förhållande till moderbolaget och koncernen enligt god revisorssed i Sverige och har i övrigt fullgjort vårt yrkesetiska ansvar enligt dessa krav.
+
+Vi anser att de revisionsbevis vi har inhämtat är tillräckliga och ändamålsenliga som grund för våra uttalanden.
+
+Kortfristiga fordringar och skulder
+
+För kortfristiga fordringar och skulder, som kundfordringar och leverantörsskulder, med en livslängd på mindre än sex månader anses det redovisade värdet reflektera verkligt värde. Någon indelning i nivåer enligt värderingshierarkin görs inte för dessa poster.
+
+För beskrivning av redovisningsprinciperna gällande finansiella instrument se not 1.
+
+Säkerheter redovisas i not 14 "Ställda säkerheter för skulder till kreditinstitut".
+
+Grund för uttalanden
+
+Vi har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Vårt ansvar enligt dessa standarder beskrivs närmare i avsnittet Revisorns ansvar. Vi är oberoende i förhållande till moderbolaget och koncernen enligt god revisorssed i Sverige och har i övrigt fullgjort vårt yrkesetiska ansvar enligt dessa krav. Detta innefattar att, baserat på vår bästa kunskap och övertygelse, inga förbjudna tjänster som avses i revisorsförordningens (537/2014) artikel 5.1 har tillhandahållits det granskade bolaget eller, i förekommande fall, dess moderföretag eller dess kontrollerade företag inom EU.
+
+Vi anser att de revisionsbevis vi har inhämtat är tillräckliga och ändamålsenliga som grund för våra uttalanden.
+
+Kontrollaktiviteter
+
+De risker Emilshus har identifierat avseende den finansiella rapporteringen resulterar i kontrollaktiviteter. Syftet med kontrollerna är att förebygga, upptäcka och korrigera eventuella fel och avvikelser. Kontrollerna omfattar både återkommande händelser såsom rapporter samt eventstyrda händelser såsom inköp och försäljningar. Kontrollerna görs på olika nivåer i organisationen och kan vara analytisk granskning av poster i resultat och balansräkning, checklistor vid bokslut, åldersanalyser av kundfordringar, granskning av teknisk redovisning för förvärv, granskning av data avseende ägda fastigheter etc.
+
+När Emilshus upprättar sin finansiella rapportering läggs stor vikt vid analys av väsentliga balans och resultatposter. Kontroller och processbeskrivningar används för att säkerställa att inga väsentliga felaktigheter uppstått. Såvitt gäller resultatet så sker löpande resultatuppföljning på fastighetsnivå mellan för varje fastighet ansvarig fastighetsförvaltare och ekonomipersonal.
+
+Räntetäckningsgrad
+
+<!-- image -->
+
+Likviditetsgarant
+
+I februari 2023 ingick Emilshus ett avtal med Carnegie Investment Bank AB om att agera likviditetsgarant för Emilshus stamaktie av serie B i syfte att främja aktiens likviditet. Åtagandet innebär att likviditetsgaranten kvoterar köp respektive säljvolym motsvarande minst 100 000 kronor med en spread om maximalt 2 % mellan köp- och säljkurs.
+
+Gröna hyresavtal
+
+För Emilshus hyresgäster ska det vara enkelt att agera på ett hållbart sätt. Genom att teckna så kallade gröna hyresavtal ökar medvetenhet hos hyresgästerna om hur de kan bidra till en minskad miljöpåverkan tillsammans med Emilshus.
+
+Det skapar en gemensam plattform för samverkan och stärker samarbetet mellan hyresgäst och hyresvärd. Emilshus använder Fastighetsägarnas gröna hyresavtal, vilket utgör branschens standardmall. I ett grönt hyresavtal förbinder sig både hyresgäst och Emilshus att arbeta för en minskad miljöpåverkan inom energi, förbättrad inomhusmiljö och materialval samt en effektiv och korrekt avfallshantering. Under 2024 tecknades 11 (13) gröna hyresavtal med en lokalarea om 14 400 kvm (15 900).
+
+Kursutveckling preferensaktie
+
+<!-- image -->
+
+EMIL PREF
+
+Hållbarhetsstrategi
+
+Emilshus affärsidé är att förvärva, utveckla och förvalta högavkastande kommersiella fastigheter i södra Sverige. Fokus är hög direktavkastning i kombination med långa hyresavtal och hyresgäster med bedömd god betalningsförmåga. I sin förvaltning fokuserar Emilshus på lokal närvaro och nära samarbete med hyresgästerna. Bolaget ska vara delaktigt i det lokala näringslivet och dess utveckling. Emilshus strategier är sammantaget utformade för att generera långsiktigt uthållig avkastning och starka kassaflöden. Samtidigt som Emilshus skapar förutsättningar för en hållbar utveckling genereras även värden för ägare, medar  betare, hyresgäster, leverantörer, lokalsamhället och övriga   intressenter.
+
+Emilshus har ett långsiktigt perspektiv för att säkerställa en stabil verksamhet. Förutom att trygga bolagets existens och intjäning över tid innebär det ett uttalat ansvarstagande för miljö och människor i och kring bolagets fastigheter samt för miljön och företagets omvärld i stort. I sitt miljöarbete har Emilshus fokus på att minska energianvändningen i fastighetsbeståndet, där ett aktivt arbete bedrivs gällande effektiviseringar och användning av smarta systemstöd. Energianvändningen följs upp kvartalsvis på ett systematiskt sätt för att utvärdera de energieffektiviserande åtgärder som genomförts.
+
+En hållbar verksamhet förutsätter ett väl fungerande samarbete med Emilshus hyresgäster och bolagets omvärld. Därutöver krävs väl etablerade interna processer och rutiner samt engagerade medarbetare. Emilshus ska vara en närvarande arbetsgivare och en attraktiv arbetsplats där medarbetare ska känna engagemang och stolthet samt ha möjlighet att påverka verksamheten och sin egen utveckling. Företagskulturen ska präglas av affärs- mässighet, medmänsklighet och delaktighet där god affärsetik och förtroendefulla relationer är viktiga utgångspunkter såväl internt som i kontakterna med externa parter. Hälsa och säkerhet är områden som är centrala för såväl medarbetare som hyresgäster och leverantörer.
+
+En översyn av Emilshus hållbarhetsstrategi kommer att ske under 2025.
+
+Hyresgästdialog
+
+För att tillvarata gemensamma utvecklingsmöjligheter har Emilshus förvaltare en löpande dialog med sina hyresgäster, vars synpunkter är en viktig del för bolagets fortsatta utveckling. Uppföljning på eventuella förbättringsåtgärder inom trivsel, funktion och hållbarhet genomförs löpande i den dagliga kontakten med hyresgästerna. En Nöjd Kund Index-undersökning (NKI) genomförs årligen för att utvärdera och följa upp hur hyresgästerna upplever Emilshus som hyresvärd. Alla hyresgäster med en lokalarea överstigande 100 kvm bjöds in att delta. Emilshus kan utifrån detta arbete fortsätta utveckla samarbetet inom relevanta områden.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Nettouthyrning utveckling
+
+<!-- image -->
+
+Koncernens rapport över kassaflödet
+
+|                                                                            |        | Jan-dec   | Jan-dec   |
+|----------------------------------------------------------------------------|--------|-----------|-----------|
+| mkr                                                                        | Not    | 2024      | 2023      |
+| Den löpande verksamheten                                                   |        |           |           |
+| Förvaltningsresultat                                                       |        | 297       | 233       |
+| Betald skatt                                                               |        | -34       | -42       |
+| Justering för poster som ej ingår i kassaflödet                            |        | 7         | 4         |
+| Kassaflöde från den löpande verksamheten före förändring av rörelsekapital |        | 270       | 196       |
+| Kassaflöde från förändringar av rörelsekapital                             |        |           |           |
+| Ökning(-)/Minskning(+) av rörelsefordringar                                |        | 7         | 0         |
+| Ökning(+)/Minskning(-) av rörelseskulder                                   |        | 53        | 26        |
+| Kassaflöde från den löpande verksamheten                                   |        | 329       | 222       |
+| Investeringsverksamheten                                                   |        |           |           |
+| Förvärv av förvaltningsfastigheter                                         | 8      | -1 469    | -199      |
+| Investeringar i förvaltningsfastigheter                                    | 8      | -63       | -55       |
+| Förvärv av inventarier                                                     |        | -0        | -0        |
+| Avyttring av förvaltningsfastigheter                                       | 8      | 44        | -         |
+| Kassaflöde från investeringsverksamheten                                   |        | -1 489    | -255      |
+| Finansieringsverksamheten                                                  |        |           |           |
+| Upptagna banklån                                                           | 13, 23 | 965       | 390       |
+| Nyemission av stamaktier                                                   |        | 416       | 195       |
+| Utdelning på preferensaktier                                               |        | -41       | -41       |
+| Amortering på banklån                                                      | 13, 23 | -94       | -379      |
+| Amortering på obligationslån                                               | 13, 23 | -581      | -69       |
+| Amortering på övriga lån                                                   | 13, 23 | -         | -65       |
+| Upptagna obligationslån                                                    | 13, 23 | 396       | -         |
+| Realiserade värdeförändringar finansiella instrument                       | 16     | -12       | -10       |
+| Kassaflöde från finansieringsverksamheten                                  |        | 1 048     | 21        |
+| Periodens kassaflöde                                                       |        | -112      | -12       |
+| Likvida medel vid periodens början                                         |        | 212       | 224       |
+| Likvida medel vid periodens slut                                           |        | 100       | 212       |
+
+Aktierelaterade, preferensaktier
+
+Antal preferensaktier vid periodens utgång Genomsnittligt antal preferensaktier Eget kapital per preferensaktie, kr Periodens utdelning per preferensaktie, kr
+
+| Jan-dec     | Jan-dec     | Jan-dec    | Jan-dec    |
+|-------------|-------------|------------|------------|
+| 2024        | 2023        | 2022       | 2021       |
+| 172         | 130         | 125        | 97         |
+| 926         | 805         | 786        | 581        |
+| 8 940       | 7 324       | 7 111      | 4 827      |
+| 9 651       | 9 096       | 9 047      | 8 312      |
+| 3 493       | 2 740       | 2 447      | 1 560      |
+| 790         | 636         | 581        | 361        |
+| 852         | 790         | 739        | 621        |
+| 5,0         | 5,3         | 5,8        | 6,5        |
+| 2           | 0           | 12         | -3         |
+| 95          | 95          | 96         | 97         |
+| 95          | 97          | 97         | 98         |
+| 6,7         | 6,6         | 6,1        | 6,1        |
+| 80          | 79          | 80         | 81         |
+| 114 154 267 | 100 281 607 | 92 874 199 | 66 446 380 |
+| 108 290 971 | 93 779 549  | 80 559 130 | 64 936 235 |
+| 2,36        | 2,05        | 1,76       | 1,87       |
+| 2,28        | -0,09       | 3,36       | 7,07       |
+| 27,99       | 25,26       | 25,27      | 21,09      |
+| 30,60       | 27,32       | 26,34      | 23,48      |
+| 9           | 0           | 14         | 37         |
+| 20 628 625  | 20 628 625  | 20 628 625 | 13 951 313 |
+| 20 628 625  | 20 628 625  | 20 252 401 | 4 892 323  |
+| 32,00       | 32,00       | 32,00      | 32,00      |
+| 2,00        | 2,00        | 2,00       | 0,90       |
+
+|                                                                                 | Jan-dec   | Jan-dec   | Jan-dec   | Jan-dec   |
+|---------------------------------------------------------------------------------|-----------|-----------|-----------|-----------|
+|                                                                                 | 2024      | 2023      | 2022      | 2021      |
+| Finansiella                                                                     |           |           |           |           |
+| Soliditet,%                                                                     | 42        | 42        | 40        | 37        |
+| Avkastning på eget kapital,%                                                    | 8         | 1         | 13        | 34        |
+| Avkastning på totalt kapital,%                                                  | 3         | 0         | 4         | 9         |
+| Nettobelåningsgrad,%                                                            | 52        | 52        | 55        | 57        |
+| Nettobelåningsgrad fastigheter,%                                                | 47        | 44        | 45        | 46        |
+| Belåningsgrad fastigheter,%                                                     | 48        | 47        | 49        | 48        |
+| Genomsnittlig låneränta vid periodens utgång,%                                  | 4,0       | 4,7       | 4,6       | 3,0       |
+| Genomsnittlig kapitalbindning periodens utgång, år                              | 2,7       | 1,8       | 2,9       | 2,6       |
+| Räntetäckningsgrad, ggr                                                         | 2,4       | 2,1       | 2,3       | 2,8       |
+| Räntebärande nettoskuld, mkr                                                    | 4 617     | 3 772     | 3 879     | 2 747     |
+| Skuldkvot, ggr                                                                  | 8,2       | 8,2       | 9,2       | 10,6      |
+| Kassaflöde från den löpande verksamheten före förändring av rörelsekapital, mkr | 270       | 196       | 151       | 110       |
+
+Jämförelsesiffror är justerade efter uppdelning i augusti 2021 av varje aktie i bolaget på tio aktier (10:1) av samma aktieslag som tidigare. För avstämningar av nyckeltal, se sidorna 75-76.
+
+Not 15    Checkräkningskredit
+
+| mkr                    | 2024   | 2023   |
+|------------------------|--------|--------|
+| KONCERNEN              |        |        |
+| Beviljad kreditlimit   | 80     | 80     |
+| Outnyttjad del         | 67     | 80     |
+| Utnyttjat kreditbelopp | 13     | -      |
+| MODERBOLAGET           |        |        |
+| Beviljad kreditlimit   | 80     | 80     |
+| Outnyttjad del         | 67     | 80     |
+| Utnyttjat kreditbelopp | 13     | -      |
+
+Moderbolagets rapport över kassaflödet
+
+|                                                                            |     | Jan-dec   | Jan-dec   |
+|----------------------------------------------------------------------------|-----|-----------|-----------|
+| mkr                                                                        | Not | 2024      | 2023      |
+| Den löpande verksamheten                                                   |     |           |           |
+| Resultat efter finansiella poster                                          |     | -58       | -51       |
+| Betald inkomstskatt                                                        |     | -         | -0        |
+| Justering för poster som ej ingår i kassaflödet                            |     | 9         | 7         |
+| Kassaflöde från den löpande verksamheten före förändring av rörelsekapital |     | -49       | -44       |
+| Kassaflöde från förändringar av rörelsekapital                             |     |           |           |
+| Ökning(-)/Minskning(+) av rörelsefordringar                                |     | 5         | 3         |
+| Ökning(-)/Minskning(+) av rörelseskulder                                   |     | 44        | 42        |
+| Kassaflöde från den löpande verksamheten                                   |     | 1         | 0         |
+| Kassaflöde från investeringsverksamheten                                   |     | -616      | 112       |
+| Finansieringsverksamheten                                                  |     |           |           |
+| Upptagna banklån                                                           |     | 300       | 310       |
+| Nyemission av stamkapital                                                  |     | 416       | 195       |
+| Utdelning på preferensaktier                                               |     | -41       | -41       |
+| Amortering på banklån                                                      |     | -34       | -331      |
+| Amortering på obligationslån                                               |     | -581      | -69       |
+| Amortering på övriga lån                                                   |     | -         | -65       |
+| Upptagna obligationslån                                                    |     | 396       | -         |
+| Kassaflöde från finansieringsverksamheten                                  |     | 456       | 2         |
+| Periodens kassaflöde                                                       |     | -160      | 114       |
+| Likvida medel vid periodens början                                         |     | 186       | 72        |
+| Likvida medel vid periodens slut                                           |     | 27        | 186       |
+
+Löptidsanalys
+
+|                             | 31 dec 2024   | 31 dec 2024   | 31 dec 2024   | 31 dec 2024   | 31 dec 2024   | 31 dec 2024   |
+|-----------------------------|---------------|---------------|---------------|---------------|---------------|---------------|
+| mkr                         | <6 mån        | 6-12 mån      | 1-3 år        | 3-5 år        | >5 år         | Totalt        |
+| Skulder till kreditinstitut | 64            | 599           | 2 510         | 1 135         | -             | 4 308         |
+| Obligationslån              | -             | -             | 396           | -             | -             | 396           |
+| Checkräkningskredit         | 13            | -             | -             | -             | -             | 13            |
+| Leverantörsskulder          | 14            | -             | -             | -             | -             | 14            |
+| Övriga kortfristiga skulder | 34            | -             | -             | -             | -             | 34            |
+| Totalt                      | 125           | 599           | 2 906         | 1 135         | -             | 4 765         |
+
+|                               | 31 dec 2023   | 31 dec 2023   | 31 dec 2023   | 31 dec 2023   | 31 dec 2023   | 31 dec 2023   |
+|-------------------------------|---------------|---------------|---------------|---------------|---------------|---------------|
+| mkr                           | <6 mån        | 6-12 mån      | 1-3 år        | 3-5 år        | >5 år         | Totalt        |
+| Skulder till kreditin- stitut | 51            | 51            | 3 307         | -             | -             | 3 408         |
+| Obligationslån                | -             | -             | 576           | -             | -             | 576           |
+| Checkräkningskredit           | -             | -             | -             | -             | -             | -             |
+| Leverantörsskulder            | 14            | -             | -             | -             | -             | 14            |
+| Övriga kortfristiga skulder   | 34            | -             | -             | -             | -             | 34            |
+| Totalt                        | 98            | 51            | 3 883         | -             | -             | 4 032         |
+
+Globala mål
+
+Emilshus har valt ut sex av FN:s 17 Globala mål som bolaget anser sig ha störst möjlighet att bidra till. Alla medarbetare ska erbjudas en trygg och säker arbetsmiljö där det finns utrymme för fysisk aktivitet. Jämställdhetsarbetet är en integrerad del av bolaget och en jämn könsfördelning eftersträvas i hela organisationen. Emilshus ska uteslutande köpa in fossilfri el till sina fastigheter och kan genom sin förvaltning arbeta för mer energieffektiva fastigheter vilket i sin tur bidrar till en minskad klimatpåverkan. I de fastigheter som Emilshus äger ska effektiv resurs- och avfallshantering vara en naturlig del av förvaltningen där bolaget tillsammans med hyresgästerna arbetar för att minska det totala avfallet.
+
+Revisorns yttrande avseende den lagstadgade hållbarhetsrapporten
+
+Det är styrelsen som har ansvaret för hållbarhetsrapporten på sidorna 25-33 och för att den är upprättad i enlighet med årsredovisningslagen i enlighet med den äldre lydelsen som gällde före den 1 juli 2024.
+
+Vår granskning har skett enligt FARs rekommendation RevR 12 Revisorns yttrande om den lagstadgade hållbarhetsrapporten. Detta innebär att vår granskning av hållbarhetsrapporten har en annan inriktning och en väsentligt mindre omfattning jämfört med den inriktning och omfattning som en revision enligt   International Standards on Auditing och god revisionssed i Sverige har. Vi anser att denna granskning ger oss tillräcklig grund för vårt uttalande.
+
+En hållbarhetsrapport har upprättats.
+
+KPMG AB, Box 382, 101 27, Stockholm, utsågs till Fastighetsbolaget Emilshus ABs revisor av bolagsstämman den 25 april 2024. KPMG AB eller revisorer verksamma vid KPMG AB har varit bolagets revisor sedan 2023.
+
+Stockholm den 28 mars 2025
+
+KPMG AB
+
+Mattias Johansson Auktoriserad revisor
+
+Revisorns granskning av Esef-rapporten
+Uttalande
+
+Utöver vår revision av årsredovisningen och koncernredovisningen har vi även utfört en granskning av att styrelsen och verkställande direktören har upprättat årsredovisningen och koncernredovisningen i ett format som möjliggör enhetlig elektronisk rapportering (Esef-rapporten) enligt 16 kap. 4 a § lagen (2007:528) om värdepappersmarknaden för Fastighetsbolaget Emilshus AB för år 2024.
+
+Vår granskning och vårt uttalande avser endast det lagstadgade kravet.
+
+Enligt vår uppfattning har Esef-rapporten upprättats i ett format som i allt väsentligt möjliggör enhetlig elektronisk rapportering.
