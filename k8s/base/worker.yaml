@@ -191,6 +191,26 @@ spec:
                 secretKeyRef:
                   name: env
                   key: DOCLING_USE_LOCAL
+            - name: USE_BACKUP_API
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: USE_BACKUP_API
+            - name: BACKUP_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_URL
+            - name: BACKUP_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_TOKEN
+            - name: BACKUP_API_AUTH_HEADER
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: BACKUP_API_AUTH_HEADER
           imagePullPolicy: Always
 ---
 apiVersion: autoscaling/v2
