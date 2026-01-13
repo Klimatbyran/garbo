@@ -3,13 +3,24 @@ import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
 import config from '../config/chromadb'
 import openai from '../config/openai'
 
-const client = new ChromaClient(config)
-const embedder = new OpenAIEmbeddingFunction(openai)
+// Lazy initialization to avoid connection errors when ChromaDB isn't running
+let client: ChromaClient | null = null
+let embedder: OpenAIEmbeddingFunction | null = null
+let collection: Awaited<ReturnType<ChromaClient['getOrCreateCollection']>> | null = null
 
-const collection = await client.getOrCreateCollection({
-  name: 'emission_reports',
-  embeddingFunction: embedder,
-})
+async function getCollection() {
+  if (!collection) {
+    if (!client) {
+      client = new ChromaClient(config)
+      embedder = new OpenAIEmbeddingFunction(openai)
+    }
+    collection = await client.getOrCreateCollection({
+      name: 'emission_reports',
+      embeddingFunction: embedder!,
+    })
+  }
+  return collection
+}
 
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
@@ -65,7 +76,8 @@ async function addReport(url: string, markdown: string) {
       parsed: new Date().toISOString(),
     }))
 
-    await collection.add({
+    const coll = await getCollection()
+    await coll.add({
       ids: batchIds,
       metadatas: batchMetadatas,
       documents: batchChunks.map(({ chunk }) => chunk),
@@ -79,7 +91,8 @@ async function addReport(url: string, markdown: string) {
 }
 
 async function hasReport(url: string) {
-  return collection
+  const coll = await getCollection()
+  return coll
     .get({
       where: { source: url },
       limit: 1,
@@ -103,7 +116,8 @@ async function getRelevantMarkdown(
         prompt,
     },
   ])*/
-  const result = await collection.query({
+  const coll = await getCollection()
+  const result = await coll.query({
     nResults,
     where: {
       source: url,
@@ -121,15 +135,17 @@ async function getRelevantMarkdown(
 /**
  * Delete a specific report
  */
-function deleteReport(url: string) {
-  return collection.delete({ where: { source: url } })
+async function deleteReport(url: string) {
+  const coll = await getCollection()
+  return coll.delete({ where: { source: url } })
 }
 
 /**
  * Clear all reports. Useful during development.
  */
-function clearAllReports() {
-  return collection.delete({ where: { type: reportMetadataType } })
+async function clearAllReports() {
+  const coll = await getCollection()
+  return coll.delete({ where: { type: reportMetadataType } })
 }
 
 export const vectorDB = {

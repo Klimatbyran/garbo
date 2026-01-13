@@ -472,7 +472,11 @@ export const RegionalSectorEmissionsSchema = z.object({
   sectors: z.record(z.string(), z.unknown()),
 })
 
-export const AuthentificationResponseScheme = z.object({ token: z.string() })
+export const AuthentificationResponseScheme = z.object({ 
+  token: z.string(),
+  client: z.string().optional(),
+  redirect_uri: z.string().url().optional(),
+})
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
