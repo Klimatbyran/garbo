@@ -29,42 +29,45 @@ export async function authentificationRoutes(app: FastifyInstance) {
     },
     async (request, reply) => {
       const query = request.query as { redirect_uri?: string; client?: string }
-      
+
       // Always use the registered redirect_uri (must match GitHub OAuth app settings)
       // The actual frontend redirect will be handled by the callback endpoint
       const redirectUri = apiConfig.githubRedirectUri
-      
+
       // Build state parameter to pass frontend redirect info through OAuth flow
       // This tells the callback endpoint where to redirect after successful auth
-      const state = query.client || query.redirect_uri 
-        ? Buffer.from(JSON.stringify({ 
-            client: query.client,
-            redirect_uri: query.redirect_uri || apiConfig.frontendURL
-          })).toString('base64')
-        : undefined
+      const state =
+        query.client || query.redirect_uri
+          ? Buffer.from(
+              JSON.stringify({
+                client: query.client,
+                redirect_uri: query.redirect_uri || apiConfig.frontendURL,
+              }),
+            ).toString('base64')
+          : undefined
 
       const githubAuthUrl = new URL('https://github.com/login/oauth/authorize')
       githubAuthUrl.searchParams.append('client_id', apiConfig.githubClientId)
       githubAuthUrl.searchParams.append('redirect_uri', redirectUri)
       githubAuthUrl.searchParams.append(
         'scope',
-        'read:user user:email read:org'
+        'read:user user:email read:org',
       )
-      
+
       if (state) {
         githubAuthUrl.searchParams.append('state', state)
       }
 
       return reply.redirect(githubAuthUrl.toString())
-    }
+    },
   )
 
-const githubCallbackQuerySchema = z.object({
-  code: z.string().optional(),
-  state: z.string().optional(),
-  error: z.string().optional(),
-  error_description: z.string().optional(),
-})
+  const githubCallbackQuerySchema = z.object({
+    code: z.string().optional(),
+    state: z.string().optional(),
+    error: z.string().optional(),
+    error_description: z.string().optional(),
+  })
 
   // GitHub OAuth callback endpoint
   // This endpoint receives the callback from GitHub and redirects to the appropriate frontend
@@ -73,13 +76,14 @@ const githubCallbackQuerySchema = z.object({
     {
       schema: {
         summary: 'GitHub OAuth callback',
-        description: 'Handles the OAuth callback from GitHub and redirects to the frontend',
+        description:
+          'Handles the OAuth callback from GitHub and redirects to the frontend',
         tags: getTags('Auth'),
         querystring: githubCallbackQuerySchema,
       },
     },
     async (request, reply) => {
-      const query = request.query as { 
+      const query = request.query as {
         code?: string
         state?: string
         error?: string
@@ -91,7 +95,10 @@ const githubCallbackQuerySchema = z.object({
         const errorUrl = new URL(apiConfig.frontendURL)
         errorUrl.searchParams.append('error', query.error)
         if (query.error_description) {
-          errorUrl.searchParams.append('error_description', query.error_description)
+          errorUrl.searchParams.append(
+            'error_description',
+            query.error_description,
+          )
         }
         return reply.redirect(errorUrl.toString())
       }
@@ -107,14 +114,14 @@ const githubCallbackQuerySchema = z.object({
       if (query.state) {
         try {
           const stateData = JSON.parse(
-            Buffer.from(query.state, 'base64').toString()
+            Buffer.from(query.state, 'base64').toString(),
           ) as { redirect_uri?: string; client?: string }
-          
+
           if (stateData.redirect_uri) {
             // Validate redirect_uri against allowed origins to prevent open redirect attacks
             const allowedOrigins = apiConfig.corsAllowOrigins
             const redirectUrl = new URL(stateData.redirect_uri)
-            const isAllowed = allowedOrigins.some(origin => {
+            const isAllowed = allowedOrigins.some((origin) => {
               try {
                 const originUrl = new URL(origin)
                 return redirectUrl.origin === originUrl.origin
@@ -122,14 +129,14 @@ const githubCallbackQuerySchema = z.object({
                 return false
               }
             })
-            
+
             if (isAllowed) {
               targetRedirectUri = stateData.redirect_uri
             } else {
               // Log potential security issue but don't expose to attacker
               request.log.warn(
                 { redirect_uri: stateData.redirect_uri, allowedOrigins },
-                'Blocked redirect to unauthorized origin'
+                'Blocked redirect to unauthorized origin',
               )
             }
           }
@@ -137,22 +144,25 @@ const githubCallbackQuerySchema = z.object({
           // If state can't be decoded, use default frontend
           request.log.warn(
             { error: error instanceof Error ? error.message : 'Unknown error' },
-            'Failed to decode state parameter'
+            'Failed to decode state parameter',
           )
         }
       }
 
       try {
         // Exchange code for token
-        const token = await authService.authorizeUser(query.code, apiConfig.githubRedirectUri)
-        
+        const token = await authService.authorizeUser(
+          query.code,
+          apiConfig.githubRedirectUri,
+        )
+
         // Redirect to frontend with token
         const redirectUrl = new URL(targetRedirectUri)
         redirectUrl.searchParams.append('token', token)
         if (query.state) {
           redirectUrl.searchParams.append('state', query.state)
         }
-        
+
         return reply.redirect(redirectUrl.toString())
       } catch (error) {
         request.log.error({ error }, 'GitHub OAuth callback error')
@@ -160,11 +170,11 @@ const githubCallbackQuerySchema = z.object({
         errorUrl.searchParams.append('error', 'authentication_failed')
         errorUrl.searchParams.append(
           'error_description',
-          error instanceof Error ? error.message : 'Unknown error'
+          error instanceof Error ? error.message : 'Unknown error',
         )
         return reply.redirect(errorUrl.toString())
       }
-    }
+    },
   )
 
   app.post(
@@ -183,17 +193,17 @@ const githubCallbackQuerySchema = z.object({
     },
     async (
       request: FastifyRequest<{ Body: userAuthenticationBody }>,
-      reply
+      reply,
     ) => {
       try {
         // Decode state if provided to get client/redirect_uri info
         let redirectUri = apiConfig.githubRedirectUri
         let clientInfo: { client?: string; redirect_uri?: string } | null = null
-        
+
         if (request.body.state) {
           try {
             const stateData = JSON.parse(
-              Buffer.from(request.body.state, 'base64').toString()
+              Buffer.from(request.body.state, 'base64').toString(),
             ) as { redirect_uri?: string; client?: string }
             if (stateData.redirect_uri) {
               redirectUri = stateData.redirect_uri
@@ -207,14 +217,18 @@ const githubCallbackQuerySchema = z.object({
             clientInfo = null
           }
         }
-        
+
         const token = await authService.authorizeUser(
           request.body.code,
-          redirectUri
+          redirectUri,
         )
-        
+
         // Return token and optionally the client info so frontend knows where to redirect
-        const response: { token: string; client?: string; redirect_uri?: string } = {
+        const response: {
+          token: string
+          client?: string
+          redirect_uri?: string
+        } = {
           token,
         }
         if (clientInfo) {
@@ -225,13 +239,13 @@ const githubCallbackQuerySchema = z.object({
             response.redirect_uri = clientInfo.redirect_uri
           }
         }
-        
+
         reply.status(200).send(response)
       } catch (error) {
         request.log.error({ error }, 'GitHub authentication error')
         return reply.status(401).send()
       }
-    }
+    },
   )
 
   app.post(
@@ -250,7 +264,7 @@ const githubCallbackQuerySchema = z.object({
     },
     async (
       request: FastifyRequest<{ Body: serviceAuthenticationBody }>,
-      reply
+      reply,
     ) => {
       try {
         const token = await authService.authorizeService(request.body)
@@ -259,6 +273,6 @@ const githubCallbackQuerySchema = z.object({
         request.log.error({ error }, 'Service authentication error')
         return reply.status(401).send()
       }
-    }
+    },
   )
 }
