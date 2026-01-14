@@ -456,20 +456,36 @@ export const MunicipalitySectorEmissionsSchema = z.object({
  */
 export const InputRegionalDataSchema = z.array(
   z.object({
-    name: z.string(),
-    emissions: z.record(z.string(), z.number()),
+    region: z.string(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+    municipalities: z.array(z.string()),
   }),
 )
 
 export const RegionalDataSchema = z.object({
-  name: z.string(),
-  emissions: z.record(z.string(), z.number()),
+  region: z.string(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+  municipalities: z.array(z.string()),
 })
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
 
-export const RegionalSectorEmissionsSchema = z.object({
-  sectors: z.record(z.string(), z.unknown()),
+export const RegionalKpiSchema = z.object({
+  region: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
 })
 
 export const AuthentificationResponseScheme = z.object({ 
@@ -477,6 +493,8 @@ export const AuthentificationResponseScheme = z.object({
   client: z.string().optional(),
   redirect_uri: z.string().url().optional(),
 })
+
+export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
