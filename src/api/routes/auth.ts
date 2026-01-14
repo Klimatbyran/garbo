@@ -156,6 +156,10 @@ export async function authentificationRoutes(app: FastifyInstance) {
           apiConfig.githubRedirectUri,
         )
 
+        // TODO: Switch to one-time code exchange instead of token in URL
+        // Generate a short-lived code, store token in Redis, redirect with code
+        // Frontend exchanges code for token via POST /api/auth/exchange
+        // This avoids exposing tokens in URLs (browser history, logs, referrer headers)
         // Redirect to frontend with token
         const redirectUrl = new URL(targetRedirectUri)
         redirectUrl.searchParams.append('token', token)
