@@ -70,6 +70,10 @@ Ensure you have Node.js version 22.0.0 or higher installed. You will also need [
 
 Make a copy of the file `.env.example` and name it `.env`. Fill it in using the instructions in the file.
 
+### Authentication
+
+The API uses GitHub OAuth for authentication. The backend handles the OAuth flow through a single callback endpoint (`/api/auth/github/callback`) registered with GitHub, then redirects users to the appropriate frontend client based on the `state` parameter. Multiple frontend clients can use the same backend by passing an optional `redirect_uri` query parameter when initiating authentication.
+
 ### Installing dependencies
 
 ```sh
