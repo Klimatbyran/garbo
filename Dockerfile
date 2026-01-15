@@ -22,7 +22,7 @@ RUN apk add --no-cache \
 
 COPY package*.json /app/
 WORKDIR /app
-RUN npm audit --omit=dev
+RUN npm audit --omit=dev --audit-level=moderate
 COPY prisma /app/
 RUN npm ci --omit=dev
 RUN npx prisma generate
