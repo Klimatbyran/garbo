@@ -454,6 +454,13 @@ export const MunicipalitySectorEmissionsSchema = z.object({
 /**
  * Regional data schemas
  */
+export const RegionalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+/**
+ * Regional data schemas
+ */
 export const InputRegionalDataSchema = z.array(
   z
     .object({

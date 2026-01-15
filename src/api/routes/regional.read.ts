@@ -6,6 +6,7 @@ import {
   RegionalDataSchema,
   RegionalDataListSchema,
   RegionalKpiListSchema,
+  RegionalSectorEmissionsSchema,
   getErrorSchemas,
   RegionalNameParamSchema,
 } from '../schemas'
@@ -108,6 +109,36 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(region)
+    },
+  )
+
+  app.get(
+    '/:name/sector-emissions',
+    {
+      schema: {
+        summary: 'Get regional sector emissions',
+        description:
+          'Retrieve sector emissions data for a specific region, broken down by different sectors over time.',
+        tags: getTags('Regions'),
+        params: RegionalNameParamSchema,
+        response: {
+          200: RegionalSectorEmissionsSchema,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Params: RegionalNameParams }>, reply) => {
+      const { name } = request.params
+      const sectorEmissions = regionalService.getRegionSectorEmissions(name)
+
+      if (!sectorEmissions) {
+        return reply.status(404).send({
+          code: 'NOT_FOUND',
+          message: 'The requested resource could not be found.',
+        })
+      }
+
+      reply.send({ sectors: sectorEmissions })
     },
   )
 }

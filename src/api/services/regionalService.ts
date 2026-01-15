@@ -7,6 +7,7 @@ import apiConfig from '../../config/api'
 class RegionalService {
   private _all: RegionalData[]
   private _lookup: Map<string, RegionalData>
+  private _sectorEmissions: any[]
 
   private get allRegions() {
     return this._all ?? this.lazyInit()._all
@@ -14,6 +15,12 @@ class RegionalService {
 
   private get regionsByName() {
     return this._lookup ?? this.lazyInit()._lookup
+  }
+
+  private get sectorEmissions() {
+    return (
+      this._sectorEmissions ?? this.lazyInitSectorEmissions()._sectorEmissions
+    )
   }
 
   /**
@@ -55,6 +62,29 @@ class RegionalService {
       meetsParis: region.meetsParis,
       historicalEmissionChangePercent: region.historicalEmissionChangePercent,
     }))
+  }
+
+  /**
+   * Lazy load regional sector emissions data the first time it's requested.
+   */
+  private lazyInitSectorEmissions() {
+    try {
+      this._sectorEmissions = JSON.parse(
+        readFileSync(apiConfig.regionSectorEmissionsPath, 'utf-8'),
+      )
+    } catch (error) {
+      // If the file is empty or doesn't exist, initialize as empty array
+      this._sectorEmissions = []
+    }
+    return this
+  }
+
+  getRegionSectorEmissions(name: RegionalData['region']) {
+    const normalizedName = name.replace(/s?\slän$/i, '').toLowerCase()
+    const region = this.sectorEmissions.find(
+      (r) => r.name?.replace(/s?\slän$/i, '').toLowerCase() === normalizedName,
+    )
+    return region?.sectors ?? null
   }
 }
 

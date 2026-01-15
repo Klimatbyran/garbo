@@ -114,6 +114,11 @@ const apiConfig = {
 
   regionDataPath: resolve(import.meta.dirname, '../data/region-data.json'),
 
+  regionSectorEmissionsPath: resolve(
+    import.meta.dirname,
+    '../data/region-sector-emissions.json',
+  ),
+
   bullBoardBasePath: '/admin/queues',
 
   logger: (env.NODE_ENV !== 'production' && process.stdout.isTTY
