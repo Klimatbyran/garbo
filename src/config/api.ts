@@ -58,6 +58,8 @@ const stageOrigins = [
   'https://stage-api.klimatkollen.se',
   'https://stage.klimatkollen.se',
   'https://validate-stage.klimatkollen.se',
+  'http://localhost:5173',
+  'http://localhost:5174',
 ] as const
 
 const productionOrigins = [
