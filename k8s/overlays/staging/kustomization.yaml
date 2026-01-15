@@ -7,4 +7,4 @@ patches:
   - path: ingress-patch.yaml
 images:
   - name: ghcr.io/klimatbyran/garbo
-    newTag: '5.2.4-rc.55' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
+    newTag: '5.2.4-rc.56' # {"$imagepolicy": "flux-system:garbo-stage:tag"}
