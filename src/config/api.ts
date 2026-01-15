@@ -119,6 +119,13 @@ const apiConfig = {
     '../data/region-sector-emissions.json',
   ),
 
+  nationDataPath: resolve(import.meta.dirname, '../data/nation-data.json'),
+
+  nationSectorEmissionsPath: resolve(
+    import.meta.dirname,
+    '../data/nation-sector-emissions.json',
+  ),
+
   bullBoardBasePath: '/admin/queues',
 
   logger: (env.NODE_ENV !== 'production' && process.stdout.isTTY

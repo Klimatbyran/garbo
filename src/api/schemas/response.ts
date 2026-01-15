@@ -513,6 +513,41 @@ export const AuthentificationResponseScheme = z.object({
 
 export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
 
+/**
+ * National data schemas
+ */
+export const NationalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+export const InputNationalDataSchema = z.array(
+  z.object({
+    country: z.string(),
+    logoUrl: z.string().nullable().optional(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+  }),
+)
+
+export const NationDataSchema = z.object({
+  country: z.string(),
+  logoUrl: z.string().nullable().optional(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+})
+
+export const NationalDataListSchema = z.array(NationDataSchema)
+
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
 export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())

@@ -72,7 +72,7 @@ class RegionalService {
       this._sectorEmissions = JSON.parse(
         readFileSync(apiConfig.regionSectorEmissionsPath, 'utf-8'),
       )
-    } catch (error) {
+    } catch {
       // If the file is empty or doesn't exist, initialize as empty array
       this._sectorEmissions = []
     }
