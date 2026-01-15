@@ -50,6 +50,7 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
   'http://localhost:5173',
+  'http://localhost:5174',
   'http://localhost:3000',
 ] as const
 

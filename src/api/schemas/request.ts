@@ -263,6 +263,7 @@ export const RegionalNameParamSchema = z.object({
 
 export const userAuthenticationBodySchema = z.object({
   code: z.string(),
+  state: z.string().optional(),
 })
 
 export const postWikidataBodySchema = z.object({

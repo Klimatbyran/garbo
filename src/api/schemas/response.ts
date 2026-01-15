@@ -488,9 +488,13 @@ export const RegionalKpiSchema = z.object({
   historicalEmissionChangePercent: z.number(),
 })
 
-export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
+export const AuthentificationResponseScheme = z.object({ 
+  token: z.string(),
+  client: z.string().optional(),
+  redirect_uri: z.string().url().optional(),
+})
 
-export const AuthentificationResponseScheme = z.object({ token: z.string() })
+export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
