@@ -57,11 +57,13 @@ const developmentOrigins = [
 const stageOrigins = [
   'https://stage-api.klimatkollen.se',
   'https://stage.klimatkollen.se',
+  'https://validate-stage.klimatkollen.se',
 ] as const
 
 const productionOrigins = [
   'https://klimatkollen.se',
   'https://api.klimatkollen.se',
+  'https://validate.klimatkollen.se',
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
