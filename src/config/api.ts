@@ -112,7 +112,7 @@ const apiConfig = {
     '../data/municipality-sector-emissions.json',
   ),
 
-  regionDataPath: resolve(import.meta.dirname, '../data/regional-data.json'),
+  regionDataPath: resolve(import.meta.dirname, '../data/region-data.json'),
 
   bullBoardBasePath: '/admin/queues',
 
