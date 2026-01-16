@@ -50,9 +50,9 @@
       "2047": 12700195.61,
       "2048": 11391440.2,
       "2049": 10082684.79,
-      "2050": 8773929.38,
-      "emissions_slope": -1308755.41
+      "2050": 8773929.38
     },
+    "emissionsSlope": -1308755.41,
     "historicalEmissionChangePercent": -2.3,
     "meetsParis": "False"
   }

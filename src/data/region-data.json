@@ -50,9 +50,9 @@
       "2047": 130059.11,
       "2048": 117077.57,
       "2049": 104096.03,
-      "2050": 91114.49,
-      "emissions_slope": -12981.54
+      "2050": 91114.49
     },
+    "emissionsSlope": -12981.54,
     "historicalEmissionChangePercent": -2.41,
     "meetsParis": "False",
     "municipalities": [
@@ -116,9 +116,9 @@
       "2047": 441337.92,
       "2048": 399857.9,
       "2049": 358377.88,
-      "2050": 316897.85,
-      "emissions_slope": -41480.02
+      "2050": 316897.85
     },
+    "emissionsSlope": -41480.02,
     "historicalEmissionChangePercent": -2.26,
     "meetsParis": "False",
     "municipalities": [
@@ -192,9 +192,9 @@
       "2047": 28822.4,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -79091.05
+      "2050": 0.0
     },
+    "emissionsSlope": -79091.05,
     "historicalEmissionChangePercent": -3.27,
     "meetsParis": "False",
     "municipalities": ["Gotland"],
@@ -252,9 +252,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -48438.24
+      "2050": 0.0
     },
+    "emissionsSlope": -48438.24,
     "historicalEmissionChangePercent": -3.76,
     "meetsParis": "False",
     "municipalities": [
@@ -323,9 +323,9 @@
       "2047": 678249.96,
       "2048": 651622.23,
       "2049": 624994.51,
-      "2050": 598366.78,
-      "emissions_slope": -26627.72
+      "2050": 598366.78
     },
+    "emissionsSlope": -26627.72,
     "historicalEmissionChangePercent": -1.81,
     "meetsParis": "False",
     "municipalities": [
@@ -390,9 +390,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -39639.88
+      "2050": 0.0
     },
+    "emissionsSlope": -39639.88,
     "historicalEmissionChangePercent": -5.99,
     "meetsParis": "True",
     "municipalities": [
@@ -459,9 +459,9 @@
       "2047": 476534.15,
       "2048": 438751.24,
       "2049": 400968.33,
-      "2050": 363185.42,
-      "emissions_slope": -37782.91
+      "2050": 363185.42
     },
+    "emissionsSlope": -37782.91,
     "historicalEmissionChangePercent": -2.41,
     "meetsParis": "False",
     "municipalities": [
@@ -533,9 +533,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -77032.6
+      "2050": 0.0
     },
+    "emissionsSlope": -77032.6,
     "historicalEmissionChangePercent": -3.98,
     "meetsParis": "True",
     "municipalities": [
@@ -606,9 +606,9 @@
       "2047": 104014.48,
       "2048": 78251.93,
       "2049": 52489.38,
-      "2050": 26726.84,
-      "emissions_slope": -25762.55
+      "2050": 26726.84
     },
+    "emissionsSlope": -25762.55,
     "historicalEmissionChangePercent": -2.95,
     "meetsParis": "False",
     "municipalities": [
@@ -675,9 +675,9 @@
       "2047": 3525909.0,
       "2048": 3461799.54,
       "2049": 3397690.07,
-      "2050": 3333580.6,
-      "emissions_slope": -64109.47
+      "2050": 3333580.6
     },
+    "emissionsSlope": -64109.47,
     "historicalEmissionChangePercent": 1.51,
     "meetsParis": "False",
     "municipalities": [
@@ -750,9 +750,9 @@
       "2047": 511571.33,
       "2048": 344311.91,
       "2049": 177052.49,
-      "2050": 9793.07,
-      "emissions_slope": -167259.42
+      "2050": 9793.07
     },
+    "emissionsSlope": -167259.42,
     "historicalEmissionChangePercent": -3.16,
     "meetsParis": "False",
     "municipalities": [
@@ -844,9 +844,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -209525.82
+      "2050": 0.0
     },
+    "emissionsSlope": -209525.82,
     "historicalEmissionChangePercent": -4.43,
     "meetsParis": "True",
     "municipalities": [
@@ -931,9 +931,9 @@
       "2047": 2125172.33,
       "2048": 2105654.25,
       "2049": 2086136.16,
-      "2050": 2066618.07,
-      "emissions_slope": -19518.09
+      "2050": 2066618.07
     },
+    "emissionsSlope": -19518.09,
     "historicalEmissionChangePercent": -2.6,
     "meetsParis": "False",
     "municipalities": [
@@ -1001,9 +1001,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -55709.1
+      "2050": 0.0
     },
+    "emissionsSlope": -55709.1,
     "historicalEmissionChangePercent": -3.38,
     "meetsParis": "False",
     "municipalities": [
@@ -1070,9 +1070,9 @@
       "2047": 400876.59,
       "2048": 372765.53,
       "2049": 344654.48,
-      "2050": 316543.42,
-      "emissions_slope": -28111.06
+      "2050": 316543.42
     },
+    "emissionsSlope": -28111.06,
     "historicalEmissionChangePercent": -2.29,
     "meetsParis": "False",
     "municipalities": [
@@ -1147,9 +1147,9 @@
       "2047": 378421.72,
       "2048": 343558.14,
       "2049": 308694.57,
-      "2050": 273830.99,
-      "emissions_slope": -34863.58
+      "2050": 273830.99
     },
+    "emissionsSlope": -34863.58,
     "historicalEmissionChangePercent": -2.42,
     "meetsParis": "False",
     "municipalities": [
@@ -1223,9 +1223,9 @@
       "2047": 689224.2,
       "2048": 662226.75,
       "2049": 635229.29,
-      "2050": 608231.83,
-      "emissions_slope": -26997.46
+      "2050": 608231.83
     },
+    "emissionsSlope": -26997.46,
     "historicalEmissionChangePercent": -1.09,
     "meetsParis": "False",
     "municipalities": [
@@ -1291,9 +1291,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -49198.18
+      "2050": 0.0
     },
+    "emissionsSlope": -49198.18,
     "historicalEmissionChangePercent": -3.28,
     "meetsParis": "False",
     "municipalities": [
@@ -1362,9 +1362,9 @@
       "2047": 4942904.26,
       "2048": 4764928.7,
       "2049": 4586953.14,
-      "2050": 4408977.58,
-      "emissions_slope": -177975.56
+      "2050": 4408977.58
     },
+    "emissionsSlope": -177975.56,
     "historicalEmissionChangePercent": -1.17,
     "meetsParis": "False",
     "municipalities": [
@@ -1472,9 +1472,9 @@
       "2047": 24382.98,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -44893.18
+      "2050": 0.0
     },
+    "emissionsSlope": -44893.18,
     "historicalEmissionChangePercent": -2.78,
     "meetsParis": "False",
     "municipalities": [
@@ -1545,9 +1545,9 @@
       "2047": 996712.25,
       "2048": 954304.88,
       "2049": 911897.52,
-      "2050": 869490.16,
-      "emissions_slope": -42407.36
+      "2050": 869490.16
     },
+    "emissionsSlope": -42407.36,
     "historicalEmissionChangePercent": -1.74,
     "meetsParis": "False",
     "municipalities": [

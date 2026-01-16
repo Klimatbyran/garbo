@@ -51,9 +51,9 @@
       "2047": 104056.23,
       "2048": 102715.93,
       "2049": 101375.63,
-      "2050": 100035.32,
-      "emissions_slope": -1340.3
+      "2050": 100035.32
     },
+    "emissionsSlope": -1340.3,
     "historicalEmissionChangePercent": -1.35,
     "hitNetZero": "2124-08-20",
     "electricCarChangePercent": 7.22114538969724,
@@ -120,9 +120,9 @@
       "2047": 5866.46,
       "2048": 2756.55,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3109.92
+      "2050": 0.0
     },
+    "emissionsSlope": -3109.92,
     "historicalEmissionChangePercent": -3.05,
     "hitNetZero": "2048-11-19",
     "electricCarChangePercent": 5.8776473208133,
@@ -189,9 +189,9 @@
       "2047": 40176.5,
       "2048": 37856.17,
       "2049": 35535.84,
-      "2050": 33215.5,
-      "emissions_slope": -2320.33
+      "2050": 33215.5
     },
+    "emissionsSlope": -2320.33,
     "historicalEmissionChangePercent": -2.16,
     "hitNetZero": "2064-04-24",
     "electricCarChangePercent": 8.06517640888153,
@@ -258,9 +258,9 @@
       "2047": 34575.25,
       "2048": 34249.85,
       "2049": 33924.45,
-      "2050": 33599.05,
-      "emissions_slope": -325.4
+      "2050": 33599.05
     },
+    "emissionsSlope": -325.4,
     "historicalEmissionChangePercent": -0.61,
     "hitNetZero": "2153-04-04",
     "electricCarChangePercent": 7.69377805109516,
@@ -327,9 +327,9 @@
       "2047": 29555.67,
       "2048": 28543.76,
       "2049": 27531.84,
-      "2050": 26519.93,
-      "emissions_slope": -1011.91
+      "2050": 26519.93
     },
+    "emissionsSlope": -1011.91,
     "historicalEmissionChangePercent": -1.89,
     "hitNetZero": "2076-03-16",
     "electricCarChangePercent": 7.03789535860048,
@@ -396,9 +396,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1100.29
+      "2050": 0.0
     },
+    "emissionsSlope": -1100.29,
     "historicalEmissionChangePercent": -4.83,
     "hitNetZero": "2037-06-14",
     "electricCarChangePercent": 4.9404507381909495,
@@ -465,9 +465,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1854.89
+      "2050": 0.0
     },
+    "emissionsSlope": -1854.89,
     "historicalEmissionChangePercent": -4.49,
     "hitNetZero": "2039-10-25",
     "electricCarChangePercent": 3.97882959746048,
@@ -534,9 +534,9 @@
       "2047": 21384.71,
       "2048": 19061.14,
       "2049": 16737.57,
-      "2050": 14414.0,
-      "emissions_slope": -2323.57
+      "2050": 14414.0
     },
+    "emissionsSlope": -2323.57,
     "historicalEmissionChangePercent": -2.48,
     "hitNetZero": "2056-03-15",
     "electricCarChangePercent": 6.32778279299455,
@@ -603,9 +603,9 @@
       "2047": 63156.11,
       "2048": 62080.71,
       "2049": 61005.3,
-      "2050": 59929.89,
-      "emissions_slope": -1075.41
+      "2050": 59929.89
     },
+    "emissionsSlope": -1075.41,
     "historicalEmissionChangePercent": -1.01,
     "hitNetZero": "2105-09-23",
     "electricCarChangePercent": 7.05555086951949,
@@ -672,9 +672,9 @@
       "2047": 161485.58,
       "2048": 159019.71,
       "2049": 156553.83,
-      "2050": 154087.95,
-      "emissions_slope": -2465.88
+      "2050": 154087.95
     },
+    "emissionsSlope": -2465.88,
     "historicalEmissionChangePercent": -0.8,
     "hitNetZero": "2112-06-27",
     "electricCarChangePercent": 6.160598326654481,
@@ -741,9 +741,9 @@
       "2047": 19570.26,
       "2048": 17788.36,
       "2049": 16006.46,
-      "2050": 14224.56,
-      "emissions_slope": -1781.9
+      "2050": 14224.56
     },
+    "emissionsSlope": -1781.9,
     "historicalEmissionChangePercent": -2.14,
     "hitNetZero": "2057-12-25",
     "electricCarChangePercent": 6.03520412247343,
@@ -810,9 +810,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3907.02
+      "2050": 0.0
     },
+    "emissionsSlope": -3907.02,
     "historicalEmissionChangePercent": -5.63,
     "hitNetZero": "2034-01-31",
     "electricCarChangePercent": 6.1109787486795994,
@@ -879,9 +879,9 @@
       "2047": 3228.32,
       "2048": 2683.63,
       "2049": 2138.94,
-      "2050": 1594.24,
-      "emissions_slope": -544.69
+      "2050": 1594.24
     },
+    "emissionsSlope": -544.69,
     "historicalEmissionChangePercent": -2.15,
     "hitNetZero": "2052-12-04",
     "electricCarChangePercent": 5.20852464034282,
@@ -948,9 +948,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4277.45
+      "2050": 0.0
     },
+    "emissionsSlope": -4277.45,
     "historicalEmissionChangePercent": -8.23,
     "hitNetZero": "2032-05-30",
     "electricCarChangePercent": 4.57108976609674,
@@ -1017,9 +1017,9 @@
       "2047": 193348.35,
       "2048": 195455.19,
       "2049": 197562.04,
-      "2050": 199668.88,
-      "emissions_slope": 2106.84
+      "2050": 199668.88
     },
+    "emissionsSlope": 2106.84,
     "historicalEmissionChangePercent": 2.09,
     "hitNetZero": null,
     "electricCarChangePercent": 5.9287329384449095,
@@ -1086,9 +1086,9 @@
       "2047": 28165.11,
       "2048": 27678.31,
       "2049": 27191.52,
-      "2050": 26704.73,
-      "emissions_slope": -486.79
+      "2050": 26704.73
     },
+    "emissionsSlope": -486.79,
     "historicalEmissionChangePercent": -1.04,
     "hitNetZero": "2104-11-09",
     "electricCarChangePercent": 6.972495366243391,
@@ -1155,9 +1155,9 @@
       "2047": 30413.1,
       "2048": 27172.59,
       "2049": 23932.07,
-      "2050": 20691.55,
-      "emissions_slope": -3240.52
+      "2050": 20691.55
     },
+    "emissionsSlope": -3240.52,
     "historicalEmissionChangePercent": -2.37,
     "hitNetZero": "2056-05-20",
     "electricCarChangePercent": 5.01969193057547,
@@ -1224,9 +1224,9 @@
       "2047": 106339.65,
       "2048": 104462.55,
       "2049": 102585.45,
-      "2050": 100708.35,
-      "emissions_slope": -1877.1
+      "2050": 100708.35
     },
+    "emissionsSlope": -1877.1,
     "historicalEmissionChangePercent": -1.58,
     "hitNetZero": "2103-08-26",
     "electricCarChangePercent": 6.44748358696626,
@@ -1293,9 +1293,9 @@
       "2047": 177236.04,
       "2048": 167622.75,
       "2049": 158009.46,
-      "2050": 148396.17,
-      "emissions_slope": -9613.29
+      "2050": 148396.17
     },
+    "emissionsSlope": -9613.29,
     "historicalEmissionChangePercent": -1.5,
     "hitNetZero": "2065-06-09",
     "electricCarChangePercent": 7.24739189341527,
@@ -1362,9 +1362,9 @@
       "2047": 21096.52,
       "2048": 12478.83,
       "2049": 3861.13,
-      "2050": 0.0,
-      "emissions_slope": -8617.7
+      "2050": 0.0
     },
+    "emissionsSlope": -8617.7,
     "historicalEmissionChangePercent": -2.62,
     "hitNetZero": "2049-06-13",
     "electricCarChangePercent": 6.80748259038342,
@@ -1431,9 +1431,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4882.41
+      "2050": 0.0
     },
+    "emissionsSlope": -4882.41,
     "historicalEmissionChangePercent": -4.01,
     "hitNetZero": "2043-06-01",
     "electricCarChangePercent": 6.895526708459269,
@@ -1500,9 +1500,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2125.55
+      "2050": 0.0
     },
+    "emissionsSlope": -2125.55,
     "historicalEmissionChangePercent": -2.63,
     "hitNetZero": "2046-08-15",
     "electricCarChangePercent": 6.98591620542075,
@@ -1569,9 +1569,9 @@
       "2047": 29647.8,
       "2048": 27542.17,
       "2049": 25436.54,
-      "2050": 23330.9,
-      "emissions_slope": -2105.63
+      "2050": 23330.9
     },
+    "emissionsSlope": -2105.63,
     "historicalEmissionChangePercent": -2.59,
     "hitNetZero": "2061-01-30",
     "electricCarChangePercent": 7.0132225621812,
@@ -1638,9 +1638,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2167.04
+      "2050": 0.0
     },
+    "emissionsSlope": -2167.04,
     "historicalEmissionChangePercent": -4.56,
     "hitNetZero": "2037-10-29",
     "electricCarChangePercent": 5.93649444660573,
@@ -1707,9 +1707,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -5366.21
+      "2050": 0.0
     },
+    "emissionsSlope": -5366.21,
     "historicalEmissionChangePercent": -6.21,
     "hitNetZero": "2032-06-17",
     "electricCarChangePercent": 4.87338583546767,
@@ -1776,9 +1776,9 @@
       "2047": 24917.63,
       "2048": 22997.01,
       "2049": 21076.39,
-      "2050": 19155.77,
-      "emissions_slope": -1920.62
+      "2050": 19155.77
     },
+    "emissionsSlope": -1920.62,
     "historicalEmissionChangePercent": -2.4,
     "hitNetZero": "2059-12-22",
     "electricCarChangePercent": 7.64708774035369,
@@ -1845,9 +1845,9 @@
       "2047": 8315.09,
       "2048": 7881.31,
       "2049": 7447.54,
-      "2050": 7013.77,
-      "emissions_slope": -433.77
+      "2050": 7013.77
     },
+    "emissionsSlope": -433.77,
     "historicalEmissionChangePercent": -2.01,
     "hitNetZero": "2066-03-03",
     "electricCarChangePercent": 5.6836540134795,
@@ -1914,9 +1914,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2362.69
+      "2050": 0.0
     },
+    "emissionsSlope": -2362.69,
     "historicalEmissionChangePercent": -7.03,
     "hitNetZero": "2036-10-03",
     "electricCarChangePercent": 9.82770233331337,
@@ -1983,9 +1983,9 @@
       "2047": 39058.31,
       "2048": 38196.69,
       "2049": 37335.06,
-      "2050": 36473.44,
-      "emissions_slope": -861.62
+      "2050": 36473.44
     },
+    "emissionsSlope": -861.62,
     "historicalEmissionChangePercent": -1.28,
     "hitNetZero": "2092-04-30",
     "electricCarChangePercent": 6.21465568826208,
@@ -2052,9 +2052,9 @@
       "2047": 2340.62,
       "2048": 1919.9,
       "2049": 1499.19,
-      "2050": 1078.47,
-      "emissions_slope": -420.72
+      "2050": 1078.47
     },
+    "emissionsSlope": -420.72,
     "historicalEmissionChangePercent": -2.21,
     "hitNetZero": "2052-07-24",
     "electricCarChangePercent": 2.8566946521492,
@@ -2121,9 +2121,9 @@
       "2047": 71207.91,
       "2048": 71183.3,
       "2049": 71158.7,
-      "2050": 71134.09,
-      "emissions_slope": -24.61
+      "2050": 71134.09
     },
+    "emissionsSlope": -24.61,
     "historicalEmissionChangePercent": 0.62,
     "hitNetZero": "4940-08-22",
     "electricCarChangePercent": 4.47538025410171,
@@ -2190,9 +2190,9 @@
       "2047": 8565.83,
       "2048": 6826.38,
       "2049": 5086.93,
-      "2050": 3347.48,
-      "emissions_slope": -1739.45
+      "2050": 3347.48
     },
+    "emissionsSlope": -1739.45,
     "historicalEmissionChangePercent": -2.78,
     "hitNetZero": "2051-12-04",
     "electricCarChangePercent": 8.22524439656511,
@@ -2259,9 +2259,9 @@
       "2047": 65107.07,
       "2048": 63531.4,
       "2049": 61955.72,
-      "2050": 60380.05,
-      "emissions_slope": -1575.67
+      "2050": 60380.05
     },
+    "emissionsSlope": -1575.67,
     "historicalEmissionChangePercent": -1.16,
     "hitNetZero": "2088-04-26",
     "electricCarChangePercent": 5.90075943571365,
@@ -2328,9 +2328,9 @@
       "2047": 1147.15,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1286.82
+      "2050": 0.0
     },
+    "emissionsSlope": -1286.82,
     "historicalEmissionChangePercent": -3.18,
     "hitNetZero": "2047-11-22",
     "electricCarChangePercent": 5.285994417620779,
@@ -2397,9 +2397,9 @@
       "2047": 73335.77,
       "2048": 67613.46,
       "2049": 61891.15,
-      "2050": 56168.83,
-      "emissions_slope": -5722.31
+      "2050": 56168.83
     },
+    "emissionsSlope": -5722.31,
     "historicalEmissionChangePercent": -2.61,
     "hitNetZero": "2059-10-25",
     "electricCarChangePercent": 6.76993792060426,
@@ -2466,9 +2466,9 @@
       "2047": 67179.85,
       "2048": 60560.62,
       "2049": 53941.38,
-      "2050": 47322.14,
-      "emissions_slope": -6619.24
+      "2050": 47322.14
     },
+    "emissionsSlope": -6619.24,
     "historicalEmissionChangePercent": -2.54,
     "hitNetZero": "2057-02-24",
     "electricCarChangePercent": 7.61775345891364,
@@ -2535,9 +2535,9 @@
       "2047": 154599.99,
       "2048": 152492.06,
       "2049": 150384.12,
-      "2050": 148276.18,
-      "emissions_slope": -2107.94
+      "2050": 148276.18
     },
+    "emissionsSlope": -2107.94,
     "historicalEmissionChangePercent": -2.4,
     "hitNetZero": "2120-05-04",
     "electricCarChangePercent": 6.39549721285867,
@@ -2604,9 +2604,9 @@
       "2047": 16029.33,
       "2048": 15365.41,
       "2049": 14701.5,
-      "2050": 14037.58,
-      "emissions_slope": -663.92
+      "2050": 14037.58
     },
+    "emissionsSlope": -663.92,
     "historicalEmissionChangePercent": -2.06,
     "hitNetZero": "2071-02-22",
     "electricCarChangePercent": 5.985738250607779,
@@ -2673,9 +2673,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2248.41
+      "2050": 0.0
     },
+    "emissionsSlope": -2248.41,
     "historicalEmissionChangePercent": -4.94,
     "hitNetZero": "2037-10-22",
     "electricCarChangePercent": 6.10250602812023,
@@ -2742,9 +2742,9 @@
       "2047": 101115.87,
       "2048": 95695.59,
       "2049": 90275.31,
-      "2050": 84855.03,
-      "emissions_slope": -5420.28
+      "2050": 84855.03
     },
+    "emissionsSlope": -5420.28,
     "historicalEmissionChangePercent": -1.66,
     "hitNetZero": "2065-08-28",
     "electricCarChangePercent": 6.44013360901825,
@@ -2811,9 +2811,9 @@
       "2047": 144030.63,
       "2048": 141555.03,
       "2049": 139079.43,
-      "2050": 136603.84,
-      "emissions_slope": -2475.6
+      "2050": 136603.84
     },
+    "emissionsSlope": -2475.6,
     "historicalEmissionChangePercent": -1.46,
     "hitNetZero": "2105-03-07",
     "electricCarChangePercent": 5.55048533178617,
@@ -2880,9 +2880,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -5538.58
+      "2050": 0.0
     },
+    "emissionsSlope": -5538.58,
     "historicalEmissionChangePercent": -4.22,
     "hitNetZero": "2043-04-19",
     "electricCarChangePercent": 7.56730380645653,
@@ -2949,9 +2949,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2419.54
+      "2050": 0.0
     },
+    "emissionsSlope": -2419.54,
     "historicalEmissionChangePercent": -4.53,
     "hitNetZero": "2038-05-26",
     "electricCarChangePercent": 4.10005137983519,
@@ -3018,9 +3018,9 @@
       "2047": 27119.95,
       "2048": 24487.43,
       "2049": 21854.91,
-      "2050": 19222.38,
-      "emissions_slope": -2632.52
+      "2050": 19222.38
     },
+    "emissionsSlope": -2632.52,
     "historicalEmissionChangePercent": -2.22,
     "hitNetZero": "2057-04-21",
     "electricCarChangePercent": 6.15469369234126,
@@ -3087,9 +3087,9 @@
       "2047": 34382.5,
       "2048": 32505.8,
       "2049": 30629.1,
-      "2050": 28752.4,
-      "emissions_slope": -1876.7
+      "2050": 28752.4
     },
+    "emissionsSlope": -1876.7,
     "historicalEmissionChangePercent": -2.33,
     "hitNetZero": "2065-04-28",
     "electricCarChangePercent": 6.46349523429383,
@@ -3156,9 +3156,9 @@
       "2047": 1161.76,
       "2048": 309.31,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -852.45
+      "2050": 0.0
     },
+    "emissionsSlope": -852.45,
     "historicalEmissionChangePercent": -3.19,
     "hitNetZero": "2048-05-12",
     "electricCarChangePercent": 6.4297143599435005,
@@ -3225,9 +3225,9 @@
       "2047": 37417.03,
       "2048": 37352.2,
       "2049": 37287.36,
-      "2050": 37222.53,
-      "emissions_slope": -64.83
+      "2050": 37222.53
     },
+    "emissionsSlope": -64.83,
     "historicalEmissionChangePercent": -0.73,
     "hitNetZero": "2624-02-11",
     "electricCarChangePercent": 4.80209131303898,
@@ -3294,9 +3294,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1430.49
+      "2050": 0.0
     },
+    "emissionsSlope": -1430.49,
     "historicalEmissionChangePercent": -4.1,
     "hitNetZero": "2042-09-27",
     "electricCarChangePercent": 7.63644321733981,
@@ -3363,9 +3363,9 @@
       "2047": 41149.15,
       "2048": 38657.28,
       "2049": 36165.41,
-      "2050": 33673.53,
-      "emissions_slope": -2491.87
+      "2050": 33673.53
     },
+    "emissionsSlope": -2491.87,
     "historicalEmissionChangePercent": -2.31,
     "hitNetZero": "2063-07-07",
     "electricCarChangePercent": 7.8406120779887205,
@@ -3432,9 +3432,9 @@
       "2047": 12171.35,
       "2048": 11145.06,
       "2049": 10118.78,
-      "2050": 9092.49,
-      "emissions_slope": -1026.28
+      "2050": 9092.49
     },
+    "emissionsSlope": -1026.28,
     "historicalEmissionChangePercent": -2.93,
     "hitNetZero": "2058-11-10",
     "electricCarChangePercent": 7.676841424591591,
@@ -3501,9 +3501,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1540.59
+      "2050": 0.0
     },
+    "emissionsSlope": -1540.59,
     "historicalEmissionChangePercent": -3.95,
     "hitNetZero": "2039-03-01",
     "electricCarChangePercent": 8.36569876788916,
@@ -3570,9 +3570,9 @@
       "2047": 28822.4,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -79091.05
+      "2050": 0.0
     },
+    "emissionsSlope": -79091.05,
     "historicalEmissionChangePercent": -3.27,
     "hitNetZero": "2047-05-14",
     "electricCarChangePercent": 5.8423873013084595,
@@ -3639,9 +3639,9 @@
       "2047": 53706.72,
       "2048": 52946.0,
       "2049": 52185.28,
-      "2050": 51424.56,
-      "emissions_slope": -760.72
+      "2050": 51424.56
     },
+    "emissionsSlope": -760.72,
     "historicalEmissionChangePercent": -0.34,
     "hitNetZero": "2117-08-07",
     "electricCarChangePercent": 6.66070450107101,
@@ -3708,9 +3708,9 @@
       "2047": 27022.71,
       "2048": 26478.25,
       "2049": 25933.78,
-      "2050": 25389.31,
-      "emissions_slope": -544.47
+      "2050": 25389.31
     },
+    "emissionsSlope": -544.47,
     "historicalEmissionChangePercent": -1.34,
     "hitNetZero": "2096-08-18",
     "electricCarChangePercent": 7.00521931922093,
@@ -3777,9 +3777,9 @@
       "2047": 20570.46,
       "2048": 19907.13,
       "2049": 19243.79,
-      "2050": 18580.45,
-      "emissions_slope": -663.34
+      "2050": 18580.45
     },
+    "emissionsSlope": -663.34,
     "historicalEmissionChangePercent": -1.65,
     "hitNetZero": "2078-01-04",
     "electricCarChangePercent": 4.86878652714657,
@@ -3846,9 +3846,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -15134.97
+      "2050": 0.0
     },
+    "emissionsSlope": -15134.97,
     "historicalEmissionChangePercent": 0.1,
     "hitNetZero": "2045-12-25",
     "electricCarChangePercent": 6.56458642894467,
@@ -3915,9 +3915,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -12564.43
+      "2050": 0.0
     },
+    "emissionsSlope": -12564.43,
     "historicalEmissionChangePercent": -3.6,
     "hitNetZero": "2043-05-12",
     "electricCarChangePercent": 6.47950998330715,
@@ -3984,9 +3984,9 @@
       "2047": 1484152.85,
       "2048": 1458085.08,
       "2049": 1432017.31,
-      "2050": 1405949.55,
-      "emissions_slope": -26067.77
+      "2050": 1405949.55
     },
+    "emissionsSlope": -26067.77,
     "historicalEmissionChangePercent": -0.8,
     "hitNetZero": "2103-12-08",
     "electricCarChangePercent": 7.98495127233525,
@@ -4053,9 +4053,9 @@
       "2047": 110479.93,
       "2048": 109619.01,
       "2049": 108758.09,
-      "2050": 107897.17,
-      "emissions_slope": -860.92
+      "2050": 107897.17
     },
+    "emissionsSlope": -860.92,
     "historicalEmissionChangePercent": -0.59,
     "hitNetZero": "2175-04-30",
     "electricCarChangePercent": 6.44215141259328,
@@ -4122,9 +4122,9 @@
       "2047": 31568.45,
       "2048": 30897.14,
       "2049": 30225.84,
-      "2050": 29554.54,
-      "emissions_slope": -671.3
+      "2050": 29554.54
     },
+    "emissionsSlope": -671.3,
     "historicalEmissionChangePercent": -1.09,
     "hitNetZero": "2094-01-10",
     "electricCarChangePercent": 5.19751189199658,
@@ -4191,9 +4191,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3462.22
+      "2050": 0.0
     },
+    "emissionsSlope": -3462.22,
     "historicalEmissionChangePercent": -3.8,
     "hitNetZero": "2042-03-25",
     "electricCarChangePercent": 3.3898791397260903,
@@ -4260,9 +4260,9 @@
       "2047": 2903.63,
       "2048": 644.72,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2258.92
+      "2050": 0.0
     },
+    "emissionsSlope": -2258.92,
     "historicalEmissionChangePercent": -3.34,
     "hitNetZero": "2048-04-14",
     "electricCarChangePercent": 6.773726521134581,
@@ -4329,9 +4329,9 @@
       "2047": 30681.86,
       "2048": 30245.6,
       "2049": 29809.34,
-      "2050": 29373.09,
-      "emissions_slope": -436.26
+      "2050": 29373.09
     },
+    "emissionsSlope": -436.26,
     "historicalEmissionChangePercent": -1.71,
     "hitNetZero": "2117-05-01",
     "electricCarChangePercent": 7.3340101125498105,
@@ -4398,9 +4398,9 @@
       "2047": 170147.84,
       "2048": 161628.73,
       "2049": 153109.62,
-      "2050": 144590.5,
-      "emissions_slope": -8519.11
+      "2050": 144590.5
     },
+    "emissionsSlope": -8519.11,
     "historicalEmissionChangePercent": -2.26,
     "hitNetZero": "2066-12-21",
     "electricCarChangePercent": 7.1602626397379705,
@@ -4467,9 +4467,9 @@
       "2047": 59099.57,
       "2048": 58153.61,
       "2049": 57207.65,
-      "2050": 56261.68,
-      "emissions_slope": -945.96
+      "2050": 56261.68
     },
+    "emissionsSlope": -945.96,
     "historicalEmissionChangePercent": -0.04,
     "hitNetZero": "2109-06-23",
     "electricCarChangePercent": 5.828709712820411,
@@ -4536,9 +4536,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -5804.01
+      "2050": 0.0
     },
+    "emissionsSlope": -5804.01,
     "historicalEmissionChangePercent": -3.74,
     "hitNetZero": "2043-04-04",
     "electricCarChangePercent": 6.855617061161411,
@@ -4605,9 +4605,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1660.14
+      "2050": 0.0
     },
+    "emissionsSlope": -1660.14,
     "historicalEmissionChangePercent": -4.6,
     "hitNetZero": "2039-03-27",
     "electricCarChangePercent": 4.87359768547496,
@@ -4674,9 +4674,9 @@
       "2047": 14285.81,
       "2048": 12043.67,
       "2049": 9801.52,
-      "2050": 7559.38,
-      "emissions_slope": -2242.14
+      "2050": 7559.38
     },
+    "emissionsSlope": -2242.14,
     "historicalEmissionChangePercent": -2.89,
     "hitNetZero": "2053-05-16",
     "electricCarChangePercent": 6.90889589561377,
@@ -4743,9 +4743,9 @@
       "2047": 69957.87,
       "2048": 69768.29,
       "2049": 69578.71,
-      "2050": 69389.13,
-      "emissions_slope": -189.58
+      "2050": 69389.13
     },
+    "emissionsSlope": -189.58,
     "historicalEmissionChangePercent": -0.28,
     "hitNetZero": "2416-01-06",
     "electricCarChangePercent": 7.10713757894499,
@@ -4812,9 +4812,9 @@
       "2047": 292093.8,
       "2048": 284212.5,
       "2049": 276331.19,
-      "2050": 268449.89,
-      "emissions_slope": -7881.3
+      "2050": 268449.89
     },
+    "emissionsSlope": -7881.3,
     "historicalEmissionChangePercent": -1.48,
     "hitNetZero": "2084-01-23",
     "electricCarChangePercent": 6.5783864545003805,
@@ -4881,9 +4881,9 @@
       "2047": 50744.39,
       "2048": 50116.87,
       "2049": 49489.35,
-      "2050": 48861.84,
-      "emissions_slope": -627.52
+      "2050": 48861.84
     },
+    "emissionsSlope": -627.52,
     "historicalEmissionChangePercent": -0.46,
     "hitNetZero": "2127-11-12",
     "electricCarChangePercent": 6.92858505036848,
@@ -4950,9 +4950,9 @@
       "2047": 20935.17,
       "2048": 19792.25,
       "2049": 18649.32,
-      "2050": 17506.4,
-      "emissions_slope": -1142.92
+      "2050": 17506.4
     },
+    "emissionsSlope": -1142.92,
     "historicalEmissionChangePercent": -1.97,
     "hitNetZero": "2065-04-26",
     "electricCarChangePercent": 7.26085114233007,
@@ -5019,9 +5019,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3668.93
+      "2050": 0.0
     },
+    "emissionsSlope": -3668.93,
     "historicalEmissionChangePercent": -3.17,
     "hitNetZero": "2046-06-04",
     "electricCarChangePercent": 4.63910902108226,
@@ -5088,9 +5088,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7817.53
+      "2050": 0.0
     },
+    "emissionsSlope": -7817.53,
     "historicalEmissionChangePercent": -5.03,
     "hitNetZero": "2038-07-24",
     "electricCarChangePercent": 6.93432735574089,
@@ -5157,9 +5157,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7130.72
+      "2050": 0.0
     },
+    "emissionsSlope": -7130.72,
     "historicalEmissionChangePercent": -3.83,
     "hitNetZero": "2043-11-17",
     "electricCarChangePercent": 7.4042950081483205,
@@ -5226,9 +5226,9 @@
       "2047": 20822.78,
       "2048": 18709.65,
       "2049": 16596.53,
-      "2050": 14483.4,
-      "emissions_slope": -2113.13
+      "2050": 14483.4
     },
+    "emissionsSlope": -2113.13,
     "historicalEmissionChangePercent": -2.15,
     "hitNetZero": "2056-11-07",
     "electricCarChangePercent": 5.13408299427749,
@@ -5295,9 +5295,9 @@
       "2047": 4365.49,
       "2048": 2356.66,
       "2049": 347.84,
-      "2050": 0.0,
-      "emissions_slope": -2008.83
+      "2050": 0.0
     },
+    "emissionsSlope": -2008.83,
     "historicalEmissionChangePercent": -3.25,
     "hitNetZero": "2049-03-05",
     "electricCarChangePercent": 5.5198144978572,
@@ -5364,9 +5364,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1592.88
+      "2050": 0.0
     },
+    "emissionsSlope": -1592.88,
     "historicalEmissionChangePercent": -4.01,
     "hitNetZero": "2042-09-26",
     "electricCarChangePercent": 3.3607827584120002,
@@ -5433,9 +5433,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -8132.79
+      "2050": 0.0
     },
+    "emissionsSlope": -8132.79,
     "historicalEmissionChangePercent": -8.89,
     "hitNetZero": "2028-04-26",
     "electricCarChangePercent": 6.41841784545073,
@@ -5502,9 +5502,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3892.09
+      "2050": 0.0
     },
+    "emissionsSlope": -3892.09,
     "historicalEmissionChangePercent": -4.18,
     "hitNetZero": "2041-02-07",
     "electricCarChangePercent": 6.849453734229501,
@@ -5571,9 +5571,9 @@
       "2047": 81701.6,
       "2048": 79638.39,
       "2049": 77575.18,
-      "2050": 75511.98,
-      "emissions_slope": -2063.21
+      "2050": 75511.98
     },
+    "emissionsSlope": -2063.21,
     "historicalEmissionChangePercent": -1.66,
     "hitNetZero": "2086-08-07",
     "electricCarChangePercent": 8.61808625856734,
@@ -5646,9 +5646,9 @@
       "2047": 128650.85,
       "2048": 123706.0,
       "2049": 118761.14,
-      "2050": 113816.29,
-      "emissions_slope": -4944.85
+      "2050": 113816.29
     },
+    "emissionsSlope": -4944.85,
     "historicalEmissionChangePercent": -1.89,
     "hitNetZero": "2073-01-07",
     "electricCarChangePercent": 5.74772230490164,
@@ -5715,9 +5715,9 @@
       "2047": 17463.5,
       "2048": 15483.37,
       "2049": 13503.24,
-      "2050": 11523.1,
-      "emissions_slope": -1980.13
+      "2050": 11523.1
     },
+    "emissionsSlope": -1980.13,
     "historicalEmissionChangePercent": -3.23,
     "hitNetZero": "2055-10-27",
     "electricCarChangePercent": 7.55978078226403,
@@ -5784,9 +5784,9 @@
       "2047": 75443.45,
       "2048": 70285.69,
       "2049": 65127.93,
-      "2050": 59970.17,
-      "emissions_slope": -5157.76
+      "2050": 59970.17
     },
+    "emissionsSlope": -5157.76,
     "historicalEmissionChangePercent": -3.05,
     "hitNetZero": "2061-08-17",
     "electricCarChangePercent": 7.22967217423371,
@@ -5853,9 +5853,9 @@
       "2047": 4901.72,
       "2048": 3551.32,
       "2049": 2200.93,
-      "2050": 850.54,
-      "emissions_slope": -1350.39
+      "2050": 850.54
     },
+    "emissionsSlope": -1350.39,
     "historicalEmissionChangePercent": -2.91,
     "hitNetZero": "2050-08-18",
     "electricCarChangePercent": 2.85446422086602,
@@ -5922,9 +5922,9 @@
       "2047": 47126.38,
       "2048": 45034.85,
       "2049": 42943.31,
-      "2050": 40851.77,
-      "emissions_slope": -2091.54
+      "2050": 40851.77
     },
+    "emissionsSlope": -2091.54,
     "historicalEmissionChangePercent": -1.57,
     "hitNetZero": "2069-07-14",
     "electricCarChangePercent": 6.95994589229016,
@@ -5991,9 +5991,9 @@
       "2047": 24760.51,
       "2048": 23020.7,
       "2049": 21280.89,
-      "2050": 19541.08,
-      "emissions_slope": -1739.81
+      "2050": 19541.08
     },
+    "emissionsSlope": -1739.81,
     "historicalEmissionChangePercent": -2.31,
     "hitNetZero": "2061-03-26",
     "electricCarChangePercent": 6.04627071228297,
@@ -6060,9 +6060,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2177.65
+      "2050": 0.0
     },
+    "emissionsSlope": -2177.65,
     "historicalEmissionChangePercent": -4.96,
     "hitNetZero": "2039-07-13",
     "electricCarChangePercent": 5.43591264769437,
@@ -6129,9 +6129,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3240.87
+      "2050": 0.0
     },
+    "emissionsSlope": -3240.87,
     "historicalEmissionChangePercent": -1.8,
     "hitNetZero": "2045-07-07",
     "electricCarChangePercent": 8.08004429749561,
@@ -6198,9 +6198,9 @@
       "2047": 142857.18,
       "2048": 129841.76,
       "2049": 116826.35,
-      "2050": 103810.94,
-      "emissions_slope": -13015.41
+      "2050": 103810.94
     },
+    "emissionsSlope": -13015.41,
     "historicalEmissionChangePercent": -2.7,
     "hitNetZero": "2057-12-23",
     "electricCarChangePercent": 5.59217660313113,
@@ -6267,9 +6267,9 @@
       "2047": 25539.63,
       "2048": 23354.14,
       "2049": 21168.65,
-      "2050": 18983.15,
-      "emissions_slope": -2185.49
+      "2050": 18983.15
     },
+    "emissionsSlope": -2185.49,
     "historicalEmissionChangePercent": -2.14,
     "hitNetZero": "2058-09-08",
     "electricCarChangePercent": 6.30837051700235,
@@ -6336,9 +6336,9 @@
       "2047": 8346.73,
       "2048": 693.84,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7652.89
+      "2050": 0.0
     },
+    "emissionsSlope": -7652.89,
     "historicalEmissionChangePercent": -3.2,
     "hitNetZero": "2048-02-03",
     "electricCarChangePercent": 5.77893783912649,
@@ -6405,9 +6405,9 @@
       "2047": 6390.44,
       "2048": 5534.68,
       "2049": 4678.91,
-      "2050": 3823.15,
-      "emissions_slope": -855.77
+      "2050": 3823.15
     },
+    "emissionsSlope": -855.77,
     "historicalEmissionChangePercent": -2.68,
     "hitNetZero": "2054-06-20",
     "electricCarChangePercent": 5.99318176790592,
@@ -6474,9 +6474,9 @@
       "2047": 63030.22,
       "2048": 60735.75,
       "2049": 58441.28,
-      "2050": 56146.81,
-      "emissions_slope": -2294.47
+      "2050": 56146.81
     },
+    "emissionsSlope": -2294.47,
     "historicalEmissionChangePercent": 4.24,
     "hitNetZero": "2074-06-21",
     "electricCarChangePercent": 5.25222111067745,
@@ -6543,9 +6543,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -6931.99
+      "2050": 0.0
     },
+    "emissionsSlope": -6931.99,
     "historicalEmissionChangePercent": -5.08,
     "hitNetZero": "2035-02-10",
     "electricCarChangePercent": 6.765440670778,
@@ -6612,9 +6612,9 @@
       "2047": 6801.8,
       "2048": 961.45,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -5840.35
+      "2050": 0.0
     },
+    "emissionsSlope": -5840.35,
     "historicalEmissionChangePercent": -3.22,
     "hitNetZero": "2048-03-01",
     "electricCarChangePercent": 6.664799715407679,
@@ -6681,9 +6681,9 @@
       "2047": 37922.85,
       "2048": 30130.02,
       "2049": 22337.19,
-      "2050": 14544.36,
-      "emissions_slope": -7792.83
+      "2050": 14544.36
     },
+    "emissionsSlope": -7792.83,
     "historicalEmissionChangePercent": -2.62,
     "hitNetZero": "2051-11-13",
     "electricCarChangePercent": 4.68514112418108,
@@ -6750,9 +6750,9 @@
       "2047": 46121.56,
       "2048": 43232.45,
       "2049": 40343.33,
-      "2050": 37454.21,
-      "emissions_slope": -2889.12
+      "2050": 37454.21
     },
+    "emissionsSlope": -2889.12,
     "historicalEmissionChangePercent": -2.23,
     "hitNetZero": "2062-12-18",
     "electricCarChangePercent": 6.46345974779658,
@@ -6819,9 +6819,9 @@
       "2047": 33049.86,
       "2048": 32498.33,
       "2049": 31946.81,
-      "2050": 31395.28,
-      "emissions_slope": -551.53
+      "2050": 31395.28
     },
+    "emissionsSlope": -551.53,
     "historicalEmissionChangePercent": -0.86,
     "hitNetZero": "2106-12-04",
     "electricCarChangePercent": 7.450136951621531,
@@ -6888,9 +6888,9 @@
       "2047": 31658.65,
       "2048": 29583.77,
       "2049": 27508.89,
-      "2050": 25434.01,
-      "emissions_slope": -2074.88
+      "2050": 25434.01
     },
+    "emissionsSlope": -2074.88,
     "historicalEmissionChangePercent": -1.9,
     "hitNetZero": "2062-04-05",
     "electricCarChangePercent": 6.1558259794552,
@@ -6957,9 +6957,9 @@
       "2047": 544155.1,
       "2048": 538175.29,
       "2049": 532195.47,
-      "2050": 526215.65,
-      "emissions_slope": -5979.82
+      "2050": 526215.65
     },
+    "emissionsSlope": -5979.82,
     "historicalEmissionChangePercent": -0.16,
     "hitNetZero": "2137-12-31",
     "electricCarChangePercent": 4.4085691112436205,
@@ -7026,9 +7026,9 @@
       "2047": 40577.61,
       "2048": 38003.24,
       "2049": 35428.87,
-      "2050": 32854.51,
-      "emissions_slope": -2574.37
+      "2050": 32854.51
     },
+    "emissionsSlope": -2574.37,
     "historicalEmissionChangePercent": -1.86,
     "hitNetZero": "2062-10-06",
     "electricCarChangePercent": 5.98475550240637,
@@ -7095,9 +7095,9 @@
       "2047": 20729.92,
       "2048": 18721.97,
       "2049": 16714.02,
-      "2050": 14706.07,
-      "emissions_slope": -2007.95
+      "2050": 14706.07
     },
+    "emissionsSlope": -2007.95,
     "historicalEmissionChangePercent": -2.53,
     "hitNetZero": "2057-04-29",
     "electricCarChangePercent": 8.155645812418499,
@@ -7164,9 +7164,9 @@
       "2047": 31182.33,
       "2048": 28315.4,
       "2049": 25448.48,
-      "2050": 22581.55,
-      "emissions_slope": -2866.93
+      "2050": 22581.55
     },
+    "emissionsSlope": -2866.93,
     "historicalEmissionChangePercent": -2.06,
     "hitNetZero": "2057-11-16",
     "electricCarChangePercent": 8.91730147048531,
@@ -7233,9 +7233,9 @@
       "2047": 82966.52,
       "2048": 72913.64,
       "2049": 62860.77,
-      "2050": 52807.9,
-      "emissions_slope": -10052.87
+      "2050": 52807.9
     },
+    "emissionsSlope": -10052.87,
     "historicalEmissionChangePercent": -2.76,
     "hitNetZero": "2055-04-03",
     "electricCarChangePercent": 7.02280351772209,
@@ -7302,9 +7302,9 @@
       "2047": 32038.98,
       "2048": 28709.92,
       "2049": 25380.86,
-      "2050": 22051.8,
-      "emissions_slope": -3329.06
+      "2050": 22051.8
     },
+    "emissionsSlope": -3329.06,
     "historicalEmissionChangePercent": -2.13,
     "hitNetZero": "2056-08-15",
     "electricCarChangePercent": 5.821894474663121,
@@ -7371,9 +7371,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4311.08
+      "2050": 0.0
     },
+    "emissionsSlope": -4311.08,
     "historicalEmissionChangePercent": -4.56,
     "hitNetZero": "2037-02-28",
     "electricCarChangePercent": 7.389906677478971,
@@ -7440,9 +7440,9 @@
       "2047": 84428.02,
       "2048": 80002.01,
       "2049": 75576.0,
-      "2050": 71149.99,
-      "emissions_slope": -4426.01
+      "2050": 71149.99
     },
+    "emissionsSlope": -4426.01,
     "historicalEmissionChangePercent": -1.56,
     "hitNetZero": "2066-01-28",
     "electricCarChangePercent": 7.14850017716286,
@@ -7509,9 +7509,9 @@
       "2047": 64783.55,
       "2048": 59378.26,
       "2049": 53972.97,
-      "2050": 48567.67,
-      "emissions_slope": -5405.29
+      "2050": 48567.67
     },
+    "emissionsSlope": -5405.29,
     "historicalEmissionChangePercent": -2.56,
     "hitNetZero": "2058-12-26",
     "electricCarChangePercent": 8.20883915632305,
@@ -7578,9 +7578,9 @@
       "2047": 14808.39,
       "2048": 13747.24,
       "2049": 12686.08,
-      "2050": 11624.92,
-      "emissions_slope": -1061.16
+      "2050": 11624.92
     },
+    "emissionsSlope": -1061.16,
     "historicalEmissionChangePercent": -2.25,
     "hitNetZero": "2060-12-14",
     "electricCarChangePercent": 6.69809108004679,
@@ -7647,9 +7647,9 @@
       "2047": 65371.65,
       "2048": 63545.83,
       "2049": 61720.01,
-      "2050": 59894.19,
-      "emissions_slope": -1825.82
+      "2050": 59894.19
     },
+    "emissionsSlope": -1825.82,
     "historicalEmissionChangePercent": -2.27,
     "hitNetZero": "2082-10-21",
     "electricCarChangePercent": 5.8466637405141295,
@@ -7716,9 +7716,9 @@
       "2047": 20945.62,
       "2048": 18614.64,
       "2049": 16283.65,
-      "2050": 13952.66,
-      "emissions_slope": -2330.99
+      "2050": 13952.66
     },
+    "emissionsSlope": -2330.99,
     "historicalEmissionChangePercent": -2.62,
     "hitNetZero": "2055-12-26",
     "electricCarChangePercent": 8.13885486298426,
@@ -7785,9 +7785,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -17815.08
+      "2050": 0.0
     },
+    "emissionsSlope": -17815.08,
     "historicalEmissionChangePercent": -4.93,
     "hitNetZero": "2036-11-05",
     "electricCarChangePercent": 7.392303301312809,
@@ -7854,9 +7854,9 @@
       "2047": 58326.11,
       "2048": 54226.89,
       "2049": 50127.67,
-      "2050": 46028.45,
-      "emissions_slope": -4099.22
+      "2050": 46028.45
     },
+    "emissionsSlope": -4099.22,
     "historicalEmissionChangePercent": -2.31,
     "hitNetZero": "2061-03-25",
     "electricCarChangePercent": 6.45807664276304,
@@ -7923,9 +7923,9 @@
       "2047": 122848.55,
       "2048": 119030.68,
       "2049": 115212.81,
-      "2050": 111394.94,
-      "emissions_slope": -3817.87
+      "2050": 111394.94
     },
+    "emissionsSlope": -3817.87,
     "historicalEmissionChangePercent": -1.47,
     "hitNetZero": "2079-03-06",
     "electricCarChangePercent": 7.47859630009962,
@@ -7992,9 +7992,9 @@
       "2047": 9188.6,
       "2048": 8050.32,
       "2049": 6912.04,
-      "2050": 5773.75,
-      "emissions_slope": -1138.28
+      "2050": 5773.75
     },
+    "emissionsSlope": -1138.28,
     "historicalEmissionChangePercent": -2.83,
     "hitNetZero": "2055-01-27",
     "electricCarChangePercent": 5.87262736723478,
@@ -8061,9 +8061,9 @@
       "2047": 23691.57,
       "2048": 23057.16,
       "2049": 22422.75,
-      "2050": 21788.34,
-      "emissions_slope": -634.41
+      "2050": 21788.34
     },
+    "emissionsSlope": -634.41,
     "historicalEmissionChangePercent": -2.28,
     "hitNetZero": "2084-05-05",
     "electricCarChangePercent": 8.24835148577637,
@@ -8130,9 +8130,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2012.27
+      "2050": 0.0
     },
+    "emissionsSlope": -2012.27,
     "historicalEmissionChangePercent": -3.53,
     "hitNetZero": "2044-08-16",
     "electricCarChangePercent": 7.093027859187109,
@@ -8199,9 +8199,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3816.54
+      "2050": 0.0
     },
+    "emissionsSlope": -3816.54,
     "historicalEmissionChangePercent": -4.25,
     "hitNetZero": "2040-06-16",
     "electricCarChangePercent": 8.49043280087553,
@@ -8268,9 +8268,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1024.73
+      "2050": 0.0
     },
+    "emissionsSlope": -1024.73,
     "historicalEmissionChangePercent": -3.79,
     "hitNetZero": "2044-02-09",
     "electricCarChangePercent": 6.75868594699611,
@@ -8337,9 +8337,9 @@
       "2047": 24562.8,
       "2048": 24274.19,
       "2049": 23985.59,
-      "2050": 23696.98,
-      "emissions_slope": -288.6
+      "2050": 23696.98
     },
+    "emissionsSlope": -288.6,
     "historicalEmissionChangePercent": -0.04,
     "hitNetZero": "2132-02-09",
     "electricCarChangePercent": 8.161848168490419,
@@ -8406,9 +8406,9 @@
       "2047": 137835.82,
       "2048": 135787.3,
       "2049": 133738.78,
-      "2050": 131690.26,
-      "emissions_slope": -2048.52
+      "2050": 131690.26
     },
+    "emissionsSlope": -2048.52,
     "historicalEmissionChangePercent": -0.69,
     "hitNetZero": "2114-04-15",
     "electricCarChangePercent": 5.87459606644835,
@@ -8475,9 +8475,9 @@
       "2047": 29218.01,
       "2048": 28600.75,
       "2049": 27983.49,
-      "2050": 27366.23,
-      "emissions_slope": -617.26
+      "2050": 27366.23
     },
+    "emissionsSlope": -617.26,
     "historicalEmissionChangePercent": -3.49,
     "hitNetZero": "2094-05-03",
     "electricCarChangePercent": 7.24783921082003,
@@ -8544,9 +8544,9 @@
       "2047": 73999.38,
       "2048": 72351.9,
       "2049": 70704.42,
-      "2050": 69056.94,
-      "emissions_slope": -1647.48
+      "2050": 69056.94
     },
+    "emissionsSlope": -1647.48,
     "historicalEmissionChangePercent": -0.94,
     "hitNetZero": "2091-12-01",
     "electricCarChangePercent": 6.96528945376242,
@@ -8613,9 +8613,9 @@
       "2047": 430149.86,
       "2048": 421390.84,
       "2049": 412631.81,
-      "2050": 403872.78,
-      "emissions_slope": -8759.03
+      "2050": 403872.78
     },
+    "emissionsSlope": -8759.03,
     "historicalEmissionChangePercent": -1.17,
     "hitNetZero": "2096-02-09",
     "electricCarChangePercent": 7.25613061277325,
@@ -8682,9 +8682,9 @@
       "2047": 47789.96,
       "2048": 42175.45,
       "2049": 36560.93,
-      "2050": 30946.41,
-      "emissions_slope": -5614.52
+      "2050": 30946.41
     },
+    "emissionsSlope": -5614.52,
     "historicalEmissionChangePercent": -2.68,
     "hitNetZero": "2055-07-06",
     "electricCarChangePercent": 6.25820679537092,
@@ -8751,9 +8751,9 @@
       "2047": 12284.3,
       "2048": 9268.83,
       "2049": 6253.36,
-      "2050": 3237.89,
-      "emissions_slope": -3015.47
+      "2050": 3237.89
     },
+    "emissionsSlope": -3015.47,
     "historicalEmissionChangePercent": -3.07,
     "hitNetZero": "2051-01-27",
     "electricCarChangePercent": 4.67131788307227,
@@ -8820,9 +8820,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1401.02
+      "2050": 0.0
     },
+    "emissionsSlope": -1401.02,
     "historicalEmissionChangePercent": -5.15,
     "hitNetZero": "2042-02-13",
     "electricCarChangePercent": 6.68918863073736,
@@ -8889,9 +8889,9 @@
       "2047": 8344.54,
       "2048": 5490.35,
       "2049": 2636.16,
-      "2050": 0.0,
-      "emissions_slope": -2854.19
+      "2050": 0.0
     },
+    "emissionsSlope": -2854.19,
     "historicalEmissionChangePercent": -3.13,
     "hitNetZero": "2049-12-04",
     "electricCarChangePercent": 8.44631305603154,
@@ -8958,9 +8958,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -5221.17
+      "2050": 0.0
     },
+    "emissionsSlope": -5221.17,
     "historicalEmissionChangePercent": -6.66,
     "hitNetZero": "2032-05-10",
     "electricCarChangePercent": 6.72648929755778,
@@ -9027,9 +9027,9 @@
       "2047": 2617893.54,
       "2048": 2585804.86,
       "2049": 2553716.17,
-      "2050": 2521627.48,
-      "emissions_slope": -32088.69
+      "2050": 2521627.48
     },
+    "emissionsSlope": -32088.69,
     "historicalEmissionChangePercent": 3.02,
     "hitNetZero": "2128-07-31",
     "electricCarChangePercent": 6.97993783136247,
@@ -9096,9 +9096,9 @@
       "2047": 13052.07,
       "2048": 6046.51,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7005.57
+      "2050": 0.0
     },
+    "emissionsSlope": -7005.57,
     "historicalEmissionChangePercent": -3.44,
     "hitNetZero": "2048-11-11",
     "electricCarChangePercent": 8.99875125542655,
@@ -9165,9 +9165,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2565.92
+      "2050": 0.0
     },
+    "emissionsSlope": -2565.92,
     "historicalEmissionChangePercent": -3.43,
     "hitNetZero": "2044-02-01",
     "electricCarChangePercent": 7.0499893015574795,
@@ -9234,9 +9234,9 @@
       "2047": 1010336.63,
       "2048": 983805.1,
       "2049": 957273.57,
-      "2050": 930742.04,
-      "emissions_slope": -26531.53
+      "2050": 930742.04
     },
+    "emissionsSlope": -26531.53,
     "historicalEmissionChangePercent": 0.16,
     "hitNetZero": "2085-01-30",
     "electricCarChangePercent": 6.65180520364214,
@@ -9303,9 +9303,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -39525.78
+      "2050": 0.0
     },
+    "emissionsSlope": -39525.78,
     "historicalEmissionChangePercent": -5.82,
     "hitNetZero": "2040-05-09",
     "electricCarChangePercent": 6.17735261940581,
@@ -9372,9 +9372,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2033.25
+      "2050": 0.0
     },
+    "emissionsSlope": -2033.25,
     "historicalEmissionChangePercent": -3.95,
     "hitNetZero": "2043-10-30",
     "electricCarChangePercent": 7.9518424729558195,
@@ -9441,9 +9441,9 @@
       "2047": 1718.78,
       "2048": 1330.09,
       "2049": 941.39,
-      "2050": 552.7,
-      "emissions_slope": -388.69
+      "2050": 552.7
     },
+    "emissionsSlope": -388.69,
     "historicalEmissionChangePercent": -2.58,
     "hitNetZero": "2051-06-04",
     "electricCarChangePercent": 5.8361899628698,
@@ -9510,9 +9510,9 @@
       "2047": 63288.24,
       "2048": 60909.59,
       "2049": 58530.94,
-      "2050": 56152.29,
-      "emissions_slope": -2378.65
+      "2050": 56152.29
     },
+    "emissionsSlope": -2378.65,
     "historicalEmissionChangePercent": -1.92,
     "hitNetZero": "2073-08-10",
     "electricCarChangePercent": 5.90794791187464,
@@ -9579,9 +9579,9 @@
       "2047": 55527.54,
       "2048": 53475.22,
       "2049": 51422.89,
-      "2050": 49370.56,
-      "emissions_slope": -2052.33
+      "2050": 49370.56
     },
+    "emissionsSlope": -2052.33,
     "historicalEmissionChangePercent": -1.75,
     "hitNetZero": "2074-01-21",
     "electricCarChangePercent": 5.66596407314153,
@@ -9648,9 +9648,9 @@
       "2047": 13435.9,
       "2048": 11621.96,
       "2049": 9808.02,
-      "2050": 7994.08,
-      "emissions_slope": -1813.94
+      "2050": 7994.08
     },
+    "emissionsSlope": -1813.94,
     "historicalEmissionChangePercent": -2.77,
     "hitNetZero": "2054-05-29",
     "electricCarChangePercent": 7.2476836695503195,
@@ -9717,9 +9717,9 @@
       "2047": 48515.59,
       "2048": 47888.77,
       "2049": 47261.95,
-      "2050": 46635.13,
-      "emissions_slope": -626.82
+      "2050": 46635.13
     },
+    "emissionsSlope": -626.82,
     "historicalEmissionChangePercent": -1.05,
     "hitNetZero": "2124-05-25",
     "electricCarChangePercent": 6.276904830969671,
@@ -9786,9 +9786,9 @@
       "2047": 48439.07,
       "2048": 45044.14,
       "2049": 41649.2,
-      "2050": 38254.26,
-      "emissions_slope": -3394.94
+      "2050": 38254.26
     },
+    "emissionsSlope": -3394.94,
     "historicalEmissionChangePercent": -2.53,
     "hitNetZero": "2061-04-08",
     "electricCarChangePercent": 7.294698646652161,
@@ -9855,9 +9855,9 @@
       "2047": 7361.91,
       "2048": 5033.1,
       "2049": 2704.29,
-      "2050": 375.48,
-      "emissions_slope": -2328.81
+      "2050": 375.48
     },
+    "emissionsSlope": -2328.81,
     "historicalEmissionChangePercent": -3.01,
     "hitNetZero": "2050-02-28",
     "electricCarChangePercent": 6.88945339461479,
@@ -9924,9 +9924,9 @@
       "2047": 23375.47,
       "2048": 19657.68,
       "2049": 15939.89,
-      "2050": 12222.09,
-      "emissions_slope": -3717.79
+      "2050": 12222.09
     },
+    "emissionsSlope": -3717.79,
     "historicalEmissionChangePercent": -2.7,
     "hitNetZero": "2053-04-15",
     "electricCarChangePercent": 6.10986706199071,
@@ -9993,9 +9993,9 @@
       "2047": 10022.41,
       "2048": 9599.44,
       "2049": 9176.47,
-      "2050": 8753.49,
-      "emissions_slope": -422.97
+      "2050": 8753.49
     },
+    "emissionsSlope": -422.97,
     "historicalEmissionChangePercent": -2.12,
     "hitNetZero": "2070-09-11",
     "electricCarChangePercent": 7.480083149837061,
@@ -10062,9 +10062,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7157.81
+      "2050": 0.0
     },
+    "emissionsSlope": -7157.81,
     "historicalEmissionChangePercent": -1.64,
     "hitNetZero": "2033-06-22",
     "electricCarChangePercent": 8.29091303883811,
@@ -10131,9 +10131,9 @@
       "2047": 747.3,
       "2048": 295.55,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -451.74
+      "2050": 0.0
     },
+    "emissionsSlope": -451.74,
     "historicalEmissionChangePercent": 2.17,
     "hitNetZero": "2048-08-26",
     "electricCarChangePercent": 5.85393790030991,
@@ -10200,9 +10200,9 @@
       "2047": 13374.36,
       "2048": 8423.37,
       "2049": 3472.37,
-      "2050": 0.0,
-      "emissions_slope": -4951.0
+      "2050": 0.0
     },
+    "emissionsSlope": -4951.0,
     "historicalEmissionChangePercent": -3.2,
     "hitNetZero": "2049-09-13",
     "electricCarChangePercent": 8.19163660804733,
@@ -10269,9 +10269,9 @@
       "2047": 38672.46,
       "2048": 36552.26,
       "2049": 34432.06,
-      "2050": 32311.85,
-      "emissions_slope": -2120.2
+      "2050": 32311.85
     },
+    "emissionsSlope": -2120.2,
     "historicalEmissionChangePercent": -1.94,
     "hitNetZero": "2065-03-29",
     "electricCarChangePercent": 6.71257853557231,
@@ -10338,9 +10338,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -43925.58
+      "2050": 0.0
     },
+    "emissionsSlope": -43925.58,
     "historicalEmissionChangePercent": -10.61,
     "hitNetZero": "2026-01-18",
     "electricCarChangePercent": 7.35086264908653,
@@ -10407,9 +10407,9 @@
       "2047": 47541.56,
       "2048": 44698.61,
       "2049": 41855.66,
-      "2050": 39012.71,
-      "emissions_slope": -2842.95
+      "2050": 39012.71
     },
+    "emissionsSlope": -2842.95,
     "historicalEmissionChangePercent": -1.97,
     "hitNetZero": "2063-09-21",
     "electricCarChangePercent": 8.73121919552266,
@@ -10476,9 +10476,9 @@
       "2047": 498.62,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1057.55
+      "2050": 0.0
     },
+    "emissionsSlope": -1057.55,
     "historicalEmissionChangePercent": -3.17,
     "hitNetZero": "2047-06-22",
     "electricCarChangePercent": 7.04852020936793,
@@ -10545,9 +10545,9 @@
       "2047": 2552.82,
       "2048": 1838.68,
       "2049": 1124.53,
-      "2050": 410.39,
-      "emissions_slope": -714.14
+      "2050": 410.39
     },
+    "emissionsSlope": -714.14,
     "historicalEmissionChangePercent": -2.88,
     "hitNetZero": "2050-07-29",
     "electricCarChangePercent": 7.887230770855649,
@@ -10614,9 +10614,9 @@
       "2047": 9349.71,
       "2048": 7607.67,
       "2049": 5865.62,
-      "2050": 4123.58,
-      "emissions_slope": -1742.04
+      "2050": 4123.58
     },
+    "emissionsSlope": -1742.04,
     "historicalEmissionChangePercent": -2.93,
     "hitNetZero": "2052-05-13",
     "electricCarChangePercent": 7.44170311262031,
@@ -10683,9 +10683,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1971.01
+      "2050": 0.0
     },
+    "emissionsSlope": -1971.01,
     "historicalEmissionChangePercent": -2.86,
     "hitNetZero": "2042-08-09",
     "electricCarChangePercent": 8.995418912079261,
@@ -10752,9 +10752,9 @@
       "2047": 385326.55,
       "2048": 375545.23,
       "2049": 365763.92,
-      "2050": 355982.6,
-      "emissions_slope": -9781.31
+      "2050": 355982.6
     },
+    "emissionsSlope": -9781.31,
     "historicalEmissionChangePercent": -1.19,
     "hitNetZero": "2086-05-24",
     "electricCarChangePercent": 6.70208328422957,
@@ -10821,9 +10821,9 @@
       "2047": 67244.13,
       "2048": 61933.15,
       "2049": 56622.17,
-      "2050": 51311.19,
-      "emissions_slope": -5310.98
+      "2050": 51311.19
     },
+    "emissionsSlope": -5310.98,
     "historicalEmissionChangePercent": -2.42,
     "hitNetZero": "2059-08-30",
     "electricCarChangePercent": 6.21685897449517,
@@ -10890,9 +10890,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -894.52
+      "2050": 0.0
     },
+    "emissionsSlope": -894.52,
     "historicalEmissionChangePercent": -4.91,
     "hitNetZero": "2041-04-14",
     "electricCarChangePercent": 9.42564666204286,
@@ -10959,9 +10959,9 @@
       "2047": 112792.21,
       "2048": 113491.44,
       "2049": 114190.68,
-      "2050": 114889.92,
-      "emissions_slope": 699.24
+      "2050": 114889.92
     },
+    "emissionsSlope": 699.24,
     "historicalEmissionChangePercent": 1.58,
     "hitNetZero": null,
     "electricCarChangePercent": 5.56537512500007,
@@ -11028,9 +11028,9 @@
       "2047": 3244.81,
       "2048": 1783.09,
       "2049": 321.38,
-      "2050": 0.0,
-      "emissions_slope": -1461.72
+      "2050": 0.0
     },
+    "emissionsSlope": -1461.72,
     "historicalEmissionChangePercent": -2.69,
     "hitNetZero": "2049-03-22",
     "electricCarChangePercent": 6.2373211306139,
@@ -11097,9 +11097,9 @@
       "2047": 112553.66,
       "2048": 106162.72,
       "2049": 99771.78,
-      "2050": 93380.84,
-      "emissions_slope": -6390.94
+      "2050": 93380.84
     },
+    "emissionsSlope": -6390.94,
     "historicalEmissionChangePercent": -2.34,
     "hitNetZero": "2064-08-11",
     "electricCarChangePercent": 6.62893643674988,
@@ -11166,9 +11166,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -10637.19
+      "2050": 0.0
     },
+    "emissionsSlope": -10637.19,
     "historicalEmissionChangePercent": -2.74,
     "hitNetZero": "2040-10-29",
     "electricCarChangePercent": 6.908096055100501,
@@ -11235,9 +11235,9 @@
       "2047": 20050.16,
       "2048": 16833.06,
       "2049": 13615.95,
-      "2050": 10398.84,
-      "emissions_slope": -3217.11
+      "2050": 10398.84
     },
+    "emissionsSlope": -3217.11,
     "historicalEmissionChangePercent": -2.56,
     "hitNetZero": "2053-03-26",
     "electricCarChangePercent": 6.17095157924842,
@@ -11304,9 +11304,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1128.99
+      "2050": 0.0
     },
+    "emissionsSlope": -1128.99,
     "historicalEmissionChangePercent": -3.56,
     "hitNetZero": "2040-05-09",
     "electricCarChangePercent": 5.73120203383361,
@@ -11373,9 +11373,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1447.66
+      "2050": 0.0
     },
+    "emissionsSlope": -1447.66,
     "historicalEmissionChangePercent": -3.22,
     "hitNetZero": "2046-03-13",
     "electricCarChangePercent": 4.969828848814091,
@@ -11442,9 +11442,9 @@
       "2047": 2452.35,
       "2048": 1657.29,
       "2049": 862.24,
-      "2050": 67.18,
-      "emissions_slope": -795.06
+      "2050": 67.18
     },
+    "emissionsSlope": -795.06,
     "historicalEmissionChangePercent": -3.17,
     "hitNetZero": "2050-01-31",
     "electricCarChangePercent": 7.46176830588829,
@@ -11511,9 +11511,9 @@
       "2047": 37303.89,
       "2048": 36689.42,
       "2049": 36074.94,
-      "2050": 35460.46,
-      "emissions_slope": -614.48
+      "2050": 35460.46
     },
+    "emissionsSlope": -614.48,
     "historicalEmissionChangePercent": -1.59,
     "hitNetZero": "2107-09-16",
     "electricCarChangePercent": 7.4140568973986705,
@@ -11580,9 +11580,9 @@
       "2047": 6485.81,
       "2048": 5039.49,
       "2049": 3593.17,
-      "2050": 2146.84,
-      "emissions_slope": -1446.32
+      "2050": 2146.84
     },
+    "emissionsSlope": -1446.32,
     "historicalEmissionChangePercent": -1.98,
     "hitNetZero": "2051-06-26",
     "electricCarChangePercent": 5.63002021424556,
@@ -11649,9 +11649,9 @@
       "2047": 22042.21,
       "2048": 19212.26,
       "2049": 16382.32,
-      "2050": 13552.37,
-      "emissions_slope": -2829.95
+      "2050": 13552.37
     },
+    "emissionsSlope": -2829.95,
     "historicalEmissionChangePercent": -2.66,
     "hitNetZero": "2054-10-15",
     "electricCarChangePercent": 6.01000044493075,
@@ -11718,9 +11718,9 @@
       "2047": 6857.82,
       "2048": 5376.18,
       "2049": 3894.54,
-      "2050": 2412.89,
-      "emissions_slope": -1481.64
+      "2050": 2412.89
     },
+    "emissionsSlope": -1481.64,
     "historicalEmissionChangePercent": -3.02,
     "hitNetZero": "2051-08-18",
     "electricCarChangePercent": 7.58934504759922,
@@ -11787,9 +11787,9 @@
       "2047": 1795490.81,
       "2048": 1800695.32,
       "2049": 1805899.84,
-      "2050": 1811104.35,
-      "emissions_slope": 5204.51
+      "2050": 1811104.35
     },
+    "emissionsSlope": 5204.51,
     "historicalEmissionChangePercent": -1.96,
     "hitNetZero": null,
     "electricCarChangePercent": 6.91171989661368,
@@ -11856,9 +11856,9 @@
       "2047": 221148.13,
       "2048": 227051.31,
       "2049": 232954.48,
-      "2050": 238857.66,
-      "emissions_slope": 5903.18
+      "2050": 238857.66
     },
+    "emissionsSlope": 5903.18,
     "historicalEmissionChangePercent": 9.35,
     "hitNetZero": null,
     "electricCarChangePercent": 4.97532048136044,
@@ -11925,9 +11925,9 @@
       "2047": 6708.48,
       "2048": 5199.05,
       "2049": 3689.62,
-      "2050": 2180.18,
-      "emissions_slope": -1509.43
+      "2050": 2180.18
     },
+    "emissionsSlope": -1509.43,
     "historicalEmissionChangePercent": -2.95,
     "hitNetZero": "2051-06-12",
     "electricCarChangePercent": 8.13241090831379,
@@ -11994,9 +11994,9 @@
       "2047": 19237.76,
       "2048": 17967.28,
       "2049": 16696.79,
-      "2050": 15426.3,
-      "emissions_slope": -1270.49
+      "2050": 15426.3
     },
+    "emissionsSlope": -1270.49,
     "historicalEmissionChangePercent": -2.95,
     "hitNetZero": "2062-02-21",
     "electricCarChangePercent": 5.54580161094576,
@@ -12063,9 +12063,9 @@
       "2047": 24100.11,
       "2048": 18325.27,
       "2049": 12550.42,
-      "2050": 6775.57,
-      "emissions_slope": -5774.85
+      "2050": 6775.57
     },
+    "emissionsSlope": -5774.85,
     "historicalEmissionChangePercent": -2.95,
     "hitNetZero": "2051-03-05",
     "electricCarChangePercent": 7.76303797197913,
@@ -12132,9 +12132,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2169.85
+      "2050": 0.0
     },
+    "emissionsSlope": -2169.85,
     "historicalEmissionChangePercent": -4.84,
     "hitNetZero": "2035-08-08",
     "electricCarChangePercent": 4.1954737995793705,
@@ -12201,9 +12201,9 @@
       "2047": 26654.13,
       "2048": 25113.8,
       "2049": 23573.47,
-      "2050": 22033.13,
-      "emissions_slope": -1540.33
+      "2050": 22033.13
     },
+    "emissionsSlope": -1540.33,
     "historicalEmissionChangePercent": -2.14,
     "hitNetZero": "2064-04-21",
     "electricCarChangePercent": 9.415426301608381,
@@ -12270,9 +12270,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4360.22
+      "2050": 0.0
     },
+    "emissionsSlope": -4360.22,
     "historicalEmissionChangePercent": -4.1,
     "hitNetZero": "2042-10-04",
     "electricCarChangePercent": 6.40701218532918,
@@ -12339,9 +12339,9 @@
       "2047": 141463.94,
       "2048": 139489.18,
       "2049": 137514.43,
-      "2050": 135539.67,
-      "emissions_slope": -1974.75
+      "2050": 135539.67
     },
+    "emissionsSlope": -1974.75,
     "historicalEmissionChangePercent": -0.37,
     "hitNetZero": "2118-08-21",
     "electricCarChangePercent": 5.692547589055231,
@@ -12408,9 +12408,9 @@
       "2047": 56507.97,
       "2048": 54550.35,
       "2049": 52592.72,
-      "2050": 50635.09,
-      "emissions_slope": -1957.63
+      "2050": 50635.09
     },
+    "emissionsSlope": -1957.63,
     "historicalEmissionChangePercent": -2.06,
     "hitNetZero": "2075-11-12",
     "electricCarChangePercent": 6.9739423306056,
@@ -12477,9 +12477,9 @@
       "2047": 436.59,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1452.74
+      "2050": 0.0
     },
+    "emissionsSlope": -1452.74,
     "historicalEmissionChangePercent": -2.99,
     "hitNetZero": "2047-04-20",
     "electricCarChangePercent": 7.4299064656483695,
@@ -12546,9 +12546,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -13564.06
+      "2050": 0.0
     },
+    "emissionsSlope": -13564.06,
     "historicalEmissionChangePercent": -5.24,
     "hitNetZero": "2034-06-28",
     "electricCarChangePercent": 4.75297165660707,
@@ -12615,9 +12615,9 @@
       "2047": 239251.94,
       "2048": 236121.91,
       "2049": 232991.87,
-      "2050": 229861.83,
-      "emissions_slope": -3130.04
+      "2050": 229861.83
     },
+    "emissionsSlope": -3130.04,
     "historicalEmissionChangePercent": -0.5,
     "hitNetZero": "2123-06-09",
     "electricCarChangePercent": 6.55065415498452,
@@ -12684,9 +12684,9 @@
       "2047": 38144.64,
       "2048": 35824.39,
       "2049": 33504.15,
-      "2050": 31183.91,
-      "emissions_slope": -2320.24
+      "2050": 31183.91
     },
+    "emissionsSlope": -2320.24,
     "historicalEmissionChangePercent": -2.17,
     "hitNetZero": "2063-06-10",
     "electricCarChangePercent": 6.02957010380906,
@@ -12753,9 +12753,9 @@
       "2047": 68353.34,
       "2048": 65930.16,
       "2049": 63506.97,
-      "2050": 61083.79,
-      "emissions_slope": -2423.19
+      "2050": 61083.79
     },
+    "emissionsSlope": -2423.19,
     "historicalEmissionChangePercent": -1.39,
     "hitNetZero": "2075-03-17",
     "electricCarChangePercent": 6.80114486074817,
@@ -12822,9 +12822,9 @@
       "2047": 25073.12,
       "2048": 22351.79,
       "2049": 19630.47,
-      "2050": 16909.15,
-      "emissions_slope": -2721.32
+      "2050": 16909.15
     },
+    "emissionsSlope": -2721.32,
     "historicalEmissionChangePercent": -2.62,
     "hitNetZero": "2056-03-18",
     "electricCarChangePercent": 6.10043949398425,
@@ -12891,9 +12891,9 @@
       "2047": 237951.39,
       "2048": 226362.46,
       "2049": 214773.53,
-      "2050": 203184.6,
-      "emissions_slope": -11588.93
+      "2050": 203184.6
     },
+    "emissionsSlope": -11588.93,
     "historicalEmissionChangePercent": -1.89,
     "hitNetZero": "2067-07-14",
     "electricCarChangePercent": 7.79385982993575,
@@ -12960,9 +12960,9 @@
       "2047": 4665.43,
       "2048": 4054.52,
       "2049": 3443.61,
-      "2050": 2832.7,
-      "emissions_slope": -610.91
+      "2050": 2832.7
     },
+    "emissionsSlope": -610.91,
     "historicalEmissionChangePercent": -3.18,
     "hitNetZero": "2054-08-21",
     "electricCarChangePercent": 7.46841281614158,
@@ -13029,9 +13029,9 @@
       "2047": 25766.42,
       "2048": 24609.68,
       "2049": 23452.94,
-      "2050": 22296.19,
-      "emissions_slope": -1156.74
+      "2050": 22296.19
     },
+    "emissionsSlope": -1156.74,
     "historicalEmissionChangePercent": -1.94,
     "hitNetZero": "2069-04-11",
     "electricCarChangePercent": 6.62015597367606,
@@ -13098,9 +13098,9 @@
       "2047": 598755.31,
       "2048": 600918.51,
       "2049": 603081.7,
-      "2050": 605244.9,
-      "emissions_slope": 2163.2
+      "2050": 605244.9
     },
+    "emissionsSlope": 2163.2,
     "historicalEmissionChangePercent": -0.96,
     "hitNetZero": null,
     "electricCarChangePercent": 6.1600964975074595,
@@ -13167,9 +13167,9 @@
       "2047": 14512.57,
       "2048": 12358.52,
       "2049": 10204.48,
-      "2050": 8050.43,
-      "emissions_slope": -2154.04
+      "2050": 8050.43
     },
+    "emissionsSlope": -2154.04,
     "historicalEmissionChangePercent": -2.09,
     "hitNetZero": "2053-09-27",
     "electricCarChangePercent": 7.10279710632671,
@@ -13236,9 +13236,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4160.63
+      "2050": 0.0
     },
+    "emissionsSlope": -4160.63,
     "historicalEmissionChangePercent": -4.43,
     "hitNetZero": "2039-02-25",
     "electricCarChangePercent": 5.63647191788811,
@@ -13305,9 +13305,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -9119.62
+      "2050": 0.0
     },
+    "emissionsSlope": -9119.62,
     "historicalEmissionChangePercent": -6.01,
     "hitNetZero": "2034-11-28",
     "electricCarChangePercent": 9.33267301600276,
@@ -13374,9 +13374,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -7917.19
+      "2050": 0.0
     },
+    "emissionsSlope": -7917.19,
     "historicalEmissionChangePercent": -5.3,
     "hitNetZero": "2035-08-08",
     "electricCarChangePercent": 8.50150738240587,
@@ -13443,9 +13443,9 @@
       "2047": 5859.04,
       "2048": 5420.36,
       "2049": 4981.68,
-      "2050": 4543.0,
-      "emissions_slope": -438.68
+      "2050": 4543.0
     },
+    "emissionsSlope": -438.68,
     "historicalEmissionChangePercent": -1.25,
     "hitNetZero": "2060-05-09",
     "electricCarChangePercent": 3.6118427027518005,
@@ -13512,9 +13512,9 @@
       "2047": 25008.19,
       "2048": 24836.98,
       "2049": 24665.78,
-      "2050": 24494.57,
-      "emissions_slope": -171.2
+      "2050": 24494.57
     },
+    "emissionsSlope": -171.2,
     "historicalEmissionChangePercent": -0.93,
     "hitNetZero": "2193-01-27",
     "electricCarChangePercent": 8.13695296412906,
@@ -13581,9 +13581,9 @@
       "2047": 15612.13,
       "2048": 13390.36,
       "2049": 11168.58,
-      "2050": 8946.8,
-      "emissions_slope": -2221.78
+      "2050": 8946.8
     },
+    "emissionsSlope": -2221.78,
     "historicalEmissionChangePercent": -2.77,
     "hitNetZero": "2054-01-10",
     "electricCarChangePercent": 7.5545608620944105,
@@ -13650,9 +13650,9 @@
       "2047": 501923.83,
       "2048": 482717.73,
       "2049": 463511.64,
-      "2050": 444305.55,
-      "emissions_slope": -19206.09
+      "2050": 444305.55
     },
+    "emissionsSlope": -19206.09,
     "historicalEmissionChangePercent": 3.05,
     "hitNetZero": "2073-02-18",
     "electricCarChangePercent": 8.04017484337368,
@@ -13719,9 +13719,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -133091.59
+      "2050": 0.0
     },
+    "emissionsSlope": -133091.59,
     "historicalEmissionChangePercent": -7.75,
     "hitNetZero": "2030-07-30",
     "electricCarChangePercent": 9.393063440860221,
@@ -13788,9 +13788,9 @@
       "2047": 8341.0,
       "2048": 8126.23,
       "2049": 7911.45,
-      "2050": 7696.68,
-      "emissions_slope": -214.77
+      "2050": 7696.68
     },
+    "emissionsSlope": -214.77,
     "historicalEmissionChangePercent": -1.3,
     "hitNetZero": "2085-11-02",
     "electricCarChangePercent": 6.55613950514105,
@@ -13857,9 +13857,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1518.49
+      "2050": 0.0
     },
+    "emissionsSlope": -1518.49,
     "historicalEmissionChangePercent": -2.97,
     "hitNetZero": "2043-04-20",
     "electricCarChangePercent": 6.620017963410101,
@@ -13926,9 +13926,9 @@
       "2047": 39574.83,
       "2048": 36470.85,
       "2049": 33366.87,
-      "2050": 30262.88,
-      "emissions_slope": -3103.98
+      "2050": 30262.88
     },
+    "emissionsSlope": -3103.98,
     "historicalEmissionChangePercent": -2.2,
     "hitNetZero": "2059-10-01",
     "electricCarChangePercent": 6.51639581779201,
@@ -13995,9 +13995,9 @@
       "2047": 29899.41,
       "2048": 28773.7,
       "2049": 27647.99,
-      "2050": 26522.28,
-      "emissions_slope": -1125.71
+      "2050": 26522.28
     },
+    "emissionsSlope": -1125.71,
     "historicalEmissionChangePercent": -0.24,
     "hitNetZero": "2073-07-24",
     "electricCarChangePercent": 8.38400492716194,
@@ -14064,9 +14064,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4183.6
+      "2050": 0.0
     },
+    "emissionsSlope": -4183.6,
     "historicalEmissionChangePercent": -5.35,
     "hitNetZero": "2036-01-10",
     "electricCarChangePercent": 2.0783211904189898,
@@ -14133,9 +14133,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -965.02
+      "2050": 0.0
     },
+    "emissionsSlope": -965.02,
     "historicalEmissionChangePercent": -2.88,
     "hitNetZero": "2042-07-26",
     "electricCarChangePercent": 6.57753826990045,
@@ -14202,9 +14202,9 @@
       "2047": 283681.57,
       "2048": 270295.28,
       "2049": 256908.99,
-      "2050": 243522.69,
-      "emissions_slope": -13386.29
+      "2050": 243522.69
     },
+    "emissionsSlope": -13386.29,
     "historicalEmissionChangePercent": -0.81,
     "hitNetZero": "2068-03-11",
     "electricCarChangePercent": 7.202277676128049,
@@ -14271,9 +14271,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3499.16
+      "2050": 0.0
     },
+    "emissionsSlope": -3499.16,
     "historicalEmissionChangePercent": -4.5,
     "hitNetZero": "2041-02-03",
     "electricCarChangePercent": 5.16112220548614,
@@ -14340,9 +14340,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1345.53
+      "2050": 0.0
     },
+    "emissionsSlope": -1345.53,
     "historicalEmissionChangePercent": -5.7,
     "hitNetZero": "2044-03-12",
     "electricCarChangePercent": 8.29113265837121,
@@ -14409,9 +14409,9 @@
       "2047": 33513.88,
       "2048": 32055.12,
       "2049": 30596.36,
-      "2050": 29137.6,
-      "emissions_slope": -1458.76
+      "2050": 29137.6
     },
+    "emissionsSlope": -1458.76,
     "historicalEmissionChangePercent": -2.71,
     "hitNetZero": "2069-12-22",
     "electricCarChangePercent": 6.19413538762698,
@@ -14478,9 +14478,9 @@
       "2047": 21441.66,
       "2048": 18692.88,
       "2049": 15944.1,
-      "2050": 13195.32,
-      "emissions_slope": -2748.78
+      "2050": 13195.32
     },
+    "emissionsSlope": -2748.78,
     "historicalEmissionChangePercent": -2.77,
     "hitNetZero": "2054-10-20",
     "electricCarChangePercent": 8.09916410003069,
@@ -14547,9 +14547,9 @@
       "2047": 52014.89,
       "2048": 51744.29,
       "2049": 51473.69,
-      "2050": 51203.09,
-      "emissions_slope": -270.6
+      "2050": 51203.09
     },
+    "emissionsSlope": -270.6,
     "historicalEmissionChangePercent": -0.85,
     "hitNetZero": "2239-03-23",
     "electricCarChangePercent": 6.4591916633641695,
@@ -14616,9 +14616,9 @@
       "2047": 43754.69,
       "2048": 41993.21,
       "2049": 40231.74,
-      "2050": 38470.26,
-      "emissions_slope": -1761.48
+      "2050": 38470.26
     },
+    "emissionsSlope": -1761.48,
     "historicalEmissionChangePercent": -1.56,
     "hitNetZero": "2071-11-03",
     "electricCarChangePercent": 6.80945086569056,
@@ -14685,9 +14685,9 @@
       "2047": 11818.05,
       "2048": 10196.02,
       "2049": 8573.99,
-      "2050": 6951.96,
-      "emissions_slope": -1622.03
+      "2050": 6951.96
     },
+    "emissionsSlope": -1622.03,
     "historicalEmissionChangePercent": -2.89,
     "hitNetZero": "2054-04-15",
     "electricCarChangePercent": 7.41763903016065,
@@ -14754,9 +14754,9 @@
       "2047": 21368.1,
       "2048": 19835.17,
       "2049": 18302.24,
-      "2050": 16769.31,
-      "emissions_slope": -1532.93
+      "2050": 16769.31
     },
+    "emissionsSlope": -1532.93,
     "historicalEmissionChangePercent": -2.33,
     "hitNetZero": "2060-12-08",
     "electricCarChangePercent": 6.19513083569054,
@@ -14823,9 +14823,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -6770.35
+      "2050": 0.0
     },
+    "emissionsSlope": -6770.35,
     "historicalEmissionChangePercent": -3.72,
     "hitNetZero": "2040-02-10",
     "electricCarChangePercent": 6.05115685992831,
@@ -14892,9 +14892,9 @@
       "2047": 13499.85,
       "2048": 11527.44,
       "2049": 9555.03,
-      "2050": 7582.62,
-      "emissions_slope": -1972.41
+      "2050": 7582.62
     },
+    "emissionsSlope": -1972.41,
     "historicalEmissionChangePercent": -2.79,
     "hitNetZero": "2053-11-05",
     "electricCarChangePercent": 7.375569803909281,
@@ -14961,9 +14961,9 @@
       "2047": 9720.27,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -10964.87
+      "2050": 0.0
     },
+    "emissionsSlope": -10964.87,
     "historicalEmissionChangePercent": -1.81,
     "hitNetZero": "2047-11-20",
     "electricCarChangePercent": 6.82732652806574,
@@ -15030,9 +15030,9 @@
       "2047": 13046.97,
       "2048": 11222.97,
       "2049": 9398.97,
-      "2050": 7574.98,
-      "emissions_slope": -1824.0
+      "2050": 7574.98
     },
+    "emissionsSlope": -1824.0,
     "historicalEmissionChangePercent": -2.83,
     "hitNetZero": "2054-02-25",
     "electricCarChangePercent": 5.7613502365574,
@@ -15099,9 +15099,9 @@
       "2047": 80243.24,
       "2048": 79562.72,
       "2049": 78882.2,
-      "2050": 78201.68,
-      "emissions_slope": -680.52
+      "2050": 78201.68
     },
+    "emissionsSlope": -680.52,
     "historicalEmissionChangePercent": -1.28,
     "hitNetZero": "2164-11-29",
     "electricCarChangePercent": 7.743530632116349,
@@ -15168,9 +15168,9 @@
       "2047": 13003.22,
       "2048": 12171.05,
       "2049": 11338.87,
-      "2050": 10506.69,
-      "emissions_slope": -832.18
+      "2050": 10506.69
     },
+    "emissionsSlope": -832.18,
     "historicalEmissionChangePercent": -2.05,
     "hitNetZero": "2062-08-17",
     "electricCarChangePercent": 7.112771013911701,
@@ -15237,9 +15237,9 @@
       "2047": 86084.87,
       "2048": 86911.09,
       "2049": 87737.32,
-      "2050": 88563.54,
-      "emissions_slope": 826.22
+      "2050": 88563.54
     },
+    "emissionsSlope": 826.22,
     "historicalEmissionChangePercent": 0.88,
     "hitNetZero": null,
     "electricCarChangePercent": 6.52702505740306,
@@ -15306,9 +15306,9 @@
       "2047": 21193.6,
       "2048": 16607.5,
       "2049": 12021.4,
-      "2050": 7435.29,
-      "emissions_slope": -4586.1
+      "2050": 7435.29
     },
+    "emissionsSlope": -4586.1,
     "historicalEmissionChangePercent": -2.71,
     "hitNetZero": "2051-08-15",
     "electricCarChangePercent": 6.680277350231539,
@@ -15375,9 +15375,9 @@
       "2047": 196957.0,
       "2048": 200031.21,
       "2049": 203105.42,
-      "2050": 206179.62,
-      "emissions_slope": 3074.21
+      "2050": 206179.62
     },
+    "emissionsSlope": 3074.21,
     "historicalEmissionChangePercent": 5.19,
     "hitNetZero": null,
     "electricCarChangePercent": 7.081064037558719,
@@ -15444,9 +15444,9 @@
       "2047": 21531.3,
       "2048": 19762.34,
       "2049": 17993.39,
-      "2050": 16224.43,
-      "emissions_slope": -1768.96
+      "2050": 16224.43
     },
+    "emissionsSlope": -1768.96,
     "historicalEmissionChangePercent": -2.24,
     "hitNetZero": "2059-03-04",
     "electricCarChangePercent": 5.40699923634533,
@@ -15513,9 +15513,9 @@
       "2047": 16586.1,
       "2048": 15626.63,
       "2049": 14667.16,
-      "2050": 13707.68,
-      "emissions_slope": -959.47
+      "2050": 13707.68
     },
+    "emissionsSlope": -959.47,
     "historicalEmissionChangePercent": -1.85,
     "hitNetZero": "2064-04-14",
     "electricCarChangePercent": 6.75511914836025,
@@ -15582,9 +15582,9 @@
       "2047": 89491.89,
       "2048": 88426.99,
       "2049": 87362.09,
-      "2050": 86297.19,
-      "emissions_slope": -1064.9
+      "2050": 86297.19
     },
+    "emissionsSlope": -1064.9,
     "historicalEmissionChangePercent": -1.01,
     "hitNetZero": "2131-01-14",
     "electricCarChangePercent": 2.85338212638815,
@@ -15651,9 +15651,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1978.62
+      "2050": 0.0
     },
+    "emissionsSlope": -1978.62,
     "historicalEmissionChangePercent": -3.51,
     "hitNetZero": "2046-05-02",
     "electricCarChangePercent": 4.87922872904291,
@@ -15720,9 +15720,9 @@
       "2047": 6356.1,
       "2048": 5076.39,
       "2049": 3796.67,
-      "2050": 2516.95,
-      "emissions_slope": -1279.72
+      "2050": 2516.95
     },
+    "emissionsSlope": -1279.72,
     "historicalEmissionChangePercent": -2.93,
     "hitNetZero": "2051-12-19",
     "electricCarChangePercent": 6.327130330549941,
@@ -15789,9 +15789,9 @@
       "2047": 99689.62,
       "2048": 98737.57,
       "2049": 97785.53,
-      "2050": 96833.49,
-      "emissions_slope": -952.04
+      "2050": 96833.49
     },
+    "emissionsSlope": -952.04,
     "historicalEmissionChangePercent": -0.72,
     "hitNetZero": "2151-09-17",
     "electricCarChangePercent": 7.11139471447509,
@@ -15858,9 +15858,9 @@
       "2047": 22483.71,
       "2048": 21185.74,
       "2049": 19887.77,
-      "2050": 18589.81,
-      "emissions_slope": -1297.97
+      "2050": 18589.81
     },
+    "emissionsSlope": -1297.97,
     "historicalEmissionChangePercent": -1.8,
     "hitNetZero": "2064-04-27",
     "electricCarChangePercent": 7.259776984410871,
@@ -15927,9 +15927,9 @@
       "2047": 42143.75,
       "2048": 39089.44,
       "2049": 36035.13,
-      "2050": 32980.82,
-      "emissions_slope": -3054.31
+      "2050": 32980.82
     },
+    "emissionsSlope": -3054.31,
     "historicalEmissionChangePercent": -2.34,
     "hitNetZero": "2060-10-18",
     "electricCarChangePercent": 6.705385083172399,
@@ -15996,9 +15996,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4978.56
+      "2050": 0.0
     },
+    "emissionsSlope": -4978.56,
     "historicalEmissionChangePercent": -3.98,
     "hitNetZero": "2043-09-12",
     "electricCarChangePercent": 8.26232859758302,
@@ -16065,9 +16065,9 @@
       "2047": 4205.42,
       "2048": 2435.48,
       "2049": 665.53,
-      "2050": 0.0,
-      "emissions_slope": -1769.94
+      "2050": 0.0
     },
+    "emissionsSlope": -1769.94,
     "historicalEmissionChangePercent": -3.21,
     "hitNetZero": "2049-05-18",
     "electricCarChangePercent": 7.48940536839556,
@@ -16134,9 +16134,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1349.07
+      "2050": 0.0
     },
+    "emissionsSlope": -1349.07,
     "historicalEmissionChangePercent": -5.04,
     "hitNetZero": "2037-11-21",
     "electricCarChangePercent": 8.13575649584878,
@@ -16203,9 +16203,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3790.26
+      "2050": 0.0
     },
+    "emissionsSlope": -3790.26,
     "historicalEmissionChangePercent": -3.97,
     "hitNetZero": "2043-07-06",
     "electricCarChangePercent": 9.26348484484055,
@@ -16272,9 +16272,9 @@
       "2047": 27392.33,
       "2048": 25833.21,
       "2049": 24274.09,
-      "2050": 22714.97,
-      "emissions_slope": -1559.12
+      "2050": 22714.97
     },
+    "emissionsSlope": -1559.12,
     "historicalEmissionChangePercent": -0.48,
     "hitNetZero": "2064-07-26",
     "electricCarChangePercent": 5.61598247613795,
@@ -16341,9 +16341,9 @@
       "2047": 243756.63,
       "2048": 244265.37,
       "2049": 244774.1,
-      "2050": 245282.83,
-      "emissions_slope": 508.73
+      "2050": 245282.83
     },
+    "emissionsSlope": 508.73,
     "historicalEmissionChangePercent": 0.06,
     "hitNetZero": null,
     "electricCarChangePercent": 6.8414667474168205,
@@ -16410,9 +16410,9 @@
       "2047": 91359.78,
       "2048": 89763.78,
       "2049": 88167.78,
-      "2050": 86571.78,
-      "emissions_slope": -1596.0
+      "2050": 86571.78
     },
+    "emissionsSlope": -1596.0,
     "historicalEmissionChangePercent": -1.08,
     "hitNetZero": "2104-03-29",
     "electricCarChangePercent": 5.52748652001618,
@@ -16479,9 +16479,9 @@
       "2047": 20766.6,
       "2048": 8117.9,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -12648.7
+      "2050": 0.0
     },
+    "emissionsSlope": -12648.7,
     "historicalEmissionChangePercent": -2.69,
     "hitNetZero": "2048-08-22",
     "electricCarChangePercent": 6.97743776033592,
@@ -16548,9 +16548,9 @@
       "2047": 1015.83,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2616.18
+      "2050": 0.0
     },
+    "emissionsSlope": -2616.18,
     "historicalEmissionChangePercent": -3.39,
     "hitNetZero": "2047-05-22",
     "electricCarChangePercent": 7.74588749504235,
@@ -16617,9 +16617,9 @@
       "2047": 687415.53,
       "2048": 707070.11,
       "2049": 726724.68,
-      "2050": 746379.25,
-      "emissions_slope": 19654.57
+      "2050": 746379.25
     },
+    "emissionsSlope": 19654.57,
     "historicalEmissionChangePercent": 11.69,
     "hitNetZero": null,
     "electricCarChangePercent": 7.46673073595119,
@@ -16686,9 +16686,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -34479.14
+      "2050": 0.0
     },
+    "emissionsSlope": -34479.14,
     "historicalEmissionChangePercent": -4.0,
     "hitNetZero": "2038-12-23",
     "electricCarChangePercent": 7.214453265565179,
@@ -16755,9 +16755,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1785.02
+      "2050": 0.0
     },
+    "emissionsSlope": -1785.02,
     "historicalEmissionChangePercent": -3.58,
     "hitNetZero": "2046-01-18",
     "electricCarChangePercent": 7.3014537855147195,
@@ -16824,9 +16824,9 @@
       "2047": 2157.14,
       "2048": 980.55,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1176.58
+      "2050": 0.0
     },
+    "emissionsSlope": -1176.58,
     "historicalEmissionChangePercent": -3.23,
     "hitNetZero": "2048-10-31",
     "electricCarChangePercent": 7.5707986383929,
@@ -16893,9 +16893,9 @@
       "2047": 31524.98,
       "2048": 28611.1,
       "2049": 25697.22,
-      "2050": 22783.34,
-      "emissions_slope": -2913.88
+      "2050": 22783.34
     },
+    "emissionsSlope": -2913.88,
     "historicalEmissionChangePercent": -2.63,
     "hitNetZero": "2057-10-26",
     "electricCarChangePercent": 7.824750390050431,
@@ -16962,9 +16962,9 @@
       "2047": 9357.28,
       "2048": 7497.8,
       "2049": 5638.33,
-      "2050": 3778.86,
-      "emissions_slope": -1859.47
+      "2050": 3778.86
     },
+    "emissionsSlope": -1859.47,
     "historicalEmissionChangePercent": -2.43,
     "hitNetZero": "2052-01-12",
     "electricCarChangePercent": 5.67060281357503,
@@ -17031,9 +17031,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3394.34
+      "2050": 0.0
     },
+    "emissionsSlope": -3394.34,
     "historicalEmissionChangePercent": -3.06,
     "hitNetZero": "2045-11-10",
     "electricCarChangePercent": 7.822510078807279,
@@ -17100,9 +17100,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1377.73
+      "2050": 0.0
     },
+    "emissionsSlope": -1377.73,
     "historicalEmissionChangePercent": -3.89,
     "hitNetZero": "2046-03-03",
     "electricCarChangePercent": 6.84485644484088,
@@ -17169,9 +17169,9 @@
       "2047": 87267.38,
       "2048": 85989.79,
       "2049": 84712.21,
-      "2050": 83434.62,
-      "emissions_slope": -1277.59
+      "2050": 83434.62
     },
+    "emissionsSlope": -1277.59,
     "historicalEmissionChangePercent": -1.21,
     "hitNetZero": "2115-04-22",
     "electricCarChangePercent": 7.75586464213244,
@@ -17238,9 +17238,9 @@
       "2047": 292092.04,
       "2048": 291441.26,
       "2049": 290790.47,
-      "2050": 290139.68,
-      "emissions_slope": -650.79
+      "2050": 290139.68
     },
+    "emissionsSlope": -650.79,
     "historicalEmissionChangePercent": -0.09,
     "hitNetZero": "2495-10-30",
     "electricCarChangePercent": 7.18944547838785,
@@ -17307,9 +17307,9 @@
       "2047": 8223.43,
       "2048": 7776.46,
       "2049": 7329.49,
-      "2050": 6882.51,
-      "emissions_slope": -446.97
+      "2050": 6882.51
     },
+    "emissionsSlope": -446.97,
     "historicalEmissionChangePercent": -2.12,
     "hitNetZero": "2065-05-26",
     "electricCarChangePercent": 8.10839148704237,
@@ -17376,9 +17376,9 @@
       "2047": 34346.66,
       "2048": 32951.42,
       "2049": 31556.18,
-      "2050": 30160.93,
-      "emissions_slope": -1395.24
+      "2050": 30160.93
     },
+    "emissionsSlope": -1395.24,
     "historicalEmissionChangePercent": -2.37,
     "hitNetZero": "2071-08-14",
     "electricCarChangePercent": 8.06450766377918,
@@ -17445,9 +17445,9 @@
       "2047": 12625.69,
       "2048": 7535.61,
       "2049": 2445.53,
-      "2050": 0.0,
-      "emissions_slope": -5090.08
+      "2050": 0.0
     },
+    "emissionsSlope": -5090.08,
     "historicalEmissionChangePercent": -3.12,
     "hitNetZero": "2049-06-25",
     "electricCarChangePercent": 6.23177785338059,
@@ -17514,9 +17514,9 @@
       "2047": 4426.88,
       "2048": 3289.69,
       "2049": 2152.51,
-      "2050": 1015.32,
-      "emissions_slope": -1137.18
+      "2050": 1015.32
     },
+    "emissionsSlope": -1137.18,
     "historicalEmissionChangePercent": -3.05,
     "hitNetZero": "2050-11-22",
     "electricCarChangePercent": 5.93608480288081,
@@ -17583,9 +17583,9 @@
       "2047": 5760.83,
       "2048": 2241.15,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -3519.69
+      "2050": 0.0
     },
+    "emissionsSlope": -3519.69,
     "historicalEmissionChangePercent": -2.93,
     "hitNetZero": "2048-08-20",
     "electricCarChangePercent": 6.664170385140469,
@@ -17652,9 +17652,9 @@
       "2047": 18623.55,
       "2048": 17922.3,
       "2049": 17221.05,
-      "2050": 16519.81,
-      "emissions_slope": -701.25
+      "2050": 16519.81
     },
+    "emissionsSlope": -701.25,
     "historicalEmissionChangePercent": -1.52,
     "hitNetZero": "2073-07-23",
     "electricCarChangePercent": 7.706213094673791,
@@ -17721,9 +17721,9 @@
       "2047": 2711.43,
       "2048": 1215.84,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1495.59
+      "2050": 0.0
     },
+    "emissionsSlope": -1495.59,
     "historicalEmissionChangePercent": -3.47,
     "hitNetZero": "2048-10-23",
     "electricCarChangePercent": 6.891114149826009,
@@ -17790,9 +17790,9 @@
       "2047": 319173.2,
       "2048": 321706.91,
       "2049": 324240.61,
-      "2050": 326774.31,
-      "emissions_slope": 2533.7
+      "2050": 326774.31
     },
+    "emissionsSlope": 2533.7,
     "historicalEmissionChangePercent": -0.25,
     "hitNetZero": null,
     "electricCarChangePercent": 6.40465239451782,
@@ -17859,9 +17859,9 @@
       "2047": 3364.33,
       "2048": 2381.07,
       "2049": 1397.82,
-      "2050": 414.56,
-      "emissions_slope": -983.26
+      "2050": 414.56
     },
+    "emissionsSlope": -983.26,
     "historicalEmissionChangePercent": -2.83,
     "hitNetZero": "2050-06-03",
     "electricCarChangePercent": 8.66336732397968,
@@ -17928,9 +17928,9 @@
       "2047": 58221.25,
       "2048": 56571.88,
       "2049": 54922.51,
-      "2050": 53273.14,
-      "emissions_slope": -1649.37
+      "2050": 53273.14
     },
+    "emissionsSlope": -1649.37,
     "historicalEmissionChangePercent": -1.81,
     "hitNetZero": "2082-04-20",
     "electricCarChangePercent": 8.81165398976216,
@@ -17997,9 +17997,9 @@
       "2047": 33923.54,
       "2048": 29346.16,
       "2049": 24768.79,
-      "2050": 20191.42,
-      "emissions_slope": -4577.37
+      "2050": 20191.42
     },
+    "emissionsSlope": -4577.37,
     "historicalEmissionChangePercent": -2.16,
     "hitNetZero": "2054-05-31",
     "electricCarChangePercent": 6.994431802840929,
@@ -18066,9 +18066,9 @@
       "2047": 76270.06,
       "2048": 72135.32,
       "2049": 68000.57,
-      "2050": 63865.83,
-      "emissions_slope": -4134.74
+      "2050": 63865.83
     },
+    "emissionsSlope": -4134.74,
     "historicalEmissionChangePercent": -1.95,
     "hitNetZero": "2065-06-12",
     "electricCarChangePercent": 5.83172401635567,
@@ -18135,9 +18135,9 @@
       "2047": 61493.88,
       "2048": 45019.51,
       "2049": 28545.14,
-      "2050": 12070.78,
-      "emissions_slope": -16474.37
+      "2050": 12070.78
     },
+    "emissionsSlope": -16474.37,
     "historicalEmissionChangePercent": -2.36,
     "hitNetZero": "2050-09-25",
     "electricCarChangePercent": 7.47312220898702,
@@ -18204,9 +18204,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -9253.04
+      "2050": 0.0
     },
+    "emissionsSlope": -9253.04,
     "historicalEmissionChangePercent": -3.47,
     "hitNetZero": "2044-03-26",
     "electricCarChangePercent": 6.982683250991049,
@@ -18273,9 +18273,9 @@
       "2047": 32986.35,
       "2048": 31577.46,
       "2049": 30168.58,
-      "2050": 28759.7,
-      "emissions_slope": -1408.88
+      "2050": 28759.7
     },
+    "emissionsSlope": -1408.88,
     "historicalEmissionChangePercent": -1.9,
     "hitNetZero": "2070-05-31",
     "electricCarChangePercent": 7.35664231252372,
@@ -18342,9 +18342,9 @@
       "2047": 15443.9,
       "2048": 14704.8,
       "2049": 13965.69,
-      "2050": 13226.59,
-      "emissions_slope": -739.1
+      "2050": 13226.59
     },
+    "emissionsSlope": -739.1,
     "historicalEmissionChangePercent": -1.91,
     "hitNetZero": "2067-11-23",
     "electricCarChangePercent": 5.2678615897797005,
@@ -18411,9 +18411,9 @@
       "2047": 21193.9,
       "2048": 17483.94,
       "2049": 13773.99,
-      "2050": 10064.03,
-      "emissions_slope": -3709.96
+      "2050": 10064.03
     },
+    "emissionsSlope": -3709.96,
     "historicalEmissionChangePercent": -2.76,
     "hitNetZero": "2052-09-17",
     "electricCarChangePercent": 5.1301707792579805,
@@ -18480,9 +18480,9 @@
       "2047": 7527.52,
       "2048": 5186.94,
       "2049": 2846.37,
-      "2050": 505.79,
-      "emissions_slope": -2340.58
+      "2050": 505.79
     },
+    "emissionsSlope": -2340.58,
     "historicalEmissionChangePercent": -3.17,
     "hitNetZero": "2050-03-20",
     "electricCarChangePercent": 7.1367406875563795,
@@ -18549,9 +18549,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1817.13
+      "2050": 0.0
     },
+    "emissionsSlope": -1817.13,
     "historicalEmissionChangePercent": -3.94,
     "hitNetZero": "2042-09-21",
     "electricCarChangePercent": 5.86702777337392,
@@ -18618,9 +18618,9 @@
       "2047": 17824.34,
       "2048": 16979.1,
       "2049": 16133.85,
-      "2050": 15288.61,
-      "emissions_slope": -845.24
+      "2050": 15288.61
     },
+    "emissionsSlope": -845.24,
     "historicalEmissionChangePercent": -1.51,
     "hitNetZero": "2068-02-02",
     "electricCarChangePercent": 7.36905329157463,
@@ -18687,9 +18687,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1231.58
+      "2050": 0.0
     },
+    "emissionsSlope": -1231.58,
     "historicalEmissionChangePercent": -3.96,
     "hitNetZero": "2043-05-27",
     "electricCarChangePercent": 6.757437031015081,
@@ -18756,9 +18756,9 @@
       "2047": 9213.45,
       "2048": 3109.38,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -6104.07
+      "2050": 0.0
     },
+    "emissionsSlope": -6104.07,
     "historicalEmissionChangePercent": -2.75,
     "hitNetZero": "2048-07-04",
     "electricCarChangePercent": 5.73073807255625,
@@ -18825,9 +18825,9 @@
       "2047": 12386.83,
       "2048": 11066.82,
       "2049": 9746.81,
-      "2050": 8426.81,
-      "emissions_slope": -1320.01
+      "2050": 8426.81
     },
+    "emissionsSlope": -1320.01,
     "historicalEmissionChangePercent": -2.64,
     "hitNetZero": "2056-05-20",
     "electricCarChangePercent": 4.92779248572192,
@@ -18894,9 +18894,9 @@
       "2047": 56494.63,
       "2048": 55944.8,
       "2049": 55394.97,
-      "2050": 54845.14,
-      "emissions_slope": -549.83
+      "2050": 54845.14
     },
+    "emissionsSlope": -549.83,
     "historicalEmissionChangePercent": -2.33,
     "hitNetZero": "2149-10-01",
     "electricCarChangePercent": 6.45709963197988,
@@ -18963,9 +18963,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -4369.61
+      "2050": 0.0
     },
+    "emissionsSlope": -4369.61,
     "historicalEmissionChangePercent": -5.97,
     "hitNetZero": "2032-06-17",
     "electricCarChangePercent": 7.21716881555438,
@@ -19032,9 +19032,9 @@
       "2047": 6507.58,
       "2048": 4961.34,
       "2049": 3415.09,
-      "2050": 1868.85,
-      "emissions_slope": -1546.24
+      "2050": 1868.85
     },
+    "emissionsSlope": -1546.24,
     "historicalEmissionChangePercent": -3.02,
     "hitNetZero": "2051-03-18",
     "electricCarChangePercent": 5.53028090774083,
@@ -19101,9 +19101,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -874.62
+      "2050": 0.0
     },
+    "emissionsSlope": -874.62,
     "historicalEmissionChangePercent": -3.36,
     "hitNetZero": "2046-11-09",
     "electricCarChangePercent": 5.538498538498541,
@@ -19170,9 +19170,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -2362.68
+      "2050": 0.0
     },
+    "emissionsSlope": -2362.68,
     "historicalEmissionChangePercent": -3.56,
     "hitNetZero": "2046-05-30",
     "electricCarChangePercent": 6.4613080053499,
@@ -19239,9 +19239,9 @@
       "2047": 7837.78,
       "2048": 6382.05,
       "2049": 4926.32,
-      "2050": 3470.58,
-      "emissions_slope": -1455.73
+      "2050": 3470.58
     },
+    "emissionsSlope": -1455.73,
     "historicalEmissionChangePercent": -2.89,
     "hitNetZero": "2052-05-20",
     "electricCarChangePercent": 7.40722964203409,
@@ -19308,9 +19308,9 @@
       "2047": 15452.42,
       "2048": 15224.45,
       "2049": 14996.47,
-      "2050": 14768.49,
-      "emissions_slope": -227.98
+      "2050": 14768.49
     },
+    "emissionsSlope": -227.98,
     "historicalEmissionChangePercent": -0.57,
     "hitNetZero": "2114-10-13",
     "electricCarChangePercent": 7.329960171453361,
@@ -19377,9 +19377,9 @@
       "2047": 9958.91,
       "2048": 7524.53,
       "2049": 5090.15,
-      "2050": 2655.78,
-      "emissions_slope": -2434.38
+      "2050": 2655.78
     },
+    "emissionsSlope": -2434.38,
     "historicalEmissionChangePercent": -3.08,
     "hitNetZero": "2051-02-03",
     "electricCarChangePercent": 7.45551645771862,
@@ -19446,9 +19446,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -18419.89
+      "2050": 0.0
     },
+    "emissionsSlope": -18419.89,
     "historicalEmissionChangePercent": -3.31,
     "hitNetZero": "2041-11-29",
     "electricCarChangePercent": 6.66227971936833,
@@ -19515,9 +19515,9 @@
       "2047": 20644.8,
       "2048": 19058.77,
       "2049": 17472.73,
-      "2050": 15886.7,
-      "emissions_slope": -1586.03
+      "2050": 15886.7
     },
+    "emissionsSlope": -1586.03,
     "historicalEmissionChangePercent": -2.99,
     "hitNetZero": "2060-01-07",
     "electricCarChangePercent": 3.43444458778821,
@@ -19584,9 +19584,9 @@
       "2047": 184517.49,
       "2048": 179635.17,
       "2049": 174752.85,
-      "2050": 169870.53,
-      "emissions_slope": -4882.32
+      "2050": 169870.53
     },
+    "emissionsSlope": -4882.32,
     "historicalEmissionChangePercent": -0.32,
     "hitNetZero": "2084-10-16",
     "electricCarChangePercent": 6.21490584763218,
@@ -19653,9 +19653,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -10313.48
+      "2050": 0.0
     },
+    "emissionsSlope": -10313.48,
     "historicalEmissionChangePercent": -6.06,
     "hitNetZero": "2034-01-23",
     "electricCarChangePercent": 6.74791008103522,
@@ -19722,9 +19722,9 @@
       "2047": 26522.52,
       "2048": 24574.68,
       "2049": 22626.85,
-      "2050": 20679.01,
-      "emissions_slope": -1947.84
+      "2050": 20679.01
     },
+    "emissionsSlope": -1947.84,
     "historicalEmissionChangePercent": -2.53,
     "hitNetZero": "2060-08-12",
     "electricCarChangePercent": 7.221186286020299,
@@ -19791,9 +19791,9 @@
       "2047": 34581.95,
       "2048": 31526.35,
       "2049": 28470.75,
-      "2050": 25415.15,
-      "emissions_slope": -3055.6
+      "2050": 25415.15
     },
+    "emissionsSlope": -3055.6,
     "historicalEmissionChangePercent": -2.07,
     "hitNetZero": "2058-04-26",
     "electricCarChangePercent": 5.44886850371178,
@@ -19860,9 +19860,9 @@
       "2047": 28415.21,
       "2048": 27231.74,
       "2049": 26048.27,
-      "2050": 24864.8,
-      "emissions_slope": -1183.47
+      "2050": 24864.8
     },
+    "emissionsSlope": -1183.47,
     "historicalEmissionChangePercent": -1.83,
     "hitNetZero": "2071-01-04",
     "electricCarChangePercent": 7.08882753299129,
@@ -19929,9 +19929,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1436.48
+      "2050": 0.0
     },
+    "emissionsSlope": -1436.48,
     "historicalEmissionChangePercent": -4.45,
     "hitNetZero": "2039-09-17",
     "electricCarChangePercent": 4.14435594716654,
@@ -19998,9 +19998,9 @@
       "2047": 0.0,
       "2048": 0.0,
       "2049": 0.0,
-      "2050": 0.0,
-      "emissions_slope": -1074.83
+      "2050": 0.0
     },
+    "emissionsSlope": -1074.83,
     "historicalEmissionChangePercent": -4.65,
     "hitNetZero": "2040-07-29",
     "electricCarChangePercent": 6.250421345735361,
