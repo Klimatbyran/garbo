@@ -1,13 +1,8 @@
 import { readFileSync } from 'fs'
 
 import { InputNationalDataSchema } from '../schemas'
-import { NationData } from '../types'
+import { NationData, SectorEmissionsData } from '../types'
 import apiConfig from '../../config/api'
-
-interface SectorEmissionsData {
-  name: string
-  sectors: Record<string, Record<string, number>>
-}
 
 class NationService {
   private _all: NationData[]

@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs'
 
 import { InputMunicipalitiesSchema } from '../schemas'
-import { Municipality } from '../types'
+import { Municipality, SectorEmissionsData } from '../types'
 import apiConfig from '../../config/api'
 
 class MunicipalityService {
   private _all: Municipality[]
   private _lookup: Map<string, Municipality>
-  private _sectorEmissions: any[]
+  private _sectorEmissions: SectorEmissionsData[]
 
   private get allMunicipalities() {
     return this._all ?? this.lazyInit()._all

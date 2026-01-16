@@ -1,13 +1,13 @@
 import { readFileSync } from 'fs'
 
 import { InputRegionalDataSchema } from '../schemas'
-import { RegionalData } from '../types'
+import { RegionalData, SectorEmissionsData } from '../types'
 import apiConfig from '../../config/api'
 
 class RegionalService {
   private _all: RegionalData[]
   private _lookup: Map<string, RegionalData>
-  private _sectorEmissions: any[]
+  private _sectorEmissions: SectorEmissionsData[]
 
   private get allRegions() {
     return this._all ?? this.lazyInit()._all
