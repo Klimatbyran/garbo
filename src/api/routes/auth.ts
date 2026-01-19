@@ -92,7 +92,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
 
       // Handle OAuth errors
       if (query.error) {
-        const errorUrl = new URL(apiConfig.frontendURL)
+        const errorUrl = new URL('/auth/callback', apiConfig.frontendURL)
         errorUrl.searchParams.append('error', query.error)
         if (query.error_description) {
           errorUrl.searchParams.append(
@@ -104,13 +104,14 @@ export async function authentificationRoutes(app: FastifyInstance) {
       }
 
       if (!query.code) {
-        const errorUrl = new URL(apiConfig.frontendURL)
+        const errorUrl = new URL('/auth/callback', apiConfig.frontendURL)
         errorUrl.searchParams.append('error', 'missing_code')
         return reply.redirect(errorUrl.toString())
       }
 
       // Decode state to get the target frontend URL
-      let targetRedirectUri = apiConfig.frontendURL
+      // Default to frontend URL with /auth/callback path for main client
+      let targetRedirectUri = new URL('/auth/callback', apiConfig.frontendURL).toString()
       if (query.state) {
         try {
           const stateData = JSON.parse(
@@ -141,7 +142,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
             }
           }
         } catch (error) {
-          // If state can't be decoded, use default frontend
+          // If state can't be decoded, use default frontend with callback path
           request.log.warn(
             { error: error instanceof Error ? error.message : 'Unknown error' },
             'Failed to decode state parameter',
