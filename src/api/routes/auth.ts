@@ -111,7 +111,6 @@ export async function authentificationRoutes(app: FastifyInstance) {
         return reply.redirect(errorUrl.toString())
       }
 
-      // Decode state to get the target frontend URL
       // Default to frontend URL with /auth/callback path for main client
       let targetRedirectUri = new URL(
         '/auth/callback',
@@ -124,7 +123,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
           ) as { redirect_uri?: string; client?: string }
 
           if (stateData.redirect_uri) {
-            // Validate redirect_uri against allowed origins to prevent open redirect attacks
+            // Validate redirect_uri against allowed origins
             const allowedOrigins = apiConfig.corsAllowOrigins
             const redirectUrl = new URL(stateData.redirect_uri)
             const isAllowed = allowedOrigins.some((origin) => {
@@ -139,7 +138,6 @@ export async function authentificationRoutes(app: FastifyInstance) {
             if (isAllowed) {
               targetRedirectUri = stateData.redirect_uri
             } else {
-              // Log potential security issue but don't expose to attacker
               request.log.warn(
                 { redirect_uri: stateData.redirect_uri, allowedOrigins },
                 'Blocked redirect to unauthorized origin',
@@ -162,7 +160,6 @@ export async function authentificationRoutes(app: FastifyInstance) {
           apiConfig.githubRedirectUri,
         )
 
-        // Always use code exchange (more secure - avoids tokens in URLs)
         // Generate a short-lived code and store token in Redis
         const exchangeCode = randomUUID()
         await redisCache.set(`auth_code:${exchangeCode}`, JSON.stringify(token))
