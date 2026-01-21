@@ -11,7 +11,7 @@ import { redisCache } from '../..'
 import fs from 'fs'
 import apiConfig from '../../config/api'
 
-const NATION_CACHE_KEY = 'nation:data'
+const NATION_CACHE_KEY = 'nation:all'
 const NATION_TIMESTAMP_KEY = 'nation:timestamp'
 
 const getDataFileTimestamp = (filePath: string): number => {
@@ -43,14 +43,16 @@ export async function nationalReadRoutes(app: FastifyInstance) {
     },
     async (_request, reply) => {
       const currentTimestamp = getDataFileTimestamp(apiConfig.nationDataPath)
-      const etagValue = `"${currentTimestamp}"`
-
+      const cachedTimestamp = await redisCache.get(NATION_TIMESTAMP_KEY)
       const cachedNation = await redisCache.get(NATION_CACHE_KEY)
 
-      if (cachedNation) {
+      // Use cached data if it exists and file hasn't changed
+      if (cachedNation && cachedTimestamp && Number(cachedTimestamp) === currentTimestamp) {
+        const etagValue = `"${currentTimestamp}"`
         return reply.header('ETag', etagValue).send(cachedNation)
       }
 
+      // File has changed or cache doesn't exist, fetch fresh data
       const nation = nationService.getNation()
 
       if (!nation) {
@@ -60,9 +62,11 @@ export async function nationalReadRoutes(app: FastifyInstance) {
         })
       }
 
+      // Cache the fresh data and timestamp
       await redisCache.set(NATION_CACHE_KEY, JSON.stringify(nation))
       await redisCache.set(NATION_TIMESTAMP_KEY, currentTimestamp.toString())
 
+      const etagValue = `"${currentTimestamp}"`
       reply.header('ETag', etagValue).send(nation)
     },
   )
