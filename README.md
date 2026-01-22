@@ -126,7 +126,7 @@ docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downl
 
 The code can be started in three main ways, depending on what you plan to develop/test/run locally
 
-#### 1) To serve only the API:
+#### 1) To serve only the API
 
 > [!NOTE]
 > If you plan to develop the frontend and/or the API, this is the best way to get started:
