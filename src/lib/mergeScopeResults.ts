@@ -4,8 +4,8 @@ import { schema as scope2Schema } from '@/jobs/scope2/schema'
 
 type Scope1Result = z.infer<typeof scope1Schema>
 type Scope2Result = z.infer<typeof scope2Schema>
-type Scope1Entry = Scope1Result['scope12'][number]
-type Scope2Entry = Scope2Result['scope12'][number]
+type Scope1Entry = Scope1Result['scope1'][number]
+type Scope2Entry = Scope2Result['scope2'][number]
 
 export type ScopeEntry = {
   year?: number
@@ -126,8 +126,8 @@ function mergeEntriesForYear(
     ),
   }
 
-  combined.scope1 = pickScopeField('scope1', scope1Entry, legacyEntry)
-  combined.scope2 = pickScopeField('scope2', scope2Entry, legacyEntry)
+  combined.scope1 = scope1Entry?.scope1 ?? legacyEntry?.scope1
+  combined.scope2 = scope2Entry?.scope2 ?? legacyEntry?.scope2
   combined.scope1And2 = pickScope1And2(scope1Entry, scope2Entry, legacyEntry)
 
   return combined
@@ -151,18 +151,6 @@ function pickAbsoluteMostRecentYear(
     scope2Entry?.absoluteMostRecentYearInReport ??
     legacyEntry?.absoluteMostRecentYearInReport
   )
-}
-
-function pickScopeField(
-  field: 'scope1' | 'scope2',
-  primaryEntry?: ScopeEntry,
-  legacyEntry?: ScopeEntry,
-): ScopeEntry['scope1'] | ScopeEntry['scope2'] {
-  const primaryValue = primaryEntry && primaryEntry[field]
-  if (primaryValue !== undefined) return primaryValue
-
-  const legacyValue = legacyEntry && legacyEntry[field]
-  return legacyValue !== undefined ? legacyValue : undefined
 }
 
 function pickScope1And2(

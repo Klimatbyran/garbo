@@ -3,7 +3,7 @@ import { emissionUnitSchemaGarbo } from "@/api/schemas"
 
 
 export const schema = z.object({
-  scope12: z.array(
+  scope1: z.array(
     z.object({
       absoluteMostRecentYearInReport: z.number(),
       year: z.number(),
