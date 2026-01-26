@@ -90,7 +90,8 @@
     "typescript-eslint": "^8.24.0"
   },
   "overrides": {
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "undici": ">=6.23.0"
   },
   "prettier": {
     "semi": false,
