@@ -10,6 +10,8 @@ import { userAuthenticationBody, serviceAuthenticationBody } from '../types'
 import { authService } from '../services/authService'
 import apiConfig from '../../config/api'
 import { z } from 'zod'
+import { randomUUID } from 'node:crypto'
+import { redisCache } from '../..'
 
 const githubAuthQuerySchema = z.object({
   redirect_uri: z.string().url().optional(),
@@ -92,7 +94,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
 
       // Handle OAuth errors
       if (query.error) {
-        const errorUrl = new URL(apiConfig.frontendURL)
+        const errorUrl = new URL('/auth/callback', apiConfig.frontendURL)
         errorUrl.searchParams.append('error', query.error)
         if (query.error_description) {
           errorUrl.searchParams.append(
@@ -104,13 +106,16 @@ export async function authentificationRoutes(app: FastifyInstance) {
       }
 
       if (!query.code) {
-        const errorUrl = new URL(apiConfig.frontendURL)
+        const errorUrl = new URL('/auth/callback', apiConfig.frontendURL)
         errorUrl.searchParams.append('error', 'missing_code')
         return reply.redirect(errorUrl.toString())
       }
 
-      // Decode state to get the target frontend URL
-      let targetRedirectUri = apiConfig.frontendURL
+      // Default to frontend URL with /auth/callback path for main client
+      let targetRedirectUri = new URL(
+        '/auth/callback',
+        apiConfig.frontendURL,
+      ).toString()
       if (query.state) {
         try {
           const stateData = JSON.parse(
@@ -118,7 +123,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
           ) as { redirect_uri?: string; client?: string }
 
           if (stateData.redirect_uri) {
-            // Validate redirect_uri against allowed origins to prevent open redirect attacks
+            // Validate redirect_uri against allowed origins
             const allowedOrigins = apiConfig.corsAllowOrigins
             const redirectUrl = new URL(stateData.redirect_uri)
             const isAllowed = allowedOrigins.some((origin) => {
@@ -133,7 +138,6 @@ export async function authentificationRoutes(app: FastifyInstance) {
             if (isAllowed) {
               targetRedirectUri = stateData.redirect_uri
             } else {
-              // Log potential security issue but don't expose to attacker
               request.log.warn(
                 { redirect_uri: stateData.redirect_uri, allowedOrigins },
                 'Blocked redirect to unauthorized origin',
@@ -141,7 +145,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
             }
           }
         } catch (error) {
-          // If state can't be decoded, use default frontend
+          // If state can't be decoded, use default frontend with callback path
           request.log.warn(
             { error: error instanceof Error ? error.message : 'Unknown error' },
             'Failed to decode state parameter',
@@ -156,13 +160,13 @@ export async function authentificationRoutes(app: FastifyInstance) {
           apiConfig.githubRedirectUri,
         )
 
-        // TODO: Switch to one-time code exchange instead of token in URL
-        // Generate a short-lived code, store token in Redis, redirect with code
-        // Frontend exchanges code for token via POST /api/auth/exchange
-        // This avoids exposing tokens in URLs (browser history, logs, referrer headers)
-        // Redirect to frontend with token
+        // Generate a short-lived code and store token in Redis
+        const exchangeCode = randomUUID()
+        await redisCache.set(`auth_code:${exchangeCode}`, JSON.stringify(token))
+
+        // Redirect with code instead of token
         const redirectUrl = new URL(targetRedirectUri)
-        redirectUrl.searchParams.append('token', token)
+        redirectUrl.searchParams.append('code', exchangeCode)
         if (query.state) {
           redirectUrl.searchParams.append('state', query.state)
         }
@@ -200,6 +204,18 @@ export async function authentificationRoutes(app: FastifyInstance) {
       reply,
     ) => {
       try {
+        // First, check if this is an internal exchange code (from backend callback)
+        const cacheKey = `auth_code:${request.body.code}`
+        const cachedToken = await redisCache.get(cacheKey)
+
+        if (cachedToken) {
+          // This is an internal exchange code - delete it and return the token
+          await redisCache.delete(cacheKey)
+          reply.status(200).send({ token: cachedToken })
+          return
+        }
+
+        // Otherwise, treat it as a GitHub OAuth code (original flow)
         // Decode state if provided to get client/redirect_uri info
         let redirectUri = apiConfig.githubRedirectUri
         let clientInfo: { client?: string; redirect_uri?: string } | null = null

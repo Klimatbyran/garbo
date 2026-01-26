@@ -66,6 +66,7 @@ const productionOrigins = [
   'https://klimatkollen.se',
   'https://api.klimatkollen.se',
   'https://validate.klimatkollen.se',
+  'https://validate-stage.klimatkollen.se',
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
