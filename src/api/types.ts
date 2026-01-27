@@ -32,6 +32,11 @@ export type PostCompanyBody = z.infer<typeof schemas.postCompanyBodySchema>
 
 export type GarboEntityId = z.infer<typeof schemas.garboEntityIdSchema>
 
+export interface SectorEmissionsData {
+  name: string
+  sectors: Record<string, Record<string, number>>
+}
+
 export type Municipality = z.infer<typeof schemas.MunicipalitySchema>
 
 export type MunicipalityNameParams = z.infer<
@@ -41,6 +46,8 @@ export type MunicipalityNameParams = z.infer<
 export type RegionalData = z.infer<typeof schemas.RegionalDataSchema>
 
 export type RegionalNameParams = z.infer<typeof schemas.RegionalNameParamSchema>
+
+export type NationData = z.infer<typeof schemas.NationDataSchema>
 
 export type userAuthenticationBody = z.infer<
   typeof schemas.userAuthenticationBodySchema
