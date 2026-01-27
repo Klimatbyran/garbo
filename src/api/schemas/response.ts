@@ -555,3 +555,20 @@ export const NationalDataListSchema = z.array(NationDataSchema)
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
 export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
+
+/**
+ * Top lists schemas
+ */
+export const TopListItemSchema = z.object({
+  name: z.string().openapi({ description: 'Name of the entity' }),
+  value: z
+    .number()
+    .nullable()
+    .openapi({ description: 'KPI value for this entity' }),
+  identifier: z
+    .string()
+    .optional()
+    .openapi({ description: 'Unique identifier (wikidataId for companies, name for others)' }),
+})
+
+export const TopListSchema = z.array(TopListItemSchema)
