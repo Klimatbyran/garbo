@@ -6,20 +6,21 @@ import {
   RegionalDataSchema,
   RegionalDataListSchema,
   RegionalKpiListSchema,
+  RegionalSectorEmissionsSchema,
   getErrorSchemas,
   RegionalNameParamSchema,
 } from '../schemas'
 import { regionalService } from '../services/regionalService'
 import { redisCache } from '../..'
 import fs from 'fs'
-import apiConfig from '../../config/api'
+import apiConfig from '@/config/api'
 
 const REGIONS_CACHE_KEY = 'regions:all'
 const REGIONS_TIMESTAMP_KEY = 'regions:timestamp'
 
-const getDataFileTimestamp = (filePath: string): number => {
+const getDataFileTimestamp = (): number => {
   try {
-    const stats = fs.statSync(filePath)
+    const stats = fs.statSync(apiConfig.regionDataPath)
     return stats.mtimeMs
   } catch (_) {
     return 0
@@ -35,7 +36,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get all regions',
         description:
-          'Retrieve a list of all regions with their historical emissions data, trends, Paris agreement compliance status, and municipalities. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
+          'Retrieve a list of all regions with their historical emissions data, trends, Paris agreement compliance status, and regions. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
         tags: getTags('Regions'),
 
         response: {
@@ -44,10 +45,12 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       },
     },
     async (_request, reply) => {
-      const currentTimestamp = getDataFileTimestamp(apiConfig.regionDataPath)
+      const currentTimestamp = getDataFileTimestamp()
       const etagValue = `"${currentTimestamp}"`
 
-      const cachedRegions = await redisCache.get(REGIONS_CACHE_KEY)
+      const cachedRegions = await redisCache.get(
+        REGIONS_CACHE_KEY,
+      )
 
       if (cachedRegions) {
         return reply.header('ETag', etagValue).send(cachedRegions)
@@ -55,8 +58,14 @@ export async function regionalReadRoutes(app: FastifyInstance) {
 
       const regions = await regionalService.getRegions()
 
-      await redisCache.set(REGIONS_CACHE_KEY, JSON.stringify(regions))
-      await redisCache.set(REGIONS_TIMESTAMP_KEY, currentTimestamp.toString())
+      await redisCache.set(
+        REGIONS_CACHE_KEY,
+        JSON.stringify(regions),
+      )
+      await redisCache.set(
+        REGIONS_TIMESTAMP_KEY,
+        currentTimestamp.toString(),
+      )
 
       reply.header('ETag', etagValue).send(regions)
     },
@@ -87,7 +96,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Get one region',
         description:
-          'Retrieve a specific region with its historical emissions data, trends, Paris agreement compliance status, and municipalities.',
+          'Retrieve a specific region with its historical emissions data, trends, Paris agreement compliance status, and regions.',
         tags: getTags('Regions'),
         params: RegionalNameParamSchema,
         response: {
@@ -108,6 +117,36 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(region)
+    },
+  )
+
+  app.get(
+    '/:name/sector-emissions',
+    {
+      schema: {
+        summary: 'Get regional sector emissions',
+        description:
+          'Retrieve sector emissions data for a specific region, broken down by different sectors over time.',
+        tags: getTags('Regions'),
+        params: RegionalNameParamSchema,
+        response: {
+          200: RegionalSectorEmissionsSchema,
+          ...getErrorSchemas(400, 404),
+        },
+      },
+    },
+    async (request: FastifyRequest<{ Params: RegionalNameParams }>, reply) => {
+      const { name } = request.params
+      const sectorEmissions = regionalService.getRegionSectorEmissions(name)
+
+      if (!sectorEmissions) {
+        return reply.status(404).send({
+          code: 'NOT_FOUND',
+          message: 'The requested resource could not be found.',
+        })
+      }
+
+      reply.send({ sectors: sectorEmissions })
     },
   )
 }

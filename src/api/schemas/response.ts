@@ -454,22 +454,41 @@ export const MunicipalitySectorEmissionsSchema = z.object({
 /**
  * Regional data schemas
  */
+export const RegionalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+/**
+ * Regional data schemas
+ */
 export const InputRegionalDataSchema = z.array(
-  z.object({
-    region: z.string(),
-    emissions: InputYearlyDataSchema,
-    totalTrend: z.number(),
-    totalCarbonLaw: z.number(),
-    approximatedHistoricalEmission: InputYearlyDataSchema,
-    trend: InputYearlyDataSchema,
-    historicalEmissionChangePercent: z.number(),
-    meetsParis: z.string().transform((val) => val === 'True'),
-    municipalities: z.array(z.string()),
-  }),
+  z
+    .object({
+      region: z.string(),
+      logoUrl: z.string().nullable().optional(),
+      emissions: InputYearlyDataSchema,
+      total_trend: z.number(),
+      emissions_slope: z.number().optional(),
+      totalCarbonLaw: z.number(),
+      approximatedHistoricalEmission: InputYearlyDataSchema,
+      trend: InputYearlyDataSchema,
+      historicalEmissionChangePercent: z.number(),
+      meetsParis: z.string().transform((val) => val === 'True'),
+      municipalities: z.array(z.string()),
+      politicalRule: z.array(z.string()),
+      politicalRSO: z.string(),
+    })
+    .transform((data) => ({
+      ...data,
+      totalTrend: data.total_trend,
+      total_trend: undefined,
+      emissions_slope: undefined,
+    })),
 )
 
 export const RegionalDataSchema = z.object({
   region: z.string(),
+  logoUrl: z.string().nullable().optional(),
   emissions: z.array(YearlyDataSchema),
   totalTrend: z.number(),
   totalCarbonLaw: z.number(),
@@ -478,6 +497,8 @@ export const RegionalDataSchema = z.object({
   historicalEmissionChangePercent: z.number(),
   meetsParis: z.boolean(),
   municipalities: z.array(z.string()),
+  politicalRule: z.array(z.string()),
+  politicalRSO: z.string(),
 })
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)
@@ -488,13 +509,48 @@ export const RegionalKpiSchema = z.object({
   historicalEmissionChangePercent: z.number(),
 })
 
-export const AuthentificationResponseScheme = z.object({ 
+export const AuthentificationResponseScheme = z.object({
   token: z.string(),
   client: z.string().optional(),
   redirect_uri: z.string().url().optional(),
 })
 
 export const RegionalKpiListSchema = z.array(RegionalKpiSchema)
+
+/**
+ * National data schemas
+ */
+export const NationalSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+export const InputNationalDataSchema = z.array(
+  z.object({
+    country: z.string(),
+    logoUrl: z.string().nullable().optional(),
+    emissions: InputYearlyDataSchema,
+    totalTrend: z.number(),
+    totalCarbonLaw: z.number(),
+    approximatedHistoricalEmission: InputYearlyDataSchema,
+    trend: InputYearlyDataSchema,
+    historicalEmissionChangePercent: z.number(),
+    meetsParis: z.string().transform((val) => val === 'True'),
+  }),
+)
+
+export const NationDataSchema = z.object({
+  country: z.string(),
+  logoUrl: z.string().nullable().optional(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+})
+
+export const NationalDataListSchema = z.array(NationDataSchema)
 
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
