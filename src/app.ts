@@ -17,33 +17,35 @@ import { resolve } from 'path'
 
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
-import { companyReadRoutes } from './api/routes/company.read'
-import { companyGoalsRoutes } from './api/routes/company.goals'
+import { companyReadRoutes } from './api/routes/public/company.read'
+import { companyGoalsRoutes } from './api/routes/public/company.goals'
 import authPlugin from './api/plugins/auth'
-import { companyIndustryRoutes } from './api/routes/company.industry'
-import { companyInitiativesRoutes } from './api/routes/company.initiatives'
+import { companyIndustryRoutes } from './api/routes/public/company.industry'
+import { companyInitiativesRoutes } from './api/routes/public/company.initiatives'
 import {
   companyPublicReportingPeriodsRoutes,
   companyReportingPeriodsRoutes,
-} from './api/routes/company.reportingPeriods'
-import { companyUpdateRoutes } from './api/routes/company.update'
-import { companyDeleteRoutes } from './api/routes/company.delete'
+} from './api/routes/public/company.reportingPeriods'
+import { companyUpdateRoutes } from './api/routes/public/company.update'
+import { companyDeleteRoutes } from './api/routes/public/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
-import { municipalityReadRoutes } from './api/routes/municipality.read'
-import { regionalReadRoutes } from './api/routes/regional.read'
-import { nationalReadRoutes } from './api/routes/national.read'
-import { companyBaseYearRoutes } from './api/routes/company.baseYear'
-import { authentificationRoutes } from './api/routes/auth'
-import { companyExportRoutes } from './api/routes/company.export'
-import { municipalityExportRoutes } from './api/routes/municipality.export'
-import { regionalExportRoutes } from './api/routes/regional.export'
-import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
-import { validationsReadRoutes } from './api/routes/validation.read'
-import { validationsUpdateRoutes } from './api/routes/validation.update'
-import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
-import { industryGicsRoute } from './api/routes/industryGics.read'
-import { screenshotsReadRoutes } from './api/routes/screenshots.read'
-import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
+import { municipalityReadRoutes } from './api/routes/public/municipality.read'
+import { regionalReadRoutes } from './api/routes/public/regional.read'
+import { nationalReadRoutes } from './api/routes/public/national.read'
+import { companyBaseYearRoutes } from './api/routes/public/company.baseYear'
+import { authentificationRoutes } from './api/routes/public/auth'
+import { companyExportRoutes } from './api/routes/public/company.export'
+import { municipalityExportRoutes } from './api/routes/public/municipality.export'
+import { regionalExportRoutes } from './api/routes/public/regional.export'
+import { mailingListDownloadsRoute } from './api/routes/public/mailing-list.downloads'
+import { validationsReadRoutes } from './api/routes/public/validation.read'
+import { validationsUpdateRoutes } from './api/routes/public/validation.update'
+import { emissionsAssessmentRoutes } from './api/routes/public/emissionsAssessment'
+import { industryGicsRoute } from './api/routes/public/industryGics.read'
+import { screenshotsReadRoutes } from './api/routes/public/screenshots.read'
+import { newsletterArchiveDownloadsRoute } from './api/routes/public/newsletter-archive.downloads'
+import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
+import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
 
 async function startApp() {
   const app = Fastify({
@@ -125,6 +127,13 @@ async function publicContext(app: FastifyInstance) {
     },
   )
 
+  //internal routes for data assessment and management
+  app.register(internalCompanyReadRoutes, { prefix: 'api/internal-companies' })
+  app.register(internalMunicipalityReadRoutes, {
+    prefix: 'api/internal-municipalities',
+  })
+
+  //public routes
   app.register(authentificationRoutes, { prefix: 'api/auth' })
   app.register(companyReadRoutes, { prefix: 'api/companies' })
   app.register(companyExportRoutes, { prefix: 'api/companies' })

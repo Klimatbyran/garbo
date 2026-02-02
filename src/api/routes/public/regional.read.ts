@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { getTags } from '../../config/openapi'
-import { RegionalNameParams } from '../types'
-import { cachePlugin } from '../plugins/cache'
+import { getTags } from '../../../config/openapi'
+import { RegionalNameParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
 import {
   RegionalDataSchema,
   RegionalDataListSchema,
@@ -9,9 +9,9 @@ import {
   RegionalSectorEmissionsSchema,
   getErrorSchemas,
   RegionalNameParamSchema,
-} from '../schemas'
-import { regionalService } from '../services/regionalService'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { regionalService } from '../../services/regionalService'
+import { redisCache } from '../../..'
 import fs from 'fs'
 import apiConfig from '@/config/api'
 
@@ -48,9 +48,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       const currentTimestamp = getDataFileTimestamp()
       const etagValue = `"${currentTimestamp}"`
 
-      const cachedRegions = await redisCache.get(
-        REGIONS_CACHE_KEY,
-      )
+      const cachedRegions = await redisCache.get(REGIONS_CACHE_KEY)
 
       if (cachedRegions) {
         return reply.header('ETag', etagValue).send(cachedRegions)
@@ -58,14 +56,8 @@ export async function regionalReadRoutes(app: FastifyInstance) {
 
       const regions = await regionalService.getRegions()
 
-      await redisCache.set(
-        REGIONS_CACHE_KEY,
-        JSON.stringify(regions),
-      )
-      await redisCache.set(
-        REGIONS_TIMESTAMP_KEY,
-        currentTimestamp.toString(),
-      )
+      await redisCache.set(REGIONS_CACHE_KEY, JSON.stringify(regions))
+      await redisCache.set(REGIONS_TIMESTAMP_KEY, currentTimestamp.toString())
 
       reply.header('ETag', etagValue).send(regions)
     },

@@ -3,36 +3,36 @@ import {
   AuthenticatedFastifyRequest,
   FastifyRequest,
 } from 'fastify'
-import { emissionsService } from '../services/emissionsService'
-import { companyService } from '../services/companyService'
-import { reportingPeriodService } from '../services/reportingPeriodService'
+import { emissionsService } from '../../services/emissionsService'
+import { companyService } from '../../services/companyService'
+import { reportingPeriodService } from '../../services/reportingPeriodService'
 import {
   getErrorSchemas,
   postReportingPeriodsSchema,
   wikidataIdParamSchema,
   okResponseSchema,
   ReportingPeriodYearsSchema,
-} from '../schemas'
-import { getTags } from '../../config/openapi'
-import { WikidataIdParams, PostReportingPeriodsBody } from '../types'
-import { metadataService } from '../services/metadataService'
+} from '../../schemas'
+import { getTags } from '../../../config/openapi'
+import { WikidataIdParams, PostReportingPeriodsBody } from '../../types'
+import { metadataService } from '../../services/metadataService'
 import _ from 'lodash'
-import { prisma } from '../../lib/prisma'
+import { prisma } from '../../../lib/prisma'
 
 // Helper functions for emission deletion
 async function deleteScope3Emissions(emissions: any) {
   if (!emissions.scope3) return
-  
+
   for (const cat of emissions.scope3.categories) {
     await emissionsService.deleteScope3Category(cat.id)
   }
-  
+
   if (emissions.scope3.statedTotalEmissions?.id) {
     await emissionsService.deleteStatedTotalEmissions(
       emissions.scope3.statedTotalEmissions.id,
     )
   }
-  
+
   await emissionsService.deleteScope3(emissions.scope3.id)
 }
 
@@ -185,7 +185,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         for (const period of existingPeriods) {
           const e = period.emissions
           if (!e) continue
-          
+
           await deleteScope3Emissions(e)
           await deleteScope1And2Emissions(e)
           await deleteStatedTotalEmissions(e)
