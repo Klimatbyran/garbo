@@ -32,8 +32,9 @@ export function calculateScope1And2Total(
 }
 
 /**
- * Returns 0 if categories exist but sum to 0 (0 is valid data).
- * Returns null if no categories exist.
+ * Returns the sum of category totals when at least one numeric value exists.
+ * Returns null if there are no categories OR all category totals are null/undefined.
+ * This allows callers to fall back to statedTotalEmissions when categories carry no values.
  */
 function calculateScope3CategoriesTotal(
   categories: any[] | undefined,
@@ -41,10 +42,18 @@ function calculateScope3CategoriesTotal(
   if (!categories || categories.length === 0) {
     return null
   }
-  return categories.reduce(
-    (total, category) => (category.total ?? 0) + total,
-    0,
-  )
+
+  let foundNumeric = false
+  const sum = categories.reduce((acc, category) => {
+    const v = category?.total
+    if (typeof v === 'number') {
+      foundNumeric = true
+      return acc + v
+    }
+    return acc
+  }, 0)
+
+  return foundNumeric ? sum : null
 }
 
 /**
