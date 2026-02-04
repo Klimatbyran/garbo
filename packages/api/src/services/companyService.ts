@@ -8,8 +8,8 @@ import {
   calculateScope2Total,
   calculateScope3Total,
   calculatedTotalEmissions,
-} from '@/lib/company-emissions/companyEmissionsCalculator'
-import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
+} from '@garbo/shared/lib/company-emissions/companyEmissionsCalculator'
+import { calculateFutureEmissionTrend } from '@garbo/shared/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
 class CompanyService {
   async getAllCompaniesWithMetadata() {

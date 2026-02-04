@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { ask } from '@/lib/openai'
+import { ask } from '@garbo/shared/lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { ChatCompletionMessageParam } from 'openai/resources'
-import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
+import { getWikidataEntities, searchCompany } from '@garbo/shared/lib/wikidata/read'
 
 // Schema för Wikidata-resultat
 export const wikidataSchema = z.object({

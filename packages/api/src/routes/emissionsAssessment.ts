@@ -1,10 +1,10 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '@/lib/prisma'
-import type { ReportingPeriodData, CompanyWithEmissions } from '@/jobs/emissions/types'
-import { companyWithEmissionsInclude } from '@/jobs/emissions/types'
-import { assessmentResultSchema, errorResponseSchema } from '@/jobs/emissions/schema'
-import { assessEmissions } from '@/jobs/emissions/assess'
+import { prisma } from '@garbo/shared/lib/prisma'
+import type { ReportingPeriodData, CompanyWithEmissions } from '@garbo/jobs/emissions/types'
+import { companyWithEmissionsInclude } from '@garbo/jobs/emissions/types'
+import { assessmentResultSchema, errorResponseSchema } from '@garbo/jobs/emissions/schema'
+import { assessEmissions } from '@garbo/jobs/emissions/assess'
 
 const emissionsAssessmentSchema = z.object({
   wikidataId: z.string(),

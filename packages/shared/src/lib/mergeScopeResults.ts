@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { schema as scope1Schema } from '@/jobs/scope1/schema'
-import { schema as scope2Schema } from '@/jobs/scope2/schema'
+import { schema as scope1Schema } from '@garbo/jobs/scope1/schema'
+import { schema as scope2Schema } from '@garbo/jobs/scope2/schema'
 
 type Scope1Result = z.infer<typeof scope1Schema>
 type Scope2Result = z.infer<typeof scope2Schema>

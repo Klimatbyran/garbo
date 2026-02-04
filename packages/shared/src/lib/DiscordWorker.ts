@@ -10,7 +10,7 @@ import discord from '../discord'
 import apiConfig from '../config/api';
 import { ChangeDescription } from './DiffWorker';
 import { createDiscordLogger } from './logger';
-import { Logger } from '@/types';
+import { Logger } from '@garbo/api/src/types';
 
 interface Approval {
   summary?: string;

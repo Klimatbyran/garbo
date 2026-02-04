@@ -7,7 +7,7 @@ import {
   summarizePrompt,
   originalPrompt,
   } from "./testData"
-import { schema } from "@/jobs/scope3/schema"
+import { schema } from "./scope3/schema"
 
 export const testSuite: TestSuite = {
   expectedResults,

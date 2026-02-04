@@ -4,7 +4,7 @@
 // import { ParsedDocument } from '../lib/nlm-ingestor-schema'
 // import { QUEUE_NAMES } from '../queues'
 // import { createScreenshots } from '@/jobs/extractScreenshots/extractScreenshots'
-// import { Logger } from '@/types'
+// import { Logger } from '@garbo/api/src/types'
 
 // class NLMExtractTablesJob extends DiscordJob {
 //   declare data: DiscordJob['data'] & {

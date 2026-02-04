@@ -7,7 +7,7 @@ import { ask } from '../lib/openai';
 import { leiPrompt, leiSchema } from '../prompts/lei';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { ChatCompletionMessageParam } from 'openai/resources';
-import { getLEINumber } from '@/lib/wikidata/read';
+import { getLEINumber } from '@garbo/shared/lib/wikidata/read';
 
 export class LEIJob extends DiscordJob {
   declare data: DiscordJob['data'] & {

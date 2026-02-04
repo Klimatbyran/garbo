@@ -7,7 +7,7 @@ import discord from '../discord'
 import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
-import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
+import { getWikidataEntities, searchCompany } from '@garbo/shared/lib/wikidata/read'
 
 export class GuessWikidataJob extends DiscordJob {
   declare data: DiscordJob['data'] & {

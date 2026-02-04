@@ -13,7 +13,7 @@ import {
 import { regionalService } from '../services/regionalService'
 import { redisCache } from '../..'
 import fs from 'fs'
-import apiConfig from '@/config/api'
+import apiConfig from '@garbo/shared/config/api'
 
 const REGIONS_CACHE_KEY = 'regions:all'
 const REGIONS_TIMESTAMP_KEY = 'regions:timestamp'

@@ -1,9 +1,9 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import googleScreenshotBucketConfig from '@/config/googleScreenshotBucket';
+import googleScreenshotBucketConfig from '@garbo/shared/config/googleScreenshotBucket';
 import { Storage } from '@google-cloud/storage';
-import { createSafeFolderName } from '@/lib/pathUtils';
-import { getTags } from '@/config/openapi';
+import { createSafeFolderName } from '@garbo/shared/lib/pathUtils';
+import { getTags } from '@garbo/shared/config/openapi';
 
 const credentials = googleScreenshotBucketConfig.bucketKey 
   ? JSON.parse(Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString())

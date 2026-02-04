@@ -3,7 +3,7 @@ import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wik
 import { ReportingPeriod, Emissions } from '../lib/emissions'
 import wikipediaConfig from '../config/wikipedia'
 import { QUEUE_NAMES } from '../queues'
-import { getWikipediaTitle } from '@/lib/wikidata/read'
+import { getWikipediaTitle } from '@garbo/shared/lib/wikidata/read'
 
 export class WikipediaUploadJob extends DiscordJob {
   declare data: DiscordJob['data'] & {

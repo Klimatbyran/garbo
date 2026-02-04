@@ -1,4 +1,4 @@
-import { emissionUnitSchemaGarbo } from "@/api/schemas"
+import { emissionUnitSchemaGarbo } from "@garbo/schemas"
 import z from "zod"
 
 export const oldSchema = z.object({

@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { emissionUnitSchemaGarbo } from "@/api/schemas"
+import { emissionUnitSchemaGarbo } from "@garbo/schemas"
 
 export const oldSchema = z.object({
   scope12: z.array(
