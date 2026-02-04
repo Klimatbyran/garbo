@@ -552,6 +552,56 @@ export const NationDataSchema = z.object({
 
 export const NationalDataListSchema = z.array(NationDataSchema)
 
+/**
+ * European data schemas
+ */
+export const EuropeanSectorEmissionsSchema = z.object({
+  sectors: z.record(z.string(), z.record(z.string(), z.number())),
+})
+
+export const InputEuropeanDataSchema = z.array(
+  z
+    .object({
+      country: z.string(),
+      logoUrl: z.string().nullable().optional(),
+      emissions: InputYearlyDataSchema,
+      totalTrend: z.number(),
+      emissionsSlope: z.number().optional(),
+      totalCarbonLaw: z.number(),
+      approximatedHistoricalEmission: InputYearlyDataSchema,
+      trend: InputYearlyDataSchema,
+      historicalEmissionChangePercent: z.number(),
+      meetsParis: z.string().transform((val) => val === 'True'),
+    })
+    .transform((data) => ({
+      ...data,
+      emissionsSlope: data.emissionsSlope,
+    })),
+)
+
+export const EuropeanDataSchema = z.object({
+  country: z.string(),
+  logoUrl: z.string().nullable().optional(),
+  emissions: z.array(YearlyDataSchema),
+  totalTrend: z.number(),
+  emissionsSlope: z.number().optional(),
+  totalCarbonLaw: z.number(),
+  approximatedHistoricalEmission: z.array(YearlyDataSchema),
+  trend: z.array(YearlyDataSchema),
+  historicalEmissionChangePercent: z.number(),
+  meetsParis: z.boolean(),
+})
+
+export const EuropeanDataListSchema = z.array(EuropeanDataSchema)
+
+export const EuropeanKpiSchema = z.object({
+  country: z.string(),
+  meetsParis: z.boolean(),
+  historicalEmissionChangePercent: z.number(),
+})
+
+export const EuropeanKpiListSchema = z.array(EuropeanKpiSchema)
+
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
 export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())

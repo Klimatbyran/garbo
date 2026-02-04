@@ -261,6 +261,12 @@ export const RegionalNameParamSchema = z.object({
   name: RegionalNameSchema,
 })
 
+export const EuropeanCountryNameSchema = z.string()
+
+export const EuropeanCountryNameParamSchema = z.object({
+  name: EuropeanCountryNameSchema,
+})
+
 export const userAuthenticationBodySchema = z.object({
   code: z.string(),
   state: z.string().optional(),

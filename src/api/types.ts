@@ -49,6 +49,12 @@ export type RegionalNameParams = z.infer<typeof schemas.RegionalNameParamSchema>
 
 export type NationData = z.infer<typeof schemas.NationDataSchema>
 
+export type EuropeanData = z.infer<typeof schemas.EuropeanDataSchema>
+
+export type EuropeanCountryNameParams = z.infer<
+  typeof schemas.EuropeanCountryNameParamSchema
+>
+
 export type userAuthenticationBody = z.infer<
   typeof schemas.userAuthenticationBodySchema
 >
