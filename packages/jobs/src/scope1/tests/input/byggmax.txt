@@ -1,0 +1,503 @@
+##### Klimat
+#### SCOPE 1
+## Utsläpp från den egna verksamheten
+
+I scope 1 ingar alla utslapp som genereras direkt i den egna verksamheten.
+Koncernens totala klimatpaverkan var under aret 0,5 kton CO2e (0,4).
+For Byggmax galler det framst utslapp fran diesel harrorande fran truckar i butikerna samt biltransporter.
+Koncernen arbetar med att byta ut alla dieseldrivna truckar till eldrivna.
+Den 31 december 2024 var 69 (69) procent av alla truckar elektrifierade och vi raknar med att elektrifieringen ar fullt genomford till 2027.
+
+SCOPE 2
+
+## Page 23:
+                ```markdown
+| KPI                             | Totala utsläpp scope 1-3 |           |          |          |
+|---------------------------------|---------------------------|-----------|----------|----------|
+|                                 | 2024                      | 2023      | Basåret 2020 |
+|---------------------------------|---------------------------|-----------|----------|----------|
+| Scope 1 (ton CO₂e)             | 0.5                       | 0.4       | 0.5      |
+| Scope 2 (ton CO₂e)             | 0.9                       | 2.3       | 3.5      |
+| Scope 3 (ton CO₂e)             | 157                       | 159       | 188      |
+| Totala utsläpp (ton CO₂e)      | 158                       | 161       | 192      |
+```
+
+#### Totala utsläpp (kton CO2e)
+
+innebar en minskning pa 39 procent jamfort med basaret 2020.
+
+Utslappen fran vardekedjan delas in i tre delar
+
+- • Scope 1 – Utsläpp från den egna verksamheten
+
+- • Scope 2 – Indirekta utsläpp från köpt el och värme
+
+Kortsiktiga mal kton CO2e 2024 jamfort med 2020
+
+- • Minska de absoluta växthusgasutsläppen i scope 1 och 2 med 90 procent till 2030 jämfört med basåret 2020*. Status 2024: -73 procent
+
+- • Minska alla återstående scope 3-utsläpp av växt husgaser med 52 procent per ton såld produkt till 2030 jämfört med basåret 2020. Status 2024: - 0,5 procent
+
+- • Minska scope 3-växthusgasutsläpp från använd ning av sålda produkter med 42 procent till 2030 jämfört med basåret 2020*. Status 2024: + 26 procent
+
+KPI Totala utslapp scope 1-3 -39%
+
+- Vi har höga krav och prioriterade aktiviteter inom scope 1 och 2 på kort sikt då det ligger närmast verksamheten och där vi har goda möjligheter att påverka. Vi har ökat både antalet eltruckar och användning av förnybar energi i våra butiker. För att minska scope 3-utsläpp jobbar vi aktivt med att förändra vårt produktsortiment till produk ter med lägre utsläpp. Dessutom väljs lokala leverantörer för att minska transpor ter kombinerat med att välja produkter tillverkade av förnybara råvaror. Vi jobbar också aktivt med ökad effektivitet för transport av alla våra produkter. Våra scope 3-utsläpp från användning av sålda produkter har ökat på grund av ökad försäljning av fossil gasol. Ambitionen är att erbjuda alternativa produktsortiment som till exempel biogasol.
+
+For mer info besok SBTI:s hemsida https://sciencebasedtargets.org/ Malet ar nettonoll utslapp till 2040.
+
+Langsiktiga mal
+
+- • Upprätthålla absoluta scope 1 och 2 utsläpps minskningar på 90 procent till 2040 jämfört med basåret 2020*.
+
+- • Minska de absoluta utsläppen i scope 3 med 90 procent till 2040 jämfört med basår 2020*. Status 2024: -38 procent
+
+####### Klimat
+###### SCOPE 3
+## Indirekta utsläpp från värdekedjan
+
+Effektiva logistiklosningar maximerade fyllnadsgrader samt lokala varuleverantorer bidrar till den totala minskningen sedan 2010.
+Minskad reduktionsplikt har paverkat utslappen negativt 2024.
+
+Vara scope 3 utslapp star for majoriteten av vara utslapp.
+Koncernens totala scope 3 utslapp 2024 uppgar till 157 kton CO2e (159).
+Scope 3 ar uppdelat i tva underkategorier.
+3a inkluderar alla utslapp som genereras av transporter fran leverantorernas utlastningsstalle till koncernens butiker och slutkunder inklusive transporter via centrallager.
+Scope 3a uppgar till 13 kton CO2e.
+3b inkluderar utslapp kopplat till inkop av varor och tjanster anvandning av salda produkter samt ovriga utslapp upp och nedstroms och uppgar till 144 kton CO2e.
+
+### SCOPE 1 – FÖRDELNING CO2e
+#### Leasingbilar, 11% Truckar, 68% Hyrbilar, 3% Privatbilar, 18%
+
+- (85) procent av butikerna. I en mindre del av buti kerna köper vi elen som en del av våra hyres avtal. Vissa butiker är anslutna till fjärrvärme. I de fall vi inte har full insikt om ursprunget av den energi vi köper genom hyresvärdarna, beräknas utsläppen med en utsläppsfaktor baserat på nordisk residualmix. För att ytter ligare minska scope 2-utsläp pen har Bygg max arbetat med att öka medve tenheten kring energianvändningen.
+
+## Indirekta utsläpp från köpt el och värme
+
+69% KPI Andel eltruckar 2024 Malet ar att ar 2027 uppna 100 pro cent eltruckar i butikerna.
+
+-73% KPI CO2e-utslapp scope 1 och 2 Malet ar att minska vaxthusgasutslappen med 90 procent till 2030 jamfort med 2020.
+
+## SBTi validerade Byggmax klimatmål under 2022
+
+Nettonoll mal
+
+- • Nå nettonoll utsläpp av växthusgaser i hela värdekedjan senast 2040. Status 2024: -39 procent
+
+| Vara vasentliga fragor handlar bade om vara produkters och var egen verksamhets klimatpaverkan. Mojligheter till en mer klimatsmart bygg handel finns framfor allt inom Hallbara materialval okad andel FSC och PEFC certifierat tra atervunnet stal och betong samt alternativa byggmaterial med lagre klimatpaverkan. Effektivare logistik och transporter okad elektrifiering av transportfordon optimerade leveransfloden och kortare transportstrackor genom lokal produktion. Cirkulara affarsmodeller Fokus pa ater bruk materialatervinning och att minska svinn genom battre produktutveckling och radgivning till kunder. Klimatsmart drift av butiker och lager Fornybar el energieffektiva byggnader och minskad energiforbrukning genom smart styrning. Koncernens totala klimatpaverkan var under 2024 drygt 158 kton CO2e (161) vilket | •Scope 3 Indirekta utslapp fran vardekedjan | Klimat I scope 2 ingar alla utslapp som genereras fran kopt el och varme. Koncernens totala klimatpaverkan var under aret 0,9 kton CO2e (2,0). Byggmax butikerna koper fornybar el dar vi sjalva har elavtal och det galler for 98 |
+| --- | --- | --- |
+| Scope 1 (kton CO2e) | 0,5 | 0,4 | 0,9 | 1,2
+| Scope 2 (kton CO2e) | 0,9 | 2,0 | 3,5 | 3,9
+| Scope 3 (kton CO2e) | 157 | 159 | 188 | 254
+![table image]({page: 23, x: 51}, {y: 238, {width: 360}, {height: 7})
+
+#### SCOPE 3A – TRANSPORTER FRÅN LEVERANTÖRER TILL BUTIK
+
+Utslapp inkluderade i scope 3a kommer fran transport av bulkbat container lastbilstransporter samt hemleve ranser med kranbilar.
+Byggmax har arbetat aktivt med data sedan 2010 och har langa matserier och god kontroll pa utvecklingen av utslapp.
+Effektiva logistiklosningar ar en nyckelfaktor for att minska klimatpaverkan det handlar om val av fard me del fyllnadsgrad pa leveranser och att valja lokala varu leverantorer.
+Genom att kora leveranser via vara centrallager har vi mojlighet att maximera fyllnadsgra den pa bilar for pafyllnad i butik.
+Effektiva varufloden genom lokala leveranser och sjotransporter i stallet for lang vaga lastbilstransporter bidrar till successiv minskad miljopaverkan.
+Vi arbetar aktivt mot att att kora alla trans porter fran lager till butiker i Norrland med tag.
+
+Malet ar en minskning med 70 procent till 2030.
+
+-37% KPI Scope 3a paverkan kton CO2e per transporterat ton gods sedan 2010 Tra 28% Cement/ betong 28% Metall 11% Isolering 7% ovrigt 22% Gips 4% Inkopta varor och tjanster 89% Anvandning av salda produkter 6% ovrigt 5%
+
+##### Målet inkluderar markrelaterade utsläpp och upptag från råmaterial för bioenergi.
+
+
+<!-- PAGE: 24 -->
+
+#### SCOPE 3B – INKÖPTA VAROR OCH TJÄNSTER
+
+De varor som kops in slapper ut CO2e innan de nar Byggmax.
+Den kategorin med storst paverkan ar cement/betong och darefter kommer tra.
+Vi ser over mojligheter att ersatta eller erbjuda alternativa produk ter med lagre klimatavtryck.
+Anledningen till att virke representerar en hog andel av CO2e utslappen ar drivet av den hoga inkopsvolymen.
+
+- CO2e-UTSLÄPP PER TRANSPORTERAT TON GODS
+
+- FÖRDELNING AV UTSLÄPP KTON CO2e SCOPE 3B
+
+- FÖRDELNING UTSLÄPP INKÖPTA VAROR OCH TJÄNSTER
+
+0 10 20 30 40
+
+2024202320222010
+
+Kton
+
+
+<!-- PAGE: 26 -->
+Sociala aspekter och medarbetare
+
+NEJ
+
+|  |
+|  |
+| Foretaget utfor finansierar eller ar exponerat mot saker drift av befintliga karn tekniska anlaggningar som producerar el eller processvarme inbegripet for fjarrvarme eller industriella processer sasom vatgasproduktion fran karnenergi samt sakerhets uppgraderingar av dessa. | NEJ
+| Fossilgasrelaterade verksamheter Foretaget utfor finansierar eller ar exponerat mot uppforande eller drift av el produktionsanlaggningar som producerar el med hjalp av fossila gasformiga branslen. | NEJ
+![table image]({page: 33, x: 55}, {y: 219, {width: 279}, {height: 25})
+
+Foretaget utfor finansierar eller ar exponerat mot uppforande renovering och drift av anlaggningar for kombinerad produktion av varme/kyla och el med hjalp av fossila gasformiga branslen.
+
+NEJ
+
+Foretaget utfor finansierar eller ar exponerat mot uppforande renovering och drift av varmeproduktionsanlaggningar som producerar varme/kyla med hjalp av fossila gasformiga branslen.
+
+#### POLITISKA BESLUT
+
+Vart mal att minska utslapp fran transporter med 70 procent till 2030 jamfort med 2010 paverkas till stor del av att transportbranschen i lagre utstrackning anvander sig av fossila branslen.
+Sveriges strategi for att fasa ut fossila branslen ar att blanda i biogena branslen i diesel den sa kallade reduktionsplikten.
+Det finns utmaningar med att utslap pen fran transporter borjar oka som en konse kvens av nya politiska beslut.
+
+Byggmax mal vilket ar i linje med Sveriges mal for inrikes transporter ar att senast 2030 minska CO2e-utslapp per ton transporterat gods med 70 pro cent jamfort med ar 2010.
+Utslapp per transporterat gods drivs till stor del av utslapp fran lastbils transporter i Sve rige.
+Ackumulerat har utslapp fran transporter av gods fran alla leverantorer till vara butiker och lager minskat med 37 procent jamfort med 2010.
+Minskad reduktionsplikt har paverkat utslappen negativt 2024.
+
+##### EU:s Taxonomi
+## Kärnenergi- och fossilgasrelaterade verksamheter
+### Kärnenergirelaterade verksamheter
+
+Foretaget utfor finansierar eller ar exponerat mot forskning utveckling demon stration och utbyggnad av innovativa elproduktionsanlaggningar som producerar energi fran karnenergiprocesser med minimalt avfall fran bransle cykeln.
+NEJ
+
+Foretaget utfor finansierar eller ar exponerat mot uppforande och saker drift av nya karntekniska anlaggningar for produktion av el eller processvarme in begripet for fjarrvarme eller industriella processer sasom vatgasproduktion samt for sakerhetsuppgraderingar av dessa med hjalp av basta tillgangliga teknik.
+
+##### Vårt agerande
+
+- • Effektiva logistiklösningar för att minska klimatpåverkan, dvs val av transportmedel, fyllnadsgrad och att handla lokalt när möjligt.
+
+# KLIMAT
+
+Klimatfragan ar den enskilt storsta miljoutmaningen for Byggmax och vi arbetar malmedvetet for att minska vara utslapp i linje med Parisavtalet och vetenskapligt forankrade klimatmal.
+Vi har en roll i att driva forand ring mot mer hallbara byggmetoder och materialval.
+Klimatutmaning arna inom bygghandeln ror allt fran ravaruutvinning och produktion av byggmaterial till transporter energianvandning i butiker och avfalls hantering.
+
+##### C Regelefterlevnad
+##### D IT-relaterade risker
+##### E Medarbetare
+##### F Leverantörer
+##### G Konkurrenter
+
+H Forandring i ravarupriser
+
+## Moderbolaget
+# BALANSRÄKNING
+
+| Mkr | Not | 2024-12-31 | 2023-12-31 |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| TILLGaNGAR |
+| Anlaggningstillgangar |
+| Finansiella anlaggningstillgangar |
+| Andelar i koncernbolag | 17 | 1 133 | 1 213 |  |  |  | 
+| ovriga finansiella tillgangar |  | 5 | 5 |  |  |  | 
+| Summa anlaggningstillgangar |  | 1 138 | 1 218 |  |  |  | 
+| Omsattningstillgangar |
+| Kortfristiga fordringar |
+| Fordringar hos koncernbolag |  | 237 | 438 |  |  |  | 
+| ovriga fordringar | 20 | 4 | 7 |  |  |  | 
+| Forutbetalda kostnader och upplupna intakter | 21 | 3 | 4 |  |  |  | 
+| Summa kortfristiga fordringar |  | 244 | 448 |  |  |  | 
+| Kassa och bank |  | 2 | 0 |  |  |  | 
+| Summa omsattningstillgangar |  | 246 | 448 |  |  |  | 
+| SUMMA TILLGaNGAR |  | 1 384 | 1 666 |  |  |  | 
+|  |  |  |  | Mkr | Not | 2024-12-31 | 2023-12-31
+| EGET KAPITAL OCH SKULDER |
+| Eget kapital |
+| Bundet eget kapital |
+|  |  |  |  | Aktiekapital | 24 | 20 | 20
+|  |  |  |  | Summa bundet eget kapital |  | 20 | 20
+| Fritt eget kapital |
+|  |  |  |  | overkursfond |  | 430 | 430
+|  |  |  |  | Balanserat resultat |  | 38 | 64
+|  |  |  |  | arets resultat |  | 49 | 3
+|  |  |  |  | Summa fritt eget kapital |  | 517 | 497
+|  |  |  |  | Summa eget kapital |  | 537 | 518
+|  |  |  |  | Obeskattade reserver | 11 | 54 | 16
+|  |  |  |  | Summa obeskattade reserver |  | 54 | 16
+| Kortfristiga skulder |
+|  |  |  |  | Upplaning fran kreditinstitut | 25 | 754 | 1 110
+|  |  |  |  | Aktuella skatteskulder |  | 19 | 3
+|  |  |  |  | ovriga kortfristiga skulder |  | 3 | 4
+|  |  |  |  | Upplupna kostnader och forutbetalda intakter | 29 | 18 | 16
+|  |  |  |  | Summa kortfristiga skulder |  | 793 | 1 133
+|  |  |  |  | SUMMA EGET KAPITAL OCH SKULDER |  | 1 384 | 1 666
+![table image]({page: 51, x: 51}, {y: 104, {width: 359}, {height: 7})
+
+
+<!-- PAGE: 52 -->
+
+##### RAPPORTENS OMFATTNING
+
+Hallbarhetsrapporten omfattar den lagstadgade hallbarhetsrapporten i enlighet med aRL 6 kap 11§.
+Inspirerade av European Sustainability Reporting Standards (ESRS) har vi aven analyserat och kartlagt vara processer ur ett brett hallbarhetsperspektiv for att mota framtidens krav.
+aven om vi annu inte har implementerat hela ramverket ar vi val forberedda och ser fram emot att fullt ut integrera hela ramverket under 2025.
+
+## Års- och hållbarhets redovisning
+
+
+<!-- PAGE: 1 -->
+
+#### c) Likviditetsrisk
+
+Byggmax Groups policy for likviditetsrisk ar att sakerstalla att det finns tillrackligt med likvida medel for att finansiera den lopande verksamheten.
+Styrelsen hanterar expone ringen for likviditetsrisk genom att tillse att Byggmax Group har tillrackliga kreditfaciliteter for att tillgodose verksam hetens framtida behov.
+Behoven faststalls genom kontinu erlig uppfoljning av prognostiserade och faktiska kassa floden med beaktande av loptider for finansiella tillgangar och skulder i balansrakningen.
+Byggmax Groups huvudsak liga kreditfacilitet tillhandahalls av Svenska Handelsbanken och DNB genom tva kreditavtal uppgaende till totalt 1 500 Mkr.
+Det forsta avtalet uppgaende till 500 Mkr en hallbar hetslankad kreditfacilitet tillsammans med endast Svenska Handelsbanken loper till 19 december 2027.
+Det andra avtalet uppgaende till 1 000 Mkr tillsammans med DNB och Svenska Handelsbanken loper ut den 22 december 2027.
+Byggmax Group har uppfyllt covenant kraven enligt bankavtalet under aret.
+Per den 31 december 2024 har Byggmax Group nyttjat dessa langa kreditfaciliteter med kort loptid.
+
+
+<!-- PAGE: 59 -->
+Not 2 forts.
+
+Storleken av tillganglig kreditfacilitet ses over regel bundet och ar utformad for att med god marginal tacka prognostiserade toppar i bruttoskuldnivan.
+Per den 31 december 2024 har kon cernen en likviditet om 11 (10) Mkr samt en outnyttjad kreditfaci litet om 871 (543) Mkr.
+I tabel len nedan aterfinns de odis konterade kassa floden som kommer av koncernens skulder i form av finansiella instrument baserat pa de vid balansdagen kontrakterade aterstaende loptiderna.
+Belopp i utlandsk valuta samt belopp som ska betalas baserat pa en rorlig ranta har upp skattats genom att anvanda de pa balans dagen gallande valuta kurserna och rantesatserna.
+
+### C
+#### J
+
+D
+
+### VISSELBLÅSNING
+
+- Vi vill göra rätt och strävar efter att upprätthålla ett öppet affärsklimat och en hög affärsetik. I vår verksam het värnar vi om säkerhet och respekt för alla de människor som berörs av vår verksamhet och vi betraktar vår visselblåsartjänst som ett ”early warning system” att minska risker. Den är viktig för att värna om god bolags styrning och bevara kundernas och allmänhetens förtroende för oss. Tjänsten kan användas för att varna om allvarliga ris ker för oegentligheter som kan påverka människor, vår organisation, samhället eller miljön. Det krävs inga bevis, men alla meddelanden ska lämnas i god tro. För att trygga anonymiteten hanteras tjänsten av en extern part och kommunikationskanalen är krypterad och lösenordskyddad. Alla meddelanden behandlas konfi dentiellt.
+
+
+<!-- PAGE: 29 -->
+EU:s Taxonomi
+
+###### TOTAL ELFÖRBRUKNING
+####### Gwh
+
+30 25 20 15 10
+
+
+<!-- PAGE: 25 -->
+
+# BYGGMAX VÄRDEKEDJA
+## RÅMATERIAL
+### GRAD AV INFLYTANDE – MEDEL
+### Beskrivning
+
+- • Inköpta varor representerar 83 procent av våra CO2e utsläpp. Av dessa inköp representerar virke, cement och metall 63 procent.
+
+TransportRamaterial Leverantor HemleveransEgen verksamhet
+
+# HÅLLBARHETS- RAPPORT
+
+Under 2024 har Byggmax fortsatt arbetet for att minska vara koldioxidutslapp.
+Vi har ocksa okat andelen certifierade traprodukter forstarkt vara insatser for energieffektivitet i butiker och lager samt sokt samarbeten for cirkulara materialfloden.
+
+- Vi arbetar fortsatt aktivt för att skapa en säker och inkluderande arbetsmiljö för våra medarbetare. Vi är stolta över våra framsteg, men medvetna om de utmaningar som kvarstår. Vi ser hållbarhet som en möjlighet att skapa långsiktigt värde för våra kunder, medarbetare, investerare och samhället i stort. Tillsammans bygger vi en mer hållbar framtid.
+
+|  |
+|  |
+| OM HaLLBARHETSRAPPORTEN | 20
+| MILSTOLPAR | 20
+| VaRDEKEDJA | 22
+| INTRESSENTDIALOG | 23
+| KLIMAT | 24
+| SOCIALA ASPEKTER OCH MEDARBETARE 27 STYRNING OCH REGELEFTERLEVNAD | 29
+| EU:S TAXONOMI | 30
+![table image]({page: 18, x: 549}, {y: 401, {width: 212}, {height: 11})
+
+
+<!-- PAGE: 19 -->
+
+##### I Säsongsvariationer
+##### J Varumärke
+
+K Finansiella risker se not 2
+
+##### A Kundbeteende
+
+B Konjunktur och omvarld
+
+#### 1.8 FINANSIELLA INSTRUMENT
+
+Kop och forsaljningar av finansiella tillgangar och skulder redovisas pa affarsdagen det datum da koncernen forbinder sig att kopa eller salja tillgangen eller skulden.
+Koncernen klassificerar sina finansiella instrument i foljande kategorier finansiella tillgangar varderade till verkligt varde via resultat rakningen finansiella tillgangar till upplupet anskaff ningsvarde och finansiella skulder till upplupet anskaffnings varde.
+
+# REVISORNS GRANSKNING AV ESEF-RAPPORTEN
+## Uttalande
+
+Utover var revision av arsredovisningen och koncernredovisningen har vi aven utfort en granskning av att styrelsen och verkstallande direktoren har upprattat arsredovisningen och koncernredovisningen i ett format som mojliggor enhetlig elektronisk rapportering (Esef-rapporten) enligt 16 kap.
+4
+a
+§ lagen (2007:528) om vardepappersmarknaden for Byggmax Group AB (publ) for ar 2024.
+
+Var granskning och vart uttalande avser endast det lagstadgade kravet.
+
+Enligt var uppfattning har Esef rapporten upprattats i ett format som i allt vasentligt mojliggor enhetlig elektronisk rapportering.
+
+Grund for uttalandet
+
+- Vi har utfört granskningen enligt FAR:s rekommendation RevR 18 Revisorns granskning av Esef-rapporten. Vårt ansvar enligt denna rekommendation beskrivs närmare i avsnittet Revisorns ansvar. Vi är oberoende i förhållande till Byggmax Group AB (publ) enligt god revisorssed i Sverige och har i övrigt fullgjort vårt yrkesetiska ansvar enligt dessa krav.
+
+- Vi anser att de bevis vi har inhämtat är tillräckliga och ändamålsenliga som grund för vårt uttalande.
+
+Styrelsens och verkstallande direktorens ansvar Det ar styrelsen och verkstallande direktoren som har ansvaret for att Esef rapporten har upprattats i enlighet med 16 kap.
+4
+a
+§ lagen (2007:528) om vardepappersmarknaden och for att det finns en sadan intern kontroll som styrelsen och verkstallande direktoren bedomer nodvandig for att uppratta Esef rapporten utan vasentliga felaktigheter vare sig dessa beror pa oegentligheter eller misstag.
+
+Revisorns ansvar Var uppgift ar att uttala oss med rimlig sakerhet om Esef rapporten i allt vasentligt ar upprattad i ett format som uppfyller kraven i 16 kap.
+4
+a
+§ lagen (2007:528) om vardepappersmarknaden pa grundval av var granskning.
+
+RevR 18 kraver att vi planerar och genomfor vara granskningsatgarder for att uppna rimlig sakerhet att Esef rapporten ar upprattad i ett format som uppfyller dessa krav.
+
+Rimlig sakerhet ar en hog grad av sakerhet men ar ingen garanti for att en granskning som utfors enligt RevR 18 och god revisionssed i Sverige alltid kommer att upptacka en vasentlig felak tighet om en sadan finns.
+Felaktigheter kan uppsta pa grund av oegentligheter eller misstag och anses vara vasentliga om de enskilt eller tillsammans rimligen kan forvantas paverka de ekonomiska beslut som anvandare fattar med grund i Esef rapporten.
+Revisionsforetaget tillampar International Standard on Quality Management 1 som kraver att foretaget utformar implementerar och hanterar ett system for kvalitetsstyrning inklusive riktlinjer eller rutiner avseende efterlevnad av yrkesetiska krav standarder for yrkesutovningen och tillampliga krav i lagar och andra forfattningar.
+Granskningen innefattar att genom olika atgarder inhamta bevis om att Esef rapporten har upprattats i ett format som moj liggor enhetlig elektronisk rapportering av arsredovisningen [och koncernredovisning].
+Revisorn valjer vilka atgarder som ska utforas bland annat genom att bedoma riskerna for vasentliga felaktigheter i rapporteringen vare sig dessa beror pa oegentligheter eller misstag.
+Vid denna riskbedomning beaktar revisorn de delar av den interna kontrollen som ar relevanta for hur styrelsen och verkstallande direktoren tar fram underlaget i syfte att utforma granskningsatgarder som ar andamalsenliga med hansyn till omstandigheterna men inte i syfte att gora ett uttalande om effektiviteten i den interna kontrollen.
+Granskningen omfattar ocksa en utvardering av andamalsenligheten och rimligheten i styrelsens och verkstallande direktorens antaganden.
+Granskningsatgarderna omfattar huvudsakligen validering av att Esef rapporten upprattats i ett giltigt XHTML format och en avstamning av att Esef rapporten overensstammer med den granskade arsredovisningen och koncernredovisningen.
+
+Vidare omfattar granskningen aven en bedomning av huruvida koncernens resultat balans och egetkapitalrakningar kassaflodesanalys samt noter i Esef rapporten har markts med iXBRL i enlighet med vad som foljer av Esef forordningen.
+
+#### 1.1 GRUNDER FÖR REDOVISNINGEN
+
+Vasentliga redovisningsprinciper som tillampats vid upprattande av denna arsredovisning anges nedan.
+Samma principer tillampas normalt i saval moderbolag som koncern.
+
+Koncernredovisningen ar upprattad i enlighet med International Financial Reporting Standards (IFRS) utgivna av International Accounting Standard Board (IASB) samt tolkningsuttalanden fran IFRS Interpretations Commitee sasom de ar antagna inom EU samt Radet for hallbarhets och finansiell rapporterings rekommendation RFR 1 Kom pletterande redovisningsregler for koncerner.
+Redovis ningen ar base rad pa historiskt anskaffningsvarde vid vardering av till gangar och skulder.
+
+Moderbolagets funktionella valuta ar svenska kronor som aven utgor rapporteringsvalutan for moderbolaget och for koncernen.
+Samtliga belopp redovisas i miljoner svenska kronor (Mkr) om inget annat anges.
+Uppgifterna inom parentes avser motsvarande period foregaende ar.
+
+### Pillar II
+
+Koncernen omfattas av OECD:s modellregler for andra pelaren och tillampar undantaget i IAS 12 for redovisning av och upplysningar om uppskjutna skattefordringar och skulder avseende inkomstskatter enligt andra pelaren.
+
+Enligt lagstiftningen ar koncernen skyldig att betala en tilllaggsskatt for skillnaden mellan den effektiva skattesatsen beraknad enligt GloBE reglerna for varje jurisdiktion och minimiskattesatsen pa 15 procent.
+Alla foretag inom koncernen har en effektiv skattesats som overstiger 15 procent.
+
+For rakenskapsar 2024 omfattas Byggmax Group AB (publ) inte av OECD:s modellregler for Pillar II da koncernen inte uppfyller de troskelvarden som regelverket tillampar.
+Koncernen utvarderar lopande skatteexponeringen och arbetar med skattespecialister avseende Pillar II regelverket.
+
+##### EU:s Taxonomi
+
+Andel av kapitalutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar ar 2024.
+
+| ar | Kriterier for vasentligt bidrag | Kriterier avseende att inte orsaka betydande skada |
+| --- | --- | --- |
+| Ekonomiska verksamheter (1) |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljomassigt hall bara verksamheter (taxonomiforenliga) Kapitalutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1 Varav mojliggo rande verksamheter Varav omstallnings verksamheter |  | - | - | - | - | - | - | - | - - - | - - | - - | - | 
+| A.2 VERKSAM HETER SOM OMFAT TAS AV TAXONO MIN MEN SOM INTE aR MILJoMaS SIGT HaLLBARA (EJ TAXONOMI FoRENLIGA) |  |  | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL |  |  |  |  | 
+| Forvarv och agande av byggnader |
+| CCM |
+| 7.7 68 |  | 46% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  | 64% | 
+| Kapitalutgifter for de verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomi forenliga) (A.2) 68 |  | 46% | 46% | - | - | - | - | - |  |  |  | 64% | 
+| A. Kapitalutgifter for verksamhe ter som omfat tas av taxonomin (A.1+A.2) 68 B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |  | 46% | 46% | - | - | - | - | - |  |  |  | 64% | 
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin 80 |  | 54% |  |  |  |  |  |  |  |  |  |  | 
+| TOTALT 148 |  | 100% |  |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 31, x: 394}, {y: 124, {width: 381}, {height: 7})
+
+
+<!-- PAGE: 32 -->
+
+##### 4. Trolig
+
+3. Mojlig
+
+| A | B |
+| --- | --- |
+| E |
+| 3. | Mellan
+| F | GH
+![table image]({page: 16, x: 584}, {y: 322, {width: 53}, {height: 9})
+
+## SLUTHANTERING
+### GRAD AV INFLYTANDE – HÖG
+
+(EGEN) / LaG (KUNDERS)
+
+NEJ
+
+
+<!-- PAGE: 34 -->
+
+#### JUNI
+
+Styrelsens strategimote.
+
+
+<!-- PAGE: 41 -->
+
+## Page 29:
+                ```markdown
+```
+
+# ENKELHET OCH KOSTNADSEFFEKTIVITET
+
+Sedan starten 1993 har Byggmax stravat efter att utveckla verk samheten med fokus pa enkelhet och kostnads effektivitet for att kunna erbjuda byggmaterial och tillbehor till laga priser.
+Under 2024 sankte vi kostnaderna for jamforbara enheter samtidigt som vi utokade butiksnatverket.
+
+|  |
+| --- |
+| Byggmax erbjuder byggmaterial och tillbehor till konkurrenskraftiga priser framst for gor det sjalv marknaden. Affarsmodellen bygger pa ett lagprisformat dar kostnadseffektivitet och enkelhet ar centrala principer. Vart mal ar att gora det enklare och billigare for manniskor att forverkliga sina byggdrommar. En av vara framsta styrkor ar var lagprispo sition. Den forutsatter att vi ar kostnads effektiva och kan utnyttja stordrifts och skalfordelar i inkop logistik och forsaljning. Under 2024 intensifierade vi vart arbete med att sanka kostnaderna och effektivisera verksamheten samtidigt som vi starkte saval kunderbjudandet som balansrakningen. Dessa effektiviseringar genomfordes sam tidigt som vart butiksnatverk under aret uto kades med netto 2 butiker och uppgick vid arets slut till 211 butiker och 7 showrooms i Sverige Norge Finland och Danmark. Butikerna kompletteras av en e-handel med ett brett sortiment. | INKoP MED STORDRIFTSFoRDELAR
+| Lagpris i drygt 30 ar |
+![table image]({page: 11, x: 51}, {y: 281, {width: 109}, {height: 11})
+
+Var inkopsorganisation ar inriktad pa att dra nytta av stordriftsfordelar baserade pa storre volymer.
+For att kunna realisera dessa skalfordelar ar vart sortiment som tacker ett brett spektrum av byggvaror och hemforbattringsprodukter inriktat pa de mest efterfragade produkterna.
+Kostnadseffektiviteten i inkop och lagerhallning framjas dartill av att vart sortiment ar relativt oforandrat fran ar till ar.
+
+2021
+
+Omsattning i miljoner kronor 8 000
+
+## Risker och riskhantering
+
+| Beskrivning | Hur Byggmax hanterar risken |
+| --- | --- |
+| F. Leverantorer |
+| Sanno likhet 3 Koncernen ar beroende av bra rela tioner med sina leverantorer. Forlust av leverantorer kan leda till svarighe ter att leverera produkter som kunder efterfragar. G. Konkurrenter | For att minska risken efterstravar koncernen att ha relationer med flera leverantorer inom viktiga pro duktgrupper. Vi for en kontinuerlig dialog med vara leverantorer i hallbarhetsfragor genom att stalla relevanta krav.
+| Sanno likhet 3 Byggmax ar standigt utsatt for okad konkurrens fran andra aktorer och prispress i marknaden kan paverka bolaget negativt. H. Forandring i ravarupriser | Koncernen arbetar kontinuerligt med att for battra sin konkurrenskraft genom att fokusera pa utvalda segment av marknaden utveckla nya butikskon cept samt att aktivt arbeta med prissattning.
+| Sanno likhet 3 Bolaget paverkas av marknadspriset pa manga insatsvaror. Detta galler framfor allt traprodukter. Om konkurrens eller andra skal gor att forsalj ningspriset inte kan justeras paverkas bolagets marginaler negativt. I. Sasongsvariationer | For att minska risken efterstravar Byggmax ett brett sortiment samt att ha relationer med flera leveran torer.
+| Sanno likhet 3 Koncernens verksamhet ar paverkad av sasongs variationer delvis styrt av vadereffekter vilket paverkar konsu menternas efterfragan pa basbygg varor. J. Varumarke | Byggmax stravar efter att utjamna sasongseffek terna under aret bland annat genom att lansera produkter som inte ar lika kansliga for sasongs variationer.
+| Sanno likhet 2 Byggmax varumarken och fortroende kan paverkas negativt av handelser som inte ar forenliga med de varden som vi star for. | Vara varderingar riktlinjer och en oppen fore tagskultur lagger grunden till hur vi kommu nicerar med varandra kunder och leveranto rer pa ett res pektfullt och ansvarsfullt satt. Koncernen har pro cesser for att utvardera produkter och hantera om en produkt upptacks vara felaktig eller skadlig.
+![table image]({page: 17, x: 433}, {y: 123, {width: 316}, {height: 52})
+
+
+<!-- PAGE: 18 -->
+
+### Öresund. Övriga uppdrag: Styrelse-
+
+ledamot Ikano Bank Annehem Fastigheter och Viva Wine Group.
+Aktieinnehav 40 000 aktier.
+ohrlings Pricewaterhouse Coopers kontors adress ar Torsgatan 21 113 97 Stockholm.
+
+
+<!-- PAGE: 44 -->
+
+# EU:S TAXONOMI
+
+EU:s Taxonomiforordning ska stodja finansiering av hallbara investe ringar for att bidra till EU:s klimat och energimal.
+I nulaget omfattas inte nagon del av Byggmax omsattning av ekonomiska aktiviteter som beskrivs i taxonomiforordningen.
+
+| Taxonomiforordningen ar en viktig del i Euro peiska kom missionens handlingsplan for att styra om kapitalfloden mot en mer hallbar ekonomi. Det representerar ett vik tigt steg for att uppna koldioxidneutralitet till 2050 i linje med EU:s klimatmal eftersom taxono min ar ett klassifi ceringssystem for miljo massigt hallbara verksamheter. Byggmax omfattas av arsredovisningsla gens krav pa rapportering i enlighet med taxonomiforord ningen som icke finansiellt foretag. Enligt artikel 8 i taxonomiforord ningen sa ska foretag som omfattas av direk tivet om icke finansiell rapportering (NFRD) rap portera om hur och i vilken utstrackning foretagets verksamheter ar forknippade med verksamheter som anses vara miljomassigt hallbara enligt de tekniska granskningskrite rierna. Tekniska granskningskriterier har hit tills definierats for miljomalen ”Begransning av klimatforandringar","Anpassning till kli matforandringar” ”Vatten och marina resur ser” ”Cirkular ekonomi” ”Foro reningar” och ”Biologisk mangfald och ekosystem”. I artikel 8 anges att icke finansiella foretag ska lamna upplysningar om den andel av deras omsatt ning kapi talutgifter och driftsutgifter som omfattas av de verk samheter samt forenlig het av befintliga aktiviteter i samtliga mil jomal. | REDOVISNINGSPRINCIPER |  |  |
+| --- | --- | --- | --- |
+| Byggmax totala nettoomsattning uppgar till 6,0 (6,1) mil jarder kronor for 2024 vilken aven motsvarar total omsattning enligt definitio nen i taxonomiforordningen. Den totala omsattningen aterfinns pa rad nettoomsatt ning i rapport over totalresultat pa sidan 47. Byggmax produkter och tjanster som beskrivs pa sidorna 11-15 omfattas ej av tax onomin och andel tillamplig omsattning ar darmed 0 (0) procent for rakenskapsar 2024. |
+| Totala kapitalutgifter bestar av arets inves teringar i immateriella anlaggningstillgangar (exklusive goodwill) materiella anlaggnings tillgangar och tillgangar med nyttjanderatt som aterfinns i not 14 rad nyanskaff ningar not 15 rad inkop och not 16 pa rad anskaff ningar pa sidan 66-67 i arsredovisningen. |
+|  | Tillampliga kapitalutgifter bestar av inkop fran leve rantorer vilkas ekonomiska aktivite ter finns beskrivna i taxonomin. Denna post bestar i sin helhet av hyrda fast igheter framst butiksfastigheter vilka ingar i ekonomisk aktivitet CCM 7.7 forvarv och agande av byggnader. Ingen del av den tillampliga investeringen har bedomts vara taxonomi forenlig da det inte har varit mojligt att saker stalla att samtliga hyresvardar uppfyller kraven for att vara taxonomiforenliga for rakenskapsar 2024. | Byggmax arbetar med att ta fram processer for att i framtiden sakerstalla att vara fastig hetsvardar ar taxonomi forenliga. | terade till det dagliga underhallet av materi ella anlaggningstillgangar. Under 2024 fore kommer inte driftsutgifter som omfattas av taxonomin varfor andelen taxonomi tillamp liga driftsut gifter bedoms vara 0 (0) procent for rakenskapsar 2024.
+![table image]({page: 29, x: 51}, {y: 214, {width: 517}, {height: 120})
+
+Totala driftsutgifter bestar av kostnadsforda utgifter for kortfristiga leasingavtal leasingavtal med lagt varde underhall och reparationer och andra direkta utgifter rela
+
+
+<!-- PAGE: 30 -->
+EU:s Taxonomi

@@ -1,0 +1,1422 @@
+## OUR ENERGY CONSUMPTION AND ENERGY MIX
+
+| Energy consumption and mix (MWh) | 2023/24 | 2024/25 |
+| --- | --- | --- |
+| During FY 2024/25, Embracer Group consumed a total amount of 15,427 MWh of energy, including energy derived from both non-renewable sources and renewable sources consumed in the own operations. The total energy consumption, broken down by energy source, constitutes of 8,430 MWh of fossil energy, 226 MWh | of nuclear energy and 6,771 MWh of renewable energy. This means that the share of renewables in the energy mix equals 44% (40%), and the share of nuclear equals 1% of the total energy consumption of Embracer Group. This is presented in the table below. |  |
+| 6. Total fossil energy consumption | 9,565 | 8,430 |
+| Share of fossil sources in total energy consumption (%) | 60 % | 55 % |
+| 7. Total nuclear energy consumption | N/A | 226 |
+| Share of nuclear sources in total energy consumption (%) | N/A | 1 % |
+![table image]({page: 50, x: 71}, {y: 97, {width: 446}, {height: 8})
+
+- 8. Fuel consumption from renewable sources, including biomass (also comprising industrial and municipal waste of biologic origin, biogas, renewable hydrogen, etc.) N/A 17
+
+- 9. Consumption of purchased or acquired electricity, heat, steam, and cooling from renewable sources 6,384 6,549
+
+| 10. Consumption of self-generated non-fuel renewable energy | N/A | 205 |
+| --- | --- | --- |
+| 11. Total renewable energy consumption | 6,384 | 6,771 |
+| Share of renewable sources in total energy consumption (%) | 40 % | 44 % |
+| Total energy consumption | 15,949 | 15,427 |
+![table image]({page: 50, x: 74}, {y: 299, {width: 450}, {height: 8})
+
+With regards to the total energy consumption from fossil sources and energy intensity based on net revenue no detailed breakdown is required since Embracer Group does not have operations in High Climate Impact Sectors as defined by the EU.
+The detailed data points are thereby omitted.
+
+However with regards to the share of renewables it includes 17 MWh from renewable energy sources in terms of fuel consumption of biofuels used in vehicles.
+These fuels are conventional fuels that are not actively chosen but rather fuels such as diesel that include a share of biofuels in the fuel mix due to national regulations.
+The total of 6,549 MWh of purchased renewable energy includes 6,083 MWh of renewable electricity as well as 444 MWh of district heating and 22 MWh of district cooling.
+Moreover as a result of the installation of solar panels at the group companies PLAION as well as THQ Nordic\'s Black Forest Games Embracer Group consumed a total amount of 205 MWh of self generated renewable energy.
+Other than that we do not have any nonrenewable energy production at the Group\'s facilities.
+
+The figures presented in the table constitute the consolidated amounts within the entire Embracer Group.
+Observe that the comparative figures are the result after recalculation of the energy consumption excluding the recently divested group companies due to the transformation.
+Overall the total energy consumption of Embracer Group has decreased by 522 MWh (-3%) compared to the previous financial year.
+In contrast the share of renewables in the energy mix increased by 387 MWh (+6%) compared to last year.
+These changes reflect Embracer\'s ambition and longterm commitment to energy efficiency and switch towards renewables.
+For more details on the GHG Emissions please refer to page 50.
+Methodology for calculating Embracer Group\'s energy consumption and energy mix
+
+The energy data is based on direct measurements of the actual energy consumption excluding eventual offsetting at each individual group company of Embracer Group respectively.
+The energy data is gathered in conjunction with the annual GHG inventory.
+Thus it is the same data that is used to calculate the energy related GHG Emissions in Scopes 1 and 2 according to the GHG Protocol as outlined under E1-6.
+
+Reliable energy data is mostly available through direct supplier information or the review of invoices related to the purchased or acquired electricity district heating and district cooling.
+In some cases energy consumption is obtained from monitoring systems installed directly at the facilities or from landlords.
+Where energy data has been unobtainable from certain group companies we have estimated the energy consumption and mix by using data from previous years and energy intensity values based on number of employees and total area of facilities.
+
+The collected raw data for energy has been converted into MWh using conversion factors from the Department for Environment Food and Rural Affairs (DEFRA) either directly or indirectly through ratios.
+
+Overall the figures provided for the energy disclosures are as complete as feasible without the use of significant assumptions on Group level.
+The data has been validated internally but has not been reviewed by any external body.
+
+
+<!-- PAGE: 51 -->
+OUR SCOPE 1 2 AND 3 GHG EMISSIONS
+
+| Combating climate change by drastically reducing GHG emissions is one of the time\'s most important challenges to stop global warming. Embracer Group is committed to mitigate the direct climate impact from the own operation and those indirect GHG emissions connected to the development, distribution and use of the Group\'s digital games. We measure Embracer\'s total GHG emissions annually to keep track of the progress we make against the climate targets and to ensure we can uphold the commitment, as outlined on page 52. | In absolute values, Embracer Group emitted a total amount of 781 tCO2e in Scope 1, 3,449 tCO2e in Scope 2 (location-based) and 2,348 tCO2e in Scope 2 (market-based), and 330,833 tCO2e in Scope 3. Altogether, during FY2024/25, this equals to a total amount of 335,063 tCO2e gross GHG emissions emitted across all Scopes 1, 2 and 3 (location-based) and 333,962 tCO2e across all Scopes 1, 2 and 3 (market-based). This is presented in the table below, and the figures outlined are accompanied with information on inclusions and limitations for each Scope respectively. |
+| --- | --- |
+| GREENHOUSE GAS EMISSIONS |
+| Amounts in tCO2e | 2024/25 |
+| Scope 1 GHG Emissions |
+| Gross Scope 1 | 781 |
+| Scope 2 GHG Emissions |
+| Gross location-based Scope 2 | 3,449 |
+| Gross market-based Scope 2 | 2,348 |
+| Significant Scope 3 GHG emissions Total Gross Scope 3 | 330,833 |
+| 1. Purchased goods and services | 5,032 |
+| 3. Fuel and energy-related activities (not included in Scope 1 or Scope 2) | 749 |
+| 4. Upstream transportation and distribution | 1,124 |
+| 6. Business travel | 3,253 |
+| 7. Employee commuting | 2,985 |
+| 9. Downstream transportation and distribution | 1,763 |
+| 11. Use of sold products | 315,927 |
+| Total GHG emissions Total GHG emissions (location-based) | 335,063 |
+| Total GHG emissions (market-based) | 333,962 |
+![table image]({page: 51, x: 71}, {y: 83, {width: 465}, {height: 8})
+
+Scope 1 Out of the 781 tCO2e Scope 1 GHG emissions 0% originated from regulated emission trading schemes since Embracer Group is not subjected to such instruments eg EU ETS.
+The Scope 1 measurements include the GHG emissions generated from fuels and gas used in stationary combustion for heating (if any) mobile combustion from company vehicles and fugitive emissions from refrigerants used in HVAC systems.
+No process emissions nor any biogenic emissions are accounted for in Scope 1 since it is not applicable to Embracer\'s own operations.
+Estimates have been used where precise data is unavailable.
+
+Scope 2 Within Scope 2 the GHG emissions are measured following both the location based and the market based approach according to the GHG Protocol Scope 2 Guidance.
+The Scope 2 measurements both location based and marketbased include the GHG emissions generated at the production and distribution phase of the electricity district heating and district cooling we purchased and/or acquired in the financial year.
+No steam is accounted for in Scope 2 since it is not consumed by own operations nor any biogenic emissions are accounted for in Scope 2 since bioenergy is not used.
+
+> 3.3 Fuel and energy related activities is calculated using the same primary or estimated data collected for Scope 1 and 2 measurements which also is the energy data provided under E1-5.
+However it applies different emission factors to determine the indirect upstream GHG emissions generated during the production phase of the energy consumed at Embracer\'s facilities.
+By including this category we can understand the full life cycle GHG emissions of Embracer\'s energy dependencies.
+
+Scope 3 With regards to the 330,833 tCO2e in Scope 3 the measurements include those categories that were deemed a priority for us to measure based on the results of a broader Scope 3 screening performed in FY2023/24 alongside the SBTi submission process.
+In such a screening the GHG emissions associated with all the 15 Scope 3 categories were calculated and analyzed.
+This means that due to immateriality or non applicability the remaining Scope 3 categories are excluded from the Group\'s public disclosures of the GHG inventory.
+Below follows a short summary of the methodology for each of the significant Scope 3 categories.
+
+> 3.1 Purchased goods and services is the second largest category in Scope 3 representing 2% of total Scope 3 emissions.
+It is calculated using primary data obtained from suppliers such as the actual procurement volumes in tonnes number of units or spend.
+It includes data on the purchased cloud computing and data center services as well as office consumables merchandise packaging IT equipment (computers phones tables etc.) and furniture.
+It excludes data on larger assets such as buildings vehicles etc.
+Estimates have been used where precise data is unavailable.
+We recognize the potential for improving the data collection process regarding Embracer\'s physical distribution and warehousing.
+
+
+<!-- PAGE: 52 -->
+> 3.4 Upstream transportation and distribution is calculated at company level based on tonne km using primary data obtained from suppliers such as the transported volume (weight) transport routes (distance) and the applicable transportation mode (vehicle).
+It includes data on inbound logistic services purchased for transporting goods from the Group\'s first tier suppliers to the facilities.
+Observe that this category is only measured for the companies with significant logistic operation and not the entire Embracer Group.
+Estimates have been used where precise data is unavailable.
+
+> 3.6 Business travel is calculated using primary data obtained from direct measurements from suppliers such as the actual transporting routes travelled by Embracer Group employees via flight train taxi bus private cars rental cars and by boat or similar.
+It includes data from domestic and international business travels conducted in the year and the hotel nights.
+Estimates have been used where precise data is unavailable.
+
+> 3.7 Employee commuting is calculated using results obtained from employee surveys and where data were unavailable estimations have been made using data from FY 2023/24 and the change in number of employees.
+Since the calculations are based on several assumptions we have adopted a conservative approach for the estimations used.
+
+> 3.9 Downstream transportation and distribution is calculated at company level based on tonne km using primary as well as estimated data on the outbound logistics of sold products.
+Observe that this category is also only measured for companies with significant logistic operation and not the entire Embracer Group.
+
+> 3.11 Use of sold products also continues to be guided by data from FY 2022/23.
+It accounts for 95% of Scope 3 and 94% of total GHG emissions.
+It is calculated using 100% of assumptions based on the number of sold digital games and estimates on their different platforms and consoles average time spent on each game energy efficiency for each console and the electricity emissions factors for countries where the games were sold.
+Since the calculations are based on several assumptions we have adopted a conservative approach for the estimations used.
+
+GHG Intensity With regards to GHG Emissions intensity meaning the total GHG emissions in tCO2e in relation to net revenue the result was 15 tCO2e per SEK 1 million for locationbased and 15 tCO2e per SEK 1 million for market based.
+The net revenue amounts used in the denominator derives from note 3 of the financial statement.
+
+Methodology for calculating our Scope 1 2 and 3 GHG emissions The GHG emission data is based on direct measurements following the operational control approach according to the Greenhouse Gas (GHG) Protocol.
+Hence all figures are the consolidated figures from activities and group companies of which Embracer Group has operational control.
+All data is collected from each individual group company and is aggregated as a total number for the Embracer Group in this present report.
+The regular period reflected in the GHG Inventory is the financial year of April 2024 to March 2025 following the same principles of the Group\'s financial statement hence not the same as the regular calendar year.
+
+The comparative figures of the GHG emission results between the current and the previous reporting periods have been recalculated.
+Hence comparatives take into account the organizational transformation of Embracer Group where the group companies Asmodee and Easybrain have been divested.
+
+All figures are outlined as gross GHG emissions hence excluding eventual offsetting from the calculations to ensure a correct understanding of the actual GHG emissions.
+The GHG inventory includes emissions of carbon dioxide (CO2) methane (CH4) nitrous oxide (N2O) hydrofluorocarbon (HFCs) perfluorocarbons (PFCs) sulphur hexafluoride (SF6) and nitrogen trifluoride (NF3) measured in tCO2e using suitable emission factors.
+Biogenic emissions are considered and disclosed separate when applicable.
+
+For the calculations we use emission factors from sources such as the Department for Environment Food and Rural Affairs (DEFRA) the International Energy Agency (IEA) and Carbon Footprint LTD. Emission factors for calculating energy related emissions are selected based on country specific circumstances thus using national grid mix averages based on the location of a given emissions generating activities for the respective group companies.
+
+Activity data is mostly available through direct suppliers or via internal systems.
+Where activity data has been unable to obtain from certain group companies we have estimated the given emission source by using data from similar group companies and calculating the GHG emissions based on intensity values such as number of employees facility area or revenue.
+
+Overall the figures provided for the Group\'s GHG emissions for Scope 1 and Scope 2 are as complete as feasible without the use of significant assumptions on Group level.
+However for Scope 3 the reliability is expected to be lower due to the complexity and difficulty in ensuring both data quantity and data quality related to activities of the upstream and downstream value chain.
+The data has been validated internally but has not been reviewed by any external body.
+
+
+<!-- PAGE: 53 -->
+| Embracer Group Emissions (tCO2e) | 2023/24 | 2024/25 | % Change |
+| --- | --- | --- | --- |
+| Scope 1 & 2 | 5,213 | 4,230 | -19 % |
+| Scope 1 | 621 | 781 | 26 % |
+| Scope 2 (location-based) | 4,592 | 3,449 | -25 % |
+| Scope 3 | 383,992 | 330,833 | -14 % |
+| Total | 389,205 | 335,063 | -14 % |
+| GHG Intensity per Net Revenue (tCO2e / SEK m) | 2023/24 | 2024/25 | % Change |
+| Total GHG emissions (location-based) per net revenue | 14 | 15 | 7 % |
+| Total GHG emissions (market-based) per net revenue | 14 | 15 | 7 % |
+![table image]({page: 53, x: 74}, {y: 87, {width: 467}, {height: 8})
+
+## Page 51:
+                ```markdown
+| Amounts in tCO₂e       | 2024/25   |
+|------------------------|-----------|
+| **Scope 1 GHG Emissions** |           |
+| Gross Scope 1          | 781       |
+| **Scope 2 GHG Emissions** |           |
+| Gross location-based Scope 2 | 3,449   |
+| Gross market-based Scope 2   | 2,348   |
+| **Significant Scope 3 GHG emissions** |           |
+| Total Gross Scope 3     | 330,833   |
+| 1. Purchased goods and services | 5,032  |
+| 2. Fuel and energy-related activities (not included in Scope 1 or Scope 2) | 749 |
+| 3. Upstream transportation and distribution | 1,124  |
+| 4. Business travel      | 3,253     |
+| 5. Employee commuting    | 2,985     |
+| 6. Downstream transportation and distribution | 1,763  |
+| 7. Use of sold products | 315,927   |
+| **Total GHG emissions** |           |
+| Total GHG emissions (location-based) | 335,063   |
+| Total GHG emissions (market-based) | 333,962   |
+```
+
+## Page 53:
+                ```markdown
+| Embracer Group Emissions (tCO₂e) | 2023/24 | 2024/25 | % Change |
+|-----------------------------------|---------|---------|----------|
+| Scope 1 & 2                       | 5,213   | 4,230   | -19%     |
+| Scope 1                           | 621     | 781     | 26%      |
+| Scope 2 (location-based)         | 4,592   | 3,449   | -25%     |
+| Scope 3                           | 383,992 | 330,833 | -14%     |
+| Total                             | 389,205 | 335,063 | -14%     |
+
+| GHG Intensity per Net Revenue (tCO₂e / SEK m) | 2023/24 | 2024/25 | % Change |
+|------------------------------------------------|---------|---------|----------|
+| Total GHG emissions (location-based) per net revenue | 14      | 15      | 7%       |
+| Total GHG emissions (market-based) per net revenue   | 14      | 15      | 7%       |
+```
+
+#### Impact materiality (Embracer Groups\'s impact on society
+
+and environment) In the first two steps of mapping contextual information and identifying impact drivers specific dependencies and business activities are listed as they occur within the Group\'s own operations and across the various stages of the upstream and downstream value chain.
+Please refer to page 28 for an overview of the Group\'s key value chain.
+These business activities are then screened against the list of sustainability matters (topics sub-topics and sub-subtopics) prescribed by the ESRS.
+This kind of screening builds an understanding of the geographies and the circumstances under which activities occur across the value chain including how they may impact stakeholders negatively and/or positively.
+Factors of heightened risks are considered to understand aspects that may influence the likelihood or severity of impacts eg management procedures sector characteristics applicable national laws geopolitics or similar.
+Accordingly the assessment considers impacts caused or contributed to within the Group\'s own operations as well as those linked to the value chain business relationships and products.
+In the third step Embracer proceeded with a detailed assessment to understand the materiality.
+Negative impacts are prioritized based on the likelihood of occurrence and the severity to affected stakeholders and for positive impacts based on the likelihood and benefit.
+Likelihood is only assessed for potential impacts and the criteria for severity considers the scope scale and remediable character of impacts.
+Impacts exceeding defined qualitative and quantitative thresholds are considered material for reporting.
+This means that all actual impacts with an "important" to "critical" severity are prioritized in the sustainability report along with potential impacts that have a "significant" (or above) likelihood and severity.
+In contrary the actual and potential impacts with an "informative" to "minimal" severity and/or "unlikely" likelihood are not material for reporting.
+
+
+<!-- PAGE: 32 -->
+During the DMA process affected stakeholders are not consulted directly however the interests and perspectives of various stakeholder groups are considered by drawing insights from other ongoing stakeholder dialogues.
+This is done by engaging with different internal functions that are responsible for or that possess insights and expertise related to a given sustainability matter which informs the assessment.
+External experts and other sources are consulted to support the understanding of how stakeholders may be impacted in various ways.
+For further details on stakeholder engagements please refer to page 29.
+Overall this process considers the principles for sustainability due diligence outlined by the OECD Guidelines and the UNGPs.
+The DMA is seen as an integral part of the steps in due diligence that refers to identifying and assessing impacts on affected stakeholders where stakeholders are both people and nature (which is considered as a salient stakeholder for environmental matters).
+
+Financial materiality (impact on Embracer Group) Alongside the assessment of material impacts financial aspects are looked into to understand whether there are connections between sustainability related impacts risks and opportunities.
+In such step we identify whether risks and opportunities may arise from any of the impacts and dependencies identified during the impact materiality assessment.
+Related to each sustainability matter we establish an understanding about potential transitional and/or physical risks or opportunities that could trigger financial effects to the Group\'s operations either negatively (risks) or positively (opportunities).
+For example Embracer identifies if a given sustainability matter could cause events that impact its ongoing business activities assets revenues expenditures or otherwise affecting the financial position over different time horizons.
+Where risks or opportunities have been identified we assess the materiality based on the likelihood of occurrence and the anticipated magnitude of the financial effect.
+For magnitude.
+the assessment considers how financial effects could potentially impact the overall financial position.
+Impacts that exceed defined quantitative thresholds are deemed material for reporting.
+This means that risks and opportunities with ‘significant’ to ‘critical’ magnitude in terms of potential effects on the financial position are prioritized in the sustainability report.
+While those with an ‘informative’ to ‘minimal’ magnitude and ‘unlikely’ likelihood are not material for reporting.
+
+The financial materiality assessment is aligned with but yet not part of the Group wide Enterprise Risk Management process (ERM).
+Embracer thereby follows the same basis for prioritization for sustainability related risks relative to other types of business risks.
+An investigation is currently underway to explore how the sustainability matters addressed in the DMA could be integrated into existing tools within the overall risk management process.
+The Group\'s ERM decision making process and the related internal control procedures are further described in the Enterprise risk management section on page 95.
+
+Specifically related to climate change the Group\'s existing measurements of GHG emissions generated as part of the impact materiality assessment is considered.
+The GHG emissions in Scope 1 2 and 3 provides insights about the impact on climate change that is caused by the Group or contributed to from Embracer\'s own operations or that we are linked to via business relationships and products.
+The ongoing transformation of Embracer Group has influenced the assessment and due to the high uncertainties an assessment has not yet been conducted to determine how future activities or plans may impact or be impacted by climate change in other ways.
+
+Related to the financial materiality assessment both the climate related physical and transitional risks and opportunities are evaluated.
+For physical risks we have taken into consideration climate hazardous that could potentially cause financial effects either by impacting the Group\'s own operations directly or whether they derive from its value chain.
+For example understanding whether future weather related events such as storms precipitation heatwaves or similar could cause damage to Embracer\'s assets or other disruptions.
+For transition risks we take into consideration whether the current business model may be exposed to transitional changes creating implications on or impacting the investments assets and business activities.
+For example understanding whether reputational regularity or market wide shifts could lead to changes in Embracer\'s expenditures (OpEx and CapEx) or revenue streams.
+
+
+<!-- PAGE: 33 -->
+For the purpose of identifying and assessing climaterelated impacts risks and opportunities we have not performed a formalized scenario analysis.
+It may become relevant to perform such deeper analysis and look deeper into a range of climate scenarios to better understand the exposure to physical and transition risks and opportunities over time horizons.
+However as of today we have not experienced the need to perform such a detailed assessment as part of the Group\'s double materiality assessment to arrive at a reasonable materiality result.
+
+Overall with regards to the methodologies and assumptions applied in the described process of the DMA we recognize that professional judgement and assumptions have been used to draw conclusions.
+For example due to lack of direct insights into all the specific steps and activities of Embracer\'s value chain specifically related to the tiers of the upstream and downstream that go beyond direct relationships we have leveraged external sources and sector experts to inform the analysis.
+This includes assumptions on activities further up the production tiers as well as in the use phase of the games and end of life stages where we currently do not have the traceability to assess direct information.
+Hence we have relied on information from business partners judgment and publicly available sources such as proxies relevant to the global gaming sector generic industry data and reports as well as country specific reports where relevant to build the Group\'s understanding.
+
+## OUR CLIMATE-RELATED TARGETS
+
+To uphold the Group\'s commitments described under \'Our Climate Related Commitment\' and to manage climate related impact Embracer Group has set GHG emissions reduction targets that was approved by the Science Based Targets initiative (SBTi) and adopted by the Board in the financial year 2023/24.
+
+
+<!-- PAGE: 49 -->
+The set Science Based target is to reduce absolute Scope 1 and 2 GHG emissions 45% by 2030 from a 2021 baseline year.
+It is also to reduce Scope 3 GHG emissions 51.6 % per million SEK within the same time frame.
+These apply to the whole Embracer Group and were developed in accordance with the Corporate Guide of the SBTi.
+However considering the on going transformation a recalculation of the targets has been triggered.
+This means that no later than FY2026/27 we must develop new targets and undergo re-validation in alignment with the SBTi procedures.
+Since further organizational changes are expected the target recalculation has not been initiated.
+We remain committed to reducing the Group\'s climate impact as we have communicated and to reach the target.
+We are closely monitoring the changes proposed by the Science Based Targets initiative (SBTi) for corporate climate goals.
+These changes aim to align the standards with the latest science address criticisms of current guidelines and increase corporate ambitions in line with the Paris Agreement.
+
+Overall the data that informed the target setting process is consistent with the methodology applied in Embracer\'s annual GHG inventory in accordance with the GHG Protocol which is further described on page 50.
+This means that the targets as well as the process for follow up is based on measurements of the gross GHG emissions and follows the same operational and organizational boundaries.
+This also means that we exclude any form of GHG removals carbon credits or avoided emissions if any for the purpose of understanding the baseline and the performance against targets.
+Information on the Group\'s approach regarding offsetting can be found on page 52.
+
+While the Science Based targets are yet to be updated we know from previous assessments that key decarbonization levers identified to achieve the targets are mostly connected to Embracer\'s energy related activities.
+For example to be able to reach the Group\'s climate related targets for Scope 1 and 2 it is necessary to reduce the overall energy consumption at studios and offices increase the share of renewable energy and replace refrigerants with alternatives of lower Global Warming Potential (GWP) where feasible.
+Other enablers concern the shift towards hybrid and electric vehicles in the Group\'s car fleet (88 vehicles).
+The decarbonization levers will be revised alongside the update of the Group\'s Science based targets mainly since the on going transformation has led to significant changes in Embracer\'s Scope 3 categories.
+Again please refer to page 50 for details on Embracer\'s total GHG emissions.
+
+Beyond GHG reduction targets the Group\'s energy consumption and energy mix is measured but have yet not adopted specific targets to monitor energy related impacts risks and opportunities.
+Such targets may be adopted over the long term if deemed valuable.
+Due to changes in methodologies and emission factors during the year the results for Scope 1 2 and 3 cannot be compared with the baseline data.
+Embracer will work to re-balance the baseline to ensure comparability for effective progress tracking.
+
+Hobbiton™ | Magic The Gathering Tales of Middle earth c & TM Mee under lic.
+to Wizards of the Coast
+
+
+<!-- PAGE: 50 -->
+
+ENVIRONMENT
+
+- Topic
+
+- Description of IROs
+
+- Climate change
+
+- Impact Materiality: Material
+
+- Financial Materiality: Not material
+
+Value chain Upstream own operation & downstream At Embracer Group we are causing GHG emissions from our own operation (in Scope 1 and 2) and we are linked to GHG emissions generated both upstream and downstream (in Scope 3).
+These together contribute to negative impact on climate change and are mostly driven by energy related dependencies across our entire value chain including in the user phase of our products.
+These energy dependencies are mostly related to our and the games and entertainment industry's reliance on the latest technology to uphold business.
+However climate change and related dependencies are not expected to trigger significant financial effects to our operations neither physical nor transitional.
+It is thereby deemed non material for reporting from a financial materiality perspective.
+
+
+<!-- PAGE: 36 -->
+
+# CLIMATE CHANGE
+
+In this section we outline Embracer Group\'s climate related work focusing on the sustainability matters that are material for the group following the double materiality assessment for the financial year 2024/25.
+We cover in detail how we address GHG emissions in Scope 1 2 and 3 as well as Embracer\'s energy dependencies.
+Climate related risks and opportunities are not deemed to be material disclosures meaning the anticipated financial effects have not been quantified and are thereby omitted from the report.
+However they will be included in future reports if they are considered material at that time.
+Please refer to page 30 and page 34 for our entire process of identifying assessing and managing material impacts risks and opportunities.
+
+It is noteworthy that the on going transformation of Embracer Group affects the reported disclosures under ESRS E1 on Climate Change.
+Where such contextual information is key to understand the disclosures it is referred to directly in the text as the "transformation".
+Please refer to page 63 "About this Report" for further information about the transformation and how it affects the Group\'s disclosures.
+
+# ENVIRONMENTAL INFORMATION
+## ESRS E1 - Climate Change
+### Governance
+
+| E1-GOV-3 | Integration of sustainability-related performance in incentive schemes | 57 |
+| --- | --- | --- |
+| Strategy |
+| E1-1 | Transition plan for climate change mitigation | 52 |
+| E1-SBM-3 | Material impacts, risks and opportunities and their interaction with strategy and business model | 34 |
+| Impact, risk and opportunity management |
+| E1-IRO-1 | Description of the processes to identify and assess material climate-related impacts, risks and opportunities | 30 |
+| E1-2 | Policies related to climate change mitigation and adaptation | 47 |
+| E1-3 | Actions and resources in relation to climate change policies | 52 |
+| Metrics and targets |
+| E1-4 | Targets related to climate change mitigation and adaptation | 47 |
+| E1-5 | Energy consumption and mix | 49 |
+| E1-6 | Gross Scopes 1, 2, 3 and Total GHG emissions | 50 |
+| E1-7 | GHG removals and GHG mitigation projects financed through carbon credits | 52 |
+| E1-8 | Internal carbon pricing | 52 |
+![table image]({page: 62, x: 74}, {y: 460, {width: 456}, {height: 8})
+
+
+<!-- PAGE: 63 -->
+
+# SUSTAINABILITY REPORT
+ABOUT THIS REPORT
+# OUR GENERAL BASIS FOR PREPARATION AND SPECIFIC CIRCUMSTANCES
+
+This present sustainability report has been prepared on a consolidated basis in accordance with the consolidation approach applied for the financial statement.
+This means that sustainability information that relate to the following subsidiaries THQ Nordic PLAION Coffee Stain Amplifier Game Invest DECA Games Dark Horse Media Freemode and Crystal Dynamics Eidos has been consolidated into this presented report.
+By being included in the consolidation of this present report the aforementioned subsidiaries are thereby exempted individual reporting pursuant to Articles 19a(9) or 29a(8) of Directive 2013/34/EU.
+Major changes in what continues scope of the consolidation primarily result from the ongoing transformation of Embracer Group for further details please refer to page 102 of the Board of directors´ Report.
+
+This sustainability report is the statutory sustainability report required by aRL 6 chapter §10.
+The transformative year the spinoff of Asmodee and the divestments that have been carried out have impacted the Group\'s data collection.
+Companies no longer part of Embracer Group by the end of FY 2024/25 are excluded from the process and this Sustainability report.
+Businesses accounting for 99% of revenue are included in the Environmental information reports as well as in the Social and Governance information.
+Furthermore businesses representing 97% of headcount are part of the Environmental information reports and 93% are included in the Social and Governance data.
+This discrepancy is either due to ongoing divestments or the inability to submit complete data owing to other circumstances.
+For segmentspecific questions (game studios specific) not relevant for all companies the response rate is 95%.
+
+The sustainability report has been developed using the Corporate Sustainability Reporting Directive (CSRD) and underlying European Sustainability Reporting Standards (ESRS) as inspiration.
+The CSRD entered into force in Sweden in January 2023.
+However the Swedish government has delayed its application for the largest companies by one year.
+As a result although European regulations require reporting for the financial year 2024 Swedish companies can begin reporting from financial year 2025.
+Hence Embracer Group as a first wave company has decided to issue a CSRD inspired report for the first time this year.
+For further details on the concrete ESRS disclosure requirements that have been implemented into this report please refer to the table under page 59.
+
+The sustainability report includes material information related to impacts risks and opportunities within Embracer Group's own operation and our upstream and downstream value chain.
+We have not omitted any specific information corresponding to intellectual property know how or the results of innovation that could be relevant to fully understand the sustainability matters disclosed in this report.
+
+With regards to time horizons we have adopted the same definitions prescribed by the ESRS.
+This means that any reference to the short term is equal to one year medium term is between two and five years whereas long term is longer than five years.
+In the case we have used estimates to fill information or data gaps we have disclosed relevant information on such methodologies under each respective topic or data point throughout the sustainability report.
+Hence all sources of estimations and outcome uncertainty are expressed in relation to the specific disclosure requirements along with standards and protocols used for calculations.
+Overall critical assumptions concern value chain information especially with regards to the upstream and downstream tiers that occur further away our own operation for which we lack traceability or insights.
+In such cases we have leveraged supplier information or relevant sector reports country reports or other public information to enable informed conclusions to the extent possible.
+Critical assumptions also concern any potential impact where the concrete consequences cannot be confirmed as well as future oriented risks and opportunities.
+In case of doubt we have applied a conservative approach and judgment consistently.
+
+With regards to changes in preparation or presentation of sustainability information we have disclosed changes in metrics and comparative figures from the last report aligning them with specific disclosure requirements and the applied consolidation approach.
+These changes primarily result from the ongoing organizational transformation and such is indicated under each respective disclosure requirement that it concerns.
+
+In some cases specific disclosures requirements have been incorporation by reference to make this Sustainability report more reader friendly.
+These references are outlined in table format under Content Index to enable traceability of information.
+
+The Embracer Sustainability report covers data and information aligned with our financial year 2024/25 from April 1 2024 to March 31 2025.
+
+## OUR ACTIONS TO ADDRESS CLIMATE CHANGE
+
+In the financial year Embracer Group has not taken any specific climate change mitigation actions.
+Therefore detailed information is not provided.
+This is attributed to the ongoing transformation greenhouse gas reduction initiatives and other strategic actions.
+For instance the development of a climate transition plan has not yet commenced.
+
+While acknowledging the importance of being able to provide an understanding that clearly outlines Embracer\'s GHG mitigation efforts as well as compatibility with the Paris Agreement we do not have a climate related transition plan in place.
+We are preparing to adopt such transition plan and disclose it in FY 2026/27 after completing the transformation program.
+Alongside that we expect to concretize the actions and resources needed for its implementation.
+As part of that development we aim to integrate financing via the Group\'s internal Climate Fund that was established in in FY 2023/24.
+The purpose of the Climate Fund is specifically aimed at financing internal GHG reduction initiatives but no funding has yet been assigned.
+It is expected to be a key enabler for future financial planning and emissions mitigating investments at both the parent company level and at individual group companies.
+
+The same reasoning applies for the eventual development of an internal carbon pricing schemes as requested.
+As of today we do not apply such approach in current decisionmaking procedures but it may become relevant in the future to further incentivize action and align decision making with Embracer\'s climate related policies and targets.
+
+Other than that concrete actions that have been initiated during the reporting year concern investments in system support for data gathering.
+The main objective is to strengthen capacities in the comprehensive data gathering and to align methodologies for data analysis across the entire Embracer Group.
+Moreover we have expanded the sustainability collaboration within the group including valuable resources with experience from GRI reporting to further strengthen the ESG data management team.
+We see this as preparatory actions to inform and support future mitigation actions in a systematic way leveraging the competence in the global organization.
+We believe this is crucial for the success of reaching the Group\'s climate targets.
+
+
+<!-- PAGE: 54 -->
+
+## SUSTAINABILITY REPORT
+ENVIRONMENTAL INFORMATION
+
+The effects of climate change are becoming increasingly evident and like all businesses we have a responsibility to contribute to keeping the planet a place where all can live and thrive for generations.
+The gaming and entertainment industry generates emissions throughout its value chain from game development manufacturing and data storage to events travel and packaging.
+By reducing Embracer Group\'s emissions both in operations and across the value chain and by investing in projects that support the green transition we can minimize the Group\'s environmental impact and contribute to greater awareness within the industry.
+
+##### Turnover continued
+
+Proportion of Taxonomy aligned (A.1.) or eligible (A.2.) turnover year 2023/24 (18)Economic activities (1)
+
+## GHG REMOVALS AND CARBON CREDITS
+
+In the financial year 2024/25 Embracer Group has not actively supported any GHG removal or mitigation projects aimed at permanently remove GHG from the atmosphere.
+Neither have we purchased carbon credits or engaged in other activities related to GHG removals storage or offsetting.
+In Embracer\'s climate related policy commitment we specifically underline that reducing its climate impact should by no means involve any sort of offsetting or GHG removals as a methodology.
+The approach to offsetting is to not use it.
+Why the specific data points of this disclosure requirement are omitted.
+
+#### FY 2024/25 Substantial Contribution Criteria
+#### Economic Activities
+
+|  |  | SEKm | % | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| (1) | Code (2) | CapEx (3) | CapEx (3) |  |  |  |  |  |  |
+| A. TAXONOMY-ELIGIBLE ACTIVITIES A.1. Environmentally sustainable activities (Taxonomy-aligned) |
+| CapEx of environmentally sustainable activities | (Taxonomy-aligned) (A.1) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| (4) |
+|  |  |  | Proportion of CapEx, year 2024/25 | Climate Change Mitigation | Climate Change Adaptation | Water | Pollution | Circular Economy | Biodiversity |
+| (5) (6) (7) (8) (9) (10) |
+| Of which Enabling |  | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| Of which Transitional |  | 0 | 0% | 0% |  |  |  |  |  |
+| A.2 Taxonomy-Eligible but not environmentally sustainable activities (not Taxonomy-aligned activities) |
+| Acquisition and ownership of buildings | CCM 7.7 | 210 | 5% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |
+| CapEx of Taxonomy- eligible but not environmentally | sustainable activities (not Taxonomy-aligned activities) (A.2) | 210 | 5% | 0% | 0% | 0% | 0% | 0% | 0% |
+| A. CapEx of Taxonomy eligible activities (A1+A2) |  | 210 | 5% | 0% | 0% | 0% | 0% | 0% | 0% |
+| B. TAXONOMY-NON-ELIGIBLE ACTIVITIES |
+| CapEx of Taxonomy-non-eligible activities |  | 3,928 | 95% |  |  |  |  |  |  |
+| TOTAL |  | 4,138 | 100% |  |  |  |  |  |  |
+![table image]({page: 56, x: 74}, {y: 135, {width: 239}, {height: 5})
+
+CapEx | continued
+
+A. TAXONOMY ELIGIBLE ACTIVITIES
+
+#### INDIRECT SUPPLIERS (power plants, refineries, natural resources)
+##### END-OF-LIFE
+
+(recycling reuse energy recovery)
+
+SOCIAL
+
+| Topic | Description of IROs |  |
+| --- | --- | --- |
+| Own workforce and workers in the value chain | Impact Materiality: Material | Financial Materiality: Material |
+| Value chain: Upstream & own operation |
+| At Embracer Group, our employees are fundamental for the continuous success of our operations. This also include all the contractors that we engage. It is through our workforce that we leverage a broad range of capacities to deliver on creativity and positive impact within the games and entertainment industry. As such, the people that we employ are our most important resource. This comes with a responsibility to ensure that, while running a dynamic business which is under continuous movement, we priorities the well-being, personal development and engagement of our people. For instance, we acknowledge that our employees may sometimes work under high pressure e.g., in meeting deadlines for new launches. This means that a focus on ensuring a good and healthy working environment is key to prevent work related ill-health or similar. Additionally, in the relationships and interactions that take place between colleagues and leaders everyday there is always the risk of behavior occurring that goes against our values. We acknowledge that social dialogue, diversity, equality, inclusion and skills development are essential for retaining and attracting talent. Hence, for social sustainability matters we consider them to be material from both an impact materiality perspective and a financial materiality perspective (double materiality). The same reasoning applies to the workers in the value chain, ensuring respect for fundamental human rights and labor rights, specifically related to certain vulnerable groups. This is mainly due to increased risk factors, the activities and the locations of where these take place in the value chain. Hence, sustainability matters related to own workforce and workers in the value chain are material from both an impact materiality perspective and a financial materiality perspective. |
+| Consumers and end-users | Impact Materiality: Material | Financial Materiality: Material |
+![table image]({page: 36, x: 74}, {y: 99, {width: 355}, {height: 18})
+
+Value chain Upstream & own operation At Embracer Group the reason for our existence is to create great games and entertainment for our end customers.
+Games and entertainment create value for users by offering immersive experiences fostering creativity and providing opportunities for social interaction and relaxation.
+Within the gaming community we can create positive impact by allowing users to temporarily disconnect from reality and engage in enjoyable activities.
+Additionally games and entertainment can also stimulate cognitive abilities enhance problemsolving skills and offer a sense of achievement through challenges and rewards.
+However we also acknowledge that gaming and entertainment products could potentially have a negative impact on habits especially if over consumed.
+With emphasis on particular groups and children that are more vulnerable overconsumption could lead to health implications or even financial consequences to users.
+In addition through games and entertainment we could potentially influence the perception and views of gamers in relation to various cultural and social topics depending on our storytelling.
+This means that diversity and inclusion in games and entertainment as well as digital well being are key matters to us alongside a focus on responsible marketing transparency integrity information security and privacy.
+Hence sustainability matters related to consumers and end users are material from both an impact materiality perspective and a financial materiality perspective.
+
+## OUR CLIMATE-RELATED COMMITMENT
+
+Embracer Group has adopted a Sustainability Policy publicly available on the Group\'s website that outlines the Group\'s commitments towards the environment people and governance.
+Specifically related to climate change it addresses areas such as climate change mitigation renewable energy deployment and energy efficiency.
+
+In short Embracer\'s Sustainability Policy includes a commitment to mitigate the negative impact on the climate arising from the generation of GHG emissions.
+Specifically to reduce Scope 1 2 and 3 GHG emissions in alignment with the Paris Agreement to limit global warming to 1.5°C.
+The general objective of such commitment is to ensure that we contribute to the global agenda of combating climate change.
+It is also a cornerstone for the journey towards achieving the ScienceBased Targets recently adopted which are further described under "Our Climate Related Targets" page 47.
+Regarding energy the Sustainability Policy includes a commitment to increase the share of renewable energy in Embracer\'s energy mix and to improve energy efficiency.
+The general objective of such commitment is twofold to mitigate the negative impact deriving from energy consumption and to capture energyrelated opportunities as well as to prevent energy related risks such as price volatility.
+
+The scope of the Sustainability Policy applies to the whole Embracer Group.
+It covers the business activities employees and contractors across the geographies in which Embracer and its group companies operate.
+It also covers expectations for how we engage with actors of the upstream and downstream in implementing policy objectives to address those impacts risks and opportunities that derive from the value chain.
+
+The process for monitoring compliance with these commitments in the daily business will include ensuring that both the Parent Company and group companies are informed about and follows the Group\'s Sustainability Policy.
+For instance via policy trainings and onboarding programs.
+Accountability for the implementation of and compliance with the Sustainability Policy lies with the Head of Sustainability which also includes responsibility for translating the commitments into actionable strategies and measurable outcomes that are embedded across daily business procedures.
+
+Embracer Group has played a notable role in the report titled "Code Climate Creativity Game Development and the Green Transition" published by the Swedish Games Industry in October 2024.
+By sharing the Group\'s climate data from 2022 Embracer Group alongside other Swedish peers contributed to the report and the development of the Play Create Calculate toolbox.
+This toolbox provides instructions for data collection and use of the climate calculator for high priority and medium priority categories helping game companies manage their emissions more efficiently.
+This initiative demonstrates one way to leverage the industry to support sustainability efforts and inspire positive change.
+
+# OUR VALUE CHAIN
+
+Embracer Group has a large number of external partnerships whereby Embracer acts as both licensor and licensee.
+Embracer Group\'s main business areas are IP ownership development and publishing.
+Some of the operative groups also have distribution and retail businesses.
+Some of Embracer Group\'s businesses including Limited Run Games Dark Horse Grimfrost and DPI Merchandising operate a direct to consumer business.
+In addition Dark Horse operates the e-commerce and bricks and mortar retail chain Things From Another World.
+
+Embracer Group\'s main direct business relationships are first and foremost those that have been established with all of the Group\'s employees and contractors.
+The core competencies embodied and demonstrated by employees and contractors represent a key input for delivering high quality products within the games and entertainment industry.
+The physical inputs that are purchased are explained in detail on page 50 specifically under the section for Scope 3 category 1 on the Group\'s purchased goods and services.
+In connection with IP ownership and licensing a large number of external partnerships have been established with film studios and agents which are key relationships for all segments of the Group\'s operations.
+The extensive IP portfolio and unique licenses alongside continuous creativity and entrepreneurship in game development define Embracer\'s game releases and overall offering.
+This benefits gamers and customers by offering immersive experiences.
+It also benefits investors by securing a diversified portfolio that places the Group in a unique position to sustain operations against competitors.
+With regards to sustainability matters the Group has Embracer\'s Smarter Business Framework that was established in 2018.
+It is built around three pillars Great People Solid Work and Our Planet and it has been aimed to ensure that we as a Group prioritize our efforts.
+However due to the on going transformation the framework will be adjusted to better fit the Group\'s new structure.
+Such changes will be determined by the new organization based on the impacts risks and opportunities associated with the respective value chain markets and offering segments.
+Once such updates are in place it will be possible to provide a clearer description of the elements of the strategy that relate to or impact sustainability matters including the main challenges ahead critical solutions or projects to be implemented.
+For further details about the material sustainability matters and how they interact with Embracer\'s strategy business model and value chain please refer to page 27 or the respective topical sections of the Sustainability Report.
+
+
+<!-- PAGE: 30 -->
+
+## Page 62:
+                ```markdown
+| Disclosure Requirement                                           | Page # |
+|---------------------------------------------------------------|--------|
+| E1-GOV-3 Integration of sustainability-related performance in incentive schemes | 57     |
+| E1-1 Transition plan for climate change mitigation             | 52     |
+| E1-SBM-3 Material impacts, risks and opportunities and their interaction with strategy and business model | 34     |
+| E1-IRC-1 Description of the processes to identify and assess material climate-related impacts, risks and opportunities | 30     |
+| E1-2 Policies related to climate change mitigation and adaptation | 47     |
+| E1-3 Actions and resources in relation to climate change policies | 52     |
+| E1-4 Targets related to climate change mitigation and adaptation | 47     |
+| E1-5 Energy consumption and mix                                | 49     |
+| E1-6 Gross Scopes 1, 2 and Total GHG emissions                | 50     |
+| E1-7 GHG removals and GHG mitigation projects financed through carbon credits | 52     |
+| E1-8 Internal carbon pricing                                   | 52     |
+```
+
+# HIGHLIGHTS OF THE YEAR
+
+Focus on preparing for the Corporate Sustainability Reporting Directive (CSRD) including conducting a double materiality assessment which maps the Group's most material sustainability matters.
+
+Improved results in our annual employee engagement survey and an eNPS of 20.
+
+Sustainability Policy adopted further strengthening our commitments and delineates responsibilities.
+
+Reduced absolute Scope 1 and 2 emissions by 19% compared to last year.
+
+Continuous implementation of various internal control and integration processes.
+
+Ongoing annual mandatory trainings for all employees on Privacy and Anti Corruption.
+
+
+<!-- PAGE: 26 -->
+group sustainability targets and transition plans are still being developed.
+Once the Group has fully established these objectives they will be consolidated and communicated.
+We are using this transformational phase as an opportunity to build on the valuable sustainability work already carried out across the group.
+While each Operative Group continues with their objectives in areas such as corporate culture health and safety diversity inclusion and employee well being aligning these at group level during this phase of change has not been deemed effective.
+Instead group wide goals will be developed and activated once the organization reaches a more stable stage ensuring long term relevance and impact.
+An exception to this is Embracer\'s science based climate goal where the Group\'s commitment to the Paris Agreement remains ie to reduce our carbon emissions by 45% by 2030 compared with the base year 2021/22 although this goal is also influenced by changes within the group.
+Recalculations of the base year are made to reflect the current group structure and keep them as valuable tools for leading us in the right direction at the right speed.
+
+The sustainability report is compiled on a consolidated basis for Embracer Group and all its subsidiaries.
+Assessments and estimates are used to report certain data points such as scope 3 emissions where actual data was unavailable.
+These estimates and assessments are regularly reassessed based on experience the development of ESG reporting and improved data quality.
+
+This report is inspired by the European Sustainability Reporting Standards (ESRS) meaning that the Group discloses some requirements for selected ESRS standards on a voluntary basis namely ESRS 2 (General Disclosures) and ESRS E1 (Environment Climate Change).
+The Group has started with these standards to be able to develop sufficient internal processes and routines to manage the new reporting requirements while also being prepared for any changes to the directive through the Omnibus package.
+ESRS E1 also connects to Embracer\'s still valid climate goal.
+Material social and governance information is reported following principles of Embracer\'s previous reports and are thereby not aligned with CSRD reporting requirements.
+ESRS 2 was selected as the starting point as it forms the basis for future reporting through double materiality analysis and work with impact risk and opportunity.
+Embracer Group started already in 2023 and have a carefully prepared Double Materiality Assessment (DMA) to present and follow.
+The reason the Group chose to focus on ESRS E1 is because this standard is a reporting intensive area with massive data requirements and that Embracer has experience and a solid base as reported according to the GHG protocol in past years.
+Therefore from a pragmatic perspective it makes sense for us to go ahead where there is a lot in place in terms of reporting and where data review makes us better prepared.
+ESRS quantitative metrics covering environmental social and governance factors have been assessed when applicable in this report and due to changes in methodology in accordance with ESRS numerous metrics have no comparison from previous years.
+For the Annual and Sustainability Report FY 2025/26 all material ESRS will be implemented into the report following the legal requirements of the CSRD according to the Swedish ratification of the directive.
+References to ESRS disclosure requirements where applicable can be found in the Content index.
+
+# TAXONOMY TABLES
+## TURNOVER
+### FY 2024/25 Substantial Contribution Criteria
+
+|  | Proportion of Turnover, year 2024/25 | Climate Change Mitigation | Climate Change Adaptation | Circular Economy |
+| --- | --- | --- | --- | --- |
+| Code | Turnover | Water | Water | Water | Water | Pollution | Biodiversity |
+| SEKm | % | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL |
+| (2) (3) (4) (5) (6) (7) (8) (9) (10) |
+![table image]({page: 55, x: 286}, {y: 150, {width: 271}, {height: 5})
+
+# KILLING FLOOR 3
+
+Tripwire Interactive | Tripwire Interactive
+
+
+<!-- PAGE: 89 -->
+
+# Nuclear and fossil gas-related activities
+
+None of the entities within Embracer Group conduct finance or are exposed to nuclear or fossil gas related activities.
+The table thus applies to both individual entities and the group as a whole.
+
+Double counting has been avoided by ensuring that only separate cost components have been included in the summation of the relevant activities.
+
+## NUCLEAR AND FOSSIL GAS RELATED ACTIVITIES
+
+| Row | Nuclear energy related activities | YES/NO |
+| --- | --- | --- |
+| 1 | The undertaking carries out, funds or has exposures to research, development, demonstration and deployment of innovative electricity generation facilities that produce energy from nuclear |  |
+![table image]({page: 57, x: 74}, {y: 581, {width: 425}, {height: 5})
+
+processes with minimal waste from the fuel cycle.
+
+2 The undertaking carries out funds or has exposures to construction and safe operation of new nuclear installations to produce electricity or process heat including for the purposes of district heating or industrial processes such as hydrogen production as well as their safety upgrades using best available technologies.
+
+3 The undertaking carries out funds or has exposures to safe operation of existing nuclear installations that produce electricity or process heat including for the purposes of district heating or industrial processes such as hydrogen production from nuclear energy as well as their safety upgrades.
+
+|  | Fossil gas related activities | YES/NO |
+| --- | --- | --- |
+| 4 | The undertaking carries out, funds or has exposures to construction or operation of electricity generation facilities that produce electricity using fossil gaseous fuels. | No |
+| 5 | The undertaking carries out, funds or has exposures to construction, refurbishment, and operation of combined heat/cool and power generation facilities using fossil gaseous fuels. | No |
+| 6 | The undertaking carries out, funds or has exposures to construction, refurbishment and operation of heat generation facilities that produce heat/cool using fossil gaseous fuels. | No |
+![table image]({page: 57, x: 92}, {y: 676, {width: 461}, {height: 5})
+
+
+<!-- PAGE: 58 -->
+
+#### Economic Activities (1)
+##### A. TAXONOMY-ELIGIBLE ACTIVITIES
+
+A.1.
+Environmentally sustainable activities (Taxonomy-aligned)
+
+| OpEx of environmentally sustainable activities (Taxonomy-aligned) (A.1) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | FY 2024/25 |  |  |  | Substantial Contribution Criteria |  |  |  |
+![table image]({page: 57, x: 74}, {y: 174, {width: 210}, {height: 5})
+
+Proportion of OpEx year 2023/24 Climate Change Mitigation Climate Change Adaptation Circular Economy OpEx Code Water Pollution Biodiversity
+
+| (2) | (3) | (4) | (5) | (6) | (7) | (8) | (9) | (10) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | SEKm | % | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL | Y; N; N/EL |
+| Of which Enabling | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| Of which Transitional | 0 | 0% | 0% |  |  |  |  |  |
+| A.2 Taxonomy-Eligible but not environmentally sustainable activities (not Taxonomy-aligned activities) |
+| OpEx of Taxonomy- eligible but not environmentally sustainable activities (not Taxonomy-aligned activities) (A.2) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| A. OpEx of Taxonomy eligible activities (A1+A2) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| B. TAXONOMY-NON-ELIGIBLE ACTIVITIES |
+| OpEx of Taxonomy-non-eligible activities | 13 | 100% |  |  |  |  |  |  |
+| TOTAL | 13 | 100% |  |  |  |  |  |  |
+![table image]({page: 57, x: 239}, {y: 126, {width: 244}, {height: 5})
+
+OpEx | continued
+
+####### A. TAXONOMY-ELIGIBLE ACTIVITIES
+
+A.1.
+Environmentally sustainable activities (Taxonomy-aligned)
+
+OpEx of environmentally sustainable activities (Taxonomy-aligned) (A.1) N
+N
+N N N
+N
+N 0% Proportion of Taxonomy aligned (A.1.) or eligible (A.2.) OpEx year 2023/24 (18)Economic activities (1)
+
+### Economic Activities (1)
+#### A. TAXONOMY-ELIGIBLE ACTIVITIES
+
+A.1.
+Environmentally sustainable activities (Taxonomy-aligned)
+
+| Turnover of environmentally sustainable activities (Taxonomy-aligned) (A.1) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Of which Enabling | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| Of which Transitional | 0 | 0% | 0% |  |  |  |  |  |
+| A.2 Taxonomy-Eligible but not environmentally sustainable activities (not Taxonomy-aligned activities) |
+| Turnover of Taxonomy- eligible but not environmentally sustainable activities (not Taxonomy-aligned activities) (A.2) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| A. Turnover of Taxonomy eligible activities (A1+A2) | 0 | 0% | 0% | 0% | 0% | 0% | 0% | 0% |
+| B. TAXONOMY-NON-ELIGIBLE ACTIVITIES |
+| Turnover of Taxonomy-non-eligible activities | 22,370 | 100% |  |  |  |  |  |  |
+| TOTAL | 22,370 | 100% |  |  |  |  |  |  |
+![table image]({page: 55, x: 74}, {y: 207, {width: 243}, {height: 5})
+
+TURNOVER | continued
+
+### Wreckfest 2
+# IMPACT, RISK AND OPPORTUNITY MANAGEMENT
+## OUR MATERIAL IMPACTS, RISKS AND OPPORTUNITIES
+
+In this section we outline a summary of Embracer Group\'s material impacts risks and opportunities (IROs) and how they interact with the strategy business model and value chain as described on page 27.
+Since this is the first time we present the Group\'s material sustainability matters following the double materiality approach there are no changes to the material impacts risks and opportunities compared to the previous reporting period.
+Overall we continue to report on similar aspects of environmental social and governance topics as in previous sustainability reports although now in a more detailed format intended to partially follow the establishment of the ESRS framework that has inspired this year's sustainability report.
+
+As of today and where applicable the material impacts risks and opportunities are covered by the ESRS Disclosure Requirements and we have not developed any entity specific disclosures.
+One important note for this year's report is that we have decided to take inspiration from ESRS and disclose the requirements for selected ESRS standards on a voluntary basis namely ESRS 2 and ESRS E1.
+Material social and governance topics on the other hand are reported following principles of previous reports and are thereby not CSRD aligned.
+Next year we will implement all material ESRS into the report following the legal requirements of the CSRD according to the Swedish ratification of the directive.
+The table below provides an overview of where in the operations and value chain sustainability matters are concentrated for a reference to the specific disclosure requirements under the relevant topical ESRS refer to Content Index.
+
+# DNSH criteria (“Does Not Significantly Harm”)
+
+Embracer Group\'s economic activity within leasing of premises as well as acquisition and ownership of buildings risks being negatively affected by several of the climate related risks listed in the EU Commission\'s annex with technical screening criteria in relation to the taxonomy.
+Primarily acute risks such as storms floods or landslides can negatively impact properties but also chronic risks such as global warming can affect properties during their lifetime.
+
+#### IP-OWNER
+##### DIGITAL DISTRIBUTOR
+###### (Cloud Based Services, Xbox, Steam, App Store, PlayStation, etc.)
+###### own operations downstream
+
+Embracer Group in the value chain
+
+
+<!-- PAGE: 28 -->
+Key elements of the business model and main value chain that affect sustainability matters encircle the development distribution publishing and user phase of the products which is mostly digital.
+The value that Embracer creates takes place within its offices and studios and is driven by its employees that operate in the digital world of creativity graphic design coding editing licensing publishing distribution and more.
+The value is also created in close collaboration with external partners.
+As such connected to the main business model and offering segments Embracer does not have a physical value chain per such specifically related to games development and other services which take place online from development to user phase.
+However operating in a digital landscape means that both Embracer\'s operations and its products are energydependent via the use of electronic devices and IT equipment.
+Thus indirectly there is a physical value chain related to both the energy generation and the production tiers of the electronics and IT equipment that is used.
+Including linked to the respective gaming equipment that Embracer\'s gamers and customers use.
+These are however produced outside of the Group\'s operations by upstream actors of the manufacturing sectors and when these reach the end of its lifecycle they are handled by downstream actors of the waste management and recovery sectors.
+This is visualized in the illustration below which outlines Embracer\'s value chain.
+Main emphasis of such illustration is placed on the Group\'s position in the value chain and the activities that take place within its operations at Embracer Group and in collaboration with the closest business partners and contractors.
+
+
+<!-- PAGE: 29 -->
+
+GOVERNANCE
+
+- Topic
+
+- Description of IROs
+
+- Business conduct
+
+- Impact Materiality: Material
+
+- Financial Materiality: Material
+
+Value chain Upstream own operation & downstream At Embracer Group we are engaging employees consumers and business partners all over the world.
+In managing a global business we must comply with all applicable international national and local law as one fundamental aspect of how we do business.
+Beyond legal compliance matters such as business ethics and responsible corporate culture are important factors to both our own operations and for our business relationships.
+Additionally the possibility to report grievances related to our operations and value chain in an anonymous and safe way is also fundamental for granting whistleblowers protection.
+This is also key to help us ensure that we are continuously informed about potential breaches to our own commitments and values as well as the regulatory and voluntary frameworks that we must align with.
+Hence sustainability matters related to business conduct is material from both an impact materiality perspective and a financial materiality perspective.
+
+We assess that the resilience of the Group\'s strategy and business model is strong related to Embracer\'s capacity to address material impacts and risks and to take advantage of opportunities.
+With growing awareness sustainability has become a crucial topic in the games and entertainment industry encompassing both social governance and environmental responsibility.
+Notably the financial sector\'s dialogue is evolving with investors increasingly seeking to invest in companies that adhere to principles of responsible business conduct.
+We strive to focus the sustainability efforts on the matters where we can have the greatest positive development or where we can be part of the solution and drive change.
+We also believe that the on going transformation of Embracer Group will make us even better fit to manage sustainability matters as we get closer to the markets for each of the segments.
+
+
+<!-- PAGE: 37 -->
+
+##### SIGNIFICANT ACCOUNTING PRINCIPLES
+
+The Group generates revenue mainly through the sale of interactive entertainment content and services primarily for console PC and mobile platforms as well as through licensing of Embracer's intellectual property and media content.
+The Group also generates revenue from the sale of comic books and merchandise.
+The Group recognize revenue when the Group satisfies a performance obligation which is when a promised good or service is transferred to the customer and the customer obtains control of the good or service.
+Control over a performance obligation can transfer over time or at a point in time.
+Revenue is recognized at an amount that reflects the consideration to which the entity expects to be entitled to in exchange for those goods or services.
+The most material revenue streams per operating segment are the following
+
+> Segment PC/Console Games sales of interactive entertainment content and services for console and PC platforms.
+
+> Segment Mobile Games sales of interactive entertainment content and services for mobile platforms.
+
+> Segment Entertainment and Services sales of comic books and related goods and services sales of film and merchandise and wholesales of publishing titles of interactive entertainment content and film.
+
+> Segment Tabletop Games sales of tabletop games has been classified as discontinued operations in February 2025.
+
+The Group has chosen to apply the practical solution of not providing information on the transaction price allocated to unfulfilled (or partially unfulfilled) performance commitments at the end of the reporting period including an explanation of the expected timing of revenue recognition for contracts with customers that have an original expected term of maximum one year.
+For additional expenses to obtain an agreement the Group uses the practical solution of reporting additional expenses as an expense if the depreciation period for the asset that would otherwise have been reported is one year or less.
+
+In the following sections the most material revenue streams per segment is described in more detail as well as the assessments regarding revenue recognition that Embracer has made per material revenue stream.
+
+Revenue from sales of interactive entertainment content and services for console and PC platforms The Group sells digital games for console and PC platforms that typically provides access to the main game content.
+The Group also sells downloadable content that provide the players with additional in game content in purchased games.
+Digital sales of interactive entertainment content are sold through third party digital storefronts such as Microsoft's Xbox Games Store Sony's PSN Epic and Steam.
+Embracer considers the digital storefront to be Embracer's customer and Embracer's performance obligation is therefore to provide a license to the digital storefront to sell the game or the downloadable content to end users.
+The transaction price typically comprises of variable consideration in the form of sales based royalty that is recognized when the subsequent sale to end user occurs in accordance with the guidelines for sales based royalties in IFRS 15.
+The transaction price sometimes also consists of fixed consideration in the form of minimum sales guarantees.
+The license is deemed to constitute a right for the customer to use the intangible asset is current condition at the time of assignment since the digital store then can resell the game to end consumers.
+There are no additional commitments in the agreement with the customer that significantly affect the intangible asset to which the customer is entitled.
+The revenue is therefore recognized in connection with the assignment to the customer.
+
+The Group also has some free to play games for PC and console where players have the opportunity to purchase virtual goods in the game.
+When selling virtual goods each virtual good usually constitutes a separate performance obligation.
+The transaction price for virtual goods comprises of a fixed consideration.
+Control transfers to the customer over time or at a point in time (when the good is made available to the customer) depending on the nature of the good which is either consumed at the time of purchase or is permanent.
+Revenue attributable to goods not consumed at the time of purchase is recognized over the contract period which is estimated to be the average playing period for the game's paying users.
+
+When Embracer uses an external publisher for its developed games the publisher is the Group's customer and the performance obligation is to grant a license to the publisher.
+The transaction price typically comprises of both sales based royalty (which is recognized as described above) and fixed consideration in the form of minimum sales guarantees or development funding from the publisher.
+Both minimum sales guarantees and development funding are recognized as revenue at the point in them when the license is granted to the publisher which corresponds to when control is transferred.
+There are also agreements where Embracer in addition to providing the license to the publisher also provide the license to a specific game to the publisher and where the publisher take control of the game over time.
+These agreements are deemed to constitute two performance commitments and the income from game development is reported in the same way as "work for hire" with fixed compensation as described below meaning control is transferred over time because the publisher controls the game during the time the development assignment is carried out.
+In cases when Embracer has developed game development at the time of signing the agreement and the customer takes over this developed game development at one point when the agreement is signed a one time income is reported at the time that part of the game is transferred.
+Remaining revenue from game development is reported over time in line with development.
+The performance commitment that involves the provision of a license is reported in the same way as described above.
+
+The Group also derive revenue from sale of physical copies of owned and licensed games for console and PC platforms to physical retail stores such as GameStop and Media Markt which is considered to be Embracer's customers.
+A physical copy of a game is a combination of a license and a physical good where Embracer considers the license to be the primary/dominant component.
+The transaction price comprises of a fixed price per game but also includes variable consideration in the form of right of return and price protection.
+The variable consideration is estimated by use of the expected value method.
+To make such an assessment Embracer utilizes historical statistics and forecasts.
+Revenue is recognized when control is transferred to the customer which is at the point in time when the license is transferred to the customer.
+Fixed consideration is therefore recognized when the license has been transferred to the retail store and variable consideration is recognized to the extent that it is highly probable that a significant reversal in the amount of cumulative revenue recognized will not subsequently occur.
+The remaining part of the variable consideration is recognized as the uncertainty associated with the consideration is subsequently resolved.
+
+Revenue from when Embracer performs game development services (“work-for-hire”) is also included in the segment PC/ Console Games.
+Embracer assesses that the promise to develop a game for a customer constitute a single performance obligation.
+The transaction price typically comprises of a fixed consideration as well as variable consideration in the form of a revenue share for the game.
+The Group recognize fixed consideration from work for hire project as revenue over time as the performance obligation is satisfied.
+Control is transferred over time as the customer controls the game as the development service is being performed.
+The Group measure the progress towards complete satisfaction of the performance obligation using an input method based on cost incurred in relation to total estimated cost to fulfil the game development.
+Due to the uncertainty regarding the variable consideration revenue from variable consideration is only recognized once the subsequent sale has occurred.
+
+
+<!-- PAGE: 120 -->
+Revenue from sales of interactive entertainment content and services for mobile platforms
+
+The Group develop games for mobile platforms.
+The Group's mobile games are essentially so called “Free-to-play games” in which the players are provided access to the main game content without paying a fee.
+Revenue is generated from sales of additional game content in the form of virtual goods and subscriptions.
+Regarding the sale of virtual goods each separate virtual good is usually considered a distinct performance obligation which is satisfied when control is transferred to the customer.
+Some virtual goods are consumed at the time of purchase while other goods are durable and can be used by the player without time limit.
+The transaction price for virtual goods comprises of a fixed consideration.
+Control is transferred to the customer over time or at a point in time (when the good has been made available to the customer) depending on the nature of the good.
+Revenue from virtual goods not consumed at the time of purchase is recognized over the contract period which is considered to be the average playing period for the game's paying users.
+Regarding the sale of subscriptions Embracer's obligation is considered to be to stand ready to provide the benefits of the subscription service to the customer.
+The obligation is therefore considered to comprise of a series of distinct services that are substantially the same wherefore each subscription is considered to constitute a single performance obligation.
+Control is transferred to the customer over time and revenue is recognized linearly over the subscription period.
+
+The segment Mobile Games also generates revenue by displaying ads within Embracer's mobile apps.
+Embracer's customers are represented by the ad networks to which Embracer provide advertisement space.
+The ad networks in turn place ads from third parties in Embracer's mobile apps.
+Embracer assesses that the obligation to provide advertisement space to the ad network comprise of a series of distinct services that are substantially the same wherefore each contract is considered to constitute a single performance obligation.
+The transaction price solely comprises of variable consideration and is dependent on the number of valid clicks or impressions that a specific ad generates whilst it is being displayed within the app.
+The variable consideration is allocated to each respective distinct service within the time period.
+The ad network simultaneously receives and consumes the benefits provided by Embracer's performance wherefore advertising revenue is recognized over time.
+
+Revenue from sales of tabletop games The segment Tabletop games has been classified as discontinued operations in February 2025.
+
+Revenue from sales of comic books and related goods and services sales of film and merchandise and wholesale of publishing titles of interactive entertainment content and film Regarding sales of comic books and related goods each good is usually considered a distinct performance obligation.
+Comic books are sold in both physical printed editions and digital editions.
+The transaction price typically comprises of a fixed consideration but sometimes also includes variable consideration in the form of discounts and right of return.
+
+The variable consideration is estimated by use of the expected value method.
+To make such an assessment Embracer utilizes historical statistics and forecasts.
+Revenue is recognized when control is transferred to the customer.
+When selling digital editions of comic books control is transferred to the customer when the comic book is made available for the customer.
+For physical sales control is transferred when the product has been delivered to the customer.
+
+Regarding sales of film and merchandise each good is usually considered a distinct performance obligation which is satisfied when control is transferred to the customer.
+Sales of film and merchandise take place both physically and digitally.
+The transaction price for physical sales generally comprises of a fixed consideration per good but with variable components such as right of return and price protection.
+The transaction price for digital sales comprises of either fixed or sales based royalties.
+When selling physical copies of film and merchandise control is transferred when the good has been delivered to the customer.
+When selling digital copies of film control is transferred to the customer when the license is granted to the customer.
+
+The Group also generates revenue from wholesale of physical copies of games and films.
+Sales are made to physical retail stores which are Embracer's customers.
+The transaction price comprises of a fixed consideration per copy of the game or film but also includes variable consideration in the form of right of return and price protection.
+The variable consideration is estimated by use of the expected value method.
+Revenue is recognized when control is transferred to the customer which is at the point in time when the product is transferred to the customer.
+Fixed consideration is therefore recognized when the product has been transferred to the retail store and variable consideration is recognized to the extent that it is highly probable that a significant reversal in the amount of cumulative revenue recognized will not subsequently occur.
+
+Principal agent considerations In some sales of the Group's goods and services a third party is involved in providing the good or service.
+For example when digital games are sold via third party digital storefronts.
+When another party is involved in providing goods or services to a customer Embracer evaluates which party that represents the Group's customer.
+This depends on whether the third party is the principal or agent in providing the product or service to the end consumer which determines whether revenue from the sale is recognized gross or net (adjusted for commission received by third parties).
+Important indicators that the Group evaluates when deciding which party that represents the Group's customer include but are not limited to
+
+- 1. Which party that is primarily responsible for fulfilling the promise to provide the specified good or service.
+
+- 2. Which party that establish the price for the specified good or service.
+
+- 3. If the third party combines or integrates the good or service with other goods or services that Embracer does not deliver before delivery to the end consumer.
+
+##### MERCHANDISE
+
+Merchandise refers to costs for the purchase and production of physical products development costs for mobile games operation and maintenance of games as well as royalties to external game developers and other rights holders.
+
+
+<!-- PAGE: 117 -->
+| NOTE 2 | SIGNIFICANT ESTIMATES AND ASSUMPTIONS |
+| --- | --- |
+| When preparing the financial statements, management and the Board of Directors must make certain assessments and assumptions that impact the carrying amount of asset and liability items and revenue and expense items, as well as other provided information. These assessments are based on experience and the assumptions that management and the Board of Directors consider to be reasonable under the prevailing circumstances. Actual outcome may differ from the estimates if the estimates or circumstances change. The estimates and assumptions are continuously evaluated and are deemed not to involve any significant risk for material adjustments in the carrying amounts of assets and liabilities during the coming financial year. Changes in estimates are recognized in the period when the change is made if the change affects that period only, or in the period when the change is made and in future periods if the change affects the period in question as well as future periods. | Assessments and estimates are presented in direct connection with the note to which the assessment and estimate refer. Significant assessments and estimates relate to: |
+![table image]({page: 117, x: 74}, {y: 86, {width: 448}, {height: 158})
+
+> Income statement note 4 > Contract liabilities for price reductions and discounts note 4 > Deferred taxes note 11 > Goodwill note 13 > Capitalization of development expenditure note 14 > Contingent considerations note 18 > Inventories note 21 > Divestment of group companies and assets (disposal groups) held for sale or distribution note 32 and > Purchase price allocations note 33.
+
+- NOTE 3
+
+- OPERATING SEGMENTS
+
+##### SIGNIFICANT ESTIMATES AND JUDGMENTS
+
+Non current assets held for sale or distribution and discontinued operations > On April 22 2024 Embracer announced its intention to separate the Group into three standalone publicly listed entities Asmodee Group (“Asmodee”) “Coffee Stain & Friends” and “Middle-earth Enterprises & Friends”.
+During Q3 FY 2024/25 an agreement was entered into to divest the operative group Easybrain.
+
+> During Q3 FY 2024/25 Embracer reclassed Asmodee and Easybrain as non current assets (or disposal group) held for sale or distribution under IFRS 5.
+
+> During Q3 FY 2024/25 Embracer assessed that Asmodee qualifies as discontinued operation and that Easybrain do not meet the criteria of classification as a discontinued operation but the criteria of a disposal group held for sale.
+
+During Q4 FY 2024/25 the divestment of Easybrain was completed and Asmodee was distributed to the shareholders in Embracer.
+
+Distribution to owners On an extra general meeting held 7 January 2025 the formal decision to distribute all shares in Asmodee (representing the entire former segment of Table Top) to the shareholders in Embracer was taken.
+In February the shareholders received one Asmodee share for each Embracer share Asmodee was listed on Nasdaq Stockholm on 7 February 2025 with an opening price of SEK 105 per share.
+At the distribution of the Asmodee shares Embracer recognized a capital gain of SEK 3,724 million within discontinued operations.
+The gain represents the difference between Asmodee\'s fair value and the carrying amount of Asmodee\'s net assets at the time of the distribution.
+As part of the distribution all historical translation differences allocated to Asmodee.
+amounting to SEK 1,112 million have been recycled to the income statement as Profit for discontinued operations.
+The distribution of Asmodee has been recognized and presented in accordance with IFRS 5 Non current Assets Held for Sale and Discontinued operations and IFRIC 17 Distribution of Non cash Assets to Owners.
+
+##### PURCHASE PRICE ALLOCATIONS FOR ACQUISITIONS MADE
+##### DURING 2023/24
+
+The business combinations are presented at an aggregated level as the relative amounts of the individual business combinations are not considered material.
+All purchase price allocations for acquisitions completed during the period are final.
+
+Purchase price allocations summary PPA
+
+| Acquired net assets at the acquisition date | Total |
+| --- | --- |
+| Intangible assets | 5 |
+| Cash and cash equivalents | 12 |
+| Other assets | 5 |
+| Liabilities | –4 |
+| Identified net assets | 18 |
+| Goodwill | 12 |
+| Non-controlling interests | –11 |
+| Total purchase consideration | 19 |
+| Purchase consideration comprises: Cash | - |
+| Contingent consideration | - |
+| Deferred consideration | - |
+| Equity instruments | - |
+| Put/call options on non-controlling interests | - |
+| Other | 19 |
+| Total purchase consideration | 19 |
+![table image]({page: 156, x: 74}, {y: 416, {width: 218}, {height: 7})
+
+Net cash outflow related to previous acquisitions amounted to SEK 2,134 million resulting in a total cash flow impact from acquisitions (including asset acquisitions) of SEK 2,261 million.
+
+The acquisitions impact on the consolidated statement of profit or loss and statement of comprehensive income Revenues and net profit for the acquired companies since the acquisition date have been included in the Group's statement of comprehensive income for the period and is not presented separately.
+The revenues and EBIT that the companies would have contributed if the acquisition had taken place in the beginning of the period have not been calculated due to the fact that this would be disproportionately burdensome and they are not deemed to be material on an overall Group level.
+
+Acquisition analyses prepared during the financial year are considered to be final at the date of the report.
+
+##### SIGNIFICANT ACCOUNTING PRINCIPLES
+
+Right of use assets The Group\'s right of use assets mainly consist of rental premises.
+Right of use assets are measured at cost less accumulated depreciation and any impairment losses and adjusted for remeasurements of the lease liability.
+Provided that Embracer is not reasonably certain that the ownership of the underlying asset will be assumed upon expiration of the lease the right of use asset is depreciated on a straight line basis over the shorter of the lease term and the useful life.
+
+For leases that have a lease term of 12 months or less or with an asset with a low underlying value no right of use asset or lease liability is recognized.
+Lease payments for these leases are recognized as a cost straight line over the lease term.
+
+With respect to materiality Embracer presents its leases as two classes of underlying assets Premises and Other.
+Other includes the Group\'s servers cars and storage unit agreements.
+All office equipment are considered to be leases where the underlying asset is of low value.
+The following table presents the Group\'s opening and closing balances regarding right of use assets and lease liabilities as well as the changes during the year.
+
+|  | Premises | Other | Total | Lease liabilities |
+| --- | --- | --- | --- | --- |
+|  | Right-of-use assets | Right-of-use assets |  |  |
+| Opening balance at 1 of April 2023 | 1,423 | — | 1,423 | 1,488 |
+| Additional agreements net | 386 | — | 386 | 382 |
+| Depreciation | -541 | — | -541 | — |
+| Remeasurement of leases | 116 | — | 116 | 148 |
+| Interest expense | -35 | — | -35 | 30 |
+| Lease payments | 0 | — | 0 | -644 |
+| Closing balance at 31 of March 2024 | 1,349 | — | 1,349 | 1,404 |
+| Additional/ terminated agreements net | -492 | — | -492 | -538 |
+| Depreciation | -408 | — | -408 | — |
+| Remeasurement of leases | 230 | — | 230 | 227 |
+| Interest expense | -35 | — | -35 | 33 |
+| Lease payments | — | — | — | -439 |
+| Closing balance at 31 of March 2025 | 645 | — | 645 | 687 |
+![table image]({page: 135, x: 318}, {y: 243, {width: 465}, {height: 7})
+
+Of the net value for Additional/terminated agreements of SEK 492 million additional agreements is SEK 209 million.
+
+The amounts recognized in the consolidated statement of profit or loss for the year attributable to leasing activities are presented below
+
+|  | 01/04/2024 - 31/03/2025 | 01/04/2023 - 31/03/2024 |
+| --- | --- | --- |
+| Expenses relating to current leases (part of other external expenses) | -7 | -29 |
+| Expenses relating to leases of low-value assets (part of other external expenses) | -7 | -7 |
+| Depreciation expense of right-of-use assets | -299 | -541 |
+| Interest expenses on lease liabilities | -35 | -35 |
+| Total | -349 | -612 |
+![table image]({page: 135, x: 438}, {y: 482, {width: 465}, {height: 7})
+
+Embracer reports a cash outflow attributable to lease agreements amounting to SEK -333 million (-437).
+For a maturity analysis of the Group\'s lease liabilities see note 20 Financial risks.
+
+
+<!-- PAGE: 136 -->
+- NOTE 17
+
+- INVESTMENTS IN ASSOCIATES
+
+Below are the associates that are material to the Group as of 31 March 2025.
+Companies listed below have share capital consisting of shares which are owned directly by the Group.
+The share of equity is the same as the share of votes unless otherwise stated below.
+
+|  | Reg.no | 31/03/2025 | 31/03/2024 |
+| --- | --- | --- | --- |
+|  | Country of incorporation and business | Country of incorporation and business | Share of equity (%) | Share of equity (%) | Nature of the entity´s relationship | Valuation methodCompany |
+| Iron Gate AB | 559203-4820 | Sweden | 30 % | 30 % Associated company | Equity method |
+| Framebunker ApS | 35237275 | Denmark | 34 % | 34 % Associated company | Equity method |
+| Ugly Duckling ApS | 42566276 | Denmark | 30 % | 30 % Associated company | Equity method |
+| Super Deluxe Games Inc | 0100-01-143799 | Japan | 40 % | 40 % Associated company | Equity method |
+| Double Damage Games Inc | 5493089 | USA | 33 % | 33 % Associated company | Equity method |
+| Equinox | 894382746 | France | — % | 40 % Associated company | Equity method |
+| All associates are game development studios. |
+| Carrying amount |
+| Company |  |  |  | 31/03/2025 | 31/03/2024 |
+| Iron Gate AB |  |  |  | 239 | 227 |
+| Framebunker ApS |  |  |  | 2 |  |
+| Ugly Duckling ApS |  |  |  | 2 |  |
+| Super Deluxe Games Inc |  |  |  | 3 |  |
+| Double Damage Games Inc |  |  |  | — |  |
+| Equinox |  |  |  | — |  |
+| Total investments accounted for according to the equity method |  |  |  | 246 | 254 |
+![table image]({page: 136, x: 246}, {y: 138, {width: 465}, {height: 7})
+
+Result from associated companies amounts to SEK 1 million (SEK 12 million).
+
+- NOTE 18
+
+- FINANCIAL INSTRUMENTS
+
+Reclassification of the assets & liabilities under IFRS 5 as per note 32 has been returned to the balances in note 18.
+The balances are therefore not affected by this reclassification as it does not have an effect before completion of the transactions.
+
+##### IMPAIRMENT TESTING OF GOODWILL
+
+The Group performs impairment test at least annually or when events or circumstances indicate that the carrying amount may not be recoverable.
+Impairment test of goodwill are performed at the lowest levels where there are independent cash flows (cash generating units) which for the Group consists of the Group\'s verticals.
+The carrying amount of goodwill is allocated to cashgenerating units as presented below.
+The carrying amount of goodwill is allocated to cash generating units as follows
+
+| Goodwill | Segment | 31/03/2025 | 31/03/2024 |
+| --- | --- | --- | --- |
+| Amplifier Game Invest | PC/Console | 141 | 318 |
+| Coffee Stain | PC/Console | 1,951 | 2,030 |
+| Crystal Dynamics-Eidos | PC/Console | 682 | 717 |
+| Gearbox Entertainment | PC/Console | — | 1,100 |
+| Lager 2 1) | PC/Console | 2,198 | — |
+| PLAION | PC/Console | 3,066 | 3,220 |
+| Saber Interactive | PC/Console | — | 3,697 |
+| THQ Nordic | PC/Console | 403 | 663 |
+|  |  | 8,441 | 11,745 |
+| DECA Games | Mobile | 3,554 | 4,221 |
+| Easybrain | Mobile | — | 3,767 |
+|  |  | 3,554 | 7,987 |
+| Asmodee | Table Top | — | 10,405 |
+|  |  | — | 10,405 |
+| Dark Horse | Entertainment & Services | — | 448 |
+| Freemode | Entertainment & Services | 377 | 624 |
+|  |  | 377 | 1,072 |
+| Total |  | 12,373 | 31,210 |
+![table image]({page: 130, x: 74}, {y: 190, {width: 218}, {height: 7})
+
+1)Consists of assets previously included in the divested CGU:s Saber Interactive and Gearbox entertainment During the fourth quarter indications of impairment were identified for cash generating units.
+The annual goodwill impairment test has subsequently resulted in the impairment of goodwill in the Group\'s operating groups (which also constitute the cash generating units) presented below.
+
+The impairment losses are allocated to the cash generating units as shown in the table.
+
+The impairment of goodwill in the Amplifier Game Invest is primarily an effect of closure of parts of the operations and prudent future expectations.
+The impairment in DECA is related to a closure of a certain operation.
+For Dark Horse Freemode Lager 2 and THQ Nordic the impairments is mainly an effect of headcount reductions lowering the value of the workforce reorganizations and prudent future expectations.
+Furthermore the discount rate used to discount future cash flows has increased since prior year to reflect increased market uncertainty.
+Impairment losses for the period amounting to SEK -3,727 million (-4,368) have been recognized on the line Depreciation amortization and impairment losses in the consolidated income statement and SEK 432 (-43) million has been reported as a currency effect of the impairment.
+No impairment has been recognized in previous periods.
+
+| Cash generating unit | Operating segments | Impairment for the period, 1/04/2024-31 /03/2025 | Impairment for the period, 1/04/2023-31 /03/2024 |
+| --- | --- | --- | --- |
+| Amplifier Game Invest | PC/Console | -183 | -29 |
+| Gearbox Entertainment | PC/Console | — | -778 |
+| Lager 2 | PC/Console | -2,215 | — |
+| Saber Interactive | PC/Console | — | -2,907 |
+| THQ Nordic | PC/Console | -233 | 0 |
+| PC/Console |  | -2,632 | -3,714 |
+| DECA Games | Mobile | -387 | — |
+| Mobile |  | -387 | — |
+| Dark Horse | Entertainment & Services | -447 | -654 |
+| Freemode | Entertainment & Services | -262 | — |
+| Entertainment & | Services | -709 | -654 |
+| Total |  | -3,727 | -4,368 |
+![table image]({page: 130, x: 320}, {y: 86, {width: 218}, {height: 7})
+
+To determine whether goodwill is impaired the cash generating units (CGUs) to which the goodwill relates are valued.
+The valuation is performed by calculating the value in use which is based on a discounted cash flow model with a forecast period of five years or ten years followed by an extrapolation of the cash flow for the years beyond the forecast as goodwill has an infinitive lifetime.
+
+Material assumptions used to calculate values in use
+
+> Forecast operating margin.
+
+> Growth rate for extrapolating cash flows beyond the forecast period.
+
+> Discount rate after tax used for estimated future cash flows
+
+The material assumptions mentioned above and described below reflect past experiences current and future situation as well as external information.
+Expected operating margins is based on management's overall assessment of historic profitability levels current strategic decisions general market conditions and trends as well as other available information for each individual CGU.
+Climate based risks has been considered in that extent that they could be estimated.
+A growth rate of 2.5 percent (2.5) has been used for all CGUs to extrapolate cash flows beyond the forecast period.This growth rate is considered to be a conservative estimate.
+The need for capital expenditures and working capital beyond the forecast period is deemed to increase approximately as the expected growth.
+Forecasted cash flows are discounted to current value applying a weighted average cost of capital (WACC).
+For each CGU an individual discount rate after tax has been used in calculating useful values.
+The difference in value compared with using a discount rate before tax is not deemed to be material.
+The applied discount rate and the applied discount rate previous year is in accordance with the tables below.
+
+
+<!-- PAGE: 131 -->
+| 31/03/2025 | Discount rate before tax (%) | Discount rate after tax (%) | Forecast of cash flow over: | Growth rate used to extrapolate cash flows beyond the forecast period (%) |
+| --- | --- | --- | --- | --- |
+| Amplifier Game Invest | 4.8 | 11.6 | 5 years | 2.5 |
+| Coffee Stain | 14.1 | 11.6 | 5 years | 2.5 |
+| Crystal Dynamics-Eidos | 15.2 | 11.6 | 5 years | 2.5 |
+| Dark Horse | 13.7 | 10.3 | 5 years | 2.5 |
+| DECA Games | 11.6 | 10.3 | 5 years | 2.5 |
+| Freemode 1) | 14.0 | 11.2 | 10 years | 2.5 |
+| Lager 2 | 13.7 | 12.1 | 5 years | 2.5 |
+| PLAION | 14.2 | 11.6 | 5 years | 2.5 |
+| THQ Nordic | 14.8 | 12.1 | 5 years | 2.5 |
+![table image]({page: 131, x: 74}, {y: 87, {width: 465}, {height: 7})
+
+| 03/31/2024 | Discount rate before tax (%) | Discount rate after tax (%) | Forecast of cash flow over: | Growth rate used to extrapolate cash flows beyond the forecast period (%) |
+| --- | --- | --- | --- | --- |
+| Amplifier Game Invest | 14.7 | 11.5 | 5 years | 2.5 |
+| Asmodee | 12.4 | 9.7 | 5 years | 2.5 |
+| Coffee Stain | 13.7 | 11.3 | 5 years | 2.5 |
+| Crystal Dynamics-Eidos | 15.3 | 11.4 | 5 years | 2.5 |
+| Dark Horse | 13.4 | 9.9 | 5 years | 2.5 |
+| DECA Games | 10.8 | 9.5 | 5 years | 2.5 |
+| Easybrain | 11.0 | 9.7 | 5 years | 2.5 |
+| Freemode | 14.1 | 11.0 | 5 years | 2.5 |
+| Gearbox Entertainment | 14.5 | 11.4 | 5 years | 2.5 |
+| PLAION | 13.6 | 11.3 | 5 years | 2.5 |
+| Saber Interactive | 14.4 | 11.4 | 5 years | 2.5 |
+| THQ Nordic | 14.2 | 11.3 | 5 years | 2.5 |
+![table image]({page: 131, x: 74}, {y: 229, {width: 465}, {height: 7})
+
+- 1) The understanding and insight into Freemode\'s operations and both external as internal underlying factors is deemed to be sufficient enough to apply a forecast of cash flows over 10 years.
+
+##### INTEREST RATE RISK
+
+Interest rate risk is the risk that the fair value of or future cash flows from a financial instrument will vary due to changes in market interest rates.
+The aim is to not be exposed to future fluctuations in interest rate changes that impact the Group\'s cash flows and earnings to a greater extent than Embracer can manage.
+A significant factor affecting interest rate risk is the fixed interest rate period.
+The Group is primarily exposed to interest rate risk attributable to the Group\'s liabilities to credit institutions.
+
+The following table specifies the terms and repayment dates for each interest bearing liability
+
+|  | Currency | Due date | Interest | 31/03/2025 | 31/03/2024 |
+| --- | --- | --- | --- | --- | --- |
+|  | Carrying amount | Carrying amount | Carrying amount | Carrying amount | Carrying amount | Carrying amount |
+| Liabilities to credit institutions | Nordea Facility A | SEK | 15/02/2025 | Variable | — | 8,000 |
+| Liabilities to credit institutions | Nordea RCF Mult | SEK | 24/05/2025 | Variable | — | 6,339 |
+| Liabilities to credit institutions | Nordea RCF Mult | EUR | 24/05/2025 | Variable | — | 2,708 |
+| Liabilities to credit institutions | Various lenders 1) | EUR | < 1 year - 2031 | Variable | 1,664 | 2,729 |
+| Total |  |  |  |  | 1,664 | 19,776 |
+![table image]({page: 142, x: 466}, {y: 535, {width: 465}, {height: 7})
+
+- 1) Loans within our operational groups. The loans are bilateral, with different maturities, amortization schedules and covenants. The loans are 17 in total, spread over 10 credit institutions, with maturities from < 1 year to 2031-09-30 and with different sizes. The largest loan represents 20% of total debt.
+
+Of the total liabilities to credit institutions SEK 0 (16,999) million relates to borrowing in the Parent Company.
+These loans are placed with Swedish credit institutions in SEK and EUR.
+
+In some cases and to a lesser extent the Group uses interest rate derivatives in the form of interest rate swaps to manage interest rate risk.
+In all interest rate swap agreements Embracer has chosen to exchange floating interest rates for fixed interest rates.
+As of March 31 2025 there were no interest rate swaps (SEK million as of March 31 2024).
+
+The interest rate derivatives in the previous year have been agreed with institutions that have an investment grade rating whereby the credit exposure to the institution is considered limited.
+
+The table below shows the impact of an increase in interest rates on equity and profit or loss given the interest bearing assets and liabilities at the balance sheet date.
+
+31/03/2025 31/03/2024
+
+| Market interest rate -1 % | 17 | 198 |
+| --- | --- | --- |
+| Market interest rate +1 % | -17 | -198 |
+![table image]({page: 142, x: 320}, {y: 705, {width: 218}, {height: 7})
+
+
+<!-- PAGE: 143 -->
+| Currency risk is the risk that the fair value of, or future cash flows from, a financial instrument will vary due to changes in foreign exchange rates. Currency risk relates to the translation of foreign operations\' assets and liabilities into the Parent Company\'s functional currency, known as translation exposure. A substantial part of the Group\'s sales and purchases are also in foreign currencies, so-called transaction exposure. Currency risk related to sales and purchases in foreign currencies is managed by the Group\'s ambition to balance inflows and outflows in different currencies, thereby creating a natural hedge of the currency risk. |  |
+| 01/04/2024 - 31/03/2025 | 01/04/2023 - 31/03/2024 |
+![table image]({page: 143, x: 71}, {y: 83, {width: 247}, {height: 7})
+
+| Currency exposure (%) | Operating income | Operating expenses | Operating income | Operating expenses |
+| --- | --- | --- | --- | --- |
+| USD | 68 % | 45 % | 50 % | 30 % |
+| EUR | 25 % | 27 % | 33 % | 51 % |
+| Other currencies | 6 % | 28 % | 16 % | 19 % |
+![table image]({page: 143, x: 74}, {y: 179, {width: 467}, {height: 7})
+
+|  | 01/04/2024 - 31/03/2025 | 01/04/2023 - 31/03/2024 |
+| --- | --- | --- |
+| Sensitivity - Exchange rate fluctuations against the Swedish krona | Effect on profit or loss | Effect on equity | Effect on profit or loss | Effect on equity |
+| EUR - 10% | -162 | 400 | -1,690 | -27 |
+| USD - 10% | -253 | -290 | -244 | 569 |
+![table image]({page: 143, x: 254}, {y: 239, {width: 465}, {height: 7})
+
+## ANNUAL REPORT
+
+
+<!-- PAGE: 1 -->
+
+## SECURE EMPLOYMENT AND DIVERSITY & EQUALITY
+
+At Embracer Group we aim to maintain a safe and inclusive workplace where all employees can grow professionally.
+We focus on developing employee skills and competences and monitor their well being through performance dialogues at the individual level and other measures.
+Diversity and inclusion in skillsets and perspectives are key components of the approach taken to create a dynamic and inclusive workplace.
+We understand the challenges posed by divestment transformations and organizational change.
+Yet we strive to maintain an environment where talents are nurtured and empowered.
+Recognizing the importance of diversity not only in recruitment but also in retaining talented employees is of the utmost importance.
+Currently 27% of Embracer\'s workforce are female compared to 30% last year.
+The decrease is primarily linked to organizational changes mostly related to the Asmodee spin off.
+While this is a shift in the previous trend towards overall gender balance the commitment to fostering an inclusive culture across the group remains firm.
+Representation in management also reflects this trend with 23% female managers compared to 26% the previous year.
+Encouragingly the share of women among employees under 30 remains comparatively higher at 30% indicating continued progress in attracting young female talent despite a slight decline from 34% last year.
+The diverse skills and perspectives that this global presence brings are invaluable to Embracer\'s ongoing success and serve as a source of pride within the Group.
+
+| EMPLOYEES1) BY CONTRACT TYPE | 2024/25 |
+| --- | --- |
+| Contract Type | Female | Male | Other | Total |
+| Permanent employees | 1,369 | 3,692 | 18 | 5,079 |
+| Temporary employees | 86 | 258 | 1 | 345 |
+| Non-guaranteed hours employees | 5 | 13 | 0 | 18 |
+| Total Employees | 1,460 | 3,963 | 19 | 5,442 |
+| Gender Distribution | 27% | 73% | 0% | 100% |
+| Non-employees1) | N/A | N/A | N/A | 1,040 |
+| Total Headcount | 1460 | 3963 | 19 | 6,482 |
+![table image]({page: 37, x: 74}, {y: 579, {width: 465}, {height: 8})
+
+1 Employees are individuals who are in an employment relationship with the company according to national law or practice.
+Non employees refers to individuals who are not directly employed by the company such as contractors and freelancers.
+
+
+<!-- PAGE: 38 -->
+| EMPLOYEE AGE DISTRIBUTION | 2024/25 |
+| --- | --- |
+| Age Group | Female | Male | Other | Total | Age Distribution |
+| <30 years | 441 | 945 | 10 | 1,396 | 26 % |
+| 30-50 years | 879 | 2,641 | 9 | 3,529 | 65 % |
+| >50 years | 140 | 377 | 0 | 517 | 9 % |
+![table image]({page: 38, x: 74}, {y: 87, {width: 467}, {height: 8})
+
+| EMPLOYEES BY COUNTRY | 2024/25 |
+| --- | --- |
+| Country | Female | Male | Other | Total | Country Distribution |
+| USA1) | 298 | 884 | 7 | 1,189 | 22 % |
+| Germany1) | 175 | 488 | 3 | 666 | 12 % |
+| Canada | 120 | 390 | 3 | 513 | 10 % |
+| Italy | 66 | 334 | 0 | 400 | 7 % |
+| Austria | 183 | 201 | 1 | 385 | 7 % |
+| Other | 618 | 1,666 | 5 | 2,289 | 42 % |
+| Total Employees | 1,460 | 3,963 | 19 | 5,442 | 100 % |
+![table image]({page: 38, x: 74}, {y: 186, {width: 467}, {height: 8})
+
+1 USA and Germany represent at least 50 employees and at least 10 percent of the total number of employees.
+
+| EMPLOYEES BY REGION | 2024/25 |
+| --- | --- |
+| Contract Type | Europe | North America | Asia Pacific | Middle East | Total |
+| Permanent employees | 3,235 | 1,677 | 120 | 47 | 5,079 |
+| Temporary employees | 227 | 25 | 93 | 0 | 345 |
+| Non-guaranteed hours employees | 11 | 0 | 7 | 0 | 18 |
+| Total Employees | 3,473 | 1,702 | 220 | 47 | 5,442 |
+| Distribution by Region | 64 % | 31 % | 4 % | 1 % | 100 % |
+![table image]({page: 38, x: 74}, {y: 348, {width: 466}, {height: 8})
+
+###### Financial & Sustainability reporting
+
+Embracer Group relies on accurate financial and sustainability reporting to fairly represent its operations.
+Management and the Board must make complex estimates that affect financial outcomes and forward looking guidance.
+Due to the decentralized structure there's a risk of inaccuracies in local reporting which could impact investor trust share price and capital costs.
+
+Upcoming ESG regulations (e.g. CSRD) require enhanced readiness across the group.
+Limited ESG reporting competence and regulatory uncertainty (e.g. EU Omnibus package) pose challenges.
+As Embracer is directly subject to several ESG rules non compliance or lack of transparency could erode stakeholder confidence.
+
+RISK MANAGEMENT AND INTERNAL CONTROLS OVER SUSTAINABILITY REPORTING
+
+The Group performs a Group wide ERM assessment which is updated at least bi-annually.
+In such processes key risks to our operations are identified and mitigating actions as well as internal control processes are put into place.
+Identified risks including sustainability related risks are assessed based on events that might impact the achievement of our strategic objectives.
+For further details on the overall Enterprise Risk Management (ERM) assessment please refer to page 95.
+
+In our ongoing process the current sustainability related risks monitored include the ability to recruit and retain talent ensuring diversity and a good work environment including diversity inclusion and digital well being in games and entertainment.
+It also considers aspects related to value chain management and governance.
+Additionally sustainability reporting itself is one risk that is assessed alongside financial reporting risks however dedicated controls for sustainability reporting are yet to be developed and implemented.
+Up until today we have prioritized the introduction of various internal control and integration processes related to human resourcesrelated sustainability matters such as HR payroll to manage fraud risks in compensation.
+
+With regards to the process for obtaining and analyzing environmental data or other information around sustainability management procedures we do not have an internal control system in place yet.
+Data needed for metrics is collected using our digital ESG platform.
+Through that system we collect data and do internal validation to ensure that the data delivered by the Group\'s companies is as complete and accurate as possible.
+Essentially this means that Embracer Group currently does not have a formalized risk management and internal control system specifically for the sustainability reporting process.
+However we expect that the recent implementation of system support will align our sustainability reporting processes with other procedures applied for Embracer\'s financial reporting.
+For instance the double materiality assessment undertaken as part of the CSRD work creates a basis for our future developed risk mapping and reporting according to the disclosure requirements of ESRS.
+
+## INVESTMENTS AND PIPELINE
+
+The project pipeline consists of 108 PC/Console projects.
+There are 37 already announced projects including Killing Floor III Marvel 1943 Rise of Hydra Gothic 1 Remake Titan Quest 2 REANIMAL Deep Rock Galactic Rogue Core and Fellowship all expected to be released in FY 2025/26.
+
+The PC/Console Games segment continued to make considerable investments in game development.
+In total SEK 3,238 million (6,236) were invested in game development during the year.
+The finalized value of the completed and released games during the year amounted to SEK 2,321 million (3,421) driven by the release of Kingdom Come Deliverance II Disney Epic Mickey Rebrushed Hyper Light Breaker Metro Awakening and a number of small and mid sized releases.
+The ratio of investments to completed games thus declined YoY to 1.4x with a continued higher pace of ongoing investment into future game releases than completed investment in released games.
+When new games are released capitalized development costs are amortized based on a degressive depreciation model over two years.
+
+1 Net sales of game titles in any time period apart from the release quarter
+
+
+<!-- PAGE: 19 -->
+
+#### NOTE P10 INTANGIBLE ASSETS
+
+| Accumulated cost | Ongoing projects for intangible assets | Completed development projects | IP rights | Other intangible assets | Total intangible assets |
+| --- | --- | --- | --- | --- | --- |
+| As of 31 March 2023 | — | — | — | 7 | 7 |
+| Internally generated | — | — | — | — | — |
+| Sales/disposals | — | — | — | — | — |
+| As of 31 March 2024 | — | — | — | 7 | 7 |
+| Internally generated | — | — | — | 2 | 2 |
+| Sales/disposals | — | — | — | — | — |
+| As of 31 March 2025 | — | — | — | 9 | 9 |
+| Accumulated amortization | Ongoing projects for intangible assets | Completed development projects | IP rights | Other intangible assets | Total intangible assets |
+| As of 31 March 2023 | — | — | — | -3 | -3 |
+| Amortizarion | — | — | — | -1 | -1 |
+| Reclassifications | — | — | — | — | — |
+| As of 31 March 2024 | — | — | — | -4 | -4 |
+| Amortizarion | — | — | — | -1 | -1 |
+| As of 31 March 2025 | — | — | — | -6 | -6 |
+|  | Ongoing projects for intangible assets | Completed development projects | IP rights | Other intangible assets | Total intangible assets |
+| Closing balance 31 March 2024 | — | — | — | 3 | 3 |
+| Closing balance 31 March 2025 | — | — | — | 3 | 3 |
+![table image]({page: 166, x: 74}, {y: 449, {width: 465}, {height: 7})
+
+
+<!-- PAGE: 167 -->
+| Accumulated cost | 31/03/2025 | 31/03/2024 | Accumulated depreciation | 31/03/2025 | 31/03/2024 |
+| --- | --- | --- | --- | --- | --- |
+| NOTE P11 | PROPERTY, PLANT AND EQUIPMENT |  |  |  |  |
+| Opening balance | 13 | 11 | Opening balance | -6 | -3 |
+| Investments | 0 | 2 | Depreciation | -3 | -3 |
+| Sales/disposals | -1 | — | Sales/disposals | 1 | — |
+| Closing balance | 13 | 13 | Closing balance | -8 | -6 |
+|  |  |  | Carrying amount at the end of the year | 5 | 7 |
+![table image]({page: 167, x: 74}, {y: 86, {width: 218}, {height: 7})
+
+Refers to Inventories tools and installations.
+
+PC/CONSOLE GAMES
+
+PC and console games have been a core business for Embracer Group ever since its inception.
+The PC/Console Games operating segment develops and publishes games for PC and console including AAA AA+ Indie MMO Free to play Asset Care VR Work for Hire and other games development.
+The segment includes the operative groups PLAION THQ Nordic Coffee Stain Crystal Dynamics Eidos and Amplifier Game Invest.
+
+| SHARE OF GROUP SALES | INTERNAL HEADCOUNT | INTERNAL STUDIOS | INTELLECTUAL PROPERTY (IP) |
+| --- | --- | --- | --- |
+| 47% | 4,918 | 62 | 241 |
+![table image]({page: 17, x: 74}, {y: 252, {width: 428}, {height: 32})
+
+# GAMING IS SUPERPOWER ENTERTAINMENT
+
+Challenges and shifting demands aside I would also like to underscore some of the fantastic opportunities that lie ahead.
+Across the Group I continue to witness the range of initiatives around AI.
+Not only does it have the potential to reduce development costs and unleash additional creativity among developers it is rapidly becoming a transformative force across the entire game lifecycle from how games are conceived to how they are played personalized and evolved.
+
+In addition I believe that handheld devices mobile and cloud gaming unlock entirely new ways for both new and existing players to experience immersive accessible worlds and completely new and expanded game genres can create engagement beyond what is currently available.
+
+And to that point gaming is engaging like nothing else.
+It is superpower entertainment.
+It has an immense reach amplified by strong communities and our own community engagement spans everything from promoting inclusion in games to engaging with local communities.
+Gaming is and should be a place for everyone.
+The true power of gaming stems from connection and collaboration.
+Staying close to our communities is not just important to us it is essential to how our games are shaped discovered and loved.
+
+At our latest annual general meeting I spoke about my excitement around our industry.
+I reflected about the power of gaming and came to a conclusion I would like to reiterate.
+I have a fundamental belief in the power of gaming.
+That is not to say that the industry is without challenges.
+Shifting consumer preferences challenges related to costs normalized growth and delays in games development can be challenging and forces everyone in the industry to rethink strategies.
+It has affected Embracer Group too.
+But the core of the offer and games’ superpower features still stand.
+The industry is not just evolving it is expanding into a global medium for culture creativity and connection.
+From AI to cloud from indie innovation to social universes we are only scratching the surface of what games can become.
+I have a fundamental belief in the power of gaming.

@@ -1,0 +1,483 @@
+CO 2 SCOPE 3
+
+Koldioxidutsläpp från fossila bränslen mäts i den egna verksamheten (scope 1), från el och annan energi som köps in (scope 2) och som indirekta utsläpp (scope 3).
+
+Rottneros har under året kartlagt scope 3, dvs utsläpp från inköpta varor och tjänster, avfallshantering, affärsresor, transporter av rå- och insatsvaror och frakt av producerade varor till kund. Rapportering av scope 3 inleds år 2025.
+
+UTFALL:
+
+Scope 1: Utfallet ligger på samma nivå som 2022. För 2023 ingår även utsläpp från interna transporter och tjänstebilar. Scope 2: Andelen fossil koldioxid fortsätter öka i den inköpta elen. Mängden inköpt el uppgick liksom 2023 till 211 GWh.
+
+Scope 1
+
+Scope 2*
+
+*  Baserat på miljöpåverkan
+
+(g/kWh) för den nordiska residualmixen föregående år.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Utfall scope 2:
+
+Mängden inköpt el uppgick liksom 2023 till 211 GWh, men andelen fossil koldioxid fortsätter öka i den inköpta elen.
+
+Scope 1
+
+<!-- image -->
+
+Scope 2
+
+<!-- image -->
+
+Miljödata
+
+| PRODUKTION        |        |         |         |         |         |         |
+|-------------------|--------|---------|---------|---------|---------|---------|
+| Rottneros Bruk    | ton    | 121 900 | 122 100 | 171 600 | 172 900 | 178 400 |
+| Vallviks Bruk     | ton    | 218 800 | 229 600 | 225 600 | 222 400 | 232 700 |
+| UTSLÄPP TILL LUFT |        |         |         |         |         |         |
+|                   |        | 2024    | 2023    | 2022    | 2021    | 2020    |
+| SVAVEL            |        |         |         |         |         |         |
+| Rottneros Bruk    | ton/år | 2,6     | 2,4     | 2,2     | 1,6     | 6,0     |
+| Vallviks Bruk     | ton/år | 41      | 50      | 44      | 51      | 48      |
+| NOX               |        |         |         |         |         |         |
+| Rottneros Bruk    | ton/år | 32      | 31      | 33      | 36      | 31      |
+| Vallviks Bruk     | ton/år | 310     | 325     | 323     | 354     | 365     |
+
+| UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   | UTSLÄPP TILL VATTEN   |
+|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+|                       |                       | 2024                  | 2023                  | 2022                  | 2021                  | 2020                  |
+| SUSPENDERADE ÄMNEN    |                       |                       |                       |                       |                       |                       |
+| Rottneros Bruk        | ton/år                | 129                   | 122                   | 148                   | 148                   | 222                   |
+| Vallviks Bruk         | ton/år                | 408                   | 388                   | 321                   | 421                   | 448                   |
+| COD                   |                       |                       |                       |                       |                       |                       |
+| Rottneros Bruk        | ton/år                | 2 047                 | 2 418                 | 3 678                 | 2 936                 | 3 755                 |
+| Vallviks Bruk         | ton/år                | 2 772                 | 2 592                 | 3 063                 | 3 054                 | 3 237                 |
+| AOX                   |                       |                       |                       |                       |                       |                       |
+| Vallviks Bruk         | ton/år                | 9                     | 10                    | 10                    | 11                    | 14                    |
+| FOSFOR                |                       |                       |                       |                       |                       |                       |
+| Rottneros Bruk        | ton/år                | 0,3                   | 0,4                   | 0,4                   | 0,7                   | 1,6                   |
+| Vallviks Bruk         | ton/år                | 5,8                   | 6,3                   | 5,7                   | 6,4                   | 6,6                   |
+| KVÄVE                 |                       |                       |                       |                       |                       |                       |
+| Rottneros Bruk        | ton/år                | 16                    | 17                    | 23                    | 22                    | 25                    |
+| Vallviks Bruk         | ton/år                | 23                    | 22                    | 19                    | 26                    | 31                    |
+| KLORAT                |                       |                       |                       |                       |                       |                       |
+| Vallviks Bruk, ECF    | ton/år                | 36                    | 37                    | 76                    | 48                    | 46                    |
+
+| ELEKTRICITETSFÖRBRUKNING        | ELEKTRICITETSFÖRBRUKNING   | ELEKTRICITETSFÖRBRUKNING   | ELEKTRICITETSFÖRBRUKNING   | ELEKTRICITETSFÖRBRUKNING   | ELEKTRICITETSFÖRBRUKNING   | ELEKTRICITETSFÖRBRUKNING   |
+|---------------------------------|----------------------------|----------------------------|----------------------------|----------------------------|----------------------------|----------------------------|
+|                                 |                            | 2024                       | 2023                       | 2022                       | 2021                       | 2020                       |
+| ROTTNEROS BRUK                  |                            |                            |                            |                            |                            |                            |
+| Elektricitet genererad i fabrik | GWh                        | 0,1                        |                            |                            |                            |                            |
+| - därav fossilfri el            | GWh                        | 0,1                        |                            |                            |                            |                            |
+| Köpt elektricitet               | GWh                        | 159                        | 166                        | 254                        | 261                        | 267                        |
+| - därav fossilfri el            | GWh                        | 34                         | 60                         | 114                        | 124                        | 143                        |
+| VALLVIKS BRUK                   |                            |                            |                            |                            |                            |                            |
+| Elektricitet genererad i fabrik | GWh                        | 118                        | 130                        | 118                        | 134                        | 146                        |
+| - därav fossilfri el            | GWh                        | 117                        | 129                        | 117                        | 132                        | 144                        |
+| Köpt elektricitet               | GWh                        | 52                         | 45                         | 54                         | 39                         | 30                         |
+| - därav fossilfri el            | GWh                        | 11                         | 16                         | 24                         | 18                         | 16                         |
+| KONCERNEN                       |                            |                            |                            |                            |                            |                            |
+| Elektricitet genererad i fabrik | GWh                        | 118                        | 130                        | 118                        | 134                        | 146                        |
+| - därav fossilfri el            | GWh                        | 117                        | 129                        | 117                        | 132                        | 144                        |
+| Köpt elektricitet               | GWh                        | 211                        | 211                        | 307                        | 300                        | 297                        |
+| - därav fossilfri el            | GWh                        | 45                         | 76                         | 138                        | 141                        | 159                        |
+| Totalt                          | GWh                        | 328                        | 341                        | 425                        | 434                        | 443                        |
+| - därav fossilfri el            | %                          | 49                         | 60                         | 60                         | 63                         | 68                         |
+| - andel producerad i fabrik     | %                          | 36                         | 38                         | 28                         | 31                         | 33                         |
+
+* Baserat på miljöpåverkan (g/kWh) för den nordiska residualmixen föregående år.
+
+| ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   | ENERGIFÖRBRUKNING EXKL. ELEKTRICITET   |
+|----------------------------------------|----------------------------------------|----------------------------------------|----------------------------------------|----------------------------------------|----------------------------------------|----------------------------------------|
+|                                        |                                        | 2024                                   | 2023                                   | 2022                                   | 2021                                   | 2020                                   |
+| ROTTNEROS BRUK                         |                                        |                                        |                                        |                                        |                                        |                                        |
+| Biobränslen                            | GWh                                    | 100                                    | 93                                     | 90                                     | 79                                     | 85                                     |
+| Fossila bränslen                       | GWh                                    | 9                                      | 7                                      | 25                                     | 34                                     | 32                                     |
+| VALLVIKS BRUK                          |                                        |                                        |                                        |                                        |                                        |                                        |
+| Biobränslen inkl. svartlut             | GWh                                    | 1 538                                  | 1 623                                  | 1 615                                  | 1 635                                  | 1 689                                  |
+| Fossila bränslen                       | GWh                                    | 23                                     | 21                                     | 14                                     | 17                                     | 21                                     |
+| KONCERNEN                              |                                        |                                        |                                        |                                        |                                        |                                        |
+| Biobränslen inkl. svartlut             | GWh                                    | 1 638                                  | 1 716                                  | 1 705                                  | 1 714                                  | 1 774                                  |
+| Fossila bränslen                       | GWh                                    | 32                                     | 28                                     | 39                                     | 51                                     | 53                                     |
+| Totalt                                 | GWh                                    | 1 670                                  | 1 744                                  | 1 744                                  | 1 765                                  | 1 827                                  |
+| Andel biobränsle                       | %                                      | 98                                     | 98                                     | 98                                     | 97                                     | 97                                     |
+| KOLDIOXIDUTSLÄPP                       |                                        |                                        |                                        |                                        |                                        |                                        |
+|                                        |                                        | 2024                                   | 2023                                   | 2022                                   | 2021                                   | 2020                                   |
+| ROTTNEROS BRUK                         |                                        |                                        |                                        |                                        |                                        |                                        |
+| Fossila bränslen                       | ton/år                                 | 1 915                                  | 1 483                                  | 5 113                                  | 6 927                                  | 7 299                                  |
+| Biobränslen                            | ton/år                                 | 40 135                                 | 40 466                                 | 35 348                                 | 30 875                                 | 33 630                                 |
+| - andel biobränsle                     | %                                      | 95                                     | 96                                     | 87                                     | 81                                     | 82                                     |
+| VALLVIKS BRUK                          |                                        |                                        |                                        |                                        |                                        |                                        |
+| Fossila bränslen                       | ton/år                                 | 6 128                                  | 5 737                                  | 3 826                                  | 4 679                                  | 5 604                                  |
+| Biobränslen                            | ton/år                                 | 531 708                                | 557 154                                | 557 667                                | 560 217                                | 656 581                                |
+| - andel biobränsle                     | %                                      | 99                                     | 99                                     | 99                                     | 99                                     | 99                                     |
+| KONCERNEN                              |                                        |                                        |                                        |                                        |                                        |                                        |
+| Fossila bränslen                       | ton/år                                 | 8 043                                  | 7 220                                  | 8 982                                  | 11 606                                 | 12 903                                 |
+| Biobränslen                            | ton/år                                 | 571 843                                | 597 620                                | 593 015                                | 591 092                                | 690 211                                |
+| - andel biobränsle                     | %                                      | 99                                     | 99                                     | 99                                     | 98                                     | 98                                     |
+| FOSSILT KOLDIOXIDUTSLÄPP               |                                        |                                        |                                        |                                        |                                        |                                        |
+| GHG Scope 1                            | ton/år                                 | 9 637                                  | 8 972                                  | 8 982                                  | 11 606                                 | 12 903                                 |
+| GHG Scope 2 *                          | ton/år                                 | 110 448                                | 98 809                                 | 114 383                                | 107 687                                | 100 540                                |
+
+KOLDIOXIDUTSLÄPP CO 2
+Målsättning:
+Utfall scope 1 :
+
+Målet är fossilfri produktion år 2030 enligt GHG scope 1 &amp; 2. På kort sikt är målet en årlig förbättring.
+
+Utfallet ligger på samma nivå som tidigare år. Från år 2023 ingår även utsläpp från interna transporter och tjänstebilar.
+
+till fabrikens styrsystem. Utöver detta görs manuella stickprov löpande. Koncernens båda bruk har miljöledningssystem och är certifierade enligt ISO 14001. I miljöledningssystemet finns väl inarbetade rutiner för uppföljning, provtagningar och avvikelsehantering. Bruken är även certifierade enligt ISO 50001 som är ett energiledningssystem.
+
+Det är koncernens policy att alla berörda befattningar ska ha nödvändig kompetens inom miljöområdet. Miljöansvariga personer i koncernen fortbildas kontinuerligt. Ytterligare ett led i koncernens hållbarhetsarbete är regelbundna kontakter med kring  liggande samhälle och länsstyrelsen vid respektive produktionsort, för att fånga upp önskemål om förbättringar i miljön runt bruken. Tillsynsmöten sker med länsstyrelsen flera gånger per år där även kommunen blir kallad.
+
+KOMMENTAR TILL UTFALL ÅR 2024
+
+Arbetet med att ytterligare minska utsläppen till luft och vatten fortsatt. En rad investeringar har gjorts de senaste åren för att minimera utsläppen till vatten. Nivån på COD (utsläpp av syreförbrukande ämnen) ligger på en lägre nivå.
+
+Efter ombyggnad av fastbränslepannan på Rottneros Bruk har koncernens förbrukning av fossila bränslen minskat och därmed också utsläpp av fossil koldioxid (enligt GHG scope 1).
+
+Miljödata för året presenteras på sid 105-106.
+
+KOLDIOXIDUTSLÄPP CO 2
+MÅL 2030: 0
+
+Årligt minska utsläppen av fossil koldioxid. Målet är fossilfri produktion år 2030 enligt GHG scope 1 &amp; 2.
+
+Ordlista
+
+ANAEROBISK VATTENRENING: Ett av Rottneros Bruks fyra reningssteg av utgående avloppsvatten. I det anaeroba steget bryts material i avloppsvattnet ned och metangas produceras med hjälp av bakterier i syrefri miljö.
+
+BCTMP : Bleached Chemi-Thermo-Mechanical Pulp: blekt mekanisk massa där råvaran impregneras med kemikalier. Starkare än TMP. Beteckningen är vanlig i Nordamerika och Asien (se CTMP).
+
+BEK: Bleached Eucalyptus Kraft Pulp, blekt eukalyptusmassa.
+
+BSKP: Bleached Softwood Kraft Pulp, blekt långfibersulfatmassa.
+
+BULK: Hur tjockt ett papper är i förhållande till sin vikt. Bulken påverkas av om pappret är glättat, bestruket eller obestruket samt av ytvikten.
+
+BÖJSTYVHET: Kartongens förmåga att motstå deformation vid böjning. Mäts i mNm.
+
+COD: Chemical Oxygen Demand, kemisk mätmetod för syreförbrukande ämnen.
+
+CIRKULÄR SKOGSINDUSTRI: Växande skog omvandlar solljus, koldioxid och vatten till ved. Koldioxiden binds i de växande träden. När träden är fullväxta skördas de. För varje träd som skördas planteras minst två nya. 100 % av trädet tas tillvara. Högsta möjliga förädlingsvärde styr vad som tillverkas av trädets olika delar. Rottneros råvara består av massaved från skogsbruk och flis från olika sågverk.
+
+CTMP: Chemi-Thermo-Mechanical Pulp, vidareutveckling av TMP, mekanisk massa där råvaran impregneras med kemikalier. Starkare än TMP. Beteckningen används i Europa både för blekt och oblekt massa.
+
+ECF: Elemental Chlorine Free, sulfatmassa som bleks med klordioxid, inte klorgas.
+
+E-MASSA: Massa som används i elektrotekniska applikationer. Rottneros produktnamn för E-massa är Robur Flash UKP E-grade.
+
+FSC ® : Forest Stewardship Council®. Certifiering för hållbart skogsbruk.
+
+GHG SCOPE 1: Koldioxidutsläpp från fossila bränslen vid tillverkning i egen verksamhet.
+
+GHG SCOPE 2: Koldioxidutsläpp från el och annan energi som köps in till verksamheten.
+
+HÖGUTBYTESMASSA: Slipmassa, TMP och CTMP/BCTMP.
+
+KEMISK MASSA: Pappersmassa som framställs genom kokning av vedråvaran i kemikalier. Massan kan blekas till högre ljushet och har högre styrka än mekanisk massa. Kemisk massa är vanligen sulfatmassa men kan även vara sulfitmassa.
+
+KORTFIBERMASSA: Massa där råvaran utgörs av lövved som har kortare cellulosafibrer än barrved.
+
+LIGNIN: Polymerförening uppbyggd till största delen av fenylpropanenheter, binder huvudsakligen ihop fibrerna i veden. Det utgör cirka 1/3 av veden.
+
+<!-- image -->
+
+Fossilfri produktion
+
+Fossilfri produktion och miljö är ett självklart fokusområde för Rottneros. Koncernen har ett långsiktigt mål att uppnå en helt fossilfri produktion senast år 2030, enligt Scope 1 och 2. Förutom att fasa ut de fossila bränslen som främst används vid uppstart efter produktionsstopp, måste även den inköpta elen komma från fossilfria källor, något som har hög prioritet. En energistrategi har även tagits fram i syfte att långsiktigt effektivisera energiförbrukningen. Att minimera indirekta koldioxidutsläpp som sker utanför verksamhetens grindar, GHG scope 3, utgör ytterligare en långsiktig utmaning. Scope 3 rör övriga indirekta utsläpp som exempelvis utsläpp från inköpta varor och tjänster, avfallshantering, affärs  resor, transporter av både rå- och insatsvaror och frakt av producerade varor till kunderna. Kartläggningen av dessa utsläpp fortsatte under 2024 som ett led i att på sikt kunna minska dem.
+
+I en hållbar verksamhet måste medarbetare känna sig trygga både i den fysiska arbetsmiljön och socialt. Därför är medarbetarnas säkerhet och hälsa högsta prioritet. Övriga fokusområden som prioriterats är jämställdhet och mångfald, kundnöjdhet och hållbar lönsamhet.
+
+MILJÖMÅL
+UTSLÄPP TILL LUFT OCH VATTEN
+MÅL: ÅRLIG MINSKNING
+
+Årligt minska utsläppen av syreförbrukande ämnen till vatten med god marginal till fastställda villkor, mätt i COD/ton massa.
+
+KOLDIOXIDUTSLÄPP CO 2
+
+<!-- image -->
+
+Rottneros strategi är att fokusera på användningsområden där våra produkter skapar mervärde. Genom ökade volymer motverkas kostnadsinflationen.
+
+Satsningen på formpressade fibertråg ger en breddad intäktsbas, vilket på sikt minskar exponeringen mot massamarknaden.
+
+År 2024 var EBIT 47 MSEK, vilket motsvarar en EBIT-marginal om 2 procent.
+
+Produktionen ska vara helt fossilfri senast 2030
+
+Rottneros långsiktiga mål är en fossilfri produktion senast år 2030. Något som fortfarande återstår är att byta ut de fossila bränslen som används vid uppstart efter ett produktionsstopp, detta gäller främst för Vallviks Bruk, men även i viss mån för Rottneros Bruk. Att säkra att den inköpta elen kommer från fossilfria källor är ytterligare något som har hög prioritet. En energistrategi har tagits fram i syfte att långsiktigt effektivisera energiförbrukningen. Att minimera indirekta koldioxidutsläpp som sker utanför verksamhetens grindar, GHG scope 3, utgör ytterligare en långsiktig utmaning. Scope 3 rör övriga indirekta utsläpp som exempelvis utsläpp från inköpta varor och tjänster, avfallshantering, affärsresor, transporter av både rå- och insatsvaror och frakt av producerade varor till kunderna. Kartläggningen av dessa utsläpp fortsatte under 2024 som ett led i att på sikt kunna minska dem.
+
+3. Produktionsprocessen
+
+Vid leveranser av råvara, kemikalier, maskiner och utrustning till våra enheter finns en påverkan. Att eliminera dessa indirekta koldioxidutsläpp är ett långsiktigt mål för att Rottneros ska uppnå nettonoll utsläpp. Rottneros har kartlagt de indirekta utsläppen för att minimera dem. Vid upphandlingar försöker vi alltid att välja leverantörer nära våra enheter för att minimera utsläppen.
+
+Läs mer: sid. 23­24
+
+5. Försäljning och kunder
+
+<!-- image -->
+
+Transporter av vår massa har en påverkan på klimatet. För att reducera utsläpp fokuserar vi   på effektiv logistik och hållbara transportmedel, som båt och tåg. God kvalitet på våra produkter, leveranssäkerhet, hög teknisk support och servicenivå är nyckelfaktorer för kundnöjdhet och våra långsiktiga kundrelationer.
+
+Läs mer: sid. 40­41
+
+Operationella riskområden
+
+- A Variationer i massapris
+- B Strukturförändring
+- C1 Råvarutillgång
+- C2 Råvarupriser
+- D Elpris
+- E Kundstruktur och kundkrediter
+- F Anläggningar
+- G Politiska beslut
+- H Hållbarhet och ansvarstagande
+- I Miljö
+
+OPERATIVA RISKOMRÅDEN
+
+<!-- image -->
+
+| RISKOMRÅDE                                                                                                                                                                                                                                                                                                                       | RISKHANTERING                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| H HÅLLBARHET OCH ANSVARSTAGANDE                                                                                                                                                                                                                                                                                                  | SANNOLIKHET: 3 PÅVERKAN: 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Bristande ansvar i hållbarhetsfrågor kan skada förtroendet för bolaget och varumärket och därmed påverka bolagets lönsamhet negativt. För att nå uthållig lönsamhet och värdeskapande måste Rottneros samtidigt skapa värde för de intressenter som påver- kas av koncernens verksamhet. Se även hållbarhetsrapporten sid 31-44. | Rottneros verksamhet ska bedrivas på ett ansvarsfullt sätt med hänsyn till den yttre och inre miljön, samhället, våra kunder och leverantörer, våra ägare och våra medarbetare. Förtroendet för Rottneros som en ansvarstagande aktör, leverantör och arbetsgivare stärker vår ställning i samhället och på marknaden samt främjar medarbetarnas engagemang. Rottneros kommunicerar regelbundet med sina intressenter för att upprätthålla en öppen och positiv relation. Rottneros strävar efter att göra produkterna bättre både ur ett kvalitets- och effektivitetsperspektiv genom förståelse för kundernas processer och produkt- strategi. Miljömässiga, sociala och ekonomiska faktorer är centrala för att lyckas. Koncernen har en hållbarhetspolicy som beskriver Rottneros ansvar angående aktieägare, kunder, leverantörer, miljön, samhället, personal och arbetsmiljön, mänskliga rättigheter samt antikorruption och konkurrensrätt. Koncernen har en uppförandekod (Code of Conduct) som beskriver hur Rottneros och bolagets medarbetare agerar i relation till omvärlden och till varandra. Uppförandekoden definierar Rottneros sociala ansvar, etiska engagemang och ställning i jämställdhets- och mångfaldsfrågor samt hur Rottneros medarbetare bör förhålla sig i frågor av principiell natur. Medarbetarnas välmående är en viktig del av Rottneros framgångar. Koncernen tar ansvar genom att verka för god hälsa, miljö och säkerhet på arbets- platserna. Rottneros har en nollvision gällande arbetsskador som leder till sjukskrivning. KOMMENTAR TILL UTFALL ÅR 2024 Rottneros fortsätter att utveckla nya användningsområden för sina produkter som bidrar till en mer hållbar utveckling i samhället. Rottneros Packaging producerar återvinningsbara och nedbrytbara fibertråg. |
+
+<!-- image -->
+
+HÅLLBARHETSREDOVISNING
+
+| Introduktion.....................................................32   |                                                            |
+|-----------------------------------------------------------------------|------------------------------------------------------------|
+| Värdekedjan....................................................33     |                                                            |
+| Fokusområden...............................................34         |                                                            |
+| Certifieringar                                                        | ..................................................44       |
+| Miljödata                                                             | .......................................................105 |
+| Övrig hållbarhetsdata                                                 | .............................107                           |
+
+<!-- image -->
+
+Övrig hållbarhetsdata
+ÖVRIG HÅLLBARHETSDATA
+
+| SÄKERHET                                                    | SÄKERHET                           | 2024   | 2023   | 2022   | 2021   | 2020   |
+|-------------------------------------------------------------|------------------------------------|--------|--------|--------|--------|--------|
+| Egen personal                                               |                                    |        |        |        |        |        |
+| Antal dödsolyckor                                           | Antal dödsolyckor                  | 0      | 0      | 0      | 0      | 0      |
+| Antal olycksfall med sjukfrånvaro                           | Antal olycksfall med sjukfrånvaro  | 3      | 5      | 4      | 7      | 8      |
+| Antal olycksfall utan sjukfrånvaro                          | Antal olycksfall utan sjukfrånvaro | 26     | 36     | 39     | 43     | 41     |
+| LTIFR                                                       | LTIFR                              | 6,3    | 10,2   | 7,4    | 13,0   | 14,6   |
+| Antal riskobservationer                                     | Antal riskobservationer            | 346    | 487    | 323    | 223    | 296    |
+| Entreprenörer                                               |                                    |        |        |        |        |        |
+| Antal dödsolyckor                                           | Antal dödsolyckor                  | 0      | 0      | 0      | 0      | 0      |
+| Antal olycksfall med sjukfrånvaro                           | Antal olycksfall med sjukfrånvaro  | 2      | 1      | 0      | 0      | 2      |
+| Antal olycksfall utan sjukfrånvaro                          | Antal olycksfall utan sjukfrånvaro | 8      | 5      | 1      | 11     | 3      |
+| SJUKFRÅNVARO                                                | SJUKFRÅNVARO                       | 2024   | 2023   | 2022   | 2021   | 2020   |
+| Korttidsfrånvaro                                            | %                                  | 1,68   | 1,53   | 2,64   | 2,72   | 3,07   |
+| Långtidsfrånvaro                                            | %                                  | 1,61   | 1,03   | 1,85   | 1,80   | 0,96   |
+| JÄMSTÄLLDHET                                                | JÄMSTÄLLDHET                       | 2024   | 2023   | 2022   | 2021   | 2020   |
+| Andelen kvinnliga chefer                                    | %                                  | 26     | 22     | 22     | 19     | 16     |
+| Andelen manliga chefer                                      | %                                  | 74     | 78     | 78     | 81     | 84     |
+| FACKLIG SAMVERKAN                                           | FACKLIG SAMVERKAN                  | 2024   | 2023   | 2022   | 2021   | 2020   |
+| Andelen anställda som jobbar på en enhet med kollektivavtal | %                                  | 99     | 99     | 99     | 99     | 99     |
+| PERSONALOMSÄTTNINGAR                                        | PERSONALOMSÄTTNINGAR               | 2024   | 2023   | 2022   |        |        |
+| Antal som avslutat sin anställning                          |                                    | 51     | 31     | 63     |        |        |
+| Personalomsättning                                          | %                                  | 15     | 9      | 18     |        |        |
+| Antal nyanställda                                           |                                    | 52     | 25     | 29     |        |        |
+| Antal egna uppsägningar                                     |                                    | 31     | 21     | 16     |        |        |
+| Antal pensioneringar                                        |                                    | 23     | 12     | 32     |        |        |
+| ÖVRIGT                                                      |                                    | 2024   | 2023   | 2022   |        |        |
+| Andel anställda med lön under minimilön                     | %                                  | 0      | 0      | 0      |        |        |
+| Lönegap **                                                  | %                                  | -9     | -9     | -18    |        |        |
+| Svarsfrekvens på medarbetarundersökning                     | %                                  | 89     | 77     | 71     |        |        |
+
+AKTIEDATA 1
+
+|                                          |       | 2024    | 2023    | 2022    | 2021    | 2020    |
+|------------------------------------------|-------|---------|---------|---------|---------|---------|
+| Aktier vid periodens ingång 2            | Antal | 152 572 | 152 572 | 152 572 | 152 572 | 152 572 |
+| Aktier vid periodens utgång 2            | Antal | 152 572 | 152 572 | 152 572 | 152 572 | 152 572 |
+| Genomsnittligt antal utestående aktier 2 | Antal | 152 572 | 152 572 | 152 572 | 152 572 | 152 572 |
+| Innehav av egna aktier 2                 | Antal | 822     | 822     | 822     | 822     | 822     |
+| Resultat per aktie                       | SEK   | 0,13    | 0,79    | 3,70    | 1,28    | -0,33   |
+| Kassaflöde efter investeringar/aktie 3   | SEK   | -2,85   | -1,29   | 2,80    | 1,07    | -0,30   |
+| Eget kapital/aktie                       | SEK   | 11,08   | 12,18   | 14,78   | 9,99    | 8,53    |
+| Utdelning 4                              |       |         |         |         |         |         |
+| Ordinarie utdelning                      | SEK   | 0,50    | 0,50    | 0,40    | -       | -       |
+| Extra utdelning                          | SEK   | -       | 0,90    | 0,20    | 0,45    | -       |
+| Totalt                                   | SEK   | 0,50    | 1,40    | 0,60    | 0,45    | -       |
+| Börskurs vid periodens slut              | SEK   | 12,18   | 12,18   | 12,22   | 10,42   | 8,15    |
+| Direktavkastning                         | %     | 4       | 11      | 6       | 6       | 0       |
+| Totalavkastning 5                        | %     | -22     | 11      | 23      | 33      | -29     |
+| Börskurs/eget kapital/aktie              | ggr   | 0,8     | 1,0     | 0,8     | 1,0     | 1,0     |
+| P/E-tal/aktie                            | ggr   | 68,9    | 15,4    | 3,3     | 8,1     | -24,7   |
+
+<!-- image -->
+
+7. Koldioxid
+
+<!-- image -->
+
+Den biogena koldioxid som avges tas på nytt upp av växande träd. Genom att kolet är bundet i skogen bidrar det inte till växthuseffekten i atmosfären. Genom att satsa på ett långsiktigt hållbart skogsbruk kan kolförråden fortsätta öka under många år framöver när skogen växer.
+
+Läs mer: sid. 23­24
+
+8. Innovation
+
+<!-- image -->
+
+Rottneros arbetar med flera innovativa utvecklingsprojekt för en ökad resurseffektivitet och förädlingsgrad, exempelvis att utnyttja våra bruks överskott av lågvärdig värme. Även produktutveckling pågår ständigt och ett aktuellt projekt är att vidareförädla massan till att få oljeabsorberande egenskaper.
+
+Läs mer: sid. 37
+
+<!-- image -->
+
+Koldioxidutsläpp från vår egen verksamhet kommer främst från fossila bränslen och inköp av el. Fossila bränslen används främst vid uppstart av produktionen, exempelvis efter ett underhållsstopp. Vi arbetar ständigt för att effektivisera våra processer samt att bygga interna kretslopp för rening och återvinning.
+
+Läs mer: sid. 25­28
+
+VERKSAMHETEN
+
+- 21 -
+
+RISKER
+FINANSIELLA RISKOMRÅDEN
+
+<!-- image -->
+
+| RISKOMRÅDE                                                                                                                                                | RISKHANTERING                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| M LIKVIDITET OCH REFINANSIERING                                                                                                                           | SANNOLIKHET: 2 PÅVERKAN: 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Risken består i att Rottneros inte ska ha tillräckligt med likvida medel för att betala löpande kostnader, eller att koncernen inte ska erhålla krediter. | Finansieringsrisken ska så långt som möjligt minimeras genom att förfallotidpunkten för lån och andra kreditfaciliteter ska vara väl diversifierad och jämnt fördelad över tid. Utestående kreditfaciliteter ska refinansieras senast tre månader innan förfall. Koncernen har som mål att likviditetsreserven ska uppgå till minst 10 procent av koncernens 12-månaders rullande omsättning och ska vara tillgänglig inom 30 dagar. Koncernen gör löpande likviditetsprognoser. Rottneros kreditavtal bedöms vara tillräckligt för de närmaste årens normala rörelse- och investeringskassaflöde. I och med detta bedöms både likviditetsrisk och refinansieringsrisk vara låg för närvarande. Koncernen ska ha en kapitalstruktur som är optimal för att hålla kapitalkostnaderna nere och samtidigt trygga förmågan att fortsätta sin verksamhet. KOMMENTAR TILL UTFALL ÅR 2024 2024 refinansierade Rottneros de befintliga långfristiga låneavtalen. Det nya avtalet omfattar lån om 400 MSEK med 69 MSEK i årlig amortering, samt revolverande krediter om upp till 150 MSEK. I tillägg har Rottneros checkräkningskrediter uppgående till 225 MSEK. Lånevillkoren innehåller sedvanliga så kallade covenanter i form av nettoskuld i relation till rörelseresultat före avskrivningar om maximalt 3,2 och utdelning om maximalt 50 procent av föregående års netto- resultat. Vid balansdagen var dessa covenanter uppfyllda. Beviljade och outnyttjade krediter uppgick till 392 MSEK vid slutet av året. Koncernens likviditetsreserv uppgick vid utgången av året till 14 (19) procent av omsättningen, där målet är 'minst 10 procent'. Koncernens nettoskuld vid utgången av 2024 uppgick till 393 (-105) MSEK och skuldsättningsgraden till 23 (-6) procent. |
+
+<!-- image -->
+
+<!-- image -->
+
+ÖVERSIKT &amp; STRATEGI
+
+- 3 -
+
+GLOBALA LEVERANSER OCH KAPACITETSUTNYTTJANDE
+
+<!-- image -->
+
+<!-- image -->
+
+2. Leveranser
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+GLOBALA UTVECKLINGSMÅL
+
+Rottneros har identifierat vilka av FN:s 17 globala utvecklingsmål som koncernen har störst inverkan på:
+
+<!-- image -->
+
+- 5.5 Säkerställ fullt deltagande för kvinnor i ledarskap och beslutsfattande
+- 8.8 Skydda arbetstagares rättigheter och främja trygg och säker arbetsmiljö
+- 12.2 Hållbar förvaltning och användning av naturresurser
+- 14.1 Minska föroreningarna i haven
+- 15.2 Bevara, restaurera och säkerställ hållbart nyttjande av ekosystem på land och i sötvatten
+
+Intensivt år med flera större och långsiktigt värdeskapande investeringar
+
+I samband med koncernens investeringsbeslut är förmågan att skapa värde för såväl kunder, aktieägare som miljön avgörande. Kriterierna handlar om en god riskjusterad avkastning, ökad hållbarhet samt hög kvalitet. Koncernens mål om en fossilfri produktion till 2030 utgör en viktig del när det gäller investeringarnas inriktning. Även att gradvis minska exponeringen mot elmarknaden är av stor
+
+Under 2024 togs flera större investeringar i drift vid våra bägge bruk. De utgjordes av den utökade CTMP-kapaciteten, samt produktion och lagring av förnyelsebar elenergi i form av solceller med tillhörande batterilagring i Rottneros Bruk och hartskokeriet i Vallvik. Investeringen för att väsentligt expandera produktionskapaciteten av CTMP-massa i Rottneros Bruk är ett uttryck för vår långsiktigt positiva syn på marknaden för kartong och förpackningar. Kapaciteten ökar från 125 tusen ton till cirka 165 tusen ton, för en relativt sett låg investeringskostnad per tillkommande ton massa.
+
+MJUKPAPPER
+
+<!-- image -->
+
+<!-- image -->
+
+FOSSILFRI PRODUKTION OCH MILJÖ
+VÄSENTLIGHET
+
+Rottneros fokus ligger på att minska GHG-utsläpp i linje med de nationella målen och minimera syreförbrukande utsläpp till vatten. All vedråvara ska som lägst vara enligt FSC ®  controlled wood, vilket säker  ställer hållbart skogsbruk och spårbarhet.
+
+NORDPOOL ELPRIS I SE3
+
+<!-- image -->
+
+<!-- image -->
+
+KARTONG
+
+<!-- image -->
+
+<!-- image -->
+
+POLICYS OCH STYRANDE DOKUMENT
+
+- Hållbarhetspolicy
+- Miljö- och energipolicy
+- PEFC-certifiering
+- FSC ® -certifiering
+- Miljö- och energicertifiering
+
+<!-- image -->
+
+Uttalande
+
+En hållbarhetsrapport har upprättats.
+
+Stockholm den 10 mars 2025
+
+PricewaterhouseCoopers AB
+
+MASSALEVERANSER, KTON
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+MASSALEVERANSER, KTON
+
+<!-- image -->
+
+<!-- image -->
+
+INTÄKTSBASEN GRADVIS MER DIVERSIFIERAD
+
+Satsningen på fibertråg inom Rottneros Packaging utgör en viktig del av breddningen av verksamheten. Den genomförs via ett samägt bolag där koncernen tillsammans med Arctic Paper bygger en fabrik för formpressade fibertråg i Polen. Investeringen förväntas uppgå till 25 MEUR och tillverkningskapaciteten beräknas till cirka 60-80 miljoner förpackningar vilket är väsentligt fler jämfört med anläggningen i Sunne.
+
+Energiförbrukning och miljörisker
+
+Koncernens produktionsprocesser påverkar miljön på grund av flera olika faktorer. Rottneros Bruk har en mekanisk tillverkningsprocess där de största miljöriskerna är energiförbrukning och utsläpp till luft och vatten. Energiåtgången är betydande. Därför är det kritiskt att minimera behovet av fossilbaserade energislag genom en högeffektiv utrustning och hållbara produktionsprocesser. I Vallviks Bruk, där massa framställs med kemiska processer är de största miljöriskerna utsläpp till vatten och luft, samt kemikaliehantering. För att värna om miljön och förhindra eventuella överträdelser av bestämmelser och krav gällande utsläpp, har bruket en kontinuerlig provtagning med larmfunktioner kopplat
+
+UTFALL:
+
+Utfallet för Vallviks Bruk var i linje med tidigare år. Rottneros Bruk minskade sina utsläpp då större åtgärder genomfördes för att förbättra processen, delvis som en följd av att sliplinjen avvecklades.
+
+<!-- image -->
+
+6. Biprodukter, bioenergi och återvinning
+
+<!-- image -->
+
+Kemikalier tas omhand enligt lagkrav och återvinns där det är möjligt. Kemikalieåtervinningen i sulfatprocessen är i det närmaste ett slutet system. Bark används som energi för att alstra ånga och elektricitet. Biprodukter, såsom tallolja och biobränslen säljs och är fossilfri råvara i nya produkter eller processer.
+
+Läs mer: sid. 42­43
+
+Om styrning av hållbarheten och förberedelse inför CSRD
+
+CSRD (Corporate Sustainability Reporting Directive) är ett EUdirektiv som syftar till att öka tillgången till information om hur företag påverkar människor och miljö samt hur företag påverkas av hållbarhetsfrågor. Rottneros hållbarhetsrapport omfattas av CSRD från och med 2025. Under 2024 har Rottneros genomfört en dubbel väsentlighetsanalys i enlighet med CSRD, gjort en genomgång av nuläget samt uppdaterat policyer för att täcka in väsentliga frågor. Bolaget har påbörjat en klimatomställningsplan samt ett arbete med att ta fram mål och nyckeltal för de väsentliga frågorna.

@@ -1,0 +1,1817 @@
+## SCOPE 3 KLIMATMÅL
+
+51,6%
+
+Embracer Group atar sig aven att minska scope 3 utslapp av vaxthusgaser vilket inkluderar inkop av varor och tjanster bransle och energirelaterade aktiviteter transporter och distribution fran leverantorer affarsresor och anstalldas pendling med 51,6 % per MSEK adderat varde inom samma tidsram.
+
+
+<!-- PAGE: 43 -->
+| UTSLÄPP FRÅN EMBRACER GROUP (tCO2e) | 2023/24 | 2022/23 | 2021/22 |
+| --- | --- | --- | --- |
+| Scope 1 | 1 623 | 1 443 | 1 068 |
+| Scope 2 | 5 909 | 6 952 | 4 458 |
+| Scope 3 | 484 055 | 678 707 | 676 963 |
+| Totalt | 491 587 | 687 102 | 682 489 |
+![table image]({page: 43, x: 72}, {y: 593, {width: 449}, {height: 8})
+
+Utslapp av vaxthusgaser har beraknats i linje med GHG protokollet.
+Kallor till utslapp ar DEFRA och IEA.
+
+Varden extrapolerades for koncernbolag som inte rapporterade ESG data.
+
+Minskade utslapp av koldioxid Den primara kallan till koldioxidutslapp motsvarande 98 % (99 %) av alla utslapp ar indirekta i scope 3 bade upstream och downstream och harstammar framst fran att anvanda produkter och spela spel.
+Basen for vara Science Based Targets (SBTi) baseras pa inventeringen av utslapp som genomfordes under helaret 2021/22.
+Vara basvarden uppdaterades 2023 for att vara fortsatt relevanta och precisa.
+
+Berakningar av koldioxidutslapp har gjorts i enlighet med Greenhouse Gas Protocol och representerar scopet som beskrivs i sektionen Om denna rapport pa sid 55.
+
+> Scope 1 inkluderar direkta utslapp fran branslen for uppvarmning leveransbilar och passagerarfordon samt fran nedkylning.
+
+> Scope 2 inkluderar indirekta utslapp fran forvarvad energi sa som elektricitet fjarrvarme och -kyla.
+
+> Scope 3 inkluderar utslapp fran indirekta aktiviteter i bolagets vardekedja bade upstream och downstream sasom forvarvade produkter och tjanster affarsresor och anstalldas pendling.
+
+Berakningar av Scope 3 har utgatt fran utslapp fran anvandning av salda produkter inklusive datacenter IT infrastruktur produkter fysiska spel och bordsspel samt forpackning.
+Vara uppskattningar av utslapp fran anvandning av salda produkter fortsatter att byggas pa data fran helaret 2022/23.
+Berakningarna har baserats pa antalet salda produkter digitala och fysiska spel pa olika plattformar och konsoler beraknad speltid for varje spel energieffektivitet for varje konsol och utslapp fran elektricitet i lander dar spelen saldes.
+Eftersom berakningar ar baserade pa flera antaganden har Embracer Group beslutat att anvanda ett konservativt antagande gallande speltid for att sakerstalla att alla utslapp inkluderas.
+For att reducera utslappen for salda produkter ar samarbete i hela industrin avgorande och pagaende.
+Industrin utvecklar olika verktyg sa som eco installningar och att skapa okad kannedom om hur man tar bort default installningar som inte behovs forbattringar som kan reducera energikonsumtion under spelande.
+
+Energianvandning pa Embracer Group inkluderar branslen fjarrvarme fjarrkyla och elektricitet.
+38 % (29 %) av den totala energianvandningen utgjordes av fornyelsebar energi en okning jamfort med foregaende ar.
+Bevakning och datainsamling i koncernen utgor viktiga verktyg for att forbattra energianvandning.
+
+oka kannedom om var miljopaverkan
+
+- Vi fortsätter att öka medvetenheten inom koncernen om vår miljöpåverkan. Inom miljöområdet är vårt främsta fokus klimatet, men vi inkluderar även topografi och biologisk mångfald i vår löpande översyn av leverantörskedjan och detta år fokuserar vi på våra validerade och godkända SBTi mål och att sprida kunskap om målen genom exempelvis ett dedikerat webinar. Hållbarhetswebinarier är ett väldigt bra sätt att lyfta hållbarhetsfrågor med alla anställda i Embracer Group. Både interna och externa talare bjuds in till dessa webinarier för att både inspirera och utbilda om viktiga hållbarhetsfrågor.
+
+Del av en rorelse for en klimatneutral industri
+
+- Vi är del av en rörelse för att begränsa klimatförändringar inom spel och underhållningsindustrin. För att få ökad påverkan samarbetar vi med andra aktörer inom industrin för att öka kännedom, stödja initiativ och dela kunskap. Embracer Group har deltagit i flera event under året, däribland varit en aktiv medlem i Video Games Europe’s Climates arbetsgrupp. Vi vill påverka industrin till att göra framsteg mot en klimatneutral framtid.
+
+| ENERGIKONSUMTION | 2023/24 | 2022/23 | 2021/22 |
+| --- | --- | --- | --- |
+|  | Rapporterat (MWh) | Rapporterat (MWh) |  |
+| Fjärrvärme | 2 937 | 3 101 | 1 074 |
+| Fjärrkyla | 56 | 31 | 642 |
+![table image]({page: 43, x: 404}, {y: 701, {width: 449}, {height: 8})
+
+
+<!-- PAGE: 44 -->
+Bornholm ar en liten o i sodra ostersjon och ett populart resmal for turister.
+2019 samlades en grupp Nordenchefer fran spelindustrin pa on.
+Konferensen blev en viktig milstolpe for industrins vilja att vidta atgarder gallande klimatforandringar.
+
+”Motet i Bornholm gav kraft till hela industrin.
+Det finns ett starkt tryck pa alla nivaer fran seniora ledare anstallda och aven fran agare” sager Per Stromback talesperson for Svenska Spelindustrin en foretagarfor ening.
+
+Enligt Stromback ar utmaningen hur steget ska tas fran atagande till atgard och hur man ska paverka nar en stor del av utslappen kommer fran spelarnas konsumtion och spelande.
+
+”Vi kan givetvis optimera distribution av data och i viss man var energianvandning men eftersom vi inte kan kontrollera varje del i konsumentval maste vi vara kreativa.
+Det finns nu initiativ dar teknologi och visu ell design anvands for andra andamal exempelvis for gruvverksamhet och att utvardera elektrifiering digitalt” forklarar Stromback.
+
+”Embracer har ocksa en intressant ansats genom sin Klimatfond fran vilken koncernbolag kan ansoka om medel for att finansiera grona initiativ.
+Detta ar exempel pa innovativa atgarder.”
+
+EIDOS MONTReAL Montreal Canada
+
+## FRAMSTEG GÄLLANDE ÅTAGANDEN
+
+- Vi nådde en viktig milstolpe detta år då våra mål för mins- kade utsläpp av växthusgaser validerades och godkändes av Science Based Targets (SBTi). Detta understryker vår tydliga ambition att reducera utsläpp i linje med en tem- peraturökning om 1,5°C. Med vår decentraliserade struktur är det viktigt att visa hur varje bolag inom koncernen kan arbeta med att minska sina egna utsläpp. Mognad varierar över koncer- nen och nödvändiga åtgärder kommer att variera mellan våra koncernbolag. För att illustrera nödvändiga åtgärder har klimatscenarion utvecklats vilket gör det möjligt för oss att visualisera framtida framsteg baserat på olika antaganden. Vi utvecklar kontinuerligt våra metoder för datainsamling och har tagit ett steg närmare att integrera extern data tillsammans med finansteamet. I år presenterade vi publikationen Our Planet – Climate Focus, som beskriver en lista med exempel och praktiska klimatåtgärder relevanta för företag och anställda inom Embracer Group. Vi vill effektivisera och förenkla arbetet Genom Klimatfonden kommer vi att visa vår inställ- ning till att adressera klimatförändring och att nyttja våra finansiella resurser för att driva positiva förändringar inom organisationen. Denna ansats är väl integrerad inom vår bolagskultur och affärsmodell, och betonar en intern användning av resurser för att förbättra vår miljö- mässiga hållbarhet. Istället för att delegera ansvaret för att minska våra utsläpp, tror vi på att proaktivt göra vår verksamhet mer miljövänlig.
+
+Ett utskott som bestar av CFO Head of External Relations Head of Sustainability och Group Sustainability Manager kommer att besluta om vilka initiativ och projekt som ska fa finansiering.
+I tillagg kommer utskottet att genomfora arliga utvarderingar for att folja upp resultat fran dessa initiativ sakerstalla ansvar och framsteg gentemot vara hallbarhetsmal och intressenter.
+Group Sustainability Manager leder och koordinerar arbetet och CFO ar utskottets ordforande.
+
+SCOPE 1 OCH 2 KLIMATMaL
+
+45,0%
+
+Embracer Group atar sig att minska det absoluta vardet pa scope 1 och scope 2 utslapp av vaxthusgaser med 45,0% till 2030 med 2021 som basar*.
+
+- Gränserna för målen inkluderar biogen landrelaterade utsläpp och det som tas bort från djurföda av bioenergi.
+
+### SBTi ÅTAGANDEN
+
+Science Based Targets initiativ (SBTi) vagleder var plane ring och atgarder for att reducera vara utslapp av vaxt husgaser.
+Vi har satt mal baserat pa SBTi som validerades och godkandes i december 2023.
+
+Denna validering innefattar mal for den absoluta minskningen av utslapp av vaxthusgaser genom att adressera bade direkta och indirekta utslapp (Scope 1 och 2) och utslapp fran var leverantorskedja (Scope 3).
+SBTi har officiellt bekraftat att dessa mal ligger i linje med en global temperaturokning om 1,5°C det primara malet i Paris avtalet.
+
+Genom att etablera mal for utslapp satter vi en tydlig plan for att hantera utslapp av koldioxid.
+Genom att anvanda 2021 som basar har vi satt ambitiosa mal med absoluta varden for att minska Scope 1 och Scope 2 utslapp med 45 % och uppna atminstone en minskning med 51,6 % av Scope 3 utslapp senast 2030.
+Malen godkandes under detta rakenskapsar och vi kommer ge uppdateringar gallande vara framsteg mot 2030 ars mal under kommande ar.
+Detta atagande visar pa vart atagande att bidra till en hallbar framtid.
+Nasta steg ar att utveckla en plan med delmal for koncernen.
+
+
+<!-- PAGE: 32 -->
+
+## Driftsutgifter (OpEx)
+
+| (1) | Kod (2) Driftsutgifter (3) | Andel av drifts- utgifterna, år 2023/24 (4) | Begränsning av klimatför- ändringar (5) | Anpassning till klimatför- ändringar (6) | Vatten (7) | Föroreningar (8) | Cirkulär ekonomi (9) | Biologisk mångfald (10) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | År 2023/24 | År 2023/24 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag |  |  |
+| Ekonomiska verksamheter |
+|  | MSEK | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga) Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav möjliggörande verksamheter | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav omställningsverksamheter | 0 | 0 % | 0 % |  |  |  |  |  |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) Driftsutgifter för de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| A. Driftsutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN Driftsutgifter hos verksamheter som inte omfattas av taxonomin | 9 | 100 % |  |  |  |  |  |  |
+| TOTALT | 9 | 100 % |  |  |  |  |  |  |
+| Driftsutgifter (OpEx) forts | Kriterier avseende att inte orsaka betydande skada |  |  |  |  |  |  |  |
+| Begränsning av klimatför- ändringar |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga) Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) | N | N | N N | N | N | 0 % | N |  |
+![table image]({page: 55, x: 258}, {y: 106, {width: 391}, {height: 37})
+
+|  | Andel förenliga med | taxonomikraven (A.1.) eller som omfattas av | taxonomikraven (A.2.) | driftsutgifter, år 2022/23 | (18)Economic activities (1) |
+| --- | --- | --- | --- | --- | --- |
+| Anpassning till klimatför- ändringar | Anpassning till klimatför- ändringar | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald |
+| J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| Vatten |
+| (11) (12) (13) (14) (15) (16) (17) |
+|  |  |  |  |  |  |  |  | Kategori möjlig- görande verksam- het | Kategori omställ- nings- verksamhet |
+![table image]({page: 55, x: 412}, {y: 375, {width: 47}, {height: 29})
+
+- (19) (20)
+
+|  | Varav möjliggörande verksamheter | N | N | N | N | N | N | N | 0 % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Varav omställningsverksamheter | N | N | N | N | N | N | N | 0 % |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) |
+| Driftsutgifter för de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) |  |  |  |  |  |  |  |  | 0 % |
+| A. Driftsutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) |  |  |  |  |  |  |  |  | 0 % |
+![table image]({page: 55, x: 133}, {y: 477, {width: 391}, {height: 11})
+
+Karnenergi\xad och fossilgasrelaterade verksamheter
+
+| Rad | Kärnenergirelaterade verksamheter | JA/NEJ |
+| --- | --- | --- |
+| 1 | Företaget utför, finansierar eller är exponerat mot forskning, utveckling, demon- | NEJ |
+| stration och utbyggnad av innovativa elproduktionsanläggningar som producerar energi från kärnenergiprocesser med minimalt avfall från bränslecykeln. |
+| 2 | Företaget utför, finansierar eller är exponerat mot uppförande och säker drift av nya kärntekniska anläggningar för produktion av el eller processvärme, inbegripet för | NEJ |
+| fjärrvärme eller industriella processer, såsom vätgasproduktion, samt för säkerhets- uppgraderingar av dessa, med hjälp av bästa tillgängliga teknik. |
+| 3 | Företaget utför, finansierar eller är exponerat mot säker drift av befintliga kärntek- niska anläggningar som producerar el eller processvärme, inbegripet för fjärrvärme eller industriella processer, såsom vätgasproduktion från kärnenergi, samt säker- hetsuppgraderingar av dessa. | NEJ |
+|  | Fossilgasrelaterade verksamheter | JA/NEJ |
+| 4 | Företaget utför, finansierar eller är exponerat mot uppförande eller drift av elpro- duktionsanläggningar som producerar el med hjälp av fossila gasformiga bränslen. | NEJ |
+| NEJ |
+| 5 Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av anläggningar för kombinerad produktion av värme/kyla och el med hjälp av fossila gasformiga bränslen. |
+| 6 | Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av värmeproduktionsanläggningar som producerar värme/kyla med hjälp av fossila gasformiga bränslen. | NEJ |
+![table image]({page: 55, x: 74}, {y: 612, {width: 210}, {height: 17})
+
+# TAXONOMI TABELLER
+## Omsättning
+
+| (1) | Kod (2) Omsättning (3) | Andel av omsättningen år 2023/24 (4) | Begränsning av klimatför- ändringar (5) | Anpassning till klimatför- ändringar (6) | Vatten (7) Föroreningar (8) |  | Cirkulär ekonomi (9) | Biologisk mångfald (10) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | År 2023/24 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag |  |  |
+| Ekonomiska verksamheter |
+|  | MSEK | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga) Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav möjliggörande verksamheter | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav omställningsverksamheter | 0 | 0 % | 0 % |  |  |  |  |  |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) Omsättningen hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| A. Omsättning för verksamheter som omfattas av taxonomin (A.1+A.2) | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN Omsättningen hos verksamheter som inte omfattas av taxonomin | 42 206 | 100% |  |  |  |  |  |  |
+| TOTALT | 42 206 | 100% |  |  |  |  |  |  |
+![table image]({page: 53, x: 256}, {y: 362, {width: 243}, {height: 5})
+
+OUR PLANET HÅLLBARHETSRAPPORT
+
+Effekterna av klimatforandringar blir allt mer narvarande och det finns ett vaxande behov att agera.
+Spel och underhallningsindustrin genererar utslapp genom hela vardekedjan fran spelutveckling tillverkning och datalagring till event resor och paketering.
+Genom att begransa vara utslapp i verksamheten genom hela vardekedjan och att investera i projekt som stodjer en gron overgang kan vi minimera koncernens paverkan pa miljon och oka kannedomen inom var industri.
+
+Viktiga omraden > Minskade utslapp av koldioxid > Skapa okad kannedom om miljopaverkan > Del av en rorelse som vill skapa en klimatneutral industri mot en klimatneutral spelindustri genom att vara transparenta gallande var miljopaverkan.
+
+## Kapitalutgifter (CapEx)
+
+| (1) | Kod (2) | Kapital- utgifterna (3) | Andel av kapi- talutgifterna, år 2023/24 (4) Begränsning av klimatför- ändringar (5) | Anpassning till klimatför- ändringar (6) | Vatten (7) | Föroreningar (8) | Cirkulär ekonomi (9) | Biologisk mångfald (10) |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | År 2023/24 | År 2023/24 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag |  |  |
+| Ekonomiska verksamheter |
+|  |  | MSEK | % J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga) Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) |  | 0 | 0 % 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav möjliggörande verksamheter | 0 | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| Varav omställningsverksamheter |  | 0 | 0 % 0 % |  |  |  |  |  |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) Förvärv och ägande av byggnader | CCM 7.7 | 417 | 6 % EL | N/EL | N/EL | N/EL | N/EL | N/EL |
+| Kapitalutgifter för de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) |  | 417 | 6 % 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| A. Kapitalutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) | 417 | 6 % | 0 % | 0 % | 0 % | 0 % | 0 % | 0 % |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN Kapitalutgifter hos verksamheter som inte omfattas av taxonomin |  | 6 608 | 94 % |  |  |  |  |  |
+| TOTALT |  | 7 025 | 100 % |  |  |  |  |  |
+| Kapitalutgifter (CapEx) forts |  | Kriterier avseende att inte orsaka betydande skada |  |  | Andel förenliga med |  |  |  |
+| Begränsning av klimatför- ändringar |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga) Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) |  | N | N N N | N | N N | 0 % |  |  |
+![table image]({page: 54, x: 258}, {y: 163, {width: 388}, {height: 37})
+
+|  | taxonomikraven (A.1.) eller som omfattas av | taxonomikraven (A.2.) kapitalutgifter, | år 2022/23 (18)Economic activities (1) |
+| --- | --- | --- | --- |
+| Anpassning till klimatför- ändringar | Anpassning till klimatför- ändringar | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Minimi- skydds- åtgärder | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald |
+| J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| Vatten |
+| (11) (12) (13) (14) (15) (16) (17) |
+|  |  |  |  |  |  |  |  | Kategori möjliggö- rande verk- samhet | Kategori omställ- nings- verksamhet |
+![table image]({page: 54, x: 409}, {y: 432, {width: 52}, {height: 23})
+
+- (19) (20)
+
+| Varav möjliggörande verksamheter | N | N | N | N | N | N | N | 0 % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Varav omställningsverksamheter | N | N | N | N | N | N | N | 0 % |
+![table image]({page: 54, x: 133}, {y: 528, {width: 321}, {height: 5})
+
+A.2 Verksamheter som omfattas av taxonomin men som inte ar miljomassigt hallbara (ej taxonomiforenliga)
+
+| Förvärv och ägande av byggnader | 9 % |
+| Kapitalutgifter för de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 9 % |
+| A. Kapitalutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) | 9 % |
+![table image]({page: 54, x: 71}, {y: 571, {width: 388}, {height: 11})
+
+
+<!-- PAGE: 55 -->
+
+### Omsättning forts. Kriterier avseende att inte orsaka betydande skada Andel förenliga med
+#### Begränsning av klimatför- ändringar
+##### Ekonomiska verksamheter
+
+- (1)
+
+EU:S TAXONOMI HÅLLBARHETSRAPPORT
+
+De viktigaste ekonomiska aktiviteterna pa Embracer Group handlar om att utveckla och forlagga PC konsol mobil VR och bradspel inom spel och underhallningsindustrin.
+Dessa aktiviteter ingar inte annu i EU:s taxonomi och darmed sker ingen indelning i taxonomin for just dessa aktivite ter.
+Eftersom antalet paverkade sektorer vantas oka foljer Embracer Group noga utvecklingen gallande EU:s taxonomi.
+Forvarv och agande av byggnader ingar i EU:s taxonomi och darfor redovisas koncernens agda och leasade kontor som nyttjandetillgangar och aven investeringar i anpassning och renovering av leasade och agda fastigheter ingar i taxono min.
+Capex som ingar i taxonomin galler leasade och agda fastigheter.
+For de capex verksamheter som omfattas av taxonomin har det i stort sett inte varit mojligt att fa fram bevis for att de bidrar vasentligt.
+Detsamma galler kriteri erna avseende att inte orsaka betydande skada (DNSH) for taxonomiforenlig verksamhet dar vi inte har fatt nagra bevis som stoder antagandet om DNSH.
+Darfor rapporteras den del av var capex som omfattas av taxonomin som ej taxo nomiforenlig.
+Opex motsvarar icke aktiverade kortfristiga leasingavtal (se not 16) underhalls och reparationskostna der och andra direkta kostnader for den dagliga servicen av leasade och agda fastigheter.
+Andelen omsattning (se Rapport over resultat rad Nettoomsattning) capex (not 15 rad arets investeringar i kolumnen Byggnader och mark samt not 16 rad Tillkommande avtal netto) och opex som ingar i EU:s taxonomi och andelen tillampbara aktiviteter som ingar visas i tabellen nedan
+
+### Klimatfonden
+
+Under helaret 2023/24 etablerades Klimatfonden av Embracer Group.
+Istallet for att kompensera for vara utslapp kommer vi att rikta dessa resurser mot att finan siera interna initiativ inom Embracer Group som aktivt bidrar till att minska koncernens utslapp av koldioxid och darmed bidrar till vart mal om att minska vara koldi oxidutslapp med 45 % till 2030.
+
+##### FORTS. NOT 1
+
+| som är 12 månader efter rapportperioden. Kortfristiga skulder består i allt väsentligt av belopp som förväntas regleras under koncernens normala verksamhetscykel som är 12 månader efter rapportperioden. | HANDELSVAROR Handelsvaror avser kostnader för inköp och produktion av fysiska produkter, utvecklingskostnader för mobilspel, drift och underhåll av spel samt royalties till externa spelutvecklare och andra rättighetsinnehavare. |
+| NOT 2 Vid upprättandet av de finansiella rapporterna måste företags- ledningen och styrelsen göra vissa bedömningar och anta- ganden som påverkar det redovisade värdet av tillgångs- och skuldposter respektive intäkts- och kostnadsposter samt läm- nad information i övrigt. Bedömningarna baseras på erfaren- heter och antaganden som ledningen och styrelsen bedömer vara rimliga under rådande omständigheter. Faktiskt utfall kan sedan skilja sig från dessa bedömningar om andra förutsätt- ningar uppkommer. Uppskattningarna och antagandena utvär- deras löpande och bedöms inte innebära någon betydande risk för väsentliga justeringar i redovisade värden för tillgångar och skulder under nästkommande räkenskapsår. Ändringar av uppskattningar redovisas i den period ändringen görs om ändringen endast påverkat denna period, eller i den period ändringen görs och framtida perioder om ändringen påverkar både aktuell period och framtida perioder. | Bedömningar och uppskattningar presenteras i direkt anslut- ning till den not vilken bedömningen och uppskattningen avser. Betydande bedömningar och uppskattningar avser: |
+![table image]({page: 112, x: 71}, {y: 83, {width: 431}, {height: 158})
+
+> Intaktsredovisning not 4 > Avtalsskulder for prisreduktioner och rabatter not 4 > Uppskjutna skatter not 11 > Goodwill not 13 > Aktiverade utvecklingsutgifter not 14 > Villkorade tillaggskopeskillingar not 18 > Varulager not 21 > Avyttringsgrupper som innehas for forsaljning och avveck lade verksamheter not 32 och > Forvarvsanalyser not 33.
+
+#### INTERNA STUDIOS
+
+73
+
+## SYSTEM FÖR VISSELBLÅSNING
+
+Anstallda och externa intressenter sa som leverantorer kan anonymt rapportera overtradelser av var Uppforandekod och andra policys genom ett extern system for visselblasning.
+I tillagg till ett globalt rapporteringssystem har vi implementerat 16 lokala rapporteringskanaler for att sakerstalla att vi uppfyller krav enligt EU direktivet 2019/1937 gallande skydd av manniskor som rapporterar overtradelser av gallande lagar och regler om dataskydd samt specifika lokala lagar som galler inom enskilda EU lander dar vi verkar.
+Genom att folja relevant nationell lagstiftning sakerstaller systemet sakerhet anonymitet och legalt skydd for alla.
+Detta ar registrerades inga meddelanden av systemet som kategoriserades som visselblasarmeddelanden.
+95 % (88 %) av bolag inom Embracer Group har bekraftat att alla anstallda har vetskap om whistleblowing systemet och hur det ska anvandas.
+75 % (75 %) av bolagen har aven en lokal mekanism pa plats som hjalper till att rapportera oetiskt beteende pa ett sakert och anonymt satt.
+
+- 17 KONCERNRIKTLINJER OCH INSTRUKTIONER
+
+> Redovisningsprinciper och riktlinjer > Riktlinjer for AI bilder > Attestinstruktion > Business Continuity Plan > Personalhandbok > Riktlinjer for riskhantering och internkontroll > Finansmanual > Riktlinjer for icke revisionstjanster som utfors av extern revisor for Embracer Group > Insider Q&A > Instruktioner for kassahantering och likviditet > IP riktlinjer > Riktlinjer for M&A process > Riktlinjer for onboarding och offboarding > Riktlinjer for losenordshantering > Riktlinjer for integritet > Smarter Business ramverket > Riktlinjer for visselblasning
+
+
+<!-- PAGE: 53 -->
+
+#### GLOBAL DATASPELSMARKNAD PROGNOS PER SEGMENT 1)
+
+USD miljarder 100
+
+80
+
+60
+
+52 52
+
+40
+
+42 43
+
+20
+
+0
+
+90 93
+
+# ÅRETS HÖJDPUNKTER
+
+> Fokus pa att genomfora forberedel ser infor EU:s kommande krav gallande extern hallbarhetsrapportering The Corporate Sustainability Reporting Directive (CSRD).
+Detta inkluderade en dubbel materialitetsanalys som beskriver koncernens viktigaste hallbarhetsfragor och kommer utgora en grund for den kommande rapporteringen.
+> Accelererade implementeringen av olika processer for internkontroll och integration.
+
+> Koncernens hallbarhetsmal for klimatet validerades och godkan des av Science Based Targets intiative.
+> Bildade en hallbarhetskommitte med Head of Sustainability som ordforande och som bestar av representanter fran agarna sty > AI policy paket antogs och gjordes tillganglig i hela koncernen.
+> Stod for Ukrainas befolkning.
+Vi har gjort donationer fran moder foretaget och fortsatt att stodja Ukrainas befolkning som drabbats av kriget.
+
+relsen och ledningen.
+> arlig obligatorisk utbildning for samtliga anstallda lanserades gallande integritet och antikorruption.
+
+
+<!-- PAGE: 30 -->
+
+# SID
+
+6
+
+HÅLLBARHETSRAPPORT
+OM DENNA RAPPORT
+
+Denna hallbarhetsrapport utgor en del av den regulatoriska hallbarhetsrapport som kravs av aRL 6 kap §10.
+Rapporten beskriver aktiviteter och framsteg inom Embracer Groups hallbarhetsarbete och det arbete som utforts under aret for att uppna vara mal.
+
+Detta ars omstruktureringsprogram och genomforda avyttringar har paverkat bolagets datainsamling.
+Bolag som inte utgor en del av Embracer Group exkluderas fran processen och paverkar darfor inte resultatet.
+Detta innebar att bolag som star for 91 % av omsattningen i koncernen ingar i denna rapport.
+2 % inlamnade inte ESG data innan tidsfristen lopte ut och ar inte en del av rapporten 5 % utgor avyttringar och 1 % ar bolag utan personalkostnader och darfor ingar inte dessa i rapporteringsscopet for ESG.
+Av 171 bolag inom scopet bidrog 159 bolag med data och ar representerade i denna rapport.
+
+Detta representerar 93 % (96 %) av bolagen inom scopet for rakenskapsaret 2023/24.
+
+Inom hallbarhetsarbetet overvakas framsteg av koncernens mjukvarulosning for performance management.
+Datainsamling inspireras av de internationella rapporteringsstandarderna European Sustainability Reporting Standards (ESRS) Sustainability Accounting Standard Board (SASB) och Global Reporting Initiative (GRI).
+Hallbarhetsrapporten beskriver framsteg under aret inom koncerns tre hallbarhetspelare Great People Solid Work och Our Planet.
+For segmentsspecifika fragor (specifikt spelstudios) inte relevanta for alla bolag uppgar svarsfrekvensen till 93 % och inkluderar 71 bolag.
+
+Revisorns yttrande gallande den lagstadgade hallbarhetsrapporten Det ar styrelsen som har ansvaret for hallbarhetsrap porten pa sidorna 27-54 och for att den ar upprattad i enlighet med arsredovisningslagen.
+Var granskning har skett enligt FARs rekommendation RevR 12 Revisors ytt rande om den lagstadgade hallbarhetsrapporten.
+Detta innebar att var granskning av hallbarhetsrapporten har en annan inriktning och en vasentligt mindre omfattning med den inriktning och omfattning som en revision enligt International Standards on Auditing och god revisions sed i Sverige har.
+Vi anser att denna granskning ger oss tillracklig grund for vart uttalande.
+
+En hallbarhetsrapport har upprattats.
+
+Stockholm 20 juni 2024 ohrlings PricewaterhouseCoopers AB
+
+Magnus Svensson Henryson Auktoriserad revisor
+
+NÅGRA AV VÅRA ÅTAGANDEN HÅLLBARHETSRAPPORT
+# AGENDA 2030
+
+Embracer Group stodjer Agenda 2030 och en holistisk ansats till hallbar utveckling som etablerats genom FN:s hallbarhetsmal (SDG).
+Gallande var verksamhet har vi identifierat fem mal som ar sarskilt relevanta for vara bolag och studios.
+
+> 4 GOD UTBILDNING FoR ALLA
+
+- Vi stödjer utvecklare, kreativa individer och det bre- dare ekosystemet för spel genom att dedikera resurser till olika utbildningsforum inom industrin. Dessa initiativ kommer även stödja vår mission att nå olika målgrup- per och göra framsteg inom mångfald och inkludering.
+
+> 5 JaMSTaLLDHET En av vara prioriteringar ar att forbattra konsbalansen inom Embracer Group och industrin.
+
+>
+8
+-ANSTaNDIGA ARBETSVILLKOR OCH EKONOMISK TILLVaXT
+
+Som en verksamhet beroende av manniskor amnar vi ge en god balans mellan arbete och fritid och halsosamma arbetsforhallanden.
+Vi investerar aven i entreprenorer for att driva innovation och en kreativ industri.
+
+> 12 HaLLBAR KONSUMTION OCH PRODUKTION
+
+- Vi är transparenta gällande vår miljöpåverkan och vidtar åtgärder för att bidra till en ekonomi som har mindre koldioxidutsläpp.
+
+> 17 GENOMFoRANDE OCH GLOBALT PARTNERSKAP
+
+- Vi arbetar med industripartners och branschkollegor samt intresse- och branschorganisationer för att leverera framsteg gällande våra prioriterade hållbarhetsområden.
+
+HÅLLBARHETSRAPPORT
+
+| 28 | INTRODUKTION |
+| 29 | EN UPPDATERING FRÅN VÅRT HÅLLBARHETSTEAM |
+| 30 | NÅGRA AV VÅRA ÅTAGANDEN |
+| 31 | VÅRA INTRESSENTER |
+| 32 | SMARTER BUSINESS RAMVERKET |
+| 33 | GREAT PEOPLE |
+| 37 | SOLID WORK |
+| 41 | OUR PLANET |
+| 45 | HÅLLBARHETSRISKER OCH MÖJLIGHETER |
+| 49 | HÅLLBARHET OCH BOLAGSSTYRNING |
+| 52 | EU:S TAXONOMI |
+| 55 | OM DENNA RAPPORT |
+![table image]({page: 28, x: 151}, {y: 185, {width: 172}, {height: 12})
+
+
+<!-- PAGE: 29 -->
+
+#### Varumärkes- & kommunikationschef beatrice.forsgren@embracer.com
+## Legal, Governance & Compliance Ian Gulam
+
+Chief of Staff Legal & Governance ian.gulam@embracer.com
+
+## ETT NYTT KAPITEL NÄR EN BLIR TRE
+
+Som kommunicerades den 22 april 2024 har vi inlett processen att dela upp koncernen i tre borsnoterade bolag.
+Det ar uppmuntrande att vara aktieagare har uttryckt sitt stod for detta transformativa steg.
+Historien har visat att diversifierade koncerner som var kan oka vardeskapande avsevart genom att anta en mer flexibel snabbrorligt verksamhet och fokusera pa valdefinierade marknadssegment.
+Genom att bli tre oberoende bolag forstarks Embracers vision om att stodja entreprenorer och kreatorer med ett langsiktigt tankesatt for att de ska kunna fortsatta leverera oforglomliga upplevelser och underhallning over hela varlden.
+
+Asmodee "Coffee Stain & Friends" och "Middle earth & Friends" kommer alla att ha tillracklig storlek samman hangande strategier och ett tydligare fokus vilket banar vag for att frigora varde i vara hogkvalitativa tillgangar.
+En viktig aspekt ar att varje fristaende enhet i slutandan kommer att kunna nyttja sin egen balansrakning fullt ut faststalla sina egna finansiella och hallbarhetsmal och optimera finansieringsstruktur och kapitalalloke ringsstrategi for att mojliggora sina tillvaxtambitioner.
+Detta kommer i sin tur att skapa varde for alla intressenter eftersom det framfor allt forbattrar forutsattningarna for vara entreprenorer och medarbetare att skapa de basta spelen.
+
+- Vi inleder nu ett nytt och spännande kapitel för de verksamheter och människor som utgör Embracer Group. Jag är övertygad om att det bästa ligger framför oss. Slutligen vill jag rikta ett tack till alla våra aktieägare, anställda, kunder, affärspartners och branschkollegor för era bidrag till Embracer Groups fortsatta framgång och utveckling i vårt nya kapitel.
+
+20 juni 2024 Karlstad Varmland Sverige Lars Wingefors Medgrundare och VD
+
+
+<!-- PAGE: 9 -->
+EMBRACER GROUP AB Karlstad Sverige
+
+
+<!-- PAGE: 10 -->
+
+# AKTIEKAPITALETS UTVECKLING, HISTORIK
+
+| Registrerings\xad datum | Händelse | Antal A\xadaktier | Antal B\xadaktier | Totalt antal aktier | Aktiekapital, förändring | Aktiekapital, totalt |
+| --- | --- | --- | --- | --- | --- | --- |
+| 30/12/1999 | Nybildning |  | 1 000 | 1 000 | 100 000,00 | 100 000,00 |
+| 30/09/2016 | Fondemission |  | 499 000 | 500 000 | 400 000,00 | 500 000,00 |
+| 14/10/2016 | Uppdelning 120:1 | 9 000 000 | 51 000 000 | 60 000 000 |  | 500 000,00 |
+| 07/11/2016 | Nyemission |  | 32 500 | 60 032 500 | 270,83 | 500 270,83 |
+| 28/11/2016 | Nyemission |  | 10 000 000 | 70 032 500 | 83 333,33 | 583 604,17 |
+| 02/12/2016 | Nyemission |  | 2 000 000 | 72 032 500 | 16 666,67 | 600 270,83 |
+| 26/09/2017 | Nyemission |  | 7 203 250 | 79 235 750 | 60 027,10 | 660 297,92 |
+| 04/06/2018 | Nyemission |  | 135 135 | 79 370 885 | 1 126,13 | 661 424,04 |
+| 07/06/2018 | Nyemission |  | 1 082 601 | 80 453 486 | 9 021,68 | 670 445,72 |
+| 12/07/2018 | Nyemission |  | 7 700 000 | 88 153 486 | 64 166,68 | 734 612,38 |
+| 16/11/2018 | Nyemission |  | 3 136 903 | 91 290 389 | 26 140,86 | 760 753,24 |
+| 16/11/2018 | Nyemission |  | 60 358 | 91 350 747 | 502,98 | 761 256,22 |
+| 15/02/2019 | Nyemission |  | 142 870 | 91 493 617 | 1 190,58 | 762 446,81 |
+| 27/02/2019 | Nyemission |  | 4 732 661 | 96 226 278 | 39 438,85 | 801 885,66 |
+| 06/03/2019 | Nyemission |  | 74 357 | 96 300 635 | 619,64 | 802 505,30 |
+| 14/03/2019 | Nyemission |  | 6 267 339 | 102 567 974 | 52 227,84 | 854 733,12 |
+| 14/03/2019 | Nyemission |  | 11 000 000 | 102 567 974 | 91 666,69 | 854 733,13 |
+| 14/08/2019 | Nyemission |  | 133 048 | 102 701 022 | 1 108,74 | 855 841,86 |
+| 14/08/2019 | Nyemission |  | 1 267 323 | 103 968 345 | 10 561,02 | 866 402,88 |
+| 02/10/2019 | Uppdelning 3:1 | 18 000 000 | 189 936 690 | 311 905 035 |  |  |
+| 27/12/2019 | Nyemission |  | 162 163 | 312 067 198 | 450,46 | 866 853,34 |
+| 01/04/2020 | Nyemission | 6 399 137 | 35 386 220 | 353 852 555 | 116 070,44 | 982 923,78 |
+| 08/04/2020 | Nyemission |  | 18 500 000 | 372 352 555 | 51 388,89 | 1 034 312,67 |
+| 08/13/2020 | Nyemission |  | 2 466 070 | 374 818 625 | 6 850,20 | 1 041 162,87 |
+| 08/13/2020 | Nyemission |  | 6 338 901 | 381 157 526 | 17 608,06 | 1 058 770,93 |
+| 08/13/2020 | Nyemission |  | 186 225 | 381 343 751 | 517,3 | 1 059 288,23 |
+| 08/13/2020 | Nyemission |  | 6 504 | 381 350 255 | 18,07 | 1 059 306,30 |
+| 08/13/2020 | Nyemission |  | 26 090 | 381 376 345 | 72,48 | 1 059 378,78 |
+| 08/13/2020 | Nyemission |  | 32 596 | 381 408 941 | 90,55 | 1 059 469,33 |
+| 09/10/2020 | Nyemission |  | 924 771 | 382 333 712 | 2 568,81 | 1 062 038,14 |
+| 09/16/2020 | Nyemission |  | 623 209 | 382 956 921 | 1 731,14 | 1 063 769,28 |
+| 09/18/2020 | Nyemission |  | 2 492 837 | 385 449 758 | 6 924,55 | 1 070 693,83 |
+| 10/08/2020 | Nyemission |  | 35 689 907 | 421 139 665 | 99 138,64 | 1 169 832,47 |
+| 18/11/2020 | Nyemission |  | 8 800 | 421 148 465 | 24,45 | 1 169 856,92 |
+| 18/11/2020 | Nyemission |  | 61 280 | 421 209 745 | 170,23 | 1 170 027,15 |
+| 18/11/2020 | Nyemission |  | 247 419 | 421 457 164 | 687,28 | 1 170 714,43 |
+| 18/11/2020 | Nyemission |  | 84 665 | 421 541 829 | 235,19 | 1 170 949,62 |
+| 18/11/2020 | Nyemission |  | 109 707 | 421 651 536 | 304,75 | 1 171 254,37 |
+| 18/11/2020 | Nyemission |  | 117 036 | 421 768 572 | 325,11 | 1 171 579,48 |
+| 19/11/2020 | Nyemission |  | 352 640 | 422 121 212 | 979,56 | 1 172 559,04 |
+| 25/11/2020 | Nyemission |  | 233 416 | 422 354 628 | 648,38 | 1 173 207,42 |
+| 09/12/2020 | Nyemission |  | 840 899 | 423 195 527 | 2 335,84 | 1 175 543,26 |
+| 11/12/2020 | Nyemission |  | 37 111 | 423 232 638 | 103,09 | 1 175 646,35 |
+| 01/02/2021 | Nyemission |  | 567 039 | 423 799 677 | 1 575,11 | 1 177 221,46 |
+| 25/02/2021 | Nyemission |  | 1 025 771 | 424 825 448 | 2 849,37 | 1 180 070,83 |
+| 18/03/2021 | Nyemission |  | 36 000 000 | 460 825 448 | 100 000,02 | 1 280 070,85 |
+| 01/04/2021 | Nyemission |  | 5 365 709 | 466 191 157 | 14 904,75 | 1 294 975,60 |
+| 01/04/2021 | Nyemission |  | 1 774 871 | 467 966 028 | 4 930,20 | 1 299 905,80 |
+![table image]({page: 83, x: 72}, {y: 97, {width: 448}, {height: 8})
+
+## FORTS. >> FORTS. AKTIEKAPITALETS UTVECKLING, HISTORIK
+
+
+<!-- PAGE: 84 -->
+| Registrerings\xad datum | Händelse | Antal A\xadaktier | Antal B\xadaktier | Totalt antal aktier | Aktiekapital, förändring | Aktiekapital, totalt |
+| --- | --- | --- | --- | --- | --- | --- |
+| 01/04/2021 | Nyemission |  | 32 518 984 | 500 485 012 | 90 330,53 | 1 390 236,33 |
+| 02/06/2021 | Nyemission |  | 2 533 | 500 487 545 | 7,04 | 1 390 243,37 |
+| 02/07/2021 | Nyemission |  | 1 232 | 500 488 777 | 3,422223 | 1 390 246,79 |
+| 15/07/2021 | Nyemission |  | 415 130 | 500 903 907 | 1 153,14 | 1 391 399,93 |
+| 22/07/2021 | Nyemission |  | 247 936 | 501 151 843 | 688,72 | 1 392 088,65 |
+| 22/07/2021 | Nyemission |  | 32 694 | 501 184 537 | 90,82 | 1 392 179,47 |
+| 22/07/2021 | Nyemission |  | 2 135 652 | 503 320 189 | 5 932,37 | 1 398 111,84 |
+| 04/08/2021 | Nyemission |  | 68 112 | 503 388 301 | 189,21 | 1 398 301,05 |
+| 09/08/2021 | Nyemission |  | 201 612 | 503 589 913 | 560,04 | 1 398 861,09 |
+| 02/09/2021 | Nyemission |  | 521 | 503 590 434 | 1,45 | 1 398 862,54 |
+| 07/09/2021 | Nyemission |  | 3 878 316 | 507 468 750 | 10 773,11 | 1 409 635,65 |
+| 21/09/2021 | Nyemission |  | 6 165 | 507 474 915 | 17,13 | 1 409 652,78 |
+| 30/09/2021 | Uppdelning 2:1 | 33 399 137 | 474 075 778 | 1 014 949 830 | 0 | 1 409 652,78 |
+| 05/10/2021 | Nyemission |  | 42 954 | 1 014 992 784 | 59,66 | 1 409 712,44 |
+| 27/10/2021 | Nyemission |  | 282 795 | 1 015 275 579 | 392,78 | 1 410 105,22 |
+| 30/11/2021 | Nyemission |  | 1 012 | 1 015 276 591 | 1,41 | 1 410 106,63 |
+| 03/12/2021 | Nyemission |  | 14 336 | 1 015 290 927 | 19,92 | 1 410 126,55 |
+| 17/12/2021 | Nyemission |  | 69 000 000 | 1 084 290 927 | 95 833,36 | 1 505 959,91 |
+| 21/12/2021 | Nyemission |  | 58 190 | 1 084 349 117 | 80,82 | 1 506 040,73 |
+| 07/02/2022 | Nyemission |  | 72 796 | 1 084 421 913 | 101,11 | 1 506 141,84 |
+| 07/02/2022 | Nyemission |  | 6 570 386 | 1 090 992 299 | 9 125,54 | 1 515 267,38 |
+| 17/02/2022 | Nyemission |  | 59 740 | 1 091 052 039 | 82,98 | 1 515 350,36 |
+| 09/03/2022 | Nyemission |  | 40 060 091 | 1 131 112 130 | 55 639,03 | 1 570 989,39 |
+| 10/03/2022 | Nyemission |  | 316 659 | 1 131 428 789 | 439,81 | 1 571 429,20 |
+| 18/03/2022 | Nyemission |  | 33 249 | 1 131 462 038 | 46,18 | 1 571 475,38 |
+| 05/04/2022 | Nyemission |  | 2 296 100 | 1 133 758 138 | 3 189,03 | 1 574 664,41 |
+| 02/06/2022 | Nyemission |  | 1 207 690 | 1 134 965 828 | 1 677,35 | 1 576 341,76 |
+| 13/06/2022 | Nyemission |  | 47 115 105 | 1 182 080 933 | 65 437,66 | 1 641 779,42 |
+| 04/07/2022 | Nyemission |  | 1 408 031 | 1 183 488 964 | 1 955,60 | 1 643 735,02 |
+| 13/07/2022 | Nyemission |  | 50 763 186 | 1 234 252 150 | 70 504,44 | 1 714 239,46 |
+| 14/07/2022 | Nyemission |  | 2 005 733 | 1 236 257 883 | 2 785,75 | 1 717 025,21 |
+| 19/08/2022 | Nyemission |  | 2 568 053 | 1 238 825 936 | 3 566,75 | 1 720 591,96 |
+| 03/09/2022 | Nyemission |  | 129 445 | 1 238 955 381 | 179,79 | 1 720 771,75 |
+| 09/09/2022 | Nyemission |  | 1 467 370 | 1 240 422 751 | 2 038,02 | 1 722 809,77 |
+| 14/09/2022 | Nyemission |  | 218 850 | 1 240 641 601 | 303,96 | 1 723 113,73 |
+| 16/09/2022 | Nyemission |  | 12 330 | 1 240 653 931 | 17,13 | 1 723 130,86 |
+| 05/10/2022 | Nyemission |  | 7 608 447 | 1 183 488 964 | 10 567,29 | 1 733 698,15 |
+| 12/10/2022 | Nyemission |  | 259 120 | 1 183 488 964 | 359,89 | 1 734 058,04 |
+| 18/10/2022 | Nyemission |  | 10 216 263 | 1 183 488 964 | 14 189,26 | 1 748 247,30 |
+| 10/11/2022 | Nyemission |  | 20 197 | 1 258 757 958 | 28,06 | 1 748 275,36 |
+| 04/01/2023 | Nyemission |  | 211 160 | 1 258 969 118 | 293,28 | 1 748 568,64 |
+| 07/02/2023 | Nyemission |  | 77 568 | 1 259 046 686 | 107,74 | 1 748 676,38 |
+| 07/02/2023 | Nyemission |  | 195 481 | 1 259 242 167 | 271,51 | 1 748 947,89 |
+| 07/07/2023 | Nyemission |  | 80 000 000 | 1 339 242 167 | 111 111,14 | 1 860 059,03 |
+| 18/08/2023 | Nyemission |  | 194 112 | 1 339 436 279 | 269,61 | 1 860 328,64 |
+| 18/09/2023 | Nyemission |  | 12 330 | 1 339 448 609 | 17,13 | 1 860 345,77 |
+| 07/11/2023 | Nyemission |  | 14 580 | 1 339 463 189 | 20,26 | 1 860 366,03 |
+| 12/02/2024 | Nyemission |  | 77 568 | 1 339 540 757 | 107,74 | 1 860 473,77 |
+![table image]({page: 84, x: 72}, {y: 97, {width: 445}, {height: 8})
+
+
+<!-- PAGE: 85 -->
+
+# MODERFÖRETAGETS RAPPORT ÖVER FÖRÄNDRINGAR I EGET KAPITAL
+
+| MSEK | Aktie\xad kapital | Fond för utveck\xad lingsutgifter | Överkurs\xad fond | Balanserat resultat | Årets resultat | Summa eget kapital |
+| --- | --- | --- | --- | --- | --- | --- |
+|  | Bundet eget kapital | Bundet eget kapital | Fritt eget kapital | Fritt eget kapital |  |  |
+| Ingående eget kapital 2022\xad04\xad01 | 2 | 72 | 20 533 | 25 973 | 329 | 46 909 |
+| Disposition av föregående års resultat | - | - | - | 329 | –329 | - |
+| Årets resultat | - | - | - | - | 583 | 583 |
+| Årets övrigt totalresultat | - | - | - | - | - | - |
+| Årets totalresultat | \xad | \xad | \xad | \xad | 583 | 583 |
+| Transaktioner med moderföretagets ägare Nyemission | - | - | 12 155 | - | - | 12 155 |
+| Emissionskostnader | - | - | 101) | - | - | 10 |
+| Skatteeffekt | - | - | –2 | - | - | –2 |
+| Summa | \xad | \xad | 12 162 | \xad | \xad | 12 162 |
+| Omföring mellan poster i eget kapital Fond för utvecklingsutgifter | - | –72 | - | 72 | - | - |
+| Överkursfond | - | - | 20 533 | 20 533 | - | - |
+| Summa | \xad | –72 | 20 533 | 20 605 | \xad | \xad |
+| Utgående eget kapital 2023\xad03\xad31 | 2 | \xad | 12 162 | 46 908 | 583 | 59 655 |
+|  | Bundet eget kapital |  | Fritt eget kapital |  |  |  |
+| MSEK | Aktie\xad kapital | Fond för utveck\xad lingsutgifter | Överkurs\xad fond | Balanserat resultat | Årets resultat | Summa eget kapital |
+| Ingående eget kapital 2023\xad04\xad01 | 2 | \xad | 12 162 | 46 908 | 583 | 59 655 |
+| Disposition av föregående års resultat | - | - | - | 583 | –583 | - |
+| Årets resultat | - | - | - | - | 6 829 | 6 829 |
+| Årets övrigt totalresultat | - | - | - | - | - | - |
+| Årets totalresultat | \xad | \xad | \xad | \xad | 6 829 | 6 829 |
+| Transaktioner med moderföretagets ägare Nyemission | - | - | 2 008 | - | - | 2 008 |
+| Emissionskostnader | - | - | –43 | - | - | –43 |
+| Skatteeffekt | - | - | 9 | - | - | 9 |
+| Summa | \xad | \xad | 1 974 | \xad | \xad | 1 974 |
+| Omföring mellan poster i eget kapital Fond för utvecklingsutgifter | - | - | - | - | - | - |
+| Överkursfond | - | - | - | - | - | - |
+| Summa | \xad | \xad | \xad | \xad | \xad | \xad |
+| Utgående eget kapital 2024\xad03\xad31 | 2 | \xad | 14 136 | 47 492 | 6 829 | 54 801 |
+![table image]({page: 157, x: 237}, {y: 142, {width: 435}, {height: 8})
+
+- 1) Positivt saldo på grund av återföring av reserverade men ej betalda emissionskostnader.
+
+
+<!-- PAGE: 158 -->
+
+##### EMBRACER GROUP AB (PUBL)120
+
+2023\xad04\xad01
+
+- 2024\xad03\xad31
+
+2022\xad04\xad01
+
+- 2023\xad03\xad31
+
+Aktuell skatt
+
+| Aktuell skatt på årets resultat | –884 | –882 |
+| --- | --- | --- |
+| Justeringar avseende tidigare år | 55 | –19 |
+![table image]({page: 121, x: 309}, {y: 111, {width: 215}, {height: 7})
+
+| Summa aktuell skatt | –829 | –901 |
+| --- | --- | --- |
+| Uppskjuten skatt |
+| Uppskjuten skatt avseende temporära skillnader | 1 394 | 359 |
+| Uppskjuten skatt på underskotts- avdrag | –7 | –11 |
+| Summa uppskjuten skatt | 1 387 | 348 |
+| Redovisad skatt i koncernens rapport över resultat | 558 | –553 |
+![table image]({page: 121, x: 309}, {y: 132, {width: 182}, {height: 15})
+
+Avstamning av effektiv skattesats 2023\xad04\xad01 2024\xad03\xad31
+
+2022\xad04\xad01
+
+|  |  2023\xad03\xad31 |
+| --- | --- |
+| Resultat före skatt | 18 735 | 5 015 |
+| Skatt enligt gällande skattesats för moderföretaget, 20,6 % | 3 859 | 1 033 |
+| Skatteeffekt av: |
+| Andra skattesatser för utländska dotterföretag | 453 | 472 |
+![table image]({page: 121, x: 480}, {y: 272, {width: 215}, {height: 15})
+
+| Ej avdragsgilla kostnader | 4 430 | –515 |
+| --- | --- | --- |
+| Ej skattepliktiga intäkter | 188 | 807 |
+| Ökning av underskottsavdrag utan motsvarande aktivering av uppskjuten skatt | –13 | –46 |
+| Utnyttjande av tidigare ej aktiverade underskottsavdrag | 152 | 133 |
+| Skatt hänförlig till tidigare år | 21 | –19 |
+| Schablonränta på periodiseringsfond | –2 | –1 |
+| Övrigt | 330 | –351 |
+| Redovisad skatt | 558 | –553 |
+| Effektiv skattesats | 3 % | 11 % |
+![table image]({page: 121, x: 309}, {y: 341, {width: 184}, {height: 7})
+
+Ej avdragsgilla kostnader/ej skattepliktiga intakter avser till storsta delen personalkostnader relaterade till forvarv avskrivning av forvarvade overvarden pa immateriella tillgangar verkligt varde forandringar avseende villkorade tillaggskopeskillingar samt nedskrivning av goodwill.
+
+| Belopp redovisade direkt mot eget kapital | 2023\xad04\xad01 |  |
+| --- | --- | --- |
+| 2024\xad03\xad31 |
+| 2022\xad04\xad01 |
+| 2023\xad03\xad31 |
+| Skatteeffekt emissionskostnader | 43 | –2 |
+| Summa | 43 | –2 |
+| Belopp redovisade i övrigt totalresultat | 2023\xad04\xad01 |  |
+| 2024\xad03\xad31 |
+| 2022\xad04\xad01 |
+| 2023\xad03\xad31 |
+| Skatt hänförligt till omvärdering av förmånsbestämda nettoförpliktelser till anställda | 0 | –4 |
+| Summa | 0 | –4 |
+![table image]({page: 121, x: 309}, {y: 552, {width: 215}, {height: 7})
+
+
+<!-- PAGE: 122 -->
+
+# AKTIEN OCH ÄGARNA NOTERAT PÅ NASDAQ STOCKHOLM
+
+Embracer Group har en diversifierad aktieagarbas med stora innehav bland koncernens medgrundare och ett stort antal smasparare i agarlistan.
+I slutet av perioden hade topp 20 i foretagsledningen ett samlat innehav motsvarande 27 % av kapitalet och 43 % av rosterna i Embracer Group.
+Embracer Groups B-aktie handlas pa Nasdaq Stockholms huvudlista med kortnamnet EMBRAC B. Kursutveckling och omsattning Vid ingangen av rakenskapsaret den 1 april 2023 uppgick aktiekursen till 48,46 SEK och stangningspriset for aktien vid rakenskapsarets slut den 31 mars 2024 uppgick till 23,35 SEK en nedgang med 51,8 procent.
+Kursen varierade under aret mellan som lagst 15,07 SEK den 15 mars 2024 och som hogst 55,80 SEK den 11 maj 2023.
+Embracer Groups borsvarde var vid rakenskapsarets utgang 29,7 miljarder SEK.
+Free float uppgick till 69,2 % av utestaende aktier (kalla Holdings).
+
+Antal aktier och aktiekapital Antalet aktier i Embracer Group AB (publ) uppgick den 31 mars 2024 till 66 798 274 A-aktier och 1 272 742 483 B-aktier totalt sett 1 339 540 757 aktier.
+B-aktier har en rost vardera och A-aktier har tio roster vardera.
+Samtliga aktier representerar lika andel i bolagets tillgangar och resultat.
+
+Nyemissioner och bemyndigande Den 5 juli 2023 beslutade Embracer Group att genomfora en riktad nyemission av cirka 80 miljoner B-aktier till en teckningskurs om 25,00 SEK per aktie.
+Emissionslikviden fran nyemissionen uppgar till 2 miljarder SEK.
+Aktierna emitterades till svenska och internationella institutionella investerare inklusive nuvarande aktieagare.
+Genom nyemissionen starker Embracer Group ytterligare sin institutionella aktieagarbas och finansiella stallning vilket forbattrar finansieringskostnaden och operationell flexibilitet och gor det mojligt for bolaget att fokusera pa viktiga aspekter av det genomgripande omstruktureringsprogrammet som offentliggjordes i juni 2023.
+Nyemissionen bestod av totalt 80 000 000 B-aktier.
+
+# KONCERNENS RAPPORT ÖVER FÖRÄNDRINGAR I EGET KAPITAL
+
+| MSEK | Aktie\xad kapital | Övrigt tillskjutet kapital Reserver1) | Balanserade vinstmedel inkl. årets resultat | Summa eget kapital hänförligt till moderföre\xad tagets ägare | Innehav utan be\xad stämmande inflytande | Summa eget kapital |
+| --- | --- | --- | --- | --- | --- | --- |
+|  | Eget kapital hänförligt till moderföretagets aktieägare | Eget kapital hänförligt till moderföretagets aktieägare | Eget kapital hänförligt till moderföretagets aktieägare |  |  |  |
+| Ingående eget kapital 2022\xad04\xad01 | 2 | 42 433 124 | –612 | 41 947 | 228 | 42 175 |
+| Årets resultat | - | - - | 4 454 | 4 454 | 8 | 4 462 |
+| Årets övrigt totalresultat | - | - 4 821 | - | 4 821 | –1 | 4 820 |
+| Årets totalresultat | \xad | \xad 4 821 | 4 454 | 9 275 | 7 | 9 282 |
+| Transaktioner med koncernens ägare Nyemission | - | 12 155 - | - | 12 155 | - | 12 155 |
+| Emissionskostnader | - | 102) - | - | 10 | - | 10 |
+| Skatteeffekt emissionskostnader | - | –2 - | - | –2 | - | –2 |
+| Aktierelaterad ersättning enligt IFRS 2 | - | 1 290 - | - | 1 290 | - | 1 290 |
+| Transaktioner med innehavare utan bestämmande inflytande | - | - - | –6 | –6 | –183 | –189 |
+| Summa | \xad | 13 453 \xad | –6 | 13 446 | –183 | 13 263 |
+| Utgående eget kapital 2023\xad03\xad31 | 2 | 55 886 4 945 | 3 835 | 64 668 | 53 | 64 721 |
+| Ingående eget kapital 2023\xad04\xad01 | 2 | 55 886 4 945 | 3 835 | 64 668 | 53 | 64 721 |
+| Årets resultat | – | – | - | 18 177 | 18 177 | –1 18 177 |
+| Årets övrigt totalresultat | – | – 882 | - | 882 | 0 | 882 |
+| Årets totalresultat | \xad | \xad | 882 | 18 177 | 17 295 | –1 17 296 |
+| Transaktioner med koncernens ägare Nyemission | 0 | 2 026 - | - | 2 026 | - | 2 026 |
+| Övervärde | - | –18 - | - | –18 | - | –18 |
+| Emissionskostnader | - | –43 - | - | –43 | - | –43 |
+| Skatteeffekt emissionskostnader | - | 9 - | - | 9 | - | 9 |
+| Aktierelaterad ersättning enligt IFRS 2 | - | 3 072 - | - | 3 072 | - | 3 072 |
+| Transaktioner med innehavare utan bestämmande inflytande | - | - - | - | - | 11 | 11 |
+| Summa | 0 | 5 046 \xad | \xad | 5 046 | 11 | 5 057 |
+| Utgående eget kapital 2024\xad03\xad31 | 2 | 60 932 5 826 | 14 341 | 52 419 | 64 | 52 482 |
+![table image]({page: 109, x: 224}, {y: 127, {width: 426}, {height: 8})
+
+- 1) Inkluderar omräkningsreserv och kassaflödessäkringsreserv.
+
+- 2) Positivt saldo på grund av återföring av reserverade men ej betalda emissionskostnader.
+
+
+<!-- PAGE: 110 -->
+
+#### Del av rörelsen för en klimatneutral industri
+
+Embracer tillsammans med den svenska spelindustrin vill oka kannedom inom industrin.
+PlayCreateGreen ar ett sadant initiativ dar industriaktorer kan motas och dela best practice.
+Initiativet har utvecklat en klimathand bok for spelbolag och ar for narvarande i borjan av att utforska nya satt att koppla samman spelerfarenheter med klimatatgarder och kannedom.
+
+Karin Edner Karlsson Group Sustainability Manager pa Embracer Group forklarar att ett viktigt fokus for bolaget ar att dela kunskap och data i relevanta externa forum.
+
+”Som en diversifierad grupp bolag har Embracer tillgang till en stor mangd vardefull hallbarhetsdata.
+Vi delade nyligen data som en del av initiativet Sustainability in new digital industries.
+Detta underlattar framsteg gallande utvecklingen av en mer standardiserad industrimodell for berakning av utslapp sarskilt gallande Scope 3” sager Karin Edner Karlsson.
+
+Edner Karlsson och Stromback delar asikten att det finns utrymme for mer industrisamarbete och dialog samt att fordelarna inte ska underskattas.
+
+”Spelbolag har tillgang till kunskap och teknologier som gor det mojligt for dem att accelerera sitt egna hall barhetsarbete och potentiellt aven gora skillnad utanfor industrin” avslutar Per Stromback.
+
+
+<!-- PAGE: 45 -->
+
+## HÅLLBARHET TILL STÖD FÖR VÅR VERKSAMHET
+
+- Vi har byggt en av industrins mest diversifierade spel- och underhållningsverksamheter, från små nischtitlar till några av de mest ikoniska varumärkena inom spelindustrin. Spel och titlar som produceras och distribueras genom vår globala koncern når miljontals spelare och fans över hela världen. Som ett bolag drivet av entreprenörer, bygger vår verk- samhet på att vi stärker fantastiska människor. Som en del av vår ambition att vara en attraktiv arbetsgivare, värnar vi om mångfald och välkomnar olika perspektiv och kunska- per. Denna ansats ligger också till grund för hur vi tänker gällande spel och underhållning samt spelares välmående. Under helåret 2022/23 satte styrelsen koncernens första hållbarhetsmål. Mål styr vårt arbete för att skapa ännu mer värde för våra aktieägare, kunder, anställda och andra intressenter. Dessa tre mål är: > Dubblera antalet kvinnor som VD/Studio Heads senast
+
+2025 jamfort med basaret 2021/22.
+> Reducera koldioxidutslapp med 45 % senast 2030 jam fort med basaret 2021/22.
+> Varje operativ koncern ska satta hallbarhetsmal under rakenskapsaret 2023/24.
+
+De stora forandringarna inom koncernen har paverkat de tre hallbarhetsmalen.
+Det var inte andamalsenligt for de operativa koncernerna att satta hallbarhetsmal under 2023/24 pa grund av det pagaende omstruktu reringsprogrammet och beslutet om att transformera Embracer till tre sjalvstandiga noterade bolag.
+Vi behover dessutom uppdatera baslinjen gallande jamstalldhet och klimatmal for att de ska kunna kvarsta som vardefulla verktyg for att leda oss i ratt riktning i ratt hastighet.
+Den omfattande materialitetsanalysen och intressentdialogen som resulterade i att styrelsen satte dessa mal har okat kannedom inom koncernen och kommer ge viktiga insik ter for de tre nya noterade bolagen i deras strategiska hallbarhetsarbete.
+
+- Vi vill säkerställa att vi stödjer en miljö som bidrar till ökad tillgänglighet och digitalt välmående. Vår holistiska ansats till hållbarhet bygger även på att proaktivt adressera och begränsa koncernens miljöpåverkan samt spel- och underhållningsindustrins totala miljöpåverkan. Koncernen har under det senaste året gjort ytterligare framsteg i riskhantering, samtidigt som integration och samarbeten inom koncernen har förstärkts gällande hållbarhet. Därmed fortsätter vår hållbarhetsansats att utvecklas och påverka beslutsfattande inom hela koncernen, och därmed förbättra vår hantering av risker och möjligheter.
+
+## Hållbarhet Emma Ihre
+
+Head of Sustainability emma.ihre@embracer.com
+
+# RISKHANTERING
+RISKHANTERING STÄRKER KONCERNENS UTVECKLING
+
+Embracer Group vill uppna en forutsagbar langsiktig organisk och forvarvad tillvaxt i intakter vinster och kassafloden.
+Strategin innebar att risker tas for att mojliggora tillvaxt genom forvarv samtidigt som en decentraliserad organisation med global narvaro agerar baserat pa ett gemensamt ramverk for bolagsstyrning och ansvar.
+
+Den koncernovergripande riskhanteringsprocessen bygger pa en forstaelse for Embracers dynamiska ekosystem med verksamheter som verkar inom olika delar av spel och underhallningsindustrin och integreras i koncernstrategin stodjer tillvaxt och forstarks av vara koncernvarderingar.
+
+## EN UPPDATERING FRÅN VÅRT HÅLLBARHETSTEAM
+# INTERVJU MED EMMA IHRE, HEAD OF SUSTAINABILITY
+## EU:s hållbarhetsreglering fortsätter att förändras. Hur kommer detta påverka och bidra till ert hållbarhetsarbete?
+
+- Vi välkomnar EU:s ansats som bidrar till mer allmänt etablerade ramverk för hållbarhetsrapportering och säkerställer att bolag tar ansvar. I denna process, som utgör en betydande förändring i att bedriva affärsverksamhet, behöver vi dock vara uppmärksamma på att hållbarhet inte fokuserar mer på regelefterlevnad än att skapa värde för olika intressenter och samhället. Gällande EU:s reglering ligger vårt fokus under detta och kommande år på kommande rapporteringskrav (CSRD). Vi är redo och är väl anpassade till kraven. Vi har utfört en dubbel materialitetsanalys gällande våra viktigaste hållbarhetsfrågor och analyserat skillnader mellan kraven från CSRD och vårt nuvarande rapportering. Implementeringen av CSRD kommer att genomföras i nära samarbete med våra operativa koncerner och bolag. I slutändan kommer dessa nya krav att göra oss bättre på att rapportera för hela värdekedjan, att identifiera och hantera risker, och att göra viktiga framsteg för att integrera vår hållbarhetsrapportering med vår finansiella rapportering.
+
+
+<!-- PAGE: 31 -->
+
+#### taxonomikraven (A.1.) eller som omfattas av taxonomikraven (A.2.) omsättning, år 2022/23
+#### Anpassning till klimatför- ändringar Minimi- skydds- åtgärder Föro- reningar Cirkulär ekonomi Biologisk mångfald
+#### Vatten
+
+- (11) (12) (13) (14) (15) (16) (17)
+
+| J/N | J/N | J/N | J/N | J/N | J/N | J/N | % | E | T |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  | Kategori möjliggö- rande verk- samhet | Kategori omställ- nings- verksamhet |
+![table image]({page: 53, x: 242}, {y: 633, {width: 52}, {height: 23})
+
+- (18) (19) (20)
+
+| Varav möjliggörande verksamheter | N | N | N | N | N | N | N | 0 % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Varav omställningsverksamheter | N | N | N | N | N | N | N | 0 % |
+| A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) Omsättningen hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) |  |  |  |  |  |  |  | 0 % |
+| A. Omsättning för verksamheter som omfattas av taxonomin (A.1+A.2) |  |  |  |  |  |  |  | 0 % |
+![table image]({page: 53, x: 133}, {y: 689, {width: 388}, {height: 11})
+
+
+<!-- PAGE: 54 -->
+
+# AKTIEPRISUTVECKLING OCH VOLYM
+
+SEK Antal miljoner
+
+150
+
+125
+
+100
+
+75
+
+50
+
+25
+
+0 JulJan 2017 JulJan 2022 JulJan 2018 JulJan 2019 JulJan JulJan 2021 JulJan 2023 150 120 90 60 30 0
+
+## FRAMSTEG GÄLLANDE ÅTAGANDEN
+
+Moderforetaget bidrar till att oka medvetenheten om vikten av digitalt valmaende mangfald och inkludering i innehallet men det ar varje studios ansvar att integrera dessa perspektiv i den kreativa utvecklingen.
+For Embracer Group handlar digitalt valmaende om att ta ansvar for ett gott beteende i vara spel i spel communi tys forum och andra plattformar dar vara spel spelas och diskuteras.
+Detta kan ibland vara en utmaning eftersom Embracer Group inte alltid ar plattformsagare vilket okar behovet av samarbete med andra aktorer och industrior ganisationer.
+Embracer Group har nolltolerans for rasism sexism och andra icke efterfragade beteenden for att sakerstalla att spel kan anvandas och ar inkluderande for alla.
+46 % av studios har implementerat rutiner for ansvars fullt spelinnehall for att minska negativt beteende i vara chattar och forum och det pagar arbete for detta andamal i flera av ovriga studios.
+
+91 % (86 %) av vara studios anvander inte kommunikation eller chatforum for sina flesta spel vilket minskar risken for skadligt beteende och overtradelser.
+61 % (53 %) av vara interna studios ar aktiva i tredjepartscommunityn och 41 % (57 %) har en community manager som ar ansvarig for att sakerstalla att chat och dialog foljer riktlinjer.
+
+Mangfald och inkludering i spel och underhallning Embracer Group anser att en mer diversifierad och inklude rande arbetsplats kommer att skapa mer diversifierade och inkluderande spel och underhallning.
+Embracer Group vill utveckla spel och underhallning for alla oavsett bakgrund kon alder eller formagor.
+Under senare tid har moderfore taget fokuserat annu mer pa att skapa produkter som talar till var publik pa ett battre satt och att oka tillgangligheten for att alla ska kunna ha gladje av vara produkter.
+
+#### INVESTERINGAR OCH PIPELINE
+
+Pipelinen av projekt inkluderar 141 PC/Console projekt.
+Det finns redan ett flertal projekt som offentliggjorts for lansering under 2024/25 inklusive Kingdom Come Deliverance II Killing Floor 3 Disney Epic Mickey Rebrushed Hyper Light Breaker Gothic Remake och Titan Quest II.
+
+PC/Console Games segmentet fortsatte att gora betydande investeringar i spelutveckling.
+Totalt investerades 6 236 MSEK (5 845) i spelutveckling under rakenskapsaret.
+Vardet av fardigstallda spel uppgick till 3 421 MSEK (3 248) och drevs primart av lanseringarna av Dead Island 2 Remnant II Payday 3 och ett antal sma och medelstora lanseringar.
+Forhallandet mellan inves teringar och fardigstallda spel forblev stabilt pa arsbasis och uppgick till 1,8x med en fortsatt hogre takt i pagaende investeringar i framtida spellanseringar an genomforda investeringar i lanserade spel.
+Nar nya spel lanseras skrivs aktiverade utvecklingskostnader av pa tva ar enligt en degressiv avskrivningsmodell.
+
+45% 45%
+
+| 1,0 0,8 0,6 0,4 | 0,4 | 21–35 |
+| --- | --- | --- |
+| 0,2 | 0,2 | 10–20 |
+| 0,0 | 0,0 |  |
+| 1,0 | 0,8 | 51–65 |
+|  | 0,6 | 36–50 |
+![table image]({page: 20, x: 246}, {y: 656, {width: 141}, {height: 4})
+
+|  |  |  | 35% | 35% |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 66% |
+|  |  |  |  |  |  | 70% | 73% |  10% 30% 50% 70% |
+| 80% 4500 |
+|  |  | 20/21 Q1 | 20/21 Q2 Premium Classic | 20/21 Q3 20/21 Q4 Premium / Live Ops | 21/22 Q1 21/22 Q2 Development revenue | 21/22 Q3 Recurring Revenue | 21/22 Q4 | Mobile |
+|  | Färdigställda spel | Investeringar i spelutveckling |  |  |  |  |  |  |
+| Investeringar i spelutveckling som andel av färdigställda spel |
+| MSEK |  |  |  |  |  |  |  | Gånger |
+![table image]({page: 20, x: 299}, {y: 806, {width: 452}, {height: 7})
+
+0 1 000 2 000 3 000 4 000 5 000 6 000 7 000
+
+2023/242022/232021/222020/212019/20 0
+1
+2 3
+
+1,8x 2,5x 2,4x 2,9x 1,8x
+
+###### 2) Ampere Analysis
+
+MobilKonsolPC
+
+1) Newzoo
+
+2024 prognos
+
+
+<!-- PAGE: 11 -->
+
+### DEEP ROCK GALACTIC Ghost Ship Games | Coffee Stain Publishing
+
+
+<!-- PAGE: 96 -->
+
+### DEEP ROCK GALACTIC Ghost Ship Games | Coffee Stain Publishing
+
+
+<!-- PAGE: 18 -->
+
+# BREV FRÅN STYRELSEORDFÖRANDE
+ETT UTMANANDE ÅR SKAPAR NYA MÖJLIGHETER
+
+Det gangna rakenskapsaret bjod pa nya utmaningar och Embracer behovde fatta svara beslut.
+Samtidigt tog vi viktiga steg for att starka bolaget och lade grunden for ett nytt spannande kapitel i var resa den foreslagna omvandlingen av Embracer Group till tre fristaende borsnoterade bolag.
+
+Sedan borsnoteringen 2016 har Embracer befunnit sig pa en extraordinar resa.
+Jag minns mycket tydligt efter att precis ha tilltratt som styrelseordforande samma ar ett samtal med Embracers medgrundare och VD Lars Wingefors.
+Han hade en tydlig vision "Vi ska bygga nagot betydelsefullt och langsiktigt over tid."
+
+Under aren som foljde vaxte Embracer Group snabbt och omfattar idag over 100 studios och cirka 11 000 anstallda i fler an 40 lander aven efter de nyligen offentliggjorda avyttringarna av delar av Saber Interactive och Gearbox Entertainment.
+
+Redan 2016 beskrev vi i prospektet infor noteringen pa Nasdaq First North Growth Market att bolaget "i framtiden kan komma att gora andra typer av investeringar och forvarv inom spelindustrin dar bolagsledningen bedomer att bolaget kan tillfora varde".
+Sedan dess har Embracer framgangsrikt och medvetet etablerat sig som en global ledare inom spel och underhallning expanderat sin narvaro fran PC/Console till andra segment och byggt en portfolj som inkluderar nagra av varldens mest ikoniska varumarken.
+
+Genom att leva efter vara varderingar hantera viktiga hallbarhetsrisker och utveckla var verksamhet pa ett inno vativt satt skapar vi langsiktigt varde for vara investerare medarbetare och andra intressenter.
+Vara studios och bolag levererar fantastiska upple velser till miljontals spelare och fans over hela varlden.
+Vara exceptionella team har byggt nagot verkligt bety delsefullt.
+
+## Kapitalallokering
+
+Embracer Groups ledning utvarderar lopande resultatut veckling och utsikter for bolagen inom koncernen.
+Beslut gallande kapitalallokering som overstiger ett visst belopp inklusive spelutvecklingsprojekt maste godkannas av okade investeringar i user acquisition aktiviteter ar motiverade nar kraven pa avkastning pa annonskostnader ar uppfyllda.
+
+Embracer Groups diversifiering och formagor inom ekosystemet tillsammans med dess stora varumarkes portfolj som numera inkluderar over 900 varumarken
+
+###### A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN
+#### A.1. Miljömässigt hållbara verksamheter (taxonomiförenliga)
+
+Kapitalutgifter for de miljomassigt hallbara (taxonomiforenliga) verksamheterna (A.1) N
+N
+N N N
+N
+N 0 %
+
+## TILLSTÅNDS\xad ELLER ANMÄLNINGSPLIKTIG VERKSAMHET ENLIGT MILJÖBALKEN
+
+Koncernen och moderforetaget bedriver ingen tillstandseller anmalningspliktig verksamhet enligt miljobalken.
+
+###### Summa –634 –533
+
+Embracer redovisar ett kassautflode hanforligt till leasingav tal uppgaende till -643 MSEK (-502).
+For en loptidsanalys av koncernens leasingskulder se Not 20 Finansiella risker.
+
+
+<!-- PAGE: 130 -->
+
+### LEASINGAVTAL
+
+Regler gallande redovisning av leasingavtal enligt IFRS 16 tilllampas inte av moderforetaget.
+Detta innebar att leasingavgifter redovisas som kostnad linjart over leasingperioden och att nyttjanderatter och leasingskulder inte inkluderas i moderforetagets balansrakning.
+Identifiering av ett leasingavtal gors dock i enlighet med IFRS 16 dvs.
+att ett avtal ar eller innehaller ett leasingavtal om avtalet overlater ratten att under en viss period bestamma over anvandningen av en identifierad tillgang i utbyte mot ersattning.
+
+### Industri
+
+Dessa ar tre av vara viktigaste intressenter
+
+##### FORTS. NOT 4
+
+Koncernen mater forloppet mot fullstandigt uppfyllande av prestationsatagandet med tillampning av en inputmetod som baseras pa nedlagda utgifter i forhallande till totalt beraknade utgifter for att fullgora utvecklingen av spelet.
+Pa grund av osakerheten avseende den rorliga ersattningen redovisas den forst nar den efterfoljande forsaljningen skett till slutanvandare.
+
+Intakter fran forsaljning av interaktivt underhallningsinne\xad hall och tjanster for mobila plattformar Koncernen utvecklar spel till mobila plattformar.
+Koncernens mobilspel ar framst sa kallade free to play spel dar det huvudsakliga innehallet ar gratis for spelaren att tillga.
+Intakter genereras fran forsaljning av tillaggsinnehall i form av virtuella varor samt fran prenumerationer.
+Vid forsaljning av virtuella varor utgor vanligen varje virtuell vara ett separat prestationsatagande som uppfylls nar kontrollen overgar till kunden.
+Vissa virtuella varor konsumeras vid kopet medan andra varor ar bestaende och kan anvandas av spelaren utan tidsbegransning.
+Transaktionspriset for virtuella varor bestar av en fast ersattning.
+Kontrollen overgar till kunden over tid eller vid en tidpunkt (nar varan gjorts tillganglig for kund) beroende pa varans karaktar.
+Intakter hanforliga till varor som inte konsumeras vid kopet redovisas over avtalsperioden som bedoms vara den genomsnittliga spelperioden for spelets betalande anvandare.
+Vid forsaljning av prenumerationer bedoms Embracers atagande vara att sta redo att tillhandahalla fordelarna med prenumerationstjansten till kunden.
+atagandet anses darfor besta av en serie av distinkta tjanster som i allt vasentligt ar desamma varfor varje prenumeration bedoms utgora ett prestationsatagande.
+Kontrollen overgar till kunden over tid och intakten redovisas linjart over prenumerationsperioden.
+
+Segmentet Mobile Games genererar aven intakter genom att annonser visas i Embracers appar for mobilspel.
+Kunderna utgors av annonsnatverk till vilka Embracer upplater annonsutrymme som i sin tur placerar annonser fran tredje part i Embracers appar.
+Embracer bedomer att atagandet att upplata annonsutrymme till annonsnatverket utgor en serie av distinkta tjanster som i allt vasentligt ar desamma varfor varje kontrakt bedoms utgora ett prestationsatagande.
+Transaktionspriset bestar i sin helhet av rorlig ersattning och beror pa antalet klick eller visningar som en specifik annons genererar medan den visas i appen.
+Den rorliga ersattningen allokeras till respektive distinkt tjanst inom tidsperioden.
+Annonsnatverket erhaller och forbrukar samtidigt de fordelar som tillhandahalls genom Embracers prestation varfor annonsintakter redovisas over tid.
+
+Intakter fran forsaljning av bradspel Koncernen genererar intakter fran forsaljning av bradspel direkt till slutkonsument eller till fysiska butiker som sedan saljer vidare spelet till slutkonsument.
+Intakter genereras aven fran forsaljning av digitala versioner av bradspel som saljs via tredje parts digitala butiker som Microsoft Xbox Game Store Sonys PSN och Apple App Store.
+Varje spel utgor vanligen ett separat prestationsatagande.
+Transaktionspriset bestar av en fast ersattning per spel och ibland aven rorlig ersattning i form av rabatter och returratt.
+Intakter redovisas nar kontrollen overgar till kunden vilket ar nar produkten levererats till kund.
+
+Intakter fran forsaljning av serietidningar film varor (”merchandise”) och grossistforsaljning av forlagstitlar av interaktivt underhallningsinnehall samt film Vid forsaljning av serietidningar och relaterade varor utgor vanligen varje enskild vara ett separat prestationsatagande.
+Serietidningar saljs bade i tryckta upplagor och digitala upplagor.
+Transaktionspriset bestar generellt av en fast ersattning samt ibland aven rorlig ersattning i form av rabatter och returratt.
+Den rorliga ersattningen uppskattas till det forvantade vardet dar historiska data och prognoser beaktas.
+Intakten redovisas nar kontrollen over varan overgar till kunden.
+Vid forsaljning av digitala upplagor av serietidningar overgar kontrollen till kunden nar tidningen ar tillganglig for kunden och vid fysisk forsaljning nar produkten levererats till kund.
+
+Vid forsaljning av film samt varor (”merchandise”) utgor vanligen varje produkt ett separat prestationsatagande som uppfylls nar kontrollen overfors till kunden.
+Forsaljning av film och varor sker bade fysiskt och digitalt.
+Transaktionspriset vid fysisk forsaljning bestar generellt av en fast ersattning per produkt men med vissa rorliga komponenter sasom returratter och prisskydd.
+Transaktionspriset vid digital forsaljning bestar av antingen fasta eller forsaljningsbaserade royalties.
+Vid forsaljning av fysiska kopior av film samt forsaljning av varor overgar kontrollen nar produkterna levererats till kund.
+Vid digital forsaljning av film overgar kontrollen till kunden nar licensen upplats till kund.
+
+Koncernen genererar aven intakter fran grossistforsaljning av fysiska kopior av spel och filmer.
+Forsaljningen sker via fysiska butiker som utgor Embracers kunder.
+Transaktionspriset bestar av ett fast pris per kopia av spelet eller filmen men inkluderar aven rorlig ersattning i form av returratt och prisskydd.
+Den rorliga ersattningen uppskattas efter det forvantade vardet.
+Intakter redovisas nar kontrollen bedoms overga till kund vilket ar vid den tidpunkt som produkten overfors till kund.
+Fast ersattning redovisas darfor nar produkten har overforts till butiken och rorlig ersattning redovisas i sadan utstrackning att det ar stor sannolikhet att en vasentlig del av intakten inte kommer behova aterforas i framtiden.
+
+overvaganden gallande huvudman kontra ombud Vid en del forsaljning av Embracers produkter och tjanster ar en tredje part delaktig i tillhandahallandet av produkten eller tjansten.
+Exempelvis nar digitala spel saljs via tredje parts digitala butiker.
+Nar en annan part ar delaktig i tillhandahallandet av en produkt eller tjanst utvarderar Embracer vilken part som ar koncernens kund.
+Detta beror pa om den tredje parten ar huvudman eller ombud i tillhandahallandet av produkten eller tjansten till slutkonsumenten vilket avgor huruvida intakter fran forsaljningen ska rapporteras brutto eller netto (justerat for avgifter som erhalls av tredje part).
+Viktiga faktorer som koncernen utvarderar nar de avgor vilken part som ar koncernens kund inkluderar men ar inte begransat till
+
+- 1. Vilken part som har huvudansvaret för att fullgöra löftet om att leverera produkten eller tjänsten
+
+- 2. Vilken part som beslutar om priset för produkten eller tjänsten.
+
+- 3. Om tredje parten kombinerar eller integrerar varan eller tjänsten med andra varor eller tjänster som Embracer inte levererar innan leverans till slutkonsument
+
+# ÖVERSIKT AV RISKHANTERING
+##  Riskområde
+
+Formagan att behalla och rekrytera talanger
+
+| Embracer Group är beroende av förmågan att rekrytera och behålla viktiga anställda och att ha en diversifierad perso- nalstyrka. Inkludering är en del av mångfaldsarbetet – mång- fald utan inkludering ökar denna risk. Arbetsplatsmiljörisker så som dålig hälsa och orättvisa löner kan ha en negativ påverkan på möjligheten att rekrytera och behålla talanger. Distansarbete är ett riskområde gällande arbetsplatsmiljö. Spelindustrin har problem gällande begränsad mångfald gällande kön och könsidentitet, ålder, etnicitet, sexuell orientering, fysiska förmågor, nationell härkomst och övriga aspekter. En för homogen grupp anställda kommer sakna perspektiv som kan öka risker för att skapa produkter som endast attraherar en viss grupp spelare. | > Stöd för ledarskap och teambyggande från huvud- kontoret. > Utvärdera mångfald och inkludering genom datainsam- ling och transparent rapportering. > Anställda och externa intressenter kan anonymt rappor- tera överträdelser gällande Uppförandekoden och andra policys genom ett visselblåsarsystem som tillhandahålls av tredjepartsleverantör. |
+| Riskområde | Hantering |
+| Mångfald och inkludering i spel och underhållning Brist på mångfald och inkludering inom spel och under- hållning utgör risker för bolag inom branschen, inklusive Embracer. Det är dock även en risk att begränsa kreativ frihet och skräddarsy spel som är baserade på de mest högljudda intressenterna. Dessa risker inkluderar att vissa delar av publiken känner sig utlämnad vilket kan leda till minskad försäljning och engagemang samt skada för bola- gets anseende. Om mångfald och inkludering förbises, kan möjligheter gå förlorade gällande innovation, marknadsin- sikter och potentiella samarbeten, faktorer som kan driva tillväxt och konkurrenskraft. | Brist på mångfald och inkludering inom spel och under- hållning utgör risker för bolag inom branschen, inklusive Embracer. Det är dock även en risk att begränsa kreativ frihet och skräddarsy spel som är baserade på de mest högljudda intressenterna. Dessa risker inkluderar att vissa delar av publiken känner sig utlämnad vilket kan leda till minskad försäljning och engagemang samt skada för bola- gets anseende. Om mångfald och inkludering förbises, kan möjligheter gå förlorade gällande innovation, marknadsin- sikter och potentiella samarbeten, faktorer som kan driva tillväxt och konkurrenskraft. > Möjliggör samarbeten inom Embracer Group för att utveckla kännedom och arbetet som bedrivs inom studios. |
+![table image]({page: 46, x: 71}, {y: 620, {width: 622}, {height: 119})
+
+
+<!-- PAGE: 47 -->
+> Samarbetar och stodjer initiativ exempelvis branschorganisationer Safe in our World Women in Games och AbleGamers for att oka kannedom och forbattra industri.
+
+Digitalt valmaende For mycket skarmtid och beroendeframkallande innehall i spel och underhallning kan leda till okad oversyn fran reglerare som ar oroliga for den negativa paverkan pa mental halsa och valmaende.
+Bolag som prioriterar digitalt valmaende genom att implementera funktionaliteter som verktyg for tidsbegransning eller som uppmuntrar till halso samma spelbeteenden kan differentiera sig pa marknaden och attrahera socialt medvetna konsumenter.
+Genom att uppmuntra digitalt valmaende kan bolag fa okat fortroende bland anvandare vilket leder till okat engagemang over lang sikt och lojalitet gentemot plattformar och produkter.
+Genom att adressera oro gallande digitalt valmaende kan nya marknadsmojligheter framkomma sa som foraldrar som soker familjevanligt innehall eller individer som soker efter medvetna underhallningserfarenheter.
+Digitalt val maende utgor regulatoriska och etiska risker eftersom de kan resultera i ytterligare lagar och regler.
+Det medfor ocksa mojligheter for spel och underhallningsbolag att vara innovativa differentiera sig och utoka sin anvandarbas.
+> Samarbetar och stodjer initiativ exempelvis bransch organisationer som Safe in our World och Women in Games for att oka kannedom och fa positiva utfall.
+
+> Stodjer och anvander Pan European Game Information (PEGI) eller annat etablerat ratingsystem.
+PEGI ar ett europeiskt ratingsystem for spelinnehall som infor mera konsumenter sarskilt foraldrar om lamplighet for spel for olika aldersgrupper.
+Den ger aldersrekom mendationer och innehallsbeskrivningar for att hjalpa konsumenter fatta informerade beslut om spelen som foraldrar och deras barn spelar.
+
+Vardekedjan Risker kopplade till vardekedjan ar avgorande eftersom Embracer Group ar ett stort bolag med en decentraliserad affarsmodell.
+Risken kan potentiellt ha en negativ paver kan pa miljo sociala faktorer och bolagsstyrning genom hela var produktion distribution konsumtionsprocesser inklusive alla aktiviteter och och processer som involverar skapande leverans och att stodja vara produkter och tjans ter.
+Miljorisker inkluderar utslapp av vaxthusgaser sarskilt fran datacenter vilket kan paverka bolagets anseende.
+Sociala risker inkluderar overtradelser gallande mansk liga rattigheter barnarbete tvingat arbete daliga eller skadliga arbetsmiljoforhallanden overtradelser gallande ratten till facklig anslutning och kollektiv forhandling.
+Risker gallande bolagsstyrning galler korruption och avsaknad av affarsetik.
+> Uppforandekod Uppforandekod for leverantorer antikorruptionspolicy samt andra policys och riktlinjer som alla galler hela koncernen.
+
+> Bolag som bedriver verksamhet i geografier som klassas som hogrisk arbetar proaktivt med manga aktiviteter for att minimera paverkan av regulatoriska andringar.
+Delar av detta arbete kan ses i Embracers Trade Compliance Policy och Uppforandekoden for leverantorer som anger minimumstandarder och procedurer som alla bolag inom koncernen maste folja inklusive Dow Jones Screening.
+
+> Dialog med intressenter > Process for att hantera incidenter
+
+
+<!-- PAGE: 48 -->
+PHONE CASE DIY CrazyLabs
+
+| Riskområde | Hantering |
+| Data privacy och informationssäkerhet Våra spelares integritet är avgörande för att säkerställa mänskliga rättigheter. 34 % av koncernbolag hante- rar användardata och av dessa bolag bekräftar 3 % att de använder AI, avancerade algoritmer eller ML för att analysera data. gör så i begränsad omfattning i verksamheten. För att säkerställa att koncernen lever upp till kunders förväntningar och legala krav, fortsatte den årliga privacy audit initiative som utförs av extern part och som utvärderar alla koncernbolag gällande integritet. Under räkenskapsåret 2023/24 rapporterade Embracer Group 4 incidenter gällande integritetsöver- trädelser och 3 incidenter gällande överträdelser av cybersäkerhet. Incidenterna har hanterats.  | > För att säkerställa att nya bolag som blir en del av Embracer Group uppfyller koncernens krav på data privacy och informationssäkerhet, blir nya bolag utvärderar gällande IT och integritet i due diligence processen och därefter i onboarding processen. |
+![table image]({page: 48, x: 71}, {y: 364, {width: 441}, {height: 163})
+
+> Alla nya bolag behover anvanda en lokalt anpassad data privacy policy som maste uppfylla kraven i Embracer Groups Data Privacy Policy.
+
+> Under 2023/24 fortsatte Embracer Group att for battra sitt integritetsprogram.
+Detta inkluderade implementering av en integritetspolicy i hela kon cernen framtagande av integritetsprocesser och lansering av en gemensam mjukvara for hantering av integritetsprocesser inom alla koncernbolag.
+
+> Under 2023/24 lanserades ett flertal koordineringsinitiativ och moderforetaget producerade material procedurer och processer som ar av varde for alla bolag inom koncernen.
+Sadana initiativ inkluderar mallar avtal ramverk och riktlinjer.
+
+Artificiell intelligens AI har potential att signifikant forstarka spelutveck ling genom att effektivisera resursanvandning addera intelligent beteende personanpassa och optimera for gameplay erfarenheter.
+Genom anvandning av AI kan vi skapa annu mer engagerande upplevelser som ger varje spelare en unik dynamisk och anpassad upple velse.
+Vi ser aven stora mojligheter for AI i logistik och planering.
+Embracer Group forstar ocksa de potentiella risker associerade med anvandning av AI.
+Var mal ar att forstarka manniskor genom anvand ning av AI applikationer.
+
+> Under 2023/24 bestamdes en AI policy tillsammans med onboarding och implementeringsmaterial.
+Denna policy som inkluderar riktlinjer riskutvardering och ett riskramverk implementeras for narvarande i koncernen.
+
+> En viktig del av Embracer Groups AI riktlinjer ar iden om att forstarka manniskor.
+Vi soker att forstarka vara anstallda for att de ska kunna gora battre och mer engagerande och kraftfulla upplevelser pa samma tid.
+
+
+<!-- PAGE: 49 -->
+| Riskområde | Hantering |  |  |
+| --- | --- | --- | --- |
+| Cybersäkerhet |
+| Cybersäkerhet påverkar vår förmåga att bedriva en verksamhet som är motståndskraftig, skyd- dar känslig data och säkerställa förtroende bland intressenter. Överträdelser gällande cybersäker- het kan leda till finansiella förluster, skada mot anseende, och störningar i verksamheten vilket skadar bolagets möjligheter att bedriva en lång- siktig och hållbar verksamhet. Genom att proaktivt adressera risker kopplade till cybersäkerhet bidrar till att säkerställa fortsatt verksamhet, skyddar integritet bland kunder och anställda, och skyddar bolagets anseende och förtroende på marknaden. |
+| > Under helåret 2023/24 så började den tillsatte Chief |
+| Information Security Officer (CISO) att implementera viktiga aktiviteter från vår cybersäkerhetsstrategi. |
+| > Året inkluderade många viktiga milstolpar, inklusive tillsätt- ning av IT-säkerhets chef och byte av IT-lösning till en mer mogen lösning som ökar motståndskraft och cybersäkerhet. |
+| > IT på Embracer Groups huvudkontor genomförde också ett flertal cybersäkerhetsrelaterade uppdateringar gällande IT-komponenter, och en chef för Managed Detection and Response Services initierade samarbetet. |
+| > Koncernen fortsätter att genomföra regelbundna interna och externa revisioner av cybersäkerhet, penetrationstexter och känslighetsanalyser för att säkerställa att produkter och tjäns- ter är motståndskraftiga mot cyberöverträdelser. Alla bekräf- tade överträdelser rapporteras till Group CISO och delas med motparter inom respektive affärsenhet. Cybersäkerhet är ett ämne för styrelsen och en nulägesanalys samt framsteg rapporteras åtminstone två gånger per år. |
+| > Exempel på kontroller inkluderar business continuity hante- ring, disaster recovery kapacitet, interna och externa change management-förmågor, tillgång till ledningsförmågor och hantering av incidenter. |
+| Skatt |
+| Skatt som en hållbarhetsfråga för bolag handlar om ansvar för att bidra till samhället genom rätt- visa och transparenta skatter. Hållbarhet gällande skatt handlar om att säkerställa regelefterlevnad, undvika skatteflykt eller aggressiv skatteplane- ring, och att vara transparent i rapportering av finansiella aktiviteter. Genom att säkerställa etisk skatteplanering kan bolag visa sin tro på social hållbarhet, stärka förtroende bland intressenter, bidra till hållbar ekonomisk utveckling i deras sam- hällen. Vi vill vara transparenta gällande skatter som genereras av vår verksamhet. Genom att efterleva lokala och internationella skatteregler och riktlinjer kan vi bidra till samhällets välmående och stärka social hållbarhet inom samhällen där vi verkar. > Att öka kännedom om skatt inom de operativa koncernerna, skapades en ny roll Global Head of Tax under helåret 2021/22 och under 2023/24 stärktes skatteavdelningen ytterligare med två stycken Senior Tax Managers. |
+| > Koncernen har en skattepolicy som gäller alla operativa kon- cerner som säkerställer skattekännedom och regelefterlevnad efter gällande skatteregler och riktlinjer. |
+| > Koncernen har en Transfer Pricing dokumentation för förlag och större studios, för att säkerställa regelefterlevnad och konsekvent agerande i operativa koncernen. |
+| > Utbildning genomförs regelbundet i de operativa koncernerna i relevanta skattefrågor som säkerställer regelefterlevnad. |
+| > En finansmanual, inklusive relevanta skattefrågor, har imple- menterats för att säkerställa konsekvent agerande i koncer- nen. |
+| > Koncernen registrerar en rapport per land i Sverige på årlig basis, inklusive information gällande intäkter, inbetalda skatter, antal anställda, materiella tillgångar efter land. |
+![table image]({page: 49, x: 71}, {y: 117, {width: 235}, {height: 30})
+
+Skatteverket i Sverige delar rapporten med andra skattemyn digheter genom automatiserat informationsutbyte.
+Enligt ett forslag fran svenska lagstiftare kan Embracers rapport goras publik fran och med helaret 2025/26 och framgent.
+
+> Embracer Group omfattas av nya globala minimum skatteregler som borjar galla fran 2024.
+Enligt dessa regler kommer vara koncernenhet behova betala atminstone 15 % skatt oberoende av var den verkar.
+Koncernen kommer att folja dessa nya regler i varje land som det verkar genomfora nodvandig rapportering och betala eventuell ytterligare skatt som kravs av den nya lagstiftningen.
+
+
+<!-- PAGE: 50 -->
+
+## Synergier uppmuntras
+
+Koncernen realiserar synergier nar det ar mojligt och bedoms som lampligt.
+Detta inkluderar samarbete och utbyte av kunskap varumarken forlagsverksamhet distribution och talanger.
+Centralt forankrade integra tionsinitiativ utvarderas ocksa for att framja intakts och kostnadssynergier.
+
+## FRAMSTEG
+
+Omstruktureringsprogrammet ar nu slutfort och atgarder har vidtagits for att na malsattningar for kapitalutgifter och rorelsekostnader samt minskad nettoskuld.
+
+Minskade kapitalutgifter och rorelsekostnader > arstakten for kapitalutgifter i Q4 2023/24 uppgick till 4,3 miljarder SEK (proforma exklusive avyttring av tillgangar fran Saber Interactive och Gearbox Enter tainment) vilket motsvarar en minskning med cirka 3,6 miljarder SEK eller 45 % jamfort med arstakten i Q4 2022/23 som utgjorde basperioden for programmet.
+> Malet for minskning av rorelsekostnader om 10 % uppnaddes.
+> Den totala minskningen av antalet medarbetare under programmet uppgick till 1 583.
+Darutover har cirka 3 000 medarbetare lamnat koncernen som en foljd av avyttringar av vissa tillgangar fran Saber Interactive.
+Avyttringen av Gearbox Entertainment slutfordes den 11 juni 2024.
+
+Minskning av nettoskuld > Malet for en nettoskuld som skulle understiga 8 miljarder SEK den 31 mars 2024 uppnaddes inte men en betydande minskning av nettoskulden vantas efter slutet av helaret 2023/24.
+> Pa proformabasis uppgick nettoskulden till cirka 10,7 11,2 miljarder SEK den 31 mars 2024 inklusive van tade forsaljningslikvider fran avyttringar av tillgangar fran Saber Interactive och Gearbox Entertainment om 5,2-5,7 miljarder SEK.
+
+Kostnader for programmet > Totala jamforelsestorande poster som relaterar till omstruktureringsprogrammet uppgick till -3 387 MSEK.
+> Kassaeffekten av jamforelsestorande poster uppgick till -672 MSEK.
+> Under rakenskapsaret genomfordes ett antal ned skrivningar av projekt framst icke offentliggjorda inom de operativa koncernerna framst inom rorelse segmentet PC/Console Games.
+> Nedskrivningar redovisas som jamforelsestorande poster om de relaterar till projekt som paverkas av det pagaende omstruktureringsprogrammet dar antingen studion eller teamet har upphort.
+
+### NOT 15 MATERIELLA TILLGÅNGAR
+
+Materiella anlaggningstillgangar redovisas i koncernen till anskaffningsvarde efter avdrag for ackumulerade avskrivningar och eventuella ackumulerade nedskrivningar.
+I raden omklassificeringar ingar omklassificering enligt IFRS 5 Anlaggningstillgangar som innehas for forsaljning se aven not 32.
+
+##### FORTS. NOT 32
+
+vara tillganglig for omedelbar forsaljning i forevarande skick och endast underkastad sadana villkor som ar normala och sedvanliga vid forsaljning av sadana avyttringsgrupper.
+Det maste vidare vara mycket sannolikt att forsaljning kommer att ske.
+Kriterierna bedoms vara uppfyllda i samband med att avtal ingicks avseende forsaljningarna.
+
+Omedelbart fore klassificering som avyttringsgrupper som innehas for forsaljning har det redovisade vardet for samtliga tillgangar och skulder som ingar i avyttringsgrupperna bestamts i enlighet med tillgangliga standarder.
+Detta har resulterat i att goodwill som allokerats till respektive operativ grupp har skrivits ner med 93 MSEK relaterat till Digic samt 839 MSEK relaterat till Gearbox Entertainment.
+
+I samband med klassificering av avyttringsgrupperna som att de innehas for forsaljning sa upphor avskrivningar pa de anlaggningstillgangar som ingar i avyttringsgruppen.
+Avyttringsgrupperna har vid klassificeringstidpunkten varderats till det lagsta av det redovisade vardet och det verkliga vardet efter avdrag for forsaljningskostnader.
+Detta har inte inneburit nagra ytterligare nedskrivningar for avyttringsgrupperna da verkligt varde med avdrag for forsaljningskostnader overstiger det redovisade vardet for respektive avyttringsgrupp.
+
+Fran klassificeringstidpunkten presenteras tillgangar respektive skulder som ingar i avyttringsgruppen separat pa egna rader i koncernens rapport over finansiell stallning.
+
+###### FORTS. NOT 20
+
+- Åldersanalys osäkra kundfordringar och avtalstillgångar
+
+| Förfallna kundfordringar, nedskrivning: 1-60 dagar | –56 |
+| 61-120 dagar | –10 |
+| >120 dagar | –86 |
+![table image]({page: 136, x: 71}, {y: 106, {width: 202}, {height: 7})
+
+### Framsteg
+
+Omstruktureringsprogrammet ar nu slutfort och atgarder har vidtagits for att na malsattningar for kapitalutgifter och rorelsekostnader samt minskad nettoskuld.
+
+Minskade kapitalutgifter och rorelsekostnader > arstakten for kapitalutgifter i Q4 2023/24 uppgick till 4,3 miljarder SEK (proforma exklusive avyttring av tillgangar fran Saber Interactive och Gearbox Entertainment) vilket motsvarar en minskning med cirka 3,6 miljarder SEK eller 45 % jamfort med arstakten i Q4 2022/23 som utgjorde basperioden for programmet.
+
+> Malet for minskning av rorelsekostnader om 10 % upp naddes.
+
+> Den totala minskningen av antalet medarbetare under programmet uppgick till 1 583.
+Darutover har cirka 3 000 medarbetare lamnat koncernen som en foljd av avyttringar av vissa tillgangar fran Saber Interactive.
+Avyttringen av Gearbox Entertainment slutfordes den 11 juni 2024.
+
+Minskning av nettoskuld > Malet for en nettoskuld som skulle understiga 8 mil jarder SEK den 31 mars 2024 uppnaddes inte men en betydande minskning av nettoskulden vantas efter fjarde kvartalet 2023/24.
+
+> Pa proformabasis skulle nettoskulden uppga till cirka 10,7 11,2 miljarder SEK den 31 mars 2024 inklusive vantade medel fran avyttringar av tillgangar fran Saber Interactive och Gearbox Entertainment om 5,2-5,7 miljarder SEK.
+
+
+<!-- PAGE: 98 -->
+Kostnader for programmet
+
+> Totala jamforelsestorande poster som relaterar till omstruktureringsprogrammet uppgick till -3 387 MSEK under 2023/24.
+
+> Kassaeffekten av jamforelsestorande poster uppgick till 672 MSEK.
+
+> Under rakenskapsaret genomfordes ett antal nedskriv ningar av projekt framst icke offentliggjorda inom de operativa koncernerna framst inom rorelsesegmentet PC/Console Games.
+
+> Nedskrivningar redovisas som jamforelsestorande poster om de relaterar till projekt som paverkas av det pagaende omstruktureringsprogrammet dar antingen studion eller teamet har upphort.
+
+#### IFRS 5 ANLÄGGNINGSTILLGÅNGAR SOM INNEHAS FÖR
+#### FÖRSÄLJNING OCH AVVECKLADE VERKSAMHETER
+
+Den 28 mars 2024 ingicks avtal om att avyttra delar av den operativa gruppen Gearbox Entertainment.
+Forsaljningen slutfordes under Q1 2024/2025 varfor de bolag som ingar i forsaljningen bedoms uppfylla kraven for redovisning som en anlaggningstillgang som innehas for forsaljning enligt IFRS 5 se aven koncernens not 32.
+
+
+<!-- PAGE: 165 -->
+
+### KLASSIFICERING
+
+Anlaggningstillgangar och langfristiga skulder bestar i allt vasentligt av belopp som forvantas atervinnas eller betalas efter mer an 12 manader raknat fran balansdagen.
+Omsattningstillgangar bestar i allt vasentligt av belopp som forvantas realiseras under koncernens normala verksamhetscykel
+
+
+<!-- PAGE: 112 -->
+
+### NOT 16 LEASINGAVTAL
+### VÄSENTLIGA REDOVISNINGSPRINCIPER
+#### Nyttjanderättstillgångar
+
+|  | eller mindre eller med en underliggande tillgång av lågt värde | redovisas inte någon nyttjanderättstillgång och leasingskuld. | Leasingavgifter för dessa leasingavtal redovisas som kostnad | linjärt över leasingperioden. |
+| --- | --- | --- | --- | --- |
+| Koncernens nyttjanderättstillgångar består huvudsakligen av hyreslokaler. Nyttjanderättstillgångar värderas till anskaff- ningsvärde efter avdrag för ackumulerade avskrivningar och eventuella nedskrivningar, samt justerat för omvärderingar av leasingskulden. Förutsatt att Embracer inte är rimligt säkra på att äganderätten till den underliggande tillgången kommer att övertas vid utgången av leasingavtalet skrivs nyttjanderätts- tillgången av linjärt under det kortare av leasingperioden och nyttjandeperioden. För leasingavtal som har en leasingperiod på 12 månader | Koncernens nyttjanderättstillgångar består huvudsakligen av hyreslokaler. Nyttjanderättstillgångar värderas till anskaff- ningsvärde efter avdrag för ackumulerade avskrivningar och eventuella nedskrivningar, samt justerat för omvärderingar av leasingskulden. Förutsatt att Embracer inte är rimligt säkra på att äganderätten till den underliggande tillgången kommer att övertas vid utgången av leasingavtalet skrivs nyttjanderätts- tillgången av linjärt under det kortare av leasingperioden och nyttjandeperioden. För leasingavtal som har en leasingperiod på 12 månader | Med hänsyn till väsentlighet presenterar Embracer sina lea- singavtal som två klasser av underliggande tillgångar: Hyres- lokaler och Övrigt. Övrigt inkluderar koncernens serveravtal, bilar och avtal avseende förråd. Samtliga kontorsinventarier anses vara leasingavtal där den underliggande tillgången är av lågt värde. I tabellen nedan presenteras koncernens ingående och utgående balanser avseende nyttjanderättstillgångar och leasingskulder samt förändringarna under året. | Med hänsyn till väsentlighet presenterar Embracer sina lea- singavtal som två klasser av underliggande tillgångar: Hyres- lokaler och Övrigt. Övrigt inkluderar koncernens serveravtal, bilar och avtal avseende förråd. Samtliga kontorsinventarier anses vara leasingavtal där den underliggande tillgången är av lågt värde. I tabellen nedan presenteras koncernens ingående och utgående balanser avseende nyttjanderättstillgångar och leasingskulder samt förändringarna under året. |  |
+|  | Hyreslokaler | Övrigt | Totalt | Leasingskuld |
+| Nyttjanderättstillgångar |
+| Ingående balans 1 april 2022 | 1 062 | \xad | 1 062 | 1 097 |
+| Tillkommande avtal netto | 768 | - | 768 | 768 |
+![table image]({page: 129, x: 309}, {y: 108, {width: 449}, {height: 7})
+
+| Avskrivningar | –467 | - | –467 | - |
+| --- | --- | --- | --- | --- |
+| Omvärderingar av avtal | 60 | - | 60 | 116 |
+| Räntekostnader | - | - | - | 9 |
+| Leasingavgifter | - | - | - | –502 |
+| Utgående balans 31 mars 2023 | 1 423 | \xad | 1 423 | 1 488 |
+| Tillkommande avtal netto | 408 |  | 408 | 382 |
+![table image]({page: 129, x: 71}, {y: 285, {width: 449}, {height: 7})
+
+| Avskrivningar | –541 | - | –541 | - |
+| --- | --- | --- | --- | --- |
+| Omvärderingar av avtal | 116 | - | 116 | 148 |
+| Räntekostnader | –57 | - | –57 | 30 |
+| Leasingavgifter | - | - | 0 | –644 |
+| Utgående balans 31 mars 2024 | 1 349 | \xad | 1 349 | 1 404 |
+![table image]({page: 129, x: 71}, {y: 352, {width: 449}, {height: 7})
+
+Nedan presenteras de belopp som redovisats i koncernens rapport over resultat under aret hanforligt till leasingverksamheten 2023\xad04\xad01
+
+- 2024\xad03\xad31
+
+2022\xad04\xad01
+
+- 2023\xad03\xad31
+
+| Kostnader avseende korttidsleasingavtal (ingår i övriga externa kostnader) | –29 | –15 |
+| --- | --- | --- |
+| Kostnader avseende leasingavtal för vilket den underliggande tillgången har ett lågt värde (ingår i övriga externa kostnader) | –7 | –2 |
+![table image]({page: 129, x: 71}, {y: 449, {width: 454}, {height: 15})
+
+| Avskrivningar på nyttjanderättstillgångar | –541 | –467 |
+| --- | --- | --- |
+| Räntekostnader på leasingskulder | –57 | –49 |
+![table image]({page: 129, x: 71}, {y: 478, {width: 454}, {height: 7})
+
+## AFFÄRSMODELL
+
+Entertainment & Services segmentet ar verksamt i ett flertal olika marknadssegment.
+Framst ar bolaget agare till nagra av varldens mest kanda varumarken inklusive Sagan om Ringen och Hobbit och har licenser for manga olika mediaformat och kanaler.
+Darutover bestar bola gets verksamhet av utveckling forlaggning distribution och forsaljning av serietidningar.
+Bolaget bedriver aven utveckling grossistverksamhet forlagsverksamhet och distribution av fysiska spel framst for konsoler men aven for PC.
+Slutligen har bolaget aven forlagsverksamhet och distribution av externa filmer och tv serier samt produk tion och distribution av merchandise.
+
+
+<!-- PAGE: 27 -->
+LIGHTYEAR FRONTIER Amplifier Studios | FRAME BREAK
+
+
+<!-- PAGE: 28 -->
+
+### Finansiering
+
+Risker kopplade till tillganglig finansiering risken att finansiering av koncernens kapitalbehov blir mindre tillganglig eller mer kostsam.
+Embracer Groups kapitalbehov relaterar till finansiering av forvarv och utveckling av spel.
+Generellt sett finansieras spelutveckling genom kassaflode fran den lopande verksamheten medan forvarv ar beroende av extern finansiering.
+For ytterligare information om denna risk se sid 92.
+
+Intern kontroll och riskhantering I enlighet med arsredovisningslagen kapitel 7 §31 ar information om de viktigaste delarna i internkontroll och riskhantering inkluderade i bolagsstyrningsrapporten pa sid 57-77.
+
+##### FORTS. NOT 18
+
+Vardering av finansiella tillgangar och skulder per 31 mars 2024
+
+| Finansiella tillgångar | Finansiella instrument värderade till verkligt värde via övrigt totalresultat | Derivatinstrument identifierat som säkringsinstrument | Finansiella instrument värderade till verkligt värde via resultatet | Finansiella instrument värderade till upplu\xad pet anskaffningsvärde | Summa redovisat värde |
+| --- | --- | --- | --- | --- | --- |
+| Övriga långfristiga fordringar | 42 | 6 | - | 555 | 603 |
+| Kundfordringar | - | - | - | 5 254 | 5 254 |
+| Avtalstillgångar | - | - | - | 491 | 491 |
+| Övriga kortfristiga fordringar | - | - | - | 3 929 | 3 929 |
+| Kortfristiga placeringar | - | - | - | 0 | 0 |
+| Likvida medel | - | - | - | 3 507 | 3 507 |
+| Summa | 42 | 6 | \xad | 13 736 | 13 784 |
+| Finansiella skulder | Finansiella instrument värderade till verkligt värde via övrigt totalresultat | Derivatinstrument identifierat som säkringsinstrument | Finansiella instrument värderade till verkligt värde via resultatet | Finansiella instrument värderade till upplu\xad pet anskaffningsvärde | Summa redovisat värde |
+| Skulder till kreditinstitut | - | - | - | 19 878 | 19 878 |
+| Övriga långfristiga skulder | - | - | - | 171 | 171 |
+| Förskott från kunder | - | - | - | 155 | 155 |
+| Leverantörsskulder | - | - | - | 2 265 | 2 265 |
+| Avtalsskulder | - | - | - | 1 717 | 1 717 |
+| Villkorad tilläggsköpeskilling | - | - | 2 246 | - | 2 246 |
+| Köp/säljoptioner avseende innehav utan bestämmande inflytande | - | - | 1 781 | - | 1 781 |
+| Uppskjutna köpeskillingar | - | - | - | 487 | 487 |
+| Skulder till anställda relaterat till historiska förvärv | - | - | 1 434 | - | 1 434 |
+| Övriga kortfristiga skulder | - | - | - | 1 168 | 1 168 |
+| Upplupna kostnader | - | - | - | 3 093 | 3 093 |
+| Summa | \xad | \xad | 5 461 | 28 934 | 34 395 |
+![table image]({page: 131, x: 71}, {y: 276, {width: 451}, {height: 7})
+
+Vardering av finansiella tillgangar och skulder per 31 mars 2023
+
+| Finansiella tillgångar | Finansiella instrument värderade till verkligt värde via övrigt totalresultat | Derivatinstrument identifierat som säkringsinstrument | Finansiella instrument värderade till verkligt värde via resultatet | Finansiella instrument värderade till upplu\xad pet anskaffningsvärde | Summa redovisat värde |
+| --- | --- | --- | --- | --- | --- |
+| Övriga långfristiga fordringar | - | 43 | - | 326 | 369 |
+| Kundfordringar | - | - | - | 5 253 | 5 253 |
+| Avtalstillgångar | - | - | - | 790 | 790 |
+| Övriga kortfristiga fordringar | - | - | - | 1 484 | 1 484 |
+| Kortfristiga placeringar | - | 18 | - | - | 18 |
+| Likvida medel | - | - | - | 4 662 | 4 662 |
+| Summa | \xad | 61 | \xad | 12 515 | 12 576 |
+![table image]({page: 131, x: 71}, {y: 599, {width: 451}, {height: 7})
+
+### NEDSKRIVNINGSPRÖVNING
+
+Koncernen nedskrivningsprovar koncernens goodwill minst arligen samt nar det finns handelser eller forandringar i forhallanden indikerar att det redovisade vardet kanske inte ar atervinningsbart.
+Goodwill nedskrivningsprovas pa de lagsta nivaerna dar det finns separata identifierbara kassafloden (kassagenererande enheter) vilket for koncernen utgors av koncernens vertikaler enligt nedan.
+Redovisat varde for goodwill fordelar sig pa kassagenerande enheter enligt tabellen For Gearbox Entertainment har 901 MSEK och for Saber Interactive 316 MSEK blivit omklassificerat till Tillgangar som innehas for forsaljning enligt not 32.
+
+| Goodwill | Rörelse\xad segment | 2024\xad03\xad31 2023\xad03\xad31 |
+| --- | --- | --- |
+| Amplifier Game Invest | PC/Console | 318 377 |
+| Coffee Stain | PC/Console | 2 030 1 997 |
+| Crystal Dynamics-Eidos PC/Console | 717 | 692 |
+| Gearbox Entertainment | PC/Console | 1 100 2 700 |
+| PLAION | PC/Console | 3 220 3 108 |
+| Saber Interactive 1) | PC/Console | 3 697 12 751 |
+| THQ Nordic | PC/Console | 663 648 |
+|  |  | 11 745 22 273 |
+| Deca Games | Mobile | 4 221 4 107 |
+| Easybrain | Mobile | 3 767 3 658 |
+|  |  | 7 987 7 765 |
+| Asmodee | Table Top | 10 405 16 806 |
+|  |  | 10 405 16 806 |
+| Dark Horse | Entertainment & Services | 448 1 070 |
+| Freemode | Entertainment & Services | 624 610 |
+|  |  | 1 072 1 680 |
+| Total | 31 210 | 48 524 |
+![table image]({page: 124, x: 71}, {y: 329, {width: 215}, {height: 7})
+
+1 ) Avser tillgangarna vilka ej ingick i avyttringen av vissa tillgangar inom Saber Interactive vilken slutfordes 28 mars 2024.
+
+Under det fjarde kvartalet har indikationer pa nedskrivningsbehov identifierats for kassagenererande enheter.
+Den arliga nedskrivningsprovningen av goodwill har darefter medfort nedskrivning av goodwill i de av koncernens operativa grupper (som ocksa utgor de kassagenererande enheterna) som presenteras nedan.
+Nedskrivningarna fordelas pa de kassagenerande enheterna enligt tabellen.
+
+Nedskrivning av goodwillvardet i Saber Interactive och i Gearbox Entertainment ar en direkt foljd av de avtal som ingatts om forsaljning av delar av de operativa grupperna.
+Nedskrivning av goodwillvardet i Asmodee och Dark Horse ar hanforlig till makroekonomiska faktorer samt stigande rantor och forandrade efterfragetrender i kombination med forsiktiga framtidsforvantningar medan nedskrivningen i Amplifier Game Invest hanfors till forvantningar kring nedstangning alternativt avyttring av en mindre verksamhet.
+Periodens nedskrivningar uppgaende till -11 095 MSEK (-) har redovisats pa raden Avoch nedskrivningar i Koncernens rapport over resultat och -43 MSEK har rapporterats som en valutaeffekt av nedskrivningen.
+
+Ingen nedskrivning har redovisats under tidigare perioder.
+
+| Kassagenererande enhet | Rörelse\xad segment | Periodens nedskrivning |
+| --- | --- | --- |
+| Amplifier Game Invest | PC/Console | –29 |
+| Gearbox Entertainment | PC/Console | –778 |
+| Saber Interactive 1) | PC/Console | 2 907 |
+| PC/Console |  | 3 714 |
+| Asmodee | Table Top | 6 770 |
+| Table Top |  | 6 770 |
+| Dark Horse | Entertainment & Services | –654 |
+| Entertainment & Services |  | –654 |
+| Total |  | 11 138 |
+![table image]({page: 124, x: 309}, {y: 195, {width: 43}, {height: 7})
+
+1 ) Avser tillgangarna vilka ej ingick i avyttringen av vissa tillgangar inom Saber Interactive vilken slutfordes 28 mars 2024.
+
+For att avgora om vardet pa goodwill har minskat varderas de kassagenererande enheter (KGE) som goodwillen hanfors till.
+Varderingen gors genom att berakna nyttjandevardet som baseras pa en diskonterad kassaflodesmodell med en prognosperiod pa fem ar foljt av en extrapolering av kassaflodet for aren efter prognosen eftersom goodwill har en odefinierbar livslangd.
+
+Vasentliga antaganden som anvants for berakning av nyttjandevarden
+
+> Prognostiserad rorelsemarginal.
+
+> Tillvaxttakt for att extrapolera kassafloden bortom prognos perioden.
+
+> Diskonteringsranta efter skatt
+
+Forvantade rorelsemarginaler baseras pa ledningens overgripande bedomning av historiska lonsamhetsnivaer nuvarande strategiska beslut allmanna marknadsforhallanden och trender samt annan tillganglig information for varje enskild KGE.
+En tillvaxttakt pa 2,5 procent (2,5) har anvants for alla kassagenererande enheter for att extrapolera kassafloden bortom prognosperioden.
+Denna tillvaxttakt anses vara en forsiktig uppskattning.
+Prognostiserade kassafloden diskonteras till nuvarde med tillampning av en vagd genomsnittlig kapitalkostnad (WACC).
+For varje kassagenererande enhet har en individuell diskonteringsranta efter skatt anvants vid berakning av nyttjandevarden.
+Vid anvandning av en individuell diskonteringsranta fore skatt foreligger ingen vasentlig skillnad pa beraknade nyttjandevarden.
+Tilllampad diskonteringsranta for aktuellt ar samt jamforelsearet ar i enlighet med tabellerna nedan.
+
+
+<!-- PAGE: 125 -->
+| 2024\xad03\xad31 | Diskonteringsränta före skatt (%) | Diskonteringsränta efter skatt (%) | Prognos av kassaflöden under | Extrapolering av kassaflöden därefter med en tillväxt på (%) |
+| --- | --- | --- | --- | --- |
+| Amplifier Game Invest | 14,7 | 11,5 | 5 år | 2,5 |
+| Asmodee | 12,4 | 9,7 | 5 år | 2,5 |
+| Coffee Stain | 13,7 | 11,3 | 5 år | 2,5 |
+| Crystal Dynamics-Eidos | 15,3 | 11,4 | 5 år | 2,5 |
+| Dark Horse | 13,4 | 9,9 | 5 år | 2,5 |
+| Deca Games | 10,8 | 9,5 | 5 år | 2,5 |
+| Easybrain | 11,0 | 9,7 | 5 år | 2,5 |
+| Freemode | 14,1 | 11,0 | 5 år | 2,5 |
+| Gearbox Entertainment | 14,5 | 11,4 | 5 år | 2,5 |
+| Plaion | 13,6 | 11,3 | 5 år | 2,5 |
+| Saber Interactive | 14,4 | 11,4 | 5 år | 2,5 |
+| THQ Nordic | 14,2 | 11,3 | 5 år | 2,5 |
+![table image]({page: 125, x: 71}, {y: 84, {width: 451}, {height: 7})
+
+| 2023\xad03\xad31 | Diskonteringsränta före skatt (%) | Diskonteringsränta efter skatt (%) | Prognos av kassaflöden under | Extrapolering av kassaflöden därefter med en tillväxt på (%) |
+| --- | --- | --- | --- | --- |
+| Amplifier Game Invest | 12,5 | 10,6 | 5 år | 2,5 |
+| Asmodee | 11,6 | 9,4 | 5 år | 2,5 |
+| Coffee Stain | 12,7 | 10,6 | 5 år | 2,5 |
+| Crystal Dynamics-Eidos | 12,3 | 10,6 | 5 år | 2,5 |
+| Dark Horse | 10,9 | 9,1 | 5 år | 2,5 |
+| Deca Games | 10,3 | 8,7 | 5 år | 2,5 |
+| Easybrain | 10,3 | 8,7 | 5 år | 2,5 |
+| Freemode | 11,5 | 9,6 | 5 år | 2,5 |
+| Gearbox Entertainment | 12,5 | 10,6 | 5 år | 2,5 |
+| Plaion | 12,6 | 10,6 | 5 år | 2,5 |
+| Saber Interactive | 12,7 | 10,6 | 5 år | 2,5 |
+| THQ Nordic | 12,7 | 10,6 | 5 år | 2,5 |
+![table image]({page: 125, x: 71}, {y: 253, {width: 451}, {height: 7})
+
+##### FORTS. NOT 3
+
+| 2023\xad04\xad01 – 2024\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Summa segment Elimineringar | Koncern\xad gemensamma poster | Koncernen totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Intäkter från externa kunder | 14 410 | 5 916 | 14 797 | 7 082 | 42 206 - | - | 42 206 |
+| Intäkter från övriga segment | 29 | – | – | 27 | 56 –56 | - | 0 |
+| Summa intäkter | 14 439 | 5 916 | 14 797 | 7 109 | 42 262 –56 | \xad | 42 206 |
+| Justerat EBIT | 2 441 | 1 921 | 2 079 | 853 | 7 294 \xad | –231 | 7 063 |
+| Avskrivning av förvärvade |
+| övervärden på immateriella tillgångar | –441 | –815 | –363 | 3 018 | - | - | 3 018 |
+| Personalkostnader i samband med förvärv | –286 | –120 | –14 | 2 025 | - | - | 2 025 |
+| Omvärdering av villkorad tilläggsköpeskilling | –15 | – | – | – | –15 - | -3 | –18 |
+| Omvärdering av andelar i intresseföretag | 3 | – | – | – | 3 - | - | 3 |
+![table image]({page: 113, x: 71}, {y: 84, {width: 449}, {height: 15})
+
+| Jämförelsestörande poster | 7 312 | –165 | 7 262 | –883 | 15 622 | - | 6 895 | 22 517 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Transaktionskostnader | –2 | – | 0 | –6 | –8 | - | 0 | –8 |
+![table image]({page: 113, x: 71}, {y: 236, {width: 449}, {height: 7})
+
+| Rörelseresultat (EBIT) | 7 887 | 1 029 | 6 119 | –413 | 13 390 | \xad | 7 129 | 20 519 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Finansnetto |  |  |  |  |  |  |  | 1 784 |
+![table image]({page: 113, x: 71}, {y: 257, {width: 449}, {height: 7})
+
+| 2022\xad04\xad01 – 2023\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Summa segment Elimineringar | Koncern\xad gemensamma poster | Koncernen totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Resultat före skatt | 18 735 | 18 735 | 18 735 | 18 735 | 18 735 | 18 735 | 18 735 |
+| Intäkter från externa kunder | 13 444 | 5 819 | 13 132 | 5 270 | 37 665 - | - | 37 665 |
+| Intäkter från övriga segment | 46 | - | - | 26 | 72 –72 | - | - |
+| Summa intäkter | 13 490 | 5 819 | 13 132 | 5 296 | 37 737 –72 | \xad | 37 665 |
+| Justerat EBIT | 2 902 | 1 381 | 2 010 | 281 | 6 574 \xad | –208 | 6 366 |
+| Avskrivning av förvärvade |
+| övervärden på immateriella tillgångar | –580 | –781 | –303 | 2 972 | - | - | 2 972 |
+| Personalkostnader i samband med förvärv | 1 065 | –360 | –111 | 2 631 | - | - | 2 631 |
+| Omvärdering av villkorad tilläggsköpeskilling | 0 | - | - | - | 0 - | - | 0 |
+![table image]({page: 113, x: 71}, {y: 279, {width: 449}, {height: 15})
+
+| Jämförelsestörande poster | –240 | - | - | - | –240 | - | –38 | –278 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Transaktionskostnader | –217 | 4 | –41 | –37 | –291 | - | 0 | –291 |
+| Rörelseresultat (EBIT) | 41 | –260 | 828 | –170 | 439 | \xad | –245 | 194 |
+| Finansnetto |  |  |  |  |  |  |  | 4 822 |
+| Resultat före skatt |  |  |  |  |  |  |  | 5 015 |
+![table image]({page: 113, x: 71}, {y: 449, {width: 449}, {height: 7})
+
+Justerat EBIT ar EBIT exklusive specifika poster relaterade till historiska forvarv.
+Se definitioner sid 171.
+
+## ÅRET I KORTHET
+
+Nettoomsattningen for PC/Console Games segmentet uppgick till 14 410 MSEK (13 444) en okning med 7 % jamfort med foregaende ar eller -2 % organiskt och 0 % proforma.
+Den icke organiska tillvaxten drevs primart av forvarv av Crystal Dynamics Eidos Coffee Stain GBG och Tripwire.
+Den organiska tillvaxten drevs av hogre bidrag fran nya lanseringar framst genom Dead Island 2 och Remnant II.
+EBIT uppgick till -7 887 MSEK (41) vilket gav en EBIT mar ginal pa -55 % (0 %).
+Justerat EBIT uppgick till 2 441 MSEK (2 902) vilket gav en Justerad EBIT marginal pa 17 % (22 %).
+Jamforelsestorande poster uppgick till -7 312 MSEK (-240) och relaterar framst till omstrukturerings programmet.
+Dessa kostnader bestar framst av ned skrivningar for pagaende spelutvecklingsprojekt dar antingen studion eller teamet har upphort liksom ned skrivningar av goodwill framst relaterat till avyttringar
+
+- 2) Se definitioner.
+
+ÅRSREDOVISNING & KONCERNREDOVISNING
+
+| Förvaltningsberättelse | 96 |
+| Koncernens rapport över resultat | 105 |
+| Koncernens rapport över totalresultat | 105 |
+| Koncernens rapport över finansiell ställning | 106 |
+| Koncernens rapport över förändringar i eget kapital | 108 |
+| Koncernens rapport över kassaflöden | 109 |
+![table image]({page: 96, x: 71}, {y: 218, {width: 214}, {height: 8})
+
+### BETYDANDE UPPSKATTNINGAR OCH BEDÖMNINGAR
+#### Intäktsredovisning
+
+I vissa avtal med kunder upplater Embracer ett spel med tillhorande licens till en forlaggare.
+For att faststalla hur intakten fran dessa avtal ska redovisas kravs en analys av antalet prestationsataganden i avtalet samt en bedomning kring nar i tiden kunden erhaller kontroll over spelet da detta styr nar i tiden intakten ska redovisas.
+
+Avtalsskulder for prisreduktioner och rabatter Embracer skuldfor forvantade rabatter och varureturer vilka redovisas som en kortfristig skuld.
+Skulden baseras pa forvantad forsaljning av respektive titel samt forvantat antal returer av titeln.
+Skulden beraknas mot grundval av antaganden och empiriska varden om prisutveckling och returgrader for olika titlar.
+Estimat som avviker fran ledningens bedomningar kan leda till andra resultat for verksamheten och en annan finansiell stallning.
+
+
+<!-- PAGE: 116 -->
+Per den 31 mars 2024 ar bedomningen att avtalsskulder for prisreduktioner och rabatter ar tillrackliga.
+
+Omsattningen i gruppen ar till allra storsta delen avseende prestationsataganden som uppfylls vid en viss tidpunkt.
+Mindre an 2% av omsattningen avser prestationsataganden som ska uppfyllas over tid.
+
+Omsattningen ar uppdelad pa olika rorelsesegment.
+Nedan foljer en tabell som visar vilken typ av produkt som intakter fran avtal med kunder kommer fran
+
+| 2023\xad04\xad01 – 2024\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Koncernen totalt |
+| --- | --- | --- | --- | --- | --- |
+| Typ av produkt Digitala produkter | 9 609 | 5 865 | 158 | 643 | 16 275 |
+| Fysiska produkter | 1 490 | - | 14 522 | 5 469 | 21 481 |
+| Övrigt 1) | 3 311 | 51 | 117 | 970 | 4 449 |
+| Intäkter från avtal med kunder | 14 410 | 5 916 | 14 797 | 7 082 | 42 206 |
+| 2022\xad04\xad01 – 2023\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Koncernen totalt |
+| Typ av produkt Digitala produkter | 8 927 | 5 752 | 170 | 547 | 15 395 |
+| Fysiska produkter | 1 101 | - | 12 847 | 4 658 | 18 606 |
+| Övrigt 1) | 3 417 | 67 | 115 | 65 | 3 664 |
+| Intäkter från avtal med kunder | 13 444 | 5 819 | 13 132 | 5 270 | 37 665 |
+![table image]({page: 116, x: 71}, {y: 168, {width: 449}, {height: 7})
+
+- 1) Avser Work-for-hire och annan spelutveckling
+
+Utover uppdelning pa typ av produkt ovan foljs aven intak ter fran avtal med kunder inom rorelsesegmentet PC/Console Games upp pa underkategorier.
+Dessa underkategorier ar specifika for just detta rorelsesegmentet.
+Nedan finns en tabell som visar pa detta
+
+| PC/Console Games | Egna varumärken | Förlagstitlar | Summa |
+| --- | --- | --- | --- |
+|  | IP\xadrättigheter | IP\xadrättigheter |  |
+| 2023-04-01 – 2024-03-31 | 9 514 | 4 896 | 14 410 |
+| 2022-04-01 – 2023-03-31 | 8 210 | 5 234 | 13 444 |
+![table image]({page: 116, x: 391}, {y: 381, {width: 449}, {height: 7})
+
+| 2023-04-01 – 2024-03-31 |  | 4 185 | 6 914 | 3 311 | 14 410 |
+| --- | --- | --- | --- | --- | --- |
+| PC/Console Games | Försäljning av nya lanseringar Katalogförsäljning | Försäljning av nya lanseringar Katalogförsäljning | Försäljning av nya lanseringar Katalogförsäljning | Övrigt | Summa |
+| 2022-04-01 – 2023-03-31 |  | 2 894 | 7 134 | 3 417 | 13 444 |
+| Nettoomsättning per geografisk marknad |
+| 2023\xad04\xad01 – 2024\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Koncernen totalt |
+| Europa exkl. Sverige | 3 816 | 1 036 | 8 598 | 2 860 | 16 310 |
+| USA | 8 282 | 3 202 | 3 039 | 3 353 | 17 876 |
+| Sverige | 200 | 34 | 25 | 111 | 370 |
+| Övrigt | 2 112 | 1 644 | 3 135 | 758 | 7 650 |
+| Summa | 14 410 | 5 916 | 14 797 | 7 082 | 42 206 |
+| 2022\xad04\xad01 – 2023\xad03\xad31 | PC/Console Games | Mobile Games | Tabletop Games | Entertainment & Services | Koncernen totalt |
+| Europa exkl. Sverige | 3 399 | 1 283 | 9 127 | 2 198 | 16 007 |
+| USA | 8 344 | 3 058 | 2 476 | 2 379 | 16 257 |
+| Sverige | 155 | 33 | 28 | 82 | 298 |
+| Övrigt | 1 546 | 1 445 | 1 501 | 611 | 5 103 |
+| Summa | 13 444 | 5 819 | 13 132 | 5 270 | 37 665 |
+| Fördelningen på geografisk marknad tar huvudsakligen utgångspunkt i respektive land där bolagen har sin verksamhet. |
+| Avtalstillgångar |  |  |  | 2024\xad03\xad31 | 2023\xad03\xad31 |
+| Ingående balans |  |  |  | 790 | 177 |
+| Väsentliga förändringar i avtalstillgångar: Till följd av försäljning av dotterföretag |  |  |  |  |  |
+![table image]({page: 116, x: 71}, {y: 448, {width: 454}, {height: 16})
+
+| Omklassificeringar enligt IFRS 5 | –478 | - |
+| --- | --- | --- |
+| Förändringar hänförliga till ordinarie rörelse | 84 | 613 |
+| Utgående balans | 13 | 790 |
+![table image]({page: 116, x: 85}, {y: 726, {width: 454}, {height: 7})
+
+Avtalstillgangar utgors av upparbetad men ej fakturerad intakt vid successiv vinstavrakning.
+
+
+<!-- PAGE: 117 -->
+
+## NOT M20 UPPLUPNA KOSTNADER OCH FÖRUTBETALDA INTÄKTER
+
+2024\xad03\xad31 2023\xad03\xad31
+
+| Upplupna personalrelaterade kostnader | 13 | 10 |
+| --- | --- | --- |
+| Revision och konsultkostnader | 9 | 7 |
+| Övriga räntekostnader och liknande resultatposter | 160 | 53 |
+| Upplupna kostnader | 61 | - |
+| Redovisat värde | 243 | 70 |
+![table image]({page: 166, x: 71}, {y: 567, {width: 215}, {height: 7})
+
+## NOT M2 NETTOOMSÄTTNINGENS FÖRDELNING
+
+|  | 2023\xad04\xad01 | 2022\xad04\xad01 |
+| --- | --- | --- |
+| Sverige |  2024\xad03\xad31 |  2023\xad03\xad31 |
+| Management fee | 67 | 49 |
+| Övrigt | 2 | 2 |
+|  | 69 | 52 |
+| Österrike |
+| Management fee | 16 | 13 |
+![table image]({page: 160, x: 196}, {y: 273, {width: 215}, {height: 7})
+
+## ÅRET I KORTHET
+
+Nettoomsattningen I Mobile Games segmentet uppgick till 5 916 MSEK (5 819) en okning med 2 % jamfort med foregaende ar eller en minskning med -9 % organiskt och 3 % proforma.
+Easybrain hade positiv organisk tillvaxt under 2023/24 medan DECA Games (inklusive CrazyLabs) hade negativ organisk tillvaxt framst paverkat av ett skifte i affarsmodell och ett okat fokus pa lonsamhet och kas safloden.
+Proforma tillvaxten var mer stabil tack vare en stark utveckling for Alien Invasion for vilken forlagsrattig heterna forvarvades av CrazyLabs i augusti 2023.
+Bade MAU (monthly average users) och DAU (daily average users) minskade pa arsbasis drivet av DECA Games.
+EBIT uppgick till 1 029 MSEK (-260) vilket motsvarar en EBIT marginal om 17 % (-4 %).
+Justerat EBIT uppgick till 1 921 MSEK (1 381) vilket motsvarar en Justerad EBIT mar ginal om 32 % (24 %).
+Jamforelsestorande poster uppgick till -165 MSEK (-).
+Investeringar i UAC (user acquisition costs) uppgick till 2 466 MSEK (2 925) vilket motsvarar 42 % (50 %) av nettoomsattningen.
+Den forbattrade lon samheten pa arsbasis forklaras framst av lagre UAC och ett skifte i produktmix inom DECA Games.
+
+Spel med kontinuerliga uppdateringar (live ops) fortsatte att driva tillvaxt av portfoljen inom Mobile Games med stod av en datadriven ansats.
+Easybrain visade god lonsamhet under rakenskapsaret och anpassade
+
+- 1) Se definitioner
+
+EMBRACER GROUP
+# JUSTERAD EBIT
+## Helår 2023/24
+## Latin America 10%
+## Asia 21%
+
+North America 25%
+
+## Middle East/Africa 15%
+## Oceania 5%
+
+Europe 25%
+
+##### HÅLLBARHETSRAPPORT
+SMARTER BUSINESS RAMVERKET
+
+Pa Embracer Group fokuserar vi pa omraden dar vi kan gora storst skillnad.
+For detta andamal har vi utvecklat Smarter Business ramverket som bygger pa tre pelare Great People Solid Work och Our Planet.
+Ramverket ger struktur till vart hallbarhetsarbete och sakerstaller att vi har ratt prioriteringar.
+Ramverket innefattar vara viktigaste fragor som vi identifierat i var materialitetsanalys som utvarderar hur var verksamhet paverkas manniskor och planeten.
+Vara viktigaste fragor utvarderas lopande genom lopande dialoger med anstallda investerare intresseorganisationer och andra intressenter.
+
+##### FINANSIELLA MARKNADER
+
+Vara intressenter i kapitalmarknaden raknar med att vi age rar ansvarsfullt och hallbart i linje med deras varderingar samt bidrar till hogre riskjusterad avkastning.
+
+Embracer har aven blivit en del av Sustainalytics 2023 ars lista over hogst rankade ESG bolagen.
+ESG betyg anvands av investerare och kreditgivare for att forsta bolags ESG risker och gora det enklare for investerare att ta hansyn till hallbarhet i investeringsbeslut och lopande portfoljforvaltning.
+Embracer rapporterar aven till S&P Global och UN Global Compact COP.
+
+
+<!-- PAGE: 33 -->
+
+## REVISORNS GRANSKNING AV ESEF-RAPPORTEN
+### UTTALANDEN
+
+Utover var revision av arsredovisningen och koncernredovisningen har vi aven utfort en granskning av att styrelsen och verkstallande direktoren har upprattat arsredovisningen och koncernredovisningen i ett format som mojliggor enhetlig elektronisk rapportering (Esef-rapporten) enligt 16 kap.
+4
+a
+§ lagen (2007:528) om vardepappersmarknaden for Embracer Group AB for rakenskapsaret 1 april 2023 till 31 mars 2024.
+
+Var granskning och vart uttalande avser endast det lagstadgade kravet.
+
+Enligt var uppfattning har Esef rapporten upprattats i ett format som i allt vasentligt mojliggor enhetlig elektronisk rapportering.
+
+### PAYDAY 3
+
+
+<!-- PAGE: 88 -->
+
+### TILLGÅNGAR (AVYTTRINGSGRUPPER) SOM INNEHAS FÖR FÖRSÄLJNING
+
+| Tillgångar och skulder som ingick i avyttringsgrupper som innehas för försäljning per 31 mars 2024: | Gearbox Entertainment | Summa | Digic och Madhead |
+| --- | --- | --- | --- |
+| Goodwill | 316 | 901 | 1 217 |
+| Immateriella tillgångar | 143 | 3 963 | 4 106 |
+| Materiella anläggningstillgångar | 15 | 134 | 149 |
+| Nyttjanderättstillgångar | 40 | 143 | 183 |
+| Finansiella anläggningstillgångar | 2 | 100 | 102 |
+| Uppskjuten skattefordran | - | 21 | 21 |
+| Varulager | - | 23 | 23 |
+| Kundfordringar | 110 | 184 | 294 |
+| Avtalstillgångar | 4 | 474 | 478 |
+| Övriga fordringar | 36 | 105 | 141 |
+| Förutbetalda kostnader | 5 | 28 | 33 |
+| Likvida medel | 17 | 148 | 165 |
+| Totala tillgångar i avyttringsgrupp som innehas för försäljning | 687 | 6 224 | 6 911 |
+| Skulder till kreditinstitut | 102 | - | 102 |
+| Förskott från kunder | 12 | - | 12 |
+| Leverantörsskulder | 17 | 51 | 68 |
+| Leasingskulder | 43 | 148 | 191 |
+| Avtalsskulder | 17 | 189 | 206 |
+| Villkorade tilläggsköpeskillingar | - | 47 | 47 |
+| Uppskjutna köpeskillingar | - | 3 | 3 |
+| Uppskjuten skatteskuld | 6 | 749 | 755 |
+| Skatteskulder | 3 | 14 | 17 |
+| Skulder till anställda relaterade till historiska förvärv | 87 | 293 | 380 |
+| Övriga skulder | 53 | 209 | 262 |
+| Upplupna kostnader | 18 | 108 | 126 |
+| Totala skulder i avyttringsgrupp som innehas för försäljning | 359 | 1 811 | 2 170 |
+| NETTOTILLGÅNGAR | 328 | 4 413 | 4 742 |
+![table image]({page: 149, x: 71}, {y: 94, {width: 451}, {height: 7})
+
+#### Revisions\xad och hållbarhetsutskottet
+#### Ersättningsutskottet
+VD
+
+GEARBOXAMPLIFIER GAME INVEST
+
+## NYCKELTAL, PC/CONSOLE GAMES
+
+|  | Apr 2023– mar 2024 | Apr 2022– mar 2023 |
+| --- | --- | --- |
+| Nettoomsättning, MSEK | 14 410 | 13 444 |
+| varav Digitala produkter, MSEK | 9 609 | 8 927 |
+| varav Fysiska produkter, MSEK | 1 490 | 1 101 |
+| varav Övriga 1), MSEK | 3 311 | 3 417 |
+| Nettoomsättningstillväxt (jmf motsvarande period föregående år) | 7 % | 58 % |
+![table image]({page: 19, x: 426}, {y: 451, {width: 454}, {height: 8})
+
+| EBIT, MSEK | 7 887 | 41 |
+| --- | --- | --- |
+| EBIT-marginal | 55 % | 0 % |
+| Justerat EBIT, MSEK | 2 441 | 2 902 |
+| Justerad EBIT-marginal | 17 % | 22 % |
+| Typ av intäkt Försäljning av nya lanseringar, MSEK | 4 185 | 2 894 |
+| Katalogförsäljning 2), MSEK | 6 914 | 7 134 |
+| Övrigt 1), MSEK | 3 311 | 3 417 |
+| Antal anställda | 6 404 | 10 436 |
+| Antal interna studios | 73 | 102 |
+| Antal varumärken | 255 | 258 |
+![table image]({page: 19, x: 71}, {y: 531, {width: 454}, {height: 8})
+
+- 1) Främst work-for-hire och annan spelutveckling.
+
+
+<!-- PAGE: 20 -->
+av tillgangar fran Saber Interactive och Gearbox Entertainment.
+
+Den justerade EBIT marginalen paverkades fort satt av avskrivningar av spelutveckling samt en samre utveckling for ett antal primart medelstora titlar inom de operativa koncernerna under 2022/23 och 2023/24.
+Koncernens starkaste varumarken inom PC/Console hade en stabil utveckling.
+Konsumenter var dock gene rellt sett mer selektiva medan investeringar i plattform sinnehall minskade.
+
+Intakterna fran nya lanseringar uppgick till 4 185 MSEK vilket motsvarar en okning med 44 % pa arsbasis.
+De framsta drivkrafterna till intakter bland nya lanseringar under aret var Dead Island 2 Remnant II och Payday 3.
+
+Dead Island internt utvecklat av Dambuster Studios och med Deep Silver som forlag lanserades 21 april 2023.
+Spelet saldes i fler an tva miljoner exemplar under forsta manaden.
+Remnant II internt utvecklat av Gunfire Games och med Gearbox Publishing som forlag lanserades 25 juli 2023 och saldes i over en miljon exemplar under de forsta fyra dagarna.
+Payday 3 lanserades 21 september 2023 hade blandat mottagande bland kritiker och spelare och levde inte upp till ledningens forvantningar.
+
+ovriga noterbara lanseringar under aret inkluderade AEW Fight Forever MotoGP 23 Ride 5 Jagged Alliance 3 Hot Wheels Unleashed 2 Turbocharged Arizona Sunshine 2 (VR) Risk of Rain Returns Teardown (konsol) Tomb Raider I-III Remastered Deep Rock Galactic Survivor Alone in the Dark SOUTH PARK SNOW DAY! Outcast A new beginning och Lightyear Frontier.
+
+Intakter fran katalogforsaljning1) (inklusive plattformsavtal) uppgick till 6 914 MSEK under aret en minskning med 3 % pa arsbasis.
+Topp 10 katalogtitlar var Dead Island 2 Deep Rock Galactic Star Trek Online Remnant II SnowRunner Neverwinter Online Chivalry II Risk of Rain 2 Welcome to Bloxburg och Borderlands 3.
+ovriga intakter uppgick till 3 311 MSEK under aret en minskning med 3 % pa arsbasis.
+Den negativa tillvaxten forklaras framst av ett lagre bidrag fran ovriga intakter pa arsbasis pa grund av svara jamforelsetal drivet av flera signerade avtal av Saber Interactive under foregaende ar.
+
+## OMSTRUKTURERINGSPROGRAMMET FRAMGÅNGSRIKT SLUTFÖRT
+
+Ett viktigt fokus under det senaste aret har varit att realisera outnyttjad potential i koncernen och att optimera anvand ningen av vara resurser.
+Omstruktureringsprogrammet har skapat en starkare grund for forbattrad lonsamhet kassaflode och langsiktigt vardeskapande.
+Vi uppnadde programmets mal att minska rorelsekostnaderna med 800 MSEK eller 10 %.
+Vi har ocksa framgangsrikt minskat investeringarna fran 7,9 miljarder SEK for ett ar sedan till under 5,0 miljarder SEK under rakenskapsaret 2024/25.
+Nar vi avslutade rakenskapsaret 2023/24 hade vi kapi talutgifter som uppgick till cirka 4,3 miljarder SEK pa lopande basis per Q4 pa proformabasis.
+Genom de avi serade avyttringarna och det nya finansieringsavtalet for Asmodee ar vi pa vag mot en betydande minskning av skuldsattningen efter arsskiftet.
+
+39 MSEK.
+Den solida resultatutvecklingen drevs framst av en betydande tillvaxt for Middle earth Enterprises inom segmentet Entertainment & Services samt en stark marginalutveckling for rorelsesegmentet Mobile Games.
+Rorelsesegmentet Tabletop Games hade en solid organisk tillvaxt men med en mer stabil resultat utveckling tack vare ett skifte i produktmix.
+Samtidigt var utvecklingen inom rorelsesegmentet PC/Console Games mer blandad delvis paverkad av utvecklingen for de tillgangar som avyttrades under aret.
+Vi levererade pa var prognos for justerat EBIT under aret om an i den nedre delen av det forvantade inter vallet.
+Utvecklingen for rorelsesegmentet PC/Console Games har varit det svaraste att forutse under de senaste tva tre aren pa grund av tidpunkten for spellanseringar konsumenternas mottagande och marknaden.
+Nar nu rakenskapsaret 2023/24 ar avslutat och omstrukture ringsprogrammet ar framgangsrikt slutfort har vi farre operativa koncerner studios och utvecklare och vi forblir valdigt optimistiska gallande var mer fokuserade PC/ Console pipeline.
+Under de kommande tva aren forvan tar vi oss att var uppdaterade kapitalallokeringsprocess for godkannande av spelutvecklingsprojekt i olika sta dier kommer att driva okad avkastning pa investeringar (ROI) for nya spellanseringar eftersom var pipeline i allt hogre grad bestar av spel av hogre kvalitet.
+Under rakenskapsaret 2024/25 raknar vi med att lansera fler an 70 projekt inklusive Kingdom Come Deliverance 2 och Killing Floor 3 samt minst tre viktiga icke offentliggjorda titlar.
+Efter helaret 2024/25 fortsatter Avyttringarna av tillgangar fran Saber Interactive och Gearbox Entertainment var viktiga i var omvandling till att bli ett mer slimmat och fokuserat foretag.
+Bada trans aktionerna kommer att forbattra det fria kassaflodet och sanka nettoskulden.
+Avyttringen av Saber gjorde det ocksa mojligt for oss att upphora med all verksamhet i Ryssland vilket totalt sett minskade affarsrisken.
+Efter att ha utvarderat flera alternativ lyckades vi na en losning som lag i allas intresse.
+
+### FINANSIELL STÄLLNING Anläggningstillgångar
+
+Anlaggningstillgangar uppgick till 73 008 MSEK (99 073).
+Goodwill uppgick till 31 210 MSEK (48 524).
+Minskningen beror pa nedskrivning av goodwill och forsaljning av dotterforetag.
+
+Vardet pa immateriella tillgangar uppgick till 37 036 MSEK (45 579) och minskningen kommer fran nedskrivning av projekt samt forsaljning av dotterforetag.
+Pagaende projekt som avser balanserade utgifter for utveckling av nya spelprojekt samt andra projekt uppgick vid rakenskapsarets utgang till 6 245 MSEK (9 309).
+Det totala antalet spelutvecklingsprojekt uppgick till 141 (221) projekt vid arets slut.
+Vardet pa forvarvade och fardigstallda spelutvecklingsprojekt uppgick till 3 492 MSEK (2 088) och avskrivningar av spelutveckling for aret uppgick till -3 070 MSEK (-2 375).
+Vardet pa varumarken uppgick till 27 073 MSEK (32 854) och avskrivningar av IP rattigheter uppgick till -2 836 MSEK (-2 693).
+
+# VÄRDEKEDJA
+## FYSISK DISTRIBUTÖR
+## DIGITAL DISTRIBUTÖR
+### BUTIKER
+
+(Amazon GameStop)
+
+## NOT M10 IMMATERIELLA ANLÄGGNINGSTILLGÅNGAR
+
+| Ackumulerade anskaffningsvärden | Pågående projekt för immateriella anläggningstillgångar | Färdigställda utvecklingsprojekt IP\xadrättigheter | Övriga immateriella anläggningstillgångar | Summa immateriella anläggningstillgångar |
+| --- | --- | --- | --- | --- |
+| Per 31 mars 2022 | 10 | 1 313 265 | 6 | 1 593 |
+| Internt upparbetade | - | - - | 1 | 1 |
+| Försäljningar/utrangeringar | –10 | 1 313 –265 | - | 1 588 |
+| Per 31 mars 2023 | \xad | \xad \xad | 7 | 7 |
+| Internt upparbetade | - | - - | - | - |
+| Försäljningar/utrangeringar | - | - - | - | - |
+| Per 31 mars 2024 | \xad | \xad \xad | 7 | 7 |
+| Ackumulerade avskrivningar | Pågående projekt för immateriella anläggningstillgångar | Färdigställda utvecklingsprojekt IP\xadrättigheter | Övriga immateriella anläggningstillgångar | Summa immateriella anläggningstillgångar |
+| Per 31 mars 2022 | \xad | 1 250 –190 | –2 | 1 441 |
+| Årets avskrivningar | - | - - | –1 | –1 |
+| Omklassificeringar | - | 1 250 190 | - | 1 440 |
+| Per 31 mars 2023 | \xad | \xad \xad | –3 | –3 |
+| Årets avskrivningar | - | - - | –1 | –1 |
+| Per 31 mars 2024 | \xad | \xad \xad | –4 | –4 |
+![table image]({page: 162, x: 71}, {y: 369, {width: 451}, {height: 7})
+
+| Pågående projekt för immateriella anläggningstillgångar | Färdigställda | utvecklingsprojekt | IP\xadrättigheter | Övriga immateriella anläggningstillgångar | Summa immateriella anläggningstillgångar |
+| --- | --- | --- | --- | --- | --- |
+| Utgående redovisat värde per 31 mars 2023 | - | - | - | 4 | 4 |
+| Utgående redovisat värde per 31 mars 2024 | - | - | - | 3 | 3 |
+![table image]({page: 162, x: 183}, {y: 572, {width: 451}, {height: 15})

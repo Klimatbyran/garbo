@@ -1,0 +1,1411 @@
+## Page 24:
+                ```markdown
+| Utsläpp av växthusgaser, ton CO₂e | 2024 | 2023 |
+|----------------------------------|------|------|
+| Fördelning enligt scope          |      |      |
+| Scope 1                          | 0    | 0    |
+| Scope 2, market based*          | 0    | 0    |
+| Scope 3                          | 6 977| 5 911|
+| TOTALT                           | 6 977| 5 911|
+
+|## Utsläpp av växthusgaser inom scope 3, ton CO2e
+
+|                                                                                                 | 2024     | 2023   |
+|-------------------------------------------------------------------------------------------------|----------|--------|
+| Fördelning enligt kategori                                                                      |          |        |
+| 1: Inköpta varor och tjänster                                                                   | 102      | 84     |
+| 2: Kapitalvaror                                                                                 | 50       | 48     |
+| 3:   Bränsle- och energirelaterade aktiviteter som  inte inkluderas i scope 1 eller 2           | i.u      | 329 2) |
+| 4: Uppströms transport och distribution                                                         | 184      | 140    |
+| 5: Avfallshantering i egen verksamhet                                                           | 1        | 2      |
+| 6: Tjänsteresor                                                                                 | 3 154 3) | 1 774  |
+| 8:   Uppströms hyrda tillgångar (företagsbilar, varor,   datacenter, el i hyrda kontorslokaler) | 3 486    | 3 470  |
+| 9: Nedströms transport och distribution                                                         | 0        | 64     |
+| TOTALT                                                                                          | 6 977    | 5 911  |
+```
+
+### Cirkulär ekonomi
+
+Att vara varsam med andliga resurser ar en forutsattning for en hallbar utveckling.
+Genom framtagna metoder och proces ser sakerstalls att material komposteras att uttjant elektronik i storsta mojliga utstrackning ateranvands eller atervinns och att papper och emballage atervinns pa ett korrekt satt inom Proacts verksamheter.
+Var stravan ar att alltid anvanda resurser pa ett effektivt och sakert satt for att forhindra eller minska eventuella skadliga effekter pa miljo till foljd av var verksamhet.
+
+Klimatforandringarna ar en av var tids storsta utmaningar.
+For att na Parisavtalets ambitioner ar det av yttersta vikt att alla bidrar till att minska utslappen av vaxthusgaser.
+Proacts langsiktiga mal ar att na nettonollutslapp senast 2050.
+
+Utslapp av vaxthusgaser inom scope 3 ton CO2e 2024 2023 Fordelning enligt kategori
+
+| 1: Inköpta varor och tjänster | 102 | 84 |
+| --- | --- | --- |
+| 2: Kapitalvaror | 50 | 48 |
+| 3: Bränsle- och energirelaterade aktiviteter som inte inkluderas i scope 1 eller 2 | i.u | 3292) |
+| 4: Uppströms transport och distribution | 184 | 140 |
+| 5: Avfallshantering i egen verksamhet | 1 | 2 |
+| 6: Tjänsteresor | 3 1543) | 1 774 |
+| 8: Uppströms hyrda tillgångar (företagsbilar, varor, datacenter, el i hyrda kontorslokaler) | 3 486 | 3 470 |
+| 9: Nedströms transport och distribution | 0 | 64 |
+| TOTALT | 6 977 | 5 911 |
+![table image]({page: 24, x: 554}, {y: 366, {width: 210}, {height: 7})
+
+For kategorierna 7 (medarbetares pendling) 11 (anvandning av salda produkter) 12 (avfallshantering av salda produkter) samt 13 (nedstroms hyrda tillgangar) saknas data.
+Kategori 10 (bearbetning av salda produkter) ar inte tillampbar.
+
+- 2) 2023 redovisades el i hyrda kontorslokaler i kategori 3.
+
+- 3) Varav 111 ton härrör till resor i samband med Proacts 30-årsfirande som har klimatkompenserats via United Nations Carbon offset platform.
+
+Utslapp av vaxthusgaser ton CO2e
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Fördelning enligt scope Scope 1 | 0 | 0 |
+| Scope 2, market based ¹) | 0 | 0 |
+| Scope 3 | 6 977 | 5 911 |
+| TOTALT | 6 977 | 5 911 |
+|  | 2024 | 2023 |
+| Scope 2, location based ¹) | 62 | 60 |
+![table image]({page: 24, x: 720}, {y: 168, {width: 221}, {height: 7})
+
+Proact redovisar enligt riktlinjerna i GHG Protocol Corporate Standard Appendix F Categorizing GHG Emissions Associated with Leased Assets samt equity share metoden vilket innebar att aktiviteter kopplade till hyrda tillgangar redovisas i scope 3.
+For 2024 har Proacts berakningsunderlag fatt en oversyn vilket innebar att vissa kategorier har justerats samt att vissa utslapp har bytt kategori.
+
+- 1) Scope 2 inkluderar enbart elförbrukning från en kontorsbyggnad som Proact äger i England.
+
+
+<!-- PAGE: 25 -->
+Digitaliseringen i samhallet okar i en rasande takt och bade privata och offentliga aktorer ar idag beroende av en saker och palitlig IT drift.
+Karnan i Proacts verksamhet ar att hitta effek tiva sakra och langsiktigt hallbara losningar till vara kunder ofta gallande stora mangder information.
+
+- Vi har en historia av att ha långa och nära relationer med våra kunder. De återfinns inom många sektorer i samhället, och utgörs av både privata företag och offentlig verksamhet. Kundernas behov är centrala i hur vi utvecklar våra produkter, tjänster och processer – både genom ett tätt samarbete samt genom kontinuerlig och systematisk feedback.
+
+### Andel taxonomiförenliga ekonomiska verksamheter, OpEx
+
+Andel av driftsutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar ar 2024.
+
+| Ekonomiska verksamheter | Kod/Koder | Drifts utgifter (MSEK) | Andel av drifts- utgifter, år 2024 | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Minimi- skydds- åtgärder | Andel förenliga med taxonomi- kraven (A.1.) eller som omfattas av taxonomikraven (A.2.) driftsutgifter, 2023 | Kategori möjliggörande verksamhet | Kategori omställ- ningsverk- samhet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Budgetår 2024 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) |  |  |  |  |  |  |
+|  |  |  | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | % | E | T |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |  |  | 28% |  |  |  |  |  |  |  |  |  |  |  |  |  | 29% |  |  |
+| A.1. Miljömässigt hållbara (taxonomiförenliga) verksamheter |
+| Databehandling, värdtjänster o.d | CCM 8.1 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Förvärv och ägande av byggnader | CCM 7.7 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheternas (A.1) |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% |  |  |
+| Varav möjliggörande verksamhet |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% | E |  |
+| Varav omställningsverksamhet |  |  | 0% | % |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  | T |
+![table image]({page: 33, x: 31}, {y: 156, {width: 931}, {height: 6})
+
+### Andel taxonomiförenliga ekonomiska verksamheter, CapEx
+
+Andel av kapitalutgifterna fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar ar 2024.
+
+| Ekonomiska verksamheter | Kod/Koder | Kapital- utgifter (MSEK) | Andel av kapital- utgifterna, 2024 | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Minimi- skydds- åtgärder | Andel förenliga med taxonomi- kraven (A.1.) eller som omfattas av taxonomi kraven (A.2.) kapitalutgifter, 2023 | Kategori möjliggörande verksamhet | Kategori omställnings- verksamhet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Budgetår 2024 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) |  |  |  |  |  |  |
+|  |  |  | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | % | E | T |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |  |  | 85% |  |  |  |  |  |  |  |  |  |  |  |  |  | 85% |  |  |
+| A.1. Miljömässigt hållbara (taxonomiförenliga) verksamheter |
+| Databehandling, värdtjänster o.d. | CCM 8.1 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Förvärv och ägande av byggnader | CCM 7.7 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1) |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% |  |  |
+| Varav möjliggörande verksamhet |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% | E |  |
+| Varav omställningsverksamhet |  |  | 0% | % |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  | T |
+![table image]({page: 32, x: 31}, {y: 156, {width: 931}, {height: 6})
+
+### Not 24 FORTS.
+
+Koncernens loptidsanalys finansiella skulder per 31 december 2023 Avtalsbaserade odiskonterade belopp inklusive framtida rante betalningar
+
+|  | På begäran | < 3 mån | 3-12 mån | 1-5 år | >5 år |
+| --- | --- | --- | --- | --- | --- |
+| Valutaderivat | - | - | 587 | 1 082 | - |
+| Skuld vid förvärv - Kortfristig del 1) | - | - | - | - | - |
+| Skuld vid förvärv - Långfristig del 1) | - | - | - | - | - |
+| Banklån långfristig del | - | 3 189 | 9 564 | 209 214 | - |
+| Leverantörsskulder | - | 529 970 | - | - | - |
+| Övriga skulder | - | 42 819 | - | - | - |
+| Leasingskulder | - | 12 891 | 38 674 | 194 785 | - |
+|  | - | 588 869 | 48 825 | 405 081 | - |
+![table image]({page: 74, x: 172}, {y: 115, {width: 150}, {height: 7})
+
+- 1) Skuld vid förvärv av sepago GmbH 0 kSEK (12 786), samt vid förvärv av Cetus Solutions Ltd 5 031 kSEK (4 957).
+
+Moderbolagets loptidsanalys finansiella skulder per 31 december 2024 Avtalsbaserade odiskonterade belopp inklusive framtida rante betalningar
+
+|  | På begäran | < 3 mån | 3-12 mån | 1-5 år | >5 år |
+| --- | --- | --- | --- | --- | --- |
+| Banklån långfristig del | - | 3 301 | 9 904 | 216 525 | - |
+| Leverantörsskulder | - | 3 173 | - | - | - |
+|  | - | 6 474 | 9 904 | 216 525 | - |
+![table image]({page: 74, x: 172}, {y: 281, {width: 147}, {height: 7})
+
+Moderbolagets loptidsanalys finansiella skulder per 31 december 2023 Avtalsbaserade odiskonterade belopp inklusive framtida rante betalningar
+
+|  | På begäran | < 3 mån | 3-12 mån | 1-5 år | >5 år |
+| --- | --- | --- | --- | --- | --- |
+| Banklån långfristig del | - | 3 189 | 9 564 | 209 214 | - |
+| Leverantörsskulder | - | 4 957 | - | - | - |
+|  | - | 8 146 | 9 564 | 209 214 | - |
+![table image]({page: 74, x: 169}, {y: 361, {width: 150}, {height: 7})
+
+Finansiella tillgangar och skulder per varderingskategori
+
+###### A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)
+
+| Databehandling, värdtjänster o.d. | CCM 8.1 | 29 | 25% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 46% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; | N/EL | EL; N/EL |
+| Förvärv och ägande av byggnader | CCM 7.7 | 22 | 19% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 10% |
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 48 | 41% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 29% |
+| Kapitalutgifter för verksamheter som omfattas av taxonomin men | som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 99 | 85% | % | % | % | % | % | % | 85% |
+| A. Kapitalutgifter för verksamheter som omfattas av taxonomin (A.1+A.2) |  | 99 | 85% | % | % | % | % | % | % | 85% |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| Kapitalutgifterna hos verksamheter som inte omfattas av taxonomin |  | 17 | 15% |  |  |  |  |  |  |  |
+| TOTALT |  | 116 | 100% |  |  |  |  |  |  |  |
+![table image]({page: 32, x: 355}, {y: 367, {width: 292}, {height: 6})
+
+
+<!-- PAGE: 33 -->
+
+## Mål
+
+30
+
+
+<!-- PAGE: 11 -->
+Fokus for hallbarhetsarbetet ar att minska Proacts klimatavtryck mojliggora for vara kunder att bli mer hallbara genom de produkter och tjanster som erbjuds samt att vara en attraktiv och jamstalld arbetsplats.
+Har listas de viktigaste malen som galler for hela koncernen.
+
+## Page 30:
+                ```markdown
+| Omsättning                            | CapEx                                | OpEx                                  |
+|---------------------------------------|--------------------------------------|---------------------------------------|
+| Andel av omsättning/total omsättning  | Andel kapitalutgifter/total kapitalutgifter | Andel av driftsutgifter/total driftsutgifter |
+| Taxonomiförenlighet per mål           | Mål som omfattas per mål av taxonomi | Taxonomiförenlighet per mål           | Mål som omfattas per mål av taxonomi |
+| CCM                                   | 0%                                   | 28%                                   |
+| CCA                                   | 0%                                   | 0%                                    |
+| WTR                                   | 0%                                   | 0%                                    |
+| CE                                    | 0%                                   | 0%                                    |
+| PPC                                   | 0%                                   | 0%                                    |
+| BIO                                   | 0%                                   | 0%                                    |
+```
+
+###### A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)
+
+| Databehandling, värdtjänster o.d | CCM 8.1 | 3 | 28% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 29% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; | N/EL | EL; N/EL |
+| Förvärv och ägande av byggnader | CCM 7.7 | 0 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Transport med motorcyklar, personbilar och lätta motorfordon | CCM 6.5 | 0 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| Driftsutgifter för verksamheter som omfattas av taxonomin men | som inte är miljömässigt hållbara (ej taxonomi förenliga) (A.2) | 3 | 28% | % | % | % | % | % | % | 29% |
+| A. Totala kapitalutgifter hos de verksamheter som omfattas av taxonomin (A.1+A.2) |  | 3 | 28% | % | % | % | % | % | % | 29% |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin (B) |  | 8 | 72% |  |  |  |  |  |  |  |
+| TOTALT |  | 12 | 100% |  |  |  |  |  |  |  |
+![table image]({page: 33, x: 355}, {y: 367, {width: 292}, {height: 6})
+
+
+<!-- PAGE: 34 -->
+
+### OpEx
+#### Andel av driftsutgifter/
+#### totala driftsutgifter
+
+|  | Taxonomiförenlighet per mål | Mål som omfattas av taxonomin |
+| --- | --- | --- |
+| CCM | 0% | 28% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 30, x: 902}, {y: 191, {width: 114}, {height: 6})
+
+Tillamplig OpEx ar sadan OpEx som ar direkt hanforlig till aktivitet 8.1.
+Tillamplig OpEx ar ocksa sadan som ar tillamplig i sig sjalv enligt ovan dock har Proact inte identifierat nagon sadan OpEx.
+
+##### A.2 Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)
+
+| Databehandling, värdtjänster o.d. | CCM 8.1 | 813 | 17% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 12% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; N/EL | EL; | N/EL | EL; N/EL |
+| Omsättning för verksamheter som omfattas av taxonomin | men som inte är miljömässigt hållbara (ej taxonomiförenliga) (A.2) | 813 | 17% | % | % | % | % | % | % | 12% |
+| A. Omsättning för verksamheter som omfattas av taxonomin (A.1+A.2) |  | 813 | 17% | % | % | % | % | % | % | 12% |
+| B. VERKSAMHETER SOM INTE OMFATTAS AV TAXONOMIN |
+| Omsättningen hos verksamheter som inte omfattas av taxonomin |  | 4 052 | 83% |  |  |  |  |  |  |  |
+| TOTALT |  | 4 864 | 100% |  |  |  |  |  |  |  |
+![table image]({page: 31, x: 355}, {y: 338, {width: 292}, {height: 6})
+
+
+<!-- PAGE: 32 -->
+
+### Andel taxonomiförenliga ekonomiska verksamheter, Omsättning
+
+Andel av omsattningen fran produkter eller tjanster som ar forknippade med ekonomiska verksamheter som ar forenliga med taxonomikraven upplysningar som omfattar ar 2024.
+
+| Ekonomiska verksamheter | Kod/Koder | Omsättning (MSEK) | Andel av omsättningen, 2024 | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Begränsning av klimat- förändringar | Anpassning till klimat- förändringar | Vatten | Föro- reningar | Cirkulär ekonomi | Biologisk mångfald | Minimi- skydds- åtgärder | Andel förenliga med taxonomi- kraven (A.1) eller som omfattas av taxonomi kraven (A.2) omsättning, 2023 | Kategori möjliggörande verksamhet | Kategori omställnings- verksamhet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Budgetår 2024 | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier för väsentligt bidrag | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) | Kriterier avseende att inte orsaka betydande skada (DNSH) |  |  |  |  |  |  |
+|  |  |  | % | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; N/EL | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | J; N; | % | E | T |
+| A. VERKSAMHETER SOM OMFATTAS AV TAXONOMIN |  |  | 17% |  |  |  |  |  |  |  |  |  |  |  |  |  | 12% |  |  |
+| A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter |
+| Databehandling, värdtjänster o.d. | CCM 8.1 | 0 | 0% |  |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  |  |
+| De miljömässigt hållbara (taxonomiförenliga) verksamheternas omsättning (A.1) |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% |  |  |
+| Varav möjliggörande verksamhet |  |  | 0% | % | % | % | % | % | % |  |  |  |  |  |  |  | 0% | E |  |
+| Varav omställningsverksamhet |  |  | 0% | % |  |  |  |  |  |  |  |  |  |  |  |  | 0% |  | T |
+![table image]({page: 31, x: 30}, {y: 156, {width: 931}, {height: 6})
+
+### CapEx
+#### Andel kapitalutgifter/
+#### totala kapitalutgifter
+
+|  | Taxonomiförenlighet per mål | Mål som omfattas av taxonomin |
+| --- | --- | --- |
+| CCM | 0% | 85% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 30, x: 746}, {y: 191, {width: 114}, {height: 6})
+
+##### Professor Daniel Ray
+
+Peter De Jaeger CIO
+
+#### Hållbarhetsredovisning
+
+I enlighet med aRL 6 kap 11§ har Proact IT Group AB (publ) upprattat den lagstadgade hallbarhetsrapporten pa sidan 10-13 samt 23-33 i arsredovisningen.
+
+## Säkra och hållbara IT-tjänster Attraktiv arbets givare
+### HÅLLBAR INDUSTRI, INNOVATIONER OCH INFRASTRUKTUR
+
+|  | JÄMSTÄLLDHET | ANSTÄNDIGA ARBETSVILLKOR OCH EKONOMISK TILLVÄXT | 2030 eNPS 45 2030 |
+| --- | --- | --- | --- |
+| HÅLLBAR KONSUMTION OCH PRODUKTION |
+| 2025 Erhålla och bibehålla nivå A i SecurityScorecard |
+| 1.2 PUE i datacenter Globala målen |
+| Proact bekräftar vikten av Globala målen för hållbar utveckling (FN:s Sustainable Development Goals, SDGs) som en gemensam global ambition att skydda vår planet och skapa välstånd för alla. Som företag kan vi bidra genom att anpassa vårt sätt att arbeta för att möta behoven för morgondagens generationer. I vår hållbarhets strategi har |  Ledarskap  Mångfald och inkludering  Lärande och utveckling |  |  |
+![table image]({page: 23, x: 695}, {y: 415, {width: 506}, {height: 49})
+
+- vi integrerat de mål där vi ser att vår verksamhet främst bidrar, vilket är mål 5 Jämställdhet, 7 Hållbar energi för alla, 8 Anständiga arbetsvillkor och ekonomisk tillväxt, 9 Hållbar industri, innovationer och infrastruktur, 12 Hållbar konsumtion och produktion samt 13 Bekämpa klimatföränd- ringarna.
+
+# eNPS
+
+30 50
+
+Mål
+
+
+<!-- PAGE: 12 -->
+Den overgripande strategin forblir stabil med fortsatt fokus pa att starka Proacts marknadsposition inom hybrida molntjanster.
+I centrum star att hjalpa kunder att lagra skydda och driva affarsvarde fran data.
+Sedan forra aret har vi gjort goda framsteg inom vara fem fokusomraden.
+
+### EU taxonomiförenlig verksamhet
+
+For att vara taxonomiforenlig kravs for aktiviteter inom omrade 8.1 att de datacenter som anvands for att processa data upp fyller ett antal tekniska granskningskriterier.
+Dessutom maste leverantorerna av den utrustning som anvands uppfylla ett antal andra tekniska granskningskriterier.
+
+### 29Proact Års- och hållbarhetsredovisning 2024
+
+
+<!-- PAGE: 30 -->
+
+## Mål 0
+
+1 000 2 000 3 000 4 000 5 000 6 000 7 000 2024202320222021 0 1,000 2,000 3,000 4,000 5,000 6,000 7,000 2024202320222021 Mal
+
+%
+
+0 10 20 30 40 50
+
+2024202320222021 Mal
+
+0,0 0,5 1,0 1,5
+
+2024202320222021 Ton CO -e i.u
+
+### PUE
+
+Genomsnittlig PUE Power Usage Effectiveness i de datacenter Proact nyttjar ska senast 2030 vara max 1,2.
+
+|  | 0 | 1,2 |
+| --- | --- | --- |
+| A | 45 | 30% |
+![table image]({page: 11, x: 426}, {y: 199, {width: 702}, {height: 15})
+
+Under 2024 var Proacts totala utslapp av vaxthusgaser 6 977 ton (5 911).
+Las mer pa sidan 24.
+Under 2024 var genomsnittlig PUE 1,31 (1,30).
+Las mer pa sidan 25.
+
+Andelen kvinnor var 19 procent (19) 2024.
+
+Las mer pa sidan 27.
+
+Vid arets matning var Proacts eNPS 30 (31).
+
+Las mer pa sidan 27.
+
+Vid utgangen av aret var Proacts resultat pa koncernniva B (B).
+Las mer pa sidan 25.
+
+### Omsättning
+#### Andel av omsättningen/
+#### total omsättning
+
+|  | Taxonomiförenlighet per mål | Mål som omfattas av taxonomin |
+| --- | --- | --- |
+| CCM | 0% | 17% |
+| CCA | 0% | 0% |
+| WTR | 0% | 0% |
+| CE | 0% | 0% |
+| PPC | 0% | 0% |
+| BIO | 0% | 0% |
+![table image]({page: 30, x: 591}, {y: 191, {width: 114}, {height: 6})
+
+# Ton CO -e
+
+- i.u
+
+###### PUE
+##### Target
+##### Target
+##### Target
+
+Ton CO -e
+
+n.d n.d
+
+## Ton CO -e
+
+- i.u
+
+### Klimatpåverkan
+
+Energianvandning framfor allt kopplat till datacenter orsakar generellt stora vaxthusgasutslapp inom IT sektorn.
+Detta ar dock inte fallet for Proact eftersom i princip alla de datacenter som Proact nyttjar drivs med fornybar energi.
+Proacts huvud sakliga klimatavtryck aterfinns i scope 3 indirekta utslapp dar de tva kategorierna uppstroms hyrda tillgangar (framst bilar) samt tjansteresor star for nastan 90 procent av utslap pen.
+Under de kommande aren kommer fokus att ligga pa att minska klimatavtrycket inom dessa kategorier.
+Parallellt kommer Proact utveckla berakningen av klimatpaverkan med mer granulara data.
+Med mer insikt i var de storsta utslappen sker bade vad galler organisatoriskt och inom varje kategori kommer en fardplan for att na nettonollmalet att arbetas fram.
+Proacts ambition ar att enbart nyttja datacenter som drivs med fornybar energi.
+Under 2024 var 99 procent (98) av elfor brukningen fornybar.
+Utover detta arbetar vi i enlighet med en framtagen plan for att reducera antalet datacenter som nyttjas inom koncernen.
+Under 2024 har inget datacenter varken stangts eller adderats.
+Ytterligare konsolidering och nedstang ning av datacenter planeras under 2025.
+
+Tack vare ett fokus pa fornybar energi och nyttjande av farre datacenter kommer klimatpaverkan fran verksamheten i data center totalt sett att minskas.
+Proacts mal om 100 procent fornybar energi i datacenter kvarstar framgent eftersom det ar av betydelse for att na vart nettonollmal samt en nyckel for att stodja vara kunders klimatmal.
+En annan avgorande faktor ar att arbeta med leverantorer som ar fast beslutna att minska sina utslapp.
+Las mer om hur vi kan hjalpa vara kunder att minska sitt klimatavtryck pa sidan 25.
+
+###### Intäkter per bransch
+
+Offentlig sektor 34% (36) Handel & tjanster 18% (23) Tillverkande industri 11% (11) Energi 7% (6) Telekom 8% (5) Bank Finans 7% (4) Media 2% (3) ovrigt 13% (12)
+
+Intakter per rorelsegren
+
+|  | Jan–dec 2024 | Jan–dec 2023 | Jan–dec 2022 |
+| --- | --- | --- | --- |
+| MSEK |
+| Systemförsäljning | 2 686 | 2 698 | 2 861 |
+| Tjänsteverksamhet | 2 171 | 2 145 | 1 889 |
+| Övriga intäkter | 8 | 5 | 6 |
+| Public Sector 34% (36) Retail and Services 18% (23) Manufacturing Industry 11% (11) Energy 7% (6) Telecoms 8% (5) Banking, Finance 7% (4) Media 2% (3) Other 13% (12) |
+| Totala intäkter | 4 864 | 4 847 | 4 757 |
+![table image]({page: 36, x: 651}, {y: 353, {width: 231}, {height: 7})
+
+Systemintakterna minskade jamfort med foregaende ar och upp gick under aret till 2 686 MSEK (2 698).
+Justerat for valuta effekter ¹) samt forvarv och avyttringar minskade system intakterna med 0,2 procent.
+Tjansteverksamhetens intakter avseende konsult tjanster avtalad kundsupport drifts och molntjanster okade med 1,2 procent jamfort med foregaende ar.
+Justerat for valuta effekter ¹) samt forvarv och avyttringar okade tjanste intakterna med 1,4 procent.
+
+Justerat rorelseresultatet fore avskrivningar pa immate riella tillgangar justerad EBITA for helaret 2024 uppgick till 351 MSEK (302) vilket ar en okning med 16,1 procent jamfort med fore gaende ar.
+Under samma period uppgick resul tatet fore skatt till 278 MSEK (218) vilket ar en okning med 27,3 procent.
+
+#### Intäktsströmmar
+
+Koncernen genererar intakter huvudsakligen genom
+
+- Systemförsäljning - försäljning och installation av hård- och mjukvara
+
+- Underhålls- och supporttjänster
+
+- Fristående IT-konsulttjänster
+
+- Molntjänster
+
+### Intäkter
+
+Delar av Proacts intakter inom molntjanster omfattas av EU:s taxonomiforordning inom omrade 8.1 “Databehandling vard tjanster od”
+och bidrar i de fall de ar taxonomiforenliga till EU:s miljomal 1 om att begransa klimatforandringarna.
+Proacts tolkning ar att de molntjanster dar Proact ansvarar for bearbet ningen av data utgor en aktivitet som omfattas av omrade 8.1 och darmed utgor sk
+tillamplig omsattning.
+Daremot omfattas inte andra molntjanster sasom overvakning monitorering nat verkstjanster eller publika molntjanster.
+ovriga intaktsstrommar dvs system support samt konsulttjanster omfattas inte heller av EU:s taxonomiforordning.
+Totala intakter redovisas enligt IFRS enligt redovisningsprin ciperna som aterfinns i not 3 i arsredovisningen och motsvarar de totala intakter som redovisas i Rapport over totalresultat for koncernen.
+Tillamplig omsattning utgor den del av de totala intakterna som ar hanforlig till prestationsataganden for tjanster enligt ovanstaende definition.
+
+# Nettonollutsläpp
+
+Senast 2050 ska Proact na nettonollutslapp av vaxthus gaser i hela vardekedjan.
+
+### Kapitalutgifter (CapEx)
+
+| CapEx utgörs av investeringar i materiella och immateriella anläggningstillgångar, inklusive förvärvade tillgångar samt inves- teringar i nyttjanderättstillgångar. Den CapEx som är tillämplig för Proact inom EU:s taxonomiförordning är den som är direkt hänförlig till molntjänsterna i aktivitet 8.1. Enligt vägledning från EU-kommissionen i s.k. FAQ som publicerades 2022, förtydlig- ades att även inköp av output från ekonomiska verksamheter som är förenliga med taxonomikraven och enskilda åtgärder som gör det möjligt för målverksamheterna att bli koldioxidsnåla eller leda till minskade växthusgasutsläpp är tillämpliga. Detta är fallet även om investeringarna inte är hänförliga till en omsättnings- aktivitet som ett företag bedriver. Detta gör i Proacts fall att även investeringar i byggnader och hyresavtal inom aktivitet 7.7, samt investeringar i leasade bilar inom aktivitet 6.5 är tillämplig CapEx. CapEx utgörs av nyinvesteringarna i enlighet med IFRS i års- redovisningens not 15 för immateriella anläggningstillgångar (exklusive goodwill), not 16 för Materiella anläggningstillgångar och som tillkommande nyttjanderätter i not 27 för Leasade tillgångar. | Då Proact inte äger egna datacenter samt köper all utrustning från leverantörer, krävs att leverantörerna av datacenter och ut- rustning uppfyller samtliga relevanta tekniska granskningskrite- rier, inklusive att kontrollera och dokumentera att de inte orsakar betydande skada på andra miljömål (”Do No Significant Harm”, DNSH). Detta behöver bekräftas av samtliga leverantörer, vilket inga av våra leverantörer har kunnat göra till fullo. Detta gör att vi för 2024 inte rapporterar någon taxonomiförenlig verksamhet. Vad gäller leverantörer av tjänstebilar samt lokaler har samma avvägning gjorts. Proacts policy är att främja hållbara val av bilar och lokaler. Dock har Proact inte kunnat säkerställa att le- verantörerna uppfyller samtliga granskningskriterier, och därför rapporteras inte heller här någon taxonomiförenlig verksamhet för 2024. |
+| Fossilgasrelaterade verksamheter |
+![table image]({page: 30, x: 28}, {y: 332, {width: 104}, {height: 7})
+
+- 4. Företaget utför, finansierar eller är exponerat mot uppförande eller drift av elproduktionsanläggningar som producerar el med hjälp av fossila gasformiga bränslen. Nej
+
+- 5. Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av anläggningar för kombinerad produktion av värme/kyla och el med hjälp av fossila gasformiga bränslen. Nej
+
+- 6. Företaget utför, finansierar eller är exponerat mot uppförande, renovering och drift av värmeproduktionsanläggningar som producerar värme/kyla med hjälp av fossila gasformiga bränslen. Nej
+
+### STRATEGISKA
+### HÅLLBARHETS ÄMNEN
+#### STÖDJER
+#### GLOBALA MÅLEN LÅNGSIKTIGA MÅL
+##### BEKÄMPA KLIMAT- FÖRÄNDRINGARNA
+##### HÅLLBAR ENERGI FÖR ALLA
+#### FOKUS OMRÅDE
+## Minimera miljöpåverkan
+### Hållbarhetsstrategi
+
+Var hallbarhetsstrategi inkluderar relevanta mal och aktiviteter inom omraden som ar viktiga for vara intressenter omraden som paverkar oss mest och omraden dar var verksamhet har storst paverkan.
+Proacts langsiktiga hallbarhetsambition ar ”The Power Of Together for en battre framtid.
+Vi framjar en gron och hallbar varld genom IT.”
+For att na denna ambition arbetar vi inom tre fokusomraden Klimatforandringar Begransning av cyberhot Datahantering och -skydd Hybrida molntjanster Digital arbetsmiljo
+
+2050 Nettonoll vaxthusgasutslapp Minimera miljopaverkan Sakra och hallbara IT tjanster Attraktiv arbetsgivare
+
+Varje fokusomrade innehaller ett eller flera strategiska hall bar hets amnen.
+Fokusomradena underlattar ett strukturerat hall barhetsarbete och forenklar kommunikation och rapportering.
+
+### Hållbarhetsrapportering för koncernen i enlighet med ÅRL 6 kap utgörs av sidorna 10-13 samt 23-33.
+
+30% kvinnor
+
+Interna och externa lagkrav och policyer FN & OECD principer | Proact Code of Conduct | Proact Company Handbook Vardegrund Win as one | Excel every day | Engage with passion Proact ar ett teknik och IT tjansteforetag som inte tillverkar produkter inte har omfattande logistik och inte ager datacen ter.
+Det innebar att var verksamhet har en begransad direkt paverkan pa miljon och begransade direkta vaxthusgas utslapp.
+Genom att stalla krav pa vara leverantorer och sam arbetspartners arbetar vi for minskad negativ paverkan fran var verksamhet.
+
+
+<!-- PAGE: 24 -->
+
+###### Ton CO -e
+
+- i.u
+
+### Kärnenergi- och fossilgasrelaterade verksamheter
+
+Rad Karnenergirelaterade verksamheter
+
+- 1. Företaget utför, finansierar eller är exponerat mot forskning, utveckling, demonstration och utbyggnad av innovativa elproduktionsanläggningar som producerar energi från kärnenergiprocesser med minimalt avfall från bränslecykeln. Nej
+
+- 2. Företaget utför, finansierar eller är exponerat mot uppförande och säker drift av nya kärntekniska anläggningar för produktion av el eller processvärme, inbegripet för fjärrvärme eller industriella processer, såsom vätgasproduktion, samt för säkerhetsuppgraderingar av dessa, med hjälp av bästa tillgängliga teknik. Nej
+
+- 3. Företaget utför, finansierar eller är exponerat mot säker drift av befintliga kärntekniska anläggningar som producerar el eller processvärme, inbegripet för fjärrvärme eller industriella processer, såsom vätgasproduktion från kärnenergi, samt säkerhetsuppgraderingar av dessa. Nej
+
+### Target
+### Target
+### Target
+#### Target Ton CO -e n.d 2
+
+- 1) Under året togs beslut om att från 2025 ersätta målet eNPS med Engagemangsindex.
+
+## PUE
+# Target
+# Target
+# Target
+# Target
+## Ton CO -e
+
+2
+
+#### PUE
+### Target
+### Target
+### Target
+#### Ton CO -e
+
+n.d 2024202320222021
+
+%
+
+40 50
+
+eNPS
+
+-50 -30 -10 10 30 50
+
+2024202320222021
+
+#### Mål
+
+0,0 3 10
+
+############# Proact
+
+2024
+
+### Driftsutgifter (OpEx)
+
+Som OpEx har Proact identifierat de kostnader som ar direkt hanforliga till underhall och reparationer av utrustning rap porterad som CapEx enligt ovan samt i forekommande fall renoveringskostnader och korta leasar.
+Detta innefattar bade kostnader for externa inkop och kostnaden for Proacts egna anstallda nar de utfort denna typ av aktiviteter.
+
+#### Kapital
+
+| Koncernens mål är att ha en stabil finansiell ställning som tryggar koncernens förmåga att fortsätta sin verksamhet effektivt och fortsätta generera avkastning till aktieägarna och andra intressenter och upprätthålla en optimal kapital- struktur för att hålla kostnaderna för kapitalet nere. | Proacts strategier säkerställer att det uppnår en god finansiell ställning och förbereder där- med vinst för aktieägarna genom att öka värdet på det förvaltade kapitalet. För att upprätt- hålla eller justera kapitalstrukturen kan koncernen förändra den utdelning som betalas till aktieägarna, återbetala kapital till aktieägarna, utfärda nya aktier eller sälja tillgångar för att minska skulderna. Det finns inga andra externa kapitalkrav än vad som följer av den svenska aktiebolagsla- gen. Under år 2024 lämnades en utdelning för verksamhetsåret 2023 om 53 984 412 kronor, mot svarande 2,00 kronor per aktie. Koncernen har uppfyllt lånekovenanterna under hela perioden. Det finns inga indikationer på att koncernen skulle ha svårigheter att uppfylla kovenanterna när dessa testas vid nästa tillfälle, det vill säga, per delårsrapporteringsdagen 31 mars 2025. |
+![table image]({page: 41, x: 538}, {y: 122, {width: 464}, {height: 37})
+
+#### Miljö
+
+Bolaget bedriver inte nagon verksamhet som omfattas av miljo balkens tillstands eller anmalningsplikt.
+
+# eNPS 1)
+
+Proacts mal ar att na eNPS Employer Net Promoter Score om 45 senast 2030.
+
+###### Hyresintäkter - Leasingverksamheten
+
+Leasingverksamheten genereras lopande och hyresintakterna redovisas linjart over hyres perioden.
+Forsaljning av leasingintakter uppgar till 22 578 kSEK (31 987).
+Dessa ingar i segments posten koncern gemensamt.
+
+### Not 24 FORTS.
+
+| Räntebärande skulder koncernen 31 dec 2024 | Ränta | Löptid | Bokfört värde |
+| --- | --- | --- | --- |
+| Utnyttjad checkkredit, Nordea 1) 2) | Base rate + 2,0% | 2024-12-31 | - |
+| Banklån, Nordea 2) | STIBOR 3M +1,25% | 2026-07-16 | - |
+| Banklån, Nordea 2) | EURIBOR 3M + 1,25% | 2026-07-16 | - |
+| Banklån, Svensk Exportkredit 2) | EURIBOR 3M + 1,8% | 2026-07-16 | 229 730 |
+| Leasingskuld 3) | 4,17% - 7,48% | 2025 | 53 112 |
+| Leasingskuld 3) | 3,06% - 6,19% | 2026-2029 | 200 623 |
+| Totala räntebärande skulder |  |  | 483 465 |
+| 1) Ränta löper på tre månader. 2) Limit för checkräkningskredit i koncernen uppgår till 159 107 kSEK och i moder bolaget till 150 000 kSEK, varav utnyttjat belopp i koncernen uppgick till 0 kSEK och 0 kSEK i moderbolaget. 3) Ränta löper på en månad. |
+| Räntebärande skulder koncernen 31 dec 2023 | Ränta | Löptid | Bokfört värde |
+| Utnyttjad checkkredit, Nordea 1) 2) | Base rate + 2,0% | 2023-12-31 | - |
+| Banklån, Nordea 2) | STIBOR 3M +1,25% | 2026-07-16 | - |
+| Banklån, Nordea 2) | EURIBOR 3M + 1,25% | 2026-07-16 | - |
+| Banklån, Svensk Exportkredit 2) | EURIBOR 3M + 1,8% | 2026-07-16 | 221 920 |
+| Leasingskuld 3) | 4,17% - 7,48% | 2024 | 51 565 |
+| Leasingskuld 3) | 3,06% - 6,19% | 2025-2028 | 194 785 |
+| Totala räntebärande skulder |  |  | 468 270 |
+| 1) Ränta löper på tre månader. 2) Limit för checkräkningskredit i koncernen uppgår till 154 488 kSEK och i moder bolaget till 150 000 kSEK, varav utnyttjat belopp i koncernen uppgick till 0 kSEK och 0 kSEK i moderbolaget. 3) Ränta löper på en månad. |
+| 1) Skuld vid förvärv av Cetus Solutions Ltd 5 456 kSEK (5 031). |
+| Räntebärande skulder moderbolaget 31 december 2024 | Ränta | Löptid | Bokfört värde |
+| Banklån, Nordea1) | STIBOR 3M +1,25% | 2026-07-16 | - |
+| Banklån, Nordea1) | EURIBOR 3M + 1,25% | 2026-07-16 | - |
+| Banklån, Svensk Exportkredit 1) | EURIBOR 3M + 1,8% | 2026-07-16 | 229 730 |
+| Totala räntebärande skulder |  |  | 229 730 |
+![table image]({page: 73, x: 368}, {y: 99, {width: 320}, {height: 7})
+
+Av ovanstaende rantebarande skulder ar 0 kSEK kortfristiga laneskulder som forfaller under ar 2025.
+Moderbolagets banklan med loptid 2026-07-16 ovan avser dessa 229 730 kSEK en trearig kreditfacilitet om 20 MEUR fran Svensk Exportkredit samt en trearig kreditfacilitet fran Nordea om totalt 600 MSEK.
+Kreditfaciliteten fran Nordea har tva forlangningsoptioner om vardera ett ar som infaller efter 12 respek tive 24 manader.
+Per den 31 december 2024 ar inte nagot utnyttjat fran kreditfaciliteten fran Nordea.
+Banklanet innehaller lanevillkor avseende nettoskuld i forhallande till EBITDA.
+Under 2024 och per 31 december 2024 har lanevillkoret uppfyllts med god marginal.
+
+- 1) Ränta löper på tre månader.
+
+| Räntebärande skulder moderbolaget 31 december 2023 | Ränta | Löptid | Bokfört värde |
+| --- | --- | --- | --- |
+| Banklån, Nordea 1) | STIBOR 3M +1,25% | 2026-07-16 | - |
+| Banklån, Nordea 1) | EURIBOR 3M + 1,25% | 2026-07-16 | - |
+| Banklån, Svensk Exportkredit 1) | EURIBOR 3M + 1,8% | 2026-07-16 | 221 920 |
+| Totala räntebärande skulder |  |  | 221 920 |
+![table image]({page: 73, x: 707}, {y: 100, {width: 323}, {height: 7})
+
+Av ovanstaende rantebarande skulder ar 0 kSEK kortfristiga laneskulder som forfaller under ar 2024.
+Moderbolagets banklan med loptid 2026-07-16 ovan avser dessa 221 920 kSEK en trearig kreditfacilitet om 20 MEUR fran Svensk Exportkredit samt en trearig kreditfacilitet fran Nordea om totalt 600 MSEK.
+Kreditfaciliteten har tva forlangningsoptioner om vardera ett ar som infaller efter 12 respektive 24 mana der.
+Under 2023 utnyttjades den andra forlangningsoptionen.
+Per den 31 december 2023 ar inte nagot utnyttjat fran kreditfaciliteten fran Nordea.
+Banklanet innehaller lanevillkor avseende nettoskuld i forhal lande till EBITDA.
+Under 2023 och per 31 dec ember 2023 har lanevillkoret uppfyllts med god marginal.
+
+- 1) Ränta löper på tre månader.
+
+Koncernens loptidsanalys finansiella skulder per 31 december 2024 Avtalsbaserade odiskonterade belopp inklusive framtida rante betalningar
+
+|  | På begäran | < 3 mån | 3-12 mån | 1-5 år | >5 år |
+| --- | --- | --- | --- | --- | --- |
+| Valutaderivat | - | - | 408 | - | - |
+| Skuld vid förvärv - Kortfristig del 1) | - | - | - | - | - |
+| Skuld vid förvärv - Långfristig del 1) | - | - | - | - | - |
+| Banklån långfristig del | - | 3 301 | 9 904 | 216 525 | - |
+| Leverantörsskulder | - | 561 880 | - | - | - |
+| Övriga skulder | - | 59 607 | - | - | - |
+| Leasingskulder | - | 13 278 | 39 837 | 212 447 | - |
+|  | - | 638 066 | 50 149 | 428 972 | - |
+![table image]({page: 73, x: 849}, {y: 287, {width: 147}, {height: 7})
+
+
+<!-- PAGE: 74 -->
+
+#### Leasetagare–IFRS16
+
+I balansrakningen redovisas foljande belopp relaterade till leasingavtal
+
+| Tillgångar med nyttjanderätt | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- |
+| IT-utrustning | 94 694 | 89 220 |
+| Lokaler | 80 835 | 88 180 |
+| Bilar | 71 556 | 58 190 |
+| Kontorsutrustning | 6 308 | 9 629 |
+|  | 253 393 | 245 219 |
+| Leasingskulder | 31 dec 2024 | 31 dec 2023 |
+| Kortfristiga | 101 123 | 100 258 |
+| Långfristiga | 152 612 | 146 092 |
+|  | 253 735 | 246 350 |
+![table image]({page: 77, x: 28}, {y: 355, {width: 75}, {height: 7})
+
+Tillkommande nyttjanderatter under 2024 uppgick till 112 401 kSEK (11 564).
+
+I resultatrakningen redovisas foljande belopp relaterade till leasingavtal
+
+| Avskrivningar på nyttjanderätter | 2024 | 2023 |
+| --- | --- | --- |
+| IT-utrustning | -55 506 | -66 071 |
+| Lokaler | -30 414 | -30 584 |
+| Bilar | -35 255 | -33 349 |
+| Kontorsutrustning | -4 311 | -6 494 |
+|  | -125 486 | -136 498 |
+| Övriga poster i resultaträkningen | 2024 | 2023 |
+| Räntekostnader (ingår i finansiella kostnader) | -7 227 | -6 713 |
+| Utgifter hänförliga till korttidsleasingavtal och leasingavtal där tillgången är av lågt värde | - | - |
+| Utgifter hänförliga till variabla leasingbetalningar som inte ingår i leasingskulder | - | - |
+|  | -7 227 | -6 713 |
+![table image]({page: 77, x: 368}, {y: 116, {width: 65}, {height: 7})
+
+Det totala kassaflodet gallande leasingavtal under 2024 var 143 MSEK (118) bestaende av amorteringar och betalda rantekostnader.
+
+Not 28 Upplysningar om narstaende Proact IT Sweden AB har kundavtal med Axis Communications AB org.nr.
+556253-6143.
+Intakter gene rerade fran detta avtal uppgar till 57,2 MSEK under 2024 och Proact IT Sweden AB har en utestaende fordran pa Axis Communications AB om 1,0 MSEK per 31 december 2024.
+Alla transaktioner med Axis Communication AB har skett till marknadspris.
+Axis Communication AB ar narstaende part till Proact IT Group AB genom Martin Gren som ar styrelseledamot i Proact IT Group AB sedan ars stamman 2017 samtidigt som han ar grundare radgivare och styrelse ordforande i Axis Communication AB.
+Not 29 Handelser efter balansdagen Under februari meddelades att Styrelsen i Proact IT Group AB (“Proact”) har utsett Magnus Lonn till ny VD och koncernchef for Proact med tilltrade den 1 mars 2025.
+Magnus Lonn eftertrader Jonas Hasselberg som tidigare informerat styrelsen om sin avgang.
+
+Den 17 mars 2025 forvarvade Proact IT Group AB ett brittiskt privatagt konsultforetag BlakYaks.
+BlakYaks ar ett ledande konsultforetag specialiserat pa automatiserade cloud native tjanster som designar implementerar och managerar Microsoft Azure plattformar samt losningar helt genom kod.
+Med djup expertis inom Azure och bred kompetens inom GitOps DevSecOps containerteknologier och Infrastructure as Code (IaC) erbjuder BlakYaks cloud native losningar skraddarsydda for varje kunds specifika behov med malet att optimera kostnader effektivisera verksamheten och paskynda overgangen till en molnbaserad arkitektur.
+Med huvudkontor i London och cirka 50 medarbetare har bolaget en stark position inom finans och forsakringssektorerna med fokus pa att leverera vardeska pande losningar till medelstora och stora foretag.
+BlakYaks omsattning for de senaste tolv manaderna (fram till februari 2025) uppgick till 5,6 miljoner GBP med ett EBITA resultat pa 1,5 miljoner GBP.
+Bola get kommer att bli en del av Proacts Business Unit UK dar BlakYaks tekniska expertis och kundfokus forblir oforandrade nu med starkt stod fran sitt nya moderbolag.
+
+Forvarvet starker Proacts position som specialist inom hybrida molntjanster samt breddar bolagets expertis inom Microsoft Azure och sa kallade Cloud Native teknologier vilket skapar annu storre kund varde.
+Som en central del av Proacts tillvaxtstrategi syftar forvarvet av BlakYaks till att bredda bolagets expertis partnerskap och starka narvaron pa viktiga marknader.
+Den okande efterfragan pa flexibla effektiva och sakra digitala losningar driver behovet av avancerade hybrida moln och infrastruktur tjanster.
+Genom att tillvarata BlakYaks spetskompetens inom Azure plattformar Kubernetes container teknologier samt automatisering och transformation av modern molninfrastruktur kan Proact erbjuda sina kunder en annu starkare och mer konkurrenskraftig portfolj av nasta generations infrastruktur och plattformslosningar.
+
+Transaktionen bestar av en fast kopeskilling om 16 miljoner brittiska pund (GBP) pa kassa och skuldfri basis samt en villkorad tillaggskopeskilling pa maximalt 11 miljoner GBP beroende pa uppfyll nad av vissa finansiella mal med utbetalning under perioden 2025-2027.
+
+Vid tidpunkten for denna rapports offentliggorande finns inte nagra bokslut som kan ligga till grund for en detaljerad beskrivning av forvarvet.
+Av denna anledning lamnas ingen information om forvarva de tillgangarnas verkliga varde samt forvarvade tillgangar och skulder.
+
+## 3. Högkvalitativ och standardiserad tjänsteleverans med nöjda kunder
+
+Genom enhetliga processer och datadrivet beslutsfattande stravar vi efter maximal kostnads effektivitet i vara leveranshubbar.
+Automation och samordning av program sakerstaller dartill en snabb och precis leverans.
+Vart atagande for kontinuerlig for battring haller oss i framkant samt skapar en dynamisk organisation anpassad till marknadens krav.
+Vi har under aret fortsatt utveckla mer effektiva processer och rutiner for leveransen i vara hubbar.
+Genom standardisering och automation med tydlig uppfoljning av resultat har vi effektiviserat var tjansteleverans och tillhorande administration.
+Under aret har vi bland annat forbattrat var kundportal for IT support och infort automatiserad fakturering.
+
+- Vi har tagit ytterligare steg mot hållbara säkra tjänsteleveranser. Parallellt har vi också slutfört integrationen av förvärvet ahd i Tyskland avseende tjänsteportfölj och operativ verksamhet.
+
+####### FEBRUARI
+
+Bokslutskommunike rapport fran revisorer genomgang tjanste leveransorganisationen genomgang BU West.
+
+#  Strategiska fokusområden
+## 1. Bredda vår marknadsposition
+
+Vart erbjudande geografiska spridning kompetens och starka partnerrelationer ger oss goda mojlig heter att ytterligare forstarka var marknadsposition som en hallbar och saker leverantor av hybrida molntjanster.
+I strategiska partnerskap hjalper vi vara kunder i stravan att digitalisera skapa effektivitet och flexibilitet samt sakra sin data.
+
+#### 2023 Uppskjuten skatteskuld
+
+|  | Ingående balans | Uppskjuten skatt redovisad i resultatet (- intäkt/+ kostnad) | Redovisat i övrigt totalresultat | Uppskjuten skatt redovisad i balansräkningen | Valutakurs- differenser | Utgående balans |
+| --- | --- | --- | --- | --- | --- | --- |
+| Goodwill | 7 080 | -4 384 | - | - | -55 | 2 641 |
+| Övriga immateriella anläggningstillgångar | 58 695 | -12 457 | - | -148 | 312 | 46 402 |
+| Materiella anläggningstillgångar | -474 | -18 | - | - | -6 | -498 |
+| Avsättningar | 1 640 | 268 | - | - | -8 | 1 900 |
+| Övrigt | 6 310 | 1 432 | - | - | -1 | 7 741 |
+| Nettoredovisning | -130 | 130 | - | - | - | - |
+| Summa uppskjuten skatteskuld | 73 121 | -15 029 | - | -148 | 242 | 58 186 |
+![table image]({page: 65, x: 308}, {y: 241, {width: 660}, {height: 7})
+
+Uppskjutna skattefordringar och -skulder nettoredovisas nar det finns en legal kvittningsratt for aktuella skattefordringar och -skulder.
+Uppskjuten skatte fordran har redo visats for underskottsavdrag avseende skattemassiga forluster i de dotterbolag dar bolaget har gjort bedomningen att dessa under skottsavdrag kommer att kunna nyttjas mot framtida skattepliktiga vinster.
+De forvantade skattepliktiga vinst erna har beraknats individuellt per bolag.
+Per 31 december 2024 har 79 procent av de totala underskottsavdragen i koncernen bedomts att kunna nyttjas mot framtida skattepliktiga vinster.
+Uppskjuten skattefordran skuld som hanfor sig till avdragsgilla temporara skillnader avseende innehav i dotterbolag redovisas i den omfattning det ar sannolikt att den temporara skillnaden kommer att aterforas i framtiden och det kommer att finnas skattepliktiga overskott som avdraget kan nyttjas mot.
+arets resultat medfor att koncernen redovisar en skatte kostnad uppgaende till 58 079 kSEK (45 149).
+
+## Produkter och tjänster
+
+Proacts erbjudande innehaller allt fran radgivning transform ativa konsulttjanster cybersakerhet lagring och backup till katastrofsakring support drift overvakning natverk samt paketerade molntjanster och containerplattformar.
+
+#### Konkurrenter
+
+| Proacts verksamhet kan påverkas negativt av konkurren- sen. Konkurrensen kommer främst från integratörer med generell IT-verksamhetsinriktning, publika molntjänstleve- rantörer samt globala IT-tjänsteföretag. | Proacts konkurrensfördelar återfinns framför allt i att vara en fristående integratör med specialist kompetens och lång erfarenhet inom områdena datacenter med tillhörande konsult- och supporttjänster samt inom området molntjänster. Vår internationella geografiska sprid- ning, nära kundrelation lokalt och varierande kundbas ur ett branschperspektiv sätter oss i en stark konkurrensposition. Resultaten från undersökningar av kundnöjdhet fortsätter att vara starka, med ökade betyg sedan förra året. Vi utvecklar ständigt vår produktportfölj, expertis och partnerrelationer för att ytterligare stärka vår marknadsposition och konkurrensfördel. |
+| --- | --- |
+| Samhälls-och miljöansvar Risk för olämplig praxis i våra leveranskedjor avseende mänskliga rättigheter, hälsa, säkerhet och miljö. | Proact har en nolltolerans för kränkningar av mänskliga rättigheter och har en process på plats för att se till att alla tillämpliga lagar och industristandarder efterlevs i leveranskedjan. Proact strävar efter att använda begränsade miljöresurser effektivt. |
+| Klimatförändringar Oförmåga att leva upp till kunders och investerares krav och förväntningar på klimatåtgärder kan leda till förlorade kontrakt, ekonomisk påverkan eller skada på Proacts varu- märke. Svårighet att finna leverantörer som motsvarar Proacts krav på klimatambitioner vad gäller exempelvis för- nybar energi i datacenter, låg PUE eller nettonollmål, kan påverka Proacts för måga att leverera på kundkrav eller nå våra egna hållbarhetsmål. | Proacts klimatpåverkan är framför allt indirekt och återfinns i leverans kedjan. Målet är att minska utsläppen av växthus gaser, med sikte på att nå nettonoll till 2050. Framöver kommer arbetet att fokusera på att minska koldioxidavtrycket i leveranskedjan. Proacts målsättning att endast använda data center med förnybar energi är en nyckel för att nå detta. En annan är att arbeta i partnerskap med leveran törer som är engagerade i att minska sina utsläpp. |
+| Finansiella risker | Hantering |
+| Likviditetsrisk Likviditetsrisk är risken att inte kunna infria bolagets betalningsförpliktelser i sin helhet eller endast kunna göra det på påtagligt ofördelaktiga villkor på grund av brist på likvida medel. | Hanteringen av likviditetsrisken inom Proact sker genom att kombinera likviditetsplanering med kreditlimiter och lånefaciliteter säkerställs att koncernen vid varje tidpunkt har tillräckligt med likvida medel. Vid årets utgång hade Proact likvida medel uppgående till 814 MSEK (548), en outnyttjad check- räknings kredit om 159 MSEK (155) samtidigt som nettoskulden har minskat med 250 MSEK till en nettokassa om 330 MSEK under räkenskapsåret 2024. Skulder av seende leasing, enligt redovisningsreglerna IFRS 16 se vidare not 27, har påverkat netto skulden negativt med 254 MSEK (246). Exklusive leasingskulder har bolaget en nettokassa om 584 MSEK (326). Enligt bolagets finanspolicy ska moderbolaget hantera koncernens place- ringar av överlikviditet. Placering får ske på bankkonto eller i räntebärande värdepapper. Värde papper ska avse statsobligationer eller statsskuldväxlar. Placering får endast ske hos motparter med hög kreditrating om minst A- (Standard & Poor´s) eller A2 (Moody´s). Kortsiktiga likviditetsbehov är idag säkrat med checkräknings krediter. För att säkerställa att dessa behov kan tillgodoses krävs en stark finansiell ställning i kombination med ett aktivt arbete för att få tillgång till sådana krediter. |
+| Finansieringsrisk Det finns en risk att Proact kan få svårigheter att säkra nödvändiga medel för sina kapitalbehov eller att refinan- siera befintliga lån, vilket kan leda till högre kostnader eller försämrad finansiering. | Banklån uppgår till 230 MSEK (222). Banklånet avser dels en treårig lånefacilitet om 20 MEUR från Svensk Exportkredit, dels en treårig revolverande kreditfacilitet som Proact slöt avtal om under det tredje kvartalet 2021. Den revolverande faciliteten uppgår totalt till 600 MSEK, varav 0,0 MSEK utnyttjats per den 31 december 2024, och den har förlängts med maximala två år, vilket innebär att den löper till det tredje kvartalet 2026. Banklånet innehåller ett lånevillkor avseende nettoskuld i förhållande till EBITDA. Under 2024 och per 31 december 2024 har lånevillkoret uppfyllts med god marginal. Se not 24 för ytterligare information. Bolaget använder även fakturabelåning i Sverige och Finland. Vid faktu- rabelåning finns risken kvar hos bolaget tills kunden betalar. Beviljade checkräkningskrediter uppgick till 159 MSEK varav 159 MSEK var outnyttjade per 31 december 2024. Det finns inga garantier för att kapitalbehov inte kan uppstå. Ett misslyckande i att generera vinster eller i att lösa framtida finansieringsbehov kan substantiellt påverka bolagets marknadsvärde. |
+| Finansiella risker, forts. | HanteringMarknad och miljö, forts. Hantering |
+![table image]({page: 41, x: 28}, {y: 122, {width: 84}, {height: 7})
+
+#### Systemförsäljning
+
+Varje hard respektive mjukvara ar ett separat prestationsatagande.
+Intakterna vid forsaljning av hard och mjukvara redovisas nar Proact overfort alla vasentliga risker och fordelar forknippade med aganderatten till produkten det vill saga nar kunden far kontroll over hard respektive mjuk vara.
+I de flesta fall intraffar detta nar den legala aganderatten har overforts och nar varorna rent fysiskt har overlamnats till koparen.
+I det fall vasentliga risker forknippade med aganderatten av varan kvarstar har inte forsaljningen slutforts.
+Intakten redovisas forst nar forsaljningen slutforts.
+Fakturering sker vid leveranstidpunkten eller i vissa fall vid leveransgodkannande.
+Kunden har efter leveranstidpunkten alternativt leveransgodkannande inte ratt att returnera hard och mjukvara.
+Betalningsvillkoren ar normalt mellan 30 och 90 dagar.
+Proact har inget garantiansvar gentemot kunden.
+
+Proact agerar huvudman vid forsaljning av leverantorsgarantier och under hall.
+Intakter och kostnader for detta redovisas brutto i resultat rakningen och linjart over avtalsperioden.
+
+### Nedskrivningstest
+
+Ett eventuellt nedskrivningsbehov av goodwill faststalls varje ar genom att berakna ett framtida nyttjandevarde for varje enskild kassagenererande enhet.
+Om redovisat varde pa goodwill skulle overstiga beraknat nyttjandevarde foreligger ett nedskrivningsbehov.
+
+Vid bedomningen av det framtida nyttjandevardet har framtida kassa floden for respektive kassagenererande enhet beraknats utifran kommande ars budget och prognoser for ytterligare 4 ar med antagande om 2 procent (2) evig tillvaxttakt.
+
+En viktad kapitalkostnad (WACC Weighted Average Cost of Capital) fore skatt pa mellan 10-11 procent (10-11) och efter skatt pa mellan 10-11 procent (10-11) har anvants vid berakningen beroende pa riskfaktor i de olika kassagenererande enheterna.
+Forutom dessa viktiga antaganden gallande WACC och framtida tillvaxt har aven en lonsamhet (marginal pa resultat fore skatt) om 6-8 procent (6-8) antagits.
+Foretagsledningens faststallande av viktiga an taganden och de varden som innefattas i dessa grundar sig pa en aterspegling av tidigare erfarenheter.
+En evig tillvaxt om 2 procent har bedomts rimlig pa den marknad dar bolaget ar verksamt.
+Bedomningen bygger pa en viktad analys av bade produkter och tjanster samt en hogre tillvaxt tidigare under de forsta aren efter prognosperioden.
+
+Bolaget har genomfort kanslighetsanalyser baserat pa isolerade forandringar av lagre budgetnivaer lagre tillvaxttal samt hogre viktade kapital kostnader.
+
+Alla kassagenererande enheter har vid en hojning av viktad kapitalkostnad med 2 procentenheter fortsatt goda marginaler for atervinningsvarde jamfort med redovisat varde.
+
+Vid en sankning av tillvaxttakten i omsattning under prognosperioden med 1 procentenhet skulle atervinningsvardet for samtliga kassagenererande fortsatt overstiga redo visade varden med god marginal.
+
+Vid en sankning av den langsiktiga tillvaxttakten i omsattning med 1 procentenhet skulle atervinningsvardet for samtliga kassagenererande enheter fortsatt overstiga redovisade varden med god marginal.
+
+Per 31 december 2024 har inget nedskrivningsbehov bedomts finnas.
+
+
+<!-- PAGE: 69 -->
+
+#### Not 32 Företagsförvärv
+
+Den 17 mars 2025 forvarvade Proact IT Group AB ett brittiskt privatagt konsultforetag BlakYaks.
+BlakYaks ar ett ledande konsultforetag specialiserat pa automatiserade cloud native tjanster som designar implementerar och managerar Microsoft Azure plattformar samt losningar helt genom kod.
+Med djup expertis inom Azure och bred kompetens inom GitOps DevSecOps containerteknologier och Infrastructure as Code (IaC) erbjuder BlakYaks cloud native losningar skraddarsydda for varje kunds specifika behov med malet att optimera kostnader effektivisera verksamheten och paskynda overgangen till en molnbaserad arkitektur.
+Med huvudkontor i London och cirka 50 medarbetare har bolaget en stark position inom finans och forsakringssektorerna med fokus pa att leverera vardeska pande losningar till medelstora och stora foretag.
+BlakYaks omsattning for de senaste tolv manaderna (fram till februari 2025) uppgick till 5,6 miljoner GBP med ett EBITA resultat pa 1,5 miljoner GBP.
+Bola get kommer att bli en del av Proacts Business Unit UK dar BlakYaks tekniska expertis och kundfokus forblir oforandrade nu med starkt stod fran sitt nya moderbolag.
+
+Transaktionen bestar av en fast kopeskilling om 16 miljoner brittiska pund (GBP) pa kassa och skuldfri basis samt en villkorad tillaggskopeskilling pa maximalt 11 miljoner GBP beroende pa uppfyll nad av vissa finansiella mal med utbetalning under perioden 2025-2027.
+
+Vid tidpunkten for denna rapports offentliggorande finns inte nagra bokslut som kan ligga till grund for en detaljerad beskrivning av forvarvet.
+Av denna anledning lamnas ingen information om forvarva de tillgangarnas verkliga varde samt forvarvade tillgangar och skulder.
+
+
+<!-- PAGE: 79 -->
+Undertecknade forsakrar att koncern och arsredovisningen har upprattats i enlighet med internationella redovisningsstandarder IFRS sadana de antagits av EU respektive god redo visningssed och ger en rattvisande bild av koncernens och moderbolagets stallning och resultat samt att forvaltningsberattelsen ger en rattvisande oversikt over utvecklingen av koncernens och moderbolagets verksamhet stallning och resultat samt beskriver vasentliga risker och osakerhets faktorer som de foretag som ingar i koncernen star infor.
+
+Solna den 31 mars 2025
+
+#### Koncernen 2024
+
+|  | Tillgångar och skulder värderade till verkligt värde via totalresultatet | Finansiella tillgångar värderade till upplupet anskaffningsvärde | Övriga finansiella skulder värderade till upplupet anskaffningsvärde | Summa redovisat värde | Verkligt värde 2) |
+| --- | --- | --- | --- | --- | --- |
+| Leasingfordringar | - | 25 701 | - | 25 701 | 25 701 |
+| Hyresdepositioner | - | 1 214 | - | 1 214 | 1 214 |
+| Kundfordringar | - | 756 380 | - | 756 380 | 756 380 |
+| Övriga fordringar | - | 163 844 | - | 163 844 | 163 844 |
+| Likvida medel | - | 813 518 | - | 813 518 | 813 518 |
+| Valutaderivat 1) | - | - | - | - | - |
+| Totala finansiella tillgångar 3) 4) | - | 1 760 657 | - | 1 760 657 | 1 760 657 |
+| Leverantörsskulder | - | - | 561 880 | 561 880 | 561 880 |
+| Övriga skulder | - | - | 59 607 | 59 607 | 59 607 |
+| Banklån | - | - | 229 730 | 229 730 | 229 730 |
+| Skuld förvärv | - | - | 5 456 | 5 456 | 5 456 |
+| Valutaderivat 1) | 408 | - | - | 408 | 408 |
+| Leasingskulder | - | - | 253 735 | 253 735 | 253 735 |
+| Totala finansiella skulder 3) | 408 | - | 1 110 408 | 1 110 816 | 1 110 816 |
+![table image]({page: 74, x: 583}, {y: 108, {width: 658}, {height: 7})
+
+Finansiella tillgangar och skulder per varderingskategori
+
+####### Maria Gomez
+######## Business Unit Director, Central
+
+Fodd 1970 Anstalld sedan 2024 Antal aktier 3 500
+
+# 2Proact Års- och hållbarhetsredovisning 2024 Finansiella rapporterKort om oss och året
+
+
+<!-- PAGE: 3 -->
+
+######### Belopp i kSEK, Not 30
+
+| Ingående balans per 1 januari 2024 | 10 619 | 297 964 | 23 963 | 43 635 | 632 423 | 1 008 604 | - | 1 008 604 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Årets resultat | - | - | - | - | 219 876 | 219 876 | - | 219 876 |
+| Övrigt totalresultat | - | - | 13 461 | 22 385 | - | 35 846 | - | 35 846 |
+| Årets totalresultat | - | - | 13 461 | 22 385 | 219 876 | 255 722 | - | 255 722 |
+| Transaktioner med aktieägare Utdelning | - | - | - | - | -53 984 | -53 984 | - | -53 984 |
+| Återköp egna aktier | - | - | - | - | -42 801 | -42 801 | - | -42 801 |
+| Förvärv från innehav utan bestämmande inflytande | - | - | - | - | - | - | - | - |
+| Försäljning innehav utan bestämmande inflytande | - | - | - | - | - | - | - | - |
+| Långsiktigt incitamentsprogram | - | - | - | - | 3 925 | 3 925 | - | 3 925 |
+| Sålda tidigare återköpta aktier | - | - | - | - | 962 | 962 | - | 962 |
+| Summa transaktioner med aktieägare | - | - | - | - | -91 898 | -91 898 | - | -91 898 |
+| Utgående balans per 31 december 2024 | 10 619 | 297 964 | 37 424 | 66 020 | 760 401 | 1 172 428 | - | 1 172 428 |
+![table image]({page: 51, x: 538}, {y: 163, {width: 488}, {height: 7})
+
+Aktie kapital Sakring netto investering i utlandsk verksamhet Omrakning av utland ska verksam heter Balanserat resultat inkl.
+arets resultat Totalt Hanforligt till innehav utan bestammande inflytande Totalt eget kapital
+
+
+<!-- PAGE: 52 -->
+|  |  | 2024 | 2023 |
+| --- | --- | --- | --- |
+| 26 |
+| KASSAFLÖDE FRÅN ÅRETS VERKSAMHET |
+| Årets rörelseresultat |  | 295 536 | 229 754 |
+| Justeringar för poster som inte är kassaflödespåverkande: |
+| Återläggning av av- och nedskrivningar av anläggningstillgångar | 5, 15, 16 | 214 083 | 228 211 |
+| Finansiell leasingförsäljning | 27 | 26 179 | 32 954 |
+| Återläggning av orealiserade poster |  | - | - |
+| Återläggning av andra icke kassaflödespåverkande poster |  | 2 598 | -9 049 |
+| Förändring avsättningar |  | 777 | -174 |
+| Betald inkomstskatt 1) | 12 | -58 804 | -54 651 |
+| Kassaflöde från den löpande verksamheten före förändring av rörelsekapital |  | 480 369 | 427 045 |
+| Kassaflöde från förändringar i rörelsekapital Varulager |  | -4 956 | 49 504 |
+| Rörelsefordringar |  | -133 812 | 64 554 |
+| Rörelseskulder |  | 182 472 | -9 060 |
+| Kassaflöde från den löpande verksamheten |  | 524 073 | 532 043 |
+![table image]({page: 52, x: 439}, {y: 96, {width: 488}, {height: 7})
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Förvärv av verksamheter | 17 | - | -7 951 |
+| INVESTERINGSVERKSAMHETEN |
+| Avyttring av verksamhet | 26 | - | -12 |
+| Investeringar i materiella anläggningstillgångar | 16 | -30 049 | -44 347 |
+| Avyttring materiella anläggningstillgångar | 16 | - | 1 064 |
+| Investeringar i immateriella anläggningstillgångar | 15 | -1 177 | -968 |
+| Minskning långfristig fordran | 18 | 4 713 | 333 |
+| Ökning långfristig fordran | 18 | - | -45 |
+| Kassaflöde från investeringsverksamheten |  | -26 513 | -51 926 |
+| FINANSIERINGSVERKSAMHETEN |
+| Utdelning |  | -53 984 | -50 791 |
+| Återköp egna aktier |  | -42 801 | -19 588 |
+| Upptagna lån |  | - | 112 018 |
+| Amorterade lån |  | - | -336 176 |
+| Erhållna räntor |  | 13 237 | 10 366 |
+| Betalda räntor |  | -26 466 | -25 133 |
+| Amortering leasingskulder |  | -135 510 | -117 971 |
+| Övrigt kassaflöde från finansieringsverksamheten |  | -1 627 | -2 784 |
+| Kassaflöde från finansieringsverksamheten |  | -247 151 | -430 059 |
+| ÅRETS KASSAFLÖDE |  | 250 409 | 50 058 |
+| Likvida medel vid årets början |  | 547 897 | 505 684 |
+| Omräkningsdifferens i likvida medel |  | 15 212 | -7 845 |
+| LIKVIDA MEDEL VID ÅRETS SLUT |  | 813 518 | 547 897 |
+![table image]({page: 52, x: 948}, {y: 96, {width: 488}, {height: 7})
+
+- 1) Inkomstskatt 58 079 kSEK (45 179). Netto inte kassapåverkande justering och betald skatt -722 kSEK (-9 472).
+
+
+<!-- PAGE: 53 -->
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Intäkter | 4, 14 | 152 494 | 152 021 |
+| Bruttoresultat | 4 | 152 494 | 152 021 |
+| Administrationskostnader | 5, 9 | -161 436 | -151 896 |
+| Rörelseresultat | 9 | -8 942 | 125 |
+| Finansiella intäkter | 10 | 313 086 | 187 550 |
+| Finansiella kostnader | 11 | -31 532 | -45 396 |
+| Resultat före skatt och bokslutsdispositioner | 14 | 272 612 | 142 279 |
+| Koncernbidrag |  | - | - |
+| Resultat före skatt | 14 | 272 612 | 142 279 |
+| Inkomstskatt | 12 | -2 800 | -742 |
+| Årets resultat |  | 269 812 | 141 537 |
+![table image]({page: 53, x: 439}, {y: 96, {width: 488}, {height: 7})
+
+|  | 2024 | 2023 |
+| --- | --- | --- |
+| Årets resultat | 269 812 | 141 537 |
+| Övrigt totalresultat | - | - |
+| Årets totalresultat | 269 812 | 141 537 |
+![table image]({page: 53, x: 948}, {y: 96, {width: 488}, {height: 7})
+
+
+<!-- PAGE: 54 -->
+|  | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- |
+| Immateriella anläggningstillgångar | 5, 15 | 3 063 | 8 216 |
+| TILLGÅNGAR |
+| ANLÄGGNINGSTILLGÅNGAR |
+| Materiella anläggningstillgångar | 5, 16 | 311 | 294 |
+| Aktier i koncernföretag | 17 | 494 687 | 492 383 |
+| Fordringar hos koncernföretag |  | 629 884 | 640 109 |
+| Andra långfristiga fordringar |  | 513 | 1 448 |
+| Uppskjutna skattefordringar | 12 | 1 871 | 1 394 |
+| SUMMA ANLÄGGNINGSTILLGÅNGAR |  | 1 130 329 | 1 143 844 |
+| OMSÄTTNINGSTILLGÅNGAR |
+| Aktuell skattefordran |  | - | - |
+| Fordringar hos koncernföretag | 18 | 274 705 | 81 020 |
+| Övriga fordringar |  | 7 995 | 1 696 |
+| Förutbetalda kostnader och upplupna intäkter | 21 | 23 007 | 15 031 |
+| Likvida medel | 26 | - | - |
+| SUMMA OMSÄTTNINGSTILLGÅNGAR |  | 305 707 | 97 747 |
+| SUMMA TILLGÅNGAR |  | 1 436 036 | 1 241 591 |
+![table image]({page: 54, x: 417}, {y: 96, {width: 488}, {height: 7})
+
+31 dec 2024 31 dec 2023
+
+####### Hållbarhet Övrigt
+
+| Resultaträkning (MSEK) | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Totala intäkter | 4 864,2 | 4 847,3 | 4 756,8 | 3 525,0 | 3 633,1 |
+| EBITDA | 509,6 | 457,9 | 473,2 | 348,6 | 369,6 |
+| EBITA | 350,6 | 285,5 | 313,1 | 197,5 | 216,7 |
+| EBIT | 295,5 | 229,8 | 260,6 | 166,2 | 182,1 |
+| Resultat före skatt | 278,0 | 218,3 | 244,2 | 151,9 | 167,7 |
+| Årets resultat | 219,9 | 173,1 | 191,5 | 117,2 | 132,3 |
+| EBITDA marginal, % | 10,5 | 9,4 | 9,9 | 9,9 | 10,2 |
+| EBITA marginal, % | 7,2 | 5,9 | 6,6 | 5,6 | 6,0 |
+| EBIT marginal, % | 6,1 | 4,7 | 5,5 | 4,7 | 5,0 |
+| Nettomarginal, % | 5,7 | 4,5 | 5,1 | 4,3 | 4,6 |
+| Vinstmarginal, % | 4,5 | 3,6 | 4,0 | 3,3 | 3,6 |
+| Eget kapital, avsättningar och skulder (MSEK) |
+| Eget kapital | 1 172,4 | 1 008,6 | 923,4 | 713,9 | 605,0 |
+| Balansomslutning | 4 475,7 | 4 044,4 | 4 241,9 | 3 395,0 | 2 923,9 |
+| Sysselsatt kapital | 1 680,6 | 1 504,8 | 1 673,4 | 1 467,9 | 1 094,9 |
+| Nettokassa (+)/Nettoskuld (–) | 330,1 | 79,6 | -227,0 | -261 | 22,0 |
+| Finansiella nyckeltal |
+| Soliditet, % | 26,2 | 24,9 | 21,8 | 21,0 | 20,7 |
+| Kapitalomsättningshastighet, ggr | 1,1 | 1,2 | 1,2 | 1,1 | 1,3 |
+| Kassaflöde, MSEK | 250,4 | 50,0 | 12,2 | -26,3 | 126,0 |
+| Investeringar i anläggningstillgångar, MSEK | 158,7 | 148,3 | 397,5 | 550,7 | 269,1 |
+| Räntabilitet på eget kapital, % | 20,2 | 18,2 | 23,4 | 17,8 | 23,4 |
+| Räntabilitet på sysselsatt kapital, % | 19,7 | 16,3 | 17,2 | 13,4 | 17,1 |
+| Utdelning till moderbolagets aktieägare, MSEK 2) | 54,0 | 50,8 | 41,2 | 41,2 | 41,2 |
+| Nyckeltal per medarbetare |
+| Genomsnittligt antal årsanställda | 1 112 | 1 160 | 1 160 | 1 027 | 973 |
+| Antal anställda vid årets slut | 1 137 | 1 171 | 1 258 | 1 178 | 1 022 |
+| Resultat före skatt per anställd, kSEK | 250 | 188 | 211 | 148 | 172 |
+![table image]({page: 84, x: 28}, {y: 95, {width: 493}, {height: 7})
+
+| Data per aktie | 2024 | 2023 | 2022 | 2021 | 2020 |
+| --- | --- | --- | --- | --- | --- |
+| Resultat per aktie (totalt antal aktier), kr | 8,03 | 6,13 | 6,84 | 4,18 | 4,70 |
+| Resultat per aktie (utestående aktier), kr 3) | 8,15 | 6,29 | 6,97 | 4,27 | 4,80 |
+| Eget kapital per aktie (totalt antal aktier), kr | 42,79 | 36,02 | 32,84 | 25,38 | 21,50 |
+| Eget kapital per aktie (utestående aktier), kr 3) | 43,58 | 36,97 | 33,49 | 25,88 | 21,93 |
+| Kassaflöde från den löpande verksamheten per aktie (totalt antal aktier), kr | 18,20 | 19,00 | 15,83 | 10,84 | 16,72 |
+| Kassaflöde från den löpande verksamheten per aktie (utestående aktier), kr 3) | 18,54 | 19,50 | 16,14 | 11,06 | 17,05 |
+| Totalt antal aktier vid periodens slut, st | 27 401 658 | 28 001 658 | 28 001 658 | 28 001 658 | 28 001 658 |
+| Totalt antal utestående aktier vid periodens slut, st 3) | 26 901 469 | 27 281 448 | 27 454 851 | 27 454 851 | 27 454 851 |
+| Vägt genomsnittligt antal aktier (totalt antal aktier), st | 27 401 658 | 28 001 658 | 28 001 658 | 28 001 658 | 28 001 658 |
+| Vägt genomsnittligt antal aktier (utestående aktier), st 3) | 26 987 862 | 27 466 985 | 27 454 851 | 27 454 851 | 27 454 851 |
+| Antal aktier i eget innehav vid periodens slut | 500 189 | 720 210 | 546 807 | 546 807 | 546 807 |
+| Antal teckningsoptioner vid periodens slut | - | - | - | - | - |
+| Aktiekurs per 31 december, kr | 117,80 | 94,00 | 83,00 | 87,00 | 91,00 |
+![table image]({page: 84, x: 538}, {y: 95, {width: 493}, {height: 7})
+
+- 1) Nyckeltal omräknade efter genomförd split i maj, 2021.
+
+- 2) Styrelsen kommer att föreslå årsstämman att utdelning om 2,40 kr per aktie lämnas för verksamhetsåret 2024.
+
+- 3) Proact har ett långsiktigt prestationsaktieprogram, vilket kan ge upphov till utspädningseffekt om maximalt 2,36 procent. Bolaget har även återköpt egna aktier som finns i eget förvar vilket påverkar nyckeltalet.
+
+
+<!-- PAGE: 85 -->
+
+## Not 13 Jämförelsestörande poster
+
+Under 2024 har nedan redovisade jamforelsestorande poster paverkat rorelse resultatet.
+
+##### Mål
+
+>8%
+
+5
+
+>10%
+
+| 2 | 5 | 2 | -0,5 | 2 |
+| --- | --- | --- | --- | --- |
+| 0 | 1 |  | 1 | 1 |
+|  | 0 | 0 | 0 | -1,0 |
+| -5 |  | -5 |  | 0 |
+| 20242023202220212020 |
+|  | 20242023202220212020 |  | 20242023202220212020 | 20242023202220212020 |
+| 20242023202220212020 |
+| % | ggr | Times | % | ggr |
+| % |
+|  |  | Försäljningstillväxten för år 2024 uppgick till 0,3 procent (1,9). |  | För helåret 2024 genererade bolaget en EBITA-marginal om 7,2 procent (5,9) av intäkterna. |
+![table image]({page: 10, x: 507}, {y: 201, {width: 263}, {height: 29})
+
+####### Alexander Lechthaler
+######## Business Unit Director, West
+######### Född 1982 Anställd sedan 2011 Antal aktier 4 000
+
+
+<!-- PAGE: 47 -->
+| Innehåll | 48 |
+| Koncernens räkningar | 49 |
+| Moderbolagets räkningar | 53 |
+| Noter | 57 |
+| Intygande | 79 |
+| Revisionsberättelse | 80 |
+![table image]({page: 47, x: 102}, {y: 100, {width: 181}, {height: 9})
+
+
+<!-- PAGE: 48 -->
+| Noter |  | Sid |
+| --- | --- | --- |
+| Not 1 | Redovisningsprinciper | 57 |
+| Not 2 | Rapportering för segment | 58 |
+| Not 3 | Intäkter per bransch | 59 |
+| Not 4 | Inköp och försäljning mellan koncernföretag | 61 |
+| Not 5 | Av- och nedskrivningar av anläggningstillgångar | 61 |
+| Not 6 | Forsknings- och utvecklingskostnader | 61 |
+| Not 7 | Rörelsens kostnader | 61 |
+| Not 8 | Upplysning om revisionsarvode | 61 |
+| Not 9 | Medelantal anställda, löner, andra ersättningar och sociala kostnader med mera | 61 |
+| Not 10 | Finansiella intäkter | 63 |
+| Not 11 | Finansiella kostnader | 63 |
+| Not 12 | Inkomstskatt | 64 |
+| Not 13 | Jämförelsestörande poster | 66 |
+| Not 14 | Utländska valutor | 66 |
+| Not 15 | Immateriella anläggningstillgångar | 67 |
+| Not 16 | Materiella anläggningstillgångar | 69 |
+| Not 17 | Aktier i koncernföretag | 70 |
+![table image]({page: 48, x: 284}, {y: 162, {width: 230}, {height: 7})
+
+| Räkningar | Sid |
+| --- | --- |
+| Rapport över totalresultat för koncernen | 49 |
+| Balansräkning för koncernen | 50 |
+| Förändringar i eget kapital för koncernen | 51 |
+| Kassaflödesanalys för koncernen | 52 |
+| Resultaträkning för moderbolaget | 53 |
+| Rapport över totalresultat för moderbolaget | 53 |
+| Balansräkning för moderbolaget | 54 |
+| Förändringar i eget kapital för moderbolaget | 55 |
+| Kassaflödesanalys för moderbolaget | 56 |
+![table image]({page: 48, x: 28}, {y: 162, {width: 230}, {height: 7})
+
+| Noter |  | Sid |
+| --- | --- | --- |
+| Not 18 | Fordringar och skulder hos koncernföretag samt Andra långfristiga fordringar | 71 |
+| Not 19 | Varulager | 71 |
+| Not 20 | Kundfordringar | 71 |
+| Not 21 | Förutbetalda kostnader och upplupna intäkter | 71 |
+| Not 22 | Övriga skulder | 72 |
+| Not 23 | Upplupna kostnader och förutbetalda intäkter | 72 |
+| Not 24 | Finansiella tillgångar och skulder | 72 |
+| Not 25 | Ställda säkerheter, eventualförpliktelser och åtaganden | 75 |
+| Not 26 | Tilläggsupplysningar till kassaflödesanalysen | 76 |
+| Not 27 | Leasing | 76 |
+| Not 28 | Upplysningar om närstående | 77 |
+| Not 29 | Händelser efter balansdagen | 77 |
+| Not 30 | Eget kapital | 78 |
+| Not 31 | Resultat per aktie | 78 |
+| Not 32 | Företagsförvärv |  |
+![table image]({page: 48, x: 540}, {y: 162, {width: 80}, {height: 7})
+
+
+<!-- PAGE: 49 -->
+|  |  | 2024 | 2023 |
+| --- | --- | --- | --- |
+| 1 |
+| Systemintäkter |  | 2 685 703 | 2 698 001 |
+| Tjänsteintäkter |  | 2 170 849 | 2 144 644 |
+| varav supportintäkter |  | 625 419 | 595 165 |
+| varav intäkter från molntjänster |  | 1 130 034 | 1 097 359 |
+| varav konsultintäkter |  | 415 396 | 452 120 |
+| Övriga intäkter |  | 7 684 | 4 670 |
+| Totala intäkter | 2,3 | 4 864 236 | 4 847 315 |
+| Kostnad för sålda varor och tjänster | 5, 6, 7, 9, 13, 14, 19 | -3 655 733 | -3 758 117 |
+| Bruttoresultat | 5, 28 | 1 208 503 | 1 089 198 |
+| Försäljnings- och marknadsföringskostnader | 9, 13 | -525 348 | -504 456 |
+| Administrationskostnader | 5, 6, 8, 9, 13 | -387 619 | -354 988 |
+| Rörelseresultat | 7, 8, 13, 14, 27 | 295 536 | 229 754 |
+| Finansiella intäkter | 10 | 17 599 | 28 518 |
+| Finansiella kostnader | 11 | -35 180 | -40 000 |
+| Resultat före skatt | 14 | 277 955 | 218 272 |
+| Inkomstskatt | 12 | -58 079 | -45 179 |
+| Årets resultat |  | 219 876 | 173 093 |
+![table image]({page: 49, x: 440}, {y: 96, {width: 488}, {height: 7})
+
+|  |  | 2024 | 2023 |
+| --- | --- | --- | --- |
+| Övrigt totalresultat Poster som kan komma att omföras till årets resultat Säkring av nettoinvestering i utländsk verksamhet |  | 16 953 | 262 |
+| Skatteeffekt säkring av nettoinvestering i utländsk verksamhet |  | -3 492 | -54 |
+| Omräkningsdifferenser |  | 22 385 | -4 864 |
+| Summa poster som kan komma att omföras till årets resultat, efter skatt |  | 35 846 | -4 656 |
+| Årets totalresultat |  | 255 722 | 168 437 |
+| Årets resultat hänförligt till: |
+| Moderbolagets aktieägare |  | 219 876 | 172 647 |
+| Innehav utan bestämmande inflytande | 17 | - | 446 |
+|  |  | 219 876 | 173 093 |
+| Årets totalresultat hänförligt till: |
+| Moderbolagets aktieägare |  | 255 722 | 168 728 |
+| Innehav utan bestämmande inflytande |  | - | -291 |
+|  |  | 255 722 | 168 437 |
+| Resultat per aktie Resultat per aktie för resultat hänförligt till moderbolagets aktieägare, före utspädning, kr 1) | 31 | 8,15 | 6,29 |
+| moderbolagets aktieägare, efter utspädning, kr 1) | 31 | 8,15 | 6,29 |
+| Vägt genomsnittligt antal utestående aktier, st |  | 26 987 862 | 27 466 985 |
+![table image]({page: 49, x: 948}, {y: 96, {width: 488}, {height: 7})
+
+#### Verksamhetsinriktning
+
+| Proact är en av Europas ledande specialister inom data- och informationshantering med fokus på molntjänster och datacenter lösningar. Vi hjälper våra kunder att lagra, koppla samman, skydda och säkra sin data samt att skapa värde genom den, med fokus på förbättrad flexibilitet, produktivitet och effektivitet. Proact har genomfört tusentals framgångs- rika projekt framför allt i Europa, har mer än 4 000 kunder och hanterar hundratals petabyte information i molnet. Proact består av helägda dotter bolag i Europa, Nordamerika och Japan. Per sista december 2024 uppgick antalet medarbetare i Proact till 1 137 personer verksamma i Belgien, Danmark, Estland, Finland, Lettland, Neder länderna, Norge, Storbritannien, Sverige, Tjeckien, Tyskland och USA. Proact Finance AB är ett helägt dotterbolag som via kon cernens övriga dotterbolag erbjuder kunderna finansieringstjänster för såväl tjänster som produkter. Moderbolaget, Proact IT Group AB (publ), är globalt ansvarigt för koncerngemensamma frågor. | Under året ökade våra totala intäkter med 0,3 procent till 4 864,2 MSEK (4 847,3), medan återkommande intäkter från moln- och supporttjänster steg med 1,9 procent till 1 781 MSEK (1 748). Nytecknade molntjänsteavtal uppgick till 224 MSEK (197) under fjärde kvartalet, vilket innebar ett nytt kvartalsrekord. Justerad EBITA ökade med 16,1 procent till 350,6 MSEK (302,1), främst till följd av förbättrad leverans- effektivitet och en stärkt bruttomarginal. |
+| --- | --- |
+| Kassaflödet var positivt, och bolaget avslutade året med en | nettokassa om 330 MSEK (80). |
+| Offentlig sektor 34% (36) Handel & tjänster 18% (23) Tillverkande industri 11% (11) Energi 7% (6) Telekom 8% (5) Bank, Finans 7% (4) Media 2% (3) Övrigt 13% (12) |
+| Koncernens intäkter och resultat |
+| Under helåret 2024 uppgick bolagets intäkter till 4 864 MSEK | (4 847), en ökning med 0,3 procent. |
+| Intäkter per Business Unit |
+|  | Jan–dec 2024 Jan–dec 2023 Jan–dec 2022 |
+| MSEK |
+|  | Nordic & Baltics 2 529 2 619 2 508 |
+|  | UK 708 662 712 |
+|  | West 848 823 806 |
+|  | Central 888 833 789 |
+|  | Koncerngemensamt -109 -90 -58 |
+|  | Totala intäkter 4 864 4 847 4 757 |
+![table image]({page: 36, x: 28}, {y: 153, {width: 231}, {height: 7})
+
+Public Sector 34% (36) Retail and Services 18% (23) Manufacturing Industry 11% (11) Energy 7% (6) Telecoms 8% (5) Banking Finance 7% (4) Media 2% (3) Other 13% (12)
+
+I Business Unit Nordic & Baltics minskade de totala intakt erna under aret med 3,4 procent.
+Systemintakterna minskade med 8,1 procent och tjansteintakterna okade med 7,8 procent.
+Organiskt var minskningen 2,8 procent.
+I Business Unit UK ok ade de totala intakterna med 7,0 procent.
+Organiskt var okningen 4,5 procent.
+System intakterna okade med 17,2 procent och intakterna fran tjansteverksamheten minskade med 0,7 procent.
+I Business Unit West okade de totala intakt erna med 3,1 procent.
+Organiskt var okningen 3,5 pro cent.
+Systemintakterna okade med 12,2 procent samtidigt som tjansteintakt erna var oforandrade jamfort med foregaende ar.
+I Bus iness Unit Central okade de totala intakterna med 6,6 procent.
+Organiskt okade intakterna med 7,4 procent.
+
+Systemintakt erna okade med 19,6 procent medan tjanste intakterna minskade med 4,7 procent.
+Framtida kontrakterade kassa floden fran Proact Finance uppgick till 64 MSEK (67) per den 31 december 2024.
+
+Proact har en god intaktsfordelning avseende olika bransch segment.
+De tre storsta branschsegmenten ar Offentlig sektor Handel & tjanster samt Tillverkande industri.
+
+##### Växande marknad med stabil efterfrågan
+
+Marknaden for hybrida molntjanster fortsatter att vaxa i god takt drivet av ett antal overgripande trender
+
+- Fokus på digital transformation och innovation genom IT
+
+- Användning av hybrida moln för att öka hastighet, flexibilitet och tillgänglighet
+
+- Ökat fokus på cybersäkerhet och dataregel- efterlevnad
+
+- IT som ett verktyg för att nå hållbarhetsmål
+
+# MSEK
+
+0 200 400 600 800
+
+20242023202220212020 0
+2
+4 6 8
+
+%SEK millions %SEK millions %SEK millions %SEK millions
+
+
+<!-- PAGE: 15 -->
+IT marknaden har visat motstandskraft i forhallande till ekonomiska nedgangar jamfort med andra sektorer.
+Ekonomisk osakerhet stigande rantor och geopolitisk instabilitet har paverkat varldsekonomin och dampat viljan att spendera.
+Trots att foretag upplevt budgetnedskarning och atstramning anses IT vara nodvandigt och bidrar till att sakerstalla kontinuitet och konkurrenskraft i verk samheter.
+De tre viktigaste kundtrenderna presenteras nedan
+
+- Flexibel och hållbar IT genom hybrida moln
+
+- CybersäkerhetDigitalisering, AI och maskininlärning
+
+######## Strukturen för vårt hållbarhetsarbete
+
+Riktlinjer for hallbarhetsarbetet faststalls av styrelsen.
+VD har det yttersta ansvaret for hallbarhetsarbetet medan koncernled ningen ansvarar for framtagande av strategi och uppfoljning av resultatet av koncernens hallbarhetsarbete.
+En medlem i kon cernledningen ar ansvarig for implementering och padrift av hallbarhetsarbetet.
+Rapportering av arbetet sker kontinuerligt vid styrelsens och koncernledningens moten.
+Det dagliga operativa ansvaret ligger hos respektive affarsenhet med stod av expertfunktionerna People & Sustainability Legal Technology & Services Corporate Development och Finance.
+Hallbarhet gallande medarbetare ar ett av malen for samtliga medlemmar i koncernledningens prestationsbaserade arliga bonusprogram.
+
+### Uttalande
+
+En hallbarhetsrapport har upprattats.
+
+Stockholm den 31 mars 2025
+
+ohrlings PricewaterhouseCoopers AB
+
+###### Revisorns granskning av ESEF-rapporten Uttalande
+
+Utover var revision av arsredovisningen och koncernredovisningen har vi aven utfort en gransk ning av att styrelsen och verkstallande direktoren har upprattat arsredovisningen och koncern redovisningen i ett format som mojliggor enhetlig elektronisk rapportering (Esef-rapporten) enligt 16 kap.
+4
+a
+§ lagen (2007:528) om vardepappersmarknaden for Proact IT Group (publ) for ar 2024.
+Var granskning och vart uttalande avser endast det lag stadgade kravet.
+Enligt var uppfattning har Esef rapporten upprattats i ett format som i allt vasentligt mojliggor enhetlig elektronisk rapportering.
+
+## Proact Års- och hållbarhetsredovisning 2024Proact Års- och hållbarhetsredovisning 2024
+
+
+<!-- PAGE: 22 -->
+| Vårt bidrag |  |
+| Minimera miljöpåverkan | 24 |
+| Säkra och hållbara IT-tjänster | 25 |
+| Medarbetare | 26 |
+| Styrning | 28 |
+| EU:s taxonomi | 30 |
+| Revisorns yttrande | 34 |
+![table image]({page: 22, x: 102}, {y: 100, {width: 181}, {height: 9})
+
+
+<!-- PAGE: 23 -->
+Proact har stor mojlighet att bidra till en hallbar utveckling genom att minimera var egen miljo paverkan erbjuda sakra och hallbara IT tjanster samt att vara en attraktiv arbetsgivare.
+
+Proacts perspektiv pa hallbarhet ar holistiskt.
+Var ambition ar att skapa langsiktigt varde for vart foretag och vara med arbetare vara kunder och aktieagare samt samhallet i stort.
+Med en affarsstrategi som fokuserar pa ekonomiska faktorer likval som etiska sociala och miljo massiga kan vi bidra till en hallbar utveckling och samtidigt sakerstalla langsiktig framgang for vart foretag.
+
+##### ÖvrigtFinansiella rapporterFörvaltningsberättelseHållbarhetVerksamhetKort om oss och året
+
+2024 har varit ett ar av resultattillvaxt och strategiska framsteg for Proact.
+Trots en osaker marknad praglad av langre saljcykler och okad investeringsforsiktighet har vi fortsatt att starka var position som ledande aktor inom IT tjanster och hybrida molnlosningar.
+Genom att accelerera var tjansteaffar forfina vara kunderbjudanden och forbattra den operativa effektiviteten har vi lagt en stabil grund for fortsatt vardeskapande.
+
+######## TILLGÅNGAR
+######### ANLÄGGNINGSTILLGÅNGAR
+
+| Goodwill | 5, 15 | 1 021 733 | 983 571 |
+| --- | --- | --- | --- |
+| Övriga immateriella anläggningstillgångar | 5, 15 | 129 596 | 177 310 |
+| Materiella anläggningstillgångar | 5, 16 | 65 776 | 74 098 |
+| Nyttjanderättstillgångar | 27 | 253 393 | 245 219 |
+| Andra långfristiga fordringar | 18, 21, 27 | 614 916 | 544 605 |
+| Uppskjutna skattefordringar | 12 | 22 177 | 22 453 |
+| SUMMA ANLÄGGNINGSTILLGÅNGAR |  | 2 107 591 | 2 047 256 |
+| OMSÄTTNINGSTILLGÅNGAR |
+| Varulager | 19 | 20 844 | 15 442 |
+| Kundfordringar | 14, 20 | 756 380 | 717 665 |
+| Aktuella skattefordringar |  | 12 755 | 6 612 |
+| Övriga fordringar |  | 55 494 | 52 260 |
+| Förutbetalda kostnader och upplupna intäkter | 21 | 709 074 | 657 316 |
+| Likvida medel | 26 | 813 518 | 547 897 |
+| SUMMA OMSÄTTNINGSTILLGÅNGAR |  | 2 368 065 | 1 997 192 |
+| SUMMA TILLGÅNGAR |  | 4 475 656 | 4 044 448 |
+![table image]({page: 50, x: 28}, {y: 149, {width: 488}, {height: 7})
+
+31 dec 2024 31 dec 2023
+
+## Not 15 Immateriella anläggningstillgångar
+### Redovisningsprincip
+#### Goodwill
+
+Redovisad goodwill utgors av skillnaden mellan a ena sidan anskaffningsvardet for koncernfore tagsandelarna vardet pa innehav utan bestammande inflytande i den for varvade rorelsen och det verkliga vardet av tidigare agd andel och a andra sidan det redo visade vardet i forvarvsanalysen av forvarvade tillgangar och overtagna skulder.
+Nedskrivningstest gors arligen samt nar det finns en indikation pa att en tillgang minskat i varde.
+Goodwill allokeras till kassagenererande enheter for att kunna nedskrivningstestas.
+Var och en av dessa kassagenererande enheter utgor koncernens Business Units.
+I de fall en tillgangs redovisade varde overstiger dess beraknade atervinningsvarde skrivs tillgangen ner till sitt atervinningsvarde.
+
+## Not 15 FORTS.
+
+| Ingående anskaffningsvärde 1 januari 2024 | 1 060 885 | 512 702 | 126 476 | 1 700 063 | 70 335 |
+| --- | --- | --- | --- | --- | --- |
+|  | Koncernen | Koncernen | Koncernen | Moderbolaget | Moderbolaget |
+|  | Övriga immateriella anläggnings tillgångar | Övriga immateriella anläggnings tillgångar | Övriga immateriella anläggnings tillgångar | Summa | Övriga immateriella anläggningstillgångar | Kund - relationer |
+| Goodwill |
+| Årets anskaffningar | - | - | 1 177 | 1 177 | 1 105 |
+| Ackumulerade anskaffningsvärden i förvärvade verksamhet | - | - | - | - | - |
+| Årets anskaffningar genom företagsförvärv | - | - | - | - | - |
+| Försäljningar/utrangeringar | - | - | - | - | - |
+| Valutakursdifferenser | 39 039 | 20 019 | 4 937 | 63 995 | - |
+| Utgående ackumulerade anskaffningsvärden | 1 099 924 | 532 722 | 132 589 | 1 765 235 | 71 440 |
+| Ingående av- och nedskrivningar 1 januari 2024 | -77 314 | -358 192 | -103 676 | -539 182 | -62 119 |
+| Årets avskrivningar | - | -46 990 | -8 101 | -55 091 | -6 258 |
+| Årets nedskrivningar | - | - | - | - | - |
+| Försäljningar/utrangeringar | - | - | - | - | - |
+| Valutakursdifferenser | -877 | -14 668 | -4 088 | -19 633 | - |
+| Utgående ackumulerade avskrivningar och nedskrivningar | -78 191 | -419 851 | -115 864 | -613 906 | -68 377 |
+| Bokfört värde per 31 december 2024 | 1 021 733 | 112 871 | 16 725 | 1 151 329 | 3 063 |
+![table image]({page: 68, x: 320}, {y: 96, {width: 488}, {height: 7})
+
+| Ingående anskaffningsvärde 1 januari 2023 | 1 062 175 | 514 782 | 125 605 | 1 702 562 | 69 496 |
+| --- | --- | --- | --- | --- | --- |
+| Årets anskaffningar | - | - | 968 | 968 | 839 |
+| Ackumulerade anskaffningsvärden i förvärvade verksamhet | - | - | - | - | - |
+| Årets anskaffningar genom företagsförvärv | 67 | - | - | 67 | - |
+| Försäljningar/utrangeringar | - | -1 681 | - | -1 681 | - |
+| Valutakursdifferenser | -1 357 | -399 | -97 | -1 853 | - |
+| Utgående ackumulerade anskaffningsvärden | 1 060 885 | 512 702 | 126 476 | 1 700 063 | 70 335 |
+| Ingående av- och nedskrivningar 1 januari 2023 | -78 537 | -315 064 | -94 594 | -488 195 | -55 659 |
+| Årets avskrivningar | - | -46 217 | -9 487 | -55 704 | -6 460 |
+| Årets nedskrivningar | - | - | - | - | - |
+| Försäljningar/utrangeringar | - | 1 681 | - | 1 681 | - |
+| Valutakursdifferenser | 1 223 | 1 408 | 405 | 3 036 | - |
+| Utgående ackumulerade avskrivningar och nedskrivningar | -77 314 | -358 192 | -103 676 | -539 182 | -62 119 |
+| Bokfört värde per 31 december 2023 | 983 571 | 154 510 | 22 800 | 1 160 881 | 8 216 |
+| Koncernen |
+| Fördelning goodwill per kassagenererande enhet |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+![table image]({page: 68, x: 28}, {y: 324, {width: 275}, {height: 7})
+
+|  | 31 dec 2024 | 31 dec 2023 | 31 dec 2024 | 31 dec 2023 | 31 dec 2024 | 31 dec 2023 |
+| --- | --- | --- | --- | --- | --- | --- |
+|  | Koncernen WACC, före skatt | Koncernen WACC, före skatt | Koncernen WACC, efter skatt | Koncernen WACC, efter skatt | Koncernen Tillväxt i terminal perioden | Koncernen Tillväxt i terminal perioden |
+| Kassagenererande enhet |
+| Nordic & Baltics | 10,5% | 10,8% | 10,4% | 10,6% | 2,0% | 2,0% |
+| UK | 10,3% | 10,5% | 10,1% | 10,4% | 2,0% | 2,0% |
+| West | 10,3% | 10,5% | 10,1% | 10,3% | 2,0% | 2,0% |
+| Central | 10,3% | 10,7% | 10,3% | 10,6% | 2,0% | 2,0% |
+![table image]({page: 68, x: 735}, {y: 201, {width: 490}, {height: 7})
+
+### eNPS
+
+30 50 2 PUE 0,0 0,5 1,0 1,5
+
+2
+
+##### eNPS
+
+-50 -30 -10 10 30 50
+
+2024202320222021 2
+
+PUE

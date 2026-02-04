@@ -1,0 +1,643 @@
+305-2 Scope 2
+
+Samtliga fastigheters energianvändning under redovisat år   (inklusive delar av perioden vid avyttrade och nytillträdda fastig  heter) Specifika emissionsfaktorer från respektive energileverantör rapporteras som 'market based method', för år 2023. För 'location based   method' utgår beräkningarna av el från svensk elmix enligt Boverket (0,037 kgCO2/kWh) och för fjärrvärme svenskt medelvärde enligt Boverket för 2023 (0,056kg CO2/kWh).
+
+Klimatpåverkan - Utsläpp
+
+Heba redovisar utsläppen enligt GHG (Green House Gas) protokollet 'operational control approach'. Det innebär att direkta utsläpp och utsläpp för inköpt energi redovisas inom scope 1   respektive scope 2 där Heba äger källan till utsläppet. Heba redovisade scope 3 för första året 2021. Inga biogena utsläpp rapporteras.
+
+305-4 Intensitet av växthusgaser från byggnader
+
+Intensiteten av växthusgaser från scope 1 och 2 (förvaltningen) beräknas av samtliga utsläpp i relation till den uthyrbara ytan, BOA/LOA.
+
+| 305-4                           | 2024   | 2023   | 2022   |
+|---------------------------------|--------|--------|--------|
+| Utsläppsintensitet(kgCO 2 /kvm) | 2,2    | 3,4    | 2,9    |
+
+Hållbarhetsrapportering
+
+<!-- image -->
+
+Avsteg
+
+| GRIStandardeller annankälla          | Upplysning                           |                                                                                                          | Sidhänvisning                                            | Avstegfrån krav                             | Kommentar                                                     |
+|--------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------|---------------------------------------------|---------------------------------------------------------------|
+| Strategi, policyer ochpraxis         | 2-22                                 | Uttalande omstrategi för hållbar utveckling                                                              | 7-10, 71-72                                              |                                             |                                                               |
+|                                      | 2-23                                 | Värderingar, principer, standarder och normer gällande uppförande                                        | 40, 118-120                                              |                                             |                                                               |
+|                                      | 2-24                                 | Förankring av värderingar, principer, standarder och normer gällande uppförande                          | 40, 118-120                                              |                                             |                                                               |
+|                                      | 2-25                                 | Processer för att avhjälpa negativ påverkan                                                              | 40, 59-60, 118-120                                       |                                             |                                                               |
+|                                      | 2-26                                 | Mekanismer för rådgivning och rapportering av angelägenheter för organisationen                          | 40, 118-120                                              |                                             |                                                               |
+|                                      | 2-27                                 | Efterlevnad av lagar och förordningar                                                                    | 40,                                                      |                                             | Hebaharinte haft några fall av bristande lagefterlevnadår2024 |
+|                                      | 2-28                                 | Medlemskapi organisationer                                                                               | Fastighetsägarna, Handelskammaren, Almega, Stark&Partner |                                             |                                                               |
+| Intressentengagemang                 | 2-29                                 | Metodför intressentengagemang                                                                            | 118-120                                                  |                                             |                                                               |
+|                                      | 2-30                                 | Kollektivavtal                                                                                           | 42                                                       |                                             |                                                               |
+| GRI3:Väsentliga frågor 2021          |                                      |                                                                                                          |                                                          |                                             |                                                               |
+|                                      | 3-1                                  | Process för att fastställa väsentliga frågor                                                             | 58-60, 118-120                                           |                                             |                                                               |
+|                                      | 3-2                                  | Lista på väsentliga frågor                                                                               | 58-60, 118-120                                           |                                             |                                                               |
+|                                      | 3-3                                  | Styrning av väsentliga frågor                                                                            | 25-43, 58-60, 118-120                                    |                                             |                                                               |
+| SPECIFIKAUPPLYSNINGAR-GRI200:Ekonomi | SPECIFIKAUPPLYSNINGAR-GRI200:Ekonomi |                                                                                                          |                                                          |                                             |                                                               |
+| GRI201: Ekonomisktresultat2016       | 3-3                                  | Styrning av väsentliga frågor                                                                            | 59-60, 118-120                                           |                                             |                                                               |
+|                                      | 201-1                                | Genererat och distribuerat direkt ekonomiskt värde                                                       | 123                                                      |                                             |                                                               |
+|                                      | 201-2                                | Ekonomiska konsekvenser och andra                                                                        | 60-61                                                    |                                             |                                                               |
+| GRI205:Anti-korruption2016           | 3-3                                  | Styrning av väsentliga frågor                                                                            | 58-60, 118-120                                           |                                             |                                                               |
+|                                      | 205-1                                | Verksamheter utvärderade gällande risker relaterade till korruption                                      | 27, 40, 59, 123                                          |                                             |                                                               |
+|                                      | 205-2                                | Utbildning och kommunikation av organisationens policyer och arbetssätt avseende motverkan motkorruption | 123                                                      | Rapporterar ej totalt antal, endast andel   | Ej väsentligt                                                 |
+|                                      | 205-3                                | Bekräftade korruptionsincidenter och vidtagna åtgärder                                                   | 123                                                      |                                             |                                                               |
+| SPECIFIKAUPPLYSNINGAR-GRI300:Miljö   | SPECIFIKAUPPLYSNINGAR-GRI300:Miljö   |                                                                                                          |                                                          |                                             |                                                               |
+| GRI302:Energi2016                    | 3-3                                  | Styrning av väsentliga frågor                                                                            | 33-37, 58-60, 118-120                                    |                                             |                                                               |
+|                                      | 302-1                                | Energianvändning inom denegnaorganisationen                                                              | 122                                                      | Rapporterar ej kyla, ånga eller såld energi | Ej tillämpbart                                                |
+|                                      | 302-3                                | Energiintensitet                                                                                         | 122                                                      |                                             |                                                               |
+|                                      | 302-4                                | Minskning av energianvändning                                                                            | 122                                                      |                                             |                                                               |
+| GRI305:Utsläpp2016                   | 3-3                                  | Styrning av väsentliga frågor                                                                            | 33-37, 58-60, 118-120                                    |                                             |                                                               |
+|                                      | 305-1                                | Direkta utsläpp av växthusgaser (scope 1)                                                                | 122                                                      | Hebarapporterar inga biogena utsläpp        | Ej tillämpbart                                                |
+|                                      | 305-2                                | Indirekta utsläpp av växthusgaser (scope 2)                                                              | 122                                                      | Hebarapporterar inga biogena utsläpp        | Ej tillämpbart                                                |
+|                                      | 305-3                                | Övriga indirekta utsläpp av växthusgaser (scope 3)                                                       | 122                                                      | Hebarapporterar inga biogena utsläpp        | Ej tillämpbart                                                |
+|                                      | 305-4                                | Utsläppsintensitet av växthusgaser                                                                       | 123                                                      |                                             |                                                               |
+|                                      | 305-5                                | Minskning av växthusgasutsläpp                                                                           | 123                                                      |                                             |                                                               |
+
+Växthusgasutsläpp 305-1, 305-2, 305-3
+
+| (TonCO 2 )                       | 2024   | 2023   | 2022   |
+|----------------------------------|--------|--------|--------|
+| Scope1                           |        |        |        |
+| Tjänstebilar och förmånsbilar    | 1      | 5      | 5      |
+| Scope2                           |        |        |        |
+| El (market based)                | 0      | 0      | 0      |
+| El (location based)              | 290    | 328    | 300    |
+| Fjärrvärme (market based)        | 571    | 848    | 881    |
+| Fjärrvärme (location based)      | 880    | 910    | 930    |
+| Summascope1och2                  | 572    | 853    | 886    |
+| Klimatkompensation               | 572    | 853    | 886    |
+| Scope3                           |        |        |        |
+| Uppströms                        |        |        |        |
+| Byggvaror nyproduktion           | 0      | 3186   | 9026   |
+| Byggvaror renovering             | 406    | 1 152  | 2426   |
+| Byggavfall                       | 1      | 2      | 20     |
+| Medarbetarnas pendling           | 9      | 4      | 16     |
+| Nedströms                        |        |        |        |
+| Hyresgästernas restavfall        | 183    | 184    | 391    |
+| Hyresgästernas osorterade avfall | 7      | 25     | 88     |
+| Hyresgästernas elförbrukning     | 183    | 213    | 323    |
+| Summascope3                      | 789    | 4766   | 12290  |
+| Summatotalautsläpp               | 1 361  | 5619   | 13 176 |
+
+Utfall 2022-2024
+
+Hebas utsläpp har minskat kraftigt sedan 2022 främst kopplat till att bolaget färdigställt färre nyproduktionsprojekt 2023 och 2024. Bidrar gör också den minskade energianvändningen, hållbara hyreskontrakt för våra hyresgäster, eldrivna tjänste- och förmånsbilar samt smart förvaltning där vi genom digitalisering driftoptimerar fastigheterna.
+
+Scope 3 - indirekta utsläpp (nyproduktion, hyresgästers avfall och elförbrukning)
+
+Scope 2 - indirekta utsläpp (köpt energi)
+
+- Scope 1 - direkta utsläpp (tjänste- och förmånsbilar)
+
+<!-- image -->
+
+2030
+
+2045
+
+Prognos 2030 och mål 2045
+
+Framåt kommer Hebas tillväxt genom nyproduktion medföra ökade utsläpp. För att minimera utsläppen ska all nyproduktion som startas från 2025 ha halverade utsläpp från byggskedet, med Boverkets aktuella värden som referens. Ytterligare exempel på åtgärd för att nå en klimatneutral verksamhet 2045 är inköp av grön fjärrvärme.
+
+Scope 3
+
+Scope 2
+
+Scope 1
+
+Scope 3
+
+Scope 2
+
+Scope 1
+
+<!-- image -->
+
+305-1 Scope 1
+
+Tjänstebilar och förmånsbilar körda i tjänst som ägs av Heba. Emissionsfaktorer från Naturvårdsverket.
+
+<!-- image -->
+
+305-5 Minskning av växthusgasutsläpp
+
+Minskning av växthusgaser utgår från år 2018 som basår, där samtliga utsläpp inom scope 1 och 2 ska reduceras med minst 50 procent fram till år 2030. Under året har målet redan uppnåtts och resan mot en klimatneutral verksamhet fortsätter. Minskningen beror på att den faktiska energianvändningen har reducerats tack vare energiåtgärder samt att bränslemixen förbättrats. Minskningen presenteras som den ackumulerade reduceringen, från år 2018. Basåret är valt utifrån då strategiska mål antogs, med ökat fokus på hållbarhet i linje med godkända mål av SBTi.
+
+| 305-5                | 2024   | 2023   | 2022   | 2021   | 2020   | 2019   | 2018   |
+|----------------------|--------|--------|--------|--------|--------|--------|--------|
+| Minskning av utsläpp | 53%    | 29%    | 27%    | 30%    | 24%    | 22%    | Basår  |
+
+Hållbarhetsrapportering
+Klimatpåverkan från hyresgästernas elförbrukning
+
+Beräkning baseras på uppmätt elanvändning från elnätsägare, med avdrag för fastighetsel (se scope 2). Där för året inte statistik varit tillgänglig vid tidpunkten för rapportering, används data från 2023. Varje Hållbart hyreskontrakt per hyresgäst antas ha ett elavtal med energi från förnybara källor. Resterande multipliceras med emissionsfaktor för svensk elmix enligt Boverket då vi   saknar information om fördelningen av grön el. (0,037 kgCO2e/kWh). 2023 års värde har korrigeras utifrån samma beräkningsmetod som för 2024.
+
+305-3 Scope 3 Uppströms
+
+Klimatpåverkan från byggvaror vid nyproduktion Ingen tillträdd och inflyttad nyproduktion har skett under året.
+
+302-4 Minskning av energianvändning
+
+Vid beräkning av minskning av energianvändning används 2021 som basår, i linje med energimål fram till 2028 om minskning av energianvändning med 18 procent. Under året har vi uppfyllt målet, fyra år i förväg och nya mål har antagits. Energin som är inkluderad är fjärrvärme och el inom organisationen. Beräkning utgår från fastig  hetsbeståndet som finns redovisat helår vilket för denna rapport innebär år 2024. Genom att minska energianvändningen, kan vi reducera våra utsläpp inom scope 2, en viktig del för att ha effektiva hus med så låg klimatpåverkan i driften som möjligt. Hyresgästernas el är inte inkluderad.
+
+| 302-4                                                 | 2024   | 2023   | 2022   | 2021   |
+|-------------------------------------------------------|--------|--------|--------|--------|
+| Minskning av energianvändning (i jämförelse motbasår) | 19%    | 13%    | 7%     | Basår  |
+
+Klimatpåverkan från medarbetarnas pendling
+
+Avser medarbetarnas pendling till och från arbetsplatsen under året. Beräkningarna utgår från en enkät som samtliga medarbetare har besvarat rörande transporter samt med   emissionsfaktorer från Naturvårdsverket.
+
+Nedströms
+
+Klimatpåverkan från hyresgästernas restavfall
+
+Hyresgästernas hushållsavfall vägs och vikten dokumenteras av avfalls  entreprenören. Beräkningen utgår från delar av beståndet som schablonberäknas utifrån A-temp och multi  pliceras med emissionsfaktor från IVL (0,2 kgCO2e/kg avfall). 2023 års värde har korrigeras utifrån samma beräkningsmetod som för 2024.
+
+Klimatpåverkan från hyresgästernas osorterade avfall/grovsopor Osorterat avfall vägs och vikten dokumenteras av avfallsentreprenören. Beräkningen utgår från delar av beståndet som schablon  beräknas utifrån A-temp och multi  pliceras med emissions  faktor från IVL (0,3 kgCO2e/kg avfall). 2023 års värde har korrigeras utifrån samma beräkningsmetod som för 2024.
+
+Grön fjärrvärme och koldioxidinfångning
+
+Hebas klimatpåverkan från den köpta energin, främst fjärrvärme, styrs av det avfall som fjärrvärmeleverantörerna bränner vid energiåtervinningen. Plasten som finns i avfallet ger upphov till utsläpp av växthusgaser. Heba har tecknat avtal om grön fjärrvärme med Stockholm Exergi vilket innebär att den fjärrvärme som Heba köper in till fastigheterna är ursprungsmärkt och förnybar.
+
+Heba har dessutom tecknat en avsiktsförklaring med Stockholm Exergi om att köpa minusutsläpp inom koldioxidlagring, Bio-CCS (Bio-Energy with Carbon Capture and Storage). Bio-CCS innebär att koldioxid från förbränningen separeras från rökgaserna för att sedan lagras permanent i berggrunden. Det är ett viktigt kompletterande steg för att på sikt kunna uppnå netto-nollutsläpp i hela verksamheten.
+
+Klimatomställningen: En ledande aktör inom hållbarhet
+
+Alla samhällsaktörer behöver ställa om och verka för att minska utsläppen av växthusgaser. Heba har sedan länge en tydlig hållbarhetsstrategi där vi aktivt arbetar för att minska vår klimatpåverkan. Vår ambition är att vår fastighetsförvaltning ska vara klimatneutral senast 2030 och hela verksamheten senast 2045.
+
+GRI­index
+
+| Nivå påtillämpning                | Hebaharrapporterat i enlighet medGRI-standards under perioden 1 januari - 31 december2023.   |
+|-----------------------------------|----------------------------------------------------------------------------------------------|
+| GRI1somanvänds                    | GRI1: Foundation 2021                                                                        |
+| Tillämpliga GRI-sektorsstandarder | Finns ännu inga tillämpliga GRI-sektorsstandarder                                            |
+
+Avsteg
+
+| GRIStandardeller annankälla             | Upplysning   |                                                               | Sidhänvisning Avstegfrån krav   |                                                                            | Kommentar                                                 |
+|-----------------------------------------|--------------|---------------------------------------------------------------|---------------------------------|----------------------------------------------------------------------------|-----------------------------------------------------------|
+| GRI2:Generella upplysningar 2021        |              |                                                               |                                 |                                                                            |                                                           |
+| Organisationen ochredovisningsprinciper | 2-1          | Detaljer omorganisationen                                     | 79                              |                                                                            |                                                           |
+| Organisationen ochredovisningsprinciper | 2-2          | Enheter inkluderade i organisationens hållbarhetsrapportering | 79, 118                         |                                                                            |                                                           |
+| Organisationen ochredovisningsprinciper | 2-3          | Redovisningsperiod, frekvens och kontaktperson                | 118                             |                                                                            |                                                           |
+| Organisationen ochredovisningsprinciper | 2-4          | Förändringar i tidigare rapporterade upplysningar             | 118, 122                        |                                                                            |                                                           |
+| Organisationen ochredovisningsprinciper | 2-5          | Externt bestyrkande                                           | 127                             |                                                                            |                                                           |
+| Aktiviteter ochanställda                | 2-6          | Aktiviteter, värdekedja och andra affärsförbindelser          | 21-43, 118                      |                                                                            |                                                           |
+| Aktiviteter ochanställda                | 2-7          | Anställda                                                     | 98, 121                         | Hebarapporterar inte medarbetare per region Konsulter inkluderas ej i data | Samtliga medarbetare är anställda i Sverige Ej väsentligt |
+| Aktiviteter ochanställda                | 2-8          | Arbetare sominte är anställda                                 | -                               | Hebaharinga arbetare sominte är anställda.                                 | Inte tillämpbart                                          |
+| Styrning                                | 2-9          | Sammansättning och struktur för styrning                      | 73-76, 118-120                  |                                                                            |                                                           |
+| Styrning                                | 2-10         | Nominering och val för högsta styrande organ                  | 73-76                           |                                                                            |                                                           |
+| Styrning                                | 2-11         | Ordförande för högsta styrande organ                          | 71-76                           |                                                                            |                                                           |
+| Styrning                                | 2-12         | Styrande organs roll i översyn och hantering av påverkan      | 118-120                         |                                                                            |                                                           |
+| Styrning                                | 2-13         | Delegering av beslutsfattande för hantering av påverkan       | 118-120                         |                                                                            |                                                           |
+| Styrning                                | 2-14         | Högsta styrande organets roll i hållbarhetsredovisning        | 118-120                         |                                                                            |                                                           |
+| Styrning                                | 2-15         | Intressekonflikter                                            | 40, 73-76, 118                  |                                                                            |                                                           |
+| Styrning                                | 2-16         | Kommunikation av kritiska angelägenheter                      | 40, 118-120                     |                                                                            |                                                           |
+| Styrning                                | 2-17         | Densamladekunskapen hos det högsta styrande organet           | 73-76                           |                                                                            |                                                           |
+| Styrning                                | 2-18         | Utvärdering av det högsta styrande organets prestation        | 73-76                           |                                                                            |                                                           |
+| Styrning                                | 2-19         | Ersättningspolicy                                             | www.hebafast.se                 | Ersättningrapport är publiceradpåHebashemsida                              |                                                           |
+| Styrning                                | 2-20         | Process för att fastställa ersättningar                       | 73-76,98                        |                                                                            |                                                           |
+| Styrning                                | 2-21         | Årligt totalt kompensationsförhållande                        | www.hebafast.se                 | Ersättningrapport är publiceradpåHebashemsida                              |                                                           |
+
+<!-- image -->
+
+Hållbarhetsrapportering
+
+<!-- image -->
+
+Avsteg
+
+| GRIStandardeller annankälla                                 | Upplysning                           |                                                                                    | Sidhänvisning                        | Avstegfrån krav                                       | Kommentar                                   |
+|-------------------------------------------------------------|--------------------------------------|------------------------------------------------------------------------------------|--------------------------------------|-------------------------------------------------------|---------------------------------------------|
+| SPECIFIKAUPPLYSNINGAR-GRI400:Socialt                        | SPECIFIKAUPPLYSNINGAR-GRI400:Socialt | SPECIFIKAUPPLYSNINGAR-GRI400:Socialt                                               | SPECIFIKAUPPLYSNINGAR-GRI400:Socialt | SPECIFIKAUPPLYSNINGAR-GRI400:Socialt                  | SPECIFIKAUPPLYSNINGAR-GRI400:Socialt        |
+| GRI401:Anställning2016                                      | 3-3                                  | Styrning av väsentliga frågor                                                      | 41-42, 58-60, 118-120                |                                                       |                                             |
+|                                                             | 401-1                                | Nyanställningar och personalomsättning                                             | 121                                  | Hebarapporterar inte medarbetare per region           | Samtliga medarbetare är anställda i Sverige |
+| GRI404:Träningochutbildning2016                             | 3-3                                  | Styrning av väsentliga frågor                                                      | 41-42, 58-60, 118-120                |                                                       |                                             |
+|                                                             | 404-1                                | Genomsnittligt antal utbildningstimmar per år och anställd                         | 121                                  | Hebarapporterar inte data uppdelat på anställningstyp | Ej väsentligt                               |
+|                                                             | 404-3                                | Andel anställda somfår regelbunden utvärdering av prestation och karriärutveckling | 121                                  |                                                       |                                             |
+| GRI405:Mångfaldochlikamöjligheter2016                       | 3-3                                  | Styrning av väsentliga frågor                                                      | 41-42, 58-60, 118-120                |                                                       |                                             |
+|                                                             | 405-1                                | Mångfald i ledningar och bland medarbetare                                         | 98, 121                              |                                                       |                                             |
+| GRI414:Bedömningavleverantörerutifrån sociala kriterier2016 | 3-3                                  | Styrning av väsentliga frågor                                                      | 40, 58-60, 120                       |                                                       |                                             |
+|                                                             | 414-1                                | Nyaleverantörer somgranskats enligt sociala kriterier                              | 40, 123                              |                                                       |                                             |
+| SPECIFIKAUPPLYSNINGAR-CRE                                   | SPECIFIKAUPPLYSNINGAR-CRE            | SPECIFIKAUPPLYSNINGAR-CRE                                                          | SPECIFIKAUPPLYSNINGAR-CRE            | SPECIFIKAUPPLYSNINGAR-CRE                             | SPECIFIKAUPPLYSNINGAR-CRE                   |
+| CRE                                                         | 3-3                                  | Styrning av väsentliga frågor                                                      | 33-37, 118-120                       |                                                       |                                             |
+|                                                             | CRE2                                 | Vattenintensitet                                                                   | 123                                  |                                                       |                                             |
+|                                                             | CRE8                                 | Miljöcertifierade byggnader                                                        | 123                                  |                                                       |                                             |
+
+Koldioxidinfångning
+
+Heba var ett av bolagen som var först ut att teckna en avsiktsförklaring med Stockholm Exergi för att köpa minusutsläpp i den framtida Bio-CCS-anläggningen. Det är ett viktigt kompletterande steg för att på sikt kunna uppnå netto-nollutsläpp i hela verksamheten. Läs mer på sidan 35.
+
+Klimatförändringar
+
+| Risk               |                                                                         | Kategori            | Modell och måttenhet                                                                                                                            | Finansiell påverkan                                                                                                                                                                                                                                                                               |
+|--------------------|-------------------------------------------------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Omställningsrisker | Ökade energikostnader                                                   | Kostnader           | Total energianvändning (värme, kyla och fastighetsel) uttrycktiGWh, mkr per år.                                                                 | Energianvändningen 2024uppgick till23GWhmotsvarandeenkostnadom39mkr.                                                                                                                                                                                                                              |
+| Omställningsrisker | Ökade energikostnader                                                   | Kostnader           | Förändrade energikostnader till följd av ökade energipriser med0,5kr/ kWh. Beräkning utgår från 2024års energianvändning och mkr/år.            | Prisökning om0,5kr/kWhskulle resultera i ökad energikostnadom12mkr.                                                                                                                                                                                                                               |
+| Omställningsrisker | Ökade energikostnader                                                   | Tillgångar/ Skulder | Investeringar kopplade till att minska energianvändningen och öka andelen förnybar energi.                                                      | Under 2024investerades 300tkr i anläggningar för förnybar energi. Denberäknade besparingen för defastigheter medsystemförförnybar energi uppgår till 60procent reduktion årligen. Inom Hebasbestånd har 10 fastigheter bergvärme, varav 2 kombinerat medsolceller samt 3fastigheter medsolceller. |
+| Omställningsrisker | Ökade kostnader kopplade till regleringar, skatter eller utsläpp        | Kostnader           | Ökadekostnader för klimatkompensation, baserat på 2024års kompenserade utsläpp i scope 1 och scope 2.                                           | Ompriset för klimatkompensation uppgår till 1500 kr/ton motsvarardetenkostnadom 858tkr.                                                                                                                                                                                                           |
+| Omställningsrisker | Ökade kostnader kopplade till regleringar, skatter eller utsläpp        | Kostnader           | Ökadekostnader för byggmaterial omklimatkompensation läggs på inköpspris. 2024års klimatpåverkan från byggmaterial.                             | Ompriset på klimatkompensation uppgår till 1500 kr/ton motsvarar det omkring 600tkr för klimatpåverkan av byggvaror.                                                                                                                                                                              |
+| Omställningsrisker | Ökade vattenkostnader                                                   | Kostnader           | Total vattenförbrukning under 2024därpris på vattenantasökamed 50procentperm 3 /år.                                                             | Under året uppgick vattenförbrukningentill300000m 3 , motsvarande en kostnad på 12,5 mkr. Prisökningen skulle innebära ökade vattenkostnaderom6mkr.                                                                                                                                               |
+| Risk               |                                                                         | Kategori            | Modell och måttenhet                                                                                                                            | Finansiell påverkan                                                                                                                                                                                                                                                                               |
+| Fysiska risker     | Fastigheter kommer ligga under vatten på grund av stigande havsnivåer   | Tillgångar          | Fastigheter somligger i områdendär havsnivåerna bedömshöjas. Uttryckt i intäktsminskning mkr/år. Andel av hyresintäkter utifrån utfall år 2024. | Utfall från analys av hela beståndet. Fyra fastigheter har identifierats där det föreligger risk vid mycket förhöjda vattennivåer. Motsvarar årliga intäkter om77mkr,14procent av detotala hyresintäkterna 2024.                                                                                  |
+| Fysiska risker     | Varmare klimat innebär ökat energi- behov kopplat till köldmedia        | Tillgångar/ Skulder | Behovet av köldmedia ökar, vilket innebär en initial investering för installation samt en årlig kostnadsökning för energi.                      | Ett av våra vård- omsorgsboenden somförvärvades under 2024har ett identifierat behov av köldmedia, motsvarar en investering om1mkrochökadeenergikostnader om20tkr/år.                                                                                                                             |
+| Fysiska risker     | Ökade regnmängder resulterar i att fastigheter blir temporärt obrukbara | Intäkter            | Intäktsbortfall för tomställda lägenheter och lokaler.                                                                                          | Utifrån analys av beståndet föreligger en förhöjd risk hos en fastighet. Intäktsbortfall vid tomställning bedömstill 2,6 mkr.                                                                                                                                                                     |
+| Fysiska risker     | Ökade regnmängder resulterar i att fastigheter blir temporärt obrukbara | Kostnader           | Kostnader för reparationer ökar, till följd av ökade vattenmängder.                                                                             | Utifrån analys av beståndet föreligger en förhöjd risk hos en fastighet. Kostnaden för reparation bedömstill 8mkr.                                                                                                                                                                                |
+
+Nyckeltal 2024
+
+Förvaltningsresultat, mkr
+
+216
+
+Driftsöverskott, mkr
+
+<!-- image -->
+
+Energianvändning graddagskorrigerad, kWh/kvm
+
+<!-- image -->
+
+75
+
+mkr
+
+<!-- image -->
+
+mkr
+
+<!-- image -->
+
+kWh/kvm
+
+120
+
+<!-- image -->
+
+<!-- image -->
+
+|                                |                                           | 2024   | 2023   |
+|--------------------------------|-------------------------------------------|--------|--------|
+| Fastighetsrelaterade nyckeltal | Hyresintäkter, mkr                        | 561,8  | 565,7  |
+| Fastighetsrelaterade nyckeltal | Uthyrningsbar tidsvägd area,tusenkvm      | 257,5  | 284,6  |
+| Fastighetsrelaterade nyckeltal | Direktavkastning,%                        | 3,0    | 3,2    |
+| Fastighetsrelaterade nyckeltal | Bokfört värde per kvm, kr                 | 51599  | 50967  |
+| Finansiella nyckeltal          | Kassaflöde, mkr                           | 214,2  | 235,4  |
+| Finansiella nyckeltal          | Investeringar, mkr                        | 899,5  | 327,4  |
+| Finansiella nyckeltal          | Genomsnittsränta,%                        | 2,81   | 2,21   |
+| Finansiella nyckeltal          | Förvaltningsmarginal,%                    | 38,4   | 47,9   |
+| Finansiella nyckeltal          | Belåningsgrad,%                           | 44,7   | 44,1   |
+| Finansiella nyckeltal          | Nettobelåningsgrad,%                      | 44,5   | 43,1   |
+| Finansiella nyckeltal          | Överskottsgrad,%                          | 71,9   | 71,1   |
+| Hållbarhetsdata                | Växthusgasutsläpp(Scope1,2och3),tonCO 2 e | 1 361  | 5619   |
+| Hållbarhetsdata                | Miljöcertifierad yta,%                    | 26     | 21     |
+| Hållbarhetsdata                | NKI (genomförs vartannat år)              | 85,7   | 85,7   |
+| Hållbarhetsdata                | Total sjukfrånvaro,%                      | 2      | 2      |
+| Data per aktie                 | Resultat efter skatt, kr                  | 0,60   | -4,31  |
+| Data per aktie                 | Utdelning (2024 förslag), kr              | 0,52   | 0,52   |
+| Data per aktie                 | Börskurs den 31 december, kr              | 32,75  | 35,45  |
+| Data per aktie                 | Substansvärde (NAV), kr                   | 47,02  | 46,42  |
+
+<!-- image -->
+
+Utfall 2024
+
+Minskning av de totala utsläppen jämfört med 2023
+
+-76%
+
+Minskning av utsläppen från energi under året
+
+<!-- image -->
+
+-33%
+
+<!-- image -->
+
+<!-- image -->
+
+stor del på att inga nya projekt färdigställts under året. Utsläppen från energi har minskat med 33 procent under året.
+
+302-3 Energiprestanda i byggnader
+
+Vid beräkning av energiintensitet används fastighetsbeståndet som finns redovisat helår, vilket för denna rapport innebär år 2024. Beräkningarna utförs med uppvärmd yta (A-temp). Energin som är inkluderad är fjärrvärme och el inom organisationen, graddagskorrigerad. Hyresgästernas el är inte inkluderad.
+
+| 302-3                      |   2024 |   2023 |   2022 |
+|----------------------------|--------|--------|--------|
+| Energiintensitet (kWh/kvm) |     75 |     81 |     86 |
+
+Känslighetsanalys
+
+|                              |           |       | Värdeförändring bostäder   | Värdeförändring bostäder   | Värdeförändring samhällsfastigheter   | Värdeförändring samhällsfastigheter   |
+|------------------------------|-----------|-------|----------------------------|----------------------------|---------------------------------------|---------------------------------------|
+| Parameter                    | enhet     | antal | tkr                        | %                          | tkr                                   | %                                     |
+| Kalkylränta                  | %-enheter | 0,5   | -361 971                   | -3,5%                      | -120 551                              | -4,1%                                 |
+| Kalkylränta                  | %-enheter | -0,5  | 381 105                    | 3,7%                       | 127953                                | 4,3%                                  |
+| Direktavkastningskrav        | %-enheter | 0,5   | -1 181 511                 | -11,5%                     | -246616                               | -8,3%                                 |
+| Direktavkastningskrav        | %-enheter | -0,5  | 1 661 631                  | 16,1%                      | 310744                                | 10,5%                                 |
+| Hyresvärde                   | %         | 2     | 253731                     | 2,5%                       | 57496                                 | 1,9%                                  |
+| Hyresvärde                   | %         | -2    | -251 731                   | -2,4%                      | -55496                                | -1,9%                                 |
+| Drift- och underhållskostnad | %         | 10    | -291 118                   | -2,8%                      | -31952                                | -1,1%                                 |
+| Drift- och underhållskostnad | %         | -10   | 294123                     | 2,9%                       | 32952                                 | 1,1%                                  |
+
+Hållbarhetsrisker, forts.
+
+| Risk                                                                                                                                                                                                                                                                                                                                                                                                                          | Hantering                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Risk                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Hantering                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Miljörisker kopplade till nyproduktion När Hebabyggernytt ska bygget liksom byggnaden vara anpassade till framtidens klimat- och miljöbehov, vilket behöver säkerställas. Utan kontroll på hur bolagets nyproduk- tion belastar klimatet kommerbolaget varken klara av nutida eller framtida krav.                                                                                                                            | All nyproduktion ska miljöcertifieras enligt miljöbyggnad silver eller bedömdmotsvarandenivå och ha en energianvändning 20procent under rådande BBR-krav. Materialsomanvänds måste väljas utifrån ett hållbarhetsperspektiv och vara god- kända enligt Byggvarubedömningen, eller utifrån bolagets egen Hebastandard medgodkändaprodukter. Varje nytt projekt ska från år 2025haenhalverad klimatpåverkan från byggprocessen, utifrån rådande referensvärde framtaget av Boverket. Vid varje projekt ska en extern miljöcontroller granska att Hebaföljer miljöprogram och dekrav somställs. Genomattökaförståelsen för hur denindirekta klimatpåverkan ser ut, ska bolaget agera och hantera brister och möjligheter somuppstår.                                     | Miljörisker kopplade till förvaltning Det dagliga förvaltningsarbetet medfastigheterna medför situationer sompåolika sätt kan påverka människa och miljö. Hebabehövervara medveten omhurbolaget kontrollerar och hanterar miljörisker somuppstår i det dagliga arbetet hos förvaltningsteamen. Risker kopplade till klimatförändringar                                                                                                                                                                           | Genomettstrukturerat arbete medrutiner och egenkontroller kontrolleras och följs förvaltningsrutinerna upp. Varje fastighet har en egen förvaltningsplan medenkartläggning av inbyggda miljöskulder. Förvaltningens största post är energianvändning, vilken fjärrstyrs för att ständigt optimera energiprestandan. Hebautvecklar hyresgästernas möjligheter att källsortera och hur bolaget somfastighetsägare kan skapa incitament för att materialåtervinna mer, inte minst plasten. VarjeårharHeba somambition att starta två projekt medinstallation av energi- källor medförnybar energi såsombergvärme i kombination medsolceller.                                                                                 |
+| Miljörisker kopplade till renoveringsprogram Hebasfastigheter somrenoveras är mellan50-70årgamla och kräver åtgärder för att kunna fungera väl. Bolaget behöver renovera medhänsyntill framtiden. Hebabehöverbeakta hur material och metoder somanvändsidag kan visa sig vara undermåliga framöver. I annat fall finns enrisk att fastigheterna inte uppnår framtidens energikrav eller intressenternas önske- mål och behov. | När Hebarenoverar saneras fastigheten på gamla inbyggda miljöskulder. Liksom vid nyproduktion finns en extern miljö- controller och ett miljöprogram under hela projektetsom kvalitetssäkrar arbetet. Inför varje renovering genomförs en återbruksinventering för att minimera avfall och spara resurser. Hebaanalyserar och sorterar det avfall somuppstår och följer uppmedrapporter varje kvartal. Målet är att allt materialsom kan återvinnas, ska göra det. Denyaprodukterna i husen är godkända enligt Byggvarubedömningen eller följerHeba- standard. Hebagenomföråtgärder somförbättrar energi- prestandan såsomfönsterbyten, tilläggsisolering och byte av ventilationsaggregat, beslut somskatas tillsammansmed beaktning av produkternas klimatpåverkan. | Dåklimatet förändras föreligger risker för ökade energi- kostnader till följd av ökade skatter och ökade verksamhets- kostnader kopplade till regleringar, skatter eller utsläpp samt ökade vattenkostnader. Fysiska risker för fastighetersom ligger i områdendär vattennivåerna bedömshöjas och där ökade regnmängder resulterar i att fastigheter blir temporärt obrukbara. Det varmare klimatet innebär ökat behov av kyl- media, vilket både blir en initial investering och löpande högre energikostnader. | Fastighetsbeståndet analyseras årligen utifrån olika klimat- scenarier, medhjälp av Länsstyrelsens kartunderlag för klimat- anpassning och underlag från Sveriges meteorologiska och hydrologiska institut (SMHI) samt MSB.Defysiska klimat- riskerna bedömsbådekort- och långsiktigt för att säkerställa att rätt anpassningar planeras och utförs i tid. Övergripande hållbarhetsmål och klimatrelaterade frågor återfinns i det strategiska arbetet likväl somidetdagliga och är integrerat i verksamheten, till exempel medåtgärder i fastighetsplanen. Analys och målsättning genomförs på kort och lång sikt och följs uppavledning och styrelse minst en gång per kvartal. Sevidare underlag i tabell på sidan 61. |
+
+Omvärld och strategi
+
+Hållbarhet
+
+Verksamhet
+
+Bolagsstyrning
+
+Finansiella rapporter
+
+Hållbarhetsrapporter
+
+Övrigt
+
+Våra fastigheter
+
+Intervju - Digitalisering
+
+Close to home coworking
+
+Fastighetsutveckling
+
+Intervju - Källberga i Nynäshamn
+
+Nyproduktion
+
+Risker
+
+Värdering
+
+Marknadsvärdering
+
+Hebas aktie
+
+Kapitalstruktur och finansiering
+
+45
+
+48
+
+50
+
+51
+
+54
+
+56
+
+58
+
+62
+
+64
+
+66
+
+68
+
+Hållbarhets­ rapportering
+Hållbarhetsredovisning
+
+Hållbarhetsredovisningen har tagits fram av Hebas ledningsgrupp och godkänts av styrelsen. Hebas hållbarhetsredovisning 2024 är upprättad i enlighet med Global Reporting Initiative (GRI) Standards, och omfattar hela Heba-koncernen. Hållbarhetsredovisningen utgör också Hebas lagstadgade hållbarhetsrapport i enlighet med den äldre lydelsen i årsredovisningslagen som gällde före den 1 juli 2024 och finns på sidorna 25-43 samt 118-127. Under 'GRI-index' redovisas standardinformation som är obligatoriska, samt tilläggsindikatorer som är väsentliga för Heba inom ekonomi, miljö och socialt. Inga väsentliga förändringar har skett i jämförelse med föregående års rapportering.
+
+Rapporteringscykeln avser helår och denna rapport omfattar perioden 1 januari - 31 december 2024. Hållbarhetsredovisningen har översiktligt granskats av Ernst &amp; Young AB. Föregående hållbarhetsredovisning publicerades i mars 2024. I hållbarhets  redovisningen lämnas kompletterande information om hur Heba har gått till väga för att identifiera de fokusområden som ligger till grund för hållbarhetsarbetet, väsentliga hållbar  hetsfrågor och GRI-upplysningar, samt hur Heba tillmötesgår önskemål från bolagets intressenter. I hållbarhetsredovisningen redogörs också för antaganden och källor för de omvandlingsfaktorer som används samt anger kompletterande data till årsredovisningen. Heba har valt att använda de befintliga sektor  standarden för construction and real estate, då de lämpar sig väl för Hebas verksamhet.
+
+Vid frågor om rapporten kontaktas Patrik Emanuelsson, vd, 08-522 547 50, patrik.emanuelsson@hebafast.se.
+
+hållbarhetsansvaret bedrivs ansvarsfullt och effektivt. Vd driver hållbarhetsarbetet tillsammans med hållbarhetschefen och resterande medlemmar av ledningsgruppen. Klimatrelaterade frågor i det dagliga arbetet är integrerade i verksamheten. Hållbarhetsmål finns på strategisk nivå i affärsplanen likväl som integrerat i fastighetsplanen. Ledningsgruppen sätter mål för hållbarhetsarbetet som utförs inom   respektive verksamhetsområde och följer regelbundet upp resultatet av arbetet. Analys och målsättning genomförs på kort och lång sikt och följs upp av ledning och styrelse minst en gång per kvartal.
+
+Klimatriskanalyser
+
+Heba har kartlagt hela fastighetsbeståndets exponering mot ett förändrat klimat, för att veta vilka åtgärder som behövs framåt. Klimatriskerna kopplar vi ihop med finansiell påverkan. Läs mer på sidan 36.
+
+Hållbarhet
+
+30
+
+Finansiella rapporter
+
+| Koncernen2023                             | Innerstaden   | Stockholm närförort   | Nordväst   | Nordost   | Sydväst   | Sydost   | Totalt koncern   |
+|-------------------------------------------|---------------|-----------------------|------------|-----------|-----------|----------|------------------|
+| Hyresintäkter                             | 57440         | 179 851               | 14 189     | 89408     | 188638    | 36130    | 565656           |
+| Fastighetskostnader                       |               |                       |            |           |           |          |                  |
+| Driftkostnader                            | -13 919       | -55524                | -4703      | -25023    | -45222    | -9652    | -154043          |
+| Underhållskostnader                       | -392          | -1730                 | -4         | -248      | -990      | -34      | -3398            |
+| Fastighetsskatt                           | -1502         | -1 914                | -9         | -1269     | -868      | -520     | -6082            |
+| Driftsöverskott                           | 41627         | 120683                | 9473       | 62868     | 141558    | 25924    | 402133           |
+| Värdeförändring                           |               |                       |            |           |           |          |                  |
+| Fastighet, orealiserad                    | -103786       | -353774               | -11 252    | -367830   | -224620   | -23265   | -1084528         |
+| Resultat                                  | -62159        | -233091               | -1779      | -304962   | -83062    | 2659     | -682395          |
+| Tillgångar                                |               |                       |            |           |           |          |                  |
+| Förvaltningsfastigheter                   | 1792967       | 3695544               | 802251     | 4201751   | 2209528   | 71204    | 12773245         |
+| Nyttjanderättstillgång tomträtt           | 44574         | 81 710                | 0          | 0         | 0         | 0        | 126284           |
+| Finansiella anläggningstillgångar         | 0             | 119 722               | 13         | 0         | 156 271   | 0        | 276005           |
+| Övriga anläggningstillgångar¹ )           | 1374          | 3864                  | 843        | 4220      | 2502      | 0        | 12803            |
+| Övriga kortfristiga fordringar¹ )         | 6053          | 17026                 | 3717       | 18595     | 11024     | 0        | 56414            |
+| Ofördelade tillgångar                     | 0             | 0                     | 0          | 0         | 0         | 0        | 247172           |
+| Summatillgångar                           | 1844968       | 3917866               | 806824     | 4224566   | 2379325   | 71204    | 13491924         |
+| Kortfristiga ej räntebärande skulder      |               |                       |            |           |           |          |                  |
+| Fördelade skulder¹ )                      | 11433         | 32159                 | 7 021      | 35123     | 20822     | 0        | 106557           |
+| Summakortfristiga ej räntebärande skulder | 11433         | 32159                 | 7021       | 35123     | 20822     | 0        | 106557           |
+| Investeringar                             | 9103          | 112062                | 3694       | 20812     | 114965    | 4782     | 265419           |
+
+¹ )   Posterna är fördelade enligt fördelningsnyckel.
+
+<!-- image -->
+
+Grön el
+
+All el som Heba köper in till bolagets fastigheter är ursprungsmärkt och förnybar. Tillsammans med vår samarbetspartner som portföljförvaltar Hebas elinköp, har vi säkrat en fast prisnivå för år 20232025.
+
+<!-- image -->
+
+Fem år i sammandrag
+
+| Beloppimkr                                                 | 2024   | 2023   | 2022   | 2021   | 2020   |
+|------------------------------------------------------------|--------|--------|--------|--------|--------|
+| RESULTATRÄKNINGAR                                          |        |        |        |        |        |
+| Hyresintäkter                                              | 562    | 566    | 510    | 450    | 394    |
+| Drifts- och underhållskostnader                            | -153   | -157   | -142   | -131   | -114   |
+| Fastighetsskatt                                            | -5     | -6     | -7     | -6     | -6     |
+| Driftsöverskott                                            | 404    | 402    | 361    | 313    | 274    |
+| Centrala adm.kostnader                                     | -39    | -37    | -38    | -37    | -34    |
+| Resultat från andelar i intresseföretag och joint ventures | -50    | 36     | -1     | -1     | -      |
+| Finansiella intäkter                                       | 25     | 34     | 25     | 19     | 4      |
+| Finansiella kostnader                                      | -162   | -177   | -104   | -60    | -52    |
+| Tomträttsavgälder                                          | -4     | -4     | -5     | -5     | -5     |
+| Förvaltningsresultat inkl värdeförändring                  | 174    | 255    | 238    | 229    | 187    |
+| varav Förvaltningsresultat                                 | 216    | 271    | 238    | 229    | 187    |
+| Nedskrivning finansiella tillgångar                        | -18    | -      | -      | -      | -      |
+| Resultat fastighetsförsäljning                             | -7     | -75    | -      | -2     | -      |
+| Värdeförändring förvaltningsfastigheter                    | 38     | -1085  | -603   | 1 491  | 744    |
+| Värdeförändring räntederivat                               | -45    | -128   | 227    | 56     | -21    |
+| Resultat före skatt                                        | 142    | -1044  | -138   | 1774   | 910    |
+| Skatt                                                      | -43    | 332    | 2      | -299   | -192   |
+| Årets resultat                                             | 99     | -712   | -136   | 1475   | 718    |
+| BALANSRÄKNINGAR                                            |        |        |        |        |        |
+| Tillgångar                                                 |        |        |        |        |        |
+| Förvaltningsfastigheter                                    | 13589  | 12773  | 15 718 | 14673  | 12046  |
+| Nyttjanderättstillgång tomträtt                            | 144    | 126    | 157    | 158    | 167    |
+| Övriga anläggningstillgångar                               | 351    | 452    | 698    | 471    | 344    |
+| Omsättningstillgångar                                      | 45     | 27     | 82     | 55     | 122    |
+| Likvida medel                                              | 37     | 247    | 101    | 159    | 97     |
+| Summatillgångar                                            | 14 166 | 13625  | 16756  | 15 516 | 12776  |
+| Egetkapital ochskulder                                     |        |        |        |        |        |
+| Eget kapital                                               | 6451   | 6438   | 7 225  | 7493   | 6125   |
+| Leasingskuld                                               | 144    | 126    | 157    | 158    | 167    |
+| Räntederivat                                               | -      | -      | -      | -      | 55     |
+| Uppskjuten skatteskuld                                     | 1368   | 1326   | 1709   | 1 710  | 1 412  |
+| Räntebärande skulder                                       | 6077   | 5628   | 7535   | 6025   | 4915   |
+| Icke räntebärande skulder                                  | 126    | 107    | 130    | 130    | 102    |
+| Summaegetkapitalochskulder                                 | 14 166 | 13625  | 16756  | 15 516 | 12776  |
+
+<!-- image -->
+
+| Beloppimkr                                 | 2024    | 2023    | 2022    | 2021    | 2020    |
+|--------------------------------------------|---------|---------|---------|---------|---------|
+| NYCKELTAL                                  |         |         |         |         |         |
+| Fastighetsrelaterade nyckeltal             |         |         |         |         |         |
+| Uthyrningsbar tidsvägd area,tusenkvm       | 257     | 285     | 283     | 261     | 241     |
+| Direktavkastning,%                         | 3,0     | 3,2     | 2,3     | 2,2     | 2,3     |
+| Hyresintäkter per kvm, kr                  | 2 182   | 1987    | 1802    | 1726    | 1636    |
+| Drift och underhåll per kvm, kr            | 594     | 574     | 524     | 525     | 499     |
+| Bokfört värde per kvm, kr                  | 51599   | 50068   | 51344   | 53767   | 46560   |
+| Finansiella nyckeltal                      |         |         |         |         |         |
+| Kassaflöde, mkr                            | 214,2   | 252,1   | 196,6   | 232,7   | 187,7   |
+| Investeringar, mkr                         | 899,5   | 327,4   | 1 648,4 | 1 404,6 | 1 272,9 |
+| Överskottsgrad, %¹ )                       | 71,9    | 71,1    | 70,9    | 69,6    | 69,5    |
+| Förvaltningsmarginal,%                     | 38,4    | 47,9    | 46,7    | 50,9    | 47,6    |
+| Räntetäckningsgrad, ggr¹                   | 2,3     | 2,5     | 3,3     | 4,8     | 4,6     |
+| Genomsnittlig ränta på fastighetslån, %¹ ) | 2,8     | 2,2     | 2,3     | 0,9     | 1,1     |
+| Skuldsättningsgrad, ggr¹ )                 | 0,9     | 0,9     | 1,0     | 0,8     | 0,8     |
+| Belåningsgrad,%                            | 44,7    | 44,1    | 47,9    | 41,1    | 40,8    |
+| Nettobelåningsgrad,%                       | 44,5    | 43,1    | 48,3    | 41,1    | 41,4    |
+| Soliditet, %¹ )                            | 45,5    | 47,2    | 43,1    | 48,3    | 47,9    |
+| Avkastning eget kapital, %¹ )              | 1,5     | -10,4   | -1,9    | 21,7    | 12,3    |
+| Avkastning totalt kapital, %¹ )            | 2,2     | -5,7    | -0,2    | 13,0    | 8,3     |
+| Dataperaktie                               |         |         |         |         |         |
+| Resultat efter skatt, kr                   | 0,60    | -4,31   | -0,82   | 17,87   | 8,70    |
+| Kassaflöde, kr¹ )                          | 1,30    | 1,43    | 1,19    | 1,41    | 1,14    |
+| Eget kapital, kr¹ )                        | 39,07   | 38,99   | 43,75   | 45,38   | 37,10   |
+| Substansvärde (NAV), kr¹                   | 47,02   | 46,42   | 52,73   | 55,73   | 45,98   |
+| Börskurs, kr                               | 32,75   | 35,45   | 36,30   | 78,80   | 57,25   |
+| Fastigheternas bokförda värde, kr¹ )       | 82,30   | 77,36   | 95,19   | 88,87   | 72,96   |
+| Antal aktier vid årets slut, tusental      | 165 111 | 165 104 | 165 120 | 165 120 | 165 120 |
+| Genomsnittligt antal aktier, tusental      | 165 104 | 165 117 | 165 120 | 165 120 | 165 120 |
+
+- ¹ )   Uträkningen av alternativa nyckeltal finns tillgänglig på Hebas hemsida, www.hebafast.se
+
+Introduktion
+
+Omvärld och strategi
+
+Hållbarhet
+
+Verksamhet
+
+Bolagsstyrning
+
+Finansiella rapporter
+
+Hållbarhetsrapporter
+
+Hållbarhetsredovisning
+
+118
+
+Hållbarhetsnoter
+
+121
+
+GRI-index
+
+124
+
+Revisorns yttrande
+
+127
+
+<!-- image -->
+
+Grön fjärrvärme
+
+Vi har skrivit under ett avtal med Stockholm Exergi för att allokera grön fjärrvärme. Läs mer på sidan 35.
+
+Vi minskar klimatpåverkan från vår energianvändning genom att installera anläggningar för förnybar energi som bergvärme och solceller, och vi minskar användningen av fjärrvärme. Läs mer på sidan 33.
+
+Klimatpåverkan från byggvaror vid renovering
+
+Färdigställd renovering under året har klimatberäknats med hjälp av ett schablonvärde per kvadratmeter.
+
+Klimatpåverkan från avfall för energiåtervinning från bygg  arbetsplats Beräkning baseras på inrapporterade tippkvitton från miljö  kontrol  ler i varje projekt. Det blandade avfallet antas gå till förbränning och multipliceras med en generell emissions  faktor från IVL (0,3 kgCO2e/kg avfall).
+
+Förnybar energi
+
+Vi minskar klimatpåverkan från vår energianvändning genom att installera anläggningar för förnybar energi som bergvärme och solceller och vi minskar användningen av fjärrvärme. Läs mer på sidan 35.
+
+<!-- image -->
+
+Aktiviteter för att anpassa oss till   klimatförändringar
+Klimatriskanalyser
+
+Heba framtidssäkrar fastigheter och nyproduktion genom att värdera klimatrisker som kan påverka bolaget. Ett stort arbete har lagts ner för att göra en omfattande kartläggning av hela fastighetsbeståndets exponering mot ett förändrat klimat. Kartläggningen har genomförts med hjälp av Länsstyrelsens kartverktyg för fysiska klimatförändringar samt kartunderlag från SMHI och MSB. Analysen uppmärksammar specifika fastigheter och områden som riskerar att påverkas vid höjda vattennivåer eller drabbas av temperaturhöjningar som kan kräva åtgärder för att bibehålla ett bra inomhusklimat. Tack vare detta arbete kan vi förbereda oss för olika samhällsutvecklingar och har en tydlig bild av vilka åtgärder som behövs framåt. Klimatriskerna kopplar vi ihop med finansiell påverkan och presenterar varje år i årsredovisningen.
+
+Heba utför årligen platsbesök och intervjuer med förvaltningsteamen i syfte att systematiskt dokumentera aktuella klimatrisker. Analyserna ligger till grund för riskreducerande åtgärder som är integrerade i fastighetsplanen. Läs mer om klimatriskerna och TCFD på sidorna 60-61.
+
+<!-- image -->
+
+<!-- image -->
+
+Hållbarhet
+
+Senast år 2030 ska Hebas fastighetsförvaltning vara klimatneutral och hela verksamheten ska vara det år 2045. För att klara det så ligger en konkret   färdplan på bordet med tydliga aktiviteter för att nå målen. Färdplanen är utmanande, men också inspirerande. Andréa Uggla, tf hållbarhetschef på Heba berättar mer.
+
+-   Den gröna omställningen har en tydlig deadline. Vi måste agera nu, för att få leva i den värld vi vill även framöver. Det gäller både miljö och samhället i stort, säger Andréa Uggla, Tf hållbarhetschef på Heba.
+
+Aktiviteterna som kopplar till miljö i färdplanen består av tre delar där den första handlar om att minska energianvändningen. Heba ska gå från 75 till 40 kWh/kvm A-temperatur under 2025-2030. För att lyckas behöver alla fastigheter ha energiklass C eller bättre, och vägen dit går via investeringar i solceller och bergvärme.
+
+Den andra delen handlar om att ta ansvar för den klimatpåverkan i Hebas värdekedja som ligger utanför bolagets väggar. Här handlar det om att påverka leverantörer och marknad, bland annat genom att ställa krav kopplat till nyproduktion.
+
+Heba ska halvera utsläppen från byggskedet i nyproduktion för byggen som startar från och med 2025. För att testa sig fram har Heba startat ett pilotprojekt under 2024 där en nyproducerad fastighet i beståndet har definierats utifrån utsläppsnivån och vilka åtgärder som skulle kunna få ner nivån till hälften.
+
+-   Helt krasst räknar vi med att redan idag kunna nå en halvering mot Boverkets referensvärde, genom att utnyttja de nya mer klimatvänliga varianterna av material som finns på marknaden: betong, isolering och stål, säger Andréa Uggla.
+
+Att ta ansvar för klimatets värdekedja utanför bolaget handlar också om att hitta lösningar för återbruk vid renovering likväl som att påverka hyresgästerna att göra klimatvänliga val.
+
+-   Sedan några år tillbaka tecknar våra nya hyresgäster hållbara hyreskontrakt, där de förbinder sig att välja grön el och att källsortera. Hållbara kontrakt kommer gälla alla hyresgäster framåt, även lokalhyresgäster, säger Andréa Uggla.
+
+Den tredje delen handlar om intresset för att hitta nya innovativa lösningar som kan bidra till hållbarhet framåt. Ett exempel är koldioxidinfångning. Heba har som ett av de första svenska bolagen tecknat en avsiktsförklaring med Stockholm Exergi om koldioxid  infångning. En liten rest av koldioxidutsläpp kan bli kvar och den resten kommer bolaget kompensera bort genom koldioxidinfångning.
+
+Att hitta innovativa lösningar gäller inte bara klimatet utan även för social hållbarhet.
+
+<!-- image -->
+
+-   Vi har sänkt kraven på hyresgästernas ekonomi vid nyteckning så att fler har råd att komma och bo i våra fastigheter. Vi ökar nu också antalet kontrakt som vi ger till hemlösa. Tio stycken blir det i år och fokus är på utsatta kvinnor och barn. Så vi blir lite bättre hela tiden. Och det är inte bara ord, utan konkret handling som gäller, säger Andréa Uggla.
+
+Hållbarhet
+
+Våra fokusområden
+
+Miljö
+
+Social hållbarhet
+
+Organisation
+
+Färdplan för att nå våra hållbarhetsmål
+
+Tuffa hållbarhetsmål och ett utgångsläge i CSRD-rapporteringen hjälper oss att prioritera när vi tar ut vår färdplan framåt. Kunskap och digitalisering krävs för att lyckas. Vi använder digitaliseringens kraft för att ha dokumenterad kontroll på fastigheterna i realtid. Det gör att vi kan arbeta effektivt och proaktivt vilket ger både hållbarhet och lönsamhet. Vi kallar det Smart   förvaltning.
+
+<!-- image -->

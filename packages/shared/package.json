@@ -1,0 +1,28 @@
+{
+  "name": "@garbo/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./lib": "./dist/lib/index.js",
+    "./config": "./dist/config/index.js",
+    "./prompts": "./dist/prompts/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@garbo/schemas": "workspace:*",
+    "openai": "^4.73.1",
+    "zod": "^3.23.8",
+    "chromadb": "^1.9.4",
+    "wikibase-sdk": "^10.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
