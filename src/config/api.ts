@@ -127,6 +127,11 @@ const apiConfig = {
     '../data/nation-sector-emissions.json',
   ),
 
+  europeanDataPath: resolve(
+    import.meta.dirname,
+    '../data/european-data.json',
+  ),
+
   bullBoardBasePath: '/admin/queues',
 
   logger: (env.NODE_ENV !== 'production' && process.stdout.isTTY

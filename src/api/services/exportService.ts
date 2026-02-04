@@ -4,7 +4,8 @@ import { prisma } from '../../lib/prisma'
 import { companyExportArgs } from '../args'
 import { municipalityService } from './municipalityService'
 import { regionalService } from './regionalService'
-import { RegionalData } from '../types'
+import { europeanService } from './europeanService'
+import { RegionalData, EuropeanData } from '../types'
 import ExcelJS from 'exceljs'
 
 const EXPORT_FOLDER_PATH = './public/exports'
@@ -85,6 +86,23 @@ class ExportService {
         : type === 'csv'
           ? this.generateCSV(this.transformRegionsIntoRows(regions))
           : await this.generateXLSX(this.transformRegionsIntoRows(regions))
+
+    return this.createExportFile(fileName, content)
+  }
+
+  async exportEuropeans(type: ExportType = 'json'): Promise<ExportResult> {
+    const fileName = this.getFileName('european', type)
+    const existingFile = await this.getValidExport(fileName)
+    if (existingFile) return existingFile
+
+    const europeans = await europeanService.getEuropeans()
+
+    const content =
+      type === 'json'
+        ? JSON.stringify(europeans)
+        : type === 'csv'
+          ? this.generateCSV(this.transformEuropeansIntoRows(europeans))
+          : await this.generateXLSX(this.transformEuropeansIntoRows(europeans))
 
     return this.createExportFile(fileName, content)
   }
@@ -244,6 +262,30 @@ class ExportService {
     return csvRows
   }
 
+  private transformEuropeansIntoRows(europeans: EuropeanData[]): CsvRow[] {
+    const csvRows: CsvRow[] = []
+
+    for (const european of europeans) {
+      csvRows.push({
+        country: european.country,
+        totalTrend: european.totalTrend,
+        totalCarbonLaw: european.totalCarbonLaw,
+        emissionsSlope: european.emissionsSlope ?? null,
+        historicalEmissionChangePercent:
+          european.historicalEmissionChangePercent,
+        meetsParis: european.meetsParis,
+        ...this.transformYearlyData(european.emissions, 'emissions'),
+        ...this.transformYearlyData(
+          european.approximatedHistoricalEmission,
+          'approximatedHistoricalEmission',
+        ),
+        ...this.transformYearlyData(european.trend, 'trend'),
+      })
+    }
+
+    return csvRows
+  }
+
   private flattenSectorData(
     sectorData: Record<string, unknown>,
     prefix: string,
@@ -316,7 +358,7 @@ class ExportService {
   }
 
   private getFileName(
-    type: 'company' | 'municipality' | 'region',
+    type: 'company' | 'municipality' | 'region' | 'european',
     ext: 'csv' | 'json' | 'xlsx',
     year?: number,
   ): string {
