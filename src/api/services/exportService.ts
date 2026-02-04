@@ -90,19 +90,19 @@ class ExportService {
     return this.createExportFile(fileName, content)
   }
 
-  async exportEuropeans(type: ExportType = 'json'): Promise<ExportResult> {
+  async exportEurope(type: ExportType = 'json'): Promise<ExportResult> {
     const fileName = this.getFileName('european', type)
     const existingFile = await this.getValidExport(fileName)
     if (existingFile) return existingFile
 
-    const europeans = await europeanService.getEuropeans()
+    const europe = await europeanService.getEurope()
 
     const content =
       type === 'json'
-        ? JSON.stringify(europeans)
+        ? JSON.stringify(europe)
         : type === 'csv'
-          ? this.generateCSV(this.transformEuropeansIntoRows(europeans))
-          : await this.generateXLSX(this.transformEuropeansIntoRows(europeans))
+          ? this.generateCSV(this.transformEuropeIntoRows(europe))
+          : await this.generateXLSX(this.transformEuropeIntoRows(europe))
 
     return this.createExportFile(fileName, content)
   }
@@ -262,10 +262,10 @@ class ExportService {
     return csvRows
   }
 
-  private transformEuropeansIntoRows(europeans: EuropeanData[]): CsvRow[] {
+  private transformEuropeIntoRows(europe: EuropeanData[]): CsvRow[] {
     const csvRows: CsvRow[] = []
 
-    for (const european of europeans) {
+    for (const european of europe) {
       csvRows.push({
         country: european.country,
         totalTrend: european.totalTrend,

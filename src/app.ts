@@ -134,8 +134,8 @@ async function publicContext(app: FastifyInstance) {
   app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
   app.register(regionalReadRoutes, { prefix: 'api/regions' })
   app.register(regionalExportRoutes, { prefix: 'api/regions' })
-  app.register(europeanReadRoutes, { prefix: 'api/europeans' })
-  app.register(europeanExportRoutes, { prefix: 'api/europeans' })
+  app.register(europeanReadRoutes, { prefix: 'api/europe' })
+  app.register(europeanExportRoutes, { prefix: 'api/europe' })
   app.register(nationalReadRoutes, { prefix: 'api/nation' })
   app.register(companyPublicReportingPeriodsRoutes, {
     prefix: 'api/reporting-period',

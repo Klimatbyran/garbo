@@ -51,7 +51,7 @@ const openAPITagDefinitions = {
   Regions: {
     description: 'Climate data related to Swedish regions',
   },
-  Europeans: {
+  Europe: {
     description: 'Climate data related to European countries',
   },
   Nation: {

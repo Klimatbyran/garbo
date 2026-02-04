@@ -9,11 +9,11 @@ class EuropeanService {
   private _lookup: Map<string, EuropeanData>
   private _sectorEmissions: SectorEmissionsData[]
 
-  private get allEuropeans() {
+  private get allEurope() {
     return this._all ?? this.lazyInit()._all
   }
 
-  private get europeansByName() {
+  private get europeByName() {
     return this._lookup ?? this.lazyInit()._lookup
   }
 
@@ -46,21 +46,20 @@ class EuropeanService {
     return this
   }
 
-  getEuropeans() {
-    return this.allEuropeans
+  getEurope() {
+    return this.allEurope
   }
 
   getEuropean(name: EuropeanData['country']) {
     const normalizedName = name.toLowerCase()
-    return this.europeansByName.get(normalizedName) ?? null
+    return this.europeByName.get(normalizedName) ?? null
   }
 
   getEuropeanKpis() {
-    return this.allEuropeans.map((european) => ({
+    return this.allEurope.map((european) => ({
       country: european.country,
       meetsParis: european.meetsParis,
-      historicalEmissionChangePercent:
-        european.historicalEmissionChangePercent,
+      historicalEmissionChangePercent: european.historicalEmissionChangePercent,
     }))
   }
 

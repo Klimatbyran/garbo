@@ -13,7 +13,7 @@ export async function europeanExportRoutes(app: FastifyInstance) {
         summary: 'Export all European countries',
         description:
           'Export a list of all European countries with their historical emissions data broken down by sectors and subsectors over time.',
-        tags: getTags('Europeans'),
+        tags: getTags('Europe'),
         querystring: exportQuerySchema,
       },
     },
@@ -23,7 +23,7 @@ export async function europeanExportRoutes(app: FastifyInstance) {
       }>,
       reply,
     ) => {
-      const { content, name } = await exportService.exportEuropeans(
+      const { content, name } = await exportService.exportEurope(
         request.query.type,
       )
       try {
