@@ -291,7 +291,12 @@ export async function authentificationRoutes(app: FastifyInstance) {
         reply.status(200).send({ token })
       } catch (error) {
         request.log.error({ error }, 'Service authentication error')
-        return reply.status(401).send()
+        const errorMessage =
+          error instanceof Error ? error.message : 'Authentication failed'
+        return reply.status(401).send({
+          code: 'AUTHENTICATION_FAILED',
+          message: errorMessage,
+        })
       }
     },
   )

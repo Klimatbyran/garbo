@@ -66,6 +66,9 @@ const openAPITagDefinitions = {
   Newsletters: {
     description: 'Newsletters',
   },
+  'API Tokens': {
+    description: 'API token management',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

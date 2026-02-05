@@ -44,6 +44,7 @@ import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/industryGics.read'
 import { screenshotsReadRoutes } from './api/routes/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
+import { apiTokenRoutes } from './api/routes/apiTokens'
 
 async function startApp() {
   const app = Fastify({
@@ -99,6 +100,9 @@ async function startApp() {
 
   app.register(fastifyCookie)
 
+  // Register auth plugin globally (it will skip auth routes internally)
+  app.register(authPlugin)
+
   app.register(publicContext)
   app.register(authenticatedContext)
 
@@ -106,7 +110,8 @@ async function startApp() {
 }
 
 /**
- * This context wraps all logic that should be public.
+ * This context wraps routes that require token authentication.
+ * Auth routes are excluded and remain public.
  */
 async function publicContext(app: FastifyInstance) {
   app.get('/', { schema: { hide: true } }, (request, reply) =>
@@ -125,7 +130,10 @@ async function publicContext(app: FastifyInstance) {
     },
   )
 
+  // Auth routes are public (no token required)
   app.register(authentificationRoutes, { prefix: 'api/auth' })
+
+  // All other routes require token authentication
   app.register(companyReadRoutes, { prefix: 'api/companies' })
   app.register(companyExportRoutes, { prefix: 'api/companies' })
   app.register(municipalityReadRoutes, { prefix: 'api/municipalities' })
@@ -148,8 +156,6 @@ async function publicContext(app: FastifyInstance) {
  * This context wraps all logic that requires authentication.
  */
 async function authenticatedContext(app: FastifyInstance) {
-  app.register(authPlugin)
-
   app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })
@@ -165,6 +171,7 @@ async function authenticatedContext(app: FastifyInstance) {
     prefix: 'api/emissions-assessment',
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
+  app.register(apiTokenRoutes, { prefix: 'api/api-tokens' })
 }
 
 export default startApp
