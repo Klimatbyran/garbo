@@ -283,3 +283,20 @@ export const exportQuerySchema = z.object({
 export const claimValidationSchema = z.object({
   steal: z.boolean(),
 })
+
+export const createApiTokenBodySchema = z.object({
+  name: z.string().min(1),
+  permissions: z.array(z.string()).min(1),
+  expiresAt: z.coerce.date().optional(),
+})
+
+export const updateApiTokenBodySchema = z.object({
+  name: z.string().min(1).optional(),
+  permissions: z.array(z.string()).min(1).optional(),
+  expiresAt: z.coerce.date().nullable().optional(),
+  active: z.boolean().optional(),
+})
+
+export const apiTokenIdParamSchema = z.object({
+  id: z.string(),
+})

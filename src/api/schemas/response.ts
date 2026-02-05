@@ -555,3 +555,20 @@ export const NationalDataListSchema = z.array(NationDataSchema)
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
 export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
+
+export const ApiTokenSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  permissions: z.array(z.string()),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  expiresAt: z.date().nullable(),
+  active: z.boolean(),
+})
+
+export const ApiTokenListSchema = z.array(ApiTokenSchema)
+
+export const CreateApiTokenResponseSchema = z.object({
+  token: z.string(),
+  apiToken: ApiTokenSchema,
+})

@@ -369,6 +369,22 @@ model User {
   verified Metadata[] @relation("metadata_verified_by")
 }
 
+/// API tokens for programmatic access with permission-based access control
+model ApiToken {
+  id          String   @id @default(cuid())
+  token       String   @unique
+  name        String   // Human-readable name for the token
+  /// Permissions are stored as an array of endpoint prefixes the token can access
+  /// Examples: ["companies", "municipalities"] allows access to /api/companies/* and /api/municipalities/*
+  permissions String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  /// If null, the token never expires
+  expiresAt   DateTime?
+  /// If false, the token is disabled and cannot be used
+  active       Boolean  @default(true)
+}
+
 // Follows the ISO 639 language codes
 enum Language {
   SV
