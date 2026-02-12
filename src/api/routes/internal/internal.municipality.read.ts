@@ -1,18 +1,18 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { getTags } from '../../config/openapi'
-import { MunicipalityNameParams } from '../types'
-import { cachePlugin } from '../plugins/cache'
+import { getTags } from '../../../config/openapi'
+import { MunicipalityNameParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
 import {
   MunicipalitySchema,
   MunicipalitiesSchema,
   getErrorSchemas,
   MunicipalityNameParamSchema,
   MunicipalitySectorEmissionsSchema,
-} from '../schemas'
-import { municipalityService } from '../services/municipalityService'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { municipalityService } from '../../services/municipalityService'
+import { redisCache } from '../../..'
 import fs from 'fs'
-import apiConfig from '../../config/api'
+import apiConfig from '../../../config/api'
 
 const MUNICIPALITIES_CACHE_KEY = 'municipalities:all'
 const MUNICIPALITIES_TIMESTAMP_KEY = 'municipalities:timestamp'
@@ -26,7 +26,7 @@ const getDataFileTimestamp = (): number => {
   }
 }
 
-export async function municipalityReadRoutes(app: FastifyInstance) {
+export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
   app.get(
@@ -36,7 +36,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
         summary: 'Get all municipalities',
         description:
           'Retrieve a list of all municipalities with data about their emissions, carbon budget, climate plans, bike infrastructure, procurements, and much more. Returns 304 Not Modified if the resource has not changed since the last request (based on ETag).',
-        tags: getTags('Municipalities'),
+        tags: getTags('Internal'),
 
         response: {
           200: MunicipalitiesSchema,

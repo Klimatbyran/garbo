@@ -1,6 +1,6 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { goalService } from '../services/goalService'
+import { goalService } from '../../services/goalService'
 import {
   wikidataIdParamSchema,
   postGoalSchema,
@@ -8,15 +8,15 @@ import {
   okResponseSchema,
   garboEntityIdSchema,
   getErrorSchemas,
-} from '../schemas'
+} from '../../schemas'
 import {
   PostGoalsBody,
   PostGoalBody,
   GarboEntityId,
   WikidataIdParams,
-} from '../types'
-import { metadataService } from '../services/metadataService'
-import { getTags } from '../../config/openapi'
+} from '../../types'
+import { metadataService } from '../../services/metadataService'
+import { getTags } from '../../../config/openapi'
 
 export async function companyGoalsRoutes(app: FastifyInstance) {
   app.post(
@@ -39,29 +39,30 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostGoalsBody
       }>,
-      reply
+      reply,
     ) => {
-      const { goals, metadata } = request.body;
+      const { goals, metadata } = request.body
 
       if (goals?.length) {
-        const { wikidataId } = request.params;
-        const user = request.user;
+        const { wikidataId } = request.params
+        const user = request.user
 
         try {
           await goalService.createGoals(wikidataId, goals, () =>
             metadataService.createMetadata({
               metadata,
               user,
-            })
-          );
-        } catch(error) {
-          console.error('ERROR Creation of goals failed:', error);
-          return reply.status(500).send({message: 'Creation of goals failed.'})
+            }),
+          )
+        } catch (error) {
+          console.error('ERROR Creation of goals failed:', error)
+          return reply
+            .status(500)
+            .send({ message: 'Creation of goals failed.' })
         }
-        
       }
-      return reply.send({ ok: true });
-    }
+      return reply.send({ ok: true })
+    },
   )
 
   app.patch(
@@ -84,30 +85,33 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         Params: GarboEntityId
         Body: PostGoalBody
       }>,
-      reply
+      reply,
     ) => {
-      const { id } = request.params;
-      const { goal } = request.body;
-      let createdMetadata;
+      const { id } = request.params
+      const { goal } = request.body
+      let createdMetadata
 
       try {
         createdMetadata = await metadataService.createMetadata({
           metadata: request.body.metadata,
           user: request.user,
-        });
-      } catch(error) {
-        console.error('ERROR Creation of metadata for update of goal failed:', error);
-        return reply.status(500).send({message: 'Update of goal failed'});
+        })
+      } catch (error) {
+        console.error(
+          'ERROR Creation of metadata for update of goal failed:',
+          error,
+        )
+        return reply.status(500).send({ message: 'Update of goal failed' })
       }
 
       try {
         await goalService.updateGoal(id, { goal }, createdMetadata)
-      } catch(error) {
-        console.error('ERROR Update of goal failed:', error);
-        return reply.status(500).send({message: 'Update of goal failed.'})
+      } catch (error) {
+        console.error('ERROR Update of goal failed:', error)
+        return reply.status(500).send({ message: 'Update of goal failed.' })
       }
-      
-      return reply.send({ ok: true });
-    }
+
+      return reply.send({ ok: true })
+    },
   )
 }

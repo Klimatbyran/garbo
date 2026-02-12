@@ -1,19 +1,19 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
 
-import { getGics } from '../../lib/gics'
-import { prisma } from '../../lib/prisma'
-import { getTags } from '../../config/openapi'
-import { CompanySearchQuery, WikidataIdParams } from '../types'
-import { cachePlugin } from '../plugins/cache'
-import { companyService } from '../services/companyService'
+import { getGics } from '../../../lib/gics'
+import { prisma } from '../../../lib/prisma'
+import { getTags } from '../../../config/openapi'
+import { CompanySearchQuery, WikidataIdParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
+import { companyService } from '../../services/companyService'
 import {
   CompanyList,
   wikidataIdParamSchema,
   CompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
-} from '../schemas'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { redisCache } from '../../..'
 
 export async function companyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)

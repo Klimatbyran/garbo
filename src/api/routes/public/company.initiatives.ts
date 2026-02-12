@@ -1,7 +1,7 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { getTags } from '../../config/openapi'
-import { metadataService } from '../services/metadataService'
+import { getTags } from '../../../config/openapi'
+import { metadataService } from '../../services/metadataService'
 import {
   wikidataIdParamSchema,
   okResponseSchema,
@@ -9,14 +9,14 @@ import {
   postInitiativesSchema,
   garboEntityIdSchema,
   getErrorSchemas,
-} from '../schemas'
-import { initiativeService } from '../services/initiativeService'
+} from '../../schemas'
+import { initiativeService } from '../../services/initiativeService'
 import {
   WikidataIdParams,
   PostInitiativeBody,
   PostInitiativesBody,
   GarboEntityId,
-} from '../types'
+} from '../../types'
 
 export async function companyInitiativesRoutes(app: FastifyInstance) {
   app.post(
@@ -39,27 +39,32 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostInitiativesBody
       }>,
-      reply
+      reply,
     ) => {
-      const { initiatives, metadata } = request.body;
+      const { initiatives, metadata } = request.body
 
       if (initiatives?.length) {
-        const { wikidataId } = request.params;
-        
+        const { wikidataId } = request.params
+
         try {
-          await initiativeService.createInitiatives(wikidataId, initiatives, () =>
-            metadataService.createMetadata({
-              metadata,
-              user: request.user,
-            })
+          await initiativeService.createInitiatives(
+            wikidataId,
+            initiatives,
+            () =>
+              metadataService.createMetadata({
+                metadata,
+                user: request.user,
+              }),
           )
-        } catch(error) {
-          console.error('ERROR Creation of initiatives failed:', error);
-          return reply.status(500).send({message: "Initiatives could not be created."});
+        } catch (error) {
+          console.error('ERROR Creation of initiatives failed:', error)
+          return reply
+            .status(500)
+            .send({ message: 'Initiatives could not be created.' })
         }
       }
-      return reply.send({ ok: true });
-    }
+      return reply.send({ ok: true })
+    },
   )
 
   app.patch(
@@ -82,23 +87,29 @@ export async function companyInitiativesRoutes(app: FastifyInstance) {
         Params: GarboEntityId
         Body: PostInitiativeBody
       }>,
-      reply
+      reply,
     ) => {
-      const { id } = request.params;
-      const { initiative, metadata } = request.body;
+      const { id } = request.params
+      const { initiative, metadata } = request.body
       const createdMetadata = await metadataService.createMetadata({
         metadata,
         user: request.user,
-      });
+      })
 
       try {
-        await initiativeService.updateInitiative(id, initiative, createdMetadata);
-      } catch(error) {
-        console.error('ERROR Update of initiative failed:', error);
-        return reply.status(500).send({message: 'Update of initiative failed.'});
+        await initiativeService.updateInitiative(
+          id,
+          initiative,
+          createdMetadata,
+        )
+      } catch (error) {
+        console.error('ERROR Update of initiative failed:', error)
+        return reply
+          .status(500)
+          .send({ message: 'Update of initiative failed.' })
       }
 
-      return reply.send({ ok: true });
-    }
+      return reply.send({ ok: true })
+    },
   )
 }
