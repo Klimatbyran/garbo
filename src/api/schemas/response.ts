@@ -387,6 +387,12 @@ export const CompanyDetails = CompanyBase.extend({
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
+export const CompanyNameList = z.array(
+  z.object({
+    name: z.string(),
+  }),
+)
+
 function transformYearlyData(
   yearlyData: Record<string, number>,
 ): { year: string; value: number }[] {

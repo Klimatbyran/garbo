@@ -31,6 +31,15 @@ class CompanyService {
     return companiesWithFutureEmissionsTrendSlope
   }
 
+  async getAllCompanyNames() {
+    const companies = await prisma.company.findMany({
+      select: {
+        name: true,
+      },
+    })
+    return companies
+  }
+
   async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({
       ...companyListArgs,
