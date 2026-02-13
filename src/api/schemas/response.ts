@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
+import { Language } from '@prisma/client'
+import { string } from 'zod'
 
 extendZodWithOpenApi(z)
 
@@ -386,6 +388,12 @@ export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
+
+export const CompanyNameList = z.array(
+  z.object({
+    name: z.string(),
+  }),
+)
 
 function transformYearlyData(
   yearlyData: Record<string, number>,
