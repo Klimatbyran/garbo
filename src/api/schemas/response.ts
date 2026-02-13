@@ -1,8 +1,6 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
-import { Language } from '@prisma/client'
-import { string } from 'zod'
 
 extendZodWithOpenApi(z)
 
