@@ -35,10 +35,6 @@ class CompanyService {
     const companies = await prisma.company.findMany({
       select: {
         name: true,
-        descriptions: {
-          where: { language: 'EN' },
-          select: { text: true },
-        },
       },
     })
     return companies
