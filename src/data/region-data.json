@@ -61,9 +61,7 @@
       "Olofström",
       "Ronneby",
       "Sölvesborg"
-    ],
-    "politicalRule": ["C", "KD", "S"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Dalarnas län",
@@ -137,9 +135,7 @@
       "Säter",
       "Vansbro",
       "Älvdalen"
-    ],
-    "politicalRule": ["C", "KD", "S", "DSP"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Gotlands län",
@@ -197,9 +193,7 @@
     "emissionsSlope": -79091.05,
     "historicalEmissionChangePercent": -3.27,
     "meetsParis": "False",
-    "municipalities": ["Gotland"],
-    "politicalRule": ["M", "S"],
-    "politicalRSO": "S"
+    "municipalities": ["Gotland"]
   },
   {
     "region": "Gävleborgs län",
@@ -268,9 +262,7 @@
       "Ovanåker",
       "Sandviken",
       "Söderhamn"
-    ],
-    "politicalRule": ["M", "KD", "SD", "Sjukvårdspartiet Gävleborg"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Hallands län",
@@ -335,9 +327,7 @@
       "Kungsbacka",
       "Laholm",
       "Varberg"
-    ],
-    "politicalRule": ["M", "C", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Jämtlands län",
@@ -404,9 +394,7 @@
       "Strömsund",
       "Åre",
       "Östersund"
-    ],
-    "politicalRule": ["KD", "S", "V"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Jönköpings län",
@@ -478,9 +466,7 @@
       "Vaggeryd",
       "Vetlanda",
       "Värnamo"
-    ],
-    "politicalRule": ["M", "S", "Bevara Akutsjukhusen"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Kalmar län",
@@ -551,9 +537,7 @@
       "Torsås",
       "Vimmerby",
       "Västervik"
-    ],
-    "politicalRule": ["C", "S", "V"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Kronobergs län",
@@ -620,9 +604,7 @@
       "Uppvidinge",
       "Växjö",
       "Älmhult"
-    ],
-    "politicalRule": ["M", "C", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Norrbottens län",
@@ -695,9 +677,7 @@
       "Älvsbyn",
       "Överkalix",
       "Övertorneå"
-    ],
-    "politicalRule": ["C", "S", "V"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Skåne län",
@@ -789,9 +769,7 @@
       "Åstorp",
       "Örkelljunga",
       "Östra Göinge"
-    ],
-    "politicalRule": ["M", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Stockholms län",
@@ -876,9 +854,7 @@
       "Vaxholm",
       "Värmdö",
       "Österåker"
-    ],
-    "politicalRule": ["C", "S", "MP"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Södermanlands län",
@@ -946,9 +922,7 @@
       "Strängnäs",
       "Trosa",
       "Vingåker"
-    ],
-    "politicalRule": ["M", "C", "KD", "Vård för pengarna"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Uppsala län",
@@ -1015,9 +989,7 @@
       "Uppsala",
       "Älvkarleby",
       "Östhammar"
-    ],
-    "politicalRule": ["M", "C", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Värmlands län",
@@ -1092,9 +1064,7 @@
       "Säffle",
       "Torsby",
       "Årjäng"
-    ],
-    "politicalRule": ["C", "S", "V"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Västerbottens län",
@@ -1168,9 +1138,7 @@
       "Vindeln",
       "Vännäs",
       "Åsele"
-    ],
-    "politicalRule": ["S", "V", "MP"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Västernorrlands län",
@@ -1236,9 +1204,7 @@
       "Timrå",
       "Ånge",
       "Örnsköldsvik"
-    ],
-    "politicalRule": ["M", "C", "S"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Västmanlands län",
@@ -1307,9 +1273,7 @@
       "Skinnskatteberg",
       "Surahammar",
       "Västerås"
-    ],
-    "politicalRule": ["M", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   },
   {
     "region": "Västra Götalands län",
@@ -1417,9 +1381,7 @@
       "Vårgårda",
       "Åmål",
       "Öckerö"
-    ],
-    "politicalRule": ["S", "V", "MP"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Örebro län",
@@ -1490,9 +1452,7 @@
       "Ljusnarsberg",
       "Nora",
       "Örebro"
-    ],
-    "politicalRule": ["C", "KD", "S"],
-    "politicalRSO": "S"
+    ]
   },
   {
     "region": "Östergötlands län",
@@ -1564,8 +1524,6 @@
       "Ydre",
       "Åtvidaberg",
       "Ödeshög"
-    ],
-    "politicalRule": ["M", "L", "KD"],
-    "politicalRSO": "M"
+    ]
   }
 ]
