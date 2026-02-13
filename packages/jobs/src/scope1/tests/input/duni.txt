@@ -1,0 +1,973 @@
+Scope 1
+
+Scope 1-utsläpp avser direkta utsläpp av växthusgaser (GHG) som härör sig från källor vilka ägs eller kontrolleras av organisationen, t ex utsläpp från förbränning. Definition från GHG-protokollet.
+
+<!-- image -->
+
+Scope 1
+
+Inom Duni Group mäts direkta GHG-utsläpp från källor som ägs eller kontrolleras av koncernen. Detta inkluderar utsläpp från företagsägda fordon och anläggningar. Bränsleförbrukningsdata används och Duni Group tillämpar specifika utsläppsfaktorer för olika typer av bränsle. De väsentliga antagandena är utsläppsfaktorerna för varje bränsletyp samt verksamhetsgränserna för företaget.
+
+Scope 3
+
+Scope 3-utsläpp inefattar alla indirekta utsläpp (ej inluderade i scope 2) som skapas i det rapporterande företagets värdekedja, inklusive utsläpp både uppströms och nedströms. Dessa inkluderar utvinning och transformering av råvaror, tillverkning, logistik, distribution, användning, och end-of-life. Definition från GHG-protokollet.
+
+Ordlista forts.
+Scope 2
+
+Scope- 2-utsläpp avser indirekta GHG-utsläpp kopplade till produktion av inköpt elektricitet, ånga, värme eller kylning som konsumeras av det rapporterande företaget. Definition från GHG-protokollet.
+
+KPI
+
+• Koldioxidintensitet, GHG-protokollets Scope 1 och 2
+
+Scope 3
+
+Inom scope 3 omfattas all andra indirekta utsläpp som uppstår i värdekedjan både uppströms och nedströms. Detta inkluderar aktiviteter som affärsresor, avfallshantering och användning av Duni Groups produkter. Att beräkna scope 3-utsläpp är mer komplext och innebär att man samlar in data från leverantörer och andra tredje parter. Väsentliga antaganden inkluderar noggrannheten hos de data som tillhandahålls av dessa externa källor och utsläppsfaktorerna för olika aktiviteter.
+
+Alla relevanta växthusgasutsläpp (som krävs enligt GHG-protokollet) beaktas vid beräkning av scope 3, medan de redovisas som CO2ekvivalenter. Alla scope 3-kategorier beaktas, där det finns aktiviteter, vilket innebär att tre kategorier inte beaktas (uppströms/nedströms leasade tillgångar, franchises).
+
+De huvudsakliga påverkanskategorierna för Duni Group är kategorierna 1, 4, 11 och 12, som täcker mer än 90 % av scope 3-utsläppen. Alla utsläppsberäkningar baseras på GHG-protokollet.
+
+Kategori 1: Köpta varor och tjänster: Utsläpp från inköpta varor beräknas med hjälp av genomsnittsdatametodiken, vilket innebär att produktmaterial och vikter används för att beräkna de slutliga utsläppen. För tre mindre konverteringsenheter (i Tyskland, Thailand och Nya Zeeland) baseras kategori 1-utsläppen på genomsnittliga utsläpp per konverterat ton då primärdata saknas. Dessa antaganden utgör cirka 0,5 % av hela kategori 1-utsläppen och primärdata kommer att eftersökas framöver. Livsmedelsförpackningslösningars produktutsläpp för scope 3 beräknas utifrån den interna CO2-kalkylatorn. För vissa råvaror används leverantörsspecifika utsläppsfaktorer som utgör 10 % av kategori 1-utsläppen (exkl. BioPak Group).
+
+Mål 1: SBT kortsiktigt mål (Scope 1+2)*
+
+Metoden som används för att beräkna scope 2-utsläppen är marknadsbaserad.
+
+Duni Group har satt upp ett kortsiktigt mål om att minska utsläppen i scope 1 och 2 med 57,1 % till 2030, med 2019 som basår.
+
+Efter att ha uppnått målen för scope 1 och 2 före tidsplanen fortsätter Duni Group att sträva efter att komma så nära nettonoll som möjligt för scope 1 och 2 senast 2030.
+
+Scope 2
+
+Inom Duni Group mäts indirekta utsläpp av växthusgaser från produktion av inköpt el, ånga, värme och kyla som förbrukas. Mängden inköpt el och andra energikällor spåras och tillämpas med lämpliga utsläppsfaktorer. De antaganden som görs här inkluderar de regionala nätutsläppsfaktorerna och leverantörernas energimix.
+
+Duni Group köpte EAC:er (Energy Attribute Certificates) för Duni Thailand under 2024 för att ställa om till fossilfri el. EAC köpte för 1 060 MWh el.
+
+Mål 2: SBT kortsiktigt mål (Scope 3)*
+
+Målet för scope 3 är en minskning på 46,2 % till 2030 med 2019 som basår. Arbetet med att uppnå detta mål pågår för närvarande. Under 2024 lanserades ett projekt för att ytterligare förfina färdplanen för scope 3 för 2030. De primära utsläppen från scope 3 kommer från kategori 1: inköpta varor och tjänster. Därför ligger fokus för utsläppsminskningar på materialval och design samt på leverantörsengagemang för att öka användningen av leverantörsbaserad data för att inkludera deras utsläppsminskningar i koncernens scope 3-beräkningar. Materialval för produkter påverkar även utsläpp i kategori 12, som täcker uttjänta sålda varor. En annan viktig kategori är kategori 4: uppströms transport och distribution, där utsläppsminskningarna kommer att bero på logistikeffektivitet och bränsleval för transport.
+
+Väsentliga frågor
+
+|                                      | Upplysning                                                                  | Sidhänvisning   | Kommentar                       |
+|--------------------------------------|-----------------------------------------------------------------------------|-----------------|---------------------------------|
+| GRI 3: Väsentliga frågor2021         | GRI 3: Väsentliga frågor2021                                                |                 |                                 |
+| 3-1                                  | Process för att identifiera väsentliga ämnen                                | 37-38           |                                 |
+| 3-2                                  | Lista över väsentliga ämnen                                                 | 13, 38          |                                 |
+| 3-3                                  | Hantering av väsentliga ämnen                                               | 37-38           | Se även hållbarhetsförklaringen |
+| 301 Material 2016                    | 301 Material 2016                                                           |                 |                                 |
+| 301-1                                | Materialanvändning per vikt ellervolym                                      | 62              |                                 |
+| 301-2                                | Användning av återvunnet insatsmaterial                                     | 62              |                                 |
+| 305Utsläpp 2016                      | 305Utsläpp 2016                                                             |                 |                                 |
+| 305-1                                | Direkta utsläpp av växthusgaser (scope 1)                                   | 52              |                                 |
+| 305-2                                | Indirekta utsläpp av växthusgaser (scope 2)                                 | 52              |                                 |
+| 305-3                                | Andra indirekta (scope 3) växthusgaser                                      | 52              |                                 |
+| 305-4                                | Växthusgasutsläppsintensitet                                                | 52, 29          |                                 |
+| 305-5                                | Minskning avväxthusgasutsläpp                                               | 51-53           |                                 |
+| 305-7                                | Kväveoxider(NO X ),svaveloxider(SO X ) ochandraväsentliga utsläpp till luft | 55              |                                 |
+| 306Avfall2020                        | 306Avfall2020                                                               |                 |                                 |
+| 306-1                                | Avfallsgenerering och betydande avfallsrelaterade effekter                  | 63-64           |                                 |
+| 306-2                                | Hantering av betydande avfallsrelaterade effekter                           | 64              |                                 |
+| 306-3                                | Genererat avfall                                                            | 64              |                                 |
+| 306-4                                | Avfall som avletts från deponi                                              | 64              |                                 |
+| 306-5                                | Avfall till deponi                                                          | 64              |                                 |
+| 308Leverantörers miljöbedömning      | 308Leverantörers miljöbedömning                                             |                 |                                 |
+| 308-1                                | Nya leverantörersom granskades medmiljökriterier                            | 83              |                                 |
+| 308-2                                | Negativa miljöpåverkningar i leveranskedjan och vidtagna åtgärder           | 79, 83          |                                 |
+| 401Anställning 2016                  | 401Anställning 2016                                                         |                 |                                 |
+| 401-1                                | Personalomsättning och nyanställda                                          | 72              |                                 |
+| 401-3                                | Föräldraledighet                                                            | 75              |                                 |
+| 403Hälsa och säkerhet i arbetet 2018 | 403Hälsa och säkerhet i arbetet 2018                                        |                 |                                 |
+| 403-1                                | Ledningssystem för arbetsrelaterad hälsa och säkerhet                       | 75              |                                 |
+
+<!-- image -->
+
+E1-6 Bruttoväxthusgasutsläpp inom scope 1, 2, 3 och totala växthusgasutsläpp
+Klimataktiviteter 2024
+
+År 2024 tog Duni Group betydande framsteg i sina klimataktiviteter, med lanseringen av en verifierad CO2-kalkylator utformad för att följa koldioxidavtrycket för förpackningsprodukterna. Då detta verktyg är verifierat av Carbon Trust och i enlighet med ISO 14067, ger det Duni Group möjlighet att få djupare insikter om utsläppen relaterat till produkterna. Genom att tillhandahålla korrekta och transparenta data ger det kunderna möjlighet att fatta välgrundade beslut om sin miljöpåverkan.
+
+Dessutom övergick Duni Group till förnybar el vid sin konverteringsanläggning i Thailand, vilket minskade anläggningens koldioxidavtryck och anpassade den till företagets engagemang för hållbara energimetoder. Vidare har ett nytt torksystem tagits i bruk hos Rexcell för att förbättra energieffektiviteten i mjukpappersproduktionen. Detta avancerade system förbättrar produktionsprocessen genom att minska energiförbrukningen, vilket bidrar till företagets övergripande hållbarhetsmål.
+
+Under 2024 påbörjade företaget en omfattande omräkningsprocess för att se över sin scope 3-metodik och källor för utsläppsfaktorer. Detta initiativ syftade till att anpassa beräkningarna till det nyligen introducerade verktyget för koldioxidavtryck, genom att säkerställa konsekvens och noggrannhet i rapporteringen och att harmonisera utsläppskällor för olika scope 3-kategorier.
+
+Vidare ingick konverteringsfabriken Seti, där Duni Group förvärvade majoritetsägande, i baslinjen för scope 1- och 2-utsläpp. Seti erhöll också förnybara elcertifikat för 2024, vilket ytterligare stöder företagets engagemang för förnybar energi. Både Seti och Relevo, där majoritets ägandet förvärvades 2024, fick sina scope 1- och 2-utsläpp inkluderade under året. Dessa anläggningar kommer att införlivas i scope 3-rapporteringen 2025, vilket säkerställer en heltäckande och transparent utsläppsspårning för alla verksamheter.
+
+<!-- image -->
+
+Växthusgasutsläpp (GHG)
+
+|                                           |                                                                                   | Basår 2019   | Föregående år 2023   | Innevarande år 2024   | Föränd- ring%*   |
+|-------------------------------------------|-----------------------------------------------------------------------------------|--------------|----------------------|-----------------------|------------------|
+| Scope 1-utsläpp av växthusgaser           | Bruttoutsläpp av växthusgaser enligt scope 1 (tCO 2 eq)                           | 17 728       | 16 974               | 16 051                | -5%              |
+|                                           | Andel av scope 1-utsläpp av växthusgaser från reglerade utsläppshandelssystem (%) | 100%         | 79%                  | 85%                   |                  |
+| Scope 2-utsläpp av växthusgaser           | Platsbaserade bruttoutsläpp av växthusgaser enligt Scope 2 (tCO 2 eq)             | 11 347       | 11 587               | 12 128                | +5%              |
+|                                           | Bruttomarknadsbaserade scope 2-utsläpp av växthusgaser (tCO 2 eq)                 | 27 769       | 837                  | 424                   | -49%             |
+|                                           | Scope 1+2 bruttoväxthusgasutsläpp (marknadsbaserade)                              | 45 497       | 17 812               | 16 475                | -8%              |
+| Betydande Scope 3-utsläpp av växthusgaser | Totala indirekta bruttoutsläpp av växthusgaser (Scope 3) (tCO 2 eq)               | 182 551      | 163 833              | 147 144               | -10%             |
+|                                           | 1 Inköpta varor och tjänster                                                      | 119 166      | 113 544              | 98 110                | -14%             |
+|                                           | 2 Kapitalvaror                                                                    | 3 046        | 1 042                | 1 915                 | +84%             |
+|                                           | 3 Bränsle- och energirelaterade aktiviteter (ingår inte i scope 1 eller scope 2)  | 7 219        | 5 267                | 3 310                 | -37%             |
+|                                           | 4 Transport och distribution uppströms                                            | 21 632       | 22 214               | 22 978                | +3%              |
+|                                           | 5 Avfall som genereras i verksamheten                                             | 700          | 718                  | 666                   | -7%              |
+|                                           | 6 Affärsresor                                                                     | 628          | 337                  | 484                   | +44%             |
+|                                           | 7 Pendling för anställda                                                          | 3 381        | 2 332                | 2 482                 | +6%              |
+|                                           | 8 Uppströms leasade tillgångar                                                    | N/A          | N/A                  | N/A                   | N/A              |
+|                                           | 9 Nedströms transport                                                             | 2 858        | 1 930                | 1 837                 | -5%              |
+|                                           | 10 Hantering av sålda produkter                                                   | 1 681        | 817                  | 984                   | + 21%            |
+|                                           | 11 Användning av sålda produkter                                                  | 7 937        | 4 058                | 3 671                 | -10%             |
+|                                           | 12 Avfallshantering av sålda produkter                                            | 14 306       | 11 571               | 10 703                | -8%              |
+|                                           | 13 Nedströms leasade tillgångar                                                   | N/A          | N/A                  | N/A                   | N/A              |
+|                                           | 14 Franchises                                                                     | N/A          | N/A                  | N/A                   | N/A              |
+|                                           | 15 Investeringar                                                                  | 0            | 4                    | 3                     | - 17%            |
+| Totala växthusgasutsläpp                  |                                                                                   |              |                      |                       |                  |
+|                                           | Totala växthusgasutsläpp (platsbaserade) (tCO 2 eq)                               | 211 626      | 192 394              | 175 323               | -9%              |
+|                                           | Totala växthusgasutsläpp (marknadsbaserade) (tCO 2 eq)                            | 228 048      | 181 644              | 163 619               | -10%             |
+
+| BiopakGroup,scope 3   | 2019   | 2023   | 2024   |
+|-----------------------|--------|--------|--------|
+| Kategorier 1-7; 9; 12 | 29 087 | 70 815 | 75 534 |
+
+Metod Allmänt
+
+För att beräkna scope 1, 2 och 3 GHG-utsläpp använder Duni Group främst genomsnittliga branschdata med vissa tillägg av leverantörsbaserade data. Utsläppsfaktorerna kommer huvudsakligen från Ecoinvent med tillägg från öppna källor.
+
+Duni Group använder beräkningsverktyget Position Green GHG för att beräkna scope 1, 2 och 3. Duni Groups data om växthusgasutsläpp har dock inte validerats av ett externt organ under 2024.
+
+Under 2024 har Duni Group genomgått en betydande förändring av organisationsstrukturen genom förvärv av majoriteten av aktierna i Seti d.o.o. och Relevo GmbH. Båda bolagen ingick i scope 1+2-beräkningarna under 2024, i enlighet med 'full-year'-metoden som rekommenderas av GHG-protokollet, och kommer att integreras i scope 3-beräkningarna under 2025. Enligt GHG-protokollet har baslinjeutsläppen räknats om.
+
+<!-- image -->
+
+Metod
+
+Duni Group har implementerat processen baserad på GHG-protokollet som inkluderar:
+
+-   att sätta upp vetenskapsbaserade mål som godkänns, mäts och kommuniceras
+-   att mäta påverkan genom hela värdekedjan
+-   en transparent rapportering av resultat
+
+KPI:er relaterade till scope 1 och 2 spåras och övervakas kvartalsvis för interna ändamål och korrigerande åtgärder vidtas vid behov. KPI:er relaterade till Scope 3 följs upp och övervakas årligen.
+
+Duni Group började beräkna scope 1- och 2-utsläppen 2021 och scope 3-utsläppen 2022, med 2019 som basår. De vetenskapsbaserade målen för både kort- och långsiktiga mål godkändes av Science Based Targets Initiative 2023. Beräkningarna utförs i enlighet med GHG-protokollet med hjälp av metoden för operativ kontroll. Kategorispecifika metoder beskrivs på sida 31.
+
+Duni Group inkluderar alla relevanta scope 3-kategorier i sina årliga beräkningar. Uppströms och nedströms leasade tillgångar och franchises exkluderas på grund av att de saknar aktiviteter. Duni Group strävar efter att i första hand använda primära aktivitetsdata för alla scope 3-kategorier. Dock kompletteras mindre dataluckor med rimliga antaganden baserade på tillgängliga data. Utgiftsbaserade data används för köpta tjänster samt delar av affärsresor och kapitalvaror.
+
+Duni Group strävar efter att förbättra datakvaliteten varje år, särskilt för kategori 1: inköpta varor och tjänster. Sedan 2023 använder Duni Group en intern koldioxidkalkylator för att kvantifiera utsläpp för produkter från Food packaging solutions. Dessutom uppdateras historiska utsläppsfaktorer när mer exakta och representativa data blir tillgängliga, och omberäkningar av basåret sker om uppdateringarna överskrider ett tröskelvärde på 5 %.
+
+Mål 3: SBT nettonollmål (Scope 1, 2 och 3)*
+
+Metoden som används för att beräkna scope 2-utsläppen är marknadsbaserad.
+
+Duni Group har satt upp ett långsiktigt nettonollmål om att minska Scope 1, 2 och 3 med 90 % till 2050 med 2019 som utgångspunkt.
+
+* Målgränsen inkluderar markrelaterade utsläpp och upptag från bioenergiråvaror.
+
+För att nå nettonoll för scope 1 och 2 kommer Duni Group att ta itu med de sista återstående utsläppskällorna, varav den största är gasolanvändningen i Rexcell samt naturgasanvändningen i konverteringsenheterna i Bramsche och Wolkenstein.
+
+För att uppnå en minskning på 90 % i scope 3 kommer Duni att arbeta nära sin leveranskedja och sina kunder, och företaget strävar efter att omvandla klimatåtgärder till ett gemensamt ansvar. Nettonollutsläppsmålet för scope 3 är en stor ambition, och för att minska utsläppen från leveranskedjan är innovativa lösningar som nya material, processer och förbättringar av energieffektiviteten i hela leveranskedjan avgörande.
+
+GHG-intensitet
+
+| GHG-intensitet                                                                                     | 2024   | 2023   |
+|----------------------------------------------------------------------------------------------------|--------|--------|
+| Totala växthusgasutsläpp (platsbaserade) per nettointäkt (tCO 2 eq/MSEK)                           | 34,1   | 33,1   |
+| Totala växthusgasutsläpp (marknadsbaserade) per nettoomsättning (tCO 2 eq/MSEK)                    | 32,7   | 31,6   |
+| Totala växthusgasutsläpp (platsbaserade) per nettointäkt (tCO 2 eq/MSEK). Exkl Biopak Group        | 33,1   | 32,6   |
+| Totala växthusgasutsläpp (marknadsbaserade) per nettoomsättning (tCO 2 eq/MSEK). Exkl Biopak Group | 31,2   | 30,4   |
+
+En översyn av utsläppsdatan kommer att genomföras under 2025.
+
+Värdekedjan
+
+Uppskattad information om värdekedjan har använts i GHG Scope 3-rapporteringen inom följande områden:
+
+-   Inköp av tjänster
+-   T ransport av varor
+- Affärsresor
+-   Arbetspendling
+-   Bearbetning av sålda produkter (Tissue)
+-   Behandling av uttjänta produkter
+-   Investeringar i nystartade företag
+
+Grunden för beredning av växthusgasutsläppsdata och datanoggrannhet visas i tabellen på sida 31.
+
+<!-- image -->
+
+E2 Miljöföroreningar
+
+Inverkningar, risker och möjligheter
+
+ESRS 2 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell
+
+Mätvärden och mål
+E1-4 Mål för begränsning av och   anpassning till klimatförändringarna
+
+Duni Group har satt upp mål för begränsning av klimatförändringar och minskning av växthusgasutsläpp som är vetenskapligt baserade och kompatibla med att begränsa den globala uppvärmningen till 1,5°C (godkänt av Science Based Targets-initiativet). Basåret är 2019 för alla mål eftersom det var det sista ordinarie året innan marknaden förändrades under pandemin. Dessutom omfattar alla målen nedan följande växthusgaser (GHG): CO2 (koldioxid), CH4 (metangas), N2O (lustgas), HFCs (vätefluorkolföreningar) , PFCs (perfluorkolväten), SF6 (svavelhexaflourid) och NF3 (kvävetrifluorid).
+
+<!-- image -->
+
+Kategori 4: Uppströms transport och distribution: Både den
+
+avståndsbaserade metoden och den platsspecifika metoden används för att beräkna utsläpp från denna kategori. Kategori 4 omfattar alla transporter från leverantörer till företagets anläggningar och företagsinterna transporter. Det inkluderar även energianvändning för lagerutrymmen som används för uppströmsdistribution. Transporter beräknas baserat på tonkilometer transporterade produkter och utsläppsfaktorer tilldelas baserat på typ av transport som används. Exempelvis används diesellastbilsutsläpp för vägtransport. För distribution har Duni Group kontaktat distributionspartners för energidata som är allokerade till lagring av Duni Groups produkter. Inga leverantörsspecifika utsläppsfaktorer används.
+
+Kategory 11: Användning av sålda produkter: Det finns tre typer av sålda produkter som tillhör kategori 11 för Duni Group. Dessa produkter är LED-ljus/lampor, förseglingsmaskiner och vanliga ljus. De två första använder elektricitet under sin livslängd och ljusen har utsläpp under brinntimmar. Produktspecifikationsdata och försäljningsdata används för att beräkna utsläppen för kategori 12.
+
+Kategori 12: Avfallshantering av sålda produkter: Eftersom Duni Group huvudsakligen tillverkar och säljer engångsartiklar är produktens slutfas (EOL) av stor betydelse. GHG-protokollets metod för specifika avfallstyper används för beräkning. Här har 'cut-off'-metoden använts.
+
+Andel av driftsutgifter från produkter eller tjänster kopplade till taxonomiberättigade ekonomiska aktiviteter 2024
+Rörelsekostnader
+
+| Räkenskapsår 2024                                                                                                    | 2024   | 2024       | 2024                            |                                                                      |            |                       |                  |                    | Kriterier avseende att inte orsaka betydande skada   | Kriterier avseende att inte orsaka betydande skada                                                                           | Kriterier avseende att inte orsaka betydande skada   | Kriterier avseende att inte orsaka betydande skada   |
+|----------------------------------------------------------------------------------------------------------------------|--------|------------|---------------------------------|----------------------------------------------------------------------|------------|-----------------------|------------------|--------------------|------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|
+| Ekonomiska verksamheter                                                                                              | Kod    | Omsättning | Andel av driftutgifter, år 2024 | Begränsning av klimatförändringar Anpassning till klimatförändringar |            | Vatten Föroreningar   | Cirkulär ekonomi | Biologisk mångfald |                                                      | Minimiskyddsåtgärder Andel förenlig medtaxonomi- kraven (A.1) eller som omfattas av taxonomikraven (A.2) omsättning, år 2023 | Kategori möjliggö- rande verk- samhet                | Kategori omställ- ningsverk- samhet                  |
+|                                                                                                                      |        | MSEK       | %                               | J; N; N/EL                                                           | J; N; N/EL | J; N; N/EL J; N; N/EL | J; N; N/EL       | J; N; N/EL         |                                                      | J/N %                                                                                                                        | E                                                    | T                                                    |
+| A.VERKSAMHETERSOMOMFATTASAVTAXONOMIN                                                                                 |        |            |                                 |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+| A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter                                                           |        |            |                                 |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+| Driftsutgifterförde miljömässigt hållbara (taxonomiförenliga)verksamheterna (A.1)                                    |        | 0          | 0                               | 0 0                                                                  |            | 0 0                   | 0                | 0                  |                                                      | 0                                                                                                                            |                                                      |                                                      |
+| Produkt som en tjänst och andra cirkulära användnings- och resultatorienterade tjänstemodeller                       | CE 5,5 | 17         | 11,1                            | 0                                                                    | 0          | 0 0                   | 17               | 0                  |                                                      | 0                                                                                                                            |                                                      |                                                      |
+| Varav miljögörande verksamheter                                                                                      |        | 17         | 11,1                            | 0                                                                    | 0          | 0 0                   | 17               | 0                  |                                                      | 0                                                                                                                            | E                                                    |                                                      |
+| Varav omställningsverksamheter                                                                                       |        | 0          | 0                               | 0                                                                    |            |                       |                  |                    |                                                      | 0                                                                                                                            |                                                      | T                                                    |
+| A.2Verksamhetersom omfattas avtaxonomin mensominteärmiljömässigt hållbara (ej taxonomiförenliga)                     |        |            |                                 |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+|                                                                                                                      |        |            |                                 | EL; N/EL                                                             | EL; N/EL   | EL; N/EL EL; N/EL     | EL;              | N/EL EL; N/EL      |                                                      |                                                                                                                              |                                                      |                                                      |
+| Produkt somentjänst ochandracirkulära användnings- ochresultatorienterade tjänstemodeller                            | CE5,5  | 1          | 0,7                             | N/EL                                                                 | N/EL       | N/EL N/EL             | EL               | N/EL               |                                                      | 11,4                                                                                                                         |                                                      |                                                      |
+| Transport medmotorcyklar,personbilaroch lätta kommersiella fordon                                                    | CCM6.5 | 4          | 2,6                             | EL                                                                   | N/EL N/EL  | N/EL                  |                  | N/EL N/EL          |                                                      | 1,5                                                                                                                          |                                                      |                                                      |
+| Renovering av befintliga byggnader                                                                                   | CCM7.2 | 7          | 4,6                             | EL                                                                   | N/EL       | N/EL N/EL             |                  | N/EL N/EL          |                                                      | 6,2                                                                                                                          |                                                      |                                                      |
+| Installation,underhåll ochreparation avenergieffektiviseringsutrustning                                              | CCM7.3 | 5          | 3,3                             | EL                                                                   | N/EL       | N/EL N/EL             | N/EL             | N/EL               |                                                      | 2,1                                                                                                                          |                                                      |                                                      |
+| Förvärv och ägande av byggnader                                                                                      | CCM7.7 | 5          | 3,3                             | EL                                                                   | N/EL       | N/EL N/EL             | N/EL             | N/EL               |                                                      | 6,4                                                                                                                          |                                                      |                                                      |
+| Driftsutgifterförverksamhetersom omfattas avtaxonomin mensominteärmiljömässigt hållbara (ej taxonomiförenliga) (A.2) |        | 22         | 14,4                            | 21                                                                   | 0          | 0 0                   | 1                | 0                  |                                                      | 27,6                                                                                                                         |                                                      |                                                      |
+| A. Driftsutgifterförverksamhetersom omfattas avtaxonomin (A.1+A.2)                                                   |        | 22         | 14,4                            | 21                                                                   | 0          | 0 0                   | 1                | 0                  |                                                      | 27,6                                                                                                                         |                                                      |                                                      |
+| B.VERKSAMHETERSOMINTEOMFATTASAVTAXONOMIN                                                                             |        |            |                                 |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+| Driftutgifterförverksamhetersom inte omfattas avtaxonomin                                                            |        | 114        | 74,5                            |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+| TOTALT                                                                                                               |        | 153        | 100                             |                                                                      |            |                       |                  |                    |                                                      |                                                                                                                              |                                                      |                                                      |
+
+Cirka 25 % av OpEx (enligt definitionen av taxonomiförordningen) är berättigad eller anpassad. Taxonomy aligned opex (11 %) inkluderar forsknings- och utvecklingskostnader i relation till cirkulära produkter som en tjänst i Duni AB och Relevo GmbH. Taxonomy berättigad driftskostnad (14 %) är främst relaterad till underhåll av byggnader och bilar.
+
+<!-- image -->
+
+Duni Group
+
+Duni Group i korthet
+
+Kommentar av Styrelsens ordförande och VD
+
+Året i korthet
+
+Duni Group som investering
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+LADDA NER PDF FÖR UTSKRIFT
+
+<!-- image -->
+
+<!-- image -->
+
+E2-4 Miljöförorening av luft, vatten och mark
+
+Nedanstående tabeller visar luft- och vattenföroreningar från egen produktion för föroreningar med årliga utsläpp över 1 ton.
+
+| Luftföroreningar (kg)    | 2024    |
+|--------------------------|---------|
+| Kväveoxider(NOx/NO 2 )   | 172 000 |
+| Kolmonoxid (CO)          | 18 000  |
+| Svaveloxider (SOx/SO 2 ) | 4 000   |
+
+Luftföroreningar är främst relaterade till förbränning av naturgas, bränslen och elförbrukning och är beräknade utifrån fördefinierade faktorer. Rapporterade data kommer från produktionsanläggningar i Tyskland, Sverige och Polen, där mätprocesser finns på plats som täcker den övervägande majoriteten av tillverkningsverksamheten. I dessa länder rapporteras och verifieras luftutsläppsdata av tillsynsmyndigheter och certifieringsorgan i enlighet med landets krav.
+
+| Vattenförorening (kg)   | 2024   |
+|-------------------------|--------|
+| Totalt organiskt kol    | 16 000 |
+| Totalt kväve            | 5 000  |
+
+Ovan redovisade vattenföroreningar genereras av pappersbruket i Sverige, som använder vatten från den närliggande sjön både för kylning och produktionsprocesser. Efter användning renas vattnet i reningsverket och släpps ut i sjön igen. Det finns flödesmätare som mäter vattenföroreningar dagligen och veckovis för att säkerställa att företaget följer villkoren i miljötillståndet och för att möjliggöra ett systematiskt arbete för att minska föroreningarna. Föroreningsdata rapporteras till tillsynsmyndigheterna kvartalsvis.
+
+Vid konverteringsanläggningar är vattenföroreningar obetydliga.
+
+Förorening av mark betraktas som obetydlig för egen tillverkningsverksamhet och mäts inte.
+
+<!-- image -->
+
+Nettonoll (net-zero)
+
+Nettonoll utsläpp beskriver situationen då utsläpp av växthusgaser (GHG) från mänsklig aktivitet och upptag av dessa är i balans över en given tidsperiod. (Definition från GHG-protokollet)
+
+GHG-protokollet
+
+Den ledande standarden för näringslivet att mäta, hantera och rapportera växthusgasutsläpp.
+
+Breddar utbudet i Dunis kärnverksamhet
+
+Slovenska SETI är ledande inom både standardiserade och kundanpassade bordsprodukter. Företaget tillverkar och marknadsför servetter, dukar och glasunderlägg i olika papperskvaliteter. Under 2024 blev man en del av affärsområde Dining solutions.
+
+grundmurat gott rykte på marknaden. 'Det har stormat mycket under åren, men nu gynnas vi av att våra kunder vet att vi alltid hittar en väg. De litar på oss och har varit med oss länge', säger Aleš.
+
+'Vi kom till en punkt där vi behövde expandera och det kommer att vara möjligt tillsammans med Duni Group. Nu får vi en större produktkatalog, men också mer kunskap om hållbarhet och marknadsföring. Det tar för mycket tid för ett litet företag att göra allt på egen hand', säger vd:n Aleš Šarec.
+
+SETI har manövrerat genom både upp- och nedgångar sedan starten och har idag ett
+
+2023
+
+2024
+
+<!-- image -->
+
+Profiltryck utgör idag 40 procent av försäljningen och växer snabbast i portföljen. 'Vi har nästan 3 000 olika profiltryck. En stor fördel är att vi kan erbjuda mindre kvantiteter, vilket gör oss flexibla och snabba', förklarar Aleš.
+
+Förvärvet stärker Dining solutions närvaro i sydöstra Europa, men ger även tillgång till servetter i papperskvaliteten point-to-point som tidigare saknats i Dunis sortiment.
+
+Aleš Šarec, vd Seti
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+61 %
+
+58 %
+
+Affärsområdet svarade under 2024 för cirka 58 % (61 %) av koncernens netto  omsättning.
+
+<!-- image -->
+
+Duni Group
+
+Duni Group i korthet
+
+Kommentar av Styrelsens ordförande och VD
+
+Året i korthet
+
+Duni Group som investering
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+<!-- image -->
+
+AFFÄRSOMRÅDE FOOD PACKAGING SOLUTIONS
+
+GRI Index
+Generella upplysningar
+
+|                                              | Upplysning                                                                     | Sidhänvisning     | Kommentar                       |
+|----------------------------------------------|--------------------------------------------------------------------------------|-------------------|---------------------------------|
+| 2.1 Organisationen och redovisningsprinciper | 2.1 Organisationen och redovisningsprinciper                                   |                   |                                 |
+| 2-1                                          | Upplysningar omorganisationen                                                  | 96, 183, 127      |                                 |
+| 2-2                                          | Enhetersom omfattas av hållbarhetsredovisningen                                | 138               | Se även hållbarhetsförklaringen |
+| 2-3                                          | Redovisningsperiod, frekvens och kontaktperson                                 | 30, 178, 183      |                                 |
+| 2-4                                          | Förändringar i tidigare rapporterade upplysningar                              | 31                |                                 |
+| 2-5                                          | Externt bestyrkande                                                            | 2, 170-173        |                                 |
+| 2.2 Aktiviteteroch anställda                 | 2.2 Aktiviteteroch anställda                                                   |                   |                                 |
+| 2-6                                          | Aktiviteter, värdekedja och andra affärsförbindelser                           | 11,13,23,26,36    |                                 |
+| 2-7                                          | Anställda                                                                      | 72                |                                 |
+| 2.3 Styrning                                 | 2.3 Styrning                                                                   |                   |                                 |
+| 2-9                                          | Struktur och sammansättning avseende styrning                                  | 96-97, 106-109    |                                 |
+| 2-10                                         | Nominering och val av högsta styrande organ                                    | 97                |                                 |
+| 2-11                                         | Ordförande för högsta styrande organ                                           | 96                |                                 |
+| 2-12                                         | Högsta styrande organets roll i arbetet medöverblick och hantering av påverkan | 6-7, 98-99        |                                 |
+| 2-13                                         | Delegering av beslutsfattande för att hantera påverkan                         | 34, 87-91         |                                 |
+| 2-14                                         | Högsta styrande organets roll i processen för hållbarhetsredovisningen         | 34                |                                 |
+| 2-16                                         | Kommunikation av kritiska frågeställningar                                     | 34, 104-105       |                                 |
+| 2-17                                         | Högsta styrande organets samlade kunskap                                       | 34                |                                 |
+| 2-18                                         | Utvärdering av det högsta styrande organet                                     | 98                |                                 |
+| 2-19                                         | Ersättningspolicy                                                              | 100, 101-103      |                                 |
+| 2-20                                         | Process för att fastställa ersättningar                                        | 99                |                                 |
+| 2.4 Strategi, policyeroch praxis             | 2.4 Strategi, policyeroch praxis                                               |                   |                                 |
+| 2-22                                         | Uttalande omstrategi för hållbar utveckling                                    | 17, 5-7           |                                 |
+| 2-23                                         | Policyåtaganden                                                                | 93-95             | Se även dunigroup.com           |
+| 2-24                                         | Förankring av policyåtaganden                                                  | 92-94             |                                 |
+| 2-25                                         | Processer för att avhjälpa negativ påverkan                                    | 68, 69, 76, 78,79 |                                 |
+| 2-26                                         | Mekanismer för rådgivning och rapportering av angelägenheter                   | 68, 70            |                                 |
+| 2-27                                         | Efterlevnad av lagar och förordningar                                          | 76, 84            |                                 |
+| 2.5 Intressentengagemang                     | 2.5 Intressentengagemang                                                       |                   |                                 |
+| 2-29                                         | Tillvägagångssätt för intressentengagemang                                     | 36                |                                 |
+| 2-30                                         | Kollektivavtal                                                                 | 73                |                                 |
+
+<!-- image -->
+
+Bolagsstyrningsinformation
+G1 Ansvarsfullt företagande
+
+| Inverkningar,riskerochmöjligheter   |   81 |
+|-------------------------------------|------|
+| Policyer                            |   82 |
+| Hantering avleverantörer            |   82 |
+| Antikorruptionochmutor              |   84 |
+| Mätvärdenochmål                     |   84 |
+
+<!-- image -->
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+<!-- image -->
+
+| E5- Resursanvändning och cirkulär ekonomi                                                                                                                                                                                                        | E5- Resursanvändning och cirkulär ekonomi   |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| ESRS 2 SBM-3-E5 Väsentliga inverkningar, risker och möjligheter och deras samspelmed strategi och affärsmodell                                                                                                                                   | 60                                          |
+| E5-1 Policyer för resursanvändning och cirkulär ekonomi                                                                                                                                                                                          | 61                                          |
+| E5-2 Åtgärder och resurser för resursanvändning och cirkulär ekonomi                                                                                                                                                                             | 61                                          |
+| E5-3 Mål för resursanvändning och cirkulär ekonomi                                                                                                                                                                                               | 61                                          |
+| E5-4 Resursinflöden                                                                                                                                                                                                                              | 62                                          |
+| E5-5 Resursutflöden                                                                                                                                                                                                                              | 63                                          |
+| S1- Denegnaarbetskraften                                                                                                                                                                                                                         | S1- Denegnaarbetskraften                    |
+| ESRS 2 SBM-3-S1 - Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell                                                                                                                           | 66                                          |
+| S1-1 Policyer för den egna arbetskraften                                                                                                                                                                                                         | 67                                          |
+| S1-2 Rutiner för kontakter meddenegna arbetskraften och arbetstagarrepresentanter angående inverkningar                                                                                                                                          | 67                                          |
+| S1-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka den egna arbetskraften kan uppmärksamma problem                                                                                                                  | 68                                          |
+| S1-4 Åtgärder avseende väsentliga inverkningar för den egna arbetskraften och strategier för att minska de väsentliga riskerna och utnyttja de väsentliga möjligheterna, vad gäller den egna arbetskraften, och dessa åtgärders ändamålsenlighet | 68                                          |
+| S1-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras                                                                                                     | 70                                          |
+| S1-6 Uppgifter omföretagets anställda                                                                                                                                                                                                            | 72                                          |
+| S1-8 Kollektivavtalstäckning och social dialog                                                                                                                                                                                                   | 73                                          |
+| S1-9 Mångfaldsindikatorer                                                                                                                                                                                                                        | 74                                          |
+| S1-10 Tillräckliga löner                                                                                                                                                                                                                         | 74                                          |
+
+| S1-13 Mått för utbildning och kompetensutveckling                                                                                                                                                                                                        | 74   |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|
+| S1-14 Mått för arbetsmiljö                                                                                                                                                                                                                               | 75   |
+| S1-15 Mått för balans mellan arbete och fritid                                                                                                                                                                                                           | 75   |
+| S1-16 Ersättningsmått (löneskillnader och total ersättning)                                                                                                                                                                                              | 76   |
+| S1-17 Incidenter, anmälningar och allvarliga inverkningar på mänskliga rättigheter                                                                                                                                                                       | 76   |
+| S2- Medarbetare i värdekedjan                                                                                                                                                                                                                            |      |
+| ESRS2 SBM-3-S2 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell                                                                                                                                      | 77   |
+| S2-1 Policyer för arbetstagare i värdekedjan                                                                                                                                                                                                             | 78   |
+| S2-2 Rutiner för kontakter medarbetstagare i värdekedjan angående inverkningar                                                                                                                                                                           | 78   |
+| S2-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka arbetstagare i värdekedjan kan uppmärksamma problem                                                                                                                      | 78   |
+| S2-4 Åtgärder avseende väsentliga inverkningar på arbetstagare i värdekedjan och strategier för att hantera de väsentliga riskerna och utnyttja de väsentliga möjligheterna, vad gäller arbetstagare i värdekedjan, och dessa åtgärders ändamålsenlighet | 79   |
+| S2-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras                                                                                                             | 79   |
+| G1 -Ansvarsfullt företagande                                                                                                                                                                                                                             |      |
+| ESRS 2 SBM-3-G1 Väsentliga inverkningar, risker och möjligheter och deras samspelmed strategi och affärsmodell                                                                                                                                           | 81   |
+| G1-1 Policyer för ansvarsfullt företagande och företagskultur                                                                                                                                                                                            | 82   |
+| G1-2 Hantering av förbindelser medleverantörer                                                                                                                                                                                                           | 82   |
+| G1-3 Förebyggande arbete mot, och upptäckt av, korruption och mutor                                                                                                                                                                                      | 84   |
+| G1-4 Fall av korruption och mutor                                                                                                                                                                                                                        | 84   |
+
+<!-- image -->
+
+Utmaningar:
+
+- Tillräckligt omfattande tillgång till förnybara energialternativ ·   Beroende av storskaliga externa förändringar i GHG-protokollets Scope 3-kategorier
+- Inget globalt standardpris på koldioxid
+
+E1-7 Växthusgasupptag och begränsningsprojekt för växthusgaser som finansieras genom koldioxidkrediter
+
+| Koldioxid- krediter                 | Reducerings- projekt   | Borttagnings- projekt:   | övriga projekt   | Totalt   |
+|-------------------------------------|------------------------|--------------------------|------------------|----------|
+| Annullerade koldioxidkrediter tCO₂e | 2 114                  | 0                        | 0                | 2 114    |
+| Andel%                              | 100%                   | 0%                       | 0%               | 100%     |
+
+Under 2024 kontrakterades koldioxidkrediter motsvarande 2 114 ton för Duni Groups räkning. Krediterna kompenserar för utsläpp kopplat till Bio Dunisoft och Bio Dunicel och baseras på Verras kvalitetsstandard.
+
+Duni Group planerar inga framtida annulleringar av koldioxidkrediter, har inte gjort några offentliga påståenden om växthusgasneutralitet som innebär användning av koldioxidkrediter och har inte heller genomfört några aktiviteter för avlägsnande och lagring av växthusgaser.
+
+Duni Group har nettonollutsläppsmål. Koncernen åtar sig att minska de absoluta utsläppen av växthusgaser i scope 1 och 2 med 90 % till 2050 jämfört med basåret 2019*. Duni Group åtar sig också att minska de absoluta utsläppen av växthusgaser i Scope 3 med 90 % inom samma tidsram.
+
+*Målgränsen inkluderar markrelaterade utsläpp och upptag från bioenergiråvaror.
+
+Duni Group kommer att följa SBTi:s krav på begränsning utanför värdekedjan och planerar att stödja klimatbegränsning utanför värdekedjan för att neutralisera restutsläpp när de långsiktiga vetenskapligt baserade målen nås.
+
+<!-- image -->
+
+GOING NET ZERO
+(Arbeta för netto-noll koldioxidutsläpp)
+Långsiktigt till 2030
+
+Nollvision för CO2 för Scope 1 och 2
+
+-   Science-based targets godkända, uppmätta och kommunicerade, inklusive scope 3
+-   Strukturerad mätning av påverkan i hela vår värdekedja
+-   T ransparent rapportering av resultat
+
+Utsläppsrättigheter
+
+Som en metod att begränsa utsläppen av koldioxid införde EU 2005 ett system för utsläppsrättigheter. Koncernen har tillstånd för tillverkning av 65 000 ton mjukpapper per år och 52 000 ton torrformerat papper per år vid bruket i Skåpafors och 10 000 ton torrformerat papper i Dals Långed. Bruket i Skåpafors har beviljats tillstånd för utsläpp av koldioxid, CO2, av Länsstyrelsen i Västra Götalands län. För handelsperioden 2021 till och med 2025 blev Rexcell Tissue &amp; Airlaid AB intialt tilldelat totalt 73 350 ton CO2, vilket innebar 14 670 ton per år under hela perioden. Detta blev under 2023 reviderat och Naturvårdsverket beslutade om en lägre tilldelning, totalt 65 030 CO2 för hela perioden. För år 2024 har Skåpafors tilldelats 13 589 ton och motsvarande tilldelning år 2023 var 13 407. Produktionsanläggningen i Dals Långed är vilande men kan återfås efter ansökan och då det inte sker någon produktion utnyttjas inga utsläppsrätter, varför tilldelningen om 1 626 ton per år för Dals Långed i praktiken uppgår till 0 ton per år. Utsläppsrätterna för 2024 är ännu inte slutligt verifierade, varför en justering kan komma att göras.
+
+Överblivna utsläppsrätter överförs till nästkommande år och om utsläppsrätterna inte räcker till genomförs stödköp. Inga stödköp gjordes under 2024, om stödköp kommer att ske under 2025 är bedömningen att det inte kommer att uppgå till några väsentliga belopp. År 2024 hade Rexcell Tissue &amp; Airlaid AB 65 938 (96) stycken oförbrukade utsläppsrätter till ett marknadsvärde av 0 (0) MSEK. Totalt har 12 469 ton förbrukats i Skåpafors under 2024, motsvarande år 2023 var 13 311 ton. Erhållna utsläppsrättigheter redovisas som immateriella tillgångar bokförda till anskaffningsvärdet noll.
+
+<!-- image -->
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+LADDA NER PDF FÖR UTSKRIFT
+
+Bolaget har fastställt väsentliga upplysningar, mätetal och datapunkter som ska ingå i hållbarhetsförklaringen enligt ESRS 1 Bilaga E: Flödesschema för fastställande av upplysningar under ESRS.
+
+Nedan följer en lista över upplysningar (sidhänvisning) som ingår i denna rapport.
+
+| ESRS2-Allmännaupplysningar                                                                                                     |    |
+|--------------------------------------------------------------------------------------------------------------------------------|----|
+| BP-1 Allmän grund för utarbetandet av hållbarhetsförklaringen                                                                  | 30 |
+| BP-2 Upplysningar medavseende på särskilda omständigheter                                                                      | 30 |
+| GOV-1 Förvaltnings-, lednings- och tillsynsorganens roll                                                                       | 33 |
+| GOV-2 Information som lämnas till och hållbarhetsfrågor som behandlas av företagets förvaltnings-, lednings- och tillsynsorgan | 33 |
+| GOV-3 Integration av hållbarhetsrelaterade resultat i incitamentssystem                                                        | 33 |
+| GOV-4 Förklaring omtillbörlig aktsamhet                                                                                        | 33 |
+| GOV-5 Riskhantering och intern kontroll över hållbarhetsrapportering                                                           | 34 |
+| SBM-1 Strategi, affärsmodell och värdekedja                                                                                    | 35 |
+| SBM-2 Intressenters intressen och synpunkter                                                                                   | 36 |
+| SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell                     | 37 |
+| IRO-1 Beskrivning av arbetsgången för att fastställa och bedöma väsentliga inverkningar, risker och möjligheter                | 37 |
+| IRO-2 Upplysningskrav i ESRS-standarder som omfattas av företagets hållbarhetsförklaring                                       | 38 |
+| E1 -Klimatförändringar                                                                                                         |    |
+| E1-1 Omställningsplan för begränsning av klimatförändringarna                                                                  | 47 |
+| ESRS 2 SBM-3-E1 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell           | 47 |
+| E1-2 Policyer för begränsning av och anpassning till klimatförändringarna                                                      | 49 |
+| E1-3 Åtgärder och resurser medavseende på klimatförändringspolicyer                                                            | 49 |
+| E1-4 Mål för begränsning av och anpassning till klimatförändringarna                                                           | 49 |
+| E1-5 Energianvändning och energimix                                                                                            | 50 |
+
+| E1-6 Bruttoväxthusgasutsläpp inom scope 1, 2, 3 och totala växthusgasutsläpp                                         | 51   |
+|----------------------------------------------------------------------------------------------------------------------|------|
+| E1-7 Växthusgasupptag och begränsningsprojekt för växthusgaser som finansieras genom koldioxidkrediter               | 53   |
+| E2-Miljöförorening                                                                                                   |      |
+| ESRS 2 SBM-3-E2 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell | 54   |
+| E2-1 Policyer relaterade till miljöförorening                                                                        | 54   |
+| E2-2 Åtgärder och resurser relaterade till miljöförorening                                                           | 55   |
+| E2-3 Mål relaterade till miljöförorening                                                                             | 55   |
+| E2-4 Miljöförorening av luft, vatten och mark                                                                        | 55   |
+| E3-Vattenresurser och marina resurser                                                                                |      |
+| ESRS 2 SBM-3-E3 Väsentliga inverkningar, risker och möjligheter och deras samspelmed strategi och affärsmodell       | 56   |
+| E3-1 Policyer för vattenresurser och marina resurser                                                                 | 57   |
+| E3-2 Åtgärder och resurser för vattenresurser och marina resurser                                                    | 57   |
+| E3-3 Mål för vattenresurser och marina resurser                                                                      | 57   |
+| E3-4 Vattenförbrukning                                                                                               | 57   |
+| E4-Biologisk mångfald och ekosystem                                                                                  |      |
+| E4-1 Omställningsplan och beaktande av biologisk mångfald och ekosystem i strategi och affärsmodell                  | 58   |
+| ESRS 2 SBM-3-E4 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell | 58   |
+| E4-2 Policyer för biologisk mångfald och ekosystem                                                                   | 58   |
+| E4-3 Åtgärder och resurser för biologisk mångfald och ekosystem                                                      | 59   |
+| E4-4 Mål för biologisk mångfald och ekosystem                                                                        | 59   |
+| E4-5 Mått på inverkningar relaterade till förändringar i biologisk mångfald och ekosystem                            | 59   |
+
+<!-- image -->
+
+Exempel från Duni Groups verksamhet 2024:
+
+- Fossilfri el i vår europeiska produktion
+- Energieffektivisering i produktionen
+- Utvärdering av fossilfria alternativ till fossil gas
+- Insamling av leverantörsdata för nyckelråvaror
+- CO2-kalkylator för förpackningsportföljen
+
+<!-- image -->
+
+E1-5 Energianvändning och energimix
+Energiintensitet
+
+| Energiintensitet per nettoomsättning (MWh/MSEK)                                                                                         |   2024 |   2023 | Förändring (%)   |
+|-----------------------------------------------------------------------------------------------------------------------------------------|--------|--------|------------------|
+| Total energiförbrukning från verksamhet i sektorermedhög klimatpåverkan per nettointäkt från verksamhet i sektorermedhög klimatpåverkan |     28 |     29 | -4%              |
+
+Duni Group verkar främst inom grossist- och detaljhandel som är en sektor med hög klimatpåverkan enligt ESRS. Information om omsättningen per sektor finns på sida 35.
+
+<!-- image -->
+
+Andel av kapitalutgifter från produkter eller tjänster kopplade till taxonomiberättigade ekonomiska aktiviteter 2024
+Investering i anläggningstillgångar
+
+| Räkenskapsår 2024                                                                                                           | 2024   | 2024              | 2024                                 | Kriterier för väsentligt bidrag   | Kriterier för väsentligt bidrag    | Kriterier för väsentligt bidrag   | Kriterier för väsentligt bidrag   | Kriterier för väsentligt bidrag   | Kriterier avseende att inte orsaka betydande skada   | Kriterier avseende att inte orsaka betydande skada   | Kriterier avseende att inte orsaka betydande skada   | Kriterier avseende att inte orsaka betydande skada   |                                                                                                                                    |                                     |                                     |
+|-----------------------------------------------------------------------------------------------------------------------------|--------|-------------------|--------------------------------------|-----------------------------------|------------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|-------------------------------------|
+| Ekonomiska verksamheter                                                                                                     | Kod    | Kapital- utgifter | Andel av kapital- ugifterna, år 2024 | Begränsning av klimatförändringar | Anpassning till klimatförändringar | Vatten Föroreningar               | Cirkulär ekonomi                  | Biologisk mångfald                | Begränsning av klimatförändringar Anpassning till    | klimatförändringar Vatten                            | Föroreningar                                         | Cirkulär ekonomi Biologisk mångfald                  | Minimiskyddsåtgärder Andel förenlig medtaxonomi- kraven (A.1) eller som omfattas av taxonomikraven (A.2) kapitalutgif- ter år 2023 | Kategori möjlig- görande verksamhet | Kategori omställ- ningsverk- samhet |
+| A.VERKSAMHETERSOMOMFATTASAVTAXONOMIN                                                                                        |        | MSEK              | %                                    | J; N/EL                           | N; J; N; N/EL                      | N; N/EL J; N; N/EL                | J; N; N/EL                        | J; N; N/EL                        | J/N J/N                                              | J/N                                                  | J/N                                                  | J/N J/N                                              | J/N %                                                                                                                              | E                                   | T                                   |
+| A.1 Miljömässigt hållbara (taxonomiförenliga) verksamheter                                                                  |        |                   |                                      |                                   |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+| Kapitalutgifterförde miljömässigt hållbara (taxonomiförenliga)verksamheterna (A.1)                                          |        | 0                 | 0                                    | 0                                 | 0                                  | 0 0                               | 0                                 | 0                                 |                                                      |                                                      |                                                      |                                                      | 0                                                                                                                                  |                                     |                                     |
+| Varav miljögörande verksamheter                                                                                             |        | 0                 | 0                                    | 0                                 | 0                                  | 0 0                               | 0                                 | 0                                 |                                                      |                                                      |                                                      |                                                      | 0                                                                                                                                  | E                                   |                                     |
+| Varav omställningsverksamheter                                                                                              |        | 0                 | 0                                    | 0                                 |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      | 0                                                                                                                                  |                                     | T                                   |
+| A.2Verksamhetersom omfattas avtaxonomin mensominteärmiljömässigt hållbara (ej taxonomiförenliga)                            |        |                   |                                      |                                   |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+|                                                                                                                             |        |                   |                                      | EL; N/EL                          | EL; N/EL                           | EL; N/EL EL; N/EL                 | EL;                               | N/EL EL; N/EL                     |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+| Förberedelse av återanvändning av produkter vid livscykelns slut ochproduktkomponenter                                      | CE 5,3 | 0                 | 0,0                                  | N/EL                              | N/EL                               | N/EL N/EL                         | EL                                | N/EL                              |                                                      |                                                      |                                                      |                                                      | 0,5                                                                                                                                |                                     |                                     |
+| Transport medmotorcyklar,personbilaroch lätta kommersiella fordon                                                           | CCM6.5 | 21                | 8,5                                  | EL                                | N/EL                               | N/EL N/EL                         |                                   | N/EL N/EL                         |                                                      |                                                      |                                                      |                                                      | 11,8                                                                                                                               |                                     |                                     |
+| Renovering av befintliga byggnader                                                                                          | CCM7.2 | 12                | 4,9                                  | EL                                | N/EL                               | N/EL N/EL                         |                                   | N/EL N/EL                         |                                                      |                                                      |                                                      |                                                      | 1,1                                                                                                                                |                                     |                                     |
+| Installation,underhåll ochreparation avenergieffektiviseringsutrustning                                                     | CCM7.3 | 0                 | 0,0                                  | EL                                | N/EL                               | N/EL N/EL                         |                                   | N/EL N/EL                         |                                                      |                                                      |                                                      |                                                      | 0,6                                                                                                                                |                                     |                                     |
+| Installation,underhåll ochreparation avladdstationer för elbilar                                                            | CCM7.4 | 0                 | 0,0                                  | EL                                | N/EL                               | N/EL N/EL                         | N/EL                              | N/EL                              |                                                      |                                                      |                                                      |                                                      | 0,5                                                                                                                                |                                     |                                     |
+| Installation,underhåll ochreparation avinstrument ochenheterförmätning,reglering ochstyrning av energiprestanda i byggnader | CCM7,5 | 1                 | 0,4                                  | EL                                | N/EL                               | N/EL N/EL                         | N/EL                              | N/EL                              |                                                      |                                                      |                                                      |                                                      | 0                                                                                                                                  |                                     |                                     |
+| Installation,underhåll ochreparation avförnybara energiteknologier                                                          | CCM7.6 | 0                 | 0,0                                  | EL                                | N/EL                               | N/EL N/EL                         | N/EL                              | N/EL                              |                                                      |                                                      |                                                      |                                                      | 0,5                                                                                                                                |                                     |                                     |
+| Förvärv och ägande av byggnader                                                                                             | CCM7.7 | 25                | 10,1                                 | EL                                | N/EL                               | N/EL N/EL                         | N/EL                              | N/EL                              |                                                      |                                                      |                                                      |                                                      | 37,6                                                                                                                               |                                     |                                     |
+| Kapitalutgifterförverksamhetersom omfattas avtaxonomin mensominteärmiljömässigt hållbara (ej taxonomiförenliga) (A.2)       |        | 59                | 23,9                                 | 59                                | 0                                  | 0 0                               | 0                                 | 0                                 |                                                      |                                                      |                                                      |                                                      | 52,6                                                                                                                               |                                     |                                     |
+| A.Kapitalutgifterförverksamhetersom omfattas avtaxonomin (A.1+A.2)                                                          |        | 59                | 23,9                                 | 59                                | 0                                  | 0 0                               | 0                                 | 0                                 |                                                      |                                                      |                                                      |                                                      | 52,6                                                                                                                               |                                     |                                     |
+| B.VERKSAMHETERSOMINTEOMFATTASAVTAXONOMIN                                                                                    |        |                   |                                      |                                   |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+| Kapitalutgifterhosverksamhetersom inte omfattas avtaxonomin                                                                 |        | 188               | 76,1                                 |                                   |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+| TOTALT                                                                                                                      |        | 247               | 100                                  |                                   |                                    |                                   |                                   |                                   |                                                      |                                                      |                                                      |                                                      |                                                                                                                                    |                                     |                                     |
+
+- Ungefär hälften av totala CapEx 2024 omfattas av taxonomin främst inom transport med bilar och renovering av byggnader.
+
+<!-- image -->
+
+Risköversikt
+
+Duni Group har kartlagt och bedömt ett hundratal risker under 2024 som konsoliderats till ett tjugotal risker som presenteras här nedan.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Strategiska ochomvärldsrisker   | Strategiska ochomvärldsrisker                                                                                                                                                                                                                                                                                                                                                                                                         | Strategiska ochomvärldsrisker                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|---------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Risknivå                        | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                           | Hantering                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Regulatoriska risker            | Legala risker finns identifierade genomhelaverksamheten.Det innefattarändrad lagstiftning, lagöverträdelser inomorganisationen,bristeri avtal eller legala utmaningarlokaltsomkan få negativa legala ochfinansiella konsekvenserförbolaget.DuniGroupärverksamimånga länder,ochdeskiftande legala kraven mellan länderkan utgöra enrisk.                                                                                               | Prioritering avlagefterlevnad ochkontinuerlig bevakning avlegala förändringarexisterarinomverksamhetens samt- liga funktionerochländer.Exempel påområdenmedhögprioritet är legala förändringarinomanvändandetoch hanteringen avengångsprodukter,samt efterlevnad avnylagstiftning,exempelvis avskogningsförordningen (EUDR). Ökandekravinombolagsstyrning ochrapportering ställeräven högre legala krav påbolaget.                                                                                                                                                                                            |
+| Leverantörsberoende             | Duni Groupärberoendeavexterna leverantörer för att kunnatillverka, sälja ochleverera pro- dukter. Skulle ennyckelleverantördrabbas avett avbrott,kan det i sin turinnebära ett avbrott pådelaravkoncernensverksamhet. Föraffärsområde Dining solutions gällerberoendet främst det råmaterialsomanvändsvid produktionen avtissue-material.Föraffärsområde Foodpackagingsolutions gällerberoen- det nyckelleverantöreriAsien ochEuropa. | Förråmaterial hanteras risken genomattminskaberoendetochsprida densålångt det är möjligt.Eftersom det finns få leverantöreravvissa insatsmaterial behöverbolaget accepteraviss riskochi stället arbeta medleveran- törsplanering ochutvärdering aveventuell påverkan i kontinuitetsplaner. Föratt hantera risken gällande inköp avicke egenproducerade produkterarbetarbolaget medleverantörs- planering samtutvärdering avgeografisk spridning ochmaterialval.                                                                                                                                               |
+| Kundberoende                    | Duni Groupsförsäljning sker till detaljhandel,e-handel,slutkunderoch tillstordelgenom grossister.Omgrossisterna inte ärframgångsrika i sin försäljning påverkas resultatet negativt.                                                                                                                                                                                                                                                  | Duni Groupstio största kundersvararförrunt 20%avdentotalaomsättningen.Storvikt läggs vid långsiktiga kundrelationersamtatt ständigt skapa godarelationermed nya kunder. Eftersom kundstrukturen till stor del beståravgrossister,bakomvilka ett stort antal restaurangeroch hotell är slutkunder,ärdet enskilda kundberoendet motslutkunderinte betydande.                                                                                                                                                                                                                                                    |
+| Konkurrens                      | Duni Grouputsätts förkonkurrens från andra företag i branschen,i synnerhetpådentyska marknadendärlokala aktörerspelarenalltmerframträdande roll.                                                                                                                                                                                                                                                                                      | Duni Groupfokuserarständigt påatt nåut till marknadenpåettattraktivt sätt ochatt tillgodosekundersochkon- sumenters behov.Innovationsavdelningen arbetarmedattutveckla det befintliga utbudet ochatt skapa hållbara lösningarochsystemsomöverensstämmermedförändradefterfrågan ochlagar.Investeringarinominnovation är nödvändiga förbolagets konkurrenskraft.                                                                                                                                                                                                                                                |
+| Omvärlden                       | Duni Groupexponeras förexterna riskervars direkta orsak liggerutanförkoncernens kon- troll.Exempelpådetta ärmakroekonomiskutveckling,sanktioner,politisk instabilitet, konflik- terellerkrig.Dennatypavexterna riskerskaparen generell osäkerhet medsvåröverblickbara effekter.                                                                                                                                                       | Omvärldsriskenharunder2024bedömtssommedelfråntidigarebedömningsomvarhög.Dennyabedömningen berorpå sjunkande inflation ochlägre räntorochinga tydliga tecken påatt omvärldrisken skulle påverka Duni Groupnegativt.Utöverdetta harvi implementerat enprocess för att öka bland annat sanktionskontrollerpåsamt- liga affärspartners för att mildra påverkan påDuniGroup.Duni Groupfortsätternoggrant bevaka utvecklingen i omvärlden ochföljer alla ålagda sanktioner.Händelserivåromvärld bevakas,i synnerhet relaterat till konflikterpå marknaderdärvi ärverksamma.Korrigerande åtgärdersätts in vid behov. |
+
+<!-- image -->
+
+Duni Group
+
+Duni Group i korthet
+
+Kommentar av Styrelsens ordförande och VD
+
+Året i korthet
+
+Duni Group som investering
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Operationella risker                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Avbrott på produktions- anläggningar | Koncernens pappersbruki Skåpafors förservåra konverteringsenheterifrämstEuropamed tissue ochairlaid-material. Ett avbrott påpappersbruket orsakar,beroende pånivå avskada, avbrott även hos konverteringsenheterna.Inom konverteringen finns det riskersominne- bäratt bolaget slutligen fårproblem att leverera produktertill slutkund.Avbrott inomproduk- tionen kan orsakas avbrand,maskinhaveri,handhavandefel,resursbrist,IT-haveri ellerandra | Koncernen arbetar aktivt medförebyggandeåtgärder,inte minst inombrandskydd,därutbildningaroch kontroller skerlöpande.Varje anläggning arbetar fortlöpande medunderhåll avanläggning ochmaskinersamtsäkerställer godordning.De förebyggande åtgärderna balanseras meddetförsäkringsskydd somfinns inomkoncernen.Majo- riteten avproduktionsanläggningarna besiktigas årligen avexterna riskingenjörer. Varje produktionsanläggning harenkontinuitetsplan somdelsbeskriverpåverkan påkoncernenvid avbrott,dels hurkoncernenpåbästasättkanminskapåverkan,förkortadentotalaavbrottstiden ochsäkerställa godkontinuitet. Det finns enredundansmellan konverteringsfabrikerna vilket gördet möjligt att i viss uträckning flytta kapacitet |
+| Störningari kedjan                   | typeravskador. Störningari logistikkedjan kan förekommabådeinternt ochexternt.En risk förbolaget är att inte kunnasäkra leverans avtissue ochairlaid material från vårt pappersbruki Skåpafors till konverteringsenheterna i Europa.Det finns också enrisk gällande affärsområdeFoodPacka- ging solutions ochutmaningarsomkanuppståmedleveranserfrånEuropaochAsien.Ytterst                                                                          | mellan fabrikerna.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| logistik-                            | riskerarbolaget att inte kunnasäkerställa tidsenlig leverans till slutkund.                                                                                                                                                                                                                                                                                                                                                                         | Bolagets logistikavdelning läggerstorvikt vid förebyggande åtgärderföratt minska påverkanvid ett eventuellt externt avbrott. Effektiva processerfinns implementerade för att kunnaersätta transportleverantörerochdetfinns idag inget enskit beroende avnågonleverantör.Riskenminskarävengenomgodaochflexiblasamarbetenmed logistikpartners,vilket göratt bolaget kan planera ochhagodframförhållning.Det finns även full insyn i varornas vistelseort, vilket vidare underlättar ochsäkerställer tidsenliga leveranser.                                                                                                                                                                                                             |
+| Medarbetarrisker                     | Föratt uppfylla uppsatta målärDuniGroupberoendeavattkunnarekrytera ochbibehålla motiverade medarbetare.Därförläggs stort fokus påmedarbetarriskerkopplat till succession, diskriminering, arbetsmiljö ochkompetens.                                                                                                                                                                                                                                 | Successionsplanering genomförs i ledningsgruppen årligen, för att säkerställa bibehållandet avrätt kompetens. Föratt garantera enorganisation medvälmåendemedarbetareföljs enårlig cykel avmedarbetar- ochfokussamtal, kompetensutveckling,internutbildning,systematiskt arbete medarbetsmiljömedmera.Varje månadkontrolleras medarbetarnasvälmående medenmedarbetarenkät.Koncernenharävenenetableradvisselblåsarfunktionsom medarbetare kan användavid behov. Duni Groupfokuserarpå att genomenattraktivbolagskulturmed tydligavärderingarochbalans mellan privat-och arbetslivgöra bolaget känt somenattraktivarbetsgivare.                                                                                                        |
+| Produktsäkerhet                      | Kravkopplade till produktsäkerhet är särskilt striktaförproduktersomkommerikontaktmed livsmedel.Dessutomskerlegala förändringar relaterade till gruppens produktsortiment isnabb takt,bådepålokal ochglobal nivå.Omviinte lyckas hålla oss uppdaterade kring dessa krav är risken att förtroendet förvåravarumärken minskar.                                                                                                                        | Inomkoncernensäkras produktsäkerheten dels i sambandmeddenegnaproduktionenochkonverteringen,dels i relation till deexternt inköpta produkterna.Bolaget testarprodukterna tillsammans medexternaexperteroch utbil- darleverantörer att producera medmaterial somföljerkraven.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| IT(informationoch säkerhet)          | Störningari kritiska IT-system kan allvarligt påverkaverksamheten påolika sätt.Cyberrisker genomransomware,nätfiske,informationsläckage ochandratyperavonlinebedrägerierär ett ökandehotsomkräverstorvaksamhet.                                                                                                                                                                                                                                     | Föratt minimera externa hot ochderas påverkan investerarkoncernen fortlöpande i ändamålsenlig teknik.Bolaget följernoggrant utvecklingen inomområdetföratt påbästa sätt skydda kritisk information ochsäkerställa enstabil IT-drift.Underåret harlöpande interna utbildningar hållits i koncernen för att öka dengenerella riskmedvetenheten i organisationen.                                                                                                                                                                                                                                                                                                                                                                       |
+
+<!-- image -->
+
+Duni Group
+
+Duni Group i korthet
+
+Kommentar av Styrelsens ordförande och VD
+
+Året i korthet
+
+Duni Group som investering
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Hållbarhetsrisker*    |                                                                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Miljöpåverkan         | Duni Groupsverksamhet medförförbrukning avnaturresurseroch miljöutsläppsomkanleda till negativ miljöpåverkan. Riskersomutsläpp i naturen,påverkan påbiologisk mångfald,bulleroch utarmning avnatur- resurserkan därmedinverka påhurvårverksamhet kan bedrivas.                                                                                                                               | Duni Groupsproducerande enheteri Europa är miljöcertifierade ochregelbunden miljötillsyn görs för att identifiera negativa miljöeffektersomvårverksamhetgerupphovtill. Utsläppskontroll,miljömål (såsom att minska användningen avjungfrulig fossil plast) samtimplementering av andra åtgärdersom reducerarvårmiljöpåverkan,tillämpas inomalla delaravverksamheten.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Klimatförändringar    | DuniGroupharsattvetenskapsbaserademålför2030och2050somomfattarscope1,2och3. Begränsad tillgång till,ochprisökningarpå förnybara eller fossilfria energialternativsamt produktmaterial kan försvåra företagets övergång till produktion medlågtkoldioxidutsläpp. DetfinnsocksåenriskattDuniGroupsjälvpåverkasavklimatförändringar,ochintelyckas görarelevanta anpassningar.                   | Duni Groupsamlarinochrapporterardatakvartalsvisförscope1och2,ochårligenförscope3.Vetenskapsbaserade målför2030 och2050somomfattarscope1,2och3finnsuppsatta.Förscope 1 och2ärmåletatt uppnånäranoll- utsläpp till 2030.Nyckeltal (KPI:er) finns påplats för att driva energieffektiviseringar i produktionen,och företaget undersökeralternativ för att byta till fossilfria bränslen påvåra produktionsanläggningar. Duni Grouparbetarmedattutveckla enfärdplan för2030förscope3,sominkluderarsamarbetenmedleverantörer omderasenergival i produktionen ochövergångtill förnybara material. Ett produktberäkningsverktyg hartagits fram för att underlätta förkunderatt göra produktval baserade påkoldioxidprestanda. Duni Groupharbörjat undersöka denegnapotentiella påverkan klimatförändringarkan hapåkoncernen,ochvilka anpassningarsom eventuellt kommerbehövas.Dettagörsutifrån två perspektiv,våregenverksamhetsamtinom leverantörskedjan. |
+| Korruption            | Korruption utgörett hot mothållbarekonomiskoch social utveckling i världen ochexisterari olika grad globalt.DuniGroupärverksamimångaländerochlöper,sommångaandrabolag,enrisk förinblandning i korrupt ochoetiskt beteende,bedrägerieroch oegentligheterinombådeförsälj- ning,inköp ochproduktion.                                                                                            | Internt genomförDuniGrouputbildningarinom bolagets uppförandekod.Dessa kompletteras avfördjupande styrdokument,såsomvårantikorruptions policy medtillhörande e-utbildning.Samtliga avkoncernens anställda, styrelsemedlemmar,befattningshavare,koncernledning,leverantöreroch affärspartners förbinder sig att följa dessa policyer. Koncernen eftersträvar ett affärsetiskt förhållningssätt i hela sin värdekedja.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Mänskliga rättigheter | Mänskliga rättighetermåsterespekteras bådeinternt inombolaget samtexternt i hela värdekedjan. Endel avDuni Groupsprodukterproduceras i ellerköps in från länderdärinsynen i mänskliga rättigheterärbegränsad.Detta kan innebära att riskerförexempelvis slavarbete,barnarbete, diskriminering eller att osäkra arbetsplatser inte upptäcks i tid ochatt arbetare i vårvärde- kedja far illa. | Duni Groupsuppförandekodersamt kompletterande styrdokument gällerförkoncernens samtliga anställda, styrelsemedlemmar,befattningshavare (inkl.koncernledning),leverantörer ochaffärspartners.Efterlevnad i leverantörskedjan följs uppgenomrevisioner. Under2024harkoncernenutvärderat bolagets analys avrisker för brott motmänskliga rättigheterochgenomfört engapanalys förimplementering avCorporate SustainabilityDueDiligence Directive (CSDDD).Resultatet avdetta arbete kommerattbeaktasvid fortsatt arbete medattsäkerställa att mänskliga rättigheterrespekteras i företagets verksamhet.                                                                                                                                                                                                                                                                                                                                                  |
+| Certifieringar        | Duni Groupharett antal hållbarhetsrelaterade certifieringar,somForestStewardship Council® (FSC®) ochOKCompost.Riskfaktorer,som att någonavdessaändrarsina kriterier, eller att värdekedjan inte efterleverkraven,kan bidra till eneventuell förlust avcertifieringarna.                                                                                                                      | Endel avhållbarhetsarbetet läggs påatt leva upptill ochbibehålla koncernens certifieringar.Det är avyttersta vikt att haengodintern kontroll samtarbeta aktivt medrevision avbådedenegnaverksamhetenochhelavärdekedjan. Ett antal policyerharuppdaterats ochtagits fram för att styra det årliga revisionsarbetet.Dessutomarbetarbolaget tätt ochproaktivt medexternaexperterinom deolika områdenaföratt ligga steget före.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+*Duni Group har genomfört en dubbel väsentlighetsanalys där hållbarhetsrisker har bedömts, se sida 37.
+
+<!-- image -->
+
+Duni Group
+
+Duni Group i korthet
+
+Kommentar av Styrelsens ordförande och VD
+
+Året i korthet
+
+Duni Group som investering
+
+Förvaltningsberättelse
+
+Strategisk rapport
+
+Hållbarhetsrapport
+
+Riskhantering och styrning
+
+Finansiell information
+
+Finansiella rapporter
+
+Övrigt
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Finansiella risker                              |                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Risknivå                                        | Beskrivning                                                                                                                                                                                                                                                                                                                                                           | Hantering                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Risk för fel i den finan- siella rapporteringen | Risk för fel i denfinansiella rapporteringen finns genomhandhavandefel,systemfel,bristpå resurserellerannat.Dessariskfaktoreranalyserasochbedömslöpande.                                                                                                                                                                                                              | Det finns ett antal lindrande åtgärderföratt hantera risk för fel i denfinansiella rapporteringen,blandannatgenom bra rutiner,godintern kontroll,systematiskt tillvägagångssätt, tydliga rapporteringsscheman,en bred controller- funktion, kontinuerlig uppbackning avsystem ochsystemprioritet hos IT.                                                                                                                        |
+| Valutarisk                                      | Duni Groupärverksaminternationellt ochutsätts förvalutariskersomuppstårvid olika valuta- exponeringar.Transaktionsexponering uppstårgenomköpochförsäljning i enannanvaluta ändenfunktionellavalutan.Omräkningsexponering uppstårnärdotterbolagens balans-och resultaträkningarräknas omtill SEK. OmSEKstärksmed10%fårviennegativpåverkanpåoperatingincomemedca80MSEK. | Duni Grouphanterarvalutaexponeringen genombolagetsfinanspolicysom fastställts avstyrelsen.Valutaexpone- ringen delas uppi transaktionsexponering ochomräkningsexponering ochgenomattkoncentrera exponeringen till ett fåtal koncernbolag reduceras effekten avtransaktionsexponeringen.Vi hargodainterna processerföratt minimeravalutarisken,men dess påverkan drivs också avexterna faktorersomärsvåraföross att kontrollera. |
+| Kapitalrisk                                     | Kapitalrisken beståravrefinansierings- ochlikviditetsrisker.Deuppstårombolagetinte kan uppfylla betalningsåtaganden pågrundavbristande likviditet eller svårigheter att få kredit från externa källor.                                                                                                                                                                | Kapitalrisken hanteras avfinanspolicyn därGroupTreasurysäkerställeratt det finns tillräckligt medlikvidamedel medhjälp avtillgänglig finansiering genomavtaladekreditfaciliteter. Ett kontinuerligt arbete görs medlikviditets- prognoserbåde påkort ochlång sikt samtolika aktiviteterkopplat till exempelvis kassaflöde ochvarulager.                                                                                         |
+| Ränterisk                                       | Det finns enränteriskinomDuniGroup.Exponeringen uppstårpå grund avrörelser i ränte- marknadennärall upplåning görs till rörlig ränta.                                                                                                                                                                                                                                 | Föratt hantera ränterisken ochskyddakoncernensräntekostnadermot onormala nivåer dåall upplåning är till rörlig ränta i främst EURIBOR,säkras endel avränterisken till fast ränta genomränteswappar.Dessa ärendast till föreko- nomisksäkring avriskerochinte i spekulativt syfte.                                                                                                                                               |
+| Kreditrisk                                      | Kreditriskärnärmotparten inte kan betala tillbaka det belopp deärskyldiga ellerommotpar- ten inte kan uppfylla sina avtalsenliga kontrakt. Enkreditförlust kan uppstå ochkanledatillen negativpåverkan påDuniGroupsfinansiella resultat.                                                                                                                              | Kreditrisken i kundfordringarhanteras bland annat genomexternkreditkontroll avkunder.Underåret harkund- förlusterna inte avvikit markant från det normala.Dockfinns det enkonstant osäkerhetimarknadensomföljsupp ochhanteras enligt ett satt regelverk.                                                                                                                                                                        |
+| Skatter                                         | Duni Grouparbetaraktivt för att säkerställa lagefterlevnad kopplat till bland annat skatte- frågor.Ombolagetavnågonanledninginteskulle följa lokala skattelagarellerregleruppsatta avOECDkandetfånegativakonsekvenserförkoncernen.                                                                                                                                    | Bolagets finansmanual angergrundläggande förhållningssätt ochhantering avskattefrågor.Externa experter används också kontinuerligt för att påbästa sätt tolka ochbedömaskatterelaterade frågor.                                                                                                                                                                                                                                 |
+
+<!-- image -->
+
+G1 Ansvarsfullt företagande
+
+Inverkningar, risker och möjligheter
+
+ESRS 2 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell
+
+Finansiell information
+
+Finansiella rapporter
+
+<!-- image -->
+
+| Vetenskapsbaserat mål (Science Based Target)   |   2019 (basår) | 2024 (faktisk minskning)   | 2030 (minskningsmål)   | 2050 (minskningsmål)   |
+|------------------------------------------------|----------------|----------------------------|------------------------|------------------------|
+| Kortsiktigt mål Scope 1+2                      |            100 | -64%                       | -57,1%                 | ej tillämpligt         |
+| Kortsiktigt mål Scope 3*                       |            100 | -19%                       | -46,2%                 | ej tillämpligt         |
+| Nettonollmål Scope 1+2+3*                      |            100 | -28%                       | ej tillämpligt         | -90%                   |
+
+* Scope 3 exkluderar Biopak Group
+
+Delmål 2025
+
+-   Aktiviteter i enlighet med våra godkända science-based targets ·   60 % minskning av koldioxidintensiteten för Scope 1 och 2 med 2019 som basår
+
+KPI
+
+• EcoVadis-score
+
+Not 3 - Segmentredovisning
+Redovisningsprinciper
+Rörelsesegment
+
+Företagsledningen har fastställt rörelsesegmenten baserat på den information som behandlas av den strategiska styrgruppen och som används för att fatta strategiska beslut. Styrgruppen motsvarar koncernledningen som fattar beslut om resursfördelningen inom koncernen och som utvärderar verksamhetens resultat. Den strategiska styrgruppen bedömer och utvärderar verksamheten utifrån rörelsegrenar, eller rörelsesegment, som är indelade för att de är utsatta för gemensamma risker och möjligheter. Försäljning mellan segment sker på marknadsmässiga villkor. Koncernens affärsområden är identifierade som dess rörelsesegment.
+
+Affärsområde Dining solutions: står för det som koncernen traditionellt förknippas med; innovativa lösningar för det dukade bordet, i huvudsak servetter, dukar och ljus. Produkter och tjänster säljs under varumärkena Duni och Paper+Design.   Kunderna är främst hotell och restauranger, den så kalllade HoReCa-marknaden, där försäljningen till stor del går via grossister. Även detaljhandeln är en viktig kundgrupp samt andra kanaler såsom olika typer av fackhandel. Inom premiumsortimentet för servetter och dukar har affärsområdet en marknadsledande position i Europa.
+
+Affärsområde Food packaging solutions: erbjuder miljöanpassade koncept för måltidsförpackningar och serveringsprodukter för exempelvis takeaway, färsk färdigmat och catering av olika slag. Kunderna är huvudsakligen olika typer av restauranger med take-away-koncept samt företag som är verksamma inom hälso- och omvårdnadssektorn. Även butiker och andra matproducenter är en stor kundgrupp. Produkter och tjänster inom segmentet säljs idag både under varumärket Duni och BioPak men målet är att segmentet i huvudsak representerar varumärket BioPak.
+
+European Green Deal (EU:s gröna giv)
+
+Ett paket med politiska initiativ som ska bana väg för en grön omställning i EU och vars slutmål är klimatneutralitet senast 2050.
+
+Genom sina förmånsbestämda pensionsplaner är Duni Group exponerad mot ett antal risker, de mest väsentliga riskerna är:
+
+Tillgångars volatilitet: Planens skulder är beräknade genom användning av en diskonteringsränta som utgår från företagsobligationer. I linje med tidigare år fastställs diskonteringsräntan för de svenska planerna genom referens till marknaden för säkerställda bostadsobligationer. Om förvaltningstillgångarna inte uppnår motsvarande avkastning uppstår underskott. På kort sikt kan detta medföra volatilitet men då skulden i pensionsplanen är långsiktig är placeringar i till exempel eget kapital instrument lämpligt för att hantera planen effektivt och få bästa avkastning. Duni har ingen egen kontroll över förvaltningstillgångarnas placeringar. De innehas av stiftelser vars   verksamhet regleras av nationella bestämmelser och praxis.
+
+Förändringar i obligationernas avkastning: En minskning i räntan på företagsobligationer kommer att innebära en ökning av skulderna i planen, även om detta delvis kommer att uppvägas av en ökning i värdet av obligationer.
+
+Inflationsrisk: Vissa av planens pensionsförpliktelser är kopplade till inflationen, högre inflation leder till högre skulder. De flesta förvaltningstillgångarna är antingen opåverkade av (fast ränta på obligationer) eller svagt korrelerade med (aktier) inflationen, vilket innebär att en ökning i inflationen också kommer öka underskottet.
+
+Livslängdsantaganden: Merparten av pensionsförpliktelserna innebär att de anställda som omfattas av planen ska erhålla förmånerna livet ut vilket medför att höjda livslängdsantaganden resulterar i högre pensionsskulder. Detta är framförallt väsentligt i de svenska planerna vilka inflationsökningar medför högre känslighet för ändringar i livslängdsantaganden.
+
+17
+
+<!-- image -->
+
+UNGC
+
+FN:s Global Compact (UNGC) är världens största initiativ för att samla näringslivet kring företags  mässig hållbarhet, oavsett hur stort eller komplext ett företag är eller var det ligger.
+
+Miljö
+
+- Miljöpolicy E
+
+E2 FÖRORENINGAR
+
+Väsentliga inverkningar, risker och möjligheter
+
+| ESRS, deltema                       | IRO-beskrivning                                                                                | IRO-typ                     | Värdekedjans placering *)   | Värdekedjans placering *)   | Värdekedjans placering *)   | Tidshorisont **)   | Tidshorisont **)   | Tidshorisont **)   |
+|-------------------------------------|------------------------------------------------------------------------------------------------|-----------------------------|-----------------------------|-----------------------------|-----------------------------|--------------------|--------------------|--------------------|
+|                                     |                                                                                                |                             | U                           | O                           | D                           | S                  | M                  | L                  |
+| Vattenföroreningar                  | Vattenföroreningar från produktion                                                             | Faktisk negativ påverkan    | x                           | x                           |                             | x                  | x                  | x                  |
+| Luft-, mark- och vattenföroreningar | Föroreningar orsakade av felaktig avfallshantering efter att produkterna är uttjänta           | Potentiell negativ påverkan |                             |                             | x                           | x                  | x                  | x                  |
+| Mikroplaster                        | Mikroplastföroreningar orsakade av felaktig avfallshantering efter att produkterna är uttjänta | Potentiell negativ påverkan |                             |                             | x                           | x                  | x                  |                    |
+
+- *) Värdekedjans placering: uppströms (U), egen verksamhet (O), nedströms (D)
+- **) Tidshorisont: kortsiktig (S), medellång (M), långsiktig (L)
+
+Bolaget har beaktat verksamhetens art och storlek, produktsammansättning och geografiska läge vid bedömning av väsentliga effekter, risker och möjligheter relaterade till föroreningar. De faktiska negativa effekterna koncentreras till produktionen av pappersmassa som används i Duni Groups konverteringsanläggningar, både i det egna pappersbruket (Rexcell) och i leveranskedjan.
+
+Duni Group är medveten om att dess produkter kan orsaka luft-, vatten- och markföroreningar samt mikroplastföroreningar efter användning om de inte hanteras på rätt sätt. Företaget har dock begränsad kunskap om den exakta omfattningen, platserna eller kapaciteten för avfallsinsamling och återvinningsinfrastruktur i de regioner där dess produkter deponeras. Därför har dessa effekter bedömts som potentiella och kommer att undersökas ytterligare i framtiden.
+
+De negativa effekterna av plastföroreningar förväntas minska över tid på grund av det pågående arbetet med att fasa ut plastinnehållet i bolagets produkter.
+
+Företaget har inte varit i samråd med berörda samhällen.
+
+Energiförbrukning
+
+| Energiförbrukningochmix(MWh)                                                         | 2024   | 2023    | Förändring (%)   |
+|--------------------------------------------------------------------------------------|--------|---------|------------------|
+| Bränsleförbrukning från kol och kolprodukter                                         | 0      | 0       | 0                |
+| Bränsleförbrukning från råolja och petroleumprodukter                                | 5 141  | 4 809   | +7%              |
+| Bränsleförbrukning naturgas                                                          | 11 523 | 11 834  | -3%              |
+| Bränsleförbrukning från andra fossila källor                                         | 57 047 | 60 888  | -6%              |
+| Förbrukning av inköpt eller förvärvad el, värme, ånga och kyla från fossila källor   | 1 311  | 2 225   | - 41%            |
+| Total förbrukning av fossil energi                                                   | 75 022 | 79 756  | -6%              |
+| Andel fossila källor i den totala energiförbrukningen (%)                            | 35%    | 34%     | +1%              |
+| Elförbrukning från kärnkraft                                                         | 77 281 | 0       | + 100%           |
+| Andel av förbrukningen från kärnkraftskällor i den totala energiförbrukningen (%)    | 36%    | 0%      | +36%             |
+| Bränsleförbrukning från förnybara källor                                             | 43 425 | 59 746  | -27%             |
+| Förbrukning av inköpt eller förvärvad el, värme, ånga och kyla från förnybara källor | 18 748 | 92 353  | -80%             |
+| Förbrukning av egenproducerad icke-bränsledriven förnybar energi                     | 415    | 429     | -3%              |
+| Total förbrukning av förnybar energi                                                 | 62 588 | 152 529 | -59%             |
+| Andel förnybara energikällor i den totala energiförbrukningen (%)                    | 29%    | 66%     | -37%             |
+| Total energiförbrukning                                                              | 214892 | 232 285 | -7%              |
+
+Energiförbrukningen inkluderar förbrukning av bränslen och inköpt el, värme, ånga och kyla. Den beräknas utifrån fakturor och data från bränsle- och energileverantörer.
+
+År 2024 bytte pappersbruket i Sverige från förnybar vindkraft till kärnkraft på grund av otillräcklig tillgång på vindkraftskrediter hos elleverantören.
+
+Företagets årliga mål för energieffektivitet är att minska energiförbrukningen per omvandlad eller producerad ton med 3 %.
+
+EU:s taxonomi
+Bakgrund
+
+Taxonomiförordningen, som antagits av Europeiska kommissionen, syftar till att identifiera miljömässigt hållbara investeringar och styra kapitalflöden mot en mer hållbar ekonomi. Det är ett viktigt steg mot att uppnå koldioxidneutralitet till 2050, i linje med EU:s klimatmål.
+
+Informationen som presenteras nedan visar andelen av koncernomsättningen, kapitalutgifterna (CapEx) och rörelseutgifterna (OpEx) för rapporteringsperioden 2024 som är förknippade med taxonomiberättigade ekonomiska aktiviteter relaterade till de sex miljömålen i enlighet med artikel 8 i taxonomiförordningen:
+
+- begränsning av klimatförändringar
+- anpassning till klimatförändringar
+- hållbar användning och skydd av vatten och marina resurser
+- övergång till cirkulär ekonomi
+- förebyggande och kontroll av föroreningar
+- skydd och återställning av biologisk mångfald och ekosystem.
+
+GOV-5 Riskhantering och intern kontroll över hållbarhetsrapportering
+Interna kontroller av hållbarhetsrapportering
+
+Den interna kontrollmiljön bygger på klara roller och ansvarsområden vid upprättandet av hållbarhetsförklaringen och omfattar både förebyggande och upptäckande rutiner för att förhindra att fel uppstår samt för att identifiera och korrigera fel som kan uppstå under rapporteringen. Det interna kontrollsystemet består av en uppsättning individuella kontrollrutiner som är designade för att säkerställa relevansen, den rättvisande återgivningen, jämförbarheten, verifierbarheten och förståeligheten av den information som presenteras i hållbarhetsredovisningen. Som en del av förberedelserna för full CSRD-efterlevnad arbetar Duni Group med att utveckla ett starkt internt kontrollsystem för hållbarhetsrapportering som kommer att beskrivas i hållbarhetsrapporteringsmanualen som planeras vara klar under 2025. Interna kontrollmekanismer har tillämpats vid upprättandet av denna hållbarhetsförklaring enligt beskrivningen nedan.
+
+Det finns ett dedikerat team inom Group Finance som samordnar och övervakar väsentlighetsbedömningen och hållbarhetsrapporteringsprocessen på ett centraliserat sätt. Avdelningarna Sustainability, People &amp; Culture och Group Finance ansvarar för att rapportera relevanta delar av hållbarhetsförklaringen. Utbildning och instruktioner har tillhandahållits till alla medarbetare som är involverade i rapporteringen för att säkerställa hög kvalitet i den rapporterade informationen. "Fyra ögonprincipen" tillämpas i alla skeden av rapporteringen. Uppgifter som rapporteras av dotterbolag granskas och bekräftas av ansvariga personer på huvudkontoret. Uppgifter som rapporteras av ansvariga på huvudkontoret och innehållet i hållbarhetsförklaringen granskas av ansvarig avdelningschef. Arbetsuppgifterna är åtskilda mellan uppgifter för rapportering och godkännande.
+
+Duni Group använder en specialiserad hållbarhetsrapporteringsplattform för både GHG- och ESRS-rapportering som stödjer fullständigheten och standardiseringen av den rapporterade informationen samt efterlevnaden av hållbarhetsdeklarationens krav på ESRS-rapportering. Det finns rutiner för att säkerställa att endast behöriga användare har tillgång till den rapporterade informationen. Rapporteringsplattformen underlättar också granskningsprocessen och fyra ögon-principen.
+
+Revisions- och hållbarhetskommittén kommunicerar regelbundet med revisorerna för att utvärdera och förbättra den interna kontrollen. Revisorerna granskar CSRD-beredskapsstatusen kvartalsvis. I revisionsoch hållbarhetskommittén ingår medlemmar med hög kompetens och erfarenhet inom hållbarhetsrapportering. En särskild CSRD-utbildning genomfördes under 2024 för styrelsen.
+
+Förändringar i upprättandet eller presentationen av hållbarhetsinformation
+
+Som ett resultat av anpassningen av hållbarhetsredovisningen till CSRD innehåller hållbarhetsförklaringen nya upplysningar och mätetal som krävs av ESRS. Enligt GRI-standarder fokuserades hållbarhetsrapporteringen på de viktigaste ämnena. CSRD kräver rapportering om alla väsentliga ämnen som identifierats i den dubbla väsentlighetsbedömningen. Nedanstående hållbarhetsfrågor som inte ansågs vara väsentliga ämnen föregående år, har redovisats som väsentliga ämnen under 2024:
+
+-   Föroreningar
+-   Vatten och marina resurser
+-   Biologisk mångfald och ekosystem
+
+Även om det finns en hög grad av interoperabilitet mellan GRI- och ESRS-standarder finns det vissa skillnader i informationens innehåll och struktur i de flesta avsnitt av hållbarhetsförklaringen till följd av den första tillämpningen av CSRD.
+
+Enligt avsnitt 10.3 i ESRS 1 är företag inte skyldiga att redovisa jämförande information under det första året av hållbarhetsförklaringen enligt ESRS. Duni Group har under 2024 börjat rapportera GHG-intensitetsindexet per nettointäkt enligt kraven i ESRS E1. Dessutom kommer Duni Group att fortsätta rapportera intensitetsindexet för utsläpp inom scope 1+2 per producerad/konvertad ton.
+
+När tidigare års jämförelsedata presenteras är de konsekventa och jämförbara med informationen som lämnats för innevarande år.
+
+GOV-3 Integration av hållbarhetsrelaterade resultat i incitamentssystem
+
+Bolagsstyrningsrapporten innehåller information om hur hållbarhetsrelaterade resultat och klimatrelaterade överväganden integreras i ersättnings- och incitamentsprogram för medlemmar i förvaltnings-, lednings- och tillsynsorgan, inklusive all information och alla mätetal som krävs enligt ESRS 2.

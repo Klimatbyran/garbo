@@ -1,0 +1,703 @@
+Avgränsningar enligt Scope 1, 2 och 3
+
+Vitecs viktigaste klimatpåverkande aktiviteter indelas enligt GHG-protokollet i:
+
+- Scope 2 - indirekta utsläpp från inköpt el, värme och kyla
+- Scope 3 - övriga utsläpp som ej omfattas av Scope 1 och 2
+- inköpta kapital-, förbrukningsvaror, tjänster, tjänsteresor och genererat av -fall
+
+Driften av Vitecs datasystem sker till övervägande del i egna datacenter och hänförs därför till Scope 2. Inköp av servrar och annan hårdvara hamnar under Scope 3.
+
+Arbetspendlingsresor, hotellövernattningar och energikonsumtion hos kunders klienter är för närvarande ej inberäknade i Vitecs klimatpåverkan.
+
+BEGRÄNSNING AV KLIMATFÖRÄNDRINGAR
+BESKRIVNING AV KONSEKVENSER
+Uppströms
+
+Scope 3 utsläppen kan antas vara höga framför allt med tanke på utvinning av råvaror och produktion av IT-utrustning. De största utsläppen från inköp av kapitalvaror på Vitec härrör från utrustning kopplat till IT-system (datorer, skärmar, telefoner, datacenters hårdvara)
+
+NOT 2 METODBESKRIVNING BERÄKNING KLIMATPÅVERKAN
+BERÄKNINGAR ENLIGT GHG-PROTOKOLLET
+
+- Scope 1 - direkta utsläpp från tjänstebilar
+
+Vitec följer GHG-protokollet för beräkningar -na av sin klimatpåverkan. Som basår för be -räkningarna av klimatpåverkan och klimatmål har Vitec valt att använda 2019, då 2020 och 2021 var två väldigt speciella år präglade av Covid-pandemin.
+
+NOT 5 CENTRALA EMISSIONSFAKTORER
+
+|   Scope | Aktivitet/Kategori                       | Datakällor                                    | Emissionsfaktor (2024)                        | Källa                                                     |
+|---------|------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------------------|
+|       2 | Elektricitet                             | Levererande energibolag                       | 90,4 g CO2e/kWh Nordisk elmix                 | SMED Rapport Nr 4 2021                                    |
+|       2 | Värme                                    | Levererande energibolag                       | 54 g CO2e/kWh Svenskt medel                   | Svenska energiföretagen                                   |
+|       2 | Kyla                                     | Levererande energibolag                       | 28 g CO2e/kWh Svenskt medel                   | Svenska energiföretagen                                   |
+|       3 | Flygresor                                | Flygsträcka resebyrå eller dotterbolag        | 130 g CO2e/pkm                                | KTH Flight emission map                                   |
+|       3 | Tjänsteresor bil, tjänstebil             | Uppskattningar eller loggningar av körsträcka | 194 g CO2e/km medelbil                        | Department for Business, Energy & Industrial Strategy, UK |
+|       3 | Tjänsteresor privata bilar/marktransport | Reseersättningar ekonomisystem                | 194 g CO2e/km medelbil                        | Department for Business, Energy & Industrial Strategy, UK |
+|       3 | Övriga resor                             | Resebyråstatistik alternativt reseutlägg      | Beräknat av resebyrå                          |                                                           |
+|       3 | Inköp elektronik                         | Antal inköpta                                 | 45-265 kg/enhet exkl. elkonsumtion användning | EPD:er från tillverkare                                   |
+|       3 | Inköp förbrukningsvaror, mat             | Antal anställda                               | 110 kg CO2e/medarbetare                       | Fröberg 2020, Ett teknikföretags klimatpåverkan           |
+|       3 | Avfall                                   | Antal anställda                               | 10 kg CO2e/medarbetare                        | Fröberg 2020, Ett teknikföretags klimatpåverkan           |
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+Egen verksamhet
+
+98 % av el (scope 2) är fossilfri, mål att endast använda fossilfri el i verksamheten. Störst påverkan i den egna verksamheten kommer från tjäns -tefordon.
+
+RESONEMANG BAKOM BEDÖMNING
+Skala
+Omfattning
+
+Klimatutsläpp bedöms alltid som mycket hög skala på grund av att världens samhällen befinner sig i en klimatkris och snabbt behöver minska sina klimatutsläpp för att nå Parisavtalet.
+
+Vitec har 45 affärsenheter som bedriver sin verksamhet i kontorslokaler. Bolaget erbjuder även hosting och serverlösningar samt driver 2 egna datahallar. Utsläpp sker främst vid produk -tion av IT-utrustning samt vid användande av den programvara bolaget erbjuder sina ca 26 000 kunder. Omfattningen på den totala mängden utsläpp genom värdekedjan bedöms därför till utbredd.
+
+EMISSIONSFAKTORER
+
+De emissionsfaktorer som används hämtas från nationell statistik, publicerade artiklar el -ler databaser från etablerade organisationer. I de fall där lands- eller tidsspecifika emissionsfaktorer saknas, tillämpar Vitec emis - sionsfaktorer från närliggande system eller tidsperioder. För att undvika att underskatta utsläpp använder Vitec en konservativ metod vid olika antaganden och väljer emissionsfak -torer som resulterar i de högsta utsläppen. De centrala emissionsfaktorerna redovisas i tabellen i not 5.
+
+ELKONSUMTION
+
+Klimatpåverkan från koncernens samlade elkonsumtion beräknas med GHG-protokollets 'market-based method' genom att
+
+1. Multiplicera andelen fossilfri elförbrukning med en LCA-beräknad emissionsfaktor för den elmix som levereras av koncernens huvudleverantör (Umeå Energis elmix, används för de flesta av Vitecs dotterbolag).
+2. Multiplicera den icke fossilfria andelen med den nordiska residualmixen för respektive år.
+
+Utöver 'market-based method' redovisar Vi -tec enligt GHG-protokollets riktlinjer även kli -matpåverkan för 'location-based method' där den totala elförbrukningen multipliceras med emissionsfaktorn för den nordiska elmixen.
+
+VÄRME OCH KYLA
+
+- Vid de fall lokala leverantörers emissionsfaktorer inte finns tillgängliga använder Vitec medelvärden från Sverige för fjärrvär -me och fjärrkyla. För övrig uppvärmning används emissionsfaktorer för respektive bränsle. För vissa kontor ligger elförbruk -ningen för uppvärmning inkluderad i den generella elförbrukningen från kontoret.
+
+<!-- image -->
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+RESULTAT
+
+Skalan bedömdes som mycket hög, omfattningen utbredd, återställbarheten längre än 10 år eller permanent samt 100 % sannolikhet att utsläpp sker. Detta sammantaget gör att ämnet bedöms som väsentligt.
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+NOT 4 UTSLÄPP FRÅN ELKONSUMTION TON CO2E
+
+| Scope   |              | Aktivitet/Kategori Market-based   | Aktivitet/Kategori Market-based   | Aktivitet/Kategori Market-based   | Aktivitet/Kategori Market-based   | Aktivitet/Kategori Market-based   | Aktivitet/Kategori Market-based   | Location-based   | Location-based   | Location-based   | Location-based   | Location-based   | Location-based   |
+|---------|--------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|-----------------------------------|------------------|------------------|------------------|------------------|------------------|------------------|
+|         |              | 2024                              | 2023                              | * 2022                            | 2021                              | 2020                              | 2019                              | 2024             | 2023             | 2022             | 2021             | 2020             | 2019             |
+| 2       | Elektricitet | 73,9                              | 84,5 (72,1)                       | 93,9                              | 77,2                              | 61,6                              | 72,3                              | 262,9            | 248,8            | 233,9            | 212,8            | 160,8            | 196,3            |
+| 2       | Värme        | 82,9                              | 64,6                              | 56,9                              | 55,0                              | 45,5                              | 43,5                              | 82,9             | 64,6             | 56,9             | 55,0             | 45,5             | 43,5             |
+| 2       | Kyla         | 2,4                               | 2,8                               | 3,3                               | 6,1                               | 6,6                               | 4,6                               | 2,4              | 2,8              | 3,3              | 6,1              | 6,6              | 4,6              |
+
+* Tidigare redovisad uppgift
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+NOT 3 UTSLÄPP AV VÄXTHUSGASER TON CO2E
+
+| Scope   | Aktivitet/kategori                               | 2024    | 2023    | *        | 2022    | *        | 2021   | 2020   | 2019    |
+|---------|--------------------------------------------------|---------|---------|----------|---------|----------|--------|--------|---------|
+| 1       | Tjänsteresor bil företagsresor                   | 181,7   | 164,0   | (199,1)  | 129,2   |          | 176,8  | 159,0  | 160,4   |
+| 2       | Elektricitet                                     | 73,9    | 84,5    | (72,1)   | 93,9    |          | 77,2   | 61,6   | 72,3    |
+| 2       | Värme                                            | 82,9    | 64,6    |          | 56,9    |          | 55,0   | 45,5   | 43,5    |
+| 2       | Kyla                                             | 2,4     | 2,8     |          | 3,3     |          | 6,1    | 6,6    | 4,6     |
+| 3.1     | Inköp förbrukningsvaror, mat                     | 160,3   | 144,9   |          | 109,0   |          | 101,6  | 77,6   | 66,5    |
+| 3.2     | Inköp elektronik                                 | 428,1   | 317,1   |          | 337,6   |          | 282,1  | 230,2  | 206,6   |
+| 3.5     | Avfall                                           | 14,6    | 13,2    |          | 9,9     |          | 9,2    | 7,1    | 6,0     |
+| 3.6     | Tjänsteresor flyg                                | 349,8   | 341,4   |          | 208,3   |          | 118,0  | 90,5   | 376,4   |
+| 3.6     | Tjänsteresor bil                                 | 147,0   | 96,9    |          | 50,1    | (71,5)   | 85,1   | 74,0   | 126,8   |
+| 3.6     | Tjänsteresor övrigt (taxi, kollektivtransporter) | 8,1     | 10,0    |          | 5,4     |          | 1,8    | 1,7    | 4,7     |
+|         | Totalt                                           | 1 448,7 | 1 239,5 | (1259,7) | 1 003,6 | (1027,7) | 912,9  | 753,6  | 1 067,8 |
+|         | Totalt/omsättning                                | 0,57    | 0,61    | (0,62)   | 0,63    | (0,64)   | 0,62   | 0,63   | 0,99    |
+|         | Totalt/anställd                                  | 0,99    | 0,94    | (0,96)   | 1,01    | (1,04)   | 0,99   | 1,07   | 1,77    |
+
+* Tidigare redovisad uppgift
+
+Klimatmål och utfall (ton CO2e/Mkr)
+
+Beräknad och prognostiserad klimatpåverkan justerad för omsättning.
+
+<!-- image -->
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+SAMMANLAGD EFFEKT AV ÅRETS UPPDATERINGAR
+
+Den sammanlagda effekten av årets uppdateringar har lett till en generell minskning av utsläppen för åren 2023 och 2022. Änd -ringarna avser tjänsteresor med bil samt utsläpp kopplat till elförbrukning. Ändringarna i utsläpp kopplat till elförbrukning härrör sig från en tidigare felaktigt rapporterad andel fossilfri elförbrukning. Ändringarna avseende utsläpp från tjänsteresor med bil härrör sig från tidigare formelfel i beräkningarna samt felaktigt rapporterade utsläpp. Dessa fel har nu korrigerats.
+
+Noter till hållbarhetsrapport
+
+| Not 1 Metodbeskrivning för väsentlighetsbedömning   |   171 |
+|-----------------------------------------------------|-------|
+| Not 2 Metodbeskrivning beräkning klimatpåverkan     |   173 |
+| Not 3 Utsläpp av växthusgaser ton CO2e              |   175 |
+| Not 4 Utsläpp från elkonsumtion ton CO2e            |   175 |
+| Not 5 Centrala emissionsfaktorer                    |   176 |
+| Not 6 Taxonomi för hållbarhet                       |   177 |
+| Not 7 Tabeller taxonomi                             |   179 |
+
+AKTIVITETSDATA
+
+Inhämtning av aktivitetsdata som används för att beräkna klimatpåverkan görs i majoriteten av fallen genom användning av primärdata, såsom energikonsumtion för lokaler, kör -sträckor för privata bilar beräknade utifrån milersättningar, flygsträckor levererade från resebyråer samt antal inköpta enheter av hårdvara. För vissa områden där data inte finns tillgänglig, som exempelvis inköp av förbrukningsmaterial och avfallsgenerering från kontor, har schabloner baserade på antal anställda använts. Vid användning av molnba -serade datatjänster används total klimatpå -verkan levererad från leverantören.
+
+KAPITALVAROR
+
+De största utsläppen från inköp av kapitalvaror på Vitec härrör från utrustning kopplat till IT-system. Alla affärsenheter inrapporterar inköpta kapitalvaror i kategorierna (laptops, stationära datorer, skärmar, telefoner, ser -vrar). Klimatpåverkan räknas därefter fram genom att använda kategoriindelade emissionsfaktorer som motsvarar ett medelvärde av alla produkter sålda hos Vitecs huvudsakliga leverantör av IT-utrustning.
+
+Klimatpåverkan från datacentrens hårdvara beräknas utifrån en uppskattad emissionsfaktor för produktion av server och minnesenheter delat med förväntad livslängd.
+
+SAMMANFATTNING AV HÅLLBARHETSMÅL
+
+| KPI                                       | Mål                                                                  | Mål 2030   | Utfall 2024   | Enhet               |
+|-------------------------------------------|----------------------------------------------------------------------|------------|---------------|---------------------|
+| Utsläpp av växthusgaser/omsättning        | Koldioxidneutrala 2030, minska utsläpp/omsättning med 75 % 2019-2030 | 0,25       | 0,57          | ton CO2/omsättning  |
+| Utsläpp av växthusgaser från tjänsteresor | Minska utsläpp från tjänsteresor med 50 % 2019-2030                  | 0,55       | 0,47          | ton CO2/medarbetare |
+| Fossilfri energi i elavtal                | 100 % fossilfria elavtal 2025                                        | 100 %      | 98 %          | %                   |
+| Elkonsumtion i kontorslokaler/anställd    | Kontinuerligt minskande elkonsumtion/anställd                        | Minskande  | 1 353         | kWh/medarbetare     |
+| Könsfördelning                            | Jämn könsfördelning mellan alla anställda (40/60)                    | 40-60 %    | 32 %          | %                   |
+| Informationssäkerhet - utbildning         | 100 % av anställda genomför utbildning i informationssäkerhet        | 100 %      | 93 %          | %                   |
+
+Absoluta utsläpp
+
+<!-- image -->
+
+Klimatpåverkan
+
+Vitecs absoluta klimatpåverkan 2024 var 1 449 ton CO2e vilket motsvarar 0,46 ton CO2e per omsatt miljon kronor i 2024 års penningvärde (0,57 i 2019 års penningvärde) eller 0,99 ton CO2e per anställd. I absoluta tal är det en ökning med 36 procent jämfört med basåret 2019. Men under samma pe -riod har vår omsättning ökat med 188 procent och medelantal anställda med 124 procent.
+
+För att kunna jämföra våra utsläpp över tid utvärderar Vitec koncernens klimatpåverkan i relation till den totala omsättningen. När Vitec gör den jämfö -relsen så minskar klimatpåverkan med 43 procent mellan 2024 och basåret 2019 samt en minskning med 7 procent i jämförelse med 2023.
+
+Jämfört med ett scenario med en linjär minskning av utsläppen mot målåret 2030 så ligger Vitec enligt plan i sin utsläppsminskningstakt. Utsläppen per anställd har dock ökat med 6 procent mellan 2023 och 2024. Ökningen beror på större IT-inköp under 2024 samt att utsläpp från tjänsteresor med bil ökat.
+
+För ett programvaruproducerande företag som Vitec härrör den största klimatpåverkan från tjänsteresande, energi -konsumtion från lokaler och datacenter samt inköp av elektronik, förbruknings -material och mat till kontoren.
+
+Vitecs geografiskt stora spridning gör att tjänstresandet historiskt stått för en stor del av bolagets klimatpåverkande utsläpp. 2019 var resandet den pro -centuellt sett största klimatpåverkande aktiviteten och stod för 62 procent av utsläppen.
+
+I och med den snabba tekniska och kulturella utvecklingen runt distansmöten under pandemiåren har resandets klimatpåverkan minskat kraftigt och bidrar nu med 47 procent av utsläppen. Det senaste året har klimat -påverkan från resande med bil ökat, vilket beror på att Vitec har fler och fler verksamheter där avstånden till kunder och andra affärsrelationer är geografiskt kortare, vilket medför att resande med flyg kan minska.
+
+Utöver tjänsteresandet kan det mesta av Vitecs klimatpåverkan kopplas till kärnverksamheten, utveckling av vertikala programvaror. Inköp av hårdvara och elkonsumtion kopplat till serverdrift och kontorsverksamhet står tillsammans för ungefär 40 procent av koldioxidutsläppen.
+
+Klimatpåverkan per medarbetare från energikonsumtion i lokaler och datacenter har minskat över tid i takt med att Vitec arbetat med att minska sitt avtryck. Klimatpåverkan från mat och kontorsutrustning ligger på samma nivå eftersom beräkningen av utsläpp från dessa baseras på schabloner.
+
+GHG:s riktlinjer bygger på:
+
+- Relevans - rapporteringen ska på ett relevant sätt spegla företagets eller organisationens utsläpp så att den kan fungera som ett beslutsunderlag för användare både internt och externt.
+- Fullständighet - rapporteringen ska täcka alla utsläpp inom den angivna systemgränsen. Eventuella undantag ska beskri -vas och förklaras.
+- Jämförbarhet - metoden för beräkningar ska vara konsekvent så att jämförelser kan göras över tid. Förändringar i data, sys -temgränser, metoder eller dylikt ska doku -menteras.
+- Transparens - all bakgrundsdata, alla metoder, källor och antaganden ska doku -menteras.
+- Noggrannhet - de beräknade utsläppen ska ligga så nära de verkliga utsläppen som möjligt.
+
+RAPPORTERING AV TAXONOMI, KAPITALUTGIFTER
+
+| Ekonomiska verksamheter                                                                                             | Koder                                                               | Absoluta kapi - talutgif - ter (Mkr)                                | Andel av kapi - talutgif - ter (%)                 | Be - gräns - ning av klimat - föränd - ringar (%)   | Kriterier Anpass - ning till klimat - föränd - ringar (%)   | för Vatten och marina resurser (%)                 | väsentligt bidrag Cirkulär ekonomi (%)             | Förore - ningar (%)                                | Biologisk mång- fald och ekosys - tem (%)          | Kriterier Be - gräns - ning av klimat - föränd - ringar (JA/ NEJ)   | avseende Anpass - ning till klimat - föränd - ringar (JA/ NEJ)   | att inte Vatten och marina resurser (JA/ NEJ)      | orsaka Cirkulär ekonomi (JA/ NEJ)                  | betydande Förore - ningar (JA/ NEJ)                | skada Biologisk mång- fald och ekosys - tem (JA/ NEJ)   | Mini - miskydd - såtgär- (JA/ NEJ)   | Taxo - nomi - förenlig andel av kapi - talutgif - terna (%) 2024   | Taxo - nomi - förenlig andel av kapi - talutgif - terna (%) 2023   |    |
+|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|---------------------------------------------------------------------|----------------------------------------------------|-----------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|---------------------------------------------------------------------|------------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|---------------------------------------------------------|--------------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------------|----|
+| A. Verksamheter som omfattas av taxonomin                                                                           |                                                                     |                                                                     |                                                    |                                                     |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      |                                                                    |                                                                    |    |
+| A.1. Miljömässigt hållbara (taxonomiföre- nliga) verksamheter                                                       |                                                                     |                                                                     |                                                    |                                                     |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      |                                                                    |                                                                    |    |
+| Databehandling, värdtjänster och dylikt                                                                             | NACE 63.1/8.1                                                       | -                                                                   | -                                                  | -                                                   | -                                                           | N/A                                                | N/A                                                | N/A                                                | N/A                                                | NEJ                                                                 | NEJ                                                              | NEJ                                                | NEJ                                                | N/A                                                | N/A                                                     | JA                                   | 0%                                                                 | 0%                                                                 |    |
+| Dataprogrammering, datakonsultverksam - het och dylikt                                                              | NACE 62.0/8.2                                                       | -                                                                   | -                                                  | -                                                   | -                                                           | N/A                                                | N/A                                                | N/A                                                | N/A                                                | N/A                                                                 | NEJ                                                              | N/A                                                | N/A                                                | N/A                                                | N/A                                                     | JA                                   | 0%                                                                 | 0%                                                                 |    |
+| Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna (A.1)                               |                                                                     | -                                                                   | -                                                  | -                                                   | -                                                           |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      | 0%                                                                 | 0%                                                                 |    |
+| A.2. Verksamheter om omfattas av taxono - min men som inte är miljömässigt hållbara (ej taxonomiförenliga)          |                                                                     |                                                                     |                                                    |                                                     |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      |                                                                    |                                                                    |    |
+| Databehandling, värdtjänster och dylikt                                                                             | NACE 63.1/8.1                                                       | 11                                                                  | 2 %                                                | -                                                   | -                                                           | N/A                                                | N/A                                                | N/A                                                | N/A                                                | NEJ                                                                 | NEJ                                                              | NEJ                                                | NEJ                                                | N/A                                                | N/A                                                     | JA                                   | 2%                                                                 | 0%                                                                 |    |
+| Dataprogrammering, datakonsultverksam - het och dylikt                                                              | NACE 62.0/8.2                                                       | 369                                                                 | 77 %                                               | N/A                                                 | -                                                           | N/A                                                | N/A                                                | N/A                                                | N/A                                                | N/A                                                                 | NEJ                                                              | N/A                                                | N/A                                                | N/A                                                | N/A                                                     | JA                                   | 77%                                                                | 77%                                                                |    |
+| Kapitalutgifter för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomifören- |                                                                     |                                                                     |                                                    |                                                     |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      |                                                                    |                                                                    |    |
+| liga) (A.2) 380                                                                                                     | liga) (A.2) 380                                                     | liga) (A.2) 380                                                     |                                                    | 80%                                                 |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      | 80%                                                                | 78%                                                                |    |
+| Totalt A.1+A.2.                                                                                                     | Totalt A.1+A.2.                                                     | Totalt A.1+A.2.                                                     | 380                                                | 80%                                                 |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      | 80%                                                                | 78%                                                                |    |
+| B. Verksamheter som inte omfattas av taxonomin (B)                                                                  | B. Verksamheter som inte omfattas av taxonomin (B)                  | B. Verksamheter som inte omfattas av taxonomin (B)                  | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B)  | B. Verksamheter som inte omfattas av taxonomin (B)          | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B)                  | B. Verksamheter som inte omfattas av taxonomin (B)               | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B)      | 20%                                  |                                                                    | 22%                                                                |    |
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin (B)                                                 | Kapitalutgifter hos verksamheter som inte omfattas av taxonomin (B) | Kapitalutgifter hos verksamheter som inte omfattas av taxonomin (B) | 98                                                 | 20%                                                 |                                                             |                                                    |                                                    |                                                    |                                                    |                                                                     |                                                                  |                                                    |                                                    |                                                    |                                                         |                                      |                                                                    |                                                                    |    |
+
+Totalt A+B
+
+478
+
+100 %
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+NOT 1 METOD FÖR VÄSENTLIGHETSBEDÖMNING
+
+Arbetet med dubbel väsentlighetsanalys delades upp i två moment. Konsekventiell väsentlighet och Finansiell väsentlighet. Hela värdekedjan utifrån E (environment), S (social) och G (governance) analyserades.
+
+UPPDATERINGSPOLICY
+
+Vitecs historiska klimatbokslut justeras löpande beroende på uppdateringar av indata och emissionsfaktorer samt förändringar av metodik och systemgränser. För de poster som förändrats väsentligt redovisas här de numerära skillnaderna mot föregående års rapportering samt förklarar bakomliggande uppdateringar. Vitec för även en detaljerad logg över alla väsentliga förändringar i inventeringen (aktivitetsdata, beräkningsmetoder, emissionsfaktorer) vilket säkerställer en adekvat dokumentation enligt GHG-protokol -let och ESRS.
+
+Konsumenter och slutanvändare
+
+Informationssäkerhet är väsentligt för företaget på grund av dess omfattande kundbas inom kritiska sektorer som energi, sjukvård, utbildning, apotek och transport. Företaget levererar SaaS-tjänster, vilket kräver hög stabi -litet och säkerhet i infrastrukturen. En allvarlig störning eller säkerhetsintrång kan ha stor påverkan på kunderna och deras verksamheter. Med en ökad hotbild inom IT-säkerhet och känsliga branscher som kunder, är risken för negativ påverkan betydande. Potentiell påverkan.
+
+Tabellen nedan visar vilka ESRS stan -darder Vitec kommer att följa som en effekt av väsentlighetsanalysen.
+
+Från och med nästa räkenskapsår kommer Vitec att rapportera och lämna upplysningar enligt ESRS standarderna. Detta år redovisar vi våra ställningstaganden bakom de väsentliga områdena, samt de kvantifierbara upplysningar som vi samlat in i likhet med tidigare år.
+
+| Ämne                          | Underämne                                                                   | Delunderämne                                                                                               | Väsentligt för Vitec   |
+|-------------------------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|------------------------|
+| Klimatförändringar            | Begränsning av klimatförändringar                                           |                                                                                                            | Ja                     |
+|                               | Energi                                                                      |                                                                                                            | Ja                     |
+| Den egna arbetskraften        | Arbetsvillkor                                                               | Trygg anställning                                                                                          | Ja                     |
+|                               |                                                                             | Arbetstid                                                                                                  | Ja                     |
+|                               |                                                                             | Rimliga löner                                                                                              | Ja                     |
+|                               |                                                                             | Social dialog                                                                                              | Ja                     |
+|                               |                                                                             | Föreningsfrihet, förekomsten av företagsråd och arbetstagares rätt till information, samråd och deltagande | Ja                     |
+|                               |                                                                             | Kollektivförhandlingar, inbegripet andelen arbetstagare som omfattas av kollektivavtal                     | Ja                     |
+|                               |                                                                             | Balans mellan arbete och privatliv                                                                         | Ja                     |
+|                               |                                                                             | Hälsa och säkerhet                                                                                         | Ja                     |
+| Konsumenter och slutanvändare | Informationsrelaterade konsekvenser för konsumenter och/eller slutanvändare | Personlig integritet                                                                                       | Ja                     |
+|                               |                                                                             | Tillgång till (kvalitets)information                                                                       | Ja                     |
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+PROJEKT 3: THE CARBONEERS
+Andra fördelar
+Global Artisan C-Sink i Ghana
+
+Biokolsprojekt som lagrar kol i över 1 000 år och hjälper jordbrukare att öka skördarna och hitta en väg ur fattigdom.
+
+Dutch Carboneers driver innovativa, decentraliserade biokolsprojekt tillsam -mans med småskaliga jordbrukare på den ghananska landsbygden. Genom pyrolys omvandlas biomassa till biokol ett karboniserat material som fungerar som en stabil kolsänka i över tusen år. Biokol har dessutom många positiva effekter på jordbruket, som förbättrad vattenhållningsförmåga, högre skördeutbyte, lagring av näringsämnen och ökad biologisk mångfald. Det hjälper jordbrukare att anpassa sig till klimatför -ändringar samtidigt som den organiska kolhalten i jorden ökar.
+
+Målet är att lagra 1 miljon ton koldioxid årligen till år 2030 och expandera till att avlägsna 1 miljard ton koldioxid årligen år 2050.
+
+I många delar av världen kräver biokolsproduktion stora initiala investeringar, vilket gör det oöverkomligt i lantliga, decentraliserade jordbruksområden i den globala södern. Dutch Carboneers adresserar detta genom att utveckla decentraliserade biokolsprojekt som di -rekt gynnar jordbrukarna. Bönderna får inte bara förbättrade skördar utan även ekonomiska fördelar genom försäljning av kolkrediter.
+
+Med hjälp av lokala partners tillhandahåller Dutch Carboneers verktyg, utbildning, teknik och certifiering för att säkerställa en hållbar produktion av biokol. Lokala handledare är en del av projektet och säkerställer hög spårbar -het och transparens genom att ladda upp all relevant information i en mobilapp. Detta inkluderar både kredit- och finansiell nivå.
+
+Biokolet produceras enligt Global Artisan C-Sink Guidelines och granskas av tredje parts revisorer. Kolkrediterna registreras i C-Sink Registry of Carbon Standards International, vilket garante -rar tillförlitlighet och kvalitet i projektets klimatpåverkan.
+
+Projekt 3: The Carboneers
+
+<!-- image -->
+
+▼
+
+<!-- image -->
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+Noter till hållbarhetsrapport
+
+| Not 1 Metodbeskrivning för väsentlighetsbedömning   |   171 |
+|-----------------------------------------------------|-------|
+| Not 2 Metodbeskrivning beräkning klimatpåverkan     |   173 |
+| Not 3 Utsläpp av växthusgaser ton CO2e              |   175 |
+| Not 4 Utsläpp från elkonsumtion ton CO2e            |   175 |
+| Not 5 Centrala emissionsfaktorer                    |   176 |
+| Not 6 Taxonomi för hållbarhet                       |   177 |
+| Not 7 Tabeller taxonomi                             |   179 |
+
+Bolagsstyrning
+
+Styrelsen
+
+Ledning
+
+KONCERNENS VERKSAMHET
+
+FÖRVALTNINGSBERÄTTELSE
+
+HÅLLBARHETSRAPPORT
+
+BOLAGSSTYRNINGSRAPPORT
+
+FINANSIELL INFORMATION
+
+Klimatpåverkan per medarbetare och kategori
+
+Ton CO
+
+2
+
+e/år per medarbetare
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+Återställbarhet
+
+Permanent. När koldioxid släpps ut till atmosfären tar det lång tid för det att brytas ner, mellan 300 och 1000 år.
+
+RAPPORTERING AV TAXONOMI, DRIFTSUTGIFTER
+
+| Ekonomiska verksamheter                                                                                              | Koder                                                             | Absoluta drifts - utgifter (Mkr)                   | Andel av drifts - utgifter (%)                     | Be - gräns - ning av klimat - föränd - ringar (%)   | Anpass - ning till klimat - föränd - ringar (%)    | Vatten och marina resurser (%)                     | Cirkulär ekonomi (%)                               | Förore - ningar (%)                                | Biologisk mång- fald och ekosys - tem (%)          | Be - gräns - ning av klimat - föränd - ringar (JA/ NEJ)   | Anpass - ning till klimat - föränd - ringar (JA/ NEJ)   | Vatten och marina resurser (JA/ NEJ)               | Cirkulär ekonomi (JA/ NEJ)                         | Förore - ningar (JA/ NEJ)                          | Biologisk mång- fald och ekosys - tem (JA/ NEJ)    | Mini - miskydd - såtgär- (JA/ NEJ) lig av   | Taxono - mifören - andel drifts - utgifter - na (%) 2024   | Taxono - mifören - lig andel av drifts - utgifter - na (%) 2023   |    |
+|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|-----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|-----------------------------------------------------------|---------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|----------------------------------------------------|---------------------------------------------|------------------------------------------------------------|-------------------------------------------------------------------|----|
+| A. Verksamheter som omfattas av taxonomin                                                                            |                                                                   |                                                    |                                                    |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             |                                                            |                                                                   |    |
+| A.1. Miljömässigt hållbara (taxonomifören- liga) verksamheter                                                        |                                                                   |                                                    |                                                    |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             |                                                            |                                                                   |    |
+| Databehandling, värdtjänster och dylikt                                                                              | NACE 63.1/8.1                                                     | -                                                  | -                                                  | -                                                   | -                                                  | N/A                                                | N/A                                                | N/A                                                | N/A                                                | NEJ                                                       | NEJ                                                     | NEJ                                                | NEJ                                                | N/A                                                | N/A                                                | JA                                          | 0 %                                                        | 0 %                                                               |    |
+| Dataprogrammering, datakonsultverksam - het och dylikt                                                               | NACE 62.0/8.2                                                     | -                                                  | -                                                  | -                                                   | -                                                  | N/A                                                | N/A                                                | N/A                                                | N/A                                                | N/A                                                       | NEJ                                                     | N/A                                                | N/A                                                | N/A                                                | N/A                                                | JA                                          | 0 %                                                        | 0 %                                                               |    |
+| De miljömässigt hållbara (taxonomiföre- nliga) verksamheternas driftsutgifter (A.1)                                  |                                                                   | -                                                  | -                                                  | -                                                   | -                                                  |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             | 0%                                                         | 0%                                                                |    |
+| A.2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)             |                                                                   |                                                    |                                                    |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             |                                                            |                                                                   |    |
+| Databehandling, värdtjänster och dylikt                                                                              | NACE 63.1/8.1                                                     | -                                                  | -                                                  | -                                                   | -                                                  | N/A                                                | N/A                                                | N/A                                                | N/A                                                | NEJ                                                       | NEJ                                                     | NEJ                                                | NEJ                                                | N/A                                                | N/A                                                | JA                                          | 0 %                                                        | 0 %                                                               |    |
+| Dataprogrammering, datakonsultverksam - het och dylikt                                                               | NACE 62.0/8.2                                                     | -                                                  | -                                                  | N/A                                                 | -                                                  | N/A                                                | N/A                                                | N/A                                                | N/A                                                | N/A                                                       | NEJ                                                     | N/A                                                | N/A                                                | N/A                                                | N/A                                                | JA                                          | 0 %                                                        | 0 %                                                               |    |
+| Driftutgifter hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomifören- |                                                                   |                                                    |                                                    |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             |                                                            |                                                                   |    |
+| liga) (A.2)                                                                                                          | liga) (A.2)                                                       | -                                                  | -                                                  |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             | 0%                                                         | 0%                                                                |    |
+| Totalt A.1+A.2.                                                                                                      | Totalt A.1+A.2.                                                   | -                                                  | -                                                  |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             | 0%                                                         | 0%                                                                |    |
+| B. Verksamheter som inte omfattas av taxonomin (B)                                                                   | B. Verksamheter som inte omfattas av taxonomin (B)                | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B)  | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B)        | B. Verksamheter som inte omfattas av taxonomin (B)      | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | B. Verksamheter som inte omfattas av taxonomin (B) | 100%                                        |                                                            | 100%                                                              |    |
+| Driftutgifter hos verksamheter som inte omfattas av taxonomin (B)                                                    | Driftutgifter hos verksamheter som inte omfattas av taxonomin (B) | 0                                                  | 0%                                                 |                                                     |                                                    |                                                    |                                                    |                                                    |                                                    |                                                           |                                                         |                                                    |                                                    |                                                    |                                                    |                                             |                                                            |                                                                   |    |
+
+Totalt A+B
+
+0
+
+0 %
+
+<!-- image -->
+
+FÖRVALTNINGSBERÄTTELSE
+
+HÅLLBARHETSRAPPORT
+
+Finansiella rapporter och noter, koncern
+
+Finansiella rapporter och noter, moderbolaget
+
+Rapport över förändring i eget kapital
+
+|                                            | Aktiekapital   | Övrigt tillskjutet kapital   | Omräkning av utländska verksamheter   | Säkring nettoinvestering i utländsk verksamhet   | Balanserade vinstmedel inklusive årets resultat Summa eget kapital hänförligt till moderbolagets aktieägare   | Balanserade vinstmedel inklusive årets resultat Summa eget kapital hänförligt till moderbolagets aktieägare   |
+|--------------------------------------------|----------------|------------------------------|---------------------------------------|--------------------------------------------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| INGÅENDE EGET KAPITAL 2023-01-01           | 3 732          | 2 110 921                    | 238 712                               | -40 988                                          | 897 381                                                                                                       | 3 209 758                                                                                                     |
+| Justering ingående balans                  |                |                              |                                       |                                                  | -13 410*                                                                                                      | -13 410                                                                                                       |
+| NYTT INGÅENDE EGET KAPITAL 2023-01-01      | 3 732          | 2 110 921                    | 238 712                               | -40 988                                          | 883 971                                                                                                       | 3 196 348                                                                                                     |
+| Årets resultat                             | -              | -                            | -                                     | -                                                | 339 183                                                                                                       | 339 183                                                                                                       |
+| Övrigt totalresultat                       | -              | -                            | -107 152                              | 32 895                                           | -675                                                                                                          | -74 932                                                                                                       |
+| Årets totalresultat                        | 0              | 0                            | -107 152                              | 32 895                                           | 338 508                                                                                                       | 264 251                                                                                                       |
+| Optionselement konvertibla förlagslån      | -              | 1 195                        | -                                     | -                                                | -                                                                                                             | 1 195                                                                                                         |
+| Konvertering av konvertibla förlagslån     | 22             | 34 961                       | -                                     | -                                                | -                                                                                                             | 34 983                                                                                                        |
+| Emissionskostnader                         | -              | -273                         | -                                     | -                                                | -                                                                                                             | -273                                                                                                          |
+| Inbetalda optionspremier teckningsoptioner | -              | 21                           | -                                     | -                                                | -                                                                                                             | 21                                                                                                            |
+| Långsiktigt incitamentsprogam              | -              | 5 357                        | -                                     | -                                                | -                                                                                                             | 5 357                                                                                                         |
+| Återköp av egna aktier                     | -              | -7 527                       | -                                     | -                                                | -                                                                                                             | -7 527                                                                                                        |
+| Lämnad utdelning                           | -              | -                            | -                                     | -                                                | -86 721                                                                                                       | -86 721                                                                                                       |
+| Transaktioner med aktieägare               | 22             | 33 734                       | 0                                     | 0                                                | -86 721                                                                                                       | -52 965                                                                                                       |
+| UTGÅENDE EGET KAPITAL 2023-12-31           | 3 754          | 2 144 655                    | 131 560                               | -8 093                                           | 1 135 758                                                                                                     | 3 407 634                                                                                                     |
+| INGÅENDE EGET KAPITAL 2024-01-01           | 3 754          | 2 144 655                    | 131 560                               | -8 093                                           | 1 135 758                                                                                                     | 3 407 634                                                                                                     |
+| Årets resultat                             | -              | -                            | -                                     | -                                                | 410 096                                                                                                       | 410 096                                                                                                       |
+| Övrigt totalresultat                       | -              | -                            | 170 306                               | -57 070                                          | 2 166                                                                                                         | 115 402                                                                                                       |
+| Årets totalresultat                        | 0              | 0                            | 170 306                               | -57 070                                          | 412 262                                                                                                       | 525 498                                                                                                       |
+| Optionselement konvertibla förlagslån      | -              | 2 019                        | -                                     | -                                                | -                                                                                                             | 2 019                                                                                                         |
+| Konvertering av konvertibla förlagslån     | 5              | 10 586                       | -                                     | -                                                | -                                                                                                             | 10 591                                                                                                        |
+| Nyemission                                 | 225            | 1 124 775                    | -                                     | -                                                | -                                                                                                             | 1 125 000                                                                                                     |
+| Emissionskostnader                         | -              | -14 956**                    | -                                     | -                                                | -                                                                                                             | -14 956                                                                                                       |
+| Långsiktigt incitamentsprogam              | -              | 21 715                       | -                                     | -                                                | -                                                                                                             | 21 715                                                                                                        |
+| Återköp av egna aktier                     | -              | -49 808                      | -                                     | -                                                | -                                                                                                             | -49 808                                                                                                       |
+| Lämnad utdelning                           | -              | -                            | -                                     | -                                                | -119 941                                                                                                      | -119 941                                                                                                      |
+| Transaktioner med aktieägare               | 230            | 1 094 331                    | 0                                     | 0                                                | -119 941                                                                                                      | 974 620                                                                                                       |
+| UTGÅENDE EGET KAPITAL 2024-12-31           | 3 984          | 3 238 986                    | 301 866                               | -65 163                                          | 1 428 079                                                                                                     | 4 907 752                                                                                                     |
+
+* Under 2022 bokfördes inte skattekostnaden i ett av dotterbolagen, vilket resulterade i att årets resultat 2022 var 13,4 Mkr för högt. Detta hanteras under 2023 som en justering av de ingående balanserade vinstmedlen.
+- ** Beloppet för emissionskostnader avviker från vad som presenterades i bokslutskommunikén och är kopplad till de skattemässigt avdragsgilla delarna av emissionskostnaderna.
+
+Finansiella rapporter och noter, koncern
+
+Finansiella rapporter och noter, moderbolaget
+
+Undertecknande
+
+RISK
+
+| 1   | Förvärvsprocessen                |
+|-----|----------------------------------|
+| 2   | Varumärkesrisker                 |
+| 3   | Finansiella risker               |
+| 4   | Decentraliserad styrmodell       |
+| 5   | Mänskliga rättigheter            |
+| 6   | Antikorruption                   |
+| 7   | Produkt- och marknadsrisk        |
+| 8a  | Drift                            |
+| 8b  | Informationssäkerhet             |
+| 9   | Rekrytering                      |
+| 10  | Behålla och utveckla medarbetare |
+| 11  | Klimatrisker                     |
+| 12  | Vår klimatpåverkan               |
+
+<!-- image -->
+
+Förvaltningsberättelse
+
+Flerårsöversikt
+
+RESULTAT
+
+Skalan bedömdes som hög. Omfattningen som mycket utbredd men med riskspridning. Återställbarhet inom 1-3 år, samt 50-74 % sannolikhet att något händer. Sammantaget leder detta till att området ses som väsentligt.
+
+RESULTAT
+
+Skalan bedömdes som hög, omfattningen utbredd, återställbarhet inom 3-5 år samt 25-49 % sannolikhet. Analysen ger att ämnet ej ses som väsentligt. Dock bedömer vi att området är väsentligt ur ett intressentperspektiv. Egen arbetskraft med underämnet arbetsvillkor bedöms som väsentligt då Vitec är ett programvarubolag med ett stort beroende av medarbetarnas trivsel och välmående.
+
+Noter, hållbarhetsrapport
+
+ARBETSVILLKOR
+RESONEMANG BAKOM BEDÖMNING
+Skala
+Omfattning
+
+För samtliga delunderämnen skulle det vara allvarligt om trygghet och villkor är godtyckliga och osäkra. De anställda löper inte risk för några allvarliga fysiska skador i verksamheten, men det finns risk för psykosociala konsekvenser som stress och utbrändhet. För enskilda individer kan detta innebära hög påverkan.
+
+RESULTATÖVERSIKT - HÅLLBARHETSOMRÅDEN
+
+Väsentliga huvudämnen för vitec är markerade med ett ja
+
+| Ämne                               | Konsekventiellt väsentligt   | Finansiellt väsent - ligt   | Väsentligt för Vitec   |
+|------------------------------------|------------------------------|-----------------------------|------------------------|
+| Klimatförändring                   | Ja                           | Nej                         | Ja                     |
+| Miljöföroreningar                  | Nej                          | Nej                         | Nej                    |
+| Vattenresurser och marina resurser | Nej                          | Nej                         | Nej                    |
+| Biologisk mångfald och ekosystem   | Nej                          | Nej                         | Nej                    |
+| Cirkulär ekonomi                   | Nej                          | Nej                         | Nej                    |
+| Den egna arbetskraften             | Ja                           | Nej                         | Ja                     |
+| Arbetstagare i värdekedjan         | Nej                          | Nej                         | Nej                    |
+| Påverkade samhällen                | Nej                          | Nej                         | Nej                    |
+| Konsumenter och slutanvändare      | Ja                           | Nej                         | Ja                     |
+| Ansvarsfullt företagande           | Nej                          | Nej                         | Nej                    |
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+RESONEMANG BAKOM BEDÖMNING
+Skala
+Omfattning
+
+Energianvändning -ens skala bedöms som hög eftersom energianvändning har stor klimatpåverkan. Energiförbrukningen i programvaror och molnlösningar är potentiellt hög vilket innebär att  fossilfri el "tas" från övriga behov.
+
+Hostinglösningar kräver stora mängder energi, även fram -ställning och användning av programvara (SaaS-tjänster). Omfattningen på den totala mängd energi som används genom värdekedjan bedöms därför till utbredd.
+
+VÅR KLIMATPÅVERKAN
+Beskrivning av risk
+
+Vitec är en del av samhället och verksamheten har därigenom en risk att påverka miljön eller klimatet negativt.
+
+Flerårsöversikt
+
+Vinstdisposition
+
+8.2 Dataprogrammering, datakonsultverksamhet och dylikt
+
+För aktiviteten dataprogrammering, data -konsultverksamhet och dylikt finns endast kriterier för miljömålet anpassning till klimat -förändringar.
+
+För att Vitec ska uppfylla kriterierna i taxonomin krävs att de genomför en robust klimatrisk- och sårbarhetsanalys i specifika steg.
+
+Mål
+
+a)
+
+- 50 procent minskad klimatpåverkan från resande med flyg och bil/medarbetare 2030
+- b) 40 procent minskad klimatpåverkan från resande med flyg och bil/medarbetare 2025
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+Reducerade utsläpp till 2030
+
+År 2030 ska Vitec Software Group inte längre bidra till koldioxidutsläpp genom kraftig minskning av utsläpp i
+
+Vitec ska uppnå detta genom att minska utsläpp/omsättning med 75 procent till 2030. (Basår 2019 och justerat för inflation). Från 2023 och framåt finan -sierar Vitec klimatprojekt som verkar för minskade utsläpp motsvarande minst kvarvarande mängd utsläpp. Målet ligger i linje med Parisavtalets mål. Som delmål ska Vitec 2025 ha en minskning av utsläpp/omsättning med 50 procent.
+
+Vitec finansierar klimatprojekt utanför värdekedjan
+
+Vitec bidrar till klimatprojekt enligt modellen Beyond Value Chain Mitigation (BVCM). BVCM är en vetenskapligt accepterad metod för företag att stödja det globala arbetet mot netto-noll genom att finansiera klimatprojekt utanför den egna värdekedjan. Förutom klimatnyttan från dessa projekt beaktas också andra positiva effekter, som ökad jämställdhet, förbättrad matförsörjning och stöd till utveckling av ny teknologi.
+
+Den samlade vetenskapen är överens om att detta, efter att företag har minskat sina egna utsläpp, är det mest effektiva sättet att bidra till ett globalt netto-noll. BVCM stöds av organisa -tioner som WWF, Gold Standard, SBTi, Carbon Market Watch, BCG, CDP och Exponential Roadmap.
+
+BVCM innebär att man lämnar tankesättet kring traditionell klimatkompensation. Fokus ligger inte på att kompen -sera för en viss mängd utsläpp genom att matcha ton koldioxid, utan istället på att finansiera projekt som skapar verklig nytta. Budgeten för klimatprojekten bestäms utifrån företagets ambitioner och prioriteringar, exempelvis genom att sätta ett internt koldioxidpris. Detta är ett område där vi på Vitec ser potential att utvecklas och har som ambition att förbättra framöver. För år 2024 har vi valt att basera vår budget på föregående års nivå, med en extra tilläggssatsning.
+
+Under 2024 har vi finansierat klimat -projekt för totalt 1,1 miljoner kronor. De projekt vi har stöttat är följande:
+
+- Solvatten
+- Svensk kolinlagring
+- The carboneers
+
+Projekt 3: The Carboneers
+
+<!-- image -->
+
+▼
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+NOT 7 TABELLER TAXONOMI
+RAPPORTERING AV TAXONOMI, OMSÄTTNING
+
+| Ekonomiska verksamheter                                                                                                         | Koder         | Absolut omsätt - ning (Mkr)   | Andel av omsätt - ningen (%)   | Be - gräns - ning av klimat - föränd - ringar (%)   | Kriterier Anpass - ning till klimat - föränd - ringar (%)   | för Vatten och marina resurser (%)   | väsentligt bidrag Cirkulär ekonomi (%)   | Förore - ningar (%)   | Biologisk mång- fald och ekosys - tem (%)   | Kriterier Be - gräns - ning av klimat - föränd - ringar (JA/ NEJ)   | avseende Anpass - ning till klimat - föränd - ringar (JA/ NEJ)   | att inte Vatten och marina resurser (JA/ NEJ)   | orsaka Cirkulär ekonomi (JA/ NEJ)   | betydande Förore - ningar (JA/ NEJ)   | skada Biologisk mång- fald och ekosys - tem (JA/ NEJ)   | Mini - miskydd - såtgär- (JA/ NEJ)   | Taxo - nomi - förenlig andel av omsätt - ningen (%) 2024   | Taxo - nomi - förenlig andel av omsätt - ningen (%) 2023   |
+|---------------------------------------------------------------------------------------------------------------------------------|---------------|-------------------------------|--------------------------------|-----------------------------------------------------|-------------------------------------------------------------|--------------------------------------|------------------------------------------|-----------------------|---------------------------------------------|---------------------------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------|-------------------------------------|---------------------------------------|---------------------------------------------------------|--------------------------------------|------------------------------------------------------------|------------------------------------------------------------|
+| A. Verksamheter som omfattas av taxo- nomin                                                                                     |               |                               |                                |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      |                                                            |                                                            |
+| A.1. Miljömässigt hållbara (taxonomiföre- nliga) verksamheter                                                                   |               |                               |                                |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      |                                                            |                                                            |
+| Databehandling, värdtjänster och dylikt                                                                                         | NACE 63.1/8.1 | -                             | -                              | -                                                   | -                                                           | N/A                                  | N/A                                      | N/A                   | N/A                                         | NEJ                                                                 | NEJ                                                              | NEJ                                             | NEJ                                 | N/A                                   | N/A                                                     | JA                                   | 0 %                                                        | 0 %                                                        |
+| Dataprogrammering, datakonsultverk- samhet och dylikt                                                                           | NACE 62.0/8.2 | -                             | -                              | -                                                   | -                                                           | N/A                                  | N/A                                      | N/A                   | N/A                                         | N/A                                                                 | NEJ                                                              | N/A                                             | N/A                                 | N/A                                   | N/A                                                     | JA                                   | 0 %                                                        | 0 %                                                        |
+| De miljömässigt hållbara (taxonomiförenli- ga) verksamheternas omsättning (A.1)                                                 |               | -                             | -                              | -                                                   | -                                                           |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      | 0%                                                         | 0%                                                         |
+| A.2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)                        |               |                               |                                |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      |                                                            |                                                            |
+| Databehandling, värdtjänster och dylikt                                                                                         | NACE 63.1/8.1 | -                             | -                              | -                                                   | -                                                           | N/A                                  | N/A                                      | N/A                   | N/A                                         | NEJ                                                                 | NEJ                                                              | NEJ                                             | NEJ                                 | N/A                                   | N/A                                                     | JA                                   | 0 %                                                        | 0 %                                                        |
+| Dataprogrammering, datakonsultverksam - het och dylikt                                                                          | NACE 62.0/8.2 | -                             | -                              | N/A                                                 | -                                                           | N/A                                  | N/A                                      | N/A                   | N/A                                         | N/A                                                                 | NEJ                                                              | N/A                                             | N/A                                 | N/A                                   | N/A                                                     | JA                                   | 0 %                                                        | 0 %                                                        |
+| Omsättningen hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomifören- liga) (A.2) |               | -                             | -                              |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      | 0%                                                         | 0%                                                         |
+| Totalt A.1+A.2.                                                                                                                 |               | -                             | -                              |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      | 0%                                                         | 0%                                                         |
+| B. Verksamheter som inte omfattas av taxonomin (B)                                                                              |               |                               |                                |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         | 100%                                 |                                                            | 100%                                                       |
+| Omsättningen hos verksamheter som inte omfattas av taxonomin (B)                                                                |               | 3 334                         | 100%                           |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      |                                                            |                                                            |
+| Totalt A+B                                                                                                                      |               | 3 334                         | 100%                           |                                                     |                                                             |                                      |                                          |                       |                                             |                                                                     |                                                                  |                                                 |                                     |                                       |                                                         |                                      |                                                            |                                                            |
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+Intressentdialog
+
+Vitec har en löpande dialog med sina intressenter i syfte att fånga deras bedömningar av vilka hållbarhetsfrågor som är centrala för dem och därmed viktiga i hållbarhetsarbetet. För att stärka intressentdialogen har Vitec tagit fram en systematisk process. Ansvaret för dialogerna ligger hos de befattningar där dialogen har högst relevans för verksamheten. Det betyder att de flesta dialogerna sker i Vitecs affärsenheter samtidigt som vissa samtal hanteras på koncernnivå.
+
+De primära intressentgrupperna är kunder, medarbetare, aktieägare, finan -siella marknaden, samarbetspartners, leverantörer och samhället i ett större perspektiv.
+
+nerad med affärsmodellen, kulturen och förutsättningarna att skapa nytta leder till aktiviteter. Dialogerna upprepas för att åter analyseras och nya aktiviteter skapas i syfte att ständigt förbättra verksamheten för att både möta samtidens och framtidens förändrade krav.
+
+Resultatet från dialogerna analyseras sedan löpande. Återkopplingen kombi -
+
+Hur Vitec engagerar sina intressenter och på vilket sätt dialogen sker framgår i nedanstående tabell.
+
+| Viktiga intressentgrupper   | Beskrivning av dialog                                                                                                                                                                                                                            | Hur vi engagerar oss                                                                                                                                                                           | Viktiga frågor/förväntningar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Kunder                      | Framåtsyftande dialoger och återkoppling från kunder hjälper till att förbättra produkter och tjänster. Vitec vill fånga upp deras krav och ta hänsyn till hållbarhetsaspekterna.                                                                | • Kundundersökningar och dialoger • Kundforum • Kunskap om kunderna • Diskussioner om utvecklingen i bran- schen • Dialog som underlag för produktut- vecklingen • Leveransprocessen • Support | Branschspecifika, driftssäkra och hållbara programvaror. Fortsatt god dialog för att utifrån marknadens behov och utifrån förändringar erbjuda nya tjänster och utveckla befintliga produkter. Fokus på omvärldsbevak - ning för att kunna möta nya behov. Fortsätta investera i produktutveck - ling för trygghet, långsiktighet och stabilitet. Viktigt att även i fortsätt - ningen fortsätta med befintlig affärsmodell och processerna bör fortsatt genomsyras av delaktighet, genuint engagemang och vilja till förbättring. Vitec ska fortsätta vara en trygg, långsiktig, stabil och lönsam partner som håller vad de lovar. |
+| Medarbetare                 | Medarbetare som känner engagemang och delaktighet skapar långsiktigt värde för verk- samheten. Därför jobbar Vitec löpande med att samla in, ta del av och ta hänsyn till befintliga och potentiella medarbetares synpunkter, behov och åsikter. | • Medarbetardialoger • Medarbetarundersökningar • Nätverk inom koncernen • Intervjuer och dialoger med potenti - ella medarbetare                                                              | Möjlighet till kontinuerlig kompetensutveckling, en sund företagskultur, jämställdhet och stabilitet är viktiga frågor för intressentgruppen. Andra saker som lyfts fram är behovet av att känna stolthet över vad arbetet bi- drar till, balans i livet, en arbetsmiljö som främjar både psykisk och fysisk hälsa samt gott (främst delegerande och tydligt) ledarskap.                                                                                                                                                                                                                                                             |
+
+<!-- image -->
+
+Hållbarhetsrapport
+
+Noter, hållbarhetsrapport
+
+| Viktiga intressentgrupper                                                                                    | Beskrivning av dialog                                                                                                                                                                                                                                               | Hur vi engagerar oss                                                                                                                                 | Viktiga frågor/förväntningar                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|--------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Aktieägare                                                                                                   | Vitec informerar om sin strategi och resultat inom hållbarhet för att ge aktieägarna underlag för investeringsbeslut. Vitec upp - skattar att de har åsikter om och förväntningar på Vitec.                                                                         | • Årsstämma • Dialoger och presentationsmöten • Webbplats • Kvartalsrapporter och årsredovisning • Möten på tu man hand                              | Att fortsätta skapa värde genom utveckling av befintliga bolag samt förvärv av nischade programvarubolag. Fortsatta investeringar i program - varor för att bibehålla kunder och skapa nya innovativa lösningar. Lång - siktig hållbar ekonomisk lönsamhet och tillväxt genom en affärsmodell innehållande en hög andel repetitiva intäkter. Kontinuerlig riskbedömning och effektiv riskhantering. Ansvarsfullt företagande med inriktning på att bekämpa korruption, främja etiskt och korrekt affärsbeteende, säkerställa goda arbetsvillkor för personalen och genomföra noggrann leverantörsö- vervakning.                                                                           |
+| Finansiella marknaden                                                                                        | Vitec informerar om sin strategi och sina resultat inom hållbarhet för att ge marknaden underlag för beslut om finansiering och lån. Vitec uppskattar att markna - den har åsikter om och förvänt- ningar på Vitecs arbete och kom- munikation gällande hållbarhet. | • Möten och telefonkonferenser • Webbplats • Årsstämma • Kvartalsrapporter och årsrapporter • Möten på tu man hand                                   | Att Vitec fortsätter skapa värde genom utveckling av befintliga bolag samt förvärv av nischade programvarubolag. Fortsatta investeringar i våra programvaror för att bibehålla kunder och nya innovativa lösningar. Långsiktig hållbar ekonomisk lönsamhet och tillväxt genom en affärsmo- dell innehållande en hög andel repetitiva intäkter. Kontinuerlig riskbe - dömning och effektiv riskhantering. Ansvarsfullt företagande med inrikt - ning på att bekämpa korruption, främja etiskt och korrekt affärsbeteende, säkerställa goda arbetsvillkor för personalen och genomföra noggrann leverantörsövervakning. Tydliga mål och efterlevnad av regelverk för hållbarhet är viktigt. |
+| Samarbetspartner och leverantörer                                                                            | Samarbetspartner och leveran- törer är en viktig del av värde- kedjan. Genom att informera om hållbarhetsstrategin, följa upp förväntningar och samarbeta skapar Vitec positiva föränd- ringar.                                                                     | • Dialog under inköpsprocessen • Webbplats • Kravspecifikationer • Samarbete, samverkan och gemen - samma initiativ                                  | Vitec ska fortsätta vara det trygga och långsiktiga bolaget. Ett stabilt och lönsamt bolag där lyhördhet, dialog och nyfikenhet bygger hållbara relationer med samarbetspartners och leverantörer.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Samhället Vetenskapliga och sociala organisationer Branschen Skolor och universitet Förvärvskandidater Media | Vitec behöver förstå samhället och delta i processerna i om- världen. Vitec vill lära sig, utbyta information och samarbeta för att hitta hållbara lösningar och få till stånd positiva förändringar.                                                               | • Rundabordsdiskussioner • Donationer • Dialog med medier och analytiker • Föreläsningar och konferenser • Medverkan till forskning och utveck- ling | Hållbara relationer som bygger på nyfikenhet och god dialog är fortsatt viktigt. Fokus, långsiktighet, stabilitet, driftsäkerhet är viktiga frågor. Ödmjukhet och trygghet är värden som uppskattas och som stärker sam - arbetet med olika aktörer. Långsiktig ekonomisk tillväxt och lönsamhet. Ansvarsfullt, etiskt och korrekt uppförande.                                                                                                                                                                                                                                                                                                                                            |
+
+Noter, hållbarhetsrapport
+
+Andel fossilfri energi i elavtal
+
+<!-- image -->
+
+2019 2020 2021 2022 2023 2024
+
+MÄNSKLIGA RÄTTIGHETER OCH ANTIKORRUPTION
+
+Uppförandekoden slår fast att Vitec respekterar FN:s konvention för mänsk -liga rättigheter samt inte accepterar korruption, mutor eller andra otillbörliga förmåner.
+
+Bil, klimatpåverkan/medarbetare
+
+<!-- image -->
+
+POLICYER
+
+Som stöd i sitt hållbarhetsarbete har Vitec tagit fram följande policyer som styr mot klimatmålet:
+
+- Hållbarhetspolicy
+- Resepolicy
+- Bilpolicy
+- Inköpspolicy
+- Suppliers code of conduct
+
+<!-- image -->
+
+Noter, hållbarhetsrapport
+
+Möjlighet och hantering
+
+Uppförandekoden slår fast att FN:s konvention för mänskliga rättigheter respekteras. Det är viktigt för Vitec att produkterna men också sättet att arbeta stödjer utvecklingen av ett jämlikt och inkluderande samhälle.
+
+Vitec väljer leverantörer som agerar professionellt och korrekt, vilket tydliggörs i hållbarhets -policyn. Läs mer om vår hantering i hållbarhetsrapporten på sidorna 105 och på sidorna 177-178.
+
+Sannolikhet
+
+Faktisk konsekvens då företaget orsakar utsläpp av växthusgaser i värdekedjan (för -bränning av fossila bränslen).
+
+FLYGRESOR
+
+För flygresor använder Vitec en generell emissionsfaktor för total flygsträcka oberoende av flygningens längd. Det bakomliggande antagandet till modellen är att höghöjdseffekten på längre flygningar balanseras av den relativt högre andelen av energikrävande start och landningssträckor på kortare flygningar.
+
+Aktiekapitalets utveckling
+
+|   År | Transaktion                                                                  | Totalt aktiekapital   | Totalt antal A-aktier   | Totalt antal B-aktier   |
+|------|------------------------------------------------------------------------------|-----------------------|-------------------------|-------------------------|
+| 1985 | Bolagsbildning                                                               | 50 000                | 500                     | -                       |
+| 1990 | Fondemission                                                                 | 100 000               | 1 000                   | -                       |
+| 1990 | Nyemission, incitamentsprogram                                               | 140 000               | 1 000                   | 400                     |
+| 1990 | Nyemission                                                                   | 156 000               | 1 160                   | 400                     |
+| 1995 | Nyemission, incitamentsprogram                                               | 164 000               | 1 160                   | 480                     |
+| 1997 | Fondemission/split                                                           | 328 000               | 23 200                  | 9 600                   |
+| 1997 | Nyemission, incitamentsprogram                                               | 340 000               | 23 200                  | 10 800                  |
+| 1997 | Split                                                                        | 340 000               | 4 640 000               | 2 160 000               |
+| 1997 | Omvandling av A-aktier                                                       | 340 000               | 4 000 000               | 2 800 000               |
+| 1997 | Fondemission                                                                 | 850 000               | 10 000 000              | 7 000 000               |
+| 1997 | Riktad nyemission Innovationsmäklarna AB och Innovationsmarknaden AB         | 900 000               | 10 000 000              | 8 000 000               |
+| 1998 | Nyemission vid introduktion på Innovationsmarknaden AB                       | 1 500 000             | 10 000 000              | 20 000 000              |
+| 1998 | Apportemission vid förvärv av Bra Administration AB (numera Vitec Energy AB) | 1 641 000             | 10 000 000              | 22 820 000              |
+| 1999 | Sammanläggning av aktier vid notering på Aktietorget                         | 1 641 000             | 1 000 000               | 2 282 000               |
+| 2000 | Apportemission vid förvärv av Minator AB (numera Vitec Fastighetssystem AB)  | 1 732 000             | 1 000 000               | 2 464 000               |
+| 2004 | Konvertering av personalkonvertibler                                         | 1 786 100             | 1 000 000               | 2 572 200               |
+| 2007 | Konvertering av personalkonvertibler                                         | 1 808 000             | 1 000 000               | 2 616 000               |
+| 2008 | Apportemission i samband med förvärv av Vitec Mäklarsystem AB                | 1 883 000             | 1 000 000               | 2 766 000               |
+| 2008 | Omvandling av A-aktier                                                       | 1 883 000             | 800 000                 | 2 966 000               |
+| 2009 | Konvertering av skuldebrev från förvärvet av Vitec Veriba AB                 | 1 916 350             | 800 000                 | 3 032 700               |
+| 2010 | Konvertering av skuldebrev från förvärvet av Vitec Mäklarsystem AB           | 2 025 725             | 800 000                 | 3 251 450               |
+| 2010 | Riktad nyemission Avanza                                                     | 2 125 725             | 800 000                 | 3 451 450               |
+| 2011 | Konvertering av personalkonvertibler                                         | 2 183 538             | 800 000                 | 3 567 075               |
+| 2012 | Konvertering av personalkonvertibler                                         | 2 213 252             | 800 000                 | 3 626 504               |
+| 2012 | Apportemission i samband med förvärv av utestående aktier i 3L System AB     | 2 574 164             | 800 000                 | 4 348 327               |
+| 2013 | Konvertering av skuldebrev från förvärvet av Capitex AB                      | 2 654 164             | 800 000                 | 4 508 327               |
+| 2014 | Konvertering av skuldebrev från förvärvet av IT-Makeriet AS                  | 2 674 164             | 800 000                 | 4 548 327               |
+| 2014 | Riktad nyemission                                                            | 2 899 164             | 800 000                 | 4 998 327               |
+| 2014 | Konvertering av personalkonvertibler                                         | 2 939 669             | 800 000                 | 5 079 338               |
+| 2015 | Split                                                                        | 2 939 669             | 4 000 000               | 25 396 690              |
+| 2016 | Omvandling av A-aktier                                                       | 2 939 669             | 3 500 000               | 25 896 690              |
+
+Aktien och ägare
+
+Det här är Vitec
+
+Vd har ordet
+
+Ordförande har ordet
+
+Vitec 40 år
+
+Affärsmodell och position
+
+Programvaror för unika behov
+
+Vi skapar Vitec tillsammans
+
+|   År | Transaktion                                                                     | Totalt aktiekapital   | Totalt antal A-aktier   | Totalt antal B-aktier   |
+|------|---------------------------------------------------------------------------------|-----------------------|-------------------------|-------------------------|
+| 2017 | Omvandling av A-aktier                                                          | 2 939 669             | 3 350 000               | 26 046 690              |
+| 2017 | Konvertering av personalkonvertibler                                            | 2 983 890             | 3 350 000               | 26 488 900              |
+| 2018 | Riktad nyemission                                                               | 3 233 890             | 3 350 000               | 28 988 900              |
+| 2019 | Konvertering del av skuldebrev från förvärvet av MV Nordic A/S                  | 3 236 878             | 3 350 000               | 29 018 775              |
+| 2019 | Konvertering av skuldebrev från förvärvet av MV Nordic A/S                      | 3 257 322             | 3 350 000               | 29 223 216              |
+| 2020 | Omvandling av A-aktier                                                          | 3 257 322             | 3 050 000               | 29 523 216              |
+| 2020 | Konvertering av personalkonvertibler                                            | 3 277 343             | 3 050 000               | 29 723 422              |
+| 2021 | Konvertering av skuldebrev från förvärvet av Odin Systemer AS                   | 3 303 390             | 3 050 000               | 29 983 902              |
+| 2021 | Riktad nyemission                                                               | 3 503 390             | 3 050 000               | 31 983 902              |
+| 2021 | Delkonvertering av skuldebrev från förvärvet av Visiolink Management ApS        | 3 504 616             | 3 050 000               | 31 996 163              |
+| 2021 | Omvandling av A-aktier                                                          | 3 504 616             | 2 950 000               | 32 096 163              |
+| 2022 | Konvertering av skuldebrev från förvärvet av Appva AB                           | 3 507 950             | 2 950 000               | 32 129 496              |
+| 2022 | Konvertering av skuldebrev från förvärvet av Visiolink Management ApS           | 3 512 854             | 2 950 000               | 32 178 539              |
+| 2022 | Riktad nyemission                                                               | 3 732 854             | 2 950 000               | 34 378 539              |
+| 2022 | Omvandling av A-aktier                                                          | 3 732 854             | 2 650 000               | 34 678 539              |
+| 2023 | Konvertering av skuldebrev avseende förvärv samt delägarprogram för medarbetare | 3 753 549             | 2 650 000               | 34 885 487              |
+| 2024 | Omvandling av A-aktier                                                          | 3 753 549             | 2 490 000               | 35 045 487              |
+| 2024 | Konvertering av skuldebrev avseende förvärv samt delägarprogram för medarbetare | 3 759 934             | 2 490 000               | 35 109 341              |
+| 2024 | Riktad nyemission                                                               | 3 984 934             | 2 490 000               | 37 359 341              |

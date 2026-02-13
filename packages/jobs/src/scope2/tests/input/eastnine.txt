@@ -1,0 +1,881 @@
+Utsläpp
+
+- 3-3  Styrning av väsentliga frågor
+- 305-1  Direkta utsläpp av växthusgaser (Scope 1)
+- 305-2  Indirekta utsläpp av växthusgaser (Scope 2)
+- 305-3  Övriga indirekta utsläpp av växthusgaser (Scope 3)
+
+Byggnader står för cirka en tredjedel av de globala utsläppen, som uppstår under hela deras livscykel - från byggnation och daglig drift till slutlig rivning. Att hantera klimatpåverkan i samtliga faser är en central fråga för fastighetsägare, då omställningen till en koldioxidsnål ekonomi innebär både risker och möjligheter.
+
+Mot denna bakgrund är klimatarbetet prioriterat inom Eastnine. Bolaget strävar efter att uppnå klimatneutral fastighetsförvaltning senast 2030 och att minska utsläppen i hela sin värdekedja. Arbetet styrs av Bolagets miljöpolicy, riktlinjer för drift och förvaltning samt policyer för renovering och ombyggnation, i linje med relevanta certifierings  ramverk.
+
+Eastnine redovisar både direkta och indirekta utsläpp enligt Green  house Gas (GHG) Protocol och tillämpar 'operational control approach', vilket innebär att utsläpp från samtliga fastigheter som funnits med i portföljen under hela kalenderåret januari-december inkluderas i Scope 1 och Scope 2.
+
+Från och med 2024 inkluderas även utsläpp från köpt energi, inklusive el och uppvärmning, för S7-fastigheterna i Scope 2. Tidigare har dessa fastigheter exkluderats, men en ny bedömning har fastställt att
+
+S7 ska inkluderas i Scope 2, eftersom Eastnine ansvarar för energiförsörjningen till byggnaderna, trots begränsad operativ kontroll i övrigt.
+
+Klimatpåverkan från egen verksamhet (Scope 1)
+
+Eastnines primära direkta klimatpåverkan inom denna kategori kommer främst från läckage av köldmedia från ventilations- och kylinstallationer. Utsläppen antas motsvara den mängd köldmedia som fylls på under året. Eftersom dessa påfyllningar är relativt sällsynta och ojämnt fördelade över åren kan utsläppsmängderna variera avsevärt.
+
+Ytterligare klimatpåverkan inom Scope 1 kommer från förbränning av naturgas för uppvärmning. Det avser dels fastigheten Valdemara Centrs i Riga, där naturgas har fasats ut och ersatts med fjärrvärme i slutet av 2024, och dels fastigheten Alojas Kvartals som ligger i anslutning till fastigheten Alojas Biroji i Riga. Samtliga beräkningar inom Scope 1 utförs automatiskt i GHG-beräkningsverktyget från Position Green.
+
+Klimatpåverkan från inköpt energi (Scope 2)
+
+Eastnines energiförbrukning består av inköpt elektricitet och fjärrvärme för fastigheterna. Klimatpåverkan inom Scope 2 härrör främst från fjärrvärme, då all inköpt el är förnybar - ett krav inom bolaget. Koldioxidinnehållet i fjärrvärmeproduktionen varierar mellan våra marknader. I de baltiska länderna pågår en övergång till 100   procent biomassa senast 2030, jämfört med nuvarande nivåer på 60-70 procent. I Polen är andelen förnybar energi fortfarande låg, omkring 10-15 procent, och det saknas en tydlig strategi för att fasa ut fossila
+
+|                                             | Total förbrukning, kbm   | Total förbrukning, kbm   | Total förbrukning, kbm   |   Förbrukning, liter/kvm |   Förbrukning, liter/kvm | Förbrukning, liter/kvm   |
+|---------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
+| Vatten                                      | 2024                     | 2023                     | Förändring,%             |                     2024 |                     2023 | Förändring,%             |
+| Direktförvaltade fastigheter                | 47 225                   | 50 881                   | -7                       |                      263 |                      284 | -7                       |
+| Samtliga fastigheter                        | 73 550                   | 72 319                   | 2                        |                      312 |                      307 | 2                        |
+| Femårsöversikt Vattenförbrukning, liter/kvm | 2024                     | 2023                     | 2022                     |                     2021 |                     2020 |                          |
+| Direktförvaltade fastigheter                | 263                      | 284                      | 260                      |                      229 |                      304 |                          |
+| Samtliga fastigheter                        | 312                      | 307                      | 268                      |                      214 |                      310 |                          |
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+bränslen helt. Därför fokuserar vi särskilt på att minska fjärrvärmeanvändningen i våra polska fastigheter genom energieffektivisering och optimerade uppvärmningslösningar.
+
+Under året har vi genomfört flera åtgärder, inklusive tekniska installationer och driftsanpassningar, för att sänka fjärrvärmeförbrukningen i fastigheten Nowy Rrynek D i Poznan. Dessa insatser har lett till en 21-procentig minskning i absoluta termer och en nästan 27-procentig minskning på normaliserad basis, motsvarande 358 ton CO₂ enligt 2024 års emissions  faktorer.
+
+Klimatpåverkan från indirekta utsläpp i värdekedja (Scope 3) De Scope 3-utsläpp som ingår i årets redovisning omfattar lokalanpassningar, inköp av varor och tjänster, energirelaterade utsläpp samt avfallshantering och tjänsteresor. Energiförbrukning från hyresgäster, som tidigare redovisades under Scope 3, ingår nu i Scope 2, vilket innebär en förändring i redovisningen jämfört med tidigare år.
+
+Utsläppsberäkningar för ombyggnationer och lokalanpassningar baseras på LCA-beräkningar för samtliga ombyggnationsprojekt över 100 000 EUR, samt för utvalda mindre projekt där schablonmetoder inte är tillämpbara. Under 2024 har 32 procent av de totala utgifterna för renovering och ombyggnation beräknats med denna metod, medan schablonfaktorer baserade på tidigare projekt har applicerats på det resterande beloppet.
+
+Dessa beräkningar är de enda Scope 3-poster som har räknats ut manuellt. Samtliga övriga utsläppsposter inom Scope 3 - inklusive inköp av varor och tjänster, energirelaterade utsläpp, avfallshantering och tjänsteresor - har beräknats automatiskt i GHG-verktyget inom Position Green.
+
+Se tabell Växthusgasutsläpp för en mer detaljerad redogörelse av Eastnines utsläpp.
+
+Växthusgasutsläpp, ton CO₂e
+
+| Utsläpp                          | Utsläppskälla                     | 2024   | 2023   | Kommentar                                                                                                                                                                                                                                                                                      |
+|----------------------------------|-----------------------------------|--------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Scope 1                          | Totalt                            | 394    | 484    |                                                                                                                                                                                                                                                                                                |
+|                                  | Köldmedialäckage                  | 266    | 335    | Variationen i köldmedierläckage mellan åren beror på att påfyllning sker oregelbundet och påverkas av antal fastigheter som varit i behov av påfyllning under respektive period.                                                                                                               |
+|                                  | Naturgas                          | 128    | 149    | Naturgas användes för uppvärmning av Valdemara Centrs och Alojas Kvartāls i Riga, men en teknisk uppgradering 2024 möjliggjorde Valdemara Centrs övergång till fjärrvärme, vilket väntas minska naturgasanvändningen avsevärt.                                                                 |
+| Scope 2                          | Totalt                            | 1 831  | 3 585  |                                                                                                                                                                                                                                                                                                |
+|                                  | Fjärrvärme                        | 1 831  | 3 585  | Utsläppen minskade med 49 %tack vare lägre emissionsfaktorer (-42 %i Litauen, -38 %i Polen) och 21 %lägre värmeförbrukning i Nowy Rynek D, där utsläppen totalt minskade med 51 %. 2023 justerat för energiförbrukning i icke-direkt förvaltade fastigheter, tidigare redovisat under Scope 3. |
+|                                  | Elektricitet                      | 0      | 0      | Scope 2-utsläpp enligt location-based-metoden: 4 305 ton 2024 (6 007 ton 2023), beräknat automatiskt i ett GHG-beräkningsverktyg baserat på Scope 2-data.                                                                                                                                      |
+| Scope 3                          | Totalt                            | 2 541  | 2 468  |                                                                                                                                                                                                                                                                                                |
+|                                  | Lokalanpassningar                 | 525    | 110    | Average-data-based-metoden används, med livscykelanalyser för projekt över 100 000 EUR. Övriga uppskattningar baseras på beräknade projekt i förhållande till investerat belopp. Ökningen beror på fler hyresgästanpassningsprojekt.                                                           |
+|                                  | Energi-/bränslerelaterade utsläpp | 1 315  | 1 608  | Indirekta energi- och bränslerelaterade utsläpp (baserat på Scope 1 och 2). 2023 justerat för jämförbarhet.                                                                                                                                                                                    |
+|                                  | Tjänsteresor                      | 22     | 21     | Innefattar flygresor, taxi och hotellövernattningar vid affärsresor. Baserat på faktisk data och schablonestimat.                                                                                                                                                                              |
+|                                  | Avfallshantering                  | 324    | 330    | Indirekta utsläpp från hyresgästsavfall, beräknat med schabloner utifrån redovisade mängder. 2023 justerat för jämförbarhet.                                                                                                                                                                   |
+|                                  | Inköp av varor och tjänster       | 355    | 399    | 2023 har justerats för jämförbarhet baserat på spend-based-faktorer i Position Green GHG-beräkningsverktyget.                                                                                                                                                                                  |
+| Totalt (Scope 1, 2 & 3)          |                                   | 4 766  | 6 537  |                                                                                                                                                                                                                                                                                                |
+| Totalt (Scope 1 & 2)             |                                   | 2 225  | 4 069  |                                                                                                                                                                                                                                                                                                |
+| Utsläppsintensitet (Scope 1 & 2) | kgCO₂e/kvm                        | 9      | 17     |                                                                                                                                                                                                                                                                                                |
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+Väsentliga frågor
+
+| Väsentlig fråga   | Indikator         |                                                                                | FN Global Compacts principer   | FN:s globala mål   | Sid                 | Kommentar         |
+|-------------------|-------------------|--------------------------------------------------------------------------------|--------------------------------|--------------------|---------------------|-------------------|
+| Väsentliga frågor | Väsentliga frågor | Väsentliga frågor                                                              | Väsentliga frågor              | Väsentliga frågor  | Väsentliga frågor   | Väsentliga frågor |
+|                   | 3-1               | Process för att fastställa väsentliga frågor                                   |                                |                    | 118                 |                   |
+|                   | 3-2               | Lista på väsentliga frågor                                                     |                                |                    | 118                 |                   |
+| Ekonomi           | Ekonomi           | Ekonomi                                                                        | Ekonomi                        | Ekonomi            | Ekonomi             | Ekonomi           |
+| Antikorruption    | 3-3               | Styrning av väsentliga frågor                                                  |                                |                    | 118                 |                   |
+|                   | 205-2             | Kommunikation kring, och utbildning i, policyer och rutiner för antikorruption | 10                             |                    | 14, 17, 26, 64, 118 |                   |
+|                   | 205-3             | Bekräftade fall av korruption och vidtagna åtgärder                            | 10                             |                    | 118                 |                   |
+| Miljö             | Miljö             | Miljö                                                                          | Miljö                          | Miljö              | Miljö               | Miljö             |
+| Energi            | 3-3               | Styrning av väsentliga frågor                                                  |                                |                    | 24, 119             |                   |
+|                   | 302-1             | Energianvändning inom organisationen                                           | 6, 9                           | 7                  | 24, 119             |                   |
+|                   | 302-3             | Energiintensitet                                                               | 6, 9                           |                    | 24, 119             |                   |
+| Vatten            | 3-3               | Styrning av väsentliga frågor                                                  |                                |                    | 24, 120             |                   |
+|                   | 303-5             | Total vattenanvändning                                                         | 7, 8, 9                        | 11, 12             | 24, 120             |                   |
+| Utsläpp           | 3-3               | Styrning av väsentliga frågor                                                  |                                |                    | 25, 120-121         |                   |
+|                   | 305-1             | Direkta utsläpp av växthusgaser (Scope 1)                                      | 7, 8, 9                        | 11, 12             | 25, 120-121         |                   |
+|                   | 305-2             | Indirekta utsläpp av växthusgaser från energiförbrukning (Scope 2)             | 7, 8, 9                        |                    | 25, 120-121         |                   |
+|                   | 305-3             | Övriga indirekta utsläpp av växthusgaser                                       | 7, 8, 9                        |                    | 25, 120-121         |                   |
+| Avfall            | 3-3               | Styrning av väsentliga frågor                                                  |                                |                    | 25, 122             |                   |
+|                   | 306-3             | Genererat avfall                                                               |                                | 11, 12             | 25, 122             |                   |
+
+FN   Global
+
+FN:s
+
+| Väsentlig fråga                         | Indikator   |                                                                                                      | Compacts principer   | globala mål   | Sid     | Kommentar   |
+|-----------------------------------------|-------------|------------------------------------------------------------------------------------------------------|----------------------|---------------|---------|-------------|
+| Leverantörs- bedömningar avseende miljö | 3-3 308-1   | Styrning av väsentliga frågor                                                                        |                      |               | 27, 122 |             |
+| Leverantörs- bedömningar avseende miljö | 3-3 308-1   | Nya leverantörer som utvärderats utifrån miljömässiga kriterier                                      |                      | 12            | 27, 122 |             |
+| Socialt                                 |             |                                                                                                      |                      |               |         |             |
+| Kompetens- utveckling                   | 3-3         | Styrning av väsentliga frågor                                                                        |                      |               | 122     |             |
+| Kompetens- utveckling                   | 404-3       | Andel anställda som får regelbundna utvecklings- samtal                                              | 6                    |               | 122     |             |
+| Mångfald och jämställdhet               | 3-3         | Styrning av väsentliga frågor                                                                        |                      |               | 26, 122 |             |
+| Mångfald och jämställdhet               | 405-1       | Mångfald i styrelse, ledning och bland anställda                                                     | 1, 2, 4, 6           |               | 26, 122 |             |
+| Icke- diskriminering                    | 3-3         | Styrning av väsentliga frågor                                                                        | 1, 2, 4, 6           |               | 26, 122 |             |
+| Icke- diskriminering                    | 406-1       | Antal fall av diskriminering och hantering av dessa                                                  |                      |               | 26, 122 |             |
+| Leverantörs- utvärdering - socialt      | 3-3         | Styrning av väsentliga frågor                                                                        |                      |               | 27, 122 |             |
+| Leverantörs- utvärdering - socialt      | 414-1       | Nya leverantörer som utvärderats utifrån sociala kriterier                                           |                      |               | 27, 122 |             |
+| Kundernas hälsa och säkerhet            | 3-3         | Styrning av väsentliga frågor                                                                        |                      |               | 26, 123 |             |
+| Kundernas hälsa och säkerhet            | 416-2       | Incidenter av bristande efterlevnad av regler gällande hälsa och säkerhet för produkter och tjänster |                      | 11            | 26, 123 |             |
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+Reducering av utsläpp inom olika områden
+
+Eastnine har som mål att minska utsläppen från hela värde­ kedjan samt uppnå klimatneutral fastighetsdrift senast 2030. Detta ambitiösa mål kommer att omvärderas och utvecklas under 2025 i samband med Eastnines ansökan till Science Based Targets initiative (SBTi) och i linje med eventuella krav i CSRD.
+
+Eastnines utsläppsdata redovisas enligt den globala standar­ den Greenhouse Gas (GHG) Protocol, som delar upp utsläppen i tre kategorier, så kallade Scope, beroende på var i värdekedjan de uppstår. Tabellen nedan illustrerar de verktyg och strategier som används inom olika delar av verksamheten för att uppnå klimatneutralitet. Den fullständiga utsläppsrapporten, inklu­ sive kommentarer över förändringar mellan perioder, finns tillgängliga på sid. 120­121
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+|         |                                                 | 2024 ton CO 2 e (andel av totalt utsläpp)   | Utsläppskälla                                                                                | Befintliga fastigheter                                                                                                                                                                                                                                                                          | Förvärv                                                                                                                                                                                                     | Nybyggnation                                                                                                                                                                          |
+|---------|-------------------------------------------------|---------------------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Scope 1 | Direkta utsläpp från Eastnine                   | 394 (8 %)                                   | Köldmedieläckage och fossil förbränning i fastigheter.                                       | Eastnine genomför regelbundet under­ håll av tekniska system för att mini­ mera köldmedieläckage och övergår, där det är möjligt, till miljövänligare köldmedier. Samtidigt fasas uppvärm­ ning i form av gasförbränning ut, för att minska klimatpåverkan.                                     | Vid fastighetsförvärv prioriteras byggnader med moderna kyl­ och ventilationssystem. Kostnader för utfasning av eventuellt inbyggda fossila värmesystem, såsom gaspannor, beaktas i investerings­ kalkylen. | Vid nybyggnation ställs krav på energieffektiva kyl­ och värme­ system med klimatvänliga köld­ medier, medan fossil förbränning inte tillåts i nya projekt.                           |
+| Scope 2 | Indirekta utsläpp från Eastnine                 | 1 831 (38 %)                                | Energiförbrukning (inköpt el och fjärr­ värme).                                              | Bolaget arbetar med optimering av energianvändning genom digitalt styrda, energieffektiva lösningar och krav på elavtal med 100 procent för­ nybar energi. På marknader med fossil­ beroende fjärrvärme arbetar vi för att minska användningen och övergå till el, ett mer hållbart alternativ. | Som en del av due diligence­ processen vid förvärv, genomförs en grundlig energikartläggning. Endast fastigheter som uppfyller önskad energiprofil, eller har potential att nå dit, förvärvas.              | Eastnine tillämpar högeffektiva och klimatsmarta energilösningar, där den totala energianvänd­ ningen i byggnaden inte får över­ stiga 50 kWh/kvm.                                    |
+| Scope 3 | Övriga indirekta utsläpp i Eastnines värdekedja | 2 541 (53 %)                                | Inköp av varor och tjäns­ ter, hantering av avfall, hyresgästanpassningar, samt byggprojekt. | Klimatsmarta renoveringar och hyresgästanpassningar prioriteras. För projekt över 100 000 EUR genomförs LCA­analyser. Vi arbetar även för att införa interna krav på koldioxidintensitet vid hyresgäst­ anpassningar.                                                                           | Vid förvärv av nybyggda fastig­ heter krävs att säljaren tillhandahåller en LCA­analys som redovisar koldioxidav­ trycket från byggnationen.                                                                | Vid nybyggnation tillämpas klimatsmarta byggprocesser och materialval. Vi ställer krav på certifiering och koldioxidlivscykel­ analyser samt inför en övre gräns för utsläpp per kvm. |
+
+<!-- image -->
+
+<!-- image -->
+
+| Eastnines fokus                               |   3 |
+|-----------------------------------------------|-----|
+| Hållbarhet ur flera perspektiv                |  16 |
+| Eastnines hållbarhetsarbete                   |  17 |
+| Certifiering - styrmedel och kvalitetsstämpel |  18 |
+| Warsaw Unit                                   |  19 |
+| Hållbarhet i praktiken                        |  21 |
+| Reducering av utsläpp inom olika områden      |  23 |
+| Mål och utfall hållbarhet                     |  24 |
+| Vår verksamhet                                |  28 |
+| Finansiell information och styrning           |  50 |
+| Övrig information                             | 110 |
+
+Hållbar investering
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Område Syfte         | Område Syfte                                  | Mål                                                                                                           | Nyckeltal                                                                                     | Utfall 2024                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                                                                                    | Möjligheter/skapat värde   | FN:s globala mål            | FN:s globala mål                 |
+|----------------------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|-----------------------------|----------------------------------|
+| Avfalls­ hantering   | Cirkulär och resurseffektiv hantering.        | Ökad andel åter­ vunnet avfall.                                                                               | Andel åter­ vunnet avfall, %.                                                                 | Andelen återvunnet avfall var 44 %(43) i direktförvaltade, och oförändrad på 40 %(40) i samtliga fastigheter.                                                   | • Regelbundna avfallsrevisioner genomförs i samtliga fastigheter, oftast inom re­certifierings­ processen, för att identifiera förbättringsåtgärder och optimera avfallshanteringen. • Vid renovering prioriteras avfallsreducerande lösningar, t.ex. ersätts pappershanddukshållare med handtorkar. • Nya tekniska lösningar för kontinuerlig uppföljning och förbättrad mätprecision utvärderas. |                            | HÅLLBARASTÄDER OCHSAMHÄLLEN | HÅLLBAR KONSUMTIONOCH PRODUKTION |
+| Material­ användning | Klimatsmarta material                         | Ökad använd­ ning av hållbara material vid nybyggnation och renovering.                                       | - Eastnine har inga pågående nybyggnadsprojekt, och planerade projekt har pausats på obestämd | tid.                                                                                                                                                            | • Regelbundna avfallsrevisioner genomförs i samtliga fastigheter, oftast inom re­certifierings­ processen, för att identifiera förbättringsåtgärder och optimera avfallshanteringen. • Vid renovering prioriteras avfallsreducerande lösningar, t.ex. ersätts pappershanddukshållare med handtorkar. • Nya tekniska lösningar för kontinuerlig uppföljning och förbättrad mätprecision utvärderas. |                            | HÅLLBARASTÄDER OCHSAMHÄLLEN | HÅLLBAR KONSUMTIONOCH PRODUKTION |
+| Utsläpp              | Minska koldioxid­ avtrycket.                  | Klimatneutral fas­ tighetsdrift 2030 (Scope 1 och 2) samt minskade utsläpp från övriga aktiviteter (Scope 3). | Utsläpps­ intensitet, kg CO 2 e/ kvm/år.                                                      | Utsläppsintensitet Scope 1 och 2: 9 (17) kg CO₂e/kvm. Utsläppsintensitet Scope 3: 11 (10) kg CO₂e/kvm.                                                          | Energieffektivisering är en nyckelkomponent i arbetet med att minska utsläpp från vår verksamhet. Läs mer om energioptimering under Energi. Scope 3­rapportering för ombyggnationer och hyresgästanpassningar utvecklas kontinuerligt. LCA­analyser genomförda 2024 för alla projekt över 100 000 euro                                                                                             |                            | HÅLLBARENERGI FÖRALLA       | HÅLLBARASTÄDER OCHSAMHÄLLEN      |
+| Finansiering         | Säkerställa långsiktig tillgång till kapital. | Ökad andel grön finansiering.                                                                                 | Andel grön finansiering, %.                                                                   | Grön finansiering utgjorde 76% (60) av total räntebärande skuld.                                                                                                | Under 2024 ökade andelen grön finansiering huvudsakligen efter upptagande av nya gröna banklån i samband med förvärv.                                                                                                                                                                                                                                                                              |                            | HÅLLBAR PRODUKTION          | KONSUMTIONOCH                    |
+| GRESB                | Vara en regional ledare inom hållbarhet.      | 5 stjärnor i GRESB (bland topp 20 %i GRESB:s globala benchmark).                                              | GRESB­ poäng.                                                                                 | Eastnine uppnådde 92 (87) av 100 poäng och erhöll 5 stjärnor (4) i GRESB 2024, vilket motsvarar den högsta betygsnivån och placerar bolaget i topp 20 %globalt. | Under 2024 ökade andelen grön finansiering huvudsakligen efter upptagande av nya gröna banklån i samband med förvärv.                                                                                                                                                                                                                                                                              |                            | HÅLLBARASTÄDER OCHSAMHÄLLEN | HÅLLBAR KONSUMTIONOCH PRODUKTION |
+| GRESB                | Vara en regional ledare inom hållbarhet.      | 5 stjärnor i GRESB (bland topp 20 %i GRESB:s globala benchmark).                                              | GRESB­ poäng.                                                                                 | Eastnine uppnådde 92 (87) av 100 poäng och erhöll 5 stjärnor (4) i GRESB 2024, vilket motsvarar den högsta betygsnivån och placerar bolaget i topp 20 %globalt. |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             | HÅLLBAR KONSUMTIONOCH PRODUKTION |
+|                      |                                               |                                                                                                               |                                                                                               |                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             |                                  |
+|                      |                                               |                                                                                                               |                                                                                               |                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             |                                  |
+|                      |                                               |                                                                                                               |                                                                                               |                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             |                                  |
+|                      |                                               |                                                                                                               |                                                                                               |                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             |                                  |
+|                      |                                               |                                                                                                               |                                                                                               |                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                    |                            |                             |                                  |
+
+Ekonomi
+
+Renommé
+
+Riskreducering
+
+Ökat fastighetsvärde
+
+Tillgång till grön finansiering
+
+(EU:s taxonomi)
+
+Lägre driftskostnader i system med koldioxidprissättning
+
+Kunder föredrar hållbara produkter
+
+Renommé på marknaden som ansvarsfull aktör
+
+Ökat engagemang hos de anställda
+
+Affärskritiskt
+
+Ökat engagemang hos kunderna
+
+Minskad risk för
+
+'strandade tillgångar'
+
+Minskad risk relaterad till bristande efterlevnad av lagkrav (EU:s taxonomi)
+
+<!-- image -->
+
+| Eastnines fokus                               |   3 |
+|-----------------------------------------------|-----|
+| Hållbarhet ur flera perspektiv                |  16 |
+| Eastnines hållbarhetsarbete                   |  17 |
+| Certifiering - styrmedel och kvalitetsstämpel |  18 |
+| Warsaw Unit                                   |  19 |
+| Hållbarhet i praktiken                        |  21 |
+| Reducering av utsläpp inom olika områden      |  23 |
+| Mål och utfall hållbarhet                     |  24 |
+| Vår verksamhet                                |  28 |
+| Finansiell information och styrning           |  50 |
+| Övrig information                             | 110 |
+
+Styrning
+
+Eastnine arbetar systematiskt med strategier för att minska både klimatavtrycket och klimatrelaterade risker. Dessa risker ingår i styrelsens och ledningens riskbedömningsarbete, där analyser uppdateras löpande och åtgärder utvärderas utifrån relevans och effektivitet.
+
+| Styrning                                                                                          | Strategi                                                                                                                    | Riskhantering                                                                                    | Indikatorer och mål                                                                                                 |
+|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| a) Styrelsens översyn av klimatrelaterade risker och möjligheter.                                 | a) Beskrivning av klimatrelaterade risker och möjligheter som Eastnine har identifierat.                                    | a) Beskrivning av processen för att identifiera och bedöma klimat- relaterade risker.            | a) Indikatorer för att mäta och styra klimatrelaterade risker och möjligheter.                                      |
+| s. 105                                                                                            | s. 24-27, 60, 63-64                                                                                                         | s. 127                                                                                           | s. 24-27                                                                                                            |
+| b) Ledningens roll avseende bedömning och hantering av klimat- relaterade risker och möjligheter. | b) Beskrivning av hur verksamhet, strategi och finansiell planering har påverkats.                                          | b) Beskrivning av processer för att hantera klimatrelaterade risker.                             | b) Rapportering av Scope 1, 2 och 3 enligt Greenhouse Gas Protocol.                                                 |
+| s. 8, 14, 17, 105                                                                                 | s. 24-27                                                                                                                    | s. 64, 127                                                                                       | s. 120-121                                                                                                          |
+|                                                                                                   | c) Beskrivning av organisationens strategiska motståndskraft och påverkan av olika klimatrelaterade risker och möjligheter. | c) Beskrivning av hur processerna är integrerade i organisationens över- gripande riskhantering. | c) Beskrivning av mål som används för att hantera klimatrelaterade risker och möjligheter samt utfall på dessa mål. |
+|                                                                                                   | s. 127                                                                                                                      | s. 24-27, 60, 127                                                                                | s. 24-27                                                                                                            |
+
+Bolaget bedömer kontinuerligt riskerna i den befintliga fastighetsportföljen och genomför alltid en miljöriskbedömning som en del av due diligence-processen vid förvärv.
+
+Redovisning av ekonomiska aktiviteter enligt EU-taxonomin
+
+I Lettland saknas motsvarande gränsvärden, men baserat på energikartläggningar bedöms Eastnines fastigheter Zala 1 och Valdemara Centrs, båda med energiklass B, uppfylla förenlighetskriteriet för topp 15 procent.
+
+I Polen saknas ett bokstavsbaserat EPC-system, men de energinivåer som anges i motsvarande EPC-dokumentation motsvarar en nivå bättre än energiklass A. Baserat på detta bedömer vi att samtliga av våra polska fastigheter uppfyller förenlighetskriterierna med avseende på EPS-nivån.
+
+För att en verksamhet ska vara taxonomiförenlig krävs även att den anpassning (Climate Change Adaptation), en del av DNSH-kriterierna, uppfyller Do No Significant Harm (DNSH)-kriteriet, vilket innebär att den inte får orsaka betydande skada på övriga miljömål. Inom klimatgenomför Eastnine klimatriskanalyser för samtliga fastigheter.
+
+Under 2023 genomfördes en fördjupad analys av samtliga S7fastigheter samt fastigheten Uniq i Vilnius. År 2024 påbörjades en uppdaterad klimatriskanalys på portföljnivå, vilken kommer att avslutas under Q1 2025 och inkludera rekommendationer för eventuella ytterligare fördjupade analyser i beståndet.
+
+Baserat på dessa analyser bedöms samtliga Eastnines befintliga fastigheter vara förenliga med DNSH-kriterierna för aktivitet 7.7. När det gäller 'minimiskyddsåtgärder' kopplade till mänskliga rättigheter, antikorruption och transparens säkerställer Eastnine efterlevnad
+
+Tabellerna på nästa sida redovisar andelen av nettoomsättning   samt drift- och kapitalutgifter som är förenliga med EU-taxonomin för aktivitet 7.7.
+
+Tabell 1 visar nettoomsättning, det vill säga intäkter från hyresavtal som redovisas i resultaträkningen. Andelen omsättning som bedöms vara förenlig med EU-taxonomin baseras på kriterierna ovan och avser hyresintäkter från fastigheter som uppfyller kraven för aktivitet 7.7.
+
+Tabell 2 redovisar driftutgifter, inklusive kostnader för fastighetsskötsel, löpande reparationer, underhåll samt hyresgästanpassningar som kostnadsförts. Andelen driftutgifter som bedöms vara förenlig med EU-taxonomin baseras på ovanstående kriterier och avser kostnader för fastigheter som uppfyller kraven för aktivitet 7.7.
+
+Tabell 3 visar kapitalutgifter, det vill säga investeringar och kostnader som ökar värdet på Eastnines fastigheter. Endast investeringar som bedöms vara förenliga med kriterierna för aktivitet 7.7 inkluderas.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+| Tabell 1. Ekonomiska aktiviteter                      | Netto- omsättning, MEUR   |   % |   Begränsning av klimat- förändringar,% | DNSH kriterier, Ja/Nej   | Minimiskydds- åtgärder, Ja/Nej   |   Taxonomi- förenlig andel, % | Möjliggörande/ Omställning, M/O   |
+|-------------------------------------------------------|---------------------------|-----|-----------------------------------------|--------------------------|----------------------------------|-------------------------------|-----------------------------------|
+| A. Verksamheter som omfattas av taxonomin             | 41,5                      | 100 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| A. 1 Verksamheter som är förenliga med taxonomin      | 33,9                      |  82 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 33,9                      |  82 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| A. 2 Verksamheter som inte är förenliga med taxonomin | 7,6                       |  18 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 7,6                       |  18 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| B. Verksamheter som inte omfattas av taxonomin        | 0,0                       |   0 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+| Totalt (A+B)                                          | 41,5                      | 100 |                                     100 | Ja                       | Ja                               |                            82 | -                                 |
+
+| Tabell 2. Ekonomiska aktiviteter                      | Driftutgifter, MEUR   |   % |   Begränsning av klimat- förändringar,% | DNSH kriterier, Ja/Nej   | Minimiskydds- åtgärder, Ja/Nej   |   Taxonomi- förenlig andel, % | Möjliggörande/ Omställning, M/O   |
+|-------------------------------------------------------|-----------------------|-----|-----------------------------------------|--------------------------|----------------------------------|-------------------------------|-----------------------------------|
+| A. Verksamheter som omfattas av taxonomin             | 12,6                  | 100 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| A. 1 Verksamheter som är förenliga med taxonomin      | 10,2                  |  81 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 10,2                  |  81 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| A. 2 Verksamheter som inte är förenliga med taxonomin | 2,4                   |  19 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 2,4                   |  19 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| B. Verksamheter som inte omfattas av taxonomin        | 0,0                   |   0 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+| Totalt (A+B)                                          | 12,6                  | 100 |                                     100 | Ja                       | Ja                               |                            81 | -                                 |
+
+| Tabell 3. Ekonomiska aktiviteter                      | Kapitalutgifter, MEUR   |   % |   Begränsning av klimat- förändringar,% | DNSH kriterier, Ja/Nej   | Minimiskydds- åtgärder, Ja/Nej   |   Taxonomi- förenlig andel, % | Möjliggörande/ Omställning, M/O   |
+|-------------------------------------------------------|-------------------------|-----|-----------------------------------------|--------------------------|----------------------------------|-------------------------------|-----------------------------------|
+| A. Verksamheter som omfattas av taxonomin             | 4,4                     | 100 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| A. 1 Verksamheter som är förenliga med taxonomin      | 3,1                     |  71 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 3,1                     |  71 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| A. 2 Verksamheter som inte är förenliga med taxonomin | 1,2                     |  29 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| 7.7 Förvärv och ägande av byggnader                   | 1,2                     |  29 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| B. Verksamheter som inte omfattas av taxonomin        | 0,0                     |   0 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+| Totalt (A+B)                                          | 4,4                     | 100 |                                     100 | Ja                       | Ja                               |                            71 | -                                 |
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+Ökade utsläppsrelaterade kostnader
+Riskbeskrivning
+
+Det ökade politiska fokuset på klimatomställning kan leda till högre kostnader från nya miljöskatter eller avgifter för koldioxidutsläpp. Höjda priser på material med högt koldioxidavtryck och krav på redovisning för utsläpp från fastighetsdriften och utvecklingen kan också bidra till ökade drifts­ och investeringskostnader.
+
+Mål och utfall hållbarhet
+
+Här redovisas mål och utfall för det systematiska arbetet med att effektivisera byggnader, vara en god arbetsgivare och en bra hyresvärd.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Område Syfte        |                                             | Mål                                                                            | Nyckeltal                                            |                                                                                                                                                                                                                                                                  | Styrning/åtgärder/kommentarer                                                                                                                                                                                                                                                                                                               | Möjligheter/skapat   | värde FN:s            | globala mål                 |
+|---------------------|---------------------------------------------|--------------------------------------------------------------------------------|------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|-----------------------|-----------------------------|
+| Certifiering Energi | Extern verifie­ ring av håll­ barhetsvärde. | 100 %av fastig­ heterna certifierade (minst LEED Gold eller BREEAM Excellent). | Andel certifierat bestånd, %.                        | • 100 %(94) certifierad bruttoarea, varav 97 %på högsta nivå LEED Platinum/BREEAM Outstanding.                                                                                                                                                                   | • Åtgärds­ och kostnadsbedömning görs vid förvärv av icke­certifierad fastighet för att uppnå önskad certifieringsnivå. • Certifieringsprocess startar inom 12 månader från förvärvsdatum. • Befintliga 'New Construction'­certifieringar (nybyggnation) kan kompletteras med 'In Use' (drift) eller WELL/Fitwel (hälsa och välbefinnande). |                      | HÅLLBARENERGI FÖRALLA | HÅLLBARASTÄDER OCHSAMHÄLLEN |
+| Certifiering Energi | Övergång till fossilfri energi.             | 100 %förnybar energi senast 2030.                                              | Andel förnybar energi, %.                            | • 81 %(78) av energimixen var för­ nybar under 2024.                                                                                                                                                                                                             | • Förnybar energi i form av takmonterade solpaneler utvärderas för alla fastigheter. Under 2024 har ytterligare solpaneler installerats på fastigheterna S7­1, S7­2 och Uniq i Vilnius för optimerad drift.                                                                                                                                 |                      | HÅLLBARENERGI FÖRALLA | HÅLLBARASTÄDER OCHSAMHÄLLEN |
+| Certifiering Energi | Övergång till fossilfri energi.             | 100 %förnybar energi senast 2030.                                              | Andel förnybar energi, %.                            | • 81 %(78) av energimixen var för­ nybar under 2024.                                                                                                                                                                                                             | • Alla elkontrakt, inklusive hyresgästernas, ska avse förnybar el.                                                                                                                                                                                                                                                                          |                      | HÅLLBARENERGI FÖRALLA | HÅLLBARASTÄDER OCHSAMHÄLLEN |
+| Certifiering Energi | Övergång till fossilfri energi.             | 100 %förnybar energi senast 2030.                                              | Andel förnybar energi, %.                            | • 81 %(78) av energimixen var för­ nybar under 2024.                                                                                                                                                                                                             | • Energiursprung beaktas vid installation och uppgradering av energilösningar. I Polen, där fjärrvärme är fossilberoende, installeras värmepumpar för att minska fjärrvärme­ användningen och istället använda elbaserad uppvärmning. • Eastnine för en aktiv dialog med lokala partners och myndigheter för att påskynda                   |                      | HÅLLBARENERGI FÖRALLA | HÅLLBARASTÄDER OCHSAMHÄLLEN |
+| Certifiering Energi | Optimerad energi­ användning.               | 25 %lägre energianvändning till 2025 (jämfört med 2019).                       | Energi­ användning (fastighets­ energi), kWh/kvm/år. | • Normaliserad energiintensitet för fastighetsenergi ­12 %till 96 kWh/ kvm 2024 (jämfört med 2023). • Total energianvändning, inkl. hyres­ gästers el, ­10 %till 131 kWh/kvm. • Normaliserad energianvändning per kvm ­24 %sedan 2019, faktisk användning ­30 %. | • Eastnine har ett internt krav på att nå minst 80 %avmöjliga poäng i energikategorin inom certifieringsramverken LEED/BREEAM. • Energy Management System (EMS) finns implementerat för kontinuerlig uppföljning                                                                                                                            |                      | FÖRALLA               | HÅLLBARENERGI               |
+| Certifiering Energi | Optimerad energi­ användning.               | 25 %lägre energianvändning till 2025 (jämfört med 2019).                       | Energi­ användning (fastighets­ energi), kWh/kvm/år. | • Normaliserad energiintensitet för fastighetsenergi ­12 %till 96 kWh/ kvm 2024 (jämfört med 2023). • Total energianvändning, inkl. hyres­ gästers el, ­10 %till 131 kWh/kvm. • Normaliserad energianvändning per kvm ­24 %sedan 2019, faktisk användning ­30 %. | och analys av energianvändning i fastigheterna.                                                                                                                                                                                                                                                                                             |                      | FÖRALLA               | HÅLLBARENERGI               |
+
+Ekonomi
+
+Renommé
+
+Riskreducering
+
+Ökat fastighetsvärde
+
+Tillgång till grön finansiering
+
+(EU:s taxonomi)
+
+Lägre driftskostnader i system med koldioxidprissättning
+
+Kunder föredrar hållbara produkter
+
+Renommé på marknaden som ansvarsfull aktör
+
+Ökat engagemang hos de anställda
+
+Affärskritiskt
+
+Ökat engagemang hos kunderna
+
+Minskad risk för
+
+'strandade tillgångar'
+
+Minskad risk relaterad till bristande efterlevnad av lagkrav (EU:s taxonomi)
+
+Ekonomi
+Renommé
+Riskreducering
+
+<!-- image -->
+
+Ökat fastighetsvärde
+
+Tillgång till grön finansiering
+
+(EU:s taxonomi)
+
+Lägre driftskostnader i system med koldioxidprissättning
+
+Kunder föredrar hållbara produkter
+
+Renommé på marknaden som ansvarsfull aktör
+
+Ökat engagemang hos de anställda
+
+Affärskritiskt
+
+Ökat engagemang hos kunderna
+
+<!-- image -->
+
+Minskad risk för
+
+'strandade tillgångar'
+
+Minskad risk relaterad till bristande efterlevnad av lagkrav (EU:s taxonomi)
+
+GRI-index
+
+| GRI- standard                            | Beskrivning                                                                   | FN Global Compacts principer   | Sid      | Kommentar                                                                                                                                  |
+|------------------------------------------|-------------------------------------------------------------------------------|--------------------------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Organisationen och redovisningsprinciper | Organisationen och redovisningsprinciper                                      |                                |          |                                                                                                                                            |
+| 2-1                                      | Information om organisationen                                                 |                                | 3-5      |                                                                                                                                            |
+| 2-2                                      | Enheter som omfattas av hållbarhetsredovisningen                              |                                |          | Fastighetsverksamhet i Litauen, Lettland och Polen.                                                                                        |
+| 2-3                                      | Redovisningsperiod, frekvens och kontaktperson                                |                                | 114      |                                                                                                                                            |
+| 2-4                                      | Förändringar i tidigare rapporterade upplysningar                             |                                |          | I de fall där tidigare rapporterade upplysningar korrigerats finns fotnoter eller kommentarer i anslutning till rapporterade upplysningar. |
+| 2-5                                      | Externt bestyrkande                                                           |                                |          | Ej externt bestyrkt. Energi-, vatten- och avfallsdata verifierad av tredje part. Scope 3 beräkningar framtagna med hjälp av tredje part.   |
+| Aktiviteter och anställda                | Aktiviteter och anställda                                                     |                                |          |                                                                                                                                            |
+| 2-6                                      | Aktiviteter, värdekedja och andra affärsförbindelser                          |                                | 12-15    |                                                                                                                                            |
+| 2-7                                      | Medarbetare                                                                   | 3, 6                           | 114      |                                                                                                                                            |
+| 2-8                                      | Medarbetare som inte är anställda                                             | 3, 6                           | 114      |                                                                                                                                            |
+| Styrning                                 | Styrning                                                                      |                                |          |                                                                                                                                            |
+| 2-9                                      | Sammansättning och struktur för styrning                                      |                                | 103-106  |                                                                                                                                            |
+| 2-10                                     | Nominering och val av högsta styrande organ                                   |                                | 104      |                                                                                                                                            |
+| 2-11                                     | Ordförande för högsta styrande organ                                          |                                | 102, 104 |                                                                                                                                            |
+| 2-12                                     | Högsta styrande organets roll i arbetet med översyn och hantering av påverkan |                                | 105      |                                                                                                                                            |
+| 2-13                                     | Delegering av beslutsfattande för att hantera påverkan                        |                                | 105      |                                                                                                                                            |
+| 2-14                                     | Högsta styrande organets roll i relation till hållbarhetsredovisningen        |                                | 105      |                                                                                                                                            |
+| 2-15                                     | Intressekonflikter                                                            |                                | 108, 112 |                                                                                                                                            |
+
+| GRI- standard                 | Beskrivning                                                                     | FN Global Compacts principer   | Sid                           | Kommentar                                                                                  |
+|-------------------------------|---------------------------------------------------------------------------------|--------------------------------|-------------------------------|--------------------------------------------------------------------------------------------|
+| 2-16                          | Kommunikation av kritiska frågeställningar                                      |                                | 105                           |                                                                                            |
+| 2-17                          | Den samlade kunskapen hos det högsta styrande organet                           |                                | 104, 108                      |                                                                                            |
+| 2-18                          | Utvärdering av det högsta styrande organets arbete                              |                                | 105                           |                                                                                            |
+| 2-19                          | Ersättningspolicy                                                               |                                | 106                           |                                                                                            |
+| 2-20                          | Process för att fastställa ersättningar                                         |                                | 106                           |                                                                                            |
+| 2-21                          | Årlig total ersättning                                                          |                                | 115                           |                                                                                            |
+| Strategi, policyer och praxis | Strategi, policyer och praxis                                                   | Strategi, policyer och praxis  | Strategi, policyer och praxis | Strategi, policyer och praxis                                                              |
+| 2-22                          | Uttalande om strategi för hållbar utveckling                                    |                                | 8, 114                        |                                                                                            |
+| 2-23                          | Värderingar, principer, standarder och normer gällande uppförande               | 10                             | 116-117                       |                                                                                            |
+| 2-24                          | Förankring av värderingar, principer, standarder och normer gällande uppförande |                                | 116-117                       |                                                                                            |
+| 2-25                          | Processer för att avhjälpa negativ påverkan                                     | 7                              | 116-117                       |                                                                                            |
+| 2-26                          | Mekanismer för rådgivning och rapportering av angelägenheter för organisationen |                                | 116-117                       |                                                                                            |
+| 2-27                          | Efterlevnad av lagar och förordningar                                           |                                | 116-117                       |                                                                                            |
+| 2-28                          | Medlemskap i organisationer                                                     |                                |                               | UN Global Compact, Green Building Council Lithuania, GRESB, Proptech Association Lithuania |
+| Intressentengagemang          | Intressentengagemang                                                            | Intressentengagemang           | Intressentengagemang          | Intressentengagemang                                                                       |
+| 2-29                          | Metod för intressentengagemang                                                  |                                | 117                           |                                                                                            |
+| 2-30                          | Kollektivavtal                                                                  |                                |                               | Samtliga medarbetare var tjänstemän. Ingen medarbetare omfattades av kollektivavtal.       |
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+3-2  Lista på väsentliga frågor
+Eastnines väsentliga frågor GRI Standards
+
+| Energiprestanda och förnybar energi            | Energi                                                                   |
+|------------------------------------------------|--------------------------------------------------------------------------|
+| Effektiv och cirkulär resursanvändning         | Energi, vatten, avfall                                                   |
+| Begränsning av klimtarelaterade fysiska risker | -                                                                        |
+| Hållbarhetscertifiering av byggnader           | -                                                                        |
+| EU-taxonomiförenlig verksamhet                 | -                                                                        |
+| Minskad klimatpåverkan                         | Utsläpp                                                                  |
+| Toppranking i GRESB                            | -                                                                        |
+| Maximiera grön finansiering                    | -                                                                        |
+| Hög affärsetik och transparens                 | Antikorruption                                                           |
+| Hög kundnöjdhet                                | Kundernas hälsa och säkerhet                                             |
+| Värdefulla partnerskap för hållbart samhälle   | -                                                                        |
+| Medarbetarnas hälsa och välbefinnande          | Sjukfrånvaro, kompetens- utveckling för anställda                        |
+| Jämställdhet och mångfald                      | Mångfald och lika möjligheter                                            |
+| Hållbara leverantörskedjor                     | Leverantörsutvärdering avseende påverkan på miljö samt sociala kriterier |
+
+Inkluderade ledningssystem:
+
+- Byggnadscertifiering för att säkerställa hållbarhets  standarder.
+- Övervakning av energianvändning för att optimera drift och minska utsläpp.
+- Övervakning av vattenanvändning för resurseffektivitet och minskad förbrukning.
+- Hyresgästengagemang genom dialog och hållbarhets  initiativ.
+- Gröna hyresavtal som främjar energieffektivitet och   miljövänliga åtgärder.
+- Indikatorer och nyckeltal för att mäta och följa upp miljö- och prestandamål.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+Ladda ner pdf för utskrift
+
+416-2    Incidenter av bristande efterlevnad av regler gällande hälsa och säkerhet för produkter och tjänster
+
+Eastnine har en tydlig ambition att leverera högsta möjliga servicenivå till sina hyresgäster, med ett starkt fokus på hälsa och välbefinnande i fastigheterna. Bolagets arbete inom detta område styrs av certifieringskrav inom hälsorelaterade ramverk samt en övergripande engagemangspolicy för hyresgäster, som omfattar riktlinjer för inomhusklimat, fysisk aktivitet och säkerhet. Policyn är inspirerad av certifieringsramverket WELL, som syftar till att förbättra hälsa och välbefinnande för de som vistas i byggnaderna.
+
+Samtliga fastigheter i Polen - Nowy Ryndek D, Nowy Ryndek E och Warsaw Unit - är certi  fierade enligt WELL, en övergripande certifiering som förnyas vart tredje år, samt WELL Health and Safety Rating, som förnyas årligen. För att ytterligare stärka hälsa och välbefinnande genomförs regelbundna aktiviteter och event med fokus på hälsa, såsom stegtävlingar, och designelement som uppmuntrar till fysisk aktivitet integreras i byggnadernas utformning.
+
+Under 2024 har inga incidenter av bristande efterlevnad eller avvikelser gällande hälso- och säkerhetsaspekter i byggnaderna rapporterats. Rutinmässiga klagomål från hyresgäster avseende inomhusmiljön hanteras systematiskt av förvaltningsorganisationerna på landsnivå, där ärenden granskas, utreds och åtgärdas löpande med uppföljning och rapportering till ledningen.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+Hantering, påverkan och sannolikhet
+
+Eastnine har som mål att uppnå klimatneutral drift av fastigheterna senast 2030. Vi har implementerat en omfattande strategi för att minska våra koldioxidutsläpp, central till denna är energieffektivisering. Bland våra övriga åtgärder ingår installation av solpaneler, övergång från fossilberoende fjärrvärme till eldrivna värmepumpar, samt krav på inköp av grön el i samtliga fastigheter. Under det innevarande året kommer vi dessutom att etablera mer specifika mål i enlighet med Science Based Targets initiative (SBTi). Eastnine har för närvarande inga pågående byggprojekt, vilket minskar vår exponering mot risker relaterade till förhöjda kostnader för koldioxidintensiva byggmaterial.
+
+<!-- image -->
+
+Förvaltningsberättelse
+
+| Område                        | Risk                                                   | Riskvärde   | Sannolikhet   | Sannolikhet   | Påverkan   | Påverkan   | Påverkan        |
+|-------------------------------|--------------------------------------------------------|-------------|---------------|---------------|------------|------------|-----------------|
+|                               |                                                        |             | Medium        | Hög           | Marginell  | Medium     | Bolags- kritisk |
+| Verksamhet                    |                                                        |             |               |               |            |            |                 |
+|                               | Låg/förändrad efterfrågan på kontorslokaler            | 4           |               |               |            |            |                 |
+|                               | Negativa värdeförändringar fastigheter                 | 2           |               |               |            |            |                 |
+|                               | Låga hyresintäkter och låg uthyrningsgrad              | 2           |               |               |            |            |                 |
+|                               | Höga fastighetskostnader                               | 1           |               |               |            |            |                 |
+|                               | Investeringar och projekt                              | 2           |               |               |            |            |                 |
+|                               | Försäljning av fastigheter, låg likviditet             | 4           |               |               |            |            |                 |
+|                               | Förvärv av fastigheter, dolda fel/låg kvalitet         | 2           |               |               |            |            |                 |
+|                               | Organisation och operationell verksamhet               | 2           |               |               |            |            |                 |
+|                               | Tvister                                                | 2           |               |               |            |            |                 |
+|                               | IT - informationsläckage                               | 2           |               |               |            |            |                 |
+|                               | IT/Cyber - informationssäkerhet, intrång               | 4           |               |               |            |            |                 |
+|                               | Leverantörer                                           | 1           |               |               |            |            |                 |
+| Hållbarhet                    |                                                        |             |               |               |            |            |                 |
+| - Klimatrelaterad omställning | Höga energipriser                                      | 4           |               |               |            |            |                 |
+|                               | Minskad finansiering av icke­hållbara tillgångar       | 2           |               |               |            |            |                 |
+|                               | Ökade utsläppsrelaterade kostnader                     | 1           |               |               |            |            |                 |
+|                               | Minskad efterfrågan på icke­hållbara byggnader         | 2           |               |               |            |            |                 |
+| - Klimatrelaterad fysisk      | Högre kostnad för fastighetsdrift vid högre temperatur | 2           |               |               |            |            |                 |
+|                               | Extrema väderförhållanden                              | 1           |               |               |            |            |                 |
+| - Övriga hållbarhetsrisker    | Medarbetare och arbetsmiljö                            | 1           |               |               |            |            |                 |
+|                               | Korruption och oetiskt beteende                        | 3           |               |               |            |            |                 |
+| Omvärld                       |                                                        |             |               |               |            |            |                 |
+|                               | Svag ekonomisk konjunktur                              | 6           |               |               |            |            |                 |
+|                               | Hög inflation                                          | 4           |               |               |            |            |                 |
+|                               | Lagstiftning och skatt                                 | 1           |               |               |            |            |                 |
+|                               | Lokal­, politik­ och planrisk                          | 6           |               |               |            |            |                 |
+|                               | Stort utbud av lokaler                                 | 4           |               |               |            |            |                 |
+|                               | Högt råvarupris                                        | 2           |               |               |            |            |                 |
+| Finansiella                   |                                                        |             |               |               |            |            |                 |
+|                               | Ränta                                                  | 4           |               |               |            |            |                 |
+|                               | Kredit                                                 | 1           |               |               |            |            |                 |
+|                               | Likviditet                                             | 2           |               |               |            |            |                 |
+|                               | Refinansiering                                         | 2           |               |               |            |            |                 |
+|                               | Valuta                                                 | 1           |               |               |            |            |                 |
+
+Låg/Marginell
+
+Medium
+
+<!-- image -->
+
+Hög/Bolagskritisk
+
+Förvaltningsberättelse
+Klimatrelaterade fysiska risker
+
+<!-- image -->
+
+Verksamhetsrisker
+
+<!-- image -->
+
+EPC
+
+Förkortning för Energy Performance Certificate. Denna typ av energideklaration används bland annat inom de tekniska granskningskriterierna för avgörande om en byggnad anses vara förenlig med EU-taxonomin.
+
+Exponeringsöversikt - RCP 8.5 / År 2050
+
+Torka
+
+Brandrisk mark
+
+Värmebölja
+
+Nederbörd
+
+Flodöversvämning
+
+Tropisk cyklon
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+- Ingen / mycket låg exponering
+- Låg exponering
+- Medel exponering
+- Hög exponering
+- Mycket hög exponering
+
+Utanför Nowy Rynek finns ett torg med parkbänkar och graderverk. Dessa installationer är utformade för att förbättra luftkvaliteten och skapa ett mikroklimat med hälsofördelar liknande frisk havsluft.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |
+
+TCFD-rapport
+
+Denna rapport ger fördjupad information om hur Eastnine hanterar klimatrelaterade risker och möjligheter i enlighet med rekommendationerna från Task Force on Climate-related Financial Disclosures (TCFD).
+
+Bygg- och fastighetssektorn står för cirka en tredjedel av världens energiförbrukning och växthusgasutsläpp, vilket gör fastighetsbolag särskilt utsatta för klimatrelaterade risker. För att hantera de utmaningar som följer av övergången till en koldioxidsnål ekonomi krävs en djup förståelse för dessa risker och hur de kan undvikas eller mildras. Samtidigt innebär den gröna omställningen nya möjligheter - såsom konkurrensfördelar och långsiktiga vinster - för aktörer som är villiga att driva förändringen och agera proaktivt. Denna insikt ligger till grund för Eastnines syn på klimatrelaterade risker samt möjligheter och återspeglas i Bolagets hållbarhetsarbete.
+
+GRESB
+
+Förkortning för Global Real Estate Sustainability Benchmark.
+
+Frångående av riktlinjerna
+
+Styrelsen ska ha rätt att frångå, av årsstämman beslutade, riktlinjer, helt eller delvis, om det i ett enskilt fall finns särskilda skäl för det, och ett avsteg är nödvändigt för att tillgodose Bolagets långsiktiga intressen, inklusive dess hållbarhet, eller för att säkerställa Bolagets ekonomiska bärkraft. Som angivits ovan ingår det i styrelsens upp­ gifter att bereda beslut i ersättningsfrågor, vilket innefattar beslut om avsteg från riktlinjerna. Uppgifter om löner och aktuella riktlinjer och ersätt  ningar framgår av not 5 (Anställda, personalkostnader och ledande befattningshavares ersättningar). För räkenskapsår 2023 frångicks riktlinjerna i samband med att vd tilldelades en extra­ ordinär bonus i början av 2024 för genomförandet vid den komplexa försäljningen av innehavet i Melon   Fashion Group i Ryssland under 2023, vilken var av stor betydelse för Eastnines tillväxtmöjligheter.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Innehållsförteckning                |  51 |
+| Förvaltningsberättelse              |  52 |
+| Finansiering                        |  57 |
+| Risker                              |  59 |
+| Finansiella rapporter               |  67 |
+| Noter till finansiella rapporter    |  74 |
+| Femårsöversikt nyckeltal            |  95 |
+| Styrelsens och vd:s försäkran       |  97 |
+| Revisionsberättelse                 |  98 |
+| Intervju med styrelseordförande     | 102 |
+| Bolagsstyrningsrapport              | 103 |
+| Styrelse                            | 108 |
+| Ledning                             | 109 |
+| Övrig information                   | 110 |
+
+Viktiga källor till osäkerhet i uppskattningar
+
+De källor till osäkerhet i uppskattningarna som anges nedan avser sådana som innebär en betydande risk för att tillgångars och skulders värde kan komma att behöva justeras i väsentlig grad under det kommande räkenskapsåret.
+
+Inom området värdering av förvaltningsfastigheter kan bedömningar och antaganden ge en betydande påverkan på koncernens resultat och finansiella ställning. Värderingen kräver bland annat bedömningar av, och antaganden om, framtida kassaflöden samt fastställande av diskonteringsränta och avkastningskrav. För att avspegla den osäkerhet som finns i gjorda antaganden och bedömningar redovisas känslighetsanalys av väsentliga fastighetsparametrar, se not 10. Baserat på de kontroller som tillämpas, anser koncernen att de verkliga värden som redovisas i balansräkningen är väl genomarbetade och avvägda för att återspegla de underliggande ekonomiska värdena.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Innehållsförteckning                |  51 |
+| Förvaltningsberättelse              |  52 |
+| Finansiering                        |  57 |
+| Risker                              |  59 |
+| Finansiella rapporter               |  67 |
+| Noter till finansiella rapporter    |  74 |
+| Femårsöversikt nyckeltal            |  95 |
+| Styrelsens och vd:s försäkran       |  97 |
+| Revisionsberättelse                 |  98 |
+| Intervju med styrelseordförande     | 102 |
+| Bolagsstyrningsrapport              | 103 |
+| Styrelse                            | 108 |
+| Ledning                             | 109 |
+| Övrig information                   | 110 |
+
+Väsentliga händelser under räkenskapsåret
+
+- I mitten av mars erhöll fastigheten Uptown Park i Vilnius håll­ barhetscertifieringen LEED Platinum, vilket innebar att hela Eastnines fastighetsportölj blev hållbarhetscertifierad.
+- I mars refinansierades banklån om 62 MEUR.
+- Vid årsstämman 2024 invaldes Louise Richnau som ny styrelseledamot i Eastnine.
+- I maj genomfördes en aktiesplit där aktieägare erhöll fyra nya aktier mot en befintlig.
+- I juni förvärvades kontorsfastigheten Nowy Rynek E i Poznan för 79 MEUR.
+- I oktober erhöll Eastnine fem stjärnor i GRESBs årliga interna­ tionella granskning av hållbarhetsarbetet i fastighetsbolag.
+- I november förvärvades kontorsfastigheten Warsaw Unit i Europas största kontorstransaktion 2024. Eastnine emitterade nära 8,8 miljoner aktier till fastighetens säljare som del av köpeskillingen baserat på det aktuella långsiktiga substans­ värdet.
+- I december refinansierades banklån om 23 MEUR.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Innehållsförteckning                |  51 |
+| Förvaltningsberättelse              |  52 |
+| Finansiering                        |  57 |
+| Risker                              |  59 |
+| Finansiella rapporter               |  67 |
+| Noter till finansiella rapporter    |  74 |
+| Femårsöversikt nyckeltal            |  95 |
+| Styrelsens och vd:s försäkran       |  97 |
+| Revisionsberättelse                 |  98 |
+| Intervju med styrelseordförande     | 102 |
+| Bolagsstyrningsrapport              | 103 |
+| Styrelse                            | 108 |
+| Ledning                             | 109 |
+| Övrig information                   | 110 |
+
+Hållbar investering
+
+- EU­taxonomiförenlig verksamhet
+- Minskad klimatpåverkan
+- Toppranking i GRESB
+- Maximera grön finansiering
+
+Väsentliga frågor
+3-1  Process för att fastställa väsentliga frågor
+
+Våra väsentliga hållbarhetsfrågor grundar sig på erfarenheter från den dagliga fastighetsförvaltningen, dialog med centrala intressentgrupper - såsom medarbetare, hyresgäster, leverantörer, finansiärer och det bredare samhället - samt analys av branschens bästa praxis, trender och samhällsförväntningar på aktörer som Eastnine. Denna process benämns formellt som väsentlighetsanalys enligt GRIstandard och dubbel väsentlighetsanalys enligt den nyligen införda CSRD-  förordningen.
+
+Den första formella väsentlighetsanalysen genomfördes 2018 för att identifiera de mest relevanta hållbarhetsaspekterna för Eastnines verksamhet. Medarbetares, styrelsens och investerares synpunkter samlas in genom hållbarhetsworkshops och enkäter, medan hyresgästernas perspektiv inhämtas genom enkäter och samtal med fastighetsförvaltare. De identifierade hållbarhetsfrågorna har sedan validerats av   Eastnines ledning och genomgår årligen en uppdatering för att säkerställa att analysen fortsatt speglar verksamhetens och intressenternas prioriteringar. Vid varje validering bedöms om nya frågor bör inkluderas i rapporteringen eller om vissa områden har minskat i relevans.
+
+Under 2024 har Eastnine genomfört en dubbel väsentlighetsanalys, som en del av förberedelserna inför en eventuell rapportering enligt CSRD så som direktivet införlivats i den svenska årsredovisningslagen. Denna analys kommer att presenteras mer detaljerat när Eastnine omfattas av regelverket. Det är värt att notera att inga nya väsentliga frågor har identi  fierats. Analysen bekräftade därmed Eastnines tidigare bedömning och stärkte vår trygghet i att vi är väl förberedda inför inför kommande rapporteringskrav. I februari 2025 la Europakommissionen fram ett nytt förslag som innebär att tiden för Eastnine att rapportera skjuts fram två år. Enligt nuvarande lagstiftning ska Eastnine rapportera enligt CSRD från och med rapporteringsår 2026 för verksamhetsår 2025.
+
+I tabellen nedan presenteras en sammanställning av de väsentliga hållbarhetsfrågorna samt motsvarande GRI Standards-ämnen som Eastnine rapporterar.
+
+Energi
+
+- 3-3  Styrning av väsentliga frågor
+- 302-1  Energianvändning inom organisationen
+- 302-3  Energiintensitet
+
+Energieffektivitet och förnybar energi är centrala frågor för Eastnine. Fastighets- och byggsektorn står för cirka 30 procent av den globala energianvändningen och är en betydande källa till koldioxidutsläpp. Att minska energiförbrukningen handlar därför inte bara om kostnadsbesparingar utan är också en avgörande del av arbetet för att minska utsläppen och skapa en mer hållbar fastighetssektor.
+
+Energiredovisningen för 2024, som omfattar samtliga fastigheter i Eastnines portfölj, exklusive årets två förvärv Nowy Rynek E och Warsaw Unit, inkluderar el, fjärrvärme samt eventuell användning av naturgas eller andra bränslen för lokal uppvärmning. Förbrukningen rapporteras på två nivåer: för hela förvaltningsportföljen och separat för direktförvaltade fastigheter. I de direktförvaltade fastigheterna delas elförbrukningen upp i fastighetsel och verksamhetsel, där det senare avser hyresgästernas elanvändning. Förbrukningsdata för kyla kan inte särskiljas från el- och uppvärmningsförbrukning och rapporteras därför inte separat. Energiprestanda beräknas som den totala energiförbrukningen, inklusive el, värme, kyla och bränsleanvändning, dividerat med bruttoarea (GFA) i kvm.
+
+prestandamått för hela portföljen inte kan tas fram. Dessa fastigheter exkluderas även från normalårskorrigeringar.
+
+Eastnines energieffektiviseringsarbete drivs i linje med de strategiska målen. Ett av huvudmålen har varit att minska energiförbrukningen per kvm i direktförvaltade fastigheter med 25 procent mellan 2019 och 2025, motsvarande cirka 100 kWh per kvm exklusive verksamhetsel. Detta mål har redan uppnåtts, då energiförbrukningen vid utgången av 2024 uppgick till 96 kWh per kvm. Under 2025 kommer nya mål att fastställas för perioden 2025-2030.
+
+Det primära verktyget för att nå våra energimål är ett systematiskt arbete med hållbarhetscertifieringar. Vi strävar efter att certifiera byggnader enligt minst LEED Gold eller BREEAM Excellent. För större nybyggnadsprojekt är det interna målet att uppnå en energiintensitet på cirka 50 kWh per kvm. För att säkerställa att certifierings  arbetet fokuserar på energieffektivisering ska 80 procent av de möjliga poängen inom energikategorin uppnås inom samtliga certifieringsramverk.
+
+I fastigheter som inte direktförvaltas är det i dagsläget tekniskt omöjligt att mäta verksamhetsel, vilket innebär att något energi-
+
+Under 2023 implementerade Eastnine ett nytt internt energimätnings- och analyssystem, tillsammans med uppdaterade uppföljnings  rutiner på olika organisatoriska nivåer, vilket möjliggjorde högre optimering av energidrift. Detta arbete har fortsatt under 2024. Investeringar i energioptimering har omfattat uppdateringar av BMS-system i flera fastigheter, en ökad övergång till automatiserad drift, uppgraderingar av ventilations- och kylsystem, installation av solpaneler, byte till LED-belysning vid ombyggnationer och hyresgäst  anpassningar samt fortsatt installation av UV-fönsterfilter
+
+|                               | Absolut förbrukning   | Absolut förbrukning   | Absolut förbrukning   | Normaliserad förbrukning   | Normaliserad förbrukning   | Normaliserad förbrukning   |
+|-------------------------------|-----------------------|-----------------------|-----------------------|----------------------------|----------------------------|----------------------------|
+|                               |                       |                       | Förändring            |                            |                            | Förändring                 |
+| Energiprestanda, kWh/kvm      | 2024                  | 2023                  | %                     | 2024                       | 2023                       | %                          |
+| Direktförvaltade fastigheter¹ |                       |                       |                       |                            |                            |                            |
+| Total energiförbrukning²      | 124                   | 136                   | -8                    | 131                        | 145                        | -10                        |
+| - varav fastighetsenergi      | 89                    | 99                    | -10                   | 96                         | 109                        | -12                        |
+| Samtliga fastigheter          |                       |                       |                       |                            |                            |                            |
+| Total energiförbrukning²      | 130                   | 132                   | -2                    | N/A                        | N/A                        | N/A                        |
+
+- ¹ S7-fastigheter inkluderas ej.
+- ² Total energiförbrukning avser alla energislag i fastigheten inklusive elanvändning av hyresgäster.
+
+i fler   fastigheter i Vilnius. UV-filtren bidrar till ett förbättrat inomhusklimat och minskat kylbehov i gemensamma utrymmen med hög solinstrålning.
+
+Den normaliserade energiförbrukningen per kvm minskade med 10 procent, inklusive verksamhetsel, och med 12 procent exklusive verksamhetsel i direktförvaltade fastigheter. Andelen förnybar energi ökade till 81 procent, från tidigare 78 procent, vilket främst beror på en minskad andel fjärrvärme i den totala energiförbrukningen. All inköpt el, inklusive hyresgästel, är förnybar. Andelen förnybara bränslen i fjärrvärmesystemen uppskattas till 68 procent i Litauen, 50 procent i Lettland och 12 procent i Polen. Sedan 2021 har andelen förnybart i fjärrvärmeproduktionen mätts för att beräkna den totala andelen förnybar energi i Eastnines fastighetsbestånd.
+
+| Energiförbrukning totalt¹, MWh   | 2024   | 2023   | Förändring, %   |
+|----------------------------------|--------|--------|-----------------|
+| El                               | 19 324 | 18 969 | 2               |
+| Fjärrvärme                       | 10 626 | 11 412 | -7              |
+| Naturgas                         | 631    | 815    | -23             |
+| Totalt                           | 30 581 | 31 196 | -2              |
+| Andel förnybar energi,%          | 81     | 78     | +3 %-enhet      |
+
+¹   Total energianvändning inklusive hyresgästernas verksamhetsel.
+
+<!-- image -->
+
+| Eastnines fokus                     |   3 |
+|-------------------------------------|-----|
+| Hållbarhet ur flera perspektiv      |  16 |
+| Vår verksamhet                      |  28 |
+| Finansiell information och styrning |  50 |
+| Övrig information                   | 110 |
+| Aktien och aktieägarna              | 111 |
+| Hållbarhetsupplysningar             | 114 |
+| GRI-noter                           | 114 |
+| GRI-index                           | 124 |
+| TCFD-rapport                        | 126 |
+| EU-taxonomin                        | 128 |
+| Definitioner                        | 130 |
+| Övrigt                              | 132 |

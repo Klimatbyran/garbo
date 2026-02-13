@@ -1,0 +1,1413 @@
+## — Scope 3 GHG emissions
+
+All other indirect emissions not included in scope 2 that occur in the value chain both upstream and downstream.
+According to the GHG protocol scope 3 emissions are separated into 15 categories and include for example purchased goods and services business travel and commuting and use of sold products.
+
+# OVERVIEW OF SCOPE 1, 2 AND 3 GHG EMISSIONS
+
+| (kt CO₂e) | 2024 | 2023 |
+| --- | --- | --- |
+| Gross scope 1 GHG emissions of which |
+| Use of fuels | 67 | 70
+| Coolants | 4 | 4
+| SF6 | 8 | 9
+| Transport by own fleet | 40 | 44
+| Emissions from biofuels | - | -
+| Total scope 1 emissions (assured) | 119 | 128
+| Gross scope 2 GHG emissions market based District heat | 8 | 10
+| Electricity | 10 | 13
+| Gross scope 2 GHG emissions location based District heat | 8 | 10
+| Electricity | 278 | 285
+| Total scope 2 GHG emissions market based (assured) | 19 | 23
+| Total scope 2 GHG emissions location based (assured) | 286 | 295
+| Total scope 1+2 GHG emissions market based | 138 | 151
+| Total scope 1+2 GHG emissions location based | 405 | 423
+| Gross indirect (scope 3) GHG emissions |
+| 1 Purchased goods and services1 | 12,172 | 12,566
+| 2 Capital goods1 | 85 | 69
+| 3 Fuel and energy related Activities (not included in scope 1 or 2) | 55 | 65
+| 4 Upstream transportation and distribution | 617 | 699
+| 5 Waste generated in operations | 12 | 15
+| 6 Business traveling | 169 | 154
+| 7 Employee commuting | 175 | 175
+| 8 Upstream leased assets | - | -
+| 9 Downstream transportation | 43 | 62
+| 10 Processing of sold products | - | -
+| 11 Use of sold products 2 | 381,372 | 433,347
+| 12 End of Life treatment of sold products1 | 230 | 261
+| 13 Downstream leased assets | 18 | 3
+| 14 Franchises | - | -
+| 15 Investments1 | 2 | 9
+| Total scope 3 GHG emissions (assured) | 394,952 | 447,426
+| Total scope 1 2 and 3 GHG emissions (market-based) (assured) | 395,090 | 447,577
+| Total scope 1 2 and 3 GHG emissions (location-based) (assured) | 395,357 | 447,848
+![table image]({page: 35, x: 220}, {y: 95, {width: 325}, {height: 17})
+
+Due to rounding numbers presented may not add to the totals provided.
+
+1 Cat.
+1 2 12 and 15 emissions were adjusted for prior years due to a refined calculation of inflation impact on spend based emission factors.
+
+2 Cat.
+11 emissions were adjusted for prior years as refined technical parameters have been applied.
+In one business the 2022 baseline was revisited as business activity was deemed not representative for the year.
+
+For the calculation of the GHG emission intensity the total ABB Group revenues are applied.
+
+| Scope 1 2 and 3 GHG emission intensity (kt CO₂e/Million $ of sales) | 2024 | 2023 |
+| --- | --- | --- |
+| Market based (assured) | 12.03 | 13.88
+| Location based (assured) | 12.04 | 13.89
+![table image]({page: 35, x: 215}, {y: 641, {width: 326}, {height: 8})
+
+The scope of consolidation for GHG emissions reporting follows the Group standards outlined in the section “Approach to reporting” at the beginning of this Sustainability Statement.
+In 2024 mergers and acquisitions did not constitute significant changes to the GHG emissions reporting.
+
+
+<!-- PAGE: 36 -->
+We calculate our scope 1 and 2 GHG emissions using detailed methodologies that incorporate assumptions and standardized emissions factors.
+For scope 1 emissions from our fleet vehicles we collect vehicle specific data such as fuel type distance traveled and emissions profiles for every vehicle in the fleet.
+If this is not available estimations are applied.
+In particular the distance travelled is estimated based on the leasing contract duration.
+Fleet emissions factors are based on WLTP/NEDC emission profiles per vehicle and provided in g CO2/km.
+They are then adjusted to the lab to road factor based on the vehicle's location.
+
+Emissions from the on site use of fuel coolants and SF6 are calculated using data reported quarterly or annually depending on the facility size with site specific emissions factors.
+For scope 2 emissions from purchased electricity and district heating we collect and process energy consumption data from facilities worldwide applying both location based and market based emissions factors.
+Location based calculations use average grid emission factors in kg CO2e/kWh specific to each geographic location while market based calculations consider specific contractual arrangements like renewable energy purchases or power purchase agreements with emissions factors obtained from external industry sources.
+For a minority of locations where environmental data is not readily available we employ an estimation process.
+This includes in particular smaller sites with energy consumption lower than 100 MWh per year and fewer than 100 employees.
+For these sites environmental data is extrapolated based on the employee headcount at these sites and average consumption per employee from sample reporting sites.
+For Q4 estimations were applied where year end actuals have not been available at the time of reporting.
+
+In scope 1 we only consider methane and N2O emissions of biogenic emissions following SBTi guidance amounting to 2 t of CO2e in 2024.
+Biogenic emissions of 2,370 t of CO2e are not included in scope 1.
+
+Our renewable electricity consumption comes from bundled and unbundled procurement of Energy Attribute Certificates (EACs) as well as onsite solar PV generation.
+
+For scope 3 emissions we account for all scope 3 categories that are relevant to ABB and that are not covered in scope 1 and 2 (refer to the list of included categories above).
+As the vast majority of our emissions stem from the use of sold products this category represents the most significant contribution.
+Nevertheless we diligently calculate all other scope 3 categories relevant to ABB to ensure comprehensive reporting.
+When assessing the materiality of the different scope 3 categories we refer to the GHG Protocol Corporate Value Chain Accounting and Reporting Standard.
+The calculation of scope 3 category 11 emissions is based on a bottom up model for the diverse offering across our divisions.
+The model considers both the technical specifications and the operating conditions associated with each product including product energy consumption metrics and efficiency specifications.
+We use two primary methods to estimate energy consumption during the operational phase of sold products
+
+- • Energy Input Method: Applied to products that require specific power inputs to perform their tasks, such as motors, automation systems and robotics.
+
+- • Energy Loss Method: Used for products where energy efficiency losses are critical, such as electrical drives and switchgear.
+
+The total energy consumed is converted to GHG emissions using regional emission factors from the IEA in alignment with regional electricity grid compositions.
+These factors are updated annually to reflect changes in grid emission intensities.
+
+
+<!-- PAGE: 37 -->
+Remaining scope 3 emissions (everything apart from category 11) encompass a broad range of indirect emissions.
+Data sources include for example spend figures for purchased products and services transportation and distribution or business travel.
+Depending on the category we use different methods to calculate these emissions
+
+- • Spend-Based Method: Applied to categories such as purchased goods and services or capital goods, where we calculated emissions based on the financial expenditure. Emission factors are derived from economic inputoutput models that relate spending to GHG emissions (e.g., Exiobase).
+
+- • Activity-Based Method: For categories such as business travel, emissions are approximated using activity data such as travel miles, number of trips and transportation modes.
+
+The total emissions are then converted to GHG emissions using regional emission factors (where applicable) ensuring alignment with the geographical areas where activities occur.
+
+The scope 3 data collection is supported by an ABB customized reporting tool in line with our internal and external assurance requirements.
+
+For the calculation of avoided emissions ABB has developed a methodology based on WBCSD guidance tailored to its product portfolio.
+According to WBCSD's guidance “avoided emissions” refers to the reduction in GHG emissions achieved by comparing our products or solutions to a reference scenario where the solution is not used.
+Both the product and reference scenario are assessed through their entire life cycles.
+Three scenarios are considered replacement retrofit and new installation.
+Data is collected covering the percentage of sales or orders where deemed more relevant and kWh/t CO₂e.
+The data is drawn from our sales teams and the products’ technical specifications.
+Alongside the three scenarios several factors provided by the WBCSD guidance for avoided emissions affect the eligibility of avoided emissions against our ambition
+
+- • Gate 1 (climate action credibility): ABB transparently reports on 100 percent of its value chain emissions on an annual basis. This covers 13 of the 15 scope 3 GHG Protocol categories. Using this comprehensive GHG inventory, we have set SBTi targets. We will not be using avoided emissions to claim net-zero status.
+
+- • Gate 2 (climate science alignment): We do not consider avoided emissions from product lines or solutions sold to sectors and applications linked to exploration, extraction, mining, production, distribution or sale of fossil fuels.
+
+- • Gate 3 (contribution legitimacy): We only consider avoided emissions that arise from installations that drive change within their respective markets. For example, only high-efficiency motors in a higher energy-efficiency class than the installed base average and used in a retrofit application would be eligible for inclusion. As for general applications like drives, we consider the retrofit of existing direct-on-line motor-driven systems as their main contribution to avoided emissions. In new installations of motor-driven systems, we exclude applications where the customer has already decided to install a drive. We only include sales where the customer has been convinced to install a drive with the motor, thereby improving overall efficiency.
+
+
+<!-- PAGE: 38 -->
+Avoided emissions are calculated based on the following formula
+
+# Avoided lifetime emissions (kg CO₂e) = annual energy saved (MWh) × emission factor (kg CO₂e/MWh) × lifetime (years)
+
+- • Annual energy saved: Energy saved on a yearly basis when comparing the product or solution with the relevant reference scenario using the following four elements: a) power input of the product/solution assuming use of 100 percent of rated energy input value1, b) operating hours per year,
+
+1 Due to the lack of readily available precise external data or analysis we utilize the best available assumptions.
+The avoided
+
+|  | c) percentage of revenues from eligible avoided emissions scenarios (replacements retrofits new installations)1 d) percentage of efficiency gains in each scenario. |
+| --- | --- |
+| emission calculation is highly sensitive to these assumptions. A percentage change in either assumption will result in an equivalent percentage change in the calculated avoided lifetime emissions. | •Emission factor Weighted average emission factor based on geography of where the respective product or solution is used using the IEA and United Nations Economic Commission for Europe (UNECE) data multiplied by regional revenue exposure. •Lifetime Average expected lifetime of the product or solution using Product Category Rules data when available and applicable used also for the product's or solution's Life Cycle Assessment or expert opinion if not available. Reporting periods of value chain and ABB entities do not differ significantly and limited effects on our GHG emission reporting are expected. Currently we primarily use secondary data to calculate scope 3 emissions. Certain scope 3 GHG emission categories are not applicable to ABB such as category 8 (upstream leased assets) has been excluded as we already account for our leased assets within our scope 1 and scope 2 GHG emission footprint through the operational control consolidation approach. By including leased assets in scope 1 and 2 further inclusion in scope 3 would lead to double counting and is therefore not applicable. Category 14 (franchises) has been excluded because we do not operate any franchises. The scope 3 categories included in our inventory are shown in the table “Overview of scope 1 2 and 3 GHG emissions”. We report scope 3 GHG emissions following the boundaries and methodologies defined by the GHG Protocol Corporate Standard. The reporting scope covers both upstream and downstream activities including categories as defined in ESRS E1-6 AR 46.i ensuring comprehensive representation of our value chain. Emissions are attributed based on our operational and value chain control excluding immaterial sources or categories not applicable to our business model such as franchises.
+| —Physical and transition climate risks and opportunities | E1-9 ANTICIPATED FINANCIAL EFFECTS PHYSICAL RISKS The qualitative physical risk assessment clustered approximately 340 sites in low to high risk categories. The findings of the assessment showed an increased risk of floods and storms across the short medium and long term time horizons under
+![table image]({page: 38, x: 231}, {y: 167, {width: 475}, {height: 79})
+
+different scenarios.
+Our analysis indicates that the hazards identified are expected to have a medium impact under the moderate RCP4.5 scenario.
+However the severity of these hazards and the impact on our business may increase under the more extreme RCP8.5 scenario which confirms the understanding that higher rates of global warming increase the susceptibility to those climate related risks.
+
+A limited number of sites in the United States and China show high counts of identified climate related physical risks applicable for both acute and chronic risk in the long term within ABB\'s asset portfolio.
+The assets could be temporarily impacted through reduced production capacities as well as face higher insurance premiums in the future.
+
+
+<!-- PAGE: 39 -->
+When examining hazards such as flooding under a strong global warming RCP8.5 scenario we observe a progressive increase in the number of assets at higher risk levels between the medium and long term time horizon.
+Similarly for storms under the RCP8.5 scenario there is a rise in the number of assets at high risk indicating a growing risk level over time.
+
+### Market- and location-based scope 1 + 2 GHG emissions reduction
+
+Absolute value of emissions in baseline year (2019)1 GHG emission category (kt CO₂e)
+
+| Market based | 631 | 138 | (493) | -78% |
+| --- | --- | --- | --- | --- |
+| Location based | 645 | 405 | (240) | -37%
+![table image]({page: 32, x: 220}, {y: 658, {width: 337}, {height: 8})
+
+1 Scope 1
++
+2 GHG emissions baseline value has been adjusted for portfolio changes.
+
+2024 reduction compared to baseline year 2024 status (assured) Absolute value Percentage
+
+
+<!-- PAGE: 33 -->
+The consistency between our GHG emissions reduction targets and the GHG inventory boundaries is ensured through clearly defined and documented inventory boundaries that are reviewed annually.
+Material changes in our structure acquisitions or divestments are reflected accordingly.
+Within our alignment to SBTi we have committed to incorporate all significant emission sources in our inventory and to annually report on all relevant scope 3 categories.
+
+For scope 1 and 2 the baseline year remains 2019.
+Reorganizations divestments and acquisitions have been reflected in restatements of the 2019 value in the years since 2020.
+For scope 3 the baseline year was set to 2022 as the target was introduced during 2023 and the previous year best represented the current business structure.
+The same applies to the baseline for the ambition to avoid emissions.
+
+—Management of climate change E1-3 ACTIONS Our efforts and achievements in addressing climate change are three fold
+
+- • We are committed to reducing emissions in our own operations
+
+- • We are committed to reducing emissions in our value chain by supporting our suppliers to reduce their emissions, and
+
+- • We are committed to helping our customers reduce and avoid emissions through our products, solutions and services.
+
+To reduce scope 1 and 2 GHG emissions several decarbonization levers have been defined and are being implemented.
+These levers can be disaggregated into fossil fuel reduction (through energy efficiency and decarbonization of fossil fueled assets) a shift to renewable energy fleet electrification and SF6 management.
+The commitments to the RE100 EV100 and EP100 initiatives will support the reduction of scope 1 and 2 GHG emissions by 2030.
+
+For scope 3 the levers to reduce the most material categories specifically emissions from use of sold products and purchased goods and services are disclosed in the transition plan section of this statement.
+
+## Page 38:
+                ```markdown
+| Overview of Scope 1, 2 and 3 GHG Emissions |       |       |
+|---------------------------------------------|-------|-------|
+| Scope 1                                    | n.a.  | n.a.  |
+| Scope 2                                    | n.a.  | n.a.  |
+| Scope 3                                    | n.a.  | n.a.  |
+```
+
+## PROTECTING THE CLIMATE
+
+|  |
+| --- |
+| —Toward a low carbon economy | Enabling a low carbon society is at the center of our purpose and value proposition and a key pillar of our Sustainability Agenda. At ABB we want to help our customers reduce and avoid emissions through our products solutions and services. We also work toward reducing emissions in our own operations and in those of our suppliers. We aim to drive the shift towards a low carbon economy with innovative technologies. Our expertise in electrification and automation enables greater energy efficiency and the integration of renewable energies into the energy mix. We work with our customers and suppliers to help them save energy and reduce emissions across their value chains. Our commitment to supporting energy security and the transition to a low carbon society is also demonstrated by the work we are doing to increase energy efficiency and reduce emissions in our own operations.
+| E1-1 TRANSITION PLAN IN PROGRESS |
+| The basis for our climate transition plan is our set of near and long term greenhouse gas reduction targets (scope 1 2 and 3) which were approved by the Executive Committee (EC) and the Board of Directors in 2023. These targets were validated by the Science Based Targets initiative (SBTi) in June 2024 as being in line with the net zero standard. Our long term targets are also aligned with the Swiss climate goals. In 2024 our scope 1 and 2 targets were part of our annual incentive plan (AIP) and included in the long term incentive plan (LTIP) for the top management (for AIP and LTIP see p. 9). The 2024 forecast of scope 3 category 1 emissions were set at division level and approved by the EC. The full scope 3 division level forecast for 2030 will be approved by the EC in 2025. We report annually on our greenhouse gas reduction performance against scopes 1 2 and 3. In line with our SBTi net zero absolute reduction targets we are committed to reaching net zero greenhouse gas emissions across the value chain by 2050. As the SBTi net zero standard only allows for Negative Emission Technologies (NETs) to be used for a maximum of 10 percent of residual emissions in 2050 rather than for the 2030 targets we will analyze the respective investment options later. To reduce ABB's operational emissions (scopes 1 and 2) we have defined and are implementing several decarbonization levers. When it comes to our value chain our products and solutions help our customers reduce emissions. At the same time our scope 3 category 11 emissions increase as long as the electricity in the grid is not decarbonized. To tackle value chain emissions where scope 3 category 1 and scope 3 category 11 represent 3.1 percent and 96.6 percent of emissions respectively we have identified the following decarbonization levers |
+| Scope 3.1 |
+|  | (3.1 % of total scope 3) 1. Collaborate with suppliers and customers on low carbon material availability and use 2. Increase availability of product carbon footprints (PCFs) from suppliers
+![table image]({page: 25, x: 76}, {y: 174, {width: 193}, {height: 19})
+
+
+<!-- PAGE: 26 -->
+- 3. Engage suppliers on PCF reduction commitments and implement carbon pricing
+
+#### products sold from 2022 to 2030
+
+1 Scope 1
++
+2 GHG emissions baseline value has been adjusted for portfolio changes.
+
+2 Scope 3 emissions baseline has been adjusted due to product portfolio and applied technical parameters refinement.
+In one business the baseline was revisited as one business activity was deemed not representative for the year.
+
+3 Avoided emissions 2024 status is cumulative for 2022-2024 where only the 2024 value of 65,611kt CO2e has been assured for 2024.
+
+## Page 35:
+                ```markdown
+|                            | 2024      | 2023      |
+|----------------------------|-----------|-----------|
+| Gross scope 1 GHG emissions, of which |           |           |
+| Use of fuels               | 67        | 70        |
+| Coolants                   | 4         | 4         |
+| SF6                        | 8         | 9         |
+| Transport by own fleet     | 40        | 44        |
+| Emissions from biofuels    | n.a.      | n.a.      |
+| Total scope 1 emissions (assured) | 119       | 128       |
+| Gross scope 2 GHG emissions, market-based |           |           |
+| District heat              | 8         | 10        |
+| Electricity                | 10        | 13        |
+| Gross scope 2 GHG emissions, location-based |           |           |
+| District heat              | 8         | 10        |
+| Electricity                | 278       | 295       |
+| Total scope 2 GHG emissions, market-based (assured) | 19        | 23        |
+| Total scope 2 GHG emissions, location-based (assured) | 286       | 295       |
+| Total scope 1+2 GHG emissions, market-based | 138       | 151       |
+| Total scope 1+2 GHG emissions, location-based | 405       | 423       |
+| Gross indirect (scope 3) GHG emissions |           |           |
+| 1 Purchased goods and services | 12,172   | 12,566    |
+| 2 Capital goods            | 85        | 69        |
+| 3 Fuel and energy-related activities (not included in scope 1 or 2) | 65        | 69        |
+| 4 Upstream transportation and distribution | 617       | 699       |
+| 5 Waste generated in operations | 12        | 15        |
+| 6 Business traveling        | 169       | 154       |
+| 7 Employee commuting        | 175       | n.a.      |
+| 8 Upstream leased assets    | n.a.      | n.a.      |
+| 9 Downstream transportation  | 43        | 62        |
+| 10 Processing of sold products | 381,372 | 433,347   |
+| 11 Use of sold products 2   | 230       | 261       |
+| 12 End-of-Life treatment of sold products 1 | n.a.      | n.a.      |
+| 13 Downstream leased assets  | 18        | 3         |
+| 14 Franchises              | n.a.      | n.a.      |
+| 15 Investments             | 2         | 9         |
+| Total scope 3 GHG emissions (assured) | 394,952   | 447,426   |
+| Total scope 1, 2 and 3 GHG emissions (market-based) (assured) | 395,090   | 447,577   |
+| Total scope 1, 2 and 3 GHG emissions (location-based) (assured) | 395,357   | 447,848   |
+| Scope 1, 2 and 3 GHG emission intensity (kt CO2e/Million $ of sales) |           |           |
+| Market-based (assured)     | 12.03     | 18.88     |
+| Location-based (assured)   | 12.04     | 13.89     |
+```
+
+## IFRS S2.B38-B57 IFRS S2.29(a)(iii)
+### IFRS S2.B31
+
+GRI 305 Emissions 2016 305-3 Other indirect (Scope 3) GHG emissions
+
+GRI 305 Emissions 2016 305-2 Energy indirect (Scope 2) GHG emissions
+
+|  | 37 | IFRS S2.B19 |
+| --- | --- | --- |
+| chain and the date of the undertaking's general purpose financial statements |
+| energy generation or for unbundled energy attribute claims |
+| E1 E1-6 AR 45 d |  | Disclosure of types of contractual instruments used for sale and purchase of energy bundled with attributes about |  | 
+| E1 E1-6 AR 46 g |  | Percentage of GHG scope 3 calculated using primary data | 37 | 
+| E1 E1-6 AR 46 i |  | Disclosure of why scope 3 GHG emissions category has been excluded | 37 | GRI 305 Emissions 2016 305-3 Other indirect (Scope 3) GHG emissions
+| E1 E1-6 AR 46 i | List of scope 3 GHG emissions categories included in inventory | 37 | GRI 305 Emissions 2016 305-3 Other indirect (Scope 3) GHG emissions | IFRS S2.B32
+| E1 E1-6 AR 46 h |  | Disclosure of reporting boundaries considered and calculation methods for estimating scope 3 GHG emissions | 37 | 
+| E1 E1-6 53 | AR 53 | GHG emissions intensity location based (total GHG emissions per net revenue) | 34 | GRI 305 Emissions 2016 305-4 GHG emissions intensity
+| E1 E1-9 AR 69 b |  | Disclosure of whether and how assessment of assets and business activities considered to be at material physical risk relies on or is part of process to determine material physical risk and to determine climate scenarios | 37-38 | 
+| E3
+| E3 E3.IRO-1 8 a AR 1 AR 15 Disclosure of whether and how assets and activities have been screened in order to identify actual and potential 43 GRI 303 Water and Effluents 2018 303-1 Interactions with water as a shared resource |
+| water and marine resources related impacts risks and opportunities in own operations and upstream and downstream value chain and methodologies assumptions and tools used in screening [text block] |
+| E3 E3-1 12a | AR 16 AR 18 | Disclosure of whether and how policy addresses water management | 43-44 | 
+| E3 E3-1 12a i | AR 16 AR 18 | Disclosure of whether and how policy addresses the use and sourcing of water and marine resources in own operations | 43-44 | 
+| E3 E3-1 12 c | AR 16 AR 18 | Disclosure of whether and how policy addresses commitment to reduce material water consumption in areas at water risk | 43-44 | 
+| E3 E3-4 28 b | AR 28 | Total water consumption in areas at water risk including areas of high water stress | 44 | GRI 303 Water and Effluents 2018 303-5 Water consumption
+| E3 E3-4 28 e | AR 29 | Disclosure of contextual information regarding water consumption | 44 | GRI 303 Water and Effluents 2018 303-5 Water consumption
+| E3 E3-4 28 e | AR 29 | Share of the measure obtained from direct measurement from sampling and extrapolation or from best estimates | 44 | GRI 303 Water and Effluents 2018 303-5 Water consumption
+![table image]({page: 112, x: 346}, {y: 147, {width: 498}, {height: 14})
+
+
+<!-- PAGE: 113 -->
+| E5 E5-1 15a | Disclosure of whether and how policy addresses transitioning away from use of virgin resources including relative increases in use of secondary (recycled) resources |
+| --- | --- |
+| E5 E5-3 24 | AR 16 | Disclosure of how target relates to resources (resource use and circular economy) | 41 | 
+| E5 E5-3 24 b |  | Disclosure of how target relates to increase of circular material use rate | 41 | 
+| E5 E5-3 24 c | AR 17 | Disclosure of how target relates to minimization of primary raw material | 41 | 
+| E5 E5-3 24 e |  | Target relates to waste management | 41 | 
+| E5 E5-3 24 e |  | Disclosure of how target relates to waste management | 41 | 
+| E5 E5-5 37 a |  | Total waste generated | 41 | GRI 306 Waste 2020 306-3 Waste generated
+| E5 E5-5 37 b | AR 31 | Waste diverted from disposal breakdown by hazardous and non hazardous waste and treatment type | 41 | GRI 306 Waste 2020 306-4 Waste diverted from disposal
+| E5 E5-5 37 c | AR 32 | Waste directed to disposal breakdown by hazardous and non hazardous waste and treatment type | 41 | GRI 306 Waste 2020 306-5 Waste directed to disposal
+| E5 E5-5 37 d |  | Non recycled waste | 41 | 
+| E5 E5-5 37 d |  | Percentage of non recycled waste | 41 | 
+| E5 E5-5 39 |  | Total amount of hazardous waste | 41 | GRI 306 Waste 2020 306-3 Waste generated
+| S1 S1.SBM-3 14 | AR 6 AR7 | All people in its own workforce who can be materially impacted by undertaking are included in scope of disclosure under ESRS 2 | 57 | 
+| S1 S1.SBM-3 14 b |  | Material negative impacts occurrence (own workforce) | 58 | 
+| S1 S1.SBM-3 14 c Description of activities that result in positive impacts and types of employees and non employees in its own 57 |
+| S1
+| S1 S1.SBM-3 14 c Description of activities that result in positive impacts and types of employees and non employees in its own 57 |
+| S1 S1-1 20 |  | Description of relevant human rights policy commitments relevant to own workforce | 59 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S1 S1-1 20a |  | Disclosure of general approach in relation to respect for human rights including labor rights of people in its own workforce | 59 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S1 S1-1 20b |  | Disclosure of general approach in relation to engagement with people in its own workforce | 59 | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement
+| S1 S1-1 20c |  | Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts | 59 | GRI 3 Material Topics 2021 3-3 Management of material topics
+| S1 S1-1 21 | AR 12 | Disclosure of whether and how policies are aligned with relevant internationally recognized instruments | 59 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S1 S1-1 23 |  | Workplace accident prevention policy or management system is in place | 59 | GRI 403 Occupational health and safety 2018 403-1 Occupational health and safety management system
+| S1 S1-1 24a |  | Specific policies aimed at elimination of discrimination are in place | 60 | GRI 3 Material Topics 2021 3-3 Management of material topics
+| S1 S1-1 24b | AR 15 AR 16 | Grounds for discrimination are specifically covered in policy | 60 | 
+| S1 S1-1 24c |  | Disclosure of specific policy commitments related to inclusion and (or) positive action for people from groups at particular risk of vulnerability in own workforce | 60 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+![table image]({page: 113, x: 59}, {y: 89, {width: 621}, {height: 21})
+
+
+<!-- PAGE: 114 -->
+| S1 S1-2 28 | Disclosure of steps taken to gain insight into perspectives of people in its own workforce that may be particularly vulnerable to impacts and (or) marginalized | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement |
+| --- | --- | --- |
+| S1 S1-3 32 c |  | Grievance or complaints handling mechanisms related to employee matters exist | 62 | 
+| S1 S1-3 32 d |  | Disclosure of processes through which undertaking supports or requires availability of channels | 62 | GRI 2 General Disclosures 2021 2-26 Mechanisms for seeking advice and raising concerns
+| S1 S1-4 38 a | AR 42 | Description of action taken planned or underway to prevent or mitigate negative impacts on own workforce | 62-64 | GRI 3 Material Topics 2021 3-3 Management of material topics GRI 403 Occupational health and safety 2018 403-9 Work related injuries
+| GRI 403 Occupational health and safety 2018 403-10 Work related ill health |
+| S1 S1-4 38 d | AR 38 AR 39 | Description of how effectiveness of actions and initiatives in delivering outcomes for own workforce is tracked and assessed | 64 | GRI 3 Material Topics 2021 3-3 Management of material topics
+| S1 S1-4 41 | AR 37 | Disclosure of whether and how it is ensured that own |  | 
+| practices do not cause or contribute to material negative impacts on own workforce |
+| 61-62 |
+| S1 S1-6 50 a | AR 57 | Number of employees (head count) | 65 | GRI 2 General Disclosures 2021 2-7 Employees GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-6 50 a | AR 57 | Average number of employees (head count) | 65 | GRI 2 General Disclosures 2021 2-7 Employees GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-6 50 a | AR 57 | Number of employees in countries with 50 or more employees representing at least 10% of total number of employees | 65 | GRI 2 General Disclosures 2021 2-7 Employees GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-6 50 a | AR 57 | Average number of employees in countries with 50 or more employees representing at least 10% of total number of employees | 65 | GRI 2 General Disclosures 2021 2-7 Employees GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-6 50 c | AR 59 | Number of employees who have left undertaking | 65 | GRI 401 Employment 2016 401-1 New employee hires and employee turnover
+| S1 S1-6 50 c |  | Percentage of employee turnover | 65 | GRI 401 Employment 2016 401-1 New employee hires and employee turnover
+| S1 S1-6 50 d | AR 60 | Description of methodologies and assumptions used to compile data (employees) | 65 | GRI 2 General Disclosures 2021 2-7 employees
+| S1 S1-6 50 d i |  | Employees numbers are reported in head count or full time equivalent | 65 | GRI 2 General Disclosures 2021 2-7 employees
+| S1 S1-6 50 d ii |  | Employees numbers are reported at end of reporting period/average/other methodology | 65 | GRI 2 General Disclosures 2021 2-7 employees
+| S1 S1-6 50 e | AR 58 | Disclosure of contextual information necessary to understand data (employees) | 65 | GRI 2 General Disclosures 2021 2-7 employees
+| S1 S1-6 50 f |  | Disclosure of cross reference of information reported under paragraph 50 (a) to most representative number in financial statements |  | 
+| S1 S1-9 66a |  | Gender distribution in number of employees (head count) at top management level |  | GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-9 66 a |  | Gender distribution in percentage of employees at top management level (this datapoint is the same as our |  | 
+| S1 S1-9 66 b |  | Distribution of employees (head count) under 30 years old | 66 | GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-9 66 b |  | Distribution of employees (head count) between 30 and 50 years old | 66 | GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-9 66 b |  | Distribution of employees (head count) over 50 years old | 66 | GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+| S1 S1-9 AR 71 |  | Disclosure of own definition of top management used | 66 | 
+| S1 S1-14 88 a | AR 80 | Percentage of people in its own workforce who are covered by health and safety management system based on legal |  | health and safety management system
+| S1 S1-14 88 b | AR 82 AR 89 AR91 | Number of fatalities in own workforce as result of work related injuries and work related ill health | 66 | GRI 403 Occupational health and safety 2018 403-9 Work related injuries GRI 403 Occupational health and safety 2018 403-10 Work related ill health
+| S1 S1-14 88 c | AR 89 AR 91 | Number of recordable work related accidents for own workforce | 66 | GRI 403 Occupational health and safety 2018 403-9 Work related injuries
+| S1 S1-14 88 c | AR 89 AR 91 | Rate of recordable work related accidents for own workforce | 66 | GRI 403 Occupational health and safety 2018 403-9 Work related injuries
+| S1 S1-14 88 d |  | Number of cases of recordable work related ill health of employees | 66 | GRI 403 Occupational health and safety 2018 403-10 Work related ill health
+| S1 S1-14 88 e | AR 95 | Number of days lost to work related injuries and fatalities from work related accidents work related ill health and fatalities from ill health related to employees | 66 | 
+| S1 S1-17 103 a |  | Number of incidents of discrimination and harassment [table] | 67 | GRI 406 Non discrimination 2016 406-1 Incidents of discrimination and corrective action taken
+| S1 S1-17 103 d | AR 103 AR 106 | Disclosure of contextual information necessary to understand data and how data has been compiled (work related grievances incidents and complaints related to social and human rights matters) | 67 | GRI 2 General Disclosures 2021 2-27 Compliance with laws and regulations
+| S1 S1-17 104 a | AR 103 AR 106 | No severe human rights incidents connected to own workforce have occurred | 67 | GRI 3 Material topics 2021 3-3 Management of material topics
+| S2 S2.SBM-3 11 a |  | Description of types of value chain workers subject to material impacts | 68 | 
+| S2 S2.SBM-3 11 d Description of activities that result in positive impacts and types of value chain workers that are positively affected or 69 |
+| S2
+| S2 S2.SBM-3 11 d Description of activities that result in positive impacts and types of value chain workers that are positively affected or 69 |
+| S2 S2.SBM-3 11 e |  | Description of material risks and opportunities arising from impacts and dependencies on value chain workers | 68 | 
+| S2 S2-1 17 |  | Description of relevant human rights policy commitments relevant to value chain workers | 69-71 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S2 S2-1 17a |  | Disclosure of general approach in relation to respect for human rights relevant to value chain workers | 70 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S2 S2-1 17b |  | Disclosure of general approach in relation to engagement with value chain workers | 69 | GRI 2 General Disclosures 2021 2-23 Policy commitments GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement
+|  |  |  | 66 | GRI 405 Diversity and equal opportunity 2018 405-1 Diversity of governance bodies and employees
+|  |  |  | 66 | GRI 403 Occupational health and safety 2018 403-8 Workers covered by an occupational
+![table image]({page: 114, x: 59}, {y: 89, {width: 275}, {height: 14})
+
+
+<!-- PAGE: 115 -->
+committed datapoint ‘proportion of women in senior management roles’)
+
+requirements and (or) recognized standards or guidelines
+
+
+<!-- PAGE: 116 -->
+| S2 S2-1 17 c | Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts | GRI 2 General Disclosures 2021 2-23 Policy commitments GRI 2 General Disclosures 2021 2-25 Processes to remediate negative impacts |
+| --- | --- | --- |
+| GRI 409 Forced or compulsary labor 2016 409-1 Operations and suppliers at significant risk for incidents of forced or compulsory labor |
+| S2 S2-1 18 |  | Undertaking has supplier code of conduct | 70 | GRI 2 General Disclosures 2021 2-24 Embedding policy commitments
+| S2 S2-1 19 | AR 14 | Disclosure of whether and how policies are aligned with relevant internationally recognized instruments | 70 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+![table image]({page: 116, x: 59}, {y: 89, {width: 621}, {height: 14})
+
+- S2 S2-1 19 Disclosure of extent and indication of nature of cases of 70
+
+|  |
+|  |
+| 71 | GRI 3 Material topics 2021 3-3 Management of material topics
+| 71 | GRI 3 Material topics 2021 3-3 Management of material topics
+![table image]({page: 116, x: 346}, {y: 271, {width: 190}, {height: 14})
+
+non respect of the UN Guiding Principles on Business and Human Rights ILO Declaration on Fundamental Principles and Rights at Work or OECD Guidelines for Multinational Enterprises that involve value chain workers
+
+representatives directly or with credible proxies
+
+ensuring that engagement happens and that results inform undertakings approach
+
+| S2 S2-2 22 | AR 20 | Disclosure of whether and how perspectives of value chain workers inform decisions or activities aimed at managing actual and potential impacts | 71 | GRI 3 Material topics 2021 3-3 Management of material topics |
+| --- | --- | --- | --- | --- |
+| S2 S2-2 22 a |  | Engagement occurs with value chain workers or their legitimate |  | 
+| S2 S2-2 22 b | AR 18 | Disclosure of stage at which engagement occurs type of engagement and frequency of engagement | 71 | GRI 3 Material topics 2021 3-3 Management of material topics
+| S2 S2-2 22 c | AR 17 AR 18 | Disclosure of function and most senior role within undertaking that has operational responsibility for |  | 
+| S2 S2-3 27 b | AR 22 | Disclosure of specific channels in place for value chain workers to raise concerns or needs directly with undertaking and have them addressed | 72 | GRI 2 General Disclosures 2021 2-25 Processes to remediate negative impacts
+| S2 S2-3 27 c |  | Disclosure of processes through which undertaking supports or requires availability of channels | 72 | 
+| S2 S2-3 27 d | AR 27 | Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured | 72 | 
+| S3 S3.SBM-3 9 a) | AR 7 | Description of types of affected communities subject to material impacts | 73 | 
+| S3 S3.SBM-3 9 c |  | Description of activities that result in positive impacts and types of affected communities that are positively affected or could be positively affected | 73 | 
+| S3 S3.SBM-3 9 d |  | Description of material risks and opportunities arising from impacts and dependencies on affected communities | 73 | 
+| S3 S3-1 15 |  | Disclosure of any particular policy provisions for preventing and addressing impacts on indigenous peoples | 74 | 
+| S3 S3-1 16 |  | Description of relevant human rights policy commitments relevant to affected communities | 74 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S3 S3-1 16 a |  | Disclosure of general approach in relation to respect for human rights of communities and indigenous peoples specifically | 74 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+![table image]({page: 116, x: 59}, {y: 246, {width: 621}, {height: 21})
+
+
+<!-- PAGE: 117 -->
+| S3 S3-1 17 | AR 10 | Disclosure of whether and how policies are aligned with relevant internationally recognized instruments | GRI 2 General Disclosures 2021 2-23 Policy commitments |
+| --- | --- | --- | --- |
+| S3 S3-3 27 b | Disclosure of specific channels in place for affected communities to raise concerns or needs directly with undertaking and have them addressed | 75 | GRI 2 General Disclosures 2021 2-25 Processes to remediate negative impacts GRI 413 Local communities 2016 413-1 Operations with local community engagement impact assessments and development programs
+| S3 S3-3 27 d | Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured | 75 | 
+| S4 S4.SBM-3 10 a | Description of types of consumers and end users subject to material impacts | 76 | 
+| S4 S4.SBM-3 10 c | Description of activities that result in positive impacts and types of consumers and end users that are positively |  | 
+| S4 S4.SBM-3 10 d | Description of material risks and opportunities arising from impacts and dependencies on consumers and end |  | 
+| S4 S4-1 16 | Description of relevant human rights policy commitments relevant to consumers and/or end users | 76 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S4 S4-1 16 a | Disclosure of general approach in relation to respect for human rights of consumers and end users | 76 | GRI 2 General Disclosures 2021 2-23 Policy commitments
+| S4 S4-1 16 c | Disclosure of general approach in relation to measures to provide and (or) enable remedy for human rights impacts | 76 | GRI 2 General Disclosures 2021 2-25 Processes to remediate negative impacts GRI 3 Material topics 2021 3-3 Management of material topics
+![table image]({page: 117, x: 59}, {y: 89, {width: 478}, {height: 36})
+
+76
+
+76 affected or could be positively affected
+
+|  | users |
+| --- | --- |
+| S4 S4-3 25 c |  | Disclosure of processes through which undertaking supports or requires availability of channels | 77 | GRI 2 General Disclosures 2021 2-25 Processes to remediate negative impacts
+| S4 S4-3 25 d | AR 24 | Disclosure of how issues raised and addressed are tracked and monitored and how effectiveness of channels is ensured | 77 | 
+| G1 G1.GOV-1 5a | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts G1 G1.GOV-1 5 b | Disclosure of role of administrative management and supervisory bodies related to business conduct GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts G1 G1.GOV-1 5 b Disclosure of expertise of administrative management and supervisory bodies on business conduct matters | 79 GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts G1 G1.GOV-1 5 b 79 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition
+| G1 G1-1 9 | AR 1 | Description of how the undertaking establishes develops promotes and evaluates its corporate culture | 79 | GRI 2 General Disclosures 2021 2-16 Communication of critical concerns GRI 2 General Disclosures 2021 2-23 Policy commitments GRI 2 General Disclosures 2021 2-24 Embedding policy commitments
+| G1 G1-1 10a Description of the mechanisms for identifying reporting and investigating concerns about unlawful behavior or 83 GRI 2 General Disclosures 2021 2-26 Mechanisms for seeking advice and raising concerns |
+| behavior in contradiction of its code of conduct or similar internal rules |
+| G1 G1-1 10 e |  | Undertaking is committed to investigate business conduct incidents promptly independently and objectively | 83 | 
+| G1 G1-1 10 g |  | Information about policy for training within organization on business conduct | 83 | GRI 2 General Disclosures 2021 2-24 Embedding policy commitments
+| G1 G1-2 15 a | AR 2 AR 3 | Description of approaches in regard to relationships with suppliers taking account risks related to supply chain and impacts on sustainability matters | 84 | GRI 3 Material topics 2021 3-3 Management of material topics
+![table image]({page: 117, x: 173}, {y: 220, {width: 478}, {height: 21})
+
+
+<!-- PAGE: 118 -->
+| G1 G1-2 15 b | AR 2 AR 3 | Disclosure of whether and how social and environmental criteria are taken into account for selection of supply side contractual partners |  | GRI 308 Supplier Environmental Assessment 2016 308-1 New suppliers that were screened using environmental criteria GRI 414:Supplier Social Assessment 2016 414-1 New suppliers that were screened using social criteria |
+| --- | --- | --- | --- | --- |
+| G1 G1-3 18 a | AR 5 AR 6 | Information about procedures in place to prevent detect and address allegations or incidents of corruption or bribery | 88 | GRI 2 General Disclosures 2021 2-26 Mechanisms for seeking advice and raising concerns GRI 3 Material Topics 2021 3-3 Management of material topics
+| G1 G1-3 20 |  | Information about how policies are communicated to those for whom they are relevant (prevention and detection of corruption or bribery) | 88-89 | GRI 205 Anti corruption 2016 205-2 Communication and training about anti-corruption policies and procedures
+| G1 G1-3 21 a |  | Information about nature scope and depth of anti corruption or anti-bribery training programs offered or required | 89-91 | 
+![table image]({page: 118, x: 59}, {y: 89, {width: 304}, {height: 21})
+
+|  |
+|  |
+| 1 | Please note that we are using ESRS definitions and breakdowns whenever the definitions and breakdowns provided by GRI differed from the one required by ESRS
+| 2 | Please note that we are using ESRS definitions and breakdowns whenever the definitions and breakdowns provided by ISSB differed from the one required by ESRS
+![table image]({page: 118, x: 62}, {y: 249, {width: 581}, {height: 7})
+
+
+<!-- PAGE: 119 -->
+
+## — Scope 1 GHG emissions
+
+Direct emissions from company owned and controlled resources for example emissions from combustion in owned or controlled boilers furnaces vehicles.
+
+### Near-term targets (2030)
+
+- • Reduce absolute scope 1 & 2 GHG emissions by 80 percent from 2019 to 2030. Target validated by SBTi and is 1.5°C aligned.
+
+- • Reduce absolute scope 3 GHG emissions by 25 percent between 2022 and 2030. Target validated by SBTi and is “Well below 2°C aligned”.
+
+## Page 112:
+                ```markdown
+| ESRS reference | Related AR | Name                                                                                             | Location | GRI†                                                  | ISSB†                                   |
+|----------------|------------|--------------------------------------------------------------------------------------------------|----------|------------------------------------------------------|-----------------------------------------|
+| E1-1 E-AR 39   |            | Disclosure of methodologies, significant assumptions and emissions factors used to calculate or measure GHG emissions | 35-37    | GRI 305: Emissions 2016: 305-1 Direct (Scope 1) GHG emissions | IFRS S2.B38-B57 IFRS S2.29(a)(ii)     |
+| E1-1 E-AR 42   |            | Disclosure of the effects of significant events and changes in circumstances (relevant to GHG emissions) that occur between the reporting dates of the entities in its financial statements | 37       | GRI 305: Emissions 2016: 305-1 Direct (Scope 1) GHG emissions |                                      |
+| E1-1 E-AR 43 c |            | Biogenic emissions of CO2 from the combustion or bio-degradation of biomass not included in scope 1 GHG emissions | 35       | GRI 305: Emissions 2016: 305-1 Direct (Scope 1) GHG emissions | IFRS S2.B31                          |
+| E1-1 E-AR 45 d |            | Disclosure of types of contractual instruments used for sale and purchase of energy bundled with attributes about energy generation for unbundled energy attribute claims  | 35       | GRI 305: Emissions 2016: 305-1 Direct (Scope 1) GHG emissions | IFRS S2.B31                          |
+| E1-1 E-AR 46 g |            | Percentage of GHG scope 3 calculated using primary data                                        | 37       | GRI 305: Emissions 2016: 305-3 Other indirect (Scope 3) GHG emissions |                                      |
+| E1-1 E-AR 46 i |            | Disclosure of which scope 3 GHG emissions category has been excluded                            | 37       | GRI 305: Emissions 2016: 305-3 Other indirect (Scope 3) GHG emissions |                                      |
+| E1-1 E-AR 46   |            | List of scope 3 GHG emissions categories included in inventory                                 | 37       | GRI 305: Emissions 2016: 305-3 Other indirect (Scope 3) GHG emissions |                                      |
+| E1-6 E-AR 46   |            | Disclosure of reporting boundaries considered and calculation methods for estimating scope 3 GHG emissions | 37       | GRI 305: Emissions 2016: 305-4 GHG emissions intensity |                                      |
+| E1-9 E-AR 9 d  | AR 53      | Disclosure of whether and how assessment of assets and business activities considered to be at material physical risk relies on or is part of process to determine material physical risk and to determine climate scenarios | 37-38    | GRI 305: Emissions 2016: 305-4 GHG emissions intensity |                                      |
+| E3-3 IRO-1-8 a | AR 1-15    | Disclosure of whether and how assets and activities have been screened in order to identify actual and potential water and marine resources-related impacts, risks and opportunities in own operations and upstream and downstream value chain and methodologies, assumptions and tools used in screening (text box) | 43       | GRI 303: Water and Effluents 2018: 303-1 Interactions with water as a shared resource |                                      |
+```
+
+# ESRS CONTENT INDEX, INCLUDING GRI AND ISSB INTEROPERABILITY
+
+| ESRS reference | Related AR | Name | Location | GRI1 | ISSB2 |
+| --- | --- | --- | --- | --- | --- |
+| ESRS 2 BP 1 5 a |  | Basis for preparation of sustainability statement | 2 | GRI 2 General Disclosures 2021 2-2 Entities included in the organization's sustainability reporting | 
+| ESRS 2 BP 1 5 b i |  | Scope of consolidation of consolidated sustainability statement is same as for financial statements | 2 | GRI 2 General Disclosures 2021 2-2 Entities included in the organization's sustainability reporting | 
+| ESRS 2 BP 1 5 b ii |  | Indication of subsidiary undertakings included in consolidation that are exempted from individual or consolidated sustainability reporting | 2 |  | 
+| ESRS 2 BP 1 5 c | AR 1 | Disclosure of extent to which sustainability statement covers upstream and downstream value chain | 2 |  | 
+| ESRS 2 BP 1 5 d |  | Option to omit specific piece of information corresponding to intellectual property know how or results of innovation has been used | 2 |  | 
+| ESRS 2 BP 1 5 e |  | Option allowed by Member State to omit disclosure of impending developments or matters in course of negotiation has been used | 2 |  | 
+| ESRS 2 BP 2 9 a |  | Disclosure of definitions of medium or long term time horizons | 3 |  | IFRS S2.10(d)4
+| ESRS 2 BP 2 9 b |  | Disclosure of reasons for applying different definitions of time horizons | 3 |  | IFRS S2.10(d)4
+| ESRS 2 BP 2 10 a |  | Disclosure of metrics that include value chain data estimated using indirect sources | 3 |  | 
+| ESRS 2 BP 2 10 b |  | Description of basis for preparation of metrics that include value chain data estimated using indirect sources | 3 |  | 
+| ESRS 2 BP 2 10 c |  | Description of resulting level of accuracy of metrics that include value chain data estimated using indirect sources | 3 |  | 
+| ESRS 2 BP 2 10 d |  | Description of planned actions to improve accuracy in future of metrics that include value chain data estimated using indirect sources | 3 |  | 
+| ESRS 2 BP 2 11 a |  | Disclosure of quantitative metrics and monetary amounts disclosed that are subject to high level of measurement uncertainty | 3 |  | 
+| ESRS 2 BP 2 11 b i |  | Disclosure of sources of measurement uncertainty | 3 |  | 
+| ESRS 2 BP 2 11 b ii |  | Disclosure of assumptions approximations and judgements made in measurement | 3 |  | 
+| ESRS 2 BP 2 13 a |  | Explanation of changes in preparation and presentation of sustainability information and reasons for them | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 13 b |  | Adjustment of comparative information for one or more prior periods is impracticable | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 13 b 13 c |  | Disclosure of difference between figures disclosed in preceding period and revised comparative figures | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 14 a |  | Disclosure of nature of prior period material errors | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 14 b |  | Disclosure of corrections for prior periods included in sustainability statement | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 14 c |  | Disclosure of why correction of prior period errors is not practicable | 3 | GRI 2 General Disclosures 2021 2-4 Restatements of information | 
+| ESRS 2 BP 2 15 |  | Disclosure of other legislation or generally accepted sustainability reporting standards and frameworks based on which information has been included in sustainability statement | 4 |  | 
+| ESRS 2 BP 2 15 |  | Disclosure of reference to paragraphs of standard or framework applied | 4 |  | 
+| ESRS 2 BP 2 16 |  | List of DRs or DPs incorporated by reference | 4 |  | 
+| ESRS 2 GOV 1 21 a |  | Number of executive members | 6 |  | 
+| ESRS 2 GOV 1 21 a |  | Number of non executive members | 6 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition | 
+| ESRS 2 GOV 1 21 b |  | Information about representation of employees and other workers | 6 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition | 
+| ESRS 2 GOV 1 21 c | AR 5 | Information about member\'s experience relevant to sectors products and geographic locations of undertaking | 6-7 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition | 
+| ESRS 2 GOV 1 21 d |  | Percentage of members of administrative management and supervisory bodies by gender and other aspects of diversity | 6 | GRI 405 Diversity and equal opportunity 2016 405-1 Diversity of governance bodies and employees | 
+| ESRS 2 GOV 1 21 d |  | Board\'s gender diversity ratio | 6 | GRI 405 Diversity and equal opportunity 2016 405-1 | 
+| Diversity of governance bodies and employees |
+| ESRS 2 GOV 1 21 e |  | Percentage of independent board members | 6 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition | 
+| ESRS 2 GOV 1 22 a |  | Information about identity of administrative management and supervisory bodies or individual(s) within body responsible for oversight of impacts risks and opportunities | 5 | GRI 2 General Disclosures 2021 2-9 Governance structure and composition | IFRS S2.6(a)
+| ESRS 2 GOV 1 22 b | AR 3 | Disclosure of how body\'s or individuals within body responsibilities for impacts risks and opportunities are reflected in undertaking\'s terms of reference board mandates and other related policies | 5 | GRI 2 General Disclosures 2021 2-14 Role of the highest governance body in sustainability reporting | IFRS S2.6(a)(i)
+| ESRS 2 GOV 1 22 c | AR 4 | Description of management\'s role in governance processes controls and procedures used to monitor |  |  | 
+| manage and oversee impacts risks and opportunities |
+|  |  |  | 5 |  | 
+|  |  |  | 5 | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts | IFRS S2.6(b)
+| ESRS 2 GOV 1 22 c i |  | Description of how oversight is exercised over management level position or committee to which management\'s role is delegated to | 5 | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts GRI 2 General Disclosures 2021 2-13 Delegation of responsibility for managing impacts | IFRS S2.6(b)(i)
+| ESRS 2 GOV 1 22 c ii |  | Information about reporting lines to administrative management and supervisory bodies | 5 | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts | 
+| GRI 2 General Disclosures 2021 2-13 Delegation of responsibility for managing impacts |
+| ESRS 2 GOV 1 22 c iii |  | Disclosure of how dedicated controls and procedures are integrated with other internal functions | 5 | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts | IFRS S2.6(b)(ii)
+| ESRS 2 GOV 1 22 d |  | Disclosure of how administrative management and supervisory bodies and senior executive management |  |  | 
+![table image]({page: 105, x: 59}, {y: 172, {width: 267}, {height: 14})
+
+
+<!-- PAGE: 106 -->
+oversee setting of targets related to material impacts risks and opportunities and how progress towards them is monitored
+
+
+<!-- PAGE: 107 -->
+| ESRS 2 GOV 1 23 | AR 5 | Disclosure of how administrative management and supervisory bodies determine whether appropriate skills |
+| --- | --- | --- |
+| ESRS 2 GOV 1 23 b | Disclosure of how sustainability related skills and expertise relate to material impacts risks and opportunities | 7 | GRI 2 General Disclosures 2021 2-17 Collective knowledge of the highest governance body | IFRS S2.6(a)(ii)
+| ESRS 2 GOV 2 26 a | Disclosure of whether by whom and how frequently administrative management and supervisory bodies are |  |  | 
+![table image]({page: 107, x: 59}, {y: 89, {width: 275}, {height: 14})
+
+and expertise are available or will be developed to oversee sustainability matters
+
+informed about material impacts risks and opportunities implementation of due diligence and results and effectiveness of policies actions metrics and targets adopted to address them GRI 2 General Disclosures 2021 2-9 Governance structure and composition GRI 2 General Disclosures 2021 2-17 Collective knowledge of the highest governance body GRI 2 General Disclosures 2021 2-13 Delegation of responsibility for managing impacts GRI 2 General Disclosures 2021 2-16 Communication of critical concerns
+
+|  | IFRS S2.6(a)(ii) |
+| --- | --- |
+| opportunities when overseeing strategy decisions on major transactions and risk management process GRI 2 General Disclosures 2021 2-24 Embedding policy commitments |
+| ESRS 2 GOV 2 26 c |  | Disclosure of list of material impacts risks and opportunities addressed by administrative management and supervisory bodies or their relevant committees | 8 |  | 
+| ESRS 2 GOV 3 29 | AR 7 | Incentive schemes and remuneration policies linked to sustainability matters for members of administrative management and supervisory bodies exist | 8-9 |  | 
+| ESRS 2 GOV 3 29 a |  | Description of key characteristics of incentive schemes | 8-9 | GRI 2 General Disclosures 2021 2-19 Remuneration policies | 
+| ESRS 2 GOV 3 29 b |  | Description of specific sustainability related targets and (or) impacts used to assess performance of members of administrative management and supervisory bodies | 8-9 | GRI 2 General Disclosures 2021 2-19 Remuneration policies | IFRS S1.21(b) IFRS S2.29(g)(i)
+| ESRS 2 GOV 3 29 c |  | Disclosure of how sustainability related performance metrics are considered as performance benchmarks or included in remuneration policies | 8-9 | GRI 2 General Disclosures 2021 2-19 Remuneration policies | IFRS S1.21(b)
+| ESRS 2 GOV 3 29 d |  | Percentage of variable remuneration dependent on sustainability related targets and (or) impacts | 9 |  | 
+| ESRS 2 GOV 3 29 e |  | Description of level in undertaking at which terms of incentive schemes are approved and updated | 9 | GRI 2 General Disclosures 2021 2-20 Process to determine remuneration | 
+| ESRS 2 GOV 4 30 32 | AR 8 AR 10 | Disclosure of mapping of information provided in sustainability statement about due diligence process | 10-11 |  | 
+| ESRS 2 GOV 5 36 a | AR 11 | Description of scope main features and components of risk management and internal control processes and systems in relation to sustainability reporting | 11 |  | 
+| ESRS 2 GOV 5 36 b | AR 11 | Description of risk assessment approach followed | 11 |  | 
+| ESRS 2 GOV 5 36 c | AR 11 | Description of main risks identified and their mitigation strategies | 11 |  | 
+| ESRS 2 GOV 5 36 d | AR 11 | Description of how findings of risk assessment and internal controls as regards sustainability reporting process have been integrated into relevant internal functions and processes | 11 |  | 
+| ESRS 2 GOV 5 36 e | AR 11 | Description of periodic reporting of findings of risk assessment and internal controls to administrative management and supervisory bodies | 11 |  | 
+| ESRS 2 SBM 1 40 a iii | AR 12-13 | Total number of employees (head count) | 65 | GRI 2 General Disclosures 2021 2-7 Employees | 
+![table image]({page: 107, x: 691}, {y: 89, {width: 591}, {height: 6})
+
+
+<!-- PAGE: 108 -->
+| ESRS 2 SBM 1 40 a iii | AR 12-13 | Number of employees (head count) |  | GRI 2 General Disclosures 2021 2-7 Employees |  |
+| --- | --- | --- | --- | --- | --- |
+| ESRS 2 SBM 2 45 a | AR 16 | Description of stakeholder engagement | 12-14 |  | 
+| ESRS 2 SBM 2 45 a i | AR 16 | Description of key stakeholders | 12-14 | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement | 
+| ESRS 2 SBM 2 45 a ii | AR 16 | Description of categories of stakeholders for which engagement occurs | 12-14 | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement | 
+| ESRS 2 SBM 2 45 a iii | AR 16 | Description of how stakeholder engagement is organized | 12-14 | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement | 
+| ESRS 2 SBM 2 45 a iv | AR 16 | Description of purpose of stakeholder engagement | 12-14 | GRI 2 General Disclosures 2021 2-29 Approach to stakeholder engagement | 
+| ESRS 2 SBM 2 45 a v | AR 16 | Description of how outcome of stakeholder engagement is taken into account | 14 |  | 
+| ESRS 2 SBM 2 45 b | AR 16 | Description of understanding of interests and views of key stakeholders as they relate to undertaking\'s strategy and business model | 12-14 |  | 
+| ESRS 2 SBM 2 45 d |  | Description of how administrative management and supervisory bodies are informed about views and interests of affected stakeholders with regard to sustainability related impacts | 14 | GRI 2 General Disclosures 2021 2-12 Role of the highest governance body in overseeing the management of impacts | 
+| ESRS 2 SBM 3 48 a | AR 17-18 | Description of material impacts resulting from materiality assessment | 14-16 | GRI 3 Material Topics 2021 3-2 List of material topics | 
+| ESRS 2 SBM 3 48 a | AR 17-18 | Description of material risks and opportunities resulting from materiality assessment | 14-16 | GRI 3 Material Topics 2021 3-2 List of material topics | IFRS S2.10(a) IFRS S2.13(b)
+| ESRS 2 SBM 3 48 b | AR 18 | Disclosure of current and anticipated effects of material impacts risks and opportunities on business model value |  |  | 
+| ESRS 2 SBM 3 48 c iv | AR 18 | Description of nature of activities or business relationships through which undertaking is involved with material impacts | 16 | GRI 3 Material Topics 2021 Management of material topics | 
+| ESRS 2 IRO 1 53 a |  | Description of methodologies and assumptions applied in process to identify impacts risks and opportunities | 16-18 |  | 
+| ESRS 2 IRO 1 53 b |  | Description of process to identify assess prioritize and monitor potential and actual impacts on people and environment informed by due diligence process | 16 |  | 
+| ESRS 2 IRO 1 53 b i |  | Description of how process focuses on specific activities business relationships geographies or other factors that give rise to heightened risk of adverse impacts | 16 |  | 
+| ESRS 2 IRO 1 53 b ii |  | Description of how process considers impacts with which undertaking is involved through own operations or as result of business relationships | 16 | GRI 3 Material Topics 2021 3-1 Process to determine material topics | 
+| ESRS 2 IRO 1 53 b iii |  | Description of how process includes consultation with affected stakeholders to understand how they may be impacted and with external experts | 16 | GRI 3 Material Topics 2021 3-1 Process to determine material topics | 
+| ESRS 2 IRO 1 53 b iv |  | Description of how process prioritizes negative impacts based on their relative severity and likelihood and positive |  |  | 
+![table image]({page: 108, x: 59}, {y: 89, {width: 279}, {height: 14})
+
+|  |
+|  |
+| 16 | IFRS S2.13(a) IFRS S2.14(a)
+| 17 | GRI 3 Material Topics 2021 3-1 Process to determine material topics
+![table image]({page: 108, x: 346}, {y: 280, {width: 215}, {height: 14})
+
+chain strategy and decision making and how undertaking has responded or plans to respond to these effects
+
+impacts based on their relative scale scope and likelihood and determines which sustainability matters are material for reporting purposes ESRS 2 IRO 1 53 c Description of process used to identify assess prioritize and monitor risks and opportunities that have or may have financial effects 17 IFRS S2.25(a)(v)
+
+
+<!-- PAGE: 109 -->
+| ESRS 2 IRO 1 53 c i | Description of how connections of impacts and dependencies with risks and opportunities that may arise from those impacts and dependencies have been considered |
+| --- | --- |
+| ESRS 2 IRO 1 53 c iii |  | Description of how sustainability related risks relative to other types of risks have been prioritized | 17 |  | IFRS S2.25(a)(iv)
+| ESRS 2 IRO 1 53 d |  | Description of decision making process and related internal control procedures | 17 | GRI 2 General Disclosures 2021 2-14 Role of the highest governance body in sustainability reporting | 
+| ESRS 2 IRO 1 53 e |  | Description of extent to which and how process to identify assess and manage impacts and risks is integrated into overall risk management process and used to evaluate overall risk profile and risk management processes | 17 |  | IFRS S2.25(a)(v) IFRS S2.25(c)
+| ESRS 2 IRO 1 53 f |  | Description of extent to which and how process to identify assess and manage opportunities is integrated into overall management process | 17 |  | IFRS S2.25(c)
+| ESRS 2 IRO 1 53 g |  | Description of input parameters used in process to identify assess and manage material impacts risks and opportunities | 16 |  | IFRS S2.25(a)(i)
+| ESRS 2 IRO 1 53 h |  | Description of how process to identify assess and manage impacts risks and opportunities has changed compared to prior reporting period | 17 |  | IFRS S2.25(a)(vi)
+| ESRS 2 IRO 2 56 |  | Disclosure of list of data points that derive from other EU legislation and information on their location in sustainability statement | 19 |  | 
+| ESRS 2 IRO 2 56 | AR 19 | Disclosure of list of ESRS Disclosure Requirements complied with in preparing sustainability statement following outcome of materiality assessment | 19 |  | 
+| ESRS 2 IRO 2 59 |  | Explanation of how material information to be disclosed in relation to material impacts risks and opportunities has been determined | 19 |  | 
+| E1 E1-1 17 |  | Date of adoption of transition plan for undertakings not having adopted transition plan yet | 24-25 |  | 
+| E1 E1.SBM-3 18 |  | Type of climate related risk | 25-26 | GRI 201 Economic Performance 2016 201-2 Financial implications and other risks and opportunities due to climate change | IFRS S2.10(b)
+| E1 E1.IRO-1 20 a AR 9 | AR 10 | Description of process in relation to impacts on climate change | 26 |  | IFRS S2.25(a)
+| E1 E1.IRO-1 20 b | AR 13 AR 14 | Description of process in relation to climate related physical risks in own operations and along value chain | 27 |  | IFRS S2.25(a)
+![table image]({page: 109, x: 59}, {y: 89, {width: 669}, {height: 14})
+
+- E1 E1.IRO-1 AR 11 a AR 13-AR 14 Climate-related hazards have been identified over short-, medium- and long-term time horizons 27
+
+- E1 E1.IRO-1 AR 11 a AR 13-AR 14 Undertaking has screened whether assets and business activities may be exposed to climate-related hazards 27
+
+- E1 E1.IRO-1 AR 11 b AR 13-AR 14 Short-, medium- and long-term time horizons have been defined 27 IFRS S2.10(d)4
+
+- E1 E1.IRO-1 AR 11 c AR 13-AR 14 Extent to which assets and business activities may be exposed and are sensitive to identified climate-related hazards has been assessed 27
+
+- E1 E1.IRO-1 AR 11 d AR 13-AR 14 Identification of climate-related hazards and assessment of exposure and sensitivity are informed by high emissions climate scenarios
+
+
+<!-- PAGE: 110 -->
+| E1 E1.IRO-1 21 | AR 13 AR 14 | Explanation of how climate related scenario analysis has been used to inform identification and assessment of physical risks over short medium and long term |  | IFRS S2.22(b)(i) IFRS S2.25(a)(ii) |
+| --- | --- | --- | --- | --- |
+| E1 E1.IRO-1 20 c | AR 13 AR 14 | Description of process in relation to climate related transition risks and opportunities in own operations and along value chain | 28 | IFRS S2.25(b)
+| E1 E1.IRO-1 AR 12 a AR 13 AR 14 Transition events have been identified over short medium and long term time horizons 28 |
+| E1 E1.IRO-1 AR 12 a AR 13 AR 14 Undertaking has screened whether assets and business activities may be exposed to transition events 28 |
+| E1 E1.IRO-1 AR 12 b AR 13 AR 14 Extent to which assets and business activities may be exposed and are sensitive to identified transition events has been assessed 28 |
+| E1 E1.IRO-1 AR 12 c AR 13 AR 14 Identification of transition events and assessment of exposure has been informed by climate related scenario analysis 29 IFRS S2.22(b)(i) |
+| E1 E1.IRO-1 21 | AR 13 AR 14 | Explanation of how climate related scenario analysis has been used to inform identification and assessment of |  | 
+| transition risks and opportunities over short medium and long term |
+|  |  |  | 29 | IFRS S2.22(b)(i) IFRS S2.25(a)(ii)
+![table image]({page: 110, x: 59}, {y: 89, {width: 389}, {height: 14})
+
+| E1 E1-2 25 | AR 16-AR18 | Sustainability matters addressed by policy for climate change | 29-30 | GRI 3 Material Topics 2021 GRI 3-3 Management of material topics |  |
+| --- | --- | --- | --- | --- | --- |
+| E1 E1-3 29 a |  | Decarbonization lever type | 32 |  | 
+| E1 E1-3 29 b |  | Achieved GHG emission reductions | 32 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-3 29 b |  | Expected GHG emission reductions | 32 |  | 
+| E1 E1-4 33 | AR 27 AR 29 | Disclosure of whether and how GHG emissions reduction targets and (or) any other targets have been set to manage material climate related impacts risks and opportunities | 30 | GRI 3 Material Topics 2021 GRI 3-3 Management of material topics | 
+| E1 E1-4 34 a + 34 b |  | Absolute value of total Greenhouse gas emissions reduction | 30-31 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-4 34 a + 34 b |  | Percentage of total Greenhouse gas emissions reduction (as of emissions of base year) | 30-31 |  | 
+| E1 E1-4 34 a + 34 b |  | Absolute value of Scope 1 Greenhouse gas emissions reduction | 30-31 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-4 34 a + 34 b |  | Percentage of Scope 1 Greenhouse gas emissions reduction (as of emissions of base year) | 30-31 |  | 
+| E1 E1-4 34 a + 34 b |  | Absolute value of location based Scope 2 Greenhouse gas emissions reduction | 30-31 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-4 34 a + 34 b |  | Percentage of location based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year) | 30-31 |  | 
+| E1 E1-4 34 a + 34 b |  | Absolute value of market based Scope 2 Greenhouse gas emissions reduction | 30-31 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-4 34 a + 34 b |  | Percentage of market based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year) | 30-31 |  | 
+| E1 E1-4 34 a + 34 b |  | Absolute value of Scope 3 Greenhouse gas emissions reduction | 30-31 | GRI 305 Emissions 2016 305-5 Reduction of emissions | 
+| E1 E1-4 34 a + 34 b |  | Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year) | 30-31 |  | 
+| E1 E1-4 34 b |  | Explanation of how consistency of GHG emission reduction targets with GHG inventory boundaries has been ensured | 31 | GRI 3 Material Topics 2021 3-3 Management of material topics GRI 305 Emissions 2016 305-1 Direct (Scope 1) GHG emissions | IFRS S2.36(a) IFRS S2.36(b)
+| E1 E1-4 AR 25 a |  | Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors |  |  | 
+| E1 E1-4 AR 25 b |  | Description of how new baseline value affects new target its achievement and presentation of progress over time |  | GRI 305 Emissions 2016 305-1 Direct (Scope 1) GHG emissions GRI 305 Emissions 2016 305-2 Energy indirect (Scope 2) GHG emissions | 
+| GRI 305 Emissions 2016 305-3 Other indirect (Scope 3) GHG emissions GRI 305 Emissions 2016 305-5 Reduction of GHG emissions |
+| E1 E1-4 34 e 16 a | AR 26 | GHG emission reduction target is science based and compatible with limiting global warming to one and half degrees Celsius | 30 | GRI 3 Material Topics 2021 GRI 3-3 Management of material topics | IFRS S2.34(a) IFRS S2.36(d)
+| E1 E1-4 34 f 16 b | AR 30 | Description of expected decarbonization levers and their overall quantitative contributions to achieve GHG emission reduction target | 32 |  | 
+| E1 E1-5 37 a | AR 33 AR 32 | Total energy consumption from fossil sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 37 c |  | Total energy consumption from renewable sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 37 c i |  | Fuel consumption from renewable sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 37 c ii |  | Consumption of purchased or acquired electricity heat steam and cooling from renewable sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 37 c iii |  | Consumption of self generated non fuel renewable energy | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 38 a | AR 33 | Fuel consumption from coal and coal products | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 38 b | AR 33 | Fuel consumption from crude oil and petroleum products | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 38 c | AR 33 | Fuel consumption from natural gas | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 38 d | AR 33 | Fuel consumption from other fossil sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 38 e | AR 33 | Consumption of purchased or acquired electricity heat steam or cooling from fossil sources | 33 | GRI 302 Energy 2016 302-1 Energy consumption within the organisation | 
+| E1 E1-5 39 |  | Non renewable energy production | 33 |  | 
+| E1 E1-5 39 |  | Renewable energy production | 33 |  | 
+| E1 E1-6 44 AR 39 Gross scopes 1 2 3 and total GHG emissions GHG emissions per scope [table] 33-34 GRI 305 Emissions 2016 305-1 Direct (Scope 1) GHG emissions GRI 305 Emissions 2016 305-2 Energy indirect (Scope 2) GHG emissions IFRS S2.29(a)(i) |
+| GRI 305 Emissions 2016 305-3 Other indirect (Scope 3) GHG emissions |
+| E1 E1-6 AR 46 d |  | Gross scopes 1 2 3 and total GHG emissions Scope 3 GHG emissions (GHG Protocol) [table] | 35-37 |  | 
+![table image]({page: 110, x: 59}, {y: 238, {width: 303}, {height: 14})
+
+
+<!-- PAGE: 111 -->
+- E1 E1-6 47 Disclosure of significant changes in definition of what constitutes reporting undertaking and its value chain and 34
+
+explanation of their effect on year to year comparability of reported GHG emissions
+
+
+<!-- PAGE: 112 -->
+| E1 E1-6 AR 39 b | Disclosure of methodologies significant assumptions and emissions factors used to calculate or measure GHG emissions | GRI 305 Emissions 2016 305-1 Direct (Scope 1) GHG emissions GRI 305 Emissions 2016 305-2 Energy indirect (Scope 2) GHG emissions |
+| --- | --- | --- |
+| E1 E1-6 AR 42 c | Disclosure of the effects of significant events and changes in circumstances (relevant to its GHG emissions) that occur between the reporting dates of the entities in its value | 
+![table image]({page: 112, x: 59}, {y: 89, {width: 269}, {height: 21})
+
+## Page 32:
+                ```markdown
+| GHG emission category        | Description                                         | Base year | Target years       | Absolute value of emissions (kt CO₂e) | 2024 status (assured) | Absolute value (kt CO₂e) | Percentage |
+|------------------------------|-----------------------------------------------------|-----------|--------------------|-----------------------------------------|-----------------------|--------------------------|------------|
+| Scope 1+2 GHG emissions      | Reduce own scope 1 + 2 CO₂e by 80% by 2030 and 100% by 2050 compared to 2019 | 2019      | 2030, 2050         | 631                                     | 138                   | (493)                   | -78%       |
+| Scope 3 GHG emissions        | Reduce scope 3 CO₂e emissions by 25% by 2030 and by 90% by 2050 compared to 2022 | 2022      | 2030               | 429,854                                | 394,952               | (34,902)                | -8%        |
+| Avoided emissions            | Ambition to avoid 600 mt CO₂e emissions throughout lifetime of products sold from 2022 to 2030 | 2022      | 2030               | 600 MT                                  | —                     | 204,390                 | —          |
+
+| GHG emission category        | Absolute value of emissions in baseline (kt CO₂e) | 2024 status (assured) | Absolute value | Percentage |
+|------------------------------|-----------------------------------------------------|-----------------------|----------------|------------|
+| Market-based                 | 631                                                 | 138                   | (493)         | -78%       |
+| Location-based               | 645                                                 | 405                   | (240)         | -37%       |
+```
+
+TURNOVER KPI
+
+The proportion of Taxonomy eligible and/or -aligned turnover has been calculated as the part of net turnover derived from products and services associated with Taxonomy eligible and/or -aligned economic activities (numerator) divided by net turnover (denominator) for the financial year ended December 31 2024.
+
+The denominator is the Group's net turnover as presented in the Consolidated Income Statements under the line item “Total revenues” in accordance with US GAAP.
+To calculate the numerator we used the activity mapping described above and identified all third party revenues associated with the Taxonomy eligible and/or -aligned activities.
+
+For the year ended December 31 2024 44 percent of our revenues are eligible under the objective of Climate Change Mitigation (CCM).
+Additionally 10 percent of our revenues are eligible under the objective of Transition to Circular Economy (CE).
+The aligned revenue reported under both CCM and CE activities is negligible resulting in the alignment figure being rounded to 0 percent.
+The contribution of our business activities was calculated and reported under one economic activity without double counting.
+
+
+<!-- PAGE: 53 -->
+In comparison in 2023 46 percent of our revenues were Taxonomy eligible and 6 percent of our revenues were Taxonomy aligned.
+
+Against this background most of our Taxonomy eligible turnover is reported under
+
+- • CCM 3.20 Manufacture, installation, and servicing of high, medium, and low voltage electrical equipment for electrical transmission and distribution,
+
+- • CE 1.2 Manufacture of electrical and electronic equipment, and
+
+- • CCM 3.6 Manufacture of other low-carbon technologies.
+
+The expansion of the EU Taxonomy scope had already been reflected in last year's eligibility results.
+Consequently the slight year on year variations in eligibility are attributed to further refinements in our eligibility mapping process.
+While the EU Taxonomy now has more activities relevant to our business model compared to prior years a significant portion of our business activities continues to fall outside the scope of the EU Taxonomy.
+The notable decrease in EU Taxonomy aligned turnover from 2023 to 2024 is attributed to the currently unmet pollution related criteria (Appendix C).
+
+The details of the turnover KPI and breakdowns are provided on page 91 of the Sustainability Statement.
+
+## Page 110:
+                ```markdown
+| ESRS reference | Related AR | Name                                                                                                       | Location | GRI                                                                 | ISSB                       |
+|----------------|------------|------------------------------------------------------------------------------------------------------------|----------|---------------------------------------------------------------------|---------------------------|
+| E1 ELI.R0-1    | AR 13-R1 4 | Explanation of how climate-related scenario analysis has been used to inform identification and assessment of physical risks over short, medium and long-term horizons | 27       | IFRS S2.22(b)(i)                                                   | IFRS S2.25(a)(i)          |
+| E1 ELI.R0-2    | AR 13-R1 4 | Description of processes in relation to climate-related transition risks and opportunities in own operations and value chain | 28       | IFRS S2.25(b)                                                    |                           |
+| E1 ELI.R0-1    | AR 12 A    | Transition events have been identified over short-, medium- and long-term horizons                         | 28       |                                                                     |                           |
+| E1 ELI.R0-1    | AR 12 B    | Undertaking has screened whether assets and business activities may be exposed to transition events        | 28       |                                                                     |                           |
+| E1 ELI.R0-1    | AR 12 C    | Identification of transition events and assessment of exposure has been informed by climate-related scenario analysis | 29       | IFRS S2.22(b)(i)                                                  |                           |
+| E1 ELI.R0-1    | AR 13-R1 4 | Explanation of how climate-related scenario analysis has been used to inform identification and assessment of transition risks and opportunities over short, medium and long term | 29       | GRI 3: Material Topics 2021: GRI 3:3: Management of material topics | IFRS S2.22(b)(i)         |
+| E1 ELI.R0-2    | AR 16-R1 8 | Sustainability matters addressed by policy for climate                                                   | 29–30    | GRI 3: Material Topics 2021: GRI 3:3: Management of material topics |                           |
+| E1 ELI.R1      | AR 16-R1 8 | Decarbonization over type                                                                                   | 32       |                                                                     |                           |
+| E1 ELI.R1      | AR 16-R1 8 | Achieved GHG emission reductions                                                                             | 32       | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R1      | AR 27-R2 9 | Disclosure of whether and how GHG emissions reduction targets (and/or any other targets have been set to manage material climate-related impacts, risks and opportunities | 30       | GRI 3: Material Topics 2021: GRI 3:3: Management of material topics |                           |
+| E1 ELI.R4      | AR 34 + 34 | Absolute value of total Greenhouse gas emissions                                                            | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Percentage of total Greenhouse gas emissions reduction (as of emissions of base year)                        | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Absolute value of Scope 1 Greenhouse gas emissions                                                          | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Percentage of Scope 1 Greenhouse gas emissions reduction (as of emissions of base year)                     | 30–31    |                                                                     |                           |
+| E1 ELI.R4      | AR 34 + 34 | Absolute value of location-based Scope 2 Greenhouse gas emissions                                           | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Percentage of reduction based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)    | 30–31    |                                                                     |                           |
+| E1 ELI.R4      | AR 34 + 34 | Absolute value of market-based Scope 2 Greenhouse gas emissions                                             | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Percentage of market-based Scope 2 Greenhouse gas emissions reduction (as of emissions of base year)       | 30–31    |                                                                     |                           |
+| E1 ELI.R4      | AR 34 + 34 | Absolute value of Scope 3 Greenhouse gas emissions                                                          | 30–31    | GRI 305: Emissions 2016: 305-5: Reduction of emissions            |                           |
+| E1 ELI.R4      | AR 34 + 34 | Percentage of Scope 3 Greenhouse gas emissions reduction (as of emissions of base year)                    | 30–31    |                                                                     |                           |
+| E1 ELI.R4      | AR 25 R    | Description of how it has been ensured that baseline value is representative in terms of activities covered and influences from external factors | 32       |                                                                     |                           |
+```
+
+### Long-term targets (2050)
+
+- • Reduce absolute scope 1 & 2 GHG emissions by 100 percent from 2019 to 2050. Target validated by SBTi and is 1.5°C aligned.
+
+- • Reduce absolute scope 3 GHG emissions by 90 percent between 2022 and 2050. Target validated by SBTi and is 1.5°C aligned.
+
+
+<!-- PAGE: 32 -->
+We have also committed to three initiatives of the Climate Group to help us to achieve our near term scope 1 and 2 GHG emissions reduction target
+
+- • Consume 100 percent of our electricity from renewable sources by 2030. Commitment made to RE100 initiative.
+
+- • Electrify our global vehicle fleet by 2030. Commitment made to EV100 initiative.
+
+- • Improve our energy productivity by 20 percent by 2030 relative to 2019 and implement an energy management system across global operations by 2030. Commitment made to EP100 initiative.
+
+## — Scope 2 GHG emissions
+
+Indirect emissions from the generation of purchased energy (electricity steam heat cooling) from an utility provider.
+
+## E1: CLIMATE CHANGE
+
+ABB's value chain from raw material extraction to end of life impacts climate change.
+Manufacturing assembly and logistics from our own operations contribute directly to greenhouse gas emissions.
+We mitigate this through energy efficient processes use of renewable energy sustainable upstream practices and supplier engagement.
+At the same time our technologies enhance customers’ energy efficiency leading to emissions reductions.
+
+Climate change also poses risks to our infrastructure operations and employee safety but acting on climate change provides opportunities.
+Collaboration with governments and NGOs aids the transition to a low carbon economy while innovations in renewable energy and efficiency secure our market leadership reputation and talent attraction alongside reducing carbon footprint and costs through diverse energy sourcing.
+
+## SBM-3: MATERIAL IROs AND THEIR INTERACTION WITH STRATEGY AND BUSINESS
+### MODEL
+
+The type of workers in our entire upstream and downstream value chain is diverse.
+It can include workers in raw materials and minerals extraction and processing employees in factories contractors at sites and workers in logistics and distribution.
+These different groups of workers might also include workers from vulnerable groups such as migrant workers young people or women.
+
+ABB is committed to support and respect human rights and labor standards and to comply with internationally recognized standards laws and regulations including the elimination of modern slavery and child labor as well as the right to work under fair and safe conditions.
+It encompasses access to fair wages the right to freedom of association and collective bargaining and respecting the rights of communities and individuals when providing security for people and assets.
+We also recognize our responsibility to promote an organizational culture that supports human rights and to respect and promote human and labor rights along our value chain.
+This includes assessing and monitoring any human rights risks that customers suppliers business partners and other parties directly linked to ABB operations products and services might present.
+
+In our value chain there is a potential risk of negative impacts on individuals including the risk of modern slavery and child labor.
+In addition health and safety risks can occur in mining when workers face unsafe conditions.
+Chemicals and heavy machinery usage in upstream processes can also pose health risks to workers.
+
+To make ABB's IROs better understood we performed a DMA in 2024.
+The DMA identified 16 IROs of which 15 were impacts and one an opportunity.
+No material risk was identified.
+Eight IROs were identified in the upstream value chain three in the downstream and five in both.
+The opportunity is also in the upstream value chain and refers to the improvement of human rights due diligence through the use of software tools that help to improve compliance by verifying a company's performance in this area before becoming an ABB supplier.
+
+
+<!-- PAGE: 70 -->
+Of the 15 impacts 10 were regarded as actually positive two as actually negative and three as potentially negative.
+The actually positive impacts include programs to counteract workers losing jobs due to automation ABB's position against violence and harassment across the value chain fostering a physically and mentally safe environment with positive working conditions.
+Our Sustainable Supply Base Management (SSBM) Program audits and assessments our active membership of the Responsible Minerals Initiative alongside our complaint system for value chain workers and associated policies and trainings demonstrate our commitment to the safety and wellbeing of all individuals in our value chain and foster the positive impact on value chain workers.
+
+Negative impacts identified include the fact that physical work in raw material extraction (such as mining) can expose workers to unhealthy and dangerous working conditions.
+The same upstream processes can expose workers to instances of modern slavery human trafficking or child labor.
+
+—Supplier related policies S2-1 POLICIES ABB uses several policies and procedures to manage its impact on workers in the value chain.
+Some of them are overarching documents that apply to more than one topical chapter of this Sustainability Statement.
+These can be found at the end of the chapter “Sustainability at ABB” and include the ABB Way the ABB Supplier Code of Conduct and the Human Rights Policy & Human Rights Due Diligence Framework.
+More specific policies are outlined below.
+
+##### Scope 3.11 (96.6% of total scope 3)
+
+Decarbonizing electricity grids is the single most critical element to reduce ABB's scope 3 category 11 emissions.
+
+- 1. Market ABB products and solutions that enable electricity grid decarbonization
+
+- 2. Innovate to increase the product portfolio that enables energy efficiency and decarbonization
+
+- 3. Collaborate with customers to implement the most efficient ABB technology solutions
+
+In 2024 we completed a physical and transition risk assessment.
+We intend to integrate the results of this risk assessment into the climate transition plan.
+
+We will be formalizing our scope 3 decarbonization measures and quantifying the financial effects excluding NET investments and seeking approval of our transition plan.
+
+—Climate risk and opportunity assessment ESRS 2 SBM 3 RESILIENCE IN CLIMATE MATTERS The DMA performed in 2024 (see chapter “Sustainability at ABB” sections “Material impacts risks and opportunities” and “Double Materiality Assessment”) identified 24 IROs relating to climate three of which were classified as risks.
+
+Two of the identified risks are categorized as physical risks.
+One of these focuses on direct effects of extreme weather events on our facilities whereas the second of these takes into consideration the health and security of our employees.
+The third risk is classified as a policy and legal transition risk which could require adjustments to a specific product category.
+
+During 2024 we also performed a detailed climate risk assessment focusing on physical and transition risks based on defined climate scenarios.
+Of the identified physical climate risks storms and floods were assessed as the most relevant acute hazards while heat and precipitation stress were assessed as the most relevant chronic hazards.
+
+For transition risks the qualitative assessment concluded that market policy and legal as well as reputation are the categories which could potentially pose the highest risks for ABB.
+
+For further information on our climate risk assessment please also see the section on IRO 1 below.
+
+Based on the insights gained from this assessment mitigation and adaptation measures can be defined and assessed to address the identified vulnerabilities enabling our business areas and divisions to either implement risk responses or accept the associated risks.
+
+
+<!-- PAGE: 27 -->
+Our susceptibility to physical risks centers around the climate related hazards of storms and floods which was highlighted through the risk assessment based on a high emission scenario.
+We invest in adaptation measures to improve our resilience including emergency response planning as well as infrastructure and equipment enhancements.
+Further potential measures to improve our resilience were also identified on a hazard specific basis as an outcome of the climate risk assessment.
+Measures being considered for potential implementation in the future include for example on site water storages to address water stress at relevant sites.
+
+Market transition risks are addressed through continuous investments in research and development for low carbon technologies which not only mitigates risks but also enables us to benefit from the opportunities in market segments that are identified as growth drivers especially in a scenario aligned with the Paris Agreement.
+
+Policy and legal transition risks may have an influence on the pricing or availability of raw materials.
+In addition regulatory changes may prohibit the production and sales of specific products which may directly reduce our revenues.
+To mitigate such risks we are evaluating alternative measures which are not exposed in the same magnitude to policy interventions such as carbon pricing.
+In addition we are closely monitoring the regulatory environment to adapt to new regulations with corresponding research and development efforts.
+
+|  | Reputational transition risks can result from our own ambition and targets that we have committed to. If for example we were not to meet our GHG scope 1 2 or 3 emission reduction targets by 2030 or our SBTi commitment this may reflect poorly on our reputation. |
+| --- | --- |
+| —Material impacts risks and opportunities resulting from climate change | IRO 1 PROCESSES TO IDENTIFY AND ASSESS MATERIAL IROs ABB's climate related IROs have been a decisive element in our 2024 DMA. A number of other processes analyses and assessments contributed to our understanding of the prevalent risks. This includes our analyses of physical and transition risks resulting from climate change as well as our analyses of company emissions data publicly available climate change scenarios and pathways and their application in the context of the ABB Group and their potential implications in the future. The DMA revealed 24 IROs for ABB regarding climate of which ten were classified as impacts three as risks and eleven as opportunities. IMPACTS ON CLIMATE CHANGE Of the ten impacts identified in our DMA four were regarded as positive one in our own operations and the others in the upstream or downstream value chain and six as negative three in our own operations and three in the value chain. The negative impacts in our own operations result from (a) the production process for the materials used and the assembly of the products (b) the burning of fossil based fuel sources and (c) the energy consumption from buildings. Negative impacts resulting from our value chain include processes such as raw material extraction transportation the smelting of components and manufacturing processes where energy intensive methods are used that cause high greenhouse gas emissions. These emissions intensify climate change. Positive impacts include the fact that by developing energy efficient processes we can reduce our energy consumption and associated emissions. Implementing sustainable practices in the upstream value chain together with suppliers such as using clean energy energy efficiency measures or recycled materials can help to reduce the overall carbon footprint. Furthermore ABB technologies used by our customers and end users can potentially enhance energy efficiency and reduce resource consumption which leads to a reduction of greenhouse gas emissions. PHYSICAL RISKS ASSOCIATED WITH CLIMATE CHANGE Physical climate risks are associated with the direct impact of climate change on our assets operations and value chain. These risks can be chronic or acute. Chronic physical risks refer to long term changes in climate patterns such as rising temperatures sea level rise or changing precipitation patterns. These gradual changes can lead to increased operational costs reduced productivity and damage to infrastructure. Acute physical risks on the other hand involve immediate extreme weather events like hurricanes floods wildfires or heatwaves. Such events can cause sudden and severe asset damage and disruptions to operations leading to losses in revenue and additional capital expenditures to rebuild assets as well as safety concerns. As part of our climate risk assessment we have a comprehensive approach for identifying and assessing physical risks arising from climate change which can be summarized in the following key steps • Relevant scenarios informed by the latest scientific research and relevant for the situation at ABB are identified and an appropriate time horizon is chosen for the analysis. We use advanced natural hazards and climate modelling tools along with scenarios from the Intergovernmental Panel on Climate Change • (IPCC) including the high emissions scenario of Representative Concentration Pathways (RCP8.5) to assess climate hazards and their risk impacts on operational sites. •Each scenario is qualitatively assessed at two different time horizons medium term (one to five years) and long term (30 years). Specifically for the physical risk assessment short and medium term time horizons are considered simultaneously as the difference in these brief periods hardly result in relevant changes of the underlying scenario data. The selection of time horizons for physical risks focuses on the current reporting cycle (one year) strategic planning horizons and capital allocation plans (up to five years) as well as expected operational lifetimes of our assets which are assumed to be operational either based on their remaining technical lifetime or continuous long term operation at those sites. The long term horizon also considers the expectation that adverse climate related events could become more frequent and increase in severity. •To conduct the assessment data on our asset structure geolocations and other factors are collected from internal systems. The sites in scope cover the largest sites across all business areas based on their energy consumption and headcount and are located in 59 countries represented by manufacturing and non manufacturing sites distributed across the globe. •Geospatial physical risk data is obtained from specialized tools complemented by an internal methodology and employed to perform a detailed risk assessment for the selected time horizons and scenarios. •A combined risk and vulnerability assessment is completed integrating data to assess potential climate related hazards which considers return periods hazard severity as well as risk scores. We decided to focus the initial physical risk assessment on our own operations because direct effects are expected to have the highest significance. In addition due to our global value chain structure it is expected that many of the physical climate risks identified are generally applicable to the supply chain and to customers. Extending the assessment to the value chain is anticipated for future years. TRANSITION RISKS AND OPPORTUNITIES ASSOCIATED WITH CLIMATE CHANGE Climate transition risks and opportunities arise from the shift towards a low carbon economy and the broader societal and regulatory response to climate change. The risks encompass a range of factors including regulatory changes market dynamics technological advancements shifts in consumer preferences as well as litigation risks. For example stricter environmental regulations such as carbon pricing or emission reduction targets can increase operational costs or necessitate substantial changes in business practices. Transition risks also include reputational risks where failure to address climate change adequately could damage a company's reputation and stakeholder relationships. Similarly market risks may emerge as demand shifts towards more sustainable products and services potentially affecting our market share and profitability for certain products. At the same time this can lead to opportunities such as increased demand for other products and services which support the transition to a low carbon economy. Further potential opportunities relate to improving resource efficiency transitioning to lower emission energy sources developing climate friendly products and services accessing new markets driven by climate related solutions and enhancing resilience through mitigation of climate risks and sustainable supply chains. Our transition risk and opportunity assessment is based on a scenario to limit climate change to 1.5°C (RCP2.6) above pre-industrial levels. We assessed the risks and opportunities qualitatively. The approach involved representatives from all business areas and corporate functions. The assessment approach is structured along four steps that are described below. First the most relevant drivers of the scenario are identified. These include both macroeconomic forecasts such as GDP and population development as well as techno economic parameters such as carbon and fossil fuel prices by region electrification rates across sectors or deployment rates of technologies. Secondly hypotheses on the impact pathways are formulated based on the information of the previous step as well as the specific value chain of the business areas. The identified impact pathways are structured into risks and opportunities. Thirdly the risks and opportunities are qualitatively scored by representatives of our business areas and corporate functions. Risks and opportunities can also be disregarded or added based on the implications of the scenario on each business area. Finally the risks and opportunities are aggregated based on our ERM risk aggregation methodology. The transition risk assessment is based on three time horizons short term (up to one year) medium term (two to five years to align with both our financial planning and enterprise risk management timeframes) and long term (more than five years). In line with the categories of policy and legal technology market and reputation for risks and resource efficiency energy source products and services markets and resilience for opportunities the corresponding risk and opportunity impact drivers are derived from the underlying scenario narrative by connecting the scenario data with our business area activities. We have assessed the extent to which the company's assets and business activities may be exposed and are sensitive to the identified transition risks and opportunities. This assessment is based on likelihood and potential financial impact of transition events. Both the magnitude and likelihood are rated on a qualitative scale based on our ERM methodology. The duration of the transition risks and opportunities are characterized by their occurrence in the scenario data which is reflected by milestone years such as 2025 or 2030. We chose the “Net Zero Emissions by 2050” scenario of the International Energy Agency (IEA) as the basis for the transition scenario analysis as it features net zero CO2 energy sector and industrial process emissions in 2050 while achieving universal energy access in 2030. The selection of scenarios chosen by ABB for the physical and transition risk analysis reflects a wide range of potential future outcomes. On the one hand limiting global warming in line with the Paris Agreement is reflected by the RCP2.6 (1.5°C) scenario whereas a high temperature scenario represented by RCP8.5 (ranging from 3.2°C to 5.4°C) illustrates climate related hazards if climate change cannot be mitigated globally.
+| —Climate change related policies | E1-2 POLICIES ABB uses several policies and procedures to manage its impact on climate change. Some of them are overarching documents that apply to more than one topical chapter of this Sustainability Statement. These can be found at the end of the chapter “Sustainability at ABB” and include the ABB Way the Sustainability Policy the ABB Code of Conduct the Supplier Code of Conduct and the HSES Policy. More specific policies are outlined below. ENERGY MANAGEMENT REQUIREMENTS This policy establishes the minimum requirements to be met for energy management at sites and in operations controlled by ABB. It demands from all ABB units to establish an energy baseline and to classify the significance of their energy footprint. Managers are asked to consider energy in long term planning including the identification and consideration of retrofit requirements. ABB units with significant energy footprints shall introduce a basic energy management system and an action plan. This policy is complemented by an Energy Management Approved Code of Practice (ACOP) which includes concrete examples. The Energy Management Requirements cover 12 of the 24 climate related IROs including all impacts in own operations and the downstream value chain one of the three risks and three of the 11 opportunities (i.e. those relating to own operations). This internal policy applies to all employees and covers all sites and operations controlled by ABB. The most senior level that is accountable for the implementation of the policy is the division presidents. There are no specific third party standards or initiatives referenced in this policy. Relevant internal and external stakeholders are expected to benefit indirectly from the implementation of this policy. This is an internal document that is accessible via the internal network to all employees. NET ZERO PROCEDURE In 2023 ABB introduced an overarching target of reaching net zero emissions by 2050. To support the achievement of this target ABB has made several commitments which can be broken down by near term (2030) and long term (2050) horizons. The Net Zero Procedure applies to all employees and units of ABB worldwide joint ventures consortia working partnerships and third party service providers under ABB management control. The most senior level that is accountable for the implementation of the policy is the division presidents. There are no specific third party standards or initiatives referenced in this policy. Relevant internal and external stakeholders are expected to benefit indirectly from the implementation of this policy. This is an internal document that is accessible via the internal network to all employees. RENEWABLE ELECTRICITY PROCEDURE Our Net Zero Procedure (above) specifies the commitments to reach our net zero target including converting 100 percent of our electricity consumption to renewable sources by 2050. This will be achieved through purchase and self generation of renewable electricity. All country wide or site level electricity contracts shall include 100 percent renewable electricity by 2030. The Renewable Electricity Procedure defines what type of contracts sources and market boundaries are acceptable. It largely follows the guidance set by the RE100 initiative. The Renewable Electricity Procedure applies to all employees and units of ABB worldwide joint ventures and consortia under ABB management control. The most senior level that is accountable for the implementation of the policy is the division presidents. The Renewable Electricity Procedure is modelled on the requirements of the RE100 initiative. Relevant internal and external stakeholders are expected to benefit indirectly from the implementation of this policy. This is an internal document that is accessible via the internal network to all employees. FLEET ELECTRIFICATION PROCEDURE As part of our transition towards our net zero target we have committed to electrify our fleet of vehicles in line with the requirements of the EV100 initiative of the Climate Group. The Fleet Electrification Procedure applies to all employees and units of ABB worldwide. The most senior level that is accountable for the implementation of the policy is the division presidents. The Fleet Electrification Procedure is modelled on the requirements of the EV100 initiative. Relevant internal and external stakeholders are expected to benefit indirectly from the implementation of this policy. This is an internal document that is accessible via the internal network to all employees. Adaptation Procedure in progress Based on insights gained from the climate risk assessment adaptation measures will be assessed and designed jointly with the local facility and site managers. Currently ABB does not yet have a global adaptation procedure in place. Developing this procedure is a priority for the coming year.
+| —Climate change related targets | E1-4 TARGETS To achieve net zero ABB has set SBTi aligned near term and long term greenhouse gas reduction targets. Both sets of targets employ the absolute contraction
+![table image]({page: 27, x: 213}, {y: 329, {width: 469}, {height: 46})
+
+
+<!-- PAGE: 31 -->
+methodology as outlined by the SBTi and have been validated by the initiative.
+
+SOCIAL PROTECTION IN THE VALUE CHAIN
+
+—Involvement of value chain workers The employees of our suppliers and service providers contribute their share to ABB's sustainability value proposition and benefit from protection against risks associated with their work for us.
+The ESRS wording “Workers in the value chain” as an element of sustainability reporting refers to the employees of our value chain partners and how we involve them in our sustainability management.
+The objective is to ensure that they contribute to ABB's sustainability targets and to protect them from any potentially negative impacts of the work they do as part of the ABB value chain.
+
+# DEFINITIONS
+## — Greenhouse gas emissions
+
+Greenhouse gas (GHG) emissions refer to all emissions that have a warming effect on the earth's surface by trapping heat in the atmosphere.
+The Greenhouse Gas Protocol which sets global standards to measure and manage GHG emissions covers seven GHGs carbon dioxide (CO2) methane (CH4) nitrous oxide (N2O) as well as gases used in industry including hydrofluorocarbons (HFCs) per fluorocarbons (PCFs) sulfur hexafluoride (SF6).
+and nitrogen trifluoride (NF3).
+CO2 CH4 and N2O are released during the combustion of fossil fuels such as coal oil or natural gas.
+At ABB we use the metric ton of CO2 equivalent (CO2e) to calculate our GHG emissions and to measure progress toward our emissions reduction targets.
+
+# UNITS OF MEASURE
+
+Greenhouse gas (GHG) emissions are presented throughout the statement in metric kilotons (kt) carbon dioxide equivalents (CO₂e) or metric megatons (mt) where 1 metric kiloton CO₂e equals 1000 metric tons CO₂e and 1 metric megaton CO₂e equals 1000 metric kilotons CO₂e.
+
+Energy consumption is presented throughout the statement in gigawatt hours (GWh) where 1 GWh equals 1000 megawatt hours (MWh).
+
+Waste is presented in metric tons (t) and metric kilotons (kt).
+
+|  | Materials used are presented in metric kilotons (kt). |
+| --- | --- |
+| —Other reporting principles | BP 2 DISCLOSURES IN RELATION TO SPECIFIC CIRCUMSTANCES TIME HORIZONS In this statement we comply with the medium or long term time horizons defined by ESRS 1 section 6.4 of short medium and long term for reporting purposes.
+| VALUE CHAIN ESTIMATION |
+| We work with primary data as much as possible. Estimations based on indirect sources are used eg to calculate scope 3 GHG emissions and avoided emissions datapoints. For further details of the basis for preparation and the methodology used in determining these metrics please refer to “Greenhouse gas emissions” in the chapter “Protecting the climate”. Currently we have obtained only very limited primary data or direct information from third party suppliers and partners to include in our emissions calculations. However we are committed to improving the collection and quality of primary data or information from third parties and are actively preparing the next steps to achieve this. The shift toward a scope 3 assessment increasingly based on primary data will be a gradual process and will be applied where reasonable resulting in a hybrid approach based on a mix of primary and estimated data. |
+| SOURCES OF ESTIMATION AND OUTCOME UNCERTAINTY |
+| There is a high level of measurement uncertainty in this Sustainability Statement in the areas of scope 3 GHG emissions and in avoided emissions. For further details please refer to the section “Value chain estimation” above and to the section “Greenhouse gas emissions”. |
+| CHANGES COMPARED TO PREVIOUS SUSTAINABILITY REPORTING |
+| This is the first Sustainability Statement of ABB with reference to the ESRS. In previous years our main reporting framework was the Sustainability Reporting Standards of the Global Reporting Initiative (GRI). Wherever possible comparable information for the previous year is provided. As part of the ESRS implementation in 2024 we conducted a Double Materiality Assessment (DMA) and re-evaluated material topics in alignment with the ESRS. |
+| REPORTING ERRORS IN PRIOR PERIODS |
+| Certain figures that have been reported in the Sustainability Report 2023 have been reclassified or adjusted in the Sustainability Statement 2024 to conform to the current year's presentation or due to refined calculation methods. |
+| USE OF OTHER FRAMEWORKS |
+| In addition to the regulatory requirements listed above this Sustainability Statement was also prepared in reference to the GRI Standards the IFRS Sustainability Disclosure Standards (also known as ISSB Standards) and in accordance with the Sustainability Accounting Standards Board (SASB). Information previously included in the Task Force for Climate related Financial Disclosures (TCFD) section is now covered by the Swiss Ordinance on Climate Disclosures as presented in the relevant ESRS sections. An index table at the end of this Sustainability Statement maps our ESRS disclosures to relevant indicators of GRI and ISSB Standards. This voluntary interoperability table is complemented by additional tables for the Sustainability Accounting Standards Board. |
+| INCORPORATION BY REFERENCE |
+| Wherever we incorporate information by reference (to other parts of the | Management Report) this is clearly indicated.
+| INDEPENDENT ASSURANCE |
+| KPMG AG has been engaged by ABB to provide independent assurance for selected 2024 sustainability information disclosed in the Sustainability Statement including reported progress for 2024 against certain sustainability targets our compliance with the provisions of the Swiss Code of Obligations (Art. 964b ss.) and the Swiss Ordinance on Climate Disclosures the process carried out by the management for the DMA and its alignment with ESRS and the EU Taxonomy disclosures alignment with the EU Taxonomy Regulation. The relevant content subject to limited assurance has been marked as ‘(assured)’ throughout the statement. KPMG AG's full Assurance Statement including opinion and basis of opinion is available in the “Assurance Opinion” section in this statement. KPMG AG's assurance did not extend to comparative periods within the 2024 Sustainability Statement. |
+| —Governance of sustainability at ABB | GOV 1 ROLE OF ADMINISTRATIVE MANAGEMENT AND SUPERVISORY BODIES Sustainability at ABB is governed in the following hierarchy ABB's Board of Directors (the Board) reviews and approves our Sustainability Agenda and related targets. Our Sustainability Agenda reflects the value we create for our stakeholders and considers insights of the DMA which takes into account impacts risks and opportunities (IROs) as identified for ABB. Board committees have specific roles in relation to sustainability The Governance and Nomination Committee (GNC) is responsible for overseeing ABB's Sustainability Agenda. The GNC reviews and proposes to the Board the company's Sustainability Agenda and its targets and monitors target progress and achievements. The Finance Audit and Compliance Committee (FACC) oversees the integrity of ABB's sustainability related reporting including its reporting processes systems of internal controls as well as data processing. The Compensation Committee (CC) ensures that our executive compensation policies are appropriately aligned with the Sustainability Agenda. Ultimate responsibility for the company's Sustainability Agenda its sustainability targets and its annual Sustainability Statement lies with the entire Board of Directors. In 2024 topics related to the Sustainability Agenda were discussed in every board meeting. The ABB Group Executive Committee (the EC) validates the Sustainability Agenda and its implementation. It is responsible for reviewing sustainability targets in line with our performance management approach and our operating model as well as for ensuring that a sustainability culture is embedded in our business decision making. In every EC meeting held in 2024 topics related to the Sustainability Agenda were discussed. The Chief Communications and Sustainability Officer who is a member of the EC holds functional responsibility for sustainability and reports together with the Group Head of Sustainability to the GNC on topics and progress related to the Sustainability Agenda. The Sustainability Council is the highest operational decision making body for sustainability. It drives the development of the Sustainability Agenda based on evolving stakeholder requirements oversees implementation and monitors progress towards targets. In line with our operating model the ABB Way -, all business areas are represented in the Sustainability Council by their strategy heads as well as their sustainability leads. Additional members of the Sustainability Council include representatives of our corporate functions sustainability strategy sustainability reporting as well as legal and integrity. Topic specific Workstreams establish targets and roadmaps across business areas and determine the governance for the respective sustainability topics. Additionally they monitor emerging requirements and share best practices across business areas. The Workstreams include subject matter experts from our business areas and divisions as well as members of the Corporate Sustainability team. They regularly report to the Sustainability Council on their progress and receive support from the Council where needed. In line with the ABB Way and our decentralized operating model our four business areas and their divisions are ultimately accountable for putting action plans in place and ensuring that appropriate resources are available to implement these plans and deliver on our targets.
+| The Corporate Sustainability team provides thought leadership and governance | sets targets and drives continuous improvement.
+| Finally our Sustainability Reporting team being part of ABB's Finance organization is responsible for the preparation of our annual Sustainability Statement. There is a dedicated procedure for the management of IROs applicable for these bodies in the form of the DMA Procedure adopted in 2024. Entity level controls for this Procedure will be in place in the course of the financial year 2025. |
+| BOARD AND EXECUTIVE COMMITTEE COMPOSITION |
+| In proposing individuals for election the Board seeks to align its composition skills and experience with the company's strategic needs. The Board strives for diversity in all aspects including gender nationalities ethnicity and age. In addition the tenure of the members of the Board should be well balanced. In 2024 the Board was composed of 70 percent male directors while 30 percent of the positions were held by female directors. Furthermore 60 percent of the Board members are in the age range of 50 to 59 years and 40 percent are between 60 and 69 years. All 10 members of our Board are independent and non executive directors. We did not have employee representatives on our Board as per Swiss corporate law the Board of Directors is elected by the shareholders only and representation of employees is not foreseen. Further the composition of the Board in context of experience was as follows |
+|  | Board Experience Corporate Officer Experience Other Business Experience
+| Board Member |
+| Peter R. Voser | 10 ● ● ● ● ● ● ● ● CH
+| David Constable | 10 ● ● ● ● ● ● CA US
+| Frederico Fleury Curado | 9 ● ● ● ● ● ● ● BR PT
+| Lars Forberg | 8 ● ● ● ● ● SE CH
+| Johan Forssell | 1 ● ● ● ● ● ● ● SE
+| Denise C. Johnson | 2 ● ● ● ● ● ● US
+| Jennifer Xin‑Zhe Li | 7 ● ● ● ● ● ● ● CN CA
+| Geraldine Matchett | 7 ● ● ● ● ● ● CH UK FR
+| David Meline | 9 ● ● ● ● ● ● US CH
+| Mats Rahmstrom | 1 ● ● ● ● ● ● ● SE
+![table image]({page: 4, x: 213}, {y: 198, {width: 362}, {height: 9})
+
+
+<!-- PAGE: 7 -->
+For each Board member's biography see Corporate Governance Report 2024.
+
+In line with the Board's leading example ABB strives to have an equally diverse Executive Committee in all aspects.
+When appointing executives the Board pays specific attention to relevant subject matter or business sector and products experience as applicable for each member.
+
+In our EC 78 percent of the positions were held by male executives and 22 percent by female executives in 2024.
+The age distribution showed 11 percent equaling one of the members being in the range of 40 to 49 years old and 78 percent of EC members were between 50 to 59 years old.
+11 percent of the members are in the range of 60 or above.
+All 9 EC members were active as executives and employed by ABB Ltd.
+
+
+<!-- PAGE: 8 -->
+The following table gives a detailed overview of the experience of our EC members
+
+|  | Business Experience |
+| --- | --- |
+| Timo Ihamuotila | Chief Financial Officer |  |  | ● | ● | ● | FI
+| Carolina Granat | Chief Human Resources Officer |  |  | ● | ● | ● | SE
+| Mathias Gaertner | General Counsel and Company Secretary |  |  | ● ● |  | ● DE | 
+| Karin Lepasoon | Chief Communications and Sustainability Officer |  |  | ● ● |  | ● SE | 
+| Giampiero Frisio | Business Area President Electrification | ● ● |  |  | ● ● |  | IT
+| Brandon Spencer | Business Area President Motion |  | ● ● |  | ● ● |  | US
+| Peter Terwiesch | Business Area President Process Automation |  | ● | ● ● |  | ● DE CH | 
+| Sami Atiya | Business Area President Robotics & Discrete Automation |  | ● ● |  | ● ● |  | DE
+![table image]({page: 8, x: 379}, {y: 95, {width: 381}, {height: 16})
+
+1 Covering renewable power solutions modular substation packages switchboards and panelboards switchgears UPS solutions breakers control products wiring accessories enclosures and cabling systems building automation and similar products as well as related services.
+
+2 Covering drives motors generators traction converters and similar products as well as related services.
+
+3 Covering control technologies industrial software advanced analytics sensing and measurement technology marine propulsion systems and similar products as well as related services.
+
+4 Covering robots mapping and navigation solutions automation solutions industrial PCs transport systems machine vision and similar products as well as related services.
+
+For each EC member's biography see Corporate Governance Report 2024.
+
+# TRANSITION RISKS
+
+In the qualitative transition risk assessment using a 1.5°C scenario policy and legal risks as well as market risks arising from GHG emission pricing schemes could have an impact on our revenue and margin.
+Specific identified risks relate to
+
+- • Commodity/raw material prices: As carbon pricing regulations become stricter, the costs of carbon-intensive inputs rise, leading to increased expenses in sourcing and manufacturing, which could affect our profitability.
+
+- • Carbon footprint of the product portfolio: With a growing emphasis on carbon reduction, the demand for low-carbon products increases and we need to adapt our product offerings to align with this trend, ensuring a reduced carbon footprint for the product portfolio. Failure to do so could result in decreased customer demand and market share loss.
+
+A further consideration includes reputational risk which for example could arise from business activities with clients in industries that might be prone to stigmatization due to their contribution towards climate change and thereby reflecting poorly on ABB's stakeholder perception.
+Furthermore failing to meet communicated GHG reduction targets could erode stakeholder trust and consequently impact long term revenues.
+
+## E2: POLLUTION
+
+ABB's value chain and operations can have a negative effect on the environment through pollution.
+To address these challenges we promote sustainable practices such as supplier environmental criteria and circular economy principles leading to the reduction and elimination of pollution.
+
+There are risks associated with pollution.
+Stricter regulations like the potential European ban on per and polyfluoroalkyl substances (PFAS) can disrupt sourcing and materials.
+Compliance with new standards would demand significant adjustments.
+We pursue a proactive approach to sustainability and resource management to adapt to and mitigate these risks.
+
+### AVOIDED EMISSIONS AMBITION
+
+In addition to our SBTi aligned GHG emissions reduction targets we have the ambition to avoid emissions in customer operations.
+Avoided emissions are the reduction in GHG emissions that occur because of the use of a product or solution.
+We use the category of avoided emissions to describe the volume of greenhouse gas emissions that our customers will avoid by using our products and solutions through their full service lives.
+The methodology for calculating avoided emissions is based on the 2023 guidance of the World Business Council for Sustainable Development (WBCSD).
+
+- • Ambition to avoid 600 mt CO₂e emissions throughout lifetime of products sold from 2022 to 2030.
+
+#### 6. Transport
+
+- 6.16 Infrastructure enabling low- carbon water transport Construction, modernization, operation and maintenance of infrastructure that is required for zero tailpipe CO2e operation of vessels or the port’s own operations, as well as infrastructure dedicated to transshipment Electrification Process Automation
+
+- 7. Construction and real estate
+
+- 7.6 Installation, maintenance, and repair of renewable energy technologies Installation, maintenance and repair of renewable energy technologies, on-site Electrification Real Estate
+
+- 7.7 Acquisition and ownership of buildings Buying real estate and exercising ownership of that real estate Real Estate
+
+Environmental objective Transition to a circular economy
+
+# CLIMATE-RELATED OPPORTUNITIES
+
+The opportunities inherent in the transition to a low carbon society can lead to significant market growth.
+ABB's eligible products under the EU Taxonomy (which also meet the substantial contribution criteria as a first prerequisite toward EU Taxonomy alignment currently in process) are a proxy for the numerous product and service lines that cater to the needs of our customers.
+A major growth driver identified in the qualitative assessment is the global renewable energy market which drives demand for our products.
+
+Regarding cost saving activities we are investing in energy efficiency and emissions reductions throughout our operations.
+For example we have committed to electrifying our fleet of more than 10,000 vehicles by 2030 and continuing to deploy energy management systems at our sites.
+These substantial annual investments in energy efficiency and emissions reduction projects frequently come with cost savings in the long term.
+This includes for example investments in low carbon energy sources upgrading compressed air systems as well as heating ventilation and cooling systems.
+
+
+<!-- PAGE: 40 -->
+
+##### A.2. TAXONOMY-ELIGIBLE BUT NOT ENVIRONMENTALLY SUSTAINABLE ACTIVITIES (NOT TAXONOMY-ALIGNED ACTIVITIES)
+
+|  | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL | EL N/EL |
+| --- | --- | --- | --- | --- | --- | --- |
+| 3.5 Manufacture of energy efficiency equipment for buildings | CCM 3.5 | 12 | 1% | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | 2%
+| 3.6 Manufacture of other low carbon technologies | CCM 3.6 | 50 | 3% | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | 1%
+| 3.18 Manufacture of automotive and mobility components | CCM 3.18 | 1 <0.5% |  | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | 0%
+![table image]({page: 99, x: 362}, {y: 344, {width: 683}, {height: 17})
+
+- 3.19 Manufacture of rail constituents CCM 3.19 42 2% EL N/EL N/EL N/EL N/EL N/EL
+
+
+<!-- PAGE: 100 -->
+| Financial Year 2024 | DNSH criteria |
+| --- | --- |
+![table image]({page: 100, x: 59}, {y: 76, {width: 736}, {height: 8})
+
+- 3.20 Manufacture, installation, and servicing of high, medium and low voltage electrical equipment for electrical transmission and distribution CCM 3.20 655 34% EL N/EL N/EL N/EL N/EL N/EL 26%
+
+| 4.9 Transmission and distribution of electricity | CCM 4.9 | 1 | <0.5% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0% |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 6.14 Infrastructure for rail transport | CCM 6.14 | 3 | <0.5% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | <0.5%
+| 6.15 Infrastructure enabling low carbon road transport and public transport | CCM 6.15 | 2 <0.5% |  | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | 0%
+| 6.16 Infrastructure enabling low carbon water transport | CCM 6.16 | 11 | 1% | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | <0.5%
+| 7.7 Acquisition and ownership of buildings | CCM 7.7 | - | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL | 0%
+| 8.2 Data driven solutions for GHG emissions reductions | CCM 8.2 | 1 <0.5% |  | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | 1%
+| 9.1 Close to market research development and innovation | CCM 9.1 | 20 | 1% | EL N/EL N/EL N/EL N/EL N/EL |  |  |  |  |  | <0.5%
+| 1.2 Manufacture of electrical and electronic equipment | CE 1.2 | 100 | 5% | N/EL N/EL N/EL N/EL |  |  |  | EL N/EL |  | 5%
+| 4.1 Provision of IT/OT data driven solutions and software | CE 4.1 | 2 <0.5% |  | N/EL N/EL N/EL N/EL |  |  |  | EL N/EL |  | 2%
+| 5.1 Repair refurbishment and remanufacturing | CE 5.1 | 28 | 1% | N/EL | N/EL | N/EL | N/EL | EL | N/EL | 1%
+| 5.2 Sale of spare parts | CE 5.2 | 39 | 2% | N/EL | N/EL | N/EL | N/EL | EL | N/EL | 0%
+| 5.3 Preparation of re-use of end of life products and product components CE 5.3 0% N/EL N/EL N/EL N/EL EL N/EL <0.5% |
+| 5.4 Sale of second hand goods CE 5.4 <0.5 <0.5% N/EL N/EL N/EL N/EL EL N/EL <0.5% |
+| OpEx of Taxonomy eligible but not environmentally sustainable activities (not Taxonomy aligned activities) (A.2) |  | 989 | 51% | 42% | 0% | 0% | 0% | 9% | 0% | 39%
+| A. OpEx of Taxonomy eligible activities (A.1+A.2) |  | 989 | 51% | 42% | 0% | 0% | 0% | 9% | 0% | 
+![table image]({page: 100, x: 59}, {y: 237, {width: 453}, {height: 8})
+
+
+<!-- PAGE: 101 -->
+| Financial Year 2024 | DNSH criteria |
+| --- | --- |
+| B. TAXONOMY NON ELIGIBLE ACTIVITIES |
+| OpEx of Taxonomy non eligible activities | 946 | 49% |  |  |  |  |  |  |  |  |  |  | 
+| TOTAL | 1,935 | 100% |  |  |  |  |  |  |  |  |  |  | 
+![table image]({page: 101, x: 59}, {y: 76, {width: 288}, {height: 8})
+
+Due to rounding numbers presented may not add to the totals provided.
+Due to disclosure format prior year alignment figures do not add to the totals.
+The detailed 2023 aligned numbers are available in 2023 Sustainability Report.
+
+Total ABB Group %
+
+|  | Proportion of OpEx/Total OpEx |
+| --- | --- |
+|  | CCM | 0% | 42% |  | 
+|  | CCA | % | % |  | 
+|  | WTR | % | % |  | 
+|  | CE | 0% | 9% |  | 
+|  | PPC | % | % |  | 
+|  | BIO | % | % |  | 
+| Key |
+| Substantial Contribution Criteria | Minimum Safeguards |  | DNSH Criteria |  | 
+| Y Yes Taxonomy eligible and Taxonomy aligned activity with the relevant environmental objective | Y N | Minimum safeguards are met Minimum safeguards are not met | Y DNSH criteria are met N DSNH criteria are not met | CCM CCA | Climate Change Mitigation Climate Change Adaptation
+| N No | Taxonomy eligible but not Taxonomy aligned activity with the relevant environmental objective | WTR | Water and Marine Resource | CE | Circular Economy
+| N/EL not | eligible | Taxonomy non eligible activity for the relevant | environmental objective | PPC | Pollution Prevention and Control
+| EL |
+| eligible Taxonomy eligible activity for the relevant objective |  |  |  |  | 
+![table image]({page: 101, x: 362}, {y: 293, {width: 196}, {height: 8})
+
+
+<!-- PAGE: 102 -->
+
+### GHG emissions reduction targets and avoided emissions ambition
+#### Target years
+
+2030 2050 Absolute value of emissions (kt CO₂e) Baseline year 2024 reduction compared to baseline year 2024 status (assured) Absolute value (kt CO₂e) Percentage
+
+| GHG emission | category | Description | Base year |
+| --- | --- | --- | --- |
+| Scope 3 GHG emissions | Reduce scope 3 CO₂e emissions by 25% by 2030 and by 90% by 2050 compared to 2022 | 2022 | 25% reduction | 90% reduction | 429,8542 | 394,952 | (34,902) | -8%
+| Avoided emissions | Ambition to avoid 600 mt CO₂e emissions throughout lifetime of | 2022 | 600 MT | - | - | 204,3903 | - | 0%
+![table image]({page: 32, x: 78}, {y: 396, {width: 471}, {height: 27})
+
+## Page 93:
+                ```markdown
+| Economic activities                                              | Code   | $million | Turnover % | Proportion of activities(2) | Substantial contribution criteria                  | DNSH criteria | %  | E   | T   |
+|---------------------------------------------------------------|--------|----------|------------|----------------------------|---------------------------------------------------|---------------|----|-----|-----|
+| 3.3 Manufacture of low carbon technologies for transport       | CCM 3.3| 7        | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 3.4 Manufacture of batteries                                   | CCM 3.4| 44       | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 0%            |    |     |     |
+| 3.5 Manufacture of energy efficiency equipment for buildings   | CCM 3.5| 212      | 1%         | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 3.6 Manufacture of other low-carbon technologies               | CCM 3.6| 1,261    | 4%         | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 3%            |    |     |     |
+| 3.18 Manufacture of automotive mobility components             | CCM 3.18| <0.5%   | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 0%            |    |     |     |
+| 3.19 Manufacture of rail constituents                          | CCM 3.19| 587      | 2%         | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 3.20 Manufacture, installation, and servicing of...           | CCM 3.20| 11,492  | 35%        | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 27%           |    |     |     |
+| 4.9 Transmission and distribution of electricity               | CCM 4.9| 16       | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 0%            |    |     |     |
+| 6.14 Infrastructure enabling low-carbon road transport       | CCM 6.14| 91      | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 6.15 Infrastructure enabling low-carbon transport              | CCM 6.15| 46      | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 0%            |    |     |     |
+| 6.16 Infrastructure enabling low carbon water transport       | CCM 6.16| 316     | 1%         | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 8.2 Data-driven solutions for GHG emissions reductions         | CCM 8.2| 34       | <0.5%      | EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 1.2 Manufacture of electrical and electronic equipment         | CE 12  | 1,942   | <0.5%      | N/EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 5%            |    |     |     |
+| 4.1 Provision of IT/OT data-driven solutions and software     | CE 4.1| 37       | 60.5%      | N/EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+| 5.1 Repair, refurbishment and remanufacturing                  | CE 5.1| 514      | 2%         | N/EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 1%            |    |     |     |
+| 5.2 Sale of spare-parts                                        | CE 5.2| 771      | 2%         | N/EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | 2%            |    |     |     |
+| 5.3 Preparation of re-use of end-of-life products...          | CE 5.3| 0       | 0%         | N/EL/N/EL/N/EL/N/EL/N/EL/N/EL| Y/N/Y/N/Y/N/Y/N/Y/N/Y/N/Y/N                                     | <0.5%         |    |     |     |
+```
+
+# NON-RENEWABLE ENERGY PRODUCTION AND RENEWABLE ENERGY PRODUCTION
+
+Our total non renewable production includes on site electricity generation from oil and diesel as well as from combined heat and power.
+The total renewable production includes on site solar generation.
+
+|  | Energy production (in GWh) | 2024 | 2023 |
+| --- | --- | --- | --- |
+|  | Total non renewable energy production | 13 | 16
+|  | Total renewable energy production | 39 | 29
+|  | Total energy production | 52 | 45
+| —Greenhouse gas emissions | E1-6 SCOPE 1 2 3 EMISSIONS In 2024 we achieved a reduction of 78 percent in our scope 1 and 2 emissions compared to 2019. This progress was driven primarily by the roll out of renewable |  | 
+![table image]({page: 34, x: 220}, {y: 450, {width: 463}, {height: 46})
+
+energy in our sites a reduction in SF6 emissions and the transition towards electric vehicles in our fleet.
+As a result we are on track to reach our near term 2030 target of 80 percent emission reduction.
+
+In 2024 scope 3 GHG emissions have decreased by 8 percent compared to the baseline year of 2022 with key drivers being the decline in scope 3 category 11 emissions due to a shift in the sales mix within our product portfolio with a decrease in the share of more energy intensive products compared to previous years.
+As our products are essential for the decarbonization of our value chain the sale of our equipment supports the integration of renewables into the grid and will in turn lead to reductions of our own scope 3 emissions.
+
+For the reporting of scope 3 emissions in category 11 we have previously published a “representative scenario” and a “strict scenario” with the representative scenario quantifying the energy consumption of certain products based on measured energy loss and the strict scenario taking a more conservative approach based on the full energy input to certain products.
+Going forward we will use the strict scenario as basis for our scope 3 reporting.
+
+
+<!-- PAGE: 35 -->
+
+### NUCLEAR AND FOSSIL GAS RELATED ACTIVITIES
+
+| Row | Nuclear energy related activities |  |
+| --- | --- | --- |
+| 1 | The undertaking carries out funds or has exposures to research development demonstration and deployment of innovative electricity generation facilities that produce energy from nuclear processes with minimal waste from the fuel cycle. | NO
+| 2 | The undertaking carries out funds or has exposures to construction and safe operation of new nuclear installations to produce electricity or process heat including for the purposes of district heating or industrial processes such as hydrogen production as well as their safety upgrades using best available technologies. | NO
+| 3 | The undertaking carries out funds or has exposures to safe operation of existing nuclear installations that produce electricity or process heat including for the purposes of district heating or industrial processes such as hydrogen production from nuclear energy as well as their safety upgrades. | NO
+| Fossil gas related activities |
+| 4 | The undertaking carries out funds or has exposures to construction or operation of electricity generation facilities that produce electricity using fossil gaseous fuels. | NO
+| 5 | The undertaking carries out funds or has exposures to construction refurbishment and operation of combined heat/cool and power generation facilities using fossil gaseous fuels. | NO
+![table image]({page: 102, x: 71}, {y: 98, {width: 463}, {height: 17})
+
+## IRO-1: PROCESSES TO IDENTIFY AND ASSESS MATERIAL IROs
+
+During the 2024 update of the DMA resource use was confirmed as one of our material topics.
+For more information on our process to identify material issues for our sustainability management please see the chapter “Sustainability at ABB”.
+
+The 2024 DMA identified 21 IROs of which 11 were classified as impacts two as risks and eight as opportunities.
+
+Of the 11 impacts six are in our own operations three of these being potentially positive explained as our contribution to a circular economy through renewable resources resource efficiency recycling and similar activities.
+Repairing maintaining and refurbishing installations at customer sites will also have a positive impact on the transition to a circular economy.
+Three other impacts in this area were assessed as actually negative.
+These relate to the depletion of non renewable resources through our use of them.
+Actual positive impacts can be observed in our upstream and downstream value chains.
+By adopting practices such as product repairability durability and other circular economy principles we can reduce our overall resource outflow.
+By developing more circular solutions there is a potential for positive impact on the transition to a circular economy.
+Furthermore the application of circularity principles at the end of life of products enables us to reuse resources more efficiently and thus reduce the impact on the environment.
+
+Of the two identified risks one concerns the whole business including value chains.
+This is a combination of product obsolescence slow time to market and the unavailability of essential resources.
+If these factors occur they could lead to production delays and a reduced financial performance.
+
+The eight opportunities in this field relate to our own operations and one or both parts (upstream downstream) of the value chain.
+Among the topics are the opportunity to be seen as a thought leader in circularity development capturing customers increasingly aware of circular economy aspects by useful innovations the access to new revenue streams through circular business models lower costs by reducing the need for new raw materials reducing waste and associated disposal costs helping manage component and material shortages or other similar factors.
+
+
+<!-- PAGE: 41 -->
+E5-1 POLICIES
+
+— PROTECTING CONSUMERS
+# SBM-3: MATERIAL IROs AND THEIR INTERACTION WITH STRATEGY AND BUSINESS
+
+| Working primarily with industrial customers ABB has only limited direct or indirect | touchpoints with consumers. |
+| --- | --- |
+| —Management of consumer related risks | When analyzing our material IROs in the course of the 2024 DMA we identified eight IROs in the consumer and end user field. Of these four were impacts and four risks. All four impacts were located in the downstream value chain. Two of them were identified as actually positive. Consumers and end users benefit from our focus on privacy and our aim to provide a transparent and ethical approach to data handling. This commitment enhances customer satisfaction loyalty and brand perception. Also providing access to quality information empowers consumers and end users to make informed decisions leading to better choices and confidence in the product and value chain involved. The other two impacts were assessed as possibly negative. Both are safety related when safety incidents with our products lead to health accidents or when product misuse impacts “vulnerable” users. Strong safety measures for the use phase of our products and clear instructions can mitigate the risk of safety incidents for customers. The four risks primarily arise within the upstream and downstream value chains with one also directly impacting our own operations. For instance in the e-mobility sector when ABB products are connected to low quality non ABB chargers it poses challenges to our reputation and reliability highlighting the importance of maintaining high standards across all touchpoints. Risks related to information security in the value chain include potential external attacks with ransomware when an incident is not discovered or remediated in a timely manner or if cyber attacks result in significant loss claims by customers.
+| —Consumer related policies | S4-1 HUMAN RIGHTS POLICY AND DUE DILIGENCE FRAMEWORK The ABB Human Rights Policy endeavors to ensure that all of our stakeholders including consumers and end users are treated with respect and fairness at all
+![table image]({page: 77, x: 212}, {y: 174, {width: 450}, {height: 46})
+
+times.
+With regard to consumers and end users affected the human rights issues that are covered by this policy include
+
+- • Environmental issues impacting human rights
+
+- • Health and safety
+
+- • Information security and data privacy
+
+The policy and the associated Human Rights Due Diligence Framework are described at the end of the chapter “Sustainability at ABB”.
+
+### S2: WORKERS IN THE VALUE CHAIN
+
+In our value chain there is a potential risk of negative impacts on individuals involved in labor eg through health and safety risks in mining.
+Chemicals and heavy machinery usage in upstream processes can also pose health risks to workers.
+Our Sustainable Supply Base Management Program audits and supplier quality audits and active membership of the Responsible Minerals Initiative alongside our Business Ethics Helpline and training demonstrate our commitment to the safety and wellbeing of all individuals in our value chain.
+
+EU TAXONOMY: DISCLOSURES FOR FINANCIAL YEAR 2024 (assured)
+
+|  | —EU Taxonomy Background and objectives | At ABB we are determined to shape our future in an environmentally sustainable way by developing and investing in sustainable business activities. The European Union (EU) has taken the lead in standardizing sustainability related data and defining criteria for “environmentally sustainable” activities with the help of the EU Taxonomy Regulation aiming to direct capital flows specifically into such activities. The EU Taxonomy categorizes “environmentally sustainable” business activities into six pre-defined environmental objectives1. It distinguishes between |
+| --- | --- | --- |
+| 1 | Climate change mitigation climate change adaptation | 
+| “Taxonomy-eligible” and “Taxonomy-aligned” economic activities. An economic activity is considered “eligible” if it is described in the adopted EU Taxonomy Delegated Acts. An eligible activity is only considered environmentally sustainable and thus “aligned” if it meets the specified technical screening criteria |
+| sustainable use and protection of water and marine resources transition to a circular economy pollution prevention and control and protection and restoration of biodiversity and ecosystem. |
+| •Substantial contribution to one of the six environmental objectives |
+| •“Do no significant harm” (DNSH) to other five environmental objectives • Minimum safeguards primarily related to human rights and social and labor standards |
+| Consequently companies are required to publish the following KPIs turnover | capital expenditure (CapEx) and operating expenditure (OpEx) associated with | both Taxonomy eligible and -aligned activities.
+|  | —ABB's implementation of the EU Taxonomy | EU Taxonomy is a required reporting framework for companies in its scope and the range of disclosures has been expanding annually. For the fourth year of reporting now on the financial year 2024 the disclosure requirements have been further expanded. For the first time EU Taxonomy eligibility and alignment must be disclosed for all economic activities under all six environmental objectives. The EU Taxonomy related disclosures are prepared in line with Article 8 of the EU Taxonomy Regulation and the related delegated acts. The legal framework for EU Taxonomy reporting currently consists of the following elements the EU Taxonomy Regulation the amended Climate Delegated Act the amended Disclosures Delegated Act the Complementary Climate Delegated Act and the Environmental Delegated Act including their various annexes. In addition the Taxonomy FAQs and Notices published by the European Commission have been taken into consideration in our disclosures where relevant. The EU Taxonomy Regulation is a dynamic evolving legislation. Its formulations and terms are sometimes subject to uncertainty in interpretation and require further clarification. Therefore the following disclosures rely on our current understanding and interpretation of the Regulation the approach applied for this year's reporting is updated in comparison to last year and may not apply in the same way in the future. ABB has been preparing its EU Taxonomy disclosures since the financial year 2021. In 2024 we conducted a comprehensive review of our eligibility mapping to ensure accuracy consistency and focus on performing alignment assessments for activities introduced in 2023 which are directly pertinent to our business portfolio. Additionally it was essential to duly consider the impact of changes to pollution related DNSH criteria applicable for financial year 2024. These pollution related DNSH criteria had the most significant influence on the decline in our alignment figures in 2024. Following the ABB Way and our decentralized operating model we adopted a decentralized approach involving the expertise of our product managers real estate managers sustainability managers financial controllers R&D controllers and environmental managers across all levels of our organization. Our Sustainability Council and the Finance Audit and Compliance Committee of the Board of Directors oversee our compliance with EU Taxonomy reporting obligations and are informed of progress potential risks and obstacles.
+| ELIGIBILITY ASSESSMENT |
+| Our eligible CapEx was identified centrally at the division level or at the country | level. For OpEx special attention was given to R&D expenses which were analyzed | To determine the eligibility of our revenues,1 we examined our global product offering in relation to the economic activities outlined by the EU Taxonomy Delegated Acts. Our revenues were mapped following the ABB product tree by business area division product group product line and industry usage. Most of our eligible products and services fall under the category of “enabling activities” which refers to economic activities that “directly enable other activities to make a substantial contribution” to one of the environmental objectives2. Business activities products and solutions that do not fit into the descriptions of the EU Taxonomy Delegated Acts are classified as “non-eligible” and are therefore not included in the scope of the EU Taxonomy reporting. We guided our analysis by the descriptions of the activities the relevant Nomenclature of Economic Activities (NACE) codes and if necessary the substantial contribution criteria. All ABB divisions assessed their offerings at the appropriate level of granularity to be able to determine eligibility. at the division or project level.
+| In 2024 we once again reviewed and partially reassessed our eligibility mapping to ensure that all changes in our portfolio are reflected. Overall most of our activities in Electrification Motion Process Automation and Robotics & Discrete Automation business areas together with our Real Estate activities are eligible under the EU Taxonomy of “Climate Change Mitigation” (CCM). In addition some of our activities are eligible under the objective of “Transition to a Circular Economy” (CE). The CCM Activity 3.20 “Manufacture installation and servicing of high medium and low voltage electrical equipment for electrical transmission and distribution” and the CE Activity 1.2 “Manufacture of electrical and electronic equipment” are the most relevant for ABB. The table below presents the allocation of our activities to the most relevant economic activities listed in the EU Taxonomy. Changes may be made to this list in the future as additional activities relevant for ABB could be further released by the European Commission. |
+| ABB GROUP MOST RELEVANT ELIGIBLE ACTIVITIES IN ACCORDANCE WITH THE EU TAXONOMY |
+| Name of economic activity | Description of economic activity | ABB Group business areas and functions Environmental objective Climate change mitigation
+| 3.1 Manufacture of renewable energy technologies | Manufacture of renewable energy technologies | 3. Manufacturing Electrification Motion
+| 3.6 Manufacture of other low carbon technologies | Manufacture of technologies aimed at substantial GHG emissions reductions in other sectors of the economy | Motion Process Automation
+| 1 | The terms turnover and revenue are used interchangeably | 
+| throughout the EU Taxonomy disclosures. |
+| 2 | According to Article 16 of Regulation (EU) 2020/852 an | 
+![table image]({page: 47, x: 76}, {y: 182, {width: 97}, {height: 14})
+
+
+<!-- PAGE: 48 -->
+economic activity shall qualify as contributing substantially to one or more of the environmental objectives “by directly enabling other activities to make a substantial contribution to one or more of those objectives provided that such economic activity (a) does not lead to a lock in of assets that undermine long term environmental goals considering the economic lifetime of those assets and (b) has a substantial positive environmental impact on the basis of life cycle considerations.”
+
+
+<!-- PAGE: 49 -->
+- Name of economic activity
+
+- Description of economic activity
+
+- ABB Group business areas and functions
+
+- 3.19 Manufacture of rail rolling stock constituents Manufacture, installation, technical consulting, retrofitting, upgrade, repair, maintenance, and repurposing of products, equipment, systems, and software related to the rail constituents Electrification Motion
+
+- 3.20 Manufacture, installation, and servicing of high, medium and low voltage electrical equipment for electrical transmission and distribution that result in or enable a substantial contribution to climate change mitigation The economic activity develops, manufactures, installs, maintains or services electrical products, equipment or systems, or software aimed at substantial GHG emission reductions in high, medium and low voltage electrical transmission and distribution systems through electrification, energy efficiency, integration of renewable energy or efficient power conversion Electrification Motion Process Automation E-Mobility
+
+###### 5. Services
+
+- 5.1 Repair, refurbishment and remanufacturing Repair, refurbishment and remanufacturing of goods that have been used for their intended purpose before by a customer (physical person or legal person) Electrification Motion Process Automation Robotics & Discrete Automation
+
+- 5.2 Sale of spare parts Sale of spare parts Electrification Motion
+
+### ANTI-BRIBERY AND ANTI-CORRUPTION PROGRAM
+
+At ABB we have zero tolerance for unethical business practices.
+Any abuse of power or trust for private gain is a breach of our ethical standards and Code of Conduct and has no place at ABB.
+We know that having an adaptive anti-bribery and corruption (ABAC) program which allows us to anticipate and meet risks head on is critical for our organizational success.
+During 2024 we continued to enhance our ABAC program and to drive the ABAC framework implementation to all business areas.
+The ABAC framework is a conceptual overview of existing key ABAC policies procedures and controls that have been designed and implemented across our operations to prevent detect and respond to key ABAC risks that we face as a global organization.
+
+To inform how we continuously develop our ABAC program we continued to perform targeted monitoring and testing activities throughout the year.
+In 2024 this included the connection of new data sources to our continuous monitoring platform and the analysis of new business area division and market level insights.
+We also carried out a division level ABAC risk assessment regarding the extent of implementation of enhanced policies procedures and controls and developing and monitoring data driven dashboards fed by primary enterprise tools used for day to day business.
+Through this we continue to identify key ABAC risks in our operations which we are addressing through various initiatives including targeted face to face and online training of our most at risk employees.
+
+Our global framework for managing third party integrity risk which was launched in 2022 is a key pillar of our ABAC program.
+In 2024 the framework was extended to incorporate the identification and enhanced management and mitigation of third party integrity risks within our legacy third party relationships for both our suppliers and sales channels.
+In 2025 the focus will be on extending this global framework to our new third party population.
+
+Building on the extensive enhancement of our third party management program in the previous year (2023) we further reinforced our management of third party risks through the expansion of the program to focus on our legacy third party relationships on both the supplier and sales channel side.
+On the supplier side our updated Supplier Code of Conduct (SCoC) and the SCoC Implementation Guide provide for an increased focus on business conduct on the part of all our suppliers.
+The program has strengthened our risk based approach to selecting third parties and enabled more effective oversight and monitoring of their activities and overall performance across our total population of third parties.
+
+
+<!-- PAGE: 91 -->
+Among the actions we took in 2024 to mitigate specific negative impacts involving our ABAC risks we activated and worked under our first follow up work plan for year two of the three year Deferred Prosecution Agreement (DPA).
+The workplan was developed to meet the requirements of a DPA that ABB entered into as part of a settlement with the United States Department of Justice and the Securities and Exchange Commission announced on December 2 2022.
+In 2025 we will be activating and working under our workplan for the final year of the three year DPA.
+The workplan is characterized by appropriate governance a clear project management structure change management tools as well as resourcing.
+It places ownership and accountability for its activities with our business areas and divisions in keeping with the ABB Way operating model.
+
+## Lifecycle Management
+
+- a. Percentage of products by revenue that contain IEC 62474 declarable substances (% by revenue) Quantitative Percentage (%) by revenue RT-EE-410a.1 As of 2024, we are unable to respond to this question. Please refer to the section “Circularity” in the
+
+Sustainability Statement.
+
+- b. Percentage of eligible products, by revenue, certified to an energy efficiency certification (% by revenue) Percentage (%) by revenue RT-EE-410a.2 Only applicable to North America products. All ABB products are included in point c.
+
+- c. Revenue from renewable energy related and energy efficiency related products (Reporting currency) Presentation currency RT-EE-410a.3 Using the EU taxonomy as reference: In 2024, ABB reached a 0% Taxonomy-aligned revenue under the Climate Change Mitigation environmental objective that covers partially this requirement. For further details please refer to ABB\'s EU Taxonomy disclosures in the Sustainability Statement.
+
+
+<!-- PAGE: 125 -->
+| Topic | Metric | Category | Unit of Measure | Code | ABB answer |
+| --- | --- | --- | --- | --- | --- |
+| Materials sourcing | a. Description of the management risks associated with the use of critical materials (Discussion & Analysis) | Discussion and Analysis | na | RT EE 440a.1 | Please refer to the sections “Circularity” and “Responsible sourcing” in the Sustainability Statement.
+| Business ethics | Description of policies and practices for prevention of a. Corruption and bribery and anti-competitive behavior (Discussion & Analysis) | Discussion and Analysis | na | RT EE 510a.1 | Please refer to the section “Integrity and transparency” in the Sustainability Statement.
+![table image]({page: 125, x: 59}, {y: 73, {width: 672}, {height: 28})
+
+- b. Total amount of monetary losses as a result of legal proceedings associated with bribery or corruption (Reporting currency); Quantitative Presentation currency RT-EE-510a.2 b. Immaterial amount associated with the resolution in Germany of the legacy Kusile enforcement matter.
+
+- c. Total amount of monetary losses as a result of legal proceedings associated with anti- competitive behavior regulations (Reporting currency) Quantitative Presentation currency RT-EE-510a.3 —
+
+Activity Metrics a. Number of units produced (Production should be disclosed as number of units produced by product category where relevant product Quantitative Number RT EE 000.A Please refer to the section “Analysis of results of operations” in the Financial Report 2024.
+
+categories include energy generation energy delivery and lighting and indoor climate control electronics.)
+
+# 4. POLLUTION PREVENTION AND CONTROL
+
+The generic DNSH criteria related to pollution prevention (Appendix C) require that the economic activity does not lead to the production placing on the market or use of chemical substances listed in a variety of EU chemical regulations and directives including the EU Directive 2011/65 on the Restriction of the Use of Certain Hazardous Substances in Electrical and Electronic Equipment (RoHS) and the EU Regulation 1907/2006 concerning the Registration Evaluation Authorization and Restriction of Chemicals (REACH).
+Generally this analysis would need to be conducted at product level.
+
+ABB has robust company wide processes and material compliance systems in place to ensure compliance with all applicable regulatory requirements especially RoHS and REACH.
+However the Appendix C requirements pose several challenges particularly due to differences with applicable sectoral legislation.
+Furthermore an additional requirement has been introduced to Appendix C applicable for financial year 2024 to address “other substances” which is subject to interpretation.
+Given our vast product portfolio it is challenging to assess all potentially relevant substances for “suitable alternatives” within the given short timeframe.
+We have initiated an evaluation of our products against the Appendix C requirements however we are presently unable to reliably assert fulfillment of these requirements for the relevant products.
+Due to our business profile most of our eligible activities necessitate adherence to Appendix C. This effectively precludes most of our revenue from alignment in 2024.
+
+## E5: CIRCULAR ECONOMY AND RESOURCE USE
+
+ABB's business practices have environmental implications through resource use and waste generation.
+The material consumption for manufacturing may deplete global resources and increase waste.
+However our commitment to a circular economy for instance through recyclable product design and energy efficiency aims to mitigate these impacts.
+
+We can face risks like product obsolescence slow market entry and resource scarcity but we can also pursue opportunities through setting leading practices in circularity.
+Innovations like robotics as a service and circuit board take back systems open new business avenues.
+Partnerships and startup investments improve market presence and cut raw material costs.
+Developing innovative energy efficient and recyclable products is a major ambition for us enhancing revenue and supply chain resilience.
+
+## Page 33:
+                ```markdown
+| Scope 1 + 2 decarbonization levers                                        | 2024 status | 2023  |
+|-------------------------------------------------------------------------|-------------|-------|
+| RE100 status: Percentage of renewable electricity consumption of total electricity consumption (%) | 95%         | 94%   |
+| EV100 status: Percentage of electric vehicles of total fleet of vehicles (%) | 38%         | 31%   |
+| EP100 status: Improvement of energy productivity since 2019 (%)            | 69%         | 66%   |
+| Reduction of SF6 since 2019 (%)                                           | -92%        | -91%  |
+```
+
+KEEPING POLLUTION IN CHECK
+
+—Double Materiality Assessment for pollution IRO 1 PROCESSES TO IDENTIFY AND ASSESS MATERIAL POLLUTION RELATED IROs The 2024 DMA identified five IROs in relation to environmental pollution.
+Four of them are actual negative impacts of which three are located in our own operations and one in the downstream value chain.
+The fifth IRO is a risk prevalent in both our own operations and in the upstream value chain.
+This is the potential per and polyfluoroalkyl substances (PFAS) ban in Europe this would create the need to source alternative materials to be used for ABB products.
+
+The four negative impacts are that (a) products sold can contribute to air pollution when they are used by customers (b) fossil fuel use in own operations can cause air pollution (c) improperly disposed waste or leakages can pollute soil at production sites and (d) waste from the zinc coating process can be harmful to the environment.
+
+For the 2024 DMA process please see chapter “Sustainability at ABB” at the beginning of this Sustainability Statement.
+
+We will include disclosures of ESRS E2 in the Sustainability Statement 2025.
+
+
+<!-- PAGE: 47 -->

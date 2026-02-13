@@ -1,0 +1,784 @@
+Koldioxidutsläpp
+
+Nyfosas verksamhet är transaktionsintensiv och då utsläppen redovisas i faktiska värden kan utsläppen mellan åren variera betydligt. Nyfosas utsläpp redovisas i Scope 1, Scope 2 och Scope 3 enligt GHG-protokollet (Greenhouse Gas-protokollet).
+
+Rapporteringen av koldioxidutsläpp kopplat till värme, kyla och el avser de fastigheter där Nyfosa kan följa upp och rapportera mediaanvändningen vilket motsvarar 83 procent (84) av den totala ytan.
+
+Rapporteringen av persontransporter avser tjänstebilar och driftbilar. Rapportering av köldmedier avser enligt svensk lag rapporteringspliktig utrustning för år 2022. Rapportering av fossila bränslen avser det som används i Nyfosas fastigheter.
+
+Rapportering av tjänsteresor avser resor som Nyfosas anställda har genomfört i tjänsten.
+
+Utfall för Bratsberg har inte inkluderats i redovisat totalt utsläpp under året.
+
+MINSKNING AV ENERGIFÖRBRUKNINGEN PER KVM 1)
+
+<!-- image -->
+
+<!-- image -->
+
+Under 2025 ska en scope 3-screening genomföras i syfte att fastställa ett basår för koldioxidutsläpp.
+
+GRI-
+
+| referens                               | Beskrivning                                                                                                            | Sida                                   | Kommentar                                            |
+|----------------------------------------|------------------------------------------------------------------------------------------------------------------------|----------------------------------------|------------------------------------------------------|
+| GRI2-GENERELLAUPPLYSNINGAR             | GRI2-GENERELLAUPPLYSNINGAR                                                                                             | GRI2-GENERELLAUPPLYSNINGAR             | GRI2-GENERELLAUPPLYSNINGAR                           |
+| Organisation och redovisningsprinciper | Organisation och redovisningsprinciper                                                                                 | Organisation och redovisningsprinciper | Organisation och redovisningsprinciper               |
+| 2-1                                    | Information omorganisationen                                                                                           | 30-31                                  |                                                      |
+| 2-2                                    | Enheter somingår i rapporteringen                                                                                      | 56                                     |                                                      |
+| 2-3                                    | Redovisningsperiod, frekvens och kontaktperson                                                                         | 56                                     |                                                      |
+| 2-4                                    | Förändringar i tidigare rapporterade upplysningar                                                                      | 67                                     |                                                      |
+| 2-5                                    | Externt bestyrkande                                                                                                    | 68                                     |                                                      |
+|                                        | Aktivitet och anställda                                                                                                |                                        |                                                      |
+| 2-6                                    | Aktiviteter, värdekedja och andra affärsförbindelser                                                                   | 57, 60, 63                             |                                                      |
+| 2-7                                    | Medarbetare                                                                                                            | 30-31                                  |                                                      |
+| 2-8                                    | Medarbetare sominte är anställda                                                                                       | 31, 63                                 | Avsteg på grund av att information inte är komplett. |
+|                                        | Styrning                                                                                                               |                                        |                                                      |
+| 2-9                                    | Sammansättning och struktur för styrning                                                                               | 52-54                                  |                                                      |
+| 2-10                                   | Nominering och val av styrelseledamöter                                                                                | 46                                     |                                                      |
+| 2-11                                   | Ordförande för styrelsen                                                                                               | 47, 50                                 |                                                      |
+| 2-12                                   | Styrelsens roll i arbetet medhållbarhetsfrågor                                                                         | 56                                     |                                                      |
+| 2-13                                   | Delegering av ansvar för hållbarhetsfrågor                                                                             | 56                                     |                                                      |
+| 2-14                                   | Styrelsens roll i relation till hållbarhetsredovisningen                                                               | 56                                     |                                                      |
+| 2-15                                   | Intressekonflikter                                                                                                     | 47-48                                  |                                                      |
+| 2-16                                   | Rapportering till styrelsen avseende kritiska frågeställningar                                                         | 56                                     |                                                      |
+| 2-17                                   | Den samlade kunskapen hos styrelsen                                                                                    | 50                                     |                                                      |
+| 2-18                                   | Utvärdering av styrelsens arbete                                                                                       | 49                                     |                                                      |
+| 2-19                                   | Ersättningspolicy                                                                                                      | 48                                     |                                                      |
+| 2-20                                   | Process för att fastställa ersättningar                                                                                | 49                                     |                                                      |
+| 2-21                                   | Årlig total ersättning                                                                                                 | Not 7                                  |                                                      |
+|                                        | Strategi, policyer och praxis                                                                                          |                                        |                                                      |
+| 2-22                                   | Uttalande omstrategin för hållbar utveckling                                                                           | 7-8, 57, 59                            | Särskilt VD-ord lämnas inte i år                     |
+| 2-23                                   | Värderingar, principer, standarder och normer gällande uppförande                                                      | 64                                     |                                                      |
+| 2-24                                   | Förankring av värderingar, principer, standarder och normer gällande uppförande i organisationen samt hos leverantörer | 31, 65                                 |                                                      |
+| 2-25                                   | Processer för att avhjälpa negativ påverkan                                                                            | 61-65                                  |                                                      |
+| 2-26                                   | Mekanismer för rådgivning och rapportering av angeläg- enheter för organisationen                                      | 30, 65                                 |                                                      |
+| 2-27                                   | Efterlevnad av lagar och förordningar                                                                                  | 31                                     |                                                      |
+| 2-28                                   | Medlemskap i organisationer                                                                                            | -                                      | Inte tillämpligt för Nyfosa.                         |
+
+| GRI- referens                               | Beskrivning                                                                           | Sida                                        | Kommentar                       |
+|---------------------------------------------|---------------------------------------------------------------------------------------|---------------------------------------------|---------------------------------|
+|                                             | Intressentengagemang                                                                  |                                             |                                 |
+| 2-29                                        | Metod för intressentengagemang                                                        | 57                                          |                                 |
+| 2-30                                        | Kollektivavtal                                                                        | -                                           | Kollektivavtal är inte tecknat. |
+| GRI3-VÄSENTLIGAFRÅGOR                       |                                                                                       |                                             |                                 |
+| 3-1                                         | Process för att fastställa väsentliga frågor                                          | 57                                          |                                 |
+| 3-2                                         | Lista på väsentliga frågor                                                            | 58                                          |                                 |
+| 3-3                                         | Styrning av väsentliga frågor                                                         | 56                                          |                                 |
+| SPECIFIKAUPPLYSNINGAR                       |                                                                                       |                                             |                                 |
+| GRI201-EKONOMISKTRESULTAT                   | GRI201-EKONOMISKTRESULTAT                                                             |                                             |                                 |
+| 201-1                                       | Skapat och fördelat direkt ekonomiskt värde                                           | 61                                          |                                 |
+| 201-2                                       | Finansiell påverkan och andra risker och möjligheter hänförligt till klimatförändring | 63-64                                       |                                 |
+| GRI205 - ANTI-KORRUPTION                    | GRI205 - ANTI-KORRUPTION                                                              |                                             |                                 |
+| 205-3                                       | Antal bekräftade fall av korruption och vidtagna åtgärder                             | 31                                          |                                 |
+| GRI300 - MILJÖ                              | GRI300 - MILJÖ                                                                        |                                             |                                 |
+| 302-1,                                      | Energianvändning                                                                      | 25                                          |                                 |
+| 302-3                                       | Energiintensitet                                                                      | 25                                          |                                 |
+| 303-4                                       | Minskning av energianvändning                                                         | 24, 25                                      |                                 |
+| 303-5                                       | Vattenanvändning                                                                      | 26                                          |                                 |
+| 305-1                                       | Direkta utsläpp av koldioxid (scope 1)                                                | 25                                          |                                 |
+| 305-2                                       | Indirekta utsläpp av koldioxid (scope 2)                                              | 25                                          |                                 |
+| 305-3                                       | Övriga indirekta utsläpp av koldioxid (scope 3)                                       | 25                                          |                                 |
+| 305-4                                       | Utsläppsintensitet av koldioxid                                                       | 25                                          |                                 |
+| GRI400UPPLYSNINGAR-SOCIALT                  | GRI400UPPLYSNINGAR-SOCIALT                                                            |                                             |                                 |
+| 401-1                                       | Nyanställningar och personalomsättning                                                | 31                                          |                                 |
+| 403-2                                       | Incidenter av diskriminering och vidtagna åtgärder                                    | 31                                          |                                 |
+| 405-1                                       | Sammansättning av styrelse, ledning och övriga medarbetare utifrån ålder och kön.     | 31                                          |                                 |
+| Egen indikator                              | Inköp från leverantörer sombekräftat uppförandekoden                                  | 31                                          |                                 |
+| FÖRETAGSSPECIFIKAUPPLYSNINGAR-PRODUKTANSVAR | FÖRETAGSSPECIFIKAUPPLYSNINGAR-PRODUKTANSVAR                                           | FÖRETAGSSPECIFIKAUPPLYSNINGAR-PRODUKTANSVAR |                                 |
+| GRI C1                                      | Produktansvar (miljöcertifierade fastigheter)                                         | 24                                          |                                 |
+
+Hållbarhetsmål och utfall
+
+Sedan 2020 har bolaget arbetat mot två externa håll  barhetsmål; miljöcertifieringar och förbrukningseffektiviseringar. Därtill har bolaget verkat för att minimera koldioxidutsläpp från verksamheten. Målen och strävan syftar till att skapa ett fokuserat arbete mot ett minskat klimatavtryck samt att vägleda intressenter i bolagets viktigaste fokusområden. För 2025 har styrelsen reviderat målen, vilket innebar att målet om miljöcertifiering av byggnader ersattes av ett fokuserat arbete att ta fram en handlingsplan för att förbättra energiprestandan i beståndet. Därutöver utvecklades strävan om att minimera verksamhetens koldioxidutsläpp till att under 2025 genomföra en scope 3-screening i syfte att fastställa ett basår för koldioxidutsläpp. Energieffektiviseringsmålet kvarstår oförändrat. Utfallet från de nya målen redovisas från och med 2025.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Mål miljöcertifiering                                                                                                                                                   | Utfall 2024                                                                                                                                                                                                                                                                                                   |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| År 2025 ska fastigheter motsvarande 50procent av fastighetsvärdet ha en miljöcertifiering och 100 procent år 2030.                                                      | 96 fastigheter medett värde om15,5 MDSEKhar en miljöcertifiering, motsvarande 39 procent av det totala fastighetsvärdet.                                                                                                                                                                                      |
+| Mål förbrukningseffektivisering                                                                                                                                         | Utfall 2024                                                                                                                                                                                                                                                                                                   |
+| År 2025 ska energiförbrukningenperkvmhaminskatmed10procent jämförtmed2020.                                                                                              | Utfallet i Nyfosa Sverige uppgick till 107,1 kWh/kvm,vilket är en minskning med9procentjämfört medstartvärdet år 2020. Utfallet i Kielo uppgick till 172,0 kWh/kvm,vilket är en minskning med4procentjämfört medstart- värdet år 2023 på180kWh/kvm.FörBratsberg utgör utfalletår2024om71,5 kWh/kvmstartvärde. |
+| Nyfosa ska verka för att minimera verksamhetens koldioxidutsläpp. Under 2025 ska en scope 3-screening genomföras i syfte att fastställa ett basår för koldioxidutsläpp. | Koldioxidutsläppet under 2024 i Nyfosa Sverige och Kielo uppgick till 9 799 ton CO2, vilket motsvarar en minskning med9procent jämförmed år 2023. Bratsbergs koldioxidutsläpp redovisas från och med2025. Basår för koldioxidutsläpp enligt scope 3 redovisasfrånochmed2025.                                  |
+| Mål energiprestanda Under 2025                                                                                                                                          | Handlingsplanen redovisasfrånochmed2025.                                                                                                                                                                                                                                                                      |
+
+Energiprestanda
+
+En byggnads energiklass sammanfattas i en energideklaration som anger hur energieffektiv byggnaden är. Det finns sju energiklasser från A till G, där A betecknar den mest energieffektiva. Vissa byggnader är undantagna kravet på energideklaration och utgjorde 3 procent av fastighetsbeståndet i Nyfosa Sverige och Kielo, främst gällande byggnader för industri- och verkstadsverksamhet.
+
+I beståndet i Sverige hade på balansdagen 69 fastigheter energiklass A eller tillhörde de topp 15 procent mest energieffektiva byggnaderna av det nationella beståndet. I Kielos bestånd hade tre fastigheter energiklass A. Tillsammans utgör dessa fastigheter 19 procent av det totala fastighetsvärdet som har krav på energideklaration. Redovisning av energiprestanda sker från och med 2023.
+
+|                                                 | Sverige 1)   | Sverige 1)   | Kielo 1)   | Kielo 1)   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   |
+|-------------------------------------------------|--------------|--------------|------------|------------|-------------|-------------|-------------|-------------|-------------|
+| ENERGIANVÄNDNING,GWh                            | 2024         | 2023         | 2024       | 2023       | 2024        | 2023        | 2022        | 2021        | 2020        |
+| El                                              | 80           | 82           | 35         | 34         | 115         | 117         | 118         | 52          | 48          |
+| Fjärrvärme                                      | 113          | 127          | 50         | 56         | 163         | 182         | 158         | 81          | 82          |
+| Fjärrkyla                                       | 5            | 5            | -          | -          | 5           | 5           | 6           | 3,3         | 3           |
+| Gas                                             | -            | -            | -          | -          | -           | -           | -           | -           | -           |
+| Total energianvändning,GWh                      | 198          | 214          | 85         | 90         | 283         | 304         | 281         | 137         | 133         |
+| Energianvändning per kvm,kWh                    | 107,1        | 107,6        | 172,0      | 180,0      | 121,0       | 122,8       | 110,9       | 115,5       | 117,6       |
+| Solceller, installerad effekt på balansdagen,MW | 4            | 2            | 0          | -          | 4           | 3           | 2           | 2           | ET.         |
+
+|                          | Sverige   | Sverige   | Kielo   | Kielo   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   | Nyfosa 2)   |
+|--------------------------|-----------|-----------|---------|---------|-------------|-------------|-------------|-------------|-------------|
+| KOLDIOXIDUTSLÄPP,tonCO 2 | 2024      | 2023      | 2024    | 2023    | 2024        | 2023        | 2022        | 2021        | 2020        |
+| Scope 1                  |           |           |         |         |             |             |             |             |             |
+| Persontransporter        | 19        | 40        | -       | -       | 19          | 40          | 43          | 29          | 112         |
+| Fossila bränslen         | 0         | 75        | 362     | 320     | 362         | 395         | 258         | 0           | 5           |
+| Köldmedia                | 172       | 169       | 224     | 241     | 396         | 410         | 221         | 118         | -           |
+| Summa                    | 191       | 284       | 586     | 561     | 777         | 845         | 522         | 118         | 117         |
+| Scope 2                  |           |           |         |         |             |             |             |             |             |
+| Värme                    | 5 875     | 4 160     | 267     | 4 503   | 6 142       | 8 663       | 7 912       | 6 573       | 4 700       |
+| Kyla                     | 100       | 108       | -       | -       | 100         | 108         | 1 165       | 161         | 50          |
+| El                       | -         | -         | -       | -       | -           | -           | -           | 1 596       | -           |
+| Summa                    | 5 975     | 4 268     | 267     | 4 503   | 6 242       | 8 771       | 9 077       | 8 330       | 4 750       |
+| Scope 3                  |           |           |         |         |             |             |             |             |             |
+| El                       | 650       | 649       | 381     | 540     | 1 031       | 1 189       | 4 004       | 712         | 538         |
+| Tjänsteresor             | 6         | 8         | -       | -       | 6           | 8           | 5           | 3           | 3           |
+| Värme                    | -         | -         | 1 743   | -       | 1 743       | -           | -           | -           | -           |
+| Summa                    | 656       | 657       | 2 124   | 540     | 2 780       | 1 197       | 4 009       | 715         | 541         |
+| Totalt                   | 6 822     | 5 209     | 2 977   | 5 604   | 9 799       | 10 813      | 13608       | 9 163       | 5 408       |
+
+|                                                                                               | Sverige   | Sverige   |   Kielo |   Kielo | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   |
+|-----------------------------------------------------------------------------------------------|-----------|-----------|---------|---------|-------------|-------------|-------------|-------------|-------------|
+| ENERGIPRESTANDA, 31 dec                                                                       | 2024      | 2023      |    2024 |    2023 | 2024        | 2023        | 2022        | 2021        | 2020        |
+| Energiklass A eller topp 15 %mestenergieffektiva byggnaderna av det nationella beståndet,MSEK | 6 909     | 6 824     |     250 |     198 | 7 159       | 7 021       | ET.         | ET.         | ET.         |
+| Andel av totalt fastighetsvärde medkrav på energideklaration,%                                | 24        | 23        |       3 |       3 | 19          | 18          | ET.         | ET.         | ET.         |
+
+1)   Minskningen räknas på jämförbart fastighetsbestånd, vilket är fastigheter som respektive segment förvaltat under de senaste 12 månaderna. 2) Energi- och vattenanvändning, energiprestanda samt koldioxidutsläpp i Bratsberg beaktas i nyckeltal från och med 1 januari 2025. Källa energiförbrukning: Mestro
+
+Omställningsrisker
+
+<!-- image -->
+
+- 1 Förändrat regelverk kring emissioner och utsläppsrättigheter. Ökade rapporteringskrav avseende koldioxidutsläpp och energianvändning från den egna verksamheten kan medföra omställningskostnader för att möjliggöra mer omfattande insamling av förbrukningsdata.
+
+<!-- image -->
+
+2 Ej kreditvärdiga tillgångar. Fastigheter som inte uppfyller krav på energiprestanda kan tappa sitt värde på kredit- och kapitalmarknaden.
+
+<!-- image -->
+
+- 3 Kostnad för nya installationer. Omställning till minskad energianvändning och risker för dyrare teknik för att åstadkomma detta.
+
+Att ställa om byggnader till lägre energianvändning och därmed uppnå ett lägre koldioxidutsläpp kräver i vissa fall investering i ny teknik och installationer i byggnaderna.
+
+Vattenanvändning
+
+Att effektivisera vattenanvändningen bidrar till minskade kostnader och klimatavtryck. Det sker bland annat genom investeringar i tekniska system och val av vattensnåla produkter vid armaturbyten. Gröna hyresavtal är ett sätt att genom samarbete med och rådgivning till hyresgästerna bidra till minskad vattenförbrukning i deras verksamheter.
+
+I den mån det är tekniskt möjligt kopplas byggnadernas vattenmätare upp mot en digital plattform för att på ett effektivt sätt kunna följa förbrukningen systematiskt och åtgärda vattenspill. Arbetet med att läsa av och samla in vatten  användningen i byggnaderna är fortsatt under utveckling. Under året uppkopplades ytterligare ett antal byggnader i Sverige och Kielo till vattenavläsningssystem. Det innebar att fullständigheten i avläsningen förbättrades under året.
+
+Den totala vattenanvändningen under 2024 uppmättes till 510 tusen kubikmeter (449). Vattenanvändningen per kvm minskade från 0,19 kubikmeter per kvm 2023 till 0,18 kubikmeter per kvm. Den totala minskningen förklaras främst av att bolaget har arbetat aktivt med uppföljning och genomfört specifika åtgärder för att sänka vattenförbrukningen i fastigheterna.
+
+|                           | Sverige   | Sverige   | Kielo   | Kielo   | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   | Nyfosa 1)   |
+|---------------------------|-----------|-----------|---------|---------|-------------|-------------|-------------|-------------|-------------|
+| VATTENANVÄNDNING,m 3 /kvm | 2024      | 2023      | 2024    | 2023    | 2024        | 2023        | 2022        | 2021        | 2020        |
+| Vattenanvändning          | 0,19      | 0,20      | 0,15    | 0,15    | 0,18        | 0,19        | 0,31        | 0,21        | 0,18        |
+
+1) Energi- och vattenanvändning, energiprestanda samt koldioxidutsläpp i Bratsberg beaktas i nyckeltal från och med 1 januari 2025. Källa vattenanvändning: Mestro
+
+ANDEL AV FASTIGHETSVÄRDET MED EN MILJÖCERTIFIERING
+Koldioxidutsläpp
+
+Nyfosa ska verka för att minimera verksamhetens koldioxidutsläpp.
+
+Koldioxidutsläppet under 2024 i Nyfosa Sverige och Kielo uppgick till 9 799 ton CO2, vilket motsvarar en minskning med 9 procent jämfört med år 2023. Bratsberg följs upp från och med 2025.
+
+Koldioxidutsläpp
+
+Koldioxidutsläppet under 2024 i Nyfosa Sverige och Kielo uppgick till 9 799 (10 813) ton CO2. Utsläppsintensiteten för året uppgick till 3,46 kg/kvm (3,71). Bratsbergs koldioxidutsläpp redovisas från och med 2025.
+
+Under året upphandlades förnybar fjärrvärme för hela Kielos fastighetsbestånd, vilket förväntas ge ett stort genomslag på det finska beståndets koldioxidutsläpp, med en beräknad minskning om 55 procent från dagens nivå.
+
+Inom det svenska fastighetsbeståndet ökade andelen upphandlad förnybar fjärrvärme. Av den totala energi som köptes in i Nyfosa Sverige och Kielo under 2024 kom 68 procent från förnybara energikällor.
+
+Den förnybara fjärrvärmen är deklarerad med EPD, som beskriver miljöeffekten av värmeproduktion genom hela livscykeln, eller märkt med Bra Miljöval enligt Naturskyddsföreningens miljökrav. Syftet med valet är att minska koldioxidavtrycket samt att ge leverantörerna incitament att fortsätta utveckla sina miljö  vänliga produkter.
+
+Utöver förnybar energi hade bolaget vid årets utgång solcellsanläggningar med en total installerad effekt om 4 MW.
+
+Befintliga processer och fokusområden framåt
+
+| Styrning                                                                                                           | Strategi                                                                                                                                                                                      | Riskhantering                                                                                                                        | Indikatorer och mål                                                                                                                                                                  |
+|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Styrelsens bevakning av klimatrelaterade risker och möjligheter. Beskrivs på sidan 56 Hållbarhet - Styrning.       | Klimatrelaterade risker och möjlig- heter på kort, medel och lång sikt. Beskrivs i Risk- ochriskhantering sidorna 42-44 ochi TCFDsidorna 61-62.                                               | Process för att identifiera och bedömaklimatrelaterade risker. Beskrivs i Risk- och riskhantering sidan 43 och i TCFD sidorna 61-62. | Indikatorer för att mäta och styra klimatrelaterade risker och möjligheter. Beskrivs i Risk- och riskhantering sidan 43 och i TCFD sidorna 61-62.                                    |
+| Koncernledningens roll i bedömning och hantering av klimatrelaterade risker och möjligheter. Beskrivs på sidan 56. | Klimatrelaterade risker och möjligheters påverkan på bolagets verksamhet, strategi och finansie- ringsplan. Beskrivs på sidorna 61-62, TCFD.                                                  | Process för att hantera klimat- relaterade risker. Beskrivs i Risk- och riskhantering sidan 43 och i TCFD sidorna 61-62.             | Rapportering av Scope1,2,3 enligt Greenhouse gas protocol. Koldioxidutsläpp sidan 25, förbrukningseffektivisering och energianvändning sidan 25, samt omställningsstrategi sidan 59. |
+|                                                                                                                    | Beskriv motståndskraften i bola- gets strategi, beaktat olika fysiska klimatrelaterade risker. Risk- och riskhantering sidorna 42-44, omställningsstrategi sidan 59, samt TCFD sidorna 61-62. | Processernas integration i organisationens övergripande riskhantering. Se Risk- och riskhantering sidan 42-44.                       | Målsomanvändsförattstyra klimatrelaterade riskeroch möjlighetersamtutfallpådessa. Hållbarhetsmål och utfall beskrivs på sidorna 9 och 24.                                            |
+
+Väsentliga klimatrelaterade risker och möjligheter
+
+Bolagets mest väsentliga finansiella exponering mot klimatrelaterade risker och möjligheter bedöms vara hänförliga till koldioxidutsläpp, energikonsumtion och försäkringskostnader. De uppkommer i samband med omställningen till lägre koldioxid  utsläpp samt på grund av förändringar i klimatet.
+
+Stiger priset på utsläppsrättigheter eller att koldioxid beläggs med skatter påverkar det bolaget genom högre driftskostnader för energi och vatten. Skador på byggnader från extremväder eller högre vattenstånd ökar risken att kostnaden för att försäkra tillgångarna ökar.
+
+I de  t korta perspektivet påverkas bolagets finansiella ställning genom ett ökat investeringsbehov för att långsiktigt sänka driftskostnaderna genom användning av ny teknik och energieffektiva installationer.
+
+Klimatförändringar
+Omställningsplan för begränsning av klimatförändringar
+
+Nyfosa har utvecklat en omställningsstrategi som syftar till att minska bolagets klimatpåverkan och stärka hållbarheten i hela verksamheten. Strategin omfattar energieffektivisering, hållbara investeringar, förbättrad avfallshantering och cirkulär ekonomi, samt initiativ inom transport, tillgänglighet och biologisk mångfald. En mer detaljerad beskrivning finns på sidan 59.
+
+Finansiell information
+Övrig information
+
+Att ersätta fullt fungerande teknik mot modern, mer energieffektiv installation kan innebära högre koldioxidutsläpp för att producera, transportera och installera den. Det skapar också en klimatbelastning för att destruera befintlig installation. En ersättningsinstallation kräver avskrivning i förtid av befintlig utrustning och kostnader för att installera den nya.
+
+<!-- image -->
+
+4 Anseende på hyres-, kapital-, kredit- eller aktiemarknaden påverkas negativt om bolaget inte uppnår förväntad minskning av miljöpåverkan.
+
+Ett skadat förtroende på marknaden på grund av att bolaget inte följer den förväntade minskningen i energianvändning och koldioxidutsläpp kan leda till att kapital inte är tillgängligt eller att hyresgäster väljer bort bolagets lokaler.
+
+Transport och tillgänglighet
+
+Främja hållbara transportalternativ för anställda och besökare i form av cykelparkering och elbilsladdningsstationer. Arbeta för att minska koldioxidutsläppen från transporter kopplade till verksamheten.
+
+Klimatrelaterade möjligheter
+
+<!-- image -->
+
+7 Ett effektivare nyttjande av energi och vatten påverkar bolaget genom lägre driftskostnader. En energisnål byggnad kan ge ett högre värde.
+
+<!-- image -->
+
+8 Ökad andel förnybar energi. Att använda energi från förnybara energikällor samt investera i förnybara energikällor såsom solcellsinstallationer på byggnaderna för att diversifiera energikällorna ger ett lägre koldioxidutsläpp.
+
+<!-- image -->
+
+9 Lägre koldioxidutsläpp. Nyttjande av energikällor med lågt koldioxidutsläpp skapar lägre exponering mot framtida högre priser på koldioxid. En grön profil ger större möjligheter på kapitalmarknaden vid kapitalresning.
+
+<!-- image -->
+
+Redovisningsprinciper
+Förklaringsnyckel - miljödata
+
+Med rådighet menas att Nyfosa har möjlighet att påverka utsläpp av koldioxid genom att till exempel välja avtal eller leverantör.
+
+Med yta avses uppvärmd yta i byggnaderna och hämtas från respektive byggnads energideklaration.
+
+Med startbestånd menas för segmentet Sverige de fastigheter som ägdes under hela räkenskapsåret 2020 och utgör startvärdet för minskning av energianvändning per kvadratmeter. För Kielo utgör 2023 startår och för Bratsberg kommer 2024 utgöra startår.
+
+Med jämförbart fastighetsbestånd menas fastigheter som Nyfosa ägt under ett helt räkenskapsår. Under året köpta och sålda fastigheter exkluderas. Det innebär att årets energianvändning per kvadratmeter inte grundar sig på samma fastigheter  som i  startbeståndet. Metodiken är anpassad till den transaktionsintensiva affärsmodellen.
+
+Klimatförändringar
+
+| Risk                                                                                                                                                                 | Riskhantering                                                                                                                                                                                                                                                                                                                                                                                                          | Exponering                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| Klimatpåverkan på fastigheterna Negativ påverkan på fastigheterna på grund av klimatförändringar och föroreningar. Se även redovisning enligt TCFD på sidorna 61-62. | Granskning av investeringar utifrån klimatperspektiv. Årlig genomgång av försäkringsskydd. Analys av klimatrisker. Fokus på miljöaspekter vid såväl förvärv av fastigheter somi den löpande driften därav.                                                                                                                                                                                                             | Skador på fastigheter och ökade kostnader.                                                     |
+| Klimatpåverkan från den egna verksamheten Negativ påverkan på klimatet på grund av ineffektiv resursanvändning. Se även redovisning enligt TCFD på sidorna 61-62.    | Incitamentsprogram medhållbar- hetsmål. Incitamentsprogrammed hållbarhetsmål. Uppsatta mål att minska energianvändningen i fastig- heterna skapar ett fokuserat arbete. Inköp av 100 procent förnybar el i både Sverige, Finland och Norge. Inköp av grön fjärrvärme i flertalet kommuner. Miljöbilspolicy. Återvinning på kontoren. Återbruksprojekt isambandmed hyresgästanpassningar och fastighets- investeringar. | Skadat anseende hos nuvarande och presumtiva hyres- gäster eller kredit- och kapitalmarknaden. |
+
+Allmän information
+Om hållbarhetsrapporten
+
+I enlighet med ÅRL 6 kap 11§ har Nyfosa valt att upprätta den lagstadgade hållbarhetsrapporten som en från årsredovisningen avskild rapport. De delar som är markerade med ett 'H' i innehållsförteckningen på sidan 3 avser hållbarhetsredovisning och lagstadgad hållbarhetsrapportering. Innehållet omfattar moderbolaget och samtliga dotterbolag. Redovisningsperioden för hållbarhetsrapporteringen följer av årsredovisningen i övrigt, vilket är helåret 2024. Rapportering i denna form sker årsvis.
+
+Nyfosa har valt att rapportera sitt hållbarhetsarbete i enlighet med de av Global Sustainability Standards Boards (GSSB) framtagna GRI Sustainability Reporting Standards 2021 ('GRI Standards'). Målet med GRI Standards är att skapa transparent rapportering om hur en organisation bidrar till en hållbar utveckling och vad som ger den största påverkan på lönsamhet, miljö och människa inklusive mänskliga rättigheter och hur organisationen hanterar detta. Rapporteringen har sammanställts i index över GRI Standards på sidan 66.
+
+Klimatrelaterade finansiella upplysningar presenteras enligt Task force on Climate-related Financial Disclosures ('TCFD') på sidorna 61-62.
+
+TCFD
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning EU:s Taxonomi
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning EU:s Taxonomi
+
+Finansiell information
+Övrig information
+GRI-index
+
+Angivande av användning: Nyfosa har redovisat i enlighet med GRI Standards för tiden 1 januari 2024 till
+
+31 december 2024.
+
+GRI 1 använd: GRI 1: Foundation 2021
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning
+
+EU:s Taxonomi
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning EU:s Taxonomi
+
+Hållbarhetsrapport
+
+Nyfosas hållbarhetsarbte
+
+- Allmän information
+
+Väsentliga hållbarhetsområden Omställningsstrategi
+
+Värdeskapande genom aktiv förvaltning Klimtförändringar
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning EU:s Taxonomi
+
+NYA MATERIAL BIDRAR TILL SÄNKT KLIMATAVTRYCK
+
+Vid ny- och tillbyggnationer används ofta stålreglar som en del av väggkonstruktionen, ett material som har ett betydande koldioxidavtryck. Nyfosa strävar ständigt efter nya tillvägagångssätt för att minska sin klimatpåverkan, vilket lett till att man undersöker alternativa, närproducerade material med ett betydligt lägre samlat koldioxidavtryck.
+
+papp med betydligt lägre miljöpåverkan. Dessutom har man i projektet valt att byta ut glasullsisolering mot hampafiberisolering, och plywoodskivor har ersatts med byggskivor av återvunnet förpackningsmaterial.
+
+I en hyresgästsanpassning i fastigheten Fjädern 16 i Karlstad har Nyfosa bland annat använt en ny typ av reglar bestående av pressad
+
+'Totalt beräknas åtgärderna i fastigheten Fjädern 16 innebära en besparing om 10 ton koldioxid, motsvarande ett drygt varv med flyg runt jordklotet,' förklarar Pontus Adolfsson, projektledare på Nyfosa.
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Åtgärder avseende på klimatförändringar
+
+Bolagets fokus på en minskad klimatpåverkan innefattar för närvarande att minska byggnadernas energianvändning, minska koldioxidutsläppen samt öka andelen förnybar energi.
+
+Läs mer på sidorna 24-26 om hållbarhetsmål och åtgärder som genomförts i syfte att minska klimatpåverkan från såväl den egna verksamheten som hyresgästernas.
+
+Hållbarhet
+
+Inköp av förnybar energi ökade under året, vilket bidrog till lägre koldioxidutsläpp. En förnyad dubbel väsentlighetsanalys resulterade i en uppdaterad lista över väsentliga hållbarhetsområden. Upplysningar med utgångspunkt i EU:s Taxonomi presenteras för första gången.
+
+Läs mer om Nyfosas hållbarhetsarbete på sidorna 10, 22-27, 30-31, 42-44 och 55-67.
+
+Antagna driftnetton vid värdering
+
+Det av fastighetsvärderarna totalt beräknade driftnettot för 2025 uppgår till 2 543 MSEK (2 587) i värderingarna. Detta driftnetto kan jämföras med det driftnetto, exkl. fastighetsadministration och justerat för tomträttsavgälder och de tre fastigheter som inte värderats externt, om 2 589 MSEK (2 581) som Nyfosa redovisar i aktuell intjäningsförmåga per 1 januari 2025. Det driftnetto vilket värderingsföretagen baserat de bedömda marknadsvärdena på är följaktligen rimligt vid en jämförelse med den aktuella intjäningsförmågan vid årsskiftet.
+
+|                                         | Kontor     | Kontor     | Logistik/Lager   | Logistik/Lager   | Handel     | Handel     | Industri   | Industri   | Övrigt     | Övrigt     | Summa      | Summa      |
+|-----------------------------------------|------------|------------|------------------|------------------|------------|------------|------------|------------|------------|------------|------------|------------|
+| Indata och nyckeltal per kategori       | 2024-12-31 | 2023-12-31 | 2024-12-31       | 2023-12-31       | 2024-12-31 | 2023-12-31 | 2024-12-31 | 2023-12-31 | 2024-12-31 | 2023-12-31 | 2024-12-31 | 2023-12-31 |
+| Antal fastigheter, st                   | 174        | 181        | 107              | 105              | 81         | 80         | 76         | 77         | 56         | 54         | 494        | 497        |
+| Yta, tkvm                               | 1 118      | 1 150      | 678              | 684              | 429        | 417        | 373        | 375        | 335        | 304        | 2 933      | 2 930      |
+| Hyresvärde,MSEK 1)                      | 1 922      | 1 934      | 571              | 560              | 575        | 551        | 378        | 365        | 517        | 486        | 3 963      | 3 897      |
+| Hyresintäkter,MSEK 1)                   | 1 689      | 1 737      | 501              | 487              | 536        | 518        | 356        | 349        | 479        | 459        | 3 562      | 3 550      |
+| Driftnetto,MSEK 2)                      | 1 164      | 1 224      | 378              | 374              | 396        | 390        | 251        | 260        | 354        | 340        | 2 543      | 2 587      |
+| Ekonomisk uthyrningsgrad, %, 1)         | 88,2       | 90,0       | 88,9             | 87,7             | 94,6       | 95,0       | 94,3       | 95,6       | 93,4       | 95,0       | 90,5       | 91,5       |
+| Långsiktig vakans, vägt genomsnitt,% 2) | 6,2        | 6,0        | 6,3              | 6,3              | 6,0        | 5,8        | 5,7        | 5,6        | 5,9        | 5,8        | 6,1        | 5,9        |
+| Avtalslängd, år 1)                      | 2,9        | 2,9        | 3,7              | 4,1              | 4,1        | 4,5        | 4,2        | 4,2        | 3,8        | 4,3        | 3,4        | 3,6        |
+
+1) Enligt intjäningsförmågan.
+
+2) Avser värderingsföretagens antaganden i värderingarna. Antagandena per 31 december 2024 i ovan tabell är exklusive två fastigheter i Kielo och en fastighet i Sverige som värderats till avtalat förvärvspris respektive avtalat försäljningspris.
+
+Övrig information
+EGET KAPITAL PER AKTIE
+
+|                                                        | 31 dec   | 31 dec   | 31 dec   | 31 dec   | 31 dec   |
+|--------------------------------------------------------|----------|----------|----------|----------|----------|
+| MSEK                                                   | 2024     | 2023     | 2022     | 2021     | 2020     |
+| A Eget kapital hänförlig till moderbolagets aktieägare | 18 582   | 16 883   | 18 378   | 17 236   | 13 333   |
+| B Hybridobligationer                                   | -611     | -758     | -763     | -800     | -        |
+| A+B Justerat eget kapital                              | 17 971   | 16 125   | 17 615   | 16 436   | 13 333   |
+| C Antal aktier, miljoner                               | 208      | 191      | 191      | 191      | 185      |
+| (A+B)/C Eget kapital per aktie,SEK                     | 86,36    | 84,42    | 92,22    | 86,04    | 72,27    |
+
+RÄNTEBÄRANDE NETTOSKULD/ EBITDA Ej över 12,0 ggr.
+
+%
+
+<!-- image -->
+
+<!-- image -->
+
+I N KOMSTSKATTER
+Koncernen
+
+| Avstämning effektiv skatt,MSEK                         | %     |   2024 | %     | 2023   |
+|--------------------------------------------------------|-------|--------|-------|--------|
+| Resultat före skatt                                    |       |    253 |       | -661   |
+| Skatt enligt gällande skattesats för moderbolaget      | -20,6 |    -52 | -20,6 | 136    |
+| Ej avdragsgilla kostnader                              | -38,9 |    -98 | 18,1  | -120   |
+| Ej skattepliktiga intäkter                             | 3,0   |      8 | 0,0   | 0      |
+| Resultat från andelar i joint venture                  | 17,1  |     43 | 0,3   | -2     |
+| Aktivering av tidigare ej aktiverade underskottsavdrag | 0,0   |      0 | -     | -      |
+| Ej skattepliktig försäljning av aktier i dotterbolag   | 30,6  |     77 | -10,5 | 70     |
+| Effekt av begränsningsregel i temporära skillnader     | -41,7 |   -105 | 9,9   | -66    |
+| Effekt av annan skattesats                             | 0,1   |      0 | 0,0   | 0      |
+| Övrigt                                                 | -5,2  |    -13 | -0,5  | 3      |
+| Redovisad effektiv skatt                               | -55,6 |   -140 | -3,3  | 22     |
+
+| Aktuell skattekostnad,MSEK   |   2024 |   2023 |
+|------------------------------|--------|--------|
+| Aktuell skattekostnad        |    -47 |    -48 |
+| Summaaktuell skattekostnad   |    -47 |    -48 |
+
+Innehåll
+Introduktion
+
+Affärsmodell och strategi
+
+Kort sikt (1-2 år)
+
+Fokus på att uppfylla nya klimat- och rapporteringskrav samt påbörja klimatåtgärder. Nyfosa prioriterar finansiell stabilitet genom skuldsanering, räntehedgning och stärkt likviditet. Åtgärder som utdelningsstopp 2023 frigjorde resurser för skuld  a  mortering och investeringar, trots att högre räntekostnader påverkar lönsamheten kortsiktigt.
+
+Sammanfattning risker och riskbedömning
+
+De betydande risker som bolaget står inför är i stor utsträckning kopplade till utvecklingen av konjunktur, inflation och marknadsräntor. De mest väsentliga riskerna presenteras nedan och är indelade i kategorierna omvärld, klimatförändringar, finansiering, förvärv och investeringar, förvaltning samt medarbetare och organisation. För att tydliggöra och värdera riskerna används en modell där sannolikhet och konsekvens bedöms. Sannolikheten att risken inträffar uttrycks på en femgradig skala som mycket osannolik, osannolik, möjlig, sannolik och mycket sannolik. Även konsekvensen, som värderar påverkan på företagets resultat och ställning, uttrycks på en femgradig skala som obetydlig, mindre, måttlig, stor och betydande. Kombinationen av sannolikhet och konsekvens avgör hur risken hanteras, antingen i form av generell bevakning eller som ett fokusområde om sannolikheten och konsekvens därav är av hög grad.
+
+Risker för moderbolaget är indirekt desamma för koncernen, vilket innebär att eventuell påverkan på moderbolaget ger effekt på hela koncernen.
+
+| Risk                                        | Sannolikhet   | Konsekvens   | Hantering av risk   | Förändring av hantering   |
+|---------------------------------------------|---------------|--------------|---------------------|---------------------------|
+| Omvärld                                     |               |              |                     |                           |
+| Makro                                       | Sannolik      | Stor         | Fokus               |                           |
+| Regelverk                                   | Möjlig        | Måttlig      | Fokus               |                           |
+| Skatt                                       | Möjlig        | Måttlig      | Bevaka              |                           |
+| Klimatförändringar                          |               |              |                     |                           |
+| Klimatpåverkan på fastigheterna             | Möjlig        | Måttlig      | Bevaka              |                           |
+| Miljöpåverkan från den egna verksamheten 1) | Möjlig        | Mindre       | Bevaka              |                           |
+| Finansiering                                |               |              |                     |                           |
+| Ränterisk                                   | Möjlig        | Stor         | Fokus               |                           |
+| Finansiering och refinansiering             | Möjlig        | Måttlig      | Bevaka              |                           |
+| Fastighetsvärdering                         | Möjlig        | Måttlig      | Bevaka              |                           |
+| Valutaexponering                            | Möjlig        | Mindre       | Bevaka              |                           |
+| Förvärv och investeringar                   |               |              |                     |                           |
+| Fastighetsutveckling                        | Sannolik      | Mindre       | Bevaka              |                           |
+| Fastighetstransaktioner                     | Osannolik     | Mindre       | Bevaka              |                           |
+| Förvaltning                                 |               |              |                     |                           |
+| Hyresintäkter                               | Sannolik      | Stor         | Fokus               |                           |
+| Kundförluster                               | Möjlig        | Måttlig      | Fokus               |                           |
+| Fastighetskostnader                         | Möjlig        | Måttlig      | Bevaka              |                           |
+| Medarbetare och organisation                |               |              |                     |                           |
+| Medarbetare och kompetens 1)                | Möjlig        | Måttlig      | Fokus               |                           |
+| Arbetsmiljö 1)                              | Möjlig        | Mindre       | Bevaka              |                           |
+| Rapportering och intern kontroll 1)         | Osannolik     | Måttlig      | Bevaka              |                           |
+| IT-infrastruktur                            | Möjlig        | Stor         | Fokus               |                           |
+
+1)  Utgör hållbarhetsrisker och omfattas av hållbarhetsredovisningen, men ingår ej i förvaltningsberättelsen.
+
+=  Ökad bevakning
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+=  Oförändrad bevakning
+
+=  Minskad bevakning
+
+Övrig information
+Noter till de finansiella rapporterna
+
+<!-- image -->
+
+1
+
+Risker och styrning
+Hållbarhetsrapport
+
+Nyfosas hållbarhetsarbte
+
+Allmän information
+
+Väsentliga hållbarhetsområden
+
+Omställningsstrategi
+
+Värdeskapande genom aktiv förvaltning Klimtförändringar
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+- Revisors rapport över översiktlig granskning
+
+EU:s Taxonomi
+
+Task force on climate-related financial disclosures (TCFD)
+
+TCFD beskriver finansiell påverkan på bolaget från risker och möjligheter som antas uppkomma på grund av klimatförändringar.
+
+Klimatrelaterade risker och möjligheter är en del av bolagets riskhantering och påverkar till viss del bolaget idag, medan andra förväntas göra det under ett långsiktigt perspektiv om fem år. Riskerna och möjligheterna bedöms utifrån sannolikhet för att de inträffar och vilken finansiell påverkan de i så fall skulle ha på bolaget.
+
+Omvärld
+
+| Risk                                                                                                                                                                                                                                                                                                                                                    | Riskhantering                                                                                                                       | Exponering                                                                                                                       |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Makro Verksamheten påverkas av makroekono- miska faktorer såsom ekonomiskt klimat, inflation, andel nybyggnation av kom- mersiella byggnader samt förändringar i infrastruktur och demografi. En ekonomisk nedgång somleder till högre arbetslöshet, sämre betalnings- förmåga hos hyresgäster samt en ökad inflation skulle kunna få en negativ påver- | Marknadsbevakning och omvärlds- analyser. Löpande dialog medkapital- och kreditmarknaden. Indexerade hyresavtal. Derivatinstrument. | Svag ekonomi påver- kar bolagets resultat och ställning.                                                                         |
+| Regelverk Ändringar i regelverk somger negativa effekter på bolagets resultat och ställning.                                                                                                                                                                                                                                                            | Bevakning och nätverk medrådgivare.                                                                                                 | Omställningskostna- der vid ny lagstiftning. Försvårad finansiering eller fördyringar vid investeringar och/eller transaktioner. |
+| Skatt Förändringar i skattelagstiftning eller lagtolkning somger negativa effekter på bolagets resultat och ställning.                                                                                                                                                                                                                                  | Noggrann övervakning av politisk utveckling. Anpassning av interna processer vid regeländringar. Samarbete medexterna experter.     | Högre skattekost- nader.                                                                                                         |
+
+FÖRNYBAR ENERGI I KIELO OCH ÖKAD ANDEL I NYFOSA SVERIGE
+
+Under året upphandlades förnybar fjärrvärme för hela Kielos fastighetsbestånd, vilket förväntas ge ett stort genomslag på det finska beståndets koldioxidutsläpp, med en beräknad minskning om 55 procent från dagens nivå.
+
+Inom det svenska fastighetsbeståndet ökade andelen upphandlad förnybar fjärrvärme. Av den totala energin som köptes in i Nyfosa Sverige och Kielo under 2024 kom 68 procent från förnybara energikällor.
+
+Den förnybara fjärrvärmen är deklarerad med EPD, som beskriver miljöeffekten av värmeproduktion genom hela livscykeln, eller märkt med Bra Miljöval enligt Naturskyddsföreningens miljökrav.
+
+<!-- image -->
+
+Klimtförändringar
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning
+
+EU:s Taxonomi
+
+Kassaflödesanalys - koncernen
+
+| MSEK                                                         | Not   | 2024   | 2023   |
+|--------------------------------------------------------------|-------|--------|--------|
+| Denlöpande verksamheten                                      |       |        |        |
+| Resultat före skatt                                          |       | 253    | -661   |
+| Justeringar för poster sominte ingår i kassaflödet m.m.      | 17    | 2 111  | 2 918  |
+| Erhållen utdelning från joint venture                        |       | 350    | 180    |
+| Erhållna räntor                                              |       | 11     | 6      |
+| Erlagda räntor                                               |       | -1 242 | -1 104 |
+| Utbetald ränta till hybridobligationsinnehavare              |       | -61    | -60    |
+| Betald skatt                                                 |       | -78    | -65    |
+| Operativt kassaflöde 1)                                      |       | 1 345  | 1 215  |
+| Ökning (-)/minskning (+) av rörelsefordringar                |       | 24     | 49     |
+| Ökning (+)/minskning (-) av rörelseskulder                   |       | 21     | 277    |
+| Kassaflöde från den löpande verksamheten                     |       | 1 390  | 1 541  |
+| Investeringsverksamheten                                     |       |        |        |
+| Direkta och indirekta förvärv av förvaltningsfastigheter     | 17    | -1 659 | -989   |
+| Direkta och indirekta avyttringar av förvaltningsfastigheter | 17    | 1 426  | 1 544  |
+| Investeringar i befintliga förvaltningsfastigheter           |       | -543   | -762   |
+| Investeringar i immateriella tillgångar                      |       | -3     | -      |
+| Investeringar andelar i joint venture                        |       | -13    | -      |
+| Avyttring andelar i joint venture                            |       | 77     | -      |
+| Långfristiga fordringar joint venture                        |       | 114    | -75    |
+| Övrigt                                                       |       | 0      | -1     |
+| Kassaflöde från investeringsverksamheten                     |       | -602   | -284   |
+
+| MSEK                                           | Not   | 2024   | 2023   |
+|------------------------------------------------|-------|--------|--------|
+| Nyemission av aktier                           |       | 1 709  | -      |
+| Emission teckningsoptioner                     |       | 3      | 2      |
+| Återköp teckningsoptioner                      |       | 0      | -7     |
+| Återköp hybridobligationer                     |       | -146   | -5     |
+| Utdelning till aktieägare                      |       | -191   | -755   |
+| Upptagna räntebärande skulder                  | 17    | 6 282  | 9 034  |
+| Amortering räntebärande skulder                | 17    | -8 451 | -9 789 |
+| Avyttring räntederivat                         |       | 10     | -      |
+| Förändring innehav utan bestämmande inflytande |       | -      | -1     |
+| Övrigt                                         |       | 5      | 8      |
+| Kassaflöde från finansieringsverksamheten      |       | -779   | -1 512 |
+| Årets kassaflöde                               |       | 8      | -255   |
+| Likvida medel vid periodens början             |       | 435    | 691    |
+| Kursdifferens i likvida medel                  |       | 9      | -1     |
+| Likvida medel vid periodens slut               |       | 451    | 435    |
+
+1)   Kassaflöde från den löpande verksamheten före förändring av rörelsekapital.
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning EU:s Taxonomi
+
+Fastställande av verkligt värde
+
+Nyfosa använder sig av fyra externa oberoende värderingsföretag som värderar varsin del av beståndet. Värdering sker kvartalsvis av samtliga fastigheter med undantag för de som tillträtts under det senaste kvartalet eller där undertecknat försäljningsavtal finns. I dessa fall används avtalat förvärvspris respektive avtalat försäljningspris. De externa värderingarna granskas av bolaget och i det fall bolaget har en avvikande uppfattning om fastighetsvärdet anses den interna värderingen utgöra det verkliga värdet. Den interna granskningen resulterade i en nedjustering av värden om totalt -0,2 procent (-0,2).
+
+Per 31 december 2024 värderades fastigheter motsvarande 99,6 procent (100,0) av fastighetsvärdet externt av de oberoende värderingsföretagen. För resterande fastigheter har verkligt värde fastställts till avtalat förvärvspris respektive avtalat försäljningspris. Totalt uppgick marknadsvärdet till 39 370 MSEK (39 278). Moderbolaget äger inga fastigheter.
+
+Marknaden för förvaltningsfastigheter påverkades under året av makroekonomisk osäkerhet och en fortsatt avvaktande kapitalmarknad. Inflationen och marknadsräntorna låg fortsatt på en hög nivå under året, men sjönk under slutet av året. Detta i kombination med en låg aktivitet på transaktionsmarknaden för fastigheter resulterade i att avkastningskraven på fastigheter ökade. Fastigheternas direktavkastning per 1 januari 2025, enligt intjäningsförmågan, uppgick till 6,3 procent (6,2) i förhållande till marknadsvärdet. Orealiserade värdeförändringar från fastigheter uppgick till -887 MSEK (-1 381). De orealiserade värde  förändringarna förklaras främst av förändrade direktavkastningskrav, nyuthyrningar, vakanser och omförhandlingar.
+
+I det befintliga fastighetsbeståndet gjordes investeringar om 543 MSEK (762) under 2024. Därutöver har Nyfosa åtaganden om att färdigställa påbörjade projekt där återstående investeringsvolym beräknas uppgå till 551 MSEK (287).
+
+Finansiell utveckling
+Risker och styrning
+Hållbarhetsrapport
+
+Nyfosas hållbarhetsarbte
+
+Allmän information
+
+Väsentliga hållbarhetsområden
+
+Omställningsstrategi
+
+Värdeskapande genom aktiv förvaltning Klimtförändringar
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+s. 28
+
+<!-- image -->
+
+Miljö
+
+Arbete mot lägre energiförbrukning och koldioxidutsläpp
+
+Återbruk, insatser för biologisk mångfald och mindre vattenanvändning
+
+Minskad energiförbrukning
+
+- 9 % i Sverige sedan 2020
+- 4 % i Finland sedan 2023
+
+Innehållsförteckning
+
+| Introduktion                  |                 | Finansiell utveckling                      |    | Hållbarhetsrapport                           |    | Finansiell information                           |     |
+|-------------------------------|-----------------|--------------------------------------------|----|----------------------------------------------|----|--------------------------------------------------|-----|
+| Detta är Nyfosa               | 4               | F Kassaflöde                               | 35 | H Nyfosas hållbarhetsarbte                   | 55 | R Innehåll                                       | 70  |
+| Händelser under året          | 5               | F Resultat                                 | 36 | H Allmän information                         | 56 | R Flerårsöversikt och nyckeltal                  | 71  |
+| Året i siffror                | 6               | F Styrelsens förslag till vinstdisposition | 39 | H Väsentliga hållbarhetsområden              | 58 | R Avstämning nyckeltal                           | 72  |
+| VD-ord                        | 7               |                                            |    | H Omställningsstrategi                       | 59 | R Finansiella rapporter koncernen                | 75  |
+|                               |                 | F Aktien                                   | 40 | H Värdeskapande genom aktiv förvaltning      | 60 | R Finansiella rapporter moderbolaget             | 79  |
+| Affärsmodell och strategi     |                 |                                            |    | H Klimtförändringar                          | 61 | R Noter till de finansiella                      | 82  |
+| Mål och utdelningspolicy      | 9               | Risker och styrning                        |    |                                              |    | rapporterna                                      |     |
+| H F Affärsmodell och strategi | 10              | H F Risker och riskhantering               | 42 | H TCFD                                       | 61 | R Styrelsens försäkran                           | 106 |
+| Transaktioner                 | 12              | H F Hållbarhetsrisker                      | 43 | H Affärsetik                                 | 63 | Revisionsberättelse                              | 107 |
+| F Fastighetsbestånd           | 16              | F Bolagsstyrningsrapport                   | 45 | H Egen arbetskraft                           | 64 |                                                  |     |
+| Intjäningsförmåga             | 20              | F Styrelse                                 | 50 | H GRI                                        | 66 | Övrig information                                |     |
+| F Joint venture               | 21              | F Ledande befattningshavare                | 51 | H Redovisningsprinciper                      | 67 | Definitioner                                     | 111 |
+| H Förvaltning                 | 22              | F Intern kontroll och styrning             | 52 | Revisors rapport över översiktlig granskning | 68 | Information omårsstämma samt finansiell kalender | 113 |
+| F Hyresgäster                 | 28              |                                            |    | EU:s Taxonomi                                | 69 |                                                  |     |
+| H F Organisation              | 30              |                                            |    |                                              |    |                                                  |     |
+| F Finansiering                | 32              |                                            |    |                                              |    |                                                  |     |
+| F = Förvaltningsberättelse    | R = Räkenskaper | H = Hållbarhetsredovisning                 |    |                                              |    |                                                  |     |
+
+Finansiell utveckling
+Risker och styrning
+Hållbarhetsrapport
+
+Nyfosas hållbarhetsarbte
+
+Allmän information
+
+Väsentliga hållbarhetsområden Omställningsstrategi
+
+Värdeskapande genom aktiv förvaltning Klimtförändringar
+
+TCFD
+
+Affärsetik
+
+Egen arbetskraft
+
+GRI
+
+Redovisningsprinciper
+
+Revisors rapport över översiktlig granskning
+
+- EU:s Taxonomi
+
+AKTIEKAPITALETS UTVECKLING
+
+| Tidpunkt         | Händelse                  | Förändring aktiekapital (SEK)   | Förändring antal aktier   | Aktiekapital efter ändring (SEK)   | Antal aktier efter ändring   |
+|------------------|---------------------------|---------------------------------|---------------------------|------------------------------------|------------------------------|
+| 17 oktober 2017  | Nybildning                | ET.                             | ET.                       | 50 000                             | 500                          |
+| 21 maj 2018      | Delning av aktier (1:200) | ET.                             | + 99 500                  | 50 000                             | 100 000                      |
+| 21 maj 2018      | Nyemission                | + 78 814 124,50                 | + 157 628 249             | 78 864 124,50                      | 157 728 249                  |
+| 21 augusti 2018  | Nyemission                | + 5 000 000                     | + 10 000 000              | 83 864 124,50                      | 167 728 249                  |
+| 17 februari 2020 | Nyemission                | + 3 231 412                     | + 6 462 824               | 87 095 536,50                      | 174 191 073                  |
+| 4 mars 2020      | Nyemission                | + 5 155 000                     | + 10 310 000              | 92 250 536,50                      | 184 501 073                  |
+| 9 juni 2021      | Nyemission                | + 3 260 870                     | + 6 521 740               | 95 511 406,50                      | 191 022 813                  |
+| 14 maj 2024      | Utbyte av teckningsoption | +20 122                         | + 40 244                  | 95 531 528,50                      | 191 063 057                  |
+| 16 maj 2024      | Nyemission                | +8 500 000                      | +17 000 000               | 104 031 528,50                     | 208 063 057                  |
+| 31 juli 2024     | Utbyte av teckningsoption | +3 880                          | +7 760                    | 104 035 408,50                     | 208 070 817                  |
+| 25 november 2024 | Utbyte av teckningsoption | +12 988                         | +25 976                   | 104 048 396,50                     | 208 096 793                  |
+
+Rapport över förändring i eget kapital - moderbolaget
+
+|                                               | Bundet eget kapital   | Fritt eget kapital   | Fritt eget kapital   | Fritt eget kapital                    |                     |
+|-----------------------------------------------|-----------------------|----------------------|----------------------|---------------------------------------|---------------------|
+| MSEK                                          | Aktiekapital          | Överkursfond         | Hybridobligationer   | Balanserad vinst inkl. årets resultat | Totalt eget kapital |
+| Ingående eget kapital 2023-01-01              | 96                    | 2 058                | 763                  | 9 007                                 | 11 924              |
+| Transaktioner medbolagets ägare               |                       |                      |                      |                                       |                     |
+| Emission av teckningsoptioner                 | -                     | 2                    | -                    | -                                     | 2                   |
+| Återköp av teckningsoptioner                  | -                     | -7                   | -                    | -                                     | -7                  |
+| Återköp av hybridobligationer                 | -                     | -                    | -5                   | -                                     | -5                  |
+| Ränta och övriga kostnader hybridobligationer | -                     | -                    | -                    | -63                                   | -63                 |
+| Beslutad utdelning                            | -                     | -                    | -                    | -764                                  | -764                |
+| Summatransaktioner medbolagets ägare          | -                     | -4                   | -5                   | -827                                  | -837                |
+| Årets resultat                                | -                     | -                    | -                    | 800                                   | 800                 |
+| Utgående eget kapital 2023-12-31              | 96                    | 2 054                | 758                  | 8 980                                 | 11 887              |
+| Ingående eget kapital 2024-01-01              | 96                    | 2 054                | 758                  | 8 980                                 | 11 887              |
+| Transaktioner medbolagets ägare               |                       |                      |                      |                                       |                     |
+| Nyemission av aktier                          | 9                     | 1 706 1)             | -                    | -                                     | 1 714               |
+| Emission av teckningsoptioner                 | -                     | 3                    | -                    | -                                     | 3                   |
+| Återköp av teckningsoptioner                  | -                     | 0                    | -                    | -                                     | 0                   |
+| Återköp av hybridobligationer                 | -                     | -                    | -146                 | -                                     | -146                |
+| Ränta och övriga kostnader hybridobligationer | -                     | -                    | -                    | -57                                   | -57                 |
+| Summatransaktioner medbolagets ägare          | 9                     | 1 708                | -146                 | -57                                   | 1 514               |
+| Årets resultat                                | -                     | -                    | -                    | 914                                   | 914                 |
+| Utgående eget kapital 2024-12-31              | 104                   | 3 762                | 611                  | 9 838                                 | 14 315              |
+
+- 1)  Inkluderar avdrag för emissionskostnader inklusive skatt om 20 MSEK.

@@ -1,0 +1,28 @@
+{
+  "name": "@garbo/jobs",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./scope1": "./dist/scope1/index.js",
+    "./scope2": "./dist/scope2/index.js",
+    "./scope3": "./dist/scope3/index.js",
+    "./scope12": "./dist/scope12/index.js",
+    "./emissions": "./dist/emissions/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@garbo/schemas": "workspace:*",
+    "@garbo/shared": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

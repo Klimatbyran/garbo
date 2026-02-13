@@ -1,0 +1,2245 @@
+Scope 2 - energianvändning
+
+Scope 2 omfattar indirekta utsläpp från el och uppvärmning av Systembolagets butiker, kontor, varudepåer och konferensanläggning. Utsläppsberäkningarna utgår dels från förbrukningsinformation där Systembolaget har full rådighet men bygger även på undersökningar och formulär utförda av Systembolaget där kartläggning av berörda fastighetsägare ligger till grund för vilken typ av energikälla som används till uppvärmning av   respektive butik. Förbrukningsdata bygger på statistik från energimyndigheten och emissionsfaktorer hämtas från Energiföretagen Sveriges miljövärden. Beräkningarna bygger på marknadsbaserad metod.
+
+Beräkning av koldioxid  utsläpp baserat på GHG-protokollet
+
+Inom GHG-protokollet redovisas klimatpåverkan uppdelat i tre olika scope. 12  Scope 1 visar beräknade direkta koldioxidutsläpp som sker från verksamheten. Scope 2 redovisar indirekta koldioxidutsläpp från verksamhetens energianvändning. Scope 3 omfattar övriga indirekta utsläpp som i huvudsak är kopplat till de produkter Systembolaget säljer. Systembolagets klimatmål utgår från vetenskapliga riktlinjer enligt Sience Based targets och omfattar scope 1 och 2 samt delkategorier 1, 4 och 9 inom scope 3. Målen utgår från en halvering av scope 3 till år 2030 samt 90 procent reducering av scope 1 och 2 till 2027, med basår 2019. En process att omformulera målet för scope 1 och 2 till år 2030 i stället för år 2027 kommer inledas under 2025. Under 2025 kommer Systembolaget även inleda processen med att anta   specifika mål relaterat till utsläpp från skog, markanvändning och jordbruk (FLAG).
+
+| Scope                                                                              |                                                      | 2024      | 2023    | 2022    | 2019 (basår)   |
+|------------------------------------------------------------------------------------|------------------------------------------------------|-----------|---------|---------|----------------|
+| Scope 1: Direkta utsläpp från egen verksamhet, ton CO 2 e                          | Utsläpp från leasade bilar                           | 5         | 116     | 196     | 304            |
+| Scope 1: Direkta utsläpp från egen verksamhet, ton CO 2 e                          | Omhändertagen köldmedia                              | 0         | 43      | 31      | 0              |
+| Scope 2: Indirekta utsläpp från användning av elektricitet och värme, ton CO 2 e 1 | Energianvändning egen verksamhet (el och värme)      | 3 844     | 2 740   | 2 602   | 3 355          |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 1: inköpta varor och tjänster               | 508 286   | 515 695 | 527 716 | 489 888        |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 3: Bränsle och energirelaterade aktiviteter | 487       | 509     | 632     | 1 029          |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 4: uppströms transport och distribution     | 100 474   | 97 839  | 100 464 | 99 085         |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 5: Avfall som genereras av verksamheter     | 84        | 85      | 90      | 83             |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 6: Affärsresor                              | 685       | 667     | 570     | 1 276          |
+| Scope 3: Indirekta utsläpp i värdekedjan, ton CO 2 e                               | Kategori 9: Nedströms transport                      | 112 471   | 111 275 | 105 953 | 147 823        |
+| Totalt                                                                             |                                                      | 726 336 2 | 728 969 | 738 254 | 742 843        |
+
+1   Om vår energianvändning för 2024 skulle beräknas i enlighet med den metod som i GHG-protokollet Corporate Standard kallas 'location based' baserat på IEA (2017) skulle koldioxidutsläppet från energianvändningen i stället landa på 2 647 ton koldioxidekvivalenter.
+
+- 2   Utfall för 2024 enligt SBTi-målformulering (scope 1,2 och kategori 1, 4 och 9 inom scope 3) 725 080 ton CO 2 e (basår 2019, 740 455 ton CO 2 e).
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+t
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+g
+
+e
+
+t
+
+V Å R A V Ä S E Å D E
+
+N
+
+T
+
+L
+
+I
+
+G
+
+A
+
+O
+
+M
+
+R
+
+i
+
+n
+
+a
+
+n
+
+s
+
+i
+
+e
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+Redogödrlsorösö avopslplc n-öaCSDlplcd o/s lEupcb Esrlruäs l
+
+tpruvc öde adogördplEö ss lE ö
+
+ivuapvhpaSEsu/DD
+
+ylsE/uuar
+
+IVkxpla h
+
+Ö v r
+
+i
+
+g
+
+t
+
+N
+
+Samtliga utsläppsberäkningar tar hänsyn till utsläpp av fossil koldioxid, metan och lustgas, omräknat till koldi oxidekvivalenter med hjälp av respektive växthusgas Global warming potential (GWP) enligt IPCCs AR6, och är enligt förfarandet 'operational control'.
+
+Scope 3 - indirekta utsläpp i värdekedjan
+
+Utsläppen är uppdelade på GHG-protokollets delkategorier.
+
+GRI-index
+
+Denna hållbarhetsredovisning följer riktlinjerna för Global Reporting Initiative (GRI) version Standarder 2021 och har genomgått en kombinerad   granskning av Deloitte AB. För verksamhetsåret 2024 har Systembolaget grupperat sina väsentliga hållbarhetsupplysningar kring åtta hållbarhetsfrågor inom GRIindex, vi kallar dem väsentliga hållbarhetsområden.
+
+Detta index innehåller samtliga GRI- eller egna upplysningar som Systembolaget bedömt vara relevanta för sin verksamhet med utgångspunkt i företagets viktigaste hållbarhetsfrågor. Information om avgränsning och dylikt går att hitta i index eller har hänvisats till var informationen återfinns.
+
+| Uttalandeom tillämpning   | Systembolaget AB har rapporterat i enlighet med GRI Standarder för perioden 2024-01-01 till 2024-12-31.   |
+|---------------------------|-----------------------------------------------------------------------------------------------------------|
+| Tillämpad GRI 1           | GRI 1: Grunden 2021                                                                                       |
+
+| GRI-index                          |                                                                   |                  | Avsteg         | Avsteg   | Avsteg     |
+|------------------------------------|-------------------------------------------------------------------|------------------|----------------|----------|------------|
+| GRI Standard                       | Upplysning                                                        | Sida             | Utelämnat krav | Orsak    | Förklaring |
+| Generella upplysningar             |                                                                   |                  |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-1 Organisationsuppgifter                                        | 63, 87           |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-2 Enheter inkluderade i organisationens hållbarhetsrapportering | 132              |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-3 Redovisningsperiod, frekvens och kontaktuppgift               | 132              |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-4 Förändrad information                                         | 132              |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-5 Extern granskning                                             | 68, 132, 150-151 |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-6 Aktiviteter, värdekedja och andra affärsrelationer            | 8-9, 56          |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-7 Anställda                                                     | 141-142          |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-8 Arbetare som inte är anställda                                | 141              |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-9 Styrningsstruktur och sammansättning                          | 63-74            |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-10 Nominering och val av högsta styrande organ                  | 64               |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-11 Ordförande för högsta styrande organ                         | 70               |                |          |            |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V Å R A
+
+i
+
+n
+
+a
+
+n
+
+s
+
+i
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+V Ä S E
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+I våravnseånaeadoiågesgst
+
+-caohblsgstv
+
+åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda
+
+öimogi2gobpemyll
+
+0sepymmon
+
+4GR(gsod2
+
+Ö v r
+
+i
+
+g
+
+t
+
+t
+
+e
+
+g
+
+N
+
+e
+
+T
+
+t
+
+L
+
+I
+
+G
+
+A
+
+O
+
+M
+
+R
+
+Å D E
+
+N
+
+| GRI-index                          |                                                                           |               | Avsteg         | Avsteg   | Avsteg     |
+|------------------------------------|---------------------------------------------------------------------------|---------------|----------------|----------|------------|
+| GRI Standard                       | Upplysning                                                                | Sida          | Utelämnat krav | Orsak    | Förklaring |
+| Generella upplysningar             |                                                                           |               |                |          |            |
+| GRI 2: Generella upplysningar 2021 | 2-12 Högsta styrande organs roll för att övervaka hanteringen av påverkan | 65            |                |          |            |
+|                                    | 2-13 Delegering av ansvar för att hantera påverkan                        | 65            |                |          |            |
+|                                    | 2-14 Högsta styrande organs roll i hållbarhetsrapporteringen              | 65, 68        |                |          |            |
+|                                    | 2-15 Intressekonflikter                                                   | 59, 65, 70-72 |                |          |            |
+|                                    | 2-16 Kommunikation av kritiska orosmoment                                 | 27            |                |          |            |
+|                                    | 2-17 Kollektiv kunskap inom högsta styrande organ                         | 64-65, 70-72  |                |          |            |
+|                                    | 2-18 Utvärdering av högsta styrande organs prestation                     | 66            |                |          |            |
+|                                    | 2-19 Ersättningspolicyer                                                  | 101           |                |          |            |
+|                                    | 2-20 Process för att avgöra ersättning                                    | 66, 101       |                |          |            |
+|                                    | 2-21 Årlig total kompensationsratio                                       | 100           |                |          |            |
+|                                    | 2-22 Uttalande om strategi för hållbar utveckling                         | 4-5, 16-17    |                |          |            |
+|                                    | 2-23 Policyåtaganden                                                      | 27, 59, 63    |                |          |            |
+|                                    | 2-24 Införlivning av policyåtaganden                                      | 10-11, 64     |                |          |            |
+|                                    | 2-25 Processer för att gottgöra negativ påverkan                          | 27, 35-36     |                |          |            |
+|                                    | 2-26 Mekanismer för att söka råd och lyfta orosmoment                     | 27            |                |          |            |
+|                                    | 2-27 Efterlevnad av lagar och regelverk                                   | 58            |                |          |            |
+|                                    | 2-28 Medlemskap i organisationer/ sammanslutningar                        | 136           |                |          |            |
+|                                    | 2-29 Angreppssätt för intressentengagemang                                | 133, 135      |                |          |            |
+|                                    | 2-30 Kollektivavtal                                                       | 141           |                |          |            |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V Å R A
+
+i
+
+n
+
+a
+
+n
+
+s
+
+i
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+V Ä S E
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+I våravnseånaeadoiågesgst
+
+-caohblsgstv
+
+åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda
+
+öimogi2gobpemyll
+
+0sepymmon
+
+4GR(gsod2
+
+Ö v r
+
+i
+
+g
+
+t
+
+t
+
+e
+
+g
+
+N
+
+e
+
+T
+
+t
+
+L
+
+I
+
+G
+
+A
+
+O
+
+M
+
+R
+
+Å D E
+
+N
+
+| GRI-index                                      |                                                                 |                     | Avsteg                                                                                                    | Avsteg         | Avsteg                                                                                                 |
+|------------------------------------------------|-----------------------------------------------------------------|---------------------|-----------------------------------------------------------------------------------------------------------|----------------|--------------------------------------------------------------------------------------------------------|
+| GRI Standard                                   | Upplysning                                                      | Sida                | Utelämnat krav                                                                                            | Orsak          | Förklaring                                                                                             |
+| Väsentliga frågor                              |                                                                 |                     |                                                                                                           |                |                                                                                                        |
+| GRI 3: Väsentliga frågor 2021                  | 3-1 Process för att fastställa väsentliga frågor                | 16-17, 133          |                                                                                                           |                |                                                                                                        |
+|                                                | 3-2 Lista av väsentliga frågor                                  | 16-17, 132, 133-134 |                                                                                                           |                |                                                                                                        |
+| Etik och antikorruption                        |                                                                 |                     |                                                                                                           |                |                                                                                                        |
+| GRI 3: Väsentliga frågor 2021                  | 3-3 Styrning av väsentliga frågor                               | 27                  |                                                                                                           |                |                                                                                                        |
+| GRI 205: Anti-korruption 2016                  | 205-3 Bekräftade incidenter av korruption och vidtagna åtgärder | 28                  | Totalt antal korruptions- incidenter som medfört uppsägning av affärs- avtal pga. brott mot avtalsvillkor | Ej tillämpbart | Tillämpar upplysningen med ett medarbetar- perspektiv. Därmed utelämnas brott mot affärsavtalsvillkor. |
+| Klimatpåverkan                                 |                                                                 |                     |                                                                                                           |                |                                                                                                        |
+| GRI 3: Väsentliga frågor 2021                  | 3-3 Styrning av väsentliga frågor                               | 42-43, 48-49        |                                                                                                           |                |                                                                                                        |
+| GRI 305: Utsläpp 2016                          | 305-1 Direkta (scope 1) GHG-utsläpp                             | 139                 |                                                                                                           |                |                                                                                                        |
+|                                                | 305-2 Energi indirekta (scope 2) GHG-utsläpp                    | 139                 |                                                                                                           |                |                                                                                                        |
+|                                                | 305-3 Övriga indirekta (scope 3) GHG-utsläpp                    | 139                 |                                                                                                           |                |                                                                                                        |
+| Egen upplysning                                | Sortimentets klimatpåverkan                                     | 47                  |                                                                                                           |                |                                                                                                        |
+| Arbetsmiljö och inkludering                    |                                                                 |                     |                                                                                                           |                |                                                                                                        |
+| GRI 3: Väsentliga frågor 2021                  | 3-3 Styrning av väsentliga frågor                               | 30-31               |                                                                                                           |                |                                                                                                        |
+| GRI 405: Mångfald och jämlika möjligheter 2016 | 405-1 Mångfald i ledningsgrupper och bland anställda            | 33                  |                                                                                                           |                |                                                                                                        |
+| Egen upplysning                                | Andel medarbetare med internationell bakgrund                   | 32                  |                                                                                                           |                |                                                                                                        |
+| Egen upplysning                                | Engagemangsindex                                                | 31                  |                                                                                                           |                |                                                                                                        |
+| Egen upplysning                                | Andel sjukfrånvaro i%                                           | 32                  |                                                                                                           |                |                                                                                                        |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V Å R A
+
+i
+
+n
+
+a
+
+n
+
+s
+
+i
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+V Ä S E
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+I våravnseånaeadoiågesgst
+
+-caohblsgstv
+
+åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda
+
+öimogi2gobpemyll
+
+0sepymmon
+
+4GR(gsod2
+
+Ö v r
+
+i
+
+g
+
+t
+
+t
+
+e
+
+g
+
+N
+
+e
+
+T
+
+t
+
+L
+
+I
+
+G
+
+A
+
+O
+
+M
+
+R
+
+Å D E
+
+N
+
+| GRI-index                                              |                                                                                         |           | Avsteg         | Avsteg   | Avsteg     |
+|--------------------------------------------------------|-----------------------------------------------------------------------------------------|-----------|----------------|----------|------------|
+| GRI Standard                                           | Upplysning                                                                              | Sida      | Utelämnat krav | Orsak    | Förklaring |
+| Väsentliga frågor                                      |                                                                                         |           |                |          |            |
+| Begränsa alkoholens negativa konsekvenser              | Begränsa alkoholens negativa konsekvenser                                               |           |                |          |            |
+| GRI 3: Väsentliga frågor 2021                          | 3-3 Styrning av väsentliga frågor                                                       | 19-23     |                |          |            |
+| GRI 413: Lokalsamhälle 2016                            | 413-1 Organisationens engagemang i och påverkan på lokalsamhället                       | 19-23     |                |          |            |
+| Egen upplysning                                        | Ålderskontroll                                                                          | 21        |                |          |            |
+| Mänskliga rättigheter och arbetsvillkor                | Mänskliga rättigheter och arbetsvillkor                                                 |           |                |          |            |
+| GRI 3: Väsentliga frågor 2021                          | 3-3 Styrning av väsentliga frågor                                                       | 35-38     |                |          |            |
+| GRI 414: Leverantörsbedömning socialt 2016             | 414-2 Utvärdering av negativ social påverkan i leverantörskedjan samt vidtagna åtgärder | 35-38, 39 |                |          |            |
+| Jordhälsa och biologisk mångfald                       | Jordhälsa och biologisk mångfald                                                        |           |                |          |            |
+| GRI 3: Väsentliga frågor 2021                          | 3-3 Styrning av väsentliga frågor                                                       | 44, 46    |                |          |            |
+| Egen upplysning                                        | Andel av dryckesvolym baserad på certifierad odling                                     | 48        |                |          |            |
+| Vattenpåverkan                                         | Vattenpåverkan                                                                          |           |                |          |            |
+| GRI 3: Väsentliga frågor 2021                          | 3-3 Styrning av väsentliga frågor                                                       | 45-46     |                |          |            |
+| Egen upplysning                                        | Andel av dryckesvolym baserad på certifierad odling (vattenpåverkan)                    | 48        |                |          |            |
+| Återvinning och återanvändning av dryckesförpackningar | Återvinning och återanvändning av dryckesförpackningar                                  |           |                |          |            |
+| GRI 3: Väsentliga frågor 2021                          | 3-3 Styrning av väsentliga frågor                                                       | 47        |                |          |            |
+| Egen upplysning                                        | Andel returnerade återfyllningsbara förpackningar                                       | 48        |                |          |            |
+
+Systembolaget Ansvarsredovisning 2024
+
+O m   s y s t e m b o l a g e t V Å R A   V Ä S E N T L I G A   O M R Å D E N F i n a n s i e l l   r a p p o r t e r i n g H å l l b a r h e t s r a p p o r t Ö v r i g t
+
+Revisionsberättelse
+
+Ordlista och definitioner
+
+Källförteckning
+
+Finansiell kalender
+
+<!-- image -->
+
+GLYPH&lt;19&gt; GLYPH&lt;18&gt;GLYPH&lt;22&gt; GLYPH&lt;23&gt;GLYPH&lt;17&gt; GLYPH&lt;16&gt; GLYPH&lt;15&gt; GLYPH&lt;14&gt; GLYPH&lt;13&gt; GLYPH&lt;12&gt; GLYPH&lt;11&gt; GLYPH&lt;17&gt; GLYPH&lt;23&gt; GLYPH&lt;10&gt; GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt; GLYPH&lt;25&gt; GLYPH&lt;22&gt; GLYPH&lt;25&gt;GLYPH&lt;17&gt; GLYPH&lt;7&gt; GLYPH&lt;14&gt;GLYPH&lt;8&gt; GLYPH&lt;20&gt; GLYPH&lt;22&gt; GLYPH&lt;9&gt; GLYPH&lt;20&gt; GLYPH&lt;9&gt; GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om systembol a g e t
+
+V Å R A   V Ä S E N T L I G A   O M R Å D E N
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+H å l l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+Til b oabgistääimbi
+
+nsSm bäyeoABeSi, a ä oais
+
+rtmm,usäiA5a a6
+
+0 ayab imme5ymiaSis
+
+Kategori 3 - bränsle och energi
+
+Bränsle- och energirelaterade aktiviteter omfattar indirekta utsläpp från produktion av el, värme och bränslen. Beräkningarna är kopplade till utsläppen i scope 1 och 2.
+
+Scope 1 - tjänstefordon och köldmedia
+
+Utsläppsberäkningar av Systembolagets leasade bilar och eventuell köldmedialäckage. Beräkningarna för leasade bilar baseras på antal körda kilometer och använd mängd bränsle.
+
+Klimatavtryck
+
+Nytt nyckeltal för 2024 som baseras på Systembolagets antagna klimatmål enligt Science Based Targets Initiative. Nyckeltalet omfattar scope 1,2 och 3 vilka mäter produktrelaterade utsläpp från odling, produktion, dryckesförpackning och transport, men även kunders transport till och från butik samt utsläpp från egen verksamhet.
+
+Kategori 1 - inköpta varor och tjänster
+
+I den här kategorin redovisas klimatutsläppen för de produkter som Systembolaget säljer. Det baseras således på odling av råvara, framställan av dryck samt dryckens förpackning. Utsläppsberäkningarna för odling följer GHG-protokollets utkast av Land Sector and Removals Guidance, vars beräkningsvägledning i sin tur bygger på IPCC:s Guidelines for National Greenhouse Gas Inventories. Utsläppskällor som ingår är maskinarbete, produktion av insatsvaror, markutsläpp (direkta och indirekta) samt utsläpp från förändrad markanvändning. Beräkningarna baseras på relevanta grödor, som i sin tur bygger på genomsnittliga antaganden från flera olika litteraturstudier samt statistik från FAOSTAT. Utsläppsberäkningarna bygger på emissionsfaktorer från Ecoinvent samt LUC Impact tool, framtaget av Blonk Sustainability Tools B.V. Utsläppsberäkningarna för dryckesproduktionen baseras liksom för odling på genomsnittliga antaganden baserat på littersturstudier för relevanta grödor och alkoholdrycker. Systemgränsen inkluderar transporten av jordbruksråvaror till produktionsanläggningen, produktionen av övriga tillsatser och ingredienser samt el- och bränsleförbrukning, och slutar vid färdig dryck. Utsläppsberäkningarna bygger på emissionsfaktorer från Ecoinvent. Gällande dryckesförpackningar omfattas utsläppsberäkningarna av livscykelstadierna för råvaruutvinning, transport samt materialproduktion. Utsläppsberäkningarna bygger på en rapport utförd av BIO Intelligence Service (BiS) 'Nordic LCA Wine Package Study (2010)'. En uppdatering gjordes 2019.
+
+Kategori 4 - uppströms transport och distribution
+
+Utsläppen från distribution täcker transport från producent till butik i Sverige. Utsläppsberäkningarna bygger på genomsnittliga antagande gällande fordonstyp, fyllnadsgrad och distans. Beräkningarna baseras på Systembolagets försäljningsvolym med respektive produkts ursprungsland som utgångspunkt. Globala emissionsfaktorer används för sjöfrakt medan vägtransporterna är uppdelade på global, EU samt Sverige nivå. Emissionsfaktorerna hämtas från NTM (Network for Transport Measures).
+
+Strategiska nyckeltal
+
+Läs mer om Systembolagets mål.
+
+| Konsumtionsutveckling                                              | Utfall 2024   | Utfall 2023   | Mål 2024                      | Ägarmål   | Styrelsens mål   | Mål för hållbart värdeskapande   |
+|--------------------------------------------------------------------|---------------|---------------|-------------------------------|-----------|------------------|----------------------------------|
+| Totalkonsumtion, liter ren alkolhol per invånare 15 år och äldre 1 | -             | 8,6           | -                             | X         | X                | X                                |
+| Systembolagets konsumtionsandel 1 (%)                              | -             | 70,5          | -                             | X         | X                |                                  |
+| Ålderskontroll (%)                                                 | 97,5          | 97,5          | 96,0                          |           | X                |                                  |
+| Alkoholindex                                                       | 59,2          | 59,5          | 'Positiv utveckling över tid' | X         | X                |                                  |
+
+| Kundnöjdhet             | Utfall 2024   | Utfall 2023   | Mål 2024   | Ägarmål   | Styrelsens mål   | Mål för hållbart värdeskapande   |
+|-------------------------|---------------|---------------|------------|-----------|------------------|----------------------------------|
+| Nöjd Kund Index (NKI)   | 80,3          | 80,3          | 80,7       | X         | X                | X                                |
+| NKI Hållbarhet          | 74,6          | 74,1          | 74,5       |           | X                |                                  |
+| Opinionsindex (OPI) (%) | 68,0          | 66,5          | >67        |           | X                |                                  |
+
+| Klimatavtryck                | Utfall 2024   | Utfall 2023   | Mål 2024   | Ägarmål   | Styrelsens mål   | Mål för hållbart värdeskapande   |
+|------------------------------|---------------|---------------|------------|-----------|------------------|----------------------------------|
+| Klimatavtryck (ton CO 2 e) 2 | 725 080       | -             | -          |           | X                | X                                |
+
+1 Redovisas årsvis med ett års eftersläpning . Målsätts ej.
+
+2 Nytt nyckeltal för 2024. Redovisas årsvis. Omfattar scope 1,2 samt kategorierna 1, 4 och 9 inom scope 3 (enl SBTi-mål). Basår 2019 740 455 (ton CO 2 e). Ej målsatt 2024.
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+O m s y s t e m b o l a g e t
+
+Ansvaraednvosvaigi
+
+204dn.a a
+
+3ÅatknhÅ.snVrDad-EhnV. a föaäelmlnaEraEhn.s
+
+föaäv6näaf6ävs-SdVlDsva
+
+åöVVSlnosv a fvnlvsDräelaÅ6pesVvlV
+
+Vå r a   v ä s e n t l i g a   o m r å d e n
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Hål l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+Om Systembolaget Strategiska nyckeltal
+
+Koldioxidutsläpp redovisat enligt GHG-protokollet
+
+Under 2015 började Systembolaget tydligare följa upp sina utsläpp baserat på Green House Gas Protocol (GHG-protokollet) för att redovisa vår klimat  påverkan. Under 2024 blev Systembolagets klimatmål validerade och godkända av SBTi (Sience Based Targets initiative).
+
+Kategori 9 - nedströms transport
+
+Baseras på utsläppsberäkning för kunders resor i samband med besök vid Systembolagets butiker där metoden härstammar från en miljöutredning utförd av IVL från 2020. Utsläppsberäkningarna bygger på årligt antal besök hos respektive butik tillsammans med statistik kring resmönster från Miljöbarometern kombinerat med emissionsfaktorer från Trafikverket.
+
+Kategori 6 - tjänsteresor
+
+Omfattar resor med flyg, tåg, kollektivtrafik samt ersatta kilometer för egen bil i tjänst. Utsläpp från flygresor beräknas på uppgifter om resta kilometer från resebyrå. Utsläpp från resor med egen bil beräknas utifrån resta kilometer som inrapporterats i Systembolagets lönesystem. Resor som tåg och kollektivtrafik bygger på leverantörsspecifik information som kompletteras med reseschabloner.
+
+Kategori 5 - avfall
+
+Utsläppen från avfall baseras på avfallsmängden som Systembolagets butiker genererar. Det består främst av wellpapp och mjukplast.
+
+Baserat på uppförandekod amfori BSCI 2.0 11
+
+| Utfallskategori                                                                                      | 2024   | 2023   | 2022   |
+|------------------------------------------------------------------------------------------------------|--------|--------|--------|
+| Antal leverantörer som deltagit i utvärderingen gällande sociala villkor                             | 71     | 24     | 12     |
+| Antal leverantörer med signifikant negativ påverkan på sociala villkor                               | 25     | 8      | 10     |
+| Antal leverantörer med mindre kritisk negativ påverkan på sociala villkor                            | 39     | 17     | 12     |
+| Antal identifierade signifikanta avvikelser gällande sociala villkor i leverantörskedjan             | 47,5   | 40,5   | 18     |
+| Antal identifierade mindre kritiska negativa avvikelser gällande sociala villkor i leverantörskedjan | 148    | 153,5  | 85,5   |
+
+Systembolaget tillämpar Amfori BSCI:s uppförandekod. Med leverantörer avses producenter och odlare. Från och med september 2024 tillämpar Amfori endast semi-annonserade revisioner. Förändringen innebär att leverantörer ges ett fönster på fyra veckor när revision kan komma ske, istället för ett fast datum, vilket ökar kvaliteten på revisionen och gör utfallet mer rättvisande. Antalet revisioner på plats fortsätter även att öka mot tidigare år, bland annat genom upphandling av nya ramavtal för leverantörsrevisioner. Vidare har medlemskap tecknats med hållbarhetsorganisationen Sedex för ytterligare alternativ till att utföra leverantörsrevision och tillgång till redan utförda revisioner hos producenter som levererar till Systembolaget och är granskade genom Sedex. I sammanställningen av årets resultat separeras signifikanta och mindre kritiska avvikelser i enlighet med Amforis kravstandard.
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om vår ansvarsredovisning
+
+I vår ansvarsredovisning integrerar vi årsredovisning och bolagsstyrningsrapport med vår hållbarhetsredovisning.
+
+Hållbarhetsredovisningen för 2024 har förberetts i enlighet med Global Reporting Initiative (GRI)   standarder, publikationsår 2021. Den senaste redovisningen publicerades den 27-03-2023. För årets hållbarhetsredovisning genomförde Systembolagets externa revisorer, liksom föregående år, en kombinerad granskning innebärande en översiktlig granskning (begränsad säkerhet) av redovisningen i kombination med revision (rimlig säkerhet) av nyckeltalen andel sjukfrånvaro, engagemangsindex, samt könsfördelning och andel med utländsk bakgrund. Se revisors rapport över kombinerad granskning av hållbarhetsredovisningen sida 151.
+
+Hållbarhetsredovisningen för verksamhetsåret 2024 omfattar Systembolaget AB samt det helägda dotterbolaget IQ-initiativet AB:s verksamhet som är väsentlig ur ett hållbarhetsperspektiv. Hållbarhetsdata som faller utanför IQ-initiativets informationsuppdrag redovisas inte, och inte heller Systembolagets övriga dotterbolag, då de inte har väsentlig betydelse i förhållande till Systembolaget som helhet. Där GRI:s riktlinjer uppmanar till redovisning per region motsvarar det hela Sverige.
+
+Väsentlighetsanalysen är utgångspunkten för struktur såväl som innehåll i hållbarhetsredovisningen. Som en del av förberedelserna för det nya EU -direktivet för hållbarhetsrapportering, Corporate Sustainability Reporting Directive (CSRD), har väsentlighetsanalysen för årets hållbarhetsredovisning genomförts i linje med direktivet. Utfallet av årets väsentlighetsanalys har resulterat i att de väsentliga   hållbarhetsområdena i stort är desamma som 2023, med ett tillägg: Resursanvändning. För fördjupande information om väsentlighetsanalysen, se sida 133.
+
+Enligt GRI:s regelverk ska all påverkan en organisation har på hållbar utveckling följas upp. Detta har tagits i beaktande genom minst en GRI- eller egen upplysning per väsentligt hållbarhetsområde. Med avseende på att ägaren gett statliga bolag möjlighet att sluta tillämpa GRI när CSRD/ESRS träder i kraft, är vi restriktiva med att ta in nya nyckeltal för 2024.
+
+I hållbarhetsredovisningen för 2024 redovisas i stort samma GRI-upplysningar och egna upplysningar som år 2023. Några förändringar sker, som alla rör egna upplysningar:
+
+- Vattenpåverkan - 'Systematiskt miljöarbete dryckesleverantörer' utgår. 'Andel av dryckesvolym baserad på certifierad odling (vattenpåverkan)' tillkommer.
+- Jordhälsa och biologisk mångfald - 'Försäljningsandel ekologiskt' utgår. 'Andel av dryckesvolym baserad på certifierad odling' tillkommer.
+- Resursanvändning - 'Ton avfall i driften' utgår. 'Andel returnerade återfyllningsbara förpackningar' tillkommer.
+- Arbetsmiljö och inkludering - 'Prestationskultur' utgår. 'Engagemangsindex' tillkommer.
+
+Mät- och beräkningsmetoder beskrivs om tillämpligt i samband med respektive upplysning. Sammanställningen och kvalitetssäkringen av hållbarhetsredovisningens GRI- och egna upplysningar görs av Systembolagets ansvarig för hållbarhetsrapporteringen. Målnivåer och jämförelsesiffror redovisas i förekommande fall. All uppföljningsdata av våra koldioxidutsläpp beräknas sedan 2015 utifrån Green House Gas Protocol (GHGprotokollet) 11. I de fall jämförelsesiffror från tidigare årsredovisningar har ändrats redovisas detta under aktuell upplysning.
+
+Systembolagets årliga internrevision granskar flera områden inom verksamheten, däribland antikorruptionsarbetet, utifrån en riskanalys som bedömer relevans baserat på sammanvägt riskvärde. Detta beskrivs närmare i Bolagsstyrningsrapporten, se sida 69.
+
+Kontaktperson på Systembolaget Presschef Katinka Wall Telefon (växel): 08-503 300 00
+
+Om systembol a g e t
+
+V Å R A   V Ä S E N T L I G A   O M R Å D E N
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Hål l b a r h e t s r a p p o r t
+
+I våravnseånaeadoiågesgst
+
+-caohblsgstv åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda
+
+öimogi2gobpemyll
+
+0sepymmon
+
+4GR(gsod2
+
+Ö v r i g t
+
+608 760 ton CO 2 e
+
+Sortimentets totala klimatavtryck
+
+Klimatavtrycket från Systembolagets sortiment står för ca 80 procent av vårt totala klimatavtryck. Ett delmål är att avtrycket från sortimentet ska ha minskat med 25 procent till 2027. Nyckeltalet bygger på beräkning av varje enskild drycks klimatavtryck som uppstår hela vägen från odling av råvaran till det att produkten står på Systembolagets hyllor samt total försäljning på Systembolaget under året. 2024 är första året som detta nyckeltal redovisas. Basår 2019: 588 973 ton CO 2 e
+
+17%
+
+Andel av sortimentet (volym) från   identifierade vattenbristområden som genom   certifiering eller   motsvarande produceras med vattenbesparande metoder
+
+Produktcertifieringar är ett sätt att verifiera ett ansvarsfullt arbete med vattenbesparande metoder kopplat till produkter från identifierade vattenbristområden. Detta nyckeltal fungerar som en indikator på hur stor andel av Systembolagets försäljningsvolym från ursprung med vattenrisk som representeras av certifiering kopplat till lägre risk inom vatten.
+
+15%
+
+Andelen återfyllningsbara glasflaskor som återvinns
+
+Systembolaget har i sitt sortiment produkter med återfyllningsbar förpackning (returglas). Med   anledning av detta är det också möjligt att panta returglasen hos   Systembolagets butiker. Det här nyckeltalet visar andelen av de returglas vi säljer som i sin tur pantas på en av Systembolagets butiker.
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om systembol a g e t
+
+VÅR A   V Ä S E N T L I G A   OMR Å D E N
+
+Alt vigötrvl påe klamjmoövcvoålaj j låemtrhmjövlaåöhålaå j
+
+.tröjvVcjmltröv  gdtrvl j u nåta:rofsjvVcjrlöogiå rle
+
+4klaöoremj kttrecåtå j vVcjm nåtahrooöv j
+
+4rofs
+
+0Ioonm mji yVöåahmo j rjögli:ståt
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Hål l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+<!-- image -->
+
+F Ö R P A C K N I N G
+
+Klimatavtrycket från förpackning   påverkas bl.a. av råmaterial och fram  ställningens energiförbrukning.
+
+Dryckernas klimatavtryck uppstår längs hela kedjan från odlingen av   råvarorna till det att dryckerna står på Systembolagets hyllor. Relevant data för att kunna beräkna klimatavtrycket från en enskild produkt samlas in i fyra 'moduler', som till slut räknas samman till ett totalt avtryck för produkten,   mätt i kg CO 2 e / liter.
+
+<!-- image -->
+
+Klimatavtryck
+
+För att klara Parisavtalets ambition om att hålla den globala uppvärmningen till högst 1,5 grad krävs kraftfulla insatser. Målet är att halvera klimatavtrycket i hela värdekedjan till 2030. År 2045 ska Systembolagets klimatavtryck vara netto noll.
+
+Sett till hela värdekedjan medför verksamheten en negativ påverkan genom ett betydande klimatavtryck. Tillsammans med kunder, leverantörer och andra samarbetspartners finns stora möjligheter att minska klimatavtrycket.
+
+Flerårsöversikt moderbolag
+
+| Resultat, strategiska nyckeltal (MSEK)                                 | 2024    | 2023   | 2022   | 2021   | 2020   |
+|------------------------------------------------------------------------|---------|--------|--------|--------|--------|
+| Nöjd Kund Index (NKI) 1                                                | 80,3    | 80,3   | 80,7   | 80,7   | 81,9   |
+| Opinionsindex (OPI),% 2                                                | 68,0    | 66,5   | 72,9   | 75,2   | 76,0   |
+| Ålderskontroll,%                                                       | 97,5    | 97,5   | 97,0   | 96,5   | 95,3   |
+| Total sjukfrånvaro,%                                                   | 6,1     | 6,0    | 6,2    | 5,6    | 5,4    |
+| Klimatavtryck CO 2 e 3                                                 | 726 336 | -      | -      | -      | -      |
+| Kostnadseffektivitet,% 2                                               | 18,4    | 18,1   | 2,5    | 2,3    | 2,3    |
+| Alkoholindex                                                           | 59,2    | 59,5   | 60,0   | 61,1   | 63,4   |
+| Totalkonsumtion, liter ren alkohol per invånare från 15 år och äldre 4 | -       | 8,6    | 8,8    | 8,7    | 8,5    |
+| Resultat, alternativa nyckeltal                                        | 2024    | 2023   | 2022   | 2021   | 2020   |
+| Avkastning på eget kapital,%                                           | 20,2    | 24,3   | 9,5    | 21,1   | 27,9   |
+| Soliditet,%                                                            | 23,5    | 25,1   | 23,4   | 22,6   | 26,3   |
+| Bruttomarginal,%                                                       | 12,2    | 12,5   | 12,6   | 12,5   | 12,7   |
+| Rörelsemarginal inklusive alkoholskatt,%                               | 0,7     | 0,8    | 0,7    | 1,1    | 1,5    |
+| Lageromsättningshastighet, ggr                                         | 24,9    | 22,6   | 23,0   | 24,3   | 24,6   |
+| Resultat, övriga nyckeltal                                             | 2024    | 2023   | 2022   | 2021   | 2020   |
+| Årsarbetare 5                                                          | 3 709   | 3 736  | 3 896  | 4 035  | 3 884  |
+
+- 1     Ny mätmetod från och med 2020 vilket påverkarjämförbarheten mellan åren.
+- 2     Ny mätmetod från och med 2023 vilket påverkar jämförbarheten mellan åren.
+- 3     Nytt nyckeltal för 2024. Redovisas årsvis. Klimatavtryck innefattar scope 1,2,3. Basår 2019 742 843 (CO 2 e).
+- 4     Redovisas med ett års eftersläpning.
+- 5     Ny mätmetod från och med 2023 vilket påverkar jämförbarheten mellan åren.
+
+O m s y s t e m b o l a g e t
+
+V å r a   v ä s e n t l i g a   o m r å d e n
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Resusltae (MSEKe)tu2
+
+0tae4 sK3 e1ua)t23EMaFuF)ia ns)F2aaMiäutu2aäFggsäM
+
+fMiäE)aE
+
+ödäEMF2a)EAutu2
+
+01eEuaeFgEä
+
+rsMEä
+
+H å l l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+Nettoomsättning exklusive alkoholskatt (MSEK)
+
+| Nettoomsättning exklusive alkoholskatt   | 2024   | 2023   |
+|------------------------------------------|--------|--------|
+| Nettoomsättning inkl alkoholskatt        | 39 407 | 38 174 |
+| Alkoholskatt                             | 14 959 | 14 217 |
+| Nettoomsättning exklusive alkoholskatt   | 24 448 | 23 957 |
+
+Produktens klimatavtryck
+
+<!-- image -->
+
+<!-- image -->
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+Ö v r
+
+i
+
+g
+
+t
+
+p
+
+o
+
+r
+
+t
+
+Noter
+
+De viktigaste aktuariella antagandena var följande:
+
+| Aktuariella antaganden   | 2024-12-31   | 2023-12-31   | 2022-12-31   |
+|--------------------------|--------------|--------------|--------------|
+| Diskonteringsränta       | 3,75%        | 3,60%        | 3,70%        |
+| Inflation                | 2,0%         | 2,0%         | 2,0%         |
+| Löneökning               | 2,2%         | 2,2%         | 2,2%         |
+| Personalomsättning       | 6,9%         | 6,9%         | 6,9%         |
+| Förväntad livslängd      | DUS23        | DUS23        | DUS21        |
+
+Antaganden beträffande livslängd baseras på offentlig statistik och erfarenheter från dödlighetsundersökningar i Sverige och fastställs i samråd med aktuariell expertis.
+
+Känsligheten i den förmånsbestämda förpliktelsen för ändringar i de vägda väsentliga antagandena är:
+
+|                           |            | Inverkan på den förmånsbestämda förpliktelsen   | Inverkan på den förmånsbestämda förpliktelsen   |
+|---------------------------|------------|-------------------------------------------------|-------------------------------------------------|
+|                           |            | Ökning i antaganden                             | Minskning i antaganden                          |
+| Förändring i antaganden   | 2024-12-31 | 2024-12-31                                      | 2024-1 2 -31                                    |
+| Diskonteringsränta ±1%    | 3,75%      | 4,75%                                           | 2,75%                                           |
+| Förpliktelsen nuvärde     | 2 486      | 2 138                                           | 2 926                                           |
+| Inflation ±1%             | 2,00%      | 3,00%                                           | 1,00%                                           |
+| Förpliktelsens nuvärde    | 2 486      | 2 905                                           | 2 152                                           |
+| Förväntad livslängd ±1 år | DUS23      | + 1 års livslängd                               | - 1 års livslängd                               |
+| Förpliktelsens nuvärde    | 2 486      | 2 573                                           | 2 398                                           |
+
+Ovanstående känslighetsanalyser baseras på en förändring i ett antagande medan alla andra antaganden hålls konstanta. I praktiken är det osannolikt att detta inträffar och förändringar i några av antagandena kan vara korrelerade. Vid beräkning av käns ligheten i den förmånsbestämda förpliktelsen för väsentliga aktuariella antaganden används samma metod (nuvärdet av den förmånsbestämda förpliktelsen med tillämp ning av den s.k. projected unit credit method vid slutet av rapportperioden) som vid beräkning av pensionsskulden som redovisas i rapporten över finansiell ställning.
+
+Vägd genomsnittlig löptid för pensionsförpliktelsen uppgår till 20 år (20 år).
+
+-
+
+-
+
+| Vägd                 | 2024-12-31   | 2024-12-31   | 2023-12-31   | 2023-12-31   | 2022-12-31   | 2022-12-31   |
+|----------------------|--------------|--------------|--------------|--------------|--------------|--------------|
+| genomsnittlig löptid | Noterade     | Onoterade    | Noterade     | Onoterade    | Noterade     | Onoterade    |
+| Aktier               | 1 217        | -            | 1 071        | -            | 998          | -            |
+| Obligationer         | 1 070        | -            | 1 018        | -            | 971          | -            |
+| Fastigheter          | -            | 120          | -            | 145          | -            | 142          |
+| Övrigt               | -            | 433          | -            | 439          | -            | 456          |
+| Summa                | 2 287        | 553          | 2 089        | 584          | 1 969        | 598          |
+
+Verkligt värde på förvaltningstillgångarna om MSEK 2 840 per 2024-12-31, MSEK 2 673 per 2023-12-31 samt 2 567 per 2022-12-31 i denna tabell är innan hänsyn är tagen till den restriktion av överskott i KPA-planen med avseende på tillgångstak om MSEK 468, 369 respektive 325.
+
+Nedskrivning av icke-finansiella tillgångar
+
+Immateriella tillgångar som inte är färdiga för användning, skrivs inte av utan prövas årligen avseende eventuellt nedskrivningsbehov. Tillgångar som skrivs av bedöms med avseende på värdenedgång närhelst händelser eller förändringar i förhållanden indikerar att det redovisade värdet kanske inte är återvinningsbart. En nedskrivning görs med det belopp varmed tillgångens redovisade värde överstiger dess återvinningsvärde. Återvinningsvärdet är det högre av tillgångens verkliga värde minskat med försäljningskostnader och dess nyttjandevärde.
+
+Vid bedömning av nedskrivningsbehov grupperas tillgångar på de lägsta nivåer där det finns i allt väsentligt oberoende kassaflöden (kassagenererande enheter). För tillgångar som tidigare har skrivits ner görs per varje balansdag en prövning av om återföring bör göras.
+
+Systembolagets etableringspolicy anger att målsättningen är att alla kommuner som inte redan har en butik skall få en butik efter framställan samt att kundunderlaget ska vara styrande i etablering av fler än en butik i en kommun, dvs antalet inköpsberättigade i kommunen. Verksamheten följs även upp per butik. Därav har Systembolaget valt gruppering av butiker på kommunnivå som minsta kassagenererande enhet.
+
+I enlighet med IAS 36 tar Systembolaget ställning till om det finns indikation på ett nedskrivningbehov av det koncernmässiga bokförda värdet på butiksnätet inom samma kommun. För att säkerställa om det finns några indikationer på nedskrivning av nyttjandetillgångar inom en kommun följs samtliga butikers resultat upp.
+
+Är det så att butiken visar negativt resultat och verkar ensam i kommunen exkluderas denna från nedskrivningsprövningen med bakgrund av Systembolagets uppdrag, då möjlighet att stänga ner butiken inte finns.
+
+Dubbel väsentlighetsanalys
+
+CSRD ställer krav på att verksamheten genomför en dubbel väsentlighetsanalys, det vill säga att den innefattar en bedömning av både inverkansväsentlighet (Systembolagets påverkan på människa och miljö) och finansiell väsentlighet (människors och miljöns påverkan på Systembolagets finansiella ställning och affärsmöjligheter). Den dubbla väsentligheten har bedömts i ett flertal tvärfunktionella workshops med Systembolagets sakkunniga inom respektive hållbarhetsområde.
+
+Dialoger med våra intressenter
+
+För att kunna leva upp till förväntningarna på Systembolagets verksamhet i linje med det samhällsuppdrag och de ambitioner inom hållbarhet som Systembolaget har förs löpande dialog med intressenter. Det kan vara ägare, kunder, medarbetare, leverantörer, producenter och intresseorganisationer eller andra representanter för samhället i stort. Vilka undergrupperingar som är mest väsentliga ses löpande över genom intressentkartläggningar för att vi ska kunna skapa relevanta nätverk och plattformar för våra intressentdialoger. Vi genomför olika typer av enkätundersökningar minst en gång per år. Vi genomför även rundabordssamtal och undersökningar utifrån behov och specifika ämnesområden. Resultaten från
+
+enkätundersökningar och dialoger används bland annat i Systembolagets strategiska arbete samt för utvecklad förståelse och hantering av vår påverkan, risker och möjligheter. Nedan redogör vi för dialoger som hållits under 2024 och beskriver kort vad dessa dialoger resulterat i.
+
+| Väsentliga dialoger 2024                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Systembolaget medverkar i det nationella initiativet 'Alkohol & Cancer' som syftar till att öka kunskapen om sambanden mellan alkohol och cancer. Initiativet lanserades 2023 av Regionala Cancercentrum och i nätverket ingår både myndigheter och civil- samhällets aktörer. Systembolaget har en aktiv roll i arbetsgruppen och 2024 inleddes med en nätverksträff hos Systembolaget, under året låg vidare fokus på att öka kännedom om sambandet hos vårdpersonal och få fler att lyfta samtalet med patienter för primär prevention. Arbetet uppmärksammades genom artiklar i ett flertal tidningar riktade till vården och två filmer producerades för att spridas under 2025. I oktober medverkade Systembolaget och Regionala Cancercentrum i ett webbinarium med särskilt fokus på alkohol och bröstcancer. Systembolaget har två partnersamarbeten inom forskningsområdet, med Svenska föreningen för alkohol- och drogforskning (SAD) och med Nordens välfärdscenter (NVC). Samarbetena syftar till att identifiera behov av kunskap och forskning samt för att sprida gemensam kunskap, bland annat genom konferenser och utbildningar. Exempelvis finansierade och deltog Systembolaget på SAD:s tvärvetenskapliga forskningskonferens i Göteborg under två dagar i november. NVC har också involverats i nomine- ringsprocessen för Systembolagets Alkoholforskningsråd. |
+| Systembolaget (tidigare IQ) följer svenskarnas attityder till alkohol i olika sammanhang genom den årliga undersökningen Alkoholindex. Syftet är att följa hur synen på alkohol i Sverige förändras över tid. Ett återkommande tema är tonåringar och alkohol där Systembolaget under året har tagit över från IQ i arbetet med och publicering av Tonårsparlören - som vänder sig till föräldrar med fakta och tips om ungdomar och alkohol. Genom insatserna är målet att skapa dialog mellan enskilda individer, samt aktörer på lokal, regional och nationell nivå.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Sustainable Brand Index™ är Europas största oberoende varumärkesstudie med fokus på hållbarhet. Genom denna får vi årligen förutom en övergripande ranking också en fördjupad analys av vad Sveriges konsumenter tycker är viktigt att Systembolaget fokuserar på och prioriterar i hållbarhetsarbetet inklusive hälsa.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Varje månad tillfrågas ett riksrepresentativt urval av människor om sin syn på alkoholmonopolet. Totalt genomförs cirka 12 000 intervjuer per år. Systembolaget genomför också återkommande opinionsundersökningar kopplade till olika strategiska initiativ.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V Å R A
+
+i
+
+n
+
+a
+
+n
+
+s
+
+Ö v r
+
+i
+
+t
+
+i
+
+g
+
+b
+
+e
+
+e
+
+t
+
+a
+
+m
+
+l
+
+r
+
+b
+
+l
+
+h
+
+o
+
+e
+
+l
+
+r
+
+t
+
+a
+
+a
+
+s
+
+g
+
+p
+
+N
+
+r
+
+e
+
+p
+
+T
+
+a
+
+t
+
+o
+
+L
+
+p
+
+r
+
+I
+
+p
+
+t
+
+G
+
+o
+
+e
+
+A
+
+r
+
+r
+
+t
+
+i
+
+O
+
+n
+
+M
+
+g
+
+R
+
+N
+
+|                                                                                                        | Intressentgrupp   | Viktiga nyckelfrågor     | Väsentliga dialoger 2024                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|--------------------------------------------------------------------------------------------------------|-------------------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Ä Å                                                                                                    | Samhälle          | Mångfald och inkludering | Under 2024 har samarbetet fortsatt med Arbetsförmedlingen kring bland annat Jobbspår som syftar till att underlätta inträdet för personer som står långt ifrån arbetsmarknaden.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| å                                                                                                      |                   | Tillsyn                  | Systembolaget har regelbundet dialog med tillsynsmyndigheter inom områden som är relevanta för vår verksam- het, som exempevis Alkoholsortimentsnämnden, Brottsförebyggande rådet, Folkhälsomyndigheten, Arbetsmiljöverket, Konsumentverket, Konkurrensverket, Livsmedelsverket, Skatteverket, Tullverket samt Ekobrottsmyndigheten, Polismyndigheten och Socialstyrelsen. Under 2024 har aktuella frågor varit distansförsäljning och dess tillsyn, märkning av alkoholdrycker, illegal försäljning av alkohol och vikten av förebyggande arbete.                                                                                                                                                                     |
+| I våravnseånaeadoiågesgst                                                                              |                   | Samverkan med lärosäten  | Löpande samarbeten och dialog med olika lärosäten är en pågående del av Systembolagets arbete, i syfte att utbyta kunskap och information samt som ett led i arbetet med att vara en attraktiv arbetsgivare.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -caohblsgstv åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda öimogi2gobpemyll 0sepymmon 4GR(gsod2 |                   | Medlemskap               | Systembolaget är medlem i: • amfori BSCI (Business Social Compliance Initiative), sedan 2011 • Global Compact, sedan 2013 • Global Deal, sedan 2018 • Stronger Together, sedan 2018 • Dryckesbranschens Klimatinitiativ, sedan 2016 • Ethical Trading Initiative (ETI) Sverige, sedan 2019 • Sustainable Wine Roudtable (SWR), sedan 2022 • Sedex, sedan 2024 Systembolaget är även medlem i Svensk Handel, Svenskt Näringsliv, SNS, Sveriges Kommunikatörer, Kungliga Ingenjörsvetenskapsakademien (IVA), Center for Retailing (Handelshögskolan) samt Vetenskap & Allmänhet. 2013 tecknades avtal med IUF, International Union of Food, Agricultural, Restaurant, Catering, Tobacco and Allied Workers Associations. |
+|                                                                                                        | Kunder            | Att möta kunden          | För att kunna fortsätta utveckla Systembolagets erbjudande och kundmöte genomförs tre gånger per år en mätning som resulterar i ett Nöjd Kund Index (NKI). Det ger en fördjupad bild av kundernas upplevelse av butik, ombud, hemleverans och kundtjänst samt signalerar gap mellan förväntningar och upplevd prestation. Därmed kan nya utvecklingsområden identifieras.                                                                                                                                                                                                                                                                                                                                              |
+|                                                                                                        | Ägare             | Samhällsuppdraget        | Genom ägardialog och bolagsstämma förs kontinuerlig dialog med ägaren för att säkerställa uppfyllnad av ägarens förväntningar och krav. Under året har bland annat verksamhetsuppföljning inklusive uppföljning av uppdragsmålen diskuterats, såväl som ekonomiska mål, hållbarhetsmål, frågor rörande e-handel, logistik, nya mål och strategiska nyckeltal inom området folkhälsa, juridiska frågor samt andra för bolaget relevanta frågeställningar.                                                                                                                                                                                                                                                               |
+|                                                                                                        | Medarbetare       | Kompetens och utveckling | Kontinuerliga medarbetarsamtal är chefernas och medarbetarnas viktigaste verktyg för att tillsammans sätta mål, prata om förväntningar och utveckla både medarbetarna och verksamheten.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|                                                                                                        |                   | Medarbetarengagemang     | Under 2024 har ett nytt verktyg för medarbetarundersökningar implementerats. I butiker och depåer genomförs mätningar halvårsvis, medan en kortare pulsmätning genomförs varje månad på huvudkontoret. Medarbetarundersökningen är ett verktyg som syftar till att stärka både individens, chefens och gruppens möjligheter att aktivt arbeta med och utveckla engagemang och arbetsmiljö.                                                                                                                                                                                                                                                                                                                             |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V Å R A
+
+i
+
+n
+
+a
+
+n
+
+s
+
+Ö v r
+
+i
+
+t
+
+i
+
+g
+
+b
+
+e
+
+e
+
+t
+
+a
+
+m
+
+l
+
+r
+
+b
+
+l
+
+h
+
+o
+
+e
+
+l
+
+r
+
+t
+
+a
+
+a
+
+s
+
+g
+
+p
+
+N
+
+r
+
+e
+
+p
+
+T
+
+a
+
+t
+
+o
+
+L
+
+p
+
+r
+
+I
+
+p
+
+t
+
+G
+
+o
+
+e
+
+A
+
+r
+
+r
+
+t
+
+i
+
+O
+
+n
+
+M
+
+g
+
+R
+
+N
+
+|                                                      | Intressentgrupp   | Viktiga nyckelfrågor                                     | Väsentliga dialoger 2024                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+|------------------------------------------------------|-------------------|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Å Ä Å                                                | Medarbetare       | Etik                                                     | Etikdialoger med syfte att hålla etiska frågor levande och skapa dialog kring etiska dilemman inom hela verksamheten. Fortlöpande dialog kring vår interna uppförandekod Kompassen som det även finns två e-utbildningar om. Systembolaget är medlem i: • Institutet mot Mutor (IMM) • Transparency International Sverige Business Integrity Forum (BIF)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| å I våravnseånaeadoiågesgst -caohblsgstv             | Medarbetare       | Arbetsmiljöfrågor och samverkan                          | Systembolagets arbetsmiljökommitté träffas fyra gånger per år där arbetsgivar- och personalrepresentanter samverkar kring strategiska arbetsmiljöfrågor. Personalrepresentanterna informeras om utvecklingen på arbetsmiljöområdet och facket informerar om något inte fungerar, så att företaget kan agera. Samverkan i frågor som rör arbetsplatsen (drift, ekonomiska förutsättningar, organisationsförändringar, personal och arbets- miljö) förs i syfte att upptäcka eventuella problem på ett tidigt stadium. Samverkan genomförs löpande i arbetsgrupper mellan chef och medarbetare samt i samverkansforum där representanter från arbetsgivaren och fackliga parter möts.                                                                                                                                                                                                                                                                                                                   |
+| åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda | Leverantör        | Miljö och klimat Löpande branschsamarbete                | Under 2024 har Dryckesbranschens klimatinitiativ genomfört flera digitala möten gällande den årliga rapporten om dryckes- branschens klimatavtryck, samt ett fysiskt möte i syfte att utbyta erfarenheter mellan deltagarna rörande klimat och transporter. Sedan 2020 finns två utökade samarbetsgrupper för operativa hållbarhetsfrågor inom SVL och Sveriges Bryggerier. Syftet är att                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| 0sepymmon 4GR(gsod2                                  | Leverantör        | Samverkan                                                | Som en effekt av den årliga genomlysning av hållbarhetscertifieringar som utförs av externa tredje part på uppdrag av Systembolaget förs kontinuerlig dialog med programägare till olika certifieringar. Systembolaget har utifrån resultatet från genomlysningen bidragit med synpunkter och information hur certifieringar med svaga områden kan stärka upp sina krav. Under 2024 har indikatorerna i genomlysningen uppdateras vilket har inneburit en än tätare dialog med de olika certifieringarnas programägare. Leverantörsträffar för samverkan (möjligheter, utmaningar och väg framåt) genomförs regelbundet på olika teman: • Socialt ansvarstagande och Miljökrav i leverantörskedjan. Systembolaget delar insikter om nuvarande fokusområden samt planer framåt. Inom miljö och klimat har fokus varit på utveckling av metoder för att kunna beräkna klimatpåver- kan från produkter, samt inhämtning av klimatrelaterad data från producenter och odlare. Inom socialt ansvarstagande |
+|                                                      | Statliga monopol  | Löpande samverkan inom social och miljömässig hållbarhet | Samverkan och kontinuerlig dialog med övriga nordiska monopol inom NAM (The Nordic Alcohol Retail Monopolies). Inom NAM fortlöper arbetet i enlighet med framtagna färdplaner för att på övergripande nivå enas om och kommunicera gemensamma åtaganden inom miljö, klimat och mänskliga rättigheter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+
+O
+
+F
+
+H
+
+m
+
+i
+
+n
+
+s
+
+a
+
+y
+
+n
+
+s
+
+s
+
+i
+
+t
+
+i
+
+g
+
+b
+
+e
+
+e
+
+t
+
+a
+
+m
+
+l
+
+r
+
+b
+
+l
+
+h
+
+o
+
+e
+
+l
+
+r
+
+t
+
+a
+
+a
+
+s
+
+g
+
+p
+
+N
+
+r
+
+e
+
+p
+
+T
+
+a
+
+t
+
+o
+
+L
+
+p
+
+r
+
+I
+
+p
+
+t
+
+G
+
+o
+
+e
+
+A
+
+r
+
+r
+
+t
+
+i
+
+O
+
+n
+
+M
+
+g
+
+R
+
+N
+
+|                                                                                                                                          | Viktiga nyckelfrågor                                      | Väsentliga dialoger 2024                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Å Ä Å å I våravnseånaeadoiågesgst -caohblsgstv åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda öimogi2gobpemyll 0sepymmon 4GR(gsod2 | Miljöpåverkan och mänskliga rättigheter leverantörskedjan | Löpande samarbete med IUF (International Union of Food, Agricultural, Hotel, Restaurant, Catering, Tobacco and Allied Workers Associations), Unionen och SPF Unionen inom ramen för vårt gemensamma Memorandum of Understanding (MoU) med syfte att samverka med fackliga organisationer för att förbättra arbetsvillkoren för alkoholindustrin. Under 2024 har dialog fortsatt rörande frågor kring mänskliga rättigheter i Systembolagets leverantörskedja i Sydafrika, Frankrike, USA och Italien. Fackförbund i Karibien har blivit inbjudna till utbildningsaktiviteter som adresserar risker kopplade till sockerrörsproduktion. Dialogen med tre italienska fackförbund ligger vilande för tillfället, däremot ökar intresset generellt för vårt MoU, inte bara bland fackförbund i olika geografier men också bland andra företag inom detaljhandeln i Sverige och internationellt. Under 2024 har arbetet inom Sustainable Wine Roundtable, där Systembolaget är medgrundare, konkretiserats med ett för- djupat arbete inom en arbetsgrupp för återförsäljare av alkoholdrycker. Arbetet med ett globalt ramverk för att harmonisera hållbarhetscertifieringar har haft en första leverans där fem certifieringar jämförts mot det globala ramverket. Systembolaget deltar aktivt i flera av SWRs arbetsgrupper och innehar även en plats i styrelsen för SWR. Systembolaget, Alko och Vinmonopolet initierade 2023 workshopserien 'Human Rights Due Diligence Workshop Series' som under året tagits vidare och i dialog med andra retailer-medlemmar i SWR diskuteras ett närmare samarbete för att tillsammans hantera frågor som rör mänskliga rättigheter och arbetsvillkor med möjlighet att skapa ökat inflytande och potentiellt nå större positiva effekter. Fortsatt engagemang i ETI Sverige där Systembolaget är en av grundarmedlemmarna för nätverket, med syfte att adressera gemensamma hållbarhetsutmaningar i leverantörskedjan. Systembolaget innehar en plats i styrelsen för ETI Sverige och är engagerade i en arbetsgrupp dedikerad att hantera risker i svensk vildbärindustri. Genom medverkan i Bonsucro Living Wage Working Group för Systembolaget dialog och bidrar med rekommendationer, inspel och idéer till Bonsucros arbete med att främja levnadslön utifrån kriterier i deras certifieringsstandard för hållbar sockerrörs- odling och produktion. Detta arbete ligger i linje med de nordiska alkoholmonopolens gemensamma viljeyttring för hållbar romproduktion. |
+|                                                                                                                                          | Partnersamverkan med fokus på barn och andrahandsskador   | Genom initiativet Barndom utan baksmälla samarbetar Systembolaget med barnrättsorganisationerna Bris, Maskrosbarn, Trygga barnen och World Childhood Foundation. Syftet är att få fler vuxna att agera när barn far illa av vuxnas drickande genom bred kunskapsspridning kring vad vuxna kan göra om de ser ett barn som drabbas. Under året har information och kunskap delats bland annat genom annonsering i digitala kanaler genom förtjänad media och spridning av guiden 'Avgörande ögon- blick'. Guiden distribuerades via Systembolagets butiker och genom partnerorganisationerna, till exempel vid föreläsningar, till idrotts- och föreningsliv och till samtliga skolor i Sverige.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+
+Om systembol a g e t
+
+V Å R A   V Ä S E N T L I G A   O M R Å D E N
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Hål l b a r h e t s r a p p o r t
+
+I våravnseånaeadoiågesgst
+
+-caohblsgstv åyedspmgt.dpensnmHeds fgnmitdav dovåranvgspadeedspda
+
+öimogi2gobpemyll
+
+0sepymmon
+
+4GR(gsod2
+
+Ö v r i g t
+
+Forskning och engagemang
+
+Systembolaget finns till för att begränsa alkoholens skade  verkningar och en del av vårt uppdrag är att informera om alkoholens skadeverkningar. En förutsättning för att lyckas med uppdraget är att det finns vetenskapligt underlag som är relevant för svenska förhållanden.
+
+Alkoholforskningen bygger kunskap om hur alkohol på  verkar samhället och människan. Vi bidrar till vetenskapen genom att finansiera forskning och genom att sprida resultat från alkoholforskning.
+
+Rekordmånga ansökningar inkom till Systembolagets alkoholforskningsråd under 2024. Totalt finansierade Systembolaget 22 olika forskningsprojekt med sammanlagt 10 miljoner kronor. Projekten som beviljades medel gällde bland annat konsumtion av alkohol och relaterade skador hos sårbara grupper såsom unga vuxna och äldre. Läs mer om projekten och vårt engagemang inom   forskning på omsystembolaget.se.
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om systembol a g e t
+
+VÅRA VÄ S E N T L I G A   O M R Å D E N
+
+Vi presn tri avåpmiälglonrdroviägg ivål tflgnriävnfviävpg
+
+ö tngrjdgli tnrppsx tri
+
+g
+
+kp.v äDtoubgrjdgtinosevptiå
+
+cmiänotålgpm  tådv vpg rjdglp.v äftoonrpg ctoub
+
+yhoo.lplgep,jnväflog tgnsieDb v
+
+F i n a n s i e l l   r a p p o r t e r i n g Hål l b a r h e t s r a p p o r t Ö v r i g t
+
+<!-- image -->
+
+Våra väsentliga områden Begränsa alkoholens negativa konsekvenser
+
+Drogfokus
+
+Systembolaget medverkade på Drogfokus i Karlstad i november 2024 för att sprida Barndom Utan Baksmällaguiden 'Avgörande Ögonblick' och Tonårsparlören. Systembolaget höll även en föreläsning om det ökade fokuset på folkhälsa.
+
+Genomsnittet av svenskarnas anskaffning av alkohol, mätt i ren alkohol per person och år över 15 år och äldre, minskade med 2,7 procent under 2023 jämfört med 2022. Jämfört med 2019 har konsumtionen minskat med 3,8 procent. 9
+
+<!-- image -->
+
+Alkoholsnacket är en digital tjänst för den som är orolig över någon annans alkoholvanor, men osäker på hur de ska ta snacket.
+
+<!-- image -->
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+kaprmjoch.Vmr dupn.gpgm:cnepueuV fsf4
+
+m
+
+s
+
+y
+
+s
+
+t
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+g
+
+e
+
+t
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+Ö v r
+
+i
+
+g
+
+t
+
+p
+
+o
+
+r
+
+t
+
+Noter
+
+Systembolaget AB erhöll under 2024 en utdelning på 23 MSEK från AB K14 Näckströmsgatan.
+
+|                                    |             |           |               |               | Bokfört värde   | Bokfört värde   |   Eget kapital |   Eget kapital |
+|------------------------------------|-------------|-----------|---------------|---------------|-----------------|-----------------|----------------|----------------|
+| Aktier i dotterbolag, koncernbolag | Org. nr     | Säte      | Antal andelar | Kapitalandel% | 2024            | 2023            |           2024 |           2023 |
+| IQ-initiativet AB                  | 556680-9892 | Stockholm | 10            | 100           | 0,1             | 0,1             |              6 |              7 |
+| AB K14 Näckströmsgatan             | 556741-9238 | Stockholm | 10            | 100           | 0,1             | 0,1             |            140 |            139 |
+| Summa                              |             |           |               |               | 0,2             | 0,2             |            146 |            146 |
+
+| Aktier i dotterbolag         | 2024   | 2023   |
+|------------------------------|--------|--------|
+| Ingående balans, 1 januari   | 0,2    | 0,2    |
+| Förändringar under året      | -      | -      |
+| Utgående balans, 31 december | 0,2    | 0,2    |
+
+| Systembolaget har erlagt kapitalinsats med 1 000 SEK i nedanstående kommanditbolag:   | Organisations- nummer   | Säte      |
+|---------------------------------------------------------------------------------------|-------------------------|-----------|
+| Fastighetsbolaget Näckströmsgatan i Stockholm KB                                      | 969674-9390             | Stockholm |
+
+Varfö gvriöa
+
+detf?aPlolsvöuöseaPo o aetlrimlovöaPevmeaPefo nrivoökuolarivöffgbriöa o
+
+äfIerPOisåcoökuoiavsg efiat h?aPvsitlof?rrituerefo ökuolfIerPmissvöf o
+
+Global Compact
+
+FN-  initiativ och ramverk för hållbart företagande vars principer vi har åtagit oss att följa. Global Compact är uppbyggt kring tio principer inom mänskliga rättigheter, arbetsvillkor, miljö och antikorruption.
+
+Ann Carlsson Meyer
+
+VD, Systembolaget
+
+20io4.3Åtkh4o VDi-keie4EÅ- iD Dhvföfä
+
+m
+
+s
+
+y
+
+s
+
+t
+
+e
+
+m
+
+b
+
+o
+
+l
+
+a
+
+g
+
+e
+
+t
+
+GLYPH&lt;31&gt;GLYPH&lt;30&gt;GLYPH&lt;29&gt;GLYPH&lt;28&gt;GLYPH&lt;27&gt;GLYPH&lt;26&gt;GLYPH&lt;27&gt;GLYPH&lt;25&gt;GLYPH&lt;24&gt;GLYPH&lt;30&gt; GLYPH&lt;28&gt;GLYPH&lt;23&gt;GLYPH&lt;29&gt;GLYPH&lt;28&gt;GLYPH&lt;27&gt;GLYPH&lt;22&gt;GLYPH&lt;21&gt;GLYPH&lt;22&gt;GLYPH&lt;20&gt;
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;17&gt;GLYPH&lt;24&gt;GLYPH&lt;30&gt;GLYPH&lt;16&gt;GLYPH&lt;27&gt;
+
+GLYPH&lt;27&gt;
+
+GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;27&gt;GLYPH&lt;13&gt; GLYPH&lt;12&gt;GLYPH&lt;30&gt;GLYPH&lt;11&gt;GLYPH&lt;14&gt;GLYPH&lt;16&gt;GLYPH&lt;29&gt;GLYPH&lt;30&gt; GLYPH&lt;10&gt;GLYPH&lt;26&gt;GLYPH&lt;9&gt;GLYPH&lt;27&gt;GLYPH&lt;24&gt;GLYPH&lt;8&gt;GLYPH&lt;7&gt;GLYPH&lt;11&gt;GLYPH&lt;30&gt; GLYPH&lt;10&gt;GLYPH&lt;16&gt;
+
+GLYPH&lt;27&gt;
+
+GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;27&gt;GLYPH&lt;4&gt;GLYPH&lt;25&gt;GLYPH&lt;3&gt;GLYPH&lt;2&gt;GLYPH&lt;3&gt;GLYPH&lt;30&gt;GLYPH&lt;27&gt;GLYPH&lt;7&gt;GLYPH&lt;26&gt;GLYPH&lt;27&gt;GLYPH&lt;7&gt;GLYPH&lt;11&gt;GLYPH&lt;30&gt;GLYPH&lt;16&gt;GLYPH&lt;29&gt;
+
+GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;27&gt;GLYPH&lt;4&gt;GLYPH&lt;28&gt; GLYPH&lt;1&gt;GLYPH&lt;30&gt;GLYPH&lt;4&gt;GLYPH&lt;27&gt;GLYPH&lt;6&gt;GLYPH&lt;1&gt;GLYPH&lt;4&gt;GLYPH&lt;28&gt;GLYPH&lt;29&gt;GLYPH&lt;8&gt;•GLYPH&lt;24&gt;GLYPH&lt;10&gt;GLYPH&lt;3&gt;GLYPH&lt;9&gt;GLYPH&lt;29&gt;GLYPH&lt;28&gt;GLYPH&lt;27&gt;
+
+•GLYPH&lt;5&gt;GLYPH&lt;10&gt;GLYPH&lt;10&gt;• GLYPH&lt;3&gt;GLYPH&lt;30&gt; GLYPH&lt;23&gt;GLYPH&lt;29&gt;GLYPH&lt;28&gt;
+
+GLYPH&lt;27&gt;
+
+GLYPH&lt;6&gt;GLYPH&lt;28&gt;GLYPH&lt;30&gt;GLYPH&lt;3&gt;GLYPH&lt;28&gt;GLYPH&lt;29&gt;GLYPH&lt;9&gt;GLYPH&lt;26&gt;GLYPH&lt;4&gt;GLYPH&lt;25&gt;GLYPH&lt;3&gt;GLYPH&lt;27&gt;GLYPH&lt;14&gt;GLYPH&lt;1&gt;GLYPH&lt;141&gt;GLYPH&lt;25&gt;GLYPH&lt;29&gt;GLYPH&lt;10&gt;GLYPH&lt;28&gt;GLYPH&lt;3&gt;GLYPH&lt;10&gt;
+
+n
+
+t
+
+l
+
+i
+
+g
+
+a
+
+o
+
+m
+
+r
+
+n
+
+n
+
+s
+
+i
+
+e
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+V å r a v ä s e å d e å l l Ö v r
+
+O
+
+F
+
+H
+
+i
+
+n
+
+a
+
+i
+
+g
+
+b
+
+t
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+Om Systembolaget En föränderlig omvärld
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+r
+
+a
+
+Ö v r
+
+i
+
+g
+
+t
+
+p
+
+p
+
+o
+
+r
+
+t
+
+Styrelse, arbetstagarrepresentanter
+
+Robert Adrell Ordinarie
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+Född: 1964 Huvudsaklig utbildning: Studerat kemi, statsvetenskap, historia och ekonomisk historia vid Göteborgs universitet.
+
+Övriga uppdrag: Anställd försäljare och dryckesprovningshandledare sedan 1987, Ordförande Föreningsstyrelsen Systembolagets
+
+Personalförening/Unionen.
+
+Utsedd: 2018
+
+Andreas Bengtsson Ordinarie
+
+Född: 1973 Huvudsaklig utbildning: Gymnasielärare samhällskunskap och engelska. Arbetsrättsutbildning på Stockholm Universitet och CSR-utbildning på Luleå Tekniska Universitet. Övriga uppdrag: Vice ordförande &amp; internationell sekreterare SPF Unionen, regionordförande Unionen Västerbotten. Central förhandlare för chefer i butik i Norr.
+
+Utsedd: 2022
+
+Malin Ljungstedt Suppleant
+
+Född: 1968 Huvudsaklig utbildning : Ekonomisk linje, Arbetsrätt TCO Fackliga akademin 15 poäng.
+
+Övriga uppdrag: Försäljare sedan 1998, Ledamot i arbetsmiljökommittén, Ledamot i föreningsstyrelsen/ Ekonomiansvarig, Vice ordf/ Svealand Försäljare.
+
+Utsedd: 2023
+
+Maria Hagström Suppleant
+
+<!-- image -->
+
+Född: 1964 Huvudsaklig utbildning : Sommelier,  Beklädnadsteknisk utbildning. Ledarskap och Verksamhetsutveckling. Övriga uppdrag: Vice ordförande i SPF Unionen, Ledamot i HK-sektionens styrelse.
+
+Utsedd: 2023
+
+GLYPH&lt;19&gt; GLYPH&lt;18&gt;GLYPH&lt;22&gt; GLYPH&lt;23&gt;GLYPH&lt;17&gt; GLYPH&lt;16&gt; GLYPH&lt;15&gt; GLYPH&lt;14&gt; GLYPH&lt;13&gt; GLYPH&lt;12&gt; GLYPH&lt;11&gt; GLYPH&lt;17&gt; GLYPH&lt;23&gt; GLYPH&lt;10&gt; GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt; GLYPH&lt;25&gt; GLYPH&lt;22&gt; GLYPH&lt;25&gt;GLYPH&lt;17&gt; GLYPH&lt;7&gt; GLYPH&lt;14&gt;GLYPH&lt;8&gt; GLYPH&lt;20&gt; GLYPH&lt;22&gt; GLYPH&lt;9&gt; GLYPH&lt;20&gt; GLYPH&lt;9&gt; GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+O m s y s t e m b o l a g e t
+
+V å r a   v ä s e n t l i g a   o m r å d e n
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+FörsräljönigReuötlsa
+
+,ljöÅnru nöKsjtla egjfsftdj
+
+Mrtfajjgdoslsajofbbrog
+
+Sgdoetje mvoegfajtecslsa
+
+,Köesjöfbeo krgeo
+
+H å l l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+Finansiell rapportering Företagsledning
+
+Rapporterade incidenter av korruption*
+
+| Utfallskategori                                                                                                             |   2024 |   2023 |   2022 |
+|-----------------------------------------------------------------------------------------------------------------------------|--------|--------|--------|
+| Totalt antal bekräftade incidenter av korruption                                                                            |      0 |      0 |      0 |
+| Totalt antal bekräftade incidenter av korruption där anställda blivit arbetsrättsligt disciplinerade på grund av korruption |      0 |      0 |      0 |
+| Antal rättsprocesser som anhängiggjorts vid allmän domstol eller förvaltningsdomstol på grund av korruptionsincident        |      0 |      0 |      0 |
+
+*     Detta mätetal följer antal incidenter då Systembolaget har konstaterat att ett mutbrott har begåtts av en medarbetare.
+- Om en medarbetare bryter mot de förebyggande rutiner vi har mot korruption kan påföljden vara disciplinära åtgärder från
+
+Systembolaget som arbetsgivare. Under 2024 har inga incidenter bekräftats.
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om systembol a g e t VÅRA VÄ S E N T L I G A   O M R Å D E N
+
+Vi presn tri avåpmiälglonrdroviägg ivål tflgnriävnfviävpg
+
+ö tngrjdgli tnrppsx tri
+
+g
+
+kp.v äDtoubgrjdgtinosevptiå
+
+cmiänotålgpm  tådv vpg rjdglp.v äftoonrpg ctoub
+
+yhoo.lplgep,jnväflog tgnsieDb v
+
+F i n a n s i e l l   r a p p o r t e r i n g Hål l b a r h e t s r a p p o r t Ö v r i g t
+
+<!-- image -->
+
+GLYPH&lt;19&gt;GLYPH&lt;18&gt;GLYPH&lt;22&gt;GLYPH&lt;23&gt;GLYPH&lt;17&gt;GLYPH&lt;16&gt;GLYPH&lt;15&gt;GLYPH&lt;14&gt;GLYPH&lt;13&gt;GLYPH&lt;12&gt;GLYPH&lt;11&gt;GLYPH&lt;17&gt;GLYPH&lt;23&gt; GLYPH&lt;10&gt;GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt;GLYPH&lt;25&gt;GLYPH&lt;22&gt;GLYPH&lt;25&gt;GLYPH&lt;17&gt;GLYPH&lt;7&gt;GLYPH&lt;14&gt;GLYPH&lt;8&gt;GLYPH&lt;20&gt;GLYPH&lt;22&gt;GLYPH&lt;9&gt;GLYPH&lt;20&gt;GLYPH&lt;9&gt;GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+Om systembol a g e t VÅR A   V Ä S E N T L I G A   OMR Å D E N
+
+Alt vigötrvl påe klamjmoövcvoålaj j låemtrhmjövlaåöhålaå j
+
+.tröjvVcjmltröv  gdtrvl j u nåta:rofsjvVcjrlöogiå rle
+
+4klaöoremj kttrecåtå j vVcjm nåtahrooöv j
+
+4rofs
+
+0Ioonm mji yVöåahmo j rjögli:ståt
+
+F i n a n s i e l l   r a p p o r t e r i n g Hål l b a r h e t s r a p p o r t Ö v r i g t
+
+GLYPH&lt;31&gt;GLYPH&lt;30&gt;GLYPH&lt;29&gt;GLYPH&lt;28&gt;GLYPH&lt;27&gt; GLYPH&lt;26&gt;GLYPH&lt;25&gt;GLYPH&lt;28&gt;GLYPH&lt;24&gt;GLYPH&lt;23&gt;GLYPH&lt;22&gt;GLYPH&lt;21&gt;GLYPH&lt;25&gt; GLYPH&lt;20&gt;GLYPH&lt;27&gt; GLYPH&lt;23&gt;
+
+<!-- image -->
+
+Våra väsentliga områden Miljö
+
+Systembolagets risker
+
+Nedan presenteras områden inom vilka Systembolaget har sin största riskexponering inklusive risker utifrån ett hållbarhetsperspektiv och klimatrelaterade finansiella risker och möjligheter.
+
+| Riskområde                    | Beskrivning                                                                                                                                                                                                                                                                                                          | Kommentar                                                                                                                                                                                                                                                                                                           |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Andrahandsskador              | Alkohol skadar inte bara den som dricker utan även personer i omgivningen, där barn är särskilt utsatta. 320 000 barn i Sverige har farit illa av en förälders eller vårdnadshavares alkoholproblem under sin uppväxt.                                                                                               | Systembolaget verkar för att begränsa alkoholens skadeverkningar genom att sälja med ansvar och informera om alkoholens risker. Systembolaget arbetar specifikt med barnfrågan genom initiativet Barndom utan baksmälla. (Se sida 22)                                                                               |
+| Förutsättningar för uppdraget | Systembolagets möjligheter att fullfölja uppdraget att minimera alkoholens skadeverkningar på såväl individ som samhällsnivå kan försvåras när ensamrätten utmanas.                                                                                                                                                  | En av förutsättningarna för Systembolagets ensamrätt är att den svenska lag- stiftningen på området är sammanhängande och konsekvent, samt att det finns en god tillsyn. För närvarande finns det osäkerheter i såväl tillsyn som kommande lagstiftning, vilket skapar risk i den kontext som Systembolaget verkar. |
+| Oberoende                     | Då Systembolaget har ensamrätt så föreligger det alltid en risk att intressenter på olika sätt försöker påverka företagets inköpsprocesser och därigenom sortiment.                                                                                                                                                  | Systembolaget arbetar för att ständigt höja medvetandegraden hos våra anställda samt informera om och förtydliga kring våra inköpsrutiner och villkor för våra intressenter, som ett viktigt led i vårt antikorruptionsarbete.                                                                                      |
+| Informations- säkerhet        | Systembolaget blir allt mer IT-baserat vilket gör att hoten rörande informations- säkerhet ökar samtidigt som attackerna blir mer sofistikerade.                                                                                                                                                                     | Systembolaget arbetar systematiskt med IT- och informationssäkerhet med etablerade mål, strukturer, ökad medvetenhet och kompetens.                                                                                                                                                                                 |
+| Arbetsvillkor                 | Inom den typen av detaljhandel som Systembolaget bedriver finns det risk för rån. Hot och våldsincidenter mot anställda är tyvärr inte helt främmande inom företaget. Det finns därför en osäkerhet om de trygghetshöjande åtgärderna som finns på plats inom företaget är tillräckliga för att kunna hantera detta. | Systembolaget hanterar riskbilden kontinuerligt genom sin säkerhetsenhet samt ser över personalens medvetandegrad och exponering mot hot och våld.                                                                                                                                                                  |
+| Ekonomiska läget              | Den ekonomiska situationen med lågkonjunktur, förändrar kundbeteendet och därigenom intäkterna och kundernas hållbara val.                                                                                                                                                                                           | Systembolaget arbetar kontinuerligt med effektiviseringar, översyn av kostnads- trender och utveckling av erbjudandet.                                                                                                                                                                                              |
+
+O
+
+F
+
+H
+
+m
+
+s
+
+y
+
+s
+
+V å r a
+
+i
+
+n
+
+a
+
+m
+
+b
+
+o
+
+l
+
+a
+
+v ä s e
+
+n
+
+t
+
+l
+
+i
+
+g
+
+a
+
+o
+
+m
+
+r
+
+å d e
+
+n
+
+n
+
+s
+
+i
+
+e
+
+l
+
+l
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+e
+
+r
+
+i
+
+n
+
+g
+
+Systsembyolag vyrmtk hmbydosvioy4tbrmki ab5t5r2b
+
+usr5kbba2ctmtkbc5ffsca na2c rb
+
+90c a5kbr ,tmtk h4y tby5f c
+
+jsa c
+
+å l l
+
+b
+
+a
+
+r
+
+h
+
+e
+
+t
+
+s
+
+Ö v r
+
+i
+
+g
+
+t
+
+r
+
+a
+
+p
+
+p
+
+o
+
+r
+
+t
+
+t
+
+e
+
+g
+
+e
+
+t
+
+| Riskområde                                    | Beskrivning                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Kommentar                                                                                                                                                                                                                                                                                                    |
+|-----------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Spårbarhet och transparens i leverantörsleden | Systembolaget verkar inom en bransch där spårbarhet och transparens i leverantörsleden historiskt sett inte har prioriterats. Detta beror på att leverantörs- kedjorna ofta är komplexa och på att information om var en producent anskaffar sin råvara ifrån anses utgöra en affärshemlighet. Detta gör att det är en utmaning för Systembolaget, och i viss mån även för våra leverantörer, att säkerställa att vår uppförandekod efterlevs genom hela leverantörskedjan. | Systembolaget genomför årligen kartläggningar för att identifiera riskområden. Systembolaget arbetar med ökad kompetens, tydligare kravställning, förbättrad uppföljning, åtgärder och konsekvensaktiviteter för att nå ökad efterlevnad av vår uppförandekod och minska risken för korruption. (Se sida 27) |
+| Försämrad påverkansgrad                       | Systembolaget verkar inom en miljö med komplexa leverantörskedjor med en komplex affärsmodell med väldigt stor spridning av inköp från många regioner och länder. Detta innebär inte nämnvärt stora volymer per affärsidkare vilket ger Systembolaget mindre påverkansgrad och mindre möjlighet till kontroll av efter- levnad av hållbarhetskrav än andra större inköpare på världsmarknaden.                                                                              | Systembolaget genomför årliga revisioner av leverantörer och producenter för att få ökad kontroll på de produkter som säljs. Vidare kompletterar Systembolaget revisionerna med utbildningsinsatser i producentled. (Se sida 38)                                                                             |
+| Produktion                                    | Systembolagets produkter kräver odlingsyta och naturresurser för att framställas. Därmed kan det uppstå konkurrens om mark och naturresurser när en allt större global befolkning ska försörjas genom den mark- och vattentillgång som finns tillgänglig med rådande klimatförändringar.                                                                                                                                                                                    | Systembolaget bedriver idag samverkan och utbildningsinsatser med hållbarhets - perspektiv i leverantörs- och producentled för att gemensamt bidra till en hållbar utveckling. (Se sida 38)                                                                                                                  |
+| Förutsättningar för goda sociala villkor      | En framtida ökning av klimatrelaterade oros- och konfliktområden skapar utmaningar i kontrollen av Systembolagets leverantörer. Detta ökar i sig osäkerheten kring att Systembolagets produkter är producerande utifrån goda sociala villkor där mänskliga rättigheter efterlevs.                                                                                                                                                                                           | Systembolaget har vidareutvecklat sitt systemstöd för att skapa en mer effektiv uppföljning som skapar en större spårbarhet och transparens i leverantörskedjan. (Se sida 38)                                                                                                                                |
+| Utbuds- och leveransmöjligheter               | Klimatförändringarna gör odlings- och konkurrensbetingelserna för råvarorna och produkterna till Systembolagets sortiment svåra att förutsäga. Detta skapar framtida osäkerheter gällande Systembolagets möjlighet att tillhandahålla produkter från påverkade områden.                                                                                                                                                                                                     | Systembolaget arbetar med en bredd i sortimentet där många ursprung är representerade. Detta skapar i sig mindre sårbarhet vid utebliven regional produktion eller leverans. (Se sida 49)                                                                                                                    |
+| Omställning av erbjudandet                    | Allt högre krav från kunder och andra intressenter kräver snabba omställningar för att leva upp till kundernas förväntningar på vårt erbjudande och klimatarbete.                                                                                                                                                                                                                                                                                                           | Systembolaget arbetar kontinuerligt för ständiga förbättringar av kundmötet och erbjudandet. Systembolaget driver idag strategiskt arbete med att minska dryckernas hållbarhetspåverkan (se sida 53) och skapa förutsättningar för hållbara val.                                                             |
+
+GLYPH&lt;19&gt; GLYPH&lt;18&gt;GLYPH&lt;22&gt; GLYPH&lt;23&gt;GLYPH&lt;17&gt; GLYPH&lt;16&gt; GLYPH&lt;15&gt; GLYPH&lt;14&gt; GLYPH&lt;13&gt; GLYPH&lt;12&gt; GLYPH&lt;11&gt; GLYPH&lt;17&gt; GLYPH&lt;23&gt; GLYPH&lt;10&gt; GLYPH&lt;9&gt;GLYPH&lt;22&gt;GLYPH&lt;8&gt;GLYPH&lt;12&gt; GLYPH&lt;25&gt; GLYPH&lt;22&gt; GLYPH&lt;25&gt;GLYPH&lt;17&gt; GLYPH&lt;7&gt; GLYPH&lt;14&gt;GLYPH&lt;8&gt; GLYPH&lt;20&gt; GLYPH&lt;22&gt; GLYPH&lt;9&gt; GLYPH&lt;20&gt; GLYPH&lt;9&gt; GLYPH&lt;11&gt;GLYPH&lt;28&gt;GLYPH&lt;6&gt;GLYPH&lt;5&gt;GLYPH&lt;6&gt;GLYPH&lt;4&gt;
+
+O m s y s t e m b o l a g e t
+
+V å r a   v ä s e n t l i g a   o m r å d e n
+
+F i n a n s i e l l   r a p p o r t e r i n g
+
+Systsembyolag vyrmtk hmbydosvioy4tbrmki ab5t5r2b
+
+usr5kbba2ctmtkbc5ffsca na2c rb
+
+90c a5kbr ,tmtk h4y tby5f c
+
+jsa c
+
+H å l l b a r h e t s r a p p o r t
+
+Ö v r i g t
+
+P R O D U K T I O N
+
+Klimatavtrycket från produktion   påverkas bl.a. av produktionsmetod, energiförbrukning och övriga tillsatser.
+
+Aktiekapital
+
+Stamaktier klassificeras som eget kapital. Transaktionskostnader som direkt kan hänföras till emission av nya aktier redovisas, netto efter skatt, i eget kapital som ett avdrag från emissionslikviden.
+
+Kommande standarder
+
+CSRD (Corporate Sustainability Reporting Directive) Den 1 juli 2024 trädde det nya regelverket CSRD (Corporate Sustainability Reporting Directive) i kraft. Från och med den 1 januari 2025 omfattas Systembolaget av CSRD vilket kommer att påverka dispositionen av Ansvarsredovisningen. CSRD kraven innebär att Systembolaget framöver kommer att inkludera en hållbarhetsredovisning som en integrerad del av förvaltningsberättelsen. Vidare innebär införandet av CSRD att Systembolaget kommer att redovisa i enlighet med EU:s taxonomi för hållbara investeringar.
+
+Redogörelse av processen - CSRD/ESRS
+
+Likt tidigare år kommer Systembolaget för räkenskaps  året 2024 hållbarhetsredovisa enligt GRI:s rapporteringsram  verk. Själva väsentlighetsanalysen har emellertid genomförts i linje med det nya EU-direktivet CSRD och tillhörande rapporteringsstandarder European Sustainability Reporting Standards (ESRS). Detta eftersom vi inledningsvis arbetade under antagandet att vi skulle rapportera enligt CSRD/ESRS redan år 2024, samt att vi ser att det ger oss en god grund inför 2025 då Systembolaget kommer att rapportera enligt det nya rapporteringsdirektivet.

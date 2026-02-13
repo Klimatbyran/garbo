@@ -1,0 +1,822 @@
+Scope 1-utsläpp
+
+Hemnet har inga direkta utsläpp inom Scope 1 eftersom vi inte har några företagsfordon	eller	liknande	utsläppskällor.
+
+<!-- image -->
+
+Mål för att bekämpa klimatförändringar:
+
+- Minska absoluta växthusgasutsläpp i scope 1 och scope 2 med 42 % till 2030
+- Uppnå nettonollutsläpp inom alla tre scope till 2050
+
+| Resultatindikatorer: Koldioxidutsläpp, ton CO2e.   | 2022     | 2023     | 2024     |
+|----------------------------------------------------|----------|----------|----------|
+| Scope 1                                            |          |          |          |
+| Tjänstebilar                                       | 0        | 0        | 0        |
+| Scope 2                                            |          |          |          |
+| El                                                 | 0        | 0        | 0        |
+| Fjärrvärme                                         | 2,18     | 0,31     | 0,33     |
+| Fjärrkyla                                          | 0        | 0        | 0        |
+| Scope 3                                            |          |          |          |
+| Inköpta varor och tjänster                         | 1 219,49 | 1 802,30 | 2 037,16 |
+| Kapitalvaror                                       | 14,71    | 17,80    | 7,03     |
+| Bränsle- och energirelaterade aktiviteter          | 0,45     | 1,24     | 0,74     |
+| Transport och distribution                         | 0,09     | 0,07     | 0,48     |
+| Avfall genererat i verksamheten                    | 0,04     | 0,02     | 0,01     |
+| Affärsresor                                        | 33,60    | 14,64    | 33,82    |
+| Anställdas pendling                                | 61,73    | 47,87    | 39,14    |
+| Användning av sålda produkter                      | 2,39     | 0,87     | 0,72     |
+| Totala utsläpp scope 1-3                           | 1 334,68 | 1 885,12 | 2 119,1  |
+
+Att minska energiförbrukningen på vårt kontor är en viktig del av vårt klimatarbete,	eftersom	det	är	vår	enda	källa	till	Scope	2-utsläpp.	Vårt	kontor drivs med 100 % förnybar el (sol, vatten eller vind), och byggnaden har en platinumcertifiering	enligt	det	gröna	byggsystemet	LEED.	Merparten	av	värmen och kylningen i byggnaden kommer från ett geotermiskt system som inte genererar	några	CO2e-utsläpp.	När	ytterligare	fjärrvärme	behövs	ser Vasakronan, ägaren av vår kontorsfastighet, till att använda den renaste tillgängliga	energin	eller	klimatkompenserar	för	utsläppen.
+
+Scope 3-utsläpp
+
+Under 2023 kartlade vi Scope 3-utsläpp i hela vår värdekedja, både uppströms och nedströms, baserat på leverantörsdata eller kostnadsbaserade uppskattningar	när	faktisk	data	saknades.	Vi	är	glada	över	att	utsläppen	från Hemnets plattform (webb och appar) är små, tack vare samarbeten med globala aktörer	som	AWS	och	Google,	som	har	egna	klimatmål.	De	största	utsläppen uppstår dock inom kategorin 'Inköpta varor och tjänster', såsom konsulttjänster och, mest betydande, provisioner till fastighetsmäklare för deras arbete och försäljning	kopplad	till	Hemnets	produkter.	Eftersom	faktiskt	data	från mäklarbyråer saknas förlitar vi oss på kostnadsbaserade beräkningar för denna kategori.	Med	tanke	på	de	ökande	provisionsutbetalningarna	överskattar	denna metod troligen de utsläpp som Hemnet indirekt bidrar till genom samarbetet med	mäklarbranschen.	Att	förbättra	datakvaliteten	är	en	prioritet	för	2025.
+
+Fokusområde 2: Bidra i kampen mot klimatförändringar
+En hållbar digital verksamhet
+Scope 2-utsläpp
+
+Tack vare Hemnets digitala affärsmodell är vår påverkan på klimatet och miljön låg.	Vi	är	dock	fast	beslutna	att	ta	ansvar	och	bidra	till	en	välfungerande bostadsmarknad	inom	planetens	gränser.	Hemnet	har	inga	lokala IT-driftsfunktioner utan förlitar sig helt på molntjänster, vilket innebär att vi inte hanterar	någon	serverutrustning	på	plats.	Våra	två	huvudsakliga	IT-leverantörer har	båda	ambitiösa	mål	för	att	minska	sina	CO2e-utsläpp.
+
+Hemnet säkerställer att hårdvara som returneras av tidigare medarbetare återanvänds	när	det	är	möjligt.	Uttjänta	datorer,	skärmar	och	telefoner	säljs	till företag som specialiserar sig på återbruk, så att produkterna kan användas lokalt	av	exempelvis	skolor,	företag	och	privatpersoner.	Icke-fungerande utrustning	granskas	för	att	identifiera	delar	som	kan	återanvändas,	och elektronikavfall	skickas	till	certifierade	återvinningsföretag.
+
+Vårt kontor, som ligger i en fastighet ägd av Vasakronan, drar nytta av Vasakronans höga hållbarhetsstandarder inom områden som cirkularitet och klimatpåverkan.	Detta	påverkar	vår	energiförbrukning	(se	'Scope	2'	nedan) och	avfallshantering.	Vi	sorterar	allt	avfall	i	vårt	pentry,	som	dagligen transporteras till byggnadens miljörum och vidare in i avfallscykeln via Vasakronans	tjänster.
+
+CO2e-utsläpp
+
+Under 2023 genomförde Hemnet en omfattande kartläggning av både direkta och	indirekta	utsläpp	inom	alla	tre	scope,	för	att	få	full	insyn	i	vårt	klimatavtryck. Trots att våra utsläpp är relativt låga tack vare vår digitala affärsmodell fokuserar vi på att ta fram handlingsplaner för att minska dem, särskilt inom Scope 3, med strategier	som	väntas	vara	färdiga	till	2025.
+
+Miljö
+Social hållbarhet
+
+E1 Klimatförändringar
+
+Bolagsstyrning
+
+S1 Egen arbetskraft
+
+S2 Arbetskraft i värdekedkan
+
+S4 Konsumenter och slutanvändare
+
+<!-- image -->
+
+G1 Företagsuppförande
+
+(b) Finansiella instrument i nivå 2
+
+Andra observerbara data för tillgången eller skulden än noterade priser inkluderade i nivå 1, antingen direkt (dvs. som prisnoteringar) eller indirekt (dvs. härledda från prisnoteringar).
+
+Moderbolagets rapport över förändringar i eget kapital
+
+|                                                                   | Bundet eget kapital   | Fritt eget kapital    | Fritt eget kapital           | Fritt eget kapital      |                            |
+|-------------------------------------------------------------------|-----------------------|-----------------------|------------------------------|-------------------------|----------------------------|
+| BeloppiMSEK                                                       | Aktiekapital (Not M5) | Överkursfond (Not M5) | Balanserat resultat (Not M5) | Årets resultat (Not M5) | Summaeget kapital (Not M5) |
+| Ingående balans per 1 januari 2023                                | 77,4                  | 867,6                 | -326,1                       | 331,0                   | 949,9                      |
+| Omföring av föregående års resultat                               | -                     | -                     | 331,0                        | -331,0                  | -                          |
+| Årets resultat                                                    | -                     | -                     | -                            | 748,5                   | 748,5                      |
+| Övrigt totalresultat                                              | -                     | -                     | -                            | -                       | -                          |
+| Summatotalresultat                                                | -                     | -                     | -                            | 748,5                   | 748,5                      |
+| Transaktioner medägare                                            |                       |                       |                              |                         |                            |
+| Utdelning                                                         | -                     | -                     | -98,0                        | -                       | -98,0                      |
+| Återköp av aktier                                                 | -                     | -                     | -418,5                       | -                       | -418,5                     |
+| Emission av teckningsoptioner                                     | -                     | 5,0                   | -                            | -                       | 5,0                        |
+| Återköp av teckningsoptioner                                      | -                     | -0,4                  | -                            | -                       | -0,4                       |
+| Inlösen av aktier                                                 | -2,1                  | 2,1                   | -                            | -                       | -                          |
+| Fondemission                                                      | 2,1                   | -2,1                  | -                            | -                       | -                          |
+| Summatransaktioner medbolagets ägare                              | -                     | 4,6                   | -516,5                       | -                       | -511,9                     |
+| Utgående balans per 31 december 2023                              | 77,4                  | 872,2                 | -511,6                       | 748,5                   | 1 186,5                    |
+| Ingående balans per 1 januari 2024                                | 77,4                  | 872,2                 | -511,6                       | 748,5                   | 1 186,5                    |
+| Omföring av föregående års resultat                               | -                     | -                     | 748,5                        | -748,5                  | -                          |
+| Årets resultat                                                    | -                     | -                     | -                            | 521,2                   | 521,2                      |
+| Övrigt totalresultat                                              | -                     | -                     | -                            | -                       | -                          |
+| Summatotalresultat                                                | -                     | -                     | -                            | 521,2                   | 521,2                      |
+| Transaktioner medägare                                            |                       |                       |                              |                         |                            |
+| Utdelning                                                         | -                     | -                     | -115,2                       | -                       | -115,2                     |
+| Återköp av aktier                                                 | -                     | -                     | -427,7                       | -                       | -427,7                     |
+| Återköp av teckningsoptioner                                      | -                     | -0,7                  | -                            | -                       | -0,7                       |
+| Inlösen av aktier                                                 | -1,7                  | 1,7                   | -                            | -                       | -                          |
+| Fondemission                                                      | 1,7                   | -1,7                  | -                            | -                       | -                          |
+| Nyemission av aktier till följd av nyttjande av teckningsoptioner | 0,3                   | 50,7                  | -                            | -                       | 50,9                       |
+| Övriga transaktioner medägare                                     | -                     | -                     | 0,4                          | -                       | 0,4                        |
+| Summatransaktioner medbolagets ägare                              | 0,3                   | 50,0                  | -542,5                       | -                       | -492,2                     |
+| Utgående balans per 31 december 2024                              | 77,7                  | 922,2                 | -305,6                       | 521,2                   | 1 215,5                    |
+
+Tillvägagångssätt
+Identifiering av relevanta hållbarhetsområden för Hemnet
+
+Inför vår första hållbarhetsrapport 2019 genomförde vi en väsentlighetsanalys	för	att	identifiera	viktiga	områden	för	Hemnet inom	hållbarhet.	Analysen	baserades	på	risker	och	möjligheter kopplade till en hållbar affärsverksamhet samt aspekter som rör miljö, sociala förhållanden, personalfrågor, respekt för mänskliga rättigheter, anti-korruption	och	styrningsfrågor.
+
+År 2021 kompletterades analysen med dialoger och djupintervjuer med	medarbetare,	ägare,	ESG-analytiker	och	investerare.	Resultatet visade att Hemnet har en bra grund för att stärka sitt arbete och sin styrning	inom	de	mest	centrala	områdena.	Personlig	integritet	och säkerhet	identifierades	som	Hemnets	viktigaste	område,	även	ur	ett riskperspektiv.	Klimatfrågan	ansågs	inte	vara	väsentlig	för	Hemnet, men	det	finns	förväntningar	från	våra	intressenter	på	att	vi	ska rapportera och kommentera vårt klimatavtryck på ett tydligt och jämförbart	sätt.	Dessutom	framhöll	många	intressenter	att	Hemnet, genom sin plattform, har stor potential att vara en positiv kraft i samhället.
+
+Under 2022 vidareutvecklade vi våra fokusområden baserat på väsentlighetsanalysen från 2019 och intressentdialogerna från 2021, men förenklade samtidigt ramverket för att tydligare koppla vårt hållbarhetsarbete	till	vår	affärsmodell	och	vision.	Årets	rapport	följer de uppdateringar som gjordes 2022, och vi planerar inga ändringar i vår rapportering eller vårt ramverk förrän den nya strukturen enligt CSRD	och	ESRS	är	på	plats.
+
+Vårt hållbarhetsarbete under 2024
+Grunden lagd för framtidens hållbarhetsrapportering
+
+Under 2024 har Hemnet fokuserat på att förbereda sig för att möta kraven	i	EU:s	nya	direktiv	för	hållbarhetsrapportering	(CSRD).	En viktig milstolpe var vår genomförda dubbel väsentlighetsanalys (DVA),	som	identifierade	prioriterade	områden	för	vår	framtida hållbarhetsrapportering.	Vi	har	också	uppdaterat	våra	digitala system	för	att	hantera	hållbarhetsdata	enligt	den	nya	strukturen. De	övergripande	resultaten	av	DVA-processen	presenteras	i	denna rapport	på	sidan	26-27.
+
+Riskanalys
+
+I	detta	avsnitt	beskriver	vi	Hemnets	väsentligaste	hållbarhetsrisker	och	hur	vi	hanterar	dem.	Det	finns	inga identifierade	risker	kopplade	till	att	bekämpa	klimatförändringar	eller	att	skapa	social	förändring	då	dessa områden	inte	anses	utgöra	en	väsentlig	risk	för	bolaget.
+
+Exponering per 2024-12-31
+
+Koncernens riskexponering i utländsk valuta vid utgången av rapportperioden, uttryckt i svenska kronor (MSEK), var följande:
+
+|                    | 2024-12-31   | 2024-12-31   |
+|--------------------|--------------|--------------|
+|                    | USD          | EUR          |
+| Leverantörsskulder | 0,5          | 0,3          |
+| Upplupna intäkter  | 0,9          | -            |
+
+|                    | 2023-12-31   | 2023-12-31   |
+|--------------------|--------------|--------------|
+|                    | USD          | EUR          |
+| Leverantörsskulder | 0,4          | 0,8          |
+| Upplupna intäkter  | 0,0          | -            |
+
+Moderbolagets kassaflödesanalys
+
+| BeloppiMSEK                                                                 | 2024   | 2023   |
+|-----------------------------------------------------------------------------|--------|--------|
+| Kassaflöde från den löpande verksamheten                                    |        |        |
+| Rörelseresultat                                                             | -16,2  | -10,0  |
+| Erhållen ränta                                                              | 0,3    | 0,2    |
+| Betald ränta                                                                | -27,4  | -23,8  |
+| Betalda inkomstskatter                                                      | -125,7 | -100,2 |
+| Kassaflöde från den löpande verksamheten före förändring i rörelsekapitalet | -169,0 | -133,8 |
+| Kassaflöde från förändringar i rörelsekapital                               |        |        |
+| Förändring kortfristiga rörelsefordringar                                   | 714,8  | 454,7  |
+| Förändring kortfristiga rörelseskulder                                      | -1,0   | 0,3    |
+| Summaförändring rörelsekapital                                              | 713,8  | 455,0  |
+| Kassaflöde från den löpande verksamheten                                    | 544,8  | 321,2  |
+| Kassaflöde från finansieringsverksamheten                                   |        |        |
+| Betald utdelning                                                            | -115,2 | -98,0  |
+| Återköp av aktier                                                           | -427,7 | -418,5 |
+| Upptagna lån                                                                | 180,0  | 185,0  |
+| Återbetalda lån                                                             | -210,0 | -15,0  |
+| Nyemission av aktier till följd av nyttjande av teckningsoptioner           | 50,9   | -      |
+| Emission av teckningsoptioner                                               | -      | 5,0    |
+| Emissionskostnader                                                          | -      | -      |
+| Återköp av teckningsoptioner                                                | -0,7   | -0,4   |
+| Kassaflöde från finansieringsverksamheten                                   | -522,7 | -341,9 |
+| Årets kassalöde                                                             | 22,1   | -20,7  |
+| Likvida medel vid årets början                                              | 14,2   | 34,9   |
+| Likvida medel vid årets slut                                                | 36,3   | 14,2   |
+
+Uttalande
+
+En	hållbarhetsrapport	har	upprättats.
+
+Stockholm den dag som framgår av vår elektroniska underskrift Ernst	&amp;	Young	AB
+
+Anna Svanberg
+
+Auktoriserad revisor
+
+Främja hållbara bostadsval
+
+Som Sveriges ledande bostadsplattform har Hemnet en unik möjlighet att uppmuntra	hållbara	bostadsval.	Vi	integrerar	information	om	energiklass	direkt	i bostadsannonser och märker bostäder med högsta energiklass (A eller B) som 'Energismart'	i	sökresultaten,	vilket	gör	det	enklare	för	köpare	att	identifiera miljövänliga	alternativ.
+
+Effektiv marknadsplats som skapar värde
+
+Hållbarhet	är	en	naturlig	del	av	vår	vision	och	strategi.	Hemnet fungerar inte bara som en plattform för bostadsaffärer utan bidrar även	till	samhället	genom	att	skapa	en	effektiv	marknadsplats.	Genom att samla en stor andel av Sveriges bostadsannonser på ett ställe, tillsammans med den största publiken, möjliggör vi smidiga möten mellan	köpare,	säljare	och	fastighetsmäklare.	Detta	stärker	rörligheten och transparensen på bostadsmarknaden och bidrar till en långsiktigt hållbar utveckling som gynnar alla - från konsumenter till fastighetsmäklare	och	samhället	i	stort.
+
+Vägledning från FN:s globala mål
+
+När vi utformar vår hållbarhetsstrategi och särskilt de fyra fokusområden som beskrivs i denna rapport, tar vi vägledning från FN:s globala	mål	för	hållbar	utveckling	(SDG:erna).	Vi	bidrar	särskilt	till	målen	5,	8,	9	och	13.
+
+<!-- image -->
+
+<!-- image -->
+
+I vårt engagerade arbete för att bli en av Sveriges bästa arbetsgivare lägger vi stor vikt vid mångfald, inkludering och	gemenskap.	Vi	strävar	efter	jämställdhet	på	alla nivåer i organisationen och stödjer branschinitiativet Women	in	Tech	för	att	inspirera	fler	kvinnor	att	välja	en karriär	inom	techområdet.
+
+<!-- image -->
+
+Hemnet är en oberoende och transparent marknadsplats.	Genom	vår	plattform tillhandahåller vi en tillförlitlig digital infrastruktur av hög kvalitet för den svenska bostadsmarknaden, med	jämlikt	tillträde	för	alla	marknadsaktörer.
+
+Som en digital och heltäckande marknadsplats möjliggör Hemnet snabbare och enklare bostadsaffärer för alla marknadsaktörer.	Detta	skapar	en	effektivare	bostadsmarknad	och	bidrar	till	hållbar	ekonomisk	tillväxt.	Genom vårt samhällsengagemang och stöd för Stockholms Stadsmission och Sverige för UNHCR hjälper vi till att förbättra	levnadsstandarden	för	människor	i	utsatthet.
+
+<!-- image -->
+
+Vi strävar efter att begränsa våra utsläpp och undersöker hur vi kan hjälpa våra kunder att göra hållbarare bostadsval	genom	våra	tjänster	och	plattformar.
+
+Kortfakta
+
+| Börs                                         | Nasdaq Stockholm (Large Cap)                                                                                                                                                                                                                                                                                                                                   |
+|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ISIN kod / Ticker                            | SE0015671995/HEM                                                                                                                                                                                                                                                                                                                                               |
+| Noteringsdatum                               | 27 april 2021                                                                                                                                                                                                                                                                                                                                                  |
+| Aktieslag                                    | Det finns två aktieslag i bolaget: stamaktier och aktier av Serie A1. Båda aktieslag har sammaröst och-utdelningsrätt. Den huvudsakliga skillnaden är att A1-aktier har vetorätt mot ändringar i verksamhetsföremålet i bolagsordningen. Dessa aktier ägs av Mäklarsamfundet. För fullständig information omaktieklassernas rättigheter, se bolagets prospekt. |
+| Totalt registrerade aktier:                  | 96 571 749                                                                                                                                                                                                                                                                                                                                                     |
+| Aktiekurs och börsvärde per 31 december 2024 | 336,0 kronor / 32,4 miljarder kronor                                                                                                                                                                                                                                                                                                                           |
+| Högsta / lägsta kurs 2024                    | 416,0 kronor / 236,8 kronor                                                                                                                                                                                                                                                                                                                                    |
+| Firmor somutför analyser av Hemnet           | ABGSundal Collier, BNPParibas Exane, Barclays, Carnegie, Citi, Jefferies, Morgan Stanley, Nordea, Pareto, Santander Konsensusestimat: Tillgängligt via Modular Finance                                                                                                                                                                                         |
+| Konsensusestimat                             | Tillgängligt via Modular Finance                                                                                                                                                                                                                                                                                                                               |
+
+Koncernens rapport över förändring i eget kapital
+
+| BeloppiMSEK                                                       | Aktiekapital (Not K20)   | Övrigt tillskjutet kapital (Not K20)   | Balanserad vinst (inkl årets resultat) (Not K20)   | SummaEget kapital (Not K20)   |
+|-------------------------------------------------------------------|--------------------------|----------------------------------------|----------------------------------------------------|-------------------------------|
+| Ingående balans per 1 januari 2023                                | 77,4                     | 1 250,5                                | 104,8                                              | 1 432,7                       |
+| Årets resultat                                                    | -                        | -                                      | 338,7                                              | 338,7                         |
+| Övrigt totalresultat                                              | -                        | -                                      | -                                                  | -                             |
+| Summatotalresultat                                                | -                        | -                                      | 338,7                                              | 338,7                         |
+| Transaktioner medbolagets ägare                                   |                          |                                        |                                                    |                               |
+| Utdelning                                                         | -                        | -                                      | -98,0                                              | -98,0                         |
+| Återköp av aktier                                                 | -                        | -                                      | -418,4                                             | -418,4                        |
+| Emission av teckningsoptioner                                     | -                        | 5,0                                    | -                                                  | 5,0                           |
+| Återköp av teckningsoptioner                                      | -                        | -0,4                                   | -                                                  | -0,4                          |
+| Inlösen av aktier                                                 | -2,1                     | 2,1                                    | -                                                  | -                             |
+| Fondemission                                                      | 2,1                      | -2,1                                   | -                                                  | -                             |
+| Summatransaktioner medbolagets ägare                              | -                        | 4,6                                    | -516,4                                             | -511,8                        |
+| Utgående balans per 31 december 2023                              | 77,4                     | 1 255,1                                | -72,9                                              | 1 259,6                       |
+| Ingående balans per 1 januari 2024                                |                          | 1                                      |                                                    |                               |
+|                                                                   | 77,4                     | 255,1                                  | -72,9                                              | 1 259,6                       |
+| Årets resultat                                                    | -                        | -                                      | 481,4                                              | 481,4                         |
+| Övrigt totalresultat                                              | -                        | -                                      | -                                                  | -                             |
+| Summatotalresultat                                                | -                        | -                                      | 481,4                                              | 481,4                         |
+| Transaktioner medbolagets ägare                                   |                          |                                        |                                                    |                               |
+| Utdelning                                                         | -                        | -                                      | -115,2                                             | -115,2                        |
+| Återköp av aktier                                                 | -                        | -                                      | -427,7                                             | -427,7                        |
+| Återköp av teckningsoptioner                                      | -                        | -0,7                                   | -                                                  | -0,7                          |
+| Inlösen av aktier                                                 | -1,7                     | 1,7                                    | -                                                  | -                             |
+| Fondemission                                                      | 1,7                      | -1,7                                   | -                                                  | -                             |
+| Nyemission av aktier till följd av nyttjande av teckningsoptioner | 0,3                      | 50,7                                   | -                                                  | 50,9                          |
+| Övriga transaktioner medägare                                     | -                        | 0,4                                    | -                                                  | 0,4                           |
+| Summatransaktioner medbolagets ägare                              | 0,3                      | 50,4                                   | -542,9                                             | -492,3                        |
+| Utgående balans per 31 december 2024                              | 77,7                     | 1 305,5                                | -134,5                                             | 1 248,7                       |
+
+Eget kapital är i sin helhet hänförligt till moderbolagets aktieägare.
+
+Not K15  Leasing
+
+Bolagets leasingskuld består av huvudkontorets lokalkontrakt i Stockholm.
+
+Indexhöjning av hyran (Omvärderingar) för huvudkontoret i Stockholm ökar nyttjanderättstillgångar och leasingskuld med 3,2 MSEK.
+
+Bolaget nettoredovisar uppskjuten skattefordran och skatteskuld avseende leasingavtal i enlighet med IAS 12. Per 2024-12-31 uppgår uppskjuten skattefordran till 7,9 MSEK och uppskjuten skatteskuld till 7,6 MSEK.
+
+Tabellen nedan visar värdet av nyttjanderättstillgångar och leasingskulder och förändringen under perioden:
+
+|                      | Nyttjanderättstillgångar   | Nyttjanderättstillgångar   |                  |
+|----------------------|----------------------------|----------------------------|------------------|
+|                      | Lokaler                    | Total                      | Leasing- skulder |
+| Per 1 januari 2024   | 45,2                       | 45,2                       | 43,6             |
+| Tillkommande avtal   | 3,2                        | 3,2                        | 3,2              |
+| Årets avskrivningar  | -11,6                      | -11,6                      |                  |
+| Räntekostnader       |                            |                            | 1,3              |
+| Betalningar          |                            |                            | -12,9            |
+| Per 31 december 2024 | 36,9                       | 36,9                       | 35,2             |
+
+|                      | Nyttjanderättstillgångar   | Nyttjanderättstillgångar   |                  |
+|----------------------|----------------------------|----------------------------|------------------|
+|                      | Lokaler                    | Total                      | Leasing- skulder |
+| Per 1 januari 2023   | 0,6                        | 0,6                        | 0,0              |
+| Tillkommande avtal   | 56,5                       | 56,5                       | 56,5             |
+| Årets avskrivningar  | -11,9                      | -11,9                      |                  |
+| Räntekostnader       |                            |                            | 1,6              |
+| Betalningar          |                            |                            | -14,5            |
+| Per 31 december 2023 | 45,2                       | 45,2                       | 43,6             |
+
+I tabellen nedan framgår belopp redovisade i resultatet:
+
+| Nyttjanderättstillgångar                  | 2024   | 2023   |
+|-------------------------------------------|--------|--------|
+| Avskrivningar på nyttjanderättstillgångar | 11,6   | 11,9   |
+| Räntekostnader för leasingskulder         | 1,3    | 1,6    |
+| Korttidsleasing och leasar av lågt värde  | 0,2    | 0,1    |
+| Totalt belopp redovisat i resultatet      | 13,1   | 13,6   |
+
+Framtida leasingavgifter framgår i nedan tabell:
+
+| Löptidsanalys (odiskonterade flöden)   | 2024-12-31   | 2023-12-31   |
+|----------------------------------------|--------------|--------------|
+| År 1                                   | 10,1         | 9,3          |
+| År 2                                   | 13,4         | 12,4         |
+| År 3                                   | 13,4         | 12,4         |
+| År 4                                   | -            | 12,4         |
+| År 5                                   | -            | -            |
+| Summa                                  | 36,9         | 46,5         |
+
+K1
+
+K2
+
+K3
+
+K4
+
+K5
+
+K6
+
+K7
+
+K8
+
+K9
+
+K10
+
+K11
+
+K12
+
+K13
+
+K14
+
+K15
+
+K16
+
+K17
+
+K18
+
+K19
+
+K20
+
+K21
+
+K22
+
+K23
+
+K24
+
+K25
+
+K26
+
+K27
+
+K28
+
+M1
+
+M2
+
+M3
+
+M4
+
+M5
+
+M6
+
+M7
+
+M8
+
+M9
+
+Finansiell översikt
+
+Nedan	åskådliggörs	flerårsjämförelsen	för	koncernens	fem	senaste verksamhetsår.
+
+|                                                       | 2024    | 2023    | 2022   | 2021   | 2020   |
+|-------------------------------------------------------|---------|---------|--------|--------|--------|
+| Nettoomsättning                                       | 1 394,6 | 1 004,7 | 889,2  | 728,1  | 544,1  |
+| EBITDA                                                | 719,8   | 525,5   | 448,1  | 302,9  | 188,0  |
+| EBITDA-marginal,%                                     | 51,6%   | 52,3%   | 50,4%  | 41,6%  | 34,5%  |
+| Justerad EBITDA                                       | 719,8   | 525,5   | 448,1  | 355,0  | 202,1  |
+| Justerad EBITDA- marginal,%                           | 51,6%   | 52,3%   | 50,4%  | 48,8%  | 37,1%  |
+| Rörelseresultat                                       | 633,8   | 448,2   | 377,5  | 223,9  | 110,5  |
+| Rörelsemarginal,%                                     | 45,4%   | 44,6%   | 42,5%  | 30,8%  | 20,3%  |
+| Resultat efter finansiella poster                     | 607,1   | 427,4   | 370,7  | 198,1  | 86,8   |
+| Resultat efter skatt                                  | 481,4   | 338,7   | 293,8  | 156,5  | 67,7   |
+| Vinstmarginal,%                                       | 34,5%   | 33,7%   | 33,0%  | 21,5%  | 12,5%  |
+| Genomsnittlig intäkt per publicerat objekt (ARPL),SEK | 6 382   | 4 490   | 3 275  | 2 467  | 1 760  |
+| Soliditet,%                                           | 56,9%   | 58,4%   | 68,4%  | 71,1%  | 56,9%  |
+| Nettoskuld                                            | 391,9   | 438,1   | 228,1  | 188,6  | 415,1  |
+| Nettoskuld/ EBITDA, ggr                               | 0,5     | 0,8     | 0,5    | 0,6    | 2,2    |
+| Nettoskuld/justerad EBITDA, ggr                       | 0,5     | 0,8     | 0,5    | 0,5    | 2,1    |
+| Skuldsättningsgrad, ggr                               | 0,4     | 0,4     | 0,2    | 0,2    | 0,5    |
+| Antal anställda                                       | 152     | 154     | 135    | 112    | 108    |
+| Antal publicerade objekt i perioden, tusental         | 185,3   | 175,3   | 198,3  | 198,4  | 189,3  |
+
+Vår process för DVA
+
+Den dubbla väsentlighetsanalysen följde en strukturerad femstegsprocess:
+
+<!-- image -->
+
+Förberedelser för CSRD: Dubbel väsentlighetsanalys som grund
+
+Under	det	andra	kvartalet	2024	genomförde	Hemnet	en	dubbel	väsentlighetsanalys	(DVA)	som	en	del	av våra	förberedelser	för	att	uppfylla	kraven	i	EU:s	CSRD	och	de	europeiska	hållbarhetsrapporteringsstandarderna	(ESRS).	Denna	analys	utgör	ett	viktigt	steg	för	att	anpassa	vår	hållbarhetsrapportering till	framtida	krav	och	stärka	vår	förmåga	att	identifiera	och	hantera	väsentliga	hållbarhetsfrågor	i	hela vår	värdekedja.
+
+Analysen genomfördes i samarbete med en oberoende konsultbyrå och omfattade både Hemnets inverkan	på	människor	och	miljö,	samt	finansiell	inverkan,	vilket	innefattar	hållbarhetsaspekter	som påverkar	vår	finansiella	prestation.
+
+Hållbarhetsredovisning
+
+- 18 Hållbarhetsarbete
+- 24 Riskanalys
+- 25 Tillvägagångssätt
+- 28   Revisorns yttrande hållbarhetsrapport
+
+<!-- image -->
+2024 Hemnet Group
+
+Års- och hållbarhetsredovisning
+
+<!-- image -->
+
+<!-- image -->
+
+Uppsägningstid och avgångsvederlag
+
+Uppsägningstid, och tid för utbetalning av uppsägningslön till ledande befattningshavare ska generellt vara sex (6) månader. Vid uppsägning från Hemnets sida ska dock ett avgångsvederlag kunna utgå med upp till tolv (12) månadslöner. För den verkställande direktören ska dock avgångsvederlag kunna utgå med upp till 18 månadslöner. Fast kontantlön under uppsägningstiden och avgångsvederlag får sammantaget inte överstiga ett belopp motsvarande den fasta kontantlönen för 18 månader för den verkställande direktören och tolv (12) månader för övriga ledande befattningshavare. Därutöver kan ersättning för eventuellt åtagande om konkurrensbegränsning utgå. Sådan ersättning ska kompensera för eventuellt inkomstbortfall och ska endast utgå i den utsträckning som den tidigare befattningshavaren saknar rätt till avgångsvederlag. Ersättningen ska baseras på den fasta kontantlönen vid tidpunkten för uppsägningen och utgå under den tid som åtagandet om konkurrensbegränsning gäller, vilket ska vara högst tolv (12) månader efter anställningens upphörande.
+
+Optionspris,
+
+| Emitterade teckningsoptioner   | 2023-12-31   | 2024-12-31   | Lösenkurs,SEK   | SEK    | Riskfri ränta   | Volatilitet   | Förfall   |
+|--------------------------------|--------------|--------------|-----------------|--------|-----------------|---------------|-----------|
+| LTIP I                         |              |              |                 |        |                 |               |           |
+| 2021/2024                      | 469 253      | -            | 155,25          | 11,89  | -0,18%          | 32%           | 2024      |
+| LTIP II                        |              |              |                 |        |                 |               |           |
+| 2022/2025                      | 533 000      | 533 000      | 155,00          | 17,26* | 1,55%*          | 32%*          | 2025      |
+| LTIP III                       |              |              |                 |        |                 |               |           |
+| 2023/2027                      | 527 000      | 527 000      | 213,60*         | 23,21* | 2,66%*          | 32%*          | 2026-2027 |
+| Totalt                         | 1 529 253    | 1 060 000    |                 |        |                 |               |           |
+
+Avstämning alternativa nyckeltal
+
+Nedan följer beräkningar för att härleda de alternativa nyckeltal som används i rapporten. Se definitioner för mer information.
+
+| BeloppiMSEK                                                | 2024        | 2023        |
+|------------------------------------------------------------|-------------|-------------|
+| Röresemarginal                                             |             |             |
+| Rörelseresultat                                            | 633,8       | 448,2       |
+| Nettoomsättning                                            | 1 394,6     | 1 004,7     |
+| Rörelsemarginal,%                                          | 45,4%       | 44,6%       |
+| EBITDA &EBITDA-marginal                                    |             |             |
+| Rörelseresultat                                            | 633,8       | 448,2       |
+| Avskrivningar                                              | -86,0       | -77,3       |
+| EBITDA                                                     | 719,8       | 525,5       |
+| Nettoomsättning                                            | 1 394,6     | 1 004,7     |
+| EBITDA-marginal,%                                          | 51,6%       | 52,3%       |
+| Justerad EBITDA &justerad EBITDA-marginal                  |             |             |
+| EBITDA                                                     | 719,8       | 525,5       |
+| Justerad EBITDA                                            | 719,8       | 525,5       |
+| Nettoomsättning                                            | 1 394,6     | 1 004,7     |
+| Justerad EBITDA-marginal,%                                 | 51,6%       | 52,3%       |
+| ARPL(genomsnittlig intäkt per publicerat objekt)           |             |             |
+| Nettoomsättning                                            | 1 394,6     | 1 004,7     |
+| Avgår intäkter sominte är kopplade till publicerade objekt | -211,8      | -217,4      |
+| Intäkter för publicerade objekt                            | 1 182,8     | 787,3       |
+| Antal publicerade objekt, tusental                         | 185,3       | 175,3       |
+| ARPL, SEK                                                  | 6 382       | 4 490       |
+| Nettoskuld                                                 |             |             |
+| Långfristiga räntebärande                                  | 494,5       | 532,6       |
+| Kortfristiga räntebärande skulder                          | 9,1         | 8,1         |
+| Likvida medel, inklusive kortfristiga placeringar          | 111,7       | 102,6       |
+| Nettoskuld                                                 | 391,9       | 438,1       |
+| Nettoskuld/EBITDA                                          |             |             |
+| Nettoskuld                                                 | 391,9       | 438,1       |
+| EBITDA                                                     | 719,8       | 525,5       |
+| Nettoskuld/EBITDA, ggr                                     | 0,5         | 0,8         |
+| Nettoskuld/justerad EBITDA                                 |             |             |
+| Nettoskuld                                                 | 391,9       | 438,1       |
+| EBITDA                                                     | 719,8       | 525,5       |
+| Nettoskuld/justerad EBITDA, ggr                            | 0,5         | 0,8         |
+| Soliditet                                                  |             |             |
+| Eget kapital                                               | 1 248,7     | 1 259,6     |
+| Balansomslutning                                           | 2 193,9     | 2 156,0     |
+| Soliditet,%                                                | 56,9%       | 58,4%       |
+| Skuldsättningsgrad                                         |             |             |
+| Långfristiga räntebärande skulder                          | 494,5       | 532,6       |
+| Kortfristiga räntebärande skulder                          | 9,1         | 8,1         |
+| Eget kapital                                               | 1 248,7     | 1 259,6     |
+| Skuldsättningsgrad, ggr                                    | 0,4         | 0,4         |
+| Kassagenerering                                            |             |             |
+| Justerad EBITDA                                            | 719,8       | 525,5       |
+| Minskning/ökning av netto rörelsekapital                   | -0,3        | -4,2        |
+| Investeringar                                              | -23,5       | -38,8       |
+| Fritt kassaflöde                                           | 696,0       | 482,5       |
+| Justerad EBITDA Kassagenerering,%                          | 719,8 96,7% | 525,5 91,8% |
+
+Känslighet
+
+Som framgår av tabellen ovan är koncernen marginellt exponerad för förändringar i växelkursen för USD/SEK samt EUR/SEK.
+
+Om den svenska kronan hade försvagats/förstärkts med 10 procent i förhållande till USD med alla andra variabler konstanta, skulle det omräknade resultatet efter skatt/effekt på eget kapital per den 31 december 2024 bli 41 kSEK lägre/högre, som en följd av vinster/förluster vid omräkning av upplupna intäkter och leverantörsskulder i USD.
+
+Om den svenska kronan hade försvagats/förstärkts med 10 procent i förhållande till EUR med alla andra variabler konstanta, skulle det omräknade resultatet efter skatt/effekt på eget kapital per den 31 december 2024 bli 32 kSEK högre/lägre, till största delen som en följd av vinster/förluster vid omräkning av leverantörsskulder EUR.
+
+Belopp som redovisats i koncernens rapport över totalresultat Under året har följande valutarelaterade belopp redovisats i rapporten över totalresultat:
+
+|                                                                                              | 2024   | 2023   |
+|----------------------------------------------------------------------------------------------|--------|--------|
+| Netto valutakursvinst(+)/-förlust(-), ingår i övriga rörelseintäkter/övriga rörelsekostnader | -0,1   | -0,1   |
+| Netto valutakursvinster(+)/-förluster(-), ingår i finansiella intäkter/kostnader             | -      | -      |
+
+Koncernens rapport över finansiell ställning
+
+| BeloppiMSEK                                  | Not   | 2024-12-31   | 2023-12-31   |
+|----------------------------------------------|-------|--------------|--------------|
+| TILLGÅNGAR                                   |       |              |              |
+| Anläggningstillgångar                        |       |              |              |
+| Goodwill                                     | 13    | 902,8        | 902,8        |
+| Kundrelationer                               | 13    | 648,5        | 703,9        |
+| Varumärke                                    | 13    | 241,2        | 241,2        |
+| Aktiverade utvecklingsutgifter               | 13    | 49,1         | 44,0         |
+| Nyttjanderättstillgångar                     | 15    | 36,9         | 45,2         |
+| Övriga anläggningstillgångar                 | 14,16 | 6,7          | 7,3          |
+| Summaanläggningstillgångar                   |       | 1 885,2      | 1 944,4      |
+| Omsättningstillgångar                        |       |              |              |
+| Kundfordringar                               | 17    | 29,8         | 38,3         |
+| Övriga kortfristiga fordringar               | 18    | 157,6        | 61,7         |
+| Förutbetalda kostnader och upplupna intäkter | 19    | 9,6          | 9,0          |
+| Likvida medel                                | 26    | 111,7        | 102,6        |
+| Summaomsättningstillgångar                   |       | 308,7        | 211,6        |
+| SUMMATILLGÅNGAR                              |       | 2 193,9      | 2 156,0      |
+
+| EGETKAPITALOCHSKULDER                                       |                 |         |    |
+|-------------------------------------------------------------|-----------------|---------|----|
+| Eget kapital 20                                             | Eget kapital 20 |         |    |
+| Aktiekapital                                                | 77,7            | 77,4    |    |
+| Övrigt tillskjutet kapital                                  | 1 305,5         | 1 255,1 |    |
+| Balanserad vinst (inklusive årets resultat)                 | -134,5          | -72,9   |    |
+| Summaegetkapital (hänförligt till moderbolagets aktieägare) | 1 248,7         | 1 259,6 |    |
+| Långfristiga skulder                                        |                 |         |    |
+| Skulder till kreditinstitut                                 | 468,5           | 497,1   |    |
+| Leasingskulder 15                                           | 26,0            | 35,5    |    |
+| Uppskjutna skatteskulder 16                                 | 193,5           | 203,7   |    |
+| Summalångfristiga skulder                                   | 688,0           | 736,3   |    |
+| Kortfristiga skulder                                        |                 |         |    |
+| Leasingskulder 15                                           | 9,1             | 8,1     |    |
+| Leverantörsskulder                                          | 14,9            | 14,4    |    |
+| Aktuell skatteskuld                                         | 12,0            | 3,6     |    |
+| Övriga kortfristiga skulder 23                              | 27,6            | 23,1    |    |
+| Upplupna kostnader och förutbetalda intäkter 24             | 193,6           | 110,9   |    |
+| Summakortfristiga skulder                                   | 257,2           | 160,1   |    |
+| SUMMAEGETKAPITALOCHSKULDER                                  | 2 193,9         | 2 156,0 |    |
+
+Not K2    Viktiga uppskattningar och bedömningar för redovisnings­ ändamål
+
+Uppskattningar och bedömningar utvärderas löpande och baseras på historisk erfarenhet och andra faktorer, inklusive förväntningar på framtida händelser som anses rimliga under rådande förhållanden.
+
+Not M1    Moderföretagets redovisningsprinciper
+Grund för rapporternas upprättande
+
+Årsredovisningen för moderföretaget, Hemnet Group AB (publ), har upprättats i enlighet med årsredovisningslagen (ÅRL) och RFR 2 Redovisning för juridiska personer. RFR 2 anger att moderföretaget i sina finansiella rapporter ska tillämpa IFRS redovisningsstandarder sådana de antagits av EU, i den utsträckning detta är möjligt inom ramen för ÅRL, samt med hänsyn taget till sambandet mellan redovisning och beskattning. Rekommendationen anger vilka undantag och tillägg som krävs i förhållande till IFRS redovisningsstandarder.
+
+Moderföretaget tillämpar följaktligen de principer som presenteras i koncernredovisningens not K1, med de undantag som anges nedan. Inga ändrade redovisningsprinciper för moderbolaget under 2024.
+
+Att upprätta rapporter i överensstämmelse med RFR 2 kräver användning av en del viktiga uppskattningar för redovisningsändamål. Vidare krävs att ledningen gör vissa bedömningar vid tillämpningen av moderföretagets redovisningsprinciper. De områden som innefattar en hög grad av bedömning, som är komplexa eller sådana områden där antaganden och uppskattningar är av väsentlig betydelse för årsredovisningen anges i koncernens not K2.
+
+För information om finansiella risker hänvisas till koncernens not K21.
+
+(a) Finansiella instrument i nivå 1
+
+Noterade priser (ojusterade) på aktiva marknader för identiska tillgångar eller skulder.
+
+Segmentsrapportering
+
+Rörelsesegment rapporteras på ett sätt som överensstämmer med den interna rapportering som lämnas till den högste verkställande beslutsfattaren vilken för Hemnet är koncern-vd. Koncernen har identifierat ett rörelsesegment vilket är koncernen i sin helhet. Bedömningen baseras på att koncernen följs upp som helhet då någon form av geografisk uppdelning eller uppdelning på affärsområde/produkt kategori etc. ej är tillämplig. Den finansiella rapporteringen utgår ifrån en koncerngemensam organisationsoch ledningsstruktur.
+
+Fokusområde 1: Bli en av Sveriges bästa arbetsgivare
+Arbetsmiljö
+Öka andelen kvinnor i tech
+
+Vi vill erbjuda våra medarbetare den bästa möjliga arbetsmiljön, där vi kan arbeta hållbart,	utvecklas	professionellt	och	hålla	oss	friska.	Vi	strävar	efter	en arbetsplats präglad av ömsesidig respekt, där alla känner sig trygga att uttrycka sina	åsikter,	och	där	mobbning	och	trakasserier	inte	tolereras.	Vår	arbetsmiljö följs upp genom veckovisa pulsmätningar och regelbundna samtal med våra medarbetare,	vilket	hjälper	oss	att	identifiera	risker	och	vidta	åtgärder	vid	behov. Vidare granskar vår Hälso- och säkerhetskommitté framsteg och säkerställer uppföljning.
+
+Rapport om andra krav enligt lagar och andra författningar
+
+REVISORNS GRANSKNING AV FÖRVALTNING OCH FÖRSLAGET TILL DISPOSITIONER AV BOLAGETS VINST ELLER FÖRLUST
+
+Uppdrag och ansvarsfördelning
+
+Det	är	styrelsen	som	har	ansvaret	för	hållbarhetsrapporten	för	år	2024	som definieras	på	sidan	33	och	för	att	den	är	upprättad	i	enlighet	med	årsredovisningslagen	i	enlighet	med	den	äldre	lydelsen	som	gällde	före	den	1	juli	2024.
+
+Styrelse
+
+<!-- image -->
+
+Anders Nilsson
+
+<!-- image -->
+
+Tracey Fellows
+
+<!-- image -->
+
+Anders Edmark
+
+| Position                                             | Ordförande                                                                                                                                                  | Styrelseledamot                                                                                                                                                                                                                                                                                                                                                               | Styrelseledamot                                                                                                                                                                               |
+|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Invald                                               | 2023                                                                                                                                                        | 2017                                                                                                                                                                                                                                                                                                                                                                          | 2020                                                                                                                                                                                          |
+| Född                                                 | 1967                                                                                                                                                        | 1959                                                                                                                                                                                                                                                                                                                                                                          | 1965                                                                                                                                                                                          |
+| Nationalitet                                         | Sverige                                                                                                                                                     | Sverige                                                                                                                                                                                                                                                                                                                                                                       | Australien                                                                                                                                                                                    |
+| Utbildning                                           | Juridikstudier vid Lunds universitet.                                                                                                                       | Gymnasiestudier i ekonomi, fastighetmäklarutbildning genomAFR(idag käntsom Mäklarsamfundet), Sverige.                                                                                                                                                                                                                                                                         | Kandidatexamen i ekonomi från MonashUniversity, Australien.                                                                                                                                   |
+| Aktuella uppdrag                                     | Senior rådgivare till Global Infrastructure Partners, GIP.                                                                                                  | Ordförande för Mäklarsamfundet och Svensk Mäklarstatistik. Delägare och grundare av Mäklarhuset, Mäklarbyrån i Örnsköldsvik. Styrelsemedlem och medgrundare av SAHINVEST, Konsulthuset i Örnsköldsvik, Fastighetsbolaget Huset i Örnsköldsvik. Styrelsemedlem Auktoriserade Fastighetsmäklares Riksförbund AFR:s Service. Styrelsesuppleant och medgrundare till Sven Bagare. | StyrelsemedlemhosREA Group, Woolworth Group ochTrade MeGroup.                                                                                                                                 |
+| Tidigare uppdrag                                     | VdpåComHemochsedan Tele2, i sambandmedfusionen mellan de två företagen under åren 2014 och 2020. 25 års erfarenhet från ledande roller inom MTGochMillicom. |                                                                                                                                                                                                                                                                                                                                                                               | Tidigare President of Global Digital Real EstatehosNews Corp styrelsemedlem hos REAGroup.Tidigare CEOför REAGroup. Vice President på Microsoft Asia-PacificochCEO för Microsoft i Australien. |
+| Oberoende i förhållande till Hemnet och dess ledning | Ja                                                                                                                                                          | Nej                                                                                                                                                                                                                                                                                                                                                                           | Ja                                                                                                                                                                                            |
+| Obereonde i förhållande till större aktieägare       | Ja                                                                                                                                                          | Nej                                                                                                                                                                                                                                                                                                                                                                           | Ja                                                                                                                                                                                            |
+| Aktieinnehav (31 dec, 2024)                          | -                                                                                                                                                           | 17 374                                                                                                                                                                                                                                                                                                                                                                        | 12 142                                                                                                                                                                                        |
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+| Håkan Hellström                                                                                                                                                                                                                       | Maria Redin                                                                      | Nick McKittrick                                                                                           | RasmusJärborg *                                                                                                                                                                                                  |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Styrelseledamot                                                                                                                                                                                                                       | Styrelseledamot                                                                  | Styrelseledamot                                                                                           | Styrelseledamot                                                                                                                                                                                                  |
+| 2021                                                                                                                                                                                                                                  | 2022                                                                             | 2020                                                                                                      | 2024                                                                                                                                                                                                             |
+| 1958                                                                                                                                                                                                                                  | 1978                                                                             | 1968                                                                                                      | 1976                                                                                                                                                                                                             |
+| Sverige                                                                                                                                                                                                                               | Sverige                                                                          | Storbritannien                                                                                            | Sverige                                                                                                                                                                                                          |
+| Gymnasistudier och utbildad fastighetsmäklare                                                                                                                                                                                         | Master i Internationella relationer från Göteborgs universitet                   | Högskoleingenjörsexamen i elektronik från Southampton University, Storbritannien                          | Civilekonom, Handelshögskolan i Stockholm                                                                                                                                                                        |
+| Ordförande för Svensk Fastighetsförmedling. Vice ordförande för Dina Försäkringar Öland. Delägare och vd Svensk Fastighetsförmedling Sydost. Styrelsemedlem för Linnéakademin för Vetenskap och Näringsliv och Stiftelsen Barometern. | Vd förMTG.                                                                       |                                                                                                           | Chief Product Officer och vice VDpåNordnet,E&XCoach på SSE Business Lab.                                                                                                                                         |
+| Vice ordförande i Mäklarsamfundet Bransch AB. Styrelseledamot i Svensk Mäklarstatistik.                                                                                                                                               | Finanschef för MTG. Styrelseledamot i NetEnt. Finanschef och senare VDför Bet24. | Teknik-konsultande hos Accenture. Medgrundande chef och vd för Rightmove. Vd och styrelsemedlem Homegate. | Chief Strategy Officer och flera andra ledande positioner på SEB. Senior rådgivare till koncernchef&VDpå SEB. Director, Office of the Chairman&CEOpåUBS Investment Bank i London. Styrelseledamot i Sleep Cycle. |
+| Nej                                                                                                                                                                                                                                   | Ja                                                                               | Ja                                                                                                        | Ja                                                                                                                                                                                                               |
+| Ja                                                                                                                                                                                                                                    | Ja                                                                               | Ja                                                                                                        | Ja                                                                                                                                                                                                               |
+| 31 652                                                                                                                                                                                                                                | 3 600                                                                            | 150 630                                                                                                   | 5 000                                                                                                                                                                                                            |
+
+* Styrelseledamot sedan 25 april 2024
+
+Not K5  Övriga rörelsekostnader
+
+|                                         | 2024   | 2023   |
+|-----------------------------------------|--------|--------|
+| Valutakursförluster                     | -0,2   | -0,2   |
+| Kostnader påminnelse- och kravhantering | -1,5   | -1,4   |
+| Övrigt                                  | -0,0   | -0,0   |
+| Summa                                   | -1,7   | -1,6   |
+
+Ledning
+
+<!-- image -->
+
+<!-- image -->
+
+<!-- image -->
+
+|                             | Cecilia Beck-Friis *                                                                                                                                                                                                   | Anders Örnulf                                                                                                                                                                                                                                          | Jessica Sjöberg                                                                                                                                                                                                                                                                       |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Position                    | Chief Executive Officer sedan 2017                                                                                                                                                                                     | Chief Financial Officer sedan 2023                                                                                                                                                                                                                     | Chief Communication Officer sedan 2019                                                                                                                                                                                                                                                |
+| Född                        | 1973                                                                                                                                                                                                                   | 1976                                                                                                                                                                                                                                                   | 1977                                                                                                                                                                                                                                                                                  |
+| Nationalitet                | Sverige                                                                                                                                                                                                                | Sverige                                                                                                                                                                                                                                                | Sverige                                                                                                                                                                                                                                                                               |
+| Utbildning                  | Executive Management Program, SSE Executive Education, Entertainment Marketing och strategisk marknadsföring vid NYU's School of Professional Studies, USA, samt diplomutbildning från Berghs School of Communication. | Civilekonom, Stockholms universitet.                                                                                                                                                                                                                   | Medie- och kommunikations- vetenskap och Statsvetenskap, Stockholms universitet.                                                                                                                                                                                                      |
+| Arbetslivserfarenhet        | Mer än 20 års erfarenhet från ledande befattningar inom mediebranschen. Tidigare vicevdpåTV4 samt Chief Digital Officer på Bonnier Broadcasting. F.d. styrelseledamot i Paradox Interactive, NetInsight och Acando.    | Mångårig erfarenhet från olika ledande befattningar inom finans. Senast i rollen somGroupCFOpåSkiStar. Har dessförinnan innehaft roller sombland annat Head of Controlling på Preem och liknande roller inom finans på Svenska Spel, ICA och Unilever. | Mångårig erfarenhet från ledande befattningar inom PRochkommunikation, senastinnanHemnetsom somVice President Corporate CommunicationspåMTG/ Nordic Entertainment Group. Har dessförinnan innehaft roller sombland annat informationschefpåCom Hemochkommunikationschef påTDCSverige. |
+| Aktieinnehav (31 dec, 2024) | 740 952                                                                                                                                                                                                                | 2 900                                                                                                                                                                                                                                                  | 101 607                                                                                                                                                                                                                                                                               |
+| Teckningsoptioner           | 180 000                                                                                                                                                                                                                | 55 000                                                                                                                                                                                                                                                 | 27 000                                                                                                                                                                                                                                                                                |
+
+* Lämnade positionen som vd i februari 2025 och ersattes av Jonas Gustafsson.
+
+<!-- image -->
+
+<!-- image -->
+
+| Lisa Farrar                                                                                                                                                                                                                                                                                                                       | AnnaKempe                                                                                                                                                                                                                              |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Cheif Operating Officer sedan 2023                                                                                                                                                                                                                                                                                                | Chief People and Culture Officer sedan 2022                                                                                                                                                                                            |
+| 1980                                                                                                                                                                                                                                                                                                                              | 1977                                                                                                                                                                                                                                   |
+| Sverige                                                                                                                                                                                                                                                                                                                           | Sverige                                                                                                                                                                                                                                |
+| Kandidatexamen i företagsekonomi vid Westminsters universitet.                                                                                                                                                                                                                                                                    | Kandidatexamen i samhällsvetenskap (PAO) från Stockholms universitet.                                                                                                                                                                  |
+| Mångårig erfarenhet från ledande befattningar medhuvudsakligt ansvar för produktutveckling, marknadsföring, strategi, digital transformation och kundupplevelse. Senast i rollensomCMO/CXOför IVC Evidensia. Dessförinnan innehaft roller sombland annat CDOpåStrawberry, Managing Director Groupon och Managing Director Orbitz. | 20 års HR-erfarenhet inom tech, retail och FMCG.Tidigare Talent Management Konsult (egenföretagare) somarbetat för bland annat Schibsted och Blocket. Dessförinnan affärsområdeschef inom Wise Group och SeniorHR Manager på Circle K. |
+| 1 950                                                                                                                                                                                                                                                                                                                             | 500                                                                                                                                                                                                                                    |
+| 22 958                                                                                                                                                                                                                                                                                                                            | 12 000                                                                                                                                                                                                                                 |
+
+Incitamentsprogram
+Långsiktigt incitamentsprogram ("LTIP")
+
+Hemnet har fyra långsiktiga incitamentsprogram per 31 december 2024 - två från tidigare år där ledande befattningshavare och ett antal utvalda anställda med nyckelkompetenser erbjudits att köpa teckningsoptioner som ger rätt att förvärva aktier i moderbolaget, ett aktiesparprogram för anställda samt ett nytt prestationsaktieprogram infört efter beslut av årsstämman 2024 ("PSP24"). Styrelsen avser att vid årsstämman 2025 framlägga förslag om inrättande av ett förnyat incitamentsprogram i linje med PSP24.
+
+Möjlig utspädning genom finansiella instrument
+
+Hemnet Group AB (publ) har utestående långfristiga incitamentsprogram. Aktierna och optionerna inom ramen för de långsiktiga incitamentsprogrammen anses vara utspädande endast då de leder till ett sämre resultat per aktie efter än före utspädning. Bolaget har per 2024-12-31 fyra utestående incitamentsprogram. För mer information kring inlösenkurser och beskrivning av incitamentsprogrammen, se not K8 Ersättning till anställda, m.m.
+
+K13
+
+K14
+
+K15
+
+K16
+
+K17
+
+K18
+
+K19
+
+K20
+
+K21
+
+K22
+
+K23
+
+K24
+
+K25
+
+K26
+
+K27
+
+K28
+
+M1
+
+M2
+
+M3
+
+M4
+
+M5
+
+M6
+
+M7
+
+M8
+
+M9
+
+Prestationsaktieprogram
+PSP24 - 2024/2027
+
+Årsstämman 2024 beslutade om att införa ett prestationsaktieprogram riktat till ledande befattningshavare och andra nyckelanställda ('PSP24'). Programmet löper från juni 2024 till juni 2027. Deltagarna i programmet har investerat i aktier i moderbolaget ('investeringsaktier') och kommer att tilldelas ett visst antal vederlagsfria prestationsaktierätter för varje investeringsaktie. Varje prestationsaktierätt ger deltagaren rätt att tilldelas en (1) aktie i moderbolaget när programmet avslutas baserat på uppfyllande av olika prestationsvillkor som följer. Maximalt kan totalt 42 000 prestationsaktier tilldelas deltagarna.
+
+Rätten till integritet
+
+Data	är	en	kritisk	tillgång	för	Hemnet,	och	vi	hanterar	personuppgifter	på	ett transparent sätt, med respekt för den personliga integriteten och i enlighet med
+
+<!-- image -->
+
+Not K27    Transaktioner med närstående
+
+Långsiktigt aktierelaterat incitamentsprogram (LTIP)
+
+Årsstämman 2024 beslutade om att införa ett prestationsaktieprogram riktat till ledande befattningshavare och andra nyckelanställda. Programmet löper från juni 2024 till juni 2027. Deltagarna i programmet kommer att tilldelas prestations-aktier när programmet avslutas baserat på uppfyllande av olika prestations-villkor. För mer information se not K8.
+
+Under maj 2024 avslutades incitamentsprogrammet LTIP I - 2021/2024 och deltagarna i programmet kunde då betala lösenpriset om 153,1 SEK per aktie för att teckna nyemitterade aktier i bolaget. Närstående personer i ledningsgruppen tecknade totalt 114 897 nyemitterade aktier inom ramen för LTIP I och totalt tecknade samtliga deltagare i programmet sammanlagt 332 768 nyemitterade aktier varvid Hemnet tillfördes 50,9 MSEK. För vidare information om detta och tidigare långsiktiga incitamentsprogram, se not K8.
+
+* Medelvärde
+
+|                                         | Antal utestående teckningsoptioner   | Antal utestående teckningsoptioner   | Antal utestående teckningsoptioner   | Antal utestående teckningsoptioner   | Antal utestående teckningsoptioner   |
+|-----------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|--------------------------------------|
+| Innehavare                              | 2023-01-01                           | Förändring                           | 2023-12-31                           | Förändring                           | 2024-12-31                           |
+| Cecilia Beck-Friis,VD                   | 197 135                              | 80 000                               | 277 135                              | -97 135                              | 180 000                              |
+| Övriga ledande befattningshavare        | 164 799                              | -12 225                              | 152 574                              | -35 616                              | 116 958                              |
+| Övriga anställda och tidigare anställda | 261 245                              | 119 701                              | 380 946                              | -245 741                             | 135 205                              |
+| I eget förvar                           | 379 074                              | 339 524                              | 718 598                              | -90 761                              | 627 837                              |
+| Totalt                                  | 1 002 253                            | 527 000                              | 1 529 253                            | -469 253                             | 1 060 000                            |
+
+Fyra fokusområden för hållbar utveckling
+
+Som tidigare nämnts är vår kärnuppgift att bidra till en hållbar och välfungerande	marknad	för	fastighetsaffärer	i	Sverige.	Utöver	detta fokuserar vi våra hållbarhetsinsatser på fyra områden där vi strävar efter att göra skillnad:
+
+- Bli en av Sveriges bästa arbetsgivare
+- Bidra i kampen mot klimatförändringar
+- Efterleva starka etiska principer
+
+På	Hemnet	strävar	vi	efter	hög	kvalitet	och	rättvisa	i	allt	vi	gör.	Våra
+
+- Skapa positiv social förändring
+
+<!-- image -->
+
+Styrelsens årscykel
+
+Styrelsens årscykel
+
+<!-- image -->
+
+-  Uppdatering	från	VD,	CFO	och COO
+-  Uppdatering	från	VD,	CFO och COO
+-  Uppdatering	från	VD,	CFO och COO
+-  Uppdatering	från	VD,	CFO och COO
+-  Årsredovisning och årsbokslut
+-  Kallelse till årsstämma
+-  Principer	för	ersättning	och andra anställningsvillkor för ledande befattningshavare
+-  Bokslutskommuniké
+-  Översyn risker
+-  Hållbarhet/CSRD
+
+REVISORNS GRANSKNING AV ESEF-RAPPORTEN
+Uttalande
+
+Utöver vår revision av årsredovisningen och koncernredovisningen har vi även utfört en granskning av att styrelsen och verkställande direktören har upprättat årsredovisningen och koncernredovisningen i ett format som möjliggör enhetlig elektronisk rapportering (Esef-rapporten) enligt 16 kap. 4 a § lagen (2007:528) om värdepappersmarknaden för Hemnet Group AB (publ) för år 2024.
+
+Vår granskning och vårt uttalande avser endast det lagstadgade kravet.
+
+Enligt vår uppfattning har Esef-rapporten upprättats i ett format som i allt väsentligt möjliggör enhetlig elektronisk rapportering.
+
+Revisorns yttrande avseende den lagstadgade hållbarhetsrapporten
+
+Till	bolagsstämman	i	Hemnet	Group	AB	(publ),	org.	nr	559088-4440
