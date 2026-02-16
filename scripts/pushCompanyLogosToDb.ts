@@ -2,6 +2,14 @@ import { companyService } from '../src/api/services/companyService'
 import type { Company } from '@prisma/client'
 import 'dotenv/config'
 
+interface LogoUrlsResponse {
+  count: number
+  companyLogoUrls: Array<{
+    wikidataId: string
+    logoUrl: string | null
+  }>
+}
+
 const env = process.env.API_BASE_URL || 'http://localhost:3000/api'
 const secret = process.env.API_SECRET
 
@@ -61,13 +69,13 @@ const fetchCompaniesData = async () => {
   }
 }
 
-const fetchLogoUrls = async (companies: any[]) => {
+const fetchLogoUrls = async (companies: Company[]) => {
   const headers = {
     'User-Agent': 'KlimatkollenFetcher/1.0 (contact: hej@klimatkollen.se)',
   }
 
   const companiesWikiData = await Promise.all(
-    companies?.map(async (company: any) => {
+    companies?.map(async (company: Company) => {
       const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${company.wikidataId}&props=claims&format=json`
 
       try {
@@ -154,36 +162,14 @@ const fetchLogoUrls = async (companies: any[]) => {
   return { count: 0, companyLogoUrls: [] }
 }
 
-const pushCompanyLogos = async (logoUrls: any, token: string | null) => {
+const pushCompanyLogos = async (
+  logoUrls: LogoUrlsResponse,
+  token: string | null,
+) => {
   if (!logoUrls || !logoUrls.companyLogoUrls) {
     console.log('No logo URLs to push')
     return
   }
-
-  // Option 1: Use Prisma directly (recommended for local testing)
-  /*  if (!token) {
-    console.log('Using Prisma directly (no API token)')
-    const { prisma } = await import('../src/lib/prisma')
-
-    for (const company of logoUrls.companyLogoUrls) {
-      if (company.logoUrl) {
-        try {
-          await prisma.company.update({
-            where: { wikidataId: company.wikidataId },
-            data: { logoUrl: company.logoUrl } as any, // Type assertion needed until Prisma client is regenerated
-          })
-          console.log(`Updated ${company.wikidataId} with logoUrl`)
-        } catch (error) {
-          console.error(`Failed to update ${company.wikidataId}:`, error)
-        }
-      }
-    }
-
-    await prisma.$disconnect()
-    return
-  } */
-
-  // Option 2: Use API
 
   const baseUrl = `${env}/companies`
 
