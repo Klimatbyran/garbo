@@ -22,15 +22,12 @@ class ReportsService {
       const searchResult = await firecrawl.search(searchQuery, { limit: 10 })
 
       if (searchResult) {
-        console.log(searchResult)
         results.push({
           companyName: company.name,
           results: searchResult.web ?? [],
         })
       }
     }
-
-    console.log(results)
 
     return results
   }
