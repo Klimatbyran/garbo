@@ -137,17 +137,17 @@ export const emissionsSchema = z
       .refine(
         ({ mb, lb, unknown, unit }) => {
           // If all values are null or undefined, unit can be null
-          const allValuesNull = 
+          const allValuesNull =
             (mb === null || mb === undefined) &&
             (lb === null || lb === undefined) &&
-            (unknown === null || unknown === undefined);
-          
+            (unknown === null || unknown === undefined)
+
           if (allValuesNull) {
-            return true; // unit can be null when all values are null
+            return true // unit can be null when all values are null
           }
-          
+
           // If any value is not null, unit must be provided (not null)
-          return unit !== null && unit !== undefined;
+          return unit !== null && unit !== undefined
         },
         {
           message:
@@ -283,3 +283,14 @@ export const exportQuerySchema = z.object({
 export const claimValidationSchema = z.object({
   steal: z.boolean(),
 })
+
+export const CompanyReport = z.object({
+  name: z.string(),
+  reportYear: z.string().optional(),
+})
+
+export const CompanyReports = z.array(CompanyReport)
+
+export const PostReportsBodySchema = CompanyReports
+
+export const PostReportsBody = CompanyReports

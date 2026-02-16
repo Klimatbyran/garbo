@@ -557,3 +557,22 @@ export const NationalDataListSchema = z.array(NationDataSchema)
 export const ReportingPeriodYearsSchema = z.array(z.string())
 
 export const ValidationClaimsSchema = z.record(wikidataIdSchema, z.string())
+
+export const ReportsListSchema = z.array(
+  z.object({
+    companyName: z.string(),
+    results: z.array(
+      z.object({
+        url: z.string().url().optional(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        position: z.number().optional(),
+      }),
+    ),
+  }),
+)
+
+export const ReportsListResponseSchema = z.object({
+  ok: z.boolean(),
+  results: ReportsListSchema,
+})
