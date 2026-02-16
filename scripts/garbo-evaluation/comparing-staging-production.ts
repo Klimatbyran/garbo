@@ -6,6 +6,11 @@ import * as schemas from '../../src/api/schemas';
 import { fetchCompanies } from './utils/fetchUtils';
 import { convertCompanyEvalsToCSV, generateXLSX } from './utils/outputFunctions';
 import { reportStatistics, outputTotalStatistics } from './utils/statisticsFunctions';
+import {
+  debugCounters,
+  outputVerificationCounts as debugOutputVerificationCounts,
+  logDebugCounters
+} from './comparing-staging-production-debug-helpers';
 
 type CompanyList = z.infer<typeof schemas.CompanyList>;
 type ReportingPeriod  = z.infer<typeof schemas.MinimalReportingPeriodSchema>;
@@ -89,39 +94,183 @@ export interface DiffReport {
 
 
 // Function to compare data between staging and production
-function compareCompanyLists(productionCompanies: CompanyList, stagingCompanies: CompanyList, reportingYear?: string): Company[] {
+function compareCompanyLists(
+  productionCompanies: CompanyList,
+  stagingCompanies: CompanyList,
+  reportingYear?: string
+): Company[] {
   const companies: Company[] = [];
-  for(const productionCompany of productionCompanies) {
-    const stagingCompany = stagingCompanies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
+
+  for (const productionCompany of productionCompanies) {
+    const stagingCompany = stagingCompanies.find(
+      companyCandidate => companyCandidate.wikidataId === productionCompany.wikidataId
+    );
+
     if (stagingCompany) {
-      companies.push({
-        name: productionCompany.name,
-        wikidataId: productionCompany.wikidataId,
-        diffReports: []
-      })
-      if (reportingYear) {
-        const prodReportingPeriod = productionCompany?.reportingPeriods.find((period) => typeof period.startDate === 'string' ? period.startDate.includes(reportingYear) : period.startDate.toString().includes(reportingYear))
-        const stagingReportingPeriod = prodReportingPeriod ? stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === prodReportingPeriod.startDate && periodI.endDate === prodReportingPeriod.endDate) : undefined;
-        if(stagingReportingPeriod && prodReportingPeriod) {
-          const diffReport = compareReportingPeriods(prodReportingPeriod, stagingReportingPeriod, productionCompany);
-          const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-          existingCompany?.diffReports.push(diffReport);
-        }
-      }
-      else {
-        for(const reportingPeriod of productionCompany.reportingPeriods) {
-          const stagingReportingPeriod = stagingCompany?.reportingPeriods.find((periodI) => periodI.startDate === reportingPeriod.startDate && periodI.endDate === reportingPeriod.endDate);
-          if(stagingReportingPeriod) {
-            const diffReport = compareReportingPeriods(reportingPeriod, stagingReportingPeriod, productionCompany);
-            const existingCompany = companies.find((companyI) => companyI.wikidataId === productionCompany.wikidataId);
-            existingCompany?.diffReports.push(diffReport);
-          }
-        }
-      }
+      handleCompanyWithStagingMatch({
+        productionCompany,
+        stagingCompany,
+        reportingYear,
+        companies
+      });
+    } else {
+      handleCompanyMissingInStaging(productionCompany, reportingYear);
     }
   }
 
-  return companies; 
+  return companies;
+}
+
+function handleCompanyWithStagingMatch(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  reportingYear?: string;
+  companies: Company[];
+}) {
+  const { productionCompany, stagingCompany, reportingYear, companies } = params;
+
+  debugCounters.companiesProcessed++;
+
+  const companyDiffTarget: Company = {
+    name: productionCompany.name,
+    wikidataId: productionCompany.wikidataId,
+    diffReports: []
+  };
+  companies.push(companyDiffTarget);
+
+  if (reportingYear) {
+    addDiffForSingleReportingYear({
+      productionCompany,
+      stagingCompany,
+      reportingYear,
+      companyDiffTarget
+    });
+  } else {
+    addDiffForAllReportingPeriods({
+      productionCompany,
+      stagingCompany,
+      companyDiffTarget
+    });
+  }
+}
+
+function addDiffForSingleReportingYear(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  reportingYear: string;
+  companyDiffTarget: Company;
+}) {
+  const { productionCompany, stagingCompany, reportingYear, companyDiffTarget } = params;
+
+  const productionReportingPeriod = productionCompany.reportingPeriods.find(period => {
+    const periodStartDate =
+      typeof period.startDate === 'string'
+        ? period.startDate
+        : period.startDate.toString();
+    return periodStartDate.includes(reportingYear);
+  });
+
+  const stagingReportingPeriod = productionReportingPeriod
+    ? stagingCompany.reportingPeriods.find(
+        candidatePeriod =>
+          candidatePeriod.startDate === productionReportingPeriod.startDate &&
+          candidatePeriod.endDate === productionReportingPeriod.endDate
+      )
+    : undefined;
+
+  if (stagingReportingPeriod && productionReportingPeriod) {
+    debugCounters.periodsProcessed++;
+    const diffReport = compareReportingPeriods(
+      productionReportingPeriod,
+      stagingReportingPeriod,
+      productionCompany
+    );
+    companyDiffTarget.diffReports.push(diffReport);
+  } else if (productionReportingPeriod) {
+    debugCounters.filteredOutNoStagingData++;
+  }
+}
+
+function addDiffForAllReportingPeriods(params: {
+  productionCompany: CompanyResponse;
+  stagingCompany: CompanyResponse;
+  companyDiffTarget: Company;
+}) {
+  const { productionCompany, stagingCompany, companyDiffTarget } = params;
+
+  for (const productionReportingPeriod of productionCompany.reportingPeriods) {
+    const stagingReportingPeriod = stagingCompany.reportingPeriods.find(
+      candidatePeriod =>
+        candidatePeriod.startDate === productionReportingPeriod.startDate &&
+        candidatePeriod.endDate === productionReportingPeriod.endDate
+    );
+
+    if (stagingReportingPeriod) {
+      debugCounters.periodsProcessed++;
+      const diffReport = compareReportingPeriods(
+        productionReportingPeriod,
+        stagingReportingPeriod,
+        productionCompany
+      );
+      companyDiffTarget.diffReports.push(diffReport);
+    } else {
+      debugCounters.filteredOutNoStagingData++;
+    }
+  }
+}
+
+function handleCompanyMissingInStaging(
+  productionCompany: CompanyResponse,
+  reportingYear?: string
+) {
+  debugCounters.filteredOutNoStagingCompany++;
+
+  const scope2FieldsInMissingCompany = countScope2FieldsForMissingCompany(
+    productionCompany,
+    reportingYear
+  );
+
+  if (scope2FieldsInMissingCompany === 0) {
+    return;
+  }
+
+  debugCounters.missingCompanies.push({
+    wikidataId: productionCompany.wikidataId,
+    name: productionCompany.name,
+    scope2Fields: scope2FieldsInMissingCompany
+  });
+}
+
+function countScope2FieldsForMissingCompany(
+  productionCompany: CompanyResponse,
+  reportingYear?: string
+): number {
+  let scope2FieldsInMissingCompany = 0;
+
+  for (const period of productionCompany.reportingPeriods) {
+    if (reportingYear && !reportingPeriodMatchesYear(period, reportingYear)) {
+      continue;
+    }
+
+    const scope2 = period.emissions?.scope2;
+    if (scope2?.lb != null) scope2FieldsInMissingCompany++;
+    if (scope2?.mb != null) scope2FieldsInMissingCompany++;
+    if (scope2?.unknown != null) scope2FieldsInMissingCompany++;
+  }
+
+  return scope2FieldsInMissingCompany;
+}
+
+function reportingPeriodMatchesYear(
+  reportingPeriod: ReportingPeriod,
+  reportingYear: string
+): boolean {
+  const periodStartDate =
+    typeof reportingPeriod.startDate === 'string'
+      ? reportingPeriod.startDate
+      : reportingPeriod.startDate.toString();
+
+  return periodStartDate.includes(reportingYear);
 }
 
 
@@ -153,22 +302,34 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   diffReport.diffs.emissions.scope2.lb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.lb,
     stagingReportingPeriod.emissions?.scope2?.lb,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.lb'
   );
+  if (productionReportingPeriod.emissions?.scope2?.lb != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.lb);
 
   diffReport.diffs.emissions.scope2.mb = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.mb,
     stagingReportingPeriod.emissions?.scope2?.mb,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.mb'
   );
+  if (productionReportingPeriod.emissions?.scope2?.mb != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.mb);
 
   diffReport.diffs.emissions.scope2.unknown  = compareNumbers(
     productionReportingPeriod.emissions?.scope2?.unknown,
     stagingReportingPeriod.emissions?.scope2?.unknown,
-    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null
+    productionReportingPeriod.emissions?.scope2?.metadata.verifiedBy != null,
+    'scope2.unknown'
   );
+  if (productionReportingPeriod.emissions?.scope2?.unknown != null) {
+    debugCounters.comparisonScope2Fields++;
+  }
   diffs.push(diffReport.diffs.emissions.scope2.unknown);
 
   diffReport.diffs.emissions.scope1And2 = compareNumbers(
@@ -215,18 +376,46 @@ function compareReportingPeriods(productionReportingPeriod: ReportingPeriod, sta
   return diffReport;
 }
 
-function compareNumbers(productionNumber: number | undefined | null, stagingNumber: number | undefined | null, productionVerified?: boolean): Diff {
+function compareNumbers(productionNumber: number | undefined | null, stagingNumber: number | undefined | null, productionVerified?: boolean, fieldType?: string): Diff {
+  // If we only check verified data and production is not verified, treat as non-existent
+  if(ONLY_CHECK_VERIFIED_DATA && !productionVerified) {
+    if (productionNumber != null) {
+      debugCounters.filteredOutUnverified++;
+      if (fieldType?.startsWith('scope2')) {
+        debugCounters.scope2FilteredOutUnverified++;
+      }
+    }
+    // Track staging-only fields that get filtered due to unverified production metadata
+    if (fieldType?.startsWith('scope2') && productionNumber == null && stagingNumber != null) {
+      debugCounters.scope2StagingOnlyFiltered++;
+    }
+    return {
+      productionValue: undefined,
+      stagingValue: undefined,
+      difference: undefined,
+      differencePerct: undefined
+    };
+  }
+
   const diff: Diff = {
     productionValue: productionNumber ?? undefined,
     stagingValue: stagingNumber ?? undefined,
     difference: undefined,
     differencePerct: undefined
   };
-  if(ONLY_CHECK_VERIFIED_DATA && !productionVerified) {
-    diff.difference = undefined;
-    diff.differencePerct = undefined;
+
+  // Track scope2 fields that make it into the final diff array
+  if (fieldType?.startsWith('scope2')) {
+    if (productionNumber != null || stagingNumber != null) {
+      debugCounters.scope2FieldsInDiffs++;
+    }
+    // Track staging-only fields (AI hallucinations)
+    if (productionNumber == null && stagingNumber != null) {
+      debugCounters.scope2StagingOnlyFields++;
+    }
   }
-  else if(stagingNumber && productionNumber) {
+
+  if(stagingNumber && productionNumber) {
     diff.difference = Math.abs(stagingNumber - productionNumber);
     diff.differencePerct = Math.ceil((diff.difference / productionNumber) * 100) / 100;
   }
@@ -238,9 +427,9 @@ async function outputEvalMetrics(companies: Company[]) {
   const outputPathCSV = resolve('output', 'accuracy', 'garbo-evaluation.csv');
   const outputPathXLSX = resolve('output', 'accuracy', 'garbo-evaluation.xlsx');
   const outputPathJSON = resolve('output', 'accuracy', 'garbo-evaluation.json');
-  const csvContent = convertCompanyEvalsToCSV(companies)
-  const xlsx = await generateXLSX(csvContent.split('\n'))
-  const jsonObject = JSON.stringify(companies)
+  const csvContent = convertCompanyEvalsToCSV(companies);
+  const xlsx = await generateXLSX(csvContent.split('\n'));
+  const jsonObject = JSON.stringify(companies);
   await writeFile(outputPathXLSX, xlsx, 'utf8');
   await writeFile(outputPathCSV, csvContent, 'utf8');
   await writeFile(outputPathJSON, jsonObject, 'utf8');
@@ -253,7 +442,14 @@ async function main() {
     const reportingYear = process.argv[2]
     const stagingData = await fetchCompanies(process.env.API_BASE_URL_STAGING); 
     const productionData = await fetchCompanies(process.env.API_BASE_URL_PROD); 
+    
+    // Output verification counts first (debug helper)
+    debugOutputVerificationCounts(productionData, reportingYear);
+    
     const companies = compareCompanyLists(productionData, stagingData, reportingYear);
+
+    logDebugCounters();
+    
     outputTotalStatistics(companies)
     outputEvalMetrics(companies);
   } catch (error) {

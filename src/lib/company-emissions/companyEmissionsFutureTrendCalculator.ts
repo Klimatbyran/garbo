@@ -44,7 +44,7 @@
 export interface ReportedPeriod {
   year: number
   emissions?: {
-    calculatedTotalEmissions?: number
+    calculatedTotalEmissions?: number | null
     scope1?: {
       total?: number
     }
@@ -52,6 +52,9 @@ export interface ReportedPeriod {
       mb?: number
       lb: number
       unknown?: number | null
+    } | null
+    scope1And2?: {
+      total?: number | null
     } | null
     scope3?: {
       calculatedTotalEmissions?: number | null
@@ -97,13 +100,14 @@ export function hasScope1And2Data(period: ReportedPeriod): boolean {
   if (!period.emissions) return false
 
   const scope1Total = period.emissions.scope1?.total
-  const { scope2 } = period.emissions
+  const { scope2, scope1And2 } = period.emissions
 
   return (
     hasValidValue(scope1Total) ||
     hasValidValue(scope2?.mb) ||
     hasValidValue(scope2?.lb) ||
-    hasValidValue(scope2?.unknown)
+    hasValidValue(scope2?.unknown) ||
+    hasValidValue(scope1And2?.total)
   )
 }
 
@@ -141,7 +145,7 @@ export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
   baseYear?: number,
-): { year: number; emissions: number | undefined }[] {
+): { year: number; emissions: number | null | undefined }[] {
   const filteredPeriods = getPeriodsFromBaseYear(reportedPeriods, baseYear)
   const validPeriods =
     emissionsType === 'scope3'

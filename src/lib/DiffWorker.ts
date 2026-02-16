@@ -40,6 +40,7 @@ function addCustomMethods(job: DiffJob) {
     body
   ) => {
     await saveToAPI.queue.add(companyName + ' ' + apiSubEndpoint, {
+      ...job.data,
       companyName,
       wikidata,
       body,

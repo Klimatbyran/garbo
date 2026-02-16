@@ -51,6 +51,9 @@ const openAPITagDefinitions = {
   Regions: {
     description: 'Climate data related to Swedish regions',
   },
+  Nation: {
+    description: 'Climate data related to Sweden as a nation',
+  },
   Auth: {
     descriptions: 'Authentification',
   },
@@ -92,8 +95,6 @@ export default {
 
   title: 'Klimatkollen API Reference',
   description: `
-![Klimatkollen Logo](https://beta.klimatkollen.se/klimatkollen_logo.svg)
-
 The Klimatkollen API provides access to company emissions and economic data. This API allows you to retrieve, create and update information about companies' environmental impact and sustainability initiatives.
 
 ## Getting Started

@@ -1,8 +1,8 @@
 # Klimatkollen Garbo AI
 
-This is the main repository for the AI bot we call Garbo. Garbo is a Discord bot that is powered by LLM:s to effectively fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
+This is the main repository for the AI bot we call Garbo. Garbo is a bot that can run on Discord or via our UI [Validation frontend](https://github.com/Klimatbyran/validate-frontend). Garbo is powered by LLM:s to fetch and extract GHG self-reported data from companies. It automates the process of data extraction, evaluation, and formatting, providing a streamlined workflow for handling environmental data.
 
-Garbo is invoked through a set of commands in Discord and has a pipeline of tasks that will be started in order for her to both extract, evaluate and format the data autonomously.
+Garbo is invoked through a set of commands in Discord or in our UI and has a pipeline of tasks and jobs that will be started in order for her to both extract, evaluate and format the data autonomously.
 
 Do you have an idea? Jump into the code or head to our [Discord server](https://discord.gg/N5P64QPQ6v) to discuss your thoughts.
 
@@ -12,7 +12,7 @@ We utilise an open source queue manager called BullMQ which relies on Redis. The
 
 ## Current Status
 
-Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON
+Test the app in Discord channel #reports-to-check by using the command /pdf and Garbo will be answering with a parsed JSON. Or start the validation frontend and pipeline-api to use our custom UI.
 
 ## Data Flow
 
@@ -23,7 +23,6 @@ flowchart TB
 
     PDF[PDF]
     Cache{Is in cache?}
-    NLM[Parse PDF]
     DocLing[DocLing Parse PDF]
     Tables[Extract Tables]
     Emissions[Extract Emissions]
@@ -70,6 +69,10 @@ Ensure you have Node.js version 22.0.0 or higher installed. You will also need [
 ### Setting up environment variables
 
 Make a copy of the file `.env.example` and name it `.env`. Fill it in using the instructions in the file.
+
+### Authentication
+
+The API uses GitHub OAuth for authentication. The backend handles the OAuth flow through a single callback endpoint (`/api/auth/github/callback`) registered with GitHub, then redirects users to the appropriate frontend client based on the `state` parameter. Multiple frontend clients can use the same backend by passing an optional `redirect_uri` query parameter when initiating authentication.
 
 ### Installing dependencies
 
@@ -123,7 +126,7 @@ docker exec -i garbo_postgres pg_restore -C -v -d postgres -U postgres < ~/Downl
 
 The code can be started in three main ways, depending on what you plan to develop/test/run locally
 
-#### 1) To serve only the API:
+#### 1) To serve only the API
 
 > [!NOTE]
 > If you plan to develop the frontend and/or the API, this is the best way to get started:

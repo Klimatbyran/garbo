@@ -4,6 +4,7 @@ import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
+import { extractScopeEntriesFromFollowUp, mergeScope1AndScope2Results } from '../lib/mergeScopeResults'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -15,6 +16,7 @@ export class CheckDBJob extends DiscordJob {
     },
     approved?: boolean
     lei?: string
+    replaceAllEmissions?: boolean
   }
 }
 
@@ -36,13 +38,16 @@ const checkDB = new DiscordWorker(
 
   
     const childrenEntries = await job.getChildrenEntries()
-    
-    const extractValue = (entry: any) => (entry && typeof entry === 'object' && 'value' in entry ? entry.value : entry)
 
-    const root = extractValue(childrenEntries) // <- this is the object that has scope12, scope3, etc.
-    
+    const extractValue = (entry: any) =>
+      entry && typeof entry === 'object' && 'value' in entry ? entry.value : entry
+
+    const root = extractValue(childrenEntries) // <- this is the object that has scope data, economy, etc.
+
     const {
-      scope12,
+      scope12: legacyScope12,
+      scope1,
+      scope2,
       scope3,
       biogenic,
       industry,
@@ -53,6 +58,12 @@ const checkDB = new DiscordWorker(
       descriptions,
       lei,
     } = root || {}
+
+    const mergedScope12 = mergeScope1AndScope2Results(
+      extractScopeEntriesFromFollowUp(scope1),
+      extractScopeEntriesFromFollowUp(scope2),
+      extractScopeEntriesFromFollowUp(legacyScope12),
+    )
   
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
@@ -97,6 +108,7 @@ const checkDB = new DiscordWorker(
         threadId,
         channelId,
         autoApprove: job.data.autoApprove,
+      replaceAllEmissions: job.data.replaceAllEmissions,
       },
       opts: {
         attempts: 3,
@@ -112,13 +124,13 @@ const checkDB = new DiscordWorker(
         ...base.data,
       },
       children: [
-        scope12 || scope3 || biogenic || economy
+        mergedScope12 || scope3 || biogenic || economy
           ? {
               ...base,
               queueName: QUEUE_NAMES.DIFF_REPORTING_PERIODS,
               data: {
                 ...base.data,
-                scope12,
+                scope12: mergedScope12,
                 scope3,
                 biogenic,
                 economy,

@@ -50,17 +50,23 @@ const ONE_DAY = 1000 * 60 * 60 * 24
 
 const developmentOrigins = [
   'http://localhost:5173',
+  'http://localhost:5174',
   'http://localhost:3000',
 ] as const
 
 const stageOrigins = [
   'https://stage-api.klimatkollen.se',
   'https://stage.klimatkollen.se',
+  'https://validate-stage.klimatkollen.se',
+  'http://localhost:5173',
+  'http://localhost:5174',
 ] as const
 
 const productionOrigins = [
   'https://klimatkollen.se',
   'https://api.klimatkollen.se',
+  'https://validate.klimatkollen.se',
+  'https://validate-stage.klimatkollen.se',
 ] as const
 
 const baseLoggerOptions: FastifyServerOptions['logger'] = {
@@ -107,7 +113,19 @@ const apiConfig = {
     '../data/municipality-sector-emissions.json',
   ),
 
-  regionDataPath: resolve(import.meta.dirname, '../data/regional-data.json'),
+  regionDataPath: resolve(import.meta.dirname, '../data/region-data.json'),
+
+  regionSectorEmissionsPath: resolve(
+    import.meta.dirname,
+    '../data/region-sector-emissions.json',
+  ),
+
+  nationDataPath: resolve(import.meta.dirname, '../data/nation-data.json'),
+
+  nationSectorEmissionsPath: resolve(
+    import.meta.dirname,
+    '../data/nation-sector-emissions.json',
+  ),
 
   bullBoardBasePath: '/admin/queues',
 

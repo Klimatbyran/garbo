@@ -13,12 +13,15 @@ interface GithubUserinfo {
 }
 
 class AuthService {
-    async authorizeUser(code: string) {
+    async authorizeUser(code: string, redirectUri?: string) {
+        // Use provided redirect_uri or fall back to configured one
+        // Note: The redirect_uri must match what was used in the authorization request
+        const finalRedirectUri = redirectUri || apiConfig.githubRedirectUri
     
         const accessTokenRes = await axios.post<{access_token: string}>("https://github.com/login/oauth/access_token", {
             client_id: apiConfig.githubClientId,
             client_secret: apiConfig.githubClientSecret,
-            redirect_uri: apiConfig.githubRedirectUri,
+            redirect_uri: finalRedirectUri,
             code
         }, {
             headers: {Accept: "application/json"}

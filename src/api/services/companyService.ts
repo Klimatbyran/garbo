@@ -3,7 +3,12 @@ import { OptionalNullable } from '../../lib/type-utils'
 import { DefaultEconomyType } from '../types'
 import { prisma } from '../../lib/prisma'
 import { economyArgs, detailedCompanyArgs, companyListArgs } from '../args'
-import { calculateEmissionChangeLastTwoYears } from '@/lib/company-emissions/companyEmissionsCalculator'
+import {
+  calculateEmissionChangeLastTwoYears,
+  calculateScope2Total,
+  calculateScope3Total,
+  calculatedTotalEmissions,
+} from '@/lib/company-emissions/companyEmissionsCalculator'
 import { calculateFutureEmissionTrend } from '@/lib/company-emissions/companyEmissionsFutureTrendCalculator'
 
 class CompanyService {
@@ -24,6 +29,15 @@ class CompanyService {
     )
 
     return companiesWithFutureEmissionsTrendSlope
+  }
+
+  async getAllCompanyNames() {
+    const companies = await prisma.company.findMany({
+      select: {
+        name: true,
+      },
+    })
+    return companies
   }
 
   async getAllCompaniesBySearchTerm(searchTerm: string) {
@@ -51,7 +65,6 @@ class CompanyService {
         wikidataId,
       },
     })
-
     const [transformedCompany] = addFutureEmissionsTrendSlope(
       addCompanyEmissionChange(
         addCalculatedTotalEmissions([transformMetadata(company)]),
@@ -257,17 +270,13 @@ export function addCalculatedTotalEmissions(companies: any[]) {
       .map((company) => ({
         ...company,
         reportingPeriods: company.reportingPeriods.map((reportingPeriod) => {
-          const { scope1, scope2, scope3 } = reportingPeriod.emissions || {}
-          const scope2Total = scope2?.mb ?? scope2?.lb ?? scope2?.unknown
-          const scope3Total =
-            scope3?.categories.reduce(
-              (total, category) => category.total + total,
-              0,
-            ) ||
-            scope3?.statedTotalEmissions?.total ||
-            0
-          const calculatedTotalEmissions =
-            (scope1?.total ?? 0) + (scope2Total ?? 0) + scope3Total
+          const { scope2, scope3 } = reportingPeriod.emissions || {}
+
+          const scope2Total = calculateScope2Total(scope2)
+          const scope3Total = calculateScope3Total(scope3)
+          const totalEmissions = calculatedTotalEmissions(
+            reportingPeriod.emissions,
+          )
 
           return {
             ...reportingPeriod,
@@ -275,13 +284,13 @@ export function addCalculatedTotalEmissions(companies: any[]) {
               ...reportingPeriod.emissions,
               scope2: scope2 && {
                 ...scope2,
-                calculatedTotalEmissions: scope2Total || 0,
+                calculatedTotalEmissions: scope2Total,
               },
               scope3: scope3 && {
                 ...scope3,
-                calculatedTotalEmissions: scope3Total || 0,
+                calculatedTotalEmissions: scope3Total,
               },
-              calculatedTotalEmissions: calculatedTotalEmissions || 0,
+              calculatedTotalEmissions: totalEmissions,
             },
             metadata: reportingPeriod.metadata,
           }

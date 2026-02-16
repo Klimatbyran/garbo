@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { emissionUnitSchemaWithDefault, wikidataIdSchema } from './common'
+import {
+  emissionUnitSchemaWithDefault,
+  emissionUnitSchemaGarbo,
+  wikidataIdSchema,
+} from './common'
 
 const createMetadataSchema = z.object({
   metadata: z
@@ -90,7 +94,7 @@ export const statedTotalEmissionsSchema = z
     unit: emissionUnitSchemaWithDefault,
     verified: z.boolean().optional(),
   })
-  .optional()
+  .nullish()
 
 export const emissionsSchema = z
   .object({
@@ -100,6 +104,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     scope2: z
       .object({
@@ -115,7 +120,7 @@ export const emissionsSchema = z
           .number({ description: 'Unspecified Scope 2 emissions' })
           .nullable()
           .optional(),
-        unit: emissionUnitSchemaWithDefault,
+        unit: emissionUnitSchemaGarbo.optional(),
         verified: z.boolean().optional(),
       })
       .refine(
@@ -129,7 +134,29 @@ export const emissionsSchema = z
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
         },
       )
-      .optional(),
+      .refine(
+        ({ mb, lb, unknown, unit }) => {
+          // If all values are null or undefined, unit can be null
+          const allValuesNull = 
+            (mb === null || mb === undefined) &&
+            (lb === null || lb === undefined) &&
+            (unknown === null || unknown === undefined);
+          
+          if (allValuesNull) {
+            return true; // unit can be null when all values are null
+          }
+          
+          // If any value is not null, unit must be provided (not null)
+          return unit !== null && unit !== undefined;
+        },
+        {
+          message:
+            'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
+          path: ['unit'],
+        },
+      )
+      .optional()
+      .nullable(),
     scope3: z
       .object({
         categories: z
@@ -137,13 +164,14 @@ export const emissionsSchema = z
             z.object({
               category: z.number().int().min(1).max(16),
               total: z.number().nullable().optional(),
-              unit: emissionUnitSchemaWithDefault,
+              unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
             }),
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
       })
+      .nullable()
       .optional(),
     biogenic: z
       .object({
@@ -151,6 +179,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
     statedTotalEmissions: statedTotalEmissionsSchema,
     scope1And2: z
@@ -159,6 +188,7 @@ export const emissionsSchema = z
         unit: emissionUnitSchemaWithDefault,
         verified: z.boolean().optional(),
       })
+      .nullable()
       .optional(),
   })
   .optional()
@@ -215,6 +245,7 @@ export const reportingPeriodSchema = z
 export const postReportingPeriodsSchema = z
   .object({
     reportingPeriods: z.array(reportingPeriodSchema),
+    replaceAllEmissions: z.boolean().optional(),
   })
   .merge(createMetadataSchema)
 
@@ -232,6 +263,7 @@ export const RegionalNameParamSchema = z.object({
 
 export const userAuthenticationBodySchema = z.object({
   code: z.string(),
+  state: z.string().optional(),
 })
 
 export const postWikidataBodySchema = z.object({

@@ -1,4 +1,4 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+/* import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { generateWikipediaArticleText, updateWikipediaContent } from '../lib/wikipedia'
 import { ReportingPeriod, Emissions } from '../lib/emissions'
 import wikipediaConfig from '../config/wikipedia'
@@ -89,4 +89,4 @@ function findMostRecentReportingPeriod(reportingPeriods: ReportingPeriod[] = [])
   return reportingPeriods[0];
 }
 
-export default wikipediaUpload
+export default wikipediaUpload */

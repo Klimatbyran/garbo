@@ -48,3 +48,12 @@ Show CLI help for the analyzer:
 ```bash
 npm run analyze -- --help
 ```
+
+
+Companie's issues.
+
+Scope 1&2 stated together:
+Garo
+Swedavia
+Bergman & beving
+

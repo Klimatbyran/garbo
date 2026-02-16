@@ -14,6 +14,7 @@ export class DiffReportingPeriodsJob extends DiffJob {
     scope3?: any[]
     biogenic?: any[]
     economy?: any[]
+    replaceAllEmissions?: boolean
   }
 }
 
@@ -39,7 +40,9 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         'reporting-periods',
         companyName,
         wikidata,
-        job.getApprovedBody(),
+        { ...job.getApprovedBody(), 
+        ...(job.data.replaceAllEmissions && { replaceAllEmissions: true })
+        },
       )
       return
     }
@@ -80,6 +83,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
           const emissions = {
             scope1: scope12.find((d) => d.year === year)?.scope1,
             scope2: scope12.find((d) => d.year === year)?.scope2,
+            scope1And2: scope12.find((d) => d.year === year)?.scope1And2,
             scope3: scope3.find((d) => d.year === year)?.scope3,
             biogenic: biogenic.find((d) => d.year === year)?.biogenic,
           }
@@ -121,7 +125,9 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
 
       const change: ChangeDescription = {
         type: 'reportingPeriods',
-        oldValue: { reportingPeriods: existingCompany.reportingPeriods },
+        oldValue: {
+          reportingPeriods: existingCompany?.reportingPeriods || [],
+        },
         newValue: { reportingPeriods: updatedReportingPeriods },
       }
 

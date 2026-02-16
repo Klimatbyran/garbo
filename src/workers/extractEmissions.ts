@@ -5,6 +5,8 @@ import { QUEUE_NAMES } from '../queues'
 
 type FollowUpKey =
   | 'industryGics'
+  | 'scope1'
+  | 'scope2'
   | 'scope1+2'
   | 'scope3'
   | 'biogenic'
@@ -30,10 +32,24 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const { companyName, runOnly } = job.data
     job.sendMessage(`🤖 Fetching emissions data...`)
 
-    const entries = await job.getChildrenEntries()
-    // Keep the whole object; unwrap only specific fields that might be nested
-    const wikidata = (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
-    const fiscalYear = (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
+    // Try to get wikidata/fiscalYear from children; if not present (e.g. manual rerun),
+    // fall back to values already on the job data.
+    let entries: any
+    try {
+      entries = await job.getChildrenEntries()
+    } catch {
+      entries = undefined
+    }
+
+    const wikidataFromChildren =
+      (entries as any)?.value?.wikidata ?? (entries as any)?.wikidata
+    const fiscalYearFromChildren =
+      (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
+
+    const wikidata =
+      wikidataFromChildren ?? (job.data as any)?.wikidata
+    const fiscalYear =
+      fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
     // updating the job data with the values we seek
     const base = {
@@ -63,11 +79,19 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         }
       },
       {
-        key: 'scope1+2',
+        key: 'scope1',
         job: {
           ...base,
-          name: 'scope1+2 ' + companyName,
-          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_12,
+          name: 'scope1 ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_1,
+        }
+      },
+      {
+        key: 'scope2',
+        job: {
+          ...base,
+          name: 'scope2 ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_2,
         }
       },
       {

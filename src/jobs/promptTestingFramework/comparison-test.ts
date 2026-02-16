@@ -21,7 +21,28 @@ const DIFFICULTY_THRESHOLDS = {
 const SKIPPED_FIELDS = [
   'unit',
   'mentionOfLocationBasedOrMarketBased',
-  'explanationOfWhyYouPutValuesToMbOrLbOrUnknown'
+  'explanationOfWhyYouPutValuesToMbOrLbOrUnknown',
+  'absoluteMostRecentYearInReport',
+  'mbValuesWeNeedToSummarize',
+  'lbValuesWeNeedToSummarize',
+  'fullScope2mbValuesWeNeedToSummarize',
+  'fullScope2lbValuesWeNeedToSummarize',
+  'fullUnknownScope2ValuesWeNeedToSummarize',
+  'listOfAvailablePureScope1Numbers',
+  'listOfAvailableCombinedScope1And2Numbers',
+  'listOfAllAvailableScope1Numbers',
+  'listOfAvailableScope1Numbers',
+  'listOfAllAvailableScope2NumbersAndTheirMethods',
+  'areScope1And2NumbersCombinedOnlyInOneField',
+  'listOfAvailableUncombinedScope1Numbers',
+  'listOfAllExplicitScope2NumbersAndTheirMethods',
+  'listOfScope1Numbers',
+  'listOfFullScope2CompleteValues',
+  'listOfSummarizedElectricityAndHeatingValuesToGetFullScope2Values',
+  'listOfMaxThreeSummarizedElectricityAndHeatingValuesToGetFullScope2Values',
+  'listOfAllPossibleScope1Numbers',
+  'numbersToSummarizeToGetTotalScope1',
+  'listOfAllScope2NumbersForThisYearAndTheirMethods',
 ] as const;
 
 // ============================================================================
