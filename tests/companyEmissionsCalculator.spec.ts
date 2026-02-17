@@ -1,4 +1,28 @@
-import { calculateScope3Total } from '../src/lib/company-emissions/companyEmissionsCalculator'
+import {
+  calculateScope3Total,
+  calculatedTotalEmissions,
+} from '../src/lib/company-emissions/companyEmissionsCalculator'
+
+describe('calculatedTotalEmissions', () => {
+  it('falls back to combined statedTotalEmissions when no scope 1, 1+2, 2 or 3 emissions', () => {
+    const emissions = {
+      statedTotalEmissions: { total: 500, unit: 'tCO2e' },
+    }
+    expect(calculatedTotalEmissions(emissions)).toBe(500)
+  })
+
+  it('returns null when no scope emissions and no statedTotalEmissions', () => {
+    expect(calculatedTotalEmissions({})).toBeNull()
+  })
+
+  it('returns null when no scope emissions and statedTotalEmissions.total is null', () => {
+    expect(
+      calculatedTotalEmissions({
+        statedTotalEmissions: { total: null, unit: 'tCO2e' },
+      }),
+    ).toBeNull()
+  })
+})
 
 describe('calculateScope3Total', () => {
   it('uses statedTotalEmissions when categories exist but all totals are null/undefined', () => {
