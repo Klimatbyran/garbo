@@ -37,6 +37,8 @@ import { authentificationRoutes } from './api/routes/auth'
 import { companyExportRoutes } from './api/routes/company.export'
 import { municipalityExportRoutes } from './api/routes/municipality.export'
 import { regionalExportRoutes } from './api/routes/regional.export'
+import { europeanReadRoutes } from './api/routes/european.read'
+import { europeanExportRoutes } from './api/routes/european.export'
 import { mailingListDownloadsRoute } from './api/routes/mailing-list.downloads'
 import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
@@ -132,6 +134,8 @@ async function publicContext(app: FastifyInstance) {
   app.register(municipalityExportRoutes, { prefix: 'api/municipalities' })
   app.register(regionalReadRoutes, { prefix: 'api/regions' })
   app.register(regionalExportRoutes, { prefix: 'api/regions' })
+  app.register(europeanReadRoutes, { prefix: 'api/europe' })
+  app.register(europeanExportRoutes, { prefix: 'api/europe' })
   app.register(nationalReadRoutes, { prefix: 'api/nation' })
   app.register(companyPublicReportingPeriodsRoutes, {
     prefix: 'api/reporting-period',
