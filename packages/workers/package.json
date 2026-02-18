@@ -1,0 +1,26 @@
+{
+  "name": "@garbo/workers",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@garbo/schemas": "workspace:*",
+    "@garbo/shared": "workspace:*",
+    "@garbo/jobs": "workspace:*",
+    "bullmq": "^5.28.0",
+    "discord.js": "^14.16.3",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

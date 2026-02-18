@@ -1,0 +1,387 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Company {
+  // // NOTE: Maybe just use an integer as the ID for companies, and use the unique hash instead.
+  // // We want to separate the company id from the URL slug
+  // id          String  @id @default(cuid())
+  /// wikidataId is our unique identifier to link to companies, also used to export to or import from wikidata
+  wikidataId  String  @id
+  name        String
+  description String?
+  descriptions Description[]
+  /// Company website URL
+  url         String?
+  lei         String?
+
+  /// TODO: Save Swedish org number, which might be the same as LEI or ISIN
+  // swedishOrgNumber
+
+  // TODO: save country and city/region for each company
+
+  industry         Industry?
+  reportingPeriods ReportingPeriod[]
+  goals            Goal[]
+  initiatives      Initiative[]
+  baseYear         BaseYear?
+
+  /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
+  internalComment String?
+
+  /// Tags to help categorize and filter companies
+  tags String[]
+
+  logoUrl String?
+}
+
+/// Explicitly stated base year for comparable data
+model BaseYear {
+  id        String @id @default(cuid())
+  // IDEA: maybe the year here should be in relation to a specific reporting period, since we need to account for special cases where reporting periods are not just one year
+  year      Int
+  companyId String @unique
+
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+}
+
+/// Connecting a company to a specific industry and metadata
+/// This also gives us the flexibility to add more ways to keep track of which industry a company belongs to.
+model Industry {
+  id                  String @id @default(cuid())
+  gicsSubIndustryCode String
+  companyWikidataId   String @unique
+
+  company      Company      @relation(fields: [companyWikidataId], references: [wikidataId], onDelete: Cascade)
+  metadata     Metadata[]
+  industryGics IndustryGics @relation(fields: [gicsSubIndustryCode], references: [subIndustryCode])
+}
+
+/// A table containing the standardised GICS codes for categorizing companies into various industries.
+/// These are added by the DB seeding script.
+model IndustryGics {
+  subIndustryCode        String @id
+  subIndustryName        String
+  subIndustryDescription String
+
+  sectorCode String
+  sectorName String
+
+  groupCode String
+  groupName String
+
+  industryCode String
+  industryName String
+
+  industries Industry[]
+}
+
+/// A reporting period is a timespan for accounting emissions as well as financial data
+model ReportingPeriod {
+  id        String   @id @default(cuid())
+  startDate DateTime
+  endDate   DateTime
+  /// The year needs to be the same year as the endDate.
+  year      String
+  /// Save URLs to the sustainability- and potentially also the yearly report for this reporting period.
+  /// This needs to be separate from the source URLs for each datapoint, since the data might be updated in a more recent report.
+  /// At the same time, we also want to refer back to the actual reports from a given reporting period for comparisons.
+  reportURL String?
+
+  companyId String
+
+  metadata  Metadata[]
+  economy   Economy?
+  emissions Emissions?
+  company   Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+
+  @@unique([companyId, year])
+}
+
+/// Reported emissions for a specific reporting period
+model Emissions {
+  id                String  @id @default(cuid())
+  reportingPeriodId String? @unique
+
+  scope1               Scope1?
+  scope2               Scope2?
+  scope3               Scope3?
+  scope1And2           Scope1And2?
+  statedTotalEmissions StatedTotalEmissions?
+  biogenicEmissions    BiogenicEmissions?
+  reportingPeriod      ReportingPeriod?      @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+}
+
+/// This is used when companies only report a total number for either overall- or scope 3 emissions.
+/// TODO: Maybe this should be simplified to just be a `statedTotal` property for the Emissions, and `statedTotal` for Scope3?
+/// However, the main reason behind using a separate entity for StatedTotalEmissions is because then we can keep track of metadata
+/// specifically for the stated totals from the report. For example if the company changes an incorrect statedTotal that does not match the actual calculated total.
+/// Not sure if this is worth it, in this structure though. Might be too complicated.
+model StatedTotalEmissions {
+  id          String  @id @default(cuid())
+  total       Float?
+  scope3Id    String? @unique
+  unit        String
+  emissionsId String? @unique
+
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+  scope3    Scope3?    @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+}
+
+/// This is used when companies have bad reporting where they have combined scope 1+2 as one value
+model Scope1And2 {
+  id          String  @id @default(cuid())
+  total       Float?
+  emissionsId String? @unique
+
+  unit      String
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+}
+
+/// Biogenic emissions are reported separately from scope 1-3
+model BiogenicEmissions {
+  id          String  @id @default(cuid())
+  /// Sometimes companies break it down into scope 1-3 - however these should always be stored as a total number according to the GHG protocol.
+  total       Float?
+  unit        String
+  emissionsId String? @unique
+
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+}
+
+model Scope1 {
+  id          String  @id @default(cuid())
+  total       Float?
+  unit        String
+  emissionsId String? @unique
+
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+}
+
+/// For scope 2 emissions, we choose either market-based, location-based or unknown (if the company didn't specify if mb or lb)
+/// We generally prefer using market-based emissions, but if that doesn't exist we could use location-based ones, and finally unknown.
+model Scope2 {
+  id          String  @id @default(cuid())
+  /// Market-based emissions
+  mb          Float?
+  /// Location-based emissions
+  lb          Float?
+  /// Unknown scope 2 emissions could be either market-based or location-based
+  unknown     Float?
+  unit        String
+  emissionsId String? @unique
+
+  emissions Emissions? @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  metadata  Metadata[]
+}
+
+model Scope3 {
+  id String @id @default(cuid())
+
+  /// Sometimes, companies only report a total value for scope 3 emissions without disclosing the scope 3 categories.
+  /// Other times, they might report both, but their stated total scope 3 emissions might be different than the actual sum of their scope 3 categories.
+  /// To get around this, we separate statedTotalEmissions from the actual mathematical total that we summarize during runtime.
+  emissionsId            String? @unique
+  statedTotalEmissionsId String? @unique
+
+  // The scope 3 categories, both reported and estimated.
+  // TODO: Add validation so there can only be one for each category, and max 16 entries.
+  statedTotalEmissions StatedTotalEmissions?
+  emissions            Emissions?            @relation(fields: [emissionsId], references: [id], onDelete: Cascade)
+  categories           Scope3Category[]
+  metadata             Metadata[]
+}
+
+/// Details about scope 3 categories. Here's a list of valid categories and their names:
+/// 
+/// 1. purchasedGoods
+/// 2. capitalGoods
+/// 3. fuelAndEnergyRelatedActivities
+/// 4. upstreamTransportationAndDistribution
+/// 5. wasteGeneratedInOperations
+/// 6. businessTravel
+/// 7. employeeCommuting
+/// 8. upstreamLeasedAssets
+/// 9. downstreamTransportationAndDistribution
+/// 10. processingOfSoldProducts
+/// 11. useOfSoldProducts
+/// 12. endOfLifeTreatmentOfSoldProducts
+/// 13. downstreamLeasedAssets
+/// 14. franchises
+/// 15. investments
+/// 16. other
+model Scope3Category {
+  id       String @id @default(cuid())
+  /// Int from 1-15 defining the scope 3 category.
+  /// 16 is a special value for "other", which is not included in the GHG protocol,
+  /// but useful to handle companies who invent their own scope 3 "categories".
+  category Int
+
+  // IDEA: When we want to keep track of detailed emissions for each scope 3 category, we could
+  // add statedTotalEmissions (to this DB schema) and calculatedTotalEmissions (during runtime).
+  // This distinction would help us keep track of detailed emissions within each scope 3 category, for example
+  // knowing the composition of cat 6. business travel, and how it changes across different years.
+  // This would also make easier to detect discrepancies between stated emissions and the actual calculated total value
+  // based on the composition for each scope 3 category. This would simplify the review process if we could automatically find errors.
+  total    Float?
+  scope3Id String
+  unit     String?
+
+  scope3   Scope3     @relation(fields: [scope3Id], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+}
+
+model Economy {
+  id                String  @id @default(cuid())
+  reportingPeriodId String? @unique
+
+  turnover        Turnover?
+  employees       Employees?
+  reportingPeriod ReportingPeriod? @relation(fields: [reportingPeriodId], references: [id], onDelete: Cascade)
+}
+
+model Turnover {
+  id        String  @id @default(cuid())
+  // IDEA: Should we store turnover with another datatype to prevent rounding errors? Money doesn't seem to be a good fit for storing as floats.
+  value     Float?
+  currency  String?
+  economyId String  @unique
+
+  economy  Economy    @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+}
+
+model Employees {
+  id        String  @id @default(cuid())
+  /// Number of employees
+  value     Float?
+  /// How the number of employees were calculated, e.g. Full-time equivalents (FTE) or similar.
+  unit      String?
+  economyId String? @unique
+
+  economy  Economy?   @relation(fields: [economyId], references: [id], onDelete: Cascade)
+  metadata Metadata[]
+}
+
+model Goal {
+  id          String  @id @default(cuid())
+  description String
+  year        String?
+  target      Float?
+  // TODO: Maybe reference ReportingPeriod instead
+  // However, baseYears for goals might be different than other reporting periods for the company.
+  // Thus, we in some cases need to reference something else than the reporting periods
+  // For now, let's store them as strings, but in the future maybe use another representation.
+  baseYear    String?
+  companyId   String
+
+  metadata Metadata[]
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+}
+
+model Initiative {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  year        String?
+  scope       String?
+  companyId   String
+
+  company  Company    @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata Metadata[]
+}
+
+/// Every datapoint has associated metadata about who changed it, when, and using what source
+model Metadata {
+  id               String   @id @default(cuid())
+  /// The comment is used to add relevant information about why the datapoint looks like it does
+  comment          String?
+  source           String?
+  updatedAt        DateTime @default(now()) @updatedAt
+  /// The userId who last updated the associated datapoint
+  userId           String
+  /// The userId who verified the associated datapoint.
+  /// Should only be set after human verification, and null if it has not been verified.
+  /// Verified datapoints should not be automatically updated by AI extracted or estimatated data, but always go through manual review going forward.
+  verifiedByUserId String?
+
+  goalId                 String?
+  initiativeId           String?
+  scope1Id               String?
+  scope2Id               String?
+  scope3Id               String?
+  scope1And2Id           String?
+  reportingPeriodId      String?
+  baseYearId             String?
+  biogenicEmissionsId    String?
+  statedTotalEmissionsId String?
+  industryId             String?
+  categoryId             String?
+  turnoverId             String?
+  employeesId            String?
+  descriptionId          String?
+
+  goal                 Goal?                 @relation(fields: [goalId], references: [id])
+  initiative           Initiative?           @relation(fields: [initiativeId], references: [id])
+  scope1               Scope1?               @relation(fields: [scope1Id], references: [id])
+  scope2               Scope2?               @relation(fields: [scope2Id], references: [id])
+  scope3               Scope3?               @relation(fields: [scope3Id], references: [id])
+  scope1And2           Scope1And2?           @relation(fields: [scope1And2Id], references: [id])
+  reportingPeriod      ReportingPeriod?      @relation(fields: [reportingPeriodId], references: [id])
+  baseYear             BaseYear?             @relation(fields: [baseYearId], references: [id])
+  biogenicEmissions    BiogenicEmissions?    @relation(fields: [biogenicEmissionsId], references: [id])
+  statedTotalEmissions StatedTotalEmissions? @relation(fields: [statedTotalEmissionsId], references: [id])
+  user                 User                  @relation("metadata_user_id", fields: [userId], references: [id])
+  verifiedBy           User?                 @relation("metadata_verified_by", fields: [verifiedByUserId], references: [id])
+  industry             Industry?             @relation(fields: [industryId], references: [id])
+  category             Scope3Category?       @relation(fields: [categoryId], references: [id])
+  turnover             Turnover?             @relation(fields: [turnoverId], references: [id])
+  employees            Employees?            @relation(fields: [employeesId], references: [id])
+  description          Description?          @relation(fields: [descriptionId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id    String @id @default(cuid())
+  email String?
+  name  String @unique
+  displayName String?
+  githubId   String? @unique
+  githubImageUrl String?
+  bot   Boolean @default(false)
+
+  // TODO: connect with github ID
+  // TODO: store github profile image - or get it via API
+  updated  Metadata[] @relation("metadata_user_id")
+  verified Metadata[] @relation("metadata_verified_by")
+}
+
+// Follows the ISO 639 language codes
+enum Language {
+  SV
+  EN
+}
+
+model Description {
+  id          String @id() @default(cuid())
+  text        String
+  companyId   String
+  language  Language
+  @@unique([companyId, language])
+
+  company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
+  metadata  Metadata[]
+}

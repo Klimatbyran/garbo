@@ -1,0 +1,2117 @@
+###### S1–2 Egen verksamhet
+###### S1–2 Egen verksamhet
+
+2040 91,7 % 95,4 % 90 % 90 % 92 %
+
+Resterande utslapp i scope 3 okade nagot pa grund av okade utslapp i leverantorskedjan for gas delvis kompenserat for en minskning i mindre scope 3-kategorier.
+
+| 10 |  |  |  |  | 10 |  | 10 | 10 | 10 | 10 | 10 | 10 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2040 uttryckt i absoluta tal (Mt) 1,2 1,6 1,5 0,6 |  |  |  |  |  | ~4,76 |  |  |  |  |  |  |
+![table image]({page: 93, x: 546}, {y: 439, {width: 408}, {height: 15})
+
+5 5
+
+Utslappen fran sald el minskade kraftigt pa grund av okad forsaljning av fossilfri el i Tyskland och Nederlanderna.
+
+|  |  |  |  |  | 5 5 | 5 | 5 | 5 | 5 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Metod | SDA4 | SDA4 | Absolut kontraktion4 | Absolut kontraktion4 | SDA + Absolut kontraktion4 |  |  |  |  |
+![table image]({page: 93, x: 562}, {y: 463, {width: 431}, {height: 7})
+
+Validerade av science based targets (SBTi).
+
+0
+0
+0
+0 202420232017 202420232017 202420232017 202420232017 0
+0
+0 202420232017 202420232017 202420232017 202420232017 0
+
+- 1. Alla mål är bruttomål, omfattar inte koldioxidupptag eller kolkrediter för fossil CO2e. Målen omfattar utsläpp av CO2, CH4, N2O, HFC, PFC, SF6 och NF3.
+
+- 2. Kombinerat mål som motsvarar 98 % i Scope 1 och 2 % i Scope 2 (marknadsbaserad).
+
+- 3. Intensitetsmål enligt SBTi-krav. Målnivåer uttryckta i absoluta tal är beroende av aktivitetsuppskattningar. och inte formella mål
+
+- 4. SDA = Sektorsspecifik metod för utfasning av fossila bränslen i kraftindustrin. Absolut kontraktion = 4,2 % absolut minskning jämfört med föregående år. Alla utsläpp har räknats om med hänsyn till försäljningen av Heat Berlin. På sidan 147 finns en tioårsöversikt som även innefattar utsläpp från avyttrade verksamheter. En uppdelning av samtliga utsläppskategorier enl GHG-protocol finns i 146. För metodförändringar och redovisningsprinciper, se sidan 126.
+
+########## Upplysningar som avses i artikel 8.6 och 8.7
+
+Enligt taxonomins regelverk skall upplysningar lamnas for eko nomiska verksamheter som inte omfattas av taxonomin med angivande av belopp och andel for karnenergirelaterade och fossilgasrelaterade verksamheter (aktiviteterna 4.26-4.31).
+
+Karnenergirelaterade verksamheter (4.26-4.28) och fossil gasrelaterade verksamheter (4.29-4.31) omfattas av taxonomin.
+Tabell 5 ar darfor inte tillamplig.
+
+
+<!-- PAGE: 145 -->
+- E1 Klimatförändringar: Vattenfalls Utsläpp och översikt av mål
+
+| E1-6 Bruttoväxthusgasutsläpp inom scope 1, 2, 3 och totala växthusgasutsläpp1 | 2017 | 2023 | 2024 | 2023–2024 (%) | 2030 | 2040 | Årligt mål i % /Basår2 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Retroaktivt | Retroaktivt | Retroaktivt | År för delmål och mål | År för delmål och mål | År för delmål och mål |  |
+| Utsläppsminskningsmål godkända av SBTi3 Scope 1 och 2 (marknadsbaserade) intensitet, gCO2e/kWh | 110,4 | 33,5 | 33,7 | 0,6% | 25,4 | 9,1 | 5,9% |
+| Scope 1 och Scope 3 Såld elektricitet, intensitet, gCO2e/kWh | 199,1 | 88,7 | 66,6 | –24,9% | 43,7 | 9,1 | 6,0% |
+| Scope 3 – Användning av sålda produkter för sålda fossila bränslen, MtCO2e | 15,1 | 8,9 | 10,2 | 14,0% | 6,9 | 1,5 | 4,2% |
+| Alla återstående Scope 3-kategorier, MtCO2e | 6,1 | 4,1 | 4,2 | 0,8% |  | 0.6 |  |
+| Total energiproduktion enligt GHG Protocol, TWh | 114,7 | 96,2 | 97,9 |  |  |  |  |
+| Scope 1-växthusgasutsläpp |
+| Bruttoväxthusgasutsläpp scope 1, |
+| MtCO2e 4, 11 | 12,6 | 3,2 | 3,3 | 2,2% | 3.3 | 1.2 | 5,7% |
+| Procentandel scope 1-växthus gas- utsläpp från reglerade utsläpps handels- system (%) | 99,8 | 99,7 | 99,8 | 0,0% |  |  |  |
+| Scope 2-växthusgasutsläpp, MtCO2e |
+| Platsbaserade bruttoväxthusgas utsläpp inom scope 211 | 0,04 | 0,03 | 0,03 | 4,1% |  |  |  |
+| Marknadsbaserade bruttoväxthusgas- utsläpp scope 2 (tCO2e)6, 11 | 0,04 | 0,03 | 0,03 | 10,3% |  |  |  |
+| Scope 3 växthusgasutsläpp, MtCO2e7 |
+| Totala indirekta bruttoutsläpp scope 3 | 40,3 | 22,7 | 21,3 | –5.9% |  |  |  |
+| Kategory 1 – Inköpta varor och tjänster | 0,5 | 0,5 | 0,3 | –46,8% |  |  |  |
+| Kategory 2 – Kapitalvaror | 0,4 | 0,8 | 0,8 | 10,9% |  |  |  |
+| Kategory 3 – Bränsle- och energi- relaterade verksamheter (ingår inte i scope 1 eller scope 2) | 23,3 | 11,8 | 9,5 | –19,6% |  |  |  |
+|  varav uppströms bränslen | 4,3 | 2,2 | 2,6 | 13,7% |  |  |  |
+|  varav utsläpp såld elektricitet4 | 19,1 | 9,6 | 6,9 | –27,5% | 5,3 | 1.6 | 5,6% |
+| Kategory 11 – Användning av sålda produkter | 15,8 | 9,4 | 10,6 | 13,0% |  |  |  |
+|  av vilket sålda fossila bränslen | 15,1 | 9,0 | 10,2 | 13,9% | 6,9 | 1,5 | 4,2% |
+|  av vilket sålda produkter | 0,6 | 0,4 | 0,4 | –7,0% |  |  |  |
+| 11. Inga utsläpp från investeringar utöver ustläpp inkluderade i finansiell konsolidering |
+| Mindre scope 3-kategorier8 | 0,3 | 0,2 | 0,1 | –39,9% |  |  |  |
+![table image]({page: 145, x: 256}, {y: 97, {width: 314}, {height: 7})
+
+| E1-6 Bruttoväxthusgasutsläpp inom scope 1, 2, 3 och totala växthusgasutsläpp1 | 2017 | 2023 | 2024 | 2023–2024 (%) | 2030 | 2040 | Årligt mål i % /Basår2 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Retroaktivt | Retroaktivt | Retroaktivt | År för delmål och mål | År för delmål och mål | År för delmål och mål |  |
+| Totala utsläpp av växthusgaser Totala utsläpp av växthusgaser (platsbaserade) (tCO2e) | 52.9 | 25,9 | 24.6 |  |  |  |  |
+| Totala utsläpp av växthusgaser (marknadsbaserade) (tCO2e) | 52.9 | 25,9 | 24.6 | –5% |  |  |  |
+| Biogena Utsläpp, MtCO2 (biogena)9 |
+| Biogena Scope 1 | 1,1 | 1,3 | 1,3 |  |  |  |  |
+| Biogena Scope 2 (platsspecifikt) | 0,1 | 0,1 | 0,1 |  |  |  |  |
+| Biogena Scope 3 | 0,3 | 0,1 | 0,1 |  |  |  |  |
+| E1-7 Växthusgasupptag och begränsnings- projekt för växthusgaser som finansieras genom koldioxidkrediter10 Koldioxidkrediter annulerande under året, MtCO2e | n/a | 0,3 | 0,5 |  |  |  |  |
+| Andel från begränsningsprojekt, % | n/a | 100 | 100 |  |  |  |  |
+| Erkänd kvalitetsstandard – Gold Standard, % | n/a | 100 | 100 |  |  |  |  |
+| Andel projekt inom EU, % | n/a | 0 | 0 |  |  |  |  |
+| Andel koldioxidkrediter som räknas som en motsvarande justering enligt artikel 6 i Parisavtalet,% | n/a | 0 | 0 |  |  |  |  |
+| Koldioxidkrediter som planeras att annulleras i framtiden – volym till 2028 | n/a | n/a | 0,1 |  |  |  |  |
+![table image]({page: 145, x: 750}, {y: 97, {width: 257}, {height: 15})
+
+- 1. Siffror för Scope 1, 2 och 3 inkluderar inte upptag eller köpta, sålda eller överförda koldioxidkrediter eller utsläppsrätter.
+
+- 2. Genomsnittlig årlig minskning mellan 2017 och 2030. SBTi:s målmetodik innebär att Vattenfalls genomsnittliga årliga minskning förändras över tid.
+
+- 3. Mål justerade efter avyttringen av Heat Berlin och allmänna uppdateringar av datakvaliteten. Uppdaterade mål godkända av SBTi.
+
+- 4. Intensitetsmålet omräknat till absoluta utsläpp.
+
+- 5. De samriskföretag som kontrolleras eller drivs av Vattenfall ingår i våra Science Based Targets.
+
+- 6. Avtalsinstrument som används för inköp av el omfattar ursprungsgarantiernas andel av de totala elinköpen. År 2024 motsvarar det 87 % av vilka 0 % var frikopplade.
+
+- 7. 92 % av utsläppen kommer från primärdata – Dessa är främst utsläpp från användning av sålda varor, utsläpp från Scope 3.3d elförsäljning och en del
+
+av utslappen i leveranskedjan.
+
+- 8. Utsläpp från återstående Scope 3-kategorier, kategori 4–8 samt 12, 13 och 15.
+
+- 9. Biogena utsläpp från Vattenfalls egna tillgångar, elförbrukning, elförsäljning och andra Scope 3-kategorier såsom byggrelaterade utsläpp. Utsläpp som ingår i klimatmålen i den mån det är relevant för varje tillämpningsområde och kategori.
+
+- 10. Vattenfall har inte tagit upp eller lagrat några växthusgaser mellan 2017 och 2024. Koldioxidkompensation används frivilligt mot utsläpp kopplade till produkter och tjänster, huvudsakliga metodiker var ACM0001 och ACM 0002.
+
+
+<!-- PAGE: 146 -->
+Tioarsoversikt hallbarhetsdata
+
+Finansiell konsolidering av hallbarhetsdata.
+For utslappsdata jamforbara med klimatmal se sida 146.
+
+|  | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| E1-5, Elproduktion1, TWh | 170,2 | 157,5 | 124,6 | 126,8 | 126,0 | 109,1 | 108,1 | 105,7 | 97,7 | 95,7 |
+| Förnybara källor | 43,4 | 39,0 | 40,7 | 40,2 | 42,4 | 47,0 | 49,1 | 49,8 | 46,9 | 48,4 |
+|  varav vattenkraft | 36,6 | 32,3 | 32,8 | 32,1 | 32,6 | 35,9 | 37,6 | 37,3 | 32,9 | 31,1 |
+|  varav vindkraft | 5,8 | 5,8 | 7,6 | 7,8 | 9,5 | 10,8 | 11,2 | 12,1 | 13,7 | 17,1 |
+|  varav solkraft | — | — | — | — | — | — | 0,1 | 0,1 | 0,1 | 0,0 |
+|  varav biobränsle och avfall (biologiskt) | 0,9 | 0,9 | 0,3 | 0,3 | 0,3 | 0,2 | 0,3 | 0,3 | 0,3 | 0,2 |
+| Kärnkraft | 42,2 | 46,9 | 51,9 | 55,0 | 53,4 | 39,3 | 40,4 | 39,6 | 37,4 | 37,9 |
+| Fossila källor (inkl. icke-biologiskt avfall) | 84,1 | 71,6 | 32,0 | 31,6 | 30,3 | 22,8 | 18,6 | 16,3 | 13,3 | 9,4 |
+| El levererad från lager, TWh | 2,9 | 2,5 | 2,8 | 3,5 | 3,2 | 3,8 | 3,3 | 3,2 | 3,2 | 3,5 |
+| Värmeproduktion, TWh | — | — | 19,7 | 18,9 | 15,5 | 14,2 | 16,1 | 14,6 | 14,5 | 9,2 |
+| Förnybara källor | — | — | 3,0 | 3,0 | 3,2 | 2,7 | 3,3 | 3,2 | 3,2 | 2,9 |
+| Fossila källor (inkl. icke-biologiskt avfall) | — | — | 16,7 | 15,9 | 12,3 | 11,5 | 12,8 | 11,4 | 11,3 | 6,2 |
+| E1-5, Direkt energianvändning (exkl. för produktion av vatten, vind och solkraft), TWh | 367 | 344 | 247 | 256 | 241 | 180 | 176 | 168 | 155 | 144 |
+| Förnybara källor | 6,5 | 6,6 | 4,8 | 5,1 | 5,2 | 4,6 | 5,2 | 5,0 | 4,9 | 4,3 |
+|  varav biobränsle, avfall (biologiskt) | 5,6 | 5,7 | 3,7 | 3,9 | 4,1 | 3,5 | 4,0 | 3,8 | 3,7 | 3,4 |
+|  varav el, värme och ånga (förnybart) | 0,8 | 0,9 | 0,9 | 1,0 | 0,9 | 1,0 | 1,0 | 1,0 | 0,9 | 0,8 |
+|  varav egenproducerad förnybar icke-bränsleenergi | 0,1 | 0,1 | 0,2 | 0,2 | 0,1 | 0,2 | 0,2 | 0,2 | 0,2 | 0,2 |
+| Andel av total användning från förnybara källor, % | 1,8% | 1,9% | 2,0% | 2,0% | 2,1% | 2,5% | 3,0% | 3,0% | 3,1% | 3,0% |
+| Energi från uran2, TWh | 129 | 143 | 158 | 168 | 163 | 120 | 123 | 121 | 114 | 116 |
+| Andel av total användning från kärnenergi, % | 35% | 42% | 64% | 65% | 67% | 67% | 70% | 72% | 74% | 80% |
+| Fossila källor | 27,7 | 32,5 | 36,8 | 38,6 | 44,3 | 41,8 | 38,7 | 34,7 | 28,4 | 24,0 |
+|  varav gas | 46,1 | 43,9 | 42,1 | 41,1 | 25,6 | 10,7 | 5,9 | 5,8 | 5,3 | 20,3 |
+|  varav stenkol | 152,7 | 113,2 | 1,5 | — | — | — | — | — | — | 2,3 |
+|  varav brunkol | 0,5 | 0,5 | 0,4 | 0,6 | 0,2 | — | — | — | — |  |
+|  varav torv | 2,6 | 2,6 | 1,2 | 1,2 | 1,2 | 0,7 | 0,8 | 0,7 | 0,8 | — |
+![table image]({page: 146, x: 182}, {y: 116, {width: 467}, {height: 7})
+
+- 5. CO2 från förbränning av biomassa.
+
+- 6. Utsläpp från Bränsle och energirelaterat till el inköpt för försäljning till slutkonsumenter: metodiken har uppdaterats för att överensstämma med kontrakt mot slutkonsument.
+
+- 7. Användning av sålda produkter har uppdaterats för att inkludera sålda gaspannor.
+
+|  | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  varav avfall, icke-biologiskt | 1,8 | 1,7 | 1,5 | 1,7 | 1,6 | 0,3 | 0,4 | 0,3 | 0,3 | 0,9 |
+|  varav övrigt, inklusive olja | 0,2 | 0,3 | 0,2 | 0,2 | 0,3 | 1,4 | 1,4 | 0,9 | 1,3 | 0,4 |
+|  varav el, värme och ånga (icke-förnybart) | 0,2 | 0,3 | 0,2 | 0,2 | 0,3 | 1,4 | 1,4 | 0,9 | 1,3 | 0,4 |
+| Andel av total användning från fossila källor, % | 63% | 57% | 34% | 33% | 30% | 31% | 27% | 25% | 23% | 17% |
+| Total energianvändning per nettointäkt, MWh/SEK | — | — | 6,6 | 6,1 | 5,2 | 4,1 | 3,5 | 2,5 | 1,9 | 2,1 |
+| Kärnenergi, uran, ton | 143 | 120 | 106 | 118 | 136 | 98,6 | 119 | 83 | 129 | 65,9 |
+![table image]({page: 146, x: 675}, {y: 116, {width: 467}, {height: 7})
+
+
+
+- 1. Parametrar för elproduktion har justerats för att rapportera el levererat från lager, främst pumpkraftverk, separat. Detta påverkar även CO2e intensitet, g/kWh.
+
+- 2. Kärnenergi har lagts till energianvändning som energi från uran.
+
+###### Resterande utsläpp i Scope 3 Resterande utsläpp i Scope 3
+
+- 5. Målnivån inkluderar endast Scope 3-utsläpp.
+
+- 6. Målnivån är lika med återstående utsläpp för varje mål 2040, som ska kvittas mot upptag enligt SBTi:s krav.
+
+##### Not avseende E1 Klimatförändringar
+###### Energiförbrukning
+
+Energiforbrukningen redovisas pa sidan 147.
+Samma avgrans ning har tillampats for utslapp enligt energi och vaxthusgaser i Scope 1 och 2.
+Energirelaterad information bestar bade av primar bransleforbrukning som anvands for produktion av varme och el och slutlig energianvandning genom inkopt el varme och anga.
+Vi raknar inte av energiforbrukningen och energi som kops in inom den egna organisationens granser dubbelraknas inte.
+Underliggande data omfattar verifiering kopplade till nationella krav fran bade EU:s regelverk kring utslappshandelssystem och energikartlaggning inom ramen for EU:s energieffektivitetsdirektiv.
+
+| Redovisningsprinciper och noter | 126 |
+| Innehållsindex | 132 |
+| Noter och tabeller till EU:s taxonomirapportering | 134 |
+| Tioårsöversikt hållbarhetsdata 147 |
+| → GRI-index | 150 |
+![table image]({page: 125, x: 60}, {y: 208, {width: 187}, {height: 8})
+
+→ Upplysningar utanfor ESRS
+
+Vattenfall mater hur effektiva de vidtagna atgarderna ar over tid genom att folja upp centrala resultatindikatorer for vaxthusgas utslapp i absoluta tal och intensitet.
+Installerad effekt samt den totala mangden och andelen fossilfri el som produceras ger ocksa en indikation pa den indirekta utvecklingen for Vattenfalls hantering av vasentliga inverkningar risker och mojligheter.
+
+Tabell 1.
+Utslapps scope berakningsmetoder verktyg och emissionsfaktorer
+
+|  | Scope | Beskrivning | Beräkningsmetod och verktyg som använts |
+| --- | --- | --- | --- |
+|  Användning av internt koldioxidpris | S1 | Direkta utsläpp från egen verksamhet | Den absoluta majoriteten av scope 1-utsläppen är kopplade till fossila Osäkerheter Osäkerheter är främst kopplade till scope 3-utsläpp där brist på data täcks av användningen av emissionsfaktorer. Så långt det är möjligt används emissionsfaktorer från officiella källor på Vattenfalls marknader. Se tabell 1 för uppgifter om använda emissionsfaktorer. |
+| För närvarande har Vattenfall inte implementerat en officiell intern koldioxidprisnivå för hela koncernen. Prisscenarier för CO2 används för Scope 1-utsläpp som en del av det interna beslutsfattandet. Försök med intern prissättning för att hantera Scope 3-utsläpp har påbörjats under 2024. Prisscenarier offentliggörs inte externt i nuläget. |
+| utsläpp som också omfattas av EU ETS och följer relevanta nationella | standarder och krav och omfattar både beräkningar baserade på bränsle- | volymer och faktiska mätningar beroende på nationella krav. Revision | utförs som en del av regelverket kring EU ETS. |
+|  | S2 Marknadsbaserade | Indirekta utsläpp från energianvändning baserat på attribut | Beräknas med hjälp av den totala inköpta volymen av värme och el för eget bruk, beräknat med hjälp av avtalsinstrument såsom ursprungs- garantier. För elförbrukning utan särskilda avtalsenliga källor har nationella restblandningar tillämpats. Emissionsfaktor för restblandning från Association of Issuing Bodies |
+![table image]({page: 125, x: 539}, {y: 257, {width: 442}, {height: 39})
+
+- S2 Platsbaserade Indirekta utsläpp från energianvändning (produktionsbaserade), utsläpp på landsnivå
+
+- S3.1 Inköpta varor och tjänster
+
+- S3.2 Kapitalvaror Uppförande av nya tillgångar (främst havs- och landbaserad vindkraft samt solkraft)
+
+- S3.3 Bränsle- och energirelaterade verksamheter
+
+####### 3. Före 2017 bara CO2
+
+Fran 2017 inkluderas aven CH4 N2O och SF6.
+
+- 8. Antingen beräknade eller direkt uppmätta i olika länder. Utsläppsfaktorer som tillämpas beror på teknologi och lokala metoder.
+
+- 4. Av de totala utsläppen av växthusgaser utgörs 0,1 Mton CO2e av SF6, CH4 and N2O utsläpp. Växthusgaspotentialer är hämtade från IPCC Sixth Assessment report.
+
+
+<!-- PAGE: 147 -->
+Tioarsoversikt hallbarhetsdata forts.
+
+|  | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Frivillig uppgift1 |
+| Utsläpp relaterat till förluster i pumpkraft, tCO2e | — | — | — | — | — | 0,2 | 0,2 | 0,2 | 0,2 | 0,2 |
+| Växthusgasutsläpp Scope 1, 2 och 3, CO2e, marknadsbaserat2, 3 | — | — | 62,7 | 63,6 | 53,2 | 40,9 | 40,2 | 32,9 | 31,2 | 26,7 |
+| Växthusgasutsläpp Scope 1, 2 och 3, CO2e, platsbaserat2, 3 | — | — | 62,7 | 63,6 | 53,3 | 40,9 | 40,2 | 32,9 | 31,2 | 26,7 |
+| Växthusgasutsläpp per netto- intäkt, CO2e, marknadsbaserat | — | — | 0,46 | 0,41 | 0,31 | 0,26 | 0,22 | 0,14 | 0,11 | 0,11 |
+| Växthusgasutsläpp per netto- intäkt, CO2e, platsbaserat | — | — | 0,46 | 0,41 | 0,31 | 0,26 | 0,22 | 0,14 | 0,11 | 0,11 |
+| Avfall och biprodukter, kton |
+| Farligt avfall | 96 | 130 | 61 | 59 | 72 | 37 | 50 | 49 | 37 | 42 |
+| Icke-farligt avfall | 338 | 198 | 147 | 98 | 75 | 39 | 40 | 37 | 28 | 21 |
+| Aska från kol | 6 219 | 4 692 | 671 | 579 | 423 | 160 | 110 | 106 | 104 | 43 |
+| Aska från biomassa | 38 | 41,3 | 37,4 | 38,4 | 32,9 | 21,6 | 20,8 | 25,4 | 17,5 | 12,2 |
+| Slagg från avfallsförbränning | 229 | 237 | 168 | 170 | 173 | 100 | 105 | 99 | 76 | 97 |
+| Gips | 3 048 | 2 341 | 169 | 185 | 128 | 45 | 26 | 22 | 26 | 12 |
+| Radioaktivt avfall |
+| Låg- och medelaktivt radioaktivt driftsavfall, kubikmeter | 3 353 | 1 013 | 912 | 829 | 411 | 628 | 434 | 408 | 214 | 606 |
+| Härdkomponenter, ton | 7 | 17 | 15 | 31 | 13 | 58 | 84 | 1 | 21 | 1 |
+| Använt kärnbränsle – uttagna bränsleelement, ton | 197 | 124 | 175 | 137 | 260 | 274 | 136 | 157 | 171 | 188 |
+| SAIDI (minuter/kund) |
+| Sverige | 212 | 150 | 125 | 187 | 439 | 148 | 112 | 157 | 132 | 123 |
+![table image]({page: 147, x: 182}, {y: 97, {width: 467}, {height: 7})
+
+######## S3.11 Sålda fossila bränslen S3.11 Sålda fossila bränslen
+###### S3.3c Elförsäljning S3.3c Elförsäljning
+###### S1–2 Egen verksamhet S1–2 Egen verksamhet
+
+
+<!-- PAGE: 94 -->
+Viktiga atgarder under 2024
+
+Under 2024 vidtogs ett antal atgarder som direkt eller indirekt minskar vaxthusgasutslappen eller bidrar till omstallningen av energisystemet eller till att samhallet i stort kan fasa ut fossila branslen se Tabell 8.
+For mer information om pagaende och planerade projekt se sida 24-25.
+
+Viktiga atgarder for framtiden Vattenfall planerar att fortsatta bygga ut den fossilfria energi produktionen vilket bidrar till att minska utslappen fran var produktions portfolj samt oka mangden fossilfri el i energi systemen.
+Nagra exempel pa detta ar • Under 2024 fattade agarna till karnkraftverken Forsmark och Ringhals ett inriktningsbeslut om att forlanga drifttiden for kraftverkens reaktorer fran 60 till 80 ar.
+Det skulle motsvara en tillforsel pa totalt mer an 800 TWh fossilfri el.
+Nu vantar en for djupad utredningsfas som bland annat inbegriper mer detalje rade kostnadsberakningar och analys av identifierade risker kopplade till bland annat kompetens och leverantorer.
+Dar efter kan ett slutgiltigt investeringsbeslut eventuellt fattas.
+Merparten av de investeringar som erfordras ar planerade att ske under 2030-talet.
+
+- • Under 2024 tecknade Vattenfall ett avtal om att köpa 7,5 mil- joner kubikmeter biometan årligen av det europeiska avfalls- hanteringsföretaget Renewi. Biometanen, som utvinns ur mat- avfall, kommer att tillföras det allmänna nederländska gasnätet där den kommer att ersätta fossil gas. Detta ger en årlig växthusgasminskning på cirka 11 000 ton.
+
+Tabell 8.
+atgarder for klimatforandringar
+
+| Åtgärd | Drivkraft | Omfattning och geografiskt område | Tidsplan för färdigställande | Förväntat utfall och hur det bidrar till att uppnå målen och uppfylla policyer1 | Kapital utgifter (miljarder SEK) | Driftsutgifter (miljarder SEK) | Relevant kod enligt EU-taxonomin3 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Investeringar i ny fossilfri produktion, inklusive vindkraftsprojek, till exempel: • Hollandse Kust Zuid • Vesterhav • Bruzaholm | Ökad andel fossilfri el på marknaden. Minska specifika utsläpp | Den egna verksam heten, Vattenfalls samtliga marknader | 2024–2030 | • Minskade specifika utsläpp S1 | 9,2 | 0,7 | 4.1, 4.3 |
+| Investeringar i bioenergi, bergvärme och värme pumpar, till exempel: | Minskade fossila utsläpp från gas och avfalls förbränning | Sverige, Nederländerna, Storbritannien, egen verksamhet och kunder | 2024–2030 | • Minskade utsläpp i scope 1 | 2,3 | 0,5 | 4.11, 4.15, 4.16, 4.20, 4.24, 4.25 |
+![table image]({page: 94, x: 55}, {y: 185, {width: 572}, {height: 39})
+
+- • Lignum biobaserat fjärrvärmeverk i Sverige
+
+- • Investeringar i befintliga bioenergianläggningar och -nät
+
+- • Ersätta fossil olja i Nyköping
+
+Investeringar i befintliga fossilfria tillgangar Forsaljning av fossilfri el Vattenfalls samtliga marknader 2024-2030 • Minskade specifika utslapp S1 • Minskade utslapp i scope 3.3d 3 3,1 4.5 4.28 • Minskade utslapp i scope 1 (indirekt) • Minskade utslapp i scope 3.3d • Minskande utslapp i energisystemet scope 42 • Minskade utslapp i scope 3.11 (indirekt) genom att ansluta kunder till losningar med laga utslapp
+
+- • Vattenfall och Cemvision har ingått ett avtal om utveckling och framtida leverans av nästan helt utsläppsfri cement. Den nya cementen har potential att minska koldioxidutsläppen med 95 % jämfört med vanlig cement.
+
+- • I det pågående vindkraftsprojektet Nordlicht i Tyskland har Vattenfall beslutat att använda stål med låga utsläpp i tillverk- ningen av 56 av de 112 vindkraftverken, vilket minskar tornens klimatavtryck avsevärt. Stålet framställs av stålskrot som bearbetas i elektriska ljusbågsugnar, som i sin tur drivs av för- nybar energi. Detta minskar klimat avtrycket med 66 % jämfört med tunga stålplåtar till verkade enligt konventionella metoder.
+
+- • Reduced emissions in the energy system scope 42
+
+- • Under 2025 förväntas Vattenfalls nya kontorsbyggnad i Ham- burg motta certifikatet ”Umweltzeichen HafenCity”. Byggna- den har utrustats med 74 solpaneler och försörjs med fjärr- värme som till över 85 % kommer från förnybar energi och industriell överskottsvärme.
+
+Utover planerade atgarder och mal har Vattenfall gjort foljande ataganden fram till 2030
+
+- • 10 % av det stål som företaget köper in varje år vara stål med nära nollutsläpp.
+
+- • Flygbränsle: ersätta minst 5 % med hållbart flygbränsle.
+
+- • Lastbilstransporter: 30 % av de tunga och 100 % av de medel tunga lastbilar som köps in från lastbilsleverantörer ska vara nollutsläppsfordon.
+
+- • Betong: 10 % av den inköpta betongen ska vara betong med nära nollutsläpp.
+
+- • Affärsområdet Wind har åtagit sig att använda 50 % stål med låga utsläpp till 2030 och 100 % till 2040.
+
+- • Fossilfritt Sverige: 100 % fossilfria nationella transporter, Elek- trifiering av egen fordonsflotta och att installera solceller.
+
+Sakra en fossilfri energiforsorjning
+
+kunder och partner Fasa ut fossila branslen i leveranskedjan
+
+oka forsaljningen av fossilfri el
+
+|  ökning från 2023 | Fossilfri elförsäljning | I senare led, fokus på Nederländerna och Tyskland | 2024 | • Minskade utsläpp i scope 3.3d | Ej tillämpligt | Ej tillämpligt | Ej tillämpligt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Förstärka elnäten och investera i lagring | Anslutning och optimering av elnätet | Sverige och Tyskland | 2024–2030 | • Scope 42, möjliggörandet av dekarbonisering av kunder | 10,5 | 2,3 | 4.5, 4.28 |
+| Investeringar i laddningsnät | Driva utvecklingen av klimat smarta lösningar tillsammans med | Alla marknader | 2024–2030 | • Scope 42, minskande utsläpp hos kunder | 1 | 0,06 | 7,4 |
+| Vidta åtgärder för att fasa ut fossila bränslen i leveranskedjan |  | Alla marknader | 2024 | • Scope 3.3 minskande utsläpp från levernatörsled | Ej tillämpligt | Ej tillämpligt | Ej tillämpligt |
+![table image]({page: 94, x: 55}, {y: 378, {width: 573}, {height: 15})
+
+- • Använda fossilfria bränslen och koldioxidsnåla material vid uppförandet av en ny högspänningsledning.
+
+- • Använda biodiesel, koldioxidsnål betong och återvunna plaströr på Bruzaholms vindkraftspark.
+
+- 1. Resultaten av utsläppsminskningar för enskilda åtgärder särredovisas inte utöver det årliga utfallet av utsläpp kopplade till varje målområde. Detta på grund av osäkerheter i de faktiska utsläppsminskningarna för projekt som har en direkt eller indirekt minskning över flera utsläpps-scope.
+
+- 2. Scope 4 är utsläppsminskningar som sker utanför vattenfalls rapporteringsscope och räknas inte mote intern satta mål.
+
+- 3. Belopp som omfattas av EU-taxonomin som är både taxonomiförenliga och ej taxonomiförenliga. Se sidan 88.
+
+
+<!-- PAGE: 95 -->
+
+#### Tabell 7. Klimatmål
+
+10 10 10 10 10 10 10 10 5 5
+
+Utslappen fran 3.11 salda fossila branslen okar pa grund av kundtillvaxt och en okning hos befintliga kunder pa grund av forand rade marknadsforhallanden Utslapp fran S1-2 Egen verksamhet nagot pa grund av okade drift timmar i gaseldade kraftverk och okad elanvandning
+
+Mal Egen verksamhet All sald el Salda fossila branslen Resterande utslapp i scope 3 Utslapp totalt
+
+| Måltäckning1 | Scope 1 och 22 | Scope 1 och 3 från all såld el | Scope 3 Användning av sålda produkter för sålda fossila bränslen | Alla återstå- ende Scope 3-kategorier | Absoluta utsläpp Scope 1+2+3 |
+| --- | --- | --- | --- | --- | --- |
+|  | 5 5 | 5 5 | 5 5 | 5 5 | 5 5 | 5 | 5 5 | 5 |
+![table image]({page: 93, x: 691}, {y: 313, {width: 447}, {height: 15})
+
+| 0 0 0 0 0 0 | 202420232017 | 202420232017 | 202420232017 202420232017 0 |
+| --- | --- | --- | --- |
+| 202420232017 | 202420232017 | 202420232017 | 202420232017 | 0 |
+![table image]({page: 93, x: 562}, {y: 338, {width: 405}, {height: 6})
+
+| Enhet | g CO2e/kWh | g CO2e/kWh | MtCO2e | MtCO2e | MtCO2e |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 2017 Basår | 110 | 199 | 15,1 | 6,1 | 52,9 |  |  |  |
+| 2025 | 62,1 | n/a | n/a | n/a | n/a |  |  |  |
+| Resterande utsläpp i Scope 3 |
+| Resterande utsläpp i Scope 3 |
+|  |  |  |  |  |  | CO2e, Mton CO2e, Mton | CO2e, Mton CO2e, Mton | CO2e, MtonCO2e, Mton CO2e, MtonCO2e, Mton |
+| 2025 uttryckt i absoluta tal (Mt) | 6,9 | n/a | n/a | n/a | n/a |  |  |  |
+![table image]({page: 93, x: 49}, {y: 350, {width: 400}, {height: 15})
+
+|  | 20 | 20 |
+| --- | --- | --- |
+| 20 | 20 | S3.11 Sålda fossila bränslen | 20 | 20 |
+![table image]({page: 93, x: 546}, {y: 388, {width: 127}, {height: 7})
+
+20 20
+
+#### S3.11 Sålda fossila bränslen
+##### S3.3c Elförsäljning
+##### S1–2 Egen verksamhet
+#### Framsteg under rapporteringsperioden
+
+| CO2e, Mton | CO2e, Mton | CO2e, MtonCO2e, Mton |
+| --- | --- | --- |
+| CO2e, Mton | CO2e, Mton | CO2e, MtonCO2e, Mton |
+![table image]({page: 93, x: 687}, {y: 227, {width: 289}, {height: 6})
+
+Vattenfall har minskat utslappen med 53 % jamfort med basaret 2017 uppmatt som totala utslapp i scope 1 2 och 3.
+Under rapporteringsaret har Vattenfall minskat utslappen i Scope 1-3 med ca 5 % jamfort med 2023 vilket motsvarat for vantat utfall.
+En trend med langsammare utslappsminskningar ar att vanta under kommande ar.
+Stora enskilda atgarder for att minska koldioxidutslappen (nedlaggningar av kol) har redan genomforts.
+Utslappen fran leverantorsled forvantas oka i takt med att ny fossilfri kapacitet byggs upp for att ge mer fossilfri energi till systemet.
+Det ar en utmanande miljo for att minska koldioxidutslappen inom gasforsaljning.
+Samtidigt kommer insatser ske for att minska koldioxidutslappen inom samtliga delar av Vattenfall.
+Tillsammans forvantas detta resultera i en langsammare utslappsminskningstakt.
+En oversikt av forand ring av utslapp per scope redovisas i Figur 4.
+
+For mer information om energianvandning totala vaxthusgas utslapp och metod for redovisning upptag av vaxthusgaser och kolkrediter ancandandet av internpris for CO2 se sidan 126.
+
+20 20 20 20 20 20 20 20
+
+- 1. Målvärdena bedöms motsvara referensvärden som är förenliga med 1,5˚C-målet.
+
+15 15 15 15 15 15 15 15
+
++14 % +2 % +1 %
+
+####### Strategi – Omställningsplan
+
+Vattenfalls ambition ar att vara ledande i energiomstallningen och att som ett lonsamt energibolag gora det mojligt att leva fossilfritt.
+Det innebar att vi maste anpassa var verksamhet till vad som kravs for att begransa den globala uppvarmningen till 1,5 °C i enlighet med Parisavtalet.
+For att Vattenfall ska lyckas med det behover vi ha en dubbel strategi for att fasa ut fossila branslen fran var egen verksamhet och leveranskedja samtidigt som vi investerar i losningar for att skapa ett fossilfritt energi system och darigenom bidra till minskade utslapp i samhallet.
+Vattenfalls omstallningsplan avser Sakerstalla en fossilfri energiforsorjning Att minska vara utslapp i linje med 1,5˚C-malet1 och bade driva och tillfora ny fossilfri produktionskapacitet till marknaden.
+Vi tillfor ny kapacitet genom att hoja effekten hos befintliga fossil fria kraftverk och tillfor ny fossilfri produktionskapacitet till energi systemet genom egna investeringar eller tillsammans med samarbetspartners.
+Sammankoppling och optimering av energisystemet Vattenfall ager investerar i och driver kritisk infrastruktur och flexibilitetstillgangar i energisystemet.
+I takt med utfasningen av fossila branslen okar behovet av att balansera intermittenta Driva utvecklingen av klimatsmarta losningar tillsammans med kunder och samarbetspartners For att na nettonollutslapp racker det inte med att tillhandahalla fossilfri energi och nodvandig infrastruktur.
+Vi anvander var marknadsposition och vara produkter for att ytterligare fasa ut fossila branslen i samarbete med leverantorer kunder och sam arbetspartners.
+av lagrad koldioxid och transparens i metoder ar hornstenar i vara krav pa koldioxidupptag.
+Se sidan 94 for fullstandig infor mation om Vattenfalls klimatmal For att na vara mal behover vi vidta atgarder inom hela Vattenfall till exempel att fasa ut fossil gas i Vattenfalls verk samhet investera i fossilfri kraftproduktion och anvanda var marknadsposition for att driva pa utfasningen av fossila brans len i hela var vardekedja.
+Vattenfall har hittills lyckats minska utslappen i linje med befintliga mal.
+Var plan for att uppna netto noll utslapp till 2040 och vara viktigaste atgarder for att fasa ut fossila branslen presenteras i Figur 3 och Tabell 6.
+
+- 1. I enlighet med den sektorsspecifika metoden för utfasning av fossila bränslen för kraftindustrin i enlighet med SBTi.
+
+energislag sa som vind och sol.
+Behovet att koppla samman ny forbrukning och produktion samt att investera i natkapacitet drivs aven pa av elektrifieringen av samhallet.
+
+Figur 3.
+Vattenfalls fardplan for att na nettonollutslapp och viktiga atgarder for utfasning av fossila branslen Tabell 6.
+Vattenfalls atgarder for utfasning av fossila branslen och strategi for att uppna nettonollutslapp till 2040 20242023202220212020201920182017
+
+Arbetet vagleds av verifierade och vetenskapligt baserade klimatmal som syftar till utslappsreduktion till 2030 for att slut ligen na nettonoll utslapp till 2040.
+Nettonoll innebar en utslappsminskning pa minst 90 % varefter eventuella atersta ende utslapp maste neutraliseras med hjalp av koldioxidupptag fran atmosfaren.
+Vattenfall staller krav pa att det koldioxidupp tag som kommer att anvandas i framtiden ska ha hog trovardig het och vara godkanda for anvandning av SBTi.
+Bestandighet Total andel minskade koldioxidutslapp fram till 2040 17 %
+
+|  |  |  |  | Genomförda nedstängningar av egna kolkraftverk | –9 | n/a2 |
+| --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  | Förväntat bidrag 2017–2030 Mton CO2e | Förväntat bidrag 2030–2040 Mton CO2e |
+| CO2e, Mton 60 |
+| 50 40 30 20 10 0 Förändring sedan 2017 |
+| 53 % |
+| Resterande utsläpp i Scope 3 |
+| S3.11 Sålda fossila bränslen |
+| S3.3d Elförsäljning |
+| S1–2 Egen verksamhet |
+| Koldioxidupptag |
+| 5 % |
+| 33 % |
+|  |  |  |  | Minska fossila utsläpp från naturgas och avfallsvärme | –1 | –2 |
+|  |  |  |  | Öka försäljningen av fossilfri el | –14 | –4 |
+|  |  |  |  | Minska utsläpp från sålda fossila bränslen | –14 | –5 |
+![table image]({page: 90, x: 591}, {y: 301, {width: 355}, {height: 7})
+
+2030 mal 2040 mal
+
+26 %
+
+11 %
+
+2022 Invigning av det biobaserade varmeverket Carpe Futurum vilket mojliggor en fullstandig utfasning av torv i den svenska verksamheten ~ -0,2 Mt 2021 Avveckling av det tyska kolkraftverket Moorburg ~ -6 Mt
+
+| Minska utsläpp i leveranskedjan | –1 | –4 |
+| --- | --- | --- |
+| Koldioxidupptag | n/a | < 5 |
+![table image]({page: 90, x: 591}, {y: 447, {width: 356}, {height: 7})
+
+<9 %
+
+- 2. Ej tillämpligt, redan uppnått
+
+2019 Nedlaggning av det koleldade kraftverket Hemweg 8 i Amsterdam Nederlanderna ~ -3Mt
+
+2017
+
+####### SYS 2025
+###### DE Baseload NL 2025
+
+Emission allowances CO2 (EUR/t) spot SYS Baseload DE 2026 Coal (USD/t) spot
+
+###### Verksamhet i sektorer med hög klimatpåverkan
+
+Energisektorn ar klassad som en sektor med hog klimat paverkan vilket innebar att alla siffror om energianvandning och energiintensitet baserat pa nettoomsattning som redovisas pa sid 144-146 ar kopplade till aktiviteter i sektorer med hog klimat paverkan.
+Den nettointakt som redovisas ar i linje med de redovisningsstandarder som galler for de finansiella rappor terna och motsvarar det varde pa omsattningen som rapporte ras som en del av EU:s taxonomirapportering se sidan 136.
+
+Beraknat med hjalp av den totala inkopta volymen av varme och el for eget bruk beraknat med hjalp av produktionsmixen for varje marknad.
+Emissionsfaktorer for produktionsmixen fran Association of Issuing Bodies Spendanalys och leverantorsdata via CDP supply chain program.
+
+Spendanalys och leverantorsdata via CDP supply chain program.
+
+Branslevolym multiplicerad med relevanta emissionsfaktorer.
+For fossil gas tillampas Spheras statistik over naturgasmixen i Europa 2020 for alla ar.
+For historiskt kol Vattenfalls specifika mix av ursprungsland 2017-2023.
+For karnbransle anvands Vattenfalls EPD.
+For tredjepartsintegrerade varmeverk anvands direkt dataleverans.
+
+Alla inkop av varor och tjanster exklusive uppforande av nya tillgangar
+
+Utslapp i tidigare led fran inkopt bransle utslapp i tidigare led fran inkopt elektricitet
+
+#### Begränsning av klimatförändringar
+
+Taxonomiforenliga aktiviteter som elproduktion fran vindkraft (4.3) och lagring av el (4.10) (pumpkraft) bidrar automatiskt till klimatmalet.
+For ovriga storre aktiviteter som elproduktion fran vattenkraft (4.5) och elproduktion fran karnkraft i existerande anlaggningar (4.28) har tredjepartsgranskade livscykelanalyser anvants for att verifiera att EU taxonomins krav avseende utslapp av vaxthusgaser uppfylls.
+For aktiviteten overforing och distribution av el (4.9) har majoriteten bedomts vara forenlig med taxonomin da hela Vattenfalls distributionsnat ar sammankopplat med det Europe iska systemet och verksamheten uppfyller kravet pa klimat prestanda for nyansluten produktion.
+En mindre andel av aktivi teten har rapporterats som icke forenlig med taxonomins krav i brist pa verifierbara data.
+For ovriga aktiviteter har forenlighet bedomts pa produktniva eller ekonomisk aktivitetsniva.
+Forenlighet uppfylls ofta genom efterlevnad av EU lagstiftning och nationell lagstiftning och foljs upp arligen genom vara certifierade miljoledningssystem.
+
+##### Övrigt / Ordlista
+## Ordlista
+
+Cirkular ekonomi Cirkular ekonomi ar ett ramverk for hallbar tillvaxt med det overgripande malet att minska samhallets resursanvandning och den miljopaverkan den orsakar.
+Samlokalisering/samanvandning Nar tva eller flera anlagg ningar aktiviteter eller tillgangar placeras pa en enda plats.
+Till exempel genom att kombinera hallbart jordbruk och sol energiproduktion pa samma mark.
+
+Decentraliserad produktion/decentraliserade energi losningar Varje form av energiforsorjning som inte tillhanda halls fran det centrala elnatet till exempel lokal kraftproduktion som solceller pa tak varmelosningar inklusive varmepumpar och lagringsteknik.
+
+Derivatinstrument Finansiellt instrument ofta anvant for att hantera risk.
+Dess varde och vardeforandring ar relaterad till vardet pa en underliggande tillgang som kan vara ravaror adel metaller valuta obligationer aktier och liknande.
+Exempel pa derivatinstrument ar optioner terminskontrakt och swappar.
+
+Diskonterbar Avser nagot som bedoms vara acceptabelt eller lampligt for finansiellt stod fran till exempel institutionella inves terare eller godkannande fran en bank eller ett finansinstitut.
+Biomassa Fornybart bransle exempelvis restprodukter fran skogen bark och tallolja.
+
+Elektrobransle Elektrobransle ar kategoriserat som ett hall bart flygbransle eftersom de enda insatserna i processen att tillverka elektrobransle ar fossilfri elektricitet vatten och ater vunnen koldioxid (i motsats till jungfruligt fossilt ramaterial).
+Elen kommer framst att anvandas for att tillverka vatgas via elektro lys som tillsammans med koldioxid kan omvandlas till etanol och sedan omvandlas till flygbransle.
+
+Energikopsavtal for foretag (cPPA) Ett cPPA ar vanligtvis ett langsiktigt avtal mellan en producent av fornybar energi och en foretagskund eller en organisation.
+
+EU Emission Trading System (EU ETS) EU:s handelssystem for utslappsratter for CO2.
+Systemet satter ett tak for totala mangden utslapp fran verksamheterna inom systemet och mojlig gor optimering genom handel med utslappsratter.
+
+Fossila branslen Branslen baserade pa kolvateforeningar fran gamla sedimentlager framst kol olja och naturgas.
+
+Fyllnadsgrad Den mangd vatten som finns lagrad i en damm vid ett specifikt tillfalle och som kan anvandas for produktion av vattenkraft.
+Fyllnadsgraden varierar under aret beroende pa nederbord och vattenkraftproduktion.
+
+Fornybara energikallor Icke andliga energikallor sasom vatten kraft biobranslen vind sol tidvatten havsvagor och geotermisk energi.
+
+Global Compact Forenta Nationernas (FN) tio principer kring manskliga rattigheter arbetsrattsliga fragor miljo och korrup tion riktade till foretag.
+
+Global Reporting Initiative (GRI) en global standard for hallbarhets redovisning (se https://www.globalreporting.org/).
+Ursprungsgaranti Garantier intygar hur och var el producera des fran fornybara kallor.
+
+HOB (Heat only boiler) En anlaggning som producerar varme till fjarrvarme som sin enda produkt.
+
+Hogriskmineraler Mineraler som utvinns i ett omrade med vapnad konflikt och som handlas olagligt for att finansiera konflikten som anses vara avgorande for energiomstallningen och som potentiellt inte har nagra rimliga substitut vilket med for risker for potentiella avbrott i forsorjningen eller som ar sa kallade sallsynta jordartsmetaller (REE).
+
+Installerad effekt (kapacitet) aven kand som nominell kapaci tet eller markkapacitet.
+Den maximala mangd el som ett kraft verk kan producera under de specifika forhallanden som anges enligt dess konstruktionsdata.
+Mats vanligen i MW (megawatt).
+
+International Financial Reporting Standards IFRS Vattenfall har rapporterat i enlighet med IFRS sedan 2005.
+
+ISO 14001 En internationell standard i ISO 14000-serien for faststallande av miljoledning.
+
+Koldioxidavskiljning anvandning och lagring (CCUS) En process som involverar avskiljning av koldioxid fran kallor som fossildriven kraftproduktion eller industrianlaggningar.
+Koldioxid kan ocksa fangas upp direkt fran atmosfaren.
+Om den inte anvands pa plats komprimeras den infangade koldioxiden och transporteras med rorledningar fartyg jarnvag eller lastbil for att anvandas i en rad olika tillampningar eller injiceras i djupa geologiska formationer for permanent lagring.
+CCUS som anvander biomassa som bransle kallas bio CCUS.
+
+Kraft till varme Konvertering av el till varme vilket omfattar elpannor kombinerade med lagring av varmvatten.
+Power to Heat system gor det mojligt att ta tillvara overskottsel fran fram for allt fornybara energikallor for senare anvandning som fjarr varme.
+
+Kraftvarmeverk En anlaggning som producerar bade varme och el.
+I en sadan anlaggning anvands en stor del av den pri mara energin for el och varmeproduktion med lite spillvarme som foljd.
+
+Levelised Energy Cost (LEC) Genomsnittlig produktions kostnad per kilowattimme el beraknat over en producerande anlaggnings hela livslangd.
+Nuvardesmetoden anvands for att diskontera framtida kostnader med den viktade genomsnittliga kapitalkostnaden (WACC).
+
+Livscykelanalys (LCA) En metod for att pavisa hur stor en pro dukts totala miljopaverkan ar under dess livscykel fran ravaru utvinning via tillverkningsprocesser och anvandning till avfalls hantering inklusive alla transporter och all energiatgang i mellanleden.
+
+Luftburna partiklar Luftburna partiklar bestar av en blandning av fasta amnen och vatskedroppar.
+Vissa luftburna partiklar slapps ut direkt i annat fall bildas de nar fororeningar fran olika kallor reagerar i atmosfaren.
+Luftburna partiklar ar av olika stor lek dar de som ar mindre an 10 mikrometer kan tranga in i lung orna och orsaka allvarliga halsoproblem.
+
+Miljovarudeklarationer EPD (Environmental Product Declaration) Tredjepartsverifierad miljodeklaration i enlighet med ISO 14025 (www.environdec.com).
+
+Net Promoter Score (NPS) en gradering fran -100 till 100 som mater kunders vilja att rekommendera ett foretags produkter eller tjanster till andra.
+Anvands for att bestamma kundens over gripande tillfredsstallelse med ett foretag och lojalitet till varu market.
+
+Nord Pool Den nordiska elborsen.
+Startad av Sverige och Norge 1996.
+
+NOX Samlingsnamn for kvaveoxid kvavedioxid och liknande kvaveforeningar.
+
+Offtaker En ”offtaker” ar en part som i forvag avtalar om att kopa eller salja varor som annu inte har producerats.
+Pa energi marknaden avser det vanligtvis en part som koper el via energi kopsavtal (PPA) (se nedan).
+
+OTC Over the Counter handel utanfor borsen (direkt eller via maklare) med fysiska och finansiella kontrakt.
+
+Planerbar produktion Se Reglerbar energikalla.
+
+Power as a service (PaaS) En affarsmodell som garanterar eltjanster i utbyte mot en fast manadsavgift vanligen till bolag som anvander mycket energi.
+
+Power to X Ett paraplybegrepp som hanvisar till omvandling av elektricitet till en energibarare varme produkt eller ravara.
+Power to X inkluderar exempelvis power to gas power to liquid power to chemicals och power to heat.
+Mer specifika exempel ar produktion av vatgas metan ammoniak metanol flygbransle diesel osv.
+med anvandning av elektricitet som primar energi kalla.
+
+Primarenergi Primarenergi ar den energiform som ar atkomlig direkt fran ursprungliga kallor.
+Vattenfall anvander den tolkning som Eurostat och IEA tillampar.
+Det innebar att alla branslen till delas ett primarenergiinnehall motsvarande deras varmevarde.
+Uran tilldelas ett primarenergiinnehall motsvarande den varme mangd som frigors i kraftverket.
+Sol vind och vattenkraft till delas ett primarenergiinnehall motsvarande den utvunna el (eller varme energin.
+
+
+<!-- PAGE: 217 -->
+
+### Förteckning över datapunkter i övergripande och tematiska standarder som härrör från annan EU-lagstiftning
+
+Allman information
+
+| Upplysningskrav | ESRS | Datapunkt | Titel | Lagstiftning | Väsentligt | Sida |
+| --- | --- | --- | --- | --- | --- | --- |
+| Allmän information | GOV-1 | 21d | Könsfördelning i styrelsen | SFDR | J | 109 |
+|  | GOV-1 | 21e | Procentandel oberoende styrelseledamöter | SFDR | J | 62 |
+|  | GOV-4 | 30 | Redogörelse för due diligence | SFDR | J | 80 |
+|  | SBM-1 | 40d i | Inblandning i verksamheter kopplade till fossila bränslen | SFDR | J | N.A. infasning |
+|  | SBM-1 | 40d ii-iv | Inblandning i verksamheter kopplade till produktion av kemikalier, kontroversiella vapen, och tobak | SFDR | N.A | N.A |
+| Miljöinformation |
+| Upplysningskrav | ESRS | Datapunkt | Titel | Lagstiftning | Väsentlig | Sida |
+| Klimatförändringar | E1–1 | 14; | Omställningsplan för att uppnå klimatneutralitet | EU:s klimatlag | J | 91 |
+|  | E1–1 | 16g | Företag som är uteslutna från EU-referensvärdena för anpassning till Parisavtalet | Tredje pelaren; Referensvärdesförordningen | J | 93 |
+|  | E1–4 | 34 | Minskningsmål för utsläpp av växthusgaser | SFDR; Tredje pelaren; Referensvärdesförordningen | J | 94 |
+|  | E1–5 | 37 | Energiförbrukning och energimix | SFDR | J | 147 |
+|  | E1–5 | 38 | Energiförbrukning från fossila källor uppdelad efter källor (endast sektorer med hög klimatpåverkan) | SFDR | J | 147 |
+|  | E1–5 | 40–43 | Energiintensitet förknippad med verksamheter i sektorer med hög klimatpåverkan | SFDR | J | 147 |
+|  | E1–6 | 44 | Brutto och totala växthusgasutsläpp scope 1, 2, 3 | SFDR; Tredje pelaren; Referensvärdesförordningen | J | 146 |
+|  | E1–6 | 53–55 | Bruttoutsläppsintensitet för växthusgasutsläpp | SFDR; Tredje pelaren; Referensvärdesförordningen | J | 146 |
+|  | E1–7 | 56 | Upptag av växthusgaser och koldioxidkrediter | EU:s klimatlag | J | 146 |
+|  | E1–9 | 66 | Referensportföljens exponering mot klimatrelaterade fysiska risker | Referensvärdesförordningen | J | N.A. infasning |
+|  | E1–9 | 66a | Uppdelning av monetära belopp efter akut och kronisk fysisk risk | Tredje pelaren | J | N.A. infasning |
+|  | E1–9 | 66c | Plats för betydande tillgångar utsatta för väsentlig fysisk risk | Tredje pelaren | J | N.A. infasning |
+|  | E1–9 | 67c | Uppdelning av det redovisade värdet på sina fastighetstillgångar efter energieffektivitetsklasser | Tredje pelaren | N | N.A. |
+|  | E1–9 | 69 | Portföljens grad av exponering mot klimatrelaterade möjligheter | Referensvärdesförordningen | J | N.A. infasning |
+| Miljöföroreningar | E2–4 | 28 | Utsläpp och överföringar som släpps ut i luft, vatten och mark | SFDR | N | N.A. |
+| Vattenresurser och marina resurser | E3–1; E3–4 | 9, 13, 14, 28c, 29 | Alla upplysningar | SFDR | N | N.A. |
+| Biologisk mångfald och ekosystem | E4 IRO–1 | 16a–c | Aktiviteter i områden med känslig biologisk mångfald, påverkan kopplad till jordförstöring, öken spridning och hårdgörning av mark, samt verksamhet som påverkar hotade arter. | SFDR | J | 98 |
+|  | E4–2 | 24b–d | Policyer kopplade till biologisk mångfald och ekosystem | SFDR | J | 96 |
+| Resursanvändning och cirkulär ekonomi | E5–5 | 37d; 39 | Resursutflöden (ej-återvunnet avfall; farligt avfall och radioaktivt avfall) | SFDR | N | N.A. |
+![table image]({page: 76, x: 50}, {y: 108, {width: 894}, {height: 15})
+
+
+<!-- PAGE: 77 -->
+Forteckning over datapunkter i overgripande och tematiska standarder som harror fran annan EU lagstiftning forts.
+
+Social information
+
+| Upplysningskrav | ESRS | Datapunkt | Titel | Lagstiftning | Väsentlig | Sida |
+| --- | --- | --- | --- | --- | --- | --- |
+| Den egna arbetskraften | S1 SBM-3 | 14g; 14f | Betydande risk för barnarbete eller tvångsarbete | SFDR | N | N.A. |
+|  | S1-1 | 20 | Allmänt förhållningssätt till mänskliga rättigheter i den egna arbetskraften | SFDR | J | 106, 108 |
+|  | S1-1 | 21 | Strategier för tillbörlig aktsamhet i frågor som behandlas i Internationella arbetsorganisationens (ILO) grundläggande konventioner 1–8 | Referensvärdesförordningen | J | 106, 108 |
+|  | S1-1 | 22 | Processer och åtgärder för att förhindra människohandel | SFDR | J | 106, 108 |
+|  | S1-1 | 23 | Strategi för förebyggande av arbetsplatsolyckor eller ett system för att hantera sådana | SFDR | J | 106, 108 |
+|  | S1-3 | 32c | Mekanismer för klagomålshantering i samband med personalfrågor | SFDR | J | 109 |
+|  | S1-14 | 88b&c | Mätetal för hälsa och säkerhet | SFDR; Referensvärdesförordningen | J | 110 |
+|  | S1-14 | 88e | Mätetal för hälsa och säkerhet | SFDR | J | 110 |
+|  | S1-16 | 97a; 97b | Ojusterad löneklyfta mellan könen; överdrivet hög VD-lön | SFDR; Referensvärdesförordningen | N | Not 11 och 421 |
+|  | S1-17 | 103a; 104a | Incidenter, klagomål och allvarliga inverkningar på mänskliga rättigheter | SFDR; Referensvärdesförordningen | J | N.A. |
+| Arbetstagare i värdekedjan | S2 SBM-3 | 11b | Betydande risk för barnarbete eller tvångsarbete i värdekedjan | SFDR | N | N.A. |
+|  | S2-1 | 17; 18; | Allmänt förhållningssätt till mänskliga rättigheter i värdekedjan | SFDR | J | 106, 112 |
+|  | S2-1 | 19 | Respekterar inte FN:s vägledande principer för företag och mänskliga rättigheter och OECD:s |  |  |  |
+| riktlinjer |
+|  |  |  |  | SFDR; Referensvärdesförordningen | J | 106, 112 |
+|  | S2-1 | 19 | Strategier för tillbörlig aktsamhet i frågor som behandlas i Internationella arbetsorganisationens (ILO) grundläggande konventioner 1–8 | Referensvärdesförordningen | J | 106, 112 |
+|  | S2-4 | 36 | Människorättsfrågor och människorättsfall kopplade till företagets värdekedja | SFDR | J | 114 |
+| Berörda samhällen | S3-1 | 16; 17 | Allmänt förhållningssätt till mänskliga rättigheter för berörda samhällen | SFDR; Referensvärdesförordningen | J | 106, 116 |
+|  | S3-4 | 36 | Människorättsfrågor och människorättsfall kopplade till berörda samhällen | SFDR | J | 116 |
+| Konsumenter och slutanvändare | S4-1 | 16; 17 | Allmänt förhållningssätt till mänskliga rättigheter för konsumenter och slutanvändare | SFDR; Referensvärdesförordningen | J | 106, 118 |
+|  | S4-4 | 35 | Människorättsfrågor och människorättsincidenter kopplade till konsumenter och slutanvändare | SFDR | J | 119 |
+| Styrningsinformation |
+| Upplysningskrav | ESRS | Datapunkt | Titel | Lagstiftning | Väsentlig | Sida |
+| Styrning | G1-1 | 10b; 10d | Ansvarsfullt företagande, visselblåsarsystem och företagskultur | SFDR | J | 123–124 |
+|  | G1-4 | 24a; 24b | Incidenter kring korruption eller mutor | SFDR; Referensvärdesförordningen | N | N.A |
+![table image]({page: 77, x: 50}, {y: 108, {width: 768}, {height: 7})
+
+- 1. Avser koncernens noter.
+
+
+<!-- PAGE: 78 -->
+
+###### Metod för redovisning av växthusgaser, mål och åtgärder
+
+Vattenfall tillampar de principer krav och riktlinjer som ges i GHG protokollet Corporate Standard (2004).
+Principerna for konsolidering av miljodata foljer finansiella data.
+Konsolide ringen omfattar dotterbolag i vilka Vattenfall AB ager aktier motsvarande mer an 50% av rosterna eller pa annat satt har bestammande inflytande over.
+Vi konsoliderar 100% av vaxt husgasutslappen fran alla enheter som vi kontrollerar operativt.
+Se tabell 1 for utslappsomfattning och berakningsmetoder verktyg och emissionsfaktorer.
+
+S3.3d Produktion av inkopt elektricitet som saljs till slutkonsumenter Beraknat med hjalp av residualmix per land for all elforsaljning till slut konsumenter av sald el som inte omfattas av ursprungsgarantier.
+Emissionsfaktor for restblandning fran Association of Issuing Bodies Soderfors vattenkraftverk
+
+
+<!-- PAGE: 126 -->
+Redovisningsprinciper och noter forts.
+
+Table 1.
+Utslappsscopes berakningsmetodik och emissionsfaktorer continued
+
+| Scope | Beskrivning | Beräkningsmetod och verktyg som använts |
+| --- | --- | --- |
+| S3.3d (frivillig) | Bränsle- och energirelaterade utsläpp kopplade till elektrici- tet som används för att driva pumpkraftverk | Vattenfalls pumpkraftverk är en elhandelsverksamhet som inte omfattar försäljning till slutkonsument och ingår därför inte i vårt rapporterings- scope. Utsläpp från förluster beräknas med hjälp av en 15 minuters plats- baserad metod. |
+![table image]({page: 126, x: 45}, {y: 128, {width: 273}, {height: 31})
+
+- S3.4 Transport och distribution i tidigare led Utsläpp från transporter av bränsle Beräknas med hjälp av avståndet mellan ursprungsland och leveransland och en kg/km-faktor baserad på transporterade bränslevolymer.
+
+- S3.5 Avfall genererat i verksamheter Radioaktivt avfall Farligt och icke-farligt avfall från verksamheten Tillämpade emissionsfaktorer för radioaktivt avfall är baserade på Vattenfalls EPD för kärnkraft. Avfall från verksamheten baseras på avfalls- volymer för återvinning, återvinning, förbränning och deponi som samlas in i hela verksamheten, främst från våra kondensanläggningar som produ- cerar värme och el. Tillämpade emissionsfaktorer baseras på avfallstyp.
+
+- S3.6 Tjänsteresor Flygresor vid tjänsteresa (innefattar även andra mindre inverkningar från till exempel hyrbil) Data från resebyrå baserat på resedata och DEFRA emissionsfaktorer. Utsläpp från bilresor baserat på bränslemängder.
+
+- S3.7 Anställdas pendling Bilar och kollektivtrafik, baserat på medelvärden för liknande företag. De genomsnittliga utsläppen för pendling per anställd multipliceras med antalet anställda vid rapportårets slut.
+
+- S3.8 Tillgångar som leasas i tidigare led Leasing av fartyg, nätanslutning och gaslagring För fartyg: Fartygens faktiska bränsleförbrukning multiplicerad med en emissionsfaktor För leasingavtal för nätanslutningar: Förluster i nät- anslutningarna multiplicerade med DE-residualblandningen på grund av att de är anslutna till DE-nätet. För leasingavtal för gaslagring: Elförbruk- ning i lager, förbränning, läckage av metan uppmätt vid lagringsenheten.
+
+- S3.9 Transport i senare led Transport av produkter i senare led (till exempel värmepumpar, laddare och pannor) Fast transportsträcka och bränsleförbrukning per sändning. Antalet transporter ökar i takt med att försäljningen ökar.
+
+Scope Beskrivning Berakningsmetod och verktyg som anvants
+
+- S3.10 Bearbetning av sålda produkter Ej tillämpligt Vattenfall säljer inga mellanprodukter.
+
+- S3.11 Användning av sålda produkter Såld fossil gas Såld stenkol Övriga sålda produkter, främst gaspannor All såld fossil gas multiplicerat med emissionsfaktorn. All fossil gas i sålda gaspannor förbränns med samma emissionsfaktor. Antas att Vattenfall säljer 30 % av gasen under hela livscykeln till pannan, vilket minskar de rapporterade utsläppen, för att undvika dubbelräkning med gasförsäljningen
+
+- S3.12 Slutbehandling av sålda produkter Slutbehandling av sålda produkter För värmepumpar antas en full laddning köldmedium R744 läcka ut vid deponering och för laddstationer för elfordon multipliceras utsläpps- faktorerna för uttjänta enheter med antal sålda enheter.
+
+- S3.13 Tillgångar som leasas i senare led Tillgångar som leasas i senare led Kraftverk som ägs och drivs å kunders vägnar ingår i rapporteringen av utsläpp inom Scope 1 och 2.
+
+- S3.14 Franchiseavtal Franchiseavtal Vattenfall har inga franchiseavtal.
+
+- S3.15 Investeringar Investeringar Utsläpp inom Scope 1 och 2 från företag där Vattenfall är minoritetsaktieägare utan operativ kontroll. Utsläppen baseras på Vattenfalls ägarandel.
+
+| Biogena utsläpp S1-S3 | Användning av biomassa | S1: Bränslevolymer multiplicerade med emissionsfaktorer, S2 Biogen andel av platsbaserad, S3 uppskattat baserat på Vattenfalls EPD:er |
+| --- | --- | --- |
+| S1 Biogena utsläpp |  | Biogena utsläpp beräknas utifrån kolhalten i de olika typer av bränslen |
+![table image]({page: 126, x: 539}, {y: 306, {width: 456}, {height: 7})
+
+som anvands.
+De biogena branslen som Vattenfall huvudsakligen anvander ar skogsrester och rivningsavfall men aven fornybart avfall och tradbranslen av hog kvalitet.
+Dessa kallor ar fornybara eftersom Sverige som ar det huvudsakliga ursprungslandet har ett hogt nettoupptag inom mark anvandningssektorn (LULUCF) enligt 2024 ars uppgifter fran Naturvardsverket.
+
+
+<!-- PAGE: 127 -->
+Redovisningsprinciper och noter forts.
+
+####### Arbetsolyckor
+
+| Internt LTIF (anställda) | 2,6 | 2,0 | 1,5 | 1,9 | 2,1 | 1,8 | 1,7 | 1,1 | 1,5 | 1,4 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Externt LTI4 (entreprenörer) | 133 | 101 | 80 | 71 | 88 | 78 | 86 | 62 | 73 | 67 |
+| Jämställdhet |
+| Kvinnliga chefer % | 19% | 22% | 23% | 24% | 26% | 27% | 30% | 30% | 31% | 34% |
+| Antal chefer per ålders kategori, totalt |
+| –29 | 1% | 1% | 1% | 1% | 1% | 1% | 1% | 1% | 1% | 1% |
+| 30–49 | 52% | 56% | 58% | 56% | 56% | 57% | 57% | 56% | 60% | 61% |
+| 50– | 46% | 43% | 40% | 43% | 43% | 42% | 42% | 43% | 39% | 38% |
+![table image]({page: 147, x: 539}, {y: 225, {width: 467}, {height: 7})
+
+- 1. Frivillig information i GHG Protocol utöver Scope 1, 2 och 3.
+
+- 2. Utsläpp från Bränsle och energi relaterat till el inköpt för försäljning till slutkonsumenter: metodiken har uppdaterats för att överensstämma med kontrakt mot slutkonsument.
+
+- 3. Användning av sålda produkter har uppdaterats för att inkludera sålda gaspannor.
+
+
+<!-- PAGE: 148 -->
+Utvarderingar och utmarkelser
+
+Hallbarhetsutvarderingar och ESG bedomningar (dvs. miljo socialt ansvar och bolagsstyrning) ar viktiga verktyg for kunder investerare och andra intressenter for att forsta ett foretags utveckling.
+Vattenfall tror pa fordelarna med oppenhet och deltar bade frivilligt och pa kundernas begaran i ett flertal undersokningar och bedomningar.
+
+| Analysföretag | Fokus | Betyg | Senaste bedömning |
+| --- | --- | --- | --- |
+| Det ledande systemet globalt för att lämna miljöupplysningar för investerare, bolag, städer, stater | och regioner. | CDP klimatbetyg: A / A. CDP vattenbetyg: B / A | Januari 2024 Bedömnings- |
+|  |  | Klimat A |  |
+|  |  | Vatten B B |  |
+|  |  | Betyg: 85 / 100. ”Platina” | April 2024 Bedömnings- |
+![table image]({page: 148, x: 283}, {y: 130, {width: 268}, {height: 23})
+
+intervall arligen
+
+intervall arligen En online plattform som gor det mojligt for foretag att folja upp resultaten i sina leveranskedjor genom att visa poangen i leverantorernas hallbarhetsbedomningar.
+
+###### Biodiversity Score (GBS)
+
+Den forsta versionen av CLIMB ar tillganglig for allmanheten Vattenfall gar med i Science
+
+#### GRI-index
+
+Detta material refererar till foljande GRI standarder.
+
+| GRI Standard | Upplysning nummer | Titel | Sid- och/eller notnummer | Utelämnanden |
+| --- | --- | --- | --- | --- |
+| GRI 207: Skatt 2019 |
+|  | 207-1 | Metod för skatt | 125 |  |
+|  | 207-2 | Skattestyrning, kontroll och riskhantering | 125 |  |
+|  | 207-3 | Involvering av intressenter och hantering av frågor gällande skatt | 125 |  |
+|  | 207-4 | Land-för-land-rapportering | 125, Not 1, Not 6, Not 11 | 207-4-b-v Ej tillämplig: I Vattenfalls redovisnings- principer elimineras koncerninterna transaktioner |
+| GRI 303: Vatten och utsläpp 2018 |
+|  | 303-1 | Interaktioner med vatten som en delad resurs | 105 |  |
+|  | 303-2 | Hantering av vattenutsläppsrelaterade effekter | 105 |  |
+|  | 303-3 | Intag av vatten | 105 |  |
+|  | 303-4 | Utsläpp av vatten | 105 | 303-4b. till d: informationen är ofullständig: totala vattenutsläpp avseende totalt upplösta ämnen och prioriterade ämnen som inger |
+| betänkligheter för vilka utsläppen behandlas, eftersom dessa inte anses vara betydande för Vattenfalls anläggningar. |
+|  | 303-5 | Vattenförbrukning | 105 |  |
+| GRI 305: Utsläpp 2016 |
+|  | 305-7 | Kväveoxider (NOX), svaveloxider (SOX) och övriga väsentliga utsläpp till luft | 147 | 305-7-aiii/aiv/av Informationen är ofullständig: utsläpp av POP, VOC och HAP rapporteras ej |
+![table image]({page: 149, x: 45}, {y: 111, {width: 411}, {height: 14})
+
+eftersom de inte mats regelbundet och inte ar vasentliga for Vattenfalls anlaggningar.
+
+###### Begränsning av negativ inverkan och nya modeller för gottgörelse gentemot urfolk
+
+Under 2024 har Vattenfall i samarbete med de samebyar som paverkas av var verksamhet i norra Sverige inkluderat nya typer av atgarder for att begransa och gottgora sadan inverkan i vara avtal.
+Vattenfall stravar efter att ga langre an att enbart erbjuda ekonomisk kompensation och for dialog med markagare for att bidra till battre forutsattningar for renbete.
+Arbetet med att er bjuda gottgorelse i olika former ar en del av Vattenfalls insatser for att battre kunna forsta och tillgodose behoven hos de berorda samebyarna.
+Forutom att begransa den negativa inverkan pa samiska samhallen forvantas dessa insatser ocksa bidra till en fortsatt positiv och meningsfull dialog med berorda samhallen.
+Det finns inga betydande kapital eller driftsutgifter for dessa atgarder utover de resurser som redan ingar som en integrerad del av de relevanta enheternas budgetar.
+Dessa redovisas inte separat.
+
+
+<!-- PAGE: 117 -->
+Konsumenter och slutanvandare Konsumenter och slutanvandare forts.
+
+| Väsentliga IRO:er1 | Typ |
+| --- | --- |
+| Dataskydd | Inverkning (—) |
+![table image]({page: 117, x: 51}, {y: 96, {width: 211}, {height: 7})
+
+- 1. För mer information se sidan 86.
+
+Inverkningar risker och mojligheter Vattenfall har over 13 miljoner kunder i nordvastra Europa bade foretag och privatpersoner som litar pa att vi levererar varme och/eller el till deras arbetsplatser och hem. Data och digitalise ring ar avgorande for dessa leveranser och Vattenfall forlitar sig pa data for att hantera transaktioner leverera tjanster och forse kunderna med relevant information.
+Anvandningen av person uppgifter ar en forutsattning for att vi ska kunna leverera pro dukter och tjanster av hog kvalitet men med det foljer ocksa ett stort ansvar for att skydda dessa uppgifter.
+Integritet ar en grundlaggande rattighet enligt EU:s stadga om de grundlag gande rattigheterna och den regleras ytterligare i den allmanna dataskyddsforordningen (GDPR) och lokal lagstiftning i de lan der dar vi bedriver verksamhet.
+Vattenfall arbetar malmedvetet for att sakerstalla transparens och vidtar forebyggande atgar der for att sakerstalla laglig och rattvis behandling av person uppgifter nar vi bedriver var verksamhet.
+For Vattenfall ar efter levnad av dataskyddslagstiftning inte bara ett lagkrav.
+Det ar ocksa en viktig komponent for att uppratthalla fortroende och sakerhet nar vi arbetar for att mojliggora fossilfrihet for vara kun der.
+Vattenfall ar rustat for att sta emot manga olika typer av fientliga aktorer som kan utgora hot mot vara tillgangar var verksamhet och vart rykte inklusive risker for cyberattacker och andra fientliga handlingar som syftar till att stjala eller aventyra den har typen av data.
+Det finns dock fortfarande risk for nega tiva effekter pa konsumenter och slutanvandare som har en affarsrelation med Vattenfall genom ett energiavtal for antingen konsument eller foretag.
+Eftersom det handlar om de registrera des integritet frihet och grundlaggande rattigheter bedoms denna effekt som vasentlig.
+Naturligtvis finns det fler inverkningar risker och mojligheter relaterade till konsumenter och slutanvandare.
+I synnerhet finns det risker forknippade med produkter och varor som laddstatio ner och varmelosningar for hemmabruk som potentiellt kan orsaka fysiska skador.
+De tekniker och produkter som Vattenfall installerar i hemmen ar dock sakra med minimal risk for slut anvandarna och sannolikheten for sadana skador ar darfor mycket lag.
+Pa samma satt ar social inkludering i de samhallen dar vi arbetar ett viktigt amne.
+Vattenfall samarbetar med lokala myndigheter som kommuner pa flera omraden till exempel energifattigdom och framjande av inkludering genom att over brygga sprakliga klyftor.
+Var inverkan pa social inkludering ar dock fortfarande begransad pa samhallsniva.
+
+Inverkningar risker och mojligheter (IRO) och deras forhallande till strategi och affarsmodell For att kunna fullfolja sin strategi behover Vattenfall samla in och behandla personuppgifter fran konsumenter.
+Skyddet av personuppgifter ar av storsta vikt for Vattenfall.
+Vattenfalls skydd och behandling av personuppgifter grundar sig i var vision om att kunder medarbetare och affarspartners som ar i kontakt med Vattenfall ska kanna sig trygga med att vi pa Vattenfall ar medvetna om och ansvariga for deras ratt till inte gritet och kontroll over sina personuppgifter.
+Som ett exempel pa detta har vi regelbundet kontakt med konsumenter och slut anvandare som vill utova sina rattigheter som registrerade och vi arbetar malmedvetet med att inforliva deras synpunkter i var verksamhet.
+Detta tillsammans med de sedvanliga kanalerna for att ta upp problem sakerstaller att vara konsumenters och slutanvandares rattigheter asikter och forvantningar ar centrala for var affarsmodell och strategi.
+Integritetsrelaterade risker bedoms for att sakerstalla att vi foljer tillampliga lagar och regler for de olika slags uppgifter som vi behandlar om vara konsumenter och slutanvandare nar vi till handahaller vara tjanster.
+Relevanta risker bedoms ocksa fran fall till fall vid hantering av personuppgiftsincidenter for att sakerstalla att relevanta atgarder vidtas.
+Datarelaterade hot okar pa samhallsniva men hanteringen av denna typ av hot ar en rutinmassig del av var verksamhet.
+Darfor forvantar vi oss inte att var overgripande strategi eller affarsmodell kommer att behova justeras med anledning av detta.
+
+Policyer och styrning Hogsta ledningens ansvar policyer och ledningssystem kring sociala fragor som beskrivs pa sidan 106 omfattar aven skyd det av konsumenters och slutanvandares personuppgifter.
+Dessutom galler dessa policyer pa alla Vattenfalls marknader.
+Vattenfalls atagande att skydda personuppgifter framgar dess utom av Vattenfalls integritetspolicyer.
+Dessa innehaller infor mation om hur de olika bolagen inom Vattenfall koncernen behandlar personuppgifter och for vilka andamal det sker samt vilka rattigheter vara kunder har inklusive hur konsumenter och slutanvandare kan kontakta oss for att utova sina rattigheter eller fa mer information.
+
+Vattenfalls arbete med dataskydd regleras ytterligare och beskrivs i Vattenfall Management System se sidan 64.
+Dar defi nieras roller och ansvarsomraden samt relaterade aktiviteter och rapporteringsvagar.
+Arbetet utfors pa tre forsvarsnivaer linje ledningen med stod av dataskyddssamordnare (DPC) utgor den forsta nivan dataskyddsombudet (DPO) pa koncernniva utgor den andra forsvarsnivan tillsammans med lokala data skyddsombud och stodjande resurser inom den juridiska avdel ningen pa koncernniva (som bistar med radgivning ramverk och uppfoljning) medan internrevisionsavdelningen utgor den tredje forsvarsnivan och tillhandahaller forsakran.
+Den forsta och andra forsvarsnivan foljer bada den integritetsprocess och integritetscykel som beskrivs nedan for att sakerstalla att data skydd anvands inklusive att forhindra och hantera personupp giftsincidenter.
+Vattenfall har inrattat ett koncernovergripande lednings system for dataskydd for att sakerstalla att efterlevnaden implementeras och foljs upp i hela koncernen.
+Ramverket base ras pa ISO 27001 och ISO 27701 och bestar av en overgripande integritetsprocess samt kompletterande riktlinjer mallar och utbildningar.
+Ledningssystemet och ramverket for dataskydd granskas arligen for att sakerstalla att ratt stod ges i forhallande till identifierade risker ny lagstiftning eller externa riktlinjer som utfardats av bland andra Europeiska dataskyddsstyrelsen (EDPB).
+Detta ledningssystem samordnas noggrant med Vattenfall koncernens sakerhetsledningssystem (SMS) som bygger pa den verksamhetsnara styrmodellen.
+Det definierar styrning roller och ansvar samt avsikten med sakerhetsarbetet inom Vattenfall.
+SMS for koncernen baseras pa standarderna ISO/IEC 31000 ISO/IEC 27000 och ISO/IEC22301.
+Standarder och riktlinjer utvecklas for att tillgodose affarsbehov regler fore skrifter och certifieringar.
+Integritetsprocessen ar en del av det koncernovergripande ledningssystemet for dataskydd och sakerstaller en gemensam process for hanteringen av personuppgifter inom Vattenfall.
+Pa sa satt kan vi inom var verksamhet sakerstalla efterlevnad av GDPR i alla processer och i vart dagliga arbete inklusive vid utveckling eller upphandling av nya tjanster eller produkter.
+Ut over integritetsprocessen finns det riktlinjer mallar och utbildningar som ar sarskilt anpassade for Vattenfalls hantering av personuppgifter.
+Vattenfall har implementerat en integritetscykel som bygger pa PDCA metoden (Plan/Do/Check/Act) och som har utformats for att sakra overensstammelse med sakerhetscykeln.
+Integri tetscykeln reglerar koncernovergripande arliga aktiviteter for implementering och uppfoljning av efterlevnad pa dataskydds omradet.
+Dessutom faststaller den de relaterade ansvarsomra dena for de lokala affarsenheterna dataskyddssamordnarna och dataskyddsombuden.
+Cykeln sakerstaller att ett riskbase rat tillvagagangssatt tillampas enligt kraven i GDPR med fokus pa en arlig riskbedomning som utfors pa koncernniva.
+Detta gor det ocksa mojligt att skapa lokala arliga planer for integritets fragor och det sakerstaller standardiserade uppfoljnings och rapporterings rutiner till dataskyddsombud och ledning.
+Utover de atgarder som vidtas inom ramen for integritetscykeln under aret overvakas eventuell ny lokal lagstiftning i de lander dar vi ar verksamma.
+
+
+<!-- PAGE: 118 -->
+
+#### ESRS Innehållsindex
+
+| Tematiska ESRS | Upplysnings- krav | Titel | Sid- och/eller notnummer | Anmärkning |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ESRS 2 | BP-1 | Allmän grund för utarbetandet av hållbarhetsförklaringarna | 76 |  |  |  |  |  |  |
+| ESRS 2 | BP-2 | Upplysningar med avseende på särskilda omständigheter | 76 |  |  |  |  |  |  |
+| ESRS 2 | GOV-1 | Förvaltnings-, lednings- och tillsynsorganens roll | 60–65, 68–71 |  |  |  |  |  |  |
+| ESRS 2 | GOV-2 | Information som lämnas till och hållbarhetsfrågor som behandlas av företagets förvaltnings-, lednings- och tillsyns organ | 60–61 |  |  |  |  |  |  |
+| ESRS 2 | GOV-3 | Integration av hållbarhetsrelaterade resultat i incitamentssystem (allmänna upplysningar) | 80 |  |  |  |  |  |  |
+| ESRS 2 | GOV-4 | Förklaring om tillbörlig aktsamhet | 80, 107 |  |  |  |  |  |  |
+| ESRS 2 | GOV-5 | Riskhantering och intern kontroll över hållbarhets rapportering | 80 |  |  |  |  |  |  |
+| ESRS 2 | SBM-1 | Strategi, affärsmodell och värdekedja | 81–82 |  |  |  |  |  |  |
+| ESRS 2 | SBM-2 | Intressenters intressen och synpunkter | 83 |  |  |  |  |  |  |
+| ESRS 2 | SBM-3 | Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell | 86 |  |  |  |  |  |  |
+| ESRS 2 | IRO-1 | Beskrivning av arbetsgången för att fastställa och bedöma väsentliga inverkningar, risker och möjligheter | 84–85 |  |  |  |  |  |  |
+| ESRS 2 | IRO-2 | Upplysningskrav i ESRS-standarder som omfattas av företagets hållbarhetsförklaring | 77–79, 84, 132 |  |  |  |  |  |  |
+| E1 | GOV-3 | Integration av hållbarhetsrelaterade resultat i incitamentssystem | 80 |  |  |  |  |  |  |
+| E1 | E1-1 | Omställningsplan för begränsning av klimatförändringarna | 91 |  |  |  |  |  |  |
+| E1 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 89 |
+| E1 IRO-1 Beskrivning av arbetsgången för att fastställa och bedöma väsentliga klimat relaterade inverkningar, risker och möjligheter 89, 128 |
+| E1 | E1-2 | Policyer för begränsning av och anpassning till klimatförändringarna | 90 |  |  |  |  |  |  |
+| E1 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 90 |  |  |  |  |  |  |
+| E1 | E1-3 | Åtgärder och resurser med avseende på klimatförändringspolicyer | 95 |  |  |  |  |  |  |
+| E1 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 95 |  |  |  |  |  |  |
+| E1 | E1-4 | Mål för begränsning av och anpassning till klimatförändringarna | 94 |  |  |  |  |  |  |
+| E1 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 94, 126 |  |  |  |  |  |  |
+| E1 | E1-5 | Energianvändning och energimix | 147 |  |  |  |  |  |  |
+| E1 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 126 |  |  |  |  |  |  |
+| E1 E1-6 Bruttoväxthusgasutsläpp inom scope 1, 2, 3 och totala växthusgasutsläpp 146, 147 |
+| E1 E1-7 Växthusgasupptag och begränsningsprojekt för växthusgaser som finansieras genom koldioxidkrediter 146 |
+| E1 | E1-8 | Intern koldioxidprissättning | 126 |  |  |  |  |  |  |
+| E1 E1-9 Förväntade finansiella effekter genom väsentliga fysiska risker och omställningsrisker och potentiella klimatrelaterade möjligheter n/a Infasnings- krav |
+| E4 E4-1 Omställningsplan och beaktande av biologisk mångfald och ekosystem i strategi och affärsmodell 97 |
+| E4 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 96 |
+| E4 IRO-1 Beskrivning av arbetsgången för att fastställa och bedöma väsentliga inverkningar på samt risker och möjligheter för biologisk mångfald och ekosystem 128 |
+|  |  |  |  |  | Tematiska ESRS | Upplysnings- krav | Titel | Sid- och/eller notnummer | Anmärkning |
+|  |  |  |  |  | E4 | E4-2 | Policyer för biologisk mångfald och ekosystem | 96 |  |
+|  |  |  |  |  | E4 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 96 |  |
+|  |  |  |  |  | E4 | E4-3 | Åtgärder och resurser för biologisk mångfald och ekosystem | 100 |  |
+|  |  |  |  |  | E4 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 100 |  |
+|  |  |  |  |  | E4 | E4-4 | Mål för biologisk mångfald och ekosystem | 98 |  |
+|  |  |  |  |  | E4 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 98 |  |
+| E4 E4-5 Mått på inverkningar relaterade till förändringar i biologisk mångfald och ekosystem 99 |
+|  |  |  |  |  | E4 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 99 |  |
+| E4 E4-6 Förväntade finansiella effekter av risker och möjligheter som har att göra med biologisk mångfald och ekosystem n/a Infasnings- krav |
+| E5 IRO-1 Beskrivning av arbetsgången för att fastställa och bedöma väsentliga inverkningar, risker och möjligheter avseende resursanvändning och cirkulär ekonomi 101 |
+|  |  |  |  |  | E5 | E5-1 | Policyer för resursanvändning och cirkulär ekonomi | 101 |  |
+|  |  |  |  |  | E5 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 101 |  |
+|  |  |  |  |  | E5 | E5-2 | Åtgärder och resurser för resursanvändning och cirkulär ekonomi | 103 |  |
+|  |  |  |  |  | E5 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 103 |  |
+|  |  |  |  |  | E5 | E5-3 | Mål för resursanvändning och cirkulär ekonomi | 102 |  |
+|  |  |  |  |  | E5 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 102 |  |
+|  |  |  |  |  | E5 | E5-4 | Resursinflöden | 102 |  |
+|  |  |  |  |  | E5 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 102 |  |
+| E5 E5-6 Förväntade finansiella effekter av inverkningar, risker och möjligheter som har att göra med resursanvändning och cirkulär ekonomi n/a Infasnings- krav |
+|  |  |  |  |  | S1 | SBM-2 | Intressenters intressen och synpunkter | 107 |  |
+| S1 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 108 |
+|  |  |  |  |  | S1 | S1-1 | Policyer för den egna arbetskraften | 108 |  |
+|  |  |  |  |  | S1 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 108 |  |
+| S1 S1-2 Rutiner för kontakter med den egna arbetskraften och arbetstagar- representanter angående inverkningar 108–109 |
+| S1 S1-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka den egna arbetskraften kan uppmärksamma problem 109 |
+| S1 S1-4 Åtgärder avseende väsentliga inverkningar på den egna arbetskraften och strategier för att hantera de väsentliga riskerna och utnyttja de väsentliga möjligheterna, vad gäller den egna arbetskraften, och dessa åtgärders ändamåls enlighet 108–111 |
+|  |  |  |  |  | S1 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 111 |  |
+| S1 S1-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras 109–110 |
+|  |  |  |  |  | S1 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 109–110 |  |
+|  |  |  |  |  | S1 | S1-6 | Uppgifter om företagets anställda | 108–109, 131 |  |
+![table image]({page: 131, x: 48}, {y: 94, {width: 400}, {height: 7})
+
+- S1 S1-7 Uppgifter om arbetstagare i företagets egen arbetskraft som inte är anställda n/a Infasnings- krav
+
+
+<!-- PAGE: 132 -->
+ESRS Innehallsindex forts.
+
+| Tematiska ESRS | Upplysnings- krav | Titel | Sid- och/eller notnummer | Anmärkning |
+| --- | --- | --- | --- | --- |
+| S1 | S1-14 | Mått för hälsa och säkerhet | 109–110 |  |
+| S1 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 108–109, 131 |  |
+| S2 | SBM-2 | Intressenters intressen och synpunkter | 113 |  |
+| S2 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 112 |
+| S2 | S2-1 | Policyer för arbetstagare i värdekedjan | 112 |  |
+| S2 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 112 |  |
+| S2 S2-2 Rutiner för kontakter med arbetstagare i värdekedjan angående inverkningar 113 |
+| S2 S2-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka arbetstagare i värdekedjan kan uppmärksamma problem 114 |
+| S2 S2-4 Åtgärder avseende väsentliga inverkningar på arbetstagare i värdekedjan och strategier för att hantera de väsentliga riskerna och utnyttja de väsentliga möjligheterna, vad gäller arbetstagare i värdekedjan, och dessa åtgärders ändamålsenlighet 114–115 |
+| S2 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 114–115 |  |
+| S2 S2-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras 114 |
+| S2 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 114 |  |
+| S2 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 114 |  |
+| S3 | SBM-2 | Intressenters intressen och synpunkter | 116 |  |
+| S3 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 116 |
+| S3 | S3-1 | Policyer för berörda samhällen | 116 |  |
+| S3 MDR-P Minimikrav på upplysningsinnehåll – Policyer 116 |
+| S3 | S3-2 | Rutiner för kontakter med berörda samhällen angående inverkningar | 117 |  |
+| S3 S3-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka berörda samhällen kan uppmärksamma problem 117 |
+| S3 S3-4 Åtgärder avseende väsentliga inverkningar på berörda samhällen och strategier för att hantera de väsentliga risk erna och utnyttja de väsentliga möjligheterna, vad gäller berörda samhällen, och dessa åtgärders ändamåls enlighet 117 |
+| S3 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 117 |  |
+| S3 S3-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras 117 |
+| S3 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 117 |  |
+| S3 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 117 |  |
+| S4 | SBM-2 | Intressenters intressen och synpunkter | 118 |  |
+| S4 SBM-3 Väsentliga inverkningar, risker och möjligheter och deras förhållande till strategi och affärsmodell 118 |
+| S4 | S4-1 | Policyer för konsumenter och slutanvändare | 118–119 |  |
+| S4 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 118–119 |  |
+![table image]({page: 132, x: 48}, {y: 97, {width: 381}, {height: 7})
+
+Tematiska ESRS Upplysnings krav Titel Sid och/eller notnummer Anmarkning
+
+- S4 S4-2 Rutiner för kontakter med konsumenter och slutanvändare angående inverkningar 119
+
+- S4 S4-3 Rutiner för att gottgöra för negativa inverkningar och kanaler genom vilka konsumenter och slutanvändare kan uppmärksamma problem 119
+
+- S4 S4-4 Åtgärder avseende väsentliga inverkningar för konsumenter och slutanvändare och strategier för att hantera de väsentliga riskerna och utnyttja de väsentliga möjligheterna, vad gäller konsumenter och slut användare, och dessa åtgärders ändamålsenlighet 119
+
+| S4 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 119 |
+| --- | --- | --- | --- |
+| S4 S4-5 Mål för hur väsentliga negativa inverkningar ska hanteras, positiva inverkningar stärkas och väsentliga risker och möjligheter hanteras 119 |
+| S4 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 119 |
+| S4 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 119 |
+| EN-1 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 120 |
+| EN-1 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 120 |
+| EN-1 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 120 |
+| EN-1 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 120 |
+| G1 | GOV-1 | Förvaltnings-, lednings- och tillsynsorganens roll | 60–65, 68–71 |
+| G1 | G1-1 | Policyer för ansvarsfullt företagande och företagskultur | 124 |
+| G1 | MDR-P | Minimikrav på upplysningsinnehåll – Policyer | 124 |
+| G1 | MDR-A | Minimikrav på upplysningsinnehåll – Åtgärder | 124–125 |
+| G1 | MDR-T | Minimikrav på upplysningsinnehåll – Mål | 124 |
+| G1 | MDR-M | Minimikrav på upplysningsinnehåll – Mått | 124 |
+![table image]({page: 132, x: 543}, {y: 187, {width: 369}, {height: 7})
+
+
+<!-- PAGE: 133 -->
+Noter och tabeller till EU:s Taxonomirapportering
+
+Detta avsnitt tillsammans med taxonomiinformationen pa sid 88 och 134-145 i denna rapport utgor Vattenfalls taxonomi rapportering for 2024.
+
+Verksamheter som omfattas av taxonomin Vattenfall har identifierat foljande storre bidragande ekonomiska aktiviteter som omfattas av de delegerade rattsakterna for klimatet och den kompletterande delegerade akten for karn kraft och gas
+
+- 4.3 Elproduktion från vindkraft1
+
+- 4.5 Elproduktion från vattenkraft1
+
+- 4.9 Överföring och distribution av el2
+
+- 4.10 Lagring av el1
+
+- 4.28 Elproduktion från kärnenergi i befintliga anläggningar1
+
+- 4.29 Elproduktion från fossila gasformiga bränslen3
+
+- 4.30 Högeffektiv kombinerad produktion av värme/ kyla och el från fossila gasformiga bränslen3
+
+- 4.31 Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärrvärme- och fjärrkylsystem3
+
+Vattenfalls samtliga aktiviteter aterfinns i taxonomitabellerna langre fram i detta avsnitt.
+En utvardering har ocksa genomforts mot den delegerade akten pa miljoomradet (kommissionens delegerade forordning (EU) 2023/2486).
+Ingen av Vattenfalls ekonomiska aktiviteter omfattas av den delegerade akten.
+Under 2024 rapporterar Vattenfall en ny aktivitet 7.1 Uppforande av nya byggnader.
+Alla Vattenfalls rorelsesegment deltar i arbetet med att iden tifiera Vattenfalls aktiviteter och vilka som omfattas av och ar forenliga med taxonomin.
+Den externa rapporteringen baseras pa rapportering pa lagsta niva for samtliga rapporterande en heter i koncernen och ar en integrerad del av vart finansiella rapporteringssystem.
+
+Forenlighet med taxonomin For att en ekonomisk aktivitet skall anses vara forenlig med taxonomin skall den vasentligt bidra till minst ett av miljomalen som ar definierade i taxonomin inte orsaka betydande skada pa de aterstaende miljomalen samt uppfylla kraven enligt minimi skyddsatgarder.
+
+Kriterier for vasentligt bidrag och for att inte orsaka bety dande skada har bedomts for varje ekonomisk aktivitet indivi duellt och minimiskyddsatgarder har bedomts pa koncernniva.
+
+Vasentligt bidrag Alla Vattenfalls ekonomiska aktiviteter som omfattas av taxo nomin har bedomts mot kriterierna for vasentligt bidrag till begransning av klimatforandringar och for anpassning till ett forandrat klimat.
+Investeringar som bidrar till bade klimat anpassning och begransning av klimatforandringar kan inte delas upp pa respektive miljomal eftersom anpassning till vasentliga klimat risker ar en integrerad del av projektens utformning.
+Darfor r apporteras samtliga kapitalutgifter och driftsutgifter som bidragande till begransning av klimatforand ringar.
+Detta for att undvika dubbelrakning.
+Vattenfalls forenliga omsattning bidrar enbart till begransning av klimatforandringar.
+
+## Miljö
+
+Policyer och styrning 87 EU taxonomirapportering 88
+
+| E1 Klimatförändringar | 89 |  |  |
+| --- | --- | --- | --- |
+| E4 Biologisk mångfald och ekosystem | 96 |  |  |
+| E5 Resursanvändning och cirkulär ekonomi | 101 |  |  |
+| Icke-väsentliga miljöupplysningar: |
+| → Resursutflöden 104 → Föroreningar 104 → Vatten 105 |
+|  | 106 | Socialt Policyer och styrning | 106 |
+|  | 107 | Processer | 107 |
+| S1 Egen arbetskraft 108 |
+| S2 Arbetstagare i värdekedjan 112 |
+| S3 Berörda samhällen 116 |
+|  | 118 | S4 Konsumenter och slutanvändare | 118 |
+|  | 120 | Enhetsspecifika upplysningar: Leveranssäkerhet | 120 |
+| Icke-väsentliga sociala upplysningar: |
+| → Mångfald, jämlikhet och inkludering 121 |
+|  | 123 | Styrning G1 – Ansvarsfullt företagande | 123 |
+|  | 125 | Icke-väsentliga upplysningar om styrning: → Skatt | 125 |
+|  | 126 | Noter till hållbarhetsrapporten Redovisningsprinciper och noter | 126 |
+|  | 132 | ESRS innehållsindex | 132 |
+|  | 134 | Noter och tabeller till EU:s Taxonomirapportering | 134 |
+|  | 146 | E1 Klimatförändringar: Vattenfalls utsläpp och översikt av mål | 146 |
+|  | 147 | Tioårsöversikt hållbarhetsdata | 147 |
+|  | 150 | → GRI-index | 150 |
+![table image]({page: 73, x: 45}, {y: 418, {width: 159}, {height: 8})
+
+→ Avser upplysningar utanfor ESRS
+
+
+<!-- PAGE: 74 -->
+
+##### Scope 1–3
+##### CO2e, Mton Förändring
+
+60
+
+50
+
+40
+
+30
+
+20
+
+10
+
+0
+
+20242023202220212020201920182017 2030 mal 2040 mal
+
+i elnaten att oka och tillfallig effektbrist kan uppsta.
+Det ar mot denna bakgrund som flexibla tillgangar som flexibel produktion och lagring liksom flexibilitet pa efter fragesidan blir avgorande.
+
+####### WTR N/EL N/EL
+
+Elproduktion fran fossila gasformiga branslen CCM 4.29 CCA 4.29 270 270 0 0 171 0 0
+
+####### PPC N/EL N/EL
+
+Hogeffektiv kombinerad produktion av varme/kyla och elektricitet fran fossila gasformiga branslen CCM 4.30 CCA 4.30 172 169 0 3 374 0 0
+
+| CE | N/EL | N/EL |
+| --- | --- | --- |
+| BIO | N/EL | N/EL |
+![table image]({page: 140, x: 636}, {y: 395, {width: 164}, {height: 7})
+
+| Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärrvärme- och fjärrkylsystem | CCM 4.31, CCA 4.31 | 181 | 178 | 0 | 3 | 163 | 0 | 2 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A2. Omsättningen hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej |
+| taxonomiförenliga) |  | 666 | 660 | 0 | 6 | 742 | 0 | 2 |
+| TOTALT - Verksamheter som omfattas av taxonomin (A1+A2) |  | 7 274 | 6 552 | 318 | 404 | 6 144 | 297 | 355 |
+| B. Verksamheter som inte omfattas av taxonomin Omsättningen hos verksamheter som inte omfattas av | taxonomin | 972 | 262 | 338 | 372 | 632 | 299 | 357 |
+| TOTALT (A+B) |  | 8 246 | 6 814 | 656 | 776 | 6 776 | 596 | 712 |
+![table image]({page: 140, x: 45}, {y: 407, {width: 549}, {height: 6})
+
+
+<!-- PAGE: 141 -->
+Taxonomitabeller for karnkraft och gas Tabell 1 Karnenergi och fossilgasrelaterade verksamheter
+
+####### Scenario
+
+|  | RCP 4.5 | Mellanliggande fysiskt klimatscenario där utsläppen når sin kulmen runt 2040 och den globala temperaturen stabiliseras |  |  |  |
+| --- | --- | --- | --- | --- | --- |
+| Beskrivande information |
+| viktiga krafter och drivkrafter |
+| Täckning |
+| viktiga underlag och begränsningar Tidshorisont Källa |
+| Analysen omfattar Vattenfalls mark- nader i Nord- och Centraleuropa. Den baseras på geospatiala koordi- nater som är specifika för Vattenfalls anläggningar för vissa utvärderingar. De flesta utvärderingar baseras på regionala data. Scenarioanalys och tidsramar Eftersom många av Vattenfalls beslut rör projekt och tillgångar med lång livslängd är långsiktiga trender och osäkerhetsfakto- rer viktiga för vår kärnverksamhet. En vattenkraftsdamm har exempelvis en livslängd på över 150 år. För att hantera detta använder Vattenfall ett brett spektrum av scenarier för att iden- tifiera och bedöma risker och möjligheter med klimatföränd- ringar (se tabell 2 för en kort sammanfattning). Den vägledande principen vid valet av scenarier som används för att stödja vår riskidentifiering och riskbedömning är att uppnå den mest vetenskapligt underbyggda och detaljerade bilden. |
+| på strax under 2°C till 2100. Förutsätter måttliga insatser för att minska utsläppen genom internationella politiska åtgärder, tekniska framsteg och förändringar i energiproduktion och energianvändning. |
+| dande förändringar i politiken för att minska utsläppen, och det kännetecknas av hög befolkningstillväxt, hög efterfrågan på energi och fortsatt beroende av fossila bränslen. |
+| Nu–2050 (eller tillgångens livslängd i före- kommande fall) |
+| Nu–2050 (eller tillgångens livslängd i före- kommande fall) |
+| FN:s mellan- statliga klimat- panel (IPCC) |
+|  | RCP 8.5 | Scenario med högre utsläpp, där utsläppen fortsätter att accelerera, och temperaturen stabiliseras på en ökning strax under 4 °C år 2100. Scenariot förutsätter inga bety- |  |  | FN:s mellan- statliga klimat- panel (IPCC) |
+![table image]({page: 127, x: 543}, {y: 136, {width: 237}, {height: 31})
+
+| Skräddarsytt scenario för energi- omställning | Scenarierna omfattar makroekonomiska trender, policy, marknadsdesign samt teknisk utveckling. Scenarierna går från att vara anpassade till en bana för 1,5°C, via en bana för 2°C och till en bana för över 2°C. Analysen omfattar Vattenfalls mark- nader i Nord- och Centraleuropa. Den baseras på geospatiala koordi- nater som är specifika för Vattenfalls anläggningar för vissa utvärderingar. De flesta utvärderingar baseras på regionala data. |
+| Analysen omfattar de senaste globala trenderna och de viktigaste osäkerhetsfaktorerna i utvecklingen av den europeiska kraftsektorn och utforskar olika vägar mot ett Europa utan fossila bränslen. |
+![table image]({page: 127, x: 543}, {y: 208, {width: 121}, {height: 47})
+
+Risker och mojligheter i samband med omstallningen For att utvardera omstallningsrisker gor Vattenfall en heltack ande bedomning av utvecklingen av vaxthusgasutslapp inom alla utslappsomraden vilket omfattar hela utslappsinvente ringen (se sida 94).
+Utslapps berakningarna gors for olika ut vecklingsscenarier inklusive forandringar i driften av befintliga tillgangar och olika investeringsalternativ.
+De resulterande utslappen bedoms mot en utslappsbana for 1,5°C som harleds fran vara vetenskapsbaserade mal (se sida 94).
+I ett bredare per spektiv bedoms riskerna i samband med klimatomstallningen med beaktande av relevanta klimatrelaterade omstallnings handelser.
+Omstallningshandelser som kan paverka Vattenfall stracker sig fran forandrade marknadsforhallanden sasom lon samhet i olika CO2-prisscenarier men ocksa olika reglerings atgarder eller forandrat kundbeteende.
+Det finns indirekta omstallningsrisker kopplade till omstallningens hastighet dar laga elpriser komplexa tillstandssystem eller brist pa politiskt stod kan hamma omstallningens hastighet.
+Se Vattenfalls omstallningsplan pa sidorna 91 och 92 for att forsta hur Vattenfall stravar efter att minska koldioxidutslappen fran sina aterstaende fossilbaserade aktiviteter framst kopplade till fossil gas inom fjarrvarme leverantorsled och salda produkter.
+
+De scenarier for energiomstallningen som anvands tacker tidsperioden 2023-2060 i syfte att fanga upp de viktigaste osakerheterna i omstallningen.
+Den fangar de senaste globala trenderna och de viktigaste osakerhetsfaktorerna i utveck lingen av den europeiska kraftsektorn och utforskar olika vagar mot ett Europa utan fossila branslen.
+Detta omfattar makro ekonomiska trender politik marknadsdesign samt teknisk utveckling.
+Scenarierna gar fran att vara anpassade till en bana for 1,5°C via en bana for 2°C och till en bana for over 2°C.
+De olika scenarierna aterspeglar till exempel olika grader av statligt stod for energiomstallningen olika takt och omfattning av elektrifieringen olika takt i utfasningen av fossila branslen olika utbyggnadstakt for fornybar teknik olika typer och varie rande volymer av flexibilitet samt olika koldioxid och bransle priser.
+Scenarier paverkas av allmant tillgangliga globala klimat och omstallningsscenarier.
+Vattenfall genomfor klimat relaterade scenario analyser varje ar dar den senaste analysen slutfordes 2024.
+
+Nu 2060 Flera kallor
+
+
+<!-- PAGE: 128 -->
+Redovisningsprinciper och noter forts.
+
+########### Taxonomi förenlig (A1) eller ej (A2) andel av kapital utgifter 2023
+########### Kriterier för väsentligt bidrag Kriterier avseende att inte orsaka betydande skada (DNSH)
+########### Kod
+
+|  | Absoluta drift- utgifter MSEK | Andel av drift- utgifter % | Begränsning av klimat- förändringar |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CCM |
+| Ja; Nej; N/EL |
+| Anpassning till klimat- förändringar |
+| CCA |
+| Ja; Nej; N/EL |
+| Vatten och marina resurser |
+| WTR |
+| Ja; Nej; N/EL |
+| Föroreningar |
+| PPC |
+| Ja; Nej; N/EL |
+| Cirkulär ekonomi |
+| CE |
+|  |  |  |  |  |  |  | Ja; Nej; N/EL | Biologisk mång fald och eko- system BIO Ja; Nej; N/EL | Begränsning av klimat- förändringar |  |  |  |  |  |  |  |  |  |
+| CCM |
+| Ja/Nej |
+| Anpassning till klimat- förändringar |
+| CCA |
+| Ja/Nej |
+| Vatten och marina resurser |
+| WTR |
+| Ja/Nej |
+| Föroreningar |
+| PPC |
+| Ja/Nej |
+| Cirkulär ekonomi |
+| CE |
+| Ja/Nej |
+| Biologisk mångfald och eko system |
+| BIO |
+| Ja/Nej |
+| Kategori |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Möjlig görande verksamhet M | Omställ- nings- verk samhet O |
+| A. Verksamheter som omfattas av taxonomin A1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Elproduktion med hjälp av solcellsteknik CCM 4.1, CCA 4.1 | 1 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Elproduktion från vindkraft CCM 4.3, CCA 4.3 | 671 | 8% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 8% |  |  |
+| Elproduktion från vattenkraft CCM 4.5, CCA 4.5 | 791 | 10% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 9% |  |  |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 2 165 | 26% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 24% | M |
+| Lagring av el | CCM 4.10, CCA 4.10 | 174 | 2% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 2% | M |
+| Distribution av fjärrvärme/fjärrkyla CCM 4.15, CCA 4.15 | 254 | 3% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 4% |  |  |
+| Installation och drift av elektriska värmepumpar CCM 4.16, CCA 4.16 | 5 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Kombinerad produktion av värme/kyla och el från bioenergi CCM 4.20, CCA 4.20 | 10 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Produktion av värme/kyla från bioenergi CCM 4.24, CCA 4.24 | 234 | 3% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 3% |  |  |
+| Elproduktion från kärnkraft i befintliga anläggningar | CCM 4.28, CCA 4.28 | 2 288 | 28% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 25% | O |
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3, CCA 7.3 | 5 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) CCM 7.4, CCA 7.4 | 6 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |  |
+| Installation, underhåll och reparation av instrument och anordningar för mätning, reglering och kontroll av byggnaders energiprestanda CCM 7.5, CCA 7.5 | 2 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |  |
+| Installation, underhåll och reparation av tekniker för förnybar energi | CCM 7.6, CCA 7.6 | 2 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| A1. Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna | 6 608 | 80% | 80% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 75% |  |  |
+|  Varav möjliggörande verksamhet | 2 354 | 28% | 28% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 26% | M |  |
+|  Varav omställningsverksamhet | 2 288 | 28% | 28% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 25% |  | O |
+| A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL |
+| Överföring och distribution av el CCM 4.9, CCA 4.9 | 1 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Distribution av fjärrvärme/fjärrkyla CCM 4.15, CCA 4.15 | 40 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Installation och drift av elektriska värmepumpar CCM 4.16, CCA 4.16 | 2 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Elproduktion från fossila gasformiga bränslen CCM 4.29, CCA 4.29 | 270 | 4% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 2% |  |  |
+| Högeffektiv kombinerad produktion av värme/kyla och elektricitet från fossila gasformiga bränslen CCM 4.30, CCA 4.30 | 172 | 2% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 5% |  |  |
+| Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärrvärme- och fjärrkylsystem CCM 4.31, CCA 4.31 | 181 | 2% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 2% |  |  |
+| A2. Driftsutgifter för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) | 666 | 8% | 8% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 9% |  |  |
+| TOTALT - Verksamheter som omfattas av taxonomin (A1+A2) | 7 274 | 88% | 88% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 84% |  |  |
+| B. Verksamheter som inte omfattas av taxonomin Driftsutgifter hos verksamheter som inte omfattas av taxonomin | 972 | 12% |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOTAL (A+B) | 8 246 | 100% |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+![table image]({page: 139, x: 342}, {y: 116, {width: 353}, {height: 6})
+
+- Vattenfall uppfyller de tekniska granskningskriterierna (inklusive kriterier att inte orsaka betydande skada, DNSH) för både begränsning av klimatförändringar (CCM) och anpassning till klimatförändringar (CCA). Dock kan Vattenfall inte separera kapitalgifter mellan målen CCA och CCM, därför rapporteras hela beloppet under CCM.
+
+Ja = Taxonomiforenlig och miljomassigt hallbara aktiviteter enligt relevant miljomal Nej = Taxonomiforenlig men inte miljomassigt hallbar enligt relevant miljomal EL = Verksamheten omfattas av taxonomin for det relevanta miljomalet men ar inte taxonomiforenlig N/EL = Verksamheten omfattas inte av taxonomin for det relevanta miljomalet
+
+
+<!-- PAGE: 140 -->
+| Taxonomi – Driftsutgifter, forts. | Nyckeltalet för driftsutgifter |
+| --- | --- |
+| Andel av driftutgifter 2024 – avseende | Andel av driftutgifter 2023 – avseende |
+![table image]({page: 140, x: 45}, {y: 94, {width: 236}, {height: 5})
+
+| Kod | Absoluta driftsutgifter MSEK | Underhålls- kostnader MSEK | Forskning och Utveckling MSEK | Kortfristiga leaseutgifter MSEK | Underhålls- kostnader MSEK | Forskning och Utveckling MSEK | Kortfristiga leaseutgifter MSEK |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Vattenfalls andel av driftsutgifter, som utgörs av möjliggörande verksamhet, uppgår till 28% av de totala driftsutgifterna. De är främst hän- förliga till verksamheten överföring och distri- bution av el (4.9). Driftsutgifter hänförliga till omställningsverksamhet uppgår till 28% av de totala driftsutgifterna och utgörs i sin helhet av verksamheten elproduktion från kärnkraft i befintliga anläggningar (4.28). Merparten av Vattenfalls taxonomiförenliga driftsutgifter avser elproduktion från vindkraft (verksamhet 4.3), elproduktion från vattenkraft (4.5), överföring och distribution av el (4.9) och kärnkraft i befintliga anläggningar (4.28) och. Vattenfalls värme- och elproduktion från gas |
+| 80% (75) av Vattenfalls driftsutgifter under 2024 var miljömässigt hållbara (dvs. förenliga med taxonomins regelverk, avsnitt A1 i tabel- len). 8% (9) av driftsutgifterna omfattas av verksamheter som inte var miljömässigt håll- bara (avsnitt A2 i tabellen) och resterande 12% |
+| A. Verksamheter som omfattas av taxonomin A1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Elproduktion med hjälp av solcellsteknik | CCM 4.1, CCA 4.1 | 1 | 0 | 0 | 1 | 1 | 0 | 0 |
+| Elproduktion från vindkraft | CCM 4.3, CCA 4.3 | 671 | 288 | 53 | 330 | 249 | 43 | 319 (16) utgjordes av utgifter inom verksamheter som inte omfattas av taxonomin (avsnitt B i tabellen). Alla Vattenfalls driftsutgifter har bedömts mot kriterierna för väsentligt bidrag till klimat- målen begränsning av och anpassning till klimat förändringar (CCM och CCA). Samtliga driftsutgifter bidrar till båda klimatmålen, men kan inte fördelas på respektive klimatmål utan rapporteras enbart under begränsning av klimat förändringar (CCM). 80% av Vattenfalls driftsutgifter är förenliga under både begräns- ning av (CCM) och anpassning till (CCA) klimat- förändringar. |
+| Elproduktion från vattenkraft | CCM 4.5, CCA 4.5 | 791 | 699 | 88 | 4 | 654 | 91 | 3 |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 2 165 | 2 056 | 77 | 32 | 1 846 | 63 | 14 |
+| Lagring av el | CCM 4.10, CCA 4.10 | 174 | 139 | 33 | 2 | 114 | 34 | 1 |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15, CCA 4.15 | 254 | 250 | 0 | 4 | 330 | 0 | 5 |
+| Installation och drift av elektriska värmepumpar | CCM 4.16, CCA 4.16 | 5 | 0 | 0 | 5 | 0 | 0 | 2 |
+| Kombinerad produktion av värme/kyla och el från bioenergi | CCM 4.20, CCA 4.20 | 10 | 10 | 0 | 0 | 39 | 0 | 0 |
+| Produktion av värme/kyla från bioenergi | CCM 4.24, CCA 4.24 | 234 | 214 | 19 | 1 | 231 | 18 | 1 |
+| Elproduktion från kärnkraft i befintliga anläggningar | CCM 4.28, CCA 4.28 | 2 288 | 2 236 | 48 | 4 | 1 938 | 48 | 5 |
+| (4.29–31) utgör den absoluta majoriteten av driftsutgifter som inte är taxonomiförenlig. Vattenfalls totala driftsutgifter uppgick till 8 246 miljoner SEK. Den absoluta huvuddelen utgörs, i likhet med föregående år, av under- hållskostnader. Fördelningen av driftsutgifterna framgår av tabellen. |
+| Installation, underhåll och reparation av energieffektiv utrustning CCM 7.3, CCA 7.3 | 5 | 0 | 0 | 5 | 0 | 0 | 2 |  |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) CCM 7.4, CCA 7.4 | 6 | 0 | 0 | 6 | 0 | 0 | 0 |  |
+| Installation, underhåll och reparation av instrument och anordningar för mätning, reglering och kontroll av byggnaders energiprestanda CCM 7.5, CCA 7.5 | 2 | 0 | 0 | 2 | 0 | 0 | 1 |  |
+| Installation, underhåll och reparation av tekniker för förnybar energi CCM 7.6, CCA 7.6 | 2 | 0 | 0 | 2 | 0 | 0 | 0 |  |
+| A1. Driftsutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna | 6 608 | 5 892 | 318 | 398 | 5 402 | 297 | 353 |  Andel av driftsutgifter |
+| Omfattas av taxonomin A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) |
+| Taxonomiförenliga |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+![table image]({page: 140, x: 821}, {y: 96, {width: 549}, {height: 6})
+
+CCM 80% 88%
+
+Distribution av fjarrvarme/fjarrkyla CCM 4.15 CCA 4.15 40 40 0 0 32 0 0
+
+CCA 80% 88%
+
+Installation och drift av elektriska varmepumpar CCM 4.16 CCA 4.16 2
+2
+0 0 1 0 0
+
+###### EUR/MWh
+
+EUR/MWh USD EUR 0 50 100 150 200 250 180 150
+
+60
+
+120 50 135
+
+40 90 90 30 60 20 45 30 10
+
+0
+0
+0 20242023 20242023 20242023
+
+####### Tilldelade resurser för biologisk mångfald
+
+atgarderna har tilldelats olika resurser inklusive kostnader for heltidstjanster (FTE) resurser som en del av projektutveck lingen (exempelvis utredningar genomforande av begrans nings och forbattringsatgarder konsulter och overvakning) samt budgetar for forskning och utveckling.
+Det finns inga bety dande kapital eller driftsutgifter utover de som ingar som en integrerad del av projektbudgetarna inom respektive affars omrade och stabsfunktion och dessa redovisas inte separat.
+
+Tabell 15.
+atgarder for biologisk mangfald1
+
+| Nyckelåtgärd | Tidsplan och framtida åtgärder | Tilldelade resurser |
+| --- | --- | --- |
+| Naturinkluderande design (NID) i havsbaserade vindkraftsparker | I linje med de nederländska bestämmelserna som anger att havsbaserade vindkraftsparker aktivt ska förbättra det marina ekosystemet innebär Vattenfalls NID-strategi vid Hollandse Kust Zuid att vindkraftsparkens funda- ment förses med vattenpåfyllningshål. Dessa hål fyller ett tekniskt syfte sam- tidigt som de gynnar den marina biologiska mångfalden genom att erbjuda skydd mot strömmar och rovdjur för arter som torsk, krabba och rötsimpor. Vart och ett av de 139 fundamenten är försedda med fyra vattenpåfyllningshål, strategiskt utplacerade nära havsbotten. Naturinkluderande design handlar främst om insatser och åtgärder för att stärka den biologiska mångfalden. | • Projektet, som inleddes 2021, omfattar planer för att övervaka NID- elementen under 2024, 2028 och 2033. Denna kontinuerliga över- vakning är avgörande för att kontrollera att dessa konstruktioner faktiskt gynnar torskpopulationerna. Insikterna från detta arbete kommer att ligga till grund för och förbättra den framtida utform- ningen av vattenpåfyllningshål, så att de fortsätter att gynna det marina ekosystemet samtidigt som de bibehåller ett fullgott korrosions skydd. |
+![table image]({page: 99, x: 302}, {y: 108, {width: 726}, {height: 71})
+
+- • Under 2024 har kameror för övervakning av fåglar och fladdermöss monterats på platsen, för att testa ett värmekamerasystem för att samla in data om fåglar som kolliderar med de havsbaserade vindkraftverken.
+
+Typ av tilldelade resurser Kostnader for overvakning innefattar konsulter och/eller fartyg fran tredje part samt egna personalkostnader.
+
+Omraden med stor biologisk mangfald och skraddarsytt underhall i distributionsnatet Vattenfall har med hjalp av en GIS baserad analys och faltstudier identifierat 980 omraden med stor biologisk mangfald som tacker cirka 250 km lednings gator i Sverige.
+Underhallsplanerna for ledningsgatorna har anpassats sa att omraden med hoga poang i naturvardesbedomningen far mer uppmarksam het.
+Detta initiativ fokuserar pa atgarder for att oka den biologiska mangfalden till exempel regelbunden rojning av vegetation vilket skapar oppna livsmiljoer for grasmarksarter.
+En GIS baserad analys har ocksa genomforts av 90 trans formatorstationer for att faststalla vilka transformatorstationer som skulle svara bast pa atgarder for att forbattra den biologiska mangfalden.
+Darefter gavs forslag pa platsspecifika forbattringsatgarder for att framja humlor bin och fjarilar.
+Ett exempel pa en art som har gynnats ar vaddnatfjarilen.
+•Analysen av omraden med stor biologisk mangfald genomfordes under 2017 och 2019 for ledningsgatorna och under 2022 och 2023 for transformatorstationerna.
+
+- • Skräddarsydda underhållsplaner för ledningsgatorna utarbetades under 2018 och 2019.
+
+- • Platsspecifika underhållsplaner upprättades under 2023 med åtgärder för att öka den biologiska mångfalden vid fem transformatorstationer. Under 2024 infördes dessa för fyra transformatorstationer, och arbetet pågår fortfarande för den sista.
+
+- • Se avsnittet om mål för biologisk mångfald för ytterligare tidsbestämda ambitioner och kommande fokus på åtgärder för biologisk mångfald inom affärsområdet Distribution.
+
+| Vattenfalls vattenkraftsprogram för biologisk mångfald Vattenfall investerar 65 miljoner SEK för att förbättra den biologiska mångfal- den kring de vattendrag där bolaget producerar vattenkraft. Det är ett frivilligt åtagande och innefattar samarbete med länsstyrelser och universitet. Pro- grammet fokuserar på åtgärder både uppströms och nedströms, inklusive åtgärder som att främja strandvegetation och att samla in ål vid Vänern. En viktig resurs för att programmet ska bli framgångsrikt är "Laxeleratorn", ett storskaligt laboratorium som fokuserar på att förbättra fiskvandringen och att hitta lösningar som möjliggör säker fiskpassage förbi kraftverk med minimal inverkan på elproduktionen. | Programmet kommer att pågå under perioden 2024–2028 och den kunskap som erhålls kommer att vara avgörande för framtida miljö- bedömningar. Det införs parallellt med pågående arbete inom forsk- ning och utveckling. Under 2024 har flera studier gjorts på öring och lax och olika typer av lösningar för att leda fisken förbi kraftverken har testats för att minimera risken att de väljer en annan väg. | Typ av tilldelade resurser: Forskning och konkreta åtgärder i och runt älvarna där Vattenfall bedriver vattenkraftsproduktion. Kompensering har inte använts. |
+| --- | --- | --- |
+|  | Typ av tilldelade resurser: | Typ av tilldelade resurser: | Konsulter och serviceunderleverantörer |
+| Vindkraftsparken Pen y Cymoedd och återställande av torvmark Vattenfall har återstället närmare 1 500 hektar torvmarkshabitat i Wales för att inte störa fåglar under häckningsperioden och underlätta återväxt av vitmossa och andra växter som lockar djur som till exempel groddjur och sångfåglar. Syftet är också att förbättra livsmiljöerna på höglandet inom området för att höja grundvattennivån. Denna åtgärd krävs som en del i våra tillståndsproces- ser. Därutöver har Vattenfall dessutom frivilligt bidragit med betydande ytter- ligare finansiering till Swansea University, utöver budgeten på 3 miljoner GBP för förvaltningsplanen för livsmiljöer. Finansieringen möjliggör ett forsknings- program som syftar till att förstå riskerna och möjligheterna med utveckling av vindkraftsparker och återställande av närliggande torvmark. Detta restaurerings- projekt omfattar åtgärder både uppströms och nedströms och syftar till att vända förstörelsen av ekosystem och öka den biologiska mångfalden. | Restaureringen inleddes i slutet av 2021. Denna nyckelåtgärd hjälper oss att vända utvecklingen för koldioxidläckage inför fram- tiden och skapar en kolsänka som fångar upp och lagrar koldioxid. Friska torvmarksekosystem kan också ge flera andra ekosystem- fördelar utöver ökad biologisk mångfald, till exempel minskad översvämnings risk. Omkring år 2034 kommer området att börja se ut som ett friskt torvmarksekosystem med god biologisk mång- fald, som åter igen fungerar som en kolsänka. | Typ av tilldelade resurser: Forskning, genom- förande av förvaltningsplan för livsmiljöer och över vakning. |
+![table image]({page: 99, x: 835}, {y: 227, {width: 867}, {height: 95})
+
+aven om kompensering inte kvantifieras enskilt som en del av projektet tros projektet bidra till avsevarda forbattringar utover att kompensera for de sma forlusterna av livsmiljoer som vindkraftsparkens infrastruktur orsakar.
+
+- 1. Inga kompensationsåtgärder användes för nyckelåtgärder.
+
+
+<!-- PAGE: 100 -->
+Resursanvandning och cirkular ekonomi
+
+Tilldelade resurser för biologisk mångfald
+
+| Riskbedömda material | Stål | Betong | Aluminium | Koppar | Jordarts- metaller | Polymerer |
+| --- | --- | --- | --- | --- | --- | --- |
+| Väsentliga IRO:er1 | Typ |  |  |  |  |  |
+| Resursbrist för energiomställningen | Risk |
+| 1. För mer information se sidan 86. |
+| Inverkningar, risker och möjligheter Vattenfall har som mål att nå nettonollutsläpp av växthusgaser i värdekedjan till 2040. För att Vattenfall ska kunna utöka sina tillgångar i linje med investeringsplanen (se sidan 24) måste Vattenfall därför säkra framtida resursbehov och sam tidigt mini- mera miljöpåverkan och de sociala inverkningarna i värdeked- jan. Ökad efterfrågan på nyckelresurser som material med låga utsläpp och återvunna material kan påverka tillgången till dessa eller leda till prisökningar. Detta kan leda till minskad projekt- avkastning eller hämma tillväxten samt äventyra Vattenfalls förmåga att nå målen för minskade koldioxid utsläpp. Resurs- inflöden utgör därför en väsentlig risk. Att minska påverkan och risker kopplade till, samt att minimera genereringen av avfall är en viktig fråga för Vattenfall. I och med den minskande verksamheten inom värme har Vattenfall dock inte identifierat IRO:er som passerar tröskelvärdet för att ses som väsentliga på koncernnivå och området har därför bedöms som icke-materiellt. För mer information om avfall, se sid 104. Materialinflöden fram till 2030 har bedömts utifrån vår nuva- rande investeringsplaner i syfte att identifiera hög riskmaterial. Analysen visar att materialinflödet förväntas öka betydligt, sär- skilt i samband med utbyggnaden av vindkrafts tillgångar. För att fastställa de potentiella riskerna i samband med detta genomfördes en riskbedömning baserad på prognoser om volymer, försörjningsrisk och klimatpåverkan. Dessutom bedöm- des sociala risker utan hänsyn till projekt volymerna. Risker har bedömts med hjälp av data från internationellt erkända källor, till exempel EU:s lista över kritiska råvaror, ILO:s statistik och Världs- bankens rapport om styrning. Mer information om metoden och data finns i hållbarhetsnoterna på sidan 131. | Genom vår miljöpolicy åtar sig Vattenfall att ställa om till en mer cirkulär verksamhet. Detta gör vi genom att hantera resur- ser ur ett livscykelperspektiv. När nya projekt utvärderas ska resursanvändningen beaktas med hänsyn till projektets hela livscykel – från affärsidé till slutet av livscykeln. Resurserna måste förvaltas med stort fokus på resurseffektivitet och att utforma tillgångar som håller länge. Vi strävar efter att köpa in mer hållbara eller återvunna material och på så sätt minska användningen av nya resurser. Uttjänta komponenter och material hanteras i linje med avfallshierarkin: förebygga, minska, återanvända, återvinna och slutligen bortskaffa, som ett sista alternativ. Vattenfall har tagit fram ett ramverk för cirkulär ekonomi med fyra fokusområden: cirkulära inköp, cirkulära tillgångar, cirkulär innovation och cirkulär kompetens (se Figur 6). Vi kommer att fortsätta att utveckla vårt ramverk löpande med fokus på att sätta upp mål, samla in data för processövervakning och identi- fiera nyckelåtgärder. "Resursinflöde" ingår i samtliga fokusområ- den, men ägnas mest uppmärksamhet inom cirkulära inköp och cirkulära tillgångar. Vi kommer inledningsvis att fokusera på våra huvudmaterial: stål, betong, aluminium, koppar, polymerer och sällsynta jordartsmetaller. |
+| Figur 6. Vattenfalls ramverk för cirkulär ekonomi, inklusive mål och fokusområden Tabell 16. Prioriterade resurser för cirkularitet |
+| Försörjningsrisk |  |  |  |  |  | n/a2 |
+| Social risk |  |  |  |  |  | n/a2 |
+![table image]({page: 100, x: 553}, {y: 396, {width: 425}, {height: 7})
+
+######## 3. Scope 1.
+
+- 4. LTIF, Lost Time Injury Freqency, uttrycks i antal arbetsolyckor (per 1 miljon arbetade timmar), det vill säga arbetsrelaterade olyckor med frånvaro > 1 dag samt dödsolyckor. Måttet avser endast anställda inom Vattenfall.
+
+- 5. Nyckeltalet är baserat på genomsnittligt sysselsatt kapital.
+
+
+<!-- PAGE: 155 -->
+
+### Fallstudie
+
+Hallbar upphandling bidrar till att na utslappsmalen I takt med att utslappen fran var verksamhet minskar blir utslappen fran leveranskedjan och kunderna allt viktigare for att Vattenfall ska uppna sitt nettonollmal for koldioxidutslapp i hela vardekedjan till 2040.
+
+Vart nettonollutslappsmal omfattar tre utslapps kategorier ”Scopes” fran GHG protokollet (Green house Gas Protocol) dar man skiljer pa vaxthus gasernas ursprung.
+Scope 1 omfattar direkta utslapp fran vara egna verksamheter medan Scope 2 avser indirekta utslapp fran inkopt och anvand el for anvand ning i Vattenfalls verksamheter.
+Scope 3 avser i stort sett alla ovriga utslapp av vaxthusgaser kopplade till var vardekedja till exempel utslapp for de varor och ravaror som vi koper in fran leverantorer och vara kunders utslapp nar de anvander vara produkter.
+
+”Tillsammans med vara leverantorer undersoker vi hur vi kan integrera hallbarhet och innovation i projekten.
+Till exempel hur vi kan tillverka ladd stationer med laga koldioxid utslapp av stal och samarbeta kring uttjanta produkter” sager Morten Movig Central Category Management.
+
+
+<!-- PAGE: 43 -->
+For att minska Scope 3 utslappen kan Vattenfall minska koldioxidutslappen fran de produkter och tjans ter som vi erbjuder kunderna.
+Dessutom kan vi aktivt arbeta med leverantorer och inkludera hallbarhetskrav i anbud for att sakerstalla inkop av koldioxidfria varor och tjanster.
+Under 2021 startade Vattenfall projektet Supplier CO2 Reduction (SCORE) som syftar till att minska vara leverantorers vaxthusgasutslapp med 50 procent till 2030 en milstolpe pa var vag mot nettonoll till 2040.
+Projektet ar en del av Vattenfalls plan for en hallbar leverans kedja (Sustainable Supply Chain Roadmap SCCR) vart verktyg for att integrera hallbarhet ytter ligare i vara inkops och affarsprocesser.
+Foljande exempel ger en inblick i hur vi gor detta i praktiken.
+
+########### Taxonomi förenlig (A1) eller ej (A2) andel av kapital utgifter 2023
+########### Kriterier för väsentligt bidrag Kriterier avseende att inte orsaka betydande skada (DNSH)
+########### Kod
+############ Absolut omsätt- ning MSEK Andel av omsättning % Begränsning av klimat- förändringar
+############# CCM
+############## Ja; Nej; N/EL
+############## Anpassning till klimat- förändringar
+############# CCA
+############## Ja; Nej; N/EL
+############## Vatten och marina resurser
+############# WTR
+############## Ja; Nej; N/EL
+############## Föroreningar
+############# PPC
+############## Ja; Nej; N/EL
+############## Cirkulär ekonomi
+############# CE
+
+|  |  |  |  |  |  |  |  | Ja; Nej; N/EL | Biologisk mång fald och eko- system BIO Ja; Nej; N/EL | Begränsning av klimat- förändringar |  |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CCM |
+| Ja/Nej |
+| Anpassning till klimat- förändringar |
+| CCA |
+| Ja/Nej |
+| Vatten och marina resurser |
+| WTR |
+| Ja/Nej |
+| Föroreningar |
+| PPC |
+| Ja/Nej |
+| Cirkulär ekonomi |
+| CE |
+| Ja/Nej |
+| Biologisk mångfald och eko system |
+| BIO |
+| Ja/Nej |
+| Kategori |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | Möjlig- görande verksamhet M | Omställ- nings- verk samhet O |
+| A. Verksamheter som omfattas av taxonomin A1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Elproduktion med hjälp av solcellsteknik | CCM 4.1 | 91 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Elproduktion från vindkraft | CCM 4.3 | 21 481 | 9% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 9% |  |  |
+| Elproduktion från vattenkraft | CCM 4.5 | 13 854 | 6% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 6% |  |  |
+| Överföring och distribution av el | CCM 4.9 | 13 837 | 6% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 5% | M |  |
+| Lagring av el | CCM 4.10 | 5 953 | 2% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 2% | M |  |
+| Lagring av geotermisk energi | CCM 4.11 | 196 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |  |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15 | 3 480 | 2% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 2% |  |  |
+| Installation och drift av elektriska värmepumpar | CCM 4.16 | 439 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Kombinerad produktion av värme/kyla och elektricitet från solenergi | CCM 4.17 | 3 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Kombinerad produktion av värme/kyla och el från bioenergi | CCM 4.20 | 114 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |  |
+| Produktion av värme/kyla från bioenergi | CCM 4.24 | 1 834 | 1% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 1% |  |  |
+| Elproduktion från kärnkraft i befintliga anläggningar | CCM 4.28 | 15 121 | 6% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 6% |  | O |
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3 | 161 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |  |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader | (och parkeringsplatser i anslutning till byggnader) | CCM 7.4 | 231 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Installation, underhåll och reparation av instrument och anordningar | för mätning, reglering och kontroll av byggnaders energiprestanda | CCM 7.5 | 56 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Installation, underhåll och reparation av tekniker för förnybar energi | CCM 7.6 | 465 | 0% | Ja | N/EL | N/EL | N/EL | N/EL | N/EL | E/T | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |  |
+| A1. De miljömässigt hållbara (taxonomiförenliga) verksamheternas omsättning |  | 77 316 | 32% | 32% |  |  |  |  |  |  |  |  |  |  |  |  | 30% |  |  |
+|  Varav möjliggörande verksamhet |  | 20 899 | 8% | 8% |  |  |  |  |  |  |  |  |  |  |  |  | 7% | M |  |
+|  Varav omställningsverksamhet |  | 15 121 | 6% | 6% |  |  |  |  |  |  |  |  |  |  |  |  | 6% |  | O |
+| A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL |
+| Tillverkning, installation och service av elektisk utrustning med hög, medelhög och låg spänning för elektisk överföring och distribution som resulterar i eller möjliggör ett väsentligt bidrag till klimatförändringsbegränsningen | CCM 3.20 | 1 160 | 1% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Överföring och distribution av el | CCM 4.9 | 87 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15 | 37 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Installation och drift av elektriska värmepumpar | CCM 4.16 | 554 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| Elproduktion från fossila gasformiga bränslen | CCM 4.29 | 3 515 | 1% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 2% |  |  |
+| Högeffektiv kombinerad produktion av värme/kyla och elektricitet från fossila gasformiga bränslen | CCM 4.30 | 11 157 | 5% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 7% |  |  |
+| Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärrvärme- och fjärrkylsystem | CCM 4.31 | 948 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 1% |  |  |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) | CCM 7.4 | 5 | 0% | EL | N/EL | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |  |
+| A2. Omsättningen hos de verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) |  | 17 463 | 7% | 7% |  |  |  |  |  |  |  |  |  |  |  |  | 10% |  |  |
+| TOTALT - Verksamheter som omfattas av taxonomin (A1+A2) |  | 94 779 | 39% | 39% |  |  |  |  |  |  |  |  |  |  |  |  | 40% |  |  |
+| B. Verksamheter som inte omfattas av taxonomin Omsättningen hos verksamheter som inte omfattas av taxonomin |  | 150 791 | 61% |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOTALT (A+B) |  | 245 570 | 100% | Ja = Taxonomiförenlig och miljömässigt hållbara aktiviteter enligt relevant miljömål Nej = Taxonomiförenlig, men inte miljömässigt hållbar enligt relevant miljömål |  |  |  |  |  |  | EL = Verksamheten omfattas av taxonomin för det relevanta miljömålet, men är inte taxonomiförenlig N/EL = Verksamheten omfattas inte av taxonomin för det relevanta miljömålet E/T = Ej tillämpligt |  |  |  |  |  |  |  |  |
+![table image]({page: 137, x: 576}, {y: 110, {width: 924}, {height: 22})
+
+
+<!-- PAGE: 138 -->
+Nyckeltalet for omsattning
+
+| Av Vattenfalls totala omsättning 2024 om 245 570 miljoner SEK omfattas 39 % (40) av taxonomin. Av dessa är 32 % (30) miljömässigt hållbara (dvs. förenliga med taxonomins regelverk, avsnitt A1 i tabellen). 7 % (10) av omsättningen avser verksam- heter som inte var miljömässigt hållbara (avsnitt A2 i tabellen) och resterande 61 % (60) utgjordes av omsättning som inte omfattas av taxonomin (avsnitt B i tabellen). Den sistnämnda utgörs primärt av försäljning till kunder av el, gas och värme som inte produceras av Vattenfall. Vattenfalls omsättning har bedömts mot kriterierna för väsentligt bidrag till klimatmålet begränsning av klimatföränd- ringar (CCM). Vattenfalls andel av omsättningen, som utgörs av möjlig- görande verksamhet, uppgår till 8 % av den totala omsätt- ningen. Den är främst hänförlig till verksamheterna överföring och distribution av el (4.9) och lagring av el (4.10). Omsättningen hänförlig till omställningsverksamhet uppgår till 6 % av den totala omsättningen och utgörs i sin helhet av verksamheten elproduktion från kärnkraft i befintliga anläggningar (4.28). Merparten av Vattenfalls taxonomiförenliga omsättning avser elproduktion från vindkraft (4.3), elproduktion från vattenkraft (4.5), överföring och distribution av el (4.9), lagring av el (4.10) och elproduktion från kärnkraft i befintliga anläggningar (4.28). Vattenfalls värme- och elproduktion från gas (4.29–31) utgör den absoluta majoriteten av omsättning som inte är taxonomi- förenlig. Som framgår av redovisningsprinciperna på sid 135 utgår taxonomi rapporteringen från Vattenfalls segmentsrapporte- ring. I denna baseras omsättningen på spotpriserna (marknads- priserna), medan resultatet från säkringar av priserna för el produktionen, som görs på koncernnivå, inte allokeras till res- pektive produktionsslag. Resultatet från säkring av elpriserna, | vilka redovisas som omsättning, omfattas inte av taxonomin, eftersom det inte fördelas på de olika produktionsslagen i segments rapporteringen (not 6 till koncernredo visningen). Under 2024 har marknadspriserna sjunkit väsentligt jämfört med 2023, vilket i taxonomirapporteringen bidragit till väsent- ligt lägre intäkter för de elproducerande verksamheterna och lägre erhållna priser i vår kundförsäljning. Samtidigt har resul- tatet från prissäkringarna av produktionen förbättrats under 2024. Detta är den huvudsakliga anledningen till att den centrala resultatindikatorn för omsättning är lägre 2024 jäm- fört med 2023. Omsättningen från de arbeten som Vattenfall Services utför på externa kunders distributions- och transmissionsnät har rappor- terats under verksamheten 4.9 Överföring och distribution av el. Omsättning från värme och el som produceras med kol upp- går till mindre än 1 % av Vattenfalls totala omsättning. Denna rapporteras under verksamheter som inte omfattas av taxono- min. Vattenfalls koleldade kraftvärmeverk ingick i avyttringen av värmeverksamheten i Berlin i början av maj 2024. I koncernens not 7 specificeras Vattenfalls nettoomsättning. Nettoomsättningen omfattar intäkter från försäljning och distri- bution av el och värme, försäljning av gas, elhandel samt andra intäkter såsom tjänste- och konsultuppdrag samt anslutnings- avgifter. Taxonomin rapporteras däremot utifrån ett produktions- perspektiv, varvid Vattenfall beaktar koncernintern omsättning för de elproducerande enheterna, vilken allokeras till elproduce- rande verksamheter och samtidigt reduceras försäljnings- intäkterna (verksamhet som inte omfattas av taxonomin) med motsvarande belopp. Detta återspeglas inte i koncernens not 7 där Vattenfall presenterar koncernextern omsättning utifrån ett försäljningsperspektiv. En koppling mellan tabellen i not 7 och taxonomins uppdelning av omsättning på verksamheter är där- för inte möjlig. |
+![table image]({page: 138, x: 45}, {y: 94, {width: 441}, {height: 294})
+
+### Förändringar under rapporteringsåret
+
+Vattenfall har atagit sig att avsevart minska utslappen fram till 2030 och att sikta pa nettonollutslapp till 2040.
+Koncernens klimatmal omfattar hela Vattenfalls vardekedja och samtliga geografier i syfte att bade mildra negativ inverkan begransa omstallningsrisker och fanga mojligheter i energiomstallningen.
+Malen ar helt i linje med vad som kravs for att uppna 1,5°C-malet och mal ar satta for alla utslapps scopes och verifierade av SBTi.
+Planerade utslappsminskningar ar i linje med det mal om klimatneutralitet som faststalls i EU:s klimatlag.
+Malen ar centrala for att folja var miljopolicy som uttrycker vart atagande att anpassa var verksamhet till Parisavtalet.
+Se Tabell 7 for full standig information om Vattenfalls klimatmal.
+
+Resterande utslapp i Scope 3
+
+- 5 % Absoluta utsläpp (S1–3)
+
+#### D B
+
+19
+
+20
+
+Diagrammet visar viktiga risker for delade per strategiskt fokusomrade samt den tidshorisont nar respektive risk skulle kunna borja paverka Vattenfall.
+
+| Lång: | > 5 år |
+| Medellång: | 1–5 år |
+![table image]({page: 47, x: 943}, {y: 492, {width: 69}, {height: 7})
+
+
+<!-- PAGE: 48 -->
+- A. Risker avseende att driva utvecklingen av klimatsmarta lösningar tillsammans med kunder och partner
+
+###### Taxonomi förenlig (A1) eller ej (A2) andel av kapital - utgifter 2023
+###### Kriterier för väsentligt bidrag Kriterier avseende att inte orsaka betydande skada (DNSH)
+###### Kod
+####### Absoluta kapital- utgifter MSEK Andel av kapital- utgifter % Begränsning av klimat- förändringar
+######## CCM
+######### Ja; Nej; N/EL
+######### Anpassning till klimat- förändringar
+######## CCA
+######### Ja; Nej; N/EL
+######### Vatten och marina resurser
+######## WTR
+######### Ja; Nej; N/EL
+######### Föroreningar
+######## PPC
+######### Ja; Nej; N/EL
+######### Cirkulär ekonomi
+######## CE
+
+|  |  |  |  |  |  |  |  | Ja; Nej; N/EL | Biologisk mång fald och eko- system BIO Ja; Nej; N/EL | Begränsning av klimat- förändringar |  |  |  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CCM |
+| Ja/Nej |
+| Anpassning till klimat- förändringar |
+| CCA |
+| Ja/Nej |
+| Vatten och marina resurser |
+| WTR |
+| Ja/Nej |
+| Föroreningar |
+| PPC |
+| Ja/Nej |
+| Cirkulär ekonomi |
+| CE |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |  | Ja/Nej | Biologisk mångfald och eko- system BIO Ja/Nej |  |  | Kategori Möjlig- görande verksamhet M Omställ- nings- verk samhet O |
+| A. Verksamheter som omfattas av taxonomin A1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Elproduktion med hjälp av solcellsteknik | CCM 4.1, CCA 4.1 | 195 | 1% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| Elproduktion från vindkraft | CCM 4.3, CCA 4.3 | 9 008 | 31% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 54% |  |
+| Elproduktion från vattenkraft | CCM 4.5, CCA 4.5 | 1 168 | 4% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 3% |  |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 10 234 | 35% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 19% | M |
+| Lagring av el | CCM 4.10, CCA 4.10 | 142 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Lagring av geotermisk energi | CCM 4.11, CCA 4.11 | 5 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15, CCA 4.15 | 1 183 | 4% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 5% |  |
+| Installation och drift av elektriska värmepumpar | CCM 4.16, CCA 4.16 | 283 | 1% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| Kombinerad produktion av värme/kyla och el från bioenergi | CCM 4.20, CCA 4.20 | 7 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| Produktion av värme/kyla från bioenergi | CCM 4.24, CCA 4.24 | 386 | 1% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 1% |  |
+| Produktion av värme/kyla med hjälp av restvärme | CCM 4.25, CCA 4.25 | 57 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| Elproduktion från kärnkraft i befintliga anläggningar | CCM 4.28, CCA 4.28 | 1 864 | 6% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 5% | O |
+| Uppförande av nya byggnader | CCM 7.1, CCA 7.1 | 80 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3, CCA 7.3 | 8 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) | CCM 7.4, CCA 7.4 | 1 022 | 3% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 2% | M |
+| Installation, underhåll och reparation av instrument och anordningar för mätning, reglering och kontroll av byggnaders energiprestanda | CCM 7.5, CCA 7.5 | 8 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Installation, underhåll och reparation av tekniker för förnybar energi | CCM 7.6, CCA 7.6 | 6 | 0% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% | M |
+| Förvärv och ägande av byggnader | CCM 7.7, CCA 7.7 | 566 | 2% | Ja | Ja* | N/EL | N/EL | N/EL | N/EL | Ja | Ja | Ja | Ja | Ja | Ja | Ja | 0% |  |
+| A1. Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna |  | 26 222 | 88% | 88% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 89% |  |
+|  Varav möjliggörande verksamhet |  | 11 425 | 38% | 38% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 21% | M |
+|  Varav omställningsverksamhet |  | 1 864 | 6% | 6% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 5% | 0 |
+| A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL EL; N/EL |
+| Tillverkning, installation och service av elektisk utrustning med hög, medelhög och låg spänning för elektisk överföring och distribution som resulterar i eller möjliggör ett väsentligt bidrag till klimatförändringsbegränsningen | CCM 3.20, CCA 3.20 | 87 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 88 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15, CCA 4.15 | 351 | 1% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Installation och drift av elektriska värmepumpar | CCM 4.16, CCA 4.16 | 2 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Elproduktion från fossila gasformiga bränslen | CCM 4.29, CCA 4.29 | 81 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Högeffektiv kombinerad produktion av värme/kyla och elektricitet från fossila gasformiga bränslen | CCM 4.30, CCA 4.30 | 351 | 1% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 1% |  |
+| Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärr- värme- och fjärrkylsystem | CCM 4.31, CCA 4.31 | 210 | 1% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 1% |  |
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3, CCA 7.3 | 0 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) | CCM 7.4, CCA 7.4 | 5 | 0% | EL | EL* | N/EL | N/EL | N/EL | N/EL |  |  |  |  |  |  |  | 0% |  |
+| A2. Kapitalutgifter för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) |  | 1 175 | 3% | 3% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 2% |  |
+| TOTALT - Verksamheter som omfattas av taxonomin (A1+A2) |  | 27 397 | 91% | 91% | 0%* |  |  |  |  |  |  |  |  |  |  |  | 91% |  |
+| B. Verksamheter som inte omfattas av taxonomin |
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin |  | 2 551 | 9% |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| TOTALT (A+B) |  |  | 100% | Ja = Taxonomiförenlig och miljömässigt hållbara aktiviteter enligt relevant miljömål Nej = Taxonomiförenlig, men inte miljömässigt hållbar enligt relevant miljömål |  |  |  |  |  |  | EL = Verksamheten omfattas av taxonomin för det relevanta miljömålet, men är inte taxonomiförenlig N/EL = Verksamheten omfattas inte av taxonomin för det relevanta miljömålet |  |  |  |  |  |  |  |
+![table image]({page: 135, x: 578}, {y: 108, {width: 918}, {height: 14})
+
+- Vattenfall uppfyller de tekniska granskningskriterierna (inklusive kriterier att inte orsaka betydande skada, DNSH) för både begränsning av klimatförändringar (CCM) och anpassning till klimatförändringar (CCA). Dock kan Vattenfall inte separera kapitalgifter mellan målen CCA och CCM, därför rapporteras hela beloppet under CCM.
+
+
+<!-- PAGE: 136 -->
+| Taxonomi – Kapitalutgifter, forts. |  |  |  |  | Nyckeltalet för kapitalutgifter |  Andelen kapitalutgifter som är hänförlig till omställningsverksamhet uppgår till 6% av de totala kapitalutgifterna och utgörs i sin helhet av verksamheten elproduktion från kärnkraft i befintliga anläggningar (4.28). Omställnings- verksamhet är verksamhet för vilken koldioxid- snåla alternativ ännu inte finns tillgängliga och som har växthusgasutsläppsnivåer som mot- svarar de bästa resultaten inom sektorn eller industrin, som uppfyller följande två villkor: (i) den bör inte hindra utvecklingen och införan- det av koldioxidsnåla alternativ och (ii) den bör inte leda till en inlåsning av koldioxidintensiva tillgångar, med beaktande av dessa tillgångars ekonomiska livslängd. Merparten av Vattenfalls taxonomiförenliga kapitalutgifter avser elproduktion från vindkraft (verksamhet 4.3), överföring och distribution av el (4.9), distribution av fjärrvärme/fjärrkyla (4.15) och elproduktion från kärnkraft i befintliga anläggningar (4.28). Vattenfalls värme- och elproduktion från gas (4.29–31) utgör majorite- ten av kapitalutgifter som inte är taxonomi- förenlig. |
+| --- | --- | --- | --- | --- | --- | --- |
+| 88% (89) av Vattenfalls kapitalutgifter under 2024 var miljömässigt hållbara (dvs. förenliga med taxonomins regelverk, avsnitt A1 i tabel- len). 3% (2) av kapitalutgifterna omfattas av verksamheter som inte var miljömässigt håll- bara (avsnitt A2 i tabellen) och resterande 9% |
+| Kod |
+|  |  | Absoluta kapital- utgifter MSEK | Andel av kapitalutgifter 2024 – avseende Immateriella anläggnings- tillgångar MSEK Materiella anläggnings- tillgångar MSEK Right of use assets MSEK Business combination MSEK | Andel av kapitalutgifter 2023 – avseende Immateriella anläggnings- tillgångar MSEK Materiella anläggnings- tillgångar MSEK Right of use assets MSEK Business combination MSEK |  |  |
+| A. Verksamheter som omfattas av taxonomin A1. Miljömässigt hållbara (taxonomiförenliga) verksamheter Elproduktion med hjälp av solcellsteknik | CCM 4.1, CCA 4.1 | 195 | 0 22 173 0 | 0 32 0 0 |  |  |
+| Elproduktion från vindkraft | CCM 4.3, CCA 4.3 | 9 008 | 0 8 857 130 21 | 0 19 753 81 182 |  |  |
+| (9) utgjordes av investeringar inom verksamhe- ter som inte omfattas av taxonomin (avsnitt B i tabellen). Verksamheter som inte omfattas av taxonomin innebär inte nödvändigtvis att de inte är hållbara. Det indikerar enbart att verk- samheten inte omfattas av taxonomin och där- med inte bedöms utifrån taxonomins regelverk. Alla Vattenfalls kapitalutgifter har bedömts mot kriterierna för väsentligt bidrag till klimat- målen begränsning av och anpassning till klimat förändringar (CCM och CCA). Samtliga kapitalutgifter bidrar till båda klimatmålen, men kan inte fördelas på respektive klimatmål utan rapporteras enbart under begränsning av klimat förändringar (CCM). Detta då anpassning till väsentliga klimatrisker är en integrerad del av projektens utformning. Inte någon del av kapitalutgifterna har identifierats tillämpliga för prövning mot den delegerade akten på miljö- området. 88% av Vattenfalls kapitalutgifter är förenliga under både begränsning av (CCM) och anpassning till (CCA) klimatförändringar. Vattenfalls andel av kapitalutgifter, som utgörs av möjliggörande verksamhet, uppgår till 38% av de totala kapitalutgifterna. Möjlig- görande verksamhet är sådan verksamhet som direkt gör det möjligt för andra att ge ett väsentligt bidrag till klimat-/miljömålen. De är främst hänförliga till verksamheten överföring och distribution av el (4.9). |
+| Elproduktion från vattenkraft | CCM 4.5, CCA 4.5 | 1 168 | 0 1 168 0 0 | 0 835 0 0 |  |  |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 10 234 | 127 10 001 106 0 | 158 6 669 178 0 |  |  |
+| Lagring av el | CCM 4.10, CCA 4.10 | 142 | 0 140 2 0 | 0 108 3 18 |  |  |
+| Lagring av geotermisk energi | CCM 4.11, CCA 4.11 | 5 | 0 5 0 0 | 0 62 0 0 |  |  |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15, CCA 4.15 | 1 183 | 1 1 179 3 0 | 0 1 575 0 70 |  |  |
+| Installation och drift av elektriska värmepumpar | CCM 4.16, CCA 4.16 | 283 | 1 258 0 24 | 1 57 20 76 |  |  |
+| Kombinerad produktion av värme/kyla och el från bioenergi | CCM 4.20, CCA 4.20 | 7 | 0 7 0 0 | 0 7 0 0 |  |  |
+| Produktion av värme/kyla från bioenergi | CCM 4.24, CCA 4.24 | 386 | 0 386 0 0 | 0 222 0 16 |  |  |
+| Produktion av värme/kyla med hjälp av restvärme | CCM 4.25, CCA 4.25 | 57 | 0 57 0 0 | 0 0 0 0 |  |  |
+| Elproduktion från kärnkraft i befintliga anläggningar | CCM 4.28, CCA 4.28 | 1 864 | 0 1 863 1 0 | 0 1 879 2 0 |  |  |
+| Uppförande av nya byggnader | CCM 7.1, CCA 7.1 | 80 | 0 80 0 0 | 0 0 0 0 |  |  |
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3, CCA 7.3 | 8 | 0 3 5 0 | 1 1 1 0 |  |  |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) | CCM 7.4, CCA 7.4 | 1 022 | 264 669 89 0 | 193 469 6 0 |  |  |
+| Installation, underhåll och reparation av instrument och anordningar för mätning, reglering och kontroll av byggnaders energi prestanda | CCM 7.5, CCA 7.5 | 8 | 0 3 5 0 | 1 2 2 0 |  |  |
+| Installation, underhåll och reparation av tekniker för förnybar energi | CCM 7.6, CCA 7.6 | 6 | 0 3 3 0 | 0 1 0 0 |  |  |
+| Jämfört med föregående år har kapital- utgifterna minskat med 7 miljarder SEK. Detta är främst hänförligt till aktiviteten elproduktion från vindkraft (4.3) som minskat med 11 miljar- der SEK och beror på att några större vind- kraftsprojekt slutfördes under 2023. Under 2024 har investeringarna i aktiviteten över- föring och distribution av el (4.9) ökat med drygt 3 miljarder SEK jämfört med 2023. Vattenfall utvecklar vind- och solkrafts- projekt i syfte att avyttras (develop to sell). De utgifter som är hänförliga till dessa projekt redovisas som varulager och ingår därför inte i taxonomins centrala resultatindikator för kapital utgifter. |
+| Förvärv och ägande av byggnader | CCM 7.7, CCA 7.7 | 566 | 0 0 566 0 | 0 0 0 0 |  |  |
+| A1. Kapitalutgifter för de miljömässigt hållbara (taxonomiförenliga) verksamheterna |  | 26 222 | 393 24 701 1 083 45 | 354 31 672 293 362 |  |  |
+![table image]({page: 136, x: 45}, {y: 94, {width: 613}, {height: 13})
+
+- A2. Verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga)
+
+| Tillverkning, installation och service av elektisk utrustning med hög, medel- hög och låg spänning för elektisk överföring och distribution som resulte- rar i eller möjliggör ett väsentligt bidrag till klimatförändringsbegränsningen | CCM 3.20, CCA 3.20 | 87 | 4 | 33 | 50 | 0 | 9 | 26 | 19 | 0 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Överföring och distribution av el | CCM 4.9, CCA 4.9 | 88 | 0 | 78 | 10 | 0 | 1 | 42 | 1 | 0 |
+| Distribution av fjärrvärme/fjärrkyla | CCM 4.15, CCA 4.15 | 351 | 0 | 349 | 2 | 0 | 0 | 49 | 0 | 0 |
+| Installation och drift av elektriska värmepumpar | CCM 4.16, CCA 4.16 | 2 | 0 | 2 | 0 | 0 | 0 | 2 | 0 | 0 |
+| Elproduktion från fossila gasformiga bränslen | CCM 4.29, CCA 4.29 | 81 | 0 | 81 | 0 | 0 | 0 | 91 | 0 | 0 |
+| Högeffektiv kombinerad produktion av värme/kyla och elektricitet från fossila gasformiga bränslen | CCM 4.30, CCA 4.30 | 351 | 0 | 351 | 0 | 0 | 0 | 401 | 0 | 32 |
+| Produktion av värme/kyla från fossila gasformiga bränslen i ett effektivt fjärrvärme- och fjärrkylsystem | CCM 4.31, CCA 4.31 | 210 | 0 | 210 | 0 | 0 | 0 | 129 | 0 | 0 |
+![table image]({page: 136, x: 45}, {y: 360, {width: 613}, {height: 15})
+
+| Installation, underhåll och reparation av energieffektiv utrustning | CCM 7.3, CCA 7.3 | 0 | 0 | 0 | 0 | 0 | 5 | 13 | 9 | 0 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter | Andel av kapitalutgifter |
+|  | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Taxonomi- förenliga | Omfattas av taxonomin |
+|  | CCM | CCM | CCM | CCM | CCM | CCM | CCM | CCM | CCM | CCM | 88% | 91% |
+| Vattenfalls totala kapitalutgifter uppgår till 29 948 miljoner SEK. Den absoluta huvuddelen utgörs, i likhet med föregående år, av materiella anläggningstillgångar hänförliga till de taxonomi- förenliga verksamheterna 4.3, 4.9, 4.15 och 4.28 och de icke taxonomiförenliga verksamheterna |
+| Installation, underhåll och reparation av laddstationer för elfordon i byggnader (och parkeringsplatser i anslutning till byggnader) | CCM 7.4, CCA 7.4 | 5 | 0 | 4 | 1 | 0 | 0 | 5 | 0 | 0 |
+| A2. Kapitalutgifter för verksamheter som omfattas av taxonomin men som inte är miljömässigt hållbara (ej taxonomiförenliga) |  | 1 175 | 4 | 1 108 | 63 | 0 | 15 | 758 | 29 | 32 |
+![table image]({page: 136, x: 753}, {y: 466, {width: 613}, {height: 14})
+
+CCA 88% 91%
+
+| TOTALT - Verksamheter som omfattas av taxonomin (A1+A2) | 27 397 | 397 | 25 809 | 1 146 | 45 | 369 | 32 430 | 322 | 394 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4.29–31. |
+|  |  |  |  |  |  |  |  |  |  |
+| B. Verksamheter som inte omfattas av taxonomin |
+|  |  |  |  |  |  |  |  |  |  |
+![table image]({page: 136, x: 45}, {y: 509, {width: 164}, {height: 6})
+
+| Kapitalutgifter hos verksamheter som inte omfattas av taxonomin | 2 551 | 1 236 | 1 064 | 251 | 0 | 924 | 1 930 | 308 | 207 | CE | N/EL | N/EL |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| TOTALT (A+B) |
+|  |  |  |  |  |  |  |  |  |  | BIO | N/EL | N/EL |
+![table image]({page: 136, x: 45}, {y: 530, {width: 164}, {height: 6})
+
+
+<!-- PAGE: 137 -->
+
+#### Närvarande på styrelsemöte 9/10 Närvarande på utskottsmöte 3/4
+### Christian Levin (1967)
+
+Styrelseledamot Utbildning Civilekonom civilingenjor i maskinteknik.
+Nuvarande befattning VD Scania och VD Traton AB.
+Andra uppdrag Styrelseordforande i MAN Truck & Bus SE Styrelseledamot i Scania CV AB Navistar LLC Volkswagen Truck och Bus Ltda Teknikforetagen och Kung liga Tekniska Hogskolan (KTH).
+Tidigare befattningar Operativ chef Traton AB (2019-2021) Vice VD forsalj ning & Marknad Scania CV AB (2016 2018) Vice VD Commercial Operations Scania CV AB (2005-2016) VD Italscania SpA (2006-2010).
+Invald 2024 Narvarande pa styrelsemote 5/7 Nina Linander (1959) Styrelseledamot Utbildning Civilekonom och MBA.
+Nuvarande befattning Styrelseledamot i Swedavia Suominen och Asker Health care Group.
+Tidigare befattningar Grundare och partner Stanton Chase International AB Chef for Koncernstab finans AB Electrolux (publ).
+Ledarpositioner inom Vattenfall AB och arbete inom Corporate Finance pa investmentbanker i London.
+Invald 2024 Utskottsuppdrag Ledamot i ersattnings utskottet.
+Narvarande pa styrelsemote 7/7 Narvarande pa utskottsmote 4/4 Per Lindberg (1959) Styrelseledamot Utbildning Civilingenjor i maskinteknik.
+Teknologie doktor i industriell ekonomi och arbetsorganisation.
+Nuvarande befattning Senior radgivare Peymar.
+Andra uppdrag Styrelseordforande i Permascand AB och Nordic Brass Gusum AB.
+Styrelseledamot i Boliden AB Valmet Oyj och ReOcean AB.
+Tidigare befattningar VD Epiroc AB (2018-2020).
+VD BillerudKorsnas AB (2012-2017).
+VD Billerud AB (2005 2012).
+VD Korsnas AB (2001-2005).
+Vice VD Investment AB Kinnevik (2004-2005).
+Invald 2023 Utskottsuppdrag Ledamot i ersattnings utskottet.
+Narvarande pa styrelsemote 8/10 Narvarande pa utskottsmote 4/6
+
+
+<!-- PAGE: 68 -->
+Bolagsstyrningsrapport / Styrelse
+
+Styrelse forts.
+
+#### Processer för att åtgärda
+
+Vattenfall ar medvetna om vikten av att tillhandahalla tillgang liga kanaler for klagomal och atgardande.
+Pa koncernniva har Vattenfall atagit sig att tillhandahalla lampliga former av atgar der i de fall dar Vattenfall direkt har orsakat eller bidragit till negativa inverkningar pa manskliga rattigheter kopplat till var egen verksamhet och var leverantorskedja.
+Vilken typ av atgard som vidtas avgors fran fall till fall beroende pa hur allvarlig inverkningen ar och var koppling till den.
+Vattenfall har for nar varande ingen formell koncernpolicy for atgardsforfaranden.
+Eventuella atgardsforfaranden hanteras direkt av det ansvariga affarsomradet och om nodvandigt i samarbete med Vattenfalls juridiska avdelning och med hansyn till den klagandes konfi dentialitet och anonymitet.
+Beroende pa olika regulatoriska krav varierar atgardsforfarandenas karaktar mellan de olika affars omradena och marknaderna.
+
+Vattenfall tillhandahaller flera kanaler dar rattighetsinne havare kan framfora klagomal.
+Pa koncernniva inkluderar detta Vattenfalls webbaserade visselblasarkanal funktionen Group Internal Audit och vara visselblasarsamordnare (mer informa tion finns pa sidan 124).
+Vattenfall stodjer tillgangligheten av var visselblasarkanal i vara affarsrelationer (mer information finns pa sidan 113).
+Pa operativ niva erbjuder vi direktkontakt med projektledare ansvariga for kontakt med intressenter eller annan personal for att framfora klagomal.
+
+I dagslaget har Vattenfall inte nagon centraliserad eller for mell mekanism pa plats som mojliggor en bedomning av med vetenheten om och fortroendet for vara klagomalskanaler eller atgardsprocesser.
+Det finns for narvarande heller inget system pa plats for att bedoma effektiviteten i vara atgardsmekanis mer.
+Riktlinjer om att sakerstalla efterlevnad av effektivitetskrite rierna i UNGP och darmed aven det europeiska direktivet om tillborlig aktsamhet for foretag i fraga om hallbarhet kommer att beaktas under utvecklingen av vara riktlinjer for intressent engagemang (se sidan 117).
+
+Figur 11.
+Tillborlig aktsamhet gallande manskliga rattigheter
+
+2
+
+Identifiera och bedoma risker
+
+| 5 | 1 | 3 |
+| --- | --- | --- |
+| Rapportera och kom- municera | Policy och förankring | Agera: Förhindra och begränsa |
+![table image]({page: 106, x: 250}, {y: 399, {width: 162}, {height: 16})
+
+4
+
+#### E
+
+2024 21 13 14 15 16 17 18
+
+#### A C
+
+2
+
+##### Human- kapital
+
+Sidan 28
+
+##### Framtida utveckling av KPI för kapital utgifter och omsättning
+
+Den fortsatta utbyggnaden av fossilfri kapacitet och projekt kopplade till att minska kol dioxid utslappen i samhallet kommer att bidra positivt till saval andelen taxonomi anpassade kapital utgifter som omsattningen.
+
+Se EU taxonomirapporteringen pa sidan 134
+
+
+<!-- PAGE: 25 -->
+Strategi / Investerarrapport grona obligationer
+
+Investerarrapport for grona obligationer Vattenfall emitterade sin forsta grona obligation i juni 2019 och hade vi i slutet av 2024 totalt 25,2 miljarder SEK i utestaende grona obligationer och den totala investeringen uppgick till 34,2 miljarder SEK.
+
+Vattenfall har beslutat att anvanda sig av gron finansiering och vi raknar med att all framtida lang siktig finansiering kommer att ske inom ramverket for Vattenfalls grona obligationer1.
+
+##### Gapanalys av interna efterlevnadsrutiner
+
+Under 2024 har vi anlitat en extern tredje part for att genomfora en gapanalys av var utforliga process for tillborlig aktsamhet.
+Den externa partnern har granskat och utvarderat vara interna rutiner for utredning av leverantorer som tillhandahaller utvalda hogriskproduktkategorier.
+Baserat pa de brister som identifie rats har partnern rekommenderat forbattringar for att sakra efterlevnad av gallande och kommande lagstiftning och skapa positiva inverkningar.
+Var mer utforliga process for tillborlig akt samhet ar en av de processer som hjalper oss att forsta arbets tagarna i vardekedjan nar det galler risker kopplade till mansk liga rattigheter och till halsa och sakerhet.
+Detta gors genom att bland annat granska offentliga uttalanden fran legitimt utsedda foretradare eller rapporter fran trovardiga ombud.
+andringarna i vara interna rutiner har inforts under 2024 och vantas vara redo att anvandas fullt ut under 2025. vi att gradvis infora levnadsloner i var leverantorskedja med borjan hos vara entreprenorer som arbetar pa Vattenfalls anlaggningar for att sedan successivt utvidga denna praxis till utvalda led i leverantorskedjan.
+Det finns inga betydande kapital eller driftsutgifter for dessa atgarder utover de resurser som redan ingar som en integrerad del av de relevanta enheternas budgetar.
+Dessa redovisas inte separat.
+
+Det finns inga betydande kapital eller driftsutgifter for dessa atgarder utover de resurser som redan ingar som en integrerad del av de relevanta enheternas budgetar.
+Dessa redovisas inte separat.
+
+Viktiga atgarder for framtiden De viktigaste atgarderna framover kommer att ha fortsatt fokus pa att minska riskerna minimera negativa inverkningar och att utvardera och forbattra vara processer for tillborlig aktsamhet.
+
+#### Power Generation
+
+4 035
+
+##### Kärnavfallsfonden i Sverige
+
+Den som har tillstand for att bedriva karnteknisk verksamhet till exempel.
+Ringhals AB och Forsmarks Kraftgrupp AB ska enligt den svenska lagen (2006:647) om finansiering av karntekniska restprodukter stalla sakerheter till staten for att garantera att till rackliga medel finns for den framtida avfallshanteringen.
+Saker heterna har formen av borgensforbindelser utstallda av agarna till karnkraftsforetagen.
+Regeringen har i beslut den 21 decem ber 2023 faststallt vilka belopp borgensforbindelserna ska uppga till for aret 2024.
+Moderbolaget Vattenfall AB har som sakerhet for dotterforetagen Forsmarks Kraftgrupp AB och Ringhals AB utstallt garantier till ett sammanlagt varde av 41 750 MSEK (34 136).
+Tva typer av garantier har stallts ut.
+Den ena garantin finansieringssakerheten uppgaende till 12 066 MSEK (9 466) avser att tacka det aktuella underskottet i Karnavfallsfonden under antagandet att inga ytterligare karn avfallsavgifter inbetalas.
+Detta underskott beraknas som skillna den mellan forvantade kostnader och redan inbetalade medel.
+Den andra garantin kompletteringssakerheten avser potentiella framtida kostnadsokningar som beror pa oplanerade handelser och uppgar till 29 684 MSEK (24 669).
+Bada beloppen baseras pa en sannolikhetsbaserad riskanalys dar det forra beloppet ar satt sa att det tillsammans med idag fonderade medel med 50 % sannolikhet (medianvardet) ska ge full kostnadstackning for allt avfall som hitintills producerats.
+Det senare beloppet utgor i princip det tillagg som erfordras for att motsvarande sanno likhet ska uppga till 90 %.
+aven AB Svafo ska enligt finansieringslagen stalla sakerhet till staten.
+I november 2022 faststallde regeringen vilket belopp borgensforbindelsen ska uppga till for perioden 2023-2025.
+Sakerheten har formen av borgensforbindelse utstalld av agarna.
+Moderbolaget Vattenfall AB har for dotterbolaget AB Svafo som sakerhet utstallt finansieringsgaranti till ett sammanlagt varde av 380 MSEK (323).
+
+Se aven koncernens Not 31 Andelar i den svenska Karn avfallsfonden samt koncernens Not 32 Andra rantebarande avsattningar.
+
+ataganden relaterade till svensk karnkraft ataganden hanforlig till svensk karnkraft Nuclear Third Party Liability (NTPL) i Sverige ar strikt och obegransat.
+Enligt Lag (2010:950) om ansvar och ersattning vid radiologiska olyckor (LRO) ska agaren av en karnkraftsreaktor ha en forsakring eller annan ekonomisk sakerhet som tacker 1 200 MEUR.
+For andra karntekniska anlaggningar ar det erforderliga beloppet 700 MEUR forutom avseende aren 2022 2023 och 2024 da ett undantag gjorde att tackningen som behovdes var 370 MEUR.
+Den 5 december 2024 fattade regeringen beslut avseende att Svafo och SKB skulle betraktas som lagriskanlaggningar varfor begard sakerhet endast behover uppga till 70 MEUR och kan tackas av forsakringsskydd.
+Forsakringar som tacker NTPL ut fardas av Nordic Nuclear Insurers (NNI) och av karnkrafts industrins omsesidigt agda for[1]sakringsbolag ELINI (European Liability Insurance for the Nuclear Industry).
+Dar forsakrings marknaden inte kan tacka summan av sakerheten som LRO kraver har karnkraftsbolagens agare stallt ut moderbolags garantier (PCG) som kompletterande sakerhet.
+Ringhals Fors mark och SKB har erhallit ett fullt forsakringsskydd upp till det belopp som LRO kraver for kalenderaret 2024 och darfor finns inga PCG utfardade for 2024. De tidigare PCG som utfardats for kalenderar 2022 ar dock fortfarande giltiga for eventuella handelser som intraffade under 2022 och 2023.
+PCG:erna ar pro rata det vill saga varje agare ar endast ansvarig for sin del av PCG.
+Avseende anlaggningen i agesta har Vattenfall AB tidi gare utfardat hela beloppet av erforderlig PCG men efter den 24 september 2024 behovs ingen form av sakerhet stallas enligt LRO enligt beslut fran Stralsakerhets myndigheten.
+
+###### Omställningsrisker – begränsning av klimatförändringar
+
+Omstallningsrisker uppstar i samband med den globala over gangen till en koldioxidsnal ekonomi och de paverkar projekt och tillgangar.
+Med tanke pa den langa livslangden for manga av Vattenfalls anlaggningar ar langsiktiga trender och osakerhe ter mycket viktiga for det strategiska beslutsfattandet.
+For att hantera detta anvander Vattenfalls koncernstrategiteam ett brett spektrum av scenarier for energiomstallning som tacker perioden 2023-2060.
+Syftet med dessa scenarier ar att kart lagga viktiga osakerheter och trender i den europeiska kraft industrin och att utforska olika vagar mot ett Europa utan fossila branslen.
+Detta omfattar makroekonomiska trender politik marknadsdesign samt teknisk utveckling.
+De tre scenarierna for energiomstallning beskrivs nedan.
+Scenarierna speglar olika grader av statligt stod for energi omstallningen olika takt i elektrifieringen olika takt i utfas ningen av fossila branslen olika utbyggnadstakt for fossilfri teknik samt varierande koldioxid och branslepriser.
+Informatio nen fran Vattenfalls scenario analys som genomfors arligen anvands i samband med investeringsbeslut bedomningar av verkligt varde nedskrivningstester och strategisk planering.
+Den senaste analysen genomfordes 2024 och fokuserade pa avgorande antaganden om hur omstallningen till en mer koldi oxidsnal och resilient ekonomi kan paverka omgivande makro ekonomiska trender samt antaganden om den tekniska utveck lingen.
+
+Resultaten av resiliensanalysen Resultaten av analysen anvands for att bedoma om de atgarder som vidtagits ar tillrackliga for att hantera identifierade risker och sakerstalla verksamhetens resiliens och utgor underlag for Vattenfalls strategi investeringsbeslut samt aktuella och plane rade riskreducerande atgarder.
+Under 2024 bestalldes en analys for att modellera hur viktiga klimatparametrar som temperatur havsniva och nederbord for vantas forandras enligt IPCC:s klimatscenarier RCP 4.5 (scena rio med medelhoga halter av vaxthusgaser) och RCP 8.5 (sce nario med hoga halter av vaxthusgaser).
+Denna bedomning baseras pa geospatiala koordinater som ar specifika for Vattenfalls anlaggningar och fokuserar pa de viktigaste identi fierade fysiska klimatriskerna.
+Resultatet av denna analys kom mer att anvandas for att ytterligare verifiera var befintliga risk inventering och starka vart arbete med att analysera klimatscenarier for var verksamhet.
+Klimatforandringarna ar en central del av Vattenfalls strategi och affarsmodell dar elektrifiering med fossilfri energi ar en av de viktigaste losningarna.
+Att fasa ut fossila branslen fran var egen verksamhet och fran var vardekedja ar en del av vart kun derbjudande och en forutsattning for att vi ska kunna leva upp till Vattenfalls agardirektiv som foreskriver att vi ska vara ledande i energiomstallningen.
+Nar det galler omstallningsrisker anpassar Vattenfall sin strategi och affarsmodell mot en framtid dar klimatforandringarna ar begransade till 1,5°C.
+Den resiliens analys som genomforts omfattar den overgripande utveck lingen av Vattenfalls affarsverksamhet och anvands internt som underlag for affarsbeslut inklusive investeringar.
+Vattenfall tar itu med dessa utmaningar pa flera satt till exempel genom att investera i fossilfri produktionskapacitet bygga ut elnatet utveckla smarta instrument for energistyrning ge rad och stod till konsumenter sa att de kan minska sin energi anvandning samt genom att samarbeta med foretag i sektorer dar utslappsminskningar ar svara att uppna sasom betong och stal for att tillsammans ta fram hallbara losningar.
+
+Policyer och styrning Hogsta ledningens ansvar policyer och ledningssystem kring miljorelaterade fragor (se sidan 87) galler aven hanteringen av klimatrelaterade fragor.
+Miljopolicyn och miljoledningssystemet faststaller de overgripande principerna och styrningsmodellen med avseende pa klimatforandringar.
+Ambitioinen ar att anpassa affarsverksamheten till malet att begransa den globala uppvarmningen till 1,5 grader i linje med Parisavtalet samt att hantera och anpassa sig till klimatrisker och klimatforandringar.
+Policyn ar inriktad pa utslappsminskning i hela vardekedjan med det slutgiltiga malet att uppna nettonollutslapp samt pa utveckling av fossilfri energi for att bidra till omstallningen av samhallet och oka energieffektiviteten.
+
+Klimatforandringarna paverkar redan Vattenfalls tillgangar och verksamhet och effekterna forvantas oka.
+Den overgri pande slutsatsen av de utvarderingar vi genomfort hittills ar att vi ar val rustade for att anpassa oss till ett forandrat klimat.
+For fysiska risker som paverkar energiinfrastruktur eller kritiska funktioner finns anpassningsatgarder for att hantera risker och arbete pagar kontinuerligt for att mildra risker och minska sar barheten for externa storningar.
+Detta arbete drivs till stor del ocksa av vaderrelaterade risker som finns redan i dag och den naturliga variationen av fysiska parametrar sasom vind over svamningar torka och skogsbrander.
+Klimatforandringarna innebar att marginaler och insatser i forekommande fall anpas sas for att ta hansyn till storre forandringar och variabilitet.
+Det handlar bade om att anpassa vattenkraftsdammar for att kunna hantera storre framtida floden att sakerstalla kyllosningar for utsatt infrastruktur samt att vadersakra elnatet.
+Det innebar ocksa ett okat fokus pa att forbattra var forstaelse och resiliens genom battre prognoser for produktionsplanering och genom att starka var beredskap for extrema vaderhandelser.
+Exempel pa fysiska risker som identifierats i bedomningen finns i Tabell 5.
+
+Tabell 4.
+Scenarier for energiomstallning Scenario for energiomstallning Beskrivning och tidsram Kontrollerad omstallning
+
+Tabell 5.
+Exempel pa fysiska klimatrisker
+
+| Beskrivning | Potentiella konsekvenser | Åtgärder |
+| --- | --- | --- |
+| Extrema regnfall som leder till höga flöden i floder | Ökat behov av att spilla vatten i vattenkraftverk, risk för avfall och jordskred längs floder. | Justerad flödesreglering och investeringar för att öka damm- och bräddkapacitet. |
+| Infrastrukturskador från extrema väderhändelser | Vindfällning av träd på grund av minskad tjäle i marken, ökad risk för skogsbränder på grund av mer frekventa torkperioder. | Kontinuerligt arbete med att stärka elnätet och infrastrukturen samt ökad beredskap. |
+| Varmare temperaturer påverkar efterfrågan på värme och kyla | Minskat värmebehov på vintern, ökat kylnings- behov på sommaren. | Finansiella prognoser är integrerade med lång- siktiga marknadsutsikter och affärsplanering. |
+| Problem med snö och isbildning påverkar infrastrukturen | Ökade problem med snö och isbildning i norra Norden, minskade problem i söder. | Kontinuerligt arbete med att stärka elnätet och infrastrukturen samt ökad beredskap. |
+| Störningar i leveranskedjan till följd av klimatförändringar | Ökad risk för störningar i leveranskedjan till följd av exempelvis vattenbrist, stormar och översvämningar. | Diversifiering av leverantörskedjan, riskkartlägg- ning och leverantörsdialoger om sårbarheter. |
+![table image]({page: 89, x: 296}, {y: 394, {width: 463}, {height: 23})
+
+Uppforandekoden for leverantorer och samarbetspartners (se sidan 112) foreskriver att leverantorer och samarbetspart ners ska arbeta systematiskt med klimatforandringar i sin verk samhet.
+Detta innefattar att aktivt identifiera hantera och minska sina direkta utslapp av vaxthusgaser (Scope 1 och 2).
+Leverantorer och samarbetspartners uppmuntras att hantera sina indirekta utslapp (Scope 3) fran bland annat inkopta mate rial transportrelaterade aktiviteter och avfallshantering pa ett liknande satt.
+Leverantorer och partners bor dessutom vidta klimatanpassningsatgarder dar sa ar tillampligt.
+De uppmuntras ocksa att utveckla och folja framstegen mot sina mal for utslapps minskning av vaxthusgaser helst i linje med Parisavtalets 1,5 gradersscenario och med inkludering av alla vasentliga utslappskallor.
+
+Beslutsprocessen for Vattenfalls koncernchef (se sidan 63) innefattar uttryckligen styrning for att sakerstalla att alla nya investeringar bedoms utifran fysiska risker och omstallnings risker.
+For befintliga tillgangar och affarsverksamheter styrs bedomningar av klimatrisker och anvandningen av relevanta klimat scenarier av policyer for hantering av miljorisker i syfte att sakerstalla att bade bedomnings och dokumentationskrav i rattsliga ramverk som EU taxonomin uppfylls.
+
+Regeringsstyrd energiomstallning till nettonoll 2050 i linje med stravan efter att begransa den globala temperatur okningen till 1,5˚C.
+Marknadsomstallning med stod
+
+|  | Energiomställning med selektivt |
+| Fördröjd omställning | statligt stöd för att nå nettonoll något senare (2055), med återspeg- ling av en måttlig nivå av klimat- åtgärder. Energiomställningen hindras av geo- politiska eller operativa hinder, och |
+![table image]({page: 89, x: 145}, {y: 441, {width: 222}, {height: 41})
+
+netto noll uppnas forst 2060.
+Detta scenario innefattar otillrackliga klimat atgarder och hogre globala temperaturhojningar.
+
+Anvandningen av klimatkompensering och koldioxidupptag styrs av en policy som reglerar bade typen av och anvandnings omraden for klimatkompensering inom Vattenfall.
+All kompen sering maste folja utvalda externa ramverk for certifiering och kompenseringen raknas inte av mot klimatmal och ersatter inte behovet av utslappsminskningar.
+
+
+<!-- PAGE: 90 -->
+
+###### S3.11 Sålda fossila bränslen
+
+2030 77 %3 78,1 %3 54,6 % Ej tillampligt 65,6 %
+
+####### Koldioxidutsläpp
+######## Cirkulära inköp
+
+- Vi ska arbeta proaktivt tillsammans med leverantörer för att säkra framtida
+
+resursforsorjning minska resursforbrukningen och overga till cirkulara inkop for att paskynda var resa mot en fossilfri framtid.
+
+## Års- och hållbarhetsredovisning 2024
+Vi bryter samhällets beroende av fossila bränslen
+
+
+<!-- PAGE: 1 -->
+
+##### Räntetäckningsgrad, ggr =
+
+Rantetackningsgrad exkl.
+jamforelsestorande poster ggr
+
+| = | 4.1 |
+| = | 7.2 |
+![table image]({page: 212, x: 475}, {y: 365, {width: 37}, {height: 7})
+
+Kassaflodesrantetacknings grad ggr
+
+Kassaflodesrantetacknings grad netto ggr
+
+| = | 1.2 |
+| = | 18.3 |
+| = | 10.3 |
+![table image]({page: 212, x: 968}, {y: 441, {width: 37}, {height: 7})
+
+Kassaflodesrantetacknings grad efter ersattningsinveste ringar ggr
+
+
+<!-- PAGE: 213 -->
+Fakta om Vattenfalls marknader 2024
+
+|  | Sverige | Finland2 | Danmark | Tyskland3 | Neder- länderna | Stor- britannien | Total |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Installerad kapacitet el, MW, 31 december 2024 Vattenkraft1 | 8 541 | 136 | — | 9 | 24 | — | 8 710 |
+| Kärnkraft | 5 729 | — | — | — | — | — | 5 729 |
+| Fossilkraft | 699 | — | — | — | 1 997 | 1 | 2 697 |
+|  varav gas | — | — | — | — | 1 997 | 1 | 1 998 |
+|  varav stenkol | — | — | — | — | — | — | — |
+|  varav olja | 699 | — | — | — | — | — | 699 |
+| Vindkraft | 331 | — | 1 648 | 576 | 2 053 | 1 111 | 5 718 |
+| Biomassa, torv, avfall | 85 | — | — | 17 | 1 | — | 103 |
+| Solkraft | — | — | — | 5 | 44 | — | 49 |
+| Summa | 15 384 | 136 | 1 648 | 607 | 4 119 | 1 112 | 23 006 |
+| Energilager installerad kapacitet, MW | — | — | — | 2 758 | 15 | 42 | 2 816 |
+| Energilager kapacitet, TWh | — | — | — | 18 | 0 | 0 | 18 |
+| Installerad kapacitet värme, MW, 31 december 2024 | 1 889 |  |  | 46 | 1 554 | 28 | 3 517 |
+| Producerad elektricitet, TWh Vattenkraft1 | 30,7 | 0,4 | — | 0,0 | 0,1 | — | 31,1 |
+| Kärnkraft | 37,9 | — | — |  | — | — | 37,9 |
+| Fossilkraft | 0,0 | — | — | 2,6 | 6,7 | 0,0 | 9,3 |
+|  varav gas | — | — | — | 1,9 | 6,7 | 0,0 | 8,6 |
+|  varav stenkol | — | — | — | 0,7 | — | — | 0,7 |
+|  varav olja och övrigt | 0,0 | — | — | 0,0 | — | — | 0,0 |
+| Vindkraft | 0,8 | — | 6,1 | 2,0 | 5,5 | 2,8 | 17,1 |
+| Biomassa, torv, avfall | 0,1 | — | — | 0,1 | 0,0 | — | 0,3 |
+| Solkraft | — | — | — | 0,0 | 0,0 | — | 0,0 |
+| Totalt | 69,5 | 0,4 | 6,1 | 4,7 | 12,2 | 2,8 | 95,7 |
+![table image]({page: 213, x: 205}, {y: 113, {width: 470}, {height: 7})
+
+|  | Sverige | Finland2 | Danmark | Tyskland3 | Neder- länderna | Stor- britannien | Total |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| El levererad från lager, TWh | — | — | — | 3,5 | 0,0 | — | 3,5 |
+| Värmeproduktion, TWh |
+| Fossilbränsle | 0,0 | — | — | 3,9 | 1,3 | 0,0 | 5,3 |
+|  varav gas | — | — | — | 3,0 | 1,3 | 0,0 | 4,3 |
+|  varav stenkol | — | — | — | 1,0 | — | — | 1,0 |
+|  varav olja och övrigt | 0,0 | — | — | 0,0 | — | — | 0,1 |
+| Biobränsle, torv, avfall | 3,3 | — | — | 0,5 | 0,0 | 0,0 | 3,8 |
+| Summa värme | 3,3 |  |  | 4,4 | 1,4 | 0,0 | 9,2 |
+| Elförsäljning, TWh | 78,1 | 2,5 | 7,3 | 46,8 | 25,6 | — | 160,2 |
+| Värmeförsäljning, TWh | 3,1 | — | — | 4,5 | 1,6 | — | 9,1 |
+| Gasförsäljning, TWh | — | — | — | 16,7 | 34,197 | — | 50,9 |
+| Antal privatkunder | 858 885 | 275 560 | — | 4 659 463 | 1 934 571 | — | 7 728 479 |
+| Volym el, TWh privatkunder | 6,7 | 1,6 | 0,2 | 13,2 | 5,6 | — | 27,3 |
+| Volym el, TWh företag | 25,7 | 6,4 | 1,9 | 9,0 | 11,9 | — | 55,0 |
+| Volym el, TWh återförsäljare | 6,9 | 2,1 | 1,1 | 23,6 | — | — | 33,6 |
+| Volym el, TWh övriga | 38,9 | –8 | 4,1 | 1,0 | 8,0 | — | 44,4 |
+| Antal nätkunder | 977 526 | — | — | — | — | — | 977 526 |
+| Antal gaskunder | — | — | — | 767 379 | 1 601 064 | — | 2 368 443 |
+| Elnät |
+| Transiterad volym, TWh | 72,6 | — | — | — | — | — | 72,6 |
+| Distributionsnät, km | 125 457 | — | — | — | — | — | 125 457 |
+| Antal anställda (heltidstjänster) | 11 434 | 92 | 631 | 3 897 | 4 105 | 496 | 20 654 |
+| Koldioxidutsläpp per land, Mton | 0,2 | 0,0 | 0,0 | 2,0 | 2,9 | 0,0 | 5,2 |
+| Erhållna koldioxidutsläppsrätter, Mton CO2/år | 0,1 | — | — | — | 0,0 | — | 0,1 |
+| Växthusgasutsläpp per målkategori i våra vetenskapsbaserade mål Scope 1 och 2, marknadsbaserat, Mtonnes | 0,2 | 0,0 | 0,0 | 2,0 | — | 0,0 | 3,4 |
+| Scope 3.3d, elförsäljning, Mtonnes | — | 1,0 | 0,8 | 3,7 | 1,9 | — | 8,3 |
+| Scope 3.11, sålda fossila bränslen, Mtonnes | — | — | — | 3,3 | 6,9 | — | 10,0 |
+| Andra scope 3 kategorier |  |  |  |  |  |  | 5,0 |
+![table image]({page: 213, x: 698}, {y: 113, {width: 470}, {height: 7})
+
+- 1. Vattenkraft har justerats för att rapportera el levererad från lager, främst från pumpkraft, separat.
+
+- 2. Inklusive data från Norge.
+
+- 3. Inklusive data från Frankrike och Polen.
+
+
+<!-- PAGE: 214 -->
+Fakta om Vattenfalls marknader 2023
+
+|  | Sverige | Finland2 | Danmark | Tyskland3 | Neder- länderna | Stor- britannien | Totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Installerad kapacitet el, MW, 31 december 2023 Vattenkraft1 | 8 541 | 136 | — | 9 | 24 | — | 8 710 |
+| Kärnkraft | 5 658 | — | — | — | — | — | 5 658 |
+| Fossilkraft | 699 | — | — | 2 107 | 1 997 | 0 | 6 213 |
+|  varav gas | — | — | — | 1 384 | 1 997 | 0 | 4 791 |
+|  varav stenkol | — | — | — | 687 | — | — | 687 |
+|  varav olja och övrigt | 699 | — | — | 36 | — | — | 735 |
+| Vindkraft | 331 | — | 1 475 | 576 | 1 949 | 1 111 | 5 443 |
+| Biobränsle, torv, avfall | 85 | — | — | 23 | 1 | — | 109 |
+| Solkraft | — | — | — | 15 | 60 | — | 75 |
+| Totalt | 15 314 | 136 | 1 475 | 2 730 | 4 031 | 1 111 | 24 798 |
+| Energilager installerad kapacitet, MW | — | — | — | 2 798 | 15 | 42 | 2 855 |
+| Energilager kapacitet, GWh | — | — | — | 18 | — | — | 18 |
+| Installerad kapacitet värme, MW, 31 December 2023 | 1 922 | — | — | 5 672 | 1 554 | 17 | 9 165 |
+| Producerad elektricitet, TWh |
+| Vattenkraft1 | 32,3 | 0,5 | — | 3,2 | 0,0 | — | 36,1 |
+| Kärnkraft | 37,4 | — | — | — | — | — | 37,4 |
+| Fossilkraft | — | — | — | 6,1 | 7,0 | — | 13,2 |
+|  varav gas | — | — | — | 4,6 | 7,0 | — | 11,6 |
+|  varav stenkol | — | — | — | 1,5 | — | — | 1,5 |
+|  varav olja och övrigt | — | — | — | 0,2 | — | — | 0,2 |
+| Vindkraft | 0,8 | — | 5,0 | 1,8 | 3,1 | 3,0 | 13,7 |
+| Biobränsle, torv, avfall | 0,3 | — | — | 0,3 | 0,0 | — | 0,4 |
+| Solkraft | — | — | — | — | — | — | 0,1 |
+| Totalt | 70,7 | 0,5 | 5,0 | 11,4 | 10,2 | 3,0 | 100,9 |
+![table image]({page: 214, x: 208}, {y: 113, {width: 470}, {height: 7})
+
+|  | Sverige | Finland2 | Danmark | Tyskland3 | Neder- länderna | Stor- britannien | Totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| El levererad från lager, TWh | — | — | — | 3,2 | — | 0,0 | 3,2 |
+| Värmeproduktion, TWh |
+| Fossilbränsle | 0,1 | — | — | 8,5 | 1,4 | 0,0 | 10,0 |
+|  varav gas | — | — | — | 6,8 | 1,4 | 0,0 | 8,2 |
+|  varav stenkol | — | — | — | 1,5 | — | — | 1,5 |
+|  varav olja och övrigt | 0,1 | — | — | 0,1 | — | — | 0,2 |
+| Biomassa, torv, avfall | 3,3 | — | — | 1,2 | 0,0 | — | 4,5 |
+| Summa värme | 3,4 | — | — | 9,7 | 1,4 | 0,0 | 14,5 |
+| Elförsäljning, TWh | 79,2 | 2,3 | 6,1 | 58,3 | 22,1 | — | 168,0 |
+| Värmeförsäljning, TWh | 3,1 | — | — | 8,8 | 1,5 | — | 13,5 |
+| Gasförsäljning, TWh | — | — | — | 12,4 | 32,1 | — | 44,5 |
+| Antal privatkunder | 865 898 | 300 880 | 105 116 | 4 850 007 | 1 941 982 | — | 8 063 883 |
+| Volym el, TWh privatkunder | 6,9 | 1,7 | 0,5 | 13,0 | 5,5 | — | 27,6 |
+| Volym el, TWh företag | 25,0 | 6,2 | 1,7 | 8,3 | 11,2 | — | 52,4 |
+| Volym el, TWh återförsäljare | 6,9 | 2,3 | 0,7 | 35,9 | — | — | 45,7 |
+| Volym el, TWh övriga | 40,4 | –8 | 3,2 | 1,0 | 5,4 | — | 42,2 |
+| Antal nätkunder | 972 867 | — | — | — | — | — | 972 867 |
+| Antal gaskunder | — | — | — | 665 220 | 1 620 572 | — | 2 285 792 |
+| Elnät |
+| Transiterad volym, TWh | 71,8 | — | — | — | — | — | 71,8 |
+| Distributionsnät, km | 124 829 | — | — | — | — | — | 124 829 |
+| Antal anställda (heltidstjänster) Per land | 10 510 | 84 | 626 | 5 400 | 3 909 | 466 | 20 995 |
+| Koldioxidutsläpp per land, Mton | 0,2 | — | — | 4,7 | 3,0 | — | 7,8 |
+| Erhållna koldioxidutsläppsrätter, Mton CO2/år | 0,1 | — | — | 0,4 | 0,1 | — | 0,5 |
+| Växthusgasutsläpp per målkategori i våra vetenskapsbaserade mål Scope 1 och 2, marknadsbaserat, Mtonnes | 0,2 | 0,0 | 0,0 | 4,8 | 3,0 | 0,0 | 8,0 |
+| Scope 3.3d, elförsäljning, Mtonnes | — | 0,5 | 0,6 | 5,0 | 2,3 | — | 8,4 |
+| Scope 3.11, sålda fossila bränslen, Mtonnes | — | — | — | 2,5 | 6,5 | — | 9,0 |
+| Andra scope 3 kategorier | — | — | — | — | — | — | 5,8 |
+![table image]({page: 214, x: 701}, {y: 113, {width: 470}, {height: 7})
+
+- 1. Vattenkraft har justerats för att rapportera el levererad från lager, främst från pumpkraft, separat.
+
+- 2. Inklusive data från Norge.
+
+- 3. Inklusive data från Frankrike och Polen.
+
+
+<!-- PAGE: 215 -->
+Pro rata
+
+| 2024 | Sverige | Finland | Danmark | Tyskland | Neder- länderna | Stor- britannien | Totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Installerad kapacitet el, MW, 31 december 2024 Vattenkraft1 | 8 339 | 136 | — | 9 | 24 | — | 8 508 |
+| Kärnkraft | 3 880 | — | — | — | — | — | 3 880 |
+| Fossilkraft | 699 | — | — | — | 1 997 | 1 | 2 697 |
+|  varav gas | — | — | — | — | 1 997 | 1 | 1 998 |
+|  varav stenkol | — | — | — | — | — | — | — |
+|  varav olja | 699 | — | — | — | — | — | 699 |
+| Vindkraft | 366 | — | 1 619 | 310 | 1 276 | 1 038 | 4 609 |
+| Biobränsle, torv, avfall | 85 | — | — | 17 | 1 | — | 103 |
+| Solkraft | — | — | — | 5 | 44 | — | 49 |
+| Summa | 13 369 | 136 | 1 619 | 341 | 3 343 | 1 038 | 19 846 |
+| Energilager installerad kapacitet, MW | — | — | — | 2 758 | 15 | 42 | 2 816 |
+| Energilager kapacitet, TWh | — | — | — | 18 | 0 | — | 18 |
+| Installerad kapacitet värme, MW, 31 December 2024 | 1 780 | — | — | 46 | 1 544 | 28 | 3 398 |
+| Producerad el, TWh |
+| Vattenkraft1 | 29,7 | 0,4 | — | 0,0 | 0,1 | — | 30,2 |
+| Kärnkraft | 25,7 | — | — |  | — | — | 25,7 |
+| Fossilkraft | 0,0 | — | — | 2,6 | 6,7 | 0,0 | 9,3 |
+|  varav gas | — | — | — | 1,9 | 6,7 | 0,0 | 8,6 |
+|  varav stenkol | — | — | — | 0,7 | — | — | 0,7 |
+|  varav olja och övrigt | 0,0 | — | — | 0,0 | — | — | 0,0 |
+| Vindkraft | 0,8 | — | 6,0 | 1,0 | 3,4 | 2,6 | 13,8 |
+| Biobränsle, torv, avfall | 0,1 | — | — | 0,1 | 0,0 | — | 0,3 |
+| Solkraft | — | — | — | 0,0 | 0,0 | — | 0,0 |
+| Summa | 56,4 | 0,4 | 6,0 | 3,8 | 10,2 | 2,6 | 79,3 |
+| El levererad från lager, TWh | — | — | — | 3,5 | 0,0 | — | 3,5 |
+| Producerad värme, TWh | 3,1 |  |  | 4,4 | 1,4 | 0,0 | 9,0 |
+| Koldioxidutsläpp per land, Mton | 0,2 | 0,0 | 0,0 | 2,0 | 2,9 | 0,0 | 5,1 |
+![table image]({page: 215, x: 45}, {y: 113, {width: 467}, {height: 7})
+
+| 2023 | Sverige | Finland | Danmark | Tyskland | Neder- länderna | Stor- britannien | Totalt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Installerad kapacitet el, MW, 31 december 2023 Vattenkraft1 | 8 339 | 136 | — | 9 | 24 | — | 8 508 |
+| Kärnkraft | 3 832 | — | — | — | — | — | 3 832 |
+| Fossilkraft | 699 | — | — | 2 105 | 1 997 | — | 4 801 |
+|  varav gas | — | — | — | 1 382 | 1 997 | — | 3 379 |
+|  varav stenkol | — | — | — | 687 | — | — | 687 |
+|  varav olja och övrigt | 699 | — | — | 36 | — | — | 735 |
+| Vindkraft | 367 | — | 1 460 | 310 | 1 201 | 1 038 | 4 375 |
+| Biomassa, torv, avfall | 85 | — | — | 23 | 1 | — | 109 |
+| Solkraft | — | — | — | 15 | 60 | — | 75 |
+| Summa | 13 322 | 136 | 1 460 | 2 462 | 3 283 | 1 038 | 21 701 |
+| Energilager installerad kapacitet, MW | — | — | — | 2 798 | 15 | 42 | 2 855 |
+| Energilager kapacitet, TWh | — | — | — | 18 | 0 | 0 | 18 |
+| Installerad kapacitet värme, MW, 31 december 2023 | 1 813 | — | — | 5 635 | 1 544 | 17 | 9 009 |
+| Producerad el, TWh |
+| Vattenkraft1 | 31,4 | 0,5 | — | 0,0 | 0,0 | — | 32,0 |
+| Kärnkraft | 25,3 | — | — | — | — | — | 25,3 |
+| Fossilkraft | — | — | — | 6,1 | 7,0 | — | 13,1 |
+|  varav gas | — | — | — | 4,6 | 7,0 | — | 11,6 |
+|  varav stenkol | — | — | — | 1,5 | — | — | 1,5 |
+|  varav olja och övrigt | — | — | — | 0,2 | — | — | 0,2 |
+| Vindkraft | 0,8 | — | 5,0 | 0,9 | 2,2 | 2,9 | 11,8 |
+| Biobränsle, torv, avfall | 0,2 | — | — | 0,3 | — | — | 0,5 |
+| Solkraft | — | — | — | — | 0,1 | — | 0,1 |
+| Summa | 57,7 | 0,5 | 5,0 | 7,3 | 9,3 | 2,9 | 82,8 |
+| El levererad från lager, TWh | — | — | — | 3,2 | — | 0,0 | 3,2 |
+| Producerad värme, TWh | 3.2 | — | — | 9.6 | 1.4 | — | 14.3 |
+| Koldioxidutsläpp per land, Mton | 0.2 | — | — | 4.7 | 3.0 | — | 7.8 |
+![table image]({page: 215, x: 539}, {y: 113, {width: 467}, {height: 7})
+
+- 1. Vattenkraft har justerats för att rapportera el levererad från lager, främst från pumpkraft, separat.
+
+
+<!-- PAGE: 216 -->
+
+##### Säkerställa en fossilfri energiförsörjning
+
+genom att oka ny kraftproduktion maximera vardet pa befintliga tillgangar och implemen tera var handlingsplan for minskade koldioxid utslapp.

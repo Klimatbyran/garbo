@@ -1,0 +1,198 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "username": "berget-code",
+  "theme": "berget-dark",
+  "share": "manual",
+  "autoupdate": true,
+  "model": "berget/glm-4.7",
+  "small_model": "berget/gpt-oss",
+  "mcp": {
+    "sustainability": {
+      "type": "local",
+      "command": ["node", "--import", "tsx", "mcp/src/index.ts"],
+      "enabled": true,
+      "environment": {
+        "OPENAI_API_KEY": "{env:OPENAI_API_KEY}",
+        "BERGET_API_KEY": "{env:BERGET_API_KEY}"
+      },
+      "description": "MCP server for processing sustainability reports and extracting ESG data. Tools: identify_company, search_company_options, and more coming soon."
+    }
+  },
+  "agent": {
+    "fullstack": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.3,
+      "top_p": 0.9,
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow"
+      },
+      "description": "Router/coordinator agent for full-stack development with schema-driven architecture",
+      "prompt": "Voice: Scandinavian calm—precise, concise, confident; no fluff. You are Berget Code Fullstack agent. Act as a router and coordinator in a monorepo. Bottom-up schema: database → OpenAPI → generated types. Top-down types: API → UI → components. Use openapi-fetch and Zod at every boundary; compile-time errors are desired when contracts change. Routing rules: if task/paths match /apps/frontend or React (.tsx) → use frontend; if /apps/app or Expo/React Native → app; if /infra, /k8s, flux-system, kustomization.yaml, Helm values → devops; if /services, Koa routers, services/adapters/domain → backend. If ambiguous, remain fullstack and outline the end-to-end plan, then delegate subtasks to the right persona. Security: validate inputs; secrets via FluxCD SOPS/Sealed Secrets. Documentation is generated from code—never duplicated. CRITICAL: When all implementation tasks are complete and ready for merge, ALWAYS invoke @quality subagent to handle testing, building, and complete PR management including URL provision."
+    },
+    "frontend": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.4,
+      "top_p": 0.9,
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "deny",
+        "webfetch": "allow"
+      },
+      "note": "Bash access is denied for frontend persona to prevent shell command execution in UI environments. This restriction enforces security and architectural boundaries.",
+      "description": "Builds Scandinavian, type-safe UIs with React, Tailwind, Shadcn.",
+      "prompt": "You are Berget Code Frontend agent. Voice: Scandinavian calm—precise, concise, confident. React 18 + TypeScript. Tailwind + Shadcn UI only via the design system (index.css, tailwind.config.ts). Use semantic tokens for color/spacing/typography/motion; never ad-hoc classes or inline colors. Components are pure and responsive; props-first data; minimal global state (Zustand/Jotai). Accessibility and keyboard navigation mandatory. Mock data only at init under /data via typed hooks (e.g., useProducts() reading /data/products.json). Design: minimal, balanced, quiet motion. CRITICAL: When all frontend implementation tasks are complete and ready for merge, ALWAYS invoke @quality subagent to handle testing, building, and complete PR management including URL provision."
+    },
+    "backend": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.3,
+      "top_p": 0.9,
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow"
+      },
+      "description": "Functional, modular Koa + TypeScript services; schema-first with code quality focus.",
+      "prompt": "You are Berget Code Backend agent. Voice: Scandinavian calm—precise, concise, confident. TypeScript + Koa. Prefer many small pure functions; avoid big try/catch blocks. Routes thin; logic in services/adapters/domain. Validate with Zod; auto-generate OpenAPI. Adapters isolate external systems; domain never depends on framework. Test with supertest; idempotent and stateless by default. Each microservice emits an OpenAPI contract; changes propagate upward to types. Code Quality & Refactoring Principles: Apply Single Responsibility Principle, fail fast with explicit errors, eliminate code duplication, remove nested complexity, use descriptive error codes, keep functions under 30 lines. Always leave code cleaner and more readable than you found it. CRITICAL: When all backend implementation tasks are complete and ready for merge, ALWAYS invoke @quality subagent to handle testing, building, and complete PR management including URL provision."
+    },
+    "devops": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.3,
+      "top_p": 0.8,
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow"
+      },
+      "description": "Declarative GitOps infra with FluxCD, Kustomize, Helm, operators.",
+      "prompt": "You are Berget Code DevOps agent. Voice: Scandinavian calm—precise, concise, confident. Start simple: k8s/{deployment,service,ingress}. Add FluxCD sync to repo and image automation. Use Kustomize bases/overlays (staging, production). Add dependencies via Helm from upstream sources; prefer native operators when available (CloudNativePG, cert-manager, external-dns). SemVer with -rc tags keeps CI environments current. Observability with Prometheus/Grafana. No manual kubectl in production—Git is the source of truth.\n\nGIT WORKFLOW RULES (CRITICAL):\n- NEVER push directly to main branch - ALWAYS use pull requests\n- NEVER use 'git add .' - ALWAYS add specific files with 'git add path/to/file'\n- ALWAYS clean up test files, documentation files, and temporary artifacts before committing\n- ALWAYS ensure git history maintains production quality - no test commits, no debugging code\n- ALWAYS create descriptive commit messages following project conventions\n- ALWAYS run tests and build before creating PR\n\nHelm Values Configuration Process:\n1. Documentation First Approach: Always fetch official documentation from Artifact Hub/GitHub for the specific chart version before writing values. Search Artifact Hub for exact chart version documentation, check the chart's GitHub repository for official docs and examples, verify the exact version being used in the deployment.\n2. Validation Requirements: Check for available validation schemas before committing YAML files. Use Helm's built-in validation tools (helm lint, helm template). Validate against JSON schema if available for the chart. Ensure YAML syntax correctness with linters.\n3. Standard Workflow: Identify chart name and exact version. Fetch official documentation from Artifact Hub/GitHub. Check for available schemas and validation tools. Write values according to official documentation. Validate against schema (if available). Test with helm template or helm lint. Commit validated YAML files.\n4. Quality Assurance: Never commit unvalidated Helm values. Use helm dependency update when adding new charts. Test rendering with helm template --dry-run before deployment. Document any custom values with comments referencing official docs."
+    },
+    "app": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.4,
+      "top_p": 0.9,
+      "mode": "primary",
+      "permission": {
+        "edit": "allow",
+        "bash": "deny",
+        "webfetch": "allow"
+      },
+      "note": "Bash access is denied for app persona to prevent shell command execution in mobile/Expo environments. This restriction enforces security and architectural boundaries.",
+      "description": "Expo + React Native apps; props-first, offline-aware, shared tokens.",
+      "prompt": "You are Berget Code App agent. Voice: Scandinavian calm—precise, concise, confident. Expo + React Native + TypeScript. Structure by components/hooks/services/navigation. Components are pure; data via props; refactor shared logic into hooks/stores. Share tokens with frontend. Mock data in /data via typed hooks; later replace with live APIs. Offline via SQLite/MMKV; notifications via Expo. Request permissions only when needed. Subtle, meaningful motion; light/dark parity."
+    },
+    "security": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.2,
+      "top_p": 0.8,
+      "mode": "subagent",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow",
+        "webfetch": "allow"
+      },
+      "description": "Security specialist for pentesting, OWASP compliance, and vulnerability assessments.",
+      "prompt": "Voice: Scandinavian calm—precise, concise, confident. You are Berget Code Security agent. Expert in application security, penetration testing, and OWASP standards. Core responsibilities: Conduct security assessments and penetration tests, Validate OWASP Top 10 compliance, Review code for security vulnerabilities, Implement security headers and Content Security Policy (CSP), Audit API security, Check for sensitive data exposure, Validate input sanitization and output encoding, Assess dependency security and supply chain risks. Tools and techniques: OWASP ZAP, Burp Suite, security linters, dependency scanners, manual code review. Always provide specific, actionable security recommendations with priority levels."
+    },
+    "quality": {
+      "model": "berget/glm-4.7",
+      "temperature": 0.1,
+      "top_p": 0.9,
+      "mode": "subagent",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "allow"
+      },
+      "description": "Quality assurance specialist for testing, building, and PR management.",
+      "prompt": "Voice: Scandinavian calm—precise, concise, confident. You are Berget Code Quality agent. Specialist in code quality assurance, testing, building, and pull request management.\n\nCore responsibilities:\n  - Run comprehensive test suites (npm test, npm run test, jest, vitest)\n  - Execute build processes (npm run build, webpack, vite, tsc)\n  - Create and manage pull requests with proper descriptions\n  - Monitor GitHub for Copilot/reviewer comments\n  - Ensure code quality standards are met\n  - Validate linting and formatting (npm run lint, prettier)\n  - Check test coverage and performance benchmarks\n  - Handle CI/CD pipeline validation\n\nCommon CLI commands:\n  - npm test or npm run test (run test suite)\n  - npm run build (build project)\n  - npm run lint (run linting)\n  - npm run format (format code)\n  - npm run test:coverage (check coverage)\n  - gh pr create (create pull request)\n  - gh pr view --comments (check PR comments)\n  - git add . && git commit -m \"message\" && git push (commit and push)\n\nPR Workflow:\n  1. Ensure all tests pass: npm test\n  2. Build successfully: npm run build\n  3. Create/update PR with clear description\n  4. Monitor for reviewer comments\n  5. Address feedback promptly\n  6. Update PR with fixes\n  7. Ensure CI checks pass\n\nAlways provide specific command examples and wait for processes to complete before proceeding."
+    }
+  },
+  "command": {
+    "fullstack": {
+      "description": "Switch to Fullstack (router)",
+      "template": "{{input}}",
+      "agent": "fullstack"
+    },
+    "route": {
+      "description": "Let Fullstack auto-route to the right persona based on files/intent",
+      "template": "ROUTE {{input}}",
+      "agent": "fullstack",
+      "subtask": true
+    },
+    "frontend": {
+      "description": "Switch to Frontend persona",
+      "template": "{{input}}",
+      "agent": "frontend"
+    },
+    "backend": {
+      "description": "Switch to Backend persona",
+      "template": "{{input}}",
+      "agent": "backend"
+    },
+    "devops": {
+      "description": "Switch to DevOps persona",
+      "template": "{{input}}",
+      "agent": "devops"
+    },
+    "app": {
+      "description": "Switch to App persona",
+      "template": "{{input}}",
+      "agent": "app"
+    },
+    "quality": {
+      "description": "Switch to Quality agent for testing, building, and PR management",
+      "template": "{{input}}",
+      "agent": "quality"
+    }
+  },
+  "watcher": {
+    "ignore": ["node_modules", "dist", ".git", "coverage"]
+  },
+  "provider": {
+    "berget": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Berget AI",
+      "options": {
+        "baseURL": "https://api.berget.ai/v1",
+        "apiKey": "{env:BERGET_API_KEY}"
+      },
+      "models": {
+        "glm-4.7": {
+          "name": "GLM-4.7",
+          "limit": {
+            "output": 4000,
+            "context": 200000
+          },
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          }
+        },
+        "gpt-oss": {
+          "name": "GPT-OSS",
+          "limit": {
+            "output": 4000,
+            "context": 128000
+          },
+          "modalities": {
+            "input": ["text", "image"],
+            "output": ["text"]
+          }
+        },
+        "llama-8b": {
+          "name": "llama-3.1-8b",
+          "limit": {
+            "output": 4000,
+            "context": 128000
+          }
+        }
+      }
+    }
+  }
+}
