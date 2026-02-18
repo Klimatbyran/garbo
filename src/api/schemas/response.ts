@@ -387,6 +387,12 @@ export const CompanyDetails = CompanyBase.extend({
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
+export const CompanyNameList = z.array(
+  z.object({
+    name: z.string(),
+  }),
+)
+
 function transformYearlyData(
   yearlyData: Record<string, number>,
 ): { year: string; value: number }[] {
@@ -475,8 +481,6 @@ export const InputRegionalDataSchema = z.array(
       historicalEmissionChangePercent: z.number(),
       meetsParis: z.string().transform((val) => val === 'True'),
       municipalities: z.array(z.string()),
-      politicalRule: z.array(z.string()),
-      politicalRSO: z.string(),
     })
     .transform((data) => ({
       ...data,
@@ -497,8 +501,6 @@ export const RegionalDataSchema = z.object({
   historicalEmissionChangePercent: z.number(),
   meetsParis: z.boolean(),
   municipalities: z.array(z.string()),
-  politicalRule: z.array(z.string()),
-  politicalRSO: z.string(),
 })
 
 export const RegionalDataListSchema = z.array(RegionalDataSchema)

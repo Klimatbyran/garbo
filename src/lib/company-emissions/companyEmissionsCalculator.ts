@@ -32,8 +32,9 @@ export function calculateScope1And2Total(
 }
 
 /**
- * Returns 0 if categories exist but sum to 0 (0 is valid data).
- * Returns null if no categories exist.
+ * Returns the sum of category totals when at least one numeric value exists.
+ * Returns null if there are no categories OR all category totals are null/undefined.
+ * This allows callers to fall back to statedTotalEmissions when categories carry no values.
  */
 function calculateScope3CategoriesTotal(
   categories: any[] | undefined,
@@ -41,10 +42,18 @@ function calculateScope3CategoriesTotal(
   if (!categories || categories.length === 0) {
     return null
   }
-  return categories.reduce(
-    (total, category) => (category.total ?? 0) + total,
-    0,
-  )
+
+  let foundNumeric = false
+  const sum = categories.reduce((acc, category) => {
+    const v = category?.total
+    if (typeof v === 'number') {
+      foundNumeric = true
+      return acc + v
+    }
+    return acc
+  }, 0)
+
+  return foundNumeric ? sum : null
 }
 
 /**
@@ -68,17 +77,23 @@ export function calculateScope3Total(scope3: any): number | null {
 /**
  * Calculates total emissions from an Emissions object.
  * Combines scope 1+2 and scope 3 emissions.
+ * If no scope 1, scope 1+2, scope 2, or scope 3 emissions are available,
+ * falls back to the combined statedTotalEmissions.
  * Returns null if no data is available.
  */
 export function calculatedTotalEmissions(emissions: Emissions): number | null {
-  const { scope1, scope2, scope3, scope1And2 } = emissions || {}
+  const { scope1, scope2, scope3, scope1And2, statedTotalEmissions } =
+    emissions || {}
 
   const scope1And2Total = calculateScope1And2Total(scope1, scope2, scope1And2)
   const scope3Total = calculateScope3Total(scope3)
 
-  // If both are null, return null (no data available)
+  // If both are null, fall back to combined stated total
   if (scope1And2Total === null && scope3Total === null) {
-    return null
+    const statedTotal = statedTotalEmissions?.total
+    return statedTotal != null && typeof statedTotal === 'number'
+      ? statedTotal
+      : null
   }
 
   // Otherwise, sum them (treating null as 0 for calculation, but we already handled the all-null case)

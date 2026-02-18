@@ -75,9 +75,13 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
 
-      await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
+      const result = await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
         body: sanitizedBody,
       })
+
+      if (result === null) {
+        throw new Error(`API endpoint not found: /companies/${wikidataId}/${apiSubEndpoint}`)
+      }
 
       return { success: true }
     } catch (error) {
