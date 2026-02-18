@@ -17,33 +17,33 @@ import { resolve } from 'path'
 
 import apiConfig from './config/api'
 import openAPIConfig from './config/openapi'
-import { companyReadRoutes } from './api/routes/public/company.read'
-import { companyGoalsRoutes } from './api/routes/public/company.goals'
+import { companyReadRoutes } from './api/routes/external/company.read'
+import { companyGoalsRoutes } from './api/routes/internal/company.goals'
 import authPlugin from './api/plugins/auth'
-import { companyIndustryRoutes } from './api/routes/public/company.industry'
-import { companyInitiativesRoutes } from './api/routes/public/company.initiatives'
+import { companyIndustryRoutes } from './api/routes/internal/company.industry'
+import { companyInitiativesRoutes } from './api/routes/internal/company.initiatives'
 import {
   companyPublicReportingPeriodsRoutes,
   companyReportingPeriodsRoutes,
-} from './api/routes/public/company.reportingPeriods'
-import { companyUpdateRoutes } from './api/routes/public/company.update'
-import { companyDeleteRoutes } from './api/routes/public/company.delete'
+} from './api/routes/internal/company.reportingPeriods'
+import { companyUpdateRoutes } from './api/routes/internal/company.update'
+import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
-import { municipalityReadRoutes } from './api/routes/public/municipality.read'
-import { regionalReadRoutes } from './api/routes/public/regional.read'
-import { nationalReadRoutes } from './api/routes/public/national.read'
-import { companyBaseYearRoutes } from './api/routes/public/company.baseYear'
-import { authentificationRoutes } from './api/routes/public/auth'
-import { companyExportRoutes } from './api/routes/public/company.export'
-import { municipalityExportRoutes } from './api/routes/public/municipality.export'
-import { regionalExportRoutes } from './api/routes/public/regional.export'
-import { mailingListDownloadsRoute } from './api/routes/public/mailing-list.downloads'
-import { validationsReadRoutes } from './api/routes/public/validation.read'
-import { validationsUpdateRoutes } from './api/routes/public/validation.update'
-import { emissionsAssessmentRoutes } from './api/routes/public/emissionsAssessment'
-import { industryGicsRoute } from './api/routes/public/industryGics.read'
-import { screenshotsReadRoutes } from './api/routes/public/screenshots.read'
-import { newsletterArchiveDownloadsRoute } from './api/routes/public/newsletter-archive.downloads'
+import { municipalityReadRoutes } from './api/routes/external/municipality.read'
+import { regionalReadRoutes } from './api/routes/external/regional.read'
+import { nationalReadRoutes } from './api/routes/external/national.read'
+import { companyBaseYearRoutes } from './api/routes/internal/company.baseYear'
+import { authentificationRoutes } from './api/routes/internal/auth'
+import { companyExportRoutes } from './api/routes/external/company.export'
+import { municipalityExportRoutes } from './api/routes/external/municipality.export'
+import { regionalExportRoutes } from './api/routes/external/regional.export'
+import { mailingListDownloadsRoute } from './api/routes/internal/mailing-list.downloads'
+import { validationsReadRoutes } from './api/routes/external/validation.read'
+import { validationsUpdateRoutes } from './api/routes/internal/validation.update'
+import { emissionsAssessmentRoutes } from './api/routes/internal/emissionsAssessment'
+import { industryGicsRoute } from './api/routes/external/industryGics.read'
+import { screenshotsReadRoutes } from './api/routes/external/screenshots.read'
+import { newsletterArchiveDownloadsRoute } from './api/routes/external/newsletter-archive.downloads'
 import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
 
@@ -158,7 +158,6 @@ async function publicContext(app: FastifyInstance) {
  */
 async function authenticatedContext(app: FastifyInstance) {
   app.register(authPlugin)
-
   app.register(companyUpdateRoutes, { prefix: 'api/companies' })
   app.register(companyIndustryRoutes, { prefix: 'api/companies' })
   app.register(companyReportingPeriodsRoutes, { prefix: 'api/companies' })

@@ -10,7 +10,7 @@ import {
   ValidationClaims,
   WikidataIdParams,
 } from '../../types'
-import { validationClaimsCacheKey } from './validation.read'
+import { validationClaimsCacheKey } from '../external/validation.read'
 
 export async function validationsUpdateRoutes(app: FastifyInstance) {
   app.post(
