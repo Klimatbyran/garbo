@@ -4,7 +4,7 @@
 # protection — leave "Audit" optional so vulnerabilities are visible but
 # don't block merging.
 
-name: CI (Tests, Type Check, Lint, Format, Audit)
+name: CI Pre-Checks (Non-blocking)
 
 permissions:
   contents: read
