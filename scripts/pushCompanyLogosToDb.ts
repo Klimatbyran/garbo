@@ -1,6 +1,6 @@
 import { companyService } from '../src/api/services/companyService'
 import type { Company } from '@prisma/client'
-import 'dotenv/config'
+import apiConfig from '../src/config/api'
 
 interface LogoUrlsResponse {
   count: number
@@ -10,11 +10,13 @@ interface LogoUrlsResponse {
   }>
 }
 
-const env = process.env.API_BASE_URL || 'http://localhost:3000/api'
-const secret = process.env.API_SECRET
+const { secret, baseURL } = apiConfig
+const cleanBaseURL = baseURL.replace(/\/+$/, '')
+const companiesUrl = `${cleanBaseURL}/companies`
 
 async function getApiToken(user: string) {
-  const response = await fetch(`${env}/auth/token`, {
+  const url = `${cleanBaseURL}/auth/token`
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -171,15 +173,13 @@ const pushCompanyLogos = async (
     return
   }
 
-  const baseUrl = `${env}/companies`
-
   for (const company of logoUrls.companyLogoUrls) {
     if (company.logoUrl) {
       try {
         // First get the company name
         const companyData = await companyService.getCompany(company.wikidataId)
 
-        const response = await fetch(`${baseUrl}/${company.wikidataId}`, {
+        const response = await fetch(`${companiesUrl}/${company.wikidataId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
