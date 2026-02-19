@@ -15,7 +15,8 @@ const cleanBaseURL = baseURL.replace(/\/+$/, '')
 const companiesUrl = `${cleanBaseURL}/companies`
 
 async function getApiToken(user: string) {
-  const response = await fetch(`${env}/auth/token`, {
+  const url = `${cleanBaseURL}/auth/token`
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
