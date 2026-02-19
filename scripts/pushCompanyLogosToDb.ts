@@ -1,6 +1,6 @@
 import { companyService } from '../src/api/services/companyService'
 import type { Company } from '@prisma/client'
-import 'dotenv/config'
+import apiConfig from '../src/config/api'
 
 interface LogoUrlsResponse {
   count: number
