@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.3.3-rc.5",
+  "version": "5.4.4-rc.0",
   "description": "",
   "type": "module",
   "exports": {
@@ -42,7 +42,7 @@
     "@fastify/session": "^11.1.0",
     "@fastify/static": "^8.0.4",
     "@fastify/swagger": "^9.4.2",
-    "@google-cloud/storage": "^7.16.0",
+    "@google-cloud/storage": "^7.19.0",
     "@prisma/client": "^5.22.0",
     "@scalar/fastify-api-reference": "^1.25.109",
     "@types/node": "^22.10.0",

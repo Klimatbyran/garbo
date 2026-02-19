@@ -18,7 +18,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
 
     if (job.isDataApproved()) {
       await job.enqueueSaveToAPI(
-        'baseYear',
+        'base-year',
         companyName,
         wikidata,
         job.getApprovedBody()
@@ -35,12 +35,12 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
 
       const change: ChangeDescription = {
         type: 'baseYear',
-        oldValue: { baseYear: existingCompany.baseYear.year },
+        oldValue: { baseYear: existingCompany?.baseYear?.year ?? null },
         newValue: { baseYear: baseYear },
       }
 
       await job.handleDiff(
-        'baseYear',
+        'base-year',
         diff,
         change,
         typeof requiresApproval == 'boolean' ? requiresApproval : false
