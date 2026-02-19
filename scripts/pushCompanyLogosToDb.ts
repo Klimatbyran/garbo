@@ -10,8 +10,9 @@ interface LogoUrlsResponse {
   }>
 }
 
-const env = process.env.API_BASE_URL || 'http://localhost:3000/api'
-const secret = process.env.API_SECRET
+const { secret, baseURL } = apiConfig
+const cleanBaseURL = baseURL.replace(/\/+$/, '')
+const companiesUrl = `${cleanBaseURL}/companies`
 
 async function getApiToken(user: string) {
   const response = await fetch(`${env}/auth/token`, {
