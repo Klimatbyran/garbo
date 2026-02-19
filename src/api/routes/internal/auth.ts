@@ -1,17 +1,17 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { getTags } from '../../config/openapi'
+import { getTags } from '../../../config/openapi'
 import {
   userAuthenticationBodySchema,
   AuthentificationResponseScheme,
   getErrorSchemas,
   serviceAuthenticationBodySchema,
-} from '../schemas'
-import { userAuthenticationBody, serviceAuthenticationBody } from '../types'
-import { authService } from '../services/authService'
-import apiConfig from '../../config/api'
+} from '../../schemas'
+import { userAuthenticationBody, serviceAuthenticationBody } from '../../types'
+import { authService } from '../../services/authService'
+import apiConfig from '../../../config/api'
 import { z } from 'zod'
 import { randomUUID } from 'node:crypto'
-import { redisCache } from '../..'
+import { redisCache } from '../../..'
 
 const githubAuthQuerySchema = z.object({
   redirect_uri: z.string().url().optional(),

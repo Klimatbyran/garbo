@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import {
   fetchNewsletters,
   mailchimpResponseSchema,
-} from '../services/mailchimp'
+} from '../../services/mailchimp'
 
 export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
   app.get(
@@ -26,6 +26,6 @@ export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
         console.error('Subscribe error:', error)
         return reply.status(500).send({ error: 'Failed to subscribe user' })
       }
-    }
+    },
   )
 }

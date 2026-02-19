@@ -1,14 +1,14 @@
 import { AuthenticatedFastifyRequest, FastifyInstance } from 'fastify'
 
-import { companyService } from '../services/companyService'
+import { companyService } from '../../services/companyService'
 import {
   postCompanyBodySchema,
   okResponseSchema,
   getErrorSchemas,
-} from '../schemas'
-import { getTags } from '../../config/openapi'
-import { PostCompanyBody, WikidataIdParams } from '../types'
-import { metadataService } from '../services/metadataService'
+} from '../../schemas'
+import { getTags } from '../../../config/openapi'
+import { PostCompanyBody, WikidataIdParams } from '../../types'
+import { metadataService } from '../../services/metadataService'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(

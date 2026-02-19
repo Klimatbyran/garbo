@@ -66,6 +66,9 @@ const openAPITagDefinitions = {
   Newsletters: {
     description: 'Newsletters',
   },
+  Internal: {
+    description: 'Internal endpoints for data assessment and management',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
