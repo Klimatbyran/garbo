@@ -173,8 +173,6 @@ const pushCompanyLogos = async (
     return
   }
 
-  const baseUrl = `${env}/companies`
-
   for (const company of logoUrls.companyLogoUrls) {
     if (company.logoUrl) {
       try {
