@@ -179,7 +179,7 @@ const pushCompanyLogos = async (
         // First get the company name
         const companyData = await companyService.getCompany(company.wikidataId)
 
-        const response = await fetch(`${baseUrl}/${company.wikidataId}`, {
+        const response = await fetch(`${companiesUrl}/${company.wikidataId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
