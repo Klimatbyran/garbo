@@ -38,10 +38,19 @@ model Company {
   /// A comment only visible for reviewers to help them work with the company data and remember important info about this company.
   internalComment String?
 
-  /// Tags to help categorize and filter companies
+  /// Tags to help categorize and filter companies. Each string must match TagOption.slug.
   tags String[]
 
   logoUrl String?
+}
+
+/// Valid tag options for company tags. Company.tags[] may only contain values that exist as slug here.
+model TagOption {
+  id    String  @id @default(cuid())
+  slug  String  @unique
+  label String?
+
+  @@map("tag_options")
 }
 
 /// Explicitly stated base year for comparable data

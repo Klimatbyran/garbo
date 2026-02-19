@@ -21,6 +21,29 @@ export const descriptionSchema = z.object({
   text: z.string(),
 })
 
+const tagOptionSlugSchema = z
+  .string()
+  .min(1)
+  .regex(/^[a-z0-9-]+$/, 'Slug must be lowercase letters, numbers and hyphens only')
+
+export const createTagOptionBodySchema = z.object({
+  slug: tagOptionSlugSchema,
+  label: z.string().optional(),
+})
+
+export const updateTagOptionBodySchema = z.object({
+  slug: tagOptionSlugSchema.optional(),
+  label: z.string().optional().nullable(),
+})
+
+export const tagOptionIdParamSchema = z.object({
+  id: z.string().cuid(),
+})
+
+export const patchCompanyTagsBodySchema = z.object({
+  tags: z.array(z.string()),
+})
+
 export const postCompanyBodySchema = z
   .object({
     wikidataId: wikidataIdSchema,

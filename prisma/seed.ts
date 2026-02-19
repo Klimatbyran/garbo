@@ -26,8 +26,27 @@ async function seedUsers() {
   }
 }
 
+const TAG_OPTIONS = [
+  { slug: 'public', label: 'Publicly traded companies' },
+  { slug: 'large-cap', label: 'Large cap' },
+  { slug: 'mid-cap', label: 'Mid cap' },
+  { slug: 'state-owned', label: 'State owned' },
+  { slug: 'municipality-owned', label: 'Municipality owned' },
+  { slug: 'private', label: 'Private' },
+] as const
+
+async function seedTagOptions() {
+  for (const option of TAG_OPTIONS) {
+    await prisma.tagOption.upsert({
+      where: { slug: option.slug },
+      create: option,
+      update: { label: option.label },
+    })
+  }
+}
+
 async function main() {
-  await Promise.all([seedGicsCodes(), seedUsers()])
+  await Promise.all([seedGicsCodes(), seedUsers(), seedTagOptions()])
 }
 
 main()

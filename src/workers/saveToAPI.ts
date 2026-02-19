@@ -75,8 +75,11 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
       job.log(`Saving approved data for ID:${wikidataId} company:${companyName} to API ${apiSubEndpoint}:
           ${JSON.stringify(sanitizedBody)}`)
 
+      const method =
+        apiSubEndpoint === 'tags' ? ('PATCH' as const) : undefined
       await apiFetch(`/companies/${wikidataId}/${apiSubEndpoint}`, {
         body: sanitizedBody,
+        ...(method && { method }),
       })
 
       return { success: true }

@@ -110,6 +110,13 @@ class CompanyService {
     })
   }
 
+  async updateCompanyTags(wikidataId: string, tags: string[]) {
+    return prisma.company.update({
+      where: { wikidataId },
+      data: { tags },
+    })
+  }
+
   async deleteCompany(wikidataId: string) {
     return prisma.company.delete({ where: { wikidataId } })
   }

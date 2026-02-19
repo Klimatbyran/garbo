@@ -42,6 +42,7 @@ import { validationsReadRoutes } from './api/routes/validation.read'
 import { validationsUpdateRoutes } from './api/routes/validation.update'
 import { emissionsAssessmentRoutes } from './api/routes/emissionsAssessment'
 import { industryGicsRoute } from './api/routes/industryGics.read'
+import { tagOptionsRoutes } from './api/routes/tagOptions'
 import { screenshotsReadRoutes } from './api/routes/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/newsletter-archive.downloads'
 
@@ -165,6 +166,7 @@ async function authenticatedContext(app: FastifyInstance) {
     prefix: 'api/emissions-assessment',
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
+  app.register(tagOptionsRoutes, { prefix: 'api/tag-options' })
 }
 
 export default startApp

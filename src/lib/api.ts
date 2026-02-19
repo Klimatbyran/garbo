@@ -52,7 +52,7 @@ export async function apiFetch(
     Authorization: `Bearer ${token}`,
   }
   const config: RequestInit = {
-    method: body ? 'POST' : 'GET',
+    method: customConfig.method ?? (body ? 'POST' : 'GET'),
     ...customConfig,
     headers: {
       ...headers,
