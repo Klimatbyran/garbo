@@ -16,6 +16,7 @@ export class FollowUpJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     documentId: string
     previousAnswer: string
+    companyName?: string
   }
 
   followUp: (
@@ -63,7 +64,7 @@ function addCustomMethods(job: FollowUpJob) {
       {
         role: 'system',
         content:
-          'You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting. Be consise and accurate.',
+          `You are an expert in CSRD and will provide accurate data from a PDF with company CSRD reporting from the company ${job.data.companyName || 'the company'}. Be consise and accurate.`,
       } as ChatCompletionSystemMessageParam,
       {
         role: 'user',
