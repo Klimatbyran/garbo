@@ -291,6 +291,6 @@ export const companyReport = z.object({
 
 export const companyReports = z.array(CompanyReport)
 
-export const PostReportsBodySchema = CompanyReports
+export const postReportsBodySchema = CompanyReports
 
-export const PostReportsBody = CompanyReports
+export const postReportsBody = CompanyReports
