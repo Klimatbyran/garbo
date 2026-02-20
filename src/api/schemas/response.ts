@@ -573,6 +573,5 @@ export const ReportsListSchema = z.array(
 )
 
 export const ReportsListResponseSchema = z.object({
-  ok: z.boolean(),
   results: ReportsListSchema,
 })

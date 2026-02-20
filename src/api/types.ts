@@ -64,10 +64,10 @@ export type ClaimValidation = z.infer<typeof schemas.claimValidationSchema>
 export type Description = z.infer<typeof schemas.descriptionSchema>
 
 export type PostReportsBodySchema = z.infer<
-  typeof schemas.PostReportsBodySchema
+  typeof schemas.postReportsBodySchema
 >
 
-export type PostReportsBody = z.infer<typeof schemas.PostReportsBody>
+export type PostReportsBody = z.infer<typeof schemas.postReportsBody>
 export type ReportsList = z.infer<typeof schemas.ReportsListSchema>
-export type CompanyReport = z.infer<typeof schemas.CompanyReport>
-export type CompanyReports = z.infer<typeof schemas.CompanyReports>
+export type CompanyReport = z.infer<typeof schemas.companyReport>
+export type CompanyReports = z.infer<typeof schemas.companyReports>
