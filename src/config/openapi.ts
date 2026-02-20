@@ -69,6 +69,9 @@ const openAPITagDefinitions = {
   Reports: {
     description: 'Company reports',
   },
+  Internal: {
+    description: 'Internal endpoints for data assessment and management',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions

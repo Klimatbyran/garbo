@@ -1,15 +1,15 @@
 import { FastifyInstance } from 'fastify'
-import { getTags } from '../../config/openapi'
-import { cachePlugin } from '../plugins/cache'
+import { getTags } from '../../../config/openapi'
+import { cachePlugin } from '../../plugins/cache'
 import {
   NationDataSchema,
   NationalSectorEmissionsSchema,
   getErrorSchemas,
-} from '../schemas'
-import { nationService } from '../services/nationService'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { nationService } from '../../services/nationService'
+import { redisCache } from '../../..'
 import fs from 'fs'
-import apiConfig from '../../config/api'
+import apiConfig from '../../../config/api'
 
 const NATION_CACHE_KEY = 'nation:all'
 const NATION_TIMESTAMP_KEY = 'nation:timestamp'
@@ -47,7 +47,11 @@ export async function nationalReadRoutes(app: FastifyInstance) {
       const cachedNation = await redisCache.get(NATION_CACHE_KEY)
 
       // Use cached data if it exists and file hasn't changed
-      if (cachedNation && cachedTimestamp && Number(cachedTimestamp) === currentTimestamp) {
+      if (
+        cachedNation &&
+        cachedTimestamp &&
+        Number(cachedTimestamp) === currentTimestamp
+      ) {
         const etagValue = `"${currentTimestamp}"`
         return reply.header('ETag', etagValue).send(cachedNation)
       }
