@@ -289,7 +289,7 @@ export const companyReport = z.object({
   reportYear: z.string().optional(),
 })
 
-export const CompanyReports = z.array(CompanyReport)
+export const companyReports = z.array(CompanyReport)
 
 export const PostReportsBodySchema = CompanyReports
 
