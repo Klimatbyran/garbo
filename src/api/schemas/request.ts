@@ -284,7 +284,7 @@ export const claimValidationSchema = z.object({
   steal: z.boolean(),
 })
 
-export const CompanyReport = z.object({
+export const companyReport = z.object({
   name: z.string(),
   reportYear: z.string().optional(),
 })
