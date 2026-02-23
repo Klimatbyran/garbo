@@ -1,7 +1,7 @@
 import apiConfig from '../config/api'
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken'
 
-let GARBO_TOKEN: string | null;
+let GARBO_TOKEN: string | null
 
 async function getApiToken(secret: string) {
   const response = await fetch(`${apiConfig.baseURL}/auth/token`, {
@@ -22,28 +22,27 @@ async function ensureToken() {
   if (!GARBO_TOKEN || isJwtExpired(GARBO_TOKEN)) {
     GARBO_TOKEN = await getApiToken(apiConfig.secret)
   }
-  return GARBO_TOKEN;
+  return GARBO_TOKEN
 }
 
 function isJwtExpired(token: string): boolean {
   try {
-    const decoded = jwt.decode(token) as JwtPayload | null;
+    const decoded = jwt.decode(token) as JwtPayload | null
 
     if (!decoded || typeof decoded !== 'object' || !decoded.exp) {
-      return true;
+      return true
     }
 
-    const currentTime = Math.floor(Date.now() / 1000);
-    return currentTime >= decoded.exp;
-    
+    const currentTime = Math.floor(Date.now() / 1000)
+    return currentTime >= decoded.exp
   } catch {
-    return true;
+    return true
   }
 }
 
 export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {},
 ) {
   const token = await ensureToken()
 

@@ -24,7 +24,7 @@ export class FollowUpJob extends DiscordJob {
     schema: z.ZodSchema,
     prompt: string,
     queryTexts: string[],
-    type: FollowUpType
+    type: FollowUpType,
   ) => Promise<string | undefined>
 }
 
@@ -32,7 +32,7 @@ function ensureValidFollowUpInputs(
   markdown: string | null | undefined,
   prompt: string | null | undefined,
   queryTexts: string[] | null | undefined,
-  type: FollowUpType
+  type: FollowUpType,
 ): void {
   if (!markdown || !markdown.trim()) {
     throw new Error(`Missing markdown context for follow-up: ${type}`)
@@ -48,7 +48,14 @@ function ensureValidFollowUpInputs(
 }
 
 function addCustomMethods(job: FollowUpJob) {
-  job.followUp = async (url, previousAnswer, schema, prompt, queryTexts, type) => {
+  job.followUp = async (
+    url,
+    previousAnswer,
+    schema,
+    prompt,
+    queryTexts,
+    type,
+  ) => {
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
     ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
@@ -95,14 +102,14 @@ function addCustomMethods(job: FollowUpJob) {
     })
 
     job.log('Response: ' + response)
-    
+
     const result = {
       value: JSON.parse(response),
       metadata: {
         context: markdown,
         prompt: prompt,
         schema: zodResponseFormat(schema, type.replace(/\//g, '-')),
-      }
+      },
     }
 
     return JSON.stringify(result)
@@ -110,13 +117,13 @@ function addCustomMethods(job: FollowUpJob) {
   return job
 }
 export class FollowUpWorker<
-  T extends FollowUpJob
+  T extends FollowUpJob,
 > extends DiscordWorker<FollowUpJob> {
   queue: Queue
   constructor(
     name: string,
     callback: (job: T) => any,
-    options?: WorkerOptions
+    options?: WorkerOptions,
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,

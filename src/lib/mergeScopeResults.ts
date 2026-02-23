@@ -15,7 +15,9 @@ export type ScopeEntry = {
   absoluteMostRecentYearInReport?: number
 }
 
-export function extractScopeEntriesFromFollowUp(raw: unknown): ScopeEntry[] | undefined {
+export function extractScopeEntriesFromFollowUp(
+  raw: unknown,
+): ScopeEntry[] | undefined {
   if (!raw) return undefined
 
   // If it's already an array of entries, just return it
@@ -35,9 +37,10 @@ export function extractScopeEntriesFromFollowUp(raw: unknown): ScopeEntry[] | un
   }
 
   // If we have a { value, metadata } wrapper, unwrap it
-  const container = parsed && typeof parsed === 'object' && 'value' in parsed
-    ? (parsed as { value: any }).value
-    : parsed
+  const container =
+    parsed && typeof parsed === 'object' && 'value' in parsed
+      ? (parsed as { value: any }).value
+      : parsed
 
   if (!container || typeof container !== 'object') {
     return undefined

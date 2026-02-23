@@ -36,14 +36,10 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
     console.log(job.isDataApproved())
 
     if (job.isDataApproved()) {
-      job.enqueueSaveToAPI(
-        'reporting-periods',
-        companyName,
-        wikidata,
-        { ...job.getApprovedBody(), 
-        ...(job.data.replaceAllEmissions && { replaceAllEmissions: true })
-        },
-      )
+      job.enqueueSaveToAPI('reporting-periods', companyName, wikidata, {
+        ...job.getApprovedBody(),
+        ...(job.data.replaceAllEmissions && { replaceAllEmissions: true }),
+      })
       return
     }
 

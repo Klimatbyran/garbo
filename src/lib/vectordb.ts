@@ -6,7 +6,9 @@ import openai from '../config/openai'
 // Lazy initialization to avoid connection errors when ChromaDB isn't running
 let client: ChromaClient | null = null
 let embedder: OpenAIEmbeddingFunction | null = null
-let collection: Awaited<ReturnType<ChromaClient['getOrCreateCollection']>> | null = null
+let collection: Awaited<
+  ReturnType<ChromaClient['getOrCreateCollection']>
+> | null = null
 
 async function getCollection() {
   if (!collection) {
@@ -103,7 +105,7 @@ async function hasReport(url: string) {
 async function getRelevantMarkdown(
   url: string,
   queryTexts: string[],
-  nResults = 10
+  nResults = 10,
 ) {
   /* might get better results if we query for imaginary results from a query instead of the actual query
   const query = await ask([

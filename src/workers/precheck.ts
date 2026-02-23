@@ -23,9 +23,14 @@ const companyNameSchema = z.object({
 })
 
 const precheck = new DiscordWorker(
-  QUEUE_NAMES.PRECHECK, 
+  QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
-    const { cachedMarkdown, waitingForCompanyName, companyName: existingCompanyName, ...baseData } = job.data
+    const {
+      cachedMarkdown,
+      waitingForCompanyName,
+      companyName: existingCompanyName,
+      ...baseData
+    } = job.data
     const { markdown = cachedMarkdown } = await job.getChildrenEntries()
 
     // If we already have a company name provided by the user, use it directly
@@ -39,7 +44,7 @@ const precheck = new DiscordWorker(
       markdown: string,
       retry = 3,
       start = 0,
-      chunkSize = 5000
+      chunkSize = 5000,
     ): Promise<string | null> {
       if (retry <= 0 || start >= markdown.length) return null
       const chunk = markdown.substring(start, start + chunkSize)
@@ -56,27 +61,27 @@ const precheck = new DiscordWorker(
         {
           response_format: zodResponseFormat(
             companyNameSchema,
-            `companyName-${retry}`
+            `companyName-${retry}`,
           ),
-        }
+        },
       ).then(JSON.parse)
-            
+
       const { companyName: rawName } = companyNameSchema.parse(response)
       const companyName = rawName ? rawName.trim() : null
-      
+
       return (
         companyName ||
         extractCompanyName(markdown, retry - 1, start + chunkSize, chunkSize)
       )
     }
-      
+
     const companyName = await extractCompanyName(markdown)
-    
+
     if (companyName) {
       // Update job data with companyName for grouping/UI in validation tool
       await job.updateData({ ...job.data, companyName })
     }
-    
+
     if (!companyName) {
       // If we're already waiting for manual input, don't send another message
       if (waitingForCompanyName) {
@@ -88,18 +93,19 @@ const precheck = new DiscordWorker(
       // Send message asking for manual input
       job.log('Could not find company name, asking user for input')
       const buttonRow = discord.createEditCompanyNameButtonRow(job)
-      
+
       await job.sendMessage({
-        content: "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
+        content:
+          "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
         components: [buttonRow],
       })
-      
+
       // Mark the job as waiting for company name
       await job.updateData({ ...job.data, waitingForCompanyName: true })
       await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
       return
     }
-    
+
     return processWithCompanyName(companyName)
 
     async function processWithCompanyName(companyName: string) {
@@ -108,7 +114,7 @@ const precheck = new DiscordWorker(
       if (job.hasValidThreadId()) {
         await job.setThreadName(companyName)
       }
-      
+
       const base = {
         data: { ...baseData, companyName },
         opts: {
@@ -118,7 +124,6 @@ const precheck = new DiscordWorker(
 
       job.sendMessage('🤖 Asking questions about basic facts...')
 
-        
       try {
         const extractEmissions = await flow.add({
           name: 'precheck done ' + companyName,
@@ -131,7 +136,7 @@ const precheck = new DiscordWorker(
               queueName: QUEUE_NAMES.GUESS_WIKIDATA,
               data: {
                 ...base.data,
-                schema: zodResponseFormat(wikidata.schema, "wikidata"),
+                schema: zodResponseFormat(wikidata.schema, 'wikidata'),
               },
             },
             {
@@ -151,7 +156,7 @@ const precheck = new DiscordWorker(
         throw error
       }
     }
-  }
+  },
 )
-    
+
 export default precheck

@@ -51,12 +51,12 @@ async function main() {
           const discord = (await import('./discord')).default
           await discord.login()
           logMessages.push(
-            `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
+            `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`,
           )
         }
 
         logMessages.forEach((msg) => app.log.info(msg))
-      }
+      },
     )
   } catch (e) {
     app.log.error(e)
@@ -101,6 +101,9 @@ async function findAndDeleteOrphanedMetadata() {
   }
 }
 
-setInterval(() => {
-  findAndDeleteOrphanedMetadata()
-}, 1000 * 60 * 60 * 24)
+setInterval(
+  () => {
+    findAndDeleteOrphanedMetadata()
+  },
+  1000 * 60 * 60 * 24,
+)

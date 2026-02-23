@@ -17,81 +17,80 @@ export enum FollowUpType {
   ExtractEmissions = 'extractEmissions',
 }
 
-export type Unit = "tCO2" | "tCO2e";
+export type Unit = 'tCO2' | 'tCO2e'
 export interface Emission {
-  total?: number,
+  total?: number
   unit: Unit
 }
 
 export interface Scope2 {
-  mb?: number,
-  lb?: number,
+  mb?: number
+  lb?: number
   unknown?: number
   unit: Unit
 }
 
 export interface Scope3Category {
-  category: number,
-  total: number,
+  category: number
+  total: number
   unit: Unit
 }
 export interface Scope3 {
-  categories: Scope3Category[],    
+  categories: Scope3Category[]
   statedTotalEmissions?: Emission
 }
 
 export interface Emissions {
-  scope1?: Emission,
-  scope2?: Scope2,
-  scope3?: Scope3,
-  statedTotalEmissions?: Emission,
+  scope1?: Emission
+  scope2?: Scope2
+  scope3?: Scope3
+  statedTotalEmissions?: Emission
   biogenic?: Emission
 }
 
 export interface Economy {
-  turnover?: Turnover,
+  turnover?: Turnover
   employees?: Employees
 }
 
 export interface Turnover {
-  value: number,
+  value: number
   currency: string
 }
 
 export interface Employees {
-  value: number,
-  unit: "FTE" | "EOY" | "AVG"
+  value: number
+  unit: 'FTE' | 'EOY' | 'AVG'
 }
 
 export interface ReportingPeriod {
-    id?: string,
-    startDate: string,
-    endDate: string,
-    reportURL: string,
-    emissions: Emissions,
-    economy: Economy
+  id?: string
+  startDate: string
+  endDate: string
+  reportURL: string
+  emissions: Emissions
+  economy: Economy
 }
 
 export interface Goal {
-  description: string;
-  year?: string;
-  target?: number;
-  baseYear?: string;
+  description: string
+  year?: string
+  target?: number
+  baseYear?: string
 }
 
 export interface Industry {
-  subIndustryCode: string;
+  subIndustryCode: string
 }
 
 export interface Initiative {
-  title: string;
-  description?: string;
-  year?: string;
-  scope?: string;
+  title: string
+  description?: string
+  year?: string
+  scope?: string
 }
 
-
 export interface Logger {
-  info(message: string, meta?: any): void;
-  error(message: string, meta?: any): void;
+  info(message: string, meta?: any): void
+  error(message: string, meta?: any): void
 }

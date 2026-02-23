@@ -10,7 +10,10 @@ const flow = new FlowProducer({ connection: redis })
 const parsePdf = new DiscordWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex } = job.data as { url: string; forceReindex?: boolean }
+    const { url, forceReindex } = job.data as {
+      url: string
+      forceReindex?: boolean
+    }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
     job.opts.attempts = 1
 
@@ -30,7 +33,9 @@ const parsePdf = new DiscordWorker(
       // If forcing reindex, delete existing indexed report to ensure a fresh run
       if (forceReindex) {
         try {
-          job.log('forceReindex enabled: deleting existing vector index (if any)')
+          job.log(
+            'forceReindex enabled: deleting existing vector index (if any)',
+          )
           await vectorDB.deleteReport(url)
           job.log('deleteReport completed')
         } catch (_) {

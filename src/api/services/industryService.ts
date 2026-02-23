@@ -5,7 +5,7 @@ class IndustryService {
   async upsertIndustry(
     wikidataId: Company['wikidataId'],
     industry: { subIndustryCode: string },
-    metadata: Metadata
+    metadata: Metadata,
   ) {
     return prisma.industry.upsert({
       where: { companyWikidataId: wikidataId },
@@ -37,7 +37,7 @@ class IndustryService {
         },
       },
       select: { id: true },
-    });
+    })
   }
 
   async deleteIndustry(wikidataId: string) {

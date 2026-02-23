@@ -1,8 +1,8 @@
-import { QUEUE_NAMES } from "../../queues";
-import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
+import { QUEUE_NAMES } from '../../queues'
+import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
 import { z } from 'zod'
 import { emissionUnitSchemaGarbo } from '../../api/schemas'
-import { FollowUpType } from "../../types";
+import { FollowUpType } from '../../types'
 
 const schema = z.object({
   biogenic: z.array(
@@ -12,7 +12,7 @@ const schema = z.object({
         total: z.number(),
         unit: emissionUnitSchemaGarbo,
       }),
-    })
+    }),
   ),
 })
 
@@ -59,12 +59,19 @@ const queryTexts = [
 ]
 
 const biogenic = new FollowUpWorker<FollowUpJob>(
-    QUEUE_NAMES.FOLLOW_UP_BIOGENIC,
-    async (job) => {
-        const { url, previousAnswer } = job.data;
-        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.Biogenic);
-        return answer;
-    }
-);
+  QUEUE_NAMES.FOLLOW_UP_BIOGENIC,
+  async (job) => {
+    const { url, previousAnswer } = job.data
+    const answer = await job.followUp(
+      url,
+      previousAnswer,
+      schema,
+      prompt,
+      queryTexts,
+      FollowUpType.Biogenic,
+    )
+    return answer
+  },
+)
 
-export default biogenic;
+export default biogenic

@@ -7,7 +7,7 @@ class BaseYearService {
   async upsertBaseYear(
     wikidataId: Company['wikidataId'],
     baseYear: PostBaseYearBody['baseYear'],
-    metadata: Metadata
+    metadata: Metadata,
   ) {
     const existingBaseYearId = (await companyService.getCompany(wikidataId))
       .baseYear?.id

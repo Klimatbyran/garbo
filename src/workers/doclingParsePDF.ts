@@ -148,10 +148,14 @@ async function fetchWithRetry(
       if (!isLastAttempt) {
         // Exponential backoff: 1s, 2s, 4s
         const delayMs = 1000 * Math.pow(2, attempt - 1)
-        job.log(`Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. Retrying in ${delayMs}ms...`)
+        job.log(
+          `Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. Retrying in ${delayMs}ms...`,
+        )
         await sleep(delayMs)
       } else {
-        job.log(`Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. No more retries.`)
+        job.log(
+          `Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. No more retries.`,
+        )
       }
     }
   }
@@ -190,8 +194,8 @@ const workerOptions = {
     limiter: {
       max: 2, // Max 2 concurrent jobs across all worker instances
       duration: 1, // Per 1ms (essentially "at any given time")
-    }
-  })
+    },
+  }),
 }
 
 // Flag to log configuration once in the first job (appears in BullMQ logs)
@@ -226,23 +230,28 @@ const doclingParsePDF = new DiscordWorker(
         // When resuming a task, use current config settings
         const useBackupAPI = docling.USE_BACKUP_API
         const useLocalFormat = docling.DOCLING_USE_LOCAL
-        return await pollTaskAndGetResult(job, taskId, useLocalFormat, useBackupAPI)
+        return await pollTaskAndGetResult(
+          job,
+          taskId,
+          useLocalFormat,
+          useBackupAPI,
+        )
       }
 
       // Add a small random delay (0-5 seconds) to stagger job starts and avoid thundering herd
       const staggerDelay = Math.floor(Math.random() * 5000) // 0-5000ms
       if (staggerDelay > 0) {
-        job.log(`Staggering job start by ${staggerDelay}ms to avoid simultaneous API calls`)
+        job.log(
+          `Staggering job start by ${staggerDelay}ms to avoid simultaneous API calls`,
+        )
         await sleep(staggerDelay)
       }
 
-    
       const requestPayload = createRequestPayload(url)
       job.updateData({
         ...job.data,
         doclingSettings: requestPayload,
       })
-
 
       job.sendMessage('Starting PDF parsing with Docling (async mode)...')
 
@@ -254,8 +263,12 @@ const doclingParsePDF = new DiscordWorker(
         const useLocalFormat = docling.DOCLING_USE_LOCAL
 
         // Select API endpoint and token
-        const apiBaseUrl = useBackupAPI ? docling.BACKUP_API_URL : docling.baseUrl
-        const apiToken = useBackupAPI ? docling.BACKUP_API_TOKEN : docling.BERGET_AI_TOKEN
+        const apiBaseUrl = useBackupAPI
+          ? docling.BACKUP_API_URL
+          : docling.baseUrl
+        const apiToken = useBackupAPI
+          ? docling.BACKUP_API_TOKEN
+          : docling.BERGET_AI_TOKEN
 
         job.log(`Making request to: ${apiBaseUrl}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
@@ -344,7 +357,12 @@ const doclingParsePDF = new DiscordWorker(
           resultUrl: resultUrl,
         })
 
-        return await pollTaskAndGetResult(job, taskId, useLocalFormat, useBackupAPI)
+        return await pollTaskAndGetResult(
+          job,
+          taskId,
+          useLocalFormat,
+          useBackupAPI,
+        )
       } catch (networkError) {
         job.log(
           `Network error details: ${JSON.stringify(
@@ -387,7 +405,9 @@ async function pollTaskAndGetResult(
 
   // Select API endpoint and token (same logic as before)
   const apiBaseUrl = useBackupAPI ? docling.BACKUP_API_URL : docling.baseUrl
-  const apiToken = useBackupAPI ? docling.BACKUP_API_TOKEN : docling.BERGET_AI_TOKEN
+  const apiToken = useBackupAPI
+    ? docling.BACKUP_API_TOKEN
+    : docling.BERGET_AI_TOKEN
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -413,7 +433,9 @@ async function pollTaskAndGetResult(
     while (!taskComplete) {
       // Check if we've exceeded max polling time
       if (Date.now() - pollingStartTime > maxPollingTime) {
-        throw new Error(`Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`)
+        throw new Error(
+          `Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`,
+        )
       }
 
       job.log(`Polling task status: ${statusUrl}`)
@@ -439,7 +461,9 @@ async function pollTaskAndGetResult(
         throw new Error(`Task failed: ${JSON.stringify(statusData)}`)
       } else {
         // Task is still pending or processing
-        job.log(`Task status is "${statusData.task_status}", sleeping for 2s before next poll`)
+        job.log(
+          `Task status is "${statusData.task_status}", sleeping for 2s before next poll`,
+        )
         await sleep(2000)
         job.log('Sleep complete, starting next poll iteration')
       }
@@ -450,7 +474,13 @@ async function pollTaskAndGetResult(
     await sleep(1000)
 
     job.log(`Fetching result from: ${resultUrl}`)
-    const resultResponse = await fetchWithRetry(resultUrl, { headers }, job, 5, 30000) // 5 retries with 30s timeout
+    const resultResponse = await fetchWithRetry(
+      resultUrl,
+      { headers },
+      job,
+      5,
+      30000,
+    ) // 5 retries with 30s timeout
 
     if (!resultResponse.ok) {
       const errorText = await resultResponse.text()

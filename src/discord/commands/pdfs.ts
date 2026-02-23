@@ -43,7 +43,8 @@ export default {
 
       const autoApprove =
         interaction.options.getBoolean('auto-approve') || false
-      const forceReindex = interaction.options.getBoolean('force-reindex') || false
+      const forceReindex =
+        interaction.options.getBoolean('force-reindex') || false
 
       if (!urls || !urls.length) {
         await interaction.followUp({

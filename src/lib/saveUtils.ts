@@ -4,13 +4,13 @@ import { getReportingPeriodDates } from './reportingPeriodDates'
 export function formatAsReportingPeriods(
   entries: { year: number }[],
   fiscalYear: { startMonth: number; endMonth: number },
-  category: 'emissions' | 'economy'
+  category: 'emissions' | 'economy',
 ) {
   return entries.map(({ year, ...data }) => {
     const [startDate, endDate] = getReportingPeriodDates(
       year,
       fiscalYear.startMonth,
-      fiscalYear.endMonth
+      fiscalYear.endMonth,
     )
     return {
       startDate,
@@ -41,7 +41,7 @@ export const defaultMetadata = (url: string) => ({
 const recursiveOmit = <T extends object>(
   obj: T,
   keys: Set<string>,
-  visitedIn?: Set<object>
+  visitedIn?: Set<object>,
 ): T => {
   if (obj == null || typeof obj !== 'object') return obj
   const visited = visitedIn ?? new Set()
@@ -76,7 +76,7 @@ const askDiff = async (before: object, after: object) => {
     JSON.stringify({
       before: recursiveOmit(structuredClone(before), new Set(['metadata'])),
       after: recursiveOmit(structuredClone(after), new Set(['metadata'])),
-    })
+    }),
   )
 }
 

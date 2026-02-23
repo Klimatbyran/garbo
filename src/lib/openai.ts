@@ -1,6 +1,15 @@
 import { assert } from 'console'
 import OpenAI from 'openai'
-import { ChatCompletionAssistantMessageParam, ChatCompletionChunk, ChatCompletionCreateParamsNonStreaming, ChatCompletionCreateParamsStreaming, ChatCompletionMessageParam, ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, ResponseFormatJSONSchema } from 'openai/resources'
+import {
+  ChatCompletionAssistantMessageParam,
+  ChatCompletionChunk,
+  ChatCompletionCreateParamsNonStreaming,
+  ChatCompletionCreateParamsStreaming,
+  ChatCompletionMessageParam,
+  ChatCompletionSystemMessageParam,
+  ChatCompletionUserMessageParam,
+  ResponseFormatJSONSchema,
+} from 'openai/resources'
 import openaiConfig from '../config/openai'
 import { Stream } from 'openai/streaming'
 import { RequestOptions } from 'openai/core'
@@ -9,8 +18,10 @@ const openai = new OpenAI({
   apiKey: openaiConfig.apiKey,
 })
 
-
-const ask = async (messages: ChatCompletionMessageParam[], options?: RequestOptions & {response_format?: ResponseFormatJSONSchema}) => {
+const ask = async (
+  messages: ChatCompletionMessageParam[],
+  options?: RequestOptions & { response_format?: ResponseFormatJSONSchema },
+) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
     model: 'gpt-4o',
@@ -38,10 +49,14 @@ const askPrompt = async (prompt: string, context: string) => {
 }
 
 const askStream = async (
-  messages: (ChatCompletionSystemMessageParam
+  messages: (
+    | ChatCompletionSystemMessageParam
     | ChatCompletionUserMessageParam
-    | ChatCompletionAssistantMessageParam)[],
-  options: RequestOptions  & {onParagraph?: (response: string, paragraph: string) => void} & {response_format?: ResponseFormatJSONSchema}
+    | ChatCompletionAssistantMessageParam
+  )[],
+  options: RequestOptions & {
+    onParagraph?: (response: string, paragraph: string) => void
+  } & { response_format?: ResponseFormatJSONSchema },
 ) => {
   const { stream: _, ...safeOpenAIOptions } = options
 
@@ -53,10 +68,10 @@ const askStream = async (
     max_tokens: 16384,
     response_format: options.response_format,
     ...safeOpenAIOptions,
-  } satisfies ChatCompletionCreateParamsStreaming;
+  } satisfies ChatCompletionCreateParamsStreaming
 
-  const stream:  Stream<ChatCompletionChunk> = await openai.chat.completions.create(config);
-
+  const stream: Stream<ChatCompletionChunk> =
+    await openai.chat.completions.create(config)
 
   let response = ''
   let paragraph = ''

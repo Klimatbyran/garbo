@@ -2,7 +2,7 @@ import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
-import {Description} from '../api/types'
+import { Description } from '../api/types'
 import { askPrompt } from '../lib/openai'
 
 export class DiffDescriptionsJob extends DiscordJob {
@@ -17,14 +17,15 @@ export class DiffDescriptionsJob extends DiscordJob {
 const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
   QUEUE_NAMES.DIFF_DESCRIPTIONS,
   async (job: DiffDescriptionsJob) => {
-    const { url, companyName, wikidataId, existingDescriptions, descriptions } = job.data
+    const { url, companyName, wikidataId, existingDescriptions, descriptions } =
+      job.data
     const metadata = defaultMetadata(url)
 
     const body = {
       name: companyName,
       wikidataId,
       descriptions: descriptions,
-      metadata
+      metadata,
     }
 
     const diff = await askPrompt(
@@ -43,7 +44,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
       JSON.stringify({
         before: structuredClone(existingDescriptions),
         after: structuredClone(descriptions),
-      })
+      }),
     )
 
     job.log('Diff:' + diff)
@@ -59,7 +60,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
     }
 
     return { body, diff }
-  }
+  },
 )
 
 export default diffDescriptions
