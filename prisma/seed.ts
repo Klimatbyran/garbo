@@ -33,6 +33,8 @@ const TAG_OPTIONS = [
   { slug: 'state-owned', label: 'State owned' },
   { slug: 'municipality-owned', label: 'Municipality owned' },
   { slug: 'private', label: 'Private' },
+  { slug: 'small-cap', label: 'Small cap' },
+  { slug: 'baltics', label: 'Baltic countries' },
 ] as const
 
 async function seedTagOptions() {
