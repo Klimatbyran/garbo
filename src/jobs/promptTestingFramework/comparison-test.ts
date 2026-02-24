@@ -386,7 +386,9 @@ const updateHashMappings = (
     hashMappings.prompts[promptHash] = promptText
   }
   if (!hashMappings.schemas[schemaHash]) {
-    hashMappings.schemas[schemaHash] = zodToJsonSchema(schema)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const toJsonSchema = (s: any): any => zodToJsonSchema(s)
+    hashMappings.schemas[schemaHash] = toJsonSchema(schema)
   }
 }
 

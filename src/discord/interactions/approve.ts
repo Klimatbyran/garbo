@@ -14,7 +14,7 @@ export default {
     if (approval) {
       approval.approved = true
       await job.updateData({ ...data, approval })
-      job.log(`Approving company edit: ${job.data.wikidata.node}`)
+      job.log(`Approving company edit: ${job.data.wikidata?.node ?? 'unknown'}`)
 
       await interaction.reply({
         content: `Tack för din granskning, ${interaction?.user?.username}!`,

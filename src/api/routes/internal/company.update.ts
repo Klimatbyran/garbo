@@ -51,7 +51,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           internalComment,
           tags,
           url,
-          logoUrl,
+          logoUrl: logoUrl ?? undefined,
           lei,
         })
         // Create descriptions
