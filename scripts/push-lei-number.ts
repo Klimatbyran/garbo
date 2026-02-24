@@ -24,7 +24,7 @@ async function getApiToken(user: string) {
 }
 
 async function getLEINumberFromGleif(
-  companyName: string,
+  companyName: string
 ): Promise<string | undefined> {
   console.log(`fetching LEI for ${companyName} from Gleif API`)
   const searchResults = await getLEINumbers(companyName)
@@ -50,7 +50,7 @@ async function getLEINumberFromGleif(
         content: JSON.stringify(searchResults, null, 2),
       },
     ].filter((m) => m && m.content?.length > 0) as ChatCompletionMessageParam[],
-    { response_format: zodResponseFormat(leiSchema, 'lei') },
+    { response_format: zodResponseFormat(leiSchema, 'lei') }
   )
 
   const { success, error, data } = leiSchema.safeParse(JSON.parse(response))
@@ -66,7 +66,7 @@ async function updateLEI(
   wikidataId: string,
   name: string,
   token: string,
-  lei: string,
+  lei: string
 ) {
   const response = await fetch(`${env}/companies/${wikidataId}`, {
     method: 'POST',

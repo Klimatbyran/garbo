@@ -26,6 +26,6 @@ export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
         console.error('Subscribe error:', error)
         return reply.status(500).send({ error: 'Failed to subscribe user' })
       }
-    },
+    }
   )
 }

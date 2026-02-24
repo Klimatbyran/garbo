@@ -21,7 +21,7 @@ const indexMarkdown = new DiscordWorker(
 
     if (!markdown || !markdown.trim()) {
       job.editMessage(
-        '❌ No markdown provided to index. Ensure the parser child returned markdown.',
+        '❌ No markdown provided to index. Ensure the parser child returned markdown.'
       )
       throw new Error('IndexMarkdown: missing markdown')
     }
@@ -31,7 +31,7 @@ const indexMarkdown = new DiscordWorker(
       'Indexing ' +
         Math.ceil(markdown.length / config.chunkSize) +
         ' chunks from url: ' +
-        url,
+        url
     )
 
     try {
@@ -43,11 +43,11 @@ const indexMarkdown = new DiscordWorker(
     } catch (error) {
       job.log('Error: ' + error)
       job.editMessage(
-        `❌ An error occurred when attempting to access the vector database: ${error}`,
+        `❌ An error occurred when attempting to access the vector database: ${error}`
       )
       throw error
     }
-  },
+  }
 )
 
 export default indexMarkdown

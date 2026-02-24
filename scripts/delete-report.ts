@@ -44,7 +44,9 @@ async function main() {
   }
 
   if (!skipConfirm) {
-    const ok = await confirm(`Delete ALL Chroma entries for this URL?\n${url}\n(y/N) `)
+    const ok = await confirm(
+      `Delete ALL Chroma entries for this URL?\n${url}\n(y/N) `
+    )
     if (!ok) {
       console.log('Aborted')
       process.exit(0)
@@ -65,5 +67,3 @@ async function main() {
 if (isMainModule(import.meta.url)) {
   await main()
 }
-
-

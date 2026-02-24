@@ -28,14 +28,14 @@ class FileHelper {
 class ExportService {
   async exportCompanies(
     type: ExportType = 'json',
-    year?: number,
+    year?: number
   ): Promise<ExportResult> {
     const fileName = this.getFileName('company', type, year)
     const existingFile = await this.getValidExport(fileName)
     if (existingFile) return existingFile
 
     const companies: Company[] = await prisma.company.findMany(
-      companyExportArgs(year),
+      companyExportArgs(year)
     )
 
     console.log(type)
@@ -63,10 +63,10 @@ class ExportService {
         ? JSON.stringify(municipalities)
         : type === 'csv'
           ? this.generateCSV(
-              this.transformMunicipalitiesIntoRows(municipalities),
+              this.transformMunicipalitiesIntoRows(municipalities)
             )
           : await this.generateXLSX(
-              this.transformMunicipalitiesIntoRows(municipalities),
+              this.transformMunicipalitiesIntoRows(municipalities)
             )
 
     return this.createExportFile(fileName, content)
@@ -90,7 +90,7 @@ class ExportService {
   }
 
   private async getValidExport(
-    fileName: string,
+    fileName: string
   ): Promise<ExportResult | undefined> {
     FileHelper.ensureDirectoryExists(EXPORT_FOLDER_PATH)
     const filePath = path.join(EXPORT_FOLDER_PATH, fileName)
@@ -103,7 +103,7 @@ class ExportService {
 
   private async createExportFile(
     fileName: string,
-    content: string | Buffer,
+    content: string | Buffer
   ): Promise<ExportResult> {
     FileHelper.ensureDirectoryExists(EXPORT_FOLDER_PATH)
     const filePath = path.join(EXPORT_FOLDER_PATH, fileName)
@@ -115,14 +115,14 @@ class ExportService {
   private transformCompaniesToRows(companies: Company[]): CsvRow[] {
     return companies.flatMap((company) =>
       company.reportingPeriods.map((period) =>
-        this.transformCompanyPeriodToRow(company, period),
-      ),
+        this.transformCompanyPeriodToRow(company, period)
+      )
     )
   }
 
   private transformCompanyPeriodToRow(
     company: Company,
-    period: ReportingPeriod,
+    period: ReportingPeriod
   ): CsvRow {
     const { scope1, scope2, scope3Categories, statedTotalEmissions } =
       this.transformEmissions(period.emissions ?? {})
@@ -182,7 +182,7 @@ class ExportService {
   }
 
   private transformMunicipalitiesIntoRows(
-    municipalities: Municipality[],
+    municipalities: Municipality[]
   ): CsvRow[] {
     const csvRows: CsvRow[] = []
 
@@ -212,7 +212,7 @@ class ExportService {
         ...this.transformYearlyData(municipality.emissions, 'emissions'),
         ...this.transformYearlyData(
           municipality.approximatedHistoricalEmission,
-          'approximatedHistoricalEmission',
+          'approximatedHistoricalEmission'
         ),
         ...this.transformYearlyData(municipality.trend, 'trend'),
       })
@@ -235,7 +235,7 @@ class ExportService {
         ...this.transformYearlyData(region.emissions, 'emissions'),
         ...this.transformYearlyData(
           region.approximatedHistoricalEmission,
-          'approximatedHistoricalEmission',
+          'approximatedHistoricalEmission'
         ),
         ...this.transformYearlyData(region.trend, 'trend'),
       })
@@ -246,7 +246,7 @@ class ExportService {
 
   private flattenSectorData(
     sectorData: Record<string, unknown>,
-    prefix: string,
+    prefix: string
   ): CsvRow {
     const flattened: CsvRow = {}
     for (const [sectorName, sectorValue] of Object.entries(sectorData)) {
@@ -284,7 +284,7 @@ class ExportService {
       headers.map((header) => {
         const value = row[header]
         return value ?? ''
-      }),
+      })
     )
 
     for (const row of rows) {
@@ -309,7 +309,7 @@ class ExportService {
             ? `"${value}"`
             : (value ?? '')
         })
-        .join(','),
+        .join(',')
     )
 
     return [headers.join(','), ...rows].join('\n')
@@ -318,7 +318,7 @@ class ExportService {
   private getFileName(
     type: 'company' | 'municipality' | 'region',
     ext: 'csv' | 'json' | 'xlsx',
-    year?: number,
+    year?: number
   ): string {
     return `${type}${year ? `-${year}` : ''}.${ext}`
   }

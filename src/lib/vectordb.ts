@@ -6,7 +6,9 @@ import openai from '../config/openai'
 // Lazy initialization to avoid connection errors when ChromaDB isn't running
 let client: ChromaClient | null = null
 let embedder: OpenAIEmbeddingFunction | null = null
-let collection: Awaited<ReturnType<ChromaClient['getOrCreateCollection']>> | null = null
+let collection: Awaited<
+  ReturnType<ChromaClient['getOrCreateCollection']>
+> | null = null
 
 async function getCollection() {
   if (!collection) {

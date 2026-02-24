@@ -30,7 +30,7 @@ class RegionalService {
    */
   private lazyInit() {
     const rawRegionalData = JSON.parse(
-      readFileSync(apiConfig.regionDataPath, 'utf-8'),
+      readFileSync(apiConfig.regionDataPath, 'utf-8')
     )
 
     // Validate and parse the data - InputRegionalDataSchema will handle transformation
@@ -70,7 +70,7 @@ class RegionalService {
   private lazyInitSectorEmissions() {
     try {
       this._sectorEmissions = JSON.parse(
-        readFileSync(apiConfig.regionSectorEmissionsPath, 'utf-8'),
+        readFileSync(apiConfig.regionSectorEmissionsPath, 'utf-8')
       )
     } catch {
       // If the file is empty or doesn't exist, initialize as empty array
@@ -82,7 +82,7 @@ class RegionalService {
   getRegionSectorEmissions(name: RegionalData['region']) {
     const normalizedName = name.replace(/s?\slän$/i, '').toLowerCase()
     const region = this.sectorEmissions.find(
-      (r) => r.name?.replace(/s?\slän$/i, '').toLowerCase() === normalizedName,
+      (r) => r.name?.replace(/s?\slän$/i, '').toLowerCase() === normalizedName
     )
     return region?.sectors ?? null
   }
