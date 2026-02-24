@@ -6,10 +6,10 @@ import { defaultMetadata } from './saveUtils'
 import discord from '../discord'
 
 export interface ChangeDescription {
-  type: string;
-  oldValue?;
-  newValue;
-};
+  type: string
+  oldValue?
+  newValue
+}
 
 export class DiffJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -48,12 +48,7 @@ function addCustomMethods(job: DiffJob) {
     })
   }
 
-  job.handleDiff = async (
-    apiSubEndpoint,
-    diff,
-    change,
-    requiresApproval
-  ) => {
+  job.handleDiff = async (apiSubEndpoint, diff, change, requiresApproval) => {
     if (diff && requiresApproval && !job.data.autoApprove) {
       job.log('The data needs approval before saving to API.')
 

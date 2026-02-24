@@ -101,6 +101,9 @@ async function findAndDeleteOrphanedMetadata() {
   }
 }
 
-setInterval(() => {
-  findAndDeleteOrphanedMetadata()
-}, 1000 * 60 * 60 * 24)
+setInterval(
+  () => {
+    findAndDeleteOrphanedMetadata()
+  },
+  1000 * 60 * 60 * 24
+)

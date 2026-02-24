@@ -23,8 +23,6 @@ const deHyphenate = (text: string) => {
     : ''
 }
 
-
-
 const paragraph = (block: { tag: 'para'; sentences: string[] }) =>
   block.sentences
     .map((sentence) => deHyphenate(sentence))
@@ -111,7 +109,7 @@ export const jsonToTables = (json: ParsedDocument) => {
           name,
           level,
           content,
-        } as Table)
+        }) as Table
     )
   return tables
 }

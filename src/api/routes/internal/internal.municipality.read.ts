@@ -48,7 +48,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
       const etagValue = `"${currentTimestamp}"`
 
       const cachedMunicipalities = await redisCache.get(
-        MUNICIPALITIES_CACHE_KEY,
+        MUNICIPALITIES_CACHE_KEY
       )
 
       if (cachedMunicipalities) {
@@ -59,15 +59,15 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
 
       await redisCache.set(
         MUNICIPALITIES_CACHE_KEY,
-        JSON.stringify(municipalities),
+        JSON.stringify(municipalities)
       )
       await redisCache.set(
         MUNICIPALITIES_TIMESTAMP_KEY,
-        currentTimestamp.toString(),
+        currentTimestamp.toString()
       )
 
       reply.header('ETag', etagValue).send(municipalities)
-    },
+    }
   )
 
   app.get(
@@ -87,7 +87,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply,
+      reply
     ) => {
       const { name } = request.params
       const municipality = municipalityService.getMunicipality(name)
@@ -100,7 +100,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(municipality)
-    },
+    }
   )
 
   app.get(
@@ -120,7 +120,7 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply,
+      reply
     ) => {
       const { name } = request.params
       const sectorEmissions =
@@ -134,6 +134,6 @@ export async function internalMunicipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    },
+    }
   )
 }

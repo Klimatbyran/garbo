@@ -58,7 +58,7 @@ class DoclingParsePDFJob extends DiscordJob {
 }
 
 function createRequestPayload(
-  url: string,
+  url: string
 ): BergetDoclingRequest | DoclingServeRequest {
   // Use local format controls the payload structure
   // This is independent of which API endpoint we hit
@@ -125,7 +125,7 @@ async function fetchWithRetry(
   options: RequestInit,
   job: DoclingParsePDFJob,
   maxRetries: number = 3,
-  timeoutMs: number = 30000,
+  timeoutMs: number = 30000
 ): Promise<Response> {
   let lastError: Error | undefined
 
@@ -148,10 +148,14 @@ async function fetchWithRetry(
       if (!isLastAttempt) {
         // Exponential backoff: 1s, 2s, 4s
         const delayMs = 1000 * Math.pow(2, attempt - 1)
-        job.log(`Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. Retrying in ${delayMs}ms...`)
+        job.log(
+          `Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. Retrying in ${delayMs}ms...`
+        )
         await sleep(delayMs)
       } else {
-        job.log(`Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. No more retries.`)
+        job.log(
+          `Network error on attempt ${attempt}/${maxRetries}: ${lastError.message}. No more retries.`
+        )
       }
     }
   }
@@ -162,7 +166,7 @@ async function fetchWithRetry(
 function shouldAddAuthHeader(
   useLocalFormat: boolean,
   useBackupAPI: boolean,
-  apiToken: string | undefined,
+  apiToken: string | undefined
 ): boolean {
   // No token available, can't add auth
   if (!apiToken) {
@@ -190,8 +194,8 @@ const workerOptions = {
     limiter: {
       max: 2, // Max 2 concurrent jobs across all worker instances
       duration: 1, // Per 1ms (essentially "at any given time")
-    }
-  })
+    },
+  }),
 }
 
 // Flag to log configuration once in the first job (appears in BullMQ logs)
@@ -226,23 +230,28 @@ const doclingParsePDF = new DiscordWorker(
         // When resuming a task, use current config settings
         const useBackupAPI = docling.USE_BACKUP_API
         const useLocalFormat = docling.DOCLING_USE_LOCAL
-        return await pollTaskAndGetResult(job, taskId, useLocalFormat, useBackupAPI)
+        return await pollTaskAndGetResult(
+          job,
+          taskId,
+          useLocalFormat,
+          useBackupAPI
+        )
       }
 
       // Add a small random delay (0-5 seconds) to stagger job starts and avoid thundering herd
       const staggerDelay = Math.floor(Math.random() * 5000) // 0-5000ms
       if (staggerDelay > 0) {
-        job.log(`Staggering job start by ${staggerDelay}ms to avoid simultaneous API calls`)
+        job.log(
+          `Staggering job start by ${staggerDelay}ms to avoid simultaneous API calls`
+        )
         await sleep(staggerDelay)
       }
 
-    
       const requestPayload = createRequestPayload(url)
       job.updateData({
         ...job.data,
         doclingSettings: requestPayload,
       })
-
 
       job.sendMessage('Starting PDF parsing with Docling (async mode)...')
 
@@ -254,8 +263,12 @@ const doclingParsePDF = new DiscordWorker(
         const useLocalFormat = docling.DOCLING_USE_LOCAL
 
         // Select API endpoint and token
-        const apiBaseUrl = useBackupAPI ? docling.BACKUP_API_URL : docling.baseUrl
-        const apiToken = useBackupAPI ? docling.BACKUP_API_TOKEN : docling.BERGET_AI_TOKEN
+        const apiBaseUrl = useBackupAPI
+          ? docling.BACKUP_API_URL
+          : docling.baseUrl
+        const apiToken = useBackupAPI
+          ? docling.BACKUP_API_TOKEN
+          : docling.BERGET_AI_TOKEN
 
         job.log(`Making request to: ${apiBaseUrl}`)
         job.log(`With payload: ${JSON.stringify(job.data.doclingSettings)}`)
@@ -275,7 +288,7 @@ const doclingParsePDF = new DiscordWorker(
         }
 
         job.log(
-          `Using ${useBackupAPI ? 'backup' : 'primary'} API (${useLocalFormat ? 'local format' : 'Berget format'}): ${endpoint}`,
+          `Using ${useBackupAPI ? 'backup' : 'primary'} API (${useLocalFormat ? 'local format' : 'Berget format'}): ${endpoint}`
         )
 
         const controller = new AbortController()
@@ -296,7 +309,7 @@ const doclingParsePDF = new DiscordWorker(
         }
 
         job.log(
-          `Response status: ${startResponse.status} ${startResponse.statusText}`,
+          `Response status: ${startResponse.status} ${startResponse.statusText}`
         )
 
         if (!startResponse.ok) {
@@ -304,12 +317,12 @@ const doclingParsePDF = new DiscordWorker(
             const errorBody = await startResponse.text()
             job.log(`Error response body: ${errorBody}`)
             throw new Error(
-              `Docling API responded with status: ${startResponse.status}`,
+              `Docling API responded with status: ${startResponse.status}`
             )
           } catch (bodyError) {
             job.log(`Failed to read error response body: ${bodyError.message}`)
             throw new Error(
-              `Docling API responded with status: ${startResponse.status}`,
+              `Docling API responded with status: ${startResponse.status}`
             )
           }
         }
@@ -325,7 +338,7 @@ const doclingParsePDF = new DiscordWorker(
           taskId = responseData.task_id
           if (!taskId) {
             throw new Error(
-              'No task_id returned from docling-serve async endpoint',
+              'No task_id returned from docling-serve async endpoint'
             )
           }
         } else {
@@ -344,7 +357,12 @@ const doclingParsePDF = new DiscordWorker(
           resultUrl: resultUrl,
         })
 
-        return await pollTaskAndGetResult(job, taskId, useLocalFormat, useBackupAPI)
+        return await pollTaskAndGetResult(
+          job,
+          taskId,
+          useLocalFormat,
+          useBackupAPI
+        )
       } catch (networkError) {
         job.log(
           `Network error details: ${JSON.stringify(
@@ -355,30 +373,30 @@ const doclingParsePDF = new DiscordWorker(
               stack: networkError.stack,
             },
             null,
-            2,
-          )}`,
+            2
+          )}`
         )
 
         throw new Error(
-          `Failed to connect to Docling API: ${networkError.message}`,
+          `Failed to connect to Docling API: ${networkError.message}`
         )
       }
     } catch (error) {
       job.log('Error: ' + error)
       job.editMessage(
-        `Failed to parse PDF: ${error.message || 'Unknown error'}`,
+        `Failed to parse PDF: ${error.message || 'Unknown error'}`
       )
       throw error
     }
   },
-  workerOptions,
+  workerOptions
 )
 
 async function pollTaskAndGetResult(
   job: DoclingParsePDFJob,
   taskId: string,
   useLocalFormat: boolean,
-  useBackupAPI: boolean,
+  useBackupAPI: boolean
 ): Promise<{ markdown: string }> {
   const startTime = Date.now()
 
@@ -387,7 +405,9 @@ async function pollTaskAndGetResult(
 
   // Select API endpoint and token (same logic as before)
   const apiBaseUrl = useBackupAPI ? docling.BACKUP_API_URL : docling.baseUrl
-  const apiToken = useBackupAPI ? docling.BACKUP_API_TOKEN : docling.BERGET_AI_TOKEN
+  const apiToken = useBackupAPI
+    ? docling.BACKUP_API_TOKEN
+    : docling.BERGET_AI_TOKEN
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -413,7 +433,9 @@ async function pollTaskAndGetResult(
     while (!taskComplete) {
       // Check if we've exceeded max polling time
       if (Date.now() - pollingStartTime > maxPollingTime) {
-        throw new Error(`Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`)
+        throw new Error(
+          `Task polling timed out after ${maxPollingTime / 1000}s. Task may still be processing on the server.`
+        )
       }
 
       job.log(`Polling task status: ${statusUrl}`)
@@ -425,7 +447,7 @@ async function pollTaskAndGetResult(
         const errorText = await statusResponse.text()
         job.log(`Status check error: ${errorText}`)
         throw new Error(
-          `Status check failed with status: ${statusResponse.status}`,
+          `Status check failed with status: ${statusResponse.status}`
         )
       }
 
@@ -439,7 +461,9 @@ async function pollTaskAndGetResult(
         throw new Error(`Task failed: ${JSON.stringify(statusData)}`)
       } else {
         // Task is still pending or processing
-        job.log(`Task status is "${statusData.task_status}", sleeping for 2s before next poll`)
+        job.log(
+          `Task status is "${statusData.task_status}", sleeping for 2s before next poll`
+        )
         await sleep(2000)
         job.log('Sleep complete, starting next poll iteration')
       }
@@ -450,13 +474,19 @@ async function pollTaskAndGetResult(
     await sleep(1000)
 
     job.log(`Fetching result from: ${resultUrl}`)
-    const resultResponse = await fetchWithRetry(resultUrl, { headers }, job, 5, 30000) // 5 retries with 30s timeout
+    const resultResponse = await fetchWithRetry(
+      resultUrl,
+      { headers },
+      job,
+      5,
+      30000
+    ) // 5 retries with 30s timeout
 
     if (!resultResponse.ok) {
       const errorText = await resultResponse.text()
       job.log(`Result fetch error: ${errorText}`)
       throw new Error(
-        `Failed to fetch result with status: ${resultResponse.status}`,
+        `Failed to fetch result with status: ${resultResponse.status}`
       )
     }
 
@@ -510,16 +540,16 @@ async function pollTaskAndGetResult(
         const characters = result.usage?.characters || 'unknown'
 
         job.editMessage(
-          `PDF parsed successfully in ${totalTime}s (${pages} pages, ${characters} characters)`,
+          `PDF parsed successfully in ${totalTime}s (${pages} pages, ${characters} characters)`
         )
         job.log(
-          `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`,
+          `Task completed in ${totalTime}s - Pages: ${pages}, Characters: ${characters}`
         )
         return { markdown }
       } else if (response.status === 202) {
         const retryAfter = parseInt(response.headers.get('Retry-After') || '2')
         console.log(
-          `Job still processing, retrying in ${retryAfter} seconds...`,
+          `Job still processing, retrying in ${retryAfter} seconds...`
         )
         await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000))
       } else {

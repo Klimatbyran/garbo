@@ -1,0 +1,17 @@
+# Dependencies and lockfile (noise in CI, avoid formatting)
+package-lock.json
+node_modules
+
+# Generated / build output
+dist
+prisma/generated
+*.tsbuildinfo
+
+# Env and secrets (don’t format)
+.env
+.env.*
+
+# Large or generated data
+*.xlsx
+output/
+public/exports

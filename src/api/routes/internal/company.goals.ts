@@ -39,7 +39,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostGoalsBody
       }>,
-      reply,
+      reply
     ) => {
       const { goals, metadata } = request.body
 
@@ -52,7 +52,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
             metadataService.createMetadata({
               metadata,
               user,
-            }),
+            })
           )
         } catch (error) {
           console.error('ERROR Creation of goals failed:', error)
@@ -62,7 +62,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         }
       }
       return reply.send({ ok: true })
-    },
+    }
   )
 
   app.patch(
@@ -85,7 +85,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
         Params: GarboEntityId
         Body: PostGoalBody
       }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       const { goal } = request.body
@@ -99,7 +99,7 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       } catch (error) {
         console.error(
           'ERROR Creation of metadata for update of goal failed:',
-          error,
+          error
         )
         return reply.status(500).send({ message: 'Update of goal failed' })
       }
@@ -112,6 +112,6 @@ export async function companyGoalsRoutes(app: FastifyInstance) {
       }
 
       return reply.send({ ok: true })
-    },
+    }
   )
 }

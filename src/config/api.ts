@@ -29,7 +29,7 @@ if (!parsedEnv.success) {
     console.error('API_SECRET must be a secret in the form of a string.')
     console.error('When running locally, this variable can be set freely.')
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
@@ -37,7 +37,7 @@ if (!parsedEnv.success) {
     console.error('JWT_SECRET must be a secret in the form of a string.')
     console.error('When running locally, this variable can be set freely.')
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
@@ -105,26 +105,26 @@ const apiConfig = {
 
   municipalityDataPath: resolve(
     import.meta.dirname,
-    '../data/municipality-data.json',
+    '../data/municipality-data.json'
   ),
 
   municipalitySectorEmissionsPath: resolve(
     import.meta.dirname,
-    '../data/municipality-sector-emissions.json',
+    '../data/municipality-sector-emissions.json'
   ),
 
   regionDataPath: resolve(import.meta.dirname, '../data/region-data.json'),
 
   regionSectorEmissionsPath: resolve(
     import.meta.dirname,
-    '../data/region-sector-emissions.json',
+    '../data/region-sector-emissions.json'
   ),
 
   nationDataPath: resolve(import.meta.dirname, '../data/nation-data.json'),
 
   nationSectorEmissionsPath: resolve(
     import.meta.dirname,
-    '../data/nation-sector-emissions.json',
+    '../data/nation-sector-emissions.json'
   ),
 
   bullBoardBasePath: '/admin/queues',

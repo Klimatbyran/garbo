@@ -132,28 +132,28 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        },
+        }
       )
       .refine(
         ({ mb, lb, unknown, unit }) => {
           // If all values are null or undefined, unit can be null
-          const allValuesNull = 
+          const allValuesNull =
             (mb === null || mb === undefined) &&
             (lb === null || lb === undefined) &&
-            (unknown === null || unknown === undefined);
-          
+            (unknown === null || unknown === undefined)
+
           if (allValuesNull) {
-            return true; // unit can be null when all values are null
+            return true // unit can be null when all values are null
           }
-          
+
           // If any value is not null, unit must be provided (not null)
-          return unit !== null && unit !== undefined;
+          return unit !== null && unit !== undefined
         },
         {
           message:
             'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
           path: ['unit'],
-        },
+        }
       )
       .optional()
       .nullable(),
@@ -166,7 +166,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
-            }),
+            })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,
