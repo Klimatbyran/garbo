@@ -72,7 +72,7 @@ export async function nationalReadRoutes(app: FastifyInstance) {
 
       const etagValue = `"${currentTimestamp}"`
       reply.header('ETag', etagValue).send(nation)
-    },
+    }
   )
 
   app.get(
@@ -100,6 +100,6 @@ export async function nationalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    },
+    }
   )
 }

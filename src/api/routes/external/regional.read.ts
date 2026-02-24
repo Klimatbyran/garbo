@@ -60,7 +60,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       await redisCache.set(REGIONS_TIMESTAMP_KEY, currentTimestamp.toString())
 
       reply.header('ETag', etagValue).send(regions)
-    },
+    }
   )
 
   app.get(
@@ -79,7 +79,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
     async (_request, reply) => {
       const kpis = regionalService.getRegionalKpis()
       reply.send(kpis)
-    },
+    }
   )
 
   app.get(
@@ -109,7 +109,7 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(region)
-    },
+    }
   )
 
   app.get(
@@ -139,6 +139,6 @@ export async function regionalReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    },
+    }
   )
 }

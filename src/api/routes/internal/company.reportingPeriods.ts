@@ -29,7 +29,7 @@ async function deleteScope3Emissions(emissions: any) {
 
   if (emissions.scope3.statedTotalEmissions?.id) {
     await emissionsService.deleteStatedTotalEmissions(
-      emissions.scope3.statedTotalEmissions.id,
+      emissions.scope3.statedTotalEmissions.id
     )
   }
 
@@ -53,7 +53,7 @@ async function deleteScope1And2Emissions(emissions: any) {
 async function deleteStatedTotalEmissions(emissions: any) {
   if (emissions.statedTotalEmissions?.id) {
     await emissionsService.deleteStatedTotalEmissions(
-      emissions.statedTotalEmissions.id,
+      emissions.statedTotalEmissions.id
     )
   }
 }
@@ -62,7 +62,7 @@ function buildScope1Promise(
   scope1Payload: any,
   dbEmissions: any,
   createdMetadata: any,
-  verifiedMetadata: any,
+  verifiedMetadata: any
 ) {
   const hasExistingScope1 = Boolean(dbEmissions.scope1?.id)
 
@@ -82,7 +82,7 @@ function buildScope1Promise(
   return emissionsService.upsertScope1(
     dbEmissions,
     _.omit(scope1Payload, 'verified') as any,
-    metadataForScope1,
+    metadataForScope1
   )
 }
 
@@ -90,7 +90,7 @@ function buildScope2Promise(
   scope2Payload: any,
   dbEmissions: any,
   createdMetadata: any,
-  verifiedMetadata: any,
+  verifiedMetadata: any
 ) {
   const hasExistingScope2 = Boolean(dbEmissions.scope2?.id)
 
@@ -110,7 +110,7 @@ function buildScope2Promise(
   return emissionsService.upsertScope2(
     dbEmissions,
     _.omit(scope2Payload, 'verified') as any,
-    metadataForScope2,
+    metadataForScope2
   )
 }
 
@@ -136,7 +136,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostReportingPeriodsBody
       }>,
-      reply,
+      reply
     ) => {
       const { wikidataId } = request.params
       const { reportingPeriods, metadata, replaceAllEmissions } = request.body
@@ -221,7 +221,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   endDate,
                   reportURL,
                   year,
-                },
+                }
               )
 
             const [dbEmissions, dbEconomy] = await Promise.all([
@@ -255,13 +255,13 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                 scope1,
                 dbEmissions,
                 createdMetadata,
-                verifiedMetadata,
+                verifiedMetadata
               ),
               buildScope2Promise(
                 scope2,
                 dbEmissions,
                 createdMetadata,
-                verifiedMetadata,
+                verifiedMetadata
               ),
               scope3 !== undefined &&
                 emissionsService.upsertScope3(
@@ -286,7 +286,7 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                       metadata,
                       user,
                       verified,
-                    }),
+                    })
                 ),
               statedTotalEmissions !== undefined &&
                 emissionsService.upsertStatedTotalEmissions(
@@ -294,19 +294,19 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                   statedTotalEmissions?.verified
                     ? verifiedMetadata
                     : createdMetadata,
-                  _.omit(statedTotalEmissions, 'verified') as any,
+                  _.omit(statedTotalEmissions, 'verified') as any
                 ),
               biogenic !== undefined &&
                 emissionsService.upsertBiogenic(
                   dbEmissions,
                   _.omit(biogenic, 'verified') as any,
-                  biogenic?.verified ? verifiedMetadata : createdMetadata,
+                  biogenic?.verified ? verifiedMetadata : createdMetadata
                 ),
               scope1And2 !== undefined &&
                 emissionsService.upsertScope1And2(
                   dbEmissions,
                   _.omit(scope1And2, 'verified') as any,
-                  scope1And2?.verified ? verifiedMetadata : createdMetadata,
+                  scope1And2?.verified ? verifiedMetadata : createdMetadata
                 ),
               turnover &&
                 companyService.upsertTurnover({
@@ -325,15 +325,15 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
                     : createdMetadata,
                 }),
             ])
-          },
-        ),
+          }
+        )
       )
 
       for (const result of results) {
         if (result.status === 'rejected') {
           console.error(
             'ERROR Creation or update of reporting periods failed',
-            result.reason,
+            result.reason
           )
           return reply.status(500).send({
             message: 'Creation or update of reporting periods failed.',
@@ -342,12 +342,12 @@ export async function companyReportingPeriodsRoutes(app: FastifyInstance) {
       }
 
       return reply.send({ ok: true })
-    },
+    }
   )
 }
 
 export async function companyPublicReportingPeriodsRoutes(
-  app: FastifyInstance,
+  app: FastifyInstance
 ) {
   app.get(
     '/years',
@@ -373,14 +373,14 @@ export async function companyPublicReportingPeriodsRoutes(
       const distinctYears = Array.from(
         new Set(
           reportingPeriods.map((record) =>
-            record.endDate.getFullYear().toString(),
-          ),
-        ),
+            record.endDate.getFullYear().toString()
+          )
+        )
       )
 
       distinctYears.sort()
 
       reply.send(distinctYears)
-    },
+    }
   )
 }

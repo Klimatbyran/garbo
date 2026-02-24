@@ -21,10 +21,10 @@ export async function regionalExportRoutes(app: FastifyInstance) {
       request: FastifyRequest<{
         Querystring: exportQuery
       }>,
-      reply,
+      reply
     ) => {
       const { content, name } = await exportService.exportRegions(
-        request.query.type,
+        request.query.type
       )
       try {
         reply.header('Content-Type', 'application/octet-stream') // Generic binary data
@@ -34,6 +34,6 @@ export async function regionalExportRoutes(app: FastifyInstance) {
       } catch (err) {
         console.log(err)
       }
-    },
+    }
   )
 }

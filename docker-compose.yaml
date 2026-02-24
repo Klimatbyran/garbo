@@ -1,22 +1,22 @@
-version: "3.8"
+version: '3.8'
 services:
   postgres:
     image: postgres
     container_name: garbo_postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_PASSWORD: mysecretpassword
   redis:
     image: redis
     container_name: garbo_redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
   chroma:
     image: chromadb/chroma
     container_name: garbo_chroma
     ports:
-      - "8000:8000"
+      - '8000:8000'
   # ingestor:
   #   image: ghcr.io/nlmatics/nlm-ingestor
   #   container_name: garbo_ingestor

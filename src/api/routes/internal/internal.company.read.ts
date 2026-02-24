@@ -79,7 +79,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       reply.header('ETag', `${currentEtag}`)
 
       reply.send(companies)
-    },
+    }
   )
 
   app.get(
@@ -113,7 +113,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
             }
           : null,
       })
-    },
+    }
   )
 
   app.get(
@@ -132,12 +132,12 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Querystring: CompanySearchQuery }>,
-      reply,
+      reply
     ) => {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
       console.log(companies)
       reply.send(companies)
-    },
+    }
   )
 }

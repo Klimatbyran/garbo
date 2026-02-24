@@ -1,5 +1,4 @@
-
-  export const oldPrompt = `
+export const oldPrompt = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -40,9 +39,7 @@
   }
   `
 
-
-
-  export const lantmannenTest = `
+export const lantmannenTest = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -95,9 +92,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
   }
   `
 
-
-
-  export const lantmannenTestUnkonwnStress = `
+export const lantmannenTestUnkonwnStress = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -159,8 +154,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
   }
   `
 
-
-  export const lantmannenTestBalancedUnknownMb = `
+export const lantmannenTestBalancedUnknownMb = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -230,8 +224,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
   }
   `
 
-
-  export const splitFiscalYearTest = `
+export const splitFiscalYearTest = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -304,10 +297,8 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
   }
   `
 
-
-
-   // current "best"
-   export const promptUntil26November = `
+// current "best"
+export const promptUntil26November = `
    *** Golden Rule ***
    - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
    
@@ -396,8 +387,8 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
    }
    `
 
-      // current "best"
-      export const bothMBandLBtest = `
+// current "best"
+export const bothMBandLBtest = `
       *** Golden Rule ***
       - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
       
@@ -481,8 +472,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
       }
       `
 
-
-  export const lantmannenTestCombined = `
+export const lantmannenTestCombined = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -538,9 +528,8 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
     }]
   }
   `
-  
-  
-  export const marketBasedStressPrompt = `
+
+export const marketBasedStressPrompt = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -587,10 +576,8 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
     }]
   }
   `
-  
 
-
-  export const marketBasedShortVersionPrompt = `
+export const marketBasedShortVersionPrompt = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -633,11 +620,8 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
     }]
   }
   `
-  
 
-
-
-  export const byggmaxImprovements = `
+export const byggmaxImprovements = `
   *** Golden Rule ***
   - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
   
@@ -685,10 +669,7 @@ Example: '3.1 thousand tons' should become '3,100 tons', not be left as '3.1 tho
   }
   `
 
-
-
-
-  // current "best"
+// current "best"
 export const secondprompt = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.
@@ -778,7 +759,6 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
  "scope12": []
 }
 `
-
 
 export const prompt = `
 *** Golden Rule ***
@@ -873,7 +853,6 @@ NEVER CALCULATE ANY EMISSIONS. ONLY REPORT THE DATA AS IT IS IN THE PDF. If you 
  "scope12": []
 }
 `
-
 
 export const promptNew4Dec = `
 *** Golden Rule ***

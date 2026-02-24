@@ -29,7 +29,7 @@ async function getApiToken(user: string) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to get token: ${response.status} ${response.statusText}`,
+      `Failed to get token: ${response.status} ${response.statusText}`
     )
   }
 
@@ -85,7 +85,7 @@ const fetchLogoUrls = async (companies: Company[]) => {
 
         if (!response.ok) {
           console.error(
-            `Failed to fetch ${company.wikidataId}: ${response.status}`,
+            `Failed to fetch ${company.wikidataId}: ${response.status}`
           )
           return null
         }
@@ -102,7 +102,7 @@ const fetchLogoUrls = async (companies: Company[]) => {
         } catch (parseError) {
           console.error(
             `Failed to parse JSON for ${company.wikidataId}:`,
-            parseError,
+            parseError
           )
           console.error('Response text:', text.substring(0, 200))
           return null
@@ -111,7 +111,7 @@ const fetchLogoUrls = async (companies: Company[]) => {
         console.error(`Error fetching ${company.wikidataId}:`, err)
         return null
       }
-    }),
+    })
   )
 
   if (companiesWikiData.length > 0) {
@@ -135,7 +135,7 @@ const fetchLogoUrls = async (companies: Company[]) => {
           id
         ]?.claims?.P154?.[0]?.mainsnak?.datavalue?.value?.replaceAll(
           ' ',
-          '_',
+          '_'
         ) || null
 
       if (!path) {
@@ -166,7 +166,7 @@ const fetchLogoUrls = async (companies: Company[]) => {
 
 const pushCompanyLogos = async (
   logoUrls: LogoUrlsResponse,
-  token: string | null,
+  token: string | null
 ) => {
   if (!logoUrls || !logoUrls.companyLogoUrls) {
     console.log('No logo URLs to push')
@@ -196,7 +196,7 @@ const pushCompanyLogos = async (
           const errorText = await response.text()
           console.error(
             `Failed to update ${company.wikidataId}: ${response.status}`,
-            errorText,
+            errorText
           )
           continue
         }

@@ -1,16 +1,16 @@
-
-
 // Parse the API tokens assuming they are in the environment variables
-const API_TOKENS = process.env.API_TOKENS;
+const API_TOKENS = process.env.API_TOKENS
 if (!API_TOKENS) {
-  throw new Error('API_TOKENS environment variable is not defined');
+  throw new Error('API_TOKENS environment variable is not defined')
 }
-const tokens = API_TOKENS.split(',').reduce((acc, token) => {
-  const [name, value] = token.split(':');
-  acc[name] = value;
-  return acc;
-}, {} as Record<string, string>);
-
+const tokens = API_TOKENS.split(',').reduce(
+  (acc, token) => {
+    const [name, value] = token.split(':')
+    acc[name] = value
+    return acc
+  },
+  {} as Record<string, string>
+)
 
 // Function to fetch companies from a given API URL
 export async function fetchCompanies(baseURL: string | undefined) {
@@ -22,10 +22,12 @@ export async function fetchCompanies(baseURL: string | undefined) {
     headers: {
       Authorization: `Bearer ${tokens['garbo']}`, // Use the appropriate token
     },
-  });
+  })
   if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${baseURL}: ${response.statusText}`);
+    throw new Error(
+      `Failed to fetch data from ${baseURL}: ${response.statusText}`
+    )
   }
-  const data = await response.json();
-  return data;
+  const data = await response.json()
+  return data
 }

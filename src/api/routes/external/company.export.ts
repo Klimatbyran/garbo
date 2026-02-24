@@ -20,7 +20,7 @@ export async function companyExportRoutes(app: FastifyInstance) {
       request: FastifyRequest<{
         Querystring: exportQuery
       }>,
-      reply,
+      reply
     ) => {
       let year: number | undefined = undefined
 
@@ -28,7 +28,7 @@ export async function companyExportRoutes(app: FastifyInstance) {
 
       const { content, name } = await exportService.exportCompanies(
         request.query.type,
-        year,
+        year
       )
       try {
         reply.header('Content-Type', 'application/octet-stream') // Generic binary data
@@ -39,6 +39,6 @@ export async function companyExportRoutes(app: FastifyInstance) {
       } catch (err) {
         console.log(err)
       }
-    },
+    }
   )
 }

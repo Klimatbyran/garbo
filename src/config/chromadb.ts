@@ -12,12 +12,14 @@ if (!parsedEnv.success) {
   console.error('❌ Invalid initialization of ChromaDB environment variables:')
   console.error(parsedEnv.error.format())
 
-  if (parsedEnv.error.errors.some(err => err.path[0] === 'CHROMA_HOST')) {
-    console.error('CHROMA_HOST must be in the format of a string.');
+  if (parsedEnv.error.errors.some((err) => err.path[0] === 'CHROMA_HOST')) {
+    console.error('CHROMA_HOST must be in the format of a string.')
   }
 
-  if (parsedEnv.error.errors.some(err => err.path[0] === 'CHROMA_CHUNK_SIZE')) {
-    console.error('CHROMA_CHUNK_SIZE must be a number.');
+  if (
+    parsedEnv.error.errors.some((err) => err.path[0] === 'CHROMA_CHUNK_SIZE')
+  ) {
+    console.error('CHROMA_CHUNK_SIZE must be a number.')
   }
 
   throw new Error('Invalid initialization of ChromaDB environment variables')
