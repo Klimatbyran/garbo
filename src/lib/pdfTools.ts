@@ -18,10 +18,7 @@ let storage: Storage | null = null
 if (googleScreenshotBucketConfig.bucketKey) {
   try {
     const credentials = JSON.parse(
-      Buffer.from(
-        googleScreenshotBucketConfig.bucketKey,
-        'base64'
-      ).toString()
+      Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
     )
     storage = new Storage({
       credentials,
@@ -54,11 +51,7 @@ export async function extractJsonFromPdf(
   buffer: Buffer
 ): Promise<ParsedDocument> {
   const formData = new FormData()
-  formData.append(
-    'file',
-    new Blob([new Uint8Array(buffer)]),
-    'document.pdf'
-  )
+  formData.append('file', new Blob([new Uint8Array(buffer)]), 'document.pdf')
   const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
 
   let response: Response
