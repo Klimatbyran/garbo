@@ -107,10 +107,7 @@ const checkDB = new DiscordWorker(
         channelId,
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
-<<<<<<< 76-batchs-jobs-update
         batchId: job.data.batchId,
-=======
->>>>>>> main
       },
       opts: {
         attempts: 3,
