@@ -1,22 +1,21 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
 
-import { getGics } from '../../lib/gics'
-import { prisma } from '../../lib/prisma'
-import { getTags } from '../../config/openapi'
-import { CompanySearchQuery, WikidataIdParams } from '../types'
-import { cachePlugin } from '../plugins/cache'
-import { companyService } from '../services/companyService'
+import { getGics } from '../../../lib/gics'
+import { prisma } from '../../../lib/prisma'
+import { getTags } from '../../../config/openapi'
+import { CompanySearchQuery, WikidataIdParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
+import { companyService } from '../../services/companyService'
 import {
   CompanyList,
   wikidataIdParamSchema,
   CompanyDetails,
-  CompanyNameList,
   getErrorSchemas,
   companySearchQuerySchema,
-} from '../schemas'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { redisCache } from '../../..'
 
-export async function companyReadRoutes(app: FastifyInstance) {
+export async function internalCompanyReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
 
   app.get(
@@ -26,7 +25,7 @@ export async function companyReadRoutes(app: FastifyInstance) {
         summary: 'Get all companies',
         description:
           'Retrieve a list of all companies with their emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
 
         response: {
           200: CompanyList,
@@ -137,25 +136,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
     ) => {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
+      console.log(companies)
       reply.send(companies)
-    },
-  )
-
-  app.get(
-    '/names',
-    {
-      schema: {
-        summary: 'Get company names',
-        description: 'Retrieve a list of all company names',
-        tags: getTags('Companies'),
-        response: {
-          200: CompanyNameList,
-        },
-      },
-    },
-    async (request, reply) => {
-      const companyNames = await companyService.getAllCompanyNames()
-      reply.send(companyNames || [])
     },
   )
 }

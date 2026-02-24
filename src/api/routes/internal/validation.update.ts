@@ -1,12 +1,16 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { redisCache } from '../..'
+import { redisCache } from '../../..'
 import {
   claimValidationSchema,
   okResponseSchema,
   wikidataIdParamSchema,
-} from '../schemas'
-import { ClaimValidation, ValidationClaims, WikidataIdParams } from '../types'
-import { validationClaimsCacheKey } from './validation.read'
+} from '../../schemas'
+import {
+  ClaimValidation,
+  ValidationClaims,
+  WikidataIdParams,
+} from '../../types'
+import { validationClaimsCacheKey } from '../external/validation.read'
 
 export async function validationsUpdateRoutes(app: FastifyInstance) {
   app.post(
@@ -28,7 +32,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: ClaimValidation
       }>,
-      reply
+      reply,
     ) => {
       const { wikidataId } = request.params
       const { steal } = request.body
@@ -49,7 +53,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
             storedClaims[wikidataId] = user.githubId
             await redisCache.set(
               validationClaimsCacheKey,
-              JSON.stringify(storedClaims)
+              JSON.stringify(storedClaims),
             )
 
             return reply.send({ ok: true })
@@ -63,7 +67,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
           .status(500)
           .send({ error: 'Failed to fetch validation claims' })
       }
-    }
+    },
   )
 
   app.delete(
@@ -83,7 +87,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
       request: FastifyRequest<{
         Params: WikidataIdParams
       }>,
-      reply
+      reply,
     ) => {
       const { wikidataId } = request.params
       try {
@@ -96,7 +100,7 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
             delete storedClaims[wikidataId]
             await redisCache.set(
               validationClaimsCacheKey,
-              JSON.stringify(storedClaims)
+              JSON.stringify(storedClaims),
             )
           } else {
             return reply.status(401).send({ error: 'Not the claim owner' })
@@ -110,6 +114,6 @@ export async function validationsUpdateRoutes(app: FastifyInstance) {
           .status(500)
           .send({ error: 'Failed to fetch validation claims' })
       }
-    }
+    },
   )
 }

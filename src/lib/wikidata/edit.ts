@@ -1,6 +1,6 @@
 import { ItemId } from 'wikibase-sdk'
-import wikidataConfig from '../../config/wikidata'
 import WBEdit from 'wikibase-edit'
+import wikidataConfig from '../../config/wikidata'
 import {
   RemoveClaim,
   Claim,
@@ -96,7 +96,9 @@ export async function editEntity(
   }
 
   try {
-    const res = await wbEdit.entity.edit(body)
+    await wbEdit.entity.edit(
+      body as Parameters<ReturnType<typeof WBEdit>['entity']['edit']>[0],
+    )
   } catch (error) {
     console.log(`Could not update entity ${entity}: ${error}`)
   }

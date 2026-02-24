@@ -32,7 +32,7 @@ export const wbk = WBK({
 })
 
 export const wikibaseEditConfig = {
-  instance: wikidataConfig.wikidataURL,
+  instance: wikidataConfig.wikidataURL as `http${string}`,
   credentials: {
     oauth: {
       consumer_key: wikidataConfig.wikidataConsumerKey,
