@@ -16,6 +16,9 @@ import { createSafeFolderName } from './pathUtils'
 let storage: Storage | null = null
 
 try {
+  if (!googleScreenshotBucketConfig.bucketKey) {
+    throw new Error('Missing GOOGLE_SCREENSHOT_BUCKET_KEY')
+  }
   const credentials = JSON.parse(
     Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
   )
@@ -49,7 +52,8 @@ export async function extractJsonFromPdf(
   buffer: Buffer
 ): Promise<ParsedDocument> {
   const formData = new FormData()
-  formData.append('file', new Blob([buffer]), 'document.pdf')
+  const fileBytes = Uint8Array.from(buffer)
+  formData.append('file', new Blob([fileBytes]), 'document.pdf')
   const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
 
   let response: Response

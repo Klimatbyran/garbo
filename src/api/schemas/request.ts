@@ -283,3 +283,14 @@ export const exportQuerySchema = z.object({
 export const claimValidationSchema = z.object({
   steal: z.boolean(),
 })
+
+export const companyReport = z.object({
+  name: z.string(),
+  reportYear: z.string().optional(),
+})
+
+export const companyReports = z.array(companyReport)
+
+export const postReportsBodySchema = companyReports
+
+export const postReportsBody = companyReports
