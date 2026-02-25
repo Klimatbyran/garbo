@@ -3,6 +3,7 @@ import { CompanyReports } from '../types'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
+// TODO: Evaluate mapping the firecrawler type to internal type definition.
 type CompanyReportUrls = {
   companyName: string
   results: Array<SearchResultWeb | Document>
@@ -19,16 +20,14 @@ class ReportsService {
       const year = company.reportYear ? `${company.reportYear}` : ''
       const searchQuery = `"${company.name}" ${year} (sustainability report OR annual report) filetype:pdf Sweden`
 
-      const searchResult = await firecrawl.search(searchQuery, { limit: 10 })
+      const searchResult = await firecrawl.search(searchQuery, { limit: 5 })
+      console.log(searchResult)
 
-      if (searchResult) {
-        results.push({
-          companyName: company.name,
-          results: searchResult.web ?? [],
-        })
-      }
+      results.push({
+        companyName: company.name,
+        results: searchResult.web ?? [],
+      })
     }
-
     return results
   }
 }

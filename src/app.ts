@@ -175,6 +175,8 @@ async function authenticatedContext(app: FastifyInstance) {
     prefix: 'api/emissions-assessment',
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
+  /*   app.register(reportsCreateRoutes, { prefix: 'api/reports' })
+   */
 }
 
 export default startApp
