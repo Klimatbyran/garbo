@@ -15,17 +15,19 @@ import { createSafeFolderName } from './pathUtils'
 
 let storage: Storage | null = null
 
-try {
-  const credentials = JSON.parse(
-    Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
-  )
-  storage = new Storage({
-    credentials,
-    projectId: credentials.project_id,
-  })
-} catch (error) {
-  console.error('❌ pdfTools: Error initializing storage')
-  storage = null
+if (googleScreenshotBucketConfig.bucketKey) {
+  try {
+    const credentials = JSON.parse(
+      Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
+    )
+    storage = new Storage({
+      credentials,
+      projectId: credentials.project_id,
+    })
+  } catch (error) {
+    console.error('❌ pdfTools: Error initializing storage')
+    storage = null
+  }
 }
 
 function encodeUriIfNeeded(uri: string): string {
@@ -49,7 +51,7 @@ export async function extractJsonFromPdf(
   buffer: Buffer
 ): Promise<ParsedDocument> {
   const formData = new FormData()
-  formData.append('file', new Blob([buffer]), 'document.pdf')
+  formData.append('file', new Blob([new Uint8Array(buffer)]), 'document.pdf')
   const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
 
   let response: Response

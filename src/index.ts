@@ -30,7 +30,6 @@ async function main() {
       app.register(bullBoard, {
         logLevel: 'silent',
         prefix: apiConfig.bullBoardBasePath,
-        basePath: apiConfig.bullBoardBasePath,
       })
     }
 

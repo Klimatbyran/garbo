@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { redisCache } from '../../..'
-import { ValidationClaimsSchema } from '../../schemas'
+import { getErrorSchemas, ValidationClaimsSchema } from '../../schemas'
 
 export const validationClaimsCacheKey = 'validation:claims'
 
@@ -16,6 +16,7 @@ export async function validationsReadRoutes(app: FastifyInstance) {
 
         response: {
           200: ValidationClaimsSchema,
+          ...getErrorSchemas(500),
         },
       },
     },

@@ -10,7 +10,7 @@ export async function assessEmissions(
 
   const {
     default: { schema, prompt, queryTexts },
-  } = await import('../../prompts/followUp/emissionsAssessment')
+  } = await import('../../workers/followUp/emissionsAssessment')
 
   // Get relevant context from the PDF
   const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 5)
