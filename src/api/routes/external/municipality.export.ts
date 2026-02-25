@@ -21,10 +21,10 @@ export async function municipalityExportRoutes(app: FastifyInstance) {
       request: FastifyRequest<{
         Querystring: exportQuery
       }>,
-      reply,
+      reply
     ) => {
       const { content, name } = await exportService.exportMunicipalities(
-        request.query.type,
+        request.query.type
       )
       try {
         reply.header('Content-Type', 'application/octet-stream') // Generic binary data
@@ -34,6 +34,6 @@ export async function municipalityExportRoutes(app: FastifyInstance) {
       } catch (err) {
         console.log(err)
       }
-    },
+    }
   )
 }

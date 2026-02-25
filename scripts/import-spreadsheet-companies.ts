@@ -10,7 +10,9 @@ import { readFile, writeFile } from 'fs/promises'
 import { resetDB } from '../src/lib/dev-utils'
 
 const workbook = new ExcelJS.Workbook()
-await workbook.xlsx.readFile(resolve('data/Klimatkollen_ Company GHG data.xlsx'))
+await workbook.xlsx.readFile(
+  resolve('data/Klimatkollen_ Company GHG data.xlsx')
+)
 
 const skippedCompanyNames = new Set()
 
@@ -382,7 +384,7 @@ export async function upsertCompanies(companies: CompanyInput[]) {
     })
     const reportingPeriodArgs = [
       `${apiConfig.baseURL}/companies/${wikidataId}/reporting-periods`,
-      {reportingPeriods},
+      { reportingPeriods },
       'alex',
     ] as const
 
@@ -460,9 +462,7 @@ async function main() {
 
   //await resetDB()
 
-  const apiCompaniesFile = resolve(
-    'data/companies.json'
-  )
+  const apiCompaniesFile = resolve('data/companies.json')
 
   const existing = await readFile(apiCompaniesFile, { encoding: 'utf-8' }).then(
     JSON.parse

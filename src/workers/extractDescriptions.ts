@@ -62,11 +62,11 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
     ]
 
     job.log(
-      `For '${companyName}', created the following descriptions: ${descriptions}`,
+      `For '${companyName}', created the following descriptions: ${descriptions}`
     )
 
     return { descriptions: descriptions }
-  },
+  }
 )
 
 export default extractDescriptions

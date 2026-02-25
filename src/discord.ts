@@ -134,7 +134,7 @@ export class Discord {
               case 'editCompanyName': {
                 const job = (await getJob(
                   queueName,
-                  jobId,
+                  jobId
                 )) as EditCompanyNameJob
                 if (!job) await interaction.reply('Job not found')
                 else await editCompanyName.execute(interaction, job)

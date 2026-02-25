@@ -4,7 +4,7 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { AssessmentInput, AssessmentResult } from './types'
 
 export async function assessEmissions(
-  input: AssessmentInput,
+  input: AssessmentInput
 ): Promise<AssessmentResult> {
   const { url, companyName, reportingPeriods, industry } = input
 
@@ -35,7 +35,7 @@ export async function assessEmissions(
     ],
     {
       response_format: zodResponseFormat(schema, 'emissions-assessment'),
-    },
+    }
   )
 
   const assessment = JSON.parse(response)

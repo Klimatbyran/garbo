@@ -10,7 +10,7 @@ export const askStreamWithContext = async (
   markdown: string,
   prompt: string,
   schema: z.ZodSchema,
-  type: string,
+  type: string
 ) => {
   const response = await askStream(
     [

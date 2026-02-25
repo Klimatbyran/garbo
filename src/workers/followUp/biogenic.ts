@@ -68,10 +68,10 @@ const biogenic = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Biogenic,
+      FollowUpType.Biogenic
     )
     return answer
-  },
+  }
 )
 
 export default biogenic

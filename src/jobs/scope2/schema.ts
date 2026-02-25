@@ -25,7 +25,7 @@ export const schema = z.object({
                   'cooling',
                   'unknown',
                   'combined 1+2',
-                ]),
+                ])
               )
               .nullable()
               .optional(),
@@ -47,7 +47,7 @@ export const schema = z.object({
               'wholeCompany',
               'partOfCompany',
             ]),
-          }),
+          })
         ),
         z.null(),
       ]),
@@ -67,14 +67,14 @@ export const schema = z.object({
                         method: z.string(),
                         unit: z.string(),
                         comment: z.string(),
-                      }),
+                      })
                     ),
                     z.null(),
                   ])
                   .nullable()
                   .optional()
                   .describe(
-                    'Max three summarized electricity and heating values to get full scope 2 values',
+                    'Max three summarized electricity and heating values to get full scope 2 values'
                   ),
               explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z
                 .string()
@@ -128,6 +128,6 @@ export const schema = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })

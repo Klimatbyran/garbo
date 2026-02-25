@@ -34,7 +34,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
-      reply,
+      reply
     ) => {
       const { wikidataId } = request.params
       redisCache.clear()
@@ -47,7 +47,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
           .send({ message: 'Deletion of company failed.' })
       }
       return reply.status(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -66,7 +66,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -78,7 +78,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       }
 
       return reply.status(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -97,7 +97,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: WikidataIdParams }>,
-      reply,
+      reply
     ) => {
       const { wikidataId } = request.params
       redisCache.clear()
@@ -110,7 +110,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
           .send({ message: 'Deletion of industry failed.' })
       }
       return reply.status(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -128,7 +128,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       req: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = req.params
       redisCache.clear()
@@ -142,7 +142,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       }
 
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -161,7 +161,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -174,7 +174,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
           .send({ message: 'Deletion of reporting period failed.' })
       }
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -193,7 +193,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -207,7 +207,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       }
 
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -226,7 +226,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -242,7 +242,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       }
 
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -261,7 +261,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -275,7 +275,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
       }
 
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -294,7 +294,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -308,7 +308,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return
       }
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -327,7 +327,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -341,7 +341,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return
       }
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -360,7 +360,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -374,7 +374,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return
       }
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -393,7 +393,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -407,7 +407,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return
       }
       return reply.code(204).send()
-    },
+    }
   )
 
   app.delete(
@@ -426,7 +426,7 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{ Params: GarboEntityId }>,
-      reply,
+      reply
     ) => {
       const { id } = request.params
       redisCache.clear()
@@ -440,6 +440,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return
       }
       return reply.code(204).send()
-    },
+    }
   )
 }

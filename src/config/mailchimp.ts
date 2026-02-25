@@ -17,10 +17,10 @@ if (!parsedEnv.success) {
     parsedEnv.error.errors.some((err) => err.path[0] === 'MAILCHIMP_API_KEY')
   ) {
     console.error(
-      'MAILCHIMP_API_KEY must be a API key in the format of a string.',
+      'MAILCHIMP_API_KEY must be a API key in the format of a string.'
     )
     console.error(
-      'Please ask another member for the key if you did not receive it yet',
+      'Please ask another member for the key if you did not receive it yet'
     )
   }
 

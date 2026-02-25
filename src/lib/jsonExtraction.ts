@@ -109,7 +109,7 @@ export const jsonToTables = (json: ParsedDocument) => {
           name,
           level,
           content,
-        }) as Table,
+        }) as Table
     )
   return tables
 }

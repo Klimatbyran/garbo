@@ -58,7 +58,7 @@ const checkDB = new DiscordWorker(
     const mergedScope12 = mergeScope1AndScope2Results(
       extractScopeEntriesFromFollowUp(scope1),
       extractScopeEntriesFromFollowUp(scope2),
-      extractScopeEntriesFromFollowUp(legacyScope12),
+      extractScopeEntriesFromFollowUp(legacyScope12)
     )
 
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
@@ -86,12 +86,12 @@ const checkDB = new DiscordWorker(
       await apiFetch(`/companies/${wikidataId}`, { body })
 
       await job.sendMessage(
-        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`,
+        `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
       )
     } else {
       job.log(`✅ The company '${companyName}' was found in the database.`)
       await job.sendMessage(
-        `✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`,
+        `✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`
       )
     }
 
@@ -107,6 +107,7 @@ const checkDB = new DiscordWorker(
         channelId,
         autoApprove: job.data.autoApprove,
         replaceAllEmissions: job.data.replaceAllEmissions,
+        batchId: job.data.batchId,
       },
       opts: {
         attempts: 3,

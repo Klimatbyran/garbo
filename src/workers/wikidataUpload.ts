@@ -28,12 +28,12 @@ const wikidataUpload = new DiscordWorker<WikidataUploadJob>(
       const startDate = new Date(reportingPeriod.startDate).toISOString()
       const endDate = new Date(reportingPeriod.endDate).toISOString()
       const referenceUrl = reportingPeriod.reportURL.startsWith(
-        KLIMATKOLLEN_ARCHIVE_PREFIX,
+        KLIMATKOLLEN_ARCHIVE_PREFIX
       )
         ? undefined
         : reportingPeriod.reportURL
       const archiveUrl = reportingPeriod.reportURL.startsWith(
-        KLIMATKOLLEN_ARCHIVE_PREFIX,
+        KLIMATKOLLEN_ARCHIVE_PREFIX
       )
         ? reportingPeriod.reportURL
         : undefined
@@ -44,8 +44,8 @@ const wikidataUpload = new DiscordWorker<WikidataUploadJob>(
             startDate,
             endDate,
             referenceUrl,
-            archiveUrl,
-          ),
+            archiveUrl
+          )
         )
       }
     })
@@ -55,7 +55,7 @@ const wikidataUpload = new DiscordWorker<WikidataUploadJob>(
     bulkCreateOrEditCarbonFootprintClaim(wikidata.node, uniqueClaimSet)
 
     return { success: true }
-  },
+  }
 )
 
 export default wikidataUpload

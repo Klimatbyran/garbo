@@ -27,17 +27,17 @@ if (!parsedEnv.success) {
   if (parsedEnv.error.errors.some((err) => err.path[0] === 'DOCLING_URL')) {
     console.error('DOCLING_URL must be a valid URL or string.')
     console.error(
-      'Examples: http://localhost:5001/v1 (local), https://api.example.com (remote)',
+      'Examples: http://localhost:5001/v1 (local), https://api.example.com (remote)'
     )
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
   if (parsedEnv.error.errors.some((err) => err.path[0] === 'BERGET_AI_TOKEN')) {
     console.error('BERGET_AI_TOKEN must be an API key.')
     console.error(
-      'Please ask another member for the key if you did not receive it yet',
+      'Please ask another member for the key if you did not receive it yet'
     )
   }
 
@@ -61,17 +61,17 @@ const baseUrl = DOCLING_URL.replace(/\/+$/, '')
 if (!DOCLING_USE_LOCAL && (!baseUrl || !BERGET_AI_TOKEN)) {
   // When using Berget format, warn if config is incomplete
   console.warn(
-    '⚠️ Docling configuration appears incomplete when using Berget format (DOCLING_URL and/or BERGET_AI_TOKEN missing).',
+    '⚠️ Docling configuration appears incomplete when using Berget format (DOCLING_URL and/or BERGET_AI_TOKEN missing).'
   )
   console.warn(
-    'Either set DOCLING_USE_LOCAL=true to use local format, or provide DOCLING_URL and BERGET_AI_TOKEN for Berget format.',
+    'Either set DOCLING_USE_LOCAL=true to use local format, or provide DOCLING_URL and BERGET_AI_TOKEN for Berget format.'
   )
 }
 
 // Validate backup API configuration if enabled
 if (USE_BACKUP_API && (!BACKUP_API_URL || !BACKUP_API_TOKEN)) {
   throw new Error(
-    'USE_BACKUP_API is true but BACKUP_API_URL or BACKUP_API_TOKEN is missing',
+    'USE_BACKUP_API is true but BACKUP_API_URL or BACKUP_API_TOKEN is missing'
   )
 }
 

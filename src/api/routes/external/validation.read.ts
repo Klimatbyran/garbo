@@ -22,7 +22,7 @@ export async function validationsReadRoutes(app: FastifyInstance) {
     async (_request, reply) => {
       try {
         const storedClaims: Record<string, string> = (await redisCache.get(
-          validationClaimsCacheKey,
+          validationClaimsCacheKey
         )) ?? { hello: 'bar' }
 
         return reply.send(storedClaims)
@@ -32,6 +32,6 @@ export async function validationsReadRoutes(app: FastifyInstance) {
           .status(500)
           .send({ error: 'Failed to fetch validation claims' })
       }
-    },
+    }
   )
 }

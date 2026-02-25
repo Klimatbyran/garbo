@@ -31,6 +31,8 @@ export class DiscordJob extends Job {
     messageId?: string
     autoApprove: boolean
     approval?: Approval
+    /** Propagated from pipeline-api job create; used for batch filtering. */
+    batchId?: string
   }
 
   //message: any
@@ -47,7 +49,7 @@ export class DiscordJob extends Job {
     data: Approval['data'],
     approved: boolean,
     metadata: Approval['metadata'],
-    summary?: string,
+    summary?: string
   ) => Promise<void>
   isDataApproved: () => boolean
   hasApproval: () => boolean
@@ -74,7 +76,7 @@ function addCustomMethods(job: DiscordJob) {
           } else {
             return value
           }
-        }),
+        })
       )
       .then((objects) => {
         const out: Record<string, any> = {}
@@ -103,7 +105,7 @@ function addCustomMethods(job: DiscordJob) {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendMessage:',
-        job.data.threadId,
+        job.data.threadId
       )
       return undefined
     }
@@ -118,7 +120,7 @@ function addCustomMethods(job: DiscordJob) {
     if (!job.hasValidThreadId()) {
       console.log(
         'Invalid Discord threadId format in sendTyping:',
-        job.data.threadId,
+        job.data.threadId
       )
       return
     }
@@ -131,7 +133,7 @@ function addCustomMethods(job: DiscordJob) {
     data: ChangeDescription,
     approved: boolean = false,
     metadata: Approval['metadata'],
-    summary?: string,
+    summary?: string
   ) => {
     await job.updateData({
       ...job.data,
@@ -194,11 +196,11 @@ function addCustomMethods(job: DiscordJob) {
   }
 
   job.setThreadName = async (
-    name: string,
+    name: string
   ): Promise<TextChannel | undefined> => {
     const threadId = job.data.threadId as string
     const thread = (await discord.client.channels.fetch(
-      threadId,
+      threadId
     )) as TextChannel
     return thread?.setName(name)
   }
@@ -211,7 +213,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
   constructor(
     name: string,
     callback: (job: T, logger: Logger) => any,
-    options?: WorkerOptions,
+    options?: WorkerOptions
   ) {
     super(
       name,

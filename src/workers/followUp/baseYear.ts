@@ -52,10 +52,10 @@ const baseYear = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.BaseYear,
+      FollowUpType.BaseYear
     )
     return answer
-  },
+  }
 )
 
 export default baseYear

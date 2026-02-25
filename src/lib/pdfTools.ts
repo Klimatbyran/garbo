@@ -17,7 +17,7 @@ let storage: Storage | null = null
 
 try {
   const credentials = JSON.parse(
-    Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString(),
+    Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
   )
   storage = new Storage({
     credentials,
@@ -156,13 +156,13 @@ const saveScreenshots = async (
         googleScreenshotBucketConfig.bucketName,
         createSafeFolderName(pdfUrl),
         pageNumber,
-        buffer,
+        buffer
       ).catch((error) => {
         console.error(
           `❌ pdfTools: Failed to upload page ${pageNumber} to Google Cloud Storage:`,
-          error.message,
+          error.message
         )
-      }),
+      })
     )
   }
 

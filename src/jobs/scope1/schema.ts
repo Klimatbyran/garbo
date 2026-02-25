@@ -19,7 +19,7 @@ export const schema = z.object({
                 'tCO2e/revenue',
                 'tCO2/revenue',
                 'other',
-              ]),
+              ])
             ),
             comment: z.string(),
             sourceText: z.string(),
@@ -29,7 +29,7 @@ export const schema = z.object({
               'wholeCompany',
               'partOfCompany',
             ]),
-          }),
+          })
         ),
         z.enum(['none']),
       ]),
@@ -54,11 +54,11 @@ export const schema = z.object({
               unit: emissionUnitSchemaGarbo,
             })
             .describe(
-              'The combined scope 1 and 2 emissions, if other fields are not available',
+              'The combined scope 1 and 2 emissions, if other fields are not available'
             ),
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })

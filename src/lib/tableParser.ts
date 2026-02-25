@@ -93,7 +93,7 @@ const expandColumnSpans = (cell: any): string[] => {
 // so we add the grouping headers as regular rows at the start of the table instead for now.
 const createGroupingHeaderRows = (
   headerRows: any[],
-  mainHeaderRow: any,
+  mainHeaderRow: any
 ): string[] => {
   const groupingRows: string[] = []
 
@@ -151,7 +151,7 @@ export const parseTable = (block: NLMIngestorTable) => {
   if (!validateTableBlock(block)) return block.name
   // Separate header and data rows
   const { headerRows, dataRows } = separateHeaderAndDataRows(
-    block.table_rows || [],
+    block.table_rows || []
   )
 
   // Build multi-level headers
@@ -173,7 +173,7 @@ export const parseTable = (block: NLMIngestorTable) => {
     // Add grouping header rows (all other header rows as data rows)
     const groupingRows = createGroupingHeaderRows(
       headerRows,
-      mostDetailedHeaderRow,
+      mostDetailedHeaderRow
     )
     formattedHeaders.push(...groupingRows)
   }

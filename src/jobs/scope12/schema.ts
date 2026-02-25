@@ -58,7 +58,7 @@ export const oldSchema = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 
@@ -91,7 +91,7 @@ export const schema = z.object({
                     specifiedScope: z.array(z.enum(['scope1', 'scope2'])),
                     unit: z.string(),
                     comment: z.string(),
-                  }),
+                  })
                 ),
                 z.null(),
               ]),
@@ -138,7 +138,7 @@ export const schema = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 
@@ -164,7 +164,7 @@ export const schemaScope1And2 = z.object({
               unit: emissionUnitSchemaGarbo,
             })
             .describe(
-              'The combined scope 1 and 2 emissions, if other fields are not available',
+              'The combined scope 1 and 2 emissions, if other fields are not available'
             ),
           z.null(),
         ])
@@ -196,7 +196,7 @@ export const schemaScope1And2 = z.object({
                       nameOfRow: z.string(),
                     }),
                     comment: z.string(),
-                  }),
+                  })
                 ),
                 z.null(),
               ]),
@@ -209,14 +209,14 @@ export const schemaScope1And2 = z.object({
                         method: z.string(),
                         unit: z.string(),
                         comment: z.string(),
-                      }),
+                      })
                     ),
                     z.null(),
                   ])
                   .nullable()
                   .optional()
                   .describe(
-                    'Max three summarized electricity and heating values to get full scope 2 values',
+                    'Max three summarized electricity and heating values to get full scope 2 values'
                   ),
               explanationOfWhyYouPutValuesToMbOrLbOrUnknown: z
                 .string()
@@ -261,6 +261,6 @@ export const schemaScope1And2 = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })

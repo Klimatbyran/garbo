@@ -351,10 +351,10 @@ const industryGics = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.IndustryGics,
+      FollowUpType.IndustryGics
     )
     return answer
-  },
+  }
 )
 
 export default industryGics

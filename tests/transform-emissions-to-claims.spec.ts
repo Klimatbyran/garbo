@@ -28,7 +28,7 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
     expect(claims1).toEqual([
       {
@@ -47,8 +47,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -56,8 +56,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -65,8 +65,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
   })
 
@@ -104,7 +104,7 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
 
     expect(claims1).toEqual([
@@ -140,8 +140,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -149,8 +149,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -158,8 +158,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
   })
 
@@ -182,7 +182,7 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
 
     const expectedCat1 = wikidataConfig.translateIdToCategory(cat1Id)

@@ -30,7 +30,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostIndustryBody
       }>,
-      reply,
+      reply
     ) => {
       const {
         industry: { subIndustryCode },
@@ -49,7 +49,7 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
         await industryService.upsertIndustry(
           wikidataId,
           { subIndustryCode },
-          createdMetadata,
+          createdMetadata
         )
       } catch (error) {
         console.error('ERROR Creation or update of industry failed:', error)
@@ -59,6 +59,6 @@ export async function companyIndustryRoutes(app: FastifyInstance) {
       }
 
       return reply.send({ ok: true })
-    },
+    }
   )
 }

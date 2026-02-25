@@ -105,7 +105,7 @@ export const Scope2BaseSchema = z.object({
 })
 
 const withScope2Refinement = <T extends z.ZodRawShape>(
-  schema: z.ZodObject<T>,
+  schema: z.ZodObject<T>
 ) =>
   schema.refine(
     ({ mb, lb, unknown }) =>
@@ -113,7 +113,7 @@ const withScope2Refinement = <T extends z.ZodRawShape>(
     {
       message:
         'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-    },
+    }
   )
 
 export const Scope2Schema = withScope2Refinement(Scope2BaseSchema)
@@ -305,7 +305,7 @@ const MinimalScope2Schema = withScope2Refinement(
   Scope2BaseSchema.omit({
     id: true,
     metadata: true,
-  }).extend({ metadata: MinimalMetadataSchema }),
+  }).extend({ metadata: MinimalMetadataSchema })
 )
 
 const MinimalStatedTotalEmissionsSchema = StatedTotalEmissionsSchema.omit({
@@ -390,11 +390,11 @@ export const CompanyDetails = CompanyBase.extend({
 export const CompanyNameList = z.array(
   z.object({
     name: z.string(),
-  }),
+  })
 )
 
 function transformYearlyData(
-  yearlyData: Record<string, number>,
+  yearlyData: Record<string, number>
 ): { year: string; value: number }[] {
   return Object.entries(yearlyData).map(([year, value]) => ({
     year,
@@ -487,7 +487,7 @@ export const InputRegionalDataSchema = z.array(
       totalTrend: data.total_trend,
       total_trend: undefined,
       emissions_slope: undefined,
-    })),
+    }))
 )
 
 export const RegionalDataSchema = z.object({
@@ -537,7 +537,7 @@ export const InputNationalDataSchema = z.array(
     trend: InputYearlyDataSchema,
     historicalEmissionChangePercent: z.number(),
     meetsParis: z.string().transform((val) => val === 'True'),
-  }),
+  })
 )
 
 export const NationDataSchema = z.object({

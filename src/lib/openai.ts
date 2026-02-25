@@ -20,7 +20,7 @@ const openai = new OpenAI({
 
 const ask = async (
   messages: ChatCompletionMessageParam[],
-  options?: RequestOptions & { response_format?: ResponseFormatJSONSchema },
+  options?: RequestOptions & { response_format?: ResponseFormatJSONSchema }
 ) => {
   const response = await openai.chat.completions.create({
     messages: messages.filter((m) => m.content),
@@ -56,7 +56,7 @@ const askStream = async (
   )[],
   options: RequestOptions & {
     onParagraph?: (response: string, paragraph: string) => void
-  } & { response_format?: ResponseFormatJSONSchema },
+  } & { response_format?: ResponseFormatJSONSchema }
 ) => {
   const { stream: _, ...safeOpenAIOptions } = options
 

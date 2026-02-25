@@ -41,7 +41,7 @@ async function handleOverrideWikidataId(
 
   if (!wikidataEntities.length) {
     throw new Error(
-      `No Wikidata entity found for overrideWikidataId ${overrideWikidataId}`,
+      `No Wikidata entity found for overrideWikidataId ${overrideWikidataId}`
     )
   }
 
@@ -129,7 +129,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
           metadata,
         },
         null,
-        2,
+        2
       )
     }
 
@@ -139,7 +139,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       const result = await handleOverrideWikidataId(
         job,
         companyName,
-        overrideWikidataId,
+        overrideWikidataId
       )
       if (result) return result
     }
@@ -279,9 +279,9 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
             ? { role: 'user', content: job.stacktrace.join('\n') }
             : undefined,
         ].filter(
-          (m) => m && m.content?.length > 0,
+          (m) => m && m.content?.length > 0
         ) as ChatCompletionMessageParam[],
-        { response_format: zodResponseFormat(wikidata.schema, 'wikidata') },
+        { response_format: zodResponseFormat(wikidata.schema, 'wikidata') }
       )
 
       job.log('Response: ' + response)
@@ -306,7 +306,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     try {
       const checkIfWikidataExistInProductionRes = await fetch(
         apiConfig.prodBaseURL + '/companies/' + wikidataForApproval.node,
-        { method: 'GET', headers: { 'Content-Type': 'application/json' } },
+        { method: 'GET', headers: { 'Content-Type': 'application/json' } }
       )
       if (checkIfWikidataExistInProductionRes.ok) {
         const checkIfWikidataExistInProduction =
@@ -341,7 +341,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
               metadata,
             },
             null,
-            2,
+            2
           )
         }
       }

@@ -99,10 +99,10 @@ const economy = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Economy,
+      FollowUpType.Economy
     )
     return answer
-  },
+  }
 )
 
 export default economy

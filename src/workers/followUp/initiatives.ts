@@ -56,10 +56,10 @@ const initiatives = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Initiatives,
+      FollowUpType.Initiatives
     )
     return answer
-  },
+  }
 )
 
 export default initiatives

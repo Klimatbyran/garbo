@@ -17,7 +17,7 @@ if (!parsedEnv.success) {
     console.error('NLM_INGESTOR_URL must be a valid URL or string.')
     console.error('When running locally, it is typically http://0.0.0.0:5001')
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 

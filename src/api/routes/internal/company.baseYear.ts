@@ -32,7 +32,7 @@ export async function companyBaseYearRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostBaseYearBody
       }>,
-      reply,
+      reply
     ) => {
       const { wikidataId } = request.params
       const { baseYear, metadata, verified } = request.body
@@ -47,7 +47,7 @@ export async function companyBaseYearRoutes(app: FastifyInstance) {
         await baseYearService.upsertBaseYear(
           wikidataId,
           baseYear,
-          createdMetadata,
+          createdMetadata
         )
       } catch (error) {
         console.error('ERROR Creation or update of base year failed:', error)
@@ -57,6 +57,6 @@ export async function companyBaseYearRoutes(app: FastifyInstance) {
       }
 
       return reply.send({ ok: true })
-    },
+    }
   )
 }

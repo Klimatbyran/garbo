@@ -82,7 +82,7 @@ export const newSchema = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 
@@ -138,7 +138,7 @@ export const newSchemaWithInstructions = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 
@@ -193,7 +193,7 @@ export const newSchemaWithInstructionsArrayOfExplanations = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 
@@ -224,11 +224,11 @@ export const schemaRecency = z.object({
                     number: z.number(),
                     method: z.string(),
                     specifiedScope: z.array(
-                      z.enum(['scope1', 'scope2', 'scope3']),
+                      z.enum(['scope1', 'scope2', 'scope3'])
                     ),
                     unit: z.string(),
                     comment: z.string(),
-                  }),
+                  })
                 ),
                 z.null(),
               ]),
@@ -275,7 +275,7 @@ export const schemaRecency = z.object({
           z.null(),
         ])
         .optional(),
-    }),
+    })
   ),
 })
 

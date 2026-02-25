@@ -188,7 +188,7 @@ export const schemaWithoutUnitInstruction = z.object({
         }),
         z.null(),
       ]),
-    }),
+    })
   ),
 })
 
@@ -223,7 +223,7 @@ export const schemaWithSubValuesForCategory = z.object({
         }),
         z.null(),
       ]),
-    }),
+    })
   ),
 })
 

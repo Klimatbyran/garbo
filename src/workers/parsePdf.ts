@@ -34,7 +34,7 @@ const parsePdf = new DiscordWorker(
       if (forceReindex) {
         try {
           job.log(
-            'forceReindex enabled: deleting existing vector index (if any)',
+            'forceReindex enabled: deleting existing vector index (if any)'
           )
           await vectorDB.deleteReport(url)
           job.log('deleteReport completed')
@@ -86,7 +86,7 @@ const parsePdf = new DiscordWorker(
       throw new Error(error)
     }
   },
-  { concurrency: 1, connection: redis, lockDuration: 5 * 60 * 1000 },
+  { concurrency: 1, connection: redis, lockDuration: 5 * 60 * 1000 }
 )
 
 export default parsePdf

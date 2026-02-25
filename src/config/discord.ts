@@ -16,27 +16,27 @@ if (!parsedEnv.success) {
 
   if (
     parsedEnv.error.errors.some(
-      (err) => err.path[0] === 'DISCORD_APPLICATION_ID',
+      (err) => err.path[0] === 'DISCORD_APPLICATION_ID'
     )
   ) {
     console.error(
-      'DISCORD_APPLICATION_ID must be an ID in the form of a string.',
+      'DISCORD_APPLICATION_ID must be an ID in the form of a string.'
     )
     console.error(
-      'When running locally, check the .env.example file for how to gather this variable.',
+      'When running locally, check the .env.example file for how to gather this variable.'
     )
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
   if (parsedEnv.error.errors.some((err) => err.path[0] === 'DISCORD_TOKEN')) {
     console.error('DISCORD_TOKEN must be a key in the form of a string.')
     console.error(
-      'When running locally, check the .env.example file for how to gather this variable.',
+      'When running locally, check the .env.example file for how to gather this variable.'
     )
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
@@ -45,10 +45,10 @@ if (!parsedEnv.success) {
   ) {
     console.error('DISCORD_SERVER_ID must be an ID in the form of a string.')
     console.error(
-      'When running locally, check the .env.example file for how to gather this variable.',
+      'When running locally, check the .env.example file for how to gather this variable.'
     )
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 
@@ -57,10 +57,10 @@ if (!parsedEnv.success) {
   ) {
     console.error('DISCORD_CHANNEL_ID must be an ID in the form of a string.')
     console.error(
-      'When running locally, check the .env.example file for how to gather this variable.',
+      'When running locally, check the .env.example file for how to gather this variable.'
     )
     console.error(
-      'In production, ensure this is correctly set in your Kubernetes config.',
+      'In production, ensure this is correctly set in your Kubernetes config.'
     )
   }
 

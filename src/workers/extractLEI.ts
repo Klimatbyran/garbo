@@ -30,7 +30,7 @@ const extractLEI = new DiscordWorker<LEIJob>(
       job.log('Results: ' + JSON.stringify(searchResults, null, 2))
       if (searchResults.length === 0) {
         await job.sendMessage(
-          `❌ Did not find any LEI number for: ${companyName}.`,
+          `❌ Did not find any LEI number for: ${companyName}.`
         )
         job.log(`❌ Could not find a valid LEI for '${companyName}' in GLEIF.`)
         return { lei: undefined, wikidataId: wikidataId }
@@ -54,9 +54,9 @@ const extractLEI = new DiscordWorker<LEIJob>(
               ? { role: 'user', content: job.stacktrace.join('\n') }
               : undefined,
           ].filter(
-            (m) => m && m.content?.length > 0,
+            (m) => m && m.content?.length > 0
           ) as ChatCompletionMessageParam[],
-          { response_format: zodResponseFormat(leiSchema, 'lei') },
+          { response_format: zodResponseFormat(leiSchema, 'lei') }
         )
 
         job.log('Response: ' + response)
@@ -73,7 +73,7 @@ const extractLEI = new DiscordWorker<LEIJob>(
     }
     job.log(`✅ Found LEI for '${companyName}': ${lei}`)
     return { lei: lei, wikidataId: wikidataId }
-  },
+  }
 )
 
 export default extractLEI

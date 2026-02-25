@@ -31,7 +31,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostCompanyBody
       }>,
-      reply,
+      reply
     ) => {
       const {
         name,
@@ -73,6 +73,6 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           .status(500)
           .send({ message: 'Creation or update of company failed.' })
       }
-    },
+    }
   )
 }

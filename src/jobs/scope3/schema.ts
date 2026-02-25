@@ -32,6 +32,6 @@ export const schema = z.object({
         }),
         z.null(),
       ]),
-    }),
+    })
   ),
 })

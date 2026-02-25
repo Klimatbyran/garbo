@@ -48,14 +48,14 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
     const currentLei = existingCompany?.lei
 
     job.log(
-      `🔍 Comparing LEI for '${companyName}': \nCurrent LEI: '${currentLei}'\nNew LEI: '${lei}'`,
+      `🔍 Comparing LEI for '${companyName}': \nCurrent LEI: '${currentLei}'\nNew LEI: '${lei}'`
     )
 
     const comparisonResult = compareLei(currentLei, lei)
 
     if (!comparisonResult.shouldUpdate) {
       job.log(
-        `✅ No changes detected for '${companyName}'. Current LEI is already correct.`,
+        `✅ No changes detected for '${companyName}'. Current LEI is already correct.`
       )
       return
     }
@@ -67,7 +67,7 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
     }
 
     job.log(
-      `⚡ Detected changes for '${companyName}', enqueuing save operation...`,
+      `⚡ Detected changes for '${companyName}', enqueuing save operation...`
     )
     await saveToAPI.queue.add(`${companyName} - LEI Update`, {
       ...job.data,
@@ -78,7 +78,7 @@ const diffLEI = new DiscordWorker<DiffLEIJob>(
     })
 
     job.log(`✅ Enqueued LEI update for '${companyName}' with LEI: '${lei}'.`)
-  },
+  }
 )
 
 export default diffLEI

@@ -23,13 +23,13 @@ const main = async () => {
   console.log(`Suite: ${suiteName}`)
   console.log(`Runs per test: ${runsPerTest}`)
   console.log(
-    `Files: ${fileNamesToCheck?.length ? fileNamesToCheck.join(', ') : 'ALL'}`,
+    `Files: ${fileNamesToCheck?.length ? fileNamesToCheck.join(', ') : 'ALL'}`
   )
   console.log(
-    `Years: ${yearsToCheck?.length ? yearsToCheck.join(', ') : 'ALL'}`,
+    `Years: ${yearsToCheck?.length ? yearsToCheck.join(', ') : 'ALL'}`
   )
   console.log(
-    `Data key: ${dataKey ?? (suiteName.includes('scope3') ? 'scope3' : 'scope12')}`,
+    `Data key: ${dataKey ?? (suiteName.includes('scope3') ? 'scope3' : 'scope12')}`
   )
   console.log('———————————————')
 
@@ -42,12 +42,12 @@ const main = async () => {
       testSuite,
       yearsToCheck ?? [],
       fileNamesToCheck ?? [],
-      resolvedDataKey,
+      resolvedDataKey
     )
 
     if (testFiles.length === 0) {
       console.error(
-        '❌ No test files found. Please add .md/.txt files with corresponding expected results to the input/ directory',
+        '❌ No test files found. Please add .md/.txt files with corresponding expected results to the input/ directory'
       )
       process.exit(1)
     }
@@ -68,7 +68,7 @@ const main = async () => {
 
     console.log('\n🎉 Comparison test completed!')
     console.log(
-      `📊 Total tests run: ${config.prompts.length * config.testFiles.length * config.runsPerTest}`,
+      `📊 Total tests run: ${config.prompts.length * config.testFiles.length * config.runsPerTest}`
     )
   } catch (error) {
     console.error(`❌ Error running comparison test:`, error)

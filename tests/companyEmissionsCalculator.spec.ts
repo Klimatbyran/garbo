@@ -19,7 +19,7 @@ describe('calculatedTotalEmissions', () => {
     expect(
       calculatedTotalEmissions({
         statedTotalEmissions: { total: null, unit: 'tCO2e' },
-      }),
+      })
     ).toBeNull()
   })
 })

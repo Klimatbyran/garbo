@@ -15,7 +15,7 @@ if (!parsedEnv.success) {
   if (parsedEnv.error.errors.some((err) => err.path[0] === 'OPENAI_API_KEY')) {
     console.error('OPENAI_API_KEY must be a key in the form of a string.')
     console.error(
-      'Please ask another member for the key if you did not receive it yet',
+      'Please ask another member for the key if you did not receive it yet'
     )
   }
 

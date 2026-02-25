@@ -6,7 +6,7 @@ console.log('Starting workers...')
 Promise.all(
   workers.map((worker) => {
     return worker.run()
-  }),
+  })
 )
   .then((results) => results.join('\n'))
   .then(console.log)
@@ -18,7 +18,7 @@ Promise.all(
 async function connectWithRetry<T>(
   fn: () => Promise<T>,
   maxRetries = 5,
-  delay = 1000,
+  delay = 1000
 ): Promise<T> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -27,7 +27,7 @@ async function connectWithRetry<T>(
       if (attempt === maxRetries) throw err
       const error = err as Error
       console.log(
-        `Connection attempt ${attempt} failed: ${error.message}. Retrying in ${delay}ms...`,
+        `Connection attempt ${attempt} failed: ${error.message}. Retrying in ${delay}ms...`
       )
       await new Promise((resolve) => setTimeout(resolve, delay))
       delay *= 2 // Exponential backoff

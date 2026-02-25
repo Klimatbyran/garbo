@@ -26,7 +26,7 @@ async function fetchJsonWithRetries<T = any>(
     maxAttempts?: number
     expectedContentType?: string
     context?: string
-  },
+  }
 ): Promise<T> {
   let attempt = 0
   let res: Response | undefined
@@ -50,7 +50,7 @@ async function fetchJsonWithRetries<T = any>(
   if (!res.ok) {
     const text = await res.text().catch(() => '')
     throw new Error(
-      `${ctx}HTTP ${res.status} ${res.statusText} – body: ${text.slice(0, 300)}`,
+      `${ctx}HTTP ${res.status} ${res.statusText} – body: ${text.slice(0, 300)}`
     )
   }
 
@@ -58,7 +58,7 @@ async function fetchJsonWithRetries<T = any>(
   if (!ct.includes(expectedContentType)) {
     const text = await res.text().catch(() => '')
     throw new Error(
-      `${ctx}returned non-JSON (${ct}) – body: ${text.slice(0, 300)}`,
+      `${ctx}returned non-JSON (${ct}) – body: ${text.slice(0, 300)}`
     )
   }
 
@@ -140,7 +140,7 @@ export async function searchCompany({
       maxAttempts: 3,
       expectedContentType: 'application/json',
       context: 'Wikidata search',
-    },
+    }
   )) as SearchResponse
 
   if ((response as any)?.error) {
@@ -205,7 +205,7 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
 
       const getQualifierValue = (
         propertyId: string,
-        transformFn?: (value: any) => any,
+        transformFn?: (value: any) => any
       ) => {
         if (!claim.qualifiers || !claim.qualifiers[propertyId]) return ''
         const value = claim.qualifiers[propertyId][0].datavalue.value
@@ -219,16 +219,16 @@ export async function getClaims(entity: ItemId): Promise<Claim[]> {
 
       return {
         startDate: getQualifierValue(START_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time),
+          transformFromWikidataDateStringToDate(value.time)
         ),
         endDate: getQualifierValue(END_TIME, (value) =>
-          transformFromWikidataDateStringToDate(value.time),
+          transformFromWikidataDateStringToDate(value.time)
         ),
         value: claim.mainsnak.datavalue.value.amount,
         category: getQualifierValue(APPLIES_TO_PART, (value) => value.id),
         scope: getQualifierValue(
           OBJECT_OF_STATEMENT_HAS_ROLE,
-          (value) => value.id,
+          (value) => value.id
         ),
         id: claim.id,
         referenceUrl: getReferenceValue(REFERENCE_URL),

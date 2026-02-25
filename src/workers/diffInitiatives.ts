@@ -31,7 +31,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         'initiatives',
         companyName,
         wikidata,
-        job.getApprovedBody(),
+        job.getApprovedBody()
       )
       return
     }
@@ -53,7 +53,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         'initiatives',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
       )
     }
 

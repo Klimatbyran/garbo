@@ -19,7 +19,7 @@ const emissionsAssessmentSchema = z.object({
 
 const getCompanyEmissionsDataFromDatabase = async (
   wikidataId: string,
-  years: string[],
+  years: string[]
 ): Promise<CompanyWithEmissions | null> => {
   const sortedYears = [...years].sort()
 
@@ -37,7 +37,7 @@ const getCompanyEmissionsDataFromDatabase = async (
 }
 
 const companyIsValid = (
-  company: CompanyWithEmissions,
+  company: CompanyWithEmissions
 ): { valid: boolean; message: string } => {
   if (company.reportingPeriods.length === 0) {
     return {
@@ -82,7 +82,7 @@ export async function emissionsAssessmentRoutes(app: FastifyInstance) {
 
         const company = await getCompanyEmissionsDataFromDatabase(
           wikidataId,
-          years,
+          years
         )
 
         if (!company) {

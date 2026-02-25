@@ -31,7 +31,7 @@ export const loadTestSuite = async (suiteName: string): Promise<TestSuite> => {
 
     if (!testSuiteModule.testSuite) {
       throw new Error(
-        `Test suite '${suiteName}' does not export a 'testSuite' object`,
+        `Test suite '${suiteName}' does not export a 'testSuite' object`
       )
     }
 
@@ -49,7 +49,7 @@ export const getInputDirectory = (suiteName: string): string => {
 
 export const shouldIncludeFile = (
   fileName: string,
-  fileNamesToCheck: string[],
+  fileNamesToCheck: string[]
 ): boolean => {
   if (fileNamesToCheck.length === 0) return true
   return fileNamesToCheck.includes(fileName)
@@ -57,7 +57,7 @@ export const shouldIncludeFile = (
 
 export const getExpectedResultKey = (
   baseName: string,
-  testSuite: TestSuite,
+  testSuite: TestSuite
 ): string => {
   return testSuite.testFileMapping?.[baseName] || baseName
 }
@@ -78,7 +78,7 @@ export const filterExpectedResultByYears = (
   return {
     ...expectedResult,
     [dataKey]: expectedResult[dataKey].filter((item: any) =>
-      yearsToCheck.includes(item.year),
+      yearsToCheck.includes(item.year)
     ),
   }
 }
@@ -97,7 +97,7 @@ export const loadTestFile = (
 
     if (!expectedResult) {
       console.warn(
-        `⚠️  No expected result found for ${baseName} (key: ${expectedResultKey})`,
+        `⚠️  No expected result found for ${baseName} (key: ${expectedResultKey})`
       )
       return null
     }
@@ -105,11 +105,11 @@ export const loadTestFile = (
     const filteredExpectedResult = filterExpectedResultByYears(
       expectedResult,
       yearsToCheck,
-      dataKey,
+      dataKey
     )
 
     console.log(
-      `✅ Loaded test file: ${baseName} (expected: ${expectedResultKey})`,
+      `✅ Loaded test file: ${baseName} (expected: ${expectedResultKey})`
     )
 
     return {
@@ -142,7 +142,7 @@ export const loadTestFiles = (
 
   console.log(`🔍 Found ${files.length} files in input directory`)
   console.log(
-    `🎯 Looking for files: ${fileNamesToCheck.length > 0 ? fileNamesToCheck.join(', ') : 'ALL FILES'}`,
+    `🎯 Looking for files: ${fileNamesToCheck.length > 0 ? fileNamesToCheck.join(', ') : 'ALL FILES'}`
   )
 
   for (const file of files) {
@@ -164,7 +164,7 @@ export const loadTestFiles = (
       baseName,
       testSuite,
       yearsToCheck,
-      dataKey,
+      dataKey
     )
 
     if (testFile) {

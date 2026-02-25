@@ -16,7 +16,7 @@ const followUpScope1 = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Scope1,
+      FollowUpType.Scope1
     )
 
     return answer

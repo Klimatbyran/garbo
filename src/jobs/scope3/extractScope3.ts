@@ -9,7 +9,7 @@ export const extractScope3 = async (url: string) => {
     'scope3',
     prompt,
     schema,
-    queryTexts,
+    queryTexts
   )
   return response
 }

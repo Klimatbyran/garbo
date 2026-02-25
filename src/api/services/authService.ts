@@ -28,7 +28,7 @@ class AuthService {
       },
       {
         headers: { Accept: 'application/json' },
-      },
+      }
     )
 
     const accessToken = accessTokenRes.data.access_token
@@ -40,7 +40,7 @@ class AuthService {
           Authorization: 'Bearer ' + accessToken,
           Accept: 'application/vnd.github+json',
         },
-      },
+      }
     )
 
     const userinfo = userinfoRes.data
@@ -55,7 +55,7 @@ class AuthService {
           Authorization: 'Bearer ' + accessToken,
           Accept: 'application/vnd.github+json',
         },
-      },
+      }
     )
 
     if (isMember.status !== 204) {

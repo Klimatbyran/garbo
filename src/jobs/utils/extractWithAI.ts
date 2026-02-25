@@ -6,7 +6,7 @@ export const extractDataFromMarkdown = async (
   markdown: string,
   type: string,
   prompt: string,
-  schema: z.ZodSchema,
+  schema: z.ZodSchema
 ) => {
   try {
     return await askStreamWithContext(markdown, prompt, schema, type)
@@ -26,7 +26,7 @@ export const extractDataFromUrl = async (
   type: string,
   prompt: string,
   schema: z.ZodSchema,
-  queryTexts: string[],
+  queryTexts: string[]
 ) => {
   let markdown = ''
   try {
@@ -52,7 +52,7 @@ export const extractDataFromUrl = async (
       markdown,
       type,
       prompt,
-      schema,
+      schema
     )
     return response
   } catch (error: any) {

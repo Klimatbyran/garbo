@@ -56,10 +56,10 @@ const goals = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Goals,
+      FollowUpType.Goals
     )
     return answer
-  },
+  }
 )
 
 export default goals

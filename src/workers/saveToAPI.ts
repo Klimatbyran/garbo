@@ -13,11 +13,11 @@ export interface SaveToApiJob extends DiscordJob {
 
 function removeNullValuesFromGarbo(
   data: any,
-  preserveNullsInEmissions: boolean = false,
+  preserveNullsInEmissions: boolean = false
 ): any {
   if (Array.isArray(data)) {
     const mapped = data.map((item) =>
-      removeNullValuesFromGarbo(item, preserveNullsInEmissions),
+      removeNullValuesFromGarbo(item, preserveNullsInEmissions)
     )
 
     //filtering out undefined values from arrays, but not nulls, if we are preserving nulls in emissions:
@@ -35,7 +35,7 @@ function removeNullValuesFromGarbo(
 
         const sanitizedValue = removeNullValuesFromGarbo(
           value,
-          preserveNullsInEmissions,
+          preserveNullsInEmissions
         )
         //when working our way 'back up' from the bottom of the tree, we preserve children values that still have a null or a value.
         if (preserveNullsInEmissions) {
@@ -46,7 +46,7 @@ function removeNullValuesFromGarbo(
         }
         return acc
       },
-      {} as Record<string, any>,
+      {} as Record<string, any>
     )
 
     if (preserveNullsInEmissions) {
@@ -90,12 +90,12 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
         `/companies/${wikidataId}/${apiSubEndpoint}`,
         {
           body: sanitizedBody,
-        },
+        }
       )
 
       if (result === null) {
         throw new Error(
-          `API endpoint not found: /companies/${wikidataId}/${apiSubEndpoint}`,
+          `API endpoint not found: /companies/${wikidataId}/${apiSubEndpoint}`
         )
       }
 

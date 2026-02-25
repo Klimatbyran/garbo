@@ -83,7 +83,7 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
     tags[tagName] = { name: tagName, ...tag }
     return tags
   },
-  {} as Record<TagName, Tag>,
+  {} as Record<TagName, Tag>
 )
 
 /**

@@ -165,7 +165,7 @@ const calculateAverage = (numbers: number[]): number => {
 }
 
 const determineDifficulty = (
-  avgAccuracy: number,
+  avgAccuracy: number
 ): 'easy' | 'medium' | 'hard' => {
   if (avgAccuracy >= DIFFICULTY_THRESHOLDS.EASY) return 'easy'
   if (avgAccuracy >= DIFFICULTY_THRESHOLDS.MEDIUM) return 'medium'
@@ -179,7 +179,7 @@ const determineDifficulty = (
 const handleNullComparison = (
   expected: any,
   actual: any,
-  path: string,
+  path: string
 ): JsonDiff[] => {
   if (expected === null && actual === null) return []
   if (expected === null && actual !== null) {
@@ -203,7 +203,7 @@ const handleNullComparison = (
 const handlePrimitiveComparison = (
   expected: any,
   actual: any,
-  path: string,
+  path: string
 ): JsonDiff[] => {
   if (expected !== actual) {
     // Special handling for numbers - check for precision differences
@@ -217,7 +217,7 @@ const handlePrimitiveComparison = (
 
       if (roundedExpected === roundedActual) {
         console.log(
-          `⚠️  Precision difference at ${path}: expected ${expected}, got ${actual} (rounded to ${minDecimals} decimals: both ${roundedExpected})`,
+          `⚠️  Precision difference at ${path}: expected ${expected}, got ${actual} (rounded to ${minDecimals} decimals: both ${roundedExpected})`
         )
         return [] // Don't add to diffs - not counted as error
       }
@@ -231,7 +231,7 @@ const handlePrimitiveComparison = (
 const handleArrayComparison = (
   expected: any[],
   actual: any[],
-  path: string,
+  path: string
 ): JsonDiff[] => {
   if (!Array.isArray(actual)) {
     return [{ path, expected, actual, type: 'type_mismatch' }]
@@ -268,7 +268,7 @@ const handleArrayComparison = (
 const handleObjectComparison = (
   expected: any,
   actual: any,
-  path: string,
+  path: string
 ): JsonDiff[] => {
   // Check for null/undefined first
   const nullDiffs = handleNullComparison(expected, actual, path)
@@ -326,7 +326,7 @@ const handleObjectComparison = (
 const compareJson = (
   expected: any,
   actual: any,
-  path: string = '',
+  path: string = ''
 ): JsonDiff[] => {
   // Handle null/undefined cases
   const nullDiffs = handleNullComparison(expected, actual, path)
@@ -366,7 +366,7 @@ const loadHashMappings = (outputDir: string): HashMappings => {
   try {
     const hashMappings = JSON.parse(readFileSync(hashMappingsFile, 'utf-8'))
     console.log(
-      `📖 Loaded existing hash mappings: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`,
+      `📖 Loaded existing hash mappings: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`
     )
     return hashMappings
   } catch (error) {
@@ -392,13 +392,13 @@ const updateHashMappings = (
 
 const saveHashMappings = (
   hashMappings: HashMappings,
-  outputDir: string,
+  outputDir: string
 ): void => {
   const currentDir = getCurrentDir()
   const hashMappingsFile = join(currentDir, outputDir, 'hashMappings.json')
   writeFileSync(hashMappingsFile, JSON.stringify(hashMappings, null, 2))
   console.log(
-    `📁 Hash mappings updated: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`,
+    `📁 Hash mappings updated: ${Object.keys(hashMappings.prompts).length} prompts, ${Object.keys(hashMappings.schemas).length} schemas`
   )
 }
 
@@ -417,7 +417,7 @@ const executeTestRun = async (
     markdown,
     dataKey,
     prompt,
-    schema,
+    schema
   )
   return {
     result,
@@ -440,12 +440,12 @@ const executeMultipleRuns = async (
   const schema = promptConfig.schema || baseSchema
 
   const promises = Array.from({ length: runsPerTest }, () =>
-    executeTestRun(testFile.markdown, promptConfig.prompt, schema, dataKey),
+    executeTestRun(testFile.markdown, promptConfig.prompt, schema, dataKey)
   )
 
   const settledResults = await Promise.allSettled(promises)
   const runs = settledResults.map((r) =>
-    r.status === 'fulfilled' ? r.value.result : null,
+    r.status === 'fulfilled' ? r.value.result : null
   )
   const timings = settledResults
     .map((r) => (r.status === 'fulfilled' ? r.value.duration : null))
@@ -464,7 +464,7 @@ const executeMultipleRuns = async (
       console.error(
         'Invalid JSON near position',
         pos,
-        '\n---\n' + s.slice(start, end) + '\n---',
+        '\n---\n' + s.slice(start, end) + '\n---'
       )
       // Dump the raw JSON to tests/errors for debugging
       try {
@@ -475,7 +475,7 @@ const executeMultipleRuns = async (
           'jobs',
           'scope3',
           'tests',
-          'errors',
+          'errors'
         )
         if (!existsSync(errorsDir)) mkdirSync(errorsDir, { recursive: true })
         const ts = new Date().toISOString().replace(/[:.]/g, '-')
@@ -488,7 +488,7 @@ const executeMultipleRuns = async (
   }
 
   const parsedRuns = validRuns.map((run) =>
-    typeof run === 'string' ? safeParse(run) : run,
+    typeof run === 'string' ? safeParse(run) : run
   )
 
   return { runs, timings, validRuns, parsedRuns }
@@ -497,7 +497,7 @@ const executeMultipleRuns = async (
 const filterRunByYears = (
   run: any,
   yearsToCheck?: number[],
-  dataKey: string = 'scope12',
+  dataKey: string = 'scope12'
 ): any => {
   if (
     !yearsToCheck ||
@@ -511,7 +511,7 @@ const filterRunByYears = (
   return {
     ...run,
     [dataKey]: run[dataKey].filter((item: any) =>
-      yearsToCheck.includes(item.year),
+      yearsToCheck.includes(item.year)
     ),
   }
 }
@@ -564,7 +564,7 @@ const calculateTestMetrics = (
     const filteredRun = filterRunByYears(
       run,
       config.yearsToCheck,
-      config.dataKey || 'scope12',
+      config.dataKey || 'scope12'
     )
 
     const expectedForCompare =
@@ -606,31 +606,31 @@ const calculateTestMetrics = (
 const generatePromptComparison = (
   results: TestResult[],
   prompts: PromptConfig[],
-  runsPerTest: number,
+  runsPerTest: number
 ): ComparisonReport['promptComparison'] => {
   const promptComparison: ComparisonReport['promptComparison'] = {}
 
   for (const promptConfig of prompts) {
     const promptResults = results.filter(
-      (r) => r.promptName === promptConfig.name,
+      (r) => r.promptName === promptConfig.name
     )
     const totalCorrect = promptResults.reduce(
       (sum, r) => sum + (r.accuracy / 100) * runsPerTest,
-      0,
+      0
     )
     const totalTests = promptResults.length * runsPerTest
     const overallAccuracy =
       totalTests > 0 ? (totalCorrect / totalTests) * 100 : 0
     const avgResponseTime = calculateAverage(
-      promptResults.map((r) => r.avgResponseTime),
+      promptResults.map((r) => r.avgResponseTime)
     )
     const successRate = calculateAverage(
-      promptResults.map((r) => r.successRate),
+      promptResults.map((r) => r.successRate)
     )
 
     // Find best and worst performing files
     const sortedByAccuracy = [...promptResults].sort(
-      (a, b) => b.accuracy - a.accuracy,
+      (a, b) => b.accuracy - a.accuracy
     )
     const bestPerformingFiles = sortedByAccuracy
       .filter((r) => r.accuracy > 0)
@@ -657,7 +657,7 @@ const generatePromptComparison = (
 
 const generateFileComparison = (
   results: TestResult[],
-  testFiles: TestFile[],
+  testFiles: TestFile[]
 ): ComparisonReport['fileComparison'] => {
   const fileComparison: ComparisonReport['fileComparison'] = {}
 
@@ -685,14 +685,14 @@ const generateFileComparison = (
 
 const generateComparisonReport = (
   results: TestResult[],
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ): ComparisonReport => {
   const { prompts, testFiles, runsPerTest } = config
 
   const promptComparison = generatePromptComparison(
     results,
     prompts,
-    runsPerTest,
+    runsPerTest
   )
   const fileComparison = generateFileComparison(results, testFiles)
 
@@ -716,7 +716,7 @@ const generateComparisonReport = (
 
 const saveReportToFile = (
   report: ComparisonReport,
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ): string => {
   const currentDir = getCurrentDir()
   const reportWithConfig = {
@@ -749,15 +749,15 @@ const saveReportToFile = (
 // ============================================================================
 
 export const runComparisonTest = async (
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ): Promise<ComparisonReport> => {
   const { prompts, testFiles, baseSchema, runsPerTest, outputDir } = config
 
   console.log(
-    `🚀 Starting comparison test with ${prompts.length} prompts and ${testFiles.length} files`,
+    `🚀 Starting comparison test with ${prompts.length} prompts and ${testFiles.length} files`
   )
   console.log(
-    `📊 Total tests: ${prompts.length * testFiles.length} (${runsPerTest} runs each)`,
+    `📊 Total tests: ${prompts.length * testFiles.length} (${runsPerTest} runs each)`
   )
 
   const results: TestResult[] = []
@@ -781,7 +781,7 @@ export const runComparisonTest = async (
           promptHash,
           schemaHash,
           promptConfig.prompt,
-          schema,
+          schema
         )
 
         const { runs, timings, validRuns, parsedRuns } =
@@ -790,7 +790,7 @@ export const runComparisonTest = async (
             promptConfig,
             baseSchema,
             runsPerTest,
-            config.dataKey || 'scope12',
+            config.dataKey || 'scope12'
           )
 
         const {
@@ -805,7 +805,7 @@ export const runComparisonTest = async (
           runs,
           timings,
           testFile,
-          config,
+          config
         )
 
         const testResult: TestResult = {
@@ -825,13 +825,13 @@ export const runComparisonTest = async (
         results.push(testResult)
 
         console.log(
-          `    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`,
+          `    ✅ ${testFile.name} - Accuracy: ${accuracy.toFixed(1)}%, Success: ${successRate.toFixed(1)}%`
         )
         console.log(
-          `       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`,
+          `       🔗 Prompt: ${promptHash}, Schema: ${schemaHash}, File: ${fileHash}`
         )
       }
-    }),
+    })
   )
 
   const report = generateComparisonReport(results, config)
@@ -848,7 +848,7 @@ export const runComparisonTest = async (
 const printDiffSummary = (
   failures: Array<{ runIndex: number; diffs: JsonDiff[] }>,
   promptName: string,
-  fileName: string,
+  fileName: string
 ) => {
   if (failures.length === 0) return
 
@@ -872,7 +872,7 @@ const printDiffSummary = (
 
   sortedPaths.forEach(([path, diffs]) => {
     console.log(
-      `  📍 ${path} (${diffs.length}/${failures.length} runs failed):`,
+      `  📍 ${path} (${diffs.length}/${failures.length} runs failed):`
     )
 
     // Show examples of the different types of failures for this path
@@ -883,34 +883,34 @@ const printDiffSummary = (
         }
         return acc
       },
-      {} as Record<string, JsonDiff>,
+      {} as Record<string, JsonDiff>
     )
 
     Object.entries(examplesByType).forEach(([type, diff]) => {
       switch (type) {
         case 'missing':
           console.log(
-            `     ❌ MISSING: Expected ${JSON.stringify(diff.expected)}, got undefined`,
+            `     ❌ MISSING: Expected ${JSON.stringify(diff.expected)}, got undefined`
           )
           break
         case 'extra':
           console.log(
-            `     ➕ EXTRA: Got ${JSON.stringify(diff.actual)}, expected undefined`,
+            `     ➕ EXTRA: Got ${JSON.stringify(diff.actual)}, expected undefined`
           )
           break
         case 'unexpected_value':
           console.log(
-            `     🚫 UNEXPECTED VALUE: Expected null, got ${JSON.stringify(diff.actual)}`,
+            `     🚫 UNEXPECTED VALUE: Expected null, got ${JSON.stringify(diff.actual)}`
           )
           break
         case 'different':
           console.log(
-            `     🔄 DIFFERENT: Expected ${JSON.stringify(diff.expected)}, got ${JSON.stringify(diff.actual)}`,
+            `     🔄 DIFFERENT: Expected ${JSON.stringify(diff.expected)}, got ${JSON.stringify(diff.actual)}`
           )
           break
         case 'type_mismatch':
           console.log(
-            `     ⚠️  TYPE: Expected ${typeof diff.expected}, got ${typeof diff.actual}`,
+            `     ⚠️  TYPE: Expected ${typeof diff.expected}, got ${typeof diff.actual}`
           )
           break
       }
@@ -921,13 +921,13 @@ const printDiffSummary = (
 const calculateImprovements = (
   report: ComparisonReport,
   baselinePromptName: string,
-  comparisonPromptName: string,
+  comparisonPromptName: string
 ): string => {
   const baselineResults = report.detailedResults.filter(
-    (r) => r.promptName === baselinePromptName,
+    (r) => r.promptName === baselinePromptName
   )
   const comparisonResults = report.detailedResults.filter(
-    (r) => r.promptName === comparisonPromptName,
+    (r) => r.promptName === comparisonPromptName
   )
 
   let improved = 0
@@ -939,7 +939,7 @@ const calculateImprovements = (
   // Compare accuracy for each file
   baselineResults.forEach((baselineResult) => {
     const comparisonResult = comparisonResults.find(
-      (r) => r.fileName === baselineResult.fileName,
+      (r) => r.fileName === baselineResult.fileName
     )
     if (comparisonResult) {
       if (comparisonResult.accuracy > baselineResult.accuracy) {
@@ -976,22 +976,22 @@ const calculateImprovements = (
 
 const printPromptRankings = (
   report: ComparisonReport,
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ): void => {
   const baselinePrompt = config.prompts.find((p) => p.baseline)
   const baselinePromptName = baselinePrompt?.name
 
   const promptRankings = Object.entries(report.promptComparison).sort(
-    (a, b) => b[1].overallAccuracy - a[1].overallAccuracy,
+    (a, b) => b[1].overallAccuracy - a[1].overallAccuracy
   )
 
   console.log('\n📊 Prompt Performance Rankings:')
   promptRankings.forEach(([name, stats], index) => {
     console.log(
-      `${index + 1}. ${name}${name === baselinePromptName ? ' (baseline)' : ''}`,
+      `${index + 1}. ${name}${name === baselinePromptName ? ' (baseline)' : ''}`
     )
     console.log(
-      `   Accuracy: ${stats.overallAccuracy.toFixed(1)}% (${stats.totalCorrect}/${stats.totalTests})`,
+      `   Accuracy: ${stats.overallAccuracy.toFixed(1)}% (${stats.totalCorrect}/${stats.totalTests})`
     )
     console.log(`   Avg Response Time: ${stats.avgResponseTime.toFixed(0)}ms`)
     console.log(`   Success Rate: ${stats.successRate.toFixed(1)}%`)
@@ -1003,7 +1003,7 @@ const printPromptRankings = (
       const improvementInfo = calculateImprovements(
         report,
         baselinePromptName,
-        name,
+        name
       )
       console.log(`   📈 vs ${baselinePromptName}: ${improvementInfo}`)
     }
@@ -1020,7 +1020,7 @@ const printFileDifficultyAnalysis = (report: ComparisonReport): void => {
       acc[data.difficulty].push(fileName)
       return acc
     },
-    {} as Record<string, string[]>,
+    {} as Record<string, string[]>
   )
 
   ;['easy', 'medium', 'hard'].forEach((difficulty) => {
@@ -1048,7 +1048,7 @@ const printWinnerAnalysis = (report: ComparisonReport): void => {
 
       return acc
     },
-    {} as Record<string, number>,
+    {} as Record<string, number>
   )
 
   if (Object.keys(winnerCounts).length === 0) {
@@ -1065,7 +1065,7 @@ const printWinnerAnalysis = (report: ComparisonReport): void => {
 const printDetailedFailureAnalysis = (report: ComparisonReport): void => {
   console.log('\n📊 Detailed Failure Analysis:')
   const failedResults = report.detailedResults.filter(
-    (result) => result.failures.length > 0,
+    (result) => result.failures.length > 0
   )
 
   failedResults.forEach((result, index) => {
@@ -1082,7 +1082,7 @@ const printDetailedFailureAnalysis = (report: ComparisonReport): void => {
 
 export const printComparisonSummary = (
   report: ComparisonReport,
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ) => {
   console.log('\n🎯 PROMPT COMPARISON TEST SUMMARY')
   console.log('='.repeat(50))

@@ -7,7 +7,7 @@ import { getTags } from '@/config/openapi'
 
 const credentials = googleScreenshotBucketConfig.bucketKey
   ? JSON.parse(
-      Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString(),
+      Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
     )
   : null
 const storage = credentials
@@ -43,7 +43,7 @@ export async function screenshotsReadRoutes(app: FastifyInstance) {
       request: FastifyRequest<{
         Querystring: z.infer<typeof screenshotsQuerySchema>
       }>,
-      reply,
+      reply
     ) => {
       try {
         if (!storage) {
@@ -69,7 +69,7 @@ export async function screenshotsReadRoutes(app: FastifyInstance) {
               expires: Date.now() + 1000 * 60 * 60, // 1 hour
             })
             return signedUrl
-          }),
+          })
         )
 
         reply.send({ screenshots })
@@ -77,6 +77,6 @@ export async function screenshotsReadRoutes(app: FastifyInstance) {
         console.error('Get screenshots error:', error)
         return reply.status(500).send({ error: 'Failed to fetch screenshots' })
       }
-    },
+    }
   )
 }

@@ -32,7 +32,7 @@ export function getErrorSchemas(...codes: ErrorCode[]) {
       acc[code] = errorSchema
       return acc
     },
-    {} as Record<ErrorCode, typeof errorSchema>,
+    {} as Record<ErrorCode, typeof errorSchema>
   )
 }
 

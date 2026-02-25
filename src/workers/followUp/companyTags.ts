@@ -12,7 +12,7 @@ export const schema = z.object({
       'state-owned',
       'municipality-owned',
       'private',
-    ]),
+    ])
   ),
 })
 
@@ -58,10 +58,10 @@ const companyTags = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.CompanyTags,
+      FollowUpType.CompanyTags
     )
     return answer
-  },
+  }
 )
 
 export default companyTags

@@ -46,10 +46,10 @@ const fiscalYear = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.FiscalYear,
+      FollowUpType.FiscalYear
     )
     return answer
-  },
+  }
 )
 
 export default fiscalYear

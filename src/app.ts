@@ -113,7 +113,7 @@ async function startApp() {
  */
 async function publicContext(app: FastifyInstance) {
   app.get('/', { schema: { hide: true } }, (request, reply) =>
-    reply.redirect(openAPIConfig.prefix),
+    reply.redirect(openAPIConfig.prefix)
   )
 
   app.register(fastifyStatic, {
@@ -125,7 +125,7 @@ async function publicContext(app: FastifyInstance) {
     { schema: { hide: true }, logLevel: 'silent' },
     async (request, reply) => {
       return reply.sendFile('favicon.ico')
-    },
+    }
   )
 
   //internal routes for data assessment and management

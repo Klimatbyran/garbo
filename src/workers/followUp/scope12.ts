@@ -19,6 +19,10 @@ const followUpScope12 = new FollowUpWorker<FollowUpJob>(
     )
     return answer
   },
+      FollowUpType.Scope12
+    )
+    return answer
+  }
 )
 
 export default followUpScope12

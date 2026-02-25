@@ -61,7 +61,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         const [startDate, endDate] = getReportingPeriodDates(
           year,
           fiscalYear.startMonth,
-          fiscalYear.endMonth,
+          fiscalYear.endMonth
         )
         return {
           year,
@@ -100,7 +100,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
           // Preserve existing reportURL for years that don't match the current report year
           if (reportYear !== null && year !== reportYear) {
             const existingPeriod = existingCompany?.reportingPeriods?.find(
-              (rp: any) => rp.year === year.toString(),
+              (rp: any) => rp.year === year.toString()
             )
             if (existingPeriod?.reportURL) {
               reportingPeriod.reportURL = existingPeriod.reportURL
@@ -108,7 +108,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
           }
 
           return reportingPeriod
-        },
+        }
       )
 
       // NOTE: Maybe only keep properties in existingCompany.reportingPeriods, e.g. the relevant economy properties, or the relevant emissions properties
@@ -131,14 +131,14 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
         'reporting-periods',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
       )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
-  },
+  }
 )
 
 export default diffReportingPeriods

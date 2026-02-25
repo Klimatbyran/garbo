@@ -132,7 +132,7 @@ export const emissionsSchema = z
         {
           message:
             'At least one property of `mb`, `lb` and `unknown` must be defined if scope2 is provided',
-        },
+        }
       )
       .refine(
         ({ mb, lb, unknown, unit }) => {
@@ -153,7 +153,7 @@ export const emissionsSchema = z
           message:
             'Unit must be provided when any emission value (mb, lb, or unknown) is not null',
           path: ['unit'],
-        },
+        }
       )
       .optional()
       .nullable(),
@@ -166,7 +166,7 @@ export const emissionsSchema = z
               total: z.number().nullable().optional(),
               unit: emissionUnitSchemaGarbo,
               verified: z.boolean().optional(),
-            }),
+            })
           )
           .optional(),
         statedTotalEmissions: statedTotalEmissionsSchema,

@@ -15,10 +15,10 @@ const followUpScope3 = new FollowUpWorker<FollowUpJob>(
       schema,
       prompt,
       queryTexts,
-      FollowUpType.Scope3,
+      FollowUpType.Scope3
     )
     return answer
-  },
+  }
 )
 
 export default followUpScope3

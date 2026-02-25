@@ -1,6 +1,6 @@
 {
   "name": "garbo",
-  "version": "5.4.4-rc.2",
+  "version": "5.4.4-rc.3",
   "description": "",
   "type": "module",
   "exports": {
@@ -29,7 +29,7 @@
     "reset": "node --import tsx scripts/dev-reset.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
     "eslint": "npx eslint src",
-    "format-prettier": "npx prettier --write \"src/**/*.{ts,tsx,json}\"",
+    "format": "npx prettier --write .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
@@ -94,10 +94,6 @@
   "overrides": {
     "uuid": "^9.0.1",
     "undici": ">=6.23.0"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"
