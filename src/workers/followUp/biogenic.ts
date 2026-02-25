@@ -12,7 +12,7 @@ const schema = z.object({
         total: z.number(),
         unit: emissionUnitSchemaGarbo,
       }),
-    }),
+    })
   ),
 })
 

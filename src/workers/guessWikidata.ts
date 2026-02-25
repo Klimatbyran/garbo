@@ -33,7 +33,7 @@ const insignificantWords = new Set([
 async function handleOverrideWikidataId(
   job: GuessWikidataJob,
   companyName: string,
-  overrideWikidataId: EntityId,
+  overrideWikidataId: EntityId
 ): Promise<string | null> {
   const wikidataEntities = await getWikidataEntities([
     overrideWikidataId as `Q${number}`,
@@ -82,7 +82,7 @@ async function handleOverrideWikidataId(
     },
     false, // requires manual approval
     metadata,
-    `Wikidata override for ${companyName} - please verify`,
+    `Wikidata override for ${companyName} - please verify`
   )
 
   const buttonRow = discord.createEditWikidataButtonRow(job)
@@ -235,7 +235,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
     if (!overrideWikidataId) {
       const searchResults = await getWikidataSearchResults({ companyName })
       const results = await getWikidataEntities(
-        searchResults.map((result) => result.id) as `Q${number}`[],
+        searchResults.map((result) => result.id) as `Q${number}`[]
       )
 
       job.log('Results: ' + JSON.stringify(results, null, 2))
@@ -287,7 +287,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       job.log('Response: ' + response)
 
       const { success, error, data } = wikidata.schema.safeParse(
-        JSON.parse(response),
+        JSON.parse(response)
       )
 
       if (error || !success) {
@@ -299,7 +299,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
 
     if (!wikidataForApproval?.node) {
       throw new Error(
-        `Could not parse wikidataId from json: ${wikidataForApproval}`,
+        `Could not parse wikidataId from json: ${wikidataForApproval}`
       )
     }
 
@@ -326,7 +326,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
             },
             true, // auto-approved
             metadata,
-            `Auto-approved wikidata for ${companyName}`,
+            `Auto-approved wikidata for ${companyName}`
           )
 
           job.sendMessage({
@@ -368,7 +368,7 @@ const guessWikidata = new DiscordWorker<GuessWikidataJob>(
       },
       false, // requires manual approval
       metadata,
-      `Wikidata selection for ${companyName}`,
+      `Wikidata selection for ${companyName}`
     )
 
     const buttonRow = discord.createEditWikidataButtonRow(job)
@@ -382,7 +382,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
     })
 
     await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-  },
+  }
 )
 
 export default guessWikidata

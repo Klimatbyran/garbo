@@ -21,14 +21,14 @@ export class DiffJob extends DiscordJob {
     apiSubEndpoint: string,
     companyName: string,
     wikidata: { node: string },
-    body: any,
+    body: any
   ) => Promise<void>
 
   handleDiff: (
     apiSubEndpoint: string,
     diff: string,
     change: ChangeDescription,
-    requiresApproval: boolean,
+    requiresApproval: boolean
   ) => Promise<void>
 }
 
@@ -37,7 +37,7 @@ function addCustomMethods(job: DiffJob) {
     apiSubEndpoint,
     companyName,
     wikidata,
-    body,
+    body
   ) => {
     await saveToAPI.queue.add(companyName + ' ' + apiSubEndpoint, {
       ...job.data,
@@ -67,7 +67,7 @@ function addCustomMethods(job: DiffJob) {
         change,
         job.data.autoApprove || !requiresApproval,
         defaultMetadata(job.data.url),
-        `Updates to the company's ${apiSubEndpoint}`,
+        `Updates to the company's ${apiSubEndpoint}`
       )
     } else if (diff) {
       await job.enqueueSaveToAPI(
@@ -77,7 +77,7 @@ function addCustomMethods(job: DiffJob) {
         {
           ...change.newValue,
           metadata: defaultMetadata(job.data.url),
-        },
+        }
       )
     }
   }
@@ -89,7 +89,7 @@ export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
   constructor(
     name: string,
     callback: (job: T) => any,
-    options?: WorkerOptions,
+    options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,

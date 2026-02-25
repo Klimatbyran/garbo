@@ -25,7 +25,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       request: AuthenticatedFastifyRequest<{
         Body: PostReportsBody
       }>,
-      reply,
+      reply
     ) => {
       try {
         const results = await reportsService.collectReportUrls(request.body)
@@ -37,6 +37,6 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
           .status(500)
           .send({ message: 'Scraping for company reports failed.' })
       }
-    },
+    }
   )
 }

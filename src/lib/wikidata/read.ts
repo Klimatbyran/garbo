@@ -71,7 +71,7 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
     props: ['sitelinks'],
   })
   const { entities }: WbGetEntitiesResponse = await fetch(url).then((res) =>
-    res.json(),
+    res.json()
   )
   const entity = entities[id] as any
   const title =
@@ -85,7 +85,7 @@ export async function getWikipediaTitle(id: EntityId): Promise<string> {
 }
 
 export async function getLEINumber(
-  entity: EntityId,
+  entity: EntityId
 ): Promise<string | undefined> {
   const url = wbk.getEntities({
     ids: entity,

@@ -20,7 +20,7 @@ export const schema = z.object({
               subValuesForCategory: z.union([z.array(z.number()), z.null()]),
               total: z.union([z.number(), z.null()]),
               unit: emissionUnitSchemaGarbo,
-            }),
+            })
           ),
           statedTotalEmissions: z.union([
             z.object({

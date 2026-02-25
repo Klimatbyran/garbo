@@ -567,9 +567,9 @@ export const ReportsListSchema = z.array(
         title: z.string().optional(),
         description: z.string().optional(),
         position: z.number().optional(),
-      }),
+      })
     ),
-  }),
+  })
 )
 
 export const ReportsListResponseSchema = z.object({

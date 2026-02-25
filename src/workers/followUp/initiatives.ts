@@ -11,7 +11,7 @@ export const schema = z.object({
       description: z.string().optional(),
       year: z.string().optional(),
       scope: z.string().optional(),
-    }),
+    })
   ),
 })
 

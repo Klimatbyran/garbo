@@ -42,7 +42,7 @@ function isJwtExpired(token: string): boolean {
 
 export async function apiFetch(
   endpoint: string,
-  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {},
+  { body, ...customConfig }: Omit<RequestInit, 'body'> & { body?: any } = {}
 ) {
   const token = await ensureToken()
 

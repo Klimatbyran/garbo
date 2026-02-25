@@ -44,7 +44,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
       JSON.stringify({
         before: structuredClone(existingDescriptions),
         after: structuredClone(descriptions),
-      }),
+      })
     )
 
     job.log('Diff:' + diff)
@@ -60,7 +60,7 @@ const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
     }
 
     return { body, diff }
-  },
+  }
 )
 
 export default diffDescriptions

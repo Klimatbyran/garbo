@@ -126,6 +126,6 @@ export async function emissionsAssessmentRoutes(app: FastifyInstance) {
           message: 'Internal server error during emissions assessment',
         })
       }
-    },
+    }
   )
 }

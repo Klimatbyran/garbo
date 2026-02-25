@@ -60,7 +60,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
     if (job.hasApproval() && !job.isDataApproved()) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
-  },
+  }
 )
 
 export default diffInitiatives

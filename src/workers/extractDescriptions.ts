@@ -48,12 +48,12 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
       Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
       
       Följande är ett utdrag ur en PDF:`,
-      markdown.substring(0, 5000),
+      markdown.substring(0, 5000)
     )
 
     const descriptionENG = await askPrompt(
       `Översätt följande text till engelska.`,
-      descriptionSWE,
+      descriptionSWE
     )
 
     const descriptions: Description[] = [

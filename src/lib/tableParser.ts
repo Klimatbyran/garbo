@@ -140,9 +140,9 @@ const createTableImage = (block: NLMIngestorTable): string => {
   if (!bbox) return ''
 
   return `![table image]({page: ${block.page_idx}, x: ${Math.round(
-    bbox[0],
+    bbox[0]
   )}}, {y: ${Math.round(bbox[1])}, {width: ${Math.round(
-    bbox[2] - bbox[0],
+    bbox[2] - bbox[0]
   )}}, {height: ${Math.round(bbox[3] - bbox[1])}})`
 }
 

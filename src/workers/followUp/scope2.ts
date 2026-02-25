@@ -20,7 +20,7 @@ const followUpScope2 = new FollowUpWorker<FollowUpJob>(
     )
 
     return answer
-  },
+  }
 )
 
 export default followUpScope2

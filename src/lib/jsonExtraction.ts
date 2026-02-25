@@ -15,7 +15,7 @@ const deHyphenate = (text: string) => {
         text
           .toString()
           .replace(/\n/g, ' ')
-          .replace(/\u2013/g, '-'),
+          .replace(/\u2013/g, '-')
       )
         .deHyphenate()
         .normalize()
@@ -60,7 +60,7 @@ const blockToMarkdown = (block: Block) => {
 export const calculateBoundingBoxForTable = (
   table: Table,
   pageWidth: number,
-  pageHeight: number,
+  pageHeight: number
 ) => {
   const { bbox } = table
   const [x1, y1, x2] = bbox
@@ -70,11 +70,11 @@ export const calculateBoundingBoxForTable = (
   const y = Math.round(y1 * 2) - padding
   const width = Math.min(
     Math.round(x2 * 2 - x) + padding,
-    Math.round(pageWidth * 2 - x) - padding,
+    Math.round(pageWidth * 2 - x) - padding
   )
   const height = Math.min(
     table.rows.length * rowHeight + padding * 2, // TODO: remove when the BBOX bug is fixed
-    Math.round(pageHeight * 2 - y) - padding,
+    Math.round(pageHeight * 2 - y) - padding
   )
   return { x, y, width, height }
 }
@@ -90,7 +90,7 @@ export const jsonToMarkdown = (json: ParsedDocument): string => {
       markdown += blockToMarkdown(block) + '\n\n'
       return { pageNr: currentPage, markdown }
     },
-    { markdown: '', pageNr: 0 },
+    { markdown: '', pageNr: 0 }
   )
   return markdown
 }

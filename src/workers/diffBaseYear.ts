@@ -21,7 +21,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
         'base-year',
         companyName,
         wikidata,
-        job.getApprovedBody(),
+        job.getApprovedBody()
       )
       return
     }
@@ -43,7 +43,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
         'base-year',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
       )
     }
 
@@ -52,7 +52,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
         await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
       } catch (_err) {}
     }
-  },
+  }
 )
 
 export default diffBaseYear

@@ -65,7 +65,7 @@ export const getExpectedResultKey = (
 export const filterExpectedResultByYears = (
   expectedResult: any,
   yearsToCheck: number[],
-  dataKey: string,
+  dataKey: string
 ): any => {
   if (
     yearsToCheck.length === 0 ||
@@ -88,7 +88,7 @@ export const loadTestFile = (
   baseName: string,
   testSuite: TestSuite,
   yearsToCheck: number[],
-  dataKey: string,
+  dataKey: string
 ): TestFile | null => {
   try {
     const markdown = readFileSync(filePath, 'utf-8')
@@ -128,7 +128,7 @@ export const loadTestFiles = (
   testSuite: TestSuite,
   yearsToCheck: number[],
   fileNamesToCheck: string[],
-  dataKey: string,
+  dataKey: string
 ): TestFile[] => {
   const inputDir = getInputDirectory(suiteName)
 

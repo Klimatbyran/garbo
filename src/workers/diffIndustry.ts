@@ -22,7 +22,7 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
         'industry',
         companyName,
         wikidata,
-        job.getApprovedBody(),
+        job.getApprovedBody()
       )
       return
     }
@@ -44,14 +44,14 @@ const diffIndustry = new DiffWorker<DiffIndustryJob>(
         'industry',
         diff,
         change,
-        typeof requiresApproval == 'boolean' ? requiresApproval : false,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
       )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
       await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
-  },
+  }
 )
 
 export default diffIndustry

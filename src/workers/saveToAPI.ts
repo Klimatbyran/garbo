@@ -119,7 +119,7 @@ export const saveToAPI = new DiscordWorker<SaveToApiJob>(
 
       throw error
     }
-  },
+  }
 )
 
 export default saveToAPI

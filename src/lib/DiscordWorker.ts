@@ -37,10 +37,10 @@ export class DiscordJob extends Job {
 
   //message: any
   sendMessage: (
-    msg: string | BaseMessageOptions,
+    msg: string | BaseMessageOptions
   ) => Promise<Message<true> | undefined>
   editMessage: (
-    msg: string | BaseMessageOptions,
+    msg: string | BaseMessageOptions
   ) => Promise<
     OmitPartialGroupDMChannel<Message<true>> | Message<true> | undefined
   >
@@ -186,7 +186,7 @@ function addCustomMethods(job: DiscordJob) {
           'error editing Discord message:' +
             err.message +
             '\n' +
-            JSON.stringify(message),
+            JSON.stringify(message)
         )
         return job.sendMessage(msg)
       }
@@ -226,7 +226,7 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
         connection: redis,
         concurrency: 3,
         ...options,
-      },
+      }
     )
 
     this.queue = new Queue(name, { connection: redis })

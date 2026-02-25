@@ -44,7 +44,7 @@ const precheck = new DiscordWorker(
       markdown: string,
       retry = 3,
       start = 0,
-      chunkSize = 5000,
+      chunkSize = 5000
     ): Promise<string | null> {
       if (retry <= 0 || start >= markdown.length) return null
       const chunk = markdown.substring(start, start + chunkSize)
@@ -61,9 +61,9 @@ const precheck = new DiscordWorker(
         {
           response_format: zodResponseFormat(
             companyNameSchema,
-            `companyName-${retry}`,
+            `companyName-${retry}`
           ),
-        },
+        }
       ).then(JSON.parse)
 
       const { companyName: rawName } = companyNameSchema.parse(response)
@@ -156,7 +156,7 @@ const precheck = new DiscordWorker(
         throw error
       }
     }
-  },
+  }
 )
 
 export default precheck

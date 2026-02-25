@@ -34,7 +34,7 @@ export const oldSchema = z.object({
         })
         .nullable()
         .optional(),
-    }),
+    })
   ),
 })
 

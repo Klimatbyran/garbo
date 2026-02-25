@@ -11,7 +11,7 @@ export const schema = z.object({
       year: z.string().optional(),
       target: z.number().optional(),
       baseYear: z.string().optional(),
-    }),
+    })
   ),
 })
 

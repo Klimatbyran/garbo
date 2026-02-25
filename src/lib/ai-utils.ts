@@ -33,7 +33,7 @@ export const askStreamWithContext = async (
       .filter((m) => m?.content),
     {
       response_format: zodResponseFormat(schema, type.replace(/\//g, '-')),
-    },
+    }
   )
 
   return response

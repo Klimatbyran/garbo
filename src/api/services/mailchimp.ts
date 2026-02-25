@@ -37,7 +37,7 @@ export async function fetchNewsletters() {
           username: 'anystring',
           password: mailchimpConfig.apiKey,
         },
-      },
+      }
     )
 
     const parsedResponse = mailchimpResponseSchema.parse(response.data)
@@ -48,7 +48,7 @@ export async function fetchNewsletters() {
       campaigns: parsedResponse.campaigns.filter(
         (campaign) =>
           campaign.settings?.template_id !== undefined &&
-          ALLOWED_TEMPLATE_IDS.includes(campaign.settings.template_id),
+          ALLOWED_TEMPLATE_IDS.includes(campaign.settings.template_id)
       ),
     }
 
@@ -62,7 +62,7 @@ export async function fetchNewsletters() {
 export async function subscribeAndTagUser(
   email: string,
   reason: string,
-  tag: string,
+  tag: string
 ) {
   if (!mailchimpConfig.apiKey) {
     throw new Error('Mailchimp API key is required')
@@ -86,7 +86,7 @@ export async function subscribeAndTagUser(
           username: 'anystring',
           password: mailchimpConfig.apiKey,
         },
-      },
+      }
     )
   } catch (error: any) {
     const mailchimpError = error?.response?.data
@@ -117,7 +117,7 @@ export async function subscribeAndTagUser(
           username: 'anystring',
           password: mailchimpConfig.apiKey,
         },
-      },
+      }
     )
   } catch (error) {
     throw new Error('Failed to apply tag to subscriber')

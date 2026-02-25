@@ -6,7 +6,7 @@ class GoalService {
   async createGoals(
     wikidataId: Company['wikidataId'],
     goals: PostGoalsBody['goals'],
-    createMetadata: () => Promise<Metadata>,
+    createMetadata: () => Promise<Metadata>
   ) {
     return Promise.all(
       goals.map(async (goal) => {
@@ -28,7 +28,7 @@ class GoalService {
           },
           select: { id: true },
         })
-      }),
+      })
     )
   }
 

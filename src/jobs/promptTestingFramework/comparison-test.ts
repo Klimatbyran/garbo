@@ -380,7 +380,7 @@ const updateHashMappings = (
   promptHash: string,
   schemaHash: string,
   promptText: string,
-  schema: z.ZodSchema,
+  schema: z.ZodSchema
 ): void => {
   if (!hashMappings.prompts[promptHash]) {
     hashMappings.prompts[promptHash] = promptText
@@ -410,7 +410,7 @@ const executeTestRun = async (
   markdown: string,
   prompt: string,
   schema: z.ZodSchema,
-  dataKey: string,
+  dataKey: string
 ): Promise<{ result: any; duration: number }> => {
   const runStartTime = Date.now()
   const result = await extractDataFromMarkdown(
@@ -430,7 +430,7 @@ const executeMultipleRuns = async (
   promptConfig: PromptConfig,
   baseSchema: z.ZodSchema,
   runsPerTest: number,
-  dataKey: string,
+  dataKey: string
 ): Promise<{
   runs: any[]
   timings: number[]
@@ -551,7 +551,7 @@ const calculateTestMetrics = (
   runs: any[],
   timings: number[],
   testFile: TestFile,
-  config: ComparisonTestConfig,
+  config: ComparisonTestConfig
 ): {
   accuracy: number
   successRate: number

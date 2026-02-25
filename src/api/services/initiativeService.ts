@@ -8,7 +8,7 @@ class InitiativeService {
     initiatives: OptionalNullable<
       Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
     >[],
-    createMetadata: () => Promise<Metadata>,
+    createMetadata: () => Promise<Metadata>
   ) {
     return await Promise.all(
       initiatives.map(async (initiative) => {
@@ -30,7 +30,7 @@ class InitiativeService {
           },
           select: { id: true },
         })
-      }),
+      })
     )
   }
 
@@ -39,7 +39,7 @@ class InitiativeService {
     initiative: OptionalNullable<
       Omit<Initiative, 'metadataId' | 'companyId' | 'id'>
     >,
-    metadata: Metadata,
+    metadata: Metadata
   ) {
     return prisma.initiative.update({
       where: { id },

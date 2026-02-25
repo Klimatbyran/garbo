@@ -9,14 +9,14 @@ const isoDate = new Intl.DateTimeFormat('sv-SE', { dateStyle: 'short' })
 export function getReportingPeriodDates(
   year: number,
   startMonth: number,
-  endMonth: number,
+  endMonth: number
 ) {
   const startYear = startMonth >= endMonth ? year - 1 : year
   const endYear = year
 
   const start = isoDate.format(new Date(startYear, startMonth - 1, 1))
   const end = isoDate.format(
-    new Date(endYear, endMonth - 1, getLastDayInMonth(endYear, endMonth - 1)),
+    new Date(endYear, endMonth - 1, getLastDayInMonth(endYear, endMonth - 1))
   )
 
   return [start, end]

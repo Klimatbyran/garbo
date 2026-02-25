@@ -105,7 +105,7 @@ async function hasReport(url: string) {
 async function getRelevantMarkdown(
   url: string,
   queryTexts: string[],
-  nResults = 10,
+  nResults = 10
 ) {
   /* might get better results if we query for imaginary results from a query instead of the actual query
   const query = await ask([

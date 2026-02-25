@@ -10,7 +10,7 @@ type CompanyReportUrls = {
 
 class ReportsService {
   async collectReportUrls(
-    companies: CompanyReports,
+    companies: CompanyReports
   ): Promise<CompanyReportUrls[]> {
     const firecrawl = new Firecrawl({ apiKey: API_KEY })
     const results: CompanyReportUrls[] = []

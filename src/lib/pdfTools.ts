@@ -46,7 +46,7 @@ export async function fetchPdf(url: string, headers = {}): Promise<Buffer> {
 }
 
 export async function extractJsonFromPdf(
-  buffer: Buffer,
+  buffer: Buffer
 ): Promise<ParsedDocument> {
   const formData = new FormData()
   formData.append('file', new Blob([buffer]), 'document.pdf')
@@ -64,7 +64,7 @@ export async function extractJsonFromPdf(
       'Failed to parse PDF with NLM ingestor, have you started the docker container? (' +
         nlmIngestorConfig.url +
         ') Error: ' +
-        err.message,
+        err.message
     )
     response = { ok: false, statusText: err.message } as Response
   }
@@ -81,7 +81,7 @@ export async function extractJsonFromPdf(
     console.error(error)
     throw new Error(
       `Failed to parse PDF: nlm-ingestor response schema did not match expected format: ${error.message}`,
-      { cause: error },
+      { cause: error }
     )
   }
 }
@@ -95,12 +95,12 @@ type Page = {
 
 export function findRelevantTablesGroupedOnPages(
   json: ParsedDocument,
-  searchTerms: string[],
+  searchTerms: string[]
 ): Page[] {
   const tables = jsonToTables(json).filter(({ content }) =>
     searchTerms.some((term) =>
-      content.toLowerCase().includes(term.toLowerCase()),
-    ),
+      content.toLowerCase().includes(term.toLowerCase())
+    )
   )
   return tables.reduce((acc: Page[], table: Table) => {
     const [pageWidth, pageHeight] = json.return_dict.page_dim
@@ -124,7 +124,7 @@ const uploadPageToGoogleCloud = async (
   bucketName: string,
   safeFolderName: string,
   pageNumber: number,
-  buffer: Buffer,
+  buffer: Buffer
 ): Promise<void> => {
   if (!storage) {
     throw new Error('Storage not initialized, skipping pdf upload')
@@ -146,7 +146,7 @@ const saveScreenshots = async (
   pageScreenshotPath: string,
   buffer: Buffer,
   pdfUrl: string,
-  pageNumber: number,
+  pageNumber: number
 ): Promise<void> => {
   const tasks = [writeFile(pageScreenshotPath, buffer)]
 
@@ -174,7 +174,7 @@ export async function extractTableScreenshotsFromJson(
   json: ParsedDocument,
   outputDir: string,
   searchTerms: string[],
-  pdfUrl: string,
+  pdfUrl: string
 ): Promise<number> {
   const pages = findRelevantTablesGroupedOnPages(json, searchTerms)
 
@@ -205,13 +205,13 @@ export async function extractTableScreenshotsFromJson(
     if (!result.buffer) {
       throw new Error(
         `Failed to convert pageNumber ${pageNumber} to an image buffer\n` +
-          JSON.stringify(result, null, 2),
+          JSON.stringify(result, null, 2)
       )
     }
 
     const pageScreenshotPath = path.join(
       outputDir,
-      `${reportId}-page-${pageNumber}.png`,
+      `${reportId}-page-${pageNumber}.png`
     )
     // Save screenshots in parallel (file writing + Google Cloud upload)
     await saveScreenshots(pageScreenshotPath, result.buffer, pdfUrl, pageNumber)

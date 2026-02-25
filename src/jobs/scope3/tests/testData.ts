@@ -176,7 +176,7 @@ export const schemaWithoutUnitInstruction = z.object({
               subValuesForCategory: z.union([z.array(z.number()), z.null()]),
               total: z.union([z.number(), z.null()]),
               unit: emissionUnitSchemaGarbo,
-            }),
+            })
           ),
           statedTotalEmissions: z.union([
             z.object({
@@ -211,7 +211,7 @@ export const schemaWithSubValuesForCategory = z.object({
               subValuesForCategory: z.union([z.array(z.number()), z.null()]),
               total: z.union([z.number(), z.null()]),
               unit: emissionUnitSchemaGarbo,
-            }),
+            })
           ),
           statedTotalEmissions: z.union([
             z.object({
@@ -239,7 +239,7 @@ export const originalSchema = z.object({
                 category: z.number().int(),
                 total: z.number(),
                 unit: emissionUnitSchemaGarbo,
-              }),
+              })
             )
             .nullable()
             .optional(),
@@ -250,7 +250,7 @@ export const originalSchema = z.object({
         })
         .nullable()
         .optional(),
-    }),
+    })
   ),
 })
 

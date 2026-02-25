@@ -58,7 +58,7 @@ const queueNameSchema = z.enum([
 
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
-  jobId: string,
+  jobId: string
 ) => queuesWithInteractions[queueName].queue.getJob(jobId)
 
 export class Discord {
@@ -93,11 +93,11 @@ export class Discord {
       this.client.on('interactionCreate', async (interaction) => {
         if (interaction.isCommand()) {
           const command = commands.find(
-            (command) => command.data.name === interaction.commandName,
+            (command) => command.data.name === interaction.commandName
           )
           if (!command) {
             console.error(
-              `Discord error: Command "${interaction.commandName}" not found`,
+              `Discord error: Command "${interaction.commandName}" not found`
             )
             return
           }
@@ -163,7 +163,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`approve~${job.queueName}~${job.id}`)
         .setLabel('Approve')
-        .setStyle(ButtonStyle.Success),
+        .setStyle(ButtonStyle.Success)
     )
   }
 
@@ -176,7 +176,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`editWikidata~${job.queueName}~${job.id}`)
         .setLabel('Edit')
-        .setStyle(ButtonStyle.Secondary),
+        .setStyle(ButtonStyle.Secondary)
     )
   }
 
@@ -185,7 +185,7 @@ export class Discord {
       new ButtonBuilder()
         .setCustomId(`editCompanyName~${job.queueName}~${job.id}`)
         .setLabel('Enter Company Name')
-        .setStyle(ButtonStyle.Primary),
+        .setStyle(ButtonStyle.Primary)
     )
   }
 
@@ -194,7 +194,7 @@ export class Discord {
       if (!threadId) throw new Error('Thread ID is required')
 
       const thread = (await this.client.channels.fetch(
-        threadId,
+        threadId
       )) as ThreadChannel
       await thread?.sendTyping()
       return thread?.send(msg)
@@ -211,7 +211,7 @@ export class Discord {
 
   async createThread(
     { channelId, messageId }: { channelId: string; messageId: string },
-    name: string,
+    name: string
   ) {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     const message = await channel.messages.fetch(messageId)
@@ -223,7 +223,7 @@ export class Discord {
 
   async editMessage(
     data: { channelId: string; threadId: string; messageId: string },
-    editedMessage: string,
+    editedMessage: string
   ) {
     const message = await this.findMessage(data)
     return message?.edit(editedMessage)
@@ -253,7 +253,7 @@ export class Discord {
 
   async sendMessageToChannel(
     channelId: string,
-    message: string | MessagePayload | MessageCreateOptions,
+    message: string | MessagePayload | MessageCreateOptions
   ): Promise<Message> {
     const channel = (await this.client.channels.fetch(channelId)) as TextChannel
     return await channel?.send(message)

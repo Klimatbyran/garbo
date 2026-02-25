@@ -6,7 +6,7 @@ import apiConfig from '../../config/api'
 export function errorHandler(
   error: Error,
   request: FastifyRequest,
-  reply: FastifyReply,
+  reply: FastifyReply
 ) {
   request.log.error(error)
 

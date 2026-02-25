@@ -64,7 +64,7 @@ const checkDB = new DiscordWorker(
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
-      () => null,
+      () => null
     )
     job.log(existingCompany)
 
@@ -75,7 +75,7 @@ const checkDB = new DiscordWorker(
       }
 
       job.sendMessage(
-        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`,
+        `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
       const body = {
         name: companyName,
@@ -203,7 +203,7 @@ const checkDB = new DiscordWorker(
     })
 
     return { saved: true }
-  },
+  }
 )
 
 export default checkDB

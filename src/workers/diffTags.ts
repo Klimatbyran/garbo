@@ -46,7 +46,7 @@ const diffTags = new DiscordWorker<DiffTagsJob>(
     }
 
     return { body, diff, requiresApproval }
-  },
+  }
 )
 
 export default diffTags

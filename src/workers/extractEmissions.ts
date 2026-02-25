@@ -185,7 +185,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
 
     job.sendMessage(`🤖 Asking follow-up questions...`)
     return true
-  },
+  }
 )
 
 export default extractEmissions

@@ -62,7 +62,7 @@ const extractLEI = new DiscordWorker<LEIJob>(
         job.log('Response: ' + response)
 
         const { success, error, data } = leiSchema.safeParse(
-          JSON.parse(response),
+          JSON.parse(response)
         )
 
         if (error || !success) {

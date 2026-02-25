@@ -31,7 +31,7 @@ export default {
       .setRequired(true)
 
     const actionRow = new ActionRowBuilder<TextInputBuilder>().addComponents(
-      textInput,
+      textInput
     )
     modal.addComponents(actionRow)
     await interaction.showModal(modal)

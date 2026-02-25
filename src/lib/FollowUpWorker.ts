@@ -24,7 +24,7 @@ export class FollowUpJob extends DiscordJob {
     schema: z.ZodSchema,
     prompt: string,
     queryTexts: string[],
-    type: FollowUpType,
+    type: FollowUpType
   ) => Promise<string | undefined>
 }
 
@@ -32,7 +32,7 @@ function ensureValidFollowUpInputs(
   markdown: string | null | undefined,
   prompt: string | null | undefined,
   queryTexts: string[] | null | undefined,
-  type: FollowUpType,
+  type: FollowUpType
 ): void {
   if (!markdown || !markdown.trim()) {
     throw new Error(`Missing markdown context for follow-up: ${type}`)
@@ -123,7 +123,7 @@ export class FollowUpWorker<
   constructor(
     name: string,
     callback: (job: T) => any,
-    options?: WorkerOptions,
+    options?: WorkerOptions
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
