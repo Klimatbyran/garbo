@@ -4,1898 +4,2018 @@
  */
 
 export interface paths {
-    "/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Health */
-        get: operations["health_health_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1alpha/convert/source": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Process Url */
-        post: operations["process_url_v1alpha_convert_source_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1alpha/convert/file": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Process File */
-        post: operations["process_file_v1alpha_convert_file_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1alpha/convert/source/async": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Process Url Async */
-        post: operations["process_url_async_v1alpha_convert_source_async_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1alpha/status/poll/{task_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Task Status Poll */
-        get: operations["task_status_poll_v1alpha_status_poll__task_id__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v1alpha/result/{task_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Task Result */
-        get: operations["task_result_v1alpha_result__task_id__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+  '/health': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Health */
+    get: operations['health_health_get']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1alpha/convert/source': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Process Url */
+    post: operations['process_url_v1alpha_convert_source_post']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1alpha/convert/file': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Process File */
+    post: operations['process_file_v1alpha_convert_file_post']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1alpha/convert/source/async': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Process Url Async */
+    post: operations['process_url_async_v1alpha_convert_source_async_post']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1alpha/status/poll/{task_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Task Status Poll */
+    get: operations['task_status_poll_v1alpha_status_poll__task_id__get']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/v1alpha/result/{task_id}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Task Result */
+    get: operations['task_result_v1alpha_result__task_id__get']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
 }
-export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>
 export interface components {
-    schemas: {
-        /** Body_process_file_v1alpha_convert_file_post */
-        Body_process_file_v1alpha_convert_file_post: {
-            /** Files */
-            files: string[];
-            /**
-             * From Formats
-             * @default [
-             *       "docx",
-             *       "pptx",
-             *       "html",
-             *       "image",
-             *       "pdf",
-             *       "asciidoc",
-             *       "md",
-             *       "csv",
-             *       "xlsx",
-             *       "xml_uspto",
-             *       "xml_jats",
-             *       "json_docling"
-             *     ]
-             */
-            from_formats: components["schemas"]["InputFormat"][];
-            /**
-             * To Formats
-             * @default [
-             *       "md"
-             *     ]
-             */
-            to_formats: components["schemas"]["OutputFormat"][];
-            /** @default embedded */
-            image_export_mode: components["schemas"]["ImageRefMode"];
-            /**
-             * Do Ocr
-             * @default true
-             */
-            do_ocr: boolean;
-            /**
-             * Force Ocr
-             * @default false
-             */
-            force_ocr: boolean;
-            /** @default easyocr */
-            ocr_engine: components["schemas"]["ocr_engines_enum"];
-            /** Ocr Lang */
-            ocr_lang?: string[] | null;
-            /** @default dlparse_v4 */
-            pdf_backend: components["schemas"]["PdfBackend"];
-            /** @default fast */
-            table_mode: components["schemas"]["TableFormerMode"];
-            /**
-             * Abort On Error
-             * @default false
-             */
-            abort_on_error: boolean;
-            /**
-             * Return As File
-             * @default false
-             */
-            return_as_file: boolean;
-            /**
-             * Do Table Structure
-             * @default true
-             */
-            do_table_structure: boolean;
-            /**
-             * Include Images
-             * @default true
-             */
-            include_images: boolean;
-            /**
-             * Images Scale
-             * @default 2
-             */
-            images_scale: number;
-            /**
-             * Do Code Enrichment
-             * @default false
-             */
-            do_code_enrichment: boolean;
-            /**
-             * Do Formula Enrichment
-             * @default false
-             */
-            do_formula_enrichment: boolean;
-            /**
-             * Do Picture Classification
-             * @default false
-             */
-            do_picture_classification: boolean;
-            /**
-             * Do Picture Description
-             * @default false
-             */
-            do_picture_description: boolean;
-        };
-        /**
-         * BoundingBox
-         * @description BoundingBox.
-         */
-        BoundingBox: {
-            /** L */
-            l: number;
-            /** T */
-            t: number;
-            /** R */
-            r: number;
-            /** B */
-            b: number;
-            /** @default TOPLEFT */
-            coord_origin: components["schemas"]["CoordOrigin"];
-        };
-        /**
-         * ChartBar
-         * @description Represents a bar in a bar chart.
-         *
-         *     Attributes:
-         *         label (str): The label for the bar.
-         *         values (float): The value associated with the bar.
-         */
-        ChartBar: {
-            /** Label */
-            label: string;
-            /** Values */
-            values: number;
-        };
-        /**
-         * ChartLine
-         * @description Represents a line in a line chart.
-         *
-         *     Attributes:
-         *         label (str): The label for the line.
-         *         values (List[Tuple[float, float]]): A list of (x, y) coordinate pairs
-         *             representing the line's data points.
-         */
-        ChartLine: {
-            /** Label */
-            label: string;
-            /** Values */
-            values: [
-                number,
-                number
-            ][];
-        };
-        /**
-         * ChartPoint
-         * @description Represents a point in a scatter chart.
-         *
-         *     Attributes:
-         *         value (Tuple[float, float]): A (x, y) coordinate pair representing a point in a
-         *             chart.
-         */
-        ChartPoint: {
-            /** Value */
-            value: [
-                number,
-                number
-            ];
-        };
-        /**
-         * ChartSlice
-         * @description Represents a slice in a pie chart.
-         *
-         *     Attributes:
-         *         label (str): The label for the slice.
-         *         value (float): The value represented by the slice.
-         */
-        ChartSlice: {
-            /** Label */
-            label: string;
-            /** Value */
-            value: number;
-        };
-        /**
-         * ChartStackedBar
-         * @description Represents a stacked bar in a stacked bar chart.
-         *
-         *     Attributes:
-         *         label (List[str]): The labels for the stacked bars. Multiple values are stored
-         *             in cases where the chart is "double stacked," meaning bars are stacked both
-         *             horizontally and vertically.
-         *         values (List[Tuple[str, int]]): A list of values representing different segments
-         *             of the stacked bar along with their label.
-         */
-        ChartStackedBar: {
-            /** Label */
-            label: string[];
-            /** Values */
-            values: [
-                string,
-                number
-            ][];
-        };
-        /**
-         * CodeItem
-         * @description CodeItem.
-         */
-        CodeItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default code
-             * @constant
-             */
-            label: "code";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-            /**
-             * Captions
-             * @default []
-             */
-            captions: components["schemas"]["RefItem"][];
-            /**
-             * References
-             * @default []
-             */
-            references: components["schemas"]["RefItem"][];
-            /**
-             * Footnotes
-             * @default []
-             */
-            footnotes: components["schemas"]["RefItem"][];
-            image?: components["schemas"]["ImageRef"] | null;
-            /** @default unknown */
-            code_language: components["schemas"]["CodeLanguageLabel"];
-        };
-        /**
-         * CodeLanguageLabel
-         * @description CodeLanguageLabel.
-         * @enum {string}
-         */
-        CodeLanguageLabel: "Ada" | "Awk" | "Bash" | "bc" | "C" | "C#" | "C++" | "CMake" | "COBOL" | "CSS" | "Ceylon" | "Clojure" | "Crystal" | "Cuda" | "Cython" | "D" | "Dart" | "dc" | "Dockerfile" | "Elixir" | "Erlang" | "FORTRAN" | "Forth" | "Go" | "HTML" | "Haskell" | "Haxe" | "Java" | "JavaScript" | "Julia" | "Kotlin" | "Lisp" | "Lua" | "Matlab" | "MoonScript" | "Nim" | "OCaml" | "ObjectiveC" | "Octave" | "PHP" | "Pascal" | "Perl" | "Prolog" | "Python" | "Racket" | "Ruby" | "Rust" | "SML" | "SQL" | "Scala" | "Scheme" | "Swift" | "TypeScript" | "unknown" | "VisualBasic" | "XML" | "YAML";
-        /**
-         * ContentLayer
-         * @description ContentLayer.
-         * @enum {string}
-         */
-        ContentLayer: "body" | "furniture";
-        /**
-         * ConversionStatus
-         * @enum {string}
-         */
-        ConversionStatus: "pending" | "started" | "failure" | "success" | "partial_success" | "skipped";
-        /** ConvertDocumentFileSourcesRequest */
-        ConvertDocumentFileSourcesRequest: {
-            /** @default {
-             *       "from_formats": [
-             *         "docx",
-             *         "pptx",
-             *         "html",
-             *         "image",
-             *         "pdf",
-             *         "asciidoc",
-             *         "md",
-             *         "csv",
-             *         "xlsx",
-             *         "xml_uspto",
-             *         "xml_jats",
-             *         "json_docling"
-             *       ],
-             *       "to_formats": [
-             *         "md"
-             *       ],
-             *       "image_export_mode": "embedded",
-             *       "do_ocr": true,
-             *       "force_ocr": false,
-             *       "ocr_engine": "easyocr",
-             *       "pdf_backend": "dlparse_v4",
-             *       "table_mode": "fast",
-             *       "abort_on_error": false,
-             *       "return_as_file": false,
-             *       "do_table_structure": true,
-             *       "include_images": true,
-             *       "images_scale": 2,
-             *       "do_code_enrichment": false,
-             *       "do_formula_enrichment": false,
-             *       "do_picture_classification": false,
-             *       "do_picture_description": false
-             *     } */
-            options: components["schemas"]["ConvertDocumentsOptions"];
-            /** File Sources */
-            file_sources: components["schemas"]["FileSource"][];
-        };
-        /** ConvertDocumentHttpSourcesRequest */
-        ConvertDocumentHttpSourcesRequest: {
-            /** @default {
-             *       "from_formats": [
-             *         "docx",
-             *         "pptx",
-             *         "html",
-             *         "image",
-             *         "pdf",
-             *         "asciidoc",
-             *         "md",
-             *         "csv",
-             *         "xlsx",
-             *         "xml_uspto",
-             *         "xml_jats",
-             *         "json_docling"
-             *       ],
-             *       "to_formats": [
-             *         "md"
-             *       ],
-             *       "image_export_mode": "embedded",
-             *       "do_ocr": true,
-             *       "force_ocr": false,
-             *       "ocr_engine": "easyocr",
-             *       "pdf_backend": "dlparse_v4",
-             *       "table_mode": "fast",
-             *       "abort_on_error": false,
-             *       "return_as_file": false,
-             *       "do_table_structure": true,
-             *       "include_images": true,
-             *       "images_scale": 2,
-             *       "do_code_enrichment": false,
-             *       "do_formula_enrichment": false,
-             *       "do_picture_classification": false,
-             *       "do_picture_description": false
-             *     } */
-            options: components["schemas"]["ConvertDocumentsOptions"];
-            /** Http Sources */
-            http_sources: components["schemas"]["HttpSource"][];
-        };
-        /** ConvertDocumentResponse */
-        ConvertDocumentResponse: {
-            document: components["schemas"]["DocumentResponse"];
-            status: components["schemas"]["ConversionStatus"];
-            /**
-             * Errors
-             * @default []
-             */
-            errors: components["schemas"]["ErrorItem"][];
-            /** Processing Time */
-            processing_time: number;
-            /**
-             * Timings
-             * @default {}
-             */
-            timings: {
-                [key: string]: components["schemas"]["ProfilingItem"];
-            };
-        };
-        /** ConvertDocumentsOptions */
-        ConvertDocumentsOptions: {
-            /**
-             * From Formats
-             * @description Input format(s) to convert from. String or list of strings. Allowed values: docx, pptx, html, image, pdf, asciidoc, md, csv, xlsx, xml_uspto, xml_jats, json_docling. Optional, defaults to all formats.
-             * @default [
-             *       "docx",
-             *       "pptx",
-             *       "html",
-             *       "image",
-             *       "pdf",
-             *       "asciidoc",
-             *       "md",
-             *       "csv",
-             *       "xlsx",
-             *       "xml_uspto",
-             *       "xml_jats",
-             *       "json_docling"
-             *     ]
-             */
-            from_formats: components["schemas"]["InputFormat"][];
-            /**
-             * To Formats
-             * @description Output format(s) to convert to. String or list of strings. Allowed values: md, json, html, text, doctags. Optional, defaults to Markdown.
-             * @default [
-             *       "md"
-             *     ]
-             */
-            to_formats: components["schemas"]["OutputFormat"][];
-            /**
-             * @description Image export mode for the document (in case of JSON, Markdown or HTML). Allowed values: placeholder, embedded, referenced. Optional, defaults to Embedded.
-             * @default embedded
-             */
-            image_export_mode: components["schemas"]["ImageRefMode"];
-            /**
-             * Do Ocr
-             * @description If enabled, the bitmap content will be processed using OCR. Boolean. Optional, defaults to true
-             * @default true
-             */
-            do_ocr: boolean;
-            /**
-             * Force Ocr
-             * @description If enabled, replace existing text with OCR-generated text over content. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            force_ocr: boolean;
-            /**
-             * @description The OCR engine to use. String. Allowed values: easyocr, ocrmac, rapidocr, tesserocr, tesseract. Optional, defaults to easyocr.
-             * @default easyocr
-             */
-            ocr_engine: components["schemas"]["ocr_engines_enum"];
-            /**
-             * Ocr Lang
-             * @description List of languages used by the OCR engine. Note that each OCR engine has different values for the language names. String or list of strings. Optional, defaults to empty.
-             */
-            ocr_lang?: string[] | null;
-            /**
-             * @description The PDF backend to use. String. Allowed values: pypdfium2, dlparse_v1, dlparse_v2, dlparse_v4. Optional, defaults to dlparse_v4.
-             * @default dlparse_v4
-             */
-            pdf_backend: components["schemas"]["PdfBackend"];
-            /**
-             * @description Mode to use for table structure, String. Allowed values: fast, accurate. Optional, defaults to fast.
-             * @default fast
-             */
-            table_mode: components["schemas"]["TableFormerMode"];
-            /**
-             * Abort On Error
-             * @description Abort on error if enabled. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            abort_on_error: boolean;
-            /**
-             * Return As File
-             * @description Return the output as a zip file (will happen anyway if multiple files are generated). Boolean. Optional, defaults to false.
-             * @default false
-             */
-            return_as_file: boolean;
-            /**
-             * Do Table Structure
-             * @description If enabled, the table structure will be extracted. Boolean. Optional, defaults to true.
-             * @default true
-             */
-            do_table_structure: boolean;
-            /**
-             * Include Images
-             * @description If enabled, images will be extracted from the document. Boolean. Optional, defaults to true.
-             * @default true
-             */
-            include_images: boolean;
-            /**
-             * Images Scale
-             * @description Scale factor for images. Float. Optional, defaults to 2.0.
-             * @default 2
-             */
-            images_scale: number;
-            /**
-             * Do Code Enrichment
-             * @description If enabled, perform OCR code enrichment. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            do_code_enrichment: boolean;
-            /**
-             * Do Formula Enrichment
-             * @description If enabled, perform formula OCR, return Latex code. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            do_formula_enrichment: boolean;
-            /**
-             * Do Picture Classification
-             * @description If enabled, classify pictures in documents. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            do_picture_classification: boolean;
-            /**
-             * Do Picture Description
-             * @description If enabled, describe pictures in documents. Boolean. Optional, defaults to false.
-             * @default false
-             */
-            do_picture_description: boolean;
-        };
-        /**
-         * CoordOrigin
-         * @description CoordOrigin.
-         * @enum {string}
-         */
-        CoordOrigin: "TOPLEFT" | "BOTTOMLEFT";
-        /**
-         * DoclingComponentType
-         * @enum {string}
-         */
-        DoclingComponentType: "document_backend" | "model" | "doc_assembler" | "user_input";
-        /**
-         * DoclingDocument
-         * @description DoclingDocument.
-         */
-        DoclingDocument: {
-            /**
-             * Schema Name
-             * @default DoclingDocument
-             * @constant
-             */
-            schema_name: "DoclingDocument";
-            /**
-             * Version
-             * @default 1.3.0
-             */
-            version: string;
-            /** Name */
-            name: string;
-            origin?: components["schemas"]["DocumentOrigin"] | null;
-            /**
-             * @deprecated
-             * @default {
-             *       "self_ref": "#/furniture",
-             *       "children": [],
-             *       "content_layer": "furniture",
-             *       "name": "_root_",
-             *       "label": "unspecified"
-             *     }
-             */
-            furniture: components["schemas"]["GroupItem"];
-            /** @default {
-             *       "self_ref": "#/body",
-             *       "children": [],
-             *       "content_layer": "body",
-             *       "name": "_root_",
-             *       "label": "unspecified"
-             *     } */
-            body: components["schemas"]["GroupItem"];
-            /**
-             * Groups
-             * @default []
-             */
-            groups: (components["schemas"]["OrderedList"] | components["schemas"]["UnorderedList"] | components["schemas"]["InlineGroup"] | components["schemas"]["GroupItem"])[];
-            /**
-             * Texts
-             * @default []
-             */
-            texts: (components["schemas"]["TitleItem"] | components["schemas"]["SectionHeaderItem"] | components["schemas"]["ListItem"] | components["schemas"]["CodeItem"] | components["schemas"]["FormulaItem"] | components["schemas"]["TextItem"])[];
-            /**
-             * Pictures
-             * @default []
-             */
-            pictures: components["schemas"]["PictureItem"][];
-            /**
-             * Tables
-             * @default []
-             */
-            tables: components["schemas"]["TableItem"][];
-            /**
-             * Key Value Items
-             * @default []
-             */
-            key_value_items: components["schemas"]["KeyValueItem"][];
-            /**
-             * Form Items
-             * @default []
-             */
-            form_items: components["schemas"]["FormItem"][];
-            /**
-             * Pages
-             * @default {}
-             */
-            pages: {
-                [key: string]: components["schemas"]["PageItem"];
-            };
-        };
-        /**
-         * DocumentOrigin
-         * @description FileSource.
-         */
-        DocumentOrigin: {
-            /** Mimetype */
-            mimetype: string;
-            /** Binary Hash */
-            binary_hash: number;
-            /** Filename */
-            filename: string;
-            /** Uri */
-            uri?: string | null;
-        };
-        /** DocumentResponse */
-        DocumentResponse: {
-            /** Filename */
-            filename: string;
-            /** Md Content */
-            md_content?: string | null;
-            json_content?: components["schemas"]["DoclingDocument"] | null;
-            /** Html Content */
-            html_content?: string | null;
-            /** Text Content */
-            text_content?: string | null;
-            /** Doctags Content */
-            doctags_content?: string | null;
-        };
-        /** ErrorItem */
-        ErrorItem: {
-            component_type: components["schemas"]["DoclingComponentType"];
-            /** Module Name */
-            module_name: string;
-            /** Error Message */
-            error_message: string;
-        };
-        /** FileSource */
-        FileSource: {
-            /**
-             * Base64 String
-             * @description Content of the file serialized in base64. For example it can be obtained via `base64 -w 0 /path/to/file/pdf-to-convert.pdf`.
-             */
-            base64_string: string;
-            /**
-             * Filename
-             * @description Filename of the uploaded document
-             */
-            filename: string;
-        };
-        /**
-         * FormItem
-         * @description FormItem.
-         */
-        FormItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default form
-             * @constant
-             */
-            label: "form";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /**
-             * Captions
-             * @default []
-             */
-            captions: components["schemas"]["RefItem"][];
-            /**
-             * References
-             * @default []
-             */
-            references: components["schemas"]["RefItem"][];
-            /**
-             * Footnotes
-             * @default []
-             */
-            footnotes: components["schemas"]["RefItem"][];
-            image?: components["schemas"]["ImageRef"] | null;
-            graph: components["schemas"]["GraphData"];
-        };
-        /**
-         * Formatting
-         * @description Formatting.
-         */
-        Formatting: {
-            /**
-             * Bold
-             * @default false
-             */
-            bold: boolean;
-            /**
-             * Italic
-             * @default false
-             */
-            italic: boolean;
-            /**
-             * Underline
-             * @default false
-             */
-            underline: boolean;
-            /**
-             * Strikethrough
-             * @default false
-             */
-            strikethrough: boolean;
-        };
-        /**
-         * FormulaItem
-         * @description FormulaItem.
-         */
-        FormulaItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default formula
-             * @constant
-             */
-            label: "formula";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-        };
-        /**
-         * GraphCell
-         * @description GraphCell.
-         */
-        GraphCell: {
-            label: components["schemas"]["GraphCellLabel"];
-            /** Cell Id */
-            cell_id: number;
-            /** Text */
-            text: string;
-            /** Orig */
-            orig: string;
-            prov?: components["schemas"]["ProvenanceItem"] | null;
-            item_ref?: components["schemas"]["RefItem"] | null;
-        };
-        /**
-         * GraphCellLabel
-         * @description GraphCellLabel.
-         * @enum {string}
-         */
-        GraphCellLabel: "unspecified" | "key" | "value" | "checkbox";
-        /**
-         * GraphData
-         * @description GraphData.
-         */
-        GraphData: {
-            /** Cells */
-            cells?: components["schemas"]["GraphCell"][];
-            /** Links */
-            links?: components["schemas"]["GraphLink"][];
-        };
-        /**
-         * GraphLink
-         * @description GraphLink.
-         */
-        GraphLink: {
-            label: components["schemas"]["GraphLinkLabel"];
-            /** Source Cell Id */
-            source_cell_id: number;
-            /** Target Cell Id */
-            target_cell_id: number;
-        };
-        /**
-         * GraphLinkLabel
-         * @description GraphLinkLabel.
-         * @enum {string}
-         */
-        GraphLinkLabel: "unspecified" | "to_value" | "to_key" | "to_parent" | "to_child";
-        /**
-         * GroupItem
-         * @description GroupItem.
-         */
-        GroupItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Name
-             * @default group
-             */
-            name: string;
-            /** @default unspecified */
-            label: components["schemas"]["GroupLabel"];
-        };
-        /**
-         * GroupLabel
-         * @description GroupLabel.
-         * @enum {string}
-         */
-        GroupLabel: "unspecified" | "list" | "ordered_list" | "chapter" | "section" | "sheet" | "slide" | "form_area" | "key_value_area" | "comment_section" | "inline";
-        /** HTTPValidationError */
-        HTTPValidationError: {
-            /** Detail */
-            detail?: components["schemas"]["ValidationError"][];
-        };
-        /** HealthCheckResponse */
-        HealthCheckResponse: {
-            /**
-             * Status
-             * @default ok
-             */
-            status: string;
-        };
-        /** HttpSource */
-        HttpSource: {
-            /**
-             * Url
-             * @description HTTP url to process
-             */
-            url: string;
-            /**
-             * Headers
-             * @description Additional headers used to fetch the urls, e.g. authorization, agent, etc
-             * @default {}
-             */
-            headers: Record<string, never>;
-        };
-        /**
-         * ImageRef
-         * @description ImageRef.
-         */
-        ImageRef: {
-            /** Mimetype */
-            mimetype: string;
-            /** Dpi */
-            dpi: number;
-            size: components["schemas"]["Size"];
-            /** Uri */
-            uri: string;
-        };
-        /**
-         * ImageRefMode
-         * @description ImageRefMode.
-         * @enum {string}
-         */
-        ImageRefMode: "placeholder" | "embedded" | "referenced";
-        /**
-         * InlineGroup
-         * @description InlineGroup.
-         */
-        InlineGroup: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Name
-             * @default group
-             */
-            name: string;
-            /**
-             * Label
-             * @default inline
-             * @constant
-             */
-            label: "inline";
-        };
-        /**
-         * InputFormat
-         * @description A document format supported by document backend parsers.
-         * @enum {string}
-         */
-        InputFormat: "docx" | "pptx" | "html" | "image" | "pdf" | "asciidoc" | "md" | "csv" | "xlsx" | "xml_uspto" | "xml_jats" | "json_docling";
-        /**
-         * KeyValueItem
-         * @description KeyValueItem.
-         */
-        KeyValueItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default key_value_region
-             * @constant
-             */
-            label: "key_value_region";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /**
-             * Captions
-             * @default []
-             */
-            captions: components["schemas"]["RefItem"][];
-            /**
-             * References
-             * @default []
-             */
-            references: components["schemas"]["RefItem"][];
-            /**
-             * Footnotes
-             * @default []
-             */
-            footnotes: components["schemas"]["RefItem"][];
-            image?: components["schemas"]["ImageRef"] | null;
-            graph: components["schemas"]["GraphData"];
-        };
-        /**
-         * ListItem
-         * @description SectionItem.
-         */
-        ListItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default list_item
-             * @constant
-             */
-            label: "list_item";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-            /**
-             * Enumerated
-             * @default false
-             */
-            enumerated: boolean;
-            /**
-             * Marker
-             * @default -
-             */
-            marker: string;
-        };
-        /**
-         * OrderedList
-         * @description OrderedList.
-         */
-        OrderedList: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Name
-             * @default group
-             */
-            name: string;
-            /**
-             * Label
-             * @default ordered_list
-             * @constant
-             */
-            label: "ordered_list";
-        };
-        /**
-         * OutputFormat
-         * @enum {string}
-         */
-        OutputFormat: "md" | "json" | "html" | "text" | "doctags";
-        /**
-         * PageItem
-         * @description PageItem.
-         */
-        PageItem: {
-            size: components["schemas"]["Size"];
-            image?: components["schemas"]["ImageRef"] | null;
-            /** Page No */
-            page_no: number;
-        };
-        /**
-         * PdfBackend
-         * @description Enum of valid PDF backends.
-         * @enum {string}
-         */
-        PdfBackend: "pypdfium2" | "dlparse_v1" | "dlparse_v2" | "dlparse_v4";
-        /**
-         * PictureBarChartData
-         * @description Represents data of a bar chart.
-         *
-         *     Attributes:
-         *         kind (Literal["bar_chart_data"]): The type of the chart.
-         *         x_axis_label (str): The label for the x-axis.
-         *         y_axis_label (str): The label for the y-axis.
-         *         bars (List[ChartBar]): A list of bars in the chart.
-         */
-        PictureBarChartData: {
-            /** Title */
-            title: string;
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "bar_chart_data";
-            /** X Axis Label */
-            x_axis_label: string;
-            /** Y Axis Label */
-            y_axis_label: string;
-            /** Bars */
-            bars: components["schemas"]["ChartBar"][];
-        };
-        /**
-         * PictureClassificationClass
-         * @description PictureClassificationData.
-         */
-        PictureClassificationClass: {
-            /** Class Name */
-            class_name: string;
-            /** Confidence */
-            confidence: number;
-        };
-        /**
-         * PictureClassificationData
-         * @description PictureClassificationData.
-         */
-        PictureClassificationData: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "classification";
-            /** Provenance */
-            provenance: string;
-            /** Predicted Classes */
-            predicted_classes: components["schemas"]["PictureClassificationClass"][];
-        };
-        /**
-         * PictureDescriptionData
-         * @description PictureDescriptionData.
-         */
-        PictureDescriptionData: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "description";
-            /** Text */
-            text: string;
-            /** Provenance */
-            provenance: string;
-        };
-        /**
-         * PictureItem
-         * @description PictureItem.
-         */
-        PictureItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default picture
-             * @constant
-             */
-            label: "picture";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /**
-             * Captions
-             * @default []
-             */
-            captions: components["schemas"]["RefItem"][];
-            /**
-             * References
-             * @default []
-             */
-            references: components["schemas"]["RefItem"][];
-            /**
-             * Footnotes
-             * @default []
-             */
-            footnotes: components["schemas"]["RefItem"][];
-            image?: components["schemas"]["ImageRef"] | null;
-            /**
-             * Annotations
-             * @default []
-             */
-            annotations: (components["schemas"]["PictureClassificationData"] | components["schemas"]["PictureDescriptionData"] | components["schemas"]["PictureMoleculeData"] | components["schemas"]["PictureMiscData"] | components["schemas"]["PictureLineChartData"] | components["schemas"]["PictureBarChartData"] | components["schemas"]["PictureStackedBarChartData"] | components["schemas"]["PicturePieChartData"] | components["schemas"]["PictureScatterChartData"])[];
-        };
-        /**
-         * PictureLineChartData
-         * @description Represents data of a line chart.
-         *
-         *     Attributes:
-         *         kind (Literal["line_chart_data"]): The type of the chart.
-         *         x_axis_label (str): The label for the x-axis.
-         *         y_axis_label (str): The label for the y-axis.
-         *         lines (List[ChartLine]): A list of lines in the chart.
-         */
-        PictureLineChartData: {
-            /** Title */
-            title: string;
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "line_chart_data";
-            /** X Axis Label */
-            x_axis_label: string;
-            /** Y Axis Label */
-            y_axis_label: string;
-            /** Lines */
-            lines: components["schemas"]["ChartLine"][];
-        };
-        /**
-         * PictureMiscData
-         * @description PictureMiscData.
-         */
-        PictureMiscData: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "misc";
-            /** Content */
-            content: Record<string, never>;
-        };
-        /**
-         * PictureMoleculeData
-         * @description PictureMoleculeData.
-         */
-        PictureMoleculeData: {
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "molecule_data";
-            /** Smi */
-            smi: string;
-            /** Confidence */
-            confidence: number;
-            /** Class Name */
-            class_name: string;
-            /** Segmentation */
-            segmentation: [
-                number,
-                number
-            ][];
-            /** Provenance */
-            provenance: string;
-        };
-        /**
-         * PicturePieChartData
-         * @description Represents data of a pie chart.
-         *
-         *     Attributes:
-         *         kind (Literal["pie_chart_data"]): The type of the chart.
-         *         slices (List[ChartSlice]): A list of slices in the pie chart.
-         */
-        PicturePieChartData: {
-            /** Title */
-            title: string;
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "pie_chart_data";
-            /** Slices */
-            slices: components["schemas"]["ChartSlice"][];
-        };
-        /**
-         * PictureScatterChartData
-         * @description Represents data of a scatter chart.
-         *
-         *     Attributes:
-         *         kind (Literal["scatter_chart_data"]): The type of the chart.
-         *         x_axis_label (str): The label for the x-axis.
-         *         y_axis_label (str): The label for the y-axis.
-         *         points (List[ChartPoint]): A list of points in the scatter chart.
-         */
-        PictureScatterChartData: {
-            /** Title */
-            title: string;
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "scatter_chart_data";
-            /** X Axis Label */
-            x_axis_label: string;
-            /** Y Axis Label */
-            y_axis_label: string;
-            /** Points */
-            points: components["schemas"]["ChartPoint"][];
-        };
-        /**
-         * PictureStackedBarChartData
-         * @description Represents data of a stacked bar chart.
-         *
-         *     Attributes:
-         *         kind (Literal["stacked_bar_chart_data"]): The type of the chart.
-         *         x_axis_label (str): The label for the x-axis.
-         *         y_axis_label (str): The label for the y-axis.
-         *         stacked_bars (List[ChartStackedBar]): A list of stacked bars in the chart.
-         */
-        PictureStackedBarChartData: {
-            /** Title */
-            title: string;
-            /**
-             * @description discriminator enum property added by openapi-typescript
-             * @enum {string}
-             */
-            kind: "stacked_bar_chart_data";
-            /** X Axis Label */
-            x_axis_label: string;
-            /** Y Axis Label */
-            y_axis_label: string;
-            /** Stacked Bars */
-            stacked_bars: components["schemas"]["ChartStackedBar"][];
-        };
-        /** ProfilingItem */
-        ProfilingItem: {
-            scope: components["schemas"]["ProfilingScope"];
-            /**
-             * Count
-             * @default 0
-             */
-            count: number;
-            /**
-             * Times
-             * @default []
-             */
-            times: number[];
-            /**
-             * Start Timestamps
-             * @default []
-             */
-            start_timestamps: string[];
-        };
-        /**
-         * ProfilingScope
-         * @enum {string}
-         */
-        ProfilingScope: "page" | "document";
-        /**
-         * ProvenanceItem
-         * @description ProvenanceItem.
-         */
-        ProvenanceItem: {
-            /** Page No */
-            page_no: number;
-            bbox: components["schemas"]["BoundingBox"];
-            /** Charspan */
-            charspan: [
-                number,
-                number
-            ];
-        };
-        /**
-         * RefItem
-         * @description RefItem.
-         */
-        RefItem: {
-            /** $Ref */
-            $ref: string;
-        };
-        /**
-         * SectionHeaderItem
-         * @description SectionItem.
-         */
-        SectionHeaderItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default section_header
-             * @constant
-             */
-            label: "section_header";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-            /**
-             * Level
-             * @default 1
-             */
-            level: number;
-        };
-        /**
-         * Size
-         * @description Size.
-         */
-        Size: {
-            /**
-             * Width
-             * @default 0
-             */
-            width: number;
-            /**
-             * Height
-             * @default 0
-             */
-            height: number;
-        };
-        /**
-         * TableCell
-         * @description TableCell.
-         */
-        TableCell: {
-            bbox?: components["schemas"]["BoundingBox"] | null;
-            /**
-             * Row Span
-             * @default 1
-             */
-            row_span: number;
-            /**
-             * Col Span
-             * @default 1
-             */
-            col_span: number;
-            /** Start Row Offset Idx */
-            start_row_offset_idx: number;
-            /** End Row Offset Idx */
-            end_row_offset_idx: number;
-            /** Start Col Offset Idx */
-            start_col_offset_idx: number;
-            /** End Col Offset Idx */
-            end_col_offset_idx: number;
-            /** Text */
-            text: string;
-            /**
-             * Column Header
-             * @default false
-             */
-            column_header: boolean;
-            /**
-             * Row Header
-             * @default false
-             */
-            row_header: boolean;
-            /**
-             * Row Section
-             * @default false
-             */
-            row_section: boolean;
-        };
-        /**
-         * TableData
-         * @description BaseTableData.
-         */
-        TableData: {
-            /**
-             * Table Cells
-             * @default []
-             */
-            table_cells: components["schemas"]["TableCell"][];
-            /**
-             * Num Rows
-             * @default 0
-             */
-            num_rows: number;
-            /**
-             * Num Cols
-             * @default 0
-             */
-            num_cols: number;
-            /**
-             * Grid
-             * @description grid.
-             */
-            readonly grid: components["schemas"]["TableCell"][][];
-        };
-        /**
-         * TableFormerMode
-         * @description Modes for the TableFormer model.
-         * @enum {string}
-         */
-        TableFormerMode: "fast" | "accurate";
-        /**
-         * TableItem
-         * @description TableItem.
-         */
-        TableItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default table
-             * @enum {string}
-             */
-            label: "document_index" | "table";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /**
-             * Captions
-             * @default []
-             */
-            captions: components["schemas"]["RefItem"][];
-            /**
-             * References
-             * @default []
-             */
-            references: components["schemas"]["RefItem"][];
-            /**
-             * Footnotes
-             * @default []
-             */
-            footnotes: components["schemas"]["RefItem"][];
-            image?: components["schemas"]["ImageRef"] | null;
-            data: components["schemas"]["TableData"];
-        };
-        /** TaskStatusResponse */
-        TaskStatusResponse: {
-            /** Task Id */
-            task_id: string;
-            /** Task Status */
-            task_status: string;
-            /** Task Position */
-            task_position?: number | null;
-        };
-        /**
-         * TextItem
-         * @description TextItem.
-         */
-        TextItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @enum {string}
-             */
-            label: "caption" | "checkbox_selected" | "checkbox_unselected" | "footnote" | "page_footer" | "page_header" | "paragraph" | "reference" | "text";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-        };
-        /**
-         * TitleItem
-         * @description TitleItem.
-         */
-        TitleItem: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Label
-             * @default title
-             * @constant
-             */
-            label: "title";
-            /**
-             * Prov
-             * @default []
-             */
-            prov: components["schemas"]["ProvenanceItem"][];
-            /** Orig */
-            orig: string;
-            /** Text */
-            text: string;
-            formatting?: components["schemas"]["Formatting"] | null;
-            /** Hyperlink */
-            hyperlink?: string | null;
-        };
-        /**
-         * UnorderedList
-         * @description UnorderedList.
-         */
-        UnorderedList: {
-            /** Self Ref */
-            self_ref: string;
-            parent?: components["schemas"]["RefItem"] | null;
-            /**
-             * Children
-             * @default []
-             */
-            children: components["schemas"]["RefItem"][];
-            /** @default body */
-            content_layer: components["schemas"]["ContentLayer"];
-            /**
-             * Name
-             * @default group
-             */
-            name: string;
-            /**
-             * Label
-             * @default list
-             * @constant
-             */
-            label: "list";
-        };
-        /** ValidationError */
-        ValidationError: {
-            /** Location */
-            loc: (string | number)[];
-            /** Message */
-            msg: string;
-            /** Error Type */
-            type: string;
-        };
-        /**
-         * ocr_engines_enum
-         * @enum {string}
-         */
-        ocr_engines_enum: "easyocr" | "ocrmac" | "rapidocr" | "tesserocr" | "tesseract";
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: {
+    /** Body_process_file_v1alpha_convert_file_post */
+    Body_process_file_v1alpha_convert_file_post: {
+      /** Files */
+      files: string[]
+      /**
+       * From Formats
+       * @default [
+       *       "docx",
+       *       "pptx",
+       *       "html",
+       *       "image",
+       *       "pdf",
+       *       "asciidoc",
+       *       "md",
+       *       "csv",
+       *       "xlsx",
+       *       "xml_uspto",
+       *       "xml_jats",
+       *       "json_docling"
+       *     ]
+       */
+      from_formats: components['schemas']['InputFormat'][]
+      /**
+       * To Formats
+       * @default [
+       *       "md"
+       *     ]
+       */
+      to_formats: components['schemas']['OutputFormat'][]
+      /** @default embedded */
+      image_export_mode: components['schemas']['ImageRefMode']
+      /**
+       * Do Ocr
+       * @default true
+       */
+      do_ocr: boolean
+      /**
+       * Force Ocr
+       * @default false
+       */
+      force_ocr: boolean
+      /** @default easyocr */
+      ocr_engine: components['schemas']['ocr_engines_enum']
+      /** Ocr Lang */
+      ocr_lang?: string[] | null
+      /** @default dlparse_v4 */
+      pdf_backend: components['schemas']['PdfBackend']
+      /** @default fast */
+      table_mode: components['schemas']['TableFormerMode']
+      /**
+       * Abort On Error
+       * @default false
+       */
+      abort_on_error: boolean
+      /**
+       * Return As File
+       * @default false
+       */
+      return_as_file: boolean
+      /**
+       * Do Table Structure
+       * @default true
+       */
+      do_table_structure: boolean
+      /**
+       * Include Images
+       * @default true
+       */
+      include_images: boolean
+      /**
+       * Images Scale
+       * @default 2
+       */
+      images_scale: number
+      /**
+       * Do Code Enrichment
+       * @default false
+       */
+      do_code_enrichment: boolean
+      /**
+       * Do Formula Enrichment
+       * @default false
+       */
+      do_formula_enrichment: boolean
+      /**
+       * Do Picture Classification
+       * @default false
+       */
+      do_picture_classification: boolean
+      /**
+       * Do Picture Description
+       * @default false
+       */
+      do_picture_description: boolean
+    }
+    /**
+     * BoundingBox
+     * @description BoundingBox.
+     */
+    BoundingBox: {
+      /** L */
+      l: number
+      /** T */
+      t: number
+      /** R */
+      r: number
+      /** B */
+      b: number
+      /** @default TOPLEFT */
+      coord_origin: components['schemas']['CoordOrigin']
+    }
+    /**
+     * ChartBar
+     * @description Represents a bar in a bar chart.
+     *
+     *     Attributes:
+     *         label (str): The label for the bar.
+     *         values (float): The value associated with the bar.
+     */
+    ChartBar: {
+      /** Label */
+      label: string
+      /** Values */
+      values: number
+    }
+    /**
+     * ChartLine
+     * @description Represents a line in a line chart.
+     *
+     *     Attributes:
+     *         label (str): The label for the line.
+     *         values (List[Tuple[float, float]]): A list of (x, y) coordinate pairs
+     *             representing the line's data points.
+     */
+    ChartLine: {
+      /** Label */
+      label: string
+      /** Values */
+      values: [number, number][]
+    }
+    /**
+     * ChartPoint
+     * @description Represents a point in a scatter chart.
+     *
+     *     Attributes:
+     *         value (Tuple[float, float]): A (x, y) coordinate pair representing a point in a
+     *             chart.
+     */
+    ChartPoint: {
+      /** Value */
+      value: [number, number]
+    }
+    /**
+     * ChartSlice
+     * @description Represents a slice in a pie chart.
+     *
+     *     Attributes:
+     *         label (str): The label for the slice.
+     *         value (float): The value represented by the slice.
+     */
+    ChartSlice: {
+      /** Label */
+      label: string
+      /** Value */
+      value: number
+    }
+    /**
+     * ChartStackedBar
+     * @description Represents a stacked bar in a stacked bar chart.
+     *
+     *     Attributes:
+     *         label (List[str]): The labels for the stacked bars. Multiple values are stored
+     *             in cases where the chart is "double stacked," meaning bars are stacked both
+     *             horizontally and vertically.
+     *         values (List[Tuple[str, int]]): A list of values representing different segments
+     *             of the stacked bar along with their label.
+     */
+    ChartStackedBar: {
+      /** Label */
+      label: string[]
+      /** Values */
+      values: [string, number][]
+    }
+    /**
+     * CodeItem
+     * @description CodeItem.
+     */
+    CodeItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default code
+       * @constant
+       */
+      label: 'code'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+      /**
+       * Captions
+       * @default []
+       */
+      captions: components['schemas']['RefItem'][]
+      /**
+       * References
+       * @default []
+       */
+      references: components['schemas']['RefItem'][]
+      /**
+       * Footnotes
+       * @default []
+       */
+      footnotes: components['schemas']['RefItem'][]
+      image?: components['schemas']['ImageRef'] | null
+      /** @default unknown */
+      code_language: components['schemas']['CodeLanguageLabel']
+    }
+    /**
+     * CodeLanguageLabel
+     * @description CodeLanguageLabel.
+     * @enum {string}
+     */
+    CodeLanguageLabel:
+      | 'Ada'
+      | 'Awk'
+      | 'Bash'
+      | 'bc'
+      | 'C'
+      | 'C#'
+      | 'C++'
+      | 'CMake'
+      | 'COBOL'
+      | 'CSS'
+      | 'Ceylon'
+      | 'Clojure'
+      | 'Crystal'
+      | 'Cuda'
+      | 'Cython'
+      | 'D'
+      | 'Dart'
+      | 'dc'
+      | 'Dockerfile'
+      | 'Elixir'
+      | 'Erlang'
+      | 'FORTRAN'
+      | 'Forth'
+      | 'Go'
+      | 'HTML'
+      | 'Haskell'
+      | 'Haxe'
+      | 'Java'
+      | 'JavaScript'
+      | 'Julia'
+      | 'Kotlin'
+      | 'Lisp'
+      | 'Lua'
+      | 'Matlab'
+      | 'MoonScript'
+      | 'Nim'
+      | 'OCaml'
+      | 'ObjectiveC'
+      | 'Octave'
+      | 'PHP'
+      | 'Pascal'
+      | 'Perl'
+      | 'Prolog'
+      | 'Python'
+      | 'Racket'
+      | 'Ruby'
+      | 'Rust'
+      | 'SML'
+      | 'SQL'
+      | 'Scala'
+      | 'Scheme'
+      | 'Swift'
+      | 'TypeScript'
+      | 'unknown'
+      | 'VisualBasic'
+      | 'XML'
+      | 'YAML'
+    /**
+     * ContentLayer
+     * @description ContentLayer.
+     * @enum {string}
+     */
+    ContentLayer: 'body' | 'furniture'
+    /**
+     * ConversionStatus
+     * @enum {string}
+     */
+    ConversionStatus:
+      | 'pending'
+      | 'started'
+      | 'failure'
+      | 'success'
+      | 'partial_success'
+      | 'skipped'
+    /** ConvertDocumentFileSourcesRequest */
+    ConvertDocumentFileSourcesRequest: {
+      /** @default {
+       *       "from_formats": [
+       *         "docx",
+       *         "pptx",
+       *         "html",
+       *         "image",
+       *         "pdf",
+       *         "asciidoc",
+       *         "md",
+       *         "csv",
+       *         "xlsx",
+       *         "xml_uspto",
+       *         "xml_jats",
+       *         "json_docling"
+       *       ],
+       *       "to_formats": [
+       *         "md"
+       *       ],
+       *       "image_export_mode": "embedded",
+       *       "do_ocr": true,
+       *       "force_ocr": false,
+       *       "ocr_engine": "easyocr",
+       *       "pdf_backend": "dlparse_v4",
+       *       "table_mode": "fast",
+       *       "abort_on_error": false,
+       *       "return_as_file": false,
+       *       "do_table_structure": true,
+       *       "include_images": true,
+       *       "images_scale": 2,
+       *       "do_code_enrichment": false,
+       *       "do_formula_enrichment": false,
+       *       "do_picture_classification": false,
+       *       "do_picture_description": false
+       *     } */
+      options: components['schemas']['ConvertDocumentsOptions']
+      /** File Sources */
+      file_sources: components['schemas']['FileSource'][]
+    }
+    /** ConvertDocumentHttpSourcesRequest */
+    ConvertDocumentHttpSourcesRequest: {
+      /** @default {
+       *       "from_formats": [
+       *         "docx",
+       *         "pptx",
+       *         "html",
+       *         "image",
+       *         "pdf",
+       *         "asciidoc",
+       *         "md",
+       *         "csv",
+       *         "xlsx",
+       *         "xml_uspto",
+       *         "xml_jats",
+       *         "json_docling"
+       *       ],
+       *       "to_formats": [
+       *         "md"
+       *       ],
+       *       "image_export_mode": "embedded",
+       *       "do_ocr": true,
+       *       "force_ocr": false,
+       *       "ocr_engine": "easyocr",
+       *       "pdf_backend": "dlparse_v4",
+       *       "table_mode": "fast",
+       *       "abort_on_error": false,
+       *       "return_as_file": false,
+       *       "do_table_structure": true,
+       *       "include_images": true,
+       *       "images_scale": 2,
+       *       "do_code_enrichment": false,
+       *       "do_formula_enrichment": false,
+       *       "do_picture_classification": false,
+       *       "do_picture_description": false
+       *     } */
+      options: components['schemas']['ConvertDocumentsOptions']
+      /** Http Sources */
+      http_sources: components['schemas']['HttpSource'][]
+    }
+    /** ConvertDocumentResponse */
+    ConvertDocumentResponse: {
+      document: components['schemas']['DocumentResponse']
+      status: components['schemas']['ConversionStatus']
+      /**
+       * Errors
+       * @default []
+       */
+      errors: components['schemas']['ErrorItem'][]
+      /** Processing Time */
+      processing_time: number
+      /**
+       * Timings
+       * @default {}
+       */
+      timings: {
+        [key: string]: components['schemas']['ProfilingItem']
+      }
+    }
+    /** ConvertDocumentsOptions */
+    ConvertDocumentsOptions: {
+      /**
+       * From Formats
+       * @description Input format(s) to convert from. String or list of strings. Allowed values: docx, pptx, html, image, pdf, asciidoc, md, csv, xlsx, xml_uspto, xml_jats, json_docling. Optional, defaults to all formats.
+       * @default [
+       *       "docx",
+       *       "pptx",
+       *       "html",
+       *       "image",
+       *       "pdf",
+       *       "asciidoc",
+       *       "md",
+       *       "csv",
+       *       "xlsx",
+       *       "xml_uspto",
+       *       "xml_jats",
+       *       "json_docling"
+       *     ]
+       */
+      from_formats: components['schemas']['InputFormat'][]
+      /**
+       * To Formats
+       * @description Output format(s) to convert to. String or list of strings. Allowed values: md, json, html, text, doctags. Optional, defaults to Markdown.
+       * @default [
+       *       "md"
+       *     ]
+       */
+      to_formats: components['schemas']['OutputFormat'][]
+      /**
+       * @description Image export mode for the document (in case of JSON, Markdown or HTML). Allowed values: placeholder, embedded, referenced. Optional, defaults to Embedded.
+       * @default embedded
+       */
+      image_export_mode: components['schemas']['ImageRefMode']
+      /**
+       * Do Ocr
+       * @description If enabled, the bitmap content will be processed using OCR. Boolean. Optional, defaults to true
+       * @default true
+       */
+      do_ocr: boolean
+      /**
+       * Force Ocr
+       * @description If enabled, replace existing text with OCR-generated text over content. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      force_ocr: boolean
+      /**
+       * @description The OCR engine to use. String. Allowed values: easyocr, ocrmac, rapidocr, tesserocr, tesseract. Optional, defaults to easyocr.
+       * @default easyocr
+       */
+      ocr_engine: components['schemas']['ocr_engines_enum']
+      /**
+       * Ocr Lang
+       * @description List of languages used by the OCR engine. Note that each OCR engine has different values for the language names. String or list of strings. Optional, defaults to empty.
+       */
+      ocr_lang?: string[] | null
+      /**
+       * @description The PDF backend to use. String. Allowed values: pypdfium2, dlparse_v1, dlparse_v2, dlparse_v4. Optional, defaults to dlparse_v4.
+       * @default dlparse_v4
+       */
+      pdf_backend: components['schemas']['PdfBackend']
+      /**
+       * @description Mode to use for table structure, String. Allowed values: fast, accurate. Optional, defaults to fast.
+       * @default fast
+       */
+      table_mode: components['schemas']['TableFormerMode']
+      /**
+       * Abort On Error
+       * @description Abort on error if enabled. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      abort_on_error: boolean
+      /**
+       * Return As File
+       * @description Return the output as a zip file (will happen anyway if multiple files are generated). Boolean. Optional, defaults to false.
+       * @default false
+       */
+      return_as_file: boolean
+      /**
+       * Do Table Structure
+       * @description If enabled, the table structure will be extracted. Boolean. Optional, defaults to true.
+       * @default true
+       */
+      do_table_structure: boolean
+      /**
+       * Include Images
+       * @description If enabled, images will be extracted from the document. Boolean. Optional, defaults to true.
+       * @default true
+       */
+      include_images: boolean
+      /**
+       * Images Scale
+       * @description Scale factor for images. Float. Optional, defaults to 2.0.
+       * @default 2
+       */
+      images_scale: number
+      /**
+       * Do Code Enrichment
+       * @description If enabled, perform OCR code enrichment. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      do_code_enrichment: boolean
+      /**
+       * Do Formula Enrichment
+       * @description If enabled, perform formula OCR, return Latex code. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      do_formula_enrichment: boolean
+      /**
+       * Do Picture Classification
+       * @description If enabled, classify pictures in documents. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      do_picture_classification: boolean
+      /**
+       * Do Picture Description
+       * @description If enabled, describe pictures in documents. Boolean. Optional, defaults to false.
+       * @default false
+       */
+      do_picture_description: boolean
+    }
+    /**
+     * CoordOrigin
+     * @description CoordOrigin.
+     * @enum {string}
+     */
+    CoordOrigin: 'TOPLEFT' | 'BOTTOMLEFT'
+    /**
+     * DoclingComponentType
+     * @enum {string}
+     */
+    DoclingComponentType:
+      | 'document_backend'
+      | 'model'
+      | 'doc_assembler'
+      | 'user_input'
+    /**
+     * DoclingDocument
+     * @description DoclingDocument.
+     */
+    DoclingDocument: {
+      /**
+       * Schema Name
+       * @default DoclingDocument
+       * @constant
+       */
+      schema_name: 'DoclingDocument'
+      /**
+       * Version
+       * @default 1.3.0
+       */
+      version: string
+      /** Name */
+      name: string
+      origin?: components['schemas']['DocumentOrigin'] | null
+      /**
+       * @deprecated
+       * @default {
+       *       "self_ref": "#/furniture",
+       *       "children": [],
+       *       "content_layer": "furniture",
+       *       "name": "_root_",
+       *       "label": "unspecified"
+       *     }
+       */
+      furniture: components['schemas']['GroupItem']
+      /** @default {
+       *       "self_ref": "#/body",
+       *       "children": [],
+       *       "content_layer": "body",
+       *       "name": "_root_",
+       *       "label": "unspecified"
+       *     } */
+      body: components['schemas']['GroupItem']
+      /**
+       * Groups
+       * @default []
+       */
+      groups: (
+        | components['schemas']['OrderedList']
+        | components['schemas']['UnorderedList']
+        | components['schemas']['InlineGroup']
+        | components['schemas']['GroupItem']
+      )[]
+      /**
+       * Texts
+       * @default []
+       */
+      texts: (
+        | components['schemas']['TitleItem']
+        | components['schemas']['SectionHeaderItem']
+        | components['schemas']['ListItem']
+        | components['schemas']['CodeItem']
+        | components['schemas']['FormulaItem']
+        | components['schemas']['TextItem']
+      )[]
+      /**
+       * Pictures
+       * @default []
+       */
+      pictures: components['schemas']['PictureItem'][]
+      /**
+       * Tables
+       * @default []
+       */
+      tables: components['schemas']['TableItem'][]
+      /**
+       * Key Value Items
+       * @default []
+       */
+      key_value_items: components['schemas']['KeyValueItem'][]
+      /**
+       * Form Items
+       * @default []
+       */
+      form_items: components['schemas']['FormItem'][]
+      /**
+       * Pages
+       * @default {}
+       */
+      pages: {
+        [key: string]: components['schemas']['PageItem']
+      }
+    }
+    /**
+     * DocumentOrigin
+     * @description FileSource.
+     */
+    DocumentOrigin: {
+      /** Mimetype */
+      mimetype: string
+      /** Binary Hash */
+      binary_hash: number
+      /** Filename */
+      filename: string
+      /** Uri */
+      uri?: string | null
+    }
+    /** DocumentResponse */
+    DocumentResponse: {
+      /** Filename */
+      filename: string
+      /** Md Content */
+      md_content?: string | null
+      json_content?: components['schemas']['DoclingDocument'] | null
+      /** Html Content */
+      html_content?: string | null
+      /** Text Content */
+      text_content?: string | null
+      /** Doctags Content */
+      doctags_content?: string | null
+    }
+    /** ErrorItem */
+    ErrorItem: {
+      component_type: components['schemas']['DoclingComponentType']
+      /** Module Name */
+      module_name: string
+      /** Error Message */
+      error_message: string
+    }
+    /** FileSource */
+    FileSource: {
+      /**
+       * Base64 String
+       * @description Content of the file serialized in base64. For example it can be obtained via `base64 -w 0 /path/to/file/pdf-to-convert.pdf`.
+       */
+      base64_string: string
+      /**
+       * Filename
+       * @description Filename of the uploaded document
+       */
+      filename: string
+    }
+    /**
+     * FormItem
+     * @description FormItem.
+     */
+    FormItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default form
+       * @constant
+       */
+      label: 'form'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /**
+       * Captions
+       * @default []
+       */
+      captions: components['schemas']['RefItem'][]
+      /**
+       * References
+       * @default []
+       */
+      references: components['schemas']['RefItem'][]
+      /**
+       * Footnotes
+       * @default []
+       */
+      footnotes: components['schemas']['RefItem'][]
+      image?: components['schemas']['ImageRef'] | null
+      graph: components['schemas']['GraphData']
+    }
+    /**
+     * Formatting
+     * @description Formatting.
+     */
+    Formatting: {
+      /**
+       * Bold
+       * @default false
+       */
+      bold: boolean
+      /**
+       * Italic
+       * @default false
+       */
+      italic: boolean
+      /**
+       * Underline
+       * @default false
+       */
+      underline: boolean
+      /**
+       * Strikethrough
+       * @default false
+       */
+      strikethrough: boolean
+    }
+    /**
+     * FormulaItem
+     * @description FormulaItem.
+     */
+    FormulaItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default formula
+       * @constant
+       */
+      label: 'formula'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+    }
+    /**
+     * GraphCell
+     * @description GraphCell.
+     */
+    GraphCell: {
+      label: components['schemas']['GraphCellLabel']
+      /** Cell Id */
+      cell_id: number
+      /** Text */
+      text: string
+      /** Orig */
+      orig: string
+      prov?: components['schemas']['ProvenanceItem'] | null
+      item_ref?: components['schemas']['RefItem'] | null
+    }
+    /**
+     * GraphCellLabel
+     * @description GraphCellLabel.
+     * @enum {string}
+     */
+    GraphCellLabel: 'unspecified' | 'key' | 'value' | 'checkbox'
+    /**
+     * GraphData
+     * @description GraphData.
+     */
+    GraphData: {
+      /** Cells */
+      cells?: components['schemas']['GraphCell'][]
+      /** Links */
+      links?: components['schemas']['GraphLink'][]
+    }
+    /**
+     * GraphLink
+     * @description GraphLink.
+     */
+    GraphLink: {
+      label: components['schemas']['GraphLinkLabel']
+      /** Source Cell Id */
+      source_cell_id: number
+      /** Target Cell Id */
+      target_cell_id: number
+    }
+    /**
+     * GraphLinkLabel
+     * @description GraphLinkLabel.
+     * @enum {string}
+     */
+    GraphLinkLabel:
+      | 'unspecified'
+      | 'to_value'
+      | 'to_key'
+      | 'to_parent'
+      | 'to_child'
+    /**
+     * GroupItem
+     * @description GroupItem.
+     */
+    GroupItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Name
+       * @default group
+       */
+      name: string
+      /** @default unspecified */
+      label: components['schemas']['GroupLabel']
+    }
+    /**
+     * GroupLabel
+     * @description GroupLabel.
+     * @enum {string}
+     */
+    GroupLabel:
+      | 'unspecified'
+      | 'list'
+      | 'ordered_list'
+      | 'chapter'
+      | 'section'
+      | 'sheet'
+      | 'slide'
+      | 'form_area'
+      | 'key_value_area'
+      | 'comment_section'
+      | 'inline'
+    /** HTTPValidationError */
+    HTTPValidationError: {
+      /** Detail */
+      detail?: components['schemas']['ValidationError'][]
+    }
+    /** HealthCheckResponse */
+    HealthCheckResponse: {
+      /**
+       * Status
+       * @default ok
+       */
+      status: string
+    }
+    /** HttpSource */
+    HttpSource: {
+      /**
+       * Url
+       * @description HTTP url to process
+       */
+      url: string
+      /**
+       * Headers
+       * @description Additional headers used to fetch the urls, e.g. authorization, agent, etc
+       * @default {}
+       */
+      headers: Record<string, never>
+    }
+    /**
+     * ImageRef
+     * @description ImageRef.
+     */
+    ImageRef: {
+      /** Mimetype */
+      mimetype: string
+      /** Dpi */
+      dpi: number
+      size: components['schemas']['Size']
+      /** Uri */
+      uri: string
+    }
+    /**
+     * ImageRefMode
+     * @description ImageRefMode.
+     * @enum {string}
+     */
+    ImageRefMode: 'placeholder' | 'embedded' | 'referenced'
+    /**
+     * InlineGroup
+     * @description InlineGroup.
+     */
+    InlineGroup: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Name
+       * @default group
+       */
+      name: string
+      /**
+       * Label
+       * @default inline
+       * @constant
+       */
+      label: 'inline'
+    }
+    /**
+     * InputFormat
+     * @description A document format supported by document backend parsers.
+     * @enum {string}
+     */
+    InputFormat:
+      | 'docx'
+      | 'pptx'
+      | 'html'
+      | 'image'
+      | 'pdf'
+      | 'asciidoc'
+      | 'md'
+      | 'csv'
+      | 'xlsx'
+      | 'xml_uspto'
+      | 'xml_jats'
+      | 'json_docling'
+    /**
+     * KeyValueItem
+     * @description KeyValueItem.
+     */
+    KeyValueItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default key_value_region
+       * @constant
+       */
+      label: 'key_value_region'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /**
+       * Captions
+       * @default []
+       */
+      captions: components['schemas']['RefItem'][]
+      /**
+       * References
+       * @default []
+       */
+      references: components['schemas']['RefItem'][]
+      /**
+       * Footnotes
+       * @default []
+       */
+      footnotes: components['schemas']['RefItem'][]
+      image?: components['schemas']['ImageRef'] | null
+      graph: components['schemas']['GraphData']
+    }
+    /**
+     * ListItem
+     * @description SectionItem.
+     */
+    ListItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default list_item
+       * @constant
+       */
+      label: 'list_item'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+      /**
+       * Enumerated
+       * @default false
+       */
+      enumerated: boolean
+      /**
+       * Marker
+       * @default -
+       */
+      marker: string
+    }
+    /**
+     * OrderedList
+     * @description OrderedList.
+     */
+    OrderedList: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Name
+       * @default group
+       */
+      name: string
+      /**
+       * Label
+       * @default ordered_list
+       * @constant
+       */
+      label: 'ordered_list'
+    }
+    /**
+     * OutputFormat
+     * @enum {string}
+     */
+    OutputFormat: 'md' | 'json' | 'html' | 'text' | 'doctags'
+    /**
+     * PageItem
+     * @description PageItem.
+     */
+    PageItem: {
+      size: components['schemas']['Size']
+      image?: components['schemas']['ImageRef'] | null
+      /** Page No */
+      page_no: number
+    }
+    /**
+     * PdfBackend
+     * @description Enum of valid PDF backends.
+     * @enum {string}
+     */
+    PdfBackend: 'pypdfium2' | 'dlparse_v1' | 'dlparse_v2' | 'dlparse_v4'
+    /**
+     * PictureBarChartData
+     * @description Represents data of a bar chart.
+     *
+     *     Attributes:
+     *         kind (Literal["bar_chart_data"]): The type of the chart.
+     *         x_axis_label (str): The label for the x-axis.
+     *         y_axis_label (str): The label for the y-axis.
+     *         bars (List[ChartBar]): A list of bars in the chart.
+     */
+    PictureBarChartData: {
+      /** Title */
+      title: string
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'bar_chart_data'
+      /** X Axis Label */
+      x_axis_label: string
+      /** Y Axis Label */
+      y_axis_label: string
+      /** Bars */
+      bars: components['schemas']['ChartBar'][]
+    }
+    /**
+     * PictureClassificationClass
+     * @description PictureClassificationData.
+     */
+    PictureClassificationClass: {
+      /** Class Name */
+      class_name: string
+      /** Confidence */
+      confidence: number
+    }
+    /**
+     * PictureClassificationData
+     * @description PictureClassificationData.
+     */
+    PictureClassificationData: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'classification'
+      /** Provenance */
+      provenance: string
+      /** Predicted Classes */
+      predicted_classes: components['schemas']['PictureClassificationClass'][]
+    }
+    /**
+     * PictureDescriptionData
+     * @description PictureDescriptionData.
+     */
+    PictureDescriptionData: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'description'
+      /** Text */
+      text: string
+      /** Provenance */
+      provenance: string
+    }
+    /**
+     * PictureItem
+     * @description PictureItem.
+     */
+    PictureItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default picture
+       * @constant
+       */
+      label: 'picture'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /**
+       * Captions
+       * @default []
+       */
+      captions: components['schemas']['RefItem'][]
+      /**
+       * References
+       * @default []
+       */
+      references: components['schemas']['RefItem'][]
+      /**
+       * Footnotes
+       * @default []
+       */
+      footnotes: components['schemas']['RefItem'][]
+      image?: components['schemas']['ImageRef'] | null
+      /**
+       * Annotations
+       * @default []
+       */
+      annotations: (
+        | components['schemas']['PictureClassificationData']
+        | components['schemas']['PictureDescriptionData']
+        | components['schemas']['PictureMoleculeData']
+        | components['schemas']['PictureMiscData']
+        | components['schemas']['PictureLineChartData']
+        | components['schemas']['PictureBarChartData']
+        | components['schemas']['PictureStackedBarChartData']
+        | components['schemas']['PicturePieChartData']
+        | components['schemas']['PictureScatterChartData']
+      )[]
+    }
+    /**
+     * PictureLineChartData
+     * @description Represents data of a line chart.
+     *
+     *     Attributes:
+     *         kind (Literal["line_chart_data"]): The type of the chart.
+     *         x_axis_label (str): The label for the x-axis.
+     *         y_axis_label (str): The label for the y-axis.
+     *         lines (List[ChartLine]): A list of lines in the chart.
+     */
+    PictureLineChartData: {
+      /** Title */
+      title: string
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'line_chart_data'
+      /** X Axis Label */
+      x_axis_label: string
+      /** Y Axis Label */
+      y_axis_label: string
+      /** Lines */
+      lines: components['schemas']['ChartLine'][]
+    }
+    /**
+     * PictureMiscData
+     * @description PictureMiscData.
+     */
+    PictureMiscData: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'misc'
+      /** Content */
+      content: Record<string, never>
+    }
+    /**
+     * PictureMoleculeData
+     * @description PictureMoleculeData.
+     */
+    PictureMoleculeData: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'molecule_data'
+      /** Smi */
+      smi: string
+      /** Confidence */
+      confidence: number
+      /** Class Name */
+      class_name: string
+      /** Segmentation */
+      segmentation: [number, number][]
+      /** Provenance */
+      provenance: string
+    }
+    /**
+     * PicturePieChartData
+     * @description Represents data of a pie chart.
+     *
+     *     Attributes:
+     *         kind (Literal["pie_chart_data"]): The type of the chart.
+     *         slices (List[ChartSlice]): A list of slices in the pie chart.
+     */
+    PicturePieChartData: {
+      /** Title */
+      title: string
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'pie_chart_data'
+      /** Slices */
+      slices: components['schemas']['ChartSlice'][]
+    }
+    /**
+     * PictureScatterChartData
+     * @description Represents data of a scatter chart.
+     *
+     *     Attributes:
+     *         kind (Literal["scatter_chart_data"]): The type of the chart.
+     *         x_axis_label (str): The label for the x-axis.
+     *         y_axis_label (str): The label for the y-axis.
+     *         points (List[ChartPoint]): A list of points in the scatter chart.
+     */
+    PictureScatterChartData: {
+      /** Title */
+      title: string
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'scatter_chart_data'
+      /** X Axis Label */
+      x_axis_label: string
+      /** Y Axis Label */
+      y_axis_label: string
+      /** Points */
+      points: components['schemas']['ChartPoint'][]
+    }
+    /**
+     * PictureStackedBarChartData
+     * @description Represents data of a stacked bar chart.
+     *
+     *     Attributes:
+     *         kind (Literal["stacked_bar_chart_data"]): The type of the chart.
+     *         x_axis_label (str): The label for the x-axis.
+     *         y_axis_label (str): The label for the y-axis.
+     *         stacked_bars (List[ChartStackedBar]): A list of stacked bars in the chart.
+     */
+    PictureStackedBarChartData: {
+      /** Title */
+      title: string
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: 'stacked_bar_chart_data'
+      /** X Axis Label */
+      x_axis_label: string
+      /** Y Axis Label */
+      y_axis_label: string
+      /** Stacked Bars */
+      stacked_bars: components['schemas']['ChartStackedBar'][]
+    }
+    /** ProfilingItem */
+    ProfilingItem: {
+      scope: components['schemas']['ProfilingScope']
+      /**
+       * Count
+       * @default 0
+       */
+      count: number
+      /**
+       * Times
+       * @default []
+       */
+      times: number[]
+      /**
+       * Start Timestamps
+       * @default []
+       */
+      start_timestamps: string[]
+    }
+    /**
+     * ProfilingScope
+     * @enum {string}
+     */
+    ProfilingScope: 'page' | 'document'
+    /**
+     * ProvenanceItem
+     * @description ProvenanceItem.
+     */
+    ProvenanceItem: {
+      /** Page No */
+      page_no: number
+      bbox: components['schemas']['BoundingBox']
+      /** Charspan */
+      charspan: [number, number]
+    }
+    /**
+     * RefItem
+     * @description RefItem.
+     */
+    RefItem: {
+      /** $Ref */
+      $ref: string
+    }
+    /**
+     * SectionHeaderItem
+     * @description SectionItem.
+     */
+    SectionHeaderItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default section_header
+       * @constant
+       */
+      label: 'section_header'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+      /**
+       * Level
+       * @default 1
+       */
+      level: number
+    }
+    /**
+     * Size
+     * @description Size.
+     */
+    Size: {
+      /**
+       * Width
+       * @default 0
+       */
+      width: number
+      /**
+       * Height
+       * @default 0
+       */
+      height: number
+    }
+    /**
+     * TableCell
+     * @description TableCell.
+     */
+    TableCell: {
+      bbox?: components['schemas']['BoundingBox'] | null
+      /**
+       * Row Span
+       * @default 1
+       */
+      row_span: number
+      /**
+       * Col Span
+       * @default 1
+       */
+      col_span: number
+      /** Start Row Offset Idx */
+      start_row_offset_idx: number
+      /** End Row Offset Idx */
+      end_row_offset_idx: number
+      /** Start Col Offset Idx */
+      start_col_offset_idx: number
+      /** End Col Offset Idx */
+      end_col_offset_idx: number
+      /** Text */
+      text: string
+      /**
+       * Column Header
+       * @default false
+       */
+      column_header: boolean
+      /**
+       * Row Header
+       * @default false
+       */
+      row_header: boolean
+      /**
+       * Row Section
+       * @default false
+       */
+      row_section: boolean
+    }
+    /**
+     * TableData
+     * @description BaseTableData.
+     */
+    TableData: {
+      /**
+       * Table Cells
+       * @default []
+       */
+      table_cells: components['schemas']['TableCell'][]
+      /**
+       * Num Rows
+       * @default 0
+       */
+      num_rows: number
+      /**
+       * Num Cols
+       * @default 0
+       */
+      num_cols: number
+      /**
+       * Grid
+       * @description grid.
+       */
+      readonly grid: components['schemas']['TableCell'][][]
+    }
+    /**
+     * TableFormerMode
+     * @description Modes for the TableFormer model.
+     * @enum {string}
+     */
+    TableFormerMode: 'fast' | 'accurate'
+    /**
+     * TableItem
+     * @description TableItem.
+     */
+    TableItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default table
+       * @enum {string}
+       */
+      label: 'document_index' | 'table'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /**
+       * Captions
+       * @default []
+       */
+      captions: components['schemas']['RefItem'][]
+      /**
+       * References
+       * @default []
+       */
+      references: components['schemas']['RefItem'][]
+      /**
+       * Footnotes
+       * @default []
+       */
+      footnotes: components['schemas']['RefItem'][]
+      image?: components['schemas']['ImageRef'] | null
+      data: components['schemas']['TableData']
+    }
+    /** TaskStatusResponse */
+    TaskStatusResponse: {
+      /** Task Id */
+      task_id: string
+      /** Task Status */
+      task_status: string
+      /** Task Position */
+      task_position?: number | null
+    }
+    /**
+     * TextItem
+     * @description TextItem.
+     */
+    TextItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @enum {string}
+       */
+      label:
+        | 'caption'
+        | 'checkbox_selected'
+        | 'checkbox_unselected'
+        | 'footnote'
+        | 'page_footer'
+        | 'page_header'
+        | 'paragraph'
+        | 'reference'
+        | 'text'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+    }
+    /**
+     * TitleItem
+     * @description TitleItem.
+     */
+    TitleItem: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Label
+       * @default title
+       * @constant
+       */
+      label: 'title'
+      /**
+       * Prov
+       * @default []
+       */
+      prov: components['schemas']['ProvenanceItem'][]
+      /** Orig */
+      orig: string
+      /** Text */
+      text: string
+      formatting?: components['schemas']['Formatting'] | null
+      /** Hyperlink */
+      hyperlink?: string | null
+    }
+    /**
+     * UnorderedList
+     * @description UnorderedList.
+     */
+    UnorderedList: {
+      /** Self Ref */
+      self_ref: string
+      parent?: components['schemas']['RefItem'] | null
+      /**
+       * Children
+       * @default []
+       */
+      children: components['schemas']['RefItem'][]
+      /** @default body */
+      content_layer: components['schemas']['ContentLayer']
+      /**
+       * Name
+       * @default group
+       */
+      name: string
+      /**
+       * Label
+       * @default list
+       * @constant
+       */
+      label: 'list'
+    }
+    /** ValidationError */
+    ValidationError: {
+      /** Location */
+      loc: (string | number)[]
+      /** Message */
+      msg: string
+      /** Error Type */
+      type: string
+    }
+    /**
+     * ocr_engines_enum
+     * @enum {string}
+     */
+    ocr_engines_enum:
+      | 'easyocr'
+      | 'ocrmac'
+      | 'rapidocr'
+      | 'tesserocr'
+      | 'tesseract'
+  }
+  responses: never
+  parameters: never
+  requestBodies: never
+  headers: never
+  pathItems: never
 }
-export type $defs = Record<string, never>;
+export type $defs = Record<string, never>
 export interface operations {
-    health_health_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HealthCheckResponse"];
-                };
-            };
-        };
-    };
-    process_url_v1alpha_convert_source_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ConvertDocumentFileSourcesRequest"] | components["schemas"]["ConvertDocumentHttpSourcesRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConvertDocumentResponse"];
-                    "application/zip": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    process_file_v1alpha_convert_file_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["Body_process_file_v1alpha_convert_file_post"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConvertDocumentResponse"];
-                    "application/zip": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    process_url_async_v1alpha_convert_source_async_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ConvertDocumentFileSourcesRequest"] | components["schemas"]["ConvertDocumentHttpSourcesRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskStatusResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    task_status_poll_v1alpha_status_poll__task_id__get: {
-        parameters: {
-            query?: {
-                wait?: number;
-            };
-            header?: never;
-            path: {
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskStatusResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
-    task_result_v1alpha_result__task_id__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ConvertDocumentResponse"];
-                    "application/zip": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
-    };
+  health_health_get: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HealthCheckResponse']
+        }
+      }
+    }
+  }
+  process_url_v1alpha_convert_source_post: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json':
+          | components['schemas']['ConvertDocumentFileSourcesRequest']
+          | components['schemas']['ConvertDocumentHttpSourcesRequest']
+      }
+    }
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ConvertDocumentResponse']
+          'application/zip': unknown
+        }
+      }
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HTTPValidationError']
+        }
+      }
+    }
+  }
+  process_file_v1alpha_convert_file_post: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'multipart/form-data': components['schemas']['Body_process_file_v1alpha_convert_file_post']
+      }
+    }
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ConvertDocumentResponse']
+          'application/zip': unknown
+        }
+      }
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HTTPValidationError']
+        }
+      }
+    }
+  }
+  process_url_async_v1alpha_convert_source_async_post: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json':
+          | components['schemas']['ConvertDocumentFileSourcesRequest']
+          | components['schemas']['ConvertDocumentHttpSourcesRequest']
+      }
+    }
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['TaskStatusResponse']
+        }
+      }
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HTTPValidationError']
+        }
+      }
+    }
+  }
+  task_status_poll_v1alpha_status_poll__task_id__get: {
+    parameters: {
+      query?: {
+        wait?: number
+      }
+      header?: never
+      path: {
+        task_id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['TaskStatusResponse']
+        }
+      }
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HTTPValidationError']
+        }
+      }
+    }
+  }
+  task_result_v1alpha_result__task_id__get: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        task_id: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ConvertDocumentResponse']
+          'application/zip': unknown
+        }
+      }
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['HTTPValidationError']
+        }
+      }
+    }
+  }
 }

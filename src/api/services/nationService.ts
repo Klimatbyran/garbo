@@ -25,7 +25,7 @@ class NationService {
    */
   private lazyInit() {
     const rawNationData = JSON.parse(
-      readFileSync(apiConfig.nationDataPath, 'utf-8'),
+      readFileSync(apiConfig.nationDataPath, 'utf-8')
     )
 
     // Validate and parse the data - InputNationalDataSchema will handle transformation
@@ -49,7 +49,7 @@ class NationService {
   private lazyInitSectorEmissions() {
     try {
       this._sectorEmissions = JSON.parse(
-        readFileSync(apiConfig.nationSectorEmissionsPath, 'utf-8'),
+        readFileSync(apiConfig.nationSectorEmissionsPath, 'utf-8')
       )
     } catch (_error) {
       // If the file is empty or doesn't exist, initialize as empty array

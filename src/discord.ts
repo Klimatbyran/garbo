@@ -20,7 +20,9 @@ import commands from './discord/commands'
 import config from './config/discord'
 import approve, { ApproveJob } from './discord/interactions/approve'
 import edit, { EditWikidataJob } from './discord/interactions/editWikidata'
-import editCompanyName, { EditCompanyNameJob } from './discord/interactions/inputCompanyName'
+import editCompanyName, {
+  EditCompanyNameJob,
+} from './discord/interactions/inputCompanyName'
 import { queues } from './queues'
 import { DiscordJob } from './lib/DiscordWorker'
 import diffBaseYear from './workers/diffBaseYear'
@@ -40,7 +42,19 @@ const queuesWithInteractions = {
 } as const
 
 // NOTE: Maybe find a way to define the valid keys in one place - ideally the lookup keys
-const queueNameSchema = z.enum(['saveToAPI', 'guessWikidata', 'precheck', 'diffReportingPeriods', 'diffGoals', 'diffLEI', 'diffTags', 'diffInitiatives', 'diffIndustry', 'diffDescriptions', 'diffBaseYear'])
+const queueNameSchema = z.enum([
+  'saveToAPI',
+  'guessWikidata',
+  'precheck',
+  'diffReportingPeriods',
+  'diffGoals',
+  'diffLEI',
+  'diffTags',
+  'diffInitiatives',
+  'diffIndustry',
+  'diffDescriptions',
+  'diffBaseYear',
+])
 
 const getJob = (
   queueName: keyof typeof queuesWithInteractions,
@@ -118,7 +132,10 @@ export class Discord {
                 break
               }
               case 'editCompanyName': {
-                const job = (await getJob(queueName, jobId)) as EditCompanyNameJob
+                const job = (await getJob(
+                  queueName,
+                  jobId
+                )) as EditCompanyNameJob
                 if (!job) await interaction.reply('Job not found')
                 else await editCompanyName.execute(interaction, job)
                 break
@@ -162,7 +179,7 @@ export class Discord {
         .setStyle(ButtonStyle.Secondary)
     )
   }
-  
+
   public createEditCompanyNameButtonRow = (job: DiscordJob) => {
     return new ActionRowBuilder<ButtonBuilder>().addComponents(
       new ButtonBuilder()
@@ -172,10 +189,7 @@ export class Discord {
     )
   }
 
-  async sendMessage(
-    threadId: string,
-    msg: string | BaseMessageOptions
-  ) {
+  async sendMessage(threadId: string, msg: string | BaseMessageOptions) {
     try {
       if (!threadId) throw new Error('Thread ID is required')
 
@@ -190,7 +204,7 @@ export class Discord {
     }
   }
 
-  async sendTyping(threadId: string ) {
+  async sendTyping(threadId: string) {
     const thread = (await this.client.channels.fetch(threadId)) as ThreadChannel
     return thread.sendTyping()
   }

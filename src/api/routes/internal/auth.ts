@@ -44,7 +44,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
               JSON.stringify({
                 client: query.client,
                 redirect_uri: query.redirect_uri || apiConfig.frontendURL,
-              }),
+              })
             ).toString('base64')
           : undefined
 
@@ -53,7 +53,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
       githubAuthUrl.searchParams.append('redirect_uri', redirectUri)
       githubAuthUrl.searchParams.append(
         'scope',
-        'read:user user:email read:org',
+        'read:user user:email read:org'
       )
 
       if (state) {
@@ -61,7 +61,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
       }
 
       return reply.redirect(githubAuthUrl.toString())
-    },
+    }
   )
 
   const githubCallbackQuerySchema = z.object({
@@ -99,7 +99,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
         if (query.error_description) {
           errorUrl.searchParams.append(
             'error_description',
-            query.error_description,
+            query.error_description
           )
         }
         return reply.redirect(errorUrl.toString())
@@ -114,12 +114,12 @@ export async function authentificationRoutes(app: FastifyInstance) {
       // Default to frontend URL with /auth/callback path for main client
       let targetRedirectUri = new URL(
         '/auth/callback',
-        apiConfig.frontendURL,
+        apiConfig.frontendURL
       ).toString()
       if (query.state) {
         try {
           const stateData = JSON.parse(
-            Buffer.from(query.state, 'base64').toString(),
+            Buffer.from(query.state, 'base64').toString()
           ) as { redirect_uri?: string; client?: string }
 
           if (stateData.redirect_uri) {
@@ -140,7 +140,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
             } else {
               request.log.warn(
                 { redirect_uri: stateData.redirect_uri, allowedOrigins },
-                'Blocked redirect to unauthorized origin',
+                'Blocked redirect to unauthorized origin'
               )
             }
           }
@@ -148,7 +148,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
           // If state can't be decoded, use default frontend with callback path
           request.log.warn(
             { error: error instanceof Error ? error.message : 'Unknown error' },
-            'Failed to decode state parameter',
+            'Failed to decode state parameter'
           )
         }
       }
@@ -157,7 +157,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
         // Exchange code for token
         const token = await authService.authorizeUser(
           query.code,
-          apiConfig.githubRedirectUri,
+          apiConfig.githubRedirectUri
         )
 
         // Generate a short-lived code and store token in Redis
@@ -178,11 +178,11 @@ export async function authentificationRoutes(app: FastifyInstance) {
         errorUrl.searchParams.append('error', 'authentication_failed')
         errorUrl.searchParams.append(
           'error_description',
-          error instanceof Error ? error.message : 'Unknown error',
+          error instanceof Error ? error.message : 'Unknown error'
         )
         return reply.redirect(errorUrl.toString())
       }
-    },
+    }
   )
 
   app.post(
@@ -201,7 +201,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Body: userAuthenticationBody }>,
-      reply,
+      reply
     ) => {
       try {
         // First, check if this is an internal exchange code (from backend callback)
@@ -223,7 +223,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
         if (request.body.state) {
           try {
             const stateData = JSON.parse(
-              Buffer.from(request.body.state, 'base64').toString(),
+              Buffer.from(request.body.state, 'base64').toString()
             ) as { redirect_uri?: string; client?: string }
             if (stateData.redirect_uri) {
               redirectUri = stateData.redirect_uri
@@ -240,7 +240,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
 
         const token = await authService.authorizeUser(
           request.body.code,
-          redirectUri,
+          redirectUri
         )
 
         // Return token and optionally the client info so frontend knows where to redirect
@@ -265,7 +265,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
         request.log.error({ error }, 'GitHub authentication error')
         return reply.status(401).send()
       }
-    },
+    }
   )
 
   app.post(
@@ -284,7 +284,7 @@ export async function authentificationRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Body: serviceAuthenticationBody }>,
-      reply,
+      reply
     ) => {
       try {
         const token = await authService.authorizeService(request.body)
@@ -293,6 +293,6 @@ export async function authentificationRoutes(app: FastifyInstance) {
         request.log.error({ error }, 'Service authentication error')
         return reply.status(401).send()
       }
-    },
+    }
   )
 }

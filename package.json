@@ -29,6 +29,7 @@
     "reset": "node --import tsx scripts/dev-reset.ts",
     "delete-report": "node --import tsx scripts/delete-report.ts",
     "eslint": "npx eslint src",
+    "format": "npx prettier --write .",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "author": "Christian Landgren, William Ryder, Samuel Plumppu mfl",
@@ -92,10 +93,6 @@
   "overrides": {
     "uuid": "^9.0.1",
     "undici": ">=6.23.0"
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"

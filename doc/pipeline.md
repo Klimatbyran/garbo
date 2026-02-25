@@ -29,7 +29,7 @@ pipelineStepX.queue.add(
       delay: 60_000,
     },
     attempts: 10,
-  },
+  }
 )
 ```
 

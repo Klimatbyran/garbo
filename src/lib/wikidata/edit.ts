@@ -34,7 +34,7 @@ export async function editEntity(
   entity: ItemId,
   claims: Claim[],
   removeClaim: RemoveClaim[],
-  dryRun: boolean = false,
+  dryRun: boolean = false
 ) {
   if (claims.length === 0 && removeClaim.length === 0) {
     return
@@ -82,7 +82,7 @@ export async function editEntity(
     console.log('\nClaims to ADD:')
     claims.forEach((claim, idx) => {
       console.log(
-        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}`,
+        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}`
       )
     })
     console.log('\nClaims to REMOVE:')
@@ -90,14 +90,14 @@ export async function editEntity(
       console.log(`  [${idx + 1}] ID: ${claim.id}`)
     })
     console.log(
-      `\nTotal: ${claims.length} to add, ${removeClaim.length} to remove\n`,
+      `\nTotal: ${claims.length} to add, ${removeClaim.length} to remove\n`
     )
     return
   }
 
   try {
     await wbEdit.entity.edit(
-      body as Parameters<ReturnType<typeof WBEdit>['entity']['edit']>[0],
+      body as Parameters<ReturnType<typeof WBEdit>['entity']['edit']>[0]
     )
   } catch (error) {
     console.log(`Could not update entity ${entity}: ${error}`)
@@ -111,7 +111,7 @@ export async function editEntity(
  */
 async function diffCarbonFootprintClaims(
   claims: Claim[],
-  existingClaims: Claim[],
+  existingClaims: Claim[]
 ) {
   const newClaims: Claim[] = []
   const rmClaims: RemoveClaim[] = []
@@ -166,7 +166,7 @@ async function diffCarbonFootprintClaims(
 
 export function removeExistingDuplicates(
   existingClaims: Claim[],
-  rmClaims: RemoveClaim[],
+  rmClaims: RemoveClaim[]
 ) {
   for (const existingClaim of existingClaims) {
     if (!rmClaims.find((claimI) => claimI.id === existingClaim.id)) {
@@ -176,7 +176,7 @@ export function removeExistingDuplicates(
           existingClaim.startDate === claimI.startDate &&
           existingClaim.endDate === claimI.endDate &&
           claimI.id !== existingClaim.id &&
-          !rmClaims.find((claimR) => claimI.id === claimR.id),
+          !rmClaims.find((claimR) => claimI.id === claimR.id)
       )
       if (duplicate && existingClaim.id !== undefined) {
         rmClaims.push({ id: existingClaim.id, remove: true })
@@ -188,7 +188,7 @@ export function removeExistingDuplicates(
 
 export function removeZeroValueClaims(
   existingClaims: Claim[],
-  rmClaims: RemoveClaim[],
+  rmClaims: RemoveClaim[]
 ) {
   for (const existingClaim of existingClaims) {
     // Check if this claim is already marked for removal
@@ -207,7 +207,7 @@ export function removeZeroValueClaims(
 
     if (isZeroValueScope3 && existingClaim.id !== undefined) {
       console.log(
-        `Marking 0-value scope 3 claim for removal: Category ${existingClaim.category}, Period ${existingClaim.startDate} to ${existingClaim.endDate}, ID: ${existingClaim.id}`,
+        `Marking 0-value scope 3 claim for removal: Category ${existingClaim.category}, Period ${existingClaim.startDate} to ${existingClaim.endDate}, ID: ${existingClaim.id}`
       )
       rmClaims.push({ id: existingClaim.id, remove: true })
     }
@@ -219,7 +219,7 @@ export async function diffTotalCarbonFootprintClaims(
   newClaims: Claim[],
   existingClaims: Claim[],
   rmClaims: RemoveClaim[],
-  allClaimsFromAPI: Claim[],
+  allClaimsFromAPI: Claim[]
 ) {
   // Get claims from the most recent reporting period from the API data
   const mostRecentClaims = reduceToMostRecentClaims(allClaimsFromAPI, [])
@@ -233,7 +233,7 @@ export async function diffTotalCarbonFootprintClaims(
 
   // Check if there's a stated total scope 3 from the API (without category)
   const statedTotalScope3Claim = mostRecentClaims.find(
-    (claim) => claim.scope === SCOPE_3 && claim.category === undefined,
+    (claim) => claim.scope === SCOPE_3 && claim.category === undefined
   )
 
   const mostRecentDate = {
@@ -250,7 +250,7 @@ export async function diffTotalCarbonFootprintClaims(
     total,
     undefined,
     undefined,
-    rmClaims,
+    rmClaims
   )
 
   if (shouldUpdateTotalClaim) {
@@ -286,7 +286,7 @@ function parseClaimValue(value: string): number {
 function shouldSkipClaimForTotal(claim: Claim, allClaims: Claim[]): boolean {
   // Check if there's a stated total scope 3 (without category)
   const hasStatedScope3Total = allClaims.some(
-    (c) => c.scope === SCOPE_3 && c.category === undefined,
+    (c) => c.scope === SCOPE_3 && c.category === undefined
   )
 
   // If there's a stated total, skip individual scope 3 categories
@@ -318,7 +318,7 @@ function shouldSkipClaimForTotal(claim: Claim, allClaims: Claim[]): boolean {
     claim.scope === SCOPE_2 &&
     allClaims.some(
       (c) =>
-        c.scope === SCOPE_2_MARKET_BASED || c.scope === SCOPE_2_LOCATION_BASED,
+        c.scope === SCOPE_2_MARKET_BASED || c.scope === SCOPE_2_LOCATION_BASED
     )
   ) {
     return true
@@ -333,7 +333,7 @@ function shouldUpdateClaim(
   totalValue: number,
   scope?: ItemId,
   category?: ItemId,
-  rmClaims: RemoveClaim[] = [],
+  rmClaims: RemoveClaim[] = []
 ): boolean {
   for (const claim of existingClaims) {
     // Normalize empty strings and undefined for comparison
@@ -364,7 +364,7 @@ function shouldUpdateClaim(
 
 export function reduceToMostRecentClaims(
   claims: Claim[],
-  rmClaims: RemoveClaim[] = [],
+  rmClaims: RemoveClaim[] = []
 ): Claim[] {
   return claims.reduce((recentClaims: Claim[], current) => {
     if (
@@ -388,19 +388,19 @@ export function reduceToMostRecentClaims(
 export async function bulkCreateOrEditCarbonFootprintClaim(
   entity: ItemId,
   claims: Claim[],
-  dryRun: boolean = false,
+  dryRun: boolean = false
 ) {
   try {
     const existingClaims = await getClaims(entity)
     let { newClaims, rmClaims } = await diffCarbonFootprintClaims(
       claims,
-      existingClaims,
+      existingClaims
     )
     ;({ newClaims, rmClaims } = await diffTotalCarbonFootprintClaims(
       newClaims,
       existingClaims,
       rmClaims,
-      claims,
+      claims
     ))
     ;({ rmClaims } = removeExistingDuplicates(existingClaims, rmClaims))
     ;({ rmClaims } = removeZeroValueClaims(existingClaims, rmClaims))

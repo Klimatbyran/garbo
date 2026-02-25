@@ -37,7 +37,7 @@ class IndustryService {
         },
       },
       select: { id: true },
-    });
+    })
   }
 
   async deleteIndustry(wikidataId: string) {

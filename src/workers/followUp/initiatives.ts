@@ -1,8 +1,8 @@
-import { QUEUE_NAMES } from "../../queues";
-import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
+import { QUEUE_NAMES } from '../../queues'
+import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
 
 import { z } from 'zod'
-import { FollowUpType } from "../../types";
+import { FollowUpType } from '../../types'
 
 export const schema = z.object({
   initiatives: z.array(
@@ -47,12 +47,19 @@ const queryTexts = [
 ]
 
 const initiatives = new FollowUpWorker<FollowUpJob>(
-    QUEUE_NAMES.FOLLOW_UP_INITIATIVES,
-    async (job) => {
-        const { url, previousAnswer } = job.data;
-        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.Initiatives);
-        return answer;
-    }
-);
+  QUEUE_NAMES.FOLLOW_UP_INITIATIVES,
+  async (job) => {
+    const { url, previousAnswer } = job.data
+    const answer = await job.followUp(
+      url,
+      previousAnswer,
+      schema,
+      prompt,
+      queryTexts,
+      FollowUpType.Initiatives
+    )
+    return answer
+  }
+)
 
-export default initiatives;
+export default initiatives
