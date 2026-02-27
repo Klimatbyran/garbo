@@ -10,7 +10,6 @@ import {
   CompanyList,
   wikidataIdParamSchema,
   CompanyDetails,
-  CompanyNameList,
   getErrorSchemas,
   companySearchQuerySchema,
 } from '../../schemas'
