@@ -1,5 +1,6 @@
 import Firecrawl, { Document, SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports } from '../types'
+import { prisma } from '../../lib/prisma'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
@@ -30,6 +31,17 @@ class ReportsService {
     }
     return results
   }
+
+    async getAllCompanies() {
+      const companies = await prisma.company.findMany({
+        select: {
+          name: true,
+          wikidataId: true,
+          reportingPeriods: true
+        },
+      })
+      return companies
+    }
 }
 
 export const reportsService = new ReportsService()

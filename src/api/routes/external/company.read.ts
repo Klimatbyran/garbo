@@ -140,22 +140,4 @@ export async function companyReadRoutes(app: FastifyInstance) {
       reply.send(companies)
     }
   )
-
-  app.get(
-    '/names',
-    {
-      schema: {
-        summary: 'Get company names',
-        description: 'Retrieve a list of all company names',
-        tags: getTags('Companies'),
-        response: {
-          200: CompanyNameList,
-        },
-      },
-    },
-    async (request, reply) => {
-      const companyNames = await companyService.getAllCompanyNames()
-      reply.send(companyNames || [])
-    }
-  )
 }
