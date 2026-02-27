@@ -382,16 +382,23 @@ const CompanyBase = CompanyBaseSchema.extend({
 
 export const CompanyList = z.array(MinimalCompanyBase)
 
+export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
+  emissions: true,
+  economy: true,
+})
+
+export const ReportsCompanyList = z.array(
+  z.object({
+    name: z.string(),
+    wikidataId: wikidataIdSchema,
+    reportingPeriods: z.array(ReportsReportingPeriodSchema),
+  })
+)
+
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
-
-export const CompanyNameList = z.array(
-  z.object({
-    name: z.string(),
-  })
-)
 
 function transformYearlyData(
   yearlyData: Record<string, number>
