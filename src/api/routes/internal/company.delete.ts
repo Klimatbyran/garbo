@@ -238,7 +238,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of biogenic emissions failed.' })
-        return
       }
 
       return reply.code(204).send()
@@ -305,7 +304,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of Scope1and2 emissions failed.' })
-        return
       }
       return reply.code(204).send()
     }
@@ -338,7 +336,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of Scope2 emissions failed.' })
-        return
       }
       return reply.code(204).send()
     }
@@ -371,7 +368,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of Scope3 emissions failed.' })
-        return
       }
       return reply.code(204).send()
     }
@@ -404,7 +400,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of Scope3 category failed.' })
-        return
       }
       return reply.code(204).send()
     }
@@ -437,7 +432,6 @@ export async function companyDeleteRoutes(app: FastifyInstance) {
         return reply
           .code(500)
           .send({ message: 'Deletion of base year failed.' })
-        return
       }
       return reply.code(204).send()
     }
