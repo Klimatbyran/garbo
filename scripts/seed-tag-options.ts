@@ -2,8 +2,8 @@
  * Seed only tag options (no users, no GICS).
  * Usage:
  *   npm run seed:tags
- *   # or from inside a k8s pod:
- *   kubectl exec -it deployment/garbo -c garbo -- npm run seed:tags
+ *   # or from inside a k8s pod (staging namespace):
+ *   kubectl exec -it deployment/garbo -c garbo -n garbo-stage -- npm run seed:tags
  */
 import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'

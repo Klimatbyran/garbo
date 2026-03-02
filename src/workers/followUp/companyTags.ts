@@ -2,7 +2,7 @@ import { QUEUE_NAMES } from '../../queues'
 import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
 import { z } from 'zod'
 import { FollowUpType } from '../../types'
-import { prisma } from '../../lib/prisma'
+import { apiFetch } from '../../lib/api'
 
 const queryTexts = [
   'Company ownership structure',
@@ -14,12 +14,19 @@ const queryTexts = [
   'Corporate structure',
 ]
 
+/** Fetches tag options from the API (no DB access in worker). */
+async function fetchTagOptions(): Promise<{ slug: string; label: string | null }[]> {
+  const options = await apiFetch('/tag-options')
+  if (!Array.isArray(options)) return []
+  return options.map((o: any) => ({
+    slug: o.slug ?? '',
+    label: o.label ?? null,
+  }))
+}
+
 async function buildSchemaAndPrompt() {
-  const tagOptions = await prisma.tagOption.findMany({
-    orderBy: { slug: 'asc' },
-    select: { slug: true, label: true },
-  })
-  const slugs = tagOptions.map((o) => o.slug)
+  const tagOptions = await fetchTagOptions()
+  const slugs = tagOptions.map((o) => o.slug).filter(Boolean)
   if (slugs.length === 0) {
     return {
       schema: z.object({ tags: z.array(z.string()) }),
