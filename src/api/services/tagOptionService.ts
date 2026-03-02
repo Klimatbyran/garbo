@@ -28,10 +28,7 @@ class TagOptionService {
     })
   }
 
-  async update(
-    id: string,
-    data: { slug?: string; label?: string | null }
-  ) {
+  async update(id: string, data: { slug?: string; label?: string | null }) {
     const existing = await prisma.tagOption.findUniqueOrThrow({
       where: { id },
     })

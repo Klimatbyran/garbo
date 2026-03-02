@@ -24,7 +24,10 @@ export const descriptionSchema = z.object({
 const tagOptionSlugSchema = z
   .string()
   .min(1)
-  .regex(/^[a-z0-9-]+$/, 'Slug must be lowercase letters, numbers and hyphens only')
+  .regex(
+    /^[a-z0-9-]+$/,
+    'Slug must be lowercase letters, numbers and hyphens only'
+  )
 
 export const createTagOptionBodySchema = z.object({
   slug: tagOptionSlugSchema,
