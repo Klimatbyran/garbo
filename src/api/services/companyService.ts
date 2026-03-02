@@ -21,11 +21,11 @@ class CompanyService {
       addCalculatedTotalEmissions(transformedCompanies)
 
     const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
+      companiesWithCalculatedTotalEmissions
     )
 
     const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
+      companiesWithEmissionsChange
     )
 
     return companiesWithFutureEmissionsTrendSlope
@@ -49,10 +49,10 @@ class CompanyService {
     const companiesWithCalculatedTotalEmissions =
       addCalculatedTotalEmissions(transformedCompanies)
     const companiesWithEmissionsChange = addCompanyEmissionChange(
-      companiesWithCalculatedTotalEmissions,
+      companiesWithCalculatedTotalEmissions
     )
     const companiesWithFutureEmissionsTrendSlope = addFutureEmissionsTrendSlope(
-      companiesWithEmissionsChange,
+      companiesWithEmissionsChange
     )
 
     return companiesWithFutureEmissionsTrendSlope
@@ -67,8 +67,8 @@ class CompanyService {
     })
     const [transformedCompany] = addFutureEmissionsTrendSlope(
       addCompanyEmissionChange(
-        addCalculatedTotalEmissions([transformMetadata(company)]),
-      ),
+        addCalculatedTotalEmissions([transformMetadata(company)])
+      )
     )
 
     return transformedCompany
@@ -261,7 +261,7 @@ export function transformMetadata(data: any): any {
         }
         return acc
       },
-      {} as Record<string, any>,
+      {} as Record<string, any>
     )
 
     return transformed
@@ -282,7 +282,7 @@ export function addCalculatedTotalEmissions(companies: any[]) {
           const scope2Total = calculateScope2Total(scope2)
           const scope3Total = calculateScope3Total(scope3)
           const totalEmissions = calculatedTotalEmissions(
-            reportingPeriod.emissions,
+            reportingPeriod.emissions
           )
 
           return {
@@ -311,7 +311,7 @@ export function addCompanyEmissionChange(companies: any[]) {
     return {
       ...company,
       reportingPeriods: addEmissionTrendsToReportingPeriods(
-        sortReportingPeriodsByEndDate(company.reportingPeriods),
+        sortReportingPeriodsByEndDate(company.reportingPeriods)
       ),
     }
   })
@@ -340,11 +340,12 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
 
       const slope = calculateFutureEmissionTrend(
         transformedCompany.reportedPeriods,
-        baseYear,
+        baseYear
       )
 
       // Ensure we always return a valid value (number or null)
-      const validSlope = typeof slope === 'number' ? slope : null
+      const validSlope =
+        typeof slope === 'number' && Number.isFinite(slope) ? slope : null
 
       return {
         ...company,
@@ -354,7 +355,7 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
       console.error(
         'Error calculating future emissions trend slope for company:',
         company.wikidataId,
-        error,
+        error
       )
       return {
         ...company,
@@ -366,7 +367,7 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
 
 function sortReportingPeriodsByEndDate(reportingPeriods: any[]) {
   return reportingPeriods.sort(
-    (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime(),
+    (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
   )
 }
 
@@ -376,7 +377,7 @@ function addEmissionTrendsToReportingPeriods(periods: any[]) {
       const previousPeriod = periods[index + 1]
       period.emissionsChangeLastTwoYears = calculateEmissionChangeLastTwoYears(
         period,
-        previousPeriod,
+        previousPeriod
       )
     } else {
       period.emissionsChangeLastTwoYears = {

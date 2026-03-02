@@ -30,7 +30,6 @@ async function main() {
       app.register(bullBoard, {
         logLevel: 'silent',
         prefix: apiConfig.bullBoardBasePath,
-        basePath: apiConfig.bullBoardBasePath,
       })
     }
 
@@ -101,6 +100,9 @@ async function findAndDeleteOrphanedMetadata() {
   }
 }
 
-setInterval(() => {
-  findAndDeleteOrphanedMetadata()
-}, 1000 * 60 * 60 * 24)
+setInterval(
+  () => {
+    findAndDeleteOrphanedMetadata()
+  },
+  1000 * 60 * 60 * 24
+)

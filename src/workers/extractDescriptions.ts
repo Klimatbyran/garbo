@@ -2,27 +2,25 @@ import { askPrompt } from '../lib/openai'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
-import {Description} from '../api/types'
-
+import { Description } from '../api/types'
 
 class ExtractDescriptionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
-    companyName: string,
-    companyId: string,
+    companyName: string
+    companyId: string
   }
 }
 
 const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
   QUEUE_NAMES.EXTRACT_DESCRIPTIONS,
   async (job: ExtractDescriptionsJob) => {
-    const { url, companyName } = job.data;
+    const { url, companyName } = job.data
 
-
-    // Helps in finding relevant chuncks to extract the corresponding paragraphs 
+    // Helps in finding relevant chuncks to extract the corresponding paragraphs
     const queryTexts = [
-      'Summarize the company\'s primary industry, activities, and goals.',
+      "Summarize the company's primary industry, activities, and goals.",
       'Describe the main operations and products of the company.',
-      'Provide a summary of what the company does and its target market.'
+      'Provide a summary of what the company does and its target market.',
     ]
 
     const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15)
@@ -58,11 +56,16 @@ const extractDescriptions = new DiscordWorker<ExtractDescriptionsJob>(
       descriptionSWE
     )
 
-    const descriptions: Description[] = [{language: 'SV', text: descriptionSWE}, {language: 'EN', text: descriptionENG}]
+    const descriptions: Description[] = [
+      { language: 'SV', text: descriptionSWE },
+      { language: 'EN', text: descriptionENG },
+    ]
 
-    job.log(`For '${companyName}', created the following descriptions: ${descriptions}`);
+    job.log(
+      `For '${companyName}', created the following descriptions: ${descriptions}`
+    )
 
-    return {descriptions: descriptions}
+    return { descriptions: descriptions }
   }
 )
 

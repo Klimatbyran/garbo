@@ -15,7 +15,9 @@ export type ScopeEntry = {
   absoluteMostRecentYearInReport?: number
 }
 
-export function extractScopeEntriesFromFollowUp(raw: unknown): ScopeEntry[] | undefined {
+export function extractScopeEntriesFromFollowUp(
+  raw: unknown
+): ScopeEntry[] | undefined {
   if (!raw) return undefined
 
   // If it's already an array of entries, just return it
@@ -35,9 +37,10 @@ export function extractScopeEntriesFromFollowUp(raw: unknown): ScopeEntry[] | un
   }
 
   // If we have a { value, metadata } wrapper, unwrap it
-  const container = parsed && typeof parsed === 'object' && 'value' in parsed
-    ? (parsed as { value: any }).value
-    : parsed
+  const container =
+    parsed && typeof parsed === 'object' && 'value' in parsed
+      ? (parsed as { value: any }).value
+      : parsed
 
   if (!container || typeof container !== 'object') {
     return undefined
@@ -59,7 +62,7 @@ export function extractScopeEntriesFromFollowUp(raw: unknown): ScopeEntry[] | un
 export function mergeScope1AndScope2Results(
   scope1: ScopeEntry[] | undefined,
   scope2: ScopeEntry[] | undefined,
-  legacyScope12: ScopeEntry[] | undefined,
+  legacyScope12: ScopeEntry[] | undefined
 ): ScopeEntry[] | undefined {
   if (legacyScope12 && !scope1 && !scope2) {
     return legacyScope12
@@ -74,7 +77,7 @@ export function mergeScope1AndScope2Results(
   }
 
   return Array.from(years).map((year) =>
-    mergeEntriesForYear(year, scope1ByYear, scope2ByYear, legacyScope12),
+    mergeEntriesForYear(year, scope1ByYear, scope2ByYear, legacyScope12)
   )
 }
 
@@ -93,7 +96,7 @@ function indexEntriesByYear(entries?: ScopeEntry[]): Map<number, ScopeEntry> {
 function collectAllYears(
   scope1ByYear: Map<number, ScopeEntry>,
   scope2ByYear: Map<number, ScopeEntry>,
-  legacyScope12?: ScopeEntry[],
+  legacyScope12?: ScopeEntry[]
 ): Set<number> {
   const legacyYears =
     legacyScope12
@@ -111,7 +114,7 @@ function mergeEntriesForYear(
   year: number,
   scope1ByYear: Map<number, ScopeEntry>,
   scope2ByYear: Map<number, ScopeEntry>,
-  legacyScope12?: ScopeEntry[],
+  legacyScope12?: ScopeEntry[]
 ): ScopeEntry {
   const scope1Entry = scope1ByYear.get(year)
   const scope2Entry = scope2ByYear.get(year)
@@ -122,7 +125,7 @@ function mergeEntriesForYear(
     absoluteMostRecentYearInReport: pickAbsoluteMostRecentYear(
       scope1Entry,
       scope2Entry,
-      legacyEntry,
+      legacyEntry
     ),
   }
 
@@ -135,7 +138,7 @@ function mergeEntriesForYear(
 
 function findLegacyEntryForYear(
   year: number,
-  legacyScope12?: ScopeEntry[],
+  legacyScope12?: ScopeEntry[]
 ): ScopeEntry | undefined {
   if (!legacyScope12) return undefined
   return legacyScope12.find((entry) => entry?.year === year)
@@ -144,7 +147,7 @@ function findLegacyEntryForYear(
 function pickAbsoluteMostRecentYear(
   scope1Entry?: ScopeEntry,
   scope2Entry?: ScopeEntry,
-  legacyEntry?: ScopeEntry,
+  legacyEntry?: ScopeEntry
 ): number | undefined {
   return (
     scope1Entry?.absoluteMostRecentYearInReport ??
@@ -156,7 +159,7 @@ function pickAbsoluteMostRecentYear(
 function pickScope1And2(
   scope1Entry?: ScopeEntry,
   scope2Entry?: ScopeEntry,
-  legacyEntry?: ScopeEntry,
+  legacyEntry?: ScopeEntry
 ): ScopeEntry['scope1And2'] {
   // Prefer scope1 worker's scope1And2 value when both scope1 and scope2 workers
   // provide conflicting values. This is an explicit choice to prioritize scope1

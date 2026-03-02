@@ -2,7 +2,8 @@ import { FastifyInstance } from 'fastify'
 import {
   fetchNewsletters,
   mailchimpResponseSchema,
-} from '../services/mailchimp'
+} from '../../services/mailchimp'
+import { getErrorSchemas } from '../../schemas'
 
 export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
   app.get(
@@ -15,6 +16,7 @@ export async function newsletterArchiveDownloadsRoute(app: FastifyInstance) {
 
         response: {
           200: mailchimpResponseSchema,
+          ...getErrorSchemas(500),
         },
       },
     },

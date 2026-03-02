@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { subscribeAndTagUser } from '../services/mailchimp'
+import { subscribeAndTagUser } from '../../services/mailchimp'
 
 export async function mailingListDownloadsRoute(app: FastifyInstance) {
   app.post('/download-request', async (request, reply) => {

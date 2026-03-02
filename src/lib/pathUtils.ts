@@ -6,4 +6,4 @@ export function createSafeFolderName(url: string): string {
     .replace(/_+/g, '_')
     .replace(/^_|_$/g, '')
     .substring(0, 100) // Limit length
-} 
+}

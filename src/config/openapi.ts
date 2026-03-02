@@ -69,6 +69,12 @@ const openAPITagDefinitions = {
   Newsletters: {
     description: 'Newsletters',
   },
+  Reports: {
+    description: 'Company reports',
+  },
+  Internal: {
+    description: 'Internal endpoints for data assessment and management',
+  },
 } as const
 
 type TagName = keyof typeof openAPITagDefinitions
@@ -80,7 +86,7 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
     tags[tagName] = { name: tagName, ...tag }
     return tags
   },
-  {} as Record<TagName, Tag>,
+  {} as Record<TagName, Tag>
 )
 
 /**

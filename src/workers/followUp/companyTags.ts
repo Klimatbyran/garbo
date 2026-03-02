@@ -1,7 +1,7 @@
-import { QUEUE_NAMES } from "../../queues";
-import { FollowUpJob, FollowUpWorker } from "../../lib/FollowUpWorker";
+import { QUEUE_NAMES } from '../../queues'
+import { FollowUpJob, FollowUpWorker } from '../../lib/FollowUpWorker'
 import { z } from 'zod'
-import { FollowUpType } from "../../types";
+import { FollowUpType } from '../../types'
 import { prisma } from '../../lib/prisma'
 
 const queryTexts = [
@@ -52,13 +52,20 @@ If you cannot determine any tags with certainty, return an empty array.
 }
 
 const companyTags = new FollowUpWorker<FollowUpJob>(
-    QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
-    async (job) => {
-        const { url, previousAnswer } = job.data;
-        const { schema, prompt } = await buildSchemaAndPrompt();
-        const answer = await job.followUp(url, previousAnswer, schema, prompt, queryTexts, FollowUpType.CompanyTags);
-        return answer;
-    }
-);
+  QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
+  async (job) => {
+    const { url, previousAnswer } = job.data
+    const { schema, prompt } = await buildSchemaAndPrompt()
+    const answer = await job.followUp(
+      url,
+      previousAnswer,
+      schema,
+      prompt,
+      queryTexts,
+      FollowUpType.CompanyTags
+    )
+    return answer
+  }
+)
 
-export default companyTags;
+export default companyTags

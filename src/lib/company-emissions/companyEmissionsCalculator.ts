@@ -15,7 +15,7 @@ export function calculateScope2Total(scope2: any): number | null {
 export function calculateScope1And2Total(
   scope1: any,
   scope2: any,
-  scope1And2: any,
+  scope1And2: any
 ): number | null {
   const scope1Total = scope1?.total ?? null
   const scope2Total = calculateScope2Total(scope2)
@@ -37,7 +37,7 @@ export function calculateScope1And2Total(
  * This allows callers to fall back to statedTotalEmissions when categories carry no values.
  */
 function calculateScope3CategoriesTotal(
-  categories: any[] | undefined,
+  categories: any[] | undefined
 ): number | null {
   if (!categories || categories.length === 0) {
     return null
@@ -102,7 +102,7 @@ export function calculatedTotalEmissions(emissions: Emissions): number | null {
 
 export function calculateEmissionChangeLastTwoYears(
   currentPeriod: any,
-  previousPeriod: any,
+  previousPeriod: any
 ) {
   const { adjustedCurrentTotal, adjustedPreviousTotal } =
     calculateEmissionTotals(currentPeriod, previousPeriod)
@@ -171,12 +171,12 @@ function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
   const currentScope1And2Total = calculateScope1And2Total(
     currentScope1,
     currentScope2,
-    currentScope1And2,
+    currentScope1And2
   )
   const previousScope1And2Total = calculateScope1And2Total(
     previousScope1,
     previousScope2,
-    previousScope1And2,
+    previousScope1And2
   )
 
   // Compare scope 1+2 totals if both periods have data
@@ -194,7 +194,7 @@ function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
       (current, previous) => {
         adjustedCurrentTotal += current
         adjustedPreviousTotal += previous
-      },
+      }
     )
   }
 
@@ -214,7 +214,7 @@ function calculateEmissionTotals(currentPeriod: any, previousPeriod: any) {
 function calculateScope3EmissionsTotals(
   currentScope3: any,
   previousScope3: any,
-  addToTotals: (current: number, previous: number) => void,
+  addToTotals: (current: number, previous: number) => void
 ) {
   function categoriesHaveValues(): boolean {
     const hasCurrentCategories =
@@ -237,7 +237,7 @@ function calculateScope3EmissionsTotals(
   function addMatchingCategoriesToSum(): void {
     currentScope3.categories.forEach((currentCategory: any) => {
       const previousCategory = previousScope3.categories.find(
-        (category: any) => category.category === currentCategory.category,
+        (category: any) => category.category === currentCategory.category
       )
       if (previousCategory) {
         addToTotals(currentCategory?.total ?? 0, previousCategory?.total ?? 0)
@@ -255,7 +255,7 @@ function calculateScope3EmissionsTotals(
   function addStatedTotalsToSum(): void {
     addToTotals(
       currentScope3.statedTotalEmissions?.total ?? 0,
-      previousScope3.statedTotalEmissions?.total ?? 0,
+      previousScope3.statedTotalEmissions?.total ?? 0
     )
   }
 

@@ -113,14 +113,14 @@ export function hasScope1And2Data(period: ReportedPeriod): boolean {
 
 export function getPeriodsFromBaseYear(
   periods: ReportedPeriod[],
-  baseYear?: number,
+  baseYear?: number
 ): ReportedPeriod[] {
   return baseYear ? periods.filter((p) => p.year >= baseYear) : periods
 }
 
 export function getValidDataPeriods(
   periods: ReportedPeriod[],
-  emissionsType: EmissionsType,
+  emissionsType: EmissionsType
 ): ReportedPeriod[] {
   if (emissionsType === 'scope1and2' && periods.some(hasScope3Data)) {
     return []
@@ -129,13 +129,13 @@ export function getValidDataPeriods(
   return periods.filter((period) =>
     emissionsType === 'scope3'
       ? hasScope3Data(period)
-      : hasScope1And2Data(period) && !hasScope3Data(period),
+      : hasScope1And2Data(period) && !hasScope3Data(period)
   )
 }
 
 export function has3YearsOfNonNullData(
   reportedPeriods: ReportedPeriod[],
-  emissionsType: EmissionsType,
+  emissionsType: EmissionsType
 ): boolean {
   const validPeriods = getValidDataPeriods(reportedPeriods, emissionsType)
   return validPeriods.length >= 3
@@ -144,7 +144,7 @@ export function has3YearsOfNonNullData(
 export function extractEmissionsArray(
   reportedPeriods: ReportedPeriod[],
   emissionsType: EmissionsType,
-  baseYear?: number,
+  baseYear?: number
 ): { year: number; emissions: number | null | undefined }[] {
   const filteredPeriods = getPeriodsFromBaseYear(reportedPeriods, baseYear)
   const validPeriods =
@@ -162,7 +162,7 @@ export function extractEmissionsArray(
 
 export function calculateLADTrendSlope(
   y: { year: number; emissions: number }[],
-  opts: { maxIter?: number; tol?: number; eps?: number } = {},
+  opts: { maxIter?: number; tol?: number; eps?: number } = {}
 ): number {
   const n = y.length
   const maxIter = opts.maxIter ?? 1000
@@ -223,17 +223,13 @@ export function calculateLADTrendSlope(
     if (delta < tol) break
   }
 
-  // Validate result is a finite number
-  if (!isFinite(b1)) {
-    throw new Error('Invalid calculation result (non-finite number)')
-  }
-
+  // Return b1; callers should check isFinite(b1) for invalid/NaN inputs
   return b1
 }
 
 export function determineEmissionsType(
   periods: ReportedPeriod[],
-  baseYear?: number,
+  baseYear?: number
 ): EmissionsType | null {
   const relevantPeriods = getPeriodsFromBaseYear(periods, baseYear)
 
@@ -258,7 +254,7 @@ export function determineEmissionsType(
 
 export function calculateFutureEmissionTrend(
   reportedPeriods: ReportedPeriod[],
-  baseYear?: number,
+  baseYear?: number
 ): number | null {
   try {
     // Check if we can determine emissions type
@@ -271,11 +267,11 @@ export function calculateFutureEmissionTrend(
     const emissionsData = extractEmissionsArray(
       reportedPeriods,
       emissionsType,
-      baseYear,
+      baseYear
     )
     const validEmissionsData = emissionsData.filter(
       (item): item is { year: number; emissions: number } =>
-        hasValidValue(item.emissions) && item.emissions !== undefined,
+        hasValidValue(item.emissions) && item.emissions !== undefined
     )
 
     // Check if we have enough data for trend calculation (need 3+ points)

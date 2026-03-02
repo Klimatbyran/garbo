@@ -153,7 +153,7 @@ const wikidataConfig = {
       env.WIKIDATA_URL === 'https://www.wikidata.org'
         ? LiveWikidataEntities
         : TestWikidataEntities,
-      id,
+      id
     ),
 } as const
 

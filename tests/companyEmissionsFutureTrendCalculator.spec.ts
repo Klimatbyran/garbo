@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals'
 import {
   calculateLADTrendSlope,
   extractEmissionsArray,
@@ -109,7 +110,7 @@ describe('Company Emissions Calculator', () => {
     test('should return expected result for getValidDataPeriods with scope 1 and 2', () => {
       const result = getValidDataPeriods(
         reportingPeriodsWithMixedScopeData,
-        'scope1and2',
+        'scope1and2'
       )
       expect(result).toEqual([])
     })
@@ -123,7 +124,7 @@ describe('Company Emissions Calculator', () => {
     test('should return false if there is less than 3 years of non null data', () => {
       const result = has3YearsOfNonNullData(
         reportedPeriods.slice(6, 9),
-        'scope3',
+        'scope3'
       )
       expect(result).toEqual(false)
     })
@@ -153,7 +154,7 @@ describe('Company Emissions Calculator', () => {
     test('should return expected result for scope 1 and 2 emissions array', () => {
       const result = extractEmissionsArray(
         reportingPeriodsWithMixedScopeData.slice(1, 4),
-        'scope1and2',
+        'scope1and2'
       )
       expect(result).toEqual(scope1And2EmissionsArray)
     })
@@ -193,7 +194,7 @@ describe('Company Emissions Calculator', () => {
 
     test('should return expected result for determineEmissionsType with scope 1 and 2', () => {
       const result = determineEmissionsType(
-        reportingPeriodsWithMixedScopeData.slice(1),
+        reportingPeriodsWithMixedScopeData.slice(1)
       )
       expect(result).toEqual('scope1and2')
     })

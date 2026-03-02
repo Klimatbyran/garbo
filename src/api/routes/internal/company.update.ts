@@ -1,17 +1,17 @@
 import { AuthenticatedFastifyRequest, FastifyInstance } from 'fastify'
 
-import { companyService } from '../services/companyService'
-import { tagOptionService } from '../services/tagOptionService'
+import { companyService } from '../../services/companyService'
+import { tagOptionService } from '../../services/tagOptionService'
 import {
   postCompanyBodySchema,
   patchCompanyTagsBodySchema,
   wikidataIdParamSchema,
   okResponseSchema,
   getErrorSchemas,
-} from '../schemas'
-import { getTags } from '../../config/openapi'
-import { PostCompanyBody, WikidataIdParams } from '../types'
-import { metadataService } from '../services/metadataService'
+} from '../../schemas'
+import { getTags } from '../../../config/openapi'
+import { PostCompanyBody, WikidataIdParams } from '../../types'
+import { metadataService } from '../../services/metadataService'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(
@@ -34,7 +34,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         Params: WikidataIdParams
         Body: PostCompanyBody
       }>,
-      reply,
+      reply
     ) => {
       const {
         name,
@@ -65,7 +65,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           internalComment,
           tags,
           url,
-          logoUrl,
+          logoUrl: logoUrl ?? undefined,
           lei,
         })
         // Create descriptions
@@ -87,7 +87,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
           .status(500)
           .send({ message: 'Creation or update of company failed.' })
       }
-    },
+    }
   )
 
   app.patch(

@@ -9,25 +9,25 @@ export default {
   data: new SlashCommandBuilder()
     .setName('pdfs')
     .setDescription(
-      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.',
+      'Skicka in en eller flera årsredovisningar och få tillbaka utsläppsdata.'
     )
     .addStringOption((option) =>
       option
         .setName('urls')
         .setDescription('URLs to PDF files. Separate with comma or new lines.')
-        .setRequired(true),
+        .setRequired(true)
     )
     .addBooleanOption((option) =>
       option
         .setName('auto-approve')
         .setDescription('Automatically approve the extracted data.')
-        .setRequired(false),
+        .setRequired(false)
     )
     .addBooleanOption((option) =>
       option
         .setName('force-reindex')
         .setDescription('Re-index markdown even if already indexed')
-        .setRequired(false),
+        .setRequired(false)
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
@@ -43,7 +43,8 @@ export default {
 
       const autoApprove =
         interaction.options.getBoolean('auto-approve') || false
-      const forceReindex = interaction.options.getBoolean('force-reindex') || false
+      const forceReindex =
+        interaction.options.getBoolean('force-reindex') || false
 
       if (!urls || !urls.length) {
         await interaction.followUp({
@@ -69,7 +70,7 @@ export default {
 
         thread.send(`PDF i kö: ${url}`)
         thread.send(
-          `Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`,
+          `Be användaren att verifiera data: ${autoApprove ? 'Nej' : 'Ja'}`
         )
         if (forceReindex) {
           thread.send(`🔁 Force re-index enabled`)
@@ -88,7 +89,7 @@ export default {
               delay: 60_000,
             },
             attempts: 10,
-          },
+          }
         )
       })
     } catch (error) {

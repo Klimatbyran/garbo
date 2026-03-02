@@ -36,7 +36,7 @@ const searchTerms = [
 export async function createScreenshots(
   json: ParsedDocument,
   url: string,
-  logger: Logger,
+  logger: Logger
 ): Promise<void> {
   logger.info('🔍 Searching for relevant tables...')
   const pdf = await fetchPdf(url)
@@ -49,10 +49,10 @@ export async function createScreenshots(
     json,
     outputDir,
     searchTerms,
-    url,
+    url
   )
   logger.info(
-    `🤖 Found relevant tables at ${pageCount} unique pages and made screenshots of them.`,
+    `🤖 Found relevant tables at ${pageCount} unique pages and made screenshots of them.`
   )
 
   logger.info(`Extracted ${pageCount} pages`)
