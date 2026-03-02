@@ -66,6 +66,9 @@ const openAPITagDefinitions = {
   Newsletters: {
     description: 'Newsletters',
   },
+  Reports: {
+    description: 'Company reports',
+  },
   Internal: {
     description: 'Internal endpoints for data assessment and management',
   },

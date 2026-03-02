@@ -51,7 +51,8 @@ export async function extractJsonFromPdf(
   buffer: Buffer
 ): Promise<ParsedDocument> {
   const formData = new FormData()
-  formData.append('file', new Blob([new Uint8Array(buffer)]), 'document.pdf')
+  const fileBytes = Uint8Array.from(buffer)
+  formData.append('file', new Blob([fileBytes]), 'document.pdf')
   const url = `${nlmIngestorConfig.url}/api/parseDocument?renderFormat=json`
 
   let response: Response

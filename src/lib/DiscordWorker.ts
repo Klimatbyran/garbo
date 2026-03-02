@@ -31,6 +31,8 @@ export class DiscordJob extends Job {
     messageId?: string
     autoApprove: boolean
     approval?: Approval
+    /** Propagated from pipeline-api job create; used for batch filtering. */
+    batchId?: string
   }
 
   //message: any
