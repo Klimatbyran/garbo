@@ -153,6 +153,8 @@ async function publicContext(app: FastifyInstance) {
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
   })
+  app.register(reportsCreateRoutes, { prefix: 'api/reports' })
+  app.register(reportsReadRoutes, { prefix: 'api/reports' })
 }
 
 /**
@@ -175,8 +177,6 @@ async function authenticatedContext(app: FastifyInstance) {
     prefix: 'api/emissions-assessment',
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
-  app.register(reportsCreateRoutes, { prefix: 'api/reports' })
-  app.register(reportsReadRoutes, { prefix: 'api/reports' })
 }
 
 export default startApp
