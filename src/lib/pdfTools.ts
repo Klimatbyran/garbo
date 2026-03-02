@@ -15,19 +15,20 @@ import { createSafeFolderName } from './pathUtils'
 
 let storage: Storage | null = null
 
-if (googleScreenshotBucketConfig.bucketKey) {
-  try {
-    const credentials = JSON.parse(
-      Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
-    )
-    storage = new Storage({
-      credentials,
-      projectId: credentials.project_id,
-    })
-  } catch (error) {
-    console.error('❌ pdfTools: Error initializing storage')
-    storage = null
+try {
+  if (!googleScreenshotBucketConfig.bucketKey) {
+    throw new Error('Missing GOOGLE_SCREENSHOT_BUCKET_KEY')
   }
+  const credentials = JSON.parse(
+    Buffer.from(googleScreenshotBucketConfig.bucketKey, 'base64').toString()
+  )
+  storage = new Storage({
+    credentials,
+    projectId: credentials.project_id,
+  })
+} catch (error) {
+  console.error('❌ pdfTools: Error initializing storage')
+  storage = null
 }
 
 function encodeUriIfNeeded(uri: string): string {
