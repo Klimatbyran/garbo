@@ -29,7 +29,8 @@ import {
 import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
-import { reportsCreateRoutes } from './api/routes/reports.create'
+import { reportsCreateRoutes } from './api/routes/internal/reports.create'
+import { reportsReadRoutes } from './api/routes/internal/reports.read'
 import { municipalityReadRoutes } from './api/routes/external/municipality.read'
 import { regionalReadRoutes } from './api/routes/external/regional.read'
 import { nationalReadRoutes } from './api/routes/external/national.read'
@@ -153,6 +154,7 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/newsletters',
   })
   app.register(reportsCreateRoutes, { prefix: 'api/reports' })
+  app.register(reportsReadRoutes, { prefix: 'api/reports' })
 }
 
 /**
@@ -175,8 +177,6 @@ async function authenticatedContext(app: FastifyInstance) {
     prefix: 'api/emissions-assessment',
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
-  /*   app.register(reportsCreateRoutes, { prefix: 'api/reports' })
-   */
 }
 
 export default startApp
