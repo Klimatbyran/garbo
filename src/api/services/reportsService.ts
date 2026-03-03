@@ -37,7 +37,14 @@ class ReportsService {
       select: {
         name: true,
         wikidataId: true,
-        reportingPeriods: true,
+        reportingPeriods: {
+          select: {
+            id: true,
+            startDate: true,
+            endDate: true,
+            reportURL: true,
+          },
+        },
       },
     })
     return companies
