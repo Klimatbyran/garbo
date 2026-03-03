@@ -15,7 +15,9 @@ const queryTexts = [
 ]
 
 /** Fetches tag options from the API (no DB access in worker). */
-async function fetchTagOptions(): Promise<{ slug: string; label: string | null }[]> {
+async function fetchTagOptions(): Promise<
+  { slug: string; label: string | null }[]
+> {
   const options = await apiFetch('/tag-options')
   if (!Array.isArray(options)) return []
   return options.map((o: any) => ({
