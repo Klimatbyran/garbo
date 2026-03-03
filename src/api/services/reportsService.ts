@@ -1,5 +1,8 @@
 import Firecrawl, { Document, SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports } from '../types'
+import { pdf } from 'pdf-to-img'
+import { writeFile } from 'fs/promises'
+import ky from 'ky'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
@@ -21,13 +24,37 @@ class ReportsService {
       const searchQuery = `"${company.name}" ${year} (sustainability report OR annual report) filetype:pdf Sweden`
 
       const searchResult = await firecrawl.search(searchQuery, { limit: 5 })
-      console.log(searchResult)
 
-      results.push({
-        companyName: company.name,
-        results: searchResult.web ?? [],
-      })
+      if (!searchResult.web || searchResult.web.length === 0) {
+        results.push({
+          companyName: company.name,
+          results: [],
+        })
+        continue
+      }
+
+      searchResult.web = await Promise.all(
+        searchResult.web.map(async (result) => {
+          const endUrl = await ky(result.url)
+          if (endUrl.url.endsWith('.pdf')) {
+            return { ...result, url: endUrl.url }
+          }
+          return result
+        })
+      )
+
+      for (let i = 0; i < searchResult.web.length; i++) {
+        const response = await ky(searchResult.web[i].url)
+        const arrayBuffer = await response.arrayBuffer()
+        const pdfBuffer = Buffer.from(arrayBuffer)
+
+        const document = await pdf(pdfBuffer, { scale: 4 })
+        const pageBuffer = await document.getPage(1)
+
+        await writeFile(`page-${i}.png`, pageBuffer)
+      }
     }
+
     return results
   }
 }
