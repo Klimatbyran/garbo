@@ -328,7 +328,8 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
       )
 
       // Ensure we always return a valid value (number or null)
-      const validSlope = typeof slope === 'number' ? slope : null
+      const validSlope =
+        typeof slope === 'number' && Number.isFinite(slope) ? slope : null
 
       return {
         ...company,

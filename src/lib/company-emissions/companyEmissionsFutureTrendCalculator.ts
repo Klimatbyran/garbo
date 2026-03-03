@@ -223,11 +223,7 @@ export function calculateLADTrendSlope(
     if (delta < tol) break
   }
 
-  // Validate result is a finite number
-  if (!isFinite(b1)) {
-    throw new Error('Invalid calculation result (non-finite number)')
-  }
-
+  // Return b1; callers should check isFinite(b1) for invalid/NaN inputs
   return b1
 }
 
