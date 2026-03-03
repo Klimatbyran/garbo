@@ -1,9 +1,9 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { getTags } from '@/config/openapi'
-import { postReportsBodySchema } from '../schemas/request'
-import { getErrorSchemas, ReportsListResponseSchema } from '../schemas'
-import { PostReportsBody } from '../types'
-import { reportsService } from '../services/reportsService'
+import { postReportsBodySchema } from '../../schemas/request'
+import { getErrorSchemas, ReportsListResponseSchema } from '../../schemas'
+import { PostReportsBody } from '../../types'
+import { reportsService } from '../../services/reportsService'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {
   app.post(
