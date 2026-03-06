@@ -3,6 +3,7 @@ import { CompanyReports } from '../types'
 import { pdf } from 'pdf-to-img'
 import { writeFile } from 'fs/promises'
 import ky from 'ky'
+import { prisma } from '../../lib/prisma'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
@@ -56,6 +57,24 @@ class ReportsService {
     }
 
     return results
+  }
+
+  async getAllCompanies() {
+    const companies = await prisma.company.findMany({
+      select: {
+        name: true,
+        wikidataId: true,
+        reportingPeriods: {
+          select: {
+            id: true,
+            startDate: true,
+            endDate: true,
+            reportURL: true,
+          },
+        },
+      },
+    })
+    return companies
   }
 }
 

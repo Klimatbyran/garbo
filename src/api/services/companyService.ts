@@ -31,15 +31,6 @@ class CompanyService {
     return companiesWithFutureEmissionsTrendSlope
   }
 
-  async getAllCompanyNames() {
-    const companies = await prisma.company.findMany({
-      select: {
-        name: true,
-      },
-    })
-    return companies
-  }
-
   async getAllCompaniesBySearchTerm(searchTerm: string) {
     const companies = await prisma.company.findMany({
       ...companyListArgs,
@@ -107,6 +98,13 @@ class CompanyService {
       // This might be a reason why we shouldn't use wikidataId as our primary key in the DB.
       // However, no matter what, we could still use wikidataId in the API and in the URL structure.
       update: { ...data },
+    })
+  }
+
+  async updateCompanyTags(wikidataId: string, tags: string[]) {
+    return prisma.company.update({
+      where: { wikidataId },
+      data: { tags },
     })
   }
 
@@ -337,7 +335,8 @@ export function addFutureEmissionsTrendSlope(companies: any[]) {
       )
 
       // Ensure we always return a valid value (number or null)
-      const validSlope = typeof slope === 'number' ? slope : null
+      const validSlope =
+        typeof slope === 'number' && Number.isFinite(slope) ? slope : null
 
       return {
         ...company,

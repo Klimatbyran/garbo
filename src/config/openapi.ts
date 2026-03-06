@@ -60,6 +60,9 @@ const openAPITagDefinitions = {
   ReportValidations: {
     description: 'Report validations',
   },
+  TagOptions: {
+    description: 'Valid tag options for company tags',
+  },
   Screenshots: {
     description: 'Screenshots of PDF tables from reports',
   },

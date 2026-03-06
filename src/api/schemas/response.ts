@@ -13,6 +13,13 @@ const dateStringSchema = z.union([
 
 export const okResponseSchema = z.object({ ok: z.boolean() })
 export const redirectResponseSchema = z.object({ location: z.string() })
+
+export const tagOptionSchema = z.object({
+  id: z.string(),
+  slug: z.string(),
+  label: z.string().nullable(),
+})
+export const tagOptionListResponseSchema = z.array(tagOptionSchema)
 export const emptyBodySchema = z.undefined()
 
 export const MetadataSchema = z.object({
@@ -382,16 +389,23 @@ const CompanyBase = CompanyBaseSchema.extend({
 
 export const CompanyList = z.array(MinimalCompanyBase)
 
+export const ReportsReportingPeriodSchema = ReportingPeriodSchema.omit({
+  emissions: true,
+  economy: true,
+})
+
+export const ReportsCompanyList = z.array(
+  z.object({
+    name: z.string(),
+    wikidataId: wikidataIdSchema,
+    reportingPeriods: z.array(ReportsReportingPeriodSchema),
+  })
+)
+
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
 })
-
-export const CompanyNameList = z.array(
-  z.object({
-    name: z.string(),
-  })
-)
 
 function transformYearlyData(
   yearlyData: Record<string, number>

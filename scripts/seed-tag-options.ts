@@ -1,30 +1,14 @@
+/**
+ * Seed only tag options (no users, no GICS).
+ * Usage:
+ *   npm run seed:tags
+ *   # or from inside a k8s pod (staging namespace):
+ *   kubectl exec -it deployment/garbo -c garbo -n garbo-stage -- npm run seed:tags
+ */
 import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
-import { seedGicsCodes } from '../scripts/add-gics'
 
 const prisma = new PrismaClient()
-
-async function seedUsers() {
-  const users = [
-    {
-      email: 'hej@klimatkollen.se',
-      name: 'Garbo (Klimatkollen)',
-    },
-    {
-      email: 'alex@klimatkollen.se',
-      name: 'Alex (Klimatkollen)',
-    },
-  ]
-
-  for (const user of users) {
-    await prisma.user.upsert({
-      where: { name: user.name },
-      create: user,
-      update: user,
-      select: { id: true },
-    })
-  }
-}
 
 const TAG_OPTIONS = [
   { slug: 'public', label: 'Publicly traded companies' },
@@ -37,7 +21,7 @@ const TAG_OPTIONS = [
   { slug: 'baltics', label: 'Baltic countries' },
 ] as const
 
-async function seedTagOptions() {
+async function main() {
   for (const option of TAG_OPTIONS) {
     await prisma.tagOption.upsert({
       where: { slug: option.slug },
@@ -45,10 +29,7 @@ async function seedTagOptions() {
       update: { label: option.label },
     })
   }
-}
-
-async function main() {
-  await Promise.all([seedGicsCodes(), seedUsers(), seedTagOptions()])
+  console.log(`Seeded ${TAG_OPTIONS.length} tag options.`)
 }
 
 main()
