@@ -207,22 +207,18 @@ To run the Garbo pipeline for processing sustainability reports, you'll need to 
 #### Setting up Discord
 
 1. **Download and Install Discord**
-
    - Download Discord from [discord.com](https://discord.com)
    - Create a Discord account if you don't have one
 
 2. **Enable Developer Mode**
-
    - Go to Settings > Advanced > Developer Mode (or search for 'Developer Mode' in Settings)
    - Toggle it on
 
 3. **Create a Discord Server**
-
    - Click the "+" button in the server list on the left side
    - Follow the prompts to create your server
 
 4. **Create a Discord Application/Bot**
-
    - Go to the [Discord Developer Portal](https://discord.com/developers/applications)
    - Click "New Application" and give it a name
    - Navigate to the "Bot" tab and click "Add Bot"
@@ -230,7 +226,6 @@ To run the Garbo pipeline for processing sustainability reports, you'll need to 
 5. **Configure Environment Variables**
 
    Add these variables to your `.env` file:
-
    - **DISCORD_APPLICATION_ID**: Found in the "General Information" tab of your application
    - **DISCORD_TOKEN**: In the "Bot" tab, click "Reset Token" and copy the newly generated token
    - **DISCORD_SERVER_ID**: Right-click on your server in Discord and select "Copy Server ID"
