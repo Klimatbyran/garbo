@@ -8,9 +8,13 @@ import { prisma } from '../../lib/prisma'
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
 // TODO: Evaluate mapping the firecrawler type to internal type definition.
+type CompanyReportPreview = {
+  previewUrl: string | null
+} & (SearchResultWeb | Document)
+
 type CompanyReportUrls = {
   companyName: string
-  results: Array<SearchResultWeb | Document>
+  results: Array<CompanyReportPreview>
 }
 
 class ReportsService {
@@ -44,17 +48,43 @@ class ReportsService {
         })
       )
 
-      for (let i = 0; i < searchResult.web.length; i++) {
-        const response = await ky(searchResult.web[i].url)
-        const arrayBuffer = await response.arrayBuffer()
-        const pdfBuffer = Buffer.from(arrayBuffer)
+      const resultsWithPreview: CompanyReportPreview[] = await Promise.all(
+        searchResult.web.map(async (result) => {
+          let previewUrl: string | null = null
 
-        const document = await pdf(pdfBuffer, { scale: 4 })
-        const pageBuffer = await document.getPage(1)
+          try {
+            const response = await ky(result.url)
+            const arrayBuffer = await response.arrayBuffer()
+            const pdfBuffer = Buffer.from(arrayBuffer)
+            const document = await pdf(pdfBuffer, { scale: 4 })
+            const pageBuffer = await document.getPage(1)
+            previewUrl = `data:image/png;base64,${pageBuffer.toString('base64')}`
+            console.log(previewUrl)
+          } catch (err) {
+            previewUrl = null
+          }
 
-        await writeFile(`page-${i}.png`, pageBuffer)
-      }
+          return {
+            ...result,
+            previewUrl,
+          }
+        })
+      )
+
+      results.push({
+        companyName: company.name,
+        results: resultsWithPreview,
+      })
     }
+
+    // Log previewUrl for each result
+    results.forEach((report) => {
+      console.log(`Company: ${report.companyName}`)
+      report.results.forEach((r, idx) => {
+        console.log(`Result #${idx + 1} previewUrl:`, r.previewUrl)
+      })
+    })
+    console.log(results)
 
     return results
   }
