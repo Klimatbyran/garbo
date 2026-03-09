@@ -1,28 +1,24 @@
 import Firecrawl, { Document, SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports } from '../types'
 import { pdf } from 'pdf-to-img'
-import { writeFile } from 'fs/promises'
 import ky from 'ky'
 import { prisma } from '../../lib/prisma'
+import sharp from 'sharp'
+import { ReportsListResponseSchema } from '../schemas/response'
+import { z } from 'zod'
 
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
 // TODO: Evaluate mapping the firecrawler type to internal type definition.
-type CompanyReportPreview = {
-  previewUrl: string | null
-} & (SearchResultWeb | Document)
 
-type CompanyReportUrls = {
-  companyName: string
-  results: Array<CompanyReportPreview>
-}
+type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
 
 class ReportsService {
   async collectReportUrls(
     companies: CompanyReports
-  ): Promise<CompanyReportUrls[]> {
+  ): Promise<ReportsListResponse> {
     const firecrawl = new Firecrawl({ apiKey: API_KEY })
-    const results: CompanyReportUrls[] = []
+    const results: ReportsListResponse = []
 
     for (const company of companies) {
       const year = company.reportYear ? `${company.reportYear}` : ''
@@ -30,63 +26,64 @@ class ReportsService {
 
       const searchResult = await firecrawl.search(searchQuery, { limit: 5 })
 
-      if (!searchResult.web || searchResult.web.length === 0) {
-        results.push({
-          companyName: company.name,
-          results: [],
-        })
-        continue
+      let companyResults: Array<{
+        url?: string
+        title?: string
+        description?: string
+        position?: number
+      }> = []
+      if (searchResult.web && searchResult.web.length > 0) {
+        companyResults = await Promise.all(
+          searchResult.web
+            .filter((result): result is SearchResultWeb => 'url' in result)
+            .map(async (result, idx) => {
+              const endUrl = await ky(result.url)
+              if (endUrl.url.endsWith('.pdf')) {
+                return {
+                  url: endUrl.url,
+                  title: result.title,
+                  description: result.description,
+                  position: idx,
+                }
+              }
+              return {
+                url: result.url,
+                title: result.title,
+                description: result.description,
+                position: idx,
+              }
+            })
+        )
       }
-
-      searchResult.web = await Promise.all(
-        searchResult.web.map(async (result) => {
-          const endUrl = await ky(result.url)
-          if (endUrl.url.endsWith('.pdf')) {
-            return { ...result, url: endUrl.url }
-          }
-          return result
-        })
-      )
-
-      const resultsWithPreview: CompanyReportPreview[] = await Promise.all(
-        searchResult.web.map(async (result) => {
-          let previewUrl: string | null = null
-
-          try {
-            const response = await ky(result.url)
-            const arrayBuffer = await response.arrayBuffer()
-            const pdfBuffer = Buffer.from(arrayBuffer)
-            const document = await pdf(pdfBuffer, { scale: 4 })
-            const pageBuffer = await document.getPage(1)
-            previewUrl = `data:image/png;base64,${pageBuffer.toString('base64')}`
-            console.log(previewUrl)
-          } catch (err) {
-            previewUrl = null
-          }
-
-          return {
-            ...result,
-            previewUrl,
-          }
-        })
-      )
 
       results.push({
         companyName: company.name,
-        results: resultsWithPreview,
+        results: companyResults,
       })
     }
 
-    // Log previewUrl for each result
-    results.forEach((report) => {
-      console.log(`Company: ${report.companyName}`)
-      report.results.forEach((r, idx) => {
-        console.log(`Result #${idx + 1} previewUrl:`, r.previewUrl)
-      })
-    })
-    console.log(results)
-
     return results
+  }
+
+  /**
+   * Generates a preview image (JPG) from the first page of a PDF URL.
+   * Returns a data URL or null if failed.
+   */
+  async generateReportPreview(pdfUrl: string): Promise<Buffer | null> {
+    try {
+      const response = await ky(pdfUrl)
+      const arrayBuffer = await response.arrayBuffer()
+      const pdfBuffer = Buffer.from(arrayBuffer)
+      const document = await pdf(pdfBuffer, { scale: 0.5 })
+      const pageBuffer = await document.getPage(1)
+
+      const jpegBuffer = await sharp(pageBuffer)
+        .jpeg({ quality: 60 })
+        .toBuffer()
+      return jpegBuffer
+    } catch (err) {
+      return null
+    }
   }
 
   async getAllCompanies() {

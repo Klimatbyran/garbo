@@ -1,7 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import { getTags } from '../../../config/openapi'
 import { cachePlugin } from '../../plugins/cache'
-import { ReportsCompanyList } from '../../schemas'
+import {
+  errorResponseSchema,
+  ReportsCompanyList,
+  previewQuerySchema,
+} from '../../schemas'
 import { reportsService } from '@/api/services/reportsService'
 
 export async function reportsReadRoutes(app: FastifyInstance) {
@@ -23,6 +27,33 @@ export async function reportsReadRoutes(app: FastifyInstance) {
     async (request, reply) => {
       const companies = await reportsService.getAllCompanies()
       reply.send(companies || [])
+    }
+  )
+
+  app.get(
+    '/preview',
+    {
+      schema: {
+        summary: 'Generate preview image from PDF URL',
+        description:
+          'Returns a preview image (JPEG) from the first page of the given PDF URL.',
+        tags: getTags('Reports'),
+        querystring: previewQuerySchema,
+        response: {
+          200: { description: 'JPEG image binary' },
+          400: errorResponseSchema,
+          500: errorResponseSchema,
+        },
+      },
+    },
+    async (request, reply) => {
+      const { pdfUrl } = request.query as { pdfUrl: string }
+      const jpegBuffer = await reportsService.generateReportPreview(pdfUrl)
+      if (!jpegBuffer) {
+        return reply.send({ message: 'Failed to generate preview.' })
+      }
+      reply.header('Content-Type', 'image/jpeg')
+      return reply.send(jpegBuffer)
     }
   )
 }

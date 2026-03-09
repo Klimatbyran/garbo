@@ -29,8 +29,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
     ) => {
       try {
         const results = await reportsService.collectReportUrls(request.body)
-
-        return reply.send({ results })
+        return reply.send(results)
       } catch (error) {
         console.error('ERROR scraping for company reports failed:', error)
         return reply

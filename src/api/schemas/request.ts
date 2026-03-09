@@ -320,3 +320,7 @@ export const companyReports = z.array(companyReport)
 export const postReportsBodySchema = companyReports
 
 export const postReportsBody = companyReports
+
+export const previewQuerySchema = z.object({
+  pdfUrl: z.string().url(),
+})
