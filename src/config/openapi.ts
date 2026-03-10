@@ -72,6 +72,9 @@ const openAPITagDefinitions = {
   Reports: {
     description: 'Company reports',
   },
+  Pipeline: {
+    description: 'Report pipeline (run report, add jobs)',
+  },
   Internal: {
     description: 'Internal endpoints for data assessment and management',
   },
