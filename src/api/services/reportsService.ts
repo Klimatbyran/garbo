@@ -1,5 +1,5 @@
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
-import { CompanyReports } from '../types'
+import { CompanyReports, saveReportsBody, saveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
 import { prisma } from '../../lib/prisma'
@@ -113,6 +113,52 @@ class ReportsService {
       },
     })
     return companies
+  }
+
+  async saveReportsToDb(
+    saveReportsBody: saveReportsBody
+  ): Promise<saveReportsResult> {
+    const results: saveReportsResult = []
+
+    for (const report of saveReportsBody) {
+      try {
+        const saved = await prisma.report.create({
+          data: {
+            companyName: report.companyName,
+            wikidataId: report.wikidataId ?? undefined,
+            reportYear: report.reportYear,
+            url: report.url,
+          },
+        })
+
+        results.push({
+          id: saved.id,
+          companyName: saved.companyName,
+          wikidataId: saved.wikidataId,
+          reportYear: saved.reportYear,
+          url: saved.url,
+        })
+      } catch (error: any) {
+        if (error?.code === 'P2002') {
+          results.push({
+            error: 'duplicate',
+            companyName: report.companyName,
+            reportYear: report.reportYear,
+            message: 'A report for this company and year already exists.',
+          })
+          continue
+        }
+
+        results.push({
+          error: 'unknown',
+          companyName: report.companyName,
+          reportYear: report.reportYear,
+          message: 'Failed to save report.',
+        })
+      }
+    }
+
+    return results
   }
 }
 
