@@ -320,3 +320,12 @@ export const companyReports = z.array(companyReport)
 export const postReportsBodySchema = companyReports
 
 export const postReportsBody = companyReports
+
+export const saveReportsBodySchema = z.array(
+  z.object({
+    companyName: z.string().min(1, 'companyName is required'),
+    wikidataId: z.string().nullable().optional(),
+    reportYear: z.string().min(1, 'reportYear is required'),
+    url: z.string().url('Invalid URL').min(1, 'url is required'),
+  })
+)
