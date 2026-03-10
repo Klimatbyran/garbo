@@ -49,7 +49,6 @@ import { screenshotsReadRoutes } from './api/routes/external/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/external/newsletter-archive.downloads'
 import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
-import { pipelineRunRoutes } from './api/routes/internal/pipeline.run'
 
 async function startApp() {
   const app = Fastify({
@@ -180,7 +179,6 @@ async function authenticatedContext(app: FastifyInstance) {
   })
   app.register(industryGicsRoute, { prefix: 'api/industry-gics' })
   app.register(tagOptionsRoutes, { prefix: 'api/tag-options' })
-  app.register(pipelineRunRoutes, { prefix: 'api/pipeline' })
 }
 
 export default startApp

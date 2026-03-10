@@ -2,38 +2,26 @@
 
 ## Summary
 
-- **Pipeline API (this repo):** The "run report" entry point is **`POST /api/pipeline/run`** (auth required). It accepts optional **`tags`** (or **`companyTags`**) and passes them through to the Garbo sync step.
-- **Garbo API:** Already supports tags on company create/update; the pipeline (and saveToAPI worker) call it with the tags you provide.
+- **Pipeline-api** (separate service): Owns the "run report" HTTP endpoint. It should accept optional **`tags`** in the request body and, when adding a **parsePdf** job to the queue, pass **`tags`** in the job data so Garbo workers receive it.
+- **Garbo (this repo):** Runs the workers and the Garbo API. Workers already pass `job.data.tags` through the pipeline; **checkDB** uses it when creating a company and when queueing **diffTags**. The Garbo API supports tags on company create/update; **saveToAPI** calls it with tags.
 
 ---
 
-## Pipeline run endpoint
+## Pipeline-api: run report and tags
 
-**`POST /api/pipeline/run`**
+The "run report" endpoint lives in **pipeline-api**, not in this repo. To support tags end-to-end, pipeline-api should:
 
-- **Auth:** Required (Bearer token).
-- **Body:**
-  - **`url`** (required): Report PDF URL.
-  - **`tags`** (optional): `string[]` – tag option slugs to apply when the company is created or updated (e.g. `["public", "large-cap"]`).
-  - **`autoApprove`** (optional): `boolean` – auto-approve extracted data (default `false`).
-  - **`forceReindex`** (optional): `boolean` – re-index markdown even if already indexed (default `false`).
-  - **`threadId`** (optional): Discord thread ID for notifications; omit for headless runs.
+- Accept optional **`tags`** (e.g. `string[]` of tag option slugs) in the run-report request body.
+- When enqueueing the **parsePdf** job (same queue name and payload shape Garbo expects), include **`tags`** in the job data: `{ url, threadId?, autoApprove?, forceReindex?, tags? }`.
 
-**Response (200):** `{ jobId?: string, message: string }`
-
-Example:
-
-```json
-POST /api/pipeline/run
-{ "url": "https://example.com/report.pdf", "tags": ["public", "large-cap"] }
-```
+Garbo workers do not care who enqueued the job; they only need `job.data.tags` to be set when the caller wants to apply tags.
 
 ---
 
-## How tags flow to Garbo
+## How tags flow (Garbo side)
 
 1. **Entry points**
-   - **API:** `POST /api/pipeline/run` with body `tags: string[]` → adds a **parsePdf** job with `job.data.tags`.
+   - **Pipeline-api:** Adds a **parsePdf** job with `job.data.tags` (and other fields). Garbo workers consume it.
    - **Discord:** `/pdfs` with optional `tags` option (comma-separated slugs) → same parsePdf job data.
 
 2. **Pipeline**
@@ -51,11 +39,10 @@ POST /api/pipeline/run
 
 ---
 
-## Repo structure (where to look)
+## Repo structure (Garbo – where to look)
 
 | What | Where |
 |------|--------|
-| Run report API | `src/api/routes/internal/pipeline.run.ts` |
 | parsePdf job (receives url, tags, …) | `src/workers/parsePdf.ts` |
 | checkDB (company create + queue diffTags) | `src/workers/checkDB.ts` |
 | diffTags → saveToAPI | `src/workers/diffTags.ts` |
@@ -74,7 +61,7 @@ Tags must be valid **tag option slugs** (from **GET /api/tag-options**). Invalid
 
 ## When do tag workers run?
 
-- **Full pipeline (no runOnly):** When a report is run without a `runOnly` filter (e.g. normal `/pdfs` or `POST /api/pipeline/run`), **all** follow-up workers run, including **companyTags**. So tags are extracted by AI and then synced in checkDB/diffTags.
+- **Full pipeline (no runOnly):** When a report is run without a `runOnly` filter (e.g. normal `/pdfs` or a run triggered via pipeline-api), **all** follow-up workers run, including **companyTags**. So tags are extracted by AI and then synced in checkDB/diffTags.
 - **Manual / selective run:** When something (e.g. validation frontend) triggers **extractEmissions** with a **runOnly** array (e.g. to re-run only Scope 1 and Scope 2), the tag worker runs **only if** `'companyTags'` is included in that array.
 
 So for tags to be **manually triggerable** like scope 1 or scope 2:
