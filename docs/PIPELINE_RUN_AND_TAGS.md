@@ -21,14 +21,17 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 ## How tags flow (Garbo side)
 
 1. **Entry points**
+
    - **Pipeline-api:** Adds a **parsePdf** job with `job.data.tags` (and other fields). Garbo workers consume it.
    - **Discord:** `/pdfs` with optional `tags` option (comma-separated slugs) → same parsePdf job data.
 
 2. **Pipeline**
+
    - **parsePdf** → **precheck** → **extractEmissions** (with optional **companyTags** follow-up) → **checkDB**.
    - `job.data` (including `tags` if provided) is passed through the flow.
 
 3. **checkDB**
+
    - If the company **does not exist:** creates it via **POST** `/companies/:wikidataId` with `body: { name, wikidataId, metadata, ...(tags?.length && { tags }) }`. So tags from the run request (or from AI-extracted tags if no request tags) are sent to the Garbo API on create.
    - If the company **exists** and there are tags (from request or AI): queues a **diffTags** job. **diffTags** compares existing company tags to the new tags and, if there is a diff, queues **saveToAPI** with **PATCH** `/companies/:wikidataId/tags` and `body: { tags }`.
 
@@ -41,15 +44,15 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 
 ## Repo structure (Garbo – where to look)
 
-| What | Where |
-|------|--------|
-| parsePdf job (receives url, tags, …) | `src/workers/parsePdf.ts` |
-| checkDB (company create + queue diffTags) | `src/workers/checkDB.ts` |
-| diffTags → saveToAPI | `src/workers/diffTags.ts` |
-| saveToAPI (PATCH /companies/:id/tags) | `src/workers/saveToAPI.ts` |
-| companyTags follow-up (AI tags) | `src/workers/followUp/companyTags.ts` |
-| extractEmissions (includes companyTags child) | `src/workers/extractEmissions.ts` |
-| Discord /pdfs (optional tags) | `src/discord/commands/pdfs.ts` |
+| What                                          | Where                                 |
+| --------------------------------------------- | ------------------------------------- |
+| parsePdf job (receives url, tags, …)          | `src/workers/parsePdf.ts`             |
+| checkDB (company create + queue diffTags)     | `src/workers/checkDB.ts`              |
+| diffTags → saveToAPI                          | `src/workers/diffTags.ts`             |
+| saveToAPI (PATCH /companies/:id/tags)         | `src/workers/saveToAPI.ts`            |
+| companyTags follow-up (AI tags)               | `src/workers/followUp/companyTags.ts` |
+| extractEmissions (includes companyTags child) | `src/workers/extractEmissions.ts`     |
+| Discord /pdfs (optional tags)                 | `src/discord/commands/pdfs.ts`        |
 
 ---
 

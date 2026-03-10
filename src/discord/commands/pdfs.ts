@@ -55,7 +55,10 @@ export default {
         interaction.options.getBoolean('force-reindex') || false
       const tagsOption = interaction.options.getString('tags')
       const tags = tagsOption
-        ? tagsOption.split(',').map((t) => t.trim()).filter(Boolean)
+        ? tagsOption
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean)
         : undefined
 
       if (!urls || !urls.length) {
