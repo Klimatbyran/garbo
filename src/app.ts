@@ -60,6 +60,8 @@ async function startApp() {
   app.setErrorHandler(errorHandler)
   app.register(cors, {
     origin: apiConfig.corsAllowOrigins as unknown as string[],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['etag'],
   })
 
