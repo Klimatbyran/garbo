@@ -329,3 +329,6 @@ export const saveReportsBodySchema = z.array(
     url: z.string().url('Invalid URL').min(1, 'url is required'),
   })
 )
+export const previewQuerySchema = z.object({
+  pdfUrl: z.string().url(),
+})

@@ -597,6 +597,13 @@ export const saveReportsListResponseSchema = z.array(
   })
 )
 
-export const ReportsListResponseSchema = z.object({
-  results: ReportsListSchema,
+export const ReportsListResponseSchema = ReportsListSchema
+
+// Preview endpoint schemas
+export const previewResponseSchema = z.object({
+  previewUrl: z.string().nullable(),
+})
+
+export const errorResponseSchema = z.object({
+  message: z.string(),
 })
