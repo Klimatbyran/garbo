@@ -10,7 +10,6 @@ import { z } from 'zod'
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
 // TODO: Evaluate mapping the firecrawler type to internal type definition.
-
 type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
 
 class ReportsService {
