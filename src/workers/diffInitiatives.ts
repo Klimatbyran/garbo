@@ -56,7 +56,7 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         diff,
         change,
         typeof requiresApproval == 'boolean' ? requiresApproval : false
-      )    
+      )
     }
 
     if (job.hasApproval() && !job.isDataApproved()) {
