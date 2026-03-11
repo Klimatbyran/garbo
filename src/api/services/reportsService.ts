@@ -9,7 +9,6 @@ type CompanyReportUrls = {
   companyName: string
   results: Array<SearchResultWeb | Document>
 }
-// Types for saveReportsToDb results
 
 class ReportsService {
   async collectReportUrls(
