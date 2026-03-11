@@ -20,6 +20,7 @@ export class CheckDBJob extends DiscordJob {
     approved?: boolean
     lei?: string
     replaceAllEmissions?: boolean
+    tags?: string[]
   }
 }
 
@@ -53,7 +54,12 @@ const checkDB = new DiscordWorker(
       initiatives,
       descriptions,
       lei,
+      tags: extractedTags,
     } = root || {}
+
+    // User-provided tags (e.g. from run-report request) take precedence; otherwise use AI-extracted tags
+    const userTags = job.data.tags
+    const tags = userTags?.length ? userTags : extractedTags
 
     const mergedScope12 = mergeScope1AndScope2Results(
       extractScopeEntriesFromFollowUp(scope1),
@@ -81,6 +87,7 @@ const checkDB = new DiscordWorker(
         name: companyName,
         wikidataId,
         metadata,
+        ...(tags?.length > 0 && { tags }),
       }
 
       await apiFetch(`/companies/${wikidataId}`, { body })
@@ -196,6 +203,16 @@ const checkDB = new DiscordWorker(
                 wikidataId: wikidataId,
                 existingDescriptions: existingCompany?.descriptions,
                 descriptions: descriptions,
+              },
+            }
+          : null,
+        tags?.length
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_TAGS,
+              data: {
+                ...base.data,
+                tags,
               },
             }
           : null,
