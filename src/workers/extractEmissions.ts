@@ -3,7 +3,8 @@ import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { QUEUE_NAMES } from '../queues'
 
-type FollowUpKey =
+/** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */
+export type FollowUpKey =
   | 'industryGics'
   | 'scope1'
   | 'scope2'
@@ -14,8 +15,26 @@ type FollowUpKey =
   | 'goals'
   | 'initiatives'
   | 'baseYear'
+  | 'companyTags'
   | 'lei'
   | 'descriptions'
+
+/** All runnable follow-up keys; use for UI (e.g. "Re-run Scope 1", "Re-run Tags") or API validation. */
+export const FOLLOW_UP_KEYS: FollowUpKey[] = [
+  'industryGics',
+  'scope1',
+  'scope2',
+  'scope1+2',
+  'scope3',
+  'biogenic',
+  'economy',
+  'goals',
+  'initiatives',
+  'baseYear',
+  'companyTags',
+  'lei',
+  'descriptions',
+]
 
 class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -138,6 +157,14 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'baseYear ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
+        },
+      },
+      {
+        key: 'companyTags',
+        job: {
+          ...base,
+          name: 'companyTags ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
         },
       },
       {

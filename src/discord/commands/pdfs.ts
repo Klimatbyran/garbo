@@ -28,6 +28,14 @@ export default {
         .setName('force-reindex')
         .setDescription('Re-index markdown even if already indexed')
         .setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('tags')
+        .setDescription(
+          'Comma-separated tag slugs to apply when the company is created/updated (e.g. public,large-cap)'
+        )
+        .setRequired(false)
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
@@ -45,6 +53,13 @@ export default {
         interaction.options.getBoolean('auto-approve') || false
       const forceReindex =
         interaction.options.getBoolean('force-reindex') || false
+      const tagsOption = interaction.options.getString('tags')
+      const tags = tagsOption
+        ? tagsOption
+            .split(',')
+            .map((t) => t.trim())
+            .filter(Boolean)
+        : undefined
 
       if (!urls || !urls.length) {
         await interaction.followUp({
@@ -82,6 +97,7 @@ export default {
             threadId: thread.id,
             autoApprove,
             forceReindex,
+            ...(tags?.length && { tags }),
           },
           {
             backoff: {

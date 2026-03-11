@@ -12,6 +12,7 @@ import {
 import { getTags } from '../../../config/openapi'
 import { PostCompanyBody, WikidataIdParams } from '../../types'
 import { metadataService } from '../../services/metadataService'
+import { redisCache } from '../../..'
 
 export async function companyUpdateRoutes(app: FastifyInstance) {
   app.post(
@@ -80,6 +81,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
             metadataId: createdMetadata.id,
           })
         })
+        redisCache.clear()
         return reply.send({ ok: true })
       } catch (error) {
         console.error('ERROR Creation or update of company failed:', error)
@@ -135,6 +137,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         })
       }
       await companyService.updateCompanyTags(wikidataId, tags)
+      redisCache.clear()
       return reply.send({ ok: true })
     }
   )

@@ -78,6 +78,7 @@ export const detailedCompanyArgs = {
       },
     },
     lei: true,
+    tags: true,
     reportingPeriods: {
       select: {
         id: true,

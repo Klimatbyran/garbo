@@ -93,8 +93,8 @@
     "typescript-eslint": "^8.24.0"
   },
   "overrides": {
-    "uuid": "^9.0.1",
-    "undici": ">=6.23.0"
+    "undici": ">=6.23.0",
+    "@tootallnate/once": ">=3.0.1"
   },
   "prisma": {
     "seed": "node --import=tsx prisma/seed.ts"
