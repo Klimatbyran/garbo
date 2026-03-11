@@ -20,6 +20,7 @@ export class CheckDBJob extends DiscordJob {
     approved?: boolean
     lei?: string
     replaceAllEmissions?: boolean
+    tags?: string[]
   }
 }
 
@@ -57,10 +58,8 @@ const checkDB = new DiscordWorker(
     } = root || {}
 
     // User-provided tags (e.g. from run-report request) take precedence; otherwise use AI-extracted tags
-    const tags =
-      (job.data as any).tags?.length > 0
-        ? (job.data as any).tags
-        : extractedTags
+    const userTags = job.data.tags
+    const tags = userTags?.length ? userTags : extractedTags
 
     const mergedScope12 = mergeScope1AndScope2Results(
       extractScopeEntriesFromFollowUp(scope1),
