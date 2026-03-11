@@ -37,13 +37,24 @@ class ReportsService {
           searchResult.web
             .filter((result): result is SearchResultWeb => 'url' in result)
             .map(async (result, idx) => {
-              const endUrl = await ky(result.url)
-              if (endUrl.url.endsWith('.pdf')) {
+              try {
+                const endUrl = await ky(result.url)
+                if (endUrl.url.endsWith('.pdf')) {
+                  return {
+                    url: endUrl.url,
+                    title: result.title,
+                    description: result.description,
+                    position: idx,
+                  }
+                }
+              } catch (err) {
+                // Fallback to original URL if ky fails
                 return {
-                  url: endUrl.url,
+                  url: result.url,
                   title: result.title,
                   description: result.description,
                   position: idx,
+                  error: 'Failed to resolve PDF link',
                 }
               }
               return {

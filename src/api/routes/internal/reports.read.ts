@@ -7,6 +7,7 @@ import {
   previewQuerySchema,
 } from '../../schemas'
 import { reportsService } from '@/api/services/reportsService'
+import { previewResponseSchema } from '../../schemas'
 
 export async function reportsReadRoutes(app: FastifyInstance) {
   app.register(cachePlugin)
@@ -40,7 +41,7 @@ export async function reportsReadRoutes(app: FastifyInstance) {
         tags: getTags('Reports'),
         querystring: previewQuerySchema,
         response: {
-          200: { description: 'JPEG image binary' },
+          200: previewResponseSchema,
           400: errorResponseSchema,
           500: errorResponseSchema,
         },
@@ -50,8 +51,10 @@ export async function reportsReadRoutes(app: FastifyInstance) {
       const { pdfUrl } = request.query as { pdfUrl: string }
       const jpegBuffer = await reportsService.generateReportPreview(pdfUrl)
       if (!jpegBuffer) {
-        return reply.send({ message: 'Failed to generate preview.' })
+        reply.status(400).send({ message: 'Failed to generate preview.' })
+        return
       }
+
       reply.header('Content-Type', 'image/jpeg')
       return reply.send(jpegBuffer)
     }
