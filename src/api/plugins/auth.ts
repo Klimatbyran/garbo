@@ -21,6 +21,10 @@ const unauthorizedError = {
 async function authPlugin(app: FastifyInstance) {
   app.decorateRequest('user')
   app.addHook('onRequest', async (request, reply) => {
+    // Let CORS handle preflight; browsers don't send Authorization on OPTIONS.
+    if (request.method === 'OPTIONS') {
+      return
+    }
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
