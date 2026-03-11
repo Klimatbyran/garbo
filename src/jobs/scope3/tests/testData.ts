@@ -1,6 +1,5 @@
-import { z } from "zod"
-import { emissionUnitSchemaGarbo } from "@/api/schemas"
-
+import { z } from 'zod'
+import { emissionUnitSchemaGarbo } from '@/api/schemas'
 
 export const summarizePrompt = `## Scope 3:
 Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`scope3\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.
@@ -168,7 +167,10 @@ export const schemaWithoutUnitInstruction = z.object({
             z.object({
               originalUnitInReport: z.string(),
               unitNeedsConversionToMatchStandardUnit: z.boolean(),
-              categoryMentionsInReport: z.union([z.array(z.string()), z.null()]),
+              categoryMentionsInReport: z.union([
+                z.array(z.string()),
+                z.null(),
+              ]),
               categoryNumbersInReport: z.union([z.array(z.string()), z.null()]),
               category: z.number().int().min(1).max(16),
               subValuesForCategory: z.union([z.array(z.number()), z.null()]),
@@ -177,12 +179,15 @@ export const schemaWithoutUnitInstruction = z.object({
             })
           ),
           statedTotalEmissions: z.union([
-            z.object({ total: z.union([z.number(), z.null()]), unit: emissionUnitSchemaGarbo }),
-            z.null()
-          ])
+            z.object({
+              total: z.union([z.number(), z.null()]),
+              unit: emissionUnitSchemaGarbo,
+            }),
+            z.null(),
+          ]),
         }),
-        z.null()
-      ])
+        z.null(),
+      ]),
     })
   ),
 })
@@ -197,7 +202,10 @@ export const schemaWithSubValuesForCategory = z.object({
             z.object({
               originalUnitInReport: z.string(),
               unitNeedsConversionToMatchStandardUnit: z.boolean(),
-              categoryMentionsInReport: z.union([z.array(z.string()), z.null()]),
+              categoryMentionsInReport: z.union([
+                z.array(z.string()),
+                z.null(),
+              ]),
               categoryNumbersInReport: z.union([z.array(z.string()), z.null()]),
               category: z.number().int().min(1).max(16),
               subValuesForCategory: z.union([z.array(z.number()), z.null()]),
@@ -206,16 +214,18 @@ export const schemaWithSubValuesForCategory = z.object({
             })
           ),
           statedTotalEmissions: z.union([
-            z.object({ total: z.union([z.number(), z.null()]), unit: emissionUnitSchemaGarbo }),
-            z.null()
-          ])
+            z.object({
+              total: z.union([z.number(), z.null()]),
+              unit: emissionUnitSchemaGarbo,
+            }),
+            z.null(),
+          ]),
         }),
-        z.null()
-      ])
+        z.null(),
+      ]),
     })
   ),
 })
-
 
 export const originalSchema = z.object({
   scope3: z.array(
@@ -243,9 +253,6 @@ export const originalSchema = z.object({
     })
   ),
 })
-
-
-
 
 export const originalPrompt = `## Scope 3:
 Extract scope 3 emissions according to the GHG Protocol and organize them by year. Add a field \`scope3\` and include as many categories as explicitly reported. Always include the latest year if available. Do not infer or estimate data.

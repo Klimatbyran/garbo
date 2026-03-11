@@ -63,8 +63,8 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
             reportingPeriod.emissions,
             removeMillisecondsFromISO(reportingPeriod.startDate),
             removeMillisecondsFromISO(reportingPeriod.endDate),
-            reportingPeriod.reportURL ?? '',
-          ),
+            reportingPeriod.reportURL ?? ''
+          )
         )
       }
     }
@@ -73,7 +73,7 @@ async function pushWikidata(dryRun: boolean = false, companyQid?: string) {
       await bulkCreateOrEditCarbonFootprintClaim(
         company.wikidataId as `Q${number}`,
         claims,
-        dryRun,
+        dryRun
       )
     }
   }

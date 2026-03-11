@@ -16,6 +16,6 @@ Please help me select the appropriate legal entity identifier (LEI) based on the
 export const leiSchema = z.object({
   lei: z.string(),
   legalName: z.string(),
-});
+})
 
-export type LEI = z.infer<typeof leiSchema>['lei'];
+export type LEI = z.infer<typeof leiSchema>['lei']

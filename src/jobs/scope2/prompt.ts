@@ -1,6 +1,3 @@
-
-
-
 export const prompt = `
 *** Golden Rule ***
 - Extract values only if explicitly available in the context. Do not infer or create data. Leave optional fields absent or explicitly set to null if no data is provided.

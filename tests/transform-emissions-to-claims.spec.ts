@@ -28,7 +28,7 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
     expect(claims1).toEqual([
       {
@@ -47,8 +47,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -56,8 +56,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -65,8 +65,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
   })
 
@@ -104,7 +104,7 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
 
     expect(claims1).toEqual([
@@ -140,8 +140,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -149,8 +149,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
     expect(
       transformEmissionsToClaims(
@@ -158,8 +158,8 @@ describe('transformEmissionsToClaims', () => {
         startDate,
         endDate,
         referenceUrl,
-        archiveUrl,
-      ),
+        archiveUrl
+      )
     ).toEqual([])
   })
 
@@ -182,13 +182,14 @@ describe('transformEmissionsToClaims', () => {
       startDate,
       endDate,
       referenceUrl,
-      archiveUrl,
+      archiveUrl
     )
 
     const expectedCat1 = wikidataConfig.translateIdToCategory(cat1Id)
     const expectedCat2 = wikidataConfig.translateIdToCategory(cat2Id)
     const expectedCat99 = wikidataConfig.translateIdToCategory(99) // will be null
 
+    // Category claims (0, 123.45, 10) plus scope3 calculated total (0+123.45+10 = 133.45)
     expect(claims).toEqual([
       {
         scope: wikidataConfig.entities.SCOPE_3,
@@ -217,10 +218,18 @@ describe('transformEmissionsToClaims', () => {
         category: expectedCat99,
         value: '10',
       },
+      {
+        scope: wikidataConfig.entities.SCOPE_3,
+        startDate,
+        endDate,
+        referenceUrl,
+        archiveUrl,
+        value: '133.45',
+      },
     ])
   })
 
-  it('preserves order: scope1, scope2 mb, lb, unknown, then scope3 categories', () => {
+  it('preserves order: scope1, scope2 mb, lb, unknown, then scope3 categories then scope3 total', () => {
     const emissions: Emissions = {
       scope1: { total: 1, unit: 'tCO2e' },
       scope2: { mb: 2, lb: 3, unknown: 4, unit: 'tCO2e' },
@@ -233,6 +242,7 @@ describe('transformEmissionsToClaims', () => {
       wikidataConfig.entities.SCOPE_2_MARKET_BASED,
       wikidataConfig.entities.SCOPE_2_LOCATION_BASED,
       wikidataConfig.entities.SCOPE_2,
+      wikidataConfig.entities.SCOPE_3,
       wikidataConfig.entities.SCOPE_3,
     ])
   })

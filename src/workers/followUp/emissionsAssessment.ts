@@ -57,7 +57,7 @@ const queryTexts = [
   'Emission calculation assumptions',
   'Year-over-year emissions changes',
   'Emissions reduction targets',
-  'Decarbonization strategy'
+  'Decarbonization strategy',
 ]
 
 export default { prompt, schema: assessmentResultSchema, queryTexts }

@@ -50,7 +50,7 @@ const diffBaseYear = new DiffWorker<DiffBaseYearJob>(
     if (job.hasApproval() && !job.isDataApproved()) {
       try {
         await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
-      } catch(_err) {}      
+      } catch (_err) {}
     }
   }
 )

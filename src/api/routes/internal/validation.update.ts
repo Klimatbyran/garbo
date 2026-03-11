@@ -1,12 +1,16 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { redisCache } from '../..'
+import { redisCache } from '../../..'
 import {
   claimValidationSchema,
   okResponseSchema,
   wikidataIdParamSchema,
-} from '../schemas'
-import { ClaimValidation, ValidationClaims, WikidataIdParams } from '../types'
-import { validationClaimsCacheKey } from './validation.read'
+} from '../../schemas'
+import {
+  ClaimValidation,
+  ValidationClaims,
+  WikidataIdParams,
+} from '../../types'
+import { validationClaimsCacheKey } from '../external/validation.read'
 
 export async function validationsUpdateRoutes(app: FastifyInstance) {
   app.post(

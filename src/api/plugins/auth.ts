@@ -8,7 +8,8 @@ declare module 'fastify' {
     user: User | null
   }
 
-  export interface AuthenticatedFastifyRequest<T extends RouteGenericInterface> extends FastifyRequest<T> {
+  export interface AuthenticatedFastifyRequest<T extends RouteGenericInterface>
+    extends FastifyRequest<T> {
     user: User
   }
 }
@@ -20,6 +21,10 @@ const unauthorizedError = {
 async function authPlugin(app: FastifyInstance) {
   app.decorateRequest('user')
   app.addHook('onRequest', async (request, reply) => {
+    // Let CORS handle preflight; browsers don't send Authorization on OPTIONS.
+    if (request.method === 'OPTIONS') {
+      return
+    }
     try {
       const token = request.headers['authorization']?.replace('Bearer ', '')
 
@@ -33,9 +38,9 @@ async function authPlugin(app: FastifyInstance) {
       if (newToken !== undefined) {
         reply.headers['x-auth-token'] = newToken
       }
-      request.user = user;
+      request.user = user
     } catch (err) {
-      console.log(err);
+      console.log(err)
       request.log.error('Authentication failed:', err)
       return reply.status(401).send(unauthorizedError)
     }

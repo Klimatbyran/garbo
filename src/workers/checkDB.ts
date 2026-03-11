@@ -4,43 +4,40 @@ import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { getCompanyURL } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
-import { extractScopeEntriesFromFollowUp, mergeScope1AndScope2Results } from '../lib/mergeScopeResults'
+import {
+  extractScopeEntriesFromFollowUp,
+  mergeScope1AndScope2Results,
+} from '../lib/mergeScopeResults'
 
 export class CheckDBJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
     companyName: string
     wikidata: { node: string }
     fiscalYear: {
-      startMonth: number,
-      endMonth: number,
-    },
+      startMonth: number
+      endMonth: number
+    }
     approved?: boolean
     lei?: string
     replaceAllEmissions?: boolean
+    tags?: string[]
   }
 }
 
 const flow = new FlowProducer({ connection: redis })
 
 const checkDB = new DiscordWorker(
-  QUEUE_NAMES.CHECK_DB, 
+  QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
-    const {
-      companyName,
-      url,
-      fiscalYear,
-      wikidata,
-      threadId,
-      channelId,
-      
-    } = job.data
+    const { companyName, url, fiscalYear, wikidata, threadId, channelId } =
+      job.data
 
-
-  
     const childrenEntries = await job.getChildrenEntries()
 
     const extractValue = (entry: any) =>
-      entry && typeof entry === 'object' && 'value' in entry ? entry.value : entry
+      entry && typeof entry === 'object' && 'value' in entry
+        ? entry.value
+        : entry
 
     const root = extractValue(childrenEntries) // <- this is the object that has scope data, economy, etc.
 
@@ -57,27 +54,32 @@ const checkDB = new DiscordWorker(
       initiatives,
       descriptions,
       lei,
+      tags: extractedTags,
     } = root || {}
+
+    // User-provided tags (e.g. from run-report request) take precedence; otherwise use AI-extracted tags
+    const userTags = job.data.tags
+    const tags = userTags?.length ? userTags : extractedTags
 
     const mergedScope12 = mergeScope1AndScope2Results(
       extractScopeEntriesFromFollowUp(scope1),
       extractScopeEntriesFromFollowUp(scope2),
-      extractScopeEntriesFromFollowUp(legacyScope12),
+      extractScopeEntriesFromFollowUp(legacyScope12)
     )
-  
+
     job.sendMessage(`🤖 Checking if ${companyName} already exists in API...`)
     const wikidataId = wikidata.node
     const existingCompany = await apiFetch(`/companies/${wikidataId}`).catch(
       () => null
     )
-    job.log(existingCompany);
-  
+    job.log(existingCompany)
+
     if (!existingCompany) {
       const metadata = {
         source: url,
         comment: 'Created by Garbo AI',
       }
-  
+
       job.sendMessage(
         `🤖 No previous data found for  ${companyName} (${wikidataId}). Creating..`
       )
@@ -85,18 +87,21 @@ const checkDB = new DiscordWorker(
         name: companyName,
         wikidataId,
         metadata,
+        ...(tags?.length > 0 && { tags }),
       }
-  
-      await apiFetch(`/companies/${wikidataId}`, { body });
-  
+
+      await apiFetch(`/companies/${wikidataId}`, { body })
+
       await job.sendMessage(
         `✅ The company '${companyName}' has been created! See the result here: ${getCompanyURL(companyName, wikidataId)}`
-      );
+      )
     } else {
-      job.log(`✅ The company '${companyName}' was found in the database.`);
-      await job.sendMessage(`✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`);
+      job.log(`✅ The company '${companyName}' was found in the database.`)
+      await job.sendMessage(
+        `✅ The company '${companyName}' was found in the database, with LEI number '${existingCompany.lei} || null'`
+      )
     }
-  
+
     const base = {
       name: companyName,
       data: {
@@ -108,7 +113,8 @@ const checkDB = new DiscordWorker(
         threadId,
         channelId,
         autoApprove: job.data.autoApprove,
-      replaceAllEmissions: job.data.replaceAllEmissions,
+        replaceAllEmissions: job.data.replaceAllEmissions,
+        batchId: job.data.batchId,
       },
       opts: {
         attempts: 3,
@@ -184,7 +190,6 @@ const checkDB = new DiscordWorker(
               data: {
                 ...base.data,
                 lei,
-                   
               },
             }
           : null,
@@ -201,9 +206,19 @@ const checkDB = new DiscordWorker(
               },
             }
           : null,
+        tags?.length
+          ? {
+              ...base,
+              queueName: QUEUE_NAMES.DIFF_TAGS,
+              data: {
+                ...base.data,
+                tags,
+              },
+            }
+          : null,
       ].filter((e) => e !== null),
     })
-  
+
     return { saved: true }
   }
 )

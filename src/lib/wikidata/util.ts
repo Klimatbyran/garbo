@@ -32,7 +32,7 @@ export const wbk = WBK({
 })
 
 export const wikibaseEditConfig = {
-  instance: wikidataConfig.wikidataURL,
+  instance: wikidataConfig.wikidataURL as `http${string}`,
   credentials: {
     oauth: {
       consumer_key: wikidataConfig.wikidataConsumerKey,
@@ -80,7 +80,7 @@ export function transformEmissionsToClaims(
   startDate: string,
   endDate: string,
   referenceUrl?: string,
-  archiveUrl?: string,
+  archiveUrl?: string
 ): Claim[] {
   const claims: Claim[] = []
 
@@ -158,7 +158,7 @@ export function transformEmissionsToClaims(
     // Calculate total from categories as fallback
     const calculatedTotal = emissions.scope3.categories.reduce(
       (total, category) => total + (category.total ?? 0),
-      0,
+      0
     )
     if (calculatedTotal > 0) {
       claims.push({

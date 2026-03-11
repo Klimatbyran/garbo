@@ -1,15 +1,15 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 
-import { baseYearService } from '../services/baseYearService'
+import { baseYearService } from '../../services/baseYearService'
 import {
   wikidataIdParamSchema,
   okResponseSchema,
   getErrorSchemas,
   postBaseYear,
-} from '../schemas'
-import { PostBaseYearBody, WikidataIdParams } from '../types'
-import { metadataService } from '../services/metadataService'
-import { getTags } from '../../config/openapi'
+} from '../../schemas'
+import { PostBaseYearBody, WikidataIdParams } from '../../types'
+import { metadataService } from '../../services/metadataService'
+import { getTags } from '../../../config/openapi'
 
 export async function companyBaseYearRoutes(app: FastifyInstance) {
   app.post(

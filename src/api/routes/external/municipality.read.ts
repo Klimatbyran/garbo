@@ -1,18 +1,18 @@
 import { FastifyInstance, FastifyRequest } from 'fastify'
-import { getTags } from '../../config/openapi'
-import { MunicipalityNameParams } from '../types'
-import { cachePlugin } from '../plugins/cache'
+import { getTags } from '../../../config/openapi'
+import { MunicipalityNameParams } from '../../types'
+import { cachePlugin } from '../../plugins/cache'
 import {
   MunicipalitySchema,
   MunicipalitiesSchema,
   getErrorSchemas,
   MunicipalityNameParamSchema,
   MunicipalitySectorEmissionsSchema,
-} from '../schemas'
-import { municipalityService } from '../services/municipalityService'
-import { redisCache } from '../..'
+} from '../../schemas'
+import { municipalityService } from '../../services/municipalityService'
+import { redisCache } from '../../..'
 import fs from 'fs'
-import apiConfig from '../../config/api'
+import apiConfig from '../../../config/api'
 
 const MUNICIPALITIES_CACHE_KEY = 'municipalities:all'
 const MUNICIPALITIES_TIMESTAMP_KEY = 'municipalities:timestamp'
@@ -48,7 +48,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       const etagValue = `"${currentTimestamp}"`
 
       const cachedMunicipalities = await redisCache.get(
-        MUNICIPALITIES_CACHE_KEY,
+        MUNICIPALITIES_CACHE_KEY
       )
 
       if (cachedMunicipalities) {
@@ -59,15 +59,15 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
 
       await redisCache.set(
         MUNICIPALITIES_CACHE_KEY,
-        JSON.stringify(municipalities),
+        JSON.stringify(municipalities)
       )
       await redisCache.set(
         MUNICIPALITIES_TIMESTAMP_KEY,
-        currentTimestamp.toString(),
+        currentTimestamp.toString()
       )
 
       reply.header('ETag', etagValue).send(municipalities)
-    },
+    }
   )
 
   app.get(
@@ -87,7 +87,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply,
+      reply
     ) => {
       const { name } = request.params
       const municipality = municipalityService.getMunicipality(name)
@@ -100,7 +100,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send(municipality)
-    },
+    }
   )
 
   app.get(
@@ -120,7 +120,7 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
     },
     async (
       request: FastifyRequest<{ Params: MunicipalityNameParams }>,
-      reply,
+      reply
     ) => {
       const { name } = request.params
       const sectorEmissions =
@@ -134,6 +134,6 @@ export async function municipalityReadRoutes(app: FastifyInstance) {
       }
 
       reply.send({ sectors: sectorEmissions })
-    },
+    }
   )
 }

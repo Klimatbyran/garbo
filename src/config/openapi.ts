@@ -60,11 +60,20 @@ const openAPITagDefinitions = {
   ReportValidations: {
     description: 'Report validations',
   },
+  TagOptions: {
+    description: 'Valid tag options for company tags',
+  },
   Screenshots: {
     description: 'Screenshots of PDF tables from reports',
   },
   Newsletters: {
     description: 'Newsletters',
+  },
+  Reports: {
+    description: 'Company reports',
+  },
+  Internal: {
+    description: 'Internal endpoints for data assessment and management',
   },
 } as const
 
@@ -77,7 +86,7 @@ const openAPITags = Object.entries(openAPITagDefinitions).reduce(
     tags[tagName] = { name: tagName, ...tag }
     return tags
   },
-  {} as Record<TagName, Tag>,
+  {} as Record<TagName, Tag>
 )
 
 /**

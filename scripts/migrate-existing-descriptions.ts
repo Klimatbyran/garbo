@@ -6,40 +6,43 @@ import { askPrompt } from '../src/lib/openai'
 const { baseURL, prod_base_url, secret } = apiConfig
 
 async function updateDescriptions() {
-    
-    // Get a valid authentication token
-    const responseAuth = await fetch(`${prod_base_url}/auth/token`, {
-        method: `POST`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            client_id: 'garbo',
-            client_secret: secret
-        })
-    })
-    if(!responseAuth.ok) {
-        console.error('Failed to authenticate.')
-        throw(`Error: ${responseAuth.text}`)
-    }
+  // Get a valid authentication token
+  const responseAuth = await fetch(`${prod_base_url}/auth/token`, {
+    method: `POST`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      client_id: 'garbo',
+      client_secret: secret,
+    }),
+  })
+  if (!responseAuth.ok) {
+    console.error('Failed to authenticate.')
+    throw `Error: ${responseAuth.text}`
+  }
 
-    const { token } = await responseAuth.json()
+  const { token } = await responseAuth.json()
 
-    // Get the companies' descriptions
-    console.log("Fetching companies' descriptions...")
-    const response = await fetch(`${prod_base_url}/companies`, {
-        method: 'GET',
-    })
+  // Get the companies' descriptions
+  console.log("Fetching companies' descriptions...")
+  const response = await fetch(`${prod_base_url}/companies`, {
+    method: 'GET',
+  })
 
-    // Post the descriptions
-    if(response.ok) {
-        console.log(`Posting descriptions...`)
-        const companies: Array<{ name: string, wikidataId: string, description: string }> = await response.json()
-        for(let i = 0; i < companies.length; i++) {
-            const elem = companies[i]
-            if(elem.description) {
-                const descriptionSV = await askPrompt(
-                    `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet, baserat på en redan existerande beskrivning.
+  // Post the descriptions
+  if (response.ok) {
+    console.log(`Posting descriptions...`)
+    const companies: Array<{
+      name: string
+      wikidataId: string
+      description: string
+    }> = await response.json()
+    for (let i = 0; i < companies.length; i++) {
+      const elem = companies[i]
+      if (elem.description) {
+        const descriptionSV = await askPrompt(
+          `Du är en torr revisor som ska skriva en kort, objektiv beskrivning av företagets verksamhet, baserat på en redan existerande beskrivning.
   
                     ** Beskrivning **
                     Följ dessa riktlinjer:
@@ -61,55 +64,55 @@ async function updateDescriptions() {
                     Exempel på svar: "AAK är ett företag som specialiserar sig på växtbaserade oljelösningar. Företaget erbjuder ett brett utbud av produkter och tjänster inom livsmedelsindustrin, inklusive specialfetter för choklad och konfektyr, mejeriprodukter, bageri och andra livsmedelsapplikationer."
                     
                     Följande är den nuvarande beskrivningen:`,
-                    elem.description
-                )
-                const descriptionEN = await askPrompt(
-                    `Översätt följande text till engelska.`,
-                    descriptionSV
-                )
-                try {
-                    const response = await fetch(`${prod_base_url}/companies/${elem.wikidataId}`, {
-                        method: 'GET',
-                    })
-                    if(response.ok) {
-                        await fetch(`${baseURL}/companies/${elem.wikidataId}`, {
-                            method: `POST`,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                                descriptions: [
-                                    {
-                                        language: 'SV',
-                                        text: descriptionSV
-                                    },
-                                    {
-                                        language: 'EN',
-                                        text: descriptionEN
-                                    }
-                                ],
-                                name: elem.name,
-                                wikidataId: elem.wikidataId,
-                            })
-                        })
-                    }
-                    
-                } catch(err) {
-                    console.log(`Could not update descriptions: ${err.text}`)
-                }
+          elem.description
+        )
+        const descriptionEN = await askPrompt(
+          `Översätt följande text till engelska.`,
+          descriptionSV
+        )
+        try {
+          const response = await fetch(
+            `${prod_base_url}/companies/${elem.wikidataId}`,
+            {
+              method: 'GET',
             }
+          )
+          if (response.ok) {
+            await fetch(`${baseURL}/companies/${elem.wikidataId}`, {
+              method: `POST`,
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                descriptions: [
+                  {
+                    language: 'SV',
+                    text: descriptionSV,
+                  },
+                  {
+                    language: 'EN',
+                    text: descriptionEN,
+                  },
+                ],
+                name: elem.name,
+                wikidataId: elem.wikidataId,
+              }),
+            })
+          }
+        } catch (err) {
+          console.log(`Could not update descriptions: ${err.text}`)
         }
+      }
     }
-    else {
-        console.error(`Failed to get the companies' ${response.text()}`)
-    }
+  } else {
+    console.error(`Failed to get the companies' ${response.text()}`)
+  }
 }
 
-
 async function main() {
-    await updateDescriptions()
-    console.log('Finished migrating descriptions.')
+  await updateDescriptions()
+  console.log('Finished migrating descriptions.')
 }
 
 main()

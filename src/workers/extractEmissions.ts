@@ -3,7 +3,8 @@ import redis from '../config/redis'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { QUEUE_NAMES } from '../queues'
 
-type FollowUpKey =
+/** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */
+export type FollowUpKey =
   | 'industryGics'
   | 'scope1'
   | 'scope2'
@@ -14,8 +15,26 @@ type FollowUpKey =
   | 'goals'
   | 'initiatives'
   | 'baseYear'
+  | 'companyTags'
   | 'lei'
   | 'descriptions'
+
+/** All runnable follow-up keys; use for UI (e.g. "Re-run Scope 1", "Re-run Tags") or API validation. */
+export const FOLLOW_UP_KEYS: FollowUpKey[] = [
+  'industryGics',
+  'scope1',
+  'scope2',
+  'scope1+2',
+  'scope3',
+  'biogenic',
+  'economy',
+  'goals',
+  'initiatives',
+  'baseYear',
+  'companyTags',
+  'lei',
+  'descriptions',
+]
 
 class ExtractEmissionsJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -46,10 +65,8 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
     const fiscalYearFromChildren =
       (entries as any)?.value?.fiscalYear ?? (entries as any)?.fiscalYear
 
-    const wikidata =
-      wikidataFromChildren ?? (job.data as any)?.wikidata
-    const fiscalYear =
-      fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
+    const wikidata = wikidataFromChildren ?? (job.data as any)?.wikidata
+    const fiscalYear = fiscalYearFromChildren ?? (job.data as any)?.fiscalYear
 
     // updating the job data with the values we seek
     const base = {
@@ -68,15 +85,15 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
       if (runOnly.includes('all')) return true
       return runOnly.includes(key)
     }
-    
-    const childrenJobs: { key: FollowUpKey, job: FlowChildJob }[] = [
+
+    const childrenJobs: { key: FollowUpKey; job: FlowChildJob }[] = [
       {
         key: 'industryGics',
         job: {
           ...base,
           name: 'industryGics ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_INDUSTRY_GICS,
-        }
+        },
       },
       {
         key: 'scope1',
@@ -84,7 +101,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'scope1 ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_1,
-        }
+        },
       },
       {
         key: 'scope2',
@@ -92,7 +109,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'scope2 ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_2,
-        }
+        },
       },
       {
         key: 'scope3',
@@ -100,7 +117,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'scope3 ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_SCOPE_3,
-        }
+        },
       },
       {
         key: 'biogenic',
@@ -108,7 +125,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'biogenic ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_BIOGENIC,
-        }
+        },
       },
       {
         key: 'economy',
@@ -116,7 +133,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'economy ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_ECONOMY,
-        }
+        },
       },
       {
         key: 'goals',
@@ -124,7 +141,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'goals ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_GOALS,
-        }
+        },
       },
       {
         key: 'initiatives',
@@ -132,7 +149,7 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'initiatives ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_INITIATIVES,
-        }
+        },
       },
       {
         key: 'baseYear',
@@ -140,8 +157,16 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           ...base,
           name: 'baseYear ' + companyName,
           queueName: QUEUE_NAMES.FOLLOW_UP_BASE_YEAR,
-        }
-      },  
+        },
+      },
+      {
+        key: 'companyTags',
+        job: {
+          ...base,
+          name: 'companyTags ' + companyName,
+          queueName: QUEUE_NAMES.FOLLOW_UP_COMPANY_TAGS,
+        },
+      },
       {
         key: 'lei',
         job: {
@@ -150,9 +175,9 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
           queueName: QUEUE_NAMES.EXTRACT_LEI,
           data: {
             ...base.data,
-            wikidataId: base.data.wikidata.node
-          }
-        }
+            wikidataId: base.data.wikidata.node,
+          },
+        },
       },
       {
         key: 'descriptions',
@@ -164,11 +189,10 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
             ...job.data,
             companyId: wikidata.node,
             type: undefined,
-          }
-        }
-      }
+          },
+        },
+      },
     ]
-
 
     await flow.add({
       name: companyName,
@@ -177,7 +201,9 @@ const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
         ...base.data,
       },
       children: [
-        ...childrenJobs.filter((child) => shouldRun(child.key)).map((child) => child.job),
+        ...childrenJobs
+          .filter((child) => shouldRun(child.key))
+          .map((child) => child.job),
       ].filter((e) => e !== null),
       opts: {
         attempts: 3,

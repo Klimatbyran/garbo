@@ -16,16 +16,27 @@ export class DiffInitiativesJob extends DiffJob {
 const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
   QUEUE_NAMES.DIFF_INITIATIVES,
   async (job) => {
-    const { url, companyName, existingCompany, initiatives, autoApprove, wikidata } = job.data
-    const metadata = defaultMetadata(url);
+    const {
+      url,
+      companyName,
+      existingCompany,
+      initiatives,
+      autoApprove,
+      wikidata,
+    } = job.data
+    const metadata = defaultMetadata(url)
 
     if (job.isDataApproved()) {
-      await job.enqueueSaveToAPI('initiatives', companyName, wikidata, job.getApprovedBody());
-      return;
+      await job.enqueueSaveToAPI(
+        'initiatives',
+        companyName,
+        wikidata,
+        job.getApprovedBody()
+      )
+      return
     }
 
     if (!job.hasApproval()) {
-
       const { diff, requiresApproval } = await diffChanges({
         existingCompany,
         before: existingCompany?.initiatives,
@@ -47,9 +58,9 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         typeof requiresApproval == 'boolean' ? requiresApproval : false
       )    
     }
-    
+
     if (job.hasApproval() && !job.isDataApproved()) {
-      await job.moveToDelayed(Date.now() + apiConfig.jobDelay);
+      await job.moveToDelayed(Date.now() + apiConfig.jobDelay)
     }
   }
 )

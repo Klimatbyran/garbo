@@ -17,10 +17,13 @@ function getCompanyBaseYears() {
     .slice(3)
     .reduce<{ wikidataId: string; baseYear: number | null }[]>((acc, row) => {
       if (!row) return acc
-      const columns = headers.reduce((obj, header, index) => {
-        obj[header!.toString()] = row[index + 1]?.result || row[index + 1]
-        return obj
-      }, {} as Record<string, any>)
+      const columns = headers.reduce(
+        (obj, header, index) => {
+          obj[header!.toString()] = row[index + 1]?.result || row[index + 1]
+          return obj
+        },
+        {} as Record<string, any>
+      )
 
       const wikidataId = columns['Wiki ID']
       const baseYears = columns['Base year']

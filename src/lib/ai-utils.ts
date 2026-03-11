@@ -1,13 +1,18 @@
-import { askStream } from "./openai"
-import { ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam } from "openai/resources/chat/completions"
-import { zodResponseFormat } from "openai/helpers/zod"
-import { z } from "zod"
+import { askStream } from './openai'
+import {
+  ChatCompletionSystemMessageParam,
+  ChatCompletionUserMessageParam,
+} from 'openai/resources/chat/completions'
+import { zodResponseFormat } from 'openai/helpers/zod'
+import { z } from 'zod'
 
-
-
-
-export const askStreamWithContext = async (markdown: string, prompt: string, schema: z.ZodSchema, type: string) => {
-    const response = await askStream(
+export const askStreamWithContext = async (
+  markdown: string,
+  prompt: string,
+  schema: z.ZodSchema,
+  type: string
+) => {
+  const response = await askStream(
     [
       {
         role: 'system',
@@ -21,7 +26,7 @@ export const askStreamWithContext = async (markdown: string, prompt: string, sch
       {
         role: 'user',
         content: prompt,
-      } as ChatCompletionUserMessageParam, 
+      } as ChatCompletionUserMessageParam,
     ]
       .flat()
       .filter((m) => m !== undefined)
