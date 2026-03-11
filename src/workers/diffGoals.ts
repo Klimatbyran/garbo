@@ -34,10 +34,12 @@ const diffGoals = new DiffWorker<DiffGoalsJob>(
         after: goals,
       })
 
+      const previousGoals = existingCompany?.goals ?? []
+
       const change: ChangeDescription = {
         type: 'goals',
-        oldValue: { goals: existingCompany.goals },
-        newValue: { goals: goals },
+        oldValue: { goals: previousGoals },
+        newValue: { goals },
       }
 
       await job.handleDiff(

@@ -32,13 +32,20 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         after: initiatives,
       })
 
+      const previousInitiatives = existingCompany?.initiatives ?? []
+
       const change: ChangeDescription = {
-          type: 'initiatives',
-          oldValue: { initiatives: existingCompany.initiatives },
-          newValue: { initiatives: initiatives },
+        type: 'initiatives',
+        oldValue: { initiatives: previousInitiatives },
+        newValue: { initiatives },
       }
 
-      await job.handleDiff('initiatives', diff, change, typeof requiresApproval == 'boolean' ? requiresApproval : false);    
+      await job.handleDiff(
+        'initiatives',
+        diff,
+        change,
+        typeof requiresApproval == 'boolean' ? requiresApproval : false
+      )    
     }
     
     if (job.hasApproval() && !job.isDataApproved()) {
