@@ -1,4 +1,4 @@
-import Firecrawl, { Document, SearchResultWeb } from '@mendable/firecrawl-js'
+import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
 import { CompanyReports } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
