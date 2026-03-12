@@ -12,7 +12,6 @@ import {
 import {
   PostReportsBody,
   saveReportsBody,
-  saveReportsResult,
   saveReportError,
   saveReportSuccess,
 } from '../../types'
@@ -74,22 +73,25 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       ) => {
         try {
           const results = await reportsService.saveReportsToDb(request.body)
-          const duplicates = results.filter(
+          const failed = results.filter(
             (r: saveReportError | saveReportSuccess) =>
               'error' in r && r.error === 'duplicate'
           )
           const successes = results.filter(
             (r: saveReportError | saveReportSuccess) => !('error' in r)
           )
-          if (duplicates.length > 0) {
-            return reply.status(409).send({
-              message:
-                'One or more reports already exist for the given company and year.',
-              duplicates,
-              successes,
-            })
+          const responseBody = {
+            message:
+              failed.length > 0
+                ? 'One or more reports already exist for the given company and year.'
+                : 'All reports saved successfully.',
+            successes,
+            failed,
           }
-          return reply.send(successes)
+          if (failed.length > 0) {
+            return reply.status(409).send(responseBody)
+          }
+          return reply.send(responseBody)
         } catch (error) {
           console.error('ERROR saving company reports failed:', error)
           return reply
