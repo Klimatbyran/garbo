@@ -43,10 +43,12 @@ const diffInitiatives = new DiffWorker<DiffInitiativesJob>(
         after: initiatives,
       })
 
+      const previousInitiatives = existingCompany?.initiatives ?? []
+
       const change: ChangeDescription = {
         type: 'initiatives',
-        oldValue: { initiatives: existingCompany.initiatives },
-        newValue: { initiatives: initiatives },
+        oldValue: { initiatives: previousInitiatives },
+        newValue: { initiatives },
       }
 
       await job.handleDiff(
