@@ -61,7 +61,8 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
           body: saveReportsBodySchema,
           response: {
             200: saveReportsListResponseSchema,
-            ...getErrorSchemas(500),
+            409: saveReportsListResponseSchema,
+            500: saveReportsListResponseSchema,
           },
         },
       },
@@ -74,29 +75,46 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
         try {
           const results = await reportsService.saveReportsToDb(request.body)
           const failed = results.filter(
-            (r: saveReportError | saveReportSuccess) =>
-              'error' in r && r.error === 'duplicate'
+            (r: saveReportError | saveReportSuccess): r is saveReportError =>
+              'error' in r
           )
           const successes = results.filter(
-            (r: saveReportError | saveReportSuccess) => !('error' in r)
+            (r: saveReportError | saveReportSuccess): r is saveReportSuccess =>
+              !('error' in r)
           )
-          const responseBody = {
+
+          if (failed.length === 0) {
+            return reply.send({
+              message: 'All reports saved successfully.',
+              successes,
+              failed,
+            })
+          }
+
+          const hasUnknownFailures = failed.some((r) => r.error === 'unknown')
+
+          if (hasUnknownFailures) {
+            return reply.status(500).send({
+              message:
+                'One or more reports failed to save due to an internal error.',
+              successes,
+              failed,
+            })
+          }
+
+          return reply.status(409).send({
             message:
-              failed.length > 0
-                ? 'One or more reports already exist for the given company and year.'
-                : 'All reports saved successfully.',
+              'One or more reports already exist for the given company and year.',
             successes,
             failed,
-          }
-          if (failed.length > 0) {
-            return reply.status(409).send(responseBody)
-          }
-          return reply.send(responseBody)
+          })
         } catch (error) {
           console.error('ERROR saving company reports failed:', error)
-          return reply
-            .status(500)
-            .send({ message: 'Saving company reports failed.' })
+          return reply.status(500).send({
+            message: 'Saving company reports failed.',
+            successes: [],
+            failed: [],
+          })
         }
       }
     )
