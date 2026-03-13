@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'
 import { emissionUnitSchemaGarbo, wikidataIdSchema } from './common'
+import { url } from 'inspector'
 
 extendZodWithOpenApi(z)
 
@@ -585,6 +586,27 @@ export const ReportsListSchema = z.array(
     ),
   })
 )
+
+export const saveReportsListResponseSchema = z.object({
+  message: z.string(),
+  successes: z.array(
+    z.object({
+      id: z.string(),
+      companyName: z.string(),
+      wikidataId: z.string().nullable().optional(),
+      reportYear: z.string(),
+      url: z.string().url(),
+    })
+  ),
+  failed: z.array(
+    z.object({
+      error: z.enum(['duplicate', 'unknown']),
+      companyName: z.string(),
+      reportYear: z.string(),
+      message: z.string(),
+    })
+  ),
+})
 
 export const ReportsListResponseSchema = ReportsListSchema
 
