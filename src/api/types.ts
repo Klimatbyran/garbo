@@ -73,7 +73,6 @@ export type ReportsList = z.infer<typeof schemas.ReportsListSchema>
 export type CompanyReport = z.infer<typeof schemas.companyReport>
 export type CompanyReports = z.infer<typeof schemas.companyReports>
 
-// Types for saveReportsToDb results
 export type saveReportSuccess = {
   reportYear: string
   url: string
