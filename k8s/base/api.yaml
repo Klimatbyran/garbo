@@ -208,6 +208,11 @@ spec:
                 secretKeyRef:
                   name: env
                   key: WIKI_USERNAME
+            - name: FIRECRAWL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: env
+                  key: FIRECRAWL_API_KEY
             - name: GOOGLE_SCREENSHOT_BUCKET_KEY
               valueFrom:
                 secretKeyRef:
