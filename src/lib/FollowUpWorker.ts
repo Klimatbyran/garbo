@@ -127,7 +127,7 @@ export class FollowUpWorker<
   ) {
     super(name, (job: T) => callback(addCustomMethods(job) as T), {
       connection: redis,
-      concurrency: 3,
+      concurrency: 1,
       ...options,
     })
 

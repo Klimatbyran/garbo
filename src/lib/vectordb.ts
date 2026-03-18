@@ -119,19 +119,35 @@ async function getRelevantMarkdown(
     },
   ])*/
   const coll = await getCollection()
-  const result = await coll.query({
-    nResults,
-    where: {
-      source: url,
-    },
-    queryTexts,
-  })
 
-  const metadatas = result.metadatas.flat()
-  const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
-  const uniqueParagraphs = Array.from(new Set(paragraphs))
+  let lastError: unknown
+  for (let attempt = 0; attempt < 5; attempt++) {
+    if (attempt > 0) {
+      const jitter = Math.floor(Math.random() * 1000)
+      const wait = 2000 * attempt + jitter
+      console.warn(
+        `ChromaDB query attempt ${attempt + 1} failed, retrying in ${wait}ms...`,
+        lastError
+      )
+      await new Promise((resolve) => setTimeout(resolve, wait))
+    }
+    try {
+      const result = await coll.query({
+        nResults,
+        where: { source: url },
+        queryTexts,
+      })
 
-  return uniqueParagraphs.join('\n\n')
+      const metadatas = result.metadatas.flat()
+      const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
+      const uniqueParagraphs = Array.from(new Set(paragraphs))
+
+      return uniqueParagraphs.join('\n\n')
+    } catch (err) {
+      lastError = err
+    }
+  }
+  throw new Error(`ChromaDB query failed after 5 attempts: ${lastError}`)
 }
 
 /**
