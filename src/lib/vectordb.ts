@@ -147,6 +147,8 @@ async function getRelevantMarkdown(
       return uniqueParagraphs.join('\n\n')
     } catch (err) {
       lastError = err
+      collection = null
+      client = null
     }
   }
   throw new Error(`ChromaDB query failed after 5 attempts: ${lastError}`)
