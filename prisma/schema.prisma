@@ -396,11 +396,9 @@ model Description {
 }
 
 model Report {
-  id          String @id @default(cuid())
-  companyName String
+  id          String  @id @default(cuid())
+  url         String  @unique
+  companyName String?
   wikidataId  String?
-  reportYear  String
-  url         String
-
-  @@unique([companyName, reportYear])
+  reportYear  String?
 }

@@ -11,9 +11,9 @@ import {
 } from '../../schemas'
 import {
   PostReportsBody,
-  saveReportsBody,
-  saveReportError,
-  saveReportSuccess,
+  SaveReportsBody,
+  SaveReportError,
+  SaveReportSuccess,
 } from '../../types'
 import { reportsService } from '../../services/reportsService'
 
@@ -69,18 +69,18 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
     },
     async (
       request: AuthenticatedFastifyRequest<{
-        Body: saveReportsBody
+        Body: SaveReportsBody
       }>,
       reply
     ) => {
       try {
         const results = await reportsService.saveReportsToDb(request.body)
         const failed = results.filter(
-          (r: saveReportError | saveReportSuccess): r is saveReportError =>
+          (r: SaveReportError | SaveReportSuccess): r is SaveReportError =>
             'error' in r
         )
         const successes = results.filter(
-          (r: saveReportError | saveReportSuccess): r is saveReportSuccess =>
+          (r: SaveReportError | SaveReportSuccess): r is SaveReportSuccess =>
             !('error' in r)
         )
 
@@ -103,8 +103,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
         }
 
         return reply.status(409).send({
-          message:
-            'One or more reports already exist for the given company and year.',
+          message: 'One or more reports already exist for the given URL.',
           successes,
           failed,
         })

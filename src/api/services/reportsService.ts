@@ -1,5 +1,5 @@
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
-import { CompanyReports, saveReportsBody, saveReportsResult } from '../types'
+import { CompanyReports, SaveReportsBody, saveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
 import { prisma } from '../../lib/prisma'
@@ -115,7 +115,7 @@ class ReportsService {
   }
 
   async saveReportsToDb(
-    saveReportsBody: saveReportsBody
+    saveReportsBody: SaveReportsBody
   ): Promise<saveReportsResult> {
     const results: saveReportsResult = []
 
@@ -143,7 +143,7 @@ class ReportsService {
             error: 'duplicate',
             companyName: report.companyName,
             reportYear: report.reportYear,
-            message: 'A report for this company and year already exists.',
+            message: 'A report with this URL already exists.',
           })
           continue
         }

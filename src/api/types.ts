@@ -68,23 +68,23 @@ export type PostReportsBodySchema = z.infer<
 >
 
 export type PostReportsBody = z.infer<typeof schemas.postReportsBody>
-export type saveReportsBody = z.infer<typeof schemas.saveReportsBodySchema>
+export type SaveReportsBody = z.infer<typeof schemas.saveReportsBodySchema>
 export type ReportsList = z.infer<typeof schemas.ReportsListSchema>
 export type CompanyReport = z.infer<typeof schemas.companyReport>
 export type CompanyReports = z.infer<typeof schemas.companyReports>
 
-export type saveReportSuccess = {
-  reportYear: string
+export type SaveReportSuccess = {
+  reportYear?: string | null
   url: string
   id: string
-  companyName: string
+  companyName?: string | null
   wikidataId?: string | null | undefined
 }
 
-export type saveReportError = {
+export type SaveReportError = {
   error: 'duplicate' | 'unknown'
   companyName: string
   reportYear: string
   message: string
 }
-export type saveReportsResult = (saveReportSuccess | saveReportError)[]
+export type saveReportsResult = (SaveReportSuccess | SaveReportError)[]
