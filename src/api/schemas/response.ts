@@ -586,6 +586,27 @@ export const ReportsListSchema = z.array(
   })
 )
 
+export const saveReportsListResponseSchema = z.object({
+  message: z.string(),
+  successes: z.array(
+    z.object({
+      id: z.string(),
+      companyName: z.string().nullable().optional(),
+      wikidataId: z.string().nullable().optional(),
+      reportYear: z.string().nullable().optional(),
+      url: z.string().url(),
+    })
+  ),
+  failed: z.array(
+    z.object({
+      error: z.enum(['duplicate', 'unknown']),
+      companyName: z.string().optional().nullable(),
+      reportYear: z.string().optional().nullable(),
+      message: z.string(),
+    })
+  ),
+})
+
 export const ReportsListResponseSchema = ReportsListSchema
 
 // Preview endpoint schemas

@@ -394,3 +394,11 @@ model Description {
   company      Company      @relation(fields: [companyId], references: [wikidataId], onDelete: Cascade)
   metadata  Metadata[]
 }
+
+model Report {
+  id          String  @id @default(cuid())
+  url         String  @unique
+  companyName String?
+  wikidataId  String?
+  reportYear  String?
+}

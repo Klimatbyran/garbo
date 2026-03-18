@@ -1,8 +1,20 @@
 import { FastifyInstance, AuthenticatedFastifyRequest } from 'fastify'
 import { getTags } from '@/config/openapi'
-import { postReportsBodySchema } from '../../schemas/request'
-import { getErrorSchemas, ReportsListResponseSchema } from '../../schemas'
-import { PostReportsBody } from '../../types'
+import {
+  postReportsBodySchema,
+  saveReportsBodySchema,
+} from '../../schemas/request'
+import {
+  getErrorSchemas,
+  ReportsListResponseSchema,
+  saveReportsListResponseSchema,
+} from '../../schemas'
+import {
+  PostReportsBody,
+  SaveReportsBody,
+  SaveReportError,
+  SaveReportSuccess,
+} from '../../types'
 import { reportsService } from '../../services/reportsService'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {
@@ -35,6 +47,73 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
         return reply
           .status(500)
           .send({ message: 'Scraping for company reports failed.' })
+      }
+    }
+  )
+
+  app.post(
+    '/save-reports',
+    {
+      schema: {
+        summary: 'Add reports to database',
+        description:
+          'Add one or more reports to the database. This endpoint is intended to be used for persisting reports that have been scraped from external sources.',
+        tags: getTags('Reports'),
+        body: saveReportsBodySchema,
+        response: {
+          200: saveReportsListResponseSchema,
+          409: saveReportsListResponseSchema,
+          500: saveReportsListResponseSchema,
+        },
+      },
+    },
+    async (
+      request: AuthenticatedFastifyRequest<{
+        Body: SaveReportsBody
+      }>,
+      reply
+    ) => {
+      try {
+        const results = await reportsService.saveReportsToDb(request.body)
+        const failed = results.filter(
+          (r: SaveReportError | SaveReportSuccess): r is SaveReportError =>
+            'error' in r
+        )
+        const successes = results.filter(
+          (r: SaveReportError | SaveReportSuccess): r is SaveReportSuccess =>
+            !('error' in r)
+        )
+
+        if (failed.length === 0) {
+          return reply.send({
+            message: 'All reports saved successfully.',
+            successes,
+            failed,
+          })
+        }
+
+        const hasUnknownFailures = failed.some((r) => r.error === 'unknown')
+        if (hasUnknownFailures) {
+          return reply.status(500).send({
+            message:
+              'One or more reports failed to save due to an internal error.',
+            successes,
+            failed,
+          })
+        }
+
+        return reply.status(409).send({
+          message: 'One or more reports already exist for the given URL.',
+          successes,
+          failed,
+        })
+      } catch (error) {
+        console.error('ERROR saving company reports failed:', error)
+        return reply.status(500).send({
+          message: 'Saving company reports failed.',
+          successes: [],
+          failed: [],
+        })
       }
     }
   )
