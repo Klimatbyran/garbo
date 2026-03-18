@@ -1,5 +1,5 @@
 import Firecrawl, { SearchResultWeb } from '@mendable/firecrawl-js'
-import { CompanyReports, SaveReportsBody, saveReportsResult } from '../types'
+import { CompanyReports, SaveReportsBody, SaveReportsResult } from '../types'
 import { pdf } from 'pdf-to-img'
 import ky from 'ky'
 import { prisma } from '../../lib/prisma'
@@ -116,8 +116,8 @@ class ReportsService {
 
   async saveReportsToDb(
     saveReportsBody: SaveReportsBody
-  ): Promise<saveReportsResult> {
-    const results: saveReportsResult = []
+  ): Promise<SaveReportsResult> {
+    const results: SaveReportsResult = []
 
     for (const report of saveReportsBody) {
       try {

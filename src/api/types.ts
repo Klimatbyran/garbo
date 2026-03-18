@@ -87,4 +87,4 @@ export type SaveReportError = {
   reportYear: string
   message: string
 }
-export type saveReportsResult = (SaveReportSuccess | SaveReportError)[]
+export type SaveReportsResult = (SaveReportSuccess | SaveReportError)[]

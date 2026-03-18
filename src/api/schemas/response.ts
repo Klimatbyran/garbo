@@ -600,8 +600,8 @@ export const saveReportsListResponseSchema = z.object({
   failed: z.array(
     z.object({
       error: z.enum(['duplicate', 'unknown']),
-      companyName: z.string(),
-      reportYear: z.string(),
+      companyName: z.string().optional().nullable(),
+      reportYear: z.string().optional().nullable(),
       message: z.string(),
     })
   ),
