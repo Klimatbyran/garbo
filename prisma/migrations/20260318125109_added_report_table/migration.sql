@@ -1,6 +1,3 @@
--- DropTable
-DROP TABLE IF EXISTS "Report";
-
 -- CreateTable
 CREATE TABLE "Report" (
     "id" TEXT NOT NULL,
