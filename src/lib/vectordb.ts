@@ -132,11 +132,13 @@ async function getRelevantMarkdown(
       await new Promise((resolve) => setTimeout(resolve, wait))
     }
     try {
-      const result = await coll.query({
-        nResults,
-        where: { source: url },
-        queryTexts,
-      })
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('ChromaDB query timed out after 60s')), 60_000)
+      )
+      const result = await Promise.race([
+        coll.query({ nResults, where: { source: url }, queryTexts }),
+        timeout,
+      ]) as Awaited<ReturnType<typeof coll.query>>
 
       const metadatas = result.metadatas.flat()
       const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
