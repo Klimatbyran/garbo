@@ -10,7 +10,6 @@ import { z } from 'zod'
 const API_KEY = process.env.FIRECRAWL_API_KEY
 
 // TODO: Evaluate mapping the firecrawler type to internal type definition.
-
 type ReportsListResponse = z.infer<typeof ReportsListResponseSchema>
 
 class ReportsService {
@@ -119,16 +118,18 @@ class ReportsService {
     saveReportsBody: saveReportsBody
   ): Promise<saveReportsResult> {
     const results: saveReportsResult = []
+
     for (const report of saveReportsBody) {
       try {
         const saved = await prisma.report.create({
           data: {
             companyName: report.companyName,
-            wikidataId: report.wikidataId || undefined || null,
+            wikidataId: report.wikidataId ?? undefined,
             reportYear: report.reportYear,
             url: report.url,
           },
         })
+
         results.push({
           id: saved.id,
           companyName: saved.companyName,
@@ -137,23 +138,25 @@ class ReportsService {
           url: saved.url,
         })
       } catch (error: any) {
-        if (error.code === 'P2002') {
+        if (error?.code === 'P2002') {
           results.push({
             error: 'duplicate',
             companyName: report.companyName,
             reportYear: report.reportYear,
             message: 'A report for this company and year already exists.',
           })
-        } else {
-          results.push({
-            error: 'unknown',
-            companyName: report.companyName,
-            reportYear: report.reportYear,
-            message: 'Failed to save report.',
-          })
+          continue
         }
+
+        results.push({
+          error: 'unknown',
+          companyName: report.companyName,
+          reportYear: report.reportYear,
+          message: 'Failed to save report.',
+        })
       }
     }
+
     return results
   }
 }

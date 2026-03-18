@@ -320,6 +320,20 @@ export const companyReports = z.array(companyReport)
 export const postReportsBodySchema = companyReports
 
 export const postReportsBody = companyReports
+export const saveReportsBodySchema = z.array(
+  z.object({
+    companyName: z.string().min(1, 'companyName is required'),
+    wikidataId: z.string().nullable().optional(),
+    reportYear: z
+      .string()
+      .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
+      .refine((year) => {
+        const n = Number(year)
+        return n >= 1900 && n <= 2100
+      }, 'reportYear must be between 1900 and 2100'),
+    url: z.string().url('Invalid URL').min(1, 'url is required'),
+  })
+)
 
 export const saveReportsBodySchema = z.array(
   z.object({
