@@ -13,7 +13,7 @@ services:
     ports:
       - '6379:6379'
   chroma:
-    image: chromadb/chroma
+    image: chromadb/chroma:0.5.20
     container_name: garbo_chroma
     ports:
       - '8000:8000'
