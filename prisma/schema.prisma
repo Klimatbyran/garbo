@@ -402,3 +402,43 @@ model Report {
   wikidataId  String?
   reportYear  String?
 }
+
+/// Long-term archive of BullMQ job runs.
+/// This lets us keep historical job inputs/outputs for analysis while keeping Redis small.
+model JobRunArchive {
+  id String @id @default(cuid())
+
+  /// BullMQ queue name (e.g. \"parsePdf\", \"extractEmissions\")
+  queueName String
+  /// BullMQ job name (often same as queueName in this codebase)
+  jobName   String?
+  /// BullMQ job id (stringified)
+  bullJobId String
+  /// Optional parent job id (stringified), if this job has a parent
+  parentBullJobId String?
+
+  /// Common context fields used throughout the pipeline
+  url String?
+  /// Run label for comparing prompt changes: pass a meaningful id when enqueueing (e.g. \"prompt-v42\" or batch UUID).
+  /// Propagated via job.data.batchId and indexed for queries like \"all jobs from this run\".
+  batchId String?
+
+  /// Optional extra labels (e.g. human-readable run name); batchId is the primary run identifier.
+  runLabel      String?
+  promptVersion String?
+
+  status     String // completed | failed
+  startedAt  DateTime
+  finishedAt DateTime
+  durationMs Int?
+
+  inputData  Json?
+  outputData Json?
+  error      String?
+
+  createdAt DateTime @default(now())
+
+  @@index([queueName, finishedAt])
+  @@index([url, finishedAt])
+  @@index([batchId, finishedAt])
+}
