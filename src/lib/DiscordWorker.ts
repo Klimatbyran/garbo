@@ -11,6 +11,7 @@ import apiConfig from '../config/api'
 import { ChangeDescription } from './DiffWorker'
 import { createDiscordLogger } from './logger'
 import { Logger } from '@/types'
+import { archiveJobRun } from './jobRunArchive'
 
 interface Approval {
   summary?: string
@@ -230,5 +231,25 @@ export class DiscordWorker<T extends DiscordJob> extends Worker {
     )
 
     this.queue = new Queue(name, { connection: redis })
+
+    // Persist long-term job history in Postgres so Redis can stay small.
+    // This lets us compare outputs across prompt changes without retaining jobs forever in Redis.
+    this.on('completed', async (job: Job, result: unknown) => {
+      try {
+        await archiveJobRun({ queueName: name, status: 'completed', job, result })
+      } catch (err) {
+        // Do not fail the worker if archiving fails.
+        console.error('Failed to archive completed job run:', err)
+      }
+    })
+
+    this.on('failed', async (job: Job | undefined, err: Error) => {
+      if (!job) return
+      try {
+        await archiveJobRun({ queueName: name, status: 'failed', job, error: err })
+      } catch (archiveErr) {
+        console.error('Failed to archive failed job run:', archiveErr)
+      }
+    })
   }
 }
