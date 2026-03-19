@@ -4,6 +4,8 @@ import { z } from 'zod'
 const envSchema = z.object({
   CHROMA_HOST: z.string(),
   CHROMA_CHUNK_SIZE: z.coerce.number(),
+  CHROMA_CONCURRENCY: z.coerce.number().int().positive().default(2),
+  CHROMA_EMBEDDING_MODEL: z.string().default('text-embedding-ada-002'),
 })
 
 const parsedEnv = envSchema.safeParse(process.env)
@@ -30,4 +32,6 @@ const env = parsedEnv.data
 export default {
   path: env.CHROMA_HOST,
   chunkSize: env.CHROMA_CHUNK_SIZE,
+  concurrency: env.CHROMA_CONCURRENCY,
+  embeddingModel: env.CHROMA_EMBEDDING_MODEL,
 }

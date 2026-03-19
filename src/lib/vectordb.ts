@@ -1,31 +1,45 @@
 import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import OpenAI from 'openai'
 
 import config from '../config/chromadb'
-import openai from '../config/openai'
+import openaiConfig from '../config/openai'
 
-// Lazy initialization to avoid connection errors when ChromaDB isn't running
-let client: ChromaClient | null = null
-let embedder: OpenAIEmbeddingFunction | null = null
-let collection: Awaited<
-  ReturnType<ChromaClient['getOrCreateCollection']>
-> | null = null
+const client = new ChromaClient(config)
+const embedder = new OpenAIEmbeddingFunction({
+  ...openaiConfig,
+  openai_model: config.embeddingModel,
+})
+const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey })
 
-async function getCollection() {
-  if (!collection) {
-    if (!client) {
-      client = new ChromaClient(config)
-      embedder = new OpenAIEmbeddingFunction(openai)
-    }
-    collection = await client.getOrCreateCollection({
-      name: 'emission_reports',
-      embeddingFunction: embedder!,
-    })
-  }
-  return collection
-}
+const collection = await client.getOrCreateCollection({
+  name: 'emission_reports',
+  embeddingFunction: embedder,
+})
 
 // this is our own type to be able to filter in the future if needed
 const reportMetadataType = 'company_sustainability_report'
+
+// Limit concurrent ChromaDB queries to prevent HNSW searches from overwhelming
+// the server. Under K8s CPU limits all 10+ follow-up workers fire simultaneously;
+// without this they all queue in ChromaDB's thread pool, starve each other of
+// CPU, and time out before any response is sent.
+const CHROMA_CONCURRENCY = config.concurrency
+let activeChromaQueries = 0
+const chromaQueryWaiters: (() => void)[] = []
+
+async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
+  if (activeChromaQueries >= CHROMA_CONCURRENCY) {
+    console.debug(`ChromaDB at capacity (${activeChromaQueries}/${CHROMA_CONCURRENCY}), queuing request...`)
+    await new Promise<void>((resolve) => chromaQueryWaiters.push(resolve))
+  }
+  activeChromaQueries++
+  try {
+    return await fn()
+  } finally {
+    activeChromaQueries--
+    chromaQueryWaiters.shift()?.()
+  }
+}
 
 async function addReport(url: string, markdown: string) {
   const overlapSize = 200
@@ -78,8 +92,7 @@ async function addReport(url: string, markdown: string) {
       parsed: new Date().toISOString(),
     }))
 
-    const coll = await getCollection()
-    await coll.add({
+    await collection.add({
       ids: batchIds,
       metadatas: batchMetadatas,
       documents: batchChunks.map(({ chunk }) => chunk),
@@ -93,8 +106,7 @@ async function addReport(url: string, markdown: string) {
 }
 
 async function hasReport(url: string) {
-  const coll = await getCollection()
-  return coll
+  return collection
     .get({
       where: { source: url },
       limit: 1,
@@ -105,69 +117,46 @@ async function hasReport(url: string) {
 async function getRelevantMarkdown(
   url: string,
   queryTexts: string[],
-  nResults = 10
+  nResults = 10,
+  log: (msg: string) => void = console.log
 ) {
-  /* might get better results if we query for imaginary results from a query instead of the actual query
-  const query = await ask([
-    {
-      role: 'user',
-      content:
-        'Please give me some example data from this prompt that I can use as search query in a vector database indexed from PDFs. OK?'
-    },
-    {role: 'assistant', content: 'OK sure, give '},
-        prompt,
-    },
-  ])*/
-  const coll = await getCollection()
+  log(`Generating embeddings (${queryTexts.length} query texts)`)
+  const embeddingResponse = await openaiClient.embeddings.create({
+    model: config.embeddingModel,
+    input: queryTexts,
+  })
+  const queryEmbeddings = embeddingResponse.data.map((e) => e.embedding)
 
-  let lastError: unknown
-  for (let attempt = 0; attempt < 5; attempt++) {
-    if (attempt > 0) {
-      const jitter = Math.floor(Math.random() * 1000)
-      const wait = 2000 * attempt + jitter
-      console.warn(
-        `ChromaDB query attempt ${attempt + 1} failed, retrying in ${wait}ms...`,
-        lastError
-      )
-      await new Promise((resolve) => setTimeout(resolve, wait))
-    }
-    try {
-      const timeout = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('ChromaDB query timed out after 60s')), 60_000)
-      )
-      const result = await Promise.race([
-        coll.query({ nResults, where: { source: url }, queryTexts }),
-        timeout,
-      ]) as Awaited<ReturnType<typeof coll.query>>
+  log(`Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`)
+  return withChromaLimit(async () => {
+    log(`Querying ChromaDB`)
+    const result = await collection.query({
+      nResults,
+      where: { source: url },
+      queryEmbeddings,
+    })
+    log(`ChromaDB query complete`)
 
-      const metadatas = result.metadatas.flat()
-      const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
-      const uniqueParagraphs = Array.from(new Set(paragraphs))
+    const metadatas = result.metadatas.flat()
+    const paragraphs = metadatas.map((metadata) => metadata?.paragraph || '')
+    const uniqueParagraphs = Array.from(new Set(paragraphs))
 
-      return uniqueParagraphs.join('\n\n')
-    } catch (err) {
-      lastError = err
-      collection = null
-      client = null
-    }
-  }
-  throw new Error(`ChromaDB query failed after 5 attempts: ${lastError}`)
+    return uniqueParagraphs.join('\n\n')
+  })
 }
 
 /**
  * Delete a specific report
  */
-async function deleteReport(url: string) {
-  const coll = await getCollection()
-  return coll.delete({ where: { source: url } })
+function deleteReport(url: string) {
+  return collection.delete({ where: { source: url } })
 }
 
 /**
  * Clear all reports. Useful during development.
  */
-async function clearAllReports() {
-  const coll = await getCollection()
-  return coll.delete({ where: { type: reportMetadataType } })
+function clearAllReports() {
+  return collection.delete({ where: { type: reportMetadataType } })
 }
 
 export const vectorDB = {
