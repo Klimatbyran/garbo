@@ -29,7 +29,9 @@ const chromaQueryWaiters: (() => void)[] = []
 
 async function withChromaLimit<T>(fn: () => Promise<T>): Promise<T> {
   if (activeChromaQueries >= CHROMA_CONCURRENCY) {
-    console.debug(`ChromaDB at capacity (${activeChromaQueries}/${CHROMA_CONCURRENCY}), queuing request...`)
+    console.debug(
+      `ChromaDB at capacity (${activeChromaQueries}/${CHROMA_CONCURRENCY}), queuing request...`
+    )
     await new Promise<void>((resolve) => chromaQueryWaiters.push(resolve))
   }
   activeChromaQueries++
@@ -127,7 +129,9 @@ async function getRelevantMarkdown(
   })
   const queryEmbeddings = embeddingResponse.data.map((e) => e.embedding)
 
-  log(`Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`)
+  log(
+    `Waiting for ChromaDB slot (concurrency=${CHROMA_CONCURRENCY}, active=${activeChromaQueries})...`
+  )
   return withChromaLimit(async () => {
     log(`Querying ChromaDB`)
     const result = await collection.query({
