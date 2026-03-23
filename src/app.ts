@@ -49,6 +49,7 @@ import { screenshotsReadRoutes } from './api/routes/external/screenshots.read'
 import { newsletterArchiveDownloadsRoute } from './api/routes/external/newsletter-archive.downloads'
 import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
+import { registryReadRoutes } from './api/routes/internal/registry.read'
 
 async function startApp() {
   const app = Fastify({
@@ -158,6 +159,7 @@ async function publicContext(app: FastifyInstance) {
   })
   app.register(reportsCreateRoutes, { prefix: 'api/reports' })
   app.register(reportsReadRoutes, { prefix: 'api/reports' })
+  app.register(registryReadRoutes, { prefix: 'api/registry' })
 }
 
 /**

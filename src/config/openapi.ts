@@ -72,6 +72,10 @@ const openAPITagDefinitions = {
   Reports: {
     description: 'Company reports',
   },
+  Registry: {
+    description:
+      'Registry of collected reports that have been saved in the database',
+  },
   Internal: {
     description: 'Internal endpoints for data assessment and management',
   },
