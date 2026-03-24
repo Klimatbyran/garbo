@@ -57,7 +57,12 @@ function addCustomMethods(job: FollowUpJob) {
     type
   ) => {
     job.log(`🔍 Querying vector DB for ${type}...`)
-    const markdown = await vectorDB.getRelevantMarkdown(url, queryTexts, 15, (msg) => job.log(msg))
+    const markdown = await vectorDB.getRelevantMarkdown(
+      url,
+      queryTexts,
+      15,
+      (msg) => job.log(msg)
+    )
     job.log(`✅ Vector DB done for ${type} (${markdown.length} chars)`)
     ensureValidFollowUpInputs(markdown, prompt, queryTexts, type)
 
