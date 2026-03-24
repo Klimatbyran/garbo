@@ -34,7 +34,11 @@ spec:
               value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql:5432/garbo
       containers:
         - image: ghcr.io/klimatbyran/garbo
-          resources: {}
+          resources:
+            requests:
+              memory: '400Mi'
+            limits:
+              memory: '768Mi'
           name: garbo
           ports:
             - containerPort: 3000
