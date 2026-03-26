@@ -30,7 +30,6 @@ import { companyUpdateRoutes } from './api/routes/internal/company.update'
 import { companyDeleteRoutes } from './api/routes/internal/company.delete'
 import { errorHandler } from './api/plugins/errorhandler'
 import { reportsCreateRoutes } from './api/routes/internal/reports.create'
-import { reportsReadRoutes } from './api/routes/internal/reports.read'
 import { municipalityReadRoutes } from './api/routes/external/municipality.read'
 import { regionalReadRoutes } from './api/routes/external/regional.read'
 import { nationalReadRoutes } from './api/routes/external/national.read'
@@ -157,9 +156,8 @@ async function publicContext(app: FastifyInstance) {
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
   })
-  app.register(reportsCreateRoutes, { prefix: 'api/reports' })
-  app.register(reportsReadRoutes, { prefix: 'api/reports' })
-  app.register(registryReadRoutes, { prefix: 'api/registry' })
+  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
+  app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
 }
 
 /**

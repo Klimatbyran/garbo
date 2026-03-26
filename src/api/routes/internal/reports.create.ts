@@ -19,7 +19,7 @@ import { reportsService } from '../../services/reportsService'
 
 export async function reportsCreateRoutes(app: FastifyInstance) {
   app.post(
-    '/',
+    '/search-reports',
     {
       schema: {
         summary: 'Scrape for reports',
