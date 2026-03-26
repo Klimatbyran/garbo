@@ -1,15 +1,21 @@
-import { ChromaClient, OpenAIEmbeddingFunction } from 'chromadb'
+import { ChromaClient } from 'chromadb'
 import OpenAI from 'openai'
 
 import config from '../config/chromadb'
 import openaiConfig from '../config/openai'
 
 const client = new ChromaClient(config)
-const embedder = new OpenAIEmbeddingFunction({
-  ...openaiConfig,
-  openai_model: config.embeddingModel,
-})
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey })
+
+const embedder = {
+  generate: async (texts: string[]): Promise<number[][]> => {
+    const response = await openaiClient.embeddings.create({
+      model: config.embeddingModel,
+      input: texts,
+    })
+    return response.data.map((e) => e.embedding)
+  },
+}
 
 const collection = await client.getOrCreateCollection({
   name: 'emission_reports',
