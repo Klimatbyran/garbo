@@ -147,7 +147,8 @@ export async function companyReadRoutes(app: FastifyInstance) {
     '/reports/database-list',
     {
       schema: {
-        summary: 'Get list of all companies in the database with reporting periods for crawler purposes.',
+        summary:
+          'Get list of all companies in the database with reporting periods for crawler purposes.',
         description:
           'Retrieve a list of all companies in the database, including their names and Wikidata IDs and reporting periods.',
         tags: getTags('Companies'),
