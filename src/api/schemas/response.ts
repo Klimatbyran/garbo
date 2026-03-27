@@ -402,6 +402,16 @@ export const ReportsCompanyList = z.array(
   })
 )
 
+export const RegistryList = z.array(
+  z.object({
+    id: z.string(),
+    url: z.string().url(),
+    companyName: z.string().optional().nullable(),
+    wikidataId: z.string().optional().nullable(),
+    reportYear: z.string().optional().nullable(),
+  })
+)
+
 export const CompanyDetails = CompanyBase.extend({
   goals: z.array(GoalSchema).nullable(),
   initiatives: z.array(InitiativeSchema).nullable(),
