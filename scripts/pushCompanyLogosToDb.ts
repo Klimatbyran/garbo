@@ -1,14 +1,7 @@
 import { companyService } from '../src/api/services/companyService'
 import type { Company } from '@prisma/client'
 import apiConfig from '../src/config/api'
-
-interface LogoUrlsResponse {
-  count: number
-  companyLogoUrls: Array<{
-    wikidataId: string
-    logoUrl: string | null
-  }>
-}
+import { parse } from 'tldts'
 
 const { secret, baseURL } = apiConfig
 const cleanBaseURL = baseURL.replace(/\/+$/, '')
@@ -37,18 +30,26 @@ async function getApiToken(user: string) {
   return data.token
 }
 
-const pushCompanyLogosToDb = async () => {
+const pushCompanyLogosToDb = async (overwriteExistingLogos: boolean) => {
   try {
     // Step 1 - Get all companies
-    const companies = await fetchCompaniesData()
+    let companies = (await fetchCompaniesData()) as Company[]
 
-    // Step 2 - Get all wikidataIDs with corresponding logo url
-    const logoUrls = await fetchLogoUrls(companies)
+    // Step 2 - Filter if needed
+    if (!overwriteExistingLogos) {
+      companies = companies.filter((c) => c.logoUrl == null)
+    }
 
-    // Step 3 - Get auth token (only if using API)
+    // Step 3 - Get all wikidataIDs with corresponding website URL
+    const companyUrls = await fetchWebsiteUrls(companies)
+
+    // Step 4 - Generate logo URLs to logo.dev
+    const logoUrls = generateLogoUrls(companyUrls)
+
+    // Step 5 - Get auth token (only if using API)
     const token = secret ? await getApiToken('garbo') : null
 
-    // Step 4 - Post logo url to DB
+    // Step 5 - Post logo url to DB
     await pushCompanyLogos(logoUrls, token)
   } catch (error) {
     console.error('Error in pushCompanyLogosToDb:', error)
@@ -71,109 +72,98 @@ const fetchCompaniesData = async () => {
   }
 }
 
-const fetchLogoUrls = async (companies: Company[]) => {
+const fetchWebsiteUrls = async (companies: Company[]) => {
   const headers = {
     'User-Agent': 'KlimatkollenFetcher/1.0 (contact: hej@klimatkollen.se)',
   }
 
-  const companiesWikiData = await Promise.all(
-    companies?.map(async (company: Company) => {
-      const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${company.wikidataId}&props=claims&format=json`
+  const companyUrls: Array<{ wikidataId: string; url: string }> = []
 
-      try {
-        const response = await fetch(url, { headers })
+  while (companies.length > 0) {
+    const companiesToFetch = companies.splice(0, 50)
 
-        if (!response.ok) {
-          console.error(
-            `Failed to fetch ${company.wikidataId}: ${response.status}`
-          )
-          return null
+    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${companiesToFetch.map((c) => c.wikidataId).join('|')}&props=claims&format=json`
+
+    try {
+      const response = await fetch(url, { headers })
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch company data: ${response.status}`)
+      }
+
+      const text = await response.text()
+
+      if (!text) {
+        throw new Error('Empty response company data response')
+      }
+
+      const companiesWikiData = JSON.parse(text)
+
+      if (!companiesWikiData.entities) {
+        throw new Error(`Invalid reponse: ${text}`)
+      }
+
+      companiesToFetch.forEach((company: Company) => {
+        const companyData = companiesWikiData.entities[company.wikidataId]
+
+        if (companyData) {
+          const companyWebsiteJson =
+            companyData.claims?.P856?.find(
+              (a: { rank: string }) => a.rank == 'preferred'
+            ) ?? companyData.claims?.P856?.at(0)
+          const url: string =
+            companyWebsiteJson?.mainsnak?.datavalue?.value ?? null
+
+          if (url) {
+            companyUrls.push({ wikidataId: company.wikidataId, url: url })
+          }
         }
-
-        const text = await response.text()
-        if (!text) {
-          console.error(`Empty response for ${company.wikidataId}`)
-          return null
-        }
-
-        try {
-          const result = JSON.parse(text)
-          return result
-        } catch (parseError) {
-          console.error(
-            `Failed to parse JSON for ${company.wikidataId}:`,
-            parseError
-          )
-          console.error('Response text:', text.substring(0, 200))
-          return null
-        }
-      } catch (err) {
-        console.error(`Error fetching ${company.wikidataId}:`, err)
-        return null
-      }
-    })
-  )
-
-  if (companiesWikiData.length > 0) {
-    const companyLogoUrls: Array<{
-      wikidataId: string
-      logoUrl: string | null
-    }> = []
-
-    companiesWikiData.forEach(async (company) => {
-      if (!company || !company.entities) {
-        return
-      }
-
-      const id = Object.keys(company.entities)[0]
-      if (!id) {
-        return
-      }
-
-      const path =
-        company?.entities?.[
-          id
-        ]?.claims?.P154?.[0]?.mainsnak?.datavalue?.value?.replaceAll(
-          ' ',
-          '_'
-        ) || null
-
-      if (!path) {
-        companyLogoUrls.push({ wikidataId: id, logoUrl: null })
-        return
-      }
-
-      const url = `https://commons.wikimedia.org/wiki/Special:Redirect/file/${path}`
-      const response = await fetch(url, {
-        method: 'HEAD',
-        redirect: 'follow',
-
-        headers,
       })
-      const finalUrl = response.url
-      console.log('Original URL:', url)
-      console.log('Final URL:', finalUrl)
-
-      companyLogoUrls.push({ wikidataId: id, logoUrl: finalUrl })
-    })
-
-    console.log(`Found ${companyLogoUrls.length} logo URLs`)
-    return { count: companyLogoUrls.length, companyLogoUrls }
+    } catch (err) {
+      console.error(`Error fetching company data:`, err)
+    }
   }
 
-  return { count: 0, companyLogoUrls: [] }
+  return companyUrls
+}
+
+const generateLogoUrls = (
+  companyWebsites: { wikidataId: string; url: string }[]
+) => {
+  const logoUrls: Array<{ wikidataId: string; logoUrl: string }> = []
+
+  for (const companyWebsite of companyWebsites) {
+    try {
+      const domain = parse(companyWebsite.url).domain
+
+      logoUrls.push({
+        wikidataId: companyWebsite.wikidataId,
+        logoUrl: `https://img.logo.dev/${domain}`,
+      })
+    } catch (err) {
+      console.error(
+        `Error parsing company website URL: ${companyWebsite.url}:`,
+        err
+      )
+    }
+  }
+
+  return logoUrls
 }
 
 const pushCompanyLogos = async (
-  logoUrls: LogoUrlsResponse,
+  companyLogoUrls: {
+    wikidataId: string
+    logoUrl: string
+  }[],
   token: string | null
 ) => {
-  if (!logoUrls || !logoUrls.companyLogoUrls) {
+  if (!companyLogoUrls || companyLogoUrls.length == 0) {
     console.log('No logo URLs to push')
     return
   }
 
-  for (const company of logoUrls.companyLogoUrls) {
+  for (const company of companyLogoUrls) {
     if (company.logoUrl) {
       try {
         // First get the company name
@@ -209,7 +199,9 @@ const pushCompanyLogos = async (
   }
 }
 
-pushCompanyLogosToDb()
+const overwriteExistingLogos = process.argv.includes('--overwrite')
+
+pushCompanyLogosToDb(overwriteExistingLogos)
   .then(() => {
     console.log('Done!')
     process.exit(0)
