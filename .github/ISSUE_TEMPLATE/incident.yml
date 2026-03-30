@@ -1,7 +1,7 @@
 name: 🚨 Incident / Production Issue
 description: Track an active incident or production-impacting issue.
-title: "[Incident]: "
-labels: ["incident", "priority:high"]
+title: '[Incident]: '
+labels: ['incident', 'priority:high']
 body:
   - type: markdown
     attributes:

@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: Report something that's broken or not working as expected.
-title: "[Bug]: "
-labels: ["bug"]
+title: '[Bug]: '
+labels: ['bug']
 body:
   - type: markdown
     attributes:
@@ -25,7 +25,7 @@ body:
     attributes:
       label: Version / Image Tag (if known)
       description: The running version (e.g. docker tag / release version).
-      placeholder: "e.g. 5.5.2-rc.2"
+      placeholder: 'e.g. 5.5.2-rc.2'
     validations:
       required: false
 
@@ -34,7 +34,7 @@ body:
     attributes:
       label: Component
       description: What part is affected?
-      placeholder: "e.g. API, worker, cron, ingestion, prisma"
+      placeholder: 'e.g. API, worker, cron, ingestion, prisma'
     validations:
       required: false
 

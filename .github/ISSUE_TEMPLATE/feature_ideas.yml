@@ -1,7 +1,7 @@
 name: 💡 Idea or Feedback
 description: Suggest a new feature, improvement, or share early-stage thoughts.
-title: "[Idea] "
-labels: ["idea", "not ready"]
+title: '[Idea] '
+labels: ['idea', 'not ready']
 body:
   - type: markdown
     attributes:
@@ -13,7 +13,7 @@ body:
     attributes:
       label: Idea Summary
       description: A brief description of your idea or the feedback you're sharing.
-      placeholder: "It would be helpful if we could..."
+      placeholder: 'It would be helpful if we could...'
     validations:
       required: true
 
@@ -22,7 +22,7 @@ body:
     attributes:
       label: Background / Context
       description: Why is this idea useful? What problem would it solve or opportunity would it create?
-      placeholder: "This came up when..."
+      placeholder: 'This came up when...'
     validations:
       required: false
 
@@ -31,7 +31,7 @@ body:
     attributes:
       label: Impact (optional)
       description: Who benefits, and how will we know it worked?
-      placeholder: "This would reduce X, improve Y, or enable Z..."
+      placeholder: 'This would reduce X, improve Y, or enable Z...'
     validations:
       required: false
 
@@ -40,7 +40,7 @@ body:
     attributes:
       label: Notes or Inspiration
       description: Links, examples, or related conversations (optional).
-      placeholder: "See this example from..."
+      placeholder: 'See this example from...'
     validations:
       required: false
 

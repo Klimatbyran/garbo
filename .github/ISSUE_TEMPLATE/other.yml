@@ -1,7 +1,7 @@
 name: 🗒 Other
 description: Basic template for other issues.
-title: "[Other]: "
-labels: ["enhancement"]
+title: '[Other]: '
+labels: ['enhancement']
 body:
   - type: textarea
     id: details

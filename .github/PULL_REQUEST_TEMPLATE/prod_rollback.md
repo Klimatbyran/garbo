@@ -6,27 +6,31 @@
 > The tag is normally managed by Flux via the image policy comment. For a manual rollback, temporarily remove the image policy comment, set `newTag` to the desired rollback version, and merge.
 
 ## 📦 Rollback Type
+
 _Select the appropriate rollback type by marking with an `x`._
 
 - [x] Roll back to previous version
 - [ ] Roll back to a version other than the previous one
 
 ### Rollback Version From
+
 _Note the relevant version rolling back from_
 
 vX.X.X
 
 ### Rollback Version To
+
 _Note the version to roll back to_
 
 vX.X.X
 
 ## 📋 Reason for Rollback
+
 _Provide a summary of the reason(s) for rollback._
 
-- 
-- 
-- 
+-
+-
+-
 
 ## ✅ Checklist
 
