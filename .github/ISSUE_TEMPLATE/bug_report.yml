@@ -1,0 +1,90 @@
+name: 🐛 Bug Report
+description: Report something that's broken or not working as expected.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out sections below as applicable.
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: Where are you seeing the bug?
+      options:
+        - Local
+        - Staging
+        - Production
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / Image Tag (if known)
+      description: The running version (e.g. docker tag / release version).
+      placeholder: "e.g. 5.5.2-rc.2"
+    validations:
+      required: false
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: What part is affected?
+      placeholder: "e.g. API, worker, cron, ingestion, prisma"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this bug?
+      options:
+        - Low (nice to have)
+        - Medium (should be fixed soon)
+        - High (production impact / blocking release)
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the bug? Include request details if applicable.
+      placeholder: |
+        1. Call `POST /v1/...` with payload ...
+        2. Observe ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Request IDs (if available)
+      description: Paste relevant log snippets, trace IDs, request IDs, or error messages.
+      placeholder: |
+        request_id=...
+        trace_id=...
+        error=...
+    validations:
+      required: false

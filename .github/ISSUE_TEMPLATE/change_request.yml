@@ -1,0 +1,46 @@
+name: 🔁 Change Request
+description: Request a change or improvement to an existing behavior, endpoint, or workflow.
+title: "[Change Request]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: Background / Why This Change?
+      description: What’s the context for this request? Why is the change needed or helpful?
+      placeholder: |
+        E.g. This endpoint is hard to use because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: change
+    attributes:
+      label: What Should Be Changed?
+      description: Describe the requested change as clearly as possible.
+      placeholder: |
+        E.g. Add a new query param `includeDeleted` that defaults to false.
+    validations:
+      required: true
+
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility / Migration Notes (optional)
+      description: Any breaking changes? Client updates? DB migrations?
+      placeholder: |
+        E.g. Backward compatible; existing clients unaffected.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is this change?
+      options:
+        - Nice to have
+        - Important, but not urgent
+        - High (blocking release or critical for users)
+    validations:
+      required: true
