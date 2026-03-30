@@ -9,7 +9,7 @@ import { companyService } from '../../services/companyService'
 import {
   CompanyList,
   wikidataIdParamSchema,
-  CompanyDetails,
+  InternalCompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
 } from '../../schemas'
@@ -92,7 +92,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         tags: getTags('Companies'),
         params: wikidataIdParamSchema,
         response: {
-          200: CompanyDetails,
+          200: InternalCompanyDetails,
           ...getErrorSchemas(400, 404),
         },
       },
