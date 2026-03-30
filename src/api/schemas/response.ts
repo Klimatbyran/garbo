@@ -417,6 +417,13 @@ export const CompanyDetails = CompanyBase.extend({
   initiatives: z.array(InitiativeSchema).nullable(),
 })
 
+/**
+ * Internal company details include tags (used by internal tools like Validate).
+ */
+export const InternalCompanyDetails = CompanyDetails.extend({
+  tags: z.array(z.string()),
+})
+
 function transformYearlyData(
   yearlyData: Record<string, number>
 ): { year: string; value: number }[] {
