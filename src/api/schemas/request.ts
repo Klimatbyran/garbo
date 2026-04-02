@@ -339,20 +339,21 @@ export const previewQuerySchema = z.object({
   pdfUrl: z.string().url(),
 })
 
-export const registryUpdateRequestBodySchema = z.object({
-  id: z.string().min(1, 'id is required'),
-  companyName: z.string().min(1).optional(),
-  wikidataId: z.string().min(1).optional(),
-  reportYear: z
-    .string()
-    .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
-    .refine((year) => {
-      const n = Number(year)
-      return n >= 1900 && n <= 2100
-    }, 'reportYear must be between 1900 and 2100')
-    .optional(),
-  url: z.string().url('Invalid URL').optional(),
-})
+export const registryUpdateRequestBodySchema = z
+  .object({
+    id: z.string().min(1, 'id is required'),
+    companyName: z.string().min(1).optional(),
+    wikidataId: z.string().min(1).optional(),
+    reportYear: z
+      .string()
+      .regex(/^\d{4}$/, 'reportYear must be a 4-digit year')
+      .refine((year) => {
+        const n = Number(year)
+        return n >= 1900 && n <= 2100
+      }, 'reportYear must be between 1900 and 2100')
+      .optional(),
+    url: z.string().url('Invalid URL').optional(),
+  })
   .refine(
     ({ companyName, wikidataId, reportYear, url }) =>
       companyName !== undefined ||
