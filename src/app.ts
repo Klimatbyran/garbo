@@ -49,6 +49,8 @@ import { newsletterArchiveDownloadsRoute } from './api/routes/external/newslette
 import { internalCompanyReadRoutes } from './api/routes/internal/internal.company.read'
 import { internalMunicipalityReadRoutes } from './api/routes/internal/internal.municipality.read'
 import { registryReadRoutes } from './api/routes/internal/registry.read'
+import { registryDeleteRoutes } from './api/routes/internal/registry.delete'
+import { registryUpdateRoutes } from './api/routes/internal/registry.update'
 
 async function startApp() {
   const app = Fastify({
@@ -156,7 +158,6 @@ async function publicContext(app: FastifyInstance) {
   app.register(newsletterArchiveDownloadsRoute, {
     prefix: 'api/newsletters',
   })
-  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
   app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
 }
 
@@ -173,6 +174,9 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
+  app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
+  app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
+  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
   app.register(validationsReadRoutes, { prefix: 'api/validation' })
   app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 
