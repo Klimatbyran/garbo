@@ -561,7 +561,10 @@ export const InputNationalDataSchema = z.array(
   z.object({
     country: z.string(),
     logoUrl: z.string().nullable().optional(),
-    emissions: InputYearlyDataSchema,
+    territorialFossilEmissions: InputYearlyDataSchema,
+    biogenicEmissions: InputYearlyDataSchema,
+    consumptionAbroadEmissions: InputYearlyDataSchema,
+    exportOfOilProductsEmissions: InputYearlyDataSchema,
     totalTrend: z.number(),
     totalCarbonLaw: z.number(),
     approximatedHistoricalEmission: InputYearlyDataSchema,
@@ -574,7 +577,10 @@ export const InputNationalDataSchema = z.array(
 export const NationDataSchema = z.object({
   country: z.string(),
   logoUrl: z.string().nullable().optional(),
-  emissions: z.array(YearlyDataSchema),
+  territorialFossilEmissions: z.array(YearlyDataSchema),
+  biogenicEmissions: z.array(YearlyDataSchema),
+  consumptionAbroadEmissions: z.array(YearlyDataSchema),
+  exportOfOilProductsEmissions: z.array(YearlyDataSchema),
   totalTrend: z.number(),
   totalCarbonLaw: z.number(),
   approximatedHistoricalEmission: z.array(YearlyDataSchema),
