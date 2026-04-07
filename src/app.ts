@@ -159,6 +159,9 @@ async function publicContext(app: FastifyInstance) {
     prefix: 'api/newsletters',
   })
   app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
+  app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
+  app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
+  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
 }
 
 /**
@@ -174,9 +177,6 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(companyInitiativesRoutes, { prefix: 'api/companies' })
 
   app.register(companyDeleteRoutes, { prefix: 'api/companies' })
-  app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
-  app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
-  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
   app.register(validationsReadRoutes, { prefix: 'api/validation' })
   app.register(validationsUpdateRoutes, { prefix: 'api/validation' })
 
