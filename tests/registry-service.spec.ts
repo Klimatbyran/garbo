@@ -38,14 +38,18 @@ const sampleReport = {
   url: 'https://example.com/volvo.pdf',
 }
 
-const mockFindMany = prisma.report
-  .findMany as jest.MockedFunction<typeof prisma.report.findMany>
-const mockFindUnique = prisma.report
-  .findUnique as jest.MockedFunction<typeof prisma.report.findUnique>
-const mockUpdate = prisma.report
-  .update as jest.MockedFunction<typeof prisma.report.update>
-const mockDelete = prisma.report
-  .delete as jest.MockedFunction<typeof prisma.report.delete>
+const mockFindMany = prisma.report.findMany as jest.MockedFunction<
+  typeof prisma.report.findMany
+>
+const mockFindUnique = prisma.report.findUnique as jest.MockedFunction<
+  typeof prisma.report.findUnique
+>
+const mockUpdate = prisma.report.update as jest.MockedFunction<
+  typeof prisma.report.update
+>
+const mockDelete = prisma.report.delete as jest.MockedFunction<
+  typeof prisma.report.delete
+>
 
 beforeEach(() => {
   mockFindMany.mockReset()
