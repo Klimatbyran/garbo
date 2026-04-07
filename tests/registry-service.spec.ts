@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { registryService } from '../src/api/services/registryService'
 import { prisma } from '../src/lib/prisma'
+import { jest } from '@jest/globals'
 
 jest.mock('../src/lib/prisma', () => ({
   prisma: {
@@ -12,11 +13,6 @@ jest.mock('../src/lib/prisma', () => ({
     },
   },
 }))
-
-const mockFindMany = prisma.report.findMany as jest.Mock
-const mockFindUnique = prisma.report.findUnique as jest.Mock
-const mockUpdate = prisma.report.update as jest.Mock
-const mockDelete = prisma.report.delete as jest.Mock
 
 const p2025Error = new Prisma.PrismaClientKnownRequestError(
   'Record not found',
@@ -41,6 +37,15 @@ const sampleReport = {
   reportYear: '2024',
   url: 'https://example.com/volvo.pdf',
 }
+
+const mockFindMany = prisma.report
+  .findMany as jest.MockedFunction<typeof prisma.report.findMany>
+const mockFindUnique = prisma.report
+  .findUnique as jest.MockedFunction<typeof prisma.report.findUnique>
+const mockUpdate = prisma.report
+  .update as jest.MockedFunction<typeof prisma.report.update>
+const mockDelete = prisma.report
+  .delete as jest.MockedFunction<typeof prisma.report.delete>
 
 beforeEach(() => {
   mockFindMany.mockReset()
@@ -114,7 +119,9 @@ describe('updateReportInRegistry', () => {
       reportYear: '2025',
     })
 
-    const updateCall = mockUpdate.mock.calls[0][0]
+    const updateCall = mockUpdate.mock.calls[0][0] as {
+      data: Record<string, unknown>
+    }
     expect(updateCall.data).not.toHaveProperty('id')
     expect(updateCall.data).toEqual({ reportYear: '2025' })
   })

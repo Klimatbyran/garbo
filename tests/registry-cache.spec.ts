@@ -3,10 +3,16 @@ import {
   REGISTRY_DATA_KEY,
   REGISTRY_ETAG_KEY,
 } from '../src/api/services/registryCache'
+import { jest } from '@jest/globals'
+
+type DeleteFn = (key: string) => Promise<void>
+type WarnFn = (msg: string, ...args: unknown[]) => void
 
 describe('invalidateRegistryCache', () => {
   test('deletes both registry:data and registry:etag', async () => {
-    const mockDelete = jest.fn().mockResolvedValue(undefined)
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
+      .mockResolvedValue(undefined)
 
     await invalidateRegistryCache({ delete: mockDelete })
 
@@ -16,7 +22,9 @@ describe('invalidateRegistryCache', () => {
   })
 
   test('does not throw when all deletions fail', async () => {
-    const mockDelete = jest.fn().mockRejectedValue(new Error('Redis down'))
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
+      .mockRejectedValue(new Error('Redis down'))
 
     await expect(
       invalidateRegistryCache({ delete: mockDelete })
@@ -24,8 +32,8 @@ describe('invalidateRegistryCache', () => {
   })
 
   test('does not throw when one deletion fails', async () => {
-    const mockDelete = jest
-      .fn()
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
       .mockResolvedValueOnce(undefined)
       .mockRejectedValueOnce(new Error('Redis timeout'))
 
@@ -35,8 +43,10 @@ describe('invalidateRegistryCache', () => {
   })
 
   test('logs a warning for each failed deletion', async () => {
-    const mockDelete = jest.fn().mockRejectedValue(new Error('Redis down'))
-    const mockWarn = jest.fn()
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
+      .mockRejectedValue(new Error('Redis down'))
+    const mockWarn: jest.MockedFunction<WarnFn> = jest.fn<WarnFn>()
 
     await invalidateRegistryCache({ delete: mockDelete }, { warn: mockWarn })
 
@@ -49,8 +59,10 @@ describe('invalidateRegistryCache', () => {
   })
 
   test('does not log when all deletions succeed', async () => {
-    const mockDelete = jest.fn().mockResolvedValue(undefined)
-    const mockWarn = jest.fn()
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
+      .mockResolvedValue(undefined)
+    const mockWarn: jest.MockedFunction<WarnFn> = jest.fn<WarnFn>()
 
     await invalidateRegistryCache({ delete: mockDelete }, { warn: mockWarn })
 
@@ -58,8 +70,8 @@ describe('invalidateRegistryCache', () => {
   })
 
   test('still deletes both keys even when the first one fails', async () => {
-    const mockDelete = jest
-      .fn()
+    const mockDelete: jest.MockedFunction<DeleteFn> = jest
+      .fn<DeleteFn>()
       .mockRejectedValueOnce(new Error('Redis timeout'))
       .mockResolvedValueOnce(undefined)
 
