@@ -3,17 +3,6 @@ import { registryService } from '../src/api/services/registryService'
 import { prisma } from '../src/lib/prisma'
 import { jest } from '@jest/globals'
 
-jest.mock('../src/lib/prisma', () => ({
-  prisma: {
-    report: {
-      findMany: jest.fn(),
-      findUnique: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-    },
-  },
-}))
-
 const p2025Error = new Prisma.PrismaClientKnownRequestError(
   'Record not found',
   {
@@ -38,24 +27,20 @@ const sampleReport = {
   url: 'https://example.com/volvo.pdf',
 }
 
-const mockFindMany = prisma.report.findMany as jest.MockedFunction<
-  typeof prisma.report.findMany
->
-const mockFindUnique = prisma.report.findUnique as jest.MockedFunction<
-  typeof prisma.report.findUnique
->
-const mockUpdate = prisma.report.update as jest.MockedFunction<
-  typeof prisma.report.update
->
-const mockDelete = prisma.report.delete as jest.MockedFunction<
-  typeof prisma.report.delete
->
+let mockFindMany: jest.SpiedFunction<typeof prisma.report.findMany>
+let mockFindUnique: jest.SpiedFunction<typeof prisma.report.findUnique>
+let mockUpdate: jest.SpiedFunction<typeof prisma.report.update>
+let mockDelete: jest.SpiedFunction<typeof prisma.report.delete>
 
 beforeEach(() => {
-  mockFindMany.mockReset()
-  mockFindUnique.mockReset()
-  mockUpdate.mockReset()
-  mockDelete.mockReset()
+  mockFindMany = jest.spyOn(prisma.report, 'findMany')
+  mockFindUnique = jest.spyOn(prisma.report, 'findUnique')
+  mockUpdate = jest.spyOn(prisma.report, 'update')
+  mockDelete = jest.spyOn(prisma.report, 'delete')
+})
+
+afterEach(() => {
+  jest.restoreAllMocks()
 })
 
 describe('getReportRegistry', () => {
