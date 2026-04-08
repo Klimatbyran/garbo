@@ -20,7 +20,8 @@ const {
 } = wikidataConfig.entities
 
 const {
-  CARBON_FOOTPRINT,
+  ANNUAL_GHG_EMISSIONS,
+  POINT_IN_TIME,
   START_TIME,
   END_TIME,
   DETERMINATION_METHOD_OR_STANDARD,
@@ -41,16 +42,27 @@ export async function editEntity(
   }
   const wbEdit = WBEdit(wikibaseEditConfig)
   const claimBody = claims.map((claim) => {
+    const year = new Date(claim.endDate).getFullYear().toString()
+    const isBrokenFiscalYear =
+      new Date(claim.endDate).getMonth() !== 11 ||
+      new Date(claim.endDate).getDate() !== 31
+
+    const qualifiers: Record<string, any> = {
+      [POINT_IN_TIME]: year,
+      [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
+    }
+
+    if (isBrokenFiscalYear) {
+      qualifiers[START_TIME] = claim.startDate
+      qualifiers[END_TIME] = claim.endDate
+    }
+
     const claimObject = {
       value: {
         amount: claim.value,
         unit: TONNE_OF_CARBON_DIOXIDE_EQUIVALENT,
       },
-      qualifiers: {
-        [START_TIME]: claim.startDate,
-        [END_TIME]: claim.endDate,
-        [DETERMINATION_METHOD_OR_STANDARD]: GHG_PROTOCOL,
-      },
+      qualifiers,
       references: [
         {
           [REFERENCE_URL]: claim.referenceUrl,
@@ -73,16 +85,23 @@ export async function editEntity(
   const body = {
     id: entity,
     claims: {
-      [CARBON_FOOTPRINT]: [...claimBody, ...removeClaim],
+      [ANNUAL_GHG_EMISSIONS]: [...claimBody, ...removeClaim],
     },
-    summary: 'Added/Updated carbon footprint data',
+    summary: 'Added/Updated annual GHG emissions data',
   }
   if (dryRun) {
     console.log(`\n=== DRY RUN: Entity ${entity} ===`)
     console.log('\nClaims to ADD:')
     claims.forEach((claim, idx) => {
+      const year = new Date(claim.endDate).getFullYear().toString()
+      const isBrokenFiscalYear =
+        new Date(claim.endDate).getMonth() !== 11 ||
+        new Date(claim.endDate).getDate() !== 31
+      const dateInfo = isBrokenFiscalYear
+        ? `P585=${year} [broken FY: P580=${claim.startDate} P582=${claim.endDate}]`
+        : `P585=${year}`
       console.log(
-        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, Period: ${claim.startDate} to ${claim.endDate}`
+        `  [${idx + 1}] Value: ${claim.value}, Scope: ${claim.scope || 'TOTAL'}, Category: ${claim.category || 'none'}, ${dateInfo}`
       )
     })
     console.log('\nClaims to REMOVE:')
