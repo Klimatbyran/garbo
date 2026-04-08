@@ -26,7 +26,7 @@ export async function reportsCreateRoutes(app: FastifyInstance) {
       schema: {
         summary: 'Scrape for reports',
         description:
-          'Scrape for company reports based on the provided company name(s). This endpoint is intended to be used for scraping reports from external sources.',
+          'Scrape for company reports based on the provided company name(s), year(s) and country. This endpoint is intended to be used for scraping reports from external sources.',
         tags: getTags('Reports'),
         body: postReportsBodySchema,
         response: {

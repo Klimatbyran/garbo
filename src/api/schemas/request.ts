@@ -313,6 +313,7 @@ export const claimValidationSchema = z.object({
 export const companyReport = z.object({
   name: z.string(),
   reportYear: z.string().optional(),
+  country: z.string().optional(),
 })
 
 export const companyReports = z.array(companyReport)
