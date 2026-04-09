@@ -89,7 +89,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Get detailed company',
         description:
           'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
           200: InternalCompanyDetails,
@@ -123,7 +123,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Search for companies',
         description:
           'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         querystring: companySearchQuerySchema,
         response: {
           200: CompanyList,
