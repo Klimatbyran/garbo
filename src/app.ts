@@ -184,7 +184,9 @@ async function authenticatedContext(app: FastifyInstance) {
   app.register(registryReadRoutes, { prefix: 'api/reports/registry' })
   app.register(registryDeleteRoutes, { prefix: 'api/reports/registry' })
   app.register(registryUpdateRoutes, { prefix: 'api/reports/registry' })
-  app.register(reportsCreateRoutes, { prefix: 'api/companies/reports' })
+  app.register(reportsCreateRoutes, {
+    prefix: 'api/internal-companies/reports',
+  })
 }
 
 export default startApp

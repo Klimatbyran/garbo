@@ -22,7 +22,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         summary: 'Create or update a company',
         description:
           'Creates a new company or updates an existing one based on wikidataId',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         body: postCompanyBodySchema,
         response: {
           200: okResponseSchema,
@@ -99,7 +99,7 @@ export async function companyUpdateRoutes(app: FastifyInstance) {
         summary: 'Update company tags',
         description:
           'Replaces the company tags. Each tag must be a valid tag option slug.',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         body: patchCompanyTagsBodySchema,
         response: {

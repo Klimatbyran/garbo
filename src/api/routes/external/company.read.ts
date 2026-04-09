@@ -12,10 +12,6 @@ import {
   CompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
-  ReportsCompanyList,
-  previewQuerySchema,
-  errorResponseSchema,
-  previewResponseSchema,
 } from '../../schemas'
 import { redisCache } from '../../..'
 
@@ -141,54 +137,6 @@ export async function companyReadRoutes(app: FastifyInstance) {
       const { q } = request.query
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
       reply.send(companies)
-    }
-  )
-  app.get(
-    '/reports/database-list',
-    {
-      schema: {
-        summary:
-          'Get list of all companies in the database with reporting periods for crawler purposes.',
-        description:
-          'Retrieve a list of all companies in the database, including their names and Wikidata IDs and reporting periods.',
-        tags: getTags('Companies'),
-        response: {
-          200: ReportsCompanyList,
-        },
-      },
-    },
-    async (request, reply) => {
-      const companies = await companyService.getAllCompanies()
-      reply.send(companies || [])
-    }
-  )
-
-  app.get(
-    '/reports/preview',
-    {
-      schema: {
-        summary: 'Generate preview image from PDF URL',
-        description:
-          'Returns a preview image (JPEG) from the first page of the given PDF URL.',
-        tags: getTags('Companies'),
-        querystring: previewQuerySchema,
-        response: {
-          200: previewResponseSchema,
-          400: errorResponseSchema,
-          500: errorResponseSchema,
-        },
-      },
-    },
-    async (request, reply) => {
-      const { pdfUrl } = request.query as { pdfUrl: string }
-      const jpegBuffer = await companyService.generateReportPreview(pdfUrl)
-      if (!jpegBuffer) {
-        reply.status(400).send({ message: 'Failed to generate preview.' })
-        return
-      }
-
-      reply.header('Content-Type', 'image/jpeg')
-      return reply.send(jpegBuffer)
     }
   )
 }

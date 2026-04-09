@@ -11,6 +11,7 @@ import {
   errorResponseSchema,
 } from '@/jobs/emissions/schema'
 import { assessEmissions } from '@/jobs/emissions/assess'
+import { getTags } from '@/config/openapi'
 
 const emissionsAssessmentSchema = z.object({
   wikidataId: z.string(),
@@ -68,6 +69,10 @@ export async function emissionsAssessmentRoutes(app: FastifyInstance) {
     '/',
     {
       schema: {
+        summary: 'AI-based emissions assessment.',
+        description:
+          '(Work In Progress) Perform an AI-based assessment of company emissions data and reporting quality based on the most recent report and historical reporting periods. This endpoint is intended for internal use to evaluate the quality of emissions data and reporting for a given company.',
+        tags: getTags('Internal'),
         body: emissionsAssessmentSchema,
         response: {
           200: assessmentResultSchema,

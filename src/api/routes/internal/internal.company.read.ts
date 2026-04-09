@@ -12,6 +12,10 @@ import {
   InternalCompanyDetails,
   getErrorSchemas,
   companySearchQuerySchema,
+  ReportsCompanyList,
+  previewQuerySchema,
+  errorResponseSchema,
+  previewResponseSchema,
 } from '../../schemas'
 import { redisCache } from '../../..'
 
@@ -89,7 +93,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Get detailed company',
         description:
           'Retrieve a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         params: wikidataIdParamSchema,
         response: {
           200: InternalCompanyDetails,
@@ -123,7 +127,7 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
         summary: 'Search for companies',
         description:
           'Search for a company with its emissions, economic data, industry classification, goals, and initiatives',
-        tags: getTags('Companies'),
+        tags: getTags('Internal'),
         querystring: companySearchQuerySchema,
         response: {
           200: CompanyList,
@@ -138,6 +142,54 @@ export async function internalCompanyReadRoutes(app: FastifyInstance) {
       const companies = await companyService.getAllCompaniesBySearchTerm(q)
       console.log(companies)
       reply.send(companies)
+    }
+  )
+  app.get(
+    '/reports/database-list',
+    {
+      schema: {
+        summary:
+          'Get list of all companies in the database with reporting periods for crawler purposes.',
+        description:
+          'Retrieve a list of all companies in the database, including their names and Wikidata IDs and reporting periods.',
+        tags: getTags('Reports'),
+        response: {
+          200: ReportsCompanyList,
+        },
+      },
+    },
+    async (request, reply) => {
+      const companies = await companyService.getAllCompanies()
+      reply.send(companies || [])
+    }
+  )
+
+  app.get(
+    '/reports/preview',
+    {
+      schema: {
+        summary: 'Generate preview image from PDF URL',
+        description:
+          'Returns a preview image (JPEG) from the first page of the given PDF URL.',
+        tags: getTags('Reports'),
+        querystring: previewQuerySchema,
+        response: {
+          200: previewResponseSchema,
+          400: errorResponseSchema,
+          500: errorResponseSchema,
+        },
+      },
+    },
+    async (request, reply) => {
+      const { pdfUrl } = request.query as { pdfUrl: string }
+      const jpegBuffer = await companyService.generateReportPreview(pdfUrl)
+      if (!jpegBuffer) {
+        reply.status(400).send({ message: 'Failed to generate preview.' })
+        return
+      }
+
+      reply.header('Content-Type', 'image/jpeg')
+      return reply.send(jpegBuffer)
     }
   )
 }
