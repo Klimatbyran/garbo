@@ -37,10 +37,7 @@ export function canonicalPublicReportUrl(data: {
   sourceUrl?: string
 }): string {
   const { url, sourceUrl } = data
-  if (
-    typeof sourceUrl === 'string' &&
-    /^https?:\/\//i.test(sourceUrl.trim())
-  ) {
+  if (typeof sourceUrl === 'string' && /^https?:\/\//i.test(sourceUrl.trim())) {
     return sourceUrl.trim()
   }
   return url
