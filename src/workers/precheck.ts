@@ -3,12 +3,12 @@ import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
 import { askPrompt, askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
 
-class PrecheckJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class PrecheckJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     cachedMarkdown?: string
     companyName?: string
     waitingForCompanyName?: boolean
@@ -21,7 +21,7 @@ const companyNameSchema = z.object({
   companyName: z.string().nullable(),
 })
 
-const precheck = new DiscordWorker(
+const precheck = new PipelineWorker(
   QUEUE_NAMES.PRECHECK,
   async (job: PrecheckJob) => {
     const {

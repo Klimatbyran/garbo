@@ -1,5 +1,5 @@
 import { EntityId } from 'wikibase-sdk'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
 import { QUEUE_NAMES } from '../queues'
 import { getLEINumbersFromGLEIF } from '../lib/gleif'
 import { ask } from '../lib/openai'
@@ -8,14 +8,14 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { getLEINumber } from '@/lib/wikidata/read'
 
-export class LEIJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class LEIJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidataId: string
   }
 }
 
-const extractLEI = new DiscordWorker<LEIJob>(
+const extractLEI = new PipelineWorker<LEIJob>(
   QUEUE_NAMES.EXTRACT_LEI,
   async (job: LEIJob) => {
     const { wikidataId, companyName } = job.data

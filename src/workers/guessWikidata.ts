@@ -1,7 +1,7 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
 import discord from '../discord'
 import apiConfig from '../config/api'
@@ -9,8 +9,8 @@ import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
 
-export class GuessWikidataJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class GuessWikidataJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     overrideWikidataId: EntityId
     wikidata?: Wikidata
@@ -99,7 +99,7 @@ ${JSON.stringify(wikidataForApproval, null, 2)}
   return null
 }
 
-const guessWikidata = new DiscordWorker<GuessWikidataJob>(
+const guessWikidata = new PipelineWorker<GuessWikidataJob>(
   QUEUE_NAMES.GUESS_WIKIDATA,
   async (job: GuessWikidataJob) => {
     const { companyName, overrideWikidataId } = job.data

@@ -1,5 +1,5 @@
 import { FlowProducer } from 'bullmq'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { getCompanyURL } from '../lib/saveUtils'
@@ -9,8 +9,8 @@ import {
   mergeScope1AndScope2Results,
 } from '../lib/mergeScopeResults'
 
-export class CheckDBJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class CheckDBJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidata: { node: string }
     fiscalYear: {
@@ -26,7 +26,7 @@ export class CheckDBJob extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const checkDB = new DiscordWorker(
+const checkDB = new PipelineWorker(
   QUEUE_NAMES.CHECK_DB,
   async (job: CheckDBJob) => {
     const { companyName, url, fiscalYear, wikidata, threadId, channelId } =

@@ -1,12 +1,12 @@
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
 import { defaultMetadata } from '../lib/saveUtils'
 import { QUEUE_NAMES } from '../queues'
 import saveToAPI from './saveToAPI'
 import { Description } from '../api/types'
 import { askPrompt } from '../lib/openai'
 
-export class DiffDescriptionsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffDescriptionsJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidataId: string
     existingDescriptions: Description[]
@@ -14,7 +14,7 @@ export class DiffDescriptionsJob extends DiscordJob {
   }
 }
 
-const diffDescriptions = new DiscordWorker<DiffDescriptionsJob>(
+const diffDescriptions = new PipelineWorker<DiffDescriptionsJob>(
   QUEUE_NAMES.DIFF_DESCRIPTIONS,
   async (job: DiffDescriptionsJob) => {
     const { url, companyName, wikidataId, existingDescriptions, descriptions } =

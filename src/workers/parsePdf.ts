@@ -1,4 +1,4 @@
-import { DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineWorker } from '../lib/DiscordWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'
@@ -7,7 +7,7 @@ import { QUEUE_NAMES } from '../queues'
 
 const flow = new FlowProducer({ connection: redis })
 
-const parsePdf = new DiscordWorker(
+const parsePdf = new PipelineWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
     const { url, forceReindex, autoApprove = true } = job.data as {

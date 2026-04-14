@@ -1,4 +1,4 @@
-import { DiscordJob, DiscordWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './DiscordWorker'
 import { Queue } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
@@ -11,8 +11,8 @@ export interface ChangeDescription {
   newValue
 }
 
-export class DiffJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class DiffJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     wikidata: { node: string }
   }
@@ -84,7 +84,7 @@ function addCustomMethods(job: DiffJob) {
 
   return job
 }
-export class DiffWorker<T extends DiffJob> extends DiscordWorker<DiffJob> {
+export class DiffWorker<T extends DiffJob> extends PipelineWorker<DiffJob> {
   queue: Queue
   constructor(
     name: string,

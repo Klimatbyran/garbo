@@ -1,4 +1,4 @@
-import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import { PipelineWorker, PipelineJob } from '../lib/DiscordWorker'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'
@@ -48,8 +48,8 @@ interface DoclingServeRequest {
   }>
 }
 
-class DoclingParsePDFJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class DoclingParsePDFJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     url: string
     doclingSettings?: BergetDoclingRequest | DoclingServeRequest
     taskId?: string
@@ -216,7 +216,7 @@ function logConfigurationOnce(job: DoclingParsePDFJob): void {
   }
 }
 
-const doclingParsePDF = new DiscordWorker(
+const doclingParsePDF = new PipelineWorker(
   QUEUE_NAMES.DOCLING_PARSE_PDF,
   async (job: DoclingParsePDFJob) => {
     const { url, doclingSettings, taskId } = job.data
