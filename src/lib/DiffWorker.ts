@@ -2,7 +2,7 @@ import { DiscordJob, DiscordWorker } from './DiscordWorker'
 import { Queue } from 'bullmq'
 import redis from '../config/redis'
 import saveToAPI from '../workers/saveToAPI'
-import { defaultMetadata } from './saveUtils'
+import { canonicalPublicReportUrl, defaultMetadata } from './saveUtils'
 import discord from '../discord'
 
 export interface ChangeDescription {
@@ -66,7 +66,11 @@ function addCustomMethods(job: DiffJob) {
         apiSubEndpoint,
         change,
         job.data.autoApprove || !requiresApproval,
-        defaultMetadata(job.data.url),
+        defaultMetadata(
+          canonicalPublicReportUrl(
+            job.data as { url: string; sourceUrl?: string }
+          )
+        ),
         `Updates to the company's ${apiSubEndpoint}`
       )
     } else if (diff) {
@@ -76,7 +80,11 @@ function addCustomMethods(job: DiffJob) {
         job.data.wikidata,
         {
           ...change.newValue,
-          metadata: defaultMetadata(job.data.url),
+          metadata: defaultMetadata(
+            canonicalPublicReportUrl(
+              job.data as { url: string; sourceUrl?: string }
+            )
+          ),
         }
       )
     }

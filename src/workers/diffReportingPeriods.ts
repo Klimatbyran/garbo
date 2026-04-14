@@ -1,4 +1,4 @@
-import { diffChanges } from '../lib/saveUtils'
+import { canonicalPublicReportUrl, diffChanges } from '../lib/saveUtils'
 import { getReportingPeriodDates } from '../lib/reportingPeriodDates'
 import { QUEUE_NAMES } from '../queues'
 import { ChangeDescription, DiffWorker, DiffJob } from '../lib/DiffWorker'
@@ -7,6 +7,8 @@ import apiConfig from '../config/api'
 export class DiffReportingPeriodsJob extends DiffJob {
   declare data: DiffJob['data'] & {
     companyName: string
+    /** Original report URL when pipeline cached PDF to S3 (parsePdf). */
+    sourceUrl?: string
     existingCompany: any
     wikidata: { node: string }
     fiscalYear: any
@@ -23,6 +25,7 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
   async (job) => {
     const {
       url,
+      sourceUrl,
       wikidata,
       fiscalYear,
       companyName,
@@ -32,6 +35,8 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
       biogenic = [],
       economy = [],
     } = job.data
+
+    const reportURLForPeriod = canonicalPublicReportUrl({ url, sourceUrl })
 
     console.log(job.isDataApproved())
 
@@ -69,7 +74,9 @@ const diffReportingPeriods = new DiffWorker<DiffReportingPeriodsJob>(
           endDate,
           // Only assign reportURL to the reporting period that matches the report year
           reportURL:
-            reportYear !== null && year === reportYear ? url : undefined,
+            reportYear !== null && year === reportYear
+              ? reportURLForPeriod
+              : undefined,
         }
       })
 
