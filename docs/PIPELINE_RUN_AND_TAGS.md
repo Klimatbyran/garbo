@@ -12,7 +12,7 @@
 The "run report" endpoint lives in **pipeline-api**, not in this repo. To support tags end-to-end, pipeline-api should:
 
 - Accept optional **`tags`** (e.g. `string[]` of tag option slugs) in the run-report request body.
-- When enqueueing the **parsePdf** job (same queue name and payload shape Garbo expects), include **`tags`** in the job data: `{ url, threadId?, autoApprove?, forceReindex?, tags? }`.
+- When enqueueing the **parsePdf** job (same queue name and payload shape Garbo expects), include **`tags`** in the job data: `{ url, companyName?, autoApprove?, forceReindex?, tags? }`.
 
 Garbo workers do not care who enqueued the job; they only need `job.data.tags` to be set when the caller wants to apply tags.
 
@@ -23,7 +23,6 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 1. **Entry points**
 
    - **Pipeline-api:** Adds a **parsePdf** job with `job.data.tags` (and other fields). Garbo workers consume it.
-   - **Discord:** `/pdfs` with optional `tags` option (comma-separated slugs) → same parsePdf job data.
 
 2. **Pipeline**
 

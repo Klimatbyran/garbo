@@ -10,11 +10,16 @@ const flow = new FlowProducer({ connection: redis })
 const parsePdf = new DiscordWorker(
   QUEUE_NAMES.PARSE_PDF,
   async (job) => {
-    const { url, forceReindex } = job.data as {
+    const { url, forceReindex, autoApprove = true } = job.data as {
       url: string
       forceReindex?: boolean
+      autoApprove?: boolean
+    }
+    if (job.data.autoApprove === undefined) {
+      await job.updateData({ ...job.data, autoApprove })
     }
     job.log(`forceReindex flag: ${Boolean(forceReindex)}`)
+    job.log(`autoApprove flag: ${Boolean(autoApprove)}`)
     job.opts.attempts = 1
 
     const name = url.slice(-20)

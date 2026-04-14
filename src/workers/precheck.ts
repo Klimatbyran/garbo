@@ -6,7 +6,6 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
-import discord from '../discord'
 
 class PrecheckJob extends DiscordJob {
   declare data: DiscordJob['data'] & {
@@ -83,27 +82,10 @@ const precheck = new DiscordWorker(
     }
 
     if (!companyName) {
-      // If we're already waiting for manual input, don't send another message
-      if (waitingForCompanyName) {
-        job.log('Still waiting for user to provide company name manually...')
-        await job.moveToDelayed(Date.now() + 30000) // Check again in 30 seconds
-        return
-      }
-
-      // Send message asking for manual input
-      job.log('Could not find company name, asking user for input')
-      const buttonRow = discord.createEditCompanyNameButtonRow(job)
-
-      await job.sendMessage({
-        content:
-          "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
-        components: [buttonRow],
-      })
-
-      // Mark the job as waiting for company name
-      await job.updateData({ ...job.data, waitingForCompanyName: true })
-      await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
-      return
+      // In pipe-only mode, there is no Discord interaction path for manual input.
+      throw new Error(
+        'Could not identify company name from report. Re-run with companyName provided in job data.'
+      )
     }
 
     return processWithCompanyName(companyName)

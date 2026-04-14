@@ -146,7 +146,7 @@ flowchart TD
 }
 ```
 
-`url` defines the report URL, `threadId` references the Discord thread where the bot will respond, and `autoApprove` controls whether user approvals are required for data updates.
+`url` defines the report URL and `autoApprove` controls whether user approvals are required for data updates.
 
 **Functionality:**
 

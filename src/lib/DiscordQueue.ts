@@ -3,7 +3,7 @@ import redis from '../config/redis'
 
 export type DiscordJobData = {
   url: string
-  threadId: string
+  threadId?: string
   channelId?: string
   messageId?: string
   autoApprove?: boolean
