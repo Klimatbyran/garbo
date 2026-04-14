@@ -1,6 +1,6 @@
 import { FlowChildJob, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 
 /** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */

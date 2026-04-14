@@ -1,4 +1,4 @@
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { getCompanyURL } from '../lib/saveUtils'
 import { Wikidata } from '../prompts/wikidata'
 import { QUEUE_NAMES } from '../queues'

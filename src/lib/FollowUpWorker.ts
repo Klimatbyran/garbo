@@ -1,5 +1,5 @@
 import { askStream } from './openai'
-import { PipelineJob, PipelineWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import {
   ChatCompletionAssistantMessageParam,
   ChatCompletionSystemMessageParam,

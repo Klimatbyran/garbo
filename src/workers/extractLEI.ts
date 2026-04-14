@@ -1,5 +1,5 @@
 import { EntityId } from 'wikibase-sdk'
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 import { getLEINumbersFromGLEIF } from '../lib/gleif'
 import { ask } from '../lib/openai'

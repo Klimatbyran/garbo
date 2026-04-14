@@ -1,4 +1,4 @@
-import { PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineWorker } from '../lib/PipelineWorker'
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import precheck from './precheck'

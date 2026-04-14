@@ -1,5 +1,5 @@
 import { FlowProducer } from 'bullmq'
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { apiFetch } from '../lib/api'
 import redis from '../config/redis'
 import { getCompanyURL } from '../lib/saveUtils'

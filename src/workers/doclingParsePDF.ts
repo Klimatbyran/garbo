@@ -1,4 +1,4 @@
-import { PipelineWorker, PipelineJob } from '../lib/DiscordWorker'
+import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 import docling from '../config/docling'
 import redis from '../config/redis'

@@ -1,7 +1,7 @@
 import { EntityId, SearchResult } from 'wikibase-sdk'
 import { ask } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import wikidata, { Wikidata } from '../prompts/wikidata'
 import discord from '../discord'
 import apiConfig from '../config/api'

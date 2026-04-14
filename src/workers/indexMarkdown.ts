@@ -1,5 +1,5 @@
 import config from '../config/chromadb'
-import { PipelineWorker, PipelineJob } from '../lib/DiscordWorker'
+import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 

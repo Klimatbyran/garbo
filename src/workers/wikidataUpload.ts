@@ -1,4 +1,4 @@
-import { PipelineJob, PipelineWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { ReportingPeriod } from '../lib/emissions'
 import {
   bulkCreateOrEditCarbonFootprintClaim,

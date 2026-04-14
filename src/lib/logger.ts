@@ -1,4 +1,4 @@
-import { PipelineJob } from './DiscordWorker'
+import { PipelineJob } from './PipelineWorker'
 
 export const createPipelineLogger = (job?: PipelineJob) => {
   if (!job) {
@@ -26,5 +26,3 @@ export const createPipelineLogger = (job?: PipelineJob) => {
     },
   }
 }
-
-export const createDiscordLogger = createPipelineLogger

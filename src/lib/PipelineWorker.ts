@@ -27,7 +27,6 @@ export class PipelineJob extends Job {
     batchId?: string
   }
 
-  //message: any
   sendMessage: (msg: string | Record<string, any>) => Promise<undefined>
   editMessage: (msg: string | Record<string, any>) => Promise<undefined>
   requestApproval: (
@@ -161,6 +160,3 @@ export class PipelineWorker<T extends PipelineJob> extends Worker {
     this.queue = new Queue(name, { connection: redis })
   }
 }
-
-// Backward compatibility while migrating imports.
-export { PipelineJob as DiscordJob, PipelineWorker as DiscordWorker }

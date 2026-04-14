@@ -1,4 +1,4 @@
-import { PipelineQueue } from './lib/DiscordQueue'
+import { PipelineQueue } from './lib/PipelineQueue'
 
 // Queue names as constants
 export const QUEUE_NAMES = {

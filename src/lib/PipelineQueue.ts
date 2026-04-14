@@ -28,6 +28,3 @@ export class PipelineQueue {
     return this.queue.close()
   }
 }
-
-export { PipelineQueue as DiscordQueue }
-export type DiscordJobData = PipelineJobData
