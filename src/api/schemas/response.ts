@@ -564,6 +564,10 @@ export const InputNationalDataSchema = z.array(
     trend: InputYearlyDataSchema,
     historicalEmissionChangePercent: z.number(),
     meetsParis: z.string().transform((val) => val === 'True'),
+    approximatedTerritorialFossilEmissions: InputYearlyDataSchema,
+    approximatedBiogenicEmissions: InputYearlyDataSchema,
+    approximatedConsumptionAbroadEmissions: InputYearlyDataSchema,
+    approximatedExportOfOilProductsEmissions: InputYearlyDataSchema,
   })
 )
 
@@ -580,6 +584,10 @@ export const NationDataSchema = z.object({
   trend: z.array(YearlyDataSchema),
   historicalEmissionChangePercent: z.number(),
   meetsParis: z.boolean(),
+  approximatedTerritorialFossilEmissions: z.array(YearlyDataSchema),
+  approximatedBiogenicEmissions: z.array(YearlyDataSchema),
+  approximatedConsumptionAbroadEmissions: z.array(YearlyDataSchema),
+  approximatedExportOfOilProductsEmissions: z.array(YearlyDataSchema),
 })
 
 export const NationalDataListSchema = z.array(NationDataSchema)

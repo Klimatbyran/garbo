@@ -150,7 +150,7 @@
       "2023": 34210323.0,
       "2024": 32117985.0
     },
-    "totalTrend": 3167846226.0,
+    "totalTrend": 3172167300.0,
     "totalCarbonLaw": 1457496598.14,
     "approximatedHistoricalEmission": {
       "2024": 187381728.0,
@@ -186,6 +186,26 @@
     },
     "emissionsSlope": -4321074.0,
     "historicalEmissionChangePercent": -1.31,
-    "meetsParis": "False"
+    "meetsParis": "False",
+    "approximatedTerritorialFossilEmissions": {
+      "2024": 47490000.0,
+      "2025": 46400000.0,
+      "2026": 45310000.0
+    },
+    "approximatedBiogenicEmissions": {
+      "2024": 47370000.0,
+      "2025": 47686000.0,
+      "2026": 48002000.0
+    },
+    "approximatedConsumptionAbroadEmissions": {
+      "2024": 60403743.0,
+      "2025": 59385860.5,
+      "2026": 58367978.0
+    },
+    "approximatedExportOfOilProductsEmissions": {
+      "2024": 32117985.0,
+      "2025": 30095069.0,
+      "2026": 28072153.0
+    }
   }
 ]
