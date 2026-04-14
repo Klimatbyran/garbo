@@ -54,7 +54,6 @@
     "cheerio": "^1.0.0",
     "chromadb": "^1.9.4",
     "compromise": "^14.13.0",
-    "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
     "exceljs": "^4.1.1",
     "fastify": "^5.2.1",
