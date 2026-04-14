@@ -47,8 +47,6 @@ async function main() {
         ]
 
         if (START_BOARD) {
-          const discord = (await import('./discord')).default
-          await discord.login()
           logMessages.push(
             `See the UI for the Garbo pipeline at http://localhost:${port}/admin/queues`
           )

@@ -52,7 +52,6 @@ Garbo workers do not care who enqueued the job; they only need `job.data.tags` t
 | saveToAPI (PATCH /companies/:id/tags)         | `src/workers/saveToAPI.ts`            |
 | companyTags follow-up (AI tags)               | `src/workers/followUp/companyTags.ts` |
 | extractEmissions (includes companyTags child) | `src/workers/extractEmissions.ts`     |
-| Discord /pdfs (optional tags)                 | `src/discord/commands/pdfs.ts`        |
 
 ---
 

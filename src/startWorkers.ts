@@ -1,4 +1,3 @@
-import discord from './discord'
 import { workers } from './workers'
 
 console.log('Starting workers...')
@@ -34,12 +33,4 @@ async function connectWithRetry<T>(
     }
   }
   throw new Error('Failed to connect after maximum retries')
-}
-
-try {
-  await connectWithRetry(() => discord.login())
-  console.log('Discord bot started')
-} catch (error) {
-  console.error('Failed to start Discord bot:', error)
-  process.exit(1)
 }

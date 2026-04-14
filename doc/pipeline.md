@@ -136,8 +136,6 @@ flowchart TD
 
 ### parsePdf
 
-**Called By:** `/pdfs` command of the discord bot defined in `src/discord/commands/pdfs.ts`.
-
 **Input Data:**
 
 ```typescript

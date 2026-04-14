@@ -1,4 +1,4 @@
-import { Worker, WorkerOptions, Job, Queue, UnrecoverableError } from 'bullmq'
+import { Worker, WorkerOptions, Job, Queue } from 'bullmq'
 import {
   BaseMessageOptions,
   Message,
@@ -7,7 +7,6 @@ import {
 } from 'discord.js'
 import redis from '../config/redis'
 import discord from '../discord'
-import apiConfig from '../config/api'
 import { ChangeDescription } from './DiffWorker'
 import { createDiscordLogger } from './logger'
 import { Logger } from '@/types'
