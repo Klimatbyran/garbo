@@ -1,7 +1,7 @@
 import { FlowProducer } from 'bullmq'
 import redis from '../config/redis'
 import wikidata from '../prompts/wikidata'
-import { askPrompt, askStream } from '../lib/openai'
+import { askStream } from '../lib/openai'
 import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
