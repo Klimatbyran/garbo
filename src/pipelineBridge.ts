@@ -61,7 +61,7 @@ const getJob = (
   jobId: string
 ) => queuesWithInteractions[queueName].queue.getJob(jobId)
 
-export class Discord {
+export class PipelineBridge {
   client: Client<boolean>
   rest: REST
   commands: Array<RESTPostAPIChatInputApplicationCommandsJSONBody>
@@ -270,4 +270,4 @@ export class Discord {
   }
 }
 
-export default new Discord(config)
+export default new PipelineBridge(config)

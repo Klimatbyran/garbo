@@ -1,4 +1,4 @@
-import discord from './discord'
+import pipelineBridge from './pipelineBridge'
 import { workers } from './workers'
 
 console.log('Starting workers...')
@@ -37,7 +37,7 @@ async function connectWithRetry<T>(
 }
 
 try {
-  await connectWithRetry(() => discord.login())
+  await connectWithRetry(() => pipelineBridge.login())
   console.log('Discord bot started')
 } catch (error) {
   console.error('Failed to start Discord bot:', error)
