@@ -1,15 +1,15 @@
 import config from '../config/chromadb'
-import { DiscordWorker, DiscordJob } from '../lib/DiscordWorker'
+import { PipelineWorker, PipelineJob } from '../lib/PipelineWorker'
 import { vectorDB } from '../lib/vectordb'
 import { QUEUE_NAMES } from '../queues'
 
-class IndexMarkdownJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class IndexMarkdownJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     markdown: string
   }
 }
 
-const indexMarkdown = new DiscordWorker(
+const indexMarkdown = new PipelineWorker(
   QUEUE_NAMES.INDEX_MARKDOWN,
   async (job: IndexMarkdownJob) => {
     const { url } = job.data

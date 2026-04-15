@@ -5,11 +5,11 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from 'discord.js'
-import { DiscordJob } from '../../lib/DiscordWorker'
+import { PipelineJob } from '../../lib/PipelineWorker'
 import config from '../../config/discord'
 
-export class EditCompanyNameJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class EditCompanyNameJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName?: string
     manualCompanyName?: string
   }

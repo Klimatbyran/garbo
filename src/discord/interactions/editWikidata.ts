@@ -5,12 +5,12 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from 'discord.js'
-import { DiscordJob } from '../../lib/DiscordWorker'
+import { PipelineJob } from '../../lib/PipelineWorker'
 import { Wikidata } from '../../prompts/wikidata'
 import config from '../../config/discord'
 
-export class EditWikidataJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class EditWikidataJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     wikidata?: Wikidata
     overrideWikidataId?: string
   }

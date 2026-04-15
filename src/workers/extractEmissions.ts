@@ -1,6 +1,6 @@
 import { FlowChildJob, FlowProducer } from 'bullmq'
 import redis from '../config/redis'
-import { DiscordJob, DiscordWorker } from '../lib/DiscordWorker'
+import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { QUEUE_NAMES } from '../queues'
 
 /** Keys for follow-up workers that can be run selectively via runOnly (e.g. manual re-run in validation UI). */
@@ -36,8 +36,8 @@ export const FOLLOW_UP_KEYS: FollowUpKey[] = [
   'descriptions',
 ]
 
-class ExtractEmissionsJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+class ExtractEmissionsJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     companyName: string
     runOnly?: (FollowUpKey | 'all')[]
   }
@@ -45,7 +45,7 @@ class ExtractEmissionsJob extends DiscordJob {
 
 const flow = new FlowProducer({ connection: redis })
 
-const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
+const extractEmissions = new PipelineWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,
   async (job) => {
     const { companyName, runOnly } = job.data

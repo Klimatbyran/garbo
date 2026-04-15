@@ -1,16 +1,16 @@
 import { Queue, QueueOptions } from 'bullmq'
 import redis from '../config/redis'
 
-export type DiscordJobData = {
+export type PipelineJobData = {
   url: string
-  threadId: string
+  threadId?: string
   channelId?: string
   messageId?: string
   autoApprove?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }
 
-export class DiscordQueue {
+export class PipelineQueue {
   queue: Queue
 
   constructor(name: string, options?: QueueOptions) {
@@ -20,7 +20,7 @@ export class DiscordQueue {
     })
   }
 
-  async add(name: string, data: DiscordJobData, options?: any) {
+  async add(name: string, data: PipelineJobData, options?: unknown) {
     return this.queue.add(name, data, options)
   }
 

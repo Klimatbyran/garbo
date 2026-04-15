@@ -1,5 +1,5 @@
 import { askStream } from './openai'
-import { DiscordJob, DiscordWorker } from './DiscordWorker'
+import { PipelineJob, PipelineWorker } from './PipelineWorker'
 import {
   ChatCompletionAssistantMessageParam,
   ChatCompletionSystemMessageParam,
@@ -12,8 +12,8 @@ import redis from '../config/redis'
 import { z } from 'zod'
 import { FollowUpType } from '../types'
 
-export class FollowUpJob extends DiscordJob {
-  declare data: DiscordJob['data'] & {
+export class FollowUpJob extends PipelineJob {
+  declare data: PipelineJob['data'] & {
     documentId: string
     previousAnswer: string
   }
@@ -125,7 +125,7 @@ function addCustomMethods(job: FollowUpJob) {
 }
 export class FollowUpWorker<
   T extends FollowUpJob,
-> extends DiscordWorker<FollowUpJob> {
+> extends PipelineWorker<FollowUpJob> {
   queue: Queue
   constructor(
     name: string,
