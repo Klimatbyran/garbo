@@ -10,7 +10,7 @@ let redis: RedisClientType | null = null
 
 // Lazy initialization - connection errors are caught per-call so the API falls back to the DB
 async function getRedis() {
-  if (!redis) {
+  if (!redis || !redis.isOpen) {
     redis = createClient({
       url: redisUrl,
       socket: {
@@ -18,7 +18,10 @@ async function getRedis() {
         reconnectStrategy: false,
       },
     })
-    redis.on('error', (err) => console.warn('Redis client error:', err.message))
+    redis.on('error', (err) => {
+      console.warn('Redis client error:', err.message)
+      redis = null
+    })
     redis.on('end', () => {
       redis = null
     })
