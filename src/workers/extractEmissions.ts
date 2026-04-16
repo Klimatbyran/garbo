@@ -44,6 +44,7 @@ class ExtractEmissionsJob extends DiscordJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const extractEmissions = new DiscordWorker<ExtractEmissionsJob>(
   QUEUE_NAMES.EXTRACT_EMISSIONS,

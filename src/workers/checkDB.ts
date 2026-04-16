@@ -27,6 +27,7 @@ export class CheckDBJob extends DiscordJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const checkDB = new DiscordWorker(
   QUEUE_NAMES.CHECK_DB,
