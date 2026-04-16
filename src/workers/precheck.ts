@@ -17,6 +17,7 @@ class PrecheckJob extends DiscordJob {
 }
 
 const flow = new FlowProducer({ connection: redis })
+flow.on('error', (err) => console.error('FlowProducer connection error:', err))
 
 const companyNameSchema = z.object({
   companyName: z.string().nullable(),
