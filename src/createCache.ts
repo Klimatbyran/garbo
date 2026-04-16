@@ -18,9 +18,7 @@ async function getRedis() {
         reconnectStrategy: false,
       },
     })
-    redis.on('error', (err) =>
-      console.warn('Redis client error:', err.message)
-    )
+    redis.on('error', (err) => console.warn('Redis client error:', err.message))
     redis.on('end', () => {
       redis = null
     })
