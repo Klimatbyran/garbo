@@ -7,7 +7,7 @@ import apiConfig from '../config/api'
 import { ChatCompletionMessageParam } from 'openai/resources'
 import { QUEUE_NAMES } from '../queues'
 import { getWikidataEntities, searchCompany } from '@/lib/wikidata/read'
-
+import discord from '../pipelineBridge'
 export class GuessWikidataJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
     companyName: string
@@ -361,6 +361,8 @@ const guessWikidata = new PipelineWorker<GuessWikidataJob>(
       metadata,
       `Wikidata selection for ${companyName}`
     )
+
+    const buttonRow = discord.createEditWikidataButtonRow(job)
 
     await job.sendMessage({
       content: `Is this the correct company?:
