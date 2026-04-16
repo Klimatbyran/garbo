@@ -6,6 +6,7 @@ import { zodResponseFormat } from 'openai/helpers/zod'
 import { PipelineJob, PipelineWorker } from '../lib/PipelineWorker'
 import { z } from 'zod'
 import { QUEUE_NAMES } from '../queues'
+import discord from '../pipelineBridge'
 
 class PrecheckJob extends PipelineJob {
   declare data: PipelineJob['data'] & {
@@ -74,7 +75,7 @@ const precheck = new PipelineWorker(
       )
     }
 
-    const companyName = await extractCompanyName(markdown)
+    const companyName = await extractCompanyName(markdown as string)
 
     if (companyName) {
       // Update job data with companyName for grouping/UI in validation tool
@@ -89,9 +90,20 @@ const precheck = new PipelineWorker(
         return
       }
 
-      throw new Error(
-        "Could not identify company name from report. Re-run with companyName provided in job data."
-      )
+      // Send message asking for manual input
+      job.log('Could not find company name, asking user for input')
+      const buttonRow = discord.createEditCompanyNameButtonRow(job)
+
+      await job.sendMessage({
+        content:
+          "❌ Could not automatically find the company's name in the document. Please enter the company name manually:",
+        components: [buttonRow],
+      })
+
+      // Mark the job as waiting for company name
+      await job.updateData({ ...job.data, waitingForCompanyName: true })
+      await job.moveToDelayed(Date.now() + 300000) // Check again in 5 minutes
+      return
     }
 
     return processWithCompanyName(companyName)
