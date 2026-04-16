@@ -12,7 +12,8 @@ const envSchema = z.object({
 const env = envSchema.parse(process.env)
 
 interface WikidataProperties {
-  CARBON_FOOTPRINT: `P${number}`
+  ANNUAL_GHG_EMISSIONS: `P${number}`
+  POINT_IN_TIME: `P${number}`
   START_TIME: `P${number}`
   END_TIME: `P${number}`
   DETERMINATION_METHOD_OR_STANDARD: `P${number}`
@@ -50,7 +51,8 @@ interface WikidataEntities {
 }
 
 export const LiveWikidataProperties: WikidataProperties = {
-  CARBON_FOOTPRINT: 'P5991',
+  ANNUAL_GHG_EMISSIONS: 'P14143',
+  POINT_IN_TIME: 'P585',
   START_TIME: 'P580',
   END_TIME: 'P582',
   DETERMINATION_METHOD_OR_STANDARD: 'P459',
@@ -62,7 +64,9 @@ export const LiveWikidataProperties: WikidataProperties = {
 } as const
 
 export const TestWikidataProperties: WikidataProperties = {
-  CARBON_FOOTPRINT: 'P98845',
+  // TODO: confirm test sandbox equivalents for ANNUAL_GHG_EMISSIONS and POINT_IN_TIME
+  ANNUAL_GHG_EMISSIONS: 'P98845',
+  POINT_IN_TIME: 'P355',
   START_TIME: 'P355',
   END_TIME: 'P356',
   DETERMINATION_METHOD_OR_STANDARD: 'P98847',
