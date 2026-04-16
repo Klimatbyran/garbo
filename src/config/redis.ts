@@ -34,4 +34,10 @@ export default {
   host: env.REDIS_HOST,
   port: env.REDIS_PORT,
   password: env.REDIS_PASSWORD,
+  // Required for BullMQ: queue commands instead of failing immediately on disconnect
+  maxRetriesPerRequest: null,
+  // Reconnect with exponential backoff (caps at 30s) instead of crashing
+  retryStrategy(times: number) {
+    return Math.min(times * 1000, 30000)
+  },
 }
