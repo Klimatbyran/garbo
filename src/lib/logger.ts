@@ -26,5 +26,3 @@ export const createPipelineLogger = (job?: PipelineJob) => {
     },
   }
 }
-
-export const createDiscordLogger = createPipelineLogger
