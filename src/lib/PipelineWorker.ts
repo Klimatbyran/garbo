@@ -219,7 +219,7 @@ function addCustomMethods(job: PipelineJob) {
   return job
 }
 
-export class DiscordWorker<T extends PipelineJob> extends Worker {
+export class PipelineWorker<T extends PipelineJob> extends Worker {
   queue: Queue
   constructor(
     name: string,
